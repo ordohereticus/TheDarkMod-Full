@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 868 $
- * $Date: 2007-03-26 04:04:44 -0400 (Mon, 26 Mar 2007) $
+ * $Revision: 873 $
+ * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,25 +16,25 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 868 2007-03-26 08:04:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
 
 #include "Game_local.h"
-#include "../darkmod/darkmodglobals.h"
-#include "../darkmod/darkModLAS.h"
-#include "../darkmod/decltdm_matinfo.h"
-#include "../darkmod/declxdata.h"
-#include "../darkmod/misc.h"
-#include "../darkmod/playerdata.h"
-#include "../darkmod/relations.h"
-#include "../darkmod/sndprop.h"
-#include "../darkmod/stimresponse.h"
-#include "../darkmod/tdmInventory.h"
-#include "../darkmod/MissionData.h"
+#include "../DarkMod/DarkModGlobals.h"
+#include "../DarkMod/darkModLAS.h"
+#include "../DarkMod/decltdm_matinfo.h"
+#include "../DarkMod/declxdata.h"
+#include "../DarkMod/Misc.h"
+#include "../DarkMod/PlayerData.h"
+#include "../DarkMod/Relations.h"
+#include "../DarkMod/sndProp.h"
+#include "../DarkMod/StimResponse/StimResponseCollection.h"
+#include "../DarkMod/tdmInventory.h"
+#include "../DarkMod/MissionData.h"
 
 #include "il/config.h"
 #include "il/il.h"
-#include "../darkmod/randomizer/randomc.h"
-#include "../darkmod/KeyboardHook.h" // Added By Rich for keyboard support encapsulation
+#include "../DarkMod/randomizer/randomc.h"
+#include "../DarkMod/KeyboardHook.h" // Added By Rich for keyboard support encapsulation
 
 CGlobal g_Global;
 TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd(time(0));

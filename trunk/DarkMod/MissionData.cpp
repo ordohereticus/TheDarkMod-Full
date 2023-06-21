@@ -1,21 +1,21 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 873 $
+ * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
 #include "MissionData.h"
 #include "../game/player.h"
-#include "StimResponse.h"
+#include "StimResponse/StimResponseCollection.h"
 
 /**
 * Add new component type names here.  Must be in exact same order as EComponentType

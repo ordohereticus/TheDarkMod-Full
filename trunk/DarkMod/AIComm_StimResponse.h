@@ -1,15 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 873 $
+ * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #pragma once
 
-#include "stimresponse.h"
+#include "StimResponse/Stim.h"
+#include "StimResponse/Response.h"
 #include "AIComm_Message.h"
 
 /**

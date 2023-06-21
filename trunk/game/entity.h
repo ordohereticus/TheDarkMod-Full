@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 868 $
- * $Date: 2007-03-26 04:04:44 -0400 (Mon, 26 Mar 2007) $
+ * $Revision: 873 $
+ * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #ifndef __GAME_ENTITY_H__
 #define __GAME_ENTITY_H__
 
-#include "../darkmod/overlaySys.h"
+#include "../DarkMod/overlaySys.h"
 
 class CStimResponseCollection;
 class CStim;

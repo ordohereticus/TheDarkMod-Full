@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 860 $
- * $Date: 2007-03-21 06:36:17 -0400 (Wed, 21 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 873 $
+ * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,18 +12,18 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 860 2007-03-21 10:36:17Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
 
 #include "Game_local.h"
-#include "../darkmod/darkmodglobals.h"
-#include "../darkmod/playerdata.h"
-#include "../darkmod/intersection.h"
-#include "../darkmod/relations.h"
-#include "../darkmod/darkModAASFindHidingSpots.h"
-#include "../darkmod/StimResponse.h"
-#include "../darkmod/MissionData.h"
-#include "../darkmod/tdmInventory.h"
-#include "../darkmod/KeyboardHook.h"
+#include "../DarkMod/darkmodglobals.h"
+#include "../DarkMod/playerdata.h"
+#include "../DarkMod/intersection.h"
+#include "../DarkMod/relations.h"
+#include "../DarkMod/darkModAASFindHidingSpots.h"
+#include "../DarkMod/StimResponse/StimResponseCollection.h"
+#include "../DarkMod/MissionData.h"
+#include "../DarkMod/tdmInventory.h"
+#include "../DarkMod/KeyboardHook.h"
 //#include "../darkmod/MouseHook.h"
 /*
 ===============================================================================

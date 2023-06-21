@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 873 $
+ * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,15 +13,15 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
 
 #include "../Game_local.h"
-#include "../darkmod/relations.h"
-#include "../../darkmod/darkmodglobals.h"
-#include "../../darkmod/darkModAASFindHidingSpots.h"
-#include "../../darkmod/stimResponse.h"
-#include "../../darkmod/AIComm_StimResponse.h"
-#include "../../darkmod/idAbsenceMarkerEntity.h"
+#include "../DarkMod/relations.h"
+#include "../../DarkMod/darkmodglobals.h"
+#include "../../DarkMod/darkModAASFindHidingSpots.h"
+#include "../../DarkMod/StimResponse/StimResponseCollection.h"
+#include "../../DarkMod/AIComm_StimResponse.h"
+#include "../../DarkMod/idAbsenceMarkerEntity.h"
 
 class CRelations;
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 868 $
- * $Date: 2007-03-26 04:04:44 -0400 (Mon, 26 Mar 2007) $
+ * $Revision: 873 $
+ * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,17 +13,17 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 868 2007-03-26 08:04:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
 #include "Game_local.h"
-#include "../darkmod/darkmodglobals.h"
-#include "../darkmod/declxdata.h"
-#include "../darkmod/playerdata.h"
-#include "../darkmod/sndprop.h"
-#include "../darkmod/StimResponse.h"
-#include "../darkmod/tdmInventory.h"
+#include "../DarkMod/DarkmodGlobals.h"
+#include "../DarkMod/declxdata.h"
+#include "../DarkMod/PlayerData.h"
+#include "../DarkMod/sndProp.h"
+#include "../DarkMod/StimResponse/StimResponseCollection.h"
+#include "../DarkMod/tdmInventory.h"
 
 /*
 ===============================================================================
