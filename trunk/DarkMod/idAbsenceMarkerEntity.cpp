@@ -1,14 +1,14 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 988 $
- * $Date: 2007-05-17 23:12:54 -0400 (Thu, 17 May 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1001 $
+ * $Date: 2007-05-28 05:31:44 -0400 (Mon, 28 May 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
-#include "../Game_local.h"
+#include "../game/game_local.h"
 #pragma hdrstop
 #include "idAbsenceMarkerEntity.h"
 
