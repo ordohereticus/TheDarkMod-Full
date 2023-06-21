@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 796 $
- * $Date: 2007-02-10 09:10:39 -0500 (Sat, 10 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 811 $
+ * $Date: 2007-03-04 00:33:47 -0500 (Sun, 04 Mar 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
  * Revision 1.40  2007/02/10 14:10:33  sparhawk
@@ -179,6 +179,11 @@ extern idCVar cv_pm_lean_door_bounds_exp;
 extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
 extern idCVar cv_frob_fadetime;
+
+// physics
+extern idCVar cv_collision_damage_scale_vert;
+extern idCVar cv_collision_damage_scale_horiz;
+extern idCVar cv_collision_damage_min;
 
 extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;

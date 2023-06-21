@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 796 $
- * $Date: 2007-02-10 09:10:39 -0500 (Sat, 10 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 811 $
+ * $Date: 2007-03-04 00:33:47 -0500 (Sun, 04 Mar 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
  * Revision 1.54  2007/02/10 14:10:33  sparhawk
@@ -183,7 +183,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 796 $   $Date: 2007-02-10 09:10:39 -0500 (Sat, 10 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 811 $   $Date: 2007-03-04 00:33:47 -0500 (Sun, 04 Mar 2007) $", init_version);
 
 #include "../Game_local.h"
 
@@ -264,6 +264,13 @@ idCVar cv_pm_lean_door_bounds_exp(	"pm_lean_door_bounds_exp", "8.0",		CVAR_GAME 
 idCVar cv_frob_width(				"tdm_frob_width",		"10.0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "When frobbing, a cube of this dimension is created at the point the frob hit, and things within are frob candidates.  Makes frobbing easier but can go thru solid objects if set too high.  Default is 10.");
 idCVar cv_frob_fadetime(			"tdm_frob_fadetime",	"100",		CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "Time it takes for frob highlight effect to fade in and out." );
 idCVar cv_frob_debug_bounds(		"tdm_frob_debug_bounds", "0",		CVAR_GAME | CVAR_BOOL,					"Set to 1 to see a visualization of the bounds that are used to check for frobable items within them." );
+
+/**
+* Physics
+**/
+idCVar cv_collision_damage_scale_vert(	"tdm_collision_dmg_scale_vert", "0.0001",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "This globally scales the damage AI take from vertical collisions/decelerations.  This multiplies delta-velocity squared." );
+idCVar cv_collision_damage_scale_horiz(	"tdm_collision_dmg_scale_horiz", "0.00005",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "This globally scales the damage AI take from horizontal collisions/decelerations.  This multiplies delta-velocity squared." );
+idCVar cv_collision_damage_min(			"tdm_collision_dmg_min", "5.0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Minimum damage the player takes from collisions above the minimum delta" );
 
 /**
 * DarkMod Item Manipulation
