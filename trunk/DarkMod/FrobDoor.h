@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 43 $
- * $Date: 2004-11-24 16:59:06 -0500 (Wed, 24 Nov 2004) $
- * $Author: sparhawk $
+ * $Revision: 101 $
+ * $Date: 2005-04-07 04:42:38 -0400 (Thu, 07 Apr 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2005/04/07 08:42:38  ishtvan
+ * Added placeholder method GetSoundLoss, which is called by CsndProp
+ *
  * Revision 1.4  2004/11/24 21:59:06  sparhawk
  * *) Multifrob implemented
  * *) Usage of items against other items implemented.
@@ -60,6 +63,8 @@ public:
 	void					ToggleLock(void);
 
 	bool					UsedBy(idEntity *);
+
+	float					GetSoundLoss(void);
 
 protected:
 	/**
