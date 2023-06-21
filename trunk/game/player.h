@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 783 $
- * $Date: 2007-02-03 16:56:21 -0500 (Sat, 03 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 794 $
+ * $Date: 2007-02-06 21:18:14 -0500 (Tue, 06 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.48  2007/02/07 02:18:14  thelvyn
+ * Removed crashland. Now located in idActor instead
+ *
  * Revision 1.47  2007/02/03 21:56:11  sparhawk
  * Removed old inventories and fixed a bug in the new one.
  *
@@ -941,7 +944,6 @@ private:
 	idVec3					GunAcceleratingOffset( void );
 
 	void					UseObjects( void );
-	void					CrashLand( const idVec3 &oldOrigin, const idVec3 &oldVelocity );
 	void					BobCycle( const idVec3 &pushVelocity );
 	void					UpdateViewAngles( void );
 	void					EvaluateControls( void );

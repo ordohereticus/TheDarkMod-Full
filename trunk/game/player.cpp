@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 790 $
- * $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $
+ * $Revision: 794 $
+ * $Date: 2007-02-06 21:18:14 -0500 (Tue, 06 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.118  2007/02/07 02:18:14  thelvyn
+ * Removed crashland. Now located in idActor instead
+ *
  * Revision 1.117  2007/02/06 15:19:58  thelvyn
  * Now using mass to compute damage in CrashLand
  *
@@ -390,7 +393,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 790 $   $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 794 $   $Date: 2007-02-06 21:18:14 -0500 (Tue, 06 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -5231,6 +5234,7 @@ idPlayer::CrashLand
 Check for hard landings that generate sound events
 =================
 */
+/*
 void idPlayer::CrashLand( const idVec3 &oldOrigin, const idVec3 &oldVelocity ) {
 	idVec3		origin, velocity;
 	idVec3		gravityVector, gravityNormal;
@@ -5350,7 +5354,7 @@ void idPlayer::CrashLand( const idVec3 &oldOrigin, const idVec3 &oldVelocity ) {
 		// just walk on
 	}
 }
-
+*/
 /*
 ===============
 idPlayer::BobCycle
