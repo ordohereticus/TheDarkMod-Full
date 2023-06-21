@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 263 $
- * $Date: 2005-12-03 20:18:20 -0500 (Sat, 03 Dec 2005) $
+ * $Revision: 703 $
+ * $Date: 2007-01-04 23:18:31 -0500 (Thu, 04 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2007/01/05 04:18:31  ishtvan
+ * added CONTENTS_RESPONSE flag
+ *
  * Revision 1.4  2005/12/04 01:18:20  ishtvan
  * removed new surface types
  *
@@ -284,6 +287,7 @@ typedef enum {
 	CONTENTS_AAS_SOLID			= BIT(13),	// solid for AAS
 	CONTENTS_AAS_OBSTACLE		= BIT(14),	// used to compile an obstacle into AAS that can be enabled/disabled
 	CONTENTS_FLASHLIGHT_TRIGGER	= BIT(15),	// used for triggers that are activated by the flashlight
+	CONTENTS_RESPONSE			= BIT(16),  // TDM: Used for stim/response optimization.
 
 	// contents used by utils
 	CONTENTS_AREAPORTAL			= BIT(20),	// portal separating renderer areas
