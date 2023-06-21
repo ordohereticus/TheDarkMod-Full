@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
+ * $Revision: 821 $
+ * $Date: 2007-03-04 10:52:38 -0500 (Sun, 04 Mar 2007) $
+ * $Author: sparhawk $
  *
  * DESCRIPTION: This file contains the inventory handling for TDM. The inventory 
  * has nothing in common with the original idInventory and is totally independent
@@ -27,7 +27,7 @@
  * all groups and items. Keep in mind that destroying an item does NOT mean 
  * that the entity is also destroyed. After all, an entity can be an item
  * but it doesn't need to and it can exist without being one. Only the item
- * pointer is cleared, when the item si destroyed.
+ * pointer is cleared, when the item is destroyed.
  * You should also not make any assumptions about item or group orderings as
  * they can be created and destroyed in arbitrary order. Only the default
  * group is always at index 0.
@@ -44,7 +44,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $  $Revision: 821 $   $Date: 2007-03-04 10:52:38 -0500 (Sun, 04 Mar 2007) $", init_version);
 
 #include "../game/Game_local.h"
 
