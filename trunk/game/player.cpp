@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1084 $
- * $Date: 2007-07-12 05:56:06 -0400 (Thu, 12 Jul 2007) $
+ * $Revision: 1085 $
+ * $Date: 2007-07-12 10:21:00 -0400 (Thu, 12 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 1084 2007-07-12 09:56:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1085 2007-07-12 14:21:00Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6765,6 +6765,7 @@ void idPlayer::UpdateHud( void ) {
 	}
 
 	// Trigger an update of the HUD
+	// TODO: This shouldn't be called so often, so cache this
 	inventoryChangeSelection(hud, true);
 }
 
@@ -9766,14 +9767,16 @@ void idPlayer::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CIn
 	if(prev && cur != prev)
 	{
 		idEntity *ce = prev->GetItemEntity();
-		if(ce)
+		if(ce) {
 			thread = ce->CallScriptFunctionArgs("inventory_item_unselect", true, 0, "eef", ce, prev->GetOwner(), (float)prev->GetOverlay());
+		}
 	}
 
 	if(cur)
 	{
-		if(e && bUpdate == true)
+		if(e && bUpdate == true) {
 			thread = e->CallScriptFunctionArgs("inventory_item_select", true, 0, "eef", e, cur->GetOwner(), (float)cur->GetOverlay());
+		}
 
 		type = cur->GetType();
 		switch(type)
@@ -9790,18 +9793,17 @@ void idPlayer::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CIn
 					SetGuiFloat(mInventoryOverlay, "Inventory_GroupVisible", 1.0);
 					SetGuiFloat(mInventoryOverlay, "Inventory_ItemVisible", 1.0);
 					SetGuiFloat(mInventoryOverlay, "Inventory_ItemStackable", (float)cur->IsStackable());
-					e->spawnArgs.GetString("inv_category", "UNKNOWN", s);
-					SetGuiString(mInventoryOverlay, "Inventory_ItemGroup", s);
+					SetGuiString(mInventoryOverlay, "Inventory_ItemGroup", cur->Category()->GetName().c_str());
 					SetGuiString(mInventoryOverlay, "Inventory_ItemName", cur->GetName());
 					SetGuiInt(mInventoryOverlay, "Inventory_ItemCount", cur->GetCount());
-					e->spawnArgs.GetString("inv_icon", "", s);
-					SetGuiString(mInventoryOverlay, "Inventory_ItemIcon", s);
+					SetGuiString(mInventoryOverlay, "Inventory_ItemIcon", cur->GetIcon().c_str());
 				}
 			}
 			break;
 
 			case CInventoryItem::IT_DUMMY:
 			{
+				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Displaying dummy item: %s...\r", cur->GetName().c_str());
 				// All objects are set to empty, so we have an empty entry in the
 				// inventory.
 				s = "";

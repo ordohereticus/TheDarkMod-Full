@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1083 $
- * $Date: 2007-07-11 13:31:50 -0400 (Wed, 11 Jul 2007) $
+ * $Revision: 1085 $
+ * $Date: 2007-07-12 10:21:00 -0400 (Thu, 12 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1083 2007-07-11 17:31:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1085 2007-07-12 14:21:00Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7698,7 +7698,7 @@ CInventoryItem *idEntity::AddToInventory(idEntity *ent, idUserInterface *_hud)
 	// Focus the cursor on the newly added item
 	crsr->SetCurrentItem(rc);
 
-	// Fire the script event on the previously selected inventory item
+	// Fire the script events and update the HUD
 	if(_hud != NULL)
 		inventoryChangeSelection(_hud, true, prev);
 
