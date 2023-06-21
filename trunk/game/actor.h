@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 766 $
- * $Date: 2007-01-25 05:08:40 -0500 (Thu, 25 Jan 2007) $
- * $Author: crispy $
+ * $Revision: 786 $
+ * $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.21  2007/02/06 03:18:44  thelvyn
+ * idActor::CrashLand is now called for both AI and player for falling/collision damage.
+ *
  * Revision 1.20  2007/01/25 10:08:33  crispy
  * Implemented lipsync functionality
  *
@@ -231,6 +234,16 @@ public:
 								const char *damageDefName, const float damageScale, const int location,
 								trace_t *collision = NULL
 							);
+
+	/****************************************************************************************
+	=====================
+	idActor::CrashLand
+	handle collision(Falling) damage to AI/Players
+	Added by Richard Day
+	=====================
+	****************************************************************************************/
+	virtual void            CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &oldOrigin, const idVec3 &oldVelocity );
+	
 	int						GetDamageForLocation( int damage, int location );
 	const char *			GetDamageGroup( int location );
 	void					ClearPain( void );

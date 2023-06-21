@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 783 $
- * $Date: 2007-02-03 16:56:21 -0500 (Sat, 03 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 786 $
+ * $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.92  2007/02/06 03:18:45  thelvyn
+ * idActor::CrashLand is now called for both AI and player for falling/collision damage.
+ *
  * Revision 1.91  2007/02/03 21:56:11  sparhawk
  * Removed old inventories and fixed a bug in the new one.
  *
@@ -308,7 +311,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Source$  $Revision: 783 $   $Date: 2007-02-03 16:56:21 -0500 (Sat, 03 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 786 $   $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -486,7 +489,7 @@ idGameLocal::idGameLocal
 
 idGameLocal::idGameLocal() 
 {
-	m_Keyboard = CKeyboardHook::getInstance();
+	m_Keyboard = CKeyboard::getInstance();
 	assert( NULL != m_Keyboard );
 	Clear();
 }
