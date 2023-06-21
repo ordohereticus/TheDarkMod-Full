@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 818 $
- * $Date: 2007-03-04 08:27:39 -0500 (Sun, 04 Mar 2007) $
+ * $Revision: 855 $
+ * $Date: 2007-03-21 04:51:03 -0400 (Wed, 21 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -143,7 +143,8 @@ idAFEntity_Base
 ===============================================================================
 */
 
-class idAFEntity_Base : public idAnimatedEntity {
+class idAFEntity_Base : public idAnimatedEntity 
+{
 public:
 	CLASS_PROTOTYPE( idAFEntity_Base );
 
@@ -188,6 +189,11 @@ public:
 
 	static void				DropAFs( idEntity *ent, const char *type, idList<idEntity *> *list );
 
+	/**
+	* Return whether this entity should collide with its team when bound to a team
+	**/
+	bool					CollidesWithTeam( void );
+
 public:
 	/**
 	* This AF should not be able to be picked up off the ground completely when dragged
@@ -218,6 +224,11 @@ protected:
 	idVec3					spawnOrigin;	// spawn origin
 	idMat3					spawnAxis;		// rotation axis used when spawned
 	int						nextSoundTime;	// next time this can make a sound
+
+	/**
+	* Set to true if this entity should collide with team members when bound to them
+	**/
+	bool					m_bCollideWithTeam;
 
 protected:
 	/**

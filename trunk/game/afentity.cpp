@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 818 $
- * $Date: 2007-03-04 08:27:39 -0500 (Sun, 04 Mar 2007) $
+ * $Revision: 855 $
+ * $Date: 2007-03-21 04:51:03 -0400 (Wed, 21 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -45,7 +45,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 818 $   $Date: 2007-03-04 08:27:39 -0500 (Sun, 04 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 855 $   $Date: 2007-03-21 04:51:03 -0400 (Wed, 21 Mar 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -590,6 +590,7 @@ idAFEntity_Base::idAFEntity_Base( void )
 	m_bGroundWhenDragged = false;
 	m_GroundBodyMinNum = 0;
 	m_bDragAFDamping = false;
+	m_bCollideWithTeam = true;
 }
 
 /*
@@ -623,6 +624,7 @@ void idAFEntity_Base::Save( idSaveGame *savefile ) const
 		savefile->WriteInt( m_GroundBodyList[i] );
 	savefile->WriteInt( m_GroundBodyMinNum );
 	savefile->WriteBool( m_bDragAFDamping );
+	savefile->WriteBool( m_bCollideWithTeam );
 
 	af.Save( savefile );
 }
@@ -653,6 +655,7 @@ void idAFEntity_Base::Restore( idRestoreGame *savefile )
 
 	savefile->ReadInt( m_GroundBodyMinNum );
 	savefile->ReadBool( m_bDragAFDamping );
+	savefile->ReadBool( m_bCollideWithTeam );
 
 	af.Restore( savefile );
 }
@@ -670,6 +673,7 @@ void idAFEntity_Base::Spawn( void )
 	m_bGroundWhenDragged = spawnArgs.GetBool( "ground_when_dragged", "0" );
 	m_GroundBodyMinNum = spawnArgs.GetInt( "ground_min_number", "0" );
 	m_bDragAFDamping = spawnArgs.GetBool( "drag_af_damping", "0" );
+	m_bCollideWithTeam = spawnArgs.GetBool( "af_collide_with_team", "1" ); // true by default
 }
 
 /*
@@ -1070,6 +1074,11 @@ void idAFEntity_Base::SetUpGroundingVars( void )
 			src.FreeSource();
 		}
 	}
+}
+
+bool idAFEntity_Base::CollidesWithTeam( void )
+{
+	return m_bCollideWithTeam;
 }
 
 
