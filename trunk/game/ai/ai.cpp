@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1026 $
- * $Date: 2007-06-11 16:00:21 -0400 (Mon, 11 Jun 2007) $
- * $Author: ishtvan $
+ * $Revision: 1041 $
+ * $Date: 2007-06-16 02:35:52 -0400 (Sat, 16 Jun 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1026 2007-06-11 20:00:21Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1041 2007-06-16 06:35:52Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1428,7 +1428,11 @@ void idAI::Think( void ) {
 				StopLipSync();
 			}
 		}
-
+		
+		// Look for enemies
+		idActor* actor = this->VisualScan();
+		if (actor) SetEnemy(actor);
+		
 		// Check for tactile alert due to AI movement
 		CheckTactile();
 

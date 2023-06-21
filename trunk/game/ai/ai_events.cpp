@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1015 $
- * $Date: 2007-06-10 13:40:00 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1041 $
+ * $Date: 2007-06-16 02:35:52 -0400 (Sat, 16 Jun 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1015 2007-06-10 17:40:00Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1041 2007-06-16 06:35:52Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3531,7 +3531,12 @@ void idAI::Event_GetRelationEnt( idEntity *ent )
 
 void idAI::Event_IsEnemy( idEntity *ent )
 {
-	if (ent->IsType (idAbsenceMarkerEntity::Type))
+	if (!ent)
+	{
+		/* The NULL pointer is not your enemy! As long as you remember to check for it to avoid crashes. */
+		idThread::ReturnInt(0);
+	}
+	else if (ent->IsType (idAbsenceMarkerEntity::Type))
 	{
 		idAbsenceMarkerEntity* marker;
 		marker = static_cast<idAbsenceMarkerEntity*>( ent );

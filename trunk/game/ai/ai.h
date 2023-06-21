@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1014 $
- * $Date: 2007-06-10 13:38:49 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1041 $
+ * $Date: 2007-06-16 02:35:52 -0400 (Sat, 16 Jun 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -411,7 +411,7 @@ public:
 	* For now the check is only done on the player, and only the player
 	* may be returned.
 	**/
-	idActor *VisualScan( float time = 1/60 );
+	idActor *VisualScan( float time = 1.0f/60.0f );
 
 	/**
 	* Checks to see if the AI is being blocked by an actor when it tries to move,

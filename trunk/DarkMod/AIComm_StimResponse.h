@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 877 $
- * $Date: 2007-03-28 09:16:30 -0400 (Wed, 28 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 1041 $
+ * $Date: 2007-06-16 02:35:52 -0400 (Sat, 16 Jun 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "AIComm_Message.h"
 
 /**
-* This class manifests an AI's reponse link to 
+* This class manifests an AI's response link to 
 * a response to a AI Communications Stim
 */
 class CAIComm_Response:
