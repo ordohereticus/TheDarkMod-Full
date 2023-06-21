@@ -2,11 +2,20 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 376 $
- * $Date: 2006-03-25 03:14:03 -0500 (Sat, 25 Mar 2006) $
+ * $Revision: 378 $
+ * $Date: 2006-03-30 14:45:50 -0500 (Thu, 30 Mar 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.6  2006/03/30 19:45:41  gildoran
+ * I made three main changes:
+ * 1. I moved the new decl headers out of game_local.h and into the few files
+ * that actually use them.
+ * 2. I added two new functions to idLinkList: next/prevNodeCircular().
+ * 3. I added the first version of the tdmInventory objects. I've been working on
+ * these on a vanilla 1.3 SDK, so I could test saving/loading. They appear to work
+ * just fine.
+ *
  * Revision 1.5  2006/03/25 08:14:03  gildoran
  * New update for declarations... Improved the documentation/etc for xdata decls, and added some basic code for tdm_matinfo decls.
  *
@@ -31,6 +40,7 @@
 #pragma hdrstop
 
 #include "../Game_local.h"
+#include "../darkmod/decltdm_matinfo.h"
 #include "../../darkmod/relations.h"
 #include "../../darkmod/sndprop.h"
 
