@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 234 $
- * $Date: 2005-11-18 12:14:29 -0500 (Fri, 18 Nov 2005) $
- * $Author: lloyd $
+ * $Revision: 266 $
+ * $Date: 2005-12-03 21:44:30 -0500 (Sat, 03 Dec 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.6  2005/12/04 02:43:50  ishtvan
+ * updated surface checks to check new surface types
+ *
  * Revision 1.5  2005/11/18 17:14:29  lloyd
  * Fixed bug when doing bindOnImpact
  *
@@ -31,6 +34,7 @@
 #pragma hdrstop
 
 #include "Game_local.h"
+#include "../darkmod/darkmodglobals.h"
 
 /*
 ===============================================================================
@@ -611,17 +615,16 @@ idProjectile::DefaultDamageEffect
 */
 void idProjectile::DefaultDamageEffect( idEntity *soundEnt, const idDict &projectileDef, const trace_t &collision, const idVec3 &velocity ) {
 	const char *decal, *sound, *typeName;
-	surfTypes_t materialType;
 
-	if ( collision.c.material != NULL ) {
-		materialType = collision.c.material->GetSurfaceType();
-	} else {
-		materialType = SURFTYPE_METAL;
+	if ( collision.c.material != NULL ) 
+	{
+		typeName = g_Global.GetSurfName( collision.c.material );
+	} 
+	else 
+	{
+		typeName = gameLocal.sufaceTypeNames[ SURFTYPE_METAL ];
 	}
-
-	// get material type name
-	typeName = gameLocal.sufaceTypeNames[ materialType ];
-
+	
 	// play impact sound
 	sound = projectileDef.GetString( va( "snd_%s", typeName ) );
 	if ( *sound == '\0' ) {

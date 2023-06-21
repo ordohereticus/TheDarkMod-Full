@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 237 $
- * $Date: 2005-11-19 06:57:29 -0500 (Sat, 19 Nov 2005) $
+ * $Revision: 266 $
+ * $Date: 2005-12-03 21:44:30 -0500 (Sat, 03 Dec 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.8  2005/12/04 02:43:50  ishtvan
+ * updated surface checks to check new surface types
+ *
  * Revision 1.7  2005/11/19 11:57:29  ishtvan
  * added unique footstep sounds in water
  *
@@ -39,7 +42,7 @@
 #pragma hdrstop
 
 #include "Game_local.h"
-
+#include "../DarkMod/DarkModGlobals.h"
 
 /***********************************************************************
 
@@ -2452,7 +2455,7 @@ void idActor::PlayFootStepSound( void ) {
 	material = GetPhysics()->GetContact( 0 ).material;
 	if ( material != NULL ) 
 	{
-		localSound = va( "snd_footstep_%s", gameLocal.sufaceTypeNames[ material->GetSurfaceType() ] );
+		localSound = va( "snd_footstep_%s", g_Global.GetSurfName(material) );
 		sound = spawnArgs.GetString( localSound.c_str() );
 	}
 	// If player is walking in liquid, replace the bottom surface sound with water sounds
