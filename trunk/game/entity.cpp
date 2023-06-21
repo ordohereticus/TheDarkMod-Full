@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1109 $
- * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1113 $
+ * $Date: 2007-07-13 11:22:56 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1113 2007-07-13 15:22:56Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -585,6 +585,7 @@ idEntity::idEntity()
 	renderView		= NULL;
 	cameraTarget	= NULL;
 	health			= 0;
+	maxHealth		= 0;
 
 	physics			= NULL;
 	bindMaster		= NULL;
@@ -921,6 +922,7 @@ void idEntity::Save( idSaveGame *savefile ) const
 	savefile->WriteObject( cameraTarget );
 
 	savefile->WriteInt( health );
+	savefile->WriteInt( maxHealth );
 
 	savefile->WriteInt( targets.Num() );
 	for( i = 0; i < targets.Num(); i++ ) {
@@ -1006,6 +1008,7 @@ void idEntity::Restore( idRestoreGame *savefile )
 	savefile->ReadObject( reinterpret_cast<idClass *&>( cameraTarget ) );
 
 	savefile->ReadInt( health );
+	savefile->ReadInt( maxHealth );
 
 	targets.Clear();
 	savefile->ReadInt( num );
