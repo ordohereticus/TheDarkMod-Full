@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1028 $
- * $Date: 2007-06-11 18:12:05 -0400 (Mon, 11 Jun 2007) $
+ * $Revision: 1029 $
+ * $Date: 2007-06-11 18:14:02 -0400 (Mon, 11 Jun 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1028 2007-06-11 22:12:05Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1029 2007-06-11 22:14:02Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1101,7 +1101,7 @@ void idMoveableItem::Spawn( void )
 	spawnArgs.GetFloat( "triggersize", "16.0", tsize );
 	trigger = new idClipModel( idTraceModel( idBounds( vec3_origin ).Expand( tsize ) ) );
 	trigger->Link( gameLocal.clip, this, 0, GetPhysics()->GetOrigin(), GetPhysics()->GetAxis() );
-	trigger->SetContents( CONTENTS_TRIGGER );
+	trigger->SetContents( CONTENTS_FROBABLE );
 
 	// check if a clip model is set
 	spawnArgs.GetString( "clipmodel", "", clipModelName );
@@ -1386,7 +1386,7 @@ void idMoveableItem::Show( void )
 	if( m_StimResponseColl->HasResponse() )
 		physicsObj.SetContents( CONTENTS_RENDERMODEL | CONTENTS_RESPONSE );
 
-	trigger->SetContents( CONTENTS_TRIGGER );
+	trigger->SetContents( CONTENTS_FROBABLE );
 }
 
 /*
