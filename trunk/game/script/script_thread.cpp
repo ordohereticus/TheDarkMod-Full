@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 983 $
+ * $Date: 2007-05-11 10:01:34 -0400 (Fri, 11 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 983 2007-05-11 14:01:34Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
@@ -114,6 +114,9 @@ const idEventDef EV_AI_OffsetRelation( "offsetRelation", "ddd" );
 const idEventDef EV_TDM_SetPortSoundLoss( "setPortSoundLoss", "df" );
 const idEventDef EV_TDM_GetPortSoundLoss( "getPortSoundLoss", "d", 'f' );
 
+// greebo: General water test function, tests if a point is in a liquid
+const idEventDef EV_PointInLiquid( "pointInLiquid", "ve", 'f' );
+
 const idEventDef EV_Thread_DebugTDM_MatInfo( "debug_tdm_material", "s" );
 
 // Priority queue events
@@ -209,6 +212,8 @@ CLASS_DECLARATION( idClass, idThread )
 	EVENT( EV_AI_OffsetRelation,			idThread::Event_OffsetRelation )
 	EVENT( EV_TDM_SetPortSoundLoss,			idThread::Event_SetPortSoundLoss )
 	EVENT( EV_TDM_GetPortSoundLoss,			idThread::Event_GetPortSoundLoss )
+	
+	EVENT( EV_PointInLiquid,				idThread::Event_PointInLiquid )
 
 	EVENT( EV_Thread_DebugTDM_MatInfo,		idThread::Event_DebugTDM_MatInfo )
 	
@@ -2019,4 +2024,10 @@ void idThread::Event_pqPop( int queueID )
 	}
 	
 	ReturnString(gameLocal.m_PriorityQueues[queueID]->Pop());
+}
+
+void idThread::Event_PointInLiquid( const idVec3 &point, idEntity* ignoreEntity ) {
+	// Check if the point is in water
+	int contents = gameLocal.clip.Contents( point, NULL, mat3_identity, -1, ignoreEntity );
+	ReturnFloat( (contents & MASK_WATER) ? 1 : 0);
 }
