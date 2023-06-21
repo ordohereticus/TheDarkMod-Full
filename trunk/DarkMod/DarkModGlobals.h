@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 499 $
- * $Date: 2006-07-20 17:07:31 -0400 (Thu, 20 Jul 2006) $
+ * $Revision: 539 $
+ * $Date: 2006-08-08 17:27:45 -0400 (Tue, 08 Aug 2006) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.39  2006/08/08 21:27:45  sparhawk
+ * Added an accessor for the bufferlength in th CImage class.
+ *
  * Revision 1.38  2006/07/20 21:07:25  sparhawk
  * Frame logging fixed.
  *
@@ -220,6 +223,12 @@ public:
 	 * loaded, otherwise NULL is returned.
 	 */
 	unsigned char *GetImage(void);
+
+	/**
+	 * GetImage returns the pointer to the actual image data. the image has to be already
+	 * loaded, otherwise NULL is returned.
+	 */
+	unsigned long GetBufferLen(void);
 
 	/**
 	 * Unload will set the image to not loaded. If FreeMemory == false then the memory is not
