@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 894 $
- * $Date: 2007-04-08 16:02:54 -0400 (Sun, 08 Apr 2007) $
+ * $Revision: 897 $
+ * $Date: 2007-04-09 09:17:22 -0400 (Mon, 09 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 894 2007-04-08 20:02:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 897 2007-04-09 13:17:22Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -9987,7 +9987,7 @@ void idPlayer::FrobCheck( void )
 		}
 	}
 
-	DM_LOG(LC_FROBBING,LT_DEBUG)LOGSTRING("No entity frobbed by direct LOS frob, trying frob radius.\r");
+	//DM_LOG(LC_FROBBING,LT_DEBUG)LOGSTRING("No entity frobbed by direct LOS frob, trying frob radius.\r");
 	// IF the trace didn't hit anything frobable, do the radius test:
 
 	FrobBounds.Zero();
