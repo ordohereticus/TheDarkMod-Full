@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Revision: 599 $
+ * $Date: 2006-10-31 17:44:10 -0500 (Tue, 31 Oct 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.9  2006/10/31 22:44:10  sparhawk
+ * Handle rotation added
+ *
  * Revision 1.8  2006/06/21 13:08:06  sparhawk
  * Added version tracking per cpp module
  *
@@ -45,7 +48,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 599 $   $Date: 2006-10-31 17:44:10 -0500 (Tue, 31 Oct 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/decltdm_matinfo.h"
@@ -1939,13 +1942,10 @@ bool idThread::CallFunctionArgs(const function_t *func, bool clearStack, const c
 bool idThread::CallFunctionArgsVN(const function_t *func, bool clearStack, const char *fmt, va_list args)
 {
 	bool rc = false;
-//	va_list argptr;
 
 	ClearWaitFor();
 
-//	va_start(argptr, fmt);
 	rc = interpreter.EnterFunctionVarArgVN(func, clearStack, fmt, args);
-//	va_end(argptr);
 
 	return rc;
 }
