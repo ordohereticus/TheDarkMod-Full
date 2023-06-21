@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 198 $
- * $Date: 2005-10-30 18:02:43 -0500 (Sun, 30 Oct 2005) $
+ * $Revision: 203 $
+ * $Date: 2005-11-01 11:12:47 -0500 (Tue, 01 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.26  2005/11/01 16:12:47  sparhawk
+ * Bottomshot fixed. It didn't work because the loopvariable was reused inside the loop.
+ *
  * Revision 1.25  2005/10/30 23:02:43  sparhawk
  * Removed commented out code for old lightgem version.
  *
@@ -4569,7 +4572,7 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 	int hdef;				// head modeldef
 	int psid;				// player shadow viewid
 	int hsid;				// head shadow viewid
-	int i, n, k, dim;
+	int i, n, k, dim, l;
 	idStr name;
 	renderView_t rv;
 	idEntity *lg;
@@ -4789,10 +4792,10 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 			AnalyzeRenderImage(name, fColVal);
 
 			// Check which of the images has the brightest value, and this is what we will use.
-			for(i = 0; i < LIGHTGEM_MAX_IMAGESPLIT; i++)
+			for(l = 0; l < LIGHTGEM_MAX_IMAGESPLIT; l++)
 			{
-				if(fColVal[i] > fRetVal)
-					fRetVal = fColVal[i];
+				if(fColVal[l] > fRetVal)
+					fRetVal = fColVal[l];
 
 //				DM_LOG(LC_LIGHT, LT_DEBUG).LogString("fColVal[%u]: %f\r", i, fColVal[i]);
 			}
