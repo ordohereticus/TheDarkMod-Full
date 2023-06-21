@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 108 $
- * $Date: 2005-04-07 05:38:10 -0400 (Thu, 07 Apr 2005) $
+ * $Revision: 122 $
+ * $Date: 2005-04-23 06:08:02 -0400 (Sat, 23 Apr 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2005/04/23 10:07:26  ishtvan
+ * added fix for pm_walkspeed being reset to 140 by the engine on map load
+ *
  * Revision 1.4  2005/04/07 09:38:10  ishtvan
  * *) Added members for global sound prop and sound prop loader objects
  *
@@ -412,6 +415,11 @@ public:
 **/
 	CsndProp *				m_sndProp;
 
+/**
+* Temporary storage of the walkspeed.  This is a workaround
+*	because the walkspeed keeps getting reset.
+**/
+	float					m_walkSpeed;
 
 
 
