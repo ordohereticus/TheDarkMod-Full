@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 639 $
- * $Date: 2006-12-09 12:41:16 -0500 (Sat, 09 Dec 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 688 $
+ * $Date: 2006-12-30 21:30:49 -0500 (Sat, 30 Dec 2006) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.5  2006/12/31 02:30:48  crispy
+ * - Added new script event, moveToCoverFrom, which is like moveToCover except that it takes the enemy entity as an argument
+ * - Cover search is fixed, and uses traces instead of PVS (at least for now)
+ * - The FindNearestGoal AAS search can now have a travel distance limit.
+ *
  * Revision 1.4  2006/12/09 17:41:16  sophisticatedzombie
  * Added some methods for testing if blocking a section of the map (by a door etc)
  * would impact reachabilities.  They are not used anywhere yet but could
@@ -145,7 +150,7 @@ public:
 								// Show the fly path from the origin towards the area.
 	virtual void				ShowFlyPath( const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin ) const = 0;
 								// Find the nearest goal which satisfies the callback.
-	virtual bool				FindNearestGoal( aasGoal_t &goal, int areaNum, const idVec3 origin, const idVec3 &target, int travelFlags, aasObstacle_t *obstacles, int numObstacles, idAASCallback &callback ) const = 0;
+	virtual bool				FindNearestGoal( aasGoal_t &goal, int areaNum, const idVec3 origin, const idVec3 &target, int travelFlags, aasObstacle_t *obstacles, int numObstacles, idAASCallback &callback, unsigned short maxDistance=0 ) const = 0;
 
 								// Find the goal cloest to the target which satisfies the callback.
 	virtual bool				FindGoalClosestToTarget( aasGoal_t &goal, int areaNum, const idVec3 origin, const idVec3 &target, int travelFlags, aasObstacle_t *obstacles, int numObstacles, idAASCallback &callback ) const = 0;
