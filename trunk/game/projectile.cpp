@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 947 $
- * $Date: 2007-04-29 13:56:04 -0400 (Sun, 29 Apr 2007) $
+ * $Revision: 980 $
+ * $Date: 2007-05-05 17:39:24 -0400 (Sat, 05 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 947 2007-04-29 17:56:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 980 2007-05-05 21:39:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -226,6 +226,7 @@ void idProjectile::Create( idEntity *owner, const idVec3 &start, const idVec3 &d
 		renderLight.shaderParms[1] = light_color[1];
 		renderLight.shaderParms[2] = light_color[2];
 		renderLight.shaderParms[3] = 1.0f;
+		renderLight.noShadows = spawnArgs.GetBool("light_noshadows", "0");
 	}
 
 	spawnArgs.GetVector( "light_offset", "0 0 0", lightOffset );
@@ -903,6 +904,7 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 		renderLight.shaderParms[SHADERPARM_BLUE] = lightColor.z;
 		renderLight.shaderParms[SHADERPARM_ALPHA] = 1.0f;
 		renderLight.shaderParms[SHADERPARM_TIMEOFFSET] = -MS2SEC( gameLocal.time );
+		renderLight.noShadows = spawnArgs.GetBool("explode_light_noshadows", "0");
 		light_fadetime = spawnArgs.GetFloat( "explode_light_fadetime", "0.5" );
 		lightStartTime = gameLocal.time;
 		lightEndTime = gameLocal.time + SEC2MS( light_fadetime );
