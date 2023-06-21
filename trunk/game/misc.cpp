@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 222 $
- * $Date: 2005-11-12 09:59:51 -0500 (Sat, 12 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 251 $
+ * $Date: 2005-11-21 02:54:33 -0500 (Mon, 21 Nov 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2005/11/21 07:54:33  ishtvan
+ * AI can no longer see thru static models
+ *
  * Revision 1.4  2005/11/12 14:59:20  sparhawk
  * SDK 1.3 Merge
  *
@@ -1400,7 +1403,7 @@ void idStaticEntity::Spawn( void ) {
 	hidden = spawnArgs.GetBool( "hide" );
 
 	if ( solid && !hidden ) {
-		GetPhysics()->SetContents( CONTENTS_SOLID );
+		GetPhysics()->SetContents( CONTENTS_SOLID | CONTENTS_OPAQUE );
 	} else {
 		GetPhysics()->SetContents( 0 );
 	}
@@ -1501,7 +1504,7 @@ idStaticEntity::Show
 void idStaticEntity::Show( void ) {
 	idEntity::Show();
 	if ( spawnArgs.GetBool( "solid" ) ) {
-		GetPhysics()->SetContents( CONTENTS_SOLID );
+		GetPhysics()->SetContents( CONTENTS_SOLID | CONTENTS_OPAQUE );
 	}
 }
 
