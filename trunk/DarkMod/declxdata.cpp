@@ -2,15 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 375 $
- * $Date: 2006-03-23 09:13:51 -0500 (Thu, 23 Mar 2006) $
+ * $Revision: 376 $
+ * $Date: 2006-03-25 03:14:03 -0500 (Sat, 25 Mar 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.3  2006/03/25 08:13:45  gildoran
+ * New update for declarations... Improved the documentation/etc for xdata decls, and added some basic code for tdm_matinfo decls.
+ *
  * Revision 1.2  2006/03/23 14:13:38  gildoran
  * Added import command to xdata decls.
- *
- *
  *
  ***************************************************************************/
 
@@ -51,7 +52,6 @@ bool tdmDeclXData::Parse( const char *text, const int textLength )
 
 	src.LoadMemory( text, textLength, GetFileName(), GetLineNum() );
 	src.SetFlags( DECL_LEXER_FLAGS & ~LEXFL_NOSTRINGESCAPECHARS );
-	src.SkipUntilString( "{" );
 
 	bool		precache = false;
 	idStr		value;
@@ -62,11 +62,28 @@ bool tdmDeclXData::Parse( const char *text, const int textLength )
 	const idKeyValue *kv2;
 	int i;
 
+	// Skip until the opening brace. I don't trust using the
+	// skipUntilString function, since it could be fooled by
+	// a string containing a brace.
+	do {
+		if ( !src.ReadToken( &tKey ) ) {
+			MakeDefault();
+			return false;
+		}
+	} while ( tKey.type != TT_PUNCTUATION || tKey.subtype != P_BRACEOPEN );
+	//src.SkipUntilString( "{" );
+
 	while (1)
 	{
-		// Quit upon EOF or closing brace.
-		if ( !src.ReadToken( &tKey ) ||
-			(tKey.type == TT_PUNCTUATION && tKey.subtype == P_BRACECLOSE) ) {
+		// If there's an EOF, fail to load.
+		if ( !src.ReadToken( &tKey ) ) {
+			src.Warning( "Unclosed xdata decl." );
+			MakeDefault();
+			return false;
+		}
+
+		// Quit upon encountering the closing brace.
+		if ( tKey.type == TT_PUNCTUATION && tKey.subtype == P_BRACECLOSE) {
 			break;
 		}
 

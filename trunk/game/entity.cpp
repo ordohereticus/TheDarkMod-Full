@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 375 $
- * $Date: 2006-03-23 09:13:51 -0500 (Thu, 23 Mar 2006) $
+ * $Revision: 376 $
+ * $Date: 2006-03-25 03:14:03 -0500 (Sat, 25 Mar 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.43  2006/03/25 08:13:58  gildoran
+ * New update for declarations... Improved the documentation/etc for xdata decls, and added some basic code for tdm_matinfo decls.
+ *
  * Revision 1.42  2006/03/23 14:13:51  gildoran
  * Added import command to xdata decls.
  *
@@ -6535,8 +6538,8 @@ object's spawn args. The prefix will be prepended to
 the names of all keys in the declaration.
 ================
 */
-void idEntity::Event_LoadExternalData( const char *mdFile, const char* prefix ) {
-	const tdmDeclXData *xd = static_cast< const tdmDeclXData* >( declManager->FindType( DECL_XDATA, mdFile, false ) );
+void idEntity::Event_LoadExternalData( const char *xdFile, const char* prefix ) {
+	const tdmDeclXData *xd = static_cast< const tdmDeclXData* >( declManager->FindType( DECL_XDATA, xdFile, false ) );
 	if ( xd != NULL ) {
 		const idDict *data = &(xd->m_data);
 		const idKeyValue *kv;
@@ -6549,7 +6552,7 @@ void idEntity::Event_LoadExternalData( const char *mdFile, const char* prefix ) 
 
 		idThread::ReturnInt( 1 );
 	} else {
-		gameLocal.Warning( "Non-existant xdata declaration: %s\n", mdFile );
+		gameLocal.Warning( "Non-existant xdata declaration: %s\n", xdFile );
 		idThread::ReturnInt( 0 );
 	}
 }
