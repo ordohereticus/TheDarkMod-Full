@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1088 $
- * $Date: 2007-07-12 12:46:32 -0400 (Thu, 12 Jul 2007) $
+ * $Revision: 1094 $
+ * $Date: 2007-07-12 16:33:29 -0400 (Thu, 12 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -525,7 +525,10 @@ public:
 	void					NextWeapon( void );
 	void					NextBestWeapon( void );
 	void					PrevWeapon( void );
-	void					SelectWeapon( int num, bool force );
+
+	// returns FALSE if the weapon with the requested index could not be selected
+	bool					SelectWeapon( int num, bool force );
+
 	void					DropWeapon( bool died ) ;
 	void					StealWeapon( idPlayer *player );
 	void					AddProjectilesFired( int count );
