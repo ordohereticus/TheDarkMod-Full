@@ -20,8 +20,8 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 102 $
- * $Date: 2005-04-07 05:16:23 -0400 (Thu, 07 Apr 2005) $
+ * $Revision: 129 $
+ * $Date: 2005-07-04 20:46:31 -0400 (Mon, 04 Jul 2005) $
  * $Author: ishtvan $
  * $Name$
  ******************************************************************************/
@@ -30,7 +30,8 @@
 #ifndef SNDPROPLOADER_H
 #define SNDPROPLOADER_H
 
-#include "darkmodglobals.h"
+#include "../idlib/precompiled.h"
+#include "DarkModGlobals.h"
 
 template <class type> 
 class CMatRUT;
