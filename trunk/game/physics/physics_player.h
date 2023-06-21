@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 479 $
- * $Date: 2006-07-08 22:40:47 -0400 (Sat, 08 Jul 2006) $
+ * $Revision: 529 $
+ * $Date: 2006-08-04 06:55:08 -0400 (Fri, 04 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.22  2006/08/04 10:55:08  ishtvan
+ * added GetDeltaYaw function to get player view change
+ *
  * Revision 1.21  2006/07/09 02:40:12  ishtvan
  * rope arrow removal bugfix
  *
@@ -185,6 +188,13 @@ public:
 	bool					OnLadder( void ) const;
 	const idVec3 &			PlayerGetOrigin( void ) const;	// != GetOrigin
 
+	/**
+	* Get the view yaw change between last frame and this frame
+	* Useful for rotating items in response to yaw, rope arrow, etc
+	* Returns the change in degrees
+	**/
+	float					GetDeltaViewYaw( void );					
+
 public:	// common physics interface
 	bool					Evaluate( int timeStepMSec, int endTimeMSec );
 	void					UpdateTime( int endTimeMSec );
@@ -288,6 +298,12 @@ private:
 	// ladder movement
 	bool					ladder;
 	idVec3					ladderNormal;
+
+	/**
+	* View yaw change between this frame and last frame
+	* In degrees.
+	**/
+	float					m_DeltaViewYaw;
 
 	// results of last evaluate
 #ifndef MOD_WATERPHYSICS
