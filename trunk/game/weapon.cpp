@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 561 $
- * $Date: 2006-08-21 01:07:34 -0400 (Mon, 21 Aug 2006) $
+ * $Revision: 615 $
+ * $Date: 2006-11-19 00:21:21 -0500 (Sun, 19 Nov 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.14  2006/11/19 05:21:21  ishtvan
+ * fixed melee attacks to attached heads in event_melee
+ *
  * Revision 1.13  2006/08/21 05:07:34  ishtvan
  * fixed attachment so that rotation was done first, then translation
  *
@@ -54,7 +57,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 561 $   $Date: 2006-08-21 01:07:34 -0400 (Mon, 21 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 615 $   $Date: 2006-11-19 00:21:21 -0500 (Sun, 19 Nov 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -3094,9 +3097,12 @@ void idWeapon::Event_Melee( void ) {
 		idVec3 start = playerViewOrigin;
 		idVec3 end = start + playerViewAxis[0] * ( meleeDistance * owner->PowerUpModifier( MELEE_DISTANCE ) );
 		gameLocal.clip.TracePoint( tr, start, end, MASK_SHOT_RENDERMODEL, owner );
-		if ( tr.fraction < 1.0f ) {
-			ent = gameLocal.GetTraceEntity( tr );
-		} else {
+		if ( tr.fraction < 1.0f && gameLocal.entities[tr.c.entityNum] ) 
+		{
+			//ent = gameLocal.GetTraceEntity( tr );
+			ent = gameLocal.entities[ tr.c.entityNum ];
+		} else 
+		{
 			ent = NULL;
 		}
 
