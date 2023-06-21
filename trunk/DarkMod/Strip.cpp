@@ -10,12 +10,15 @@
  *
  * PROJECT: LaunchMenu
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 729 $
+ * $Date: 2007-01-18 21:22:56 -0500 (Thu, 18 Jan 2007) $
+ * $Author: thelvyn $
  * $Name$
  *
  * $Log$
+ * Revision 1.3  2007/01/19 02:22:56  thelvyn
+ * performance fixes - Forcing int to bool
+ *
  * Revision 1.2  2006/06/21 13:05:32  sparhawk
  * Added version tracking per cpp module
  *
@@ -45,7 +48,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 729 $   $Date: 2007-01-18 21:22:56 -0500 (Thu, 18 Jan 2007) $", init_version);
 
 #include <string.h>
 
@@ -71,7 +74,8 @@ UBYTE *Strip(UBYTE *s, int Start)
 {
 	unsigned long n;
 	UBYTE *e;
-	BOOL d;
+	bool d;
+	bool start = ( Start != FALSE );
 
 	/* If neither true nor false we strip both parts */
 	if(Start != TRUE && Start != FALSE)
@@ -80,7 +84,7 @@ UBYTE *Strip(UBYTE *s, int Start)
 		Start = FALSE;
 	}
 	else
-		d = Start;
+		d = start;
 
 	n = strlen((const char *)s);
 	e = &s[n-1];
@@ -94,7 +98,7 @@ UBYTE *Strip(UBYTE *s, int Start)
 			else
 				break;
 		}
-		d = Start;
+		d = start;
 	}
 
 	// Check if we need a to strip at end as well.
@@ -139,22 +143,24 @@ UBYTE *StrStrip(UBYTE *s, int Start, char *p)
 {
 	unsigned long n;
 	UBYTE *e, str[2];
-	BOOL d;
+	bool d;
+	bool start = ( Start != FALSE );
+
 
 	/* If neither true nor false we strip both parts */
 	if(Start != TRUE && Start != FALSE)
 	{
-		d = TRUE;
-		Start = FALSE;
+		d = true;
+		start = false;
 	}
 	else
-		d = Start;
+		d = start;
 
 	str[1] = 0;
 	n = strlen((const char *)s);
 	e = &s[n-1];
 
-	if(d == TRUE)
+	if( d == true )
 	{
 		while(*s)
 		{
@@ -164,13 +170,13 @@ UBYTE *StrStrip(UBYTE *s, int Start, char *p)
 			else
 				break;
 		}
-		d = Start;
+		d = start;
 	}
 
 	// Check if we need a to strip at end as well.
 	// This may not be simply the else branch, because we change this
 	// when both parts are to be stripped.
-	if(d == FALSE)
+	if( d == false )
 	{
 		while(e > s)
 		{
