@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 691 $
- * $Date: 2006-12-31 07:08:51 -0500 (Sun, 31 Dec 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 695 $
+ * $Date: 2007-01-02 23:01:48 -0500 (Tue, 02 Jan 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.33  2007/01/03 04:01:48  ishtvan
+ * *) modified PushWithAF to apply impulse to objects instead of setting a velocity, should avoid pushing of huge objects.  They still apply a velocity to AI, but now only in the XY plane
+ *
+ * *) Stim/response updates
+ *
  * Revision 1.32  2006/12/31 12:08:51  sophisticatedzombie
  * Added canSeePositionExt script method.
  *
@@ -147,7 +152,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 691 $   $Date: 2006-12-31 07:08:51 -0500 (Sun, 31 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 695 $   $Date: 2007-01-02 23:01:48 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/relations.h"
@@ -1378,6 +1383,11 @@ void idAI::Event_BecomeSolid( void ) {
 	} else {
 		physicsObj.SetContents( CONTENTS_BODY );
 	}
+
+	// SR CONTENTS_RESONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
+
 	physicsObj.GetClipModel()->Link( gameLocal.clip );
 	fl.takedamage = !spawnArgs.GetBool( "noDamage" );
 }
