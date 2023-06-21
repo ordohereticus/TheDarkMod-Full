@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 523 $
- * $Date: 2006-07-30 19:39:43 -0400 (Sun, 30 Jul 2006) $
+ * $Revision: 541 $
+ * $Date: 2006-08-11 01:52:43 -0400 (Fri, 11 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.15  2006/08/11 05:52:43  ishtvan
+ * preliminary boolean parsing check-in (placeholders)
+ *
  * Revision 1.14  2006/07/30 23:39:43  ishtvan
  * new objective script event setObjectiveEnabling
  *
@@ -55,7 +58,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 523 $   $Date: 2006-07-30 19:39:43 -0400 (Sun, 30 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 541 $   $Date: 2006-08-11 01:52:43 -0400 (Fri, 11 Aug 2006) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1436,6 +1439,44 @@ Quit:
 	idEntity::Think();
 	return;
 }
-	
+
+
+
+// =============== Boolean Logic Parsing for Objective Failure/Success ==============
+
+bool CObjective::CheckFailure( void )
+{
+	return ParseBoolLogic( &m_FailureLogic );
+}
+
+bool CObjective::CheckSuccess( void )
+{
+	return ParseBoolLogic( &m_SuccessLogic );
+}
+
+bool CObjective::ParseBoolLogic( SBoolParseNode *input )
+{
+	bool bReturnVal(false);
+
+	return bReturnVal;
+}
+
+bool CObjective::ParseLogicStrs( void )
+{
+	bool bReturnVal(false);
+
+	bReturnVal = ParseLogicStr( &m_SuccessLogicStr, m_SuccessLogic );
+	bReturnVal = bReturnVal && ParseLogicStr( &m_FailureLogicStr, m_FailureLogic );
+
+	return bReturnVal;
+}
+
+bool CObjective::ParseLogicStr( idStr *input, SBoolParseNode &output )
+{
+	bool bReturnVal(false);
+
+	return bReturnVal;
+}
+
 
 
