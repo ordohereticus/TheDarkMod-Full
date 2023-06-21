@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 826 $
- * $Date: 2007-03-05 02:55:01 -0500 (Mon, 05 Mar 2007) $
- * $Author: crispy $
+ * $Revision: 876 $
+ * $Date: 2007-03-28 04:42:27 -0400 (Wed, 28 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #ifndef __GAME_ACTOR_H__
 #define __GAME_ACTOR_H__
 
-#include "../../darkmod/pqueue.h"
+#include "../../DarkMod/pqueue.h"
 
 /*
 ===============================================================================

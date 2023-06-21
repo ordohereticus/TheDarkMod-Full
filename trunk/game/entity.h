@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Revision: 876 $
+ * $Date: 2007-03-28 04:42:27 -0400 (Wed, 28 Mar 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -91,6 +91,7 @@ extern const idEventDef EV_InPVS;
 
 // greebo: Script event definition for dealing damage
 extern const idEventDef EV_Damage;
+extern const idEventDef EV_Heal;
 
 // Think flags
 enum {
@@ -394,6 +395,8 @@ public:
 	virtual	void			Damage( idEntity *inflictor, idEntity *attacker, 
 									const idVec3 &dir, const char *damageDefName, 
 									const float damageScale, const int location, trace_t *tr = NULL );
+	// greebo: Heals this entity using the information found in the entitDef named healDefName
+	virtual void			heal(const char* healDefName);
 							// adds a damage effect like overlays, blood, sparks, debris etc.
 	virtual void			AddDamageEffect( const trace_t &collision, const idVec3 &velocity, const char *damageDefName );
 							// callback function for when another entity recieved damage from this entity.  damage can be adjusted and returned to the caller.
@@ -950,6 +953,11 @@ private:			// Events should be public, so they can be used from other places as 
 	void					Event_Damage( idEntity *inflictor, idEntity *attacker, 
 										  const idVec3 &dir, const char *damageDefName, 
 										  const float damageScale );
+	/**
+	* greebo: This method heals this entity using the values defined in the
+	* the entityDef specified by <healDefName>.
+	*/
+	void					Event_Heal( const char *healDefName );
 	void					Event_SetGui( int handle, const char *guiFile );
 	void					Event_GetGui( int handle );
 	void					Event_SetGuiString( int handle, const char *key, const char *val );
