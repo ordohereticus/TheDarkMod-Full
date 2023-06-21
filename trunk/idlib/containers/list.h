@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 962 $
+ * $Date: 2007-05-03 08:09:48 -0400 (Thu, 03 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -931,6 +931,6 @@ ID_INLINE void idList<type>::Swap( idList<type> &other ) {
 	idSwap( list, other.list );
 }
 
-typedef idList<idStr> CStringList;
+typedef idList<idStr> idStringList;
 
 #endif /* !__LIST_H__ */
