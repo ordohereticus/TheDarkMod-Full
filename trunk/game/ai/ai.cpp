@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 491 $
- * $Date: 2006-07-19 01:14:28 -0400 (Wed, 19 Jul 2006) $
+ * $Revision: 507 $
+ * $Date: 2006-07-25 02:00:40 -0400 (Tue, 25 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.29  2006/07/25 06:00:40  ishtvan
+ * added tactile alert to PushWithAF
+ *
  * Revision 1.28  2006/07/19 05:14:28  ishtvan
  * AI no longer check for tactile alerts when they're unconscious
  *
@@ -102,7 +105,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 491 $   $Date: 2006-07-19 01:14:28 -0400 (Wed, 19 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 507 $   $Date: 2006-07-25 02:00:40 -0400 (Tue, 25 Jul 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -4843,7 +4846,23 @@ void idAI::PushWithAF( void ) {
 				ent->GetPhysics()->SetLinearVelocity( 100.0f * vel, touchList[ i ].touchedClipModel->GetId() );
 			}
 
-
+			if( ent->IsType(idActor::Type) )
+			{
+				if( ent->IsType(idPlayer::Type) )
+				{
+					// aesthetics: Dont react to dead player?
+					if( ent->health > 0 )
+						HadTactile( static_cast<idActor *>(ent) );
+				}
+				else if( ent->IsType(idAI::Type) && (ent->health > 0) && !static_cast<idAI *>(ent)->AI_KNOCKEDOUT )
+				{
+					HadTactile( static_cast<idActor *>(ent) );
+				}
+				else
+				{
+					// TODO: Touched a dead or unconscious body, should issue a body alert
+				}
+			}
 		}
 	}
 }
