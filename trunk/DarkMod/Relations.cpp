@@ -16,12 +16,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 269 $
- * $Date: 2005-12-04 17:52:45 -0500 (Sun, 04 Dec 2005) $
+ * $Revision: 383 $
+ * $Date: 2006-04-23 14:39:30 -0400 (Sun, 23 Apr 2006) $
  * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.10  2006/04/23 18:39:30  ishtvan
+ * saveing/loading fix for empty matrices
+ *
  * Revision 1.9  2005/12/04 22:52:45  ishtvan
  * forgot to re-comment some logs that badly spam the logfile
  *
@@ -385,8 +388,13 @@ void CRelations::Save( idSaveGame *save ) const
 void CRelations::Restore( idRestoreGame *save )
 {
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Loading Relationship Matrix data from save\r");
-	m_RelMat->RestoreMatrixSq( save );
 
+	if( !m_RelMat->RestoreMatrixSq( save ) )
+	{
+		// attempted to load empty matrix
+		m_bMatFailed = true;
+	}
+	
 	CopyThisToGlobal();
 }
 
