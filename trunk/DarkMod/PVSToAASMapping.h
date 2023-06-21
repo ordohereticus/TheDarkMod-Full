@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 423 $
- * $Date: 2006-05-19 15:56:50 -0400 (Fri, 19 May 2006) $
- * $Author: sparhawk $
+ * $Revision: 582 $
+ * $Date: 2006-10-08 12:36:48 -0400 (Sun, 08 Oct 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.3  2006/10/08 16:36:48  sophisticatedzombie
+ * Changed this data class to use an AAS given by name, rather than index.
+ *
  * Revision 1.2  2006/05/19 19:56:50  sparhawk
  * CVSHeader added
  *
@@ -42,8 +45,8 @@ protected:
 	int numPVSAreas;
 	PVSToAASMappingNode** m_p_AASAreaIndicesPerPVSArea;
 
-	// Which aas file are we currently mapping
-	int aasFileIndex;
+	// Which aas size name are we currently using
+	idStr aasName;
 
 	/*!
 	* This method clears one mapping list
@@ -71,13 +74,12 @@ public:
 	* for a given PVS area. Building this mapping may take some time, so it should
 	* be kept around for re-use.
 	*
-	* @param aasNumber: The index of the aas file of the map. A typical map has at
-	* least 1, with index 0.
+	* @param in_aasName: The name of the aas system to use.
 	*
 	* @return true on success
 	* @return false on failure
 	*/
-	bool buildMappings(int aasNumber);
+	bool buildMappings(idStr in_aasName);
 
 	/*!
 	* This method gets the aas area index list for a particular pvs area
