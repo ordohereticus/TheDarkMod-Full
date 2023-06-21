@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 923 $
- * $Date: 2007-04-21 09:24:36 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 932 $
+ * $Date: 2007-04-21 13:57:55 -0400 (Sat, 21 Apr 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 923 2007-04-21 13:24:36Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 932 2007-04-21 17:57:55Z sparhawk $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2504,8 +2504,13 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 		// Update the Light Awareness System
 		LAS.updateLASState();
 
+		unsigned long ticks = static_cast<unsigned long>(sys->GetClockTicks());
+
+		// Tick the timers. Should be done before stim/response, just to be safe. :)
+		ProcessTimer(ticks);
+
 		// TDM: Work through the active stims/responses
-		ProcessStimResponse();
+		ProcessStimResponse(ticks);
 
 		// TDM: Update objective system
 		m_MissionData->UpdateObjectives();
@@ -5319,7 +5324,29 @@ int idGameLocal::DoResponseAction(CStim *stim, idEntity *Ent[MAX_GENTITIES], int
 	return numResponses;
 }
 
-void idGameLocal::ProcessStimResponse(void)
+void idGameLocal::ProcessTimer(unsigned long ticks)
+{
+	int i, n;
+	CStimResponseTimer *t;
+
+	n = m_Timer.Num();
+	for(i = 0; i < n; i++)
+	{
+		t = m_Timer[i];
+
+		// We just let the timers tick. Querying them must be done by the respective owner,
+		// because we can not know from where it was called, and it doesn't make sense
+		// to use a callback, because the timer user still has to wait until it is expired.
+		// So the owner has to check it from time to time anyway.
+		if(t->GetState() == CStimResponseTimer::SRTS_RUNNING)
+		{
+			t = m_Timer[i];
+			t->Tick(ticks);
+		}
+	}
+}
+
+void idGameLocal::ProcessStimResponse(unsigned long ticks)
 {
 	idEntity *e;
 	int ei, en;
@@ -5331,7 +5358,6 @@ void idGameLocal::ProcessStimResponse(void)
 	CStimResponseTimer *timer;
 	idBounds bounds;
 	idEntity *Ent[MAX_GENTITIES];
-	unsigned long ticks = static_cast<unsigned long>(sys->GetClockTicks());
 
 	// Check the timed stims first.
 	en = m_StimTimer.Num();

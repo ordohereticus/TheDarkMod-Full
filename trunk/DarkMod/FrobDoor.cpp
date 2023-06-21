@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 932 $
+ * $Date: 2007-04-21 13:57:55 -0400 (Sat, 21 Apr 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 932 2007-04-21 17:57:55Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -22,6 +22,7 @@ static bool init_version = FileVersionList("$Id: FrobDoor.cpp 915 2007-04-19 20:
 #include "FrobDoorHandle.h"
 #include "sndProp.h"
 #include "randomizer/randomc.h"
+#include "StimResponse/StimResponseTimer.h"
 
 extern TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd;
 
@@ -72,6 +73,13 @@ CFrobDoor::CFrobDoor(void)
 	m_Pickable = true;
 	m_DoubleDoor = NULL;
 	m_Doorhandle = NULL;
+	m_PickTimer = new CStimResponseTimer();
+}
+
+CFrobDoor::~CFrobDoor(void)
+{
+	if(m_PickTimer)
+		delete m_PickTimer;
 }
 
 void CFrobDoor::Save(idSaveGame *savefile) const
