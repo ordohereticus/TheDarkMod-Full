@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 652 $
- * $Date: 2006-12-10 07:07:36 -0500 (Sun, 10 Dec 2006) $
- * $Author: ishtvan $
+ * $Revision: 658 $
+ * $Date: 2006-12-14 04:53:25 -0500 (Thu, 14 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.40  2006/12/14 09:53:25  sophisticatedzombie
+ * Now using hiding spot collection
+ *
  * Revision 1.39  2006/12/10 12:07:36  ishtvan
  * grace period bugfixes
  *
@@ -158,7 +161,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 652 $   $Date: 2006-12-10 07:07:36 -0500 (Sun, 10 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 658 $   $Date: 2006-12-14 04:53:25 -0500 (Thu, 14 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -683,7 +686,7 @@ idAI::idAI() {
 	/**
 	* Darkmod: No hiding spot search by default
 	*/
-	m_HidingSpotSearchHandle = 0;
+	m_HidingSpotSearchHandle = NULL_HIDING_SPOT_SEARCH_HANDLE;
 
 	m_bCanDrown = true;
 	m_AirCheckTimer = 0;

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 652 $
- * $Date: 2006-12-10 07:07:36 -0500 (Sun, 10 Dec 2006) $
- * $Author: ishtvan $
+ * $Revision: 658 $
+ * $Date: 2006-12-14 04:53:25 -0500 (Thu, 14 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.28  2006/12/14 09:53:25  sophisticatedzombie
+ * Now using hiding spot collection
+ *
  * Revision 1.27  2006/12/10 12:07:36  ishtvan
  * grace period bugfixes
  *
@@ -120,6 +123,8 @@
 #define __AI_H__
 
 #include "../../darkmod/relations.h"
+#include "../../darkmod/HidingSpotSearchCollection.h"
+#include "../../darkmod/darkmodHidingSpotTree.h"
 
 
 /*
@@ -865,7 +870,13 @@ protected:
 	/**
 	* The current mod hiding spot search of this AI, usually NULL (0)
 	*/
-	int m_HidingSpotSearchHandle;
+	THidingSpotSearchHandle m_HidingSpotSearchHandle;
+
+	/**
+	* The spots resulting from the current search or gotten from
+	* another AI.
+	*/
+	CDarkmodHidingSpotTree m_hidingSpots;
 
 
 	/**
