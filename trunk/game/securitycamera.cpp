@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 510 $
+ * $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.4  2006/07/27 09:02:22  ishtvan
+ * frobbing updates
+ *
  * Revision 1.3  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -31,7 +34,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 510 $   $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -558,7 +561,14 @@ idSecurityCamera::Present
 Present is called to allow entities to generate refEntities, lights, etc for the renderer.
 ================
 */
-void idSecurityCamera::Present( void ) {
+void idSecurityCamera::Present( void ) 
+{
+	if( m_FrobDistance )
+	{
+		UpdateFrob();
+		UpdateFrobDisplay();
+	}
+
 	// don't present to the renderer if the entity hasn't changed
 	if ( !( thinkFlags & TH_UPDATEVISUALS ) ) {
 		return;
