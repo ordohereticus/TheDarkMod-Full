@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 162 $
- * $Date: 2005-09-23 23:13:49 -0400 (Fri, 23 Sep 2005) $
- * $Author: lloyd $
+ * $Revision: 194 $
+ * $Date: 2005-10-24 17:01:12 -0400 (Mon, 24 Oct 2005) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.8  2005/10/24 21:01:12  sparhawk
+ * Lightgem interleave added.
+ *
  * Revision 1.7  2005/09/24 03:13:49  lloyd
  * Changed CGrabber grabber to CGrabber *grabber
  *
@@ -167,6 +170,10 @@ public:
 	 * 1 <= N <= 16
 	 */
 	int							m_LightgemValue;
+	/**
+	 * Contains the last lightgem value. This is stored for interleaving.
+	 */
+	float						m_fColVal;
 
 	/**
 	 * Each light entity must register here itself. This is used

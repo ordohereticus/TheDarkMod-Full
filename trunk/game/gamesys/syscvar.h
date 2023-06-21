@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 191 $
- * $Date: 2005-10-23 14:11:42 -0400 (Sun, 23 Oct 2005) $
+ * $Revision: 194 $
+ * $Date: 2005-10-24 17:01:12 -0400 (Mon, 24 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.12  2005/10/24 21:00:54  sparhawk
+ * Lightgem interleave added.
+ *
  * Revision 1.11  2005/10/23 18:11:42  sparhawk
  * Lightgem entity spawn implemented
  *
@@ -84,7 +87,7 @@ extern idCVar cv_lg_oyoffs;
 extern idCVar cv_lg_ozoffs;
 extern idCVar cv_lg_fovx;
 extern idCVar cv_lg_fovy;
-extern idCVar cv_lg_toggle;
+extern idCVar cv_lg_interleave;
 extern idCVar cv_lg_hud;
 extern idCVar cv_lg_weak;
 extern idCVar cv_lg_player;
