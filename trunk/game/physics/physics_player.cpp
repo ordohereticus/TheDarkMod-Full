@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 131 $
- * $Date: 2005-07-27 16:48:09 -0400 (Wed, 27 Jul 2005) $
+ * $Revision: 132 $
+ * $Date: 2005-07-27 17:54:35 -0400 (Wed, 27 Jul 2005) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.8  2005/07/27 21:54:35  sophisticatedzombie
+ * Made "bumpiness" during lean movement much smaller... scaled the uplift to the number of degrees leaned.
+ *
  * Revision 1.7  2005/07/27 20:48:09  sophisticatedzombie
  * Added leaning.  The clip model stuff still needs alot of work.
  *
@@ -3133,6 +3136,11 @@ void idPhysics_Player::UpdateViewLeanAnglesAndTranslation()
 
 void idPhysics_Player::UpdateClipModelOrientation()
 {
+	// DEBUGATRON:
+	// Rotating this box seems to make the player able to move
+	// diagonally through walls.
+	//return;
+
 	// ASSUMES viewForward and viewRight have already been set
 	
 
@@ -3367,7 +3375,7 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees)
 
 	// Lift origin off of ground a little
 	idVec3 originSave = current.origin;
-	current.origin += -GetGravityNormal() * 1.0;
+	current.origin += -GetGravityNormal() * (deltaLeanTiltDegrees / 3.0);
 	clipModel->SetPosition (current.origin, clipModel->GetAxis());
 	
 	trace_t rotationTraceResults;
