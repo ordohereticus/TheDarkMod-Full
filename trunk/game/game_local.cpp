@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 731 $
- * $Date: 2007-01-18 21:30:55 -0500 (Thu, 18 Jan 2007) $
+ * $Revision: 735 $
+ * $Date: 2007-01-19 04:05:21 -0500 (Fri, 19 Jan 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.86  2007/01/19 09:05:21  thelvyn
+ * register fonts in init
+ *
  * Revision 1.85  2007/01/19 02:30:41  thelvyn
  * Separated keyboard hook, same as mouse hook
  * #define NEWKEYHANDLERCLASS for this to take effect - NOT defined right now
@@ -288,7 +291,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Source$  $Revision: 731 $   $Date: 2007-01-18 21:30:55 -0500 (Thu, 18 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 735 $   $Date: 2007-01-19 04:05:21 -0500 (Fri, 19 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -309,17 +312,6 @@ static bool init_version = FileVersionList("$Source$  $Revision: 731 $   $Date: 
 
 #include "../darkmod/MouseHook.h" // Added By Rich for mouse support encapsulation
 #include "../darkmod/KeyboardHook.h" // Added By Rich for keyboard support encapsulation
-
-/*
-#ifndef WH_MOUSE_LL
-#define _WIN32_WINNT_SAVE _WIN32_WINNT
-#undef _WIN32_WINNT
-#define _WIN32_WINNT 0x501
-#include <winuser.h>
-#undef _WIN32_WINNT
-#define _WIN32_WINNT _WIN32_WINNT_SAVE
-#endif
-*/
 
 CGlobal g_Global;
 TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd(time(0));
@@ -375,6 +367,27 @@ const char *idGameLocal::m_NewSurfaceTypes[ MAX_SURFACE_TYPES * 2 ] = {
 	"brokeglass", "snow", "ice", "squeakboard", "puddle", "moss", "cloth", "ceramic", "slate",
 	"straw", "armor_leath", "armor_chain", "armor_plate", "climbable"
 };
+
+fontInfoEx_t font_an;
+fontInfoEx_t font_bank;
+fontInfoEx_t font_micro;
+
+void PrintMessage( int x, int y, const char *szMessage, idVec4 colour, fontInfoEx_t &font )
+{
+      renderSystem->SetColor( colour );
+
+      for( const char *p = szMessage; *p; p++ )
+      {
+            glyphInfo_t &glyph = font.fontInfoSmall.glyphs[*p];
+
+            renderSystem->DrawStretchPic( x, y - glyph.top,
+                  glyph.imageWidth, glyph.imageHeight,
+                  glyph.s, glyph.t, glyph.s2, glyph.t2,
+                  glyph.glyph );
+
+            x += glyph.xSkip;
+      }
+}
 
 /*
 ===========
@@ -816,6 +829,12 @@ void idGameLocal::Init( void ) {
 	//FIX: pm_walkspeed keeps getting reset whenever a map loads.
 	// Copy the old value here and set it when the map starts up.
 	m_walkSpeed = pm_walkspeed.GetFloat();
+
+	const char *szLang = cvarSystem->GetCVarString( "sys_lang" );
+	
+	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "an" ), font_an );
+	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "bank" ), font_bank );
+	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "micro" ), font_micro );
 }
 
 /*
