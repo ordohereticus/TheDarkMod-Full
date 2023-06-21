@@ -4,7 +4,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 809 $   $Date: 2007-03-03 21:31:59 -0500 (Sat, 03 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 814 $   $Date: 2007-03-04 01:45:24 -0500 (Sun, 04 Mar 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -4804,22 +4804,28 @@ void idPlayer::CrashLand( const idVec3 &savedOrigin, const idVec3 &savedVelocity
 	AI_SOFTLANDING = false;
 	AI_HARDLANDING = false;
 	float delta = idActor::CrashLand( physicsObj, savedOrigin, savedVelocity );
-	if ( delta <= m_delta_min )
+	
+
+	if ( delta > m_delta_fatal )
+	{
+		AI_HARDLANDING = true;
+		landChange = -32;
+		landTime = gameLocal.time;
+	}
+	else if ( delta > m_delta_min )
+	{
+		AI_HARDLANDING = true;
+		landChange = -24;
+		landTime = gameLocal.time;
+	}
+	else if ( delta > (m_delta_min / 4.0f) )
 	{
 		AI_SOFTLANDING = true;
 		landChange	= -8;
+		landTime = gameLocal.time;
 	}
-	else if ( delta > m_delta_fatal )
-	{
-		AI_HARDLANDING = true;
-		landChange = -32;		
-	}
-	else
-	{
-		AI_HARDLANDING = true;
-		landChange	= -24;
-	}
-	landTime = gameLocal.time;
+	// otherwise, just walk on
+	
 }
 
 /*
