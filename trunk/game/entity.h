@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 722 $
- * $Date: 2007-01-15 11:50:19 -0500 (Mon, 15 Jan 2007) $
- * $Author: gildoran $
+ * $Revision: 743 $
+ * $Date: 2007-01-20 00:19:20 -0500 (Sat, 20 Jan 2007) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.56  2007/01/20 05:19:20  sophisticatedzombie
+ * Made UpdateVisuals virtual
+ *
  * Revision 1.55  2007/01/15 16:50:19  gildoran
  * Added removeKey() script event.
  *
@@ -459,7 +462,10 @@ public:
 	virtual void			Hide( void );
 	virtual void			Show( void );
 	bool					IsHidden( void ) const;
-	void					UpdateVisuals( void );
+
+	// TDM: SZ: January 9, 2006 Made virtual to handle unique behavior in descendents
+	virtual void			UpdateVisuals( void );
+
 	void					UpdateModel( void );
 	void					UpdateModelTransform( void );
 	virtual void			ProjectOverlay( const idVec3 &origin, const idVec3 &dir, float size, const char *material );
