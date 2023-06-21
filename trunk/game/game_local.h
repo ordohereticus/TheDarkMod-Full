@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 617 $
- * $Date: 2006-11-20 00:34:19 -0500 (Mon, 20 Nov 2006) $
+ * $Revision: 625 $
+ * $Date: 2006-12-03 19:27:03 -0500 (Sun, 03 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.37  2006/12/04 00:27:03  ishtvan
+ * added logging of frame number in keyboard handler logs
+ *
  * Revision 1.36  2006/11/20 05:34:19  ishtvan
  * added PauseGame function
  *
@@ -386,6 +389,7 @@ typedef struct KeyCode_s
 	bool	Context;			// Specifies the context code. The value is 1 if the ALT key is down; otherwise, it is 0.
 	bool	PreviousKeyState;	// The value is 1 if the key is down before the message is sent or 0 if the key is up.
 	bool	TransitionState;	// The value is 0 if the key is being pressed and 1 if it is being released.
+	int		FrameUpdated;		// Frame number in which this key state was last updated (used to update impulses only once per frame)
 } KeyCode_t;
 
 /**

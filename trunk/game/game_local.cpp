@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 617 $
- * $Date: 2006-11-20 00:34:19 -0500 (Mon, 20 Nov 2006) $
+ * $Revision: 625 $
+ * $Date: 2006-12-03 19:27:03 -0500 (Sun, 03 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.77  2006/12/04 00:27:03  ishtvan
+ * added logging of frame number in keyboard handler logs
+ *
  * Revision 1.76  2006/11/20 05:34:19  ishtvan
  * added PauseGame function
  *
@@ -254,7 +257,7 @@
 
 #pragma warning(disable : 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 617 $   $Date: 2006-11-20 00:34:19 -0500 (Mon, 20 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 625 $   $Date: 2006-12-03 19:27:03 -0500 (Sun, 03 Dec 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -409,7 +412,7 @@ LRESULT CALLBACK TDMKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	KeyCode_t kc;
 	int i, n;
 
-	DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("Hook - nCode: %u   wParam: %04X   lParam: %08lX\r", nCode, wParam, lParam);
+	DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("Hook - nCode: %u   wParam: %04X   lParam: %08lX FRAME: %d\r", nCode, wParam, lParam, gameLocal.framenum);
 
 	if(nCode >= 0)
 	{
@@ -445,6 +448,8 @@ LRESULT CALLBACK TDMKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 				memcpy(&gameLocal.m_KeyData[i], &kc, sizeof(KeyCode_t));
 				gameLocal.m_KeyData[i].Impulse = n;
 				gameLocal.m_KeyData[i].KeyState = KS_UPDATED;
+				gameLocal.m_KeyData[i].FrameUpdated = gameLocal.framenum;
+				DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("IR %d updated\r", i);
 			}
 		}
 	}
