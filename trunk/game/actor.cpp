@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 562 $
- * $Date: 2006-08-21 01:08:05 -0400 (Mon, 21 Aug 2006) $
+ * $Revision: 564 $
+ * $Date: 2006-08-21 01:53:53 -0400 (Mon, 21 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.22  2006/08/21 05:53:53  ishtvan
+ * added GetAttachedEnt to get an entity attached at the given index
+ *
  * Revision 1.21  2006/08/21 05:08:05  ishtvan
  * attachment fixes
  *
@@ -82,7 +85,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 562 $   $Date: 2006-08-21 01:08:05 -0400 (Mon, 21 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 564 $   $Date: 2006-08-21 01:53:53 -0400 (Mon, 21 Aug 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2740,6 +2743,29 @@ Quit:
 	return bReturnVal;
 }
 
+idEntity *idActor::GetAttachedEnt( int ind )
+{
+	idEntity *ent = NULL;
+
+	ind--;
+	if( ind < 0 || ind >= m_attachments.Num() )
+	{
+		// TODO: log invalid index error
+		goto Quit;
+	}
+
+	ent = m_attachments[ind].ent.GetEntity();
+
+	if( !ent || !m_attachments[ind].ent.IsValid() )
+	{
+		// TODO: log bad attachment entity error
+		ent = NULL;
+		goto Quit;
+	}
+
+Quit:
+	return ent;
+}
 
 
 /***********************************************************************
