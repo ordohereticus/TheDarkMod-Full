@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 479 $
- * $Date: 2006-07-08 22:40:47 -0400 (Sat, 08 Jul 2006) $
+ * $Revision: 489 $
+ * $Date: 2006-07-16 21:48:00 -0400 (Sun, 16 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.26  2006/07/17 01:48:00  ishtvan
+ * added scriptfunction for changing objective states: setObjectiveState
+ *
  * Revision 1.25  2006/07/09 02:40:47  ishtvan
  * rope arrow removal bugfix
  *
@@ -857,6 +860,7 @@ private:
 	void					Event_LevelTrigger( void );
 	void					Event_Gibbed( void );
 	void					Event_RopeRemovalCleanup( idEntity *RopeEnt );
+	void					Event_SetObjectiveState( int ObjIndex, int CompIndex, int bState );
 
 /**
 * DarkMod Events
