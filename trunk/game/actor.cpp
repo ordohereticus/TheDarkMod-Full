@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 977 $
- * $Date: 2007-05-05 07:46:52 -0400 (Sat, 05 May 2007) $
- * $Author: crispy $
+ * $Revision: 1025 $
+ * $Date: 2007-06-11 15:59:28 -0400 (Mon, 11 Jun 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 977 2007-05-05 11:46:52Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1025 2007-06-11 19:59:28Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2401,7 +2401,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 					  const char *damageDefName, const float damageScale, const int location,
 					  trace_t *collision ) 
 {
-	bool bKO, bKOPowerBlow;
+	bool bKO(false), bKOPowerBlow(false);
 	
 	if ( !fl.takedamage ) {
 		return;
