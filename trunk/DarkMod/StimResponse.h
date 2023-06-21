@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 869 $
+ * $Date: 2007-03-26 04:47:19 -0400 (Mon, 26 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -211,6 +211,7 @@ typedef enum {
 	ST_RANDOM,			// Random response is selected
 	ST_TIMER,			// Timer trigger
 	ST_COMMUNICATION,	// A communication stimulus (see CommunicationStim.h)
+	ST_GAS,				// triggered by gas arrows
 	ST_USER				= 1000,	// User defined types should use this as it's base
 	ST_DEFAULT			= -1
 } StimType;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 869 $
+ * $Date: 2007-03-26 04:47:19 -0400 (Mon, 26 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -16,7 +16,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponse.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponse.cpp 869 2007-03-26 08:47:19Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "StimResponse.h"
@@ -48,6 +48,7 @@ char *cStimType[] = {
 	"STIM_RANDOM",
 	"STIM_TIMER",
 	"STIM_COMMUNICATION",
+	"STIM_GAS",
 	NULL
 };
 
