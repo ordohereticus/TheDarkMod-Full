@@ -2,11 +2,18 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 529 $
- * $Date: 2006-08-04 06:55:08 -0400 (Fri, 04 Aug 2006) $
+ * $Revision: 627 $
+ * $Date: 2006-12-03 19:32:15 -0500 (Sun, 03 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.23  2006/12/04 00:32:15  ishtvan
+ * *) added stretching of body to lean
+ *
+ * *) Leaning now checks cvars instead of ini file vars
+ *
+ * *) Disabled manual tilting of model in lean code (NOTE: Lean collision test does not work, WIP at the moment)
+ *
  * Revision 1.22  2006/08/04 10:55:08  ishtvan
  * added GetDeltaYaw function to get player view change
  *
@@ -623,6 +630,11 @@ protected:
 	*/
 	float m_currentLeanTiltDegrees;
 
+	/**
+	* Current lean stretch fraction.  When this is 1.0, the player is at full stretch, at 0.0, not stretched
+	**/
+	float m_CurrentLeanStretch;
+
 	/*!
 	* The start (roll) angle of this lean movement
 	*/
@@ -708,7 +720,7 @@ protected:
 	*
 	* This is an internal method called by LeanMove.
 	*/
-	void UpdateLeanAngle (float deltaLeanAngle);
+	void UpdateLeanAngle (float deltaLeanAngle, float deltaLeanStretch);
 
 	/*!
 	* This uses the other internal mtehods to coordiante the lean
