@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1002 $
- * $Date: 2007-05-28 20:55:03 -0400 (Mon, 28 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1008 $
+ * $Date: 2007-06-09 23:04:03 -0400 (Sat, 09 Jun 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 1002 2007-05-29 00:55:03Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 1008 2007-06-10 03:04:03Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -937,7 +937,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 
 				case FC_SETRATE:
 				{
-					int newRate = atof( command.string->c_str() );
+					float newRate = atof( command.string->c_str() );
 					
 					for( int ind = 0; ind < numAnims; ind++ )
 					{
