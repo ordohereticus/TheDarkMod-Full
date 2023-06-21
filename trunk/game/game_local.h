@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 451 $
- * $Date: 2006-06-05 17:33:25 -0400 (Mon, 05 Jun 2006) $
+ * $Revision: 464 $
+ * $Date: 2006-06-21 06:12:45 -0400 (Wed, 21 Jun 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.32  2006/06/21 10:12:45  sparhawk
+ * Added version tracking per file
+ *
  * Revision 1.31  2006/06/05 21:33:25  sparhawk
  * Stimtimer code updated/added
  *
@@ -132,6 +135,12 @@
 
 #ifndef __GAME_LOCAL_H__
 #define	__GAME_LOCAL_H__
+
+/**
+ * Global function to keep track of the files and it's version.
+ */
+bool FileVersionList(const char *str, bool state);
+
 
 class CStim;
 

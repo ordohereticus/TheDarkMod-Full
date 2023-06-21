@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 459 $
- * $Date: 2006-06-13 18:32:16 -0400 (Tue, 13 Jun 2006) $
+ * $Revision: 464 $
+ * $Date: 2006-06-21 06:12:45 -0400 (Wed, 21 Jun 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.63  2006/06/21 10:12:45  sparhawk
+ * Added version tracking per file
+ *
  * Revision 1.62  2006/06/13 22:32:16  sparhawk
  * Finished first working version of StimTimer
  *
@@ -211,6 +214,8 @@
 #pragma hdrstop
 
 #pragma warning(disable : 4996 4805 4800)
+
+static bool init_version = FileVersionList("$Source$  $Revision: 464 $   $Date: 2006-06-21 06:12:45 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "Game_local.h"
 
