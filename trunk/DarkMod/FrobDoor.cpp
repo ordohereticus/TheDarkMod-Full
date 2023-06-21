@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 932 $
- * $Date: 2007-04-21 13:57:55 -0400 (Sat, 21 Apr 2007) $
+ * $Revision: 949 $
+ * $Date: 2007-04-30 14:16:22 -0400 (Mon, 30 Apr 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 932 2007-04-21 17:57:55Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 949 2007-04-30 18:16:22Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -436,7 +436,7 @@ bool CFrobDoor::UsedBy(idEntity *ent)
 	CFrobDoor *master;
 	idEntity *e;
 	idStr s;
-	char type;
+	char type = 0;
 
 	if(ent == NULL)
 		return false;
@@ -452,6 +452,14 @@ bool CFrobDoor::UsedBy(idEntity *ent)
 		ent->spawnArgs.GetString("type", "", s);
 		if(s.Length() == 1)
 			type = s[0];
+	}
+
+	// Process the lockpick
+	if(type != 0)
+	{
+		if(m_PickTimer->GetState() != CStimResponseTimer::SRTS_RUNNING)
+		{
+		}
 	}
 
 	// When we are here we know that the item is usable

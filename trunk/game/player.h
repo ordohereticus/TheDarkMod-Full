@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 939 $
- * $Date: 2007-04-28 02:41:36 -0400 (Sat, 28 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 949 $
+ * $Date: 2007-04-30 14:16:22 -0400 (Mon, 30 Apr 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -639,9 +639,9 @@ public:
 	// Drops the currently held/selected item.
 	void inventoryDropItem( void );
 	// Uses the currently held/selected item.
-	void inventoryUseItem( void );
+	void inventoryUseItem(bool bImpulse);
 	// Uses a specific item, if it's in the same inventory.
-	void inventoryUseItem( idEntity* useEnt );
+	void inventoryUseItem(bool bImpulse, idEntity* useEnt);
 	// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
 	void inventoryChangeSelection(idUserInterface *_hud, bool bUpdate = false, CInventoryItem *Prev = NULL);
 	
