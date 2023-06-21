@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 839 $
- * $Date: 2007-03-07 16:47:01 -0500 (Wed, 07 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 909 $
+ * $Date: 2007-04-17 03:21:42 -0400 (Tue, 17 Apr 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 839 2007-03-07 21:47:01Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 909 2007-04-17 07:21:42Z ishtvan $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2783,6 +2783,7 @@ void idActor::PlayFootStepSound( void )
 		sndShader = declManager->FindSound( sound.c_str() );
 		SetSoundVolume( sndShader->GetParms()->volume + GetMovementVolMod() );
 		StartSoundShader( sndShader, SND_CHANNEL_BODY, 0, false, NULL );
+		SetSoundVolume( 0.0f );
 
 		// propagate the suspicious sound to other AI
 		PropSoundDirect( static_cast<const char *>( localSound.c_str() ), true, false );
