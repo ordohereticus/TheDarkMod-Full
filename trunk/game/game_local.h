@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 378 $
- * $Date: 2006-03-30 14:45:50 -0500 (Thu, 30 Mar 2006) $
- * $Author: gildoran $
+ * $Revision: 384 $
+ * $Date: 2006-04-26 17:29:46 -0400 (Wed, 26 Apr 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.28  2006/04/26 21:29:16  sparhawk
+ * Timed stim/response core added.
+ *
  * Revision 1.27  2006/03/30 19:45:34  gildoran
  * I made three main changes:
  * 1. I moved the new decl headers out of game_local.h and into the few files
@@ -582,6 +585,7 @@ public:
 **/
 	float					m_walkSpeed;
 
+	idList<CStim *>			m_StimTimer;			// All stims that have a timer associated. 
 	idList<idEntity *>		m_StimEntity;			// all entities that currently have a stim regardless of it's state
 	idList<idEntity *>		m_RespEntity;			// all entities that currently have a response regardless of it's state
 
