@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 808 $
- * $Date: 2007-03-01 03:20:15 -0500 (Thu, 01 Mar 2007) $
- * $Author: ishtvan $
+ * $Revision: 809 $
+ * $Date: 2007-03-03 21:31:59 -0500 (Sat, 03 Mar 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.49  2007/01/23 01:24:07  thelvyn
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 808 $   $Date: 2007-03-01 03:20:15 -0500 (Thu, 01 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 809 $   $Date: 2007-03-03 21:31:59 -0500 (Sat, 03 Mar 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1407,7 +1407,7 @@ void idPhysics_Player::LadderMove( void )
 	float	wishspeed(0.0f), scale(0.0f), accel(0.0f);
 	float	upscale(0.0f), NormalDot(0.0f);
 	trace_t SurfTrace;
-	bool	bMoveAllowed( true ), bSurfInFront( false );
+	bool	bMoveAllowed( true );//, bSurfInFront( false );
 
 	accel = PM_ACCELERATE;
 
