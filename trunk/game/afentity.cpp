@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 591 $
- * $Date: 2006-10-22 03:48:06 -0400 (Sun, 22 Oct 2006) $
+ * $Revision: 594 $
+ * $Date: 2006-10-22 15:12:13 -0400 (Sun, 22 Oct 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.9  2006/10/22 19:12:13  ishtvan
+ * damage bugfixes
+ *
  * Revision 1.8  2006/10/22 07:48:06  ishtvan
  * fixes to attached head propagating damage
  *
@@ -39,7 +42,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 591 $   $Date: 2006-10-22 03:48:06 -0400 (Sun, 22 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 594 $   $Date: 2006-10-22 15:12:13 -0400 (Sun, 22 Oct 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -395,16 +398,22 @@ Pass damage to body at the bindjoint
 void idAFAttachment::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, 
 	const char *damageDefName, const float damageScale, const int location, trace_t *tr ) 
 {
-	trace_t TraceCopy = *tr;
+	trace_t *pTrace = NULL;
 
-	//TDM Fix: Propagate the trace.
-	// Also, some things like KO check the endpoint of the trace rather than the "location" for the joint hit
-	// So change this in the trace to the attach joint on the body we're attached to.
-	TraceCopy.c.id = JOINT_HANDLE_TO_CLIPMODEL_ID( attachJoint );
+	if( tr )
+	{
+		trace_t TraceCopy = *tr;
+
+		//TDM Fix: Propagate the trace.
+		// Also, some things like KO check the endpoint of the trace rather than the "location" for the joint hit
+		// So change this in the trace to the attach joint on the body we're attached to.
+		TraceCopy.c.id = JOINT_HANDLE_TO_CLIPMODEL_ID( attachJoint );
+		pTrace = &TraceCopy;
+	}
 
 	if ( body ) 
 	{
-		body->Damage( inflictor, attacker, dir, damageDefName, damageScale, attachJoint, &TraceCopy );
+		body->Damage( inflictor, attacker, dir, damageDefName, damageScale, attachJoint, pTrace );
 		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("AF Attachment %s passed along damage to actor %s at attachjoint %d \r", name.c_str(), body->name.c_str(), (int) attachJoint );
 	}
 }

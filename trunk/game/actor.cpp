@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 592 $
- * $Date: 2006-10-22 03:49:12 -0400 (Sun, 22 Oct 2006) $
+ * $Revision: 594 $
+ * $Date: 2006-10-22 15:12:13 -0400 (Sun, 22 Oct 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.28  2006/10/22 19:12:13  ishtvan
+ * damage bugfixes
+ *
  * Revision 1.27  2006/10/22 07:49:12  ishtvan
  * added scriptfunction GetNumAttached
  *
@@ -104,7 +107,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 592 $   $Date: 2006-10-22 03:49:12 -0400 (Sun, 22 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 594 $   $Date: 2006-10-22 15:12:13 -0400 (Sun, 22 Oct 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -781,7 +784,7 @@ void idActor::SetupHead( void ) {
 		headEnt->SetCombatModel();
 		head = headEnt;
 
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("SETBODY: AI %s : damage joint %d on is part of damage group %s\r", name.c_str(), (int) damageJoint, damageGroups[ damageJoint ].c_str() );
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("SETBODY: Actor %s : damage joint %d for attached head is part of damage group %s\r", name.c_str(), (int) damageJoint, GetDamageGroup( damageJoint ) );
 
 		idVec3		origin;
 		idMat3		axis;
@@ -2296,7 +2299,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	int	damage = damageDef->GetInt( "damage" ) * damageScale;
 	damage = GetDamageForLocation( damage, location );
 
-	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("AI %s received damage %d at joint %d, corresponding to damage group %s\r", name.c_str(), damage, location, damageGroups[ location ].c_str() );
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Actor %s received damage %d at joint %d, corresponding to damage group %s\r", name.c_str(), damage, (int) location, GetDamageGroup(location) );
 
 	// inform the attacker that they hit someone
 	attacker->DamageFeedback( this, inflictor, damage );
