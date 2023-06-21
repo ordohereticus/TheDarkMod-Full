@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1107 $
- * $Date: 2007-07-13 09:14:54 -0400 (Fri, 13 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1124 $
+ * $Date: 2007-07-14 23:00:30 -0400 (Sat, 14 Jul 2007) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1107 2007-07-13 13:14:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1124 2007-07-15 03:00:30Z joebarnin $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -30,6 +30,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1107 2007-07-13 
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/func_shooter.h"
+#include "../DarkMod/shop.h"
 
 #include "il/config.h"
 #include "il/il.h"
@@ -45,6 +46,7 @@ extern CRelations		g_globalRelations;
 extern CMissionData		g_MissionData;
 extern CsndPropLoader	g_SoundPropLoader;
 extern CsndProp			g_SoundProp;
+extern CShop				g_Shop;
 
 #define BUFFER_LEN 4096
 
@@ -2849,10 +2851,14 @@ const char* idGameLocal::HandleGuiCommands( const char *menuCommand ) {
 /*
 ================
 idGameLocal::HandleMainMenuCommands
+
+Currently the shop (purchase screen) is the only component that
+handles main menu commands.
 ================
 */
 void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui )
 {
+	g_Shop.HandleCommands(menuCommand, gui);
 }
 
 /*

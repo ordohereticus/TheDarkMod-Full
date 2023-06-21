@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1124 $
+ * $Date: 2007-07-14 23:00:30 -0400 (Sat, 14 Jul 2007) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -319,10 +319,10 @@ public:
 	bool m_bOngoing;
 
 	/**
-	* Sets the difficulty level of this objective. Objective only appears at and above this difficutly level
-	* TODO: Change to bitfield so objectives can also disappear at higher difficulties
+	* True if this objective applies to the current skill level. Otherwise
+	* the objective can be ignored.
 	**/
-	int m_MinDifficulty;
+	bool m_applies;
 
 protected:
 	/**

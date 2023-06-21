@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1016 $
- * $Date: 2007-06-10 13:40:55 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1124 $
+ * $Date: 2007-07-14 23:00:30 -0400 (Sat, 14 Jul 2007) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1016 2007-06-10 17:40:55Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1124 2007-07-15 03:00:30Z joebarnin $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -35,6 +35,7 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1016 2007-06
 #include "sndPropLoader.h"
 #include "sndProp.h"
 #include "Relations.h"
+#include "shop.h"
 #include "../game/ai/ai.h"
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
@@ -131,6 +132,7 @@ CsndPropLoader	g_SoundPropLoader;
 CsndProp		g_SoundProp;
 CRelations		g_globalRelations;
 CMissionData	g_MissionData;
+CShop			g_Shop;
 
 static idList<const char *> *s_FileVersion = NULL;
 
