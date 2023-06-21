@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 752 $
- * $Date: 2007-01-21 06:15:51 -0500 (Sun, 21 Jan 2007) $
+ * $Revision: 754 $
+ * $Date: 2007-01-21 07:23:18 -0500 (Sun, 21 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.47  2007/01/21 12:23:18  ishtvan
+ * removed lean debug output to console accidentally left in
+ *
  * Revision 1.46  2007/01/21 11:15:51  ishtvan
  * listening thru doors when leaning against them implemented
  *
@@ -176,7 +179,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 752 $   $Date: 2007-01-21 06:15:51 -0500 (Sun, 21 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 754 $   $Date: 2007-01-21 07:23:18 -0500 (Sun, 21 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4516,7 +4519,6 @@ bool idPhysics_Player::FindLeanDoorListenPos( idVec3 IncidencePoint, CFrobDoor *
 		// found empty space on other side of door
 		if( !( (contents & MASK_SOLID) > 0 ) )
 		{
-			gameLocal.Printf("Lean Into Door: Found empty space on other side of door.  Incidence point: %s Empty space point: %s \n", IncidencePoint.ToString(), vTest.ToString() );
 			DM_LOG(LC_MOVEMENT,LT_DEBUG)LOGSTRING("Lean Into Door: Found empty space on other side of door.  Incidence point: %s Empty space point: %s \r", IncidencePoint.ToString(), vTest.ToString() );
 			
 			bFoundEmptySpace = true;
