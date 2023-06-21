@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 900 $
- * $Date: 2007-04-12 16:18:10 -0400 (Thu, 12 Apr 2007) $
+ * $Revision: 901 $
+ * $Date: 2007-04-13 03:43:00 -0400 (Fri, 13 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 900 2007-04-12 20:18:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 901 2007-04-13 07:43:00Z greebo $", init_version);
 
 #include "../Game_local.h"
 
@@ -131,7 +131,7 @@ idCVar cv_tdm_inv_groupvis(	"tdm_inv_visibility", "1", CVAR_GAME | CVAR_ARCHIVE 
 idCVar cv_tdm_inv_opacity(	"tdm_inv_opacity", "1",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"The opacity of the inventory GUI. [0..1]", 0, 1 );
 idCVar cv_tdm_inv_fadein(	"tdm_inv_fade_in", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"Time it takes to fade in the inventory. 0 = immediately");
 idCVar cv_tdm_inv_fadeout(	"tdm_inv_fade_out", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"Time it takes to fade out the inventory. 0 = immediately");
-idCVar cv_tdm_inv_loot_sound("tdm_inv_loot_sound", "sound/meta/game/frob_loot.ogg",	CVAR_GAME | CVAR_ARCHIVE, "The name of the sound that is to be played when loot has been aquired.");
+idCVar cv_tdm_inv_loot_sound("tdm_inv_loot_sound", "frob_loot",	CVAR_GAME | CVAR_ARCHIVE, "The name of the sound that is to be played when loot has been aquired.");
 
 /**
 * DarkMod movement volumes.  Walking volume is zero dB, other volumes are added to that
