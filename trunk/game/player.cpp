@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 614 $
- * $Date: 2006-11-08 05:11:26 -0500 (Wed, 08 Nov 2006) $
+ * $Revision: 622 $
+ * $Date: 2006-11-30 04:16:03 -0500 (Thu, 30 Nov 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.92  2006/11/30 09:16:03  ishtvan
+ * leaning updates
+ *
  * Revision 1.91  2006/11/08 10:11:26  ishtvan
  * fixed bug in frob bounds generation
  *
@@ -300,7 +303,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 614 $   $Date: 2006-11-08 05:11:26 -0500 (Wed, 08 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 622 $   $Date: 2006-11-30 04:16:03 -0500 (Thu, 30 Nov 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -1540,7 +1543,9 @@ void idPlayer::LinkScriptVariables( void ) {
 	AI_TELEPORT.LinkTo(			scriptObject, "AI_TELEPORT" );
 	AI_TURN_LEFT.LinkTo(		scriptObject, "AI_TURN_LEFT" );
 	AI_TURN_RIGHT.LinkTo(		scriptObject, "AI_TURN_RIGHT" );
-
+	AI_LEAN_LEFT.LinkTo(		scriptObject, "AI_LEAN_LEFT" );
+	AI_LEAN_RIGHT.LinkTo(		scriptObject, "AI_LEAN_RIGHT" );
+	AI_LEAN_FORWARD.LinkTo(		scriptObject, "AI_LEAN_FORWARD" );
 	AI_CREEP.LinkTo(			scriptObject, "AI_CREEP" );
 }
 
@@ -1753,7 +1758,13 @@ void idPlayer::Init( void ) {
 	AI_TURN_LEFT	= false;
 	AI_TURN_RIGHT	= false;
 
+	AI_LEAN_LEFT	= false;
+	AI_LEAN_RIGHT	= false;
+	AI_LEAN_FORWARD	= false;
+
 	AI_CREEP		= false;
+
+
 
 	// reset the script object
 	ConstructScriptObject();
@@ -3221,6 +3232,10 @@ void idPlayer::EnterCinematic( void ) {
 	AI_TELEPORT		= false;
 	AI_TURN_LEFT	= false;
 	AI_TURN_RIGHT	= false;
+
+	AI_LEAN_LEFT	= false;
+	AI_LEAN_RIGHT	= false;
+	AI_LEAN_FORWARD	= false;
 
 	AI_CREEP		= false;
 }
