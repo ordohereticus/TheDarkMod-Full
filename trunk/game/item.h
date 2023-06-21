@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 10 $
+ * $Date: 2004-10-30 13:19:40 -0400 (Sat, 30 Oct 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:31  sparhawk
- * Initial revision
+ * Revision 1.2  2004/10/30 17:19:40  sparhawk
+ * Frob highlight added.
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -63,6 +66,7 @@ private:
 	bool					spin;
 	bool					pulse;
 	bool					canPickUp;
+	int						m_FrobDistance;
 
 	// for item pulse effect
 	int						itemShellHandle;
@@ -74,7 +78,7 @@ private:
 	mutable int				lastCycle;
 	mutable int				lastRenderViewTime;
 
-	bool					UpdateRenderEntity( renderEntity_s *renderEntity, const renderView_t *renderView ) const;
+	bool					UpdateRenderEntity( renderEntity_s *renderEntity, const renderView_t *renderView );
 	static bool				ModelCallback( renderEntity_s *renderEntity, const renderView_t *renderView );
 
 	void					Event_DropToFloor( void );
