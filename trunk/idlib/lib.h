@@ -2,11 +2,18 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 218 $
- * $Date: 2005-11-11 17:20:51 -0500 (Fri, 11 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 739 $
+ * $Date: 2007-01-19 20:37:41 -0500 (Fri, 19 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.3  2007/01/20 01:37:41  thelvyn
+ * Implemented Ctrl, Shift and Alt key detection.
+ * Right , Left supported for all. Also generic dont care if left or right functions.
+ * Testing is in place in playerview.cpp
+ * I reused #ifdef MOUSETEST as I still have the mouse code in there as well.
+ * You can what if any buttons are detected. Mouse L, R, M and for keyboard Left, Right or both of Ctrl, Shift and Alt
+ *
  * Revision 1.2  2005/11/11 22:17:26  sparhawk
  * SDK 1.3 Merge
  *
@@ -79,6 +86,14 @@ class idVec4;
 #ifndef BIT
 #define BIT( num )				( 1 << ( num ) )
 #endif
+
+/* Bit operations */
+#define BITCHK(flag,bit) (((flag)&(bit))==(bit)) /* if all the bits are set */
+#define BITANY(flag,bit) ((flag)&(bit)) /* if any bit is set */
+#define BITSET(flag,bit) flag|=(bit)
+#define BITCLR(flag,bit) flag&=(~(bit))
+#define BITFLIP(flag,bit) if (BIT( (flag),(bit) )) BITCLR( (flag),(bit) ); else BITSET( (flag),(bit) )
+
 
 #define	MAX_STRING_CHARS		1024		// max length of a string
 
