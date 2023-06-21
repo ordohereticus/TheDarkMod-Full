@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 923 $
- * $Date: 2007-04-21 09:24:36 -0400 (Sat, 21 Apr 2007) $
+ * $Revision: 925 $
+ * $Date: 2007-04-21 09:36:50 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 923 2007-04-21 13:24:36Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 925 2007-04-21 13:36:50Z orbweaver $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -76,6 +76,13 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 923 2007-04-
 #define DEFAULT_LIGHTING_QUOTIENT_OBSERVATION_DISTANCE_SCALE 450.0
 
 class idAI;
+
+// Name of the logfile to use for Dark Mod logging
+#ifdef __linux__
+const char* DARKMOD_LOGFILE = "/tmp/DarkMod.log";
+#else
+const char* DARKMOD_LOGFILE = "c:\\d3modlogger.log";
+#endif
 
 static char *LTString[LT_COUNT+1] = {
 	"INI",
@@ -192,7 +199,7 @@ CGlobal::CGlobal(void)
 
 	m_LogFile = NULL;
 
-	if((m_LogFile = fopen("c:\\d3modlogger.log", "w+b")) != NULL)
+	if((m_LogFile = fopen(DARKMOD_LOGFILE, "w+b")) != NULL)
 		DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Initialzing mod logging\r");
 
 	// initialize the AI Acuities hash
@@ -409,7 +416,7 @@ void CGlobal::LogString(char *fmt, ...)
 	va_list arg;
 	va_start(arg, fmt);
 
-	fprintf(m_LogFile, "[%s (%4u):%s (%s) FR: %4u] ", m_Filename, m_Linenumber, LTString[lt], LCString[lc], m_Frame);
+	fprintf(m_LogFile, "[%s (%4u):%s (%s) FR: %4lu] ", m_Filename, m_Linenumber, LTString[lt], LCString[lc], m_Frame);
 	vfprintf(m_LogFile, fmt, arg);
 	fprintf(m_LogFile, "\n");
 	fflush(m_LogFile);
