@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $
- * $Revision: 831 $
- * $Date: 2007-03-07 15:24:55 -0500 (Wed, 07 Mar 2007) $
+ * $Revision: 833 $
+ * $Date: 2007-03-07 15:41:08 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  * DESCRIPTION: This file contains the inventory handling for TDM. The inventory 
@@ -44,7 +44,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $  $Revision: 831 $   $Date: 2007-03-07 15:24:55 -0500 (Wed, 07 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: tdmInventory.cpp 833 2007-03-07 20:41:08Z sparhawk $", init_version);
 
 #include "../game/Game_local.h"
 

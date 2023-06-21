@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 823 $
- * $Date: 2007-03-04 11:14:19 -0500 (Sun, 04 Mar 2007) $
+ * $Revision: 833 $
+ * $Date: 2007-03-07 15:41:08 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -39,6 +39,7 @@ const int	LAND_RETURN_TIME = 300;
 const int	FOCUS_TIME = 300;
 const int	FOCUS_GUI_TIME = 500;
 
+#define TDM_PLAYER_WEAPON_CATEGORY			"Weapons"
 const int MAX_WEAPONS = 16;
 
 const int DEAD_HEARTRATE = 0;			// fall to as you die
@@ -356,6 +357,9 @@ public:
 
 	idDragEntity			dragEntity;
 
+	// A pointer to our weaponslot.
+	CInventoryCursor		*m_WeaponCursor;
+
 public:
 	CLASS_PROTOTYPE( idPlayer );
 
@@ -364,6 +368,7 @@ public:
 
 	void					Spawn( void );
 	void					Think( void );
+	void					SetupInventory();
 
 	// save games
 	void					Save( idSaveGame *savefile ) const;					// archives object for save game file

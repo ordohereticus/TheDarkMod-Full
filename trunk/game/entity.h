@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 820 $
- * $Date: 2007-03-04 10:49:41 -0500 (Sun, 04 Mar 2007) $
+ * $HeadURL$
+ * $Revision: 833 $
+ * $Date: 2007-03-07 15:41:08 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -828,7 +828,7 @@ private:
 	// A pointer to our item, so that we can be added/removed to/from inventories.
 	CInventoryItem			*m_InventoryItem;
 
-	/// A pointer to our cursor - the cursor is for arbitrary use, and may not point to our own inventory.
+	// A pointer to our cursor - the cursor is for arbitrary use, and may not point to our own inventory.
 	CInventoryCursor		*m_InventoryCursor;
 
 private:
