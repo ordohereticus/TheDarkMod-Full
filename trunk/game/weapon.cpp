@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 486 $
+ * $Date: 2006-07-14 22:15:46 -0400 (Fri, 14 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.10  2006/07/15 02:15:46  ishtvan
+ * surface type name fix
+ *
  * Revision 1.9  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -42,7 +45,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 486 $   $Date: 2006-07-14 22:15:46 -0400 (Fri, 14 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -3055,17 +3058,18 @@ void idWeapon::Event_Melee( void ) {
 				} else 
 				{
 
-					const char *materialType;
+					idStr materialType;
 					int type = tr.c.material->GetSurfaceType();
 
 					if ( type == SURFTYPE_NONE ) 
 						materialType = gameLocal.sufaceTypeNames[ GetDefaultSurfaceType() ];
 					else
-						materialType = g_Global.GetSurfName( tr.c.material );
+						g_Global.GetSurfName( tr.c.material, materialType );
 
 					// start impact sound based on material type
-					hitSound = meleeDef->dict.GetString( va( "snd_%s", materialType ) );
-					if ( *hitSound == '\0' ) {
+					hitSound = meleeDef->dict.GetString( va( "snd_%s", materialType.c_str() ) );
+					if ( *hitSound == '\0' ) 
+					{
 						hitSound = meleeDef->dict.GetString( "snd_metal" );
 					}
 
