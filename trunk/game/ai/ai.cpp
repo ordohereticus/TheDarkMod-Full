@@ -1,10 +1,20 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Source$
+ * $Revision: 826 $
+ * $Date: 2007-03-05 02:55:01 -0500 (Mon, 05 Mar 2007) $
+ * $Author: crispy $
+ *
+ ***************************************************************************/
+
 // Copyright (C) 2004 Id Software, Inc.
 //
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 810 $   $Date: 2007-03-03 22:02:24 -0500 (Sat, 03 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 826 $   $Date: 2007-03-05 02:55:01 -0500 (Mon, 05 Mar 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
