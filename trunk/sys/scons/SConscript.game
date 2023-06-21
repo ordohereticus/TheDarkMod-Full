@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 922 $
-#* $Date: 2007-04-21 06:24:32 -0400 (Sat, 21 Apr 2007) $
+#* $Revision: 972 $
+#* $Date: 2007-05-04 14:56:36 -0400 (Fri, 04 May 2007) $
 #* $Author: orbweaver $
 #*
 #* $Log$
@@ -119,6 +119,7 @@ decltdm_matinfo.cpp \
 declxdata.cpp \
 fdchar.cpp \
 force_grab.cpp \
+func_shooter.cpp \
 FrobDoor.cpp \
 FrobDoorHandle.cpp \
 Grabber.cpp \
