@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 953 $
- * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
+ * $Revision: 956 $
+ * $Date: 2007-05-02 17:53:38 -0400 (Wed, 02 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 953 2007-05-02 11:17:48Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 956 2007-05-02 21:53:38Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -74,6 +74,8 @@ CFrobDoor::CFrobDoor(void)
 	m_DoubleDoor = NULL;
 	m_Doorhandle = NULL;
 	m_PickTimer = new CStimResponseTimer();
+	m_PickTimer->SetTicks(sys->ClockTicksPerSecond()/1000);
+	m_PickTimer->SetReload(-1);			// We want to reload the timer infinitely, but not automatically.
 }
 
 CFrobDoor::~CFrobDoor(void)
@@ -457,8 +459,44 @@ bool CFrobDoor::UsedBy(bool bInit, idEntity *ent)
 	// Process the lockpick
 	if(type != 0)
 	{
-		if(m_PickTimer->GetState() != CStimResponseTimer::SRTS_RUNNING)
+		idStr oPickSound = "lockpick_pin_01";
+		int length = 0;
+
+		if(bInit == true)
 		{
+			gameLocal.m_Timer.AddUnique(m_PickTimer);
+
+			// Stop the timer and restart it.
+			m_PickTimer->Stop();
+			m_PickTimer->Reset();
+			// The length of a soundfile is one second.
+			DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Lockpicktimer started\r");
+			PropSoundDirect(oPickSound, true, false );
+			idSoundShader const *shader = declManager->FindSound(oPickSound);
+			StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
+			m_PickTimer->SetTimer(0, 0, 0, length+50);
+			m_PickTimer->Start(static_cast<unsigned long>(sys->GetClockTicks()));
+		}
+		else
+		{
+			//if(m_PickTimer->GetState() != CStimResponseTimer::SRTS_RUNNING)
+			if(m_PickTimer->WasExpired())
+			{
+				TimerValue v;
+				m_PickTimer->MakeTime(v, sys->GetClockTicks());
+				PropSoundDirect(oPickSound, true, false );
+				idSoundShader const *shader = declManager->FindSound(oPickSound);
+				StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
+				DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Lockpicktimer expired %02u:%02u:%02u.%u  (%u)\r", v.Time.Hour, v.Time.Minute, v.Time.Second, v.Time.Millisecond, length);
+				m_PickTimer->Stop();
+				m_PickTimer->Reset();
+				m_PickTimer->SetTimer(0, 0, 0, length+50);
+				m_PickTimer->Start(static_cast<unsigned long>(sys->GetClockTicks()));
+			}
+
+			// If the door has been successfully picked, we can remove the timer
+			// from gamelocal because it is no longer needed there.
+			//gameLocal.m_Timer.Remove(m_PickTimer);
 		}
 	}
 
