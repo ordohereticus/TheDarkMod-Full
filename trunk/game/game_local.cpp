@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1133 $
- * $Date: 2007-07-18 05:41:45 -0400 (Wed, 18 Jul 2007) $
+ * $Revision: 1140 $
+ * $Date: 2007-07-18 13:33:15 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1133 2007-07-18 09:41:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1140 2007-07-18 17:33:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1597,6 +1597,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_LightgemSurface->GetRenderEntity()->noSelfShadow = true;
 	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface);
 
+	//FIX: Set the walkspeed back to the stored value.
+	pm_walkspeed.SetFloat( m_walkSpeed );
+
 	Printf( "--------------------------------------\n" );
 
 	return true;
@@ -1698,6 +1701,9 @@ void idGameLocal::MapShutdown( void ) {
 	gameSoundWorld = NULL;
 
 	gamestate = GAMESTATE_NOMAP;
+
+	// Save the current walkspeed
+	m_walkSpeed = pm_walkspeed.GetFloat();
 
 	Printf( "--------------------------------------\n" );
 }
