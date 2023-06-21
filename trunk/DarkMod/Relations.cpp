@@ -16,12 +16,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 268 $
- * $Date: 2005-12-04 17:48:53 -0500 (Sun, 04 Dec 2005) $
+ * $Revision: 269 $
+ * $Date: 2005-12-04 17:52:45 -0500 (Sun, 04 Dec 2005) $
  * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.9  2005/12/04 22:52:45  ishtvan
+ * forgot to re-comment some logs that badly spam the logfile
+ *
  * Revision 1.8  2005/12/04 22:48:53  ishtvan
  * *) fixed bug in setting m_bMatFailed
  *
@@ -113,7 +116,7 @@ int CRelations::GetRelNum(int i, int j)
 	int *pval;
 
 	// uncomment for debugging of relationship checks
-	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Checking relationship matrix for team %d towards team %d.\r", i, j);
+	// DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Checking relationship matrix for team %d towards team %d.\r", i, j);
 	
 	// return the default and don't attempt to check the matrix if it failed to load
 	if( m_bMatFailed )
@@ -131,7 +134,7 @@ int CRelations::GetRelNum(int i, int j)
 	if ( pval == NULL )
 	{
 		// uncomment for reporting errors when doing relationship checks
-		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Bad indices used to query relationship matrix: %d, col: %d.\r", i, j);
+		// DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Bad indices used to query relationship matrix: %d, col: %d.\r", i, j);
 		
 		returnval = s_DefaultRelation;
 		goto Quit;
