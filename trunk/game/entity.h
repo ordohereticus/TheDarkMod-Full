@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 833 $
- * $Date: 2007-03-07 15:41:08 -0500 (Wed, 07 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 859 $
+ * $Date: 2007-03-21 05:23:15 -0400 (Wed, 21 Mar 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -227,7 +227,13 @@ public:
 	* Effectively biases the frob selection toward this object.  Used for small objects
 	* To make them easier to frob when placed next to large objects.
 	**/
-	float						m_FrobBias;
+	float					m_FrobBias;
+
+	/**
+	* Set to true if this entity is a climbable rope.  This could be set on either
+	* static ropes or AF entities, so it makes sense to let all entities have this var
+	**/
+	bool					m_bIsClimbableRope;
 
 public:
 	ABSTRACT_PROTOTYPE( idEntity );

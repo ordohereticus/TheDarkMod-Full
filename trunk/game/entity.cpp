@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 841 $
- * $Date: 2007-03-15 15:33:37 -0400 (Thu, 15 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 859 $
+ * $Date: 2007-03-21 05:23:15 -0400 (Wed, 21 Mar 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 841 2007-03-15 19:33:37Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 859 2007-03-21 09:23:15Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -608,6 +608,7 @@ idEntity::idEntity()
 	m_FrobChangeTime = 0;
 	m_FrobPeerFloodFrame = 0;
 	m_bIsObjective = false;
+	m_bIsClimbableRope = false;
 
 	// We give all the entities a Stim/Response collection so that we wont have to worry
 	// about the pointer being available all the time. The memory footprint of that 
@@ -3190,10 +3191,12 @@ bool idEntity::RunPhysics( void ) {
 
 	// enable the whole team for collision detection
 	for ( part = this; part != NULL; part = part->teamChain ) {
-		if ( part->physics ) {
-			if ( !part->fl.solidForTeam ) {
+		if ( part->physics ) 
+		{
+// Ish: I think Id screwed up here, but am not positive
+			// if ( !part->fl.solidForTeam ) {
 				part->physics->EnableClip();
-			}
+			// }
 		}
 	}
 
@@ -6281,6 +6284,8 @@ void idEntity::LoadTDMSettings(void)
 		ParseUsedByList(m_UsedBy, str);
 
 	m_bIsObjective = spawnArgs.GetBool( "objective_ent", "0" );
+
+	m_bIsClimbableRope = spawnArgs.GetBool( "is_climbable_rope", "0" );
 
 	DM_LOG(LC_FROBBING, LT_INFO)LOGSTRING("[%s] this: %08lX FrobDistance: %u\r", name.c_str(), this, m_FrobDistance);
 }
