@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1069 $
+ * $Date: 2007-07-06 16:29:23 -0400 (Fri, 06 Jul 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -373,7 +373,12 @@ public:
 extern idVec3 vec3_origin;
 #define vec3_zero vec3_origin
 
-ID_INLINE idVec3::idVec3( void ) {
+// Default constructor
+ID_INLINE idVec3::idVec3( void ):
+	x(0.0f), // OrbWeaver: let's not leave stuff uninitialised
+	y(0.0f),
+	z(0.0f)
+{
 }
 
 ID_INLINE idVec3::idVec3( const float x, const float y, const float z ) {

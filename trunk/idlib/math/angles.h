@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1069 $
+ * $Date: 2007-07-06 16:29:23 -0400 (Fri, 06 Jul 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -86,7 +86,10 @@ public:
 
 extern idAngles ang_zero;
 
-ID_INLINE idAngles::idAngles( void ) {
+// Default constructor
+ID_INLINE idAngles::idAngles( void )
+: pitch(0), yaw(0), roll(0)
+{
 }
 
 ID_INLINE idAngles::idAngles( float pitch, float yaw, float roll ) {
