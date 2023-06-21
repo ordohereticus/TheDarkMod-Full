@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1029 $
- * $Date: 2007-06-11 18:14:02 -0400 (Mon, 11 Jun 2007) $
- * $Author: ishtvan $
+ * $Revision: 1105 $
+ * $Date: 2007-07-13 08:34:25 -0400 (Fri, 13 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1029 2007-06-11 22:14:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1105 2007-07-13 12:34:25Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -913,7 +913,7 @@ void idObjective::Event_Trigger( idEntity *activator )
 				player->hud->SetStateString( "objective", "1" );
 				player->hud->SetStateString( "objectivetext", spawnArgs.GetString( "objectivetext" ) );
 				player->hud->SetStateString( "objectivetitle", spawnArgs.GetString( "objectivetitle" ) );
-				player->GiveObjective( spawnArgs.GetString( "objectivetitle" ), spawnArgs.GetString( "objectivetext" ), shotName );
+				//player->GiveObjective( spawnArgs.GetString( "objectivetitle" ), spawnArgs.GetString( "objectivetext" ), shotName );
 
 				// a tad slow but keeps from having to update all objectives in all maps with a name ptr
 				for( int i = 0; i < gameLocal.num_entities; i++ )
@@ -1525,7 +1525,7 @@ void idObjectiveComplete::Event_Trigger( idEntity *activator ) {
 				player->hud->SetStateString( "objective", "2");
 				player->hud->SetStateString( "objectivetext", spawnArgs.GetString( "objectivetext" ) );
 				player->hud->SetStateString( "objectivetitle", spawnArgs.GetString( "objectivetitle" ) );
-				player->CompleteObjective( spawnArgs.GetString( "objectivetitle" ) );
+				//player->CompleteObjective( spawnArgs.GetString( "objectivetitle" ) );
 				PostEventMS( &EV_GetPlayerPos, 2000 );
 			}
 		}

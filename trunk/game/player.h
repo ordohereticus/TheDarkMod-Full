@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1104 $
- * $Date: 2007-07-13 08:19:47 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1105 $
+ * $Date: 2007-07-13 08:34:25 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -68,12 +68,6 @@ const int ASYNC_PLAYER_INV_CLIP_BITS = -7;								// -7 bits to cover the range 
 struct idItemInfo {
 	idStr name;
 	idStr icon;
-};
-
-struct idObjectiveInfo {
-	idStr title;
-	idStr text;
-	idStr screenshot;
 };
 
 struct idLevelTriggerInfo {
@@ -163,7 +157,6 @@ public:
 	int						nextItemNum;
 	int						onePickupTime;
 	idList<idItemInfo>		pickupItemNames;
-	idList<idObjectiveInfo>	objectiveNames;
 };
 
 typedef struct {
@@ -482,8 +475,6 @@ public:
 	void					GiveVideo( const char *videoName, idDict *item );
 	void					GiveEmail( const char *emailName );
 	void					GiveSecurity( const char *security );
-	void					GiveObjective( const char *title, const char *text, const char *screenshot );
-	void					CompleteObjective( const char *title );
 
 	bool					GivePowerUp( int powerup, int time );
 	float					PowerUpModifier( int type );
@@ -874,7 +865,6 @@ private:
 	void					UpdatePDAInfo( bool updatePDASel );
 	int						AddGuiPDAData( const declType_t dataType, const char *listName, const idDeclPDA *src, idUserInterface *gui );
 	void					ExtractEmailInfo( const idStr &email, const char *scan, idStr &out );
-	void					UpdateObjectiveInfo( void );
 
 	void					UseVehicle( void );
 
