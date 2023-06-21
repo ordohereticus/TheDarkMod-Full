@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 709 $
- * $Date: 2007-01-07 19:46:33 -0500 (Sun, 07 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 716 $
+ * $Date: 2007-01-11 19:02:31 -0500 (Thu, 11 Jan 2007) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.84  2007/01/12 00:02:31  gildoran
+ * Added inPVS() script event.
+ *
  * Revision 1.83  2007/01/08 00:46:33  ishtvan
  * *) Added GetTeamChildren
  * *) Added script support for getting number of bind children ents and a particular bind child
@@ -289,7 +292,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 709 $   $Date: 2007-01-07 19:46:33 -0500 (Sun, 07 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 716 $   $Date: 2007-01-11 19:02:31 -0500 (Thu, 11 Jan 2007) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -377,6 +380,8 @@ const idEventDef EV_StartFx( "startFx", "s" );
 const idEventDef EV_HasFunction( "hasFunction", "s", 'd' );
 const idEventDef EV_CallFunction( "callFunction", "s" );
 const idEventDef EV_SetNeverDormant( "setNeverDormant", "d" );
+
+const idEventDef EV_InPVS( "inPVS", NULL, 'd' );
 
 const idEventDef EV_SetGui( "setGui", "ds" );
 const idEventDef EV_GetGui( "getGui", "d", 's' );
@@ -516,6 +521,8 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_HasFunction,			idEntity::Event_HasFunction )
 	EVENT( EV_CallFunction,			idEntity::Event_CallFunction )
 	EVENT( EV_SetNeverDormant,		idEntity::Event_SetNeverDormant )
+
+	EVENT( EV_InPVS,				idEntity::Event_InPVS )
 
 	EVENT( EV_SetGui,				idEntity::Event_SetGui )
 	EVENT( EV_GetGui,				idEntity::Event_GetGui )
@@ -6877,6 +6884,18 @@ void idEntity::Event_PropSound( const char *sndName )
 void idEntity::Event_PropSoundMod( const char *sndName, float VolModIn )
 {
 	PropSoundDirect( sndName, false, false, VolModIn );
+}
+
+/*
+================
+idEntity::Event_InPVS
+
+Returns non-zero if this entity is in the player's PVS, zero otherwise.
+================
+*/
+void idEntity::Event_InPVS()
+{
+	idThread::ReturnFloat( gameLocal.InPlayerPVS( this ) );
 }
 
 /*

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 709 $
- * $Date: 2007-01-07 19:46:33 -0500 (Sun, 07 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 716 $
+ * $Date: 2007-01-11 19:02:31 -0500 (Thu, 11 Jan 2007) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.51  2007/01/12 00:02:31  gildoran
+ * Added inPVS() script event.
+ *
  * Revision 1.50  2007/01/08 00:46:33  ishtvan
  * *) Added GetTeamChildren
  * *) Added script support for getting number of bind children ents and a particular bind child
@@ -999,6 +1002,8 @@ private:
 	void					Event_HasFunction( const char *name );
 	void					Event_CallFunction( const char *name );
 	void					Event_SetNeverDormant( int enable );
+
+	void					Event_InPVS( void );
 
 	void					Event_SetGui( int handle, const char *guiFile );
 	void					Event_GetGui( int handle );
