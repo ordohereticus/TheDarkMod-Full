@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 258 $
- * $Date: 2005-12-02 13:21:29 -0500 (Fri, 02 Dec 2005) $
- * $Author: lloyd $
+ * $Revision: 527 $
+ * $Date: 2006-08-04 06:53:26 -0400 (Fri, 04 Aug 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.2  2006/08/04 10:53:26  ishtvan
+ * preliminary grabber fixes
+ *
  * Revision 1.1  2005/12/02 18:21:29  lloyd
  * Initial release
  *
@@ -58,16 +61,20 @@ class CForce_Grab : public idForce {
 	private:
 
 		// properties
-		float				damping;
+		float				m_damping;
 
 		// physics object properties
-		idVec3				centerOfMass;
+		idVec3				m_centerOfMass;
 
 		// positioning
-		idPhysics *			physics;		// physics object
-		idVec3				p;				// position on clip model
-		int					id;				// clip model id of physics object
-		idVec3				dragPosition;	// drag towards this position
+		idPhysics *			m_physics;		// physics object
+		idVec3				m_p;				// position on clip model
+		int					m_id;				// clip model id of physics object
+		idVec3				m_dragPosition;	// drag towards this position
+		/**
+		* Origin of the dragged entity in the previous frame
+		**/
+		idVec3				m_prevOrigin;
 };
 
 #endif /* !__FORCE_GRAB_H__ */
