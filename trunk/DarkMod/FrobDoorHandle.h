@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 512 $
- * $Date: 2006-07-27 16:30:40 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 581 $
+ * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.2  2006/10/03 13:13:39  sparhawk
+ * Changes for door handles
+ *
  * Revision 1.1  2006/07/27 20:30:40  sparhawk
  * Initial release. Just the skeleton of the spawnable CFrobDoorHandle class.
  *
@@ -19,6 +22,8 @@
 #ifndef FROBDOORHANDLE_H
 #define FROBDOORHANDLE_H
 
+class CFrobDoor;
+
 /**
  * CFrobDoorHandle is the complement for CFrobDoors. This is
  * quite similar to the doors itself, because they are attached
@@ -29,6 +34,8 @@
  */
 class CFrobDoorHandle : public CBinaryFrobMover {
 public:
+	friend CFrobDoor;
+
 	CLASS_PROTOTYPE( CFrobDoorHandle );
 
 							CFrobDoorHandle( void );
@@ -53,20 +60,18 @@ public:
 	CFrobDoor				*FindDoor(idStr &Doorname);
 
 	/**
-	* Overloading idMover::DoneRotating in order to close the portal when door closes
-	**/
-	void					DoneRotating( void );
-
-	/**
-	 *
+	 * Functions that must be forwarded to the door.
 	 */
-	void					DoneMoving(void);
+	void					SetFrobbed(bool val);
+	bool					IsFrobbed(void);
+	bool					UsedBy(idEntity *);
 
 protected:
 	/**
 	* Pointer to the door that is associated with this handle
 	**/
-	CFrobDoor					*m_Door;
+	CFrobDoor				*m_Door;
+	bool					m_FrobLock;
 
 private:
 };

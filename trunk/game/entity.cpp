@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 577 $
- * $Date: 2006-09-21 20:34:29 -0400 (Thu, 21 Sep 2006) $
- * $Author: gildoran $
+ * $Revision: 581 $
+ * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.72  2006/10/03 13:13:33  sparhawk
+ * Changes for door handles
+ *
  * Revision 1.71  2006/09/22 00:34:29  gildoran
  * Made setGui() scriptevent clear a GUI's state before loading a new file into it.
  *
@@ -251,7 +254,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 577 $   $Date: 2006-09-21 20:34:29 -0400 (Thu, 21 Sep 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 581 $   $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $", init_version);
 
 #pragma warning(disable : 4533 )
 
@@ -6442,6 +6445,8 @@ void idEntity::FrobHighlight( bool bVal )
 			ent->FrobHighlight( bVal );
 	}
 
+	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Entity [%s] is highlighted\r", name.c_str());
+
 Quit:
 	return;
 }
@@ -6455,7 +6460,6 @@ void idEntity::UpdateFrobDisplay( void )
 		goto Quit;
 
 	TimePassed = ( gameLocal.time - m_FrobChangeTime );
-
 	
 	if( m_bFrobHighlightState )
 		param += (float) TimePassed / (float) cv_frob_fadetime.GetInteger();

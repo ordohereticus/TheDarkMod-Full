@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 571 $
- * $Date: 2006-09-18 09:38:13 -0400 (Mon, 18 Sep 2006) $
- * $Author: gildoran $
+ * $Revision: 581 $
+ * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.44  2006/10/03 13:13:33  sparhawk
+ * Changes for door handles
+ *
  * Revision 1.43  2006/09/18 13:37:51  gildoran
  * Added the first version of a unified interface for GUIs.
  *
@@ -614,13 +617,13 @@ public:
 	/**
 	* Toggle whether the entity has been frobbed.  Should ONLY be called by idPlayer::CheckFrob
 	**/
-	void SetFrobbed( bool val );
+	virtual void SetFrobbed( bool val );
 
 	/**
 	* Return whether the entity is currently frobbed.
 	* Should be false at the beginning of the frame
 	**/
-	bool IsFrobbed( void );
+	virtual bool IsFrobbed( void );
 
 	/**
 	* DarkMod sound prop functions (called by StartSound and StopSound)

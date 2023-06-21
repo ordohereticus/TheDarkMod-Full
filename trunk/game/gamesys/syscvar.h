@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 555 $
- * $Date: 2006-08-15 11:48:35 -0400 (Tue, 15 Aug 2006) $
- * $Author: gildoran $
+ * $Revision: 581 $
+ * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.25  2006/10/03 13:13:45  sparhawk
+ * Changes for door handles
+ *
  * Revision 1.24  2006/08/15 15:48:28  gildoran
  * Another inventory related change.
  *
@@ -143,6 +146,7 @@ extern idCVar cv_lg_debug;
 extern idCVar cv_lg_model;
 extern idCVar cv_lg_adjust;
 extern idCVar cv_lg_split;
+extern idCVar cv_lg_path;
 
 extern idCVar cv_dm_distance;
 

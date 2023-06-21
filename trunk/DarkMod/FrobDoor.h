@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 472 $
- * $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $
- * $Author: ishtvan $
+ * $Revision: 581 $
+ * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.17  2006/10/03 13:13:39  sparhawk
+ * Changes for door handles
+ *
  * Revision 1.16  2006/06/27 08:48:45  ishtvan
  * fixed closing of portals more cleanly
  *
@@ -70,6 +73,8 @@
 
 #ifndef FROBDOOR_H
 #define FROBDOOR_H
+
+class CFrobDoorHandle;
 
 /**
  * CFrobDoor is a replacement for idDoor. The reason for this replacement is
@@ -135,6 +140,14 @@ public:
 	**/
 	void					ClosePortal( void );
 
+	void					SetDoorhandle(CFrobDoorHandle *);
+	void					SetFrobbed(bool val);
+	bool					IsFrobbed(void);
+
+	void					DoneStateChange(void);
+	void					ToggleOpen(void);
+	void					ToggleLock(void);
+
 protected:
 	/**
 	 * LinkedOpen will point to a door that is to be switched when this
@@ -175,6 +188,11 @@ protected:
 	*	it could be independently opened.
 	**/
 	CFrobDoor					*m_DoubleDoor;
+
+	/**
+	 * Handle that is associated with this door, if the door has one.
+	 */
+	CFrobDoorHandle				*m_Doorhandle;
 
 private:
 };
