@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1102 $
- * $Date: 2007-07-13 06:18:26 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1109 $
+ * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1102 2007-07-13 10:18:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -716,11 +716,6 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 
 	if ( idStr::Icmp( name, "pda" ) == 0 ) {
 		player->GivePDA( args.Argv(2), NULL );
-		return;
-	}
-
-	if ( idStr::Icmp( name, "video" ) == 0 ) {
-		player->GiveVideo( args.Argv(2), NULL );
 		return;
 	}
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1085 $
- * $Date: 2007-07-12 10:21:00 -0400 (Thu, 12 Jul 2007) $
+ * $Revision: 1109 $
+ * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1085 2007-07-12 14:21:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -4064,20 +4064,6 @@ bool idEntity::HandleGuiCommands( idEntity *entityGui, const char *cmds ) {
 				ret = true;
 				continue;
 			}
-
-			if ( !token.Icmp( "turkeyscore" ) ) {
-				if ( src.ReadToken( &token2 ) && entityGui->renderEntity.gui[0] ) {
-					int score = entityGui->renderEntity.gui[0]->State().GetInt( "score" );
-					score += atoi( token2 );
-					entityGui->renderEntity.gui[0]->SetStateInt( "score", score );
-					if ( gameLocal.GetLocalPlayer() && score >= 25000 && !gameLocal.GetLocalPlayer()->inventory.turkeyScore ) {
-						gameLocal.GetLocalPlayer()->GiveEmail( "highScore" );
-						gameLocal.GetLocalPlayer()->inventory.turkeyScore = true;
-					}
-				}
-				continue;
-			}
-
 
 			// handy for debugging GUI stuff
 			if ( !token.Icmp( "print" ) ) {

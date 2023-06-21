@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1107 $
- * $Date: 2007-07-13 09:14:54 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1109 $
+ * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1107 2007-07-13 13:14:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -995,7 +995,7 @@ idVideoCDItem::GiveToPlayer
 bool idVideoCDItem::GiveToPlayer( idPlayer *player ) {
 	idStr str = spawnArgs.GetString( "video" );
 	if ( player && str.Length() ) {
-		player->GiveVideo( str, &spawnArgs );
+		//player->GiveVideo( str, &spawnArgs );
 	}
 	return true;
 }

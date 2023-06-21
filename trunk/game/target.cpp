@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1109 $
+ * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -644,7 +644,7 @@ void idTarget_GiveEmail::Event_Activate( idEntity *activator ) {
 	idPlayer *player = gameLocal.GetLocalPlayer();
 	const idDeclPDA *pda = player->GetPDA();
 	if ( pda ) {
-		player->GiveEmail( spawnArgs.GetString( "email" ) );
+		//player->GiveEmail( spawnArgs.GetString( "email" ) );
 	} else {
 		player->ShowTip( spawnArgs.GetString( "text_infoTitle" ), spawnArgs.GetString( "text_PDANeeded" ), true );
 	}
@@ -1610,7 +1610,7 @@ idTarget_GiveEmail::Event_Activate
 void idTarget_GiveSecurity::Event_Activate( idEntity *activator ) {
 	idPlayer *player = gameLocal.GetLocalPlayer();
 	if ( player ) {
-		player->GiveSecurity( spawnArgs.GetString( "text_security" ) );
+		//player->GiveSecurity( spawnArgs.GetString( "text_security" ) );
 	}
 }
 

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1108 $
- * $Date: 2007-07-13 09:22:35 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1109 $
+ * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -119,16 +119,9 @@ public:
 	int						pdasViewed[4]; // 128 bit flags for indicating if a pda has been viewed
 
 	int						selPDA;
-	int						selEMail;
-	int						selVideo;
-	int						selAudio;
 	bool					pdaOpened;
-	bool					turkeyScore;
 	idList<idDict *>		items;
 	idStrList				pdas;
-	idStrList				pdaSecurity;
-	idStrList				videos;
-	idStrList				emails;
 
 							idInventory() { Clear(); }
 							~idInventory() { Clear(); }
@@ -456,9 +449,6 @@ public:
 	void					GiveHealthPool( float amt );
 	
 	void					GivePDA( const char *pdaName, idDict *item );
-	void					GiveVideo( const char *videoName, idDict *item );
-	void					GiveEmail( const char *emailName );
-	void					GiveSecurity( const char *security );
 
 	bool					GivePowerUp( int powerup, int time );
 	float					PowerUpModifier( int type );
@@ -529,7 +519,6 @@ public:
 	void					RouteGuiMouse( idUserInterface *gui );
 	void					UpdateHud( void );
 	const idDeclPDA *		GetPDA( void ) const;
-	const idDeclVideo *		GetVideo( int index );
 	void					SetInfluenceFov( float fov );
 	void					SetInfluenceView( const char *mtr, const char *skinname, float radius, idEntity *ent );
 	void					SetInfluenceLevel( int level );
