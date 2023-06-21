@@ -1,20 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 166 $
- * $Date: 2005-09-23 23:17:53 -0400 (Fri, 23 Sep 2005) $
- * $Author: lloyd $
- *
- * $Log$
- * Revision 1.3  2005/09/24 03:17:53  lloyd
- * Restored file to it's original state
- *
- * Revision 1.2  2005/09/17 00:32:29  lloyd
- * added copyBind event and arrow sticking functionality (additions to Projectile and modifications to idEntity::RemoveBind
- *
- * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

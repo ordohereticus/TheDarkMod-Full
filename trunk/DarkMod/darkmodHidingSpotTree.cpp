@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /*!
 * Implementation of the darkmod hiding spot tree.
 *
@@ -9,6 +17,8 @@
 // Includes
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "darkmodHidingSpotTree.h"
 

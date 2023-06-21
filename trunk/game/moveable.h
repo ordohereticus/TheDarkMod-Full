@@ -1,17 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 344 $
- * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
- * $Author: ishtvan $
- *
- * $Log$
- * Revision 1.2  2006/02/05 07:12:14  ishtvan
- * redefined function Damage to take additional trace pointer argument
- *
- * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

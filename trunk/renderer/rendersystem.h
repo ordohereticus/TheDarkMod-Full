@@ -1,21 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 734 $
- * $Date: 2007-01-19 04:01:24 -0500 (Fri, 19 Jan 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.3  2007/01/19 09:01:24  thelvyn
- * font externs
- * PrintMessage def
- *
- * Revision 1.2  2005/11/11 22:42:32  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.1.1.1  2004/10/30 15:52:34  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

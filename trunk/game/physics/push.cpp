@@ -1,20 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 698 $
- * $Date: 2007-01-02 23:16:06 -0500 (Tue, 02 Jan 2007) $
- * $Author: ishtvan $
- *
- * $Log$
- * Revision 1.3  2007/01/03 04:16:06  ishtvan
- * added optional impulse modifier argument to ClipTranslationalPush
- *
- * Revision 1.2  2006/06/21 13:07:08  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -24,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 698 $   $Date: 2007-01-02 23:16:06 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: push.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "../Game_local.h"
 

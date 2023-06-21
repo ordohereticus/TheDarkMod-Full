@@ -1,26 +1,17 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /*
 * Implementation of the CAIComm_Message class.
 *
 * Copyright 2006: Damon Hill (sophisticatedZombie), USA
 *
 */
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.4  2006/06/21 13:05:31  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.3  2006/05/19 19:56:50  sparhawk
- * CVSHeader added
- *
- *
- ***************************************************************************/
 
 
 /*
@@ -31,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_Message.h"

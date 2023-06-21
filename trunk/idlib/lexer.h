@@ -1,26 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 374 $
- * $Date: 2006-03-23 06:34:08 -0500 (Thu, 23 Mar 2006) $
- * $Author: gildoran $
- *
- * $Log$
- * Revision 1.5  2006/03/23 11:34:08  gildoran
- * Added some documentation describing the type of lexing idLexer does.
- *
- * Revision 1.4  2005/11/11 22:17:26  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.3  2005/03/29 07:32:32  ishtvan
- * Modified Parse1DMatrix to allow reading to an integer matrix
- *
- * Revision 1.2  2004/11/28 09:34:47  sparhawk
- * SDK V2 merge
- *
- * Revision 1.1.1.1  2004/10/30 15:52:35  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

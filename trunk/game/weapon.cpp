@@ -1,59 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.16  2007/01/18 18:35:47  thelvyn
- * Fixed Bool complaint quite simple, waste of time but it annoys me with spurious messages
- *
- * Revision 1.15  2007/01/03 00:28:03  crispy
- * New script event rangedThreatTo. Added idWeapon::IsRanged.
- *
- * Revision 1.14  2006/11/19 05:21:21  ishtvan
- * fixed melee attacks to attached heads in event_melee
- *
- * Revision 1.13  2006/08/21 05:07:34  ishtvan
- * fixed attachment so that rotation was done first, then translation
- *
- * Revision 1.12  2006/07/22 03:47:06  ishtvan
- * fix for weapon attachments staying around in midair
- *
- * Revision 1.11  2006/07/22 02:25:55  ishtvan
- * added weapon attachments
- *
- * Revision 1.10  2006/07/15 02:15:46  ishtvan
- * surface type name fix
- *
- * Revision 1.9  2006/06/21 13:05:10  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.8  2006/02/05 07:12:14  ishtvan
- * redefined function Damage to take additional trace pointer argument
- *
- * Revision 1.7  2006/02/04 10:27:20  ishtvan
- * weapon now passes trace info as arg in damage to idActors
- *
- * Revision 1.6  2006/02/03 10:48:57  ishtvan
- * D3 bugfix for melee defs getting damage zone
- *
- * Revision 1.5  2005/12/04 02:43:50  ishtvan
- * updated surface checks to check new surface types
- *
- * Revision 1.4  2005/11/20 10:38:48  ishtvan
- * added tactile alert to AI when melee hit occurs
- *
- * Revision 1.3  2005/11/11 20:38:16  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.2  2005/01/07 02:10:36  sparhawk
- * Lightgem updates
- *
- * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -63,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"

@@ -1,23 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 692 $
- * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
- * $Author: crispy $
- *
- * $Log$
- * Revision 1.4  2007/01/03 00:28:03  crispy
- * New script event rangedThreatTo. Added idWeapon::IsRanged.
- *
- * Revision 1.3  2006/07/22 02:25:55  ishtvan
- * added weapon attachments
- *
- * Revision 1.2  2005/11/11 20:38:16  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

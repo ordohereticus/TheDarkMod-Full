@@ -1,20 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.3  2005/11/11 22:35:08  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.2  2005/10/18 14:08:37  sparhawk
- * Lightgem updates
- *
- * Revision 1.1.1.1  2004/10/30 15:52:36  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

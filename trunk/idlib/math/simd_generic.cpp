@@ -1,20 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.3  2006/06/21 13:05:52  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.2  2004/11/28 09:56:52  sparhawk
- * SDK V2 merge
- *
- * Revision 1.1.1.1  2004/10/30 15:52:36  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -24,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: simd_generic.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 #pragma warning( push )
 #pragma warning( disable: 4127 )
 #include "Simd_Generic.h"

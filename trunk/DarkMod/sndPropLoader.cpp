@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /******************************************************************************/
 /*                                                                            */
 /*         Dark Mod Sound Propagation (C) by Chris Sarantos in USA 2005		  */
@@ -12,20 +20,9 @@
 *
 *****************************************************************************/
 
-/******************************************************************************
- *
- * PROJECT: DarkMod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- * $Name$
- *
- ******************************************************************************/
-
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #pragma warning(disable : 4996)
 

@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /*!
 * This is the interface for an n-tree structure which sorts and holds
 * darkmod hiding spots.

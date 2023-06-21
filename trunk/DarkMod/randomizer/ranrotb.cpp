@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /************************* RANROTB.CPP ****************** AgF 1999-03-03 *
 *  Random Number generator 'RANROT' type B                               *
 *                                                                        *
@@ -16,26 +24,10 @@
 * © 2002 A. Fog. GNU General Public License www.gnu.org/copyleft/gpl.html*
 *************************************************************************/
 
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 760 $
- * $Date: 2007-01-22 20:24:31 -0500 (Mon, 22 Jan 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.2  2007/01/23 01:22:55  thelvyn
- * Fixed a minor bug and cleaned up most of the warnings
- *
- * Revision 1.1  2006/11/04 10:47:28  sparhawk
- * Advanced randomizer added.
- *
- *
- ***************************************************************************/
-
 #include "../precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Id: ranrotb.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "randomc.h"
 #include <string.h>  // some compilers require <mem.h> instead

@@ -1,10 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 826 $
- * $Date: 2007-03-05 02:55:01 -0500 (Mon, 05 Mar 2007) $
- * $Author: crispy $
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -14,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 826 $   $Date: 2007-03-05 02:55:01 -0500 (Mon, 05 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"

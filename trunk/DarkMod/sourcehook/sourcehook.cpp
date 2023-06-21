@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /* ======== SourceHook ========
 * Copyright (C) 2004-2005 Metamod:Source Development Team
 * No warranties of any kind
@@ -16,7 +24,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: sourcehook.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #if defined __GNUC__
 #include <stdint.h>

@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /******************************************************************************/
 /*                                                                            */
 /*         Dark Mod AI Relationships (C) by Chris Sarantos in USA 2005		  */
@@ -12,53 +20,9 @@
 *
 *****************************************************************************/
 
-/******************************************************************************
- *
- * PROJECT: DarkMod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- * $Name$
- *
- * $Log$
- * Revision 1.11  2006/06/21 13:05:32  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.10  2006/04/23 18:39:30  ishtvan
- * saveing/loading fix for empty matrices
- *
- * Revision 1.9  2005/12/04 22:52:45  ishtvan
- * forgot to re-comment some logs that badly spam the logfile
- *
- * Revision 1.8  2005/12/04 22:48:53  ishtvan
- * *) fixed bug in setting m_bMatFailed
- *
- * *) AI on the same team no longer attack eachother when no relationship matrix is present
- *
- * Revision 1.7  2005/11/19 17:26:48  sparhawk
- * LogString with macro replaced
- *
- * Revision 1.6  2005/11/04 07:29:39  ishtvan
- * AI relations matrix error no longer displays when there is no matrix entered
- *
- * Revision 1.5  2005/10/31 19:36:47  sparhawk
- * Uninitialized variable in CRelations::GetRelNum causes a crash in debug build.
- *
- * Revision 1.4  2005/09/26 01:12:21  ishtvan
- * no longer tries to access relationship matrix when loading it has failed
- *
- * Revision 1.3  2005/04/07 08:40:16  ishtvan
- * Fixes in the worldspawn parsing, removed warnings that displayed to the console
- *
- * Revision 1.2  2005/03/30 18:16:20  sparhawk
- * CVS Header added
- *
- ******************************************************************************/
-
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #pragma warning(disable : 4996)
 

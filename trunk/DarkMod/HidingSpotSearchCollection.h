@@ -1,3 +1,12 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
+
 #pragma once
 /**
 * The purpose of this class is to contain all the hiding spot searches in use by

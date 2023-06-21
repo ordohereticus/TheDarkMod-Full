@@ -1,17 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.2  2007/01/23 01:24:31  thelvyn
- * Fixed a minor bug and cleaned up most of the warnings
- *
- * Revision 1.1.1.1  2004/10/30 15:52:36  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

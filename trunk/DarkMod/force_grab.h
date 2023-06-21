@@ -1,23 +1,11 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 527 $
- * $Date: 2006-08-04 06:53:26 -0400 (Fri, 04 Aug 2006) $
- * $Author: ishtvan $
- *
- * $Log$
- * Revision 1.2  2006/08/04 10:53:26  ishtvan
- * preliminary grabber fixes
- *
- * Revision 1.1  2005/12/02 18:21:29  lloyd
- * Initial release
- *
- * Revision 1.1.1.1  2005/09/22 15:52:33  Lloyd
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
-
 
 #ifndef __FORCE_GRAB_H__
 #define __FORCE_GRAB_H__

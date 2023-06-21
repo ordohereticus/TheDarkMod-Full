@@ -1,26 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.5  2006/06/21 13:06:07  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.4  2005/11/19 17:29:09  sparhawk
- * LogString with macro replaced
- *
- * Revision 1.3  2005/10/18 14:09:46  sparhawk
- * Fixed an unneccessary warning about unused lables.
- *
- * Revision 1.2  2005/04/23 01:43:53  ishtvan
- * Added SetFrameRate frame command, for re-using animations but slowing them down or speeding them up on the fly
- *
- * Revision 1.1.1.1  2004/10/30 15:52:32  sparhawk
- * Initial release
  *
  ***************************************************************************/
 
@@ -30,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: anim.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/darkmodglobals.h"

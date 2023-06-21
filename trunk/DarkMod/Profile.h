@@ -5,34 +5,14 @@
 /*                                                                            */
 /******************************************************************************/
 
-/******************************************************************************
+/***************************************************************************
  *
- * PROJECT: Profile helper module
- * $Source$
- * $Revision: 8 $
- * $Date: 2004-10-30 13:06:36 -0400 (Sat, 30 Oct 2004) $
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- * $Name$
  *
- * $Log$
- * Revision 1.1  2004/10/30 17:06:36  sparhawk
- * DarkMod added to project.
- *
- * Revision 1.4  2003/10/15 19:59:27  lightweave
- * Fixed a warning about values out of range.
- *
- * Revision 1.3  2003/10/15 16:16:10  lightweave
- * Fixed the bug that the profile stays open all the time and is destroyed
- * in case of a non-standard shutdown (i.e. kill or crash).
- *
- * Revision 1.2  2003/10/04 22:01:14  lightweave
- * Modifications for compiling the sources under Linux.
- *
- * Revision 1.1.1.1  2003/10/04 17:13:12  lightweave
- * Initial Release to CVS.
- *
- *
- *****************************************************************************/
+ ***************************************************************************/
 
 /***************************************************************************
  *                                                                         *

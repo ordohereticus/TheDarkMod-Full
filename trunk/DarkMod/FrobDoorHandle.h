@@ -1,24 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 598 $
- * $Date: 2006-10-31 07:33:37 -0500 (Tue, 31 Oct 2006) $
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.4  2006/10/31 12:33:37  sparhawk
- * Doorhandle rotation added
- *
- * Revision 1.3  2006/10/30 17:10:25  sparhawk
- * Doorhandles are now working in the first stage.
- *
- * Revision 1.2  2006/10/03 13:13:39  sparhawk
- * Changes for door handles
- *
- * Revision 1.1  2006/07/27 20:30:40  sparhawk
- * Initial release. Just the skeleton of the spawnable CFrobDoorHandle class.
- *
  *
  ***************************************************************************/
 

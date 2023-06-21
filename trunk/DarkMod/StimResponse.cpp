@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /******************************************************************************/
 /*                                                                            */
 /*         StimResponse (C) by Gerhard W. Gruber in Germany 2005              */
@@ -5,19 +13,10 @@
 /*                                                                            */
 /******************************************************************************/
 
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Revision: 861 $
- * $Date: 2007-03-22 13:56:17 -0400 (Thu, 22 Mar 2007) $
- * $Author: sparhawk $
- *
- ***************************************************************************/
-
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponse.cpp 861 2007-03-22 17:56:17Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponse.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "DarkModGlobals.h"
 #include "StimResponse.h"

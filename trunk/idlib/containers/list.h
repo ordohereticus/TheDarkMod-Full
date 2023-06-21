@@ -1,17 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 603 $
- * $Date: 2006-11-03 17:51:02 -0500 (Fri, 03 Nov 2006) $
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.2  2006/11/03 22:51:02  sparhawk
- * Typedef for stringlists added.
- *
- * Revision 1.1.1.1  2004/10/30 15:52:36  sparhawk
- * Initial release
  *
  ***************************************************************************/
 

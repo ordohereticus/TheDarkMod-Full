@@ -1,23 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 655 $
- * $Date: 2006-12-13 13:54:05 -0500 (Wed, 13 Dec 2006) $
- * $Author: gildoran $
- *
- * $Log$
- * Revision 1.3  2006/12/13 18:54:05  gildoran
- * Added SDK function names to error messages to help with debugging.
- * Fixed a bug that allowed creation of duplicate handles.
- * Added OVERLAYS_INVALID_HANDLE to be used instead of OVERLAYS_MIN_HANDLE - 1
- *
- * Revision 1.2  2006/09/18 18:56:50  gildoran
- * Added getNextOverlay, and code to automatically set an overlay as interactive if the GUI is.
- *
- * Revision 1.1  2006/09/18 13:38:13  gildoran
- * Added the first version of a unified interface for GUIs.
- *
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

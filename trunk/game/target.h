@@ -1,17 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 441 $
- * $Date: 2006-05-30 02:22:58 -0400 (Tue, 30 May 2006) $
- * $Author: ishtvan $
- *
- * $Log$
- * Revision 1.2  2006/05/30 06:22:58  ishtvan
- * added CTarget_AddObjectives entity, for adding objectives on map load or during play
- *
- * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

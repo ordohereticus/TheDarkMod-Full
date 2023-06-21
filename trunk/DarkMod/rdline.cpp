@@ -5,32 +5,14 @@
 /*                                                                       */
 /*************************************************************************/
 
-/******************************************************************************
+/***************************************************************************
  *
- * PROJECT: LaunchMenu
- * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- * $Name$
  *
- * $Log$
- * Revision 1.2  2006/06/21 13:05:32  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.1  2004/10/30 17:06:36  sparhawk
- * DarkMod added to project.
- *
- * Revision 1.2  2003/10/04 22:01:15  lightweave
- * Modifications for compiling the sources under Linux.
- *
- * Revision 1.1.1.1  2003/10/04 17:13:17  lightweave
- * Initial Release to CVS.
- *
- *
- * DESCRIPTION: 
- *
- *****************************************************************************/
+ ***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -44,7 +26,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: rdline.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include <stdio.h>
 #include <errno.h>

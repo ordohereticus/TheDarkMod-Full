@@ -1,32 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 688 $
- * $Date: 2006-12-30 21:30:49 -0500 (Sat, 30 Dec 2006) $
- * $Author: crispy $
- *
- * $Log$
- * Revision 1.6  2006/12/31 02:30:49  crispy
- * - Added new script event, moveToCoverFrom, which is like moveToCover except that it takes the enemy entity as an argument
- * - Cover search is fixed, and uses traces instead of PVS (at least for now)
- * - The FindNearestGoal AAS search can now have a travel distance limit.
- *
- * Revision 1.5  2006/12/09 17:46:09  sophisticatedzombie
- * Fixed an ID Software problem with disabling map aas obstacles not making areas
- * accessible again.
- *
- * Revision 1.4  2006/06/21 13:04:47  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.3  2006/06/03 19:47:32  sparhawk
- * Removed unused variables.
- *
- * Revision 1.2  2006/06/02 02:43:16  sophisticatedzombie
- * Added FindGoalClosestToTarget which searches for and prioritizes goals differently than FindNearestGoal
- *
- * Revision 1.1.1.1  2004/10/30 15:52:32  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -36,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 688 $   $Date: 2006-12-30 21:30:49 -0500 (Sat, 30 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "AAS_local.h"
 #include "../Game_local.h"		// for print and error

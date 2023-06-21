@@ -5,39 +5,14 @@
 /*                                                                            */
 /******************************************************************************/
 
-/******************************************************************************
+/***************************************************************************
  *
- * PROJECT: Misc definitions
- * $Source$
- * $Revision: 61 $
- * $Date: 2005-01-06 21:05:13 -0500 (Thu, 06 Jan 2005) $
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- * $Name$
  *
- * $Log$
- * Revision 1.2  2005/01/07 02:01:10  sparhawk
- * Lightgem updates
- *
- * Revision 1.1  2004/10/30 17:06:36  sparhawk
- * DarkMod added to project.
- *
- * Revision 1.3  2003/11/09 10:48:36  lightweave
- * Fixes to make linux version work. In Detail:
- * .) Added a window in linux.cpp which is aligned at the specified border.
- *
- * .) Added a timer that keeps the winod on top of all others (linux only).
- *
- * .) Changed ButtonUp to ButtonDown message. This will work nicer on linux and
- *    doesn't effect the Windows version.
- *
- * Revision 1.2  2003/10/04 22:01:14  lightweave
- * Modifications for compiling the sources under Linux.
- *
- * Revision 1.1.1.1  2003/10/04 17:13:12  lightweave
- * Initial Release to CVS.
- *
- *
- *****************************************************************************/
+ ***************************************************************************/
 
 /***************************************************************************
  *                                                                         *

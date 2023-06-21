@@ -1,23 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 516 $
- * $Date: 2006-07-27 21:37:56 -0400 (Thu, 27 Jul 2006) $
- * $Author: ishtvan $
- *
- * $Log$
- * Revision 1.4  2006/07/28 01:37:56  ishtvan
- * added frob pointer cleanup to desctructor
- *
- * Revision 1.3  2006/06/21 13:06:51  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.2  2005/11/11 21:21:04  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -33,7 +19,7 @@ instancing of objects.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 516 $   $Date: 2006-07-27 21:37:56 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: class.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/playerdata.h"

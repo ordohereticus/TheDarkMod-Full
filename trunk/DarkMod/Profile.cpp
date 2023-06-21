@@ -5,34 +5,14 @@
 /*                                                                            */
 /******************************************************************************/
 
-/******************************************************************************
+/***************************************************************************
  *
- * PROJECT: Profile helper module
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- * $Name$
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
- * $Log$
- * Revision 1.2  2006/06/21 13:05:32  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.1  2004/10/30 17:06:36  sparhawk
- * DarkMod added to project.
- *
- * Revision 1.3  2003/10/15 16:16:09  lightweave
- * Fixed the bug that the profile stays open all the time and is destroyed
- * in case of a non-standard shutdown (i.e. kill or crash).
- *
- * Revision 1.2  2003/10/04 22:01:14  lightweave
- * Modifications for compiling the sources under Linux.
- *
- * Revision 1.1.1.1  2003/10/04 17:13:12  lightweave
- * Initial Release to CVS.
- *
- *
- *****************************************************************************/
+ ***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -46,7 +26,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: Profile.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 #pragma warning( push )
 #pragma warning( disable: 4245 )
 #include <malloc.h>

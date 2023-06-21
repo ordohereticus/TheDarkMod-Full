@@ -1,30 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.5  2006/06/21 13:05:32  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.4  2006/03/25 09:52:43  gildoran
- * Altered the parse functions for the decls I wrote to adhere to our coding standards.
- *
- * Revision 1.3  2006/03/25 08:13:45  gildoran
- * New update for declarations... Improved the documentation/etc for xdata decls, and added some basic code for tdm_matinfo decls.
- *
- * Revision 1.2  2006/03/23 14:13:38  gildoran
- * Added import command to xdata decls.
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: declxdata.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "declxdata.h"
 

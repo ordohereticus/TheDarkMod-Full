@@ -1,20 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 221 $
- * $Date: 2005-11-11 17:57:25 -0500 (Fri, 11 Nov 2005) $
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
  * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.3  2005/11/11 22:49:58  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.2  2004/11/28 10:00:42  sparhawk
- * SDK V2 merge
- *
- * Revision 1.1.1.1  2004/10/30 15:52:03  sparhawk
- * Initial release
  *
  ***************************************************************************/
 

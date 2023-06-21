@@ -1,20 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.3  2007/01/23 01:24:12  thelvyn
- * Fixed a minor bug and cleaned up most of the warnings
- *
- * Revision 1.2  2006/06/21 13:06:22  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.1.1.1  2004/10/30 15:52:35  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -24,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: heap.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #ifndef USE_LIBC_MALLOC
 	#define USE_LIBC_MALLOC		0

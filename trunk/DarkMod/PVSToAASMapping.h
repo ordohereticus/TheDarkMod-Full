@@ -1,20 +1,12 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 582 $
- * $Date: 2006-10-08 12:36:48 -0400 (Sun, 08 Oct 2006) $
- * $Author: sophisticatedzombie $
- *
- * $Log$
- * Revision 1.3  2006/10/08 16:36:48  sophisticatedzombie
- * Changed this data class to use an AAS given by name, rather than index.
- *
- * Revision 1.2  2006/05/19 19:56:50  sparhawk
- * CVSHeader added
- *
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
+
 #pragma once
 
 // DarkMod globals (needed for ../game/Light.h)

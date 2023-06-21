@@ -1,17 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 698 $
- * $Date: 2007-01-02 23:16:06 -0500 (Tue, 02 Jan 2007) $
- * $Author: ishtvan $
- *
- * $Log$
- * Revision 1.2  2007/01/03 04:16:06  ishtvan
- * added optional impulse modifier argument to ClipTranslationalPush
- *
- * Revision 1.1.1.1  2004/10/30 15:52:34  sparhawk
- * Initial release
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

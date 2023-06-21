@@ -1,7 +1,16 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
+
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 687 $   $Date: 2006-12-30 04:37:55 -0500 (Sat, 30 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include ".\darkmodaasfindhidingspots.h"
 #include "..\darkmod\darkmodglobals.h"

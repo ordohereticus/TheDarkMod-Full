@@ -1,8 +1,16 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/StimResponse.h"

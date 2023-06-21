@@ -1,21 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 579 $
- * $Date: 2006-09-22 10:32:26 -0400 (Fri, 22 Sep 2006) $
- * $Author: gildoran $
- *
- * $Log$
- * Revision 1.3  2006/09/22 14:32:18  gildoran
- * Added precaching tdm_matinfo decls for models.
- *
- * Revision 1.2  2006/09/22 06:00:28  gildoran
- * Added code to cache TDM_MatInfo declarations for textures applied to surfaces of a map.
- *
- * Revision 1.1  2006/03/25 08:13:46  gildoran
- * New update for declarations... Improved the documentation/etc for xdata decls, and added some basic code for tdm_matinfo decls.
- *
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 

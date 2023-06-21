@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 866 $
+ * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 /************************* RANROTW.CPP ****************** AgF 1999-03-03 *
 *  Random Number generator 'RANROT' type W                               *
 *  This version is used when a resolution higher that 32 bits is desired.*
@@ -22,23 +30,10 @@
 * ©2002 A. Fog. GNU General Public License www.gnu.org/copyleft/gpl.html *
 *************************************************************************/
 
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 605 $
- * $Date: 2006-11-04 05:47:29 -0500 (Sat, 04 Nov 2006) $
- * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.1  2006/11/04 10:47:28  sparhawk
- * Advanced randomizer added.
- *
- *
- ***************************************************************************/
-
 #include "../precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Id: ranrotw.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
 
 #include "randomc.h"
 #include <string.h> // some compilers require <mem.h> instead
