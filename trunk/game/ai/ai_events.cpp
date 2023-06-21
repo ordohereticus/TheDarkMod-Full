@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 651 $
- * $Date: 2006-12-10 05:23:09 -0500 (Sun, 10 Dec 2006) $
+ * $Revision: 652 $
+ * $Date: 2006-12-10 07:07:36 -0500 (Sun, 10 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.23  2006/12/10 12:07:36  ishtvan
+ * grace period bugfixes
+ *
+ * large lightgem value now overrides grace period faster
+ *
  * Revision 1.22  2006/12/10 10:23:09  ishtvan
  * *) grace period implemented
  * *) head turning fixed
@@ -97,7 +102,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 651 $   $Date: 2006-12-10 05:23:09 -0500 (Sun, 10 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 652 $   $Date: 2006-12-10 07:07:36 -0500 (Sun, 10 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/relations.h"
@@ -254,7 +259,7 @@ const idEventDef AI_GetTactEnt( "getTactEnt", NULL, 'e');
 const idEventDef AI_SetAcuity( "setAcuity", "sf" );
 const idEventDef AI_GetAcuity( "getAcuity", "s", 'f' );
 const idEventDef AI_GetAlertActor( "getAlertActor", NULL, 'e' );
-const idEventDef AI_SetAlertGracePeriod( "setAlertGracePeriod", "ff" );
+const idEventDef AI_SetAlertGracePeriod( "setAlertGracePeriod", "fff" );
 
 const idEventDef AI_ClosestReachableEnemy( "closestReachableEnemy", NULL, 'e' );
 
@@ -3893,11 +3898,13 @@ void idAI::Event_GetAlertActor( void )
 	idThread::ReturnEntity( m_AlertedByActor.GetEntity() );
 }
 
-void idAI::Event_SetAlertGracePeriod( float frac, float duration )
+void idAI::Event_SetAlertGracePeriod( float frac, float duration, int count )
 {
 	// set the parameters
 	m_AlertGraceActor = m_AlertedByActor.GetEntity();
 	m_AlertGraceStart = gameLocal.time;
 	m_AlertGraceTime = SEC2MS( duration );
 	m_AlertGraceThresh = m_AlertNumThisFrame * frac;
+	m_AlertGraceCountLimit = count;
+	m_AlertGraceCount = 0;
 }
