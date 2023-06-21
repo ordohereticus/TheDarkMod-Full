@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 472 $
- * $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $
+ * $Revision: 478 $
+ * $Date: 2006-07-08 22:09:07 -0400 (Sat, 08 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.4  2006/07/09 02:09:07  ishtvan
+ * FrobMovers now toggle their state when triggered
+ *
  * Revision 1.3  2006/06/27 08:48:45  ishtvan
  * fixed closing of portals more cleanly
  *
@@ -94,7 +97,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 472 $   $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 478 $   $Date: 2006-07-08 22:09:07 -0400 (Sat, 08 Jul 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -123,6 +126,7 @@ CLASS_DECLARATION( idMover, CBinaryFrobMover )
 	EVENT( EV_TDM_Door_ToggleLock,			CBinaryFrobMover::ToggleLock)
 	EVENT( EV_TDM_Door_GetOpen,				CBinaryFrobMover::GetOpen)
 	EVENT( EV_TDM_Door_GetLock,				CBinaryFrobMover::GetLock)
+	EVENT( EV_Activate,						CBinaryFrobMover::Event_Activate )
 END_CLASS
 
 
@@ -432,6 +436,11 @@ void CBinaryFrobMover::GetLock(void)
 }
 void CBinaryFrobMover::ClosePortal(void)
 {
-		Event_ClosePortal();
+	Event_ClosePortal();
+}
+
+void CBinaryFrobMover::Event_Activate( idEntity *activator ) 
+{
+	ToggleOpen();
 }
 

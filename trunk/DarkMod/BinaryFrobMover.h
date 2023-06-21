@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 472 $
- * $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $
+ * $Revision: 478 $
+ * $Date: 2006-07-08 22:09:07 -0400 (Sat, 08 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.3  2006/07/09 02:09:07  ishtvan
+ * FrobMovers now toggle their state when triggered
+ *
  * Revision 1.2  2006/06/27 08:48:45  ishtvan
  * fixed closing of portals more cleanly
  *
@@ -119,6 +122,12 @@ public:
 	* Close the portal.  Overloaded on CFrobDoor
 	**/
 	virtual void			ClosePortal(void);
+
+protected:
+	/**
+	* By default, a BinaryFrobMover toggles its state when triggered
+	**/
+	void					Event_Activate( idEntity *activator );
 
 protected:
 	/**
