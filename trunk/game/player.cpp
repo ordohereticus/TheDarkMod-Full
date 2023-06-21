@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1072 $
- * $Date: 2007-07-10 11:08:53 -0400 (Tue, 10 Jul 2007) $
+ * $Revision: 1080 $
+ * $Date: 2007-07-11 10:49:08 -0400 (Wed, 11 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 1072 2007-07-10 15:08:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1080 2007-07-11 14:49:08Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1703,6 +1703,7 @@ void idPlayer::SetupInventory()
 	m_WeaponCursor->SetCurrentCategory(idx);
 	m_WeaponCursor->SetCategoryLock(true);
 
+	// Now create the standard cursor for all the other inventory items (excl. weapons)
 	CInventoryCursor *crsr = InventoryCursor();
 	CInventoryItem *it;
 
@@ -1738,6 +1739,8 @@ void idPlayer::SetupInventory()
 	it->SetCount(0);
 	it->SetStackable(false);
 	crsr->Inventory()->PutItem(it, cv_tdm_inv_loot_group.GetString());
+
+	// Focus on the empty dummy inventory item
 	crsr->SetCurrentItem(TDM_DUMMY_ITEM);
 }
 
@@ -9658,15 +9661,57 @@ void idPlayer::inventoryUseItem(bool bImpulse, idEntity *ent)
 void idPlayer::inventoryDropItem()
 {
 	CGrabber *grabber = g_Global.m_DarkModPlayer->grabber;
-	idEntity *ent = grabber->GetSelected();
+	idEntity *heldEntity = grabber->GetSelected();
 
 	// Drop the item in the grabber hands first
-	if(ent != NULL)
+	if(heldEntity != NULL)
 	{
 		grabber->Update( this, false );
 	}
-	else
-		InventoryCursor()->DropCurrentItem();
+	else {
+		// Grabber is empty (no item is held), drop the current inventory item
+		CInventoryCursor* cursor = InventoryCursor();
+
+		CInventoryItem* item = cursor->GetCurrentItem();
+
+		// Initialise the parameters for calling the custom drop script to NULL
+		idEntity *ent = NULL;
+		const function_t* dropScript = NULL;
+
+		// Do we have a droppable item in the first place?
+		if (item != NULL && item->IsDroppable() && item->GetCount() > 0)
+		{
+			// Retrieve the actual entity behind the inventory item
+			ent = item->GetItemEntity();
+
+			// greebo: Try to locate a drop script function on the entity's scriptobject
+			dropScript = ent->scriptObject.GetFunction(TDM_INVENTORY_DROPSCRIPT);
+
+			// greebo: Only place the entity in the world, if there is no custom dropscript
+			// The flashbomb for example is spawning projectiles on its own.
+			if (dropScript == NULL) {
+				// Drop the item into the grabber hands 
+				
+				// TODO
+				//m_Inventory->PutEntityInMap(ent, this, item);
+			}
+
+			// greebo: Decrease the stack counter, if applicable
+			if (item->IsStackable()) {
+				item->SetCount(item->GetCount() - 1);
+				UpdateHud();
+			}
+		}
+
+		// greebo: Is there a drop script on the entity?
+		if (dropScript != NULL)
+		{
+			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Running inventory drop script...\r");
+			idThread* thread = new idThread(dropScript);
+			thread->CallFunctionArgs(dropScript, true, "ee", ent, this);
+			thread->DelayedStart(0);
+		}
+	}
 }
 
 void idPlayer::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CInventoryItem *prev)
