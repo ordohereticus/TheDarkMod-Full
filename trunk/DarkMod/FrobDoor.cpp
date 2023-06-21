@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 467 $
- * $Date: 2006-06-21 11:02:50 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 471 $
+ * $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.22  2006/06/27 08:33:57  ishtvan
+ * fixed closing of portals
+ *
  * Revision 1.21  2006/06/21 15:02:27  sparhawk
  * FrobDoor derived now from BinaryFrobMover
  *
@@ -88,7 +91,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 467 $   $Date: 2006-06-21 11:02:50 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 471 $   $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -546,10 +549,19 @@ void CFrobDoor::FindDoubleDoor(void)
 
 	// Wait until here for the first update of sound loss, in case double door is open
 	UpdateSoundLoss();
+
+	// Open the portal if either of the doors is open
+	if( m_Open || (m_DoubleDoor && m_DoubleDoor->m_Open) )
+		Event_OpenPortal();
 }
 
 void CFrobDoor::GetPickable(void)
 {
 	idThread::ReturnInt(m_Pickable);
+}
+
+CFrobDoor* CFrobDoor::GetDoubleDoor( void )
+{
+	return m_DoubleDoor;
 }
 

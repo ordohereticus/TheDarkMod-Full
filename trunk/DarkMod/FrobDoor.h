@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 467 $
- * $Date: 2006-06-21 11:02:50 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 471 $
+ * $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.15  2006/06/27 08:33:57  ishtvan
+ * fixed closing of portals
+ *
  * Revision 1.14  2006/06/21 15:02:27  sparhawk
  * FrobDoor derived now from BinaryFrobMover
  *
@@ -118,6 +121,11 @@ public:
 	* This is posted as an event to be called on all doors after entities spawn
 	**/
 	void					FindDoubleDoor( void );
+
+	/**
+	* Return the double door.  Returns NULL if there is none.
+	**/
+	CFrobDoor *				GetDoubleDoor( void );
 
 protected:
 	/**
