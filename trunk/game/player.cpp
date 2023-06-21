@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 969 $
- * $Date: 2007-05-04 09:07:11 -0400 (Fri, 04 May 2007) $
+ * $Revision: 970 $
+ * $Date: 2007-05-04 10:42:44 -0400 (Fri, 04 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 969 2007-05-04 13:07:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 970 2007-05-04 14:42:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1084,7 +1084,8 @@ idPlayer::idPlayer()
 	airless					= false;
 	airTics					= 0;
 	lastAirDamage			= 0;
-	underWaterSoundPlaying	= false;
+	underWaterEffectsActive	= false;
+	underWaterGUIHandle		= -1;
 
 	gibDeath				= false;
 	gibsLaunched			= false;
@@ -6797,15 +6798,23 @@ void idPlayer::StartFxOnBone( const char *fx, const char *bone ) {
 
 void idPlayer::UpdateUnderWaterEffects() {
 	if ( physicsObj.GetWaterLevel() >= WATERLEVEL_HEAD ) {
-		if (!underWaterSoundPlaying) {
+		if (!underWaterEffectsActive) {
 			StartSound( "snd_airless", SND_CHANNEL_DEMONIC, 0, false, NULL );
-			underWaterSoundPlaying = true;
+			idStr overlay = spawnArgs.GetString("gui_airless");
+			if (!overlay.IsEmpty()) {
+				underWaterGUIHandle = CreateOverlay(overlay.c_str(), 4);
+			}
+			underWaterEffectsActive = true;
 		}
 	}
 	else {
-		if (underWaterSoundPlaying) {
+		if (underWaterEffectsActive) {
 			StopSound( SND_CHANNEL_DEMONIC, false );
-			underWaterSoundPlaying = false;
+			if (underWaterGUIHandle != -1) {
+				DestroyOverlay(underWaterGUIHandle);
+				underWaterGUIHandle = -1;
+			}
+			underWaterEffectsActive = false;
 		}
 	}
 }

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 969 $
- * $Date: 2007-05-04 09:07:11 -0400 (Fri, 04 May 2007) $
+ * $Revision: 970 $
+ * $Date: 2007-05-04 10:42:44 -0400 (Fri, 04 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -718,7 +718,9 @@ private:
 	bool					airless;
 	int						airTics;				// set to pm_airTics at start, drops in vacuum
 	int						lastAirDamage;
-	bool					underWaterSoundPlaying;
+	
+	bool					underWaterEffectsActive; // True, if the under water effects are in charge
+	int						underWaterGUIHandle;	 // The handle of the GUI underwater overlay
 
 	bool					gibDeath;
 	bool					gibsLaunched;
