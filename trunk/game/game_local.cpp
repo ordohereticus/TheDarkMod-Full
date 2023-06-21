@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 71 $
- * $Date: 2005-01-23 19:16:25 -0500 (Sun, 23 Jan 2005) $
+ * $Revision: 84 $
+ * $Date: 2005-03-26 15:59:52 -0500 (Sat, 26 Mar 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.10  2005/03/26 20:59:30  sparhawk
+ * Logging initialization added for automatic mod name detection.
+ *
  * Revision 1.9  2005/01/24 00:16:25  sparhawk
  * AmbientLight parameter added to material parser
  *
@@ -136,6 +139,9 @@ extern "C" gameExport_t *GetGameAPI( gameImport_t *import ) {
 	gameExport.version = GAME_API_VERSION;
 	gameExport.game = game;
 	gameExport.gameEdit = gameEdit;
+
+	// Initialize logging and all the global stuff for darkmod
+	g_Global.Init();
 
 	return &gameExport;
 }
