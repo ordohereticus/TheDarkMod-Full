@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 771 $
- * $Date: 2007-01-27 06:09:10 -0500 (Sat, 27 Jan 2007) $
+ * $Revision: 777 $
+ * $Date: 2007-01-29 16:50:14 -0500 (Mon, 29 Jan 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.15  2007/01/29 21:50:06  sparhawk
+ * Inventory updates
+ *
  * Revision 1.14  2007/01/27 11:09:10  sparhawk
  * Fixed a crash in the inventory GetNext/PrevItem
  *
@@ -79,7 +82,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 771 $   $Date: 2007-01-27 06:09:10 -0500 (Sat, 27 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 777 $   $Date: 2007-01-29 16:50:14 -0500 (Mon, 29 Jan 2007) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -326,7 +329,7 @@ idEntity *CtdmInventory::GetNextItem(void)
 	ni = m_Group[m_CurrentGroup]->m_Item.Num();
 
 	m_CurrentItem++;
-	if(m_CurrentItem > ni)
+	if(m_CurrentItem >= ni)
 	{
 		if(m_GroupLock == false)
 		{
