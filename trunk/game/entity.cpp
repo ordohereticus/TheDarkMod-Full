@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 940 $
- * $Date: 2007-04-28 08:19:41 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 941 $
+ * $Date: 2007-04-28 08:44:02 -0400 (Sat, 28 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 940 2007-04-28 12:19:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 941 2007-04-28 12:44:02Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7901,6 +7901,21 @@ bool idEntity::canSeeEntity(idEntity* target, int useLighting) {
 
 	if (tr.fraction >= 1.0f || gameLocal.GetTraceEntity(tr) == target) {
 		// Trace test passed, entity is visible
+
+		if (useLighting) {
+			idBounds entityBounds = target->GetPhysics()->GetAbsBounds();
+			entityBounds.ExpandSelf (0.1f); // A single point doesn't work with ellipse intersection
+
+			idVec3 bottomPoint = entityBounds[0];
+			idVec3 topPoint = entityBounds[1];
+
+			float lightQuotient = LAS.queryLightingAlongLine (bottomPoint, topPoint, this, true);
+
+			// Return TRUE if the lighting exceeds the threshold.
+			return (lightQuotient >= VISIBILTIY_LIGHTING_THRESHOLD);
+		}
+
+		// No lighting to consider, return true
 		return true;
 	}
 	else {

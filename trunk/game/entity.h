@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 940 $
- * $Date: 2007-04-28 08:19:41 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 941 $
+ * $Date: 2007-04-28 08:44:02 -0400 (Sat, 28 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -53,6 +53,13 @@ typedef struct {
 */
 
 static const int DELAY_DORMANT_TIME = 3000;
+/**
+* greebo: This is the value that has to be exceeded by the lightingQuotient
+*		  returned by the LAS routines (range 0.0 ... 1.0).
+*		  0.0 means no threshold - target entities are always visible
+*		  This is used by the idEntity::canSeeEntity() member method.
+*/
+static const float VISIBILTIY_LIGHTING_THRESHOLD = 0.2f; 
 
 extern const idEventDef EV_PostSpawn;
 extern const idEventDef EV_FindTargets;
