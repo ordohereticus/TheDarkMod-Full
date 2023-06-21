@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1087 $
+ * $Date: 2007-07-12 11:47:55 -0400 (Thu, 12 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1087 2007-07-12 15:47:55Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -707,6 +707,21 @@ void CGrabber::RemoveFromClipList( int index )
 		m_clipList.RemoveIndex( index );
 	}
 
+	if( !this->HasClippedEntity() ) {
+		// cancel CheckClipList because the list is empty
+		this->CancelEvents( &EV_Grabber_CheckClipList );
+	}
+}
+
+void CGrabber::RemoveFromClipList(idEntity* entity)
+{
+	for (int i = 0; i < m_clipList.Num(); i++) {
+		if (m_clipList[i].m_ent == entity) {
+			m_clipList.RemoveIndex(i);
+			break;
+		}
+	}
+	
 	if( !this->HasClippedEntity() ) {
 		// cancel CheckClipList because the list is empty
 		this->CancelEvents( &EV_Grabber_CheckClipList );

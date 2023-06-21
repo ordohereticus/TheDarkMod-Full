@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1085 $
- * $Date: 2007-07-12 10:21:00 -0400 (Thu, 12 Jul 2007) $
+ * $Revision: 1087 $
+ * $Date: 2007-07-12 11:47:55 -0400 (Thu, 12 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 1085 2007-07-12 14:21:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1087 2007-07-12 15:47:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -10420,16 +10420,24 @@ void idPlayer::PerformFrob(void)
 		// Fire the STIM_FROB response (if defined) on this entity
 		frob->ResponseTrigger(this, ST_FROB);
 		
+		frob->FrobAction(true);
+
 		// First we have to check wether that entity is an inventory 
 		// item. In that case, we have to add it to the inventory and
 		// hide the entity. Since we can not know wether the item can
 		// later on be revoked, either by script or by the player, we
 		// only hide the entity. Also if a frobactionscript is associated
 		// with it, it would be triggered, so the entity must stay around.
-		if(AddToInventory(frob, hud) != NULL)
+		CInventoryItem* item = AddToInventory(frob, hud);
+
+		if (item != NULL) {
+			// Item has been added to the inventory
 			pDM->m_FrobEntity = NULL;
 
-		frob->FrobAction(true); 
+			// greebo: Prevent the grabber from checking the added entity (it may be 
+			// entirely removed from the game, which would cause crashes).
+			g_Global.m_DarkModPlayer->grabber->RemoveFromClipList(frob);
+		}
 	}
 Quit:
 	return;

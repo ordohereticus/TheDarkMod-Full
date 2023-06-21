@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1087 $
+ * $Date: 2007-07-12 11:47:55 -0400 (Thu, 12 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -49,6 +49,14 @@ public:
 
 		bool					IsInClipList( idEntity *ent ) const;
 		bool					HasClippedEntity( void ) const;
+
+		/**
+		 * Cycles through the cliplist and removes the given entity.
+		 *
+		 * greebo: I added this to prevent deleted entities (after beind added to 
+		 *         the inventory, for instance) from being checked and causing segfaults.
+		 */
+		void					RemoveFromClipList(idEntity* entity);
 
 		/**
 		* Clamp the current velocity to max velocity
