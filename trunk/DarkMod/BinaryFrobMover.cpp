@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 992 $
- * $Date: 2007-05-24 01:22:47 -0400 (Thu, 24 May 2007) $
+ * $Revision: 1003 $
+ * $Date: 2007-05-28 20:55:53 -0400 (Mon, 28 May 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 992 2007-05-24 05:22:47Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 1003 2007-05-29 00:55:53Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -146,8 +146,12 @@ void CBinaryFrobMover::Spawn( void )
 	m_bIntentOpen = !m_Open;
 
 	// Let the mapper override the initial frob intent on a partially opened door
-	if( spawnArgs.GetBool("first_frob_open") )
+	if( m_Open && spawnArgs.GetBool("first_frob_open") )
+	{
 		m_bIntentOpen = true;
+		m_bInterrupted = true;
+		m_StateChange = true;
+	}
 }
 
 void CBinaryFrobMover::Lock(bool bMaster)
