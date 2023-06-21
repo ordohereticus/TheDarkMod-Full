@@ -1,9 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 836 $
- * $Date: 2007-03-07 16:33:44 -0500 (Wed, 07 Mar 2007) $
+ * $Revision: 837 $
+ * $Date: 2007-03-07 16:40:30 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 836 2007-03-07 21:33:44Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 837 2007-03-07 21:40:30Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
