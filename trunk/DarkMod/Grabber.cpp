@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1087 $
- * $Date: 2007-07-12 11:47:55 -0400 (Thu, 12 Jul 2007) $
+ * $Revision: 1122 $
+ * $Date: 2007-07-14 17:57:17 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1087 2007-07-12 15:47:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1122 2007-07-14 21:57:17Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -834,7 +834,11 @@ void CGrabber::Throw( int HeldTime )
 	ImpulseVec *= ThrowImpulse;  
 
 	ClampVelocity( MAX_RELEASE_LINVEL, MAX_RELEASE_ANGVEL, m_id );
-	ent->ApplyImpulse( m_player, m_id, ent->GetPhysics()->GetOrigin(), ImpulseVec );
+
+	// Only apply the impulse for throwable items
+	if (ent->spawnArgs.GetBool("throwable", "1")) {
+		ent->ApplyImpulse( m_player, m_id, ent->GetPhysics()->GetOrigin(), ImpulseVec );
+	}
 
 	StopDrag();
 }
