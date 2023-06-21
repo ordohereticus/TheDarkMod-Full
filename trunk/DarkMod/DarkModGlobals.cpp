@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 37 $
- * $Date: 2004-11-18 17:48:34 -0500 (Thu, 18 Nov 2004) $
+ * $Revision: 39 $
+ * $Date: 2004-11-19 15:44:00 -0500 (Fri, 19 Nov 2004) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.6  2004/11/19 20:44:00  sparhawk
+ * Added a trick to update compiletime automatically
+ *
  * Revision 1.5  2004/11/18 22:48:34  sparhawk
  * Changed the default frob highlight to 100
  *
@@ -41,6 +44,10 @@
 #pragma hdrstop
 
 #pragma warning(disable : 4996)
+
+#ifdef _WINDOWS_
+#include "c:\compiled.h"
+#endif
 
 #include "DarkModGlobals.h"
 #include "Misc.h"
