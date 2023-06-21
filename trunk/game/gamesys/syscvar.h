@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 811 $
- * $Date: 2007-03-04 00:33:47 -0500 (Sun, 04 Mar 2007) $
+ * $Revision: 819 $
+ * $Date: 2007-03-04 08:28:23 -0500 (Sun, 04 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -184,6 +184,8 @@ extern idCVar cv_frob_fadetime;
 extern idCVar cv_collision_damage_scale_vert;
 extern idCVar cv_collision_damage_scale_horiz;
 extern idCVar cv_collision_damage_min;
+extern idCVar cv_drag_damping;
+extern idCVar cv_drag_damping_AF;
 
 extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;
