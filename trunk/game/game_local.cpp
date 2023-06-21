@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 372 $
- * $Date: 2006-03-23 01:24:53 -0500 (Thu, 23 Mar 2006) $
+ * $Revision: 373 $
+ * $Date: 2006-03-23 04:06:25 -0500 (Thu, 23 Mar 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.52  2006/03/23 09:06:19  gildoran
+ * Whoops, looks like I forgot to add the actual declaration files.
+ * Here they are now, along with a couple of fixes.
+ *
  * Revision 1.51  2006/03/23 06:24:53  gildoran
  * Added external data declarations for scripts to use. Readables can now have
  * their contents stored in a file.
@@ -2117,12 +2121,12 @@ void idGameLocal::CacheDictionaryMedia( const idDict *dict ) {
 		kv = dict->MatchPrefix( "audio", kv );
 	}
 
-	kv = dict->MatchPrefix( "mdat", NULL );
+	kv = dict->MatchPrefix( "xdata", NULL );
 	while( kv ) {
 		if ( kv->GetValue().Length() ) {
 			declManager->FindType( DECL_XDATA, kv->GetValue().c_str(), false );
 		}
-		kv = dict->MatchPrefix( "mdat", kv );
+		kv = dict->MatchPrefix( "xdata", kv );
 	}
 }
 
