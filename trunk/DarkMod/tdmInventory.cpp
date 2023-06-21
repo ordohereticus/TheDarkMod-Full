@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 546 $
- * $Date: 2006-08-12 10:44:29 -0400 (Sat, 12 Aug 2006) $
+ * $Revision: 574 $
+ * $Date: 2006-09-20 20:43:52 -0400 (Wed, 20 Sep 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.9  2006/09/21 00:43:45  gildoran
+ * Added inventory hotkey support.
+ *
  * Revision 1.8  2006/08/12 14:44:23  gildoran
  * Fixed some minor bugs with inventory group iteration.
  *
@@ -44,7 +47,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 546 $   $Date: 2006-08-12 10:44:29 -0400 (Sat, 12 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 574 $   $Date: 2006-09-20 20:43:52 -0400 (Wed, 20 Sep 2006) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -804,6 +807,12 @@ void CtdmInventoryCursor::selectItem( CtdmInventoryItem* item, bool noHistory ) 
 		gameLocal.Warning("selectItem() called on an independant tdmInventoryCursor.");
 		goto Quit;
 	}
+
+	if ( item == NULL ) {
+		select( NULL, NULL, NULL, noHistory );
+		goto Quit;
+	}
+
 	if ( item->m_inventory != m_inventory ) {
 		gameLocal.Warning("Attempted to move cursor to item outside current inventory.");
 		goto Quit;
