@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 600 $
- * $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $
+ * $Revision: 606 $
+ * $Date: 2006-11-04 05:59:30 -0500 (Sat, 04 Nov 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.75  2006/11/04 10:59:30  sparhawk
+ * Advanced randomizer added.
+ *
  * Revision 1.74  2006/11/01 11:57:38  sparhawk
  * Signals method added to entity.
  *
@@ -248,7 +251,7 @@
 
 #pragma warning(disable : 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 600 $   $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 606 $   $Date: 2006-11-04 05:59:30 -0500 (Sat, 04 Nov 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -266,8 +269,10 @@ static bool init_version = FileVersionList("$Source$  $Revision: 600 $   $Date: 
 
 #include "il/config.h"
 #include "il/il.h"
+#include "../darkmod/randomizer/randomc.h"
 
 CGlobal g_Global;
+TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd(time(0));
 
 extern CRelations		g_globalRelations;
 extern CMissionData		g_MissionData;
