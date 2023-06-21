@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 714 $
- * $Date: 2007-01-11 06:44:03 -0500 (Thu, 11 Jan 2007) $
- * $Author: thelvyn $
+ * $Revision: 720 $
+ * $Date: 2007-01-14 12:15:31 -0500 (Sun, 14 Jan 2007) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.82  2007/01/14 17:15:31  gildoran
+ * Fixed sys.waitForRender($light)
+ *
  * Revision 1.81  2007/01/11 11:44:03  thelvyn
  * Modifications as requested to MouseHook code handler and enums
  *
@@ -272,7 +275,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Source$  $Revision: 714 $   $Date: 2007-01-11 06:44:03 -0500 (Thu, 11 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 720 $   $Date: 2007-01-14 12:15:31 -0500 (Sun, 14 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -1810,6 +1813,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	// precache the player
 	FindEntityDef( "player_doommarine", false );
+
+	// precache the empty model (used by idEntity::m_renderTrigger)
+	renderModelManager->FindModel( EMPTY_MODEL );
 
 	SpawnLightgemEntity();
 

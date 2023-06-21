@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 718 $
- * $Date: 2007-01-12 21:01:27 -0500 (Fri, 12 Jan 2007) $
+ * $Revision: 720 $
+ * $Date: 2007-01-14 12:15:31 -0500 (Sun, 14 Jan 2007) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.13  2007/01/14 17:15:31  gildoran
+ * Fixed sys.waitForRender($light)
+ *
  * Revision 1.12  2007/01/13 02:01:27  gildoran
  * Added basic support for waitForRender() and inPVS() for lights. However, it's currently very inefficient and is broken for projected lights.
  *
@@ -122,7 +125,7 @@ public:
 	/**	Called to update m_renderTrigger after the render light is modified.
 	 *	Only updates the render trigger if a thread is waiting for it.
 	 */
-	virtual void	PresentRenderTrigger();
+	void			PresentRenderTrigger();
 
 	/**
 	 * This will return a grayscale value dependent on the value from the light.
