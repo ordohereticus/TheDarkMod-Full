@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 487 $
- * $Date: 2006-07-16 21:45:27 -0400 (Sun, 16 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 498 $
+ * $Date: 2006-07-20 14:51:24 -0400 (Thu, 20 Jul 2006) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.46  2006/07/20 18:51:24  sparhawk
+ * Frame setting loaded from INI.
+ *
  * Revision 1.45  2006/07/17 01:45:27  ishtvan
  * eliminated unnecessary logging in GetSurfName
  *
@@ -163,7 +166,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 487 $   $Date: 2006-07-16 21:45:27 -0400 (Sun, 16 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 498 $   $Date: 2006-07-20 14:51:24 -0400 (Thu, 20 Jul 2006) $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -564,9 +567,11 @@ void CGlobal::LoadINISettings(void *p)
 
 	DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Loading INI settings\r");
 
+	// All logclasses are loaded from the INI file. Frame can be switched 
+	// on explicitly. If any of the other classes are enabled, then Frame 
+	// will also be enabled as a marker in the logfile.
 	if(FindSection(pfh, "Debug", &ps) != -1)
 	{
-
 		if(FindMap(ps, "LogFile", TRUE, &pm) != -1)
 		{
 			struct tm *t;
@@ -637,6 +642,16 @@ void CGlobal::LoadINISettings(void *p)
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogInfo: %c\r", pm->Value[0]);
 		}
 
+		if(FindMap(ps, "LogClass_FRAME", TRUE, &pm) != -1)
+		{
+			if(pm->Value[0] == '1')
+			{
+				m_ClassArray[LC_FRAME] = true;
+				Frame = true;
+			}
+
+			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_FRAME: %c\r", pm->Value[0]);
+		}
 		if(FindMap(ps, "LogClass_SYSTEM", TRUE, &pm) != -1)
 		{
 			if(pm->Value[0] == '1')
@@ -763,7 +778,6 @@ void CGlobal::LoadINISettings(void *p)
 			m_drawAIDebugGraphics = atof(pm->Value);
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("AI Debug Grpahics display milliseconds: %f\r", m_drawAIDebugGraphics);
 		}
-
 	}
 	m_ClassArray[LC_FRAME] = Frame;
 
