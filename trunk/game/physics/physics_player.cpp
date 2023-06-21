@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 840 $
- * $Date: 2007-03-11 20:36:03 -0400 (Sun, 11 Mar 2007) $
+ * $Revision: 842 $
+ * $Date: 2007-03-17 06:37:05 -0400 (Sat, 17 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 840 $   $Date: 2007-03-11 20:36:03 -0400 (Sun, 11 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 842 $   $Date: 2007-03-17 06:37:05 -0400 (Sat, 17 Mar 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1404,6 +1404,7 @@ void idPhysics_Player::LadderMove( void )
 	idVec3	wishdir( vec3_zero ), wishvel( vec3_zero ), right( vec3_zero );
 	idVec3  dir( vec3_zero ), start( vec3_zero ), end( vec3_zero ), delta( vec3_zero );
 	idVec3	AttachVel( vec3_zero ), RefFrameVel( vec3_zero );
+	idVec3	vReqVert( vec3_zero ), vReqHoriz( vec3_zero );
 	float	wishspeed(0.0f), scale(0.0f), accel(0.0f);
 	float	upscale(0.0f), NormalDot(0.0f);
 	trace_t SurfTrace;
@@ -1464,18 +1465,30 @@ void idPhysics_Player::LadderMove( void )
 
 	current.velocity = (gravityNormal * current.velocity) * gravityNormal + AttachVel;
 
-	upscale = (-gravityNormal * viewForward + 0.5f) * 2.5f;
-	if ( upscale > 1.0f ) 
-	{
-		upscale = 1.0f;
-	}
-	else if ( upscale < -1.0f ) 
-	{
-		upscale = -1.0f;
-	}
+	float fracVert = viewForward * -gravityNormal;
+	float fracHoriz = 1.0f - idMath::Fabs(fracVert);
+	float fracHorizOutPlane = fracHoriz - idMath::Fabs(viewForward * LadderNormXY);
 
 	scale = idPhysics_Player::CmdScale( command );
-	wishvel = -0.9f * gravityNormal * upscale * scale * (float)command.forwardmove;
+
+	// Some tolerance on the player's upward view component
+	// shouldn't have to look straight up to climb up fast (this was in vanilla)
+	upscale = (fracVert + 0.3f) * 3.0;
+	upscale = idMath::ClampFloat(-1.0f, 1.0f, upscale );
+
+	vReqVert = upscale * 0.9f * -gravityNormal * scale * (float)command.forwardmove;
+	vReqHoriz = viewForward - (LadderNormXY * viewForward) * LadderNormXY;
+	vReqHoriz -= (vReqHoriz * gravityNormal) * gravityNormal;
+	vReqHoriz.Normalize();
+	vReqHoriz *= fracHoriz * 2.0f * scale * (float)command.forwardmove;
+	
+	// Pure horizontal motion if fraction of motion that's horizontal and out of plane is great enough:
+	if( idMath::Fabs(fracVert) > 0.75f )
+		wishvel = vReqVert;
+	else if( ( fracHorizOutPlane > 0.5f) && idMath::Fabs(fracVert) < 0.4 )
+		wishvel = vReqHoriz;
+	else
+		wishvel = vReqVert + vReqHoriz;
 
 	// strafe
 	if ( command.rightmove ) 
@@ -1487,12 +1500,6 @@ void idPhysics_Player::LadderMove( void )
 		right.Normalize();
 
 		wishvel += 2.0f * right * scale * (float) command.rightmove;
-	}
-
-	// up down movement
-	if ( command.upmove ) 
-	{
-		wishvel += -0.5f * gravityNormal * scale * (float) command.upmove;
 	}
 
 	// ========================== Surface Extent Test ======================
