@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 82 $
- * $Date: 2005-03-26 11:01:00 -0500 (Sat, 26 Mar 2005) $
+ * $Revision: 83 $
+ * $Date: 2005-03-26 11:01:59 -0500 (Sat, 26 Mar 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.15  2005/03/26 16:01:59  sparhawk
+ * Linefeeds
+ *
  * Revision 1.14  2005/03/26 16:01:00  sparhawk
  * Lightgem implemented
  *
