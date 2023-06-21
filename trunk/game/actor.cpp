@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 476 $
- * $Date: 2006-07-02 21:27:59 -0400 (Sun, 02 Jul 2006) $
+ * $Revision: 483 $
+ * $Date: 2006-07-13 02:27:20 -0400 (Thu, 13 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.16  2006/07/13 06:27:20  ishtvan
+ * attempted surface type fix
+ *
  * Revision 1.15  2006/07/03 01:27:59  ishtvan
  * attempted fix for surface type sounds
  *
@@ -64,7 +67,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 476 $   $Date: 2006-07-02 21:27:59 -0400 (Sun, 02 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 483 $   $Date: 2006-07-13 02:27:20 -0400 (Thu, 13 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2483,8 +2486,7 @@ idActor::PlayFootStepSound
 */
 void idActor::PlayFootStepSound( void ) 
 {
-	const char			*sound = NULL;
-	idStr				moveType, localSound;
+	idStr				moveType, localSound, sound;
 	idMaterial			*material = NULL;
 	idPlayer			*thisPlayer(NULL);
 	idAI				*thisAI(NULL);
@@ -2538,7 +2540,8 @@ void idActor::PlayFootStepSound( void )
 		localSound = g_Global.GetSurfName(material);
 		localSound = "snd_footstep_" + localSound;
 
-		DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Found surface type sound: %s\r", localSound.c_str() );  
+		//DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Found surface type sound: %s\r", localSound.c_str() );
+		DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Found surface type: start%send \r", g_Global.GetSurfName(material) );  
 		sound = spawnArgs.GetString( localSound.c_str() );
 	}
 	// If player is walking in liquid, replace the bottom surface sound with water sounds
@@ -2553,7 +2556,7 @@ void idActor::PlayFootStepSound( void )
 		sound = spawnArgs.GetString( localSound.c_str() );
 	}
 
-	if ( *sound == '\0' ) 
+	if ( sound.IsEmpty() ) 
 	{
 		localSound = "snd_footstep";
 	}
@@ -2561,7 +2564,7 @@ void idActor::PlayFootStepSound( void )
 	sound = spawnArgs.GetString( localSound.c_str() );
 
 	// if a sound was not found for that specific material, use default
-	if( *sound == '\0' )
+	if( sound.IsEmpty() )
 	{
 		sound = spawnArgs.GetString( "snd_footstep" );
 		localSound = "snd_footstep";
@@ -2583,9 +2586,9 @@ void idActor::PlayFootStepSound( void )
 		localSound -= moveType;
 */
 
-	if ( *sound != '\0' ) 
+	if ( !sound.IsEmpty() ) 
 	{
-		StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_BODY, 0, false, NULL );
+		StartSoundShader( declManager->FindSound( sound.c_str() ), SND_CHANNEL_BODY, 0, false, NULL );
 		
 		// apply the movement type modifier to the volume
 		SetSoundVolume( GetMovementVolMod() );
