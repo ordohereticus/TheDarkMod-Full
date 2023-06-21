@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 253 $
- * $Date: 2005-11-26 12:48:03 -0500 (Sat, 26 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 283 $
+ * $Date: 2005-12-11 13:11:52 -0500 (Sun, 11 Dec 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.13  2005/12/11 18:11:52  ishtvan
+ * Added m_NoViewChange, disables player view change due to mouse movement
+ *
  * Revision 1.12  2005/11/26 17:44:44  sparhawk
  * Lightgem cleaned up
  *
@@ -281,6 +284,12 @@ public:
 	* container for the player's inventory
 	*/
 	idInventory				inventory;
+
+	/**
+	* Set to true if you don't want the player's view to change
+	* during some action. (Like when mouse axes are overloaded)
+	**/
+	bool					m_NoViewChange;
 
 	idEntityPtr<idWeapon>	weapon;
 	idUserInterface *		hud;				// MP: is NULL if not local player
