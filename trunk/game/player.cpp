@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 977 $
- * $Date: 2007-05-05 07:46:52 -0400 (Sat, 05 May 2007) $
- * $Author: crispy $
+ * $Revision: 984 $
+ * $Date: 2007-05-12 04:50:11 -0400 (Sat, 12 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 977 2007-05-05 11:46:52Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 984 2007-05-12 08:50:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -983,7 +983,8 @@ void idInventory::UpdateArmor( void ) {
 idPlayer::idPlayer
 ==============
 */
-idPlayer::idPlayer()
+idPlayer::idPlayer() :
+	m_ButtonStateTracker(this)
 {
 	memset( &usercmd, 0, sizeof( usercmd ) );
 
@@ -1187,6 +1188,8 @@ idPlayer::idPlayer()
 	mInventoryOverlay		= -1;
 	m_WeaponCursor			= NULL;
 	m_ContinuousUse			= false;
+	m_TotalUseTime			= 0;
+	m_LastUseTime			= 0;
 }
 
 /*
@@ -3019,10 +3022,22 @@ void idPlayer::UpdateConditions( void )
 	// Check if the frob is to be a continous action.
 	if(m_ContinuousUse == true)
 	{
-		if(common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51)))
+		if (common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51))) {
+			if (m_LastUseTime > 0) {
+				// Add the time that has passed since the last check
+				m_TotalUseTime += gameLocal.time - m_LastUseTime;
+			}
+			else {
+				m_TotalUseTime = 0;
+			}
+			m_LastUseTime = gameLocal.time;
 			inventoryUseItem(false);
-		else
+		}
+		else {
 			m_ContinuousUse = false;
+			m_TotalUseTime = 0;
+			m_LastUseTime = 0;
+		}
 	}
 }
 
@@ -5813,6 +5828,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 		return;
 	}
 
+	// Register the impulse for tracking
+	m_ButtonStateTracker.startTracking(impulse);
+
 	switch( impulse )
 	{
 		case IMPULSE_13:
@@ -6075,6 +6093,12 @@ void idPlayer::PerformImpulse( int impulse ) {
 			break;
 		}
 	} 
+}
+
+void idPlayer::PerformKeyRelease(int impulse, int holdTime) {
+	// The key associated to <impulse> has been released
+	
+	
 }
 
 bool idPlayer::HandleESC( void ) {
@@ -6963,7 +6987,12 @@ void idPlayer::Think( void )
 
 		// service animations
 		if ( !spectating && !af.IsActive() && !gameLocal.inCinematic ) {
+
     		UpdateConditions();
+
+			// Update the button state, this calls PerformKeyRelease() if a button has been released
+			m_ButtonStateTracker.update();
+
 			UpdateAnimState();
 			CheckBlink();
 		}
@@ -9596,10 +9625,12 @@ void idPlayer::inventoryUseItem(bool bImpulse, idEntity *ent)
 	}
 	else
 	{
-		// greebo: No frob entity highlighted, try to call the "use" method in the entity's scriptobject
-		idThread* thread = ent->CallScriptFunctionArgs("inventoryUse", true, 0, "ee", ent, this);
-		if (thread) {
-			thread->Start(); // Start the thread immediately.
+		if (bImpulse) {
+			// greebo: No frob entity highlighted, try to call the "use" method in the entity's scriptobject
+			idThread* thread = ent->CallScriptFunctionArgs("inventoryUse", true, 0, "eef", ent, this, m_TotalUseTime);
+			if (thread) {
+				thread->Start(); // Start the thread immediately.
+			}
 		}
 	}
 }
