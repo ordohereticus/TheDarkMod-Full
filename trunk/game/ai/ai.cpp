@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 646 $
- * $Date: 2006-12-09 21:55:15 -0500 (Sat, 09 Dec 2006) $
+ * $Revision: 648 $
+ * $Date: 2006-12-09 22:29:43 -0500 (Sat, 09 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.37  2006/12/10 03:29:43  ishtvan
+ * fixed ai alert debug display so that it works
+ *
  * Revision 1.36  2006/12/10 02:55:15  ishtvan
  * *) attempted to make AI vision better
  *
@@ -146,7 +149,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 646 $   $Date: 2006-12-09 21:55:15 -0500 (Sat, 09 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 648 $   $Date: 2006-12-09 22:29:43 -0500 (Sat, 09 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -1561,7 +1564,7 @@ void idAI::Think( void ) {
 
 	if( cv_ai_alertnum_show.GetBool() )
 	{
-		gameRenderWorld->DrawText( va("Alert: %f", AI_AlertNum), (GetEyePosition() - physicsObj.GetGravityNormal()*32.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		gameRenderWorld->DrawText( va("Alert: %f", (float) AI_AlertNum), (GetEyePosition() - physicsObj.GetGravityNormal()*32.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
 }
 
@@ -6088,7 +6091,7 @@ float idAI::getPlayerVisualStimulusAmount(idEntity* p_playerEntity)
 		// Old method, commented out
 		// alertAmount = 4*log( visFrac * lgem ) / 0.6931472;
 
-		float CurAlert = AI_AlertNum;
+		float CurAlert = (float) AI_AlertNum;
 		// convert current alert from log to linear scale, add, then convert back
 		// this might not be as good for performance, but it lets us keep all alerts
 		// on the same scale.
