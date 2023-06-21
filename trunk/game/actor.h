@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 208 $
- * $Date: 2005-11-06 20:58:25 -0500 (Sun, 06 Nov 2005) $
+ * $Revision: 332 $
+ * $Date: 2006-02-03 05:57:11 -0500 (Fri, 03 Feb 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.6  2006/02/03 10:57:11  ishtvan
+ * added framework for knockouts
+ *
  * Revision 1.5  2005/11/07 01:58:25  ishtvan
  * added getEyePos scriptfunction to get eye position
  *
@@ -215,6 +218,8 @@ public:
 	**/
 	virtual float			GetMovementVolMod( void ) { return 0; };
 
+	virtual bool			IsKnockedOut( void ) { return false; };
+
 protected:
 	friend class			idAnimState;
 
@@ -298,6 +303,12 @@ protected:
 	* Used by derived classes idPlayer and idAI.
 	**/
 	virtual void			UpdateMoveVolumes( void ) {};
+
+	/**
+	* Knockout, only defined in derived classes
+	* Returns true if going from conscious to unconscious
+	**/
+	virtual bool			Knockout( idVec3 dir = vec3_origin ) { return false; };
 
 private:
 	void					SyncAnimChannels( int channel, int syncToChannel, int blendFrames );
