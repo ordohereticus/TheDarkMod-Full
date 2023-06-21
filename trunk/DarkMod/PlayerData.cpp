@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 286 $
- * $Date: 2005-12-11 21:57:33 -0500 (Sun, 11 Dec 2005) $
+ * $Revision: 289 $
+ * $Date: 2005-12-12 00:21:42 -0500 (Mon, 12 Dec 2005) $
  * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.9  2005/12/12 05:21:42  ishtvan
+ * inventory fix - item clipmodel removed when it's picked up so it doesn't get in the way of picking up other items
+ *
  * Revision 1.8  2005/12/12 02:57:33  ishtvan
  * ammo items that are frobbed go into the D3 inventory
  *
@@ -97,7 +100,14 @@ void CDarkModPlayer::AddEntity(idEntity *ent)
 	if( ent->IsType(idItem::Type) && ent->spawnArgs.MatchPrefix("inv_ammo_", NULL) )
 	{
 		gameLocal.GetLocalPlayer()->GiveItem( static_cast<idItem *>(ent) );
+		
+		ent->Unbind();
+		ent->GetPhysics()->PutToRest();
+		ent->GetPhysics()->UnlinkClip();
 		ent->Hide();
+
+		// for now, keep it for 5 seconds giving the acquire sound some time to play
+		ent->PostEventMS( &EV_Remove, 5000 );
 
 		goto Quit;
 	}
@@ -121,6 +131,11 @@ void CDarkModPlayer::AddEntity(idEntity *ent)
 		m_Inventory.Append(new_item);
 		m_Selection = m_Inventory.Num()-1;
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("[%s] added to inventory (%u)\r", ent->name.c_str(), m_Inventory.Num());
+		
+		ent->Unbind();
+		ent->GetPhysics()->PutToRest();
+// TODO: don't forget to re-link the clipmodel if we drop the item later
+		ent->GetPhysics()->UnlinkClip();
 		ent->Hide();
 	}
 
