@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 678 $
- * $Date: 2006-12-23 15:19:22 -0500 (Sat, 23 Dec 2006) $
+ * $Revision: 742 $
+ * $Date: 2007-01-20 00:18:42 -0500 (Sat, 20 Jan 2007) $
  * $Author: sophisticatedzombie $
  * $Name$
  *
  * $Log$
+ * Revision 1.54  2007/01/20 05:18:42  sophisticatedzombie
+ * Tweaked default lighting visibility scale
+ *
  * Revision 1.53  2006/12/23 20:19:22  sophisticatedzombie
  * Tweaked upward a visibility distance constant just a bit for demonstration purposes.
  *
@@ -190,7 +193,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 678 $   $Date: 2006-12-23 15:19:22 -0500 (Sat, 23 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 742 $   $Date: 2007-01-20 00:18:42 -0500 (Sat, 20 Jan 2007) $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -247,7 +250,7 @@ static bool init_version = FileVersionList("$Source$  $Revision: 678 $   $Date: 
 #define DEFAULT_MAX_NUM_HIDING_SPOT_TESTS_PER_AI_FRAME 10.0
 
 // Default lighting quotient observation distance scale
-#define DEFAULT_LIGHTING_QUOTIENT_OBSERVATION_DISTANCE_SCALE 350.0
+#define DEFAULT_LIGHTING_QUOTIENT_OBSERVATION_DISTANCE_SCALE 450.0
 
 class idAI;
 
