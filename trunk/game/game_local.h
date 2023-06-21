@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 319 $
- * $Date: 2006-01-24 17:03:46 -0500 (Tue, 24 Jan 2006) $
- * $Author: sparhawk $
+ * $Revision: 326 $
+ * $Date: 2006-01-28 23:28:00 -0500 (Sat, 28 Jan 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.22  2006/01/29 04:28:00  ishtvan
+ * *) Added GetLocationForArea, used by soundprop
+ *
  * Revision 1.21  2006/01/24 22:03:46  sparhawk
  * Stim/Response implementation preliminary
  *
@@ -744,6 +747,12 @@ public:
 
 	void					SpreadLocations();
 	idLocationEntity *		LocationForPoint( const idVec3 &point );	// May return NULL
+	/**
+	* LocationForArea returns a pointer to the location entity for the given area number
+	* Returns NULL if the area number is out of bounds, or if locations haven't sprad yet
+	**/
+	idLocationEntity *		LocationForArea( const int areaNum ); 
+
 	idEntity *				SelectInitialSpawnPoint( idPlayer *player );
 
 	void					SetPortalState( qhandle_t portal, int blockingBits );
