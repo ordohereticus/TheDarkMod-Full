@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 162 $
- * $Date: 2005-09-23 23:13:49 -0400 (Fri, 23 Sep 2005) $
- * $Author: lloyd $
+ * $Revision: 180 $
+ * $Date: 2005-10-18 09:57:06 -0400 (Tue, 18 Oct 2005) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.6  2005/10/18 13:56:09  sparhawk
+ * Lightgem updates
+ *
  * Revision 1.5  2005/09/24 03:13:49  lloyd
  * Changed CGrabber grabber to CGrabber *grabber
  *
@@ -106,26 +109,16 @@ void CDarkModPlayer::AddEntity(idEntity *ent)
 
 void CDarkModPlayer::SelectNext(void)
 {
-	// TODO: Inventory keys are abused for lightgem
-	idPlayer *p = gameLocal.GetLocalPlayer();
-	if(m_LightgemValue < LIGHTGEM_MAX)
-		m_LightgemValue++;
-	p->hud->SetStateInt("lightgem_val", m_LightgemValue);
-
 	if(m_Selection < m_Inventory.Num()-1)
 		m_Selection++;
 	else
 		m_Selection = 0;
 }
 
+
+
 void CDarkModPlayer::SelectPrev(void)
 {
-	// TODO: Inventory keys are abused for lightgem
-	idPlayer *p = gameLocal.GetLocalPlayer();
-	if(m_LightgemValue > LIGHTGEM_MIN)
-		m_LightgemValue--;
-	p->hud->SetStateInt("lightgem_val", m_LightgemValue);
-
 	if(m_Selection > 0)
 		m_Selection--;
 	else

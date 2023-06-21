@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 159 $
- * $Date: 2005-09-20 02:16:58 -0400 (Tue, 20 Sep 2005) $
- * $Author: ishtvan $
+ * $Revision: 180 $
+ * $Date: 2005-10-18 09:57:06 -0400 (Tue, 18 Oct 2005) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.7  2005/10/18 13:57:06  sparhawk
+ * Lightgem updates
+ *
  * Revision 1.6  2005/09/20 06:16:58  ishtvan
  * added dm_showsprop cvar to show sound prop paths for ingame debugging
  *
@@ -57,6 +60,25 @@ extern idCVar cv_pm_stepvol_creep;
 extern idCVar cv_pm_stepvol_crouch_walk;
 extern idCVar cv_pm_stepvol_crouch_creep;
 extern idCVar cv_pm_stepvol_crouch_run;
+
+// Lightgem
+extern idCVar cv_lg_distance;
+extern idCVar cv_lg_xoffs;
+extern idCVar cv_lg_yoffs;
+extern idCVar cv_lg_zoffs;
+extern idCVar cv_lg_oxoffs;
+extern idCVar cv_lg_oyoffs;
+extern idCVar cv_lg_ozoffs;
+extern idCVar cv_lg_fovx;
+extern idCVar cv_lg_fovy;
+extern idCVar cv_lg_toggle;
+extern idCVar cv_lg_hud;
+extern idCVar cv_lg_weak;
+extern idCVar cv_lg_player;
+extern idCVar cv_lg_width;
+extern idCVar cv_lg_height;
+extern idCVar cv_lg_renderpasses;
+extern idCVar cv_lg_file;
 
 /**
 * End DarkMod cvars

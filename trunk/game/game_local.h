@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 161 $
- * $Date: 2005-09-21 01:42:04 -0400 (Wed, 21 Sep 2005) $
- * $Author: ishtvan $
+ * $Revision: 180 $
+ * $Date: 2005-10-18 09:57:06 -0400 (Tue, 18 Oct 2005) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.9  2005/10/18 13:56:40  sparhawk
+ * Lightgem updates
+ *
  * Revision 1.8  2005/09/21 05:42:04  ishtvan
  * Modified sound prop propParms
  *
@@ -626,6 +629,18 @@ public:
 	 * textures are only loaded when the light is spawned and requests the texture.
 	 */
 	void					LoadLightMaterial(const char *Filename, idList<CLightMaterial *> *);
+
+	/**
+	 * CalcLightgem will do the rendersnapshot and analyze the snaphost image in order
+	 * to determine the lightvalue for the lightgem.
+	 */
+	float					CalcLightgem(idPlayer *);
+
+	/**
+	 * AnalyzeRenderImage will analyze the given image and yields an averaged single value
+	 * determining the lightvalue for the given image.
+	 */
+	float					AnalyzeRenderImage(idStr &Filename);
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;
