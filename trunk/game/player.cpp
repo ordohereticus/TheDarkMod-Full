@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1096 $
- * $Date: 2007-07-13 02:36:43 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1097 $
+ * $Date: 2007-07-13 03:01:19 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1096 2007-07-13 06:36:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1097 2007-07-13 07:01:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1693,6 +1693,14 @@ void idPlayer::Spawn( void )
 	SetupInventory();
 }
 
+CInventoryWeaponItem* idPlayer::getCurrentWeaponItem() {
+	if (m_WeaponCursor == NULL) {
+		return NULL;
+	}
+
+	return dynamic_cast<CInventoryWeaponItem*>(m_WeaponCursor->GetCurrentItem());
+}
+
 void idPlayer::addWeaponsToInventory() {
 
 	for (unsigned int i = 0; i < MAX_WEAPONS; i++) {
@@ -2696,11 +2704,7 @@ idPlayer::UpdateHudAmmo
 ===============
 */
 void idPlayer::UpdateHudAmmo( idUserInterface *_hud ) {
-	if (m_WeaponCursor == NULL) {
-		return;
-	}
-
-	CInventoryWeaponItem* item = dynamic_cast<CInventoryWeaponItem*>(m_WeaponCursor->GetCurrentItem());
+	CInventoryWeaponItem* item = getCurrentWeaponItem();
 
 	if (_hud != NULL && item != NULL) {
 		int ammoAmount = item->getAmmo();
@@ -3881,7 +3885,7 @@ void idPlayer::NextWeapon( void ) {
 	}
 	
 	// Get the current weaponItem
-	CInventoryWeaponItem* curItem = dynamic_cast<CInventoryWeaponItem*>(m_WeaponCursor->GetCurrentItem());
+	CInventoryWeaponItem* curItem = getCurrentWeaponItem();
 
 	if (curItem == NULL) {
 		return;
@@ -3953,7 +3957,7 @@ void idPlayer::PrevWeapon( void ) {
 	}
 
 	// Get the current weaponItem
-	CInventoryWeaponItem* curItem = dynamic_cast<CInventoryWeaponItem*>(m_WeaponCursor->GetCurrentItem());
+	CInventoryWeaponItem* curItem = getCurrentWeaponItem();
 
 	if (curItem == NULL) {
 		return;
