@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 339 $
- * $Date: 2006-02-04 18:51:56 -0500 (Sat, 04 Feb 2006) $
- * $Author: sparhawk $
+ * $Revision: 344 $
+ * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.33  2006/02/05 07:12:14  ishtvan
+ * redefined function Damage to take additional trace pointer argument
+ *
  * Revision 1.32  2006/02/04 23:51:56  sparhawk
  * Finished the Stim/Response for radius types.
  *
@@ -3443,7 +3446,9 @@ inflictor, attacker, dir, and point can be NULL for environmental effects
 ============
 */
 void idEntity::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, 
-					  const char *damageDefName, const float damageScale, const int location ) {
+					  const char *damageDefName, const float damageScale, 
+					  const int location, trace_t *tr ) 
+{
 	if ( !fl.takedamage ) {
 		return;
 	}

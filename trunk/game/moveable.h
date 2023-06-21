@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 344 $
+ * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:31  sparhawk
- * Initial revision
+ * Revision 1.2  2006/02/05 07:12:14  ishtvan
+ * redefined function Damage to take additional trace pointer argument
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -142,7 +145,8 @@ public:
 
 	virtual void			Think( void );
 	virtual void			Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, 
-								const char *damageDefName, const float damageScale, const int location );
+								const char *damageDefName,const float damageScale,
+								const int location, trace_t *tr = NULL );
 	virtual void			Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
 
 	virtual void			WriteToSnapshot( idBitMsgDelta &msg ) const;

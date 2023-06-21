@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 329 $
- * $Date: 2006-01-31 23:51:39 -0500 (Tue, 31 Jan 2006) $
+ * $Revision: 344 $
+ * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.11  2006/02/05 07:12:14  ishtvan
+ * redefined function Damage to take additional trace pointer argument
+ *
  * Revision 1.10  2006/02/01 04:51:39  ishtvan
  * fixed bug with assume_active projectile setting
  *
@@ -622,7 +625,7 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity ) {
 		}
 
 		if ( damageDefName[0] != '\0' ) {
-			ent->Damage( this, owner.GetEntity(), dir, damageDefName, damageScale, CLIPMODEL_ID_TO_JOINT_HANDLE( collision.c.id ) );
+			ent->Damage( this, owner.GetEntity(), dir, damageDefName, damageScale, CLIPMODEL_ID_TO_JOINT_HANDLE( collision.c.id ), const_cast<trace_t *>(&collision) );
 			ignore = ent;
 		}
 	}

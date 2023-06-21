@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 225 $
- * $Date: 2005-11-17 04:11:06 -0500 (Thu, 17 Nov 2005) $
+ * $Revision: 344 $
+ * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.4  2006/02/05 07:12:14  ishtvan
+ * redefined function Damage to take additional trace pointer argument
+ *
  * Revision 1.3  2005/11/17 09:11:06  ishtvan
  * added scriptfunctions for applying velocity to individual AF bodies
  *
@@ -367,7 +370,7 @@ Pass damage to body at the bindjoint
 ============
 */
 void idAFAttachment::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, 
-	const char *damageDefName, const float damageScale, const int location ) {
+	const char *damageDefName, const float damageScale, const int location, trace_t *tr ) {
 	
 	if ( body ) {
 		body->Damage( inflictor, attacker, dir, damageDefName, damageScale, attachJoint );
@@ -1114,11 +1117,11 @@ void idAFEntity_Gibbable::Present( void ) {
 idAFEntity_Gibbable::Damage
 ================
 */
-void idAFEntity_Gibbable::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, const char *damageDefName, const float damageScale, const int location ) {
+void idAFEntity_Gibbable::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, const char *damageDefName, const float damageScale, const int location, trace_t *tr ) {
 	if ( !fl.takedamage ) {
 		return;
 	}
-	idAFEntity_Base::Damage( inflictor, attacker, dir, damageDefName, damageScale, location );
+	idAFEntity_Base::Damage( inflictor, attacker, dir, damageDefName, damageScale, location, tr );
 	if ( health < -20 && spawnArgs.GetBool( "gib" ) ) {
 		Gib( dir, damageDefName );
 	}
