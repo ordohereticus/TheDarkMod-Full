@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 22 $
+ * $Date: 2004-11-11 17:15:40 -0500 (Thu, 11 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:31  sparhawk
- * Initial revision
+ * Revision 1.2  2004/11/11 22:15:40  sparhawk
+ * Frobcode is now more generalized. Doors are now frobable.
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -356,7 +359,8 @@ protected:
 	static void				GetMovedir( float dir, idVec3 &movedir );
 };
 
-class idDoor : public idMover_Binary {
+class idDoor : public idMover_Binary
+{
 public:
 	CLASS_PROTOTYPE( idDoor );
 
@@ -382,6 +386,8 @@ public:
 	void					Close( void );
 	void					Open( void );
 	void					SetCompanion( idDoor *door );
+
+	static bool				ModelCallback(renderEntity_s *renderEntity, const renderView_t *renderView);
 
 private:
 	float					triggersize;

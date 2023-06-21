@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 18 $
- * $Date: 2004-11-05 13:58:09 -0500 (Fri, 05 Nov 2004) $
+ * $Revision: 22 $
+ * $Date: 2004-11-11 17:15:40 -0500 (Thu, 11 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.7  2004/11/11 22:15:40  sparhawk
+ * Frobcode is now more generalized. Doors are now frobable.
+ *
  * Revision 1.6  2004/11/05 18:58:09  sparhawk
  * Moved frobcode to idEntity to make it available for all entities.
  *
@@ -145,7 +148,7 @@ bool idItem::UpdateRenderEntity(renderEntity_s *renderEntity, const renderView_t
 	bool bRc = true;
 
 	if(pulse == false)
-		bRc = Frob(renderEntity, renderView);
+		bRc = Frob(CONTENTS_PLAYERCLIP);
 	else
 	{
 		if(lastRenderViewTime == renderView->time)
