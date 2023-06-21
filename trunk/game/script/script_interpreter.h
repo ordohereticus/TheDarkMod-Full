@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 340 $
- * $Date: 2006-02-04 18:52:32 -0500 (Sat, 04 Feb 2006) $
+ * $Revision: 403 $
+ * $Date: 2006-05-03 17:35:03 -0400 (Wed, 03 May 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2006/05/03 21:35:03  sparhawk
+ * Added support for booleans for scriptfunctions.
+ *
  * Revision 1.3  2006/02/04 23:52:32  sparhawk
  * Added support for arbitrary arguments being passed to a scriptfunction.
  *
@@ -108,9 +111,7 @@ public:
 	 * s = string  (char *)
 	 * f = float
 	 * v = vector
-	 *
-	 * NOTICE! All variables have to be passed in as a pointer.
-	 * Example: EnterVarArgFunction(ftk, true|false, "eesf", player, damage, (char *)"radius", &float(10.0));
+	 * b = boolean
 	 */
 	bool				EnterFunctionVarArgVN(const function_t *func, bool clearStack, const char *fmt, va_list args);
 	bool				EnterFunctionVarArg(const function_t *func, bool clearStack, const char *fmt, ...);

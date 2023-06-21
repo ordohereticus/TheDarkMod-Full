@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 378 $
- * $Date: 2006-03-30 14:45:50 -0500 (Thu, 30 Mar 2006) $
- * $Author: gildoran $
+ * $Revision: 403 $
+ * $Date: 2006-05-03 17:35:03 -0400 (Wed, 03 May 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.7  2006/05/03 21:35:03  sparhawk
+ * Added support for booleans for scriptfunctions.
+ *
  * Revision 1.6  2006/03/30 19:45:41  gildoran
  * I made three main changes:
  * 1. I moved the new decl headers out of game_local.h and into the few files
@@ -1924,6 +1927,20 @@ bool idThread::CallFunctionArgs(const function_t *func, bool clearStack, const c
 	va_start(argptr, fmt);
 	rc = interpreter.EnterFunctionVarArgVN(func, clearStack, fmt, argptr);
 	va_end(argptr);
+
+	return rc;
+}
+
+bool idThread::CallFunctionArgsVN(const function_t *func, bool clearStack, const char *fmt, va_list args)
+{
+	bool rc = false;
+//	va_list argptr;
+
+	ClearWaitFor();
+
+//	va_start(argptr, fmt);
+	rc = interpreter.EnterFunctionVarArgVN(func, clearStack, fmt, args);
+//	va_end(argptr);
 
 	return rc;
 }
