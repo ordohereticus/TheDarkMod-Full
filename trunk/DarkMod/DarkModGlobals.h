@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 231 $
- * $Date: 2005-11-17 17:40:37 -0500 (Thu, 17 Nov 2005) $
+ * $Revision: 238 $
+ * $Date: 2005-11-19 12:06:05 -0500 (Sat, 19 Nov 2005) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.25  2005/11/19 17:06:05  sparhawk
+ * Frame marker added
+ *
  * Revision 1.24  2005/11/17 22:40:13  sparhawk
  * Lightgem renderpipe fixed
  *
@@ -138,6 +141,7 @@ typedef enum {
 	LC_WEAPON,
 	LC_MATH,
 	LC_MOVEMENT,		// mantling, leaning, ledge hanging, etc...
+	LC_FRAME,			// This is intended only as a framemarker and will always switched on if at least one other option is on.
 	LC_COUNT
 } LC_LogClass;
 
