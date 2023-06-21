@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 692 $
- * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
- * $Author: crispy $
+ * $Revision: 726 $
+ * $Date: 2007-01-18 13:35:47 -0500 (Thu, 18 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.16  2007/01/18 18:35:47  thelvyn
+ * Fixed Bool complaint quite simple, waste of time but it annoys me with spurious messages
+ *
  * Revision 1.15  2007/01/03 00:28:03  crispy
  * New script event rangedThreatTo. Added idWeapon::IsRanged.
  *
@@ -60,7 +63,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 692 $   $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 726 $   $Date: 2007-01-18 13:35:47 -0500 (Thu, 18 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2437,7 +2440,7 @@ idWeapon::IsRanged
 bool idWeapon::IsRanged() {
 	// If our projectile dictionary has entries, then we're probably a ranged weapon;
 	// otherwise we're definitely not.
-	return (bool)(projectileDict.GetNumKeyVals());
+	return (projectileDict.GetNumKeyVals() > 0 );
 }
 
 /***********************************************************************
