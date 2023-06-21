@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 799 $
- * $Date: 2007-02-11 15:59:57 -0500 (Sun, 11 Feb 2007) $
+ * $Revision: 843 $
+ * $Date: 2007-03-18 04:52:21 -0400 (Sun, 18 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -177,6 +177,24 @@ protected:
 		* Timestamp of when attack button was last pressed (used by throwing)
 		**/
 		int						m_ThrowTimer;
+
+		/**
+		* Time stamp in milliseconds for body drag vertical velocity clamp timer
+		* (Actual time is read from cvar)
+		* Velocity ramps up to normal the longer the body maintains ground contact
+		* Resets when they lose ground contact.
+		**/
+		int						m_DragUpTimer;
+
+		/**
+		* Used to limit lifting dragged bodies off ground
+		**/
+		float					m_AFBodyLastZ;
+
+		/**
+		* Set to true when the body with ground checking is considered off the ground
+		**/
+		bool					m_bAFOffGround;
 
 		/**
 		* Int storing the distance increments for held item distance.
