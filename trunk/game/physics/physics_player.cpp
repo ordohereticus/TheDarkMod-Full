@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 627 $
- * $Date: 2006-12-03 19:32:15 -0500 (Sun, 03 Dec 2006) $
+ * $Revision: 633 $
+ * $Date: 2006-12-07 04:58:12 -0500 (Thu, 07 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.41  2006/12/07 09:58:12  ishtvan
+ * lean updates
+ *
  * Revision 1.40  2006/12/04 00:32:15  ishtvan
  * *) added stretching of body to lean
  *
@@ -150,7 +153,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 627 $   $Date: 2006-12-03 19:32:15 -0500 (Sun, 03 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 633 $   $Date: 2006-12-07 04:58:12 -0500 (Thu, 07 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3941,7 +3944,8 @@ void idPhysics_Player::ToggleLean
 	float leanYawAngleDegrees
 )
 {
-	if (m_currentLeanTiltDegrees < 0.0001) // prevent floating point compare errors
+	//if (m_currentLeanTiltDegrees < 0.0001) // prevent floating point compare errors
+	if (m_currentLeanTiltDegrees < 0.00001) // prevent floating point compare errors
 	{
 		// Start the lean
 		m_leanMoveStartTilt = m_currentLeanTiltDegrees;
@@ -4236,8 +4240,13 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 
     // Test for collision, and adjust to less lean change 
 	// if collision occurs during leaning move
+	
+	
+/*
+// Ishtvan: Disable this for now for debugging purposes
 
 	// Lift origin off of ground a little
+
 	idVec3 originSave = current.origin;
 	current.origin += -GetGravityNormal() * 0.5;
 	clipModel->SetPosition (current.origin, clipModel->GetAxis());
@@ -4286,7 +4295,9 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 		m_b_leanFinished = true;
 
 	}
-		
+*/
+	
+// Ishtvan: test new collision test, simply test the new camera position
 
 	// Adjust lean angle by delta which was allowed
 	m_currentLeanTiltDegrees += deltaLeanTiltDegrees;
@@ -4298,6 +4309,7 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 	// Make sure player didn't hit head
 	TestForViewRotationBasedCollisions();
 
+/*
 	// To remove "bump up" required for rotation test, translate
 	// player downward from the bumped up origin toward the new one
 	// as far as they can go before hitting the ground
@@ -4338,6 +4350,7 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 	// Move player to regrounded origin
 	current.origin = regroundedOrigin;
 	clipModel->SetPosition (current.origin, clipModel->GetAxis());
+*/
 
 		
 	// Log activity
