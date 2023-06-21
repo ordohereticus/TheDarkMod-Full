@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 920 $
+ * $Date: 2007-04-21 05:14:08 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 /* ======== SourceHook ========
@@ -24,7 +24,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: sourcehook.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: sourcehook.cpp 920 2007-04-21 09:14:08Z orbweaver $", init_version);
 
 #if defined __GNUC__
 #include <stdint.h>
@@ -36,12 +36,13 @@ static bool init_version = FileVersionList("$Id: sourcehook.cpp 866 2007-03-23 2
 namespace SourceHook
 {
 	template<>
-	int SourceHook::HashFunction<int>(const int & k)
+	int HashFunction<int>(const int & k)
 	{
 		return k;
 	}
+	
 	template<>
-	int SourceHook::Compare<int>(const int & k1, const int & k2)
+	int Compare<int>(const int & k1, const int & k2)
 	{
 		if (k1 == k2)
 			return 0;
@@ -51,6 +52,7 @@ namespace SourceHook
 			return -1;
 		return 0;
 	}
+	
 	CSourceHookImpl::CSourceHookImpl()
 	{
 	}
