@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 180 $
- * $Date: 2005-10-18 09:57:06 -0400 (Tue, 18 Oct 2005) $
+ * $Revision: 187 $
+ * $Date: 2005-10-22 10:15:46 -0400 (Sat, 22 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.10  2005/10/22 14:15:46  sparhawk
+ * Fixed flickering in lightgem when player is moving.
+ *
  * Revision 1.9  2005/10/18 13:56:41  sparhawk
  * Lightgem updates
  *
@@ -566,6 +569,8 @@ public:
 	* Get the volume modifier for a given movement type
 	**/
 	float GetMovementVolMod( void );
+
+	void PrintDebugHUD(void);
 
 private:
 	jointHandle_t			hipJoint;
