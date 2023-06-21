@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 571 $
+ * $Date: 2006-09-18 09:38:13 -0400 (Mon, 18 Sep 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.7  2006/09/18 13:37:51  gildoran
+ * Added the first version of a unified interface for GUIs.
+ *
  * Revision 1.6  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -33,7 +36,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 571 $   $Date: 2006-09-18 09:38:13 -0400 (Mon, 18 Sep 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -581,14 +584,6 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view ) 
 			}
 		}
 		player->DrawHUD( hud );
-
-		// Draw another gui on top of the hud.
-		// Later on, I should add support for occluding the whole screen.
-		if ( player->m_guiOverlayOn ) {
-			player->m_guiOverlay->Redraw( gameLocal.time );
-			return;
-		}
-
 
 		// armor impulse feedback
 		float	armorPulse = ( gameLocal.time - player->lastArmorPulse ) / 250.0f;
