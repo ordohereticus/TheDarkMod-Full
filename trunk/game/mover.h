@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 36 $
- * $Date: 2004-11-16 19:00:38 -0500 (Tue, 16 Nov 2004) $
+ * $Revision: 41 $
+ * $Date: 2004-11-20 20:03:27 -0500 (Sat, 20 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.6  2004/11/21 01:03:27  sparhawk
+ * Doors can now be properly opened and have sound.
+ *
  * Revision 1.5  2004/11/17 00:00:38  sparhawk
  * Frobcode has been generalized now and resides for all entities in the base classe.
  *
@@ -132,7 +135,7 @@ protected:
 	virtual void			BeginRotation( idThread *thread, bool stopwhendone );
 	moveState_t				move;
 
-private:
+protected:
 	rotationState_t			rot;
 
 	int						move_thread;
