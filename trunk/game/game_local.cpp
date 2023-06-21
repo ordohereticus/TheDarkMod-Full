@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 838 $
- * $Date: 2007-03-07 16:45:17 -0500 (Wed, 07 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 868 $
+ * $Date: 2007-03-26 04:04:44 -0400 (Mon, 26 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 838 2007-03-07 21:45:17Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 868 2007-03-26 08:04:44Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2469,6 +2469,7 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 		// Update the Light Awareness System
 		LAS.updateLASState();
 
+		// TDM: Work through the active stims/responses
 		ProcessStimResponse();
 
 		// TDM: Update objective system
