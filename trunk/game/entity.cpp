@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 879 $
- * $Date: 2007-03-28 14:52:22 -0400 (Wed, 28 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 882 $
+ * $Date: 2007-04-01 02:58:04 -0400 (Sun, 01 Apr 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 879 2007-03-28 18:52:22Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 882 2007-04-01 06:58:04Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6367,10 +6367,14 @@ void idEntity::FrobHighlight( bool bVal )
 {
 	idEntity *ent = NULL;
 
-	// Stop flooding the frob peers if we've been updated this frame
-	// NOTE: Also, a bVal of true overrides a bVal of false in the case where
-	// focus shifts to one frob peer to another (one will flood a false and one will flood a true)
-	if(m_FrobPeerFloodFrame == gameLocal.framenum || bVal == m_bFrobHighlightState)
+	// Don't do anything if we are already in the desired state
+	if(bVal == m_bFrobHighlightState)
+		goto Quit;
+
+	// Stop flooding the frob peers if we've already been updated this frame
+	// NOTE: A bVal of true overrides a bVal of false in the same frame
+	// focus can shifts to one frob peer to another in one frame (one will flood a false and one will flood a true)
+	if( m_FrobPeerFloodFrame == gameLocal.framenum && !bVal )
 		goto Quit;
 
 	m_bFrobHighlightState = bVal;
@@ -6435,7 +6439,7 @@ void idEntity::FrobAction(bool bMaster)
 
 	if(m_FrobActionScript.Length() == 0)
 	{
-		DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("(%08lX->[%s]) FrobAction has been triggered with empty FrobActionScript!\r", this, name.c_str());
+		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("(%08lX->[%s]) FrobAction has been triggered with empty FrobActionScript!\r", this, name.c_str());
 
 		// Default: grab it if it is one of the grabbable classes
 		if( IsType( idMoveable::Type ) || IsType( idAFEntity_Base::Type )
