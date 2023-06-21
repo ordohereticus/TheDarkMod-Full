@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 929 $
+ * $Date: 2007-04-21 11:12:00 -0400 (Sat, 21 Apr 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -20,7 +20,7 @@
 ===============================================================================
 */
 
-class idFXSingleAction;
+struct idFXSingleAction;
 
 typedef struct {
 	renderLight_t			renderLight;			// light presented to the renderer

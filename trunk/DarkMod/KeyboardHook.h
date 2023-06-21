@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 929 $
+ * $Date: 2007-04-21 11:12:00 -0400 (Sat, 21 Apr 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -91,7 +91,7 @@ class CKeyboardHookBase // Base class for all Keyboard hook classes
 {
 public:
 	CKeyboardHookBase( CKeyboard* pParent = NULL ){}
-	virtual ~CKeyboardHookBase() = 0; // {} [OrbWeaver] WTF? Is it pure or isn't it?
+	virtual ~CKeyboardHookBase() {};
 };
 
 class CKeyboard
