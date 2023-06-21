@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 93 $
+ * $Date: 2005-03-29 02:53:32 -0500 (Tue, 29 Mar 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:33  sparhawk
- * Initial revision
+ * Revision 1.2  2005/03/29 07:53:32  ishtvan
+ * AI Relations: Added AI relations scripting functions to get and change the relationship between two teams.  The script functions are called from the global $sys object.
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -62,6 +65,10 @@ extern const idEventDef EV_Thread_FadeIn;
 extern const idEventDef EV_Thread_FadeOut;
 extern const idEventDef EV_Thread_FadeTo;
 extern const idEventDef EV_Thread_Restart;
+
+extern const idEventDef EV_AI_GetRelationSys;
+extern const idEventDef EV_AI_SetRelation;
+extern const idEventDef EV_AI_OffsetRelation;
 
 class idThread : public idClass {
 private:
@@ -172,6 +179,17 @@ private:
 	void						Event_DebugBounds( const idVec3 &color, const idVec3 &mins, const idVec3 &maxs, const float lifetime );
 	void						Event_DrawText( const char *text, const idVec3 &origin, float scale, const idVec3 &color, const int align, const float lifetime );
 	void						Event_InfluenceActive( void );
+
+	/**
+	* The following events are a frontend for the AI relationship
+	* manager (stored in game_local).
+	* See CRelations definition for descriptions of functions called
+	**/
+	void						Event_GetRelation( int team1, int team2 );
+	void						Event_SetRelation( int team1, int team2, int val );
+	void						Event_OffsetRelation( int team1, int team2, int offset );
+
+
 
 public:							
 								CLASS_PROTOTYPE( idThread );
