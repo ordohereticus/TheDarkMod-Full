@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 778 $
- * $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $
+ * $Revision: 782 $
+ * $Date: 2007-02-03 13:07:39 -0500 (Sat, 03 Feb 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.114  2007/02/03 18:07:25  sparhawk
+ * Loot items implemented and various improvements to the interface.
+ *
  * Revision 1.113  2007/01/31 23:39:34  sparhawk
  * Inventory updated
  *
@@ -378,7 +381,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 778 $   $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 782 $   $Date: 2007-02-03 13:07:39 -0500 (Sat, 03 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -640,18 +643,14 @@ void idInventory::ClearPowerUps( void ) {
 idInventory::GetPersistantData
 ==============
 */
-void idInventory::GetPersistantData( idDict &dict ) {
+void idInventory::GetPersistantData( idDict &dict )
+{
 	int		i;
-	int		num;
-	idDict	*item;
 	idStr	key;
-	const idKeyValue *kv;
 	const char *name;
 
 	// armor
 	dict.SetInt( "armor", armor );
-
-    // don't bother with powerups, maxhealth, maxarmor, or the clip
 
 	// ammo
 	for( i = 0; i < AMMO_NUMTYPES; i++ ) {
@@ -660,24 +659,6 @@ void idInventory::GetPersistantData( idDict &dict ) {
 			dict.SetInt( name, ammo[ i ] );
 		}
 	}
-
-	// items
-	num = 0;
-	for( i = 0; i < items.Num(); i++ ) {
-		item = items[ i ];
-
-		// copy all keys with "inv_"
-		kv = item->MatchPrefix( "inv_" );
-		if ( kv ) {
-			while( kv ) {
-				sprintf( key, "item_%i %s", num, kv->GetKey().c_str() );
-				dict.Set( key, kv->GetValue() );
-				kv = item->MatchPrefix( "inv_", kv );
-			}
-			num++;
-		}
-	}
-	dict.SetInt( "items", num );
 
 	// pdas viewed
 	for ( i = 0; i < 4; i++ ) {
@@ -2108,6 +2089,8 @@ void idPlayer::Spawn( void )
 	grp = Inventory()->GetGroup("DEFAULT");
 	it = new CtdmInventoryItem();
 	it->SetType(CtdmInventoryItem::DUMMY);
+	it->SetCount(0);
+	it->SetStackable(false);
 	grp->PutItem(it);
 
 	// And the player also always gets a loot entry, as he is supposed to find loot in
@@ -2115,6 +2098,8 @@ void idPlayer::Spawn( void )
 	grp = Inventory()->CreateGroup(cv_tdm_inv_loot_group.GetString());
 	it = new CtdmInventoryItem();
 	it->SetType(CtdmInventoryItem::LOOT);
+	it->SetCount(0);
+	it->SetStackable(false);
 	grp->PutItem(it);
 }
 
@@ -10035,18 +10020,24 @@ void idPlayer::inventoryDropItem()
 */
 }
 
-void idPlayer::inventoryChangeSelection( idUserInterface *_hud, int shift )
+void idPlayer::inventoryChangeSelection(idUserInterface *_hud, int shift)
 {
 	float opacity;
 	int groupvis;
 	CtdmInventoryItem::ItemType type = CtdmInventoryItem::ITEM;
+	CtdmInventoryItem *cur = NULL;
+	CtdmInventory *inv = NULL;
 
 	if(shift != 0)
 	{
 		CtdmInventoryItem *it = NULL;
 		idEntity *e = NULL;
 		idStr s;
-		
+		idThread *thread;
+
+		// Since the player always has at least a loot and a dummy item, this can never be NULL.
+		inv = Inventory();
+		cur = inv->GetCurrentItem();
 		if(shift > 0)
 		{
 			it = Inventory()->GetNextItem();
@@ -10056,6 +10047,20 @@ void idPlayer::inventoryChangeSelection( idUserInterface *_hud, int shift )
 		{
 			it = Inventory()->GetPrevItem();
 			e = it->GetEntity();
+		}
+
+		// Notify the previous entity and the new one that they are un-/selected.
+		if(it != cur)
+		{
+			e = cur->GetEntity();
+			thread = e->CallScriptFunctionArgs("inventoryUnselect", true, 0, "eef", e, this, shift);
+			if(thread)
+				thread->Start();
+
+			e = it->GetEntity();
+			thread = e->CallScriptFunctionArgs("inventorySelect", true, 0, "eef", e, this, shift);
+			if(thread)
+				thread->Start();
 		}
 
 		type = it->GetType();
