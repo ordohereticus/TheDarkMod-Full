@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 178 $
- * $Date: 2005-10-15 22:18:31 -0400 (Sat, 15 Oct 2005) $
- * $Author: ishtvan $
+ * $Revision: 222 $
+ * $Date: 2005-11-12 09:59:51 -0500 (Sat, 12 Nov 2005) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.18  2005/11/12 14:59:51  sparhawk
+ * SDK 1.3 Merge
+ *
  * Revision 1.17  2005/10/16 02:18:31  ishtvan
  * *) completed rope orbiting
  *
@@ -97,16 +100,12 @@ typedef enum {
 
 // waterLevel_t has been moved to Physics_Actor.h
 
-typedef enum {
-
+typedef enum 
+{
   WATERLEVEL_NONE,
-
   WATERLEVEL_FEET,
-
   WATERLEVEL_WAIST,
-
   WATERLEVEL_HEAD
-
 } waterLevel_t;
 
 #endif		// MOD_WATERPHYSICS
