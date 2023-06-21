@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 881 $
+ * $Date: 2007-03-29 16:20:25 -0400 (Thu, 29 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 881 2007-03-29 20:20:25Z sparhawk $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -427,12 +427,24 @@ bool CFrobDoor::UsedBy(idEntity *ent)
 	int i, n;
 	CFrobDoor *master;
 	idEntity *e;
+	idStr s;
+	char type;
 
 	if(ent == NULL)
 		return false;
 
 	DM_LOG(LC_FROBBING, LT_INFO)LOGSTRING("[%s] used by [%s] (%u)  Masterlock: [%s]\r", 
 		name.c_str(), ent->name.c_str(), m_UsedBy.Num(), m_MasterLock.c_str());
+
+	// First we check if this item is a lockpick. It has to be of the toolclass lockpick
+	// and the type must be set.
+	ent->spawnArgs.GetString("toolclass", "", s);
+	if(s == "lockpick")
+	{
+		ent->spawnArgs.GetString("type", "", s);
+		if(s.Length() == 1)
+			type = s[0];
+	}
 
 	// When we are here we know that the item is usable
 	// so we have to check if it is associated with this entity.

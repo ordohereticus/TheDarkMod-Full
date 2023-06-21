@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
+ * $Revision: 881 $
+ * $Date: 2007-03-29 16:20:25 -0400 (Thu, 29 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -595,6 +595,11 @@ public:
 	* Do the frobbing trace and bounds intersection to mark entities as frobable
 	**/
 	void					FrobCheck( void );
+
+	/**
+	 *
+	 */
+	void					PerformFrob(void);
 
 	/**
 	/**
