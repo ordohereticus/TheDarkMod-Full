@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 581 $
- * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Revision: 608 $
+ * $Date: 2006-11-04 06:02:05 -0500 (Sat, 04 Nov 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.38  2006/11/04 11:02:05  sparhawk
+ * Basecounter for lockpickpins.
+ *
  * Revision 1.37  2006/10/03 13:13:44  sparhawk
  * Changes for door handles
  *
@@ -131,7 +134,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 581 $   $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 608 $   $Date: 2006-11-04 06:02:05 -0500 (Sat, 04 Nov 2006) $", init_version);
 
 #include "../Game_local.h"
 
@@ -247,6 +250,12 @@ idCVar cv_lg_model("tdm_lg_model",		"models/props/misc/lightgem.lwo",	CVAR_GAME 
 idCVar cv_lg_adjust("tdm_lg_adjust",		"0",		CVAR_GAME | CVAR_FLOAT,	"Adds a constant value to the lightgem." );
 idCVar cv_lg_split("tdm_lg_split",		"1",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves)." );
 idCVar cv_lg_path("tdm_lg_path",		"",	CVAR_GAME,	"Dump the rendersnapshot to the filepath specified here." );
+
+/**
+ * Variables needed for lockpicking.
+ */
+idCVar cv_lpick_pin_base_count("tdm_lp_base_count",	"5",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "Base number of clicks per pin. This number will be added to the pinpattern." );
+
 
 idCVar cv_dm_distance("tdm_distance",		"",	CVAR_GAME,	"Shows the distance from the player to the entity" );
 

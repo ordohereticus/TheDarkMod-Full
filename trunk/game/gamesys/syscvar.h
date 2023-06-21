@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 581 $
- * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Revision: 608 $
+ * $Date: 2006-11-04 06:02:05 -0500 (Sat, 04 Nov 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.26  2006/11/04 11:02:05  sparhawk
+ * Basecounter for lockpickpins.
+ *
  * Revision 1.25  2006/10/03 13:13:45  sparhawk
  * Changes for door handles
  *
@@ -147,6 +150,9 @@ extern idCVar cv_lg_model;
 extern idCVar cv_lg_adjust;
 extern idCVar cv_lg_split;
 extern idCVar cv_lg_path;
+
+// Lockpicking
+extern idCVar cv_lpick_pin_base_count;
 
 extern idCVar cv_dm_distance;
 
