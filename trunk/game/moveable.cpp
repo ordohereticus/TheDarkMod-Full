@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 767 $
- * $Date: 2007-01-26 02:35:31 -0500 (Fri, 26 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 790 $
+ * $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.12  2007/02/06 15:19:58  thelvyn
+ * Now using mass to compute damage in CrashLand
+ *
  * Revision 1.11  2007/01/26 07:35:31  ishtvan
  * air friction spawnargs now parsed to physics settings
  *
@@ -48,7 +51,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 767 $   $Date: 2007-01-26 02:35:31 -0500 (Fri, 26 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 790 $   $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -302,6 +305,7 @@ void idMoveable::Show( void ) {
 idMoveable::Collide
 =================
 */
+
 bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	float v, f;
 	idVec3 dir;
@@ -345,9 +349,7 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 		}
 	}
 
-	/** 
-	* Darkmod: Cause a tactile alert if it collides with an AI
-	**/
+	// Darkmod: Cause a tactile alert if it collides with an AI
 	
 	ent = gameLocal.entities[ collision.c.entityNum ];
 	if ( ent )

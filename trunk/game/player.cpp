@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 786 $
- * $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $
+ * $Revision: 790 $
+ * $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.117  2007/02/06 15:19:58  thelvyn
+ * Now using mass to compute damage in CrashLand
+ *
  * Revision 1.116  2007/02/06 03:18:46  thelvyn
  * idActor::CrashLand is now called for both AI and player for falling/collision damage.
  *
@@ -387,7 +390,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 786 $   $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 790 $   $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -7890,6 +7893,7 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		gameLocal.Printf( "client:%i health:%i damage:%i armor:%i\n", 
 			entityNumber, health, damage, armorSave );
 	}
+	Debug4( "client:%i health:%i damage:%i armor:%i\n", entityNumber, health, damage, armorSave );
 
 	// move the world direction vector to local coordinates
 	damage_from = dir;
