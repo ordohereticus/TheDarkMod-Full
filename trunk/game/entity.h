@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 361 $
- * $Date: 2006-02-20 02:53:39 -0500 (Mon, 20 Feb 2006) $
+ * $Revision: 372 $
+ * $Date: 2006-03-23 01:24:53 -0500 (Thu, 23 Mar 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.26  2006/03/23 06:24:53  gildoran
+ * Added external data declarations for scripts to use. Readables can now have
+ * their contents stored in a file.
+ *
  * Revision 1.25  2006/02/20 07:53:39  gildoran
  * Added setGui() so that readables can change which gui is displayed in-level.
  *
@@ -753,6 +757,8 @@ private:
 
 	void					Event_SetGui( int guiNum, const char *guiFile );
 	void					Event_CopyKeyToGuiParm( idEntity *src, const char *key, const char *guiParm );
+
+	void					Event_LoadExternalData( const char *mdFile, const char* prefix );
 
 	void					StimAdd(int Type, float Radius);
 	void					StimRemove(int Type);
