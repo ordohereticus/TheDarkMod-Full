@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 46 $
+ * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:33  sparhawk
- * Initial revision
+ * Revision 1.2  2004/11/28 09:17:51  sparhawk
+ * SDK V2 merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -1319,7 +1322,6 @@ Cmd_ExportModels_f
 ==================
 */
 static void Cmd_ExportModels_f( const idCmdArgs &args ) {
-#ifndef _D3SDK
 	idModelExport	exporter;
 	idStr			name;
 
@@ -1337,7 +1339,6 @@ static void Cmd_ExportModels_f( const idCmdArgs &args ) {
 		name.DefaultFileExtension( ".def" );
 		exporter.ExportDefFile( name );
 	}
-#endif
 }
 
 /*
@@ -1346,7 +1347,6 @@ Cmd_ReexportModels_f
 ==================
 */
 static void Cmd_ReexportModels_f( const idCmdArgs &args ) {
-#ifndef _D3SDK
 	idModelExport	exporter;
 	idStr			name;
 
@@ -1366,7 +1366,6 @@ static void Cmd_ReexportModels_f( const idCmdArgs &args ) {
 		exporter.ExportDefFile( name );
 	}
 	idAnimManager::forceExport = false;
-#endif
 }
 
 /*

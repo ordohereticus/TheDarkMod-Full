@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 16 $
- * $Date: 2004-11-02 19:06:08 -0500 (Tue, 02 Nov 2004) $
+ * $Revision: 46 $
+ * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.5  2004/11/28 09:16:31  sparhawk
+ * SDK V2 merge
+ *
  * Revision 1.4  2004/11/03 00:06:07  sparhawk
  * Frob highlight finished and working.
  *
@@ -82,6 +85,14 @@ GetGameAPI
 */
 extern "C" gameExport_t *GetGameAPI( gameImport_t *import )
 {
+#if __MWERKS__
+#pragma export on
+#endif
+extern "C" gameExport_t *GetGameAPI( gameImport_t *import ) {
+#if __MWERKS__
+#pragma export off
+#endif
+
 	if ( import->version == GAME_API_VERSION ) {
 
 		// set interface pointers used by the game
@@ -347,10 +358,8 @@ void idGameLocal::Shutdown( void ) {
 
 	idAI::FreeObstacleAvoidanceNodes();
 
-#ifndef _D3SDK
 	// shutdown the model exporter
 	idModelExport::Shutdown();
-#endif
 
 	idEvent::Shutdown();
 

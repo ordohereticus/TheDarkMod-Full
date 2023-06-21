@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 46 $
+ * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:32  sparhawk
- * Initial revision
+ * Revision 1.2  2004/11/28 09:17:19  sparhawk
+ * SDK V2 merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:32  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -161,7 +164,7 @@ typedef struct {
 	bool					anim_turn					: 1;
 } animFlags_t;
 
-#ifndef _D3SDK
+
 /*
 ==============================================================================================
 
@@ -197,7 +200,7 @@ public:
 	bool					ExportAnim( const char *anim );
 	int						ExportModels( const char *pathname, const char *extension );
 };
-#endif
+
 /*
 ==============================================================================================
 

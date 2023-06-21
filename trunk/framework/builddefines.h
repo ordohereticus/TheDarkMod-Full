@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 46 $
+ * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:34  sparhawk
- * Initial revision
+ * Revision 1.2  2004/11/28 09:15:23  sparhawk
+ * SDK V2 merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:34  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -88,4 +91,17 @@
 // don't define ID_ALLOW_TOOLS when we don't want tool code in the executable.
 #if !defined( ID_DEDICATED ) && !defined( ID_DEMO_BUILD )
 #define	ID_ALLOW_TOOLS
+#endif
+
+// don't do backtraces in release builds.
+// atm, we have no useful way to reconstruct the trace, so let's leave it off
+#define ID_BT_STUB
+#ifndef ID_BT_STUB
+	#if defined( __linux__ )
+		#if defined( _DEBUG )
+			#define ID_BT_STUB
+		#endif
+	#else
+		#define ID_BT_STUB
+	#endif
 #endif

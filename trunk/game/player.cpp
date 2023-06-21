@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 44 $
- * $Date: 2004-11-24 17:00:05 -0500 (Wed, 24 Nov 2004) $
+ * $Revision: 46 $
+ * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.8  2004/11/28 09:16:32  sparhawk
+ * SDK V2 merge
+ *
  * Revision 1.7  2004/11/24 22:00:05  sparhawk
  * *) Multifrob implemented
  * *) Usage of items against other items implemented.
@@ -6401,6 +6404,10 @@ void idPlayer::Think( void ) {
 	UpdatePowerUps();
 
 	UpdateDeathSkin( false );
+
+	if ( gameLocal.isMultiplayer ) {
+		DrawPlayerIcons();
+	}
 
 	if ( head.GetEntity() ) {
 		headRenderEnt = head.GetEntity()->GetRenderEntity();

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 26 $
- * $Date: 2004-11-13 19:44:01 -0500 (Sat, 13 Nov 2004) $
+ * $Revision: 46 $
+ * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2004/11/28 09:15:24  sparhawk
+ * SDK V2 merge
+ *
  * Revision 1.2  2004/11/14 00:44:01  sparhawk
  * Added USE/Frob Key.
  *
@@ -75,6 +78,11 @@ const int IMPULSE_28			= 28;			// vote yes
 const int IMPULSE_29			= 29;			// vote no
 const int IMPULSE_40			= 40;			// use vehicle
 const int IMPULSE_41			= 41;			// TDM Use/Frob key
+const int IMPULSE_42			= 42;			// Inventory prev
+const int IMPULSE_43			= 43;			// Inventory next
+const int IMPULSE_44			= 44;			// Lean forward
+const int IMPULSE_45			= 45;			// Lean left
+const int IMPULSE_46			= 46;			// Lean right
 
 // usercmd_t->flags
 const int UCF_IMPULSE_SEQUENCE	= 0x0001;		// toggled every time an impulse command is sent

@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 46 $
+ * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:33  sparhawk
- * Initial revision
+ * Revision 1.2  2004/11/28 09:17:51  sparhawk
+ * SDK V2 merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -100,6 +103,11 @@ extern idCVar	g_dropItemRotation;
 
 extern idCVar	g_vehicleVelocity;
 extern idCVar	g_vehicleForce;
+extern idCVar	g_vehicleSuspensionUp;
+extern idCVar	g_vehicleSuspensionDown;
+extern idCVar	g_vehicleSuspensionKCompress;
+extern idCVar	g_vehicleSuspensionDamping;
+extern idCVar	g_vehicleTireFriction;
 
 extern idCVar	ik_enable;
 extern idCVar	ik_debug;
