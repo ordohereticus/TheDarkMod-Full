@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1009 $
+ * $Date: 2007-06-10 01:38:02 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 1009 2007-06-10 05:38:02Z sophisticatedzombie $", init_version);
 
 #include "PVSToAASMapping.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -151,6 +151,13 @@ bool PVSToAASMapping::buildMappings(idStr in_aasName)
 
 	// Done
 	return true;
+}
+
+//---------------------------------------------------------------------------
+
+idStr PVSToAASMapping::getAASName()
+{
+	return aasName;
 }
 
 //---------------------------------------------------------------------------

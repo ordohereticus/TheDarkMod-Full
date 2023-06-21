@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 912 $
- * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1009 $
+ * $Date: 2007-06-10 01:38:02 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 
@@ -72,6 +72,11 @@ public:
 	* @return false on failure
 	*/
 	bool buildMappings(idStr in_aasName);
+
+	/**
+	* This method retrievs the name of the AAS which was used in the mapping
+	*/
+	idStr getAASName();
 
 	/*!
 	* This method gets the aas area index list for a particular pvs area
