@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 706 $
- * $Date: 2007-01-05 16:32:54 -0500 (Fri, 05 Jan 2007) $
+ * $Revision: 707 $
+ * $Date: 2007-01-05 23:27:50 -0500 (Fri, 05 Jan 2007) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.51  2007/01/06 04:27:50  sophisticatedzombie
+ * rendering FOV cone now uses actual angle of cone.
+ * Two cases to prevent gigantic cones at FOV > 45 degrees
+ *
  * Revision 1.50  2007/01/05 21:32:54  sophisticatedzombie
  * Modified stepDirection so that if the AI is in MOVE_WANDER mode it
  * will bump into (path through) idActors that are enemies.  In that way
@@ -206,7 +210,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 706 $   $Date: 2007-01-05 16:32:54 -0500 (Fri, 05 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 707 $   $Date: 2007-01-05 23:27:50 -0500 (Fri, 05 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -6983,7 +6987,7 @@ bool idAI::CheckFOV( const idVec3 &pos )
 	HeadCenter += HeadAxis * m_KoOffset;
 	
 	delta = pos - HeadCenter;
-	delta.Normalize();
+	delta.Normalize();  
 
 	dot = HeadAxis[ 0 ] * delta;
 
@@ -7002,6 +7006,7 @@ void idAI::FOVDebugDraw( void )
 	}
 
 	// probably expensive, but that's okay since this is just for debug mode
+
 	FOVAng = idMath::ACos( fovDot );
 
 	// store head joint base position to HeadCenter, axis to HeadAxis
@@ -7011,9 +7016,29 @@ void idAI::FOVDebugDraw( void )
 	HeadCenter += HeadAxis * m_KoOffset;
 
 	ConeDir = HeadAxis[0];
-	radius = FOVAng * 0.5f * 60.0f;
 
-	gameRenderWorld->DebugCone( colorRed, HeadCenter, 60.0f * ConeDir, 0, radius, gameLocal.msec );
+	// Diverge to keep reasonable cone size
+	float coneLength;
+
+	if (FOVAng >= (idMath::PI / 4.0f))
+	{
+		// Fix radius and calculate length
+		radius = 60.0f;
+
+		coneLength = radius / idMath::Tan(FOVAng);
+
+	}
+	else
+	{
+		// Fix length and calculate radius
+		coneLength = 60.0f;
+
+		// SZ: FOVAng is divergence off to one side (idActor::setFOV uses COS(fov/2.0) to calculate fovDot)
+		radius = idMath::Tan(FOVAng) * coneLength;
+	}
+
+
+	gameRenderWorld->DebugCone( colorRed, HeadCenter, coneLength * ConeDir, 0, radius, gameLocal.msec );
 
 Quit:
 	return;
