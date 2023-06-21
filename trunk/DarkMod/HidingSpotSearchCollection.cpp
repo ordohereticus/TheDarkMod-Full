@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1012 $
+ * $Date: 2007-06-10 01:43:04 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 916 2007-04-20 20:48:14Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1012 2007-06-10 05:43:04Z sophisticatedzombie $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -254,7 +254,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getOrCreateSearch
 	p_search->initialize
 	(
 		hideFromPos, 
-		in_p_aas, 
+		//in_p_aas, 
 		in_hidingHeight,
 		in_searchLimits, 
 		in_searchExclusionLimits,
