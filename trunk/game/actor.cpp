@@ -2,11 +2,17 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 621 $
- * $Date: 2006-11-30 03:04:54 -0500 (Thu, 30 Nov 2006) $
- * $Author: ishtvan $
+ * $Revision: 683 $
+ * $Date: 2006-12-30 03:15:19 -0500 (Sat, 30 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.30  2006/12/30 08:15:19  sophisticatedzombie
+ * idActor::CanSee now ignores the hidden flag on entities.  This is because the hidden
+ * flag is used sometimes to turn on and off the rendering of particle effects, such
+ * as on torches.  So a torch that was out would be hidden, preventing it from ever
+ * being seen.
+ *
  * Revision 1.29  2006/11/30 08:04:54  ishtvan
  * bugfix for footstep volume
  *
@@ -110,7 +116,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 621 $   $Date: 2006-11-30 03:04:54 -0500 (Thu, 30 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 683 $   $Date: 2006-12-30 03:15:19 -0500 (Sat, 30 Dec 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1554,9 +1560,13 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const {
 	idVec3		eye;
 	idVec3		toPos;
 
-	if ( ent->IsHidden() ) {
+	// TDM: We need to be able to see lights that are off and hence hidden
+	/*
+	if ( ent->IsHidden() ) 
+	{
 		return false;
 	}
+	*/
 
 	if ( ent->IsType( idActor::Type ) ) {
 		toPos = ( ( idActor * )ent )->GetEyePosition();
