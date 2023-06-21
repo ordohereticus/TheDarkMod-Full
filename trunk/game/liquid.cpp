@@ -2,9 +2,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "Game_local.h"
+#include "../DarkMod/StimResponse.h"
 
 #ifdef MOD_WATERPHYSICS
 
@@ -124,6 +125,9 @@ void idLiquid::Spawn() {
 	this->physicsObj.SetAxis(this->GetPhysics()->GetAxis());	
 	this->physicsObj.SetGravity( gameLocal.GetGravity() );
 	this->physicsObj.SetContents( CONTENTS_WATER | CONTENTS_TRIGGER );
+	// SR CONTENTS_RESONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
 
 	this->physicsObj.SetDensity(liquidDensity);
 	this->physicsObj.SetViscosity(liquidViscosity);

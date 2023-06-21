@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 510 $
- * $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 696 $
+ * $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2007/01/03 04:08:23  ishtvan
+ * stim/response : Fixed resetting of CONTENTS_RESPONSE contents flag
+ *
  * Revision 1.4  2006/07/27 09:02:22  ishtvan
  * frobbing updates
  *
@@ -34,9 +37,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 510 $   $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "Game_local.h"
+#include "../darkmod/StimResponse.h"
 
 
 /***********************************************************************
@@ -173,6 +177,10 @@ void idSecurityCamera::Spawn( void ) {
 	}
 
 	GetPhysics()->SetContents( CONTENTS_SOLID );
+	// SR CONTENTS_RESPONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
+
 	GetPhysics()->SetClipMask( MASK_SOLID | CONTENTS_BODY | CONTENTS_CORPSE | CONTENTS_MOVEABLECLIP );
 	// setup the physics
 	UpdateChangeableSpawnArgs( NULL );

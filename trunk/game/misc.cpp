@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 515 $
- * $Date: 2006-07-27 21:37:17 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 696 $
+ * $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.11  2007/01/03 04:08:23  ishtvan
+ * stim/response : Fixed resetting of CONTENTS_RESPONSE contents flag
+ *
  * Revision 1.10  2006/07/28 01:37:17  ishtvan
  * objective system updates
  *
@@ -50,11 +53,12 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 515 $   $Date: 2006-07-27 21:37:17 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/sndprop.h"
 #include "../DarkMod/MissionData.h"
+#include "../DarkMod/StimResponse.h"
 
 /*
 ===============================================================================
@@ -487,7 +491,8 @@ void idDamagable::Restore( idRestoreGame *savefile ) {
 idDamagable::Spawn
 ================
 */
-void idDamagable::Spawn( void ) {
+void idDamagable::Spawn( void ) 
+{
 	idStr broken;
 
 	health = spawnArgs.GetInt( "health", "5" );
@@ -502,6 +507,9 @@ void idDamagable::Spawn( void ) {
 
 	fl.takedamage = true;
 	GetPhysics()->SetContents( CONTENTS_SOLID );
+	// SR CONTENTS_RESONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
 }
 
 /*
@@ -1433,6 +1441,9 @@ void idStaticEntity::Spawn( void ) {
 	} else {
 		GetPhysics()->SetContents( 0 );
 	}
+	// SR CONTENTS_RESONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
 
 	spawnTime = gameLocal.time;
 	active = false;
@@ -1533,6 +1544,9 @@ void idStaticEntity::Show( void ) {
 	if ( spawnArgs.GetBool( "solid" ) ) {
 		GetPhysics()->SetContents( CONTENTS_SOLID | CONTENTS_OPAQUE );
 	}
+	// SR CONTENTS_RESONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
 }
 
 /*

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 696 $
+ * $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.12  2007/01/03 04:08:23  ishtvan
+ * stim/response : Fixed resetting of CONTENTS_RESPONSE contents flag
+ *
  * Revision 1.11  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -48,11 +51,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/MissionData.h"
+#include "../DarkMod/StimResponse.h"
 
 // a mover will update any gui entities in it's target list with 
 // a key/val pair of "mover" "state" from below.. guis can represent
@@ -458,9 +462,13 @@ idMover::Show
 */
 void idMover::Show( void ) {
 	idEntity::Show();
-	if ( spawnArgs.GetBool( "solid", "1" ) ) {
+	if ( spawnArgs.GetBool( "solid", "1" ) ) 
+	{
 		physicsObj.SetContents( CONTENTS_SOLID );
 	}
+	// SR CONTENTS_RESPONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
 	SetPhysics( &physicsObj );
 }
 

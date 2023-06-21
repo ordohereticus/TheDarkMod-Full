@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 514 $
- * $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 696 $
+ * $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.8  2007/01/03 04:08:23  ishtvan
+ * stim/response : Fixed resetting of CONTENTS_RESPONSE contents flag
+ *
  * Revision 1.7  2006/07/28 01:36:19  ishtvan
  * frobbing bugfixes
  *
@@ -36,10 +39,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 514 $   $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/sndProp.h"
+#include "../DarkMod/StimResponse.h"
 
 const idEventDef EV_TDM_UpdateSoundLoss( "updateSoundLoss", NULL );
 
@@ -999,6 +1003,10 @@ idBrittleFracture::Break
 void idBrittleFracture::Break( void ) {
 	fl.takedamage = false;
 	physicsObj.SetContents( CONTENTS_RENDERMODEL | CONTENTS_TRIGGER );
+	
+	// SR CONTENTS_RESONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
 
 	UpdateSoundLoss();
 }
