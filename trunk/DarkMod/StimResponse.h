@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 319 $
- * $Date: 2006-01-24 17:03:46 -0500 (Tue, 24 Jan 2006) $
+ * $Revision: 320 $
+ * $Date: 2006-01-25 17:05:51 -0500 (Wed, 25 Jan 2006) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.3  2006/01/25 22:05:51  sparhawk
+ * Added additional entries to support stims on projectiles.
+ *
  * Revision 1.2  2006/01/24 22:03:24  sparhawk
  * Stim/Response implementation preliminary
  *
@@ -132,8 +135,8 @@ typedef enum {
 	ST_SIT,				// can be used to sit down
 	ST_READ,			// Can be read
 	ST_RANDOM,			// Random response is selected
-	ST_DEFAULT,			// dummy
-	ST_USER				= 1000	// User defined types should use this as it's base
+	ST_USER				= 1000,	// User defined types should use this as it's base
+	ST_DEFAULT			= -1
 } StimType;
 
 typedef enum {
