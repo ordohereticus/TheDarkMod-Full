@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1014 $
- * $Date: 2007-06-10 13:38:49 -0400 (Sun, 10 Jun 2007) $
+ * $Revision: 1017 $
+ * $Date: 2007-06-10 13:53:21 -0400 (Sun, 10 Jun 2007) $
  * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1014 2007-06-10 17:38:49Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1017 2007-06-10 17:53:21Z sophisticatedzombie $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2850,8 +2850,62 @@ bool idAI::CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting )
 
 		if ((position - ownOrigin).Length() > maxDistanceToObserve)
 		{
+
 			canSee = false;
 		}
+
+		// Draw debug graphic?
+		if (cv_ai_visdist_show.GetFloat() > 1.0)
+		{
+			idVec3 midPoint = bottomPoint + ((topPoint-bottomPoint) / 2.0);
+			idVec3 observeFrom = GetEyePosition();
+
+			if (!canSee)
+			{
+				idVec4 markerColor (1.0, 0.0, 0.0, 0.0);
+				idVec4 markerColor2 (1.0, 0.0, 1.0, 0.0);
+				idVec3 arrowLength = midPoint - observeFrom;
+				arrowLength.Normalize();
+				arrowLength *= maxDistanceToObserve;
+
+				// Distance we could see
+				gameRenderWorld->DebugArrow
+				(
+					markerColor,
+					observeFrom,
+					observeFrom + arrowLength,
+					2.0f,
+					cv_ai_visdist_show.GetFloat()
+				);
+
+
+				// Gap to where we want to see
+				gameRenderWorld->DebugArrow
+				(
+					markerColor2,
+					observeFrom + arrowLength,
+					midPoint,
+					2.0f,
+					cv_ai_visdist_show.GetFloat()
+				);
+			}
+			else
+			{
+				idVec4 markerColor (0.0, 1.0, 0.0, 0.0);
+
+				// We can see there
+				gameRenderWorld->DebugArrow
+				(
+					markerColor,
+					observeFrom,
+					midPoint,
+					2.0f,
+					cv_ai_visdist_show.GetFloat()
+				);
+			}
+
+		}
+
 
 	}
 
