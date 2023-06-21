@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 298 $
- * $Date: 2006-01-08 23:30:33 -0500 (Sun, 08 Jan 2006) $
+ * $Revision: 334 $
+ * $Date: 2006-02-04 04:44:07 -0500 (Sat, 04 Feb 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.15  2006/02/04 09:44:07  ishtvan
+ * modified damage to take collision data argument
+ *
+ * knockout updates
+ *
  * Revision 1.14  2006/01/09 04:30:33  ishtvan
  * added getEyePos script event more exact than one on idActor
  *
@@ -415,7 +420,12 @@ public:
 	virtual void			DamageFeedback( idEntity *victim, idEntity *inflictor, int &damage );
 	void					CalcDamagePoints(  idEntity *inflictor, idEntity *attacker, const idDict *damageDef,
 							   const float damageScale, const int location, int *health, int *armor );
-	virtual	void			Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, const char *damageDefName, const float damageScale, const int location );
+	virtual	void			Damage
+							( 
+							idEntity *inflictor, idEntity *attacker, const idVec3 &dir,
+							const char *damageDefName, const float damageScale, const int location,
+							trace_t *collision = NULL
+							);
 
 							// use exitEntityNum to specify a teleport with private camera view and delayed exit
 	virtual void			Teleport( const idVec3 &origin, const idAngles &angles, idEntity *destination );

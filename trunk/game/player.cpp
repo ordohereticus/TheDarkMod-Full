@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 321 $
- * $Date: 2006-01-27 09:07:16 -0500 (Fri, 27 Jan 2006) $
- * $Author: sparhawk $
+ * $Revision: 334 $
+ * $Date: 2006-02-04 04:44:07 -0500 (Sat, 04 Feb 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.47  2006/02/04 09:44:07  ishtvan
+ * modified damage to take collision data argument
+ *
+ * knockout updates
+ *
  * Revision 1.46  2006/01/27 14:07:16  sparhawk
  * numFrobEntities should be int and not float.
  *
@@ -7267,7 +7272,9 @@ inflictor, attacker, dir, and point can be NULL for environmental effects
 ============
 */
 void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir,
-					   const char *damageDefName, const float damageScale, const int location ) {
+					   const char *damageDefName, const float damageScale, const int location, 
+					   trace_t *collision ) 
+{
 	idVec3		kick;
 	int			damage;
 	int			armorSave;
