@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 954 $
+ * $Date: 2007-05-02 11:32:19 -0400 (Wed, 02 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 914 2007-04-19 17:45:20Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 954 2007-05-02 15:32:19Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -6973,6 +6973,17 @@ void idAI::UpdateAir( void )
 	m_AirCheckTimer += m_AirCheckInterval;
 }
 
+int	idAI::getAirTicks() const {
+	return m_AirTics;
+}
+
+void idAI::setAirTicks(int airTicks) {
+	m_AirTics = airTicks;
+	// Clamp to maximum value
+	if( m_AirTics > m_AirTicksMax ) {
+		m_AirTics = m_AirTicksMax;
+	}
+}
 
 /*
 ===================== Lipsync =====================

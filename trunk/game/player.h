@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 951 $
- * $Date: 2007-05-02 05:23:45 -0400 (Wed, 02 May 2007) $
+ * $Revision: 954 $
+ * $Date: 2007-05-02 11:32:19 -0400 (Wed, 02 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -526,6 +526,11 @@ public:
 	void					SetCurrentHeartRate( void );
 	int						GetBaseHeartRate( void );
 	void					UpdateAir( void );
+	/**
+	* greebo: Accessor methods for the airTicks member variable. 
+	*/
+	int						getAirTicks() const;
+	void					setAirTicks(int airTicks);
 
 	virtual bool			HandleSingleGuiCommand( idEntity *entityGui, idLexer *src );
 	bool					GuiActive( void ) { return focusGUIent != NULL; }

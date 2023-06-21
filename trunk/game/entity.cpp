@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 953 $
- * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
- * $Author: sparhawk $
+ * $Revision: 954 $
+ * $Date: 2007-05-02 11:32:19 -0400 (Wed, 02 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 953 2007-05-02 11:17:48Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 954 2007-05-02 15:32:19Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7853,14 +7853,39 @@ int idEntity::heal(const char* healDefName, float healScale) {
 	int healInterval = healDef->GetInt("heal_interval", "0");
 	int healStepAmount = healDef->GetInt("heal_step_amount", "5");
 	float healIntervalFactor = healDef->GetInt("heal_interval_factor", "1");
+	bool isAir = idStr(healDef->GetString("heal_type", "")) == "air";
 
 	// Check if the entity can be healed in the first place
-	if ( healAmount == 0 || health >= spawnArgs.GetInt("health")) {
+	if ( healAmount == 0 || (!isAir && health >= spawnArgs.GetInt("health")) ) {
 		return 0;
 	}
 	
-	// Is this "instant" healing
-	if (healInterval == 0) {
+	// Check for air potions
+	if (isAir) {
+		if (!IsType(idActor::Type)) { 
+			// Don't apply air healing to non-actors
+			return 0;
+		}
+		
+		// Try to cast this entity onto idAI or idPlayer
+		idAI* ai = dynamic_cast<idAI*>(this);
+		idPlayer* player = dynamic_cast<idPlayer*>(this);
+
+		if (ai != NULL) {
+			// This entity is an AI
+			ai->setAirTicks(ai->getAirTicks() + healAmount);
+			return 1;
+		}
+		else if (player != NULL) {
+			// This entity is a player
+			player->setAirTicks(player->getAirTicks() + healAmount);
+			return 1;
+		}
+
+		return 0;
+	}
+	// Is this "instant" healing?
+	else if (healInterval == 0) {
 		// Yes, heal the entity
 		health += healAmount;
 
@@ -7871,11 +7896,7 @@ int idEntity::heal(const char* healDefName, float healScale) {
 			}
 
 			Killed( gameLocal.world, gameLocal.world, abs(healAmount), GetLocalCoordinates(GetPhysics()->GetOrigin()), 0);
-		} else {
-			// greebo: Do nothing, if health > 0, a "Healed" function could be invoked here
-			//Pain( inflictor, attacker, damage, dir, location );
 		}
-
 		return 1;
 	}
 	// Is this a gradual healing def? This would only apply to idPlayer

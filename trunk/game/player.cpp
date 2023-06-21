@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 953 $
- * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
- * $Author: sparhawk $
+ * $Revision: 954 $
+ * $Date: 2007-05-02 11:32:19 -0400 (Wed, 02 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 953 2007-05-02 11:17:48Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 954 2007-05-02 15:32:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5337,6 +5337,18 @@ void idPlayer::UpdateAir( void ) {
 
 	if ( hud ) {
 		hud->SetStateInt( "player_air", 100 * airTics / pm_airTics.GetInteger() );
+	}
+}
+
+int	idPlayer::getAirTicks() const {
+	return airTics;
+}
+
+void idPlayer::setAirTicks(int airTicks) {
+	airTics = airTicks;
+	// Clamp to maximum value
+	if( airTics > pm_airTics.GetInteger() ) {
+		airTics = pm_airTics.GetInteger();
 	}
 }
 

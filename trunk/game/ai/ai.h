@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 912 $
- * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 954 $
+ * $Date: 2007-05-02 11:32:19 -0400 (Wed, 02 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -518,6 +518,13 @@ public:
 	*   
 	****************************************************************************************/
 	void CrashLand( const idVec3 &oldOrigin, const idVec3 &oldVelocity );
+
+	/**
+	* greebo: Accessor methods for the airTicks member variable. 
+	*/
+	int		getAirTicks() const;
+	void	setAirTicks(int airTicks);
+
 protected:
 	// navigation
 	idAAS *					aas;
