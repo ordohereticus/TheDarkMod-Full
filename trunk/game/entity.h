@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 350 $
- * $Date: 2006-02-06 17:14:28 -0500 (Mon, 06 Feb 2006) $
+ * $Revision: 352 $
+ * $Date: 2006-02-07 13:55:25 -0500 (Tue, 07 Feb 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.22  2006/02/07 18:55:24  sparhawk
+ * 1. State is now moved to CStimResponse so responses can now also be disabled.
+ * 2. Removed state SS_ACTIVE (what was that again for???)
+ *
  * Revision 1.21  2006/02/06 22:14:27  sparhawk
  * Added ignore list for responses.
  *
@@ -742,6 +746,7 @@ private:
 	void					StimEnable(int Type, int State);
 	void					ResponseAdd(int Type);
 	void					ResponseRemove(int Type);
+	void					ResponseEnable(int Type, int State);
 
 	// Add/Remove the response to/from the stim with the given type
 	void					ResponseIgnore(int StimType, idEntity *);
