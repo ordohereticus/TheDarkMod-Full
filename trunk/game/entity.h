@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 865 $
- * $Date: 2007-03-23 03:12:38 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 867 $
+ * $Date: 2007-03-24 02:43:12 -0400 (Sat, 24 Mar 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -668,7 +668,7 @@ public:
 	/**
 	 * Return true if this entity can be mantled, false otherwise.
 	 */
-	virtual bool			IsMantleable() { return m_bIsMantleable; }
+	virtual bool			IsMantleable();
 
 protected:
 	/**

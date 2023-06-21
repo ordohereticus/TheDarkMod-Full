@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 863 $
- * $Date: 2007-03-22 14:02:03 -0400 (Thu, 22 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 867 $
+ * $Date: 2007-03-24 02:43:12 -0400 (Sat, 24 Mar 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 863 2007-03-22 18:02:03Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 867 2007-03-24 06:43:12Z crispy $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -308,6 +308,14 @@ idAFAttachment::GetBody
 */
 idEntity *idAFAttachment::GetBody( void ) const {
 	return body;
+}
+
+/**
+* Return true if we can mantle this attachment, false otherwise.
+**/
+bool idAFAttachment::IsMantleable()
+{
+	return (!body || body->IsMantleable()) && idEntity::IsMantleable();
 }
 
 /*

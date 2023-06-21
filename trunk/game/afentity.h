@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 863 $
- * $Date: 2007-03-22 14:02:03 -0400 (Thu, 22 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 867 $
+ * $Date: 2007-03-24 02:43:12 -0400 (Sat, 24 Mar 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -91,6 +91,8 @@ public:
 	void					SetBody( idEntity *bodyEnt, const char *headModel, jointHandle_t attachJoint );
 	void					ClearBody( void );
 	idEntity *				GetBody( void ) const;
+
+	bool					IsMantleable( void );
 
 	virtual void			Think( void );
 

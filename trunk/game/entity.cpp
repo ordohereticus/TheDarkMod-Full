@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 865 $
- * $Date: 2007-03-23 03:12:38 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 867 $
+ * $Date: 2007-03-24 02:43:12 -0400 (Sat, 24 Mar 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 865 2007-03-23 07:12:38Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 867 2007-03-24 06:43:12Z crispy $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7738,4 +7738,24 @@ Quit:
 
 void idEntity::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CInventoryItem *Prev)
 {
+}
+
+/**
+* If this entity (or any entity that it is attached to) has mantling disabled,
+* then this returns false. Otherwise, returns true.
+**/
+bool idEntity::IsMantleable()
+{
+	bool returnVal = true;
+	idEntity* ent=this;
+	while (ent!=NULL)
+	{
+		if (!ent->m_bIsMantleable)
+		{
+			returnVal = false;
+			break;
+		}
+		ent = ent->GetBindMaster();
+	}
+	return returnVal;
 }
