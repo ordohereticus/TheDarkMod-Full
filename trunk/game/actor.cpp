@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 815 $   $Date: 2007-03-04 05:17:36 -0500 (Sun, 04 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 818 $   $Date: 2007-03-04 08:27:39 -0500 (Sun, 04 Mar 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1115,14 +1115,21 @@ void idActor::ProjectOverlay( const idVec3 &origin, const idVec3 &dir, float siz
 idActor::LoadAF
 ================
 */
-bool idActor::LoadAF( void ) {
+bool idActor::LoadAF( void ) 
+{
+	bool bReturnVal = false;
 	idStr fileName;
 
-	if ( !spawnArgs.GetString( "ragdoll", "*unknown*", fileName ) || !fileName.Length() ) {
-		return false;
+	if ( !spawnArgs.GetString( "ragdoll", "*unknown*", fileName ) || !fileName.Length() ) 
+	{
+		goto Quit;
 	}
 	af.SetAnimator( GetAnimator() );
-	return af.Load( this, fileName );
+	bReturnVal =  af.Load( this, fileName );
+	SetUpGroundingVars();
+
+Quit:
+	return bReturnVal;
 }
 
 /*
