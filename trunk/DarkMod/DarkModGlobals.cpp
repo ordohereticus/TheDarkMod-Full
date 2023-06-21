@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 485 $
- * $Date: 2006-07-14 22:14:52 -0400 (Fri, 14 Jul 2006) $
+ * $Revision: 487 $
+ * $Date: 2006-07-16 21:45:27 -0400 (Sun, 16 Jul 2006) $
  * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.45  2006/07/17 01:45:27  ishtvan
+ * eliminated unnecessary logging in GetSurfName
+ *
  * Revision 1.44  2006/07/15 02:14:52  ishtvan
  * surface name fix (for real this time)
  *
@@ -160,7 +163,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 485 $   $Date: 2006-07-14 22:14:52 -0400 (Fri, 14 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 487 $   $Date: 2006-07-16 21:45:27 -0400 (Sun, 16 Jul 2006) $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -1257,7 +1260,7 @@ Quit:
 	if( strIn.IsEmpty() )
 		strIn = "none";
 
-	DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("GetSurfName: Found surface type name %s\r", strIn.c_str());
+	//DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("GetSurfName: Found surface type name %s\r", strIn.c_str());
 
 	return;
 }
