@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 696 $
- * $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $
+ * $Revision: 704 $
+ * $Date: 2007-01-05 05:52:33 -0500 (Fri, 05 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.15  2007/01/05 10:52:33  ishtvan
+ * dropped items no longer disappear after 5 minutes
+ *
  * Revision 1.14  2007/01/03 04:08:23  ishtvan
  * stim/response : Fixed resetting of CONTENTS_RESPONSE contents flag
  *
@@ -57,7 +60,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 704 $   $Date: 2007-01-05 05:52:33 -0500 (Fri, 05 Jan 2007) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1139,11 +1142,15 @@ idEntity *idMoveableItem::DropItem( const char *classname, const idVec3 &origin,
 		if ( activateDelay ) {
 			item->PostEventMS( &EV_Activate, activateDelay, item );
 		}
-		if ( !removeDelay ) {
-			removeDelay = 5 * 60 * 1000;
-		}
-		// always remove a dropped item after 5 minutes in case it dropped to an unreachable location
-		item->PostEventMS( &EV_Remove, removeDelay );
+
+/**
+* TDM: Do not automatically remove dropped items 
+* (Original Id code automatically removed it after 5 minutes)
+**/
+		if ( removeDelay ) 
+		{
+			item->PostEventMS( &EV_Remove, removeDelay );
+		}	
 	}
 	return item;
 }
