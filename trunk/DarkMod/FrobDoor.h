@@ -2,11 +2,17 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 406 $
- * $Date: 2006-05-06 16:23:35 -0400 (Sat, 06 May 2006) $
- * $Author: sparhawk $
+ * $Revision: 408 $
+ * $Date: 2006-05-07 17:52:12 -0400 (Sun, 07 May 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.13  2006/05/07 21:52:12  ishtvan
+ * *) fixed interruption on opening problem
+ * *) Added 'interruptable' spawnarg
+ * *) Added offset position for translation in case the item starts inbetween states
+ * *) Added translation speed variable
+ *
  * Revision 1.12  2006/05/06 20:23:35  sparhawk
  * Fixed problem with determining when the animation is finished.
  *
@@ -166,6 +172,11 @@ protected:
 	bool						m_StateChange;
 
 	/**
+	* Determines whether the door may be interrupted.  Read from spawnargs.
+	**/
+	bool						m_bInterruptable;
+
+	/**
 	* Set to true if the door was stopped mid-rotation
 	**/
 	bool						m_bInterrupted;
@@ -185,6 +196,13 @@ protected:
 	 * This is needed for doors that don't rotate, but slide to open.
 	 */
 	idVec3						m_Translation;
+
+	/**
+	* Translation speed in doom units per second, read from spawnargs.
+	* Defaults to zero.  
+	* If set to zero, D3's physics chooses the speed based on a constant time of movement.
+	**/
+	float						m_TransSpeed;
 
 	/**
 	* Door angles when completely closed
