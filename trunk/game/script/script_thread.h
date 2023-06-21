@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 325 $
- * $Date: 2006-01-28 23:18:10 -0500 (Sat, 28 Jan 2006) $
- * $Author: ishtvan $
+ * $Revision: 340 $
+ * $Date: 2006-02-04 18:52:32 -0500 (Sat, 04 Feb 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.5  2006/02/04 23:52:32  sparhawk
+ * Added support for arbitrary arguments being passed to a scriptfunction.
+ *
  * Revision 1.4  2006/01/29 04:18:10  ishtvan
  * added scriptfunction to get and dynamically set soundprop losses at portals
  *
@@ -234,7 +237,9 @@ public:
 	void						WaitFrame( void );
 								
 								// NOTE: If this is called from within a event called by this thread, the function arguments will be invalid after calling this function.
-	void						CallFunction( const function_t	*func, bool clearStack );
+	void						CallFunction(const function_t	*func, bool clearStack );
+
+	bool						CallFunctionArgs(const function_t *func, bool clearStack, const char *fmt, ...);
 
 								// NOTE: If this is called from within a event called by this thread, the function arguments will be invalid after calling this function.
 	void						CallFunction( idEntity *obj, const function_t *func, bool clearStack );
