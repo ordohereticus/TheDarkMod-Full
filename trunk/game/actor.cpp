@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 715 $
- * $Date: 2007-01-11 12:57:26 -0500 (Thu, 11 Jan 2007) $
- * $Author: gildoran $
+ * $Revision: 751 $
+ * $Date: 2007-01-21 05:50:57 -0500 (Sun, 21 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.33  2007/01/21 10:50:57  crispy
+ * Added animation replacement functionality (i.e. replace_anim_* spawnargs)
+ *
  * Revision 1.32  2007/01/11 17:57:26  gildoran
  * Changed movement volume modifiers to add to a sound shader's volume instead of overwriting it.
  *
@@ -122,7 +125,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 715 $   $Date: 2007-01-11 12:57:26 -0500 (Thu, 11 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 751 $   $Date: 2007-01-21 05:50:57 -0500 (Sun, 21 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1873,6 +1876,17 @@ void idActor::Attach( idEntity *ent )
 		idStr modelName = ent->spawnArgs.GetString("model","");
 		static_cast<idAFAttachment *>(ent)->SetBody( this, modelName.c_str(), joint );
 	}
+
+	// Override our animations based on the attached entity's replace_anim_* spawnargs
+	const idKeyValue *KeyVal = ent->spawnArgs.MatchPrefix( "replace_anim_", NULL );
+	while ( KeyVal )
+	{
+		idStr key = KeyVal->GetKey();
+		key.StripLeadingOnce("replace_anim_");
+
+		m_replacementAnims.Set( key, KeyVal->GetValue() );		
+		KeyVal = ent->spawnArgs.MatchPrefix( "replace_anim_", KeyVal );
+	}
 }
 
 /*
@@ -2171,16 +2185,45 @@ int idActor::GetAnim( int channel, const char *animname ) {
 	}
 
 	if ( animPrefix.Length() ) {
-		temp = va( "%s_%s", animPrefix.c_str(), animname );
+		temp = LookupReplacementAnim( va( "%s_%s", animPrefix.c_str(), animname ) );
 		anim = animatorPtr->GetAnim( temp );
 		if ( anim ) {
 			return anim;
 		}
 	}
 
-	anim = animatorPtr->GetAnim( animname );
+	anim = animatorPtr->GetAnim( LookupReplacementAnim( animname ) );
 
 	return anim;
+}
+
+/*
+=====================
+idActor::LookupReplacementAnim
+(TDM)
+=====================
+*/
+const char* idActor::LookupReplacementAnim( const char *animname )
+{
+	// Recursively lookup the animation to find its replacement animation
+	const char* replacement = animname;
+	int tries = 0; // Infinite loop prevention counter
+
+	while ( m_replacementAnims.FindKey( replacement ) )
+	{
+		replacement = m_replacementAnims.GetString( replacement );
+		
+		// Avoid infinite loops
+		tries++;
+		if (tries > 500)
+		{
+			gameLocal.Warning("Infinite loop detected in replacements for animation '%s' applied to actor '%s'\n",
+				animname, this->name.c_str());
+			break;
+		}
+	}
+
+	return replacement;
 }
 
 /*

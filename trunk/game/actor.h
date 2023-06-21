@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 708 $
- * $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 751 $
+ * $Date: 2007-01-21 05:50:57 -0500 (Sun, 21 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.18  2007/01/21 10:50:57  crispy
+ * Added animation replacement functionality (i.e. replace_anim_* spawnargs)
+ *
  * Revision 1.17  2007/01/06 10:06:49  ishtvan
  * fov check fix
  *
@@ -295,6 +298,7 @@ public:
 	
 							// animation state control
 	int						GetAnim( int channel, const char *name );
+	const char*				LookupReplacementAnim( const char *name );
 	void					UpdateAnimState( void );
 	void					SetAnimState( int channel, const char *name, int blendFrames );
 	const char *			GetAnimState( int channel ) const;
@@ -368,6 +372,9 @@ protected:
 	int						painTime;
 
 	idList<idAttachInfo>	m_attachments;
+	
+	// Maps animation names to the names of their replacements
+	idDict					m_replacementAnims;
 
 	/**
 	* Movement volume modifiers.  Ones for the player are taken from 
