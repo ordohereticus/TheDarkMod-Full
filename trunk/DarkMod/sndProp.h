@@ -17,8 +17,8 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 308 $
- * $Date: 2006-01-22 04:19:29 -0500 (Sun, 22 Jan 2006) $
+ * $Revision: 315 $
+ * $Date: 2006-01-22 19:19:40 -0500 (Sun, 22 Jan 2006) $
  * $Author: ishtvan $
  * $Name$
  *
@@ -171,6 +171,16 @@ protected:
 	bool ExpandWave
 		( float volInit, idVec3 origin, 
 		  SSprParms *propParms );
+
+	/**
+	* Faster and less accurate wavefront expansion algorithm.
+	* Only visits areas once.
+	*
+	* The wave expands until it reaches the maxDist argument distance, in meters
+	**/
+	bool ExpandWaveFast
+		( float volInit, idVec3 origin, 
+		  SSprParms *propParms, float maxDist );
 	
 	/**
 	* Process the populated areas after a sound propagation event.
