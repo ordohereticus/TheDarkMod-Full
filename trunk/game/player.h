@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 622 $
- * $Date: 2006-11-30 04:16:03 -0500 (Thu, 30 Nov 2006) $
+ * $Revision: 626 $
+ * $Date: 2006-12-03 19:28:33 -0500 (Sun, 03 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.38  2006/12/04 00:28:32  ishtvan
+ * *) temporarily made lean controls toggles to debug lean code
+ *
+ * *) Added method CheckLeanKeys to check for release of lean button (before the method was inside the impulse which might not get called if the key was released)
+ *
  * Revision 1.37  2006/11/30 09:16:03  ishtvan
  * leaning updates
  *
@@ -404,6 +409,12 @@ public:
 	* NOT YET IMPLEMENTED
 	**/
 	bool					m_bShoulderingBody;
+
+	/**
+	* Hack to fix the leaning test of key-releases
+	* Timestamp to wait a few frames before testing for button release
+	**/
+	int						m_LeanButtonTimeStamp;
 
 	idEntityPtr<idWeapon>	weapon;
 	idUserInterface *		hud;				// MP: is NULL if not local player
@@ -907,6 +918,12 @@ private:
 	void					UpdateObjectiveInfo( void );
 
 	void					UseVehicle( void );
+
+	/**
+	* TDM: Check if lean keys have been released this frame ( called by idPlayer::Think() )
+	* If they have been released, this resets their info in the keyhandler and unleans
+	**/
+	void					CheckLeanKeys( void );
 
 	void					Event_GetButtons( void );
 	void					Event_GetMove( void );
