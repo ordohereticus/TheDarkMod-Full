@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 172 $
- * $Date: 2005-09-27 04:07:15 -0400 (Tue, 27 Sep 2005) $
+ * $Revision: 173 $
+ * $Date: 2005-09-29 00:03:08 -0400 (Thu, 29 Sep 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.7  2005/09/29 04:03:08  ishtvan
+ * added support for double doors
+ *
  * Revision 1.6  2005/09/27 08:07:15  ishtvan
  * *) Added new member vars to support multiple frob functionality
  *
@@ -76,6 +79,14 @@ public:
 	**/
 	void					DoneRotating( void );
 
+	/**
+	* Find out if this door is touching another door, and if they share the same portal
+	* If so, store a pointer to the other door m_DoubleDoor on this door.
+	*
+	* This is posted as an event to be called on all doors after entities spawn
+	**/
+	void					FindDoubleDoor( void );
+
 protected:
 	/**
 	 * LinkedOpen will point to a door that is to be switched when this
@@ -105,9 +116,9 @@ protected:
 	idStr						m_MasterLock;
 	idList<idStr>				m_LockList;
 
-/**
-* m_Open is only set to false when the door is completely closed
-**/
+	/**
+	* m_Open is only set to false when the door is completely closed
+	**/
 	bool						m_Open;
 
 	bool						m_Locked;
@@ -138,6 +149,16 @@ protected:
 	* Door angles when completely open
 	**/
 	idAngles					m_OpenAngles;
+
+	/**
+	* Pointer to the door's partner in a double door.
+	* Double door means two doors placed right next to eachother, sharing the
+	*	same visportal.
+	* 
+	* The doubledoor does not necessarily have to be linked in a frob chain,
+	*	it could be independently opened.
+	**/
+	CFrobDoor					*m_DoubleDoor;
 
 private:
 };
