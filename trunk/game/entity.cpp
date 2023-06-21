@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 352 $
- * $Date: 2006-02-07 13:55:25 -0500 (Tue, 07 Feb 2006) $
- * $Author: sparhawk $
+ * $Revision: 359 $
+ * $Date: 2006-02-16 01:38:58 -0500 (Thu, 16 Feb 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.37  2006/02/16 06:38:58  ishtvan
+ * soundprop scriptfunction optional argument fix
+ *
  * Revision 1.36  2006/02/07 18:55:24  sparhawk
  * 1. State is now moved to CStimResponse so responses can now also be disabled.
  * 2. Removed state SS_ACTIVE (what was that again for???)
@@ -322,7 +325,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_ResponseAllow,		idEntity::ResponseAllow)
 
 	EVENT( EV_TDM_PropSound,		idEntity::Event_PropSound )
-	EVENT( EV_TDM_PropSoundMod,		idEntity::Event_PropSound )
+	EVENT( EV_TDM_PropSoundMod,		idEntity::Event_PropSoundMod )
 
 #ifdef MOD_WATERPHYSICS
 
@@ -6429,8 +6432,12 @@ void idEntity::ResponseAllow(int StimType, idEntity *e)
 }
 
 
-void idEntity::Event_PropSound( const char *sndName, float VolModIn )
+void idEntity::Event_PropSound( const char *sndName )
+{
+	PropSoundDirect( sndName, false, false, 0.0f );
+}
+
+void idEntity::Event_PropSoundMod( const char *sndName, float VolModIn )
 {
 	PropSoundDirect( sndName, false, false, VolModIn );
 }
-
