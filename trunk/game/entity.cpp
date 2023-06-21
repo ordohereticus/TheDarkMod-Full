@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1114 $
- * $Date: 2007-07-13 12:36:38 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1119 $
+ * $Date: 2007-07-14 04:21:09 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1114 2007-07-13 16:36:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1119 2007-07-14 08:21:09Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6375,7 +6375,7 @@ void idEntity::UpdateFrobDisplay( void )
 
 	// clamp between 0 and 1
 	param = idMath::ClampFloat(0.0, 1.0, param);
-	DM_LOG(LC_FROBBING,LT_DEBUG)LOGSTRING("Frob fader: Entity %s, param = %f\r", name.c_str(), param );
+	//DM_LOG(LC_FROBBING,LT_DEBUG)LOGSTRING("Frob fader: Entity %s, param = %f\r", name.c_str(), param );
 	SetShaderParm(11, param);
 
 Quit:

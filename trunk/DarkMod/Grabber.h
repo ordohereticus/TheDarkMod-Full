@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1087 $
- * $Date: 2007-07-12 11:47:55 -0400 (Thu, 12 Jul 2007) $
+ * $Revision: 1119 $
+ * $Date: 2007-07-14 04:21:09 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -93,7 +93,7 @@ public:
 protected:
 
 		/**
-		* Start grabbing an item.  Called internally and by the inventory
+		* Start grabbing an item.  Called internally.
 		* 
 		* If newEnt argument is NULL, it tries to grab the entity the player is frobbing
 		* Otherwise it places newEnt in the hands.
