@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 262 $
- * $Date: 2005-12-03 20:14:22 -0500 (Sat, 03 Dec 2005) $
+ * $Revision: 267 $
+ * $Date: 2005-12-03 21:45:02 -0500 (Sat, 03 Dec 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.39  2005/12/04 02:45:02  ishtvan
+ * fixed errors in surface variable names
+ *
  * Revision 1.38  2005/12/04 01:14:22  ishtvan
  * split surface types into old and new
  *
@@ -189,11 +192,11 @@ const char *idGameLocal::sufaceTypeNames[ MAX_SURFACE_TYPES ] = {
 	"ricochet", "surftype10", "surftype11", "surftype12", "surftype13", "surftype14", "surftype15"
 };
 
-const char *idGameLocal::newSurfaceTypes[ MAX_SURFACE_TYPES * 2 ] = {
+const char *idGameLocal::m_NewSurfaceTypes[ MAX_SURFACE_TYPES * 2 ] = {
 	"tile", "carpet", "dirt", "gravel", "grass", "rock", "twigs", "foliage", "sand", "mud",
-	"brokeglass", "snow", "ice", "squeakboard", "puddle", "moss", "cloth", "ceramic", "armor", 
-	"armorleath", "climbable"
-}
+	"brokeglass", "snow", "ice", "squeakboard", "puddle", "moss", "cloth", "ceramic", "slate",
+	"armor_leath", "armor_chain", "armor_plate", "climbable"
+};
 
 /*
 ===========
