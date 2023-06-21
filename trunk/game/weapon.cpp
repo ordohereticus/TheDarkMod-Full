@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 266 $
- * $Date: 2005-12-03 21:44:30 -0500 (Sat, 03 Dec 2005) $
+ * $Revision: 331 $
+ * $Date: 2006-02-03 05:48:57 -0500 (Fri, 03 Feb 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.6  2006/02/03 10:48:57  ishtvan
+ * D3 bugfix for melee defs getting damage zone
+ *
  * Revision 1.5  2005/12/04 02:43:50  ishtvan
  * updated surface checks to check new surface types
  *
@@ -3018,7 +3021,7 @@ void idWeapon::Event_Melee( void ) {
 				idVec3 kickDir, globalKickDir;
 				meleeDef->dict.GetVector( "kickDir", "0 0 0", kickDir );
 				globalKickDir = muzzleAxis * kickDir;
-				ent->Damage( owner, owner, globalKickDir, meleeDefName, owner->PowerUpModifier( MELEE_DAMAGE ), tr.c.id );
+				ent->Damage( owner, owner, globalKickDir, meleeDefName, owner->PowerUpModifier( MELEE_DAMAGE ), CLIPMODEL_ID_TO_JOINT_HANDLE(tr.c.id) );
 
 				// apply a LARGE tactile alert to AI
 				if( ent->IsType(idAI::Type) )
