@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1017 $
- * $Date: 2007-06-10 13:53:21 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1022 $
+ * $Date: 2007-06-10 23:17:45 -0400 (Sun, 10 Jun 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1017 2007-06-10 17:53:21Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1022 2007-06-11 03:17:45Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -5279,6 +5279,12 @@ void idAI::PushWithAF( void ) {
 			ent = touchList[ i ].touchedEnt;
 			pushed_ents[num_pushed++] = ent;
 			vel = ent->GetPhysics()->GetAbsBounds().GetCenter() - touchList[ i ].touchedByBody->GetWorldOrigin();
+			
+			if ( ent->IsType(idPlayer::Type) && static_cast<idPlayer *>(ent)->noclip )
+			{
+				// skip player when noclip is on
+				continue;
+			}
 
 			if( ent->IsType(idActor::Type) )
 			{
@@ -6524,8 +6530,8 @@ bool idAI::IsEntityHiddenByDarkness (idEntity* p_entity) const
 
 			idVec3 bottomPoint = entityBounds[0];
 			idVec3 topPoint = entityBounds[1];
-			bottomPoint += p_physics->GetGravityNormal() * 0.1; // Tweak to stay out of floors
-			topPoint += p_physics->GetGravityNormal() * 0.1; // Tweak to stay out of floors
+			bottomPoint += p_physics->GetGravityNormal() * 0.1f; // Tweak to stay out of floors
+			topPoint += p_physics->GetGravityNormal() * 0.1f; // Tweak to stay out of floors
 			
 
 			float maxDistanceToObserve = getMaximumObservationDistance 
