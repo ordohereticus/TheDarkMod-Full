@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 496 $
- * $Date: 2006-07-19 17:50:10 -0400 (Wed, 19 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 508 $
+ * $Date: 2006-07-26 01:07:04 -0400 (Wed, 26 Jul 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.69  2006/07/26 05:07:04  gildoran
+ * I forgot to commit one file... (this is for the update to the inventory code)
+ *
  * Revision 1.68  2006/07/19 21:50:10  ishtvan
  * new objective related scriptfunctions
  *
@@ -229,7 +232,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 496 $   $Date: 2006-07-19 17:50:10 -0400 (Wed, 19 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 508 $   $Date: 2006-07-26 01:07:04 -0400 (Wed, 26 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -9697,16 +9700,16 @@ idPlayer::inventoryNextItem
 */
 void idPlayer::inventoryNextItem() {
 	assert( hud );
-	InventoryCursor()->next();
-	inventoryUpdateHUD();
+	//InventoryCursor()->next();
+	//inventoryUpdateHUD();
 	//hud->HandleNamedEvent( "touchInventory" );
 	hud->HandleNamedEvent( "inventoryShiftLeft" );
 }
 
 void idPlayer::inventoryPrevItem() {
 	assert( hud );
-	InventoryCursor()->prev();
-	inventoryUpdateHUD();
+	//InventoryCursor()->prev();
+	//inventoryUpdateHUD();
 	//hud->HandleNamedEvent( "touchInventory" );
 	hud->HandleNamedEvent( "inventoryShiftRight" );
 }
@@ -9717,15 +9720,16 @@ void idPlayer::inventoryPrevGroup() {
 void idPlayer::inventoryNextGroup() {
 }
 
+/*
 void idPlayer::inventoryUpdateHUD() {
 	assert( hud );
 
-	tdmInventoryCursor* cur = InventoryCursor();
+	CtdmInventoryCursor* cur = InventoryCursor();
 
 	// Normally having cursors on the stack would be a bad idea, but the
 	// game cannot be saved in the middle of this function call, so it's ok.
-	tdmInventoryCursor lCur; // left cursor
-	tdmInventoryCursor rCur; // right cursor
+	CtdmInventoryCursor lCur; // left cursor
+	CtdmInventoryCursor rCur; // right cursor
 
 	// The list of inventory items to potentially be shown.
 	idEntity* items[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
@@ -9792,6 +9796,7 @@ void idPlayer::inventoryUpdateHUD() {
 	hud->HandleNamedEvent( "inventoryUpdateItems" );
 
 }
+*/
 
 /*
 =====================
