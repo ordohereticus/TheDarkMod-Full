@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 403 $
- * $Date: 2006-05-03 17:35:03 -0400 (Wed, 03 May 2006) $
- * $Author: sparhawk $
+ * $Revision: 717 $
+ * $Date: 2007-01-12 00:57:17 -0500 (Fri, 12 Jan 2007) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.8  2007/01/12 05:57:17  gildoran
+ * Added sys.waitForRender($entity)
+ *
  * Revision 1.7  2006/05/03 21:35:03  sparhawk
  * Added support for booleans for scriptfunctions.
  *
@@ -38,6 +41,7 @@
 
 extern const idEventDef EV_Thread_Execute;
 extern const idEventDef EV_Thread_SetCallback;
+extern const idEventDef EV_Thread_SetRenderCallback;
 extern const idEventDef EV_Thread_TerminateThread;
 extern const idEventDef EV_Thread_Pause;
 extern const idEventDef EV_Thread_Wait;
@@ -127,6 +131,7 @@ private:
 	void						Event_WaitFrame( void );
 	void						Event_WaitFor( idEntity *ent );
 	void						Event_WaitForThread( int num );
+	void						Event_WaitForRender( idEntity *ent );
 	void						Event_Print( const char *text );
 	void						Event_PrintLn( const char *text );
 	void						Event_Say( const char *text );
