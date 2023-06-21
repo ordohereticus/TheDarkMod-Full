@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 510 $
- * $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 514 $
+ * $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.7  2006/07/28 01:36:19  ishtvan
+ * frobbing bugfixes
+ *
  * Revision 1.6  2006/07/27 09:02:22  ishtvan
  * frobbing updates
  *
@@ -33,7 +36,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 510 $   $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 514 $   $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/sndProp.h"
@@ -553,7 +556,7 @@ idBrittleFracture::Present
 */
 void idBrittleFracture::Present() 
 {
-	if( m_FrobDistance )
+	if( m_bFrobable )
 	{
 		UpdateFrob();
 		UpdateFrobDisplay();

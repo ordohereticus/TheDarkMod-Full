@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 514 $
+ * $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.12  2006/07/28 01:36:19  ishtvan
+ * frobbing bugfixes
+ *
  * Revision 1.11  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -48,7 +51,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 514 $   $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -305,10 +308,7 @@ void idItem::Present( void )
 
 		// we will mess with shader parms when the item is in view
 		// to give the "item pulse" effect
-		if(m_FrobDistance == 0)
-			shell.callback = idItem::ModelCallback;
-		else
-			m_FrobCallbackChain = idItem::ModelCallback;
+		shell.callback = idItem::ModelCallback;
 
 		shell.entityNum = entityNumber;
 		shell.customShader = shellMaterial;
