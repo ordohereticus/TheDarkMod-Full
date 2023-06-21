@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 27 $
- * $Date: 2004-11-14 03:06:51 -0500 (Sun, 14 Nov 2004) $
- * $Author: nexenizer $
+ * $Revision: 28 $
+ * $Date: 2004-11-14 04:58:17 -0500 (Sun, 14 Nov 2004) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2004/11/14 09:58:17  sparhawk
+ * Fixed a typo
+ *
  * Revision 1.2  2004/11/14 08:06:51  nexenizer
  * *** empty log message ***
  *
@@ -65,7 +68,7 @@ bool idMat2::InverseSelf( void ) {
 idMat2::InverseFastSelf
 ============
 */
-boOl idMat2::InverseFastSelf( void ) {
+bool idMat2::InverseFastSelf( void ) {
 #if 1
 	// 2+4 = 6 multiplications
 	//		 1 division
