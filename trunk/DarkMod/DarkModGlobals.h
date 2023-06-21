@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 292 $
- * $Date: 2005-12-13 13:19:40 -0500 (Tue, 13 Dec 2005) $
- * $Author: ishtvan $
+ * $Revision: 328 $
+ * $Date: 2006-01-31 17:35:07 -0500 (Tue, 31 Jan 2006) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.33  2006/01/31 22:34:44  sparhawk
+ * StimReponse first working version
+ *
  * Revision 1.32  2005/12/13 18:19:40  ishtvan
  * added m_MaxFrobDistance for frob distance cube around player
  *
@@ -168,6 +171,7 @@ typedef enum {
 	LC_MATH,
 	LC_MOVEMENT,		// mantling, leaning, ledge hanging, etc...
 	LC_FRAME,			// This is intended only as a framemarker and will always switched on if at least one other option is on.
+	LC_STIM_RESPONSE,
 	LC_COUNT
 } LC_LogClass;
 

@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 327 $
- * $Date: 2006-01-28 23:30:07 -0500 (Sat, 28 Jan 2006) $
- * $Author: ishtvan $
+ * $Revision: 328 $
+ * $Date: 2006-01-31 17:35:07 -0500 (Tue, 31 Jan 2006) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.35  2006/01/31 22:34:44  sparhawk
+ * StimReponse first working version
+ *
  * Revision 1.34  2006/01/29 04:30:07  ishtvan
  * fix for GetSurfName returning invalid pointer
  *
@@ -204,6 +207,7 @@ static char *LCString[LC_COUNT+1] = {
 	"MATH",
 	"MOVEMENT",
 	"FRAME",
+	"STIMRESP",
 	"(empty)"
 };
 
@@ -674,6 +678,16 @@ void CGlobal::LoadINISettings(void *p)
 			}
 
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_MOVEMENT: %c\r", pm->Value[0]);
+		}
+		if(FindMap(ps, "LogClass_STIM_RESPONSE", TRUE, &pm) != -1)
+		{
+			if(pm->Value[0] == '1')
+			{
+				m_ClassArray[LC_STIM_RESPONSE] = true;
+				Frame = true;
+			}
+
+			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_STIM_RESPONSE: %c\r", pm->Value[0]);
 		}
 	}
 	m_ClassArray[LC_FRAME] = Frame;

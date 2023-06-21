@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 319 $
- * $Date: 2006-01-24 17:03:46 -0500 (Tue, 24 Jan 2006) $
+ * $Revision: 328 $
+ * $Date: 2006-01-31 17:35:07 -0500 (Tue, 31 Jan 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.17  2006/01/31 22:35:07  sparhawk
+ * StimReponse first working version
+ *
  * Revision 1.16  2006/01/24 22:03:46  sparhawk
  * Stim/Response implementation preliminary
  *
@@ -555,6 +558,14 @@ protected:
 
 	CStim					*AddStim(int Type, float Radius = 0.0f, bool Removable = true, bool Default = false);
 	CResponse				*AddResponse(int Type, bool Removable = true, bool Default = false);
+
+	/**
+	 * RemoveStim/Response removes the given stim. If the entity has no 
+	 * stims/responses left, it is also removed from the global list in gameLocal.
+	 * 
+	 */
+	void					RemoveStim(int Type);
+	void					RemoveResponse(int Type);
 
 protected:
 	renderEntity_t			renderEntity;						// used to present a model to the renderer
