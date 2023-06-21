@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 587 $
- * $Date: 2006-10-12 17:19:35 -0400 (Thu, 12 Oct 2006) $
+ * $Revision: 590 $
+ * $Date: 2006-10-16 16:52:21 -0400 (Mon, 16 Oct 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.26  2006/10/16 20:52:21  sparhawk
+ * Individual offset added for joints.
+ *
  * Revision 1.25  2006/10/12 21:19:35  sparhawk
  * Generic headoffset implemented
  *
@@ -96,7 +99,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 587 $   $Date: 2006-10-12 17:19:35 -0400 (Thu, 12 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 590 $   $Date: 2006-10-16 16:52:21 -0400 (Mon, 16 Oct 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1797,6 +1800,8 @@ void idActor::Attach( idEntity *ent )
 	idAttachInfo	&attach = m_attachments.Alloc();
 	idAngles		angleOffset;
 	idVec3			originOffset;
+	idStr			nm;
+	idStr			ClassName;
 
 	jointName = ent->spawnArgs.GetString( "joint" );
 	joint = animator.GetJointHandle( jointName );
@@ -1804,8 +1809,14 @@ void idActor::Attach( idEntity *ent )
 		gameLocal.Error( "Joint '%s' not found for attaching '%s' on '%s'", jointName.c_str(), ent->GetClassname(), name.c_str() );
 	}
 
-	angleOffset = ent->spawnArgs.GetAngles( "angles" );
-	originOffset = ent->spawnArgs.GetVector( "origin" );
+	spawnArgs.GetString("classname", "", ClassName);
+	sprintf(nm, "angles_%s", ClassName.c_str());
+	if(ent->spawnArgs.GetAngles(nm.c_str(), "0 0 0", angleOffset) == false)
+		angleOffset = ent->spawnArgs.GetAngles( "angles" );
+
+	sprintf(nm, "origin_%s", ClassName.c_str());
+	if(ent->spawnArgs.GetVector(nm.c_str(), "0 0 0", originOffset) == false)
+		originOffset = ent->spawnArgs.GetVector( "origin" );
 
 	attach.channel = animator.GetChannelForJoint( joint );
 	GetJointWorldTransform( joint, gameLocal.time, origin, axis );
