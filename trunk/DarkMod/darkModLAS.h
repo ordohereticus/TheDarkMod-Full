@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1010 $
+ * $Date: 2007-06-10 01:38:52 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 
@@ -191,6 +191,10 @@ public:
    */
    idList<qhandle_t> getListOfLightsAffectingPoint (const idVec3& testPoint, bool b_currentlyLighting = true );
   
+   /**
+   * This method gets the name of the AAS for which the LAS was initialized
+   */
+   idStr getAASName();
 
 
 

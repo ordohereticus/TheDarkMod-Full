@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 979 $
- * $Date: 2007-05-05 11:39:17 -0400 (Sat, 05 May 2007) $
- * $Author: greebo $
+ * $Revision: 1010 $
+ * $Date: 2007-06-10 01:38:52 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 979 2007-05-05 15:39:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1010 2007-06-10 05:38:52Z sophisticatedzombie $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -782,5 +782,12 @@ float darkModLAS::queryLightingAlongLine
 
 	// Return total illumination value to the caller
 	return totalIllumination;
+}
+
+//----------------------------------------------------------------------------
+
+idStr darkModLAS::getAASName()
+{
+	return pvsToAASMappingTable.getAASName();
 }
 
