@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 463 $
- * $Date: 2006-06-16 17:10:10 -0400 (Fri, 16 Jun 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 511 $
+ * $Date: 2006-07-27 05:03:41 -0400 (Thu, 27 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.21  2006/07/27 09:03:41  ishtvan
+ * added frobbing cvars cv_frob_width and cv_frob_fadetime
+ *
  * Revision 1.20  2006/06/16 21:10:10  sophisticatedzombie
  * Added cv_ai_ko_show and cv_ai_fov_show to the list of Darkmod cvars.
  *
@@ -94,6 +97,9 @@ extern idCVar cv_ko_show;
 extern idCVar cv_pm_runmod;
 extern idCVar cv_pm_crouchmod;
 extern idCVar cv_pm_creepmod;
+
+extern idCVar cv_frob_width;
+extern idCVar cv_frob_fadetime;
 
 extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;
