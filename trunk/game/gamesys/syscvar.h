@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 46 $
- * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
- * $Author: sparhawk $
+ * $Revision: 111 $
+ * $Date: 2005-04-07 05:47:07 -0400 (Thu, 07 Apr 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.3  2005/04/07 09:47:07  ishtvan
+ * Added darkmod Cvars for ingame developer tweaking of soundprop and AI
+ *
  * Revision 1.2  2004/11/28 09:17:51  sparhawk
  * SDK V2 merge
  *
@@ -20,6 +23,16 @@
 
 #ifndef __SYS_CVAR_H__
 #define __SYS_CVAR_H__
+
+// darkmod cvars
+
+extern idCVar g_ai_sndvol;
+extern idCVar g_ai_sightmod;
+extern idCVar g_ai_sightmaxdist;
+extern idCVar g_ai_sightmindist;
+extern idCVar g_ai_tactalert;
+extern idCVar g_ai_debug;
+extern idCVar g_spr_debug;
 
 extern idCVar	developer;
 
