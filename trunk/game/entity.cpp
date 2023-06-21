@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 902 $
- * $Date: 2007-04-14 21:24:41 -0400 (Sat, 14 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 903 $
+ * $Date: 2007-04-16 06:22:29 -0400 (Mon, 16 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 902 2007-04-15 01:24:41Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 903 2007-04-16 10:22:29Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7306,7 +7306,7 @@ void idEntity::Event_TimerCreate(int StimType, int Hour, int Minute, int Seconds
 
 	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Create Timer: Stimtype-%d Hour: %d  Minute: %d   Seconds: %d   Milliseconds: %d\r",
 		StimType, Hour, Minute, Seconds, Millisecond);
-	timer = stim->CreateTimer();
+	timer = stim->AddTimerToGame();
 	timer->SetTimer(Hour, Minute, Seconds, Millisecond);
 }
 

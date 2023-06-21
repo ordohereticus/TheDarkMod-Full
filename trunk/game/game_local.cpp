@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 896 $
- * $Date: 2007-04-09 06:10:36 -0400 (Mon, 09 Apr 2007) $
+ * $Revision: 903 $
+ * $Date: 2007-04-16 06:22:29 -0400 (Mon, 16 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 896 2007-04-09 10:10:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 903 2007-04-16 10:22:29Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5312,31 +5312,41 @@ void idGameLocal::ProcessStimResponse(void)
 	CStimResponseTimer *timer;
 	idBounds bounds;
 	idEntity *Ent[MAX_GENTITIES];
-	double ts = sys->GetClockTicks();
+	double ticks = sys->GetClockTicks();
 
 	// Check the timed stims first.
 	en = m_StimTimer.Num();
+	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Game_Local: Stim Timers available: %d\r", en);
 	for(ei = 0; ei < en; ei++)
 	{
 		CStim *stim = m_StimTimer[ei];
-		int tst = -1;
 
-		// Advance the timer
-		timer = stim->GetTimer();
-
-		if(timer->GetState() == CStimResponseTimer::SRTS_RUNNING)
+		// Only advance the timer if the stim can be fired in the first place
+		if (stim->m_MaxFireCount > 0 || stim->m_MaxFireCount == -1)
 		{
-			tst = timer->Tick(ts);
-			DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("StimTimer: Updating active timer at clock val %d, num stims = %d.\r", ts, tst);
-		}
+			int tst = -1;
 
-		while(tst > 0)
-		{
-			Ent[0] = stim->m_Owner;
-			e = Ent[0];
-			n = 1;
-			DoResponseAction(stim, Ent, n, e, true);
-			tst--;
+			// Advance the timer
+			timer = stim->GetTimer();
+
+			if(timer->GetState() == CStimResponseTimer::SRTS_RUNNING)
+			{
+				DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("StimTimer: Active timer found.\r");
+				tst = timer->Tick(ticks);
+				//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("StimTimer: Updating active timer at clock val %d, num stims = %d.\r", ts, tst);
+			}
+
+			if (tst > 0) {
+				gameLocal.Printf("Timer elapsed!\n");
+				// Enable the stim when the timer has expired
+				stim->EnableSR(true);
+				tst = 0;
+				/*Ent[0] = stim->m_Owner;
+				e = Ent[0];
+				n = 1;
+				DoResponseAction(stim, Ent, n, e, true);*/
+				//tst--;
+			}
 		}
 	}
 
@@ -5350,12 +5360,17 @@ void idGameLocal::ProcessStimResponse(void)
 		{
 			origin = e->GetPhysics()->GetOrigin();
 
-			idList<CStim *> &stim = src->GetStimList();
+			idList<CStim*>& stimList = src->GetStimList();
 
 			// Traverse through all the stims on this entity
-			for (int si = 0; si < stim.Num(); si++)
+			for (int si = 0; si < stimList.Num(); si++)
 			{
-				CStim *pStim = stim[si];
+				CStim *pStim = stimList[si];
+
+				if (pStim->m_MaxFireCount == 0) {
+					// Maximum number of firings reached, do not process this stim
+					continue;
+				}
 
 				if( pStim->m_State != SS_ENABLED ) {
 					continue; // Stim is not enabled
@@ -5371,6 +5386,11 @@ void idGameLocal::ProcessStimResponse(void)
 				{
 					pStim->EnableSR(false);
 					continue;
+				}
+
+				// Initial checks passed, decrease the fire count
+				if (pStim->m_MaxFireCount > 0) {
+					pStim->m_MaxFireCount--;
 				}
 
 				// Save the current timestamp into the stim, so that we know when it was last fired
