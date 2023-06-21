@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -22,15 +22,17 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+#include "../game/game_local.h"
+
+static bool init_version = FileVersionList("$Id: sndProp.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
 
 #pragma warning(disable : 4996)
 
-#include "sndproploader.h"
-#include "sndprop.h"
-#include "matrixsq.h"
-#include "darkmodglobals.h"
-#include "relations.h"
+#include "sndPropLoader.h"
+#include "sndProp.h"
+#include "MatrixSq.h"
+#include "DarkModGlobals.h"
+#include "Relations.h"
 #include "../game/ai/ai.h"
 
 // NOTES:

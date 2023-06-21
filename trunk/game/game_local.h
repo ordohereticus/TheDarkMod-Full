@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -26,6 +26,12 @@
 
 #ifndef __GAME_LOCAL_H__
 #define	__GAME_LOCAL_H__
+
+#include "game.h"
+
+#ifdef __linux__
+#include "framework/usercmdgen.h"
+#endif
 
 #pragma warning(disable : 4996)
 /**
@@ -172,6 +178,10 @@ void gameError( const char *fmt, ... );
 
 #include "pvs.h"
 #include "multiplayergame.h"
+
+#ifdef __linux__
+#include "renderer/renderworld.h"
+#endif
 
 //============================================================================
 
@@ -373,6 +383,8 @@ typedef struct {
 } SInventoryTarget;
 
 //============================================================================
+
+class idDeclEntityDef;
 
 class idGameLocal : public idGame {
 public:

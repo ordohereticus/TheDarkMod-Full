@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -10,12 +10,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_grab.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: force_grab.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
 
-#include "../Game/game_local.h"
-#include "Force_Grab.h"
-#include "../darkmod/playerdata.h"
-#include "../darkmod/grabber.h"
+#include "../game/game_local.h"
+#include "force_grab.h"
+#include "../DarkMod/PlayerData.h"
+#include "../DarkMod/Grabber.h"
 
 class CDarkModPlayer;
 

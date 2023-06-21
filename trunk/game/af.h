@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 862 $
- * $Date: 2007-03-22 13:59:44 -0400 (Thu, 22 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -21,6 +21,10 @@
 
 ===============================================================================
 */
+
+/* FORWRD DECLS */
+class idDeclAF_Body;
+class idDeclAF_Constraint;
 
 typedef struct jointConversion_s {
 	int						bodyId;				// id of the body

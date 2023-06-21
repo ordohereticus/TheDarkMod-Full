@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -36,11 +36,11 @@ typedef enum {
 } cinStatus_t;
 
 // a cinematic stream generates an image buffer, which the caller will upload to a texture
-typedef struct {
+struct cinData_t {
 	int					imageWidth, imageHeight;	// will be a power of 2
 	const byte *		image;						// RGBA format, alpha will be 255
 	int					status;
-} cinData_t;
+};
 
 class idCinematic {
 public:

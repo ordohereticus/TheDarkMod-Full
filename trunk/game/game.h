@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -12,6 +12,11 @@
 
 #ifndef __GAME_H__
 #define __GAME_H__
+
+#ifdef __linux__
+#include "idlib/lib.h"
+#include "sound/sound.h"
+#endif
 
 /*
 ===============================================================================
@@ -52,6 +57,11 @@ typedef enum {
 
 #define TIME_GROUP1		0
 #define TIME_GROUP2		1
+
+class idRenderWorld;
+class idSoundWorld;
+class usercmd_t;
+class idUserInterface;
 
 class idGame {
 public:
@@ -187,6 +197,9 @@ extern idGame *					game;
 ===============================================================================
 */
 
+class idSoundEmitter;
+class idSoundShader;
+
 struct refSound_t {
 	idSoundEmitter *			referenceSound;	// this is the interface to the sound system, created
 												// with idSoundWorld::AllocSoundEmitter() when needed
@@ -210,6 +223,9 @@ enum {
 
 class idEntity;
 class idMD5Anim;
+typedef struct renderLight_s renderLight_t;
+typedef struct renderEntity_s renderEntity_t;
+class idRenderModel;
 
 // FIXME: this interface needs to be reworked but it properly separates code for the time being
 class idGameEdit {
@@ -303,6 +319,16 @@ extern idGameEdit *				gameEdit;
 */
 
 const int GAME_API_VERSION		= 8;
+
+class idCmdSystem;
+class idNetworkSystem;
+class idRenderSystem;
+class idSoundSystem;
+class idRenderModelManager;
+class idUserInterfaceManager;
+class idDeclManager;
+class idAASFileManager;
+class idCollisionModelManager;
 
 typedef struct {
 

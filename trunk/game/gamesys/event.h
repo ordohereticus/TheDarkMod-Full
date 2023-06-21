@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -71,6 +71,7 @@ public:
 
 class idSaveGame;
 class idRestoreGame;
+typedef struct trace_s trace_t;
 
 class idEvent {
 private:
@@ -107,12 +108,8 @@ public:
 	static void					Save( idSaveGame *savefile );					// archives object for save game file
 	static void					Restore( idRestoreGame *savefile );				// unarchives object from save game file
 
-#ifndef __linux__
-// OrbWeaver: I have absolutely no idea why this won't compile
-// DarkMod/../game/gamesys/event.h:109: error: expected ‘,’ or ‘...’ before ‘&’ token
 	static void					SaveTrace( idSaveGame *savefile, const trace_t &trace );
 	static void					RestoreTrace( idRestoreGame *savefile, trace_t &trace );
-#endif
 	
 };
 

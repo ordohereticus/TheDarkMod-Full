@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -131,9 +131,9 @@ ID_INLINE int idVectorSet<type,dimension>::FindVector( const type &v, const floa
 		hashKey += (int) ( ( v[i] - mins[i] ) * boxInvSize[i] );
 	}
 
-	hash.Add( hashKey, Num() );
+	hash.Add( hashKey, idList<type>::Num() );
 	Append( v );
-	return Num()-1;
+	return idList<type>::Num()-1;
 }
 
 

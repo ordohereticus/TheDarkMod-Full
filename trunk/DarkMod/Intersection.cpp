@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Intersection.cpp 916 2007-04-20 20:48:14Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: Intersection.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
 
 // #include "math.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -23,7 +23,7 @@ EIntersection IntersectLinesegmentEllipsoid(const idVec3 Segment[LSG_COUNT],
 	EIntersection rc = INTERSECT_COUNT;
 	float fRoot;
 	float fInvA;
-    float afT[2];
+    float afT[2] = { 0.0, 0.0 }; // OrbWeaver: "may be used uninitialised" warning
 	float riQuantity;
 
     // set up quadratic Q(t) = a*t^2 + 2*b*t + c
@@ -133,7 +133,7 @@ EIntersection IntersectRayEllipsoid(const idVec3 Ray[LSG_COUNT],
 	EIntersection rc = INTERSECT_COUNT;
 	float fRoot;
 	float fInvA;
-    float afT[2];
+    float afT[2] = { 0.0, 0.0 };
 	float riQuantity;
 
 	idMat3 A(1/(Ellipsoid[ELA_AXIS].x*Ellipsoid[ELA_AXIS].x), 0, 0,
@@ -229,7 +229,7 @@ EIntersection IntersectLineEllipsoid(const idVec3 Line[LSG_COUNT],
 	EIntersection rc = INTERSECT_COUNT;
 	float fRoot;
 	float fInvA;
-    float afT[2];
+    float afT[2] = { 0.0, 0.0 };
 	float riQuantity;
 
 	idMat3 A(1/(Ellipsoid[ELA_AXIS].x*Ellipsoid[ELA_AXIS].x), 0, 0,

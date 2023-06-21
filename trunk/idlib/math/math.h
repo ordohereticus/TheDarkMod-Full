@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -14,6 +14,10 @@
 #define __MATH_MATH_H__
 
 #include <cmath>
+
+#ifdef __linux__
+#include "sys/sys_public.h"
+#endif
 
 #ifdef MACOS_X
 // for square root estimate instruction

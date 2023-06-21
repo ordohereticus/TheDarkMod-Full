@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: overlaysys.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: overlaysys.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
 
 #include "../game/game_local.h"
 
@@ -199,7 +199,11 @@ int COverlaySys::createOverlay( int layer, int handle )
 		if(!foundHandle)
 		{
 			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("No more handles available.\r");
+#ifdef __linux__
+			return retHandle;
+#else
 			goto Quit;
+#endif
 		}
 
 		m_nextHandle = handle + 1;
@@ -215,7 +219,11 @@ int COverlaySys::createOverlay( int layer, int handle )
 		{
 			// If the handle is unavailable, don't create anything.
 			if(oNode->Owner()->m_handle == handle)
+#ifdef __linux__
+				return retHandle;
+#else
 				goto Quit;
+#endif
 
 			oNode = oNode->NextNode();
 		}
@@ -488,13 +496,21 @@ SOverlay* COverlaySys::findOverlay( int handle, bool updateCache )
 	SOverlay* retVal = NULL;
 
 	if ( handle < OVERLAYS_MIN_HANDLE )
+#ifdef __linux__
+		return NULL;
+#else
 		goto Quit;
+#endif
 
 	// Are we looking for the same handle as last time?
 	if ( handle == m_lastUsedHandle )
 	{
+#ifdef __linux__
+		return m_lastUsedOverlay;
+#else
 		retVal = m_lastUsedOverlay;
 		goto Quit;
+#endif
 	}
 
 	idLinkList<SOverlay>* oNode = m_overlays.NextNode();

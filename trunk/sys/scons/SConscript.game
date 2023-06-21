@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 916 $
-#* $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+#* $Revision: 918 $
+#* $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
 #* $Author: orbweaver $
 #*
 #* $Log$
@@ -111,7 +111,7 @@ AIComm_Message.cpp \
 BinaryFrobMover.cpp \
 darkModAASFindHidingSpots.cpp \
 DarkModGlobals.cpp \
-darkModHidingSpotTree.cpp \
+darkmodHidingSpotTree.cpp \
 darkModLAS.cpp \
 decltdm_matinfo.cpp \
 declxdata.cpp \

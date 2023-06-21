@@ -1,21 +1,21 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
 
-#include ".\darkmodaasfindhidingspots.h"
-#include "..\darkmod\darkmodglobals.h"
-#include "..\darkmod\darkModLAS.h"
-#include "..\sys\sys_public.h"
+#include "darkModAASFindHidingSpots.h"
+#include "DarkModGlobals.h"
+#include "darkModLAS.h"
+#include "../sys/sys_public.h"
 
 #define HIDE_GRID_SPACING 40.0
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 916 2007-04-20 20:48:14Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -448,12 +448,12 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	m_localEntityPoint = COM;
 
 	// find the nearest distance and set it to that
-	m_MinHeldDist = newEnt->spawnArgs.GetFloat("hold_distance_min", "-1" );
+	m_MinHeldDist = int(newEnt->spawnArgs.GetFloat("hold_distance_min", "-1" ));
 	if( m_MinHeldDist < 0 )
-		m_MinHeldDist = MIN_HELD_DISTANCE;
+		m_MinHeldDist = int(MIN_HELD_DISTANCE);
 
 	delta2 = COMWorld - viewPoint;
-	m_DistanceCount = idMath::Floor( m_MaxDistCount * (delta2.Length() - m_MinHeldDist) / (newEnt->m_FrobDistance - m_MinHeldDist ) );
+	m_DistanceCount = int(idMath::Floor( m_MaxDistCount * (delta2.Length() - m_MinHeldDist) / (newEnt->m_FrobDistance - m_MinHeldDist ) ));
 	m_DistanceCount = idMath::ClampInt( 0, m_MaxDistCount, m_DistanceCount );
 
 	// prevent collision with player
@@ -499,7 +499,7 @@ void CGrabber::ManipulateObject( idPlayer *player ) {
 	idEntity *ent;
 	idVec3 angularVelocity;
 	idPhysics *physics;
-	idVec3 rotationVec;
+	idVec3 rotationVec(0.0, 0.0, 0.0);
 	bool rotating;
 
 	ent = m_dragEnt.GetEntity();

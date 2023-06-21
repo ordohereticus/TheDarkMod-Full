@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Revision: 918 $
+ * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #endif
 // We will add additional ones for other OS here later
 
-static bool init_version = FileVersionList("$Id: KeyboardHook.cpp 916 2007-04-20 20:48:14Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: KeyboardHook.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
 
 CKeyCode::CKeyCode():
 KeyState(KS_FREE),
@@ -171,11 +171,11 @@ CKeyboard* CKeyboard::getInstance()
 	return m_single;
 }
 CKeyboard::CKeyboard(void):
-	m_hook(NULL),
 	m_KeyPressCount(0),
 	m_bKeyCapActive(false),
 	m_KeyCapImpulse(IR_COUNT),
-	m_KeyCapStartCount(0)
+	m_KeyCapStartCount(0),
+	m_hook(NULL)
 {
 	for( int i = 0; i < IR_COUNT; i++)
 	{
