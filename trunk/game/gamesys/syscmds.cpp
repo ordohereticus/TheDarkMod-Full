@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1072 $
- * $Date: 2007-07-10 11:08:53 -0400 (Tue, 10 Jul 2007) $
+ * $Revision: 1099 $
+ * $Date: 2007-07-13 04:31:47 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1072 2007-07-10 15:08:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1099 2007-07-13 08:31:47Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -713,14 +713,14 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 		}
 	}
 
-	if ( give_all || idStr::Icmp( name, "ammo" ) == 0 ) {
+	/*if ( give_all || idStr::Icmp( name, "ammo" ) == 0 ) {
 		for ( i = 0 ; i < AMMO_NUMTYPES; i++ ) {
 			player->inventory.ammo[ i ] = player->inventory.MaxAmmoForAmmoClass( player, idWeapon::GetAmmoNameForNum( ( ammo_t )i ) );
 		}
 		if ( !give_all ) {
 			return;
 		}
-	}
+	}*/
 
 	if ( give_all || idStr::Icmp( name, "armor" ) == 0 ) {
 		player->inventory.armor = player->inventory.maxarmor;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1098 $
- * $Date: 2007-07-13 03:27:44 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1099 $
+ * $Date: 2007-07-13 04:31:47 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1098 2007-07-13 07:27:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 1099 2007-07-13 08:31:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2537,7 +2537,7 @@ void idWeapon::Event_UseAmmo( int amount ) {
 		return;
 	}
 
-	owner->inventory.UseAmmo( ammoType, ( powerAmmo ) ? amount : ( amount * ammoRequired ) );
+	owner->getCurrentWeaponItem()->useAmmo(( powerAmmo ) ? amount : ( amount * ammoRequired ) );
 	if ( clipSize && ammoRequired ) {
 		ammoClip -= powerAmmo ? amount : ( amount * ammoRequired );
 		if ( ammoClip < 0 ) {
