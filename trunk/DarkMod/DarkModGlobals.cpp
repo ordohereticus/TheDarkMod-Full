@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 931 $
- * $Date: 2007-04-21 12:01:41 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 948 $
+ * $Date: 2007-04-29 15:28:27 -0400 (Sun, 29 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 931 2007-04-21 16:01:41Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 948 2007-04-29 19:28:27Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -1147,6 +1147,9 @@ const char *DM_BuildOSPath(const char *basePath, const char *game, const char *r
 
 void CGlobal::GetSurfName(const idMaterial *material, idStr &strIn )
 {
+	if (material == NULL) {
+		goto Quit;
+	}
 	int end = -1;
 	int surftype = material->GetSurfaceType();
 
