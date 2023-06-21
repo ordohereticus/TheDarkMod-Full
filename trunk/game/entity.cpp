@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 330 $
- * $Date: 2006-02-03 00:30:09 -0500 (Fri, 03 Feb 2006) $
- * $Author: ishtvan $
+ * $Revision: 339 $
+ * $Date: 2006-02-04 18:51:56 -0500 (Sat, 04 Feb 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.32  2006/02/04 23:51:56  sparhawk
+ * Finished the Stim/Response for radius types.
+ *
  * Revision 1.31  2006/02/03 05:30:09  ishtvan
  * added soundprop scriptfunction to propagate sounds
  *
@@ -735,6 +738,9 @@ idEntity::~idEntity
 idEntity::~idEntity( void )
 {
 	DM_LOG(LC_FUNCTION, LT_DEBUG)LOGSTRING("this: %08lX [%s]\r", this, __FUNCTION__);
+
+	gameLocal.RemoveResponse(this);
+	gameLocal.RemoveStim(this);
 
 	if ( gameLocal.GameState() != GAMESTATE_SHUTDOWN && !gameLocal.isClient && fl.networkSync && entityNumber >= MAX_CLIENTS ) {
 		idBitMsg	msg;
