@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1103 $
- * $Date: 2007-07-13 06:57:12 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1133 $
+ * $Date: 2007-07-18 05:41:45 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1103 2007-07-13 10:57:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 1133 2007-07-18 09:41:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2249,7 +2249,7 @@ idWeapon::AmmoAvailable
 ================
 */
 int idWeapon::AmmoAvailable( void ) const {
-	if ( owner ) {
+	if (owner && owner->getCurrentWeaponItem()) {
 		return owner->getCurrentWeaponItem()->hasAmmo();
 	} else {
 		return 0;

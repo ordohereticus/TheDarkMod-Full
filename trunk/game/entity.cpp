@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1123 $
- * $Date: 2007-07-14 17:58:56 -0400 (Sat, 14 Jul 2007) $
+ * $Revision: 1133 $
+ * $Date: 2007-07-18 05:41:45 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1123 2007-07-14 21:58:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1133 2007-07-18 09:41:45Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1075,8 +1075,6 @@ void idEntity::Restore( idRestoreGame *savefile )
 	savefile->ReadInt( mpGUIState );
 
 	savefile->ReadObject( reinterpret_cast<idClass *&>( m_Inventory ) );
-	savefile->ReadObject( reinterpret_cast<idClass *&>( m_InventoryItem ) );
-	savefile->ReadObject( reinterpret_cast<idClass *&>( m_InventoryCursor ) );
 
 	// restore must retrieve modelDefHandle from the renderer
 	if ( modelDefHandle != -1 ) {

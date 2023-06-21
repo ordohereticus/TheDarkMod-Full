@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1124 $
- * $Date: 2007-07-14 23:00:30 -0400 (Sat, 14 Jul 2007) $
- * $Author: joebarnin $
+ * $Revision: 1133 $
+ * $Date: 2007-07-18 05:41:45 -0400 (Wed, 18 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1124 2007-07-15 03:00:30Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1133 2007-07-18 09:41:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1587,6 +1587,15 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	animationLib.FlushUnusedAnims();
 
 	gamestate = GAMESTATE_ACTIVE;
+
+	// Set the lightgem surface pointer to the lightgem entity
+	m_LightgemSurface = FindEntity(DARKMOD_LG_ENTITY_NAME);
+	m_LightgemSurface->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
+	m_LightgemSurface->GetRenderEntity()->suppressShadowInViewID = 0;
+	m_LightgemSurface->GetRenderEntity()->noDynamicInteractions = false;
+	m_LightgemSurface->GetRenderEntity()->noShadow = true;
+	m_LightgemSurface->GetRenderEntity()->noSelfShadow = true;
+	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface);
 
 	Printf( "--------------------------------------\n" );
 
