@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 760 $
+ * $Date: 2007-01-22 20:24:31 -0500 (Mon, 22 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:36  sparhawk
- * Initial revision
+ * Revision 1.2  2007/01/23 01:24:31  thelvyn
+ * Fixed a minor bug and cleaned up most of the warnings
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:36  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -76,12 +79,13 @@ private:
 	void							CheckTree( void ) const;
 };
 
-
+#pragma warning( disable : 4533 )
 template< class objType, class keyType, int maxChildrenPerNode >
 ID_INLINE idBTree<objType,keyType,maxChildrenPerNode>::idBTree( void ) {
 	assert( maxChildrenPerNode >= 4 );
 	root = NULL;
 }
+#pragma warning( default : 4533 )
 
 template< class objType, class keyType, int maxChildrenPerNode >
 ID_INLINE idBTree<objType,keyType,maxChildrenPerNode>::~idBTree( void ) {

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 756 $
- * $Date: 2007-01-21 07:58:34 -0500 (Sun, 21 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 760 $
+ * $Date: 2007-01-22 20:24:31 -0500 (Mon, 22 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.49  2007/01/23 01:24:07  thelvyn
+ * Fixed a minor bug and cleaned up most of the warnings
+ *
  * Revision 1.48  2007/01/21 12:58:34  ishtvan
  * rope arrow: rope segment vertical velocity now added to player's vertical velocity
  *
@@ -182,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 756 $   $Date: 2007-01-21 07:58:34 -0500 (Sun, 21 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 760 $   $Date: 2007-01-22 20:24:31 -0500 (Mon, 22 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1071,6 +1074,7 @@ void idPhysics_Player::SpectatorMove( void ) {
 idPhysics_Player::RopeMove
 ============
 */
+#pragma warning( disable : 4533 )
 void idPhysics_Player::RopeMove( void ) 
 {
 	idVec3	wishdir, wishvel, right, ropePoint, offset, newOrigin;
@@ -1281,6 +1285,7 @@ void idPhysics_Player::RopeMove( void )
 Quit:
 	return;
 }
+#pragma warning( default : 4533 )
 
 /*
 ============
