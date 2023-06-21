@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 571 $
- * $Date: 2006-09-18 09:38:13 -0400 (Mon, 18 Sep 2006) $
+ * $Revision: 575 $
+ * $Date: 2006-09-21 18:10:50 -0400 (Thu, 21 Sep 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.8  2006/09/21 22:10:50  gildoran
+ * Possible fix for particle flickering problem?
+ *
  * Revision 1.7  2006/09/18 13:37:51  gildoran
  * Added the first version of a unified interface for GUIs.
  *
@@ -36,7 +39,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 571 $   $Date: 2006-09-18 09:38:13 -0400 (Mon, 18 Sep 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 575 $   $Date: 2006-09-21 18:10:50 -0400 (Thu, 21 Sep 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -554,6 +557,7 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view ) 
 
 	}
 
+	hackedView.forceUpdate = true; // Fix for lightgem problems? -Gildoran
 	gameRenderWorld->RenderScene( &hackedView );
 	// process the frame
 
