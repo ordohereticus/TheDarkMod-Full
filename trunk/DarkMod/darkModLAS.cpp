@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 979 $
+ * $Date: 2007-05-05 11:39:17 -0400 (Sat, 05 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 979 2007-05-05 15:39:17Z greebo $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -85,13 +85,22 @@ __inline bool darkModLAS::moveLightBetweenAreas (darkModLightRecord_t* p_LASLigh
 	// Add to new area
 	if (m_pp_areaLightLists[newAreaNum] != NULL)
 	{
+		DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Added to existing area %d\r", newAreaNum);
 		p_cursor->AddToEnd (*m_pp_areaLightLists[newAreaNum]);
 	}
 	else
 	{
+		DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Created new area %d\r", newAreaNum);
 		m_pp_areaLightLists[newAreaNum] = p_cursor;
 	}
 	
+	// Update the area index on the light after the move
+	p_LASLight->areaIndex = newAreaNum;
+	p_LASLight->p_idLight->LASAreaIndex = newAreaNum;
+
+	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Area %d has now %d elements\r", oldAreaNum, m_pp_areaLightLists[oldAreaNum]->Num());
+	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Area %d has now %d elements\r", newAreaNum, m_pp_areaLightLists[newAreaNum]->Num());
+
 	// Done
 	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Light '%s' was moved from area %d to area %d ", p_cursor->Owner()->p_idLight->name.c_str(), oldAreaNum, newAreaNum);
 
