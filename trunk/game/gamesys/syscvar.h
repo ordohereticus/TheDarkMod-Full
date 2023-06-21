@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 961 $
+ * $Date: 2007-05-03 08:08:54 -0400 (Thu, 03 May 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -112,7 +112,9 @@ extern idCVar cv_lg_split;
 extern idCVar cv_lg_path;
 
 // Lockpicking
-extern idCVar cv_lpick_pin_base_count;
+extern idCVar cv_lp_pin_base_count;
+extern idCVar cv_lp_sample_delay;
+extern idCVar cv_lp_pick_timeout;
 
 extern idCVar cv_dm_distance;
 
