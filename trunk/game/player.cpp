@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1100 $
- * $Date: 2007-07-13 04:54:59 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1101 $
+ * $Date: 2007-07-13 05:17:43 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1100 2007-07-13 08:54:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1101 2007-07-13 09:17:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3851,6 +3851,13 @@ bool idPlayer::SelectWeapon( int num, bool force ) {
 
 	if (m_WeaponCursor == NULL) {
 		return false;
+	}
+
+	// Check if we want to toggle the current weapon item (requested index == current index)
+	CInventoryWeaponItem* item = getCurrentWeaponItem();
+	if (item != NULL && item->getWeaponIndex() == num && item->isToggleable()) {
+		// Requested toggleable weapon is already active, hide it (switch to unarmed)
+		num = 0;
 	}
 
 	CInventoryCategory* category = m_WeaponCursor->GetCurrentCategory();
