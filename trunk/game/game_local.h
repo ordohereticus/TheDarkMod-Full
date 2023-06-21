@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 435 $
- * $Date: 2006-05-26 06:26:24 -0400 (Fri, 26 May 2006) $
- * $Author: ishtvan $
+ * $Revision: 451 $
+ * $Date: 2006-06-05 17:33:25 -0400 (Mon, 05 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.31  2006/06/05 21:33:25  sparhawk
+ * Stimtimer code updated/added
+ *
  * Revision 1.30  2006/05/26 10:26:24  ishtvan
  * added mission data object, which gets updated in runframe
  *
@@ -893,11 +896,12 @@ public:
 
 	/**
 	* Fires off all the enabled responses to this stim of the entities in the given entites list.
+	* If the trigger is coming from a timer, <Timer> is set to true.
 	* 
 	* @return The number of responses triggered
 	*
 	*/
-	int						DoResponseAction(CStim *, idEntity *Ent[MAX_GENTITIES], int NumEntities, idEntity *Originator);
+	int						DoResponseAction(CStim *, idEntity *Ent[MAX_GENTITIES], int NumEntities, idEntity *Originator, bool Timer);
 
 	/**
 	 * ProcessStimResponse will check wether stims are in reach of a response and if so activate them.
