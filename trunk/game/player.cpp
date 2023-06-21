@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 130 $
- * $Date: 2005-07-27 16:44:34 -0400 (Wed, 27 Jul 2005) $
+ * $Revision: 133 $
+ * $Date: 2005-07-29 21:29:09 -0400 (Fri, 29 Jul 2005) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.21  2005/07/30 01:29:09  sophisticatedzombie
+ * Fixed 3rd person viewpoint with leaning enabled.
+ *
  * Revision 1.20  2005/07/27 20:44:34  sophisticatedzombie
  * Added variables to handle view roll and translate during lean.
  *
@@ -4981,8 +4984,8 @@ void idPlayer::UpdateViewAngles( void ) {
 	UpdateDeltaViewAngles( viewAngles );
 
 	// orient the model towards the direction we're looking
-	// LeanMod: SophisticatedZombie: Added pitch and roll to this
-	SetAngles( idAngles( viewAngles.pitch, viewAngles.yaw, viewAngles.roll ) );
+	// LeanMod: SophisticatedZombie: Added roll to this
+	SetAngles( idAngles( 0.0f, viewAngles.yaw, viewAngles.roll ) );
 
 	// save in the log for analyzing weapon angle offsets
 	loggedViewAngles[ gameLocal.framenum & (NUM_LOGGED_VIEW_ANGLES-1) ] = viewAngles;
