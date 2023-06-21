@@ -1,23 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 839 $
- * $Date: 2007-03-07 16:47:01 -0500 (Wed, 07 Mar 2007) $
+ * $Revision: 862 $
+ * $Date: 2007-03-22 13:59:44 -0400 (Thu, 22 Mar 2007) $
  * $Author: sparhawk $
- *
- * $Log$
- * Revision 1.4  2006/06/21 13:05:10  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.3  2005/11/11 20:38:16  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.2  2005/08/19 00:27:48  lloyd
- * *** empty log message ***
- *
- * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
- * Initial release
  *
  ***************************************************************************/
 
@@ -27,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 839 2007-03-07 21:47:01Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 862 2007-03-22 17:59:44Z sparhawk $", init_version);
 
 #include "Game_local.h"
 
