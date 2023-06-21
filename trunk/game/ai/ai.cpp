@@ -4,7 +4,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 809 $   $Date: 2007-03-03 21:31:59 -0500 (Sat, 03 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 810 $   $Date: 2007-03-03 22:02:24 -0500 (Sat, 03 Mar 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -1203,7 +1203,7 @@ void idAI::Spawn( void ) {
 
 	// Dark Mod: set up drowning
 	m_MouthOffset = spawnArgs.GetVector("mouth_offset");
-	if( !head.GetEntity() )
+	if( !head.GetEntity() && af.IsLoaded() )
 	{
 		const char *headName = spawnArgs.GetString("head_bodyname", "head");
 		// this will call gameLocal.Error if the joint name is wrong
