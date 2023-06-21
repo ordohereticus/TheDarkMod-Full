@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 928 $
- * $Date: 2007-04-21 11:01:38 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 940 $
+ * $Date: 2007-04-28 08:19:41 -0400 (Sat, 28 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 928 2007-04-21 15:01:38Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 940 2007-04-28 12:19:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1605,18 +1605,22 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const {
 	}
 	*/
 
+	// greebo: If the target entity is an idActor, use its eyeposition,
+	// otherwise just use the origin (for general entities).
 	if ( ent->IsType( idActor::Type ) ) {
 		toPos = ( ( idActor * )ent )->GetEyePosition();
 	} else {
 		toPos = ent->GetPhysics()->GetOrigin();
 	}
 
+	// Check the field of view if specified
 	if ( useFov && !CheckFOV( toPos ) ) {
 		return false;
 	}
 
 	eye = GetEyePosition();
 
+	// Perform a trace from the eye position to the target entity
 	gameLocal.clip.TracePoint( tr, eye, toPos, MASK_OPAQUE, this );
 	if ( tr.fraction >= 1.0f || ( gameLocal.GetTraceEntity( tr ) == ent ) ) {
 		return true;

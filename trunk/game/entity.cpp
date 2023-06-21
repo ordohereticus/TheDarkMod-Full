@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 939 $
- * $Date: 2007-04-28 02:41:36 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 940 $
+ * $Date: 2007-04-28 08:19:41 -0400 (Sat, 28 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 939 2007-04-28 06:41:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 940 2007-04-28 12:19:41Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -195,6 +195,8 @@ const idEventDef EV_IsFrobable( "isFrobable", NULL, 'd' );
 const idEventDef EV_SetFrobable( "setFrobable", "d" );
 const idEventDef EV_IsHilighted( "isHilighted", NULL, 'd' );
 
+// greebo: Script event to check whether this entity can see a target entity
+const idEventDef EV_CanSeeEntity("canSeeEntity", "ed", 'd');
 
 ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_Thread_SetRenderCallback,	idEntity::Event_WaitForRender )
@@ -337,6 +339,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_IsFrobable,			idEntity::Event_IsFrobable )
 	EVENT( EV_SetFrobable,			idEntity::Event_SetFrobable )
 	EVENT( EV_IsHilighted,			idEntity::Event_IsHilighted )
+	EVENT( EV_CanSeeEntity,			idEntity::Event_CanSeeEntity )
 
 END_CLASS
 
@@ -7886,4 +7889,26 @@ void idEntity::Event_Heal( const char *healDefName, const float healScale )
 {
 	// Pass the call to the idEntity::heal method
 	idThread::ReturnInt(heal(healDefName, healScale));
+}
+
+bool idEntity::canSeeEntity(idEntity* target, int useLighting) {
+	// The target point is the origin of the other entity.
+	idVec3 toPos = target->GetPhysics()->GetOrigin();
+
+	trace_t	tr;
+	// Perform a trace from the own origin to the target entity's origin
+	gameLocal.clip.TracePoint( tr, GetPhysics()->GetOrigin(), toPos, MASK_OPAQUE, this );
+
+	if (tr.fraction >= 1.0f || gameLocal.GetTraceEntity(tr) == target) {
+		// Trace test passed, entity is visible
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void idEntity::Event_CanSeeEntity(idEntity* target, int useLighting)
+{
+	idThread::ReturnInt(canSeeEntity(target, useLighting) ? 1 : 0);
 }

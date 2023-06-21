@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 939 $
- * $Date: 2007-04-28 02:41:36 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 940 $
+ * $Date: 2007-04-28 08:19:41 -0400 (Sat, 28 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -88,6 +88,7 @@ extern const idEventDef EV_CopyBind;
 extern const idEventDef EV_IsFrobable;
 extern const idEventDef EV_SetFrobable;
 extern const idEventDef EV_InPVS;
+extern const idEventDef EV_CanSeeEntity;
 
 // greebo: Script event definition for dealing damage
 extern const idEventDef EV_Damage;
@@ -1036,6 +1037,18 @@ public:			// Events should be public, so they can be used from other places as w
 #endif		// MOD_WATERPHYSICS
 	
 	void					Event_RangedThreatTo(idEntity*);
+
+	/**
+	* greebo: Returns true if the target entity can be seen 
+	*
+	* @useLighting: If set to TRUE, takes lighting into account.
+	*/
+	bool					canSeeEntity(idEntity* target, int useLighting);
+
+	/**
+	* greebo: script event wrapper for the above canSeeEntity() method.
+	*/
+	void					Event_CanSeeEntity(idEntity* target, int useLighting);
 
 public:			// events that need to have an accessible counterpart
 	void					SetGuiString(int handle, const char *key, const char *val);
