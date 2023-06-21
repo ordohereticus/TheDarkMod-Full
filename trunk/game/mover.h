@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 22 $
- * $Date: 2004-11-11 17:15:40 -0500 (Thu, 11 Nov 2004) $
+ * $Revision: 25 $
+ * $Date: 2004-11-12 13:38:38 -0500 (Fri, 12 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2004/11/12 18:38:38  sparhawk
+ * Moved frobcode from idDoor to baseclass.
+ *
  * Revision 1.2  2004/11/11 22:15:40  sparhawk
  * Frobcode is now more generalized. Doors are now frobable.
  *
@@ -307,6 +310,8 @@ public:
 
 	void					SetPortalState( bool open );
 
+	static bool				ModelCallback(renderEntity_s *renderEntity, const renderView_t *renderView);
+
 protected:
 	idVec3					pos1;
 	idVec3					pos2;
@@ -386,8 +391,6 @@ public:
 	void					Close( void );
 	void					Open( void );
 	void					SetCompanion( idDoor *door );
-
-	static bool				ModelCallback(renderEntity_s *renderEntity, const renderView_t *renderView);
 
 private:
 	float					triggersize;
