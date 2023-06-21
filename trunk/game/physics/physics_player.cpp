@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 633 $
- * $Date: 2006-12-07 04:58:12 -0500 (Thu, 07 Dec 2006) $
+ * $Revision: 699 $
+ * $Date: 2007-01-02 23:17:16 -0500 (Tue, 02 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.42  2007/01/03 04:17:16  ishtvan
+ * player pushing objects now checks cv_pm_pushmod cvar to modify the push impulse, for physics tweaking
+ *
  * Revision 1.41  2006/12/07 09:58:12  ishtvan
  * lean updates
  *
@@ -153,7 +156,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 633 $   $Date: 2006-12-07 04:58:12 -0500 (Thu, 07 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 699 $   $Date: 2007-01-02 23:17:16 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -462,7 +465,7 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 			pushFlags = PUSHFL_CLIP|PUSHFL_ONLYMOVEABLE|PUSHFL_NOGROUNDENTITIES|PUSHFL_APPLYIMPULSE;
 
 			// clip & push
-			totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end - current.origin );
+			totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end - current.origin, cv_pm_pushmod.GetFloat() );
 
 			if ( totalMass > 0.0f ) {
 				// decrease velocity based on the total mass of the objects being pushed ?
