@@ -2,19 +2,19 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 54 $
- * $Date: 2004-11-28 14:17:30 -0500 (Sun, 28 Nov 2004) $
+ * $Revision: 221 $
+ * $Date: 2005-11-11 17:57:25 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2005/11/11 22:50:03  sparhawk
+ * SDK 1.3 Merge
+ *
  * Revision 1.2  2004/11/28 19:17:30  sparhawk
  * Added header and Id Copyright.
  *
  *
  ***************************************************************************/
-
-// Copyright (C) 2004 Id Software, Inc.
-//
 
 #define glAccum use_qglAccum
 #define glAlphaFunc use_qglAlphaFunc

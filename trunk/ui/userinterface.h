@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 221 $
+ * $Date: 2005-11-11 17:57:25 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:03  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 22:53:41  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:03  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -75,6 +78,12 @@ public:
 	virtual void				SetStateInt( const char *varName, const int value ) = 0;
 	virtual void				SetStateFloat( const char *varName, const float value ) = 0;
 
+								// Gets a gui state variable
+	virtual const char*			GetStateString( const char *varName, const char* defaultString = "" ) const = 0;
+	virtual bool				GetStateBool( const char *varName, const char* defaultString = "0" ) const  = 0;
+	virtual int					GetStateInt( const char *varName, const char* defaultString = "0" ) const = 0;
+	virtual float				GetStateFloat( const char *varName, const char* defaultString = "0" ) const = 0;
+
 								// The state has changed and the gui needs to update from the state idDict.
 	virtual void				StateChanged( int time, bool redraw = false ) = 0;
 
@@ -92,6 +101,8 @@ public:
 	virtual void				SetKeyBindingNames( void ) = 0;
 
 	virtual void				SetCursor( float x, float y ) = 0;
+	virtual float				CursorX() = 0;
+	virtual float				CursorY() = 0;
 };
 
 
