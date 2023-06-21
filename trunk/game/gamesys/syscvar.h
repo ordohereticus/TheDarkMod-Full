@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 777 $
- * $Date: 2007-01-29 16:50:14 -0500 (Mon, 29 Jan 2007) $
+ * $Revision: 778 $
+ * $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.36  2007/01/31 23:40:47  sparhawk
+ * Inventory updated
+ *
  * Revision 1.35  2007/01/29 21:50:14  sparhawk
  * Inventory updates
  *
@@ -169,6 +172,7 @@ extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;
 extern idCVar cv_throw_time;
 
+extern idCVar cv_tdm_inv_loot_group;
 extern idCVar cv_tdm_inv_grouping;
 extern idCVar cv_tdm_inv_opacity;
 extern idCVar cv_tdm_inv_groupvis;

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 777 $
- * $Date: 2007-01-29 16:50:14 -0500 (Mon, 29 Jan 2007) $
+ * $Revision: 778 $
+ * $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.92  2007/01/31 23:39:34  sparhawk
+ * Inventory updated
+ *
  * Revision 1.91  2007/01/29 21:49:56  sparhawk
  * Inventory updates
  *
@@ -313,7 +316,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 777 $   $Date: 2007-01-29 16:50:14 -0500 (Mon, 29 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 778 $   $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7121,21 +7124,20 @@ void idEntity::SetGuiString(int handle, const char *key, const char *val)
 	if(m_overlays.exists(handle))
 	{
 		idUserInterface *gui = m_overlays.getGui(handle);
-		if(!gui)
+		if(gui == NULL)
 		{
 			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to NULL GUI: %d [%s]\r", handle, key);
 			goto Quit;
 		}
-		else if(!gui->IsUniqued())
+
+		if(!gui->IsUniqued())
 		{
-			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to non-unique GUI: %d\r", handle);
+			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("GUI is not unique. Handle: %d [%s]\r", handle, key);
 			goto Quit;
 		}
-		else
-		{
-			gui->SetStateString(key, val);
-			gui->StateChanged(gameLocal.time);
-		}
+
+		gui->SetStateString(key, val);
+		gui->StateChanged(gameLocal.time);
 	}
 	else
 	{
@@ -7191,18 +7193,26 @@ void idEntity::SetGuiFloat( int handle, const char *key, float f)
 	if(m_overlays.exists(handle))
 	{
 		idUserInterface *gui = m_overlays.getGui(handle);
-		if (!gui)
-			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to NULL GUI: %d [%s]\r", handle, key);
-		else if(!gui->IsUniqued())
-			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("GUI is not unique. Handle: %d [%s]\r", handle, key);
-		else
+		if(gui == NULL)
 		{
-			gui->SetStateFloat(key, f);
-			gui->StateChanged(gameLocal.time);
+			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to NULL GUI: %d [%s]\r", handle, key);
+			goto Quit;
 		}
+
+		if(!gui->IsUniqued())
+		{
+			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("GUI is not unique. Handle: %d [%s]\r", handle, key);
+			goto Quit;
+		}
+
+		gui->SetStateFloat(key, f);
+		gui->StateChanged(gameLocal.time);
 	}
 	else
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("setGui: Non-existant GUI handle: %d\r", handle);
+
+Quit:
+	return;
 }
 
 void idEntity::Event_SetGuiFloat(int handle, const char *key, float f)
@@ -7237,18 +7247,26 @@ void idEntity::SetGuiInt( int handle, const char *key, int n)
 	if(m_overlays.exists(handle))
 	{
 		idUserInterface *gui = m_overlays.getGui(handle);
-		if (!gui)
-			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to NULL GUI: %d [%s]\r", handle, key);
-		else if(!gui->IsUniqued())
-			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("GUI is not unique. Handle: %d [%s]\r", handle, key);
-		else
+		if(gui == NULL)
 		{
-			gui->SetStateInt(key, n);
-			gui->StateChanged(gameLocal.time);
+			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to NULL GUI: %d [%s]\r", handle, key);
+			goto Quit;
 		}
+
+		if(!gui->IsUniqued())
+		{
+			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("GUI is not unique. Handle: %d [%s]\r", handle, key);
+			goto Quit;
+		}
+
+		gui->SetStateInt(key, n);
+		gui->StateChanged(gameLocal.time);
 	}
 	else
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("setGui: Non-existant GUI handle: %d\r", handle);
+
+Quit:
+	return;
 }
 
 void idEntity::Event_SetGuiInt(int handle, const char *key, int n)
@@ -7325,17 +7343,27 @@ void idEntity::CallGui(int handle, const char *namedEvent)
 	if(m_overlays.exists(handle))
 	{
 		idUserInterface *gui = m_overlays.getGui( handle );
-		if (!gui)
+		if(gui == NULL)
+		{
 			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to NULL GUI: %d [%s]\r", handle, namedEvent);
-		else if(!gui->IsUniqued())
-			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Handle points to non-unique GUI: %d [%s]\r", handle, namedEvent);
-		else
-			gui->HandleNamedEvent( namedEvent );
+			goto Quit;
+		}
+
+		if(!gui->IsUniqued())
+		{
+			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("GUI is not unique. Handle: %d [%s]\r", handle, namedEvent);
+			goto Quit;
+		}
+
+		gui->HandleNamedEvent( namedEvent );
 	}
 	else
 	{
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("setGui: Non-existant GUI handle: %d [%s]\r", handle, namedEvent);
 	}
+
+Quit:
+	return;
 }
 
 /*

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 777 $
- * $Date: 2007-01-29 16:50:14 -0500 (Mon, 29 Jan 2007) $
+ * $Revision: 778 $
+ * $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.50  2007/01/31 23:40:46  sparhawk
+ * Inventory updated
+ *
  * Revision 1.49  2007/01/29 21:50:14  sparhawk
  * Inventory updates
  *
@@ -168,7 +171,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 777 $   $Date: 2007-01-29 16:50:14 -0500 (Mon, 29 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 778 $   $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 
@@ -262,6 +265,7 @@ idCVar cv_throw_time(				"tdm_throw_time",		"1700",			CVAR_GAME | CVAR_ARCHIVE |
 * DarkMod Inventory
 **/
 idCVar cv_tdm_inv_hud_file(	"tdm_inv_hud_file", "guis/inv.gui",	CVAR_GAME | CVAR_ARCHIVE, "The name of the gui file that represents the hud for the inventory.");
+idCVar cv_tdm_inv_loot_group("tdm_inv_loot_group", "Loot",	CVAR_GAME | CVAR_ARCHIVE, "The name of the group that contains the loot item.");
 
 idCVar cv_tdm_inv_grouping(	"tdm_inv_group_mode",	"0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER,	"The opacity of the inventory GUI.\n"
 																									   "0 = ungrouped inventory (T1/T2 style)\n"
