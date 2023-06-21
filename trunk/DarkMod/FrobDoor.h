@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 953 $
- * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
+ * $Revision: 960 $
+ * $Date: 2007-05-03 07:27:31 -0400 (Thu, 03 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -151,6 +151,27 @@ protected:
 	 * certain time.
 	 */
 	CStimResponseTimer			*m_PickTimer;
+
+	/**
+	 * FirstLockedPinIndex stores the index that is currently to be picked.
+	 * If the value gets == m_Pins.Num() it means all pins are picked
+	 * and the lock is sucessfully picked.
+	 */
+	int							m_FirstLockedPinIndex;
+
+	/**
+	 * When lockpicking is started, it will loop over all the pinpatterns.
+	 * This means that the pins are a twodimensional array where each pin has
+	 * N samples associated with it.
+	 * Here we store which pin is currently processed.
+	 */
+	int							m_SoundPinIndex;
+
+	/**
+	 * This stores the index of the current pins soundsample to be played.
+	 * The second index of the twodimensional array from m_SoundPinIndex.
+	 */
+	int							m_SoundPinSampleIndex;
 
 private:
 };

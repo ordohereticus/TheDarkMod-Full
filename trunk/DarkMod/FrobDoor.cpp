@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 956 $
- * $Date: 2007-05-02 17:53:38 -0400 (Wed, 02 May 2007) $
+ * $Revision: 960 $
+ * $Date: 2007-05-03 07:27:31 -0400 (Thu, 03 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 956 2007-05-02 21:53:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 960 2007-05-03 11:27:31Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -76,6 +76,9 @@ CFrobDoor::CFrobDoor(void)
 	m_PickTimer = new CStimResponseTimer();
 	m_PickTimer->SetTicks(sys->ClockTicksPerSecond()/1000);
 	m_PickTimer->SetReload(-1);			// We want to reload the timer infinitely, but not automatically.
+	m_FirstLockedPinIndex = 0;
+	m_SoundPinIndex = 0;
+	m_SoundPinSampleIndex = 0;
 }
 
 CFrobDoor::~CFrobDoor(void)
