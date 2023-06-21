@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 504 $
- * $Date: 2006-07-24 21:40:35 -0400 (Mon, 24 Jul 2006) $
+ * $Revision: 544 $
+ * $Date: 2006-08-11 16:03:57 -0400 (Fri, 11 Aug 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.6  2006/08/11 20:03:48  gildoran
+ * Another update for inventories.
+ *
  * Revision 1.5  2006/07/25 01:40:28  gildoran
  * Completely revamped inventory code.
  *
@@ -35,7 +38,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 504 $   $Date: 2006-07-24 21:40:35 -0400 (Mon, 24 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 544 $   $Date: 2006-08-11 16:03:57 -0400 (Fri, 11 Aug 2006) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -725,7 +728,14 @@ void CtdmInventoryCursor::copyActiveCursor(	const CtdmInventoryCursor& source,
 	// Switch to the same inventory.
 	setInventory( source.m_inventory );
 	// Copy over their active cursor.
-	select( source.m_group, source.m_groupedSlot, source.m_ungroupedSlot, noHistory );
+	if ( m_inventory != NULL ) {
+		select( source.m_group, source.m_groupedSlot, source.m_ungroupedSlot, noHistory );
+	}
+
+	assert( m_inventory == source.m_inventory );
+	assert( m_group == source.m_group );
+	assert( m_groupedSlot == source.m_groupedSlot );
+	assert( m_ungroupedSlot == source.m_ungroupedSlot );
 
 	Quit:
 	return;
