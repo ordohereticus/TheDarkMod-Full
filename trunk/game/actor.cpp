@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 940 $
- * $Date: 2007-04-28 08:19:41 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 946 $
+ * $Date: 2007-04-29 10:36:14 -0400 (Sun, 29 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 940 2007-04-28 12:19:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 946 2007-04-29 14:36:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2686,7 +2686,7 @@ void idActor::PlayFootStepSound( void )
 	idPlayer			*thisPlayer(NULL);
 	idAI				*thisAI(NULL);
 	const idSoundShader	*sndShader = NULL;
-
+	
 	if ( !GetPhysics()->HasGroundContacts() ) {
 		return;
 	}
@@ -2739,19 +2739,28 @@ void idActor::PlayFootStepSound( void )
 		DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Found surface type sound: %s\r", localSound.c_str() ); 
 		sound = spawnArgs.GetString( localSound.c_str() );
 	}
+
+	waterLevel_t waterLevel = static_cast<idPhysics_Actor *>(GetPhysics())->GetWaterLevel();
 	// If player is walking in liquid, replace the bottom surface sound with water sounds
-	if ( static_cast<idPhysics_Actor *>(GetPhysics())->GetWaterLevel() == WATERLEVEL_FEET )
+	if (waterLevel == WATERLEVEL_FEET )
 	{
 		localSound = "snd_footstep_puddle";
 		sound = spawnArgs.GetString( localSound.c_str() );
 	}
-	else if ( static_cast<idPhysics_Actor *>(GetPhysics())->GetWaterLevel() == WATERLEVEL_WAIST )
+	else if (waterLevel == WATERLEVEL_WAIST)
 	{
 		localSound = "snd_footstep_wading";
 		sound = spawnArgs.GetString( localSound.c_str() );
 	}
+	// greebo: Added this to disable the walking sound when completely underwater
+	// this should be replaced by snd_
+	else if (waterLevel == WATERLEVEL_HEAD)
+	{
+		localSound = "snd_footstep_swim";
+		sound = spawnArgs.GetString( localSound.c_str() );
+	}
 
-	if ( sound.IsEmpty() ) 
+	if ( sound.IsEmpty() && waterLevel != WATERLEVEL_HEAD ) 
 	{
 		localSound = "snd_footstep";
 	}
@@ -2759,7 +2768,7 @@ void idActor::PlayFootStepSound( void )
 	sound = spawnArgs.GetString( localSound.c_str() );
 
 	// if a sound was not found for that specific material, use default
-	if( sound.IsEmpty() )
+	if( sound.IsEmpty() && waterLevel != WATERLEVEL_HEAD )
 	{
 		sound = spawnArgs.GetString( "snd_footstep" );
 		localSound = "snd_footstep";

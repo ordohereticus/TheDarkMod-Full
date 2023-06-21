@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 944 $
- * $Date: 2007-04-28 16:37:01 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 946 $
+ * $Date: 2007-04-29 10:36:14 -0400 (Sun, 29 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 944 2007-04-28 20:37:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 946 2007-04-29 14:36:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -395,7 +395,14 @@ void idProjectile::Launch( const idVec3 &start, const idVec3 &dir, const idVec3 
 				fuse = 0.0f;
 			}
 			PostEventSec( &EV_Explode, fuse );
-		} else {
+		} 
+		// greebo: Added this to allow for mines
+		else if ( spawnArgs.GetBool( "no_fizzle" ) ) {
+			if ( fuse < 0.0f ) {
+				fuse = 0.0f;
+			}
+		}
+		else {
 			fuse -= timeSinceFire;
 			if ( fuse < 0.0f ) {
 				fuse = 0.0f;
