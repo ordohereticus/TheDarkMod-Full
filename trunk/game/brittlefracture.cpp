@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 211 $
+ * $Date: 2005-11-11 15:38:16 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:31  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 20:38:16  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -87,7 +90,9 @@ void idBrittleFracture::Save( idSaveGame *savefile ) const {
 	int i, j;
 
 	savefile->WriteInt( health );
-	savefile->Write( &fl, sizeof( fl ) );
+	entityFlags_s flags = fl;
+	LittleBitField( &flags, sizeof( flags ) );
+	savefile->Write( &flags, sizeof( flags ) );
 
 	// setttings
 	savefile->WriteMaterial( material );

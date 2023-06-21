@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 211 $
+ * $Date: 2005-11-11 15:38:16 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:30  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 20:38:16  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:30  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -81,6 +84,8 @@ public:
 	void				WritePVS( const pvsHandle_t handle, idBitMsg &msg );
 	void				ReadPVS( const pvsHandle_t handle, const idBitMsg &msg );
 #endif
+
+	bool				CheckAreasForPortalSky( const pvsHandle_t handle, const idVec3 &origin );
 
 private:
 	int					numAreas;

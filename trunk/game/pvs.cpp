@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 211 $
+ * $Date: 2005-11-11 15:38:16 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:30  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 20:38:16  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:30  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -1409,3 +1412,35 @@ void idPVS::ReadPVS( const pvsHandle_t handle, const idBitMsg &msg ) {
 
 #endif
 
+
+/*
+================
+idPVS::CheckAreasForPortalSky
+================
+*/
+bool idPVS::CheckAreasForPortalSky( const pvsHandle_t handle, const idVec3 &origin ) {
+	int j, sourceArea;
+
+	if ( handle.i < 0 || handle.i >= MAX_CURRENT_PVS || handle.h != currentPVS[handle.i].handle.h ) {
+		return false;
+	}
+
+	sourceArea = gameRenderWorld->PointInArea( origin );
+
+	if ( sourceArea == -1 ) {
+		return false;
+	}
+
+	for ( j = 0; j < numAreas; j++ ) {
+
+		if ( !( currentPVS[handle.i].pvs[j>>3] & (1 << (j&7)) ) ) {
+			continue;
+		}
+
+		if ( gameRenderWorld->CheckAreaForPortalSky( j ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}

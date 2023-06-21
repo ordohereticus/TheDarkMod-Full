@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 41 $
- * $Date: 2004-11-20 20:03:27 -0500 (Sat, 20 Nov 2004) $
+ * $Revision: 211 $
+ * $Date: 2005-11-11 15:38:16 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.7  2005/11/11 20:38:16  sparhawk
+ * SDK 1.3 Merge
+ *
  * Revision 1.6  2004/11/21 01:03:27  sparhawk
  * Doors can now be properly opened and have sound.
  *
@@ -194,7 +197,7 @@ protected:
 	void					Event_StartSpline( idEntity *splineEntity );
 	void					Event_StopSpline( void );
 	void					Event_Activate( idEntity *activator );
-	void					Event_PostRestore( int start, int total, int accel, int decel, bool useSplineAng );
+	void					Event_PostRestore( int start, int total, int accel, int decel, int useSplineAng );
 	void					Event_IsMoving( void );
 	void					Event_IsRotating( void );
 };
@@ -359,7 +362,7 @@ protected:
 	void					Event_SetCallback( void );
 	void					Event_ReturnToPos1( void );
 	void					Event_Use_BinaryMover( idEntity *activator );
-	virtual void			Event_Reached_BinaryMover( void );
+	void					Event_Reached_BinaryMover( void );
 	void					Event_MatchActivateTeam( moverState_t newstate, int time );
 	void					Event_Enable( void );
 	void					Event_Disable( void );
@@ -421,7 +424,7 @@ private:
 	void					GetLocalTriggerPosition( const idClipModel *trigger );
 	void					CalcTriggerBounds( float size, idBounds &bounds );
 
-	virtual void			Event_Reached_BinaryMover( void );
+	void					Event_Reached_BinaryMover( void );
 	void					Event_TeamBlocked( idEntity *blockedEntity, idEntity *blockingEntity );
 	void					Event_PartBlocked( idEntity *blockingEntity );
 	void					Event_Touch( idEntity *other, trace_t *trace );
