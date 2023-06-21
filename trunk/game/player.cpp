@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 133 $
- * $Date: 2005-07-29 21:29:09 -0400 (Fri, 29 Jul 2005) $
+ * $Revision: 139 $
+ * $Date: 2005-08-14 19:27:31 -0400 (Sun, 14 Aug 2005) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.22  2005/08/14 23:27:31  sophisticatedzombie
+ * Updated handling of leaning to use doxygen style comments
+ *
  * Revision 1.21  2005/07/30 01:29:09  sophisticatedzombie
  * Fixed 3rd person viewpoint with leaning enabled.
  *
@@ -5744,9 +5747,12 @@ void idPlayer::PerformImpulse( int impulse ) {
 		}
 		break;
 
+		/*!
+		* Lean forward is impulse 44
+		*/
 		case IMPULSE_44:		// Lean forward
 		{
-			common->Printf ("Impulse 44, lean forward\n");
+			//common->Printf ("Impulse 44, lean forward\n");
 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
 			{
 					physicsObj.ToggleLean(90.0);
@@ -5755,9 +5761,12 @@ void idPlayer::PerformImpulse( int impulse ) {
 		}
 		break;
 
+		/*!
+		* Lean left is impulse 45
+		*/
 		case IMPULSE_45:		// Lean left
 		{
-			common->Printf ("Impulse 45, lean left\n");
+			//common->Printf ("Impulse 45, lean left\n");
 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
 			{
 					physicsObj.ToggleLean(180.0);
@@ -5765,9 +5774,12 @@ void idPlayer::PerformImpulse( int impulse ) {
 		}
 		break;
 
+		/*!
+		* Lean left is impulse 46
+		*/
 		case IMPULSE_46:		// Lean right
 		{
-			common->Printf ("Impulse 46, lean right\n");
+			//common->Printf ("Impulse 46, lean right\n");
 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
 			{
 					physicsObj.ToggleLean(0.0);
@@ -7412,8 +7424,11 @@ idVec3 idPlayer::GetEyePosition( void ) const {
 		org = GetPhysics()->GetOrigin();
 	}
 
-	// Lean Mod: Sophisticated Zombie
-	// Move eye position due to leaning
+	/*!
+	* Lean Mod
+	* @author sophisticatedZombie (DH)
+	* Move eye position due to leaning
+	*/
 	org += ((idPhysics_Player*)GetPhysics())->GetViewLeanTranslation();
 
 	// This was in SDK untouched
@@ -7460,9 +7475,12 @@ void idPlayer::CalculateFirstPersonView( void ) {
 		idVec3 origin;
 		idAngles ang;
 
-		// Lean mod: Sophisticated Zombie
-		// Original line commented out
-		//ang = viewBobAngles + playerView.AngleOffset();
+		/*!
+		* Lean mod: 
+		* @author: sophisticatedZombie
+		* Original line commented out
+		* ang = viewBobAngles + playerView.AngleOffset();
+		*/
 		ang = viewBobAngles + ((idPhysics_Player*) GetPhysics())->GetViewLeanAngles() + playerView.AngleOffset();
 
 		

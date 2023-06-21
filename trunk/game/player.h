@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 121 $
- * $Date: 2005-04-22 21:48:58 -0400 (Fri, 22 Apr 2005) $
- * $Author: ishtvan $
+ * $Revision: 139 $
+ * $Date: 2005-08-14 19:27:31 -0400 (Sun, 14 Aug 2005) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.7  2005/08/14 23:27:31  sophisticatedzombie
+ * Updated handling of leaning to use doxygen style comments
+ *
  * Revision 1.6  2005/04/23 01:48:58  ishtvan
  * *) Removed the effect of stamina on everything but the heartbeat sound
  *
@@ -259,7 +262,9 @@ public:
 	**/
 	idScriptBool			AI_CREEP;
 
-	// inventory
+	/*!
+	* container for the player's inventory
+	*/
 	idInventory				inventory;
 
 	idEntityPtr<idWeapon>	weapon;
