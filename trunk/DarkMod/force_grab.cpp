@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 527 $
- * $Date: 2006-08-04 06:53:26 -0400 (Fri, 04 Aug 2006) $
+ * $Revision: 533 $
+ * $Date: 2006-08-07 02:51:10 -0400 (Mon, 07 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.4  2006/08/07 06:51:10  ishtvan
+ * force grab no longer clears m_bIsColliding on the grabber, the grabber clears it itself
+ *
  * Revision 1.3  2006/08/04 10:53:26  ishtvan
  * preliminary grabber fixes
  *
@@ -24,7 +27,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 527 $   $Date: 2006-08-04 06:53:26 -0400 (Fri, 04 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 533 $   $Date: 2006-08-07 02:51:10 -0400 (Mon, 07 Aug 2006) $", init_version);
 
 #include "../Game/Game_local.h"
 #include "Force_Grab.h"
@@ -168,7 +171,6 @@ void CForce_Grab::Evaluate( int time )
 	if( g_Global.m_DarkModPlayer->grabber->m_bIsColliding )
 	{
 		g_Global.m_DarkModPlayer->grabber->ClampVelocity( 1.0f, 0.0f, m_id );
-		g_Global.m_DarkModPlayer->grabber->m_bIsColliding = false;
 	}
 
 Quit:
