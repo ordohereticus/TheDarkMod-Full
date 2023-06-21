@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 559 $
- * $Date: 2006-08-21 01:04:00 -0400 (Mon, 21 Aug 2006) $
+ * $Revision: 562 $
+ * $Date: 2006-08-21 01:08:05 -0400 (Mon, 21 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.21  2006/08/21 05:08:05  ishtvan
+ * attachment fixes
+ *
  * Revision 1.20  2006/08/21 05:04:00  ishtvan
  * attachment updates/fixes
  *
@@ -79,7 +82,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 559 $   $Date: 2006-08-21 01:04:00 -0400 (Mon, 21 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 562 $   $Date: 2006-08-21 01:08:05 -0400 (Mon, 21 Aug 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2607,7 +2610,7 @@ void idActor::ReAttach( int ind, idStr jointName, idVec3 offset, idAngles angles
 	ind--;
 	if( ind < 0 || ind >= m_attachments.Num() )
 	{
-		// log invalid index error
+		// TODO: log invalid index error
 		goto Quit;
 	}
 
@@ -2616,14 +2619,14 @@ void idActor::ReAttach( int ind, idStr jointName, idVec3 offset, idAngles angles
 
 	if( !ent || !attachment->ent.IsValid() )
 	{
-		// log bad attachment entity error
+		// TODO: log bad attachment entity error
 		goto Quit;
 	}
 
 	joint = animator.GetJointHandle( jointName );
 	if ( joint == INVALID_JOINT )
 	{
-		// log error
+		// TODO: log error
 		gameLocal.Warning( "Joint '%s' not found for attaching '%s' on '%s'", jointName.c_str(), ent->GetClassname(), name.c_str() );
 		goto Quit;
 	}
@@ -2658,7 +2661,7 @@ void idActor::ShowAttachment( int ind, bool bShow )
 	ind--;
 	if( ind < 0 || ind >= m_attachments.Num() )
 	{
-		// log invalid index error
+		// TODO: log invalid index error
 		goto Quit;
 	}
 
@@ -2666,7 +2669,7 @@ void idActor::ShowAttachment( int ind, bool bShow )
 
 	if( !ent || !m_attachments[ind].ent.IsValid() )
 	{
-		// log bad attachment entity error
+		// TODO: log bad attachment entity error
 		goto Quit;
 	}
 
@@ -2686,7 +2689,7 @@ void idActor::DropAttachment( int ind )
 	ind--;
 	if( ind < 0 || ind >= m_attachments.Num() )
 	{
-		// log invalid index error
+		// TODO: log invalid index error
 		goto Quit;
 	}
 
@@ -2694,7 +2697,7 @@ void idActor::DropAttachment( int ind )
 
 	if( !ent || !m_attachments[ind].ent.IsValid() )
 	{
-		// log bad attachment entity error
+		// TODO: log bad attachment entity error
 		goto Quit;
 	}
 
@@ -2715,7 +2718,7 @@ bool idActor::GetAttachInfo( int ind, idStr &jointName, idVec3 &offset,
 	ind--;
 	if( ind < 0 || ind >= m_attachments.Num() )
 	{
-		// log invalid index error
+		// TODO: log invalid index error
 		goto Quit;
 	}
 
@@ -2723,7 +2726,7 @@ bool idActor::GetAttachInfo( int ind, idStr &jointName, idVec3 &offset,
 
 	if( !ent || !m_attachments[ind].ent.IsValid() )
 	{
-		// log bad attachment entity error
+		// TODO: log bad attachment entity error
 		goto Quit;
 	}
 
