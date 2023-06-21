@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1111 $
- * $Date: 2007-07-13 10:53:38 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1120 $
+ * $Date: 2007-07-14 05:51:04 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -691,6 +691,11 @@ public:
 	 * If the hud parameter is not null, then it will also call the updatefunction.
 	 */
 	virtual CInventoryItem *AddToInventory(idEntity *ent, idUserInterface *_hud = NULL);
+
+	/**
+	 * Script event: Changes the inventory count of the given item <name> in <category> by <amount>
+	 */
+	void ChangeInventoryItemCount(const char* invName, const char* invCategory, int amount);
 
 	/**
 	 * Return true if this entity can be mantled, false otherwise.

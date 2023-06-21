@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1119 $
- * $Date: 2007-07-14 04:21:09 -0400 (Sat, 14 Jul 2007) $
+ * $Revision: 1120 $
+ * $Date: 2007-07-14 05:51:04 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1119 2007-07-14 08:21:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1120 2007-07-14 09:51:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8463,22 +8463,8 @@ void idPlayer::inventoryDropItem()
 
 			// greebo: Decrease the stack counter, if applicable
 			if (item->IsStackable()) {
-				item->SetCount(item->GetCount() - 1);
-
-				if (item->GetCount() <= 0) {
-					DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty stackable item from category.\r");
-					// Stackable item count reached zero, remove item from category
-					category->removeItem(item);
-				}
-				
-				// Check for empty categories after the item has been removed
-				if (category->isEmpty()) {
-					DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty inventory category.\r");
-					// Switch the cursor to the next category
-					cursor->GetNextCategory();
-					// Remove category from inventory
-					cursor->Inventory()->removeCategory(category);
-				}
+				// Decrease the inventory count (this will also clear empty categories)
+				ChangeInventoryItemCount(item->GetName().c_str(), category->GetName().c_str(), -1);
 
 				UpdateHud();
 			}
