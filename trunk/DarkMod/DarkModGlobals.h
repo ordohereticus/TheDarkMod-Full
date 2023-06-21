@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1016 $
+ * $Date: 2007-06-10 13:40:55 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -303,30 +303,6 @@ public:
 	* @author: sophisticatedZombie (DH)
 	*/
 	float m_leanMove_DegreesTilt;
-
-	/*!
-	* This is a variable that specifies a linear multiplier that is multiplied
-	* by the LAS lighting quotient for a point to see how far away an AI can be 
-	* from a given point and still think it is adequately searching it.
-	*
-	* A reasonable value seems to be in the 300-600 range.
-	*
-	*/
-	float m_lightingQuotientObservationDistanceScale;
-
-	/*!
-	* This is a float that indicates for how many milliseconds the AI hiding spot 
-	* detection routines should draw debug graphics on the screen. A value of
-	* 0.0 indicates that they should not be drawn at all.
-	*
-	* The default value is 0.0
-	*
-	* A value of 1.0 or greater indicates a number of milliseconds that the
-	* debug graphics for an AI operation should remain on the screen.
-	*
-	* @author: sophisticatedZobmie (DH)
-	*/
-	float m_drawAIDebugGraphics;
 
 	/**
 	* List of AI Acuities

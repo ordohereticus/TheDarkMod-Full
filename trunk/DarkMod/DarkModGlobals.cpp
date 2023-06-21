@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 972 $
- * $Date: 2007-05-04 14:56:36 -0400 (Fri, 04 May 2007) $
- * $Author: orbweaver $
+ * $Revision: 1016 $
+ * $Date: 2007-06-10 13:40:55 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 972 2007-05-04 18:56:36Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1016 2007-06-10 17:40:55Z sophisticatedzombie $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -71,9 +71,6 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 972 2007-05-
 
 // Darkmod 
 #define DEFAULT_MAX_NUM_HIDING_SPOT_TESTS_PER_AI_FRAME 10.0
-
-// Default lighting quotient observation distance scale
-#define DEFAULT_LIGHTING_QUOTIENT_OBSERVATION_DISTANCE_SCALE 450.0
 
 class idAI;
 
@@ -195,8 +192,7 @@ CGlobal::CGlobal(void)
 	m_AICommStimRadius = DEFAULT_DARKMOD_AI_COMMUNICATIONS_STIM_RADIUS;
 	m_maxNumHidingSpotPointTestsPerAIFrame = int(DEFAULT_MAX_NUM_HIDING_SPOT_TESTS_PER_AI_FRAME);
 	m_hidingSpotMaxLightQuotient = MAX_HIDING_SPOT_MAX_LIGHT_QUOTIENT;
-	m_lightingQuotientObservationDistanceScale = DEFAULT_LIGHTING_QUOTIENT_OBSERVATION_DISTANCE_SCALE;
-
+	
 	m_LogFile = NULL;
 
 	if((m_LogFile = fopen(DARKMOD_LOGFILE, "w+b")) != NULL)
@@ -243,9 +239,6 @@ CGlobal::CGlobal(void)
 	// Default minimum velocity for mantling damage and damage scale
 	m_minimumVelocityForMantleDamage = DARKMOD_MINIMUM_METERS_PER_SECOND_FOR_MANTLING_DAMAGE;
 	m_damagePointsPerMetersPerSecondOverMinimum = DARKMOD_POINTS_DAMAGE_PER_METERS_PER_SECOND_OVER_MINIMUM_VELOCITY;
-
-	// By default AI debug graphics are off
-	m_drawAIDebugGraphics = 0.0;
 
 	/* initialize Sourcehook required global */
 	g_SHPtr = static_cast<SourceHook::ISourceHook*>(&g_SourceHook); 
@@ -645,11 +638,6 @@ void CGlobal::LoadINISettings(void *p)
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_LOCKPICK: %c\r", pm->Value[0]);
 		}
 
-		if (FindMap(ps, "AIDebugGraphics", TRUE, &pm) != static_cast<ULONG>(-1))
-		{
-			m_drawAIDebugGraphics = atof(pm->Value);
-			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("AI Debug Grpahics display milliseconds: %f\r", m_drawAIDebugGraphics);
-		}
 	}
 //	m_ClassArray[LC_FRAME] = Frame;
 
@@ -743,16 +731,6 @@ void CGlobal::LoadINISettings(void *p)
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("m_hidingSpotMaxLightQuotient set to %f", m_hidingSpotMaxLightQuotient);
 		}
 
-		if (FindMap (ps, "observationDistanceLightQuotientScale", TRUE, &pm) != static_cast<ULONG>(-1))
-		{
-			m_lightingQuotientObservationDistanceScale = atof(pm->Value);
-			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("m_lightingQuotientObservationDistanceScale set to %f", m_lightingQuotientObservationDistanceScale);
-		}
-		else
-		{
-			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("m_lightingQuotientObservationDistanceScale set to default of %f", m_lightingQuotientObservationDistanceScale);
-		}
-		
 
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("FrobDistance: %f\r", m_DefaultFrobDistance);
 
