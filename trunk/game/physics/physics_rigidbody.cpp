@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 528 $
- * $Date: 2006-08-04 06:54:20 -0400 (Fri, 04 Aug 2006) $
+ * $Revision: 616 $
+ * $Date: 2006-11-20 00:02:34 -0500 (Mon, 20 Nov 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.7  2006/11/20 05:02:34  ishtvan
+ * setAngularVelocity bugfix
+ *
  * Revision 1.6  2006/08/04 10:54:20  ishtvan
  * grabber fixes
  *
@@ -33,7 +36,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 528 $   $Date: 2006-08-04 06:54:20 -0400 (Fri, 04 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 616 $   $Date: 2006-11-20 00:02:34 -0500 (Mon, 20 Nov 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/playerdata.h"
@@ -1533,7 +1536,7 @@ idPhysics_RigidBody::SetAngularVelocity
 ================
 */
 void idPhysics_RigidBody::SetAngularVelocity( const idVec3 &newAngularVelocity, int id ) {
-	current.i.angularMomentum = newAngularVelocity * inertiaTensor;
+	current.i.angularMomentum = newAngularVelocity * current.i.orientation.Transpose() * inertiaTensor * current.i.orientation;
 	Activate();
 }
 
