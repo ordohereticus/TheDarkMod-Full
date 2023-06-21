@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 408 $
- * $Date: 2006-05-07 17:52:12 -0400 (Sun, 07 May 2006) $
+ * $Revision: 409 $
+ * $Date: 2006-05-07 18:51:49 -0400 (Sun, 07 May 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.18  2006/05/07 22:51:49  ishtvan
+ * fixed door closing sound
+ *
  * Revision 1.17  2006/05/07 21:52:12  ishtvan
  * *) fixed interruption on opening problem
  * *) Added 'interruptable' spawnarg
@@ -697,7 +700,7 @@ void CFrobDoor::DoneStateChange(void)
 		m_Open = false;
 
 		// play the closing sound when the door closes completely
-		StartSound( "snd_open", SND_CHANNEL_ANY, 0, false, NULL );
+		StartSound( "snd_close", SND_CHANNEL_ANY, 0, false, NULL );
 
 		//make sure the Doubledoor is also closed before closing the visportal
 		if( !m_DoubleDoor || !m_DoubleDoor->m_Open )
