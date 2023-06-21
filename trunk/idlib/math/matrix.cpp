@@ -2,22 +2,23 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 28 $
- * $Date: 2004-11-14 04:58:17 -0500 (Sun, 14 Nov 2004) $
- * $Author: sparhawk $
+ * $Revision: 29 $
+ * $Date: 2004-11-14 05:18:21 -0500 (Sun, 14 Nov 2004) $
+ * $Author: nexenizer $
  *
  * $Log$
+ * Revision 1.4  2004/11/14 10:18:21  nexenizer
+ * Fixed some more typos.
+ *
  * Revision 1.3  2004/11/14 09:58:17  sparhawk
  * Fixed a typo
  *
  * Revision 1.2  2004/11/14 08:06:51  nexenizer
- * *** empty log message ***
+ * Updated #pragma at bool idMatX::Cholesky_UpdateRowColumn to create compatible code
  *
  * Revision 1.1.1.1  2004/10/30 15:52:36  sparhawk
  * Initial release
- * Revision 1.1.1.2  2004/11/14 10:11:02  nexenizer
- * Updated #pragma at bool idMatX::Cholesky_UpdateRowColumn to create compatible code
- * 
+ *  
  ***************************************************************************/
 
 // Copyright (C) 2004 Id Software, Inc.
