@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 233 $
- * $Date: 2005-11-18 05:31:44 -0500 (Fri, 18 Nov 2005) $
+ * $Revision: 479 $
+ * $Date: 2006-07-08 22:40:47 -0400 (Sat, 08 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.21  2006/07/09 02:40:12  ishtvan
+ * rope arrow removal bugfix
+ *
  * Revision 1.20  2005/11/18 10:31:44  ishtvan
  * rope arrow fixes
  *
@@ -213,6 +216,12 @@ public:	// common physics interface
 
 	void					WriteToSnapshot( idBitMsgDelta &msg ) const;
 	void					ReadFromSnapshot( const idBitMsgDelta &msg );
+
+/**
+* Removes stale pointers when a rope entity is destroyed
+* RopeEnt is the rope entity that's about to be destroyed.
+**/
+	void					RopeRemovalCleanup( idEntity *RopeEnt );
 
 private:
 	// player physics state

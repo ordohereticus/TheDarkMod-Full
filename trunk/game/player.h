@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 438 $
- * $Date: 2006-05-28 04:40:15 -0400 (Sun, 28 May 2006) $
+ * $Revision: 479 $
+ * $Date: 2006-07-08 22:40:47 -0400 (Sat, 08 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.25  2006/07/09 02:40:47  ishtvan
+ * rope arrow removal bugfix
+ *
  * Revision 1.24  2006/05/28 08:40:15  ishtvan
  * modified death, mission failure
  *
@@ -853,6 +856,7 @@ private:
 	void					Event_HideTip( void );
 	void					Event_LevelTrigger( void );
 	void					Event_Gibbed( void );
+	void					Event_RopeRemovalCleanup( idEntity *RopeEnt );
 
 /**
 * DarkMod Events

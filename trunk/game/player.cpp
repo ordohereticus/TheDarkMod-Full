@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 479 $
+ * $Date: 2006-07-08 22:40:47 -0400 (Sat, 08 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.65  2006/07/09 02:40:47  ishtvan
+ * rope arrow removal bugfix
+ *
  * Revision 1.64  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -217,7 +220,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 479 $   $Date: 2006-07-08 22:40:47 -0400 (Sat, 08 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -297,6 +300,8 @@ const idEventDef EV_Player_PlayStartSound( "playStartSound", NULL );
 const idEventDef EV_Player_MissionFailed("missionFailed", NULL );
 const idEventDef EV_Player_DeathMenu("deathMenu", NULL );
 
+const idEventDef EV_Player_RopeRemovalCleanup( "ropeRemovalCleanup", "e" );
+
 
 CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_GetButtons,			idPlayer::Event_GetButtons )
@@ -336,6 +341,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_PlayStartSound,		idPlayer::Event_PlayStartSound )
 	EVENT( EV_Player_MissionFailed,			idPlayer::Event_MissionFailed )
 	EVENT( EV_Player_DeathMenu,				idPlayer::Event_LoadDeathMenu )
+	EVENT( EV_Player_RopeRemovalCleanup,	idPlayer::Event_RopeRemovalCleanup )
 END_CLASS
 
 const int MAX_RESPAWN_TIME = 10000;
@@ -10066,4 +10072,9 @@ void idPlayer::Event_MissionFailed( void )
 void idPlayer::Event_LoadDeathMenu( void )
 {
 	forceRespawn = true;
+}
+
+void idPlayer::Event_RopeRemovalCleanup(idEntity *RopeEnt)
+{
+	static_cast<idPhysics_Player *>( GetPhysics() )->RopeRemovalCleanup( RopeEnt );
 }
