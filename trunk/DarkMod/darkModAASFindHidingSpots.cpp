@@ -1,7 +1,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 583 $   $Date: 2006-10-08 12:38:14 -0400 (Sun, 08 Oct 2006) $", init_version);
 
 #include ".\darkmodaasfindhidingspots.h"
 #include "..\darkmod\darkmodglobals.h"
@@ -828,7 +828,10 @@ bool darkModAASFindHidingSpots::startHidingSpotSearch
 
 	// Ensure the PVS to AAS table is initialized
 	// If already initialized, this returns right away.
-	LAS.pvsToAASMappingTable.buildMappings(0);
+	if (!LAS.pvsToAASMappingTable.buildMappings("aas32"))
+	{
+		LAS.pvsToAASMappingTable.buildMappings("aas48");
+	}
 
 	// Get the PVS areas intersecting the search bounds
 	// Note, the id code below did this by expanding a bound out from the area center, regardless
