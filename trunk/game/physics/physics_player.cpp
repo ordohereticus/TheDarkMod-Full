@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 858 $
- * $Date: 2007-03-21 05:22:07 -0400 (Wed, 21 Mar 2007) $
- * $Author: ishtvan $
+ * $Revision: 865 $
+ * $Date: 2007-03-23 03:12:38 -0400 (Fri, 23 Mar 2007) $
+ * $Author: crispy $
  *
  * $Log$
  * Revision 1.49  2007/01/23 01:24:07  thelvyn
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 858 $   $Date: 2007-03-21 05:22:07 -0400 (Wed, 21 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 865 $   $Date: 2007-03-23 03:12:38 -0400 (Fri, 23 Mar 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3696,6 +3696,16 @@ bool idPhysics_Player::DetermineIfMantleTargetHasMantleableSurface
 	idVec3& out_mantleEndPoint
 )
 {
+	// Never mantle onto non-mantleable entities (early exit)
+	if (in_targetTraceResult.fraction<1.0f)
+	{
+		idEntity* ent = gameLocal.entities[in_targetTraceResult.c.entityNum];
+		if (ent!=NULL && !ent->IsMantleable())
+		{
+			// The mantle target is an unmantleable entity
+			return false;
+		}
+	}
 
 	// Try moving player's bounding box up from the trace hit point
 	// in steps up to the maximum distance and see if at any point

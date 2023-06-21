@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 859 $
- * $Date: 2007-03-21 05:23:15 -0400 (Wed, 21 Mar 2007) $
- * $Author: ishtvan $
+ * $Revision: 865 $
+ * $Date: 2007-03-23 03:12:38 -0400 (Fri, 23 Mar 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -665,6 +665,11 @@ public:
 	 */
 	virtual CInventoryItem *AddToInventory(idEntity *ent, idUserInterface *_hud = NULL);
 
+	/**
+	 * Return true if this entity can be mantled, false otherwise.
+	 */
+	virtual bool			IsMantleable() { return m_bIsMantleable; }
+
 protected:
 	/**
 	* Update frob highlighting and frob entity if frobbed.
@@ -785,6 +790,8 @@ protected:
 
 	SDK_SIGNAL				m_Signal;
 	idList<SDKSignalInfo *>	m_SignalList;
+
+	bool					m_bIsMantleable;
 
 	/** Used to implement waitForRender()...
 	 *	This merely contains a bounding box and a callback.
