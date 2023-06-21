@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 452 $
- * $Date: 2006-06-06 00:38:07 -0400 (Tue, 06 Jun 2006) $
- * $Author: ishtvan $
+ * $Revision: 689 $
+ * $Date: 2006-12-31 07:01:59 -0500 (Sun, 31 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.11  2006/12/31 12:01:59  sophisticatedzombie
+ * Added script method for getting light level (> 0.0 is on, 0.0 is off )
+ *
  * Revision 1.10  2006/06/06 04:38:07  ishtvan
  * added setLightOrigin and getLightOrigin scriptfunctions for use with moving lights
  *
@@ -184,6 +187,12 @@ private:
 	**/
 	void			Event_GetLightOrigin( void );
 	void			Event_SetLightOrigin( idVec3 &pos );
+
+	/**
+	* Allows us to get the light level, and tell if the light is on or off.
+	* "On" light levels are > 0.0
+	*/
+	void			Event_GetLightLevel();
 
 
 	/**

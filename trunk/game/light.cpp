@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 689 $
+ * $Date: 2006-12-31 07:01:59 -0500 (Sun, 31 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.14  2006/12/31 12:01:59  sophisticatedzombie
+ * Added script method for getting light level (> 0.0 is on, 0.0 is off )
+ *
  * Revision 1.13  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -54,7 +57,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 689 $   $Date: 2006-12-31 07:01:59 -0500 (Sun, 31 Dec 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -82,6 +85,7 @@ const idEventDef EV_Light_FadeIn( "fadeInLight", "f" );
 // TDM Additions:
 const idEventDef EV_Light_GetLightOrigin( "getLightOrigin", NULL, 'v' );
 const idEventDef EV_Light_SetLightOrigin( "setLightOrigin", "v" );
+const idEventDef EV_Light_GetLightLevel ("getLightLevel", NULL, 'f');
 
 
 CLASS_DECLARATION( idEntity, idLight )
@@ -102,6 +106,7 @@ CLASS_DECLARATION( idEntity, idLight )
 
 	EVENT( EV_Light_SetLightOrigin, idLight::Event_SetLightOrigin )
 	EVENT( EV_Light_GetLightOrigin, idLight::Event_GetLightOrigin )
+	EVENT( EV_Light_GetLightLevel,	idLight::Event_GetLightLevel )
 END_CLASS
 
 
@@ -1437,5 +1442,8 @@ void idLight::Event_GetLightOrigin( void )
 	idThread::ReturnVector( localLightOrigin );
 }
 
-
+void idLight::Event_GetLightLevel ( void )
+{
+	idThread::ReturnFloat( currentLevel );
+}
 
