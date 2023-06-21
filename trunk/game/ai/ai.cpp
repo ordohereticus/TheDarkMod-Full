@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 766 $
- * $Date: 2007-01-25 05:08:40 -0500 (Thu, 25 Jan 2007) $
- * $Author: crispy $
+ * $Revision: 770 $
+ * $Date: 2007-01-26 17:46:45 -0500 (Fri, 26 Jan 2007) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.59  2007/01/26 22:46:45  sophisticatedzombie
+ * Fixed line in idAI::Collision which was
+ * "dist = (origin * -gravityNormal );" and needed to be
+ * "dist = (( origin - collision.endpos) * -gravityNormal );"
+ *
  * Revision 1.58  2007/01/25 10:08:40  crispy
  * Implemented lipsync functionality
  *
@@ -231,7 +236,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 766 $   $Date: 2007-01-25 05:08:40 -0500 (Thu, 25 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 770 $   $Date: 2007-01-26 17:46:45 -0500 (Fri, 26 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -891,7 +896,7 @@ bool idAI::Collide( const trace_t &collision, const idVec3 &oldVelocity )
 	gravityVector = physicsObj.GetGravity();
 
 	// calculate the exact velocity on landing
-	dist = ( origin * -gravityNormal );
+	dist = (( origin - collision.endpos) * -gravityNormal );
 	vel = oldVelocity * -gravityNormal;
 	acc = -gravityVector.Length();
 
