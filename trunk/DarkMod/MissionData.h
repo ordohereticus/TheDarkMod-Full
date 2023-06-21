@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 497 $
- * $Date: 2006-07-19 17:51:03 -0400 (Wed, 19 Jul 2006) $
+ * $Revision: 502 $
+ * $Date: 2006-07-22 17:09:14 -0400 (Sat, 22 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.9  2006/07/22 21:09:14  ishtvan
+ * comp_info_location preliminary checkin
+ *
  * Revision 1.8  2006/07/19 21:51:03  ishtvan
  * added irreversible behavior, modified some internal functions
  *
@@ -120,6 +123,7 @@ typedef enum
 
 // The following are special clocked components, updated in CMissionData::UpdateObjectives
 	COMP_CUSTOM_CLOCKED,
+	COMP_INFO_LOCATION, // like location, but uses existing info_location areas instead of a brush
 	COMP_DISTANCE // distance from origin of ent X to that of ent Y
 
 } EComponentType;
