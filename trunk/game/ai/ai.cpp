@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 688 $
- * $Date: 2006-12-30 21:30:49 -0500 (Sat, 30 Dec 2006) $
- * $Author: crispy $
+ * $Revision: 691 $
+ * $Date: 2006-12-31 07:08:51 -0500 (Sun, 31 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.48  2006/12/31 12:08:51  sophisticatedzombie
+ * Added canSeePositionExt script method.
+ *
  * Revision 1.47  2006/12/31 02:30:49  crispy
  * - Added new script event, moveToCoverFrom, which is like moveToCover except that it takes the enemy entity as an argument
  * - Cover search is fixed, and uses traces instead of PVS (at least for now)
@@ -193,7 +196,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 688 $   $Date: 2006-12-30 21:30:49 -0500 (Sat, 30 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 691 $   $Date: 2006-12-31 07:08:51 -0500 (Sun, 31 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -2883,6 +2886,51 @@ bool idAI::CanSeeExt( idEntity *ent, bool useFOV, bool useLighting ) const
 	// Return result
 	return cansee;
 	
+}
+
+/*
+=====================
+The Dark Mod
+idAI::CanSeePositionExt
+
+This metohd can ignore lighting conditions and/or field of vision.
+=====================
+*/
+bool idAI::CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting )
+{
+	trace_t		tr;
+	idVec3		eye;
+	bool canSee;
+
+	if ( useFOV && !CheckFOV( position ) ) 
+	{
+		return false;
+	}
+
+	idVec3 ownOrigin = physicsObj.GetOrigin();
+
+	canSee = EntityCanSeePos (this, ownOrigin, position);
+
+	if (canSee && useLighting)
+	{
+		idVec3 bottomPoint = position;
+		idVec3 topPoint = position - (physicsObj.GetGravityNormal() * 32.0);
+		float maxDistanceToObserve = getMaximumObservationDistance 
+		(
+			bottomPoint,
+			topPoint,
+			NULL
+		);
+
+		if ((position - ownOrigin).Length() > maxDistanceToObserve)
+		{
+			canSee = false;
+		}
+
+	}
+
+	return canSee;
+
 }
 
 
