@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 476 $
+ * $Date: 2006-07-02 21:27:59 -0400 (Sun, 02 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.15  2006/07/03 01:27:59  ishtvan
+ * attempted fix for surface type sounds
+ *
  * Revision 1.14  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -61,7 +64,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 476 $   $Date: 2006-07-02 21:27:59 -0400 (Sun, 02 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2478,10 +2481,11 @@ const char *idActor::GetDamageGroup( int location ) {
 idActor::PlayFootStepSound
 =====================
 */
-void idActor::PlayFootStepSound( void ) {
+void idActor::PlayFootStepSound( void ) 
+{
 	const char			*sound = NULL;
 	idStr				moveType, localSound;
-	const idMaterial	*material;
+	idMaterial			*material = NULL;
 	idPlayer			*thisPlayer(NULL);
 	idAI				*thisAI(NULL);
 
@@ -2527,10 +2531,14 @@ void idActor::PlayFootStepSound( void ) {
 
 
 	// start footstep sound based on material type
-	material = GetPhysics()->GetContact( 0 ).material;
+	material = const_cast<idMaterial *>( GetPhysics()->GetContact( 0 ).material );
 	if ( material != NULL ) 
 	{
-		localSound = va( "snd_footstep_%s", g_Global.GetSurfName(material) );
+		DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Actor %s stepped on entity %s, material %s \r", name.c_str(), gameLocal.entities[GetPhysics()->GetContact( 0 ).entityNum]->name.c_str(), material->GetName() );  
+		localSound = g_Global.GetSurfName(material);
+		localSound = "snd_footstep_" + localSound;
+
+		DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Found surface type sound: %s\r", localSound.c_str() );  
 		sound = spawnArgs.GetString( localSound.c_str() );
 	}
 	// If player is walking in liquid, replace the bottom surface sound with water sounds
