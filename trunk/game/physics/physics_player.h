@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 808 $
- * $Date: 2007-03-01 03:20:15 -0500 (Thu, 01 Mar 2007) $
+ * $Revision: 840 $
+ * $Date: 2007-03-11 20:36:03 -0400 (Sun, 11 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -353,6 +353,13 @@ private:
 	* Used to tell SlideMove to step up at the top of something
 	**/
 	bool					m_bClimbDetachThisFrame;
+
+	/**
+	* Set to true during the initial climb phase when the player
+	* has gone from not climbing on anything to attaching to something ahead.
+	* This is intended to fix a hovering-in-midair bug.
+	**/
+	bool					m_bClimbInitialPhase;
 
 	/**
 	* View yaw change between this frame and last frame
