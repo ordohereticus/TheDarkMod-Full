@@ -1,3 +1,17 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Source$
+ * $Revision: 398 $
+ * $Date: 2006-05-02 14:41:24 -0400 (Tue, 02 May 2006) $
+ * $Author: sparhawk $
+ *
+ * $Log$
+ * Revision 1.4  2006/05/02 18:41:24  sparhawk
+ * Logheader added
+ *
+ *
+ ***************************************************************************/
 /*!
 * Implementation file for the darkModLAS class
 * SophisticatedZombie, using SparHawk's lightgem code
