@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1020 $
- * $Date: 2007-06-10 20:57:20 -0400 (Sun, 10 Jun 2007) $
+ * $Revision: 1021 $
+ * $Date: 2007-06-10 20:59:35 -0400 (Sun, 10 Jun 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1020 2007-06-11 00:57:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1021 2007-06-11 00:59:35Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -712,13 +712,15 @@ void idAFEntity_Base::Think( void ) {
 // TDM: Anim/AF physics mods, generalized behavior that originally was just on AI
 
 	// Update the AF bodies for the anim if we are set to do that
-	if ( m_bAFPosedByAnim && af.IsLoaded() && animator.FrameHasChanged( gameLocal.time ) ) 
+	if ( m_bAFPosedByAnim && af.IsLoaded() 
+		&& animator.FrameHasChanged( gameLocal.time )
+		&& !IsType(idAI::Type) ) 
 	{
 		af.ChangePose( this, gameLocal.time );
 
 		// push moveables aside while animating the AF, if set
 		// Do not do this for AI, since they have their own way
-		if( m_bAFPushMoveables && !IsType(idAI::Type) )
+		if( m_bAFPushMoveables )
 		{
 
 // copied from idAI::PushWithAF
