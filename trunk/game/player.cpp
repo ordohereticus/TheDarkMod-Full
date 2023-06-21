@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1082 $
- * $Date: 2007-07-11 12:52:41 -0400 (Wed, 11 Jul 2007) $
+ * $Revision: 1083 $
+ * $Date: 2007-07-11 13:31:50 -0400 (Wed, 11 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 1082 2007-07-11 16:52:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1083 2007-07-11 17:31:50Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9696,6 +9696,12 @@ void idPlayer::inventoryDropItem()
 			if (dropScript == NULL) {
 				// Drop the item into the grabber hands 
 				
+				// Stackable items only have one "real" entity for the whole item stack.
+				// When the stack size == 1, this entity can be dropped as it is,
+				// otherwise we need to spawn a new entity (and restore the spawnargs).
+
+				// TODO
+
 				if (!grabber->PutInHands(ent, this)) {
 					// The grabber could not put the item into the player hands
 					// TODO: Emit a sound?
@@ -9715,6 +9721,7 @@ void idPlayer::inventoryDropItem()
 				item->SetCount(item->GetCount() - 1);
 
 				if (item->GetCount() <= 0) {
+					DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty stackable item from category.\r");
 					// Stackable item count reached zero, remove item from category
 					category->removeItem(item);
 				}
