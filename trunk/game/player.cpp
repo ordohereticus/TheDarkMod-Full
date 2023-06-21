@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 632 $
- * $Date: 2006-12-07 04:56:26 -0500 (Thu, 07 Dec 2006) $
- * $Author: ishtvan $
+ * $Revision: 643 $
+ * $Date: 2006-12-09 12:49:12 -0500 (Sat, 09 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.95  2006/12/09 17:49:12  sophisticatedzombie
+ * Commented out assert that fails due to m_invGuiFading being
+ * NULL during map start.
+ *
  * Revision 1.94  2006/12/07 09:56:26  ishtvan
  * leaning controls work as either buttons or toggles
  *
@@ -311,7 +315,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 632 $   $Date: 2006-12-07 04:56:26 -0500 (Thu, 07 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 643 $   $Date: 2006-12-09 12:49:12 -0500 (Sat, 09 Dec 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2046,7 +2050,8 @@ idPlayer::~idPlayer() {
 	delete weapon.GetEntity();
 	weapon = NULL;
 
-	assert( m_invGuiFallback != NULL && m_invGuiFading != NULL );
+	// SZ: Commenting this out as it causes problems
+	//assert( m_invGuiFallback != NULL && m_invGuiFading != NULL );
 	delete m_invGuiFallback;
 	delete m_invGuiFading;
 }
