@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 154 $
- * $Date: 2005-09-14 00:21:07 -0400 (Wed, 14 Sep 2005) $
- * $Author: domarius $
+ * $Revision: 158 $
+ * $Date: 2005-09-17 03:15:28 -0400 (Sat, 17 Sep 2005) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.14  2005/09/17 07:15:28  sophisticatedzombie
+ * Added function that applies damage to the player when mantling at a high relative velocity. The damage amount is computed from minimum and scale constants in DarkModGlobals.
+ *
  * Revision 1.13  2005/09/14 04:21:07  domarius
  * no message
  *
@@ -344,6 +347,25 @@ protected:
 	float getMantleTimeForPhase 
 	(
 		EDarkMod_MantlePhase mantlePhase
+	);
+
+	/*!
+	*
+	* This method is used to determine the amount of damage conferred
+	* to the player in starting the mantle.  It is based on the
+	* velcity of the player relative to the mantle target.
+	*
+	* @param[in] p_mantledEntityRef  The entity the player is mantling.
+	*  If this is null, then the player's velocity relative to the world frame
+	*  is used.
+	*
+	* @param[in] mantlePos The position relative tot he world where
+	* the mantle will start. (Not relative to the mantle target)
+	*/
+	int CalculateMantleCollisionDamage
+	(
+		idEntity* p_mantledEntityRef,
+		idVec3 mantlePos
 	);
 
 	/*!
