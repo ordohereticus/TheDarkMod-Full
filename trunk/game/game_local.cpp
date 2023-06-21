@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 581 $
- * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Revision: 600 $
+ * $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.74  2006/11/01 11:57:38  sparhawk
+ * Signals method added to entity.
+ *
  * Revision 1.73  2006/10/03 13:13:33  sparhawk
  * Changes for door handles
  *
@@ -245,7 +248,7 @@
 
 #pragma warning(disable : 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 581 $   $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 600 $   $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -2645,6 +2648,9 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 			player->usercmd = ucmd;
 		}
 	}
+
+	// Check for any activated signals, and trigger them.
+	CheckSDKSignal();
 
 	if ( !isMultiplayer && g_stopTime.GetBool() ) {
 		// clear any debug lines from a previous frame
@@ -5698,4 +5704,19 @@ idEntity *idGameLocal::PlayerTraceEntity( void )
 	
 Quit:
 	return returnEnt;
+}
+
+void idGameLocal::AddSDKSignal(idEntity *oObject)
+{
+	if(oObject != NULL)
+		m_SignalList.Append(oObject);
+}
+
+void idGameLocal::CheckSDKSignal(void)
+{
+	int i, n;
+
+	n = m_SignalList.Num();
+	for(i = 0; i < n; i++)
+		m_SignalList[i]->CheckSDKSignal();
 }

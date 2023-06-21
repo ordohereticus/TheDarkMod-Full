@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 540 $
- * $Date: 2006-08-10 21:48:18 -0400 (Thu, 10 Aug 2006) $
- * $Author: ishtvan $
+ * $Revision: 600 $
+ * $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.23  2006/11/01 11:57:28  sparhawk
+ * Signals method added to entity.
+ *
  * Revision 1.22  2006/08/11 01:48:18  ishtvan
  * dealt with simultaneous alerts in one frame
  *
@@ -531,8 +534,6 @@ public:
 	* Returns true if AI is knocked out
 	**/
 	bool  IsKnockedOut( void ) { return AI_KNOCKEDOUT; };
-
-
 
 public:
 	/**
