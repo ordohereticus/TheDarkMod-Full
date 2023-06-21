@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 670 $
- * $Date: 2006-12-20 20:59:28 -0500 (Wed, 20 Dec 2006) $
+ * $Revision: 673 $
+ * $Date: 2006-12-21 01:00:58 -0500 (Thu, 21 Dec 2006) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.42  2006/12/21 06:00:58  sophisticatedzombie
+ * Changed the way Event_CanSeeEntity works so that it just calls idAI::canSee directly.
+ * idAI::canSee is now a virtual override of idActor::canSee and takes lighting/visual acuity into
+ * account.
+ *
  * Revision 1.41  2006/12/21 01:59:28  sophisticatedzombie
  * Added work around for problem in lighting test that always produces 0 illumination
  * if an entity is a point.
@@ -165,7 +170,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 670 $   $Date: 2006-12-20 20:59:28 -0500 (Wed, 20 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 673 $   $Date: 2006-12-21 01:00:58 -0500 (Thu, 21 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -2759,6 +2764,30 @@ bool idAI::GetMovePos( idVec3 &seekPos ) {
 
 	return result;
 }
+
+
+/*
+=====================
+The Dark Mod
+idAI::CanSee virtual override
+=====================
+*/
+bool idAI::CanSee( idEntity *ent, bool useFOV ) const
+{
+	// Test if it is occluded, and use field of vision in the check (true as second parameter)
+	bool cansee = idActor::CanSee( ent, true );
+
+	// Also consider lighting and visual acuity of AI
+	if (cansee)
+	{
+		cansee = !IsEntityHiddenByDarkness(ent);
+	}
+
+	// Return result
+	return cansee;
+	
+}
+
 
 /*
 =====================
@@ -5891,7 +5920,7 @@ Quit:
 	return;
 }
 
-float idAI::GetAcuity( const char *type )
+float idAI::GetAcuity( const char *type ) const
 {
 	float returnval;
 	int ind;
@@ -5967,6 +5996,7 @@ idActor *idAI::VisualScan( float timecheck )
 	}
 
 	visFrac = GetVisibility( actor );
+
 	// uncomment for visibility fraction debugging (spams the log)
 	//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Visibility fraction for %s = %f\r", actor->name.c_str(), visFrac );
 
@@ -6007,7 +6037,7 @@ Quit:
 	return actor;
 }
 
-float idAI::GetVisibility( idEntity *ent )
+float idAI::GetVisibility( idEntity *ent ) const
 {
 /**
 * PSUEDOCODE:
@@ -6143,7 +6173,7 @@ Quit:
 
 /*---------------------------------------------------------------------------------*/
 
-float idAI::getMaximumObservationDistance (idVec3 bottomPoint, idVec3 topPoint, idEntity* p_ignoreEntity)
+float idAI::getMaximumObservationDistance (idVec3 bottomPoint, idVec3 topPoint, idEntity* p_ignoreEntity) const
 {
 	float lightQuotient = LAS.queryLightingAlongLine (bottomPoint, topPoint, p_ignoreEntity, true);
 	float visualAcuityZeroToOne = GetAcuity("vis")/ 100.0; 
@@ -6157,7 +6187,7 @@ float idAI::getMaximumObservationDistance (idVec3 bottomPoint, idVec3 topPoint, 
 
 /*---------------------------------------------------------------------------------*/
 
-float idAI::getPlayerVisualStimulusAmount(idEntity* p_playerEntity)
+float idAI::getPlayerVisualStimulusAmount(idEntity* p_playerEntity) const
 {
 	float alertAmount = 0.0;
 
@@ -6194,7 +6224,7 @@ float idAI::getPlayerVisualStimulusAmount(idEntity* p_playerEntity)
 
 /*---------------------------------------------------------------------------------*/
 
-bool idAI::IsEntityHiddenByDarkness (idEntity* p_entity)
+bool idAI::IsEntityHiddenByDarkness (idEntity* p_entity) const
 {
 	// Quick test using LAS at entity origin
 	idPhysics* p_physics = p_entity->GetPhysics();

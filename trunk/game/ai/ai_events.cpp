@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 672 $
- * $Date: 2006-12-20 23:19:18 -0500 (Wed, 20 Dec 2006) $
+ * $Revision: 673 $
+ * $Date: 2006-12-21 01:00:58 -0500 (Thu, 21 Dec 2006) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.27  2006/12/21 06:00:58  sophisticatedzombie
+ * Changed the way Event_CanSeeEntity works so that it just calls idAI::canSee directly.
+ * idAI::canSee is now a virtual override of idActor::canSee and takes lighting/visual acuity into
+ * account.
+ *
  * Revision 1.26  2006/12/21 04:19:18  sophisticatedzombie
  * Made Event_CanSee take FOV into account.
  *
@@ -112,7 +117,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 672 $   $Date: 2006-12-20 23:19:18 -0500 (Wed, 20 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 673 $   $Date: 2006-12-21 01:00:58 -0500 (Thu, 21 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/relations.h"
@@ -1942,12 +1947,6 @@ void idAI::Event_CanSeeEntity( idEntity *ent ) {
 	// Test if it is occluded, and use field of vision in the check (true as second parameter)
 	bool cansee = CanSee( ent, true );
 	
-	// Also consider lighting and visual acuity of AI
-	if (cansee)
-	{
-		cansee = !IsEntityHiddenByDarkness(ent);
-	}
-
 	idThread::ReturnInt( cansee );
 }
 
