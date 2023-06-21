@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1064 $
- * $Date: 2007-06-28 16:58:24 -0400 (Thu, 28 Jun 2007) $
- * $Author: sparhawk $
+ * $Revision: 1072 $
+ * $Date: 2007-07-10 11:08:53 -0400 (Tue, 10 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1064 2007-06-28 20:58:24Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1072 2007-07-10 15:08:53Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -23,7 +23,7 @@ static bool init_version = FileVersionList("$Id: entity.cpp 1064 2007-06-28 20:5
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/sndProp.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/inventory.h"
+#include "../DarkMod/Inventory/Inventory.h"
 
 /*
 ===============================================================================

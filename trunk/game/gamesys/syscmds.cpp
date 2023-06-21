@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1072 $
+ * $Date: 2007-07-10 11:08:53 -0400 (Tue, 10 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,12 +13,11 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1072 2007-07-10 15:08:53Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
 #include "../../DarkMod/Relations.h"
-#include "../DarkMod/inventory.h"
 #include "../DarkMod/KeyboardHook.h"
 
 #include "typeinfo.h"

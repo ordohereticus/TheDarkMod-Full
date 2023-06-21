@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1000 $
- * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1072 $
+ * $Date: 2007-07-10 11:08:53 -0400 (Tue, 10 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1072 2007-07-10 15:08:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -28,7 +28,6 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1000 2007-05-28 
 #include "../DarkMod/Relations.h"
 #include "../DarkMod/sndProp.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/inventory.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/func_shooter.h"
 
