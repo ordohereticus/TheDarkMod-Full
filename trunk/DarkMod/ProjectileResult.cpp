@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 982 $
- * $Date: 2007-05-11 09:09:56 -0400 (Fri, 11 May 2007) $
- * $Author: greebo $
+ * $Revision: 999 $
+ * $Date: 2007-05-28 04:03:03 -0400 (Mon, 28 May 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 982 2007-05-11 13:09:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 999 2007-05-28 08:03:03Z ishtvan $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -94,6 +94,7 @@ void CProjectileResult::Init
 	int StimDuration(0), StimEvalInterval(0);
 	float StimMagnitude(1.0f);
 	bool bStimUseBounds(false);
+	bool bCollisionBased(false);
 	idVec3 stimBounds[2];
 	idVec3 stimVelocity;
 
@@ -178,6 +179,9 @@ void CProjectileResult::Init
 				sprintf(key, "sr_use_bounds_%u", stimIdx);
 				pProj->spawnArgs.GetBool(key, "0", bStimUseBounds );
 
+				sprintf(key, "sr_collision_%u", stimIdx);
+				pProj->spawnArgs.GetBool(key, "0", bCollisionBased );
+
 				sprintf(key, "sr_magnitude_%u", stimIdx);
 				pProj->spawnArgs.GetFloat(key, "1.0", StimMagnitude );
 
@@ -187,6 +191,7 @@ void CProjectileResult::Init
 				s->m_Duration = StimDuration;
 				s->m_TimeInterleave = StimEvalInterval;
 				s->m_bUseEntBounds = bStimUseBounds;
+				s->m_bCollisionBased = bCollisionBased;
 				s->m_Magnitude = StimMagnitude;
 				s->m_FallOffExponent = StimFalloffExponent;
 				s->m_Velocity = stimVelocity;
