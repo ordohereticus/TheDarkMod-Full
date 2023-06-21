@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 596 $
- * $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $
- * $Author: sparhawk $
+ * $Revision: 674 $
+ * $Date: 2006-12-23 02:19:13 -0500 (Sat, 23 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.8  2006/12/23 07:19:13  sophisticatedzombie
+ * Added a function that we may be able to use to help AI better avoid
+ * binary frob movers.
+ *
  * Revision 1.7  2006/10/30 17:10:25  sparhawk
  * Doorhandles are now working in the first stage.
  *
@@ -107,7 +111,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 596 $   $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 674 $   $Date: 2006-12-23 02:19:13 -0500 (Sat, 23 Dec 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -505,7 +509,43 @@ void CBinaryFrobMover::ApplyImpulse(idEntity *ent, int id, const idVec3 &point, 
 	idEntity::ApplyImpulse( ent, id, point, impulse);
 }
 
+/*-------------------------------------------------------------------------*/
+
 bool CBinaryFrobMover::isMoving()
 {
 	return ((m_Translating) || (m_Rotating));
+}
+
+/*-------------------------------------------------------------------------*/
+
+void CBinaryFrobMover::getRemainingMovement
+(
+	idVec3& out_deltaPosition,
+	idAngles& out_deltaAngles
+)
+{
+	// Get remaining translation if translating
+	if (m_bIntentOpen)
+	{
+		out_deltaPosition = (m_StartPos + m_Translation) - physicsObj.GetOrigin();
+	}
+	else
+	{
+		out_deltaPosition = m_StartPos - physicsObj.GetOrigin();
+	}
+
+	// Get remaining rotation
+	idAngles curAngles;
+	physicsObj.GetAngles(curAngles);
+
+	if (m_bIntentOpen)
+	{
+		out_deltaAngles = m_OpenAngles - curAngles;
+	}
+	else
+	{
+		out_deltaAngles = m_ClosedAngles - curAngles;
+	}
+
+	// Done
 }

@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 584 $
- * $Date: 2006-10-08 13:16:45 -0400 (Sun, 08 Oct 2006) $
+ * $Revision: 674 $
+ * $Date: 2006-12-23 02:19:13 -0500 (Sat, 23 Dec 2006) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.6  2006/12/23 07:19:13  sophisticatedzombie
+ * Added a function that we may be able to use to help AI better avoid
+ * binary frob movers.
+ *
  * Revision 1.5  2006/10/08 17:16:45  sophisticatedzombie
  * Added some functions for getting property states from within C++ code, rather than
  * from script objects.
@@ -161,6 +165,23 @@ public:
 	* This is used to test if the mover is moving
 	*/
 	virtual bool			isMoving();
+
+	/**
+	* This is used to get the remaining translation left on the clip model
+	* if it is moving
+	*
+	* @param out_translation: Passes back out the translation remaining in
+	*	the current movement.
+	*
+	* @param out_deltaAngles: Passes back out the rotation remaining in
+	*	the current movement.
+	*
+	*/
+	void getRemainingMovement
+	(
+		idVec3& out_deltaPosition,
+		idAngles& out_deltaAngles
+	);
 
 protected:
 	/**
