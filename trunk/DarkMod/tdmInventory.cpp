@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $
- * $Revision: 834 $
- * $Date: 2007-03-07 15:52:17 -0500 (Wed, 07 Mar 2007) $
+ * $Revision: 835 $
+ * $Date: 2007-03-07 16:07:55 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  * DESCRIPTION: This file contains the inventory handling for TDM. The inventory 
@@ -44,7 +44,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: tdmInventory.cpp 834 2007-03-07 20:52:17Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: tdmInventory.cpp 835 2007-03-07 21:07:55Z sparhawk $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -645,73 +645,11 @@ Quit:
 	return rc;
 }
 
-void CInventoryCursor::ValidateCategory(void)
-{
-	int n = m_Inventory->m_Category.Num();
-
-	if(m_CurrentCategory >= n)
-	{
-		if(m_WrapAround == true)
-		{
-			if(m_CategoryLock == false)
-			{
-				m_CurrentItem = 0;
-				m_CurrentCategory = 0;
-			}
-			else
-			{
-				if(n > 0)
-					m_CurrentCategory = n-1;
-				else
-					m_CurrentCategory = 0;
-			}
-		}
-		else
-		{
-			if(n > 0)
-				m_CurrentCategory = n-1;
-		}
-	}
-	else if(m_CurrentCategory < 0)
-	{
-		if(m_WrapAround == true)
-		{
-			if(m_CategoryLock == false)
-			{
-				if(n > 0)
-					m_CurrentCategory = n-1;
-				else
-					m_CurrentCategory = 0;
-
-				n = m_Inventory->m_Category[m_CurrentCategory]->m_Item.Num();
-				if(n > 0)
-					m_CurrentItem = n-1;
-				else
-					m_CurrentItem = 0;
-			}
-			else
-			{
-				m_CurrentCategory = 0;
-				n = m_Inventory->m_Category[m_CurrentCategory]->m_Item.Num();
-				if(n > 0)
-					m_CurrentItem = n-1;
-				else
-					m_CurrentItem = 0;
-			}
-		}
-		else
-		{
-			m_CurrentCategory = 0;
-		}
-	}
-}
-
 CInventoryItem *CInventoryCursor::GetNextItem(void)
 {
 	CInventoryItem *rc = NULL;
 	int ni;
 
-	ValidateCategory();
 	ni = m_Inventory->m_Category[m_CurrentCategory]->m_Item.Num();
 
 	m_CurrentItem++;
@@ -738,7 +676,6 @@ CInventoryItem *CInventoryCursor::GetPrevItem(void)
 {
 	CInventoryItem *rc = NULL;
 
-	ValidateCategory();
 	m_CurrentItem--;
 	if(m_CurrentItem < 0)
 	{

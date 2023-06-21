@@ -1,10 +1,10 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $LastChangedRevision: 833 $
- * $Date: 2007-03-07 15:41:08 -0500 (Wed, 07 Mar 2007) $
+ * $LastChangedRevision: 835 $
+ * $Date: 2007-03-07 16:07:55 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
- * $Id: tdmInventory.h 833 2007-03-07 20:41:08Z sparhawk $
+ * $Id: tdmInventory.h 835 2007-03-07 21:07:55Z sparhawk $
  *
  ***************************************************************************/
 
@@ -235,7 +235,6 @@ public:
 	void					DropCurrentItem(void);
 
 protected:
-	void					ValidateCategory(void);
 	bool					IsCategoryIgnored(const CInventoryCategory *) const;
 
 protected:
