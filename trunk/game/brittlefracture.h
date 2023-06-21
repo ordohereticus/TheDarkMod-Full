@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 316 $
+ * $Date: 2006-01-22 19:22:01 -0500 (Sun, 22 Jan 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:30  sparhawk
- * Initial revision
+ * Revision 1.2  2006/01/23 00:22:01  ishtvan
+ * added sound prop updating and sound loss for breakable windows
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:30  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -99,6 +102,12 @@ private:
 	mutable int					lastRenderEntityUpdate;
 	mutable bool				changed;
 
+	/**
+	* Contains the visportal handle that the breakable is touching, if portal is present
+	* If no portal is present, is set to 0.
+	**/
+	qhandle_t					m_AreaPortal;
+
 	bool						UpdateRenderEntity( renderEntity_s *renderEntity, const renderView_t *renderView ) const;
 	static bool					ModelCallback( renderEntity_s *renderEntity, const renderView_t *renderView );
 
@@ -114,6 +123,12 @@ private:
 
 	void						Event_Activate( idEntity *activator );
 	void						Event_Touch( idEntity *other, trace_t *trace );
+
+	/**
+	* Update soundprop to set losses in associated portal, if portal is present
+	* Called on spawn and when it breaks
+	**/
+	void						UpdateSoundLoss( void );
 };
 
 #endif /* !__GAME_BRITTLEFRACTURE_H__ */
