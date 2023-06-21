@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 708 $
- * $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 723 $
+ * $Date: 2007-01-16 22:45:38 -0500 (Tue, 16 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.53  2007/01/17 03:45:12  thelvyn
+ * *** empty log message ***
+ *
  * Revision 1.52  2007/01/06 10:06:15  ishtvan
  * fov check fix
  *
@@ -213,7 +216,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 708 $   $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 723 $   $Date: 2007-01-16 22:45:38 -0500 (Tue, 16 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -783,6 +786,134 @@ idAI::~idAI() {
 	*/
 	destroyCurrentHidingSpotSearch();
 	
+}
+
+/*
+=====================
+idAI::Collide
+=====================
+*
+* Added by Rich Jan 16,2007
+* Add collision(Falling) damage to AI
+*/
+bool idAI::Collide( const trace_t &collision, const idVec3 &oldVelocity )
+{
+	idAFEntity_Base::Collide( collision, oldVelocity );
+	{
+		idEntity *other;
+		other = gameLocal.entities[ collision.c.entityNum ];
+		// don't let player collide with grabber entity
+		other->Signal( SIG_TOUCH );
+		if ( other->RespondsTo( EV_Touch ) ) {
+			other->ProcessEvent( &EV_Touch, this, &collision );
+		}
+	}
+
+	idVec3		origin, velocity;
+	idVec3		gravityVector, gravityNormal;
+	float		delta;
+	float		hardDelta, fatalDelta;
+	float		dist;
+	float		vel, acc;
+	float		t;
+	float		a, b, c, den;
+	waterLevel_t waterLevel;
+	bool		noDamage;
+
+	// if the player is not on the ground
+	if ( !physicsObj.HasGroundContacts() ) {
+		return false;
+	}
+
+	gravityNormal = physicsObj.GetGravityNormal();
+
+	// if the player wasn't going down
+	if ( ( oldVelocity * -gravityNormal ) >= 0.0f ) {
+		return false;
+	}
+
+	waterLevel = physicsObj.GetWaterLevel();
+
+	// never take falling damage if completely underwater
+	if ( waterLevel == WATERLEVEL_HEAD ) {
+		return false;
+	}
+
+	// no falling damage if touching a nodamage surface
+	noDamage = false;
+	for ( int i = 0; i < physicsObj.GetNumContacts(); i++ ) {
+		const contactInfo_t &contact = physicsObj.GetContact( i );
+		if ( contact.material->GetSurfaceFlags() & SURF_NODAMAGE ) {
+			noDamage = true;
+			StartSound( "snd_land_hard", SND_CHANNEL_ANY, 0, false, NULL );
+			break;
+		}
+	}
+
+	origin = GetPhysics()->GetOrigin();
+	gravityVector = physicsObj.GetGravity();
+
+	// calculate the exact velocity on landing
+	dist = ( origin * -gravityNormal );
+	vel = oldVelocity * -gravityNormal;
+	acc = -gravityVector.Length();
+
+	a = acc / 2.0f;
+	b = vel;
+	c = -dist;
+
+	den = b * b - 4.0f * a * c;
+	if ( den < 0 ) {
+		return false;
+	}
+	t = ( -b - idMath::Sqrt( den ) ) / ( 2.0f * a );
+
+	delta = vel + t * acc;
+	delta = delta * delta * 0.0001;
+
+	// reduce falling damage if there is standing water
+	if ( waterLevel == WATERLEVEL_WAIST ) {
+		delta *= 0.25f;
+	}
+	if ( waterLevel == WATERLEVEL_FEET ) {
+		delta *= 0.5f;
+	}
+
+	if ( delta < 1.0f ) {
+		return false;
+	}
+
+	fatalDelta	= 65.0f;
+	hardDelta	= 45.0f;
+
+	if ( delta > fatalDelta ) {
+		//landChange = -32;
+		//landTime = gameLocal.time;
+		if ( !noDamage ) {
+			pain_debounce_time = gameLocal.time + pain_delay + 1;  // ignore pain since we'll play our landing anim
+			Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_fatalfall", 1.0f, 0 );
+		}
+	} else if ( delta > hardDelta ) {
+//		landChange	= -24;
+//		landTime	= gameLocal.time;
+		if ( !noDamage ) {
+			pain_debounce_time = gameLocal.time + pain_delay + 1;  // ignore pain since we'll play our landing anim
+			Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_hardfall", 1.0f, 0 );
+		}
+	} else if ( delta > 30 ) {
+//		landChange	= -16;
+//		landTime	= gameLocal.time;
+		if ( !noDamage ) {
+			pain_debounce_time = gameLocal.time + pain_delay + 1;  // ignore pain since we'll play our landing anim
+			Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_softfall", 1.0f, 0 );
+		}
+	} else if ( delta > 7 ) {
+//		landChange	= -8;
+//		landTime	= gameLocal.time;
+	} else if ( delta > 3 ) {
+		// just walk on
+	}
+	return false;
 }
 
 /*

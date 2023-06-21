@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 708 $
- * $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 723 $
+ * $Date: 2007-01-16 22:45:38 -0500 (Tue, 16 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.36  2007/01/17 03:45:12  thelvyn
+ * *** empty log message ***
+ *
  * Revision 1.35  2007/01/06 10:06:15  ishtvan
  * fov check fix
  *
@@ -652,6 +655,11 @@ public:
 	idScriptBool			AI_RUN;
 	idScriptBool			AI_CREEP;
 
+	/*
+	Added By Rich to implement AI Falling damage
+	Calls Base Class function bool idAFEntity_Base::Collide( collision, velocity ) first.
+	*/
+	bool Collide( const trace_t &collision, const idVec3 &velocity );
 protected:
 	// navigation
 	idAAS *					aas;
