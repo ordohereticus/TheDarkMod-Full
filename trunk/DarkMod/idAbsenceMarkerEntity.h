@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 988 $
+ * $Date: 2007-05-17 23:12:54 -0400 (Thu, 17 May 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 
@@ -39,6 +39,7 @@ public:
 protected:
 
 	// Defines the spawnargs etc.. for this entity's script type
+	idStr referenced_entityDefName;
 	int referenced_entityDefNumber;
 
 	// The name of the entity being referenced
@@ -52,6 +53,10 @@ public:
 
 	idAbsenceMarkerEntity(void);
 	virtual ~idAbsenceMarkerEntity(void);
+
+	// Save and restore
+	void					Save( idSaveGame *savefile ) const;
+	void					Restore( idRestoreGame *savefile );
 
 	/**
 	* Call this method to set the information about the entity
