@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 723 $
- * $Date: 2007-01-16 22:45:38 -0500 (Tue, 16 Jan 2007) $
+ * $Revision: 779 $
+ * $Date: 2007-02-01 02:49:28 -0500 (Thu, 01 Feb 2007) $
  * $Author: thelvyn $
  * $Name$
  *
  * $Log$
+ * Revision 1.43  2007/02/01 07:49:28  thelvyn
+ * debugging macros
+ *
  * Revision 1.42  2007/01/17 03:44:19  thelvyn
  * *** empty log message ***
  *
@@ -531,6 +534,20 @@ extern char *g_LCString[];
 #define Message(desc) message(__FILE__ "(" MacroStr2(__LINE__) ") :" #desc)
 #endif
 
+#ifdef _DEBUG
+static char DebugStr[2048];
+#define Debug(X)				{ strcpy (DebugStr, __FILE__ "(" MacroStr2(__LINE__) ") :" #X ); DebugStr[strlen(DebugStr)+1] = 0; DebugStr[strlen(DebugStr)] = '\n'; OutputDebugString(DebugStr); }
+#define Debug1(X, Y)			{ sprintf(DebugStr, __FILE__ "(" MacroStr2(__LINE__) ") :" #X, Y); DebugStr[strlen(DebugStr)+1] = 0; DebugStr[strlen(DebugStr)] = '\n'; OutputDebugString(DebugStr); }
+#define Debug2(X, Y, Z)			{ sprintf(DebugStr, __FILE__ "(" MacroStr2(__LINE__) ") :" #X, Y, Z); DebugStr[strlen(DebugStr)+1] = 0; DebugStr[strlen(DebugStr)] = '\n'; OutputDebugString(DebugStr); }
+#define Debug3(X, Y, Z, A)		{ sprintf(DebugStr, __FILE__ "(" MacroStr2(__LINE__) ") :" #X, Y, Z, A); DebugStr[strlen(DebugStr)+1] = 0; DebugStr[strlen(DebugStr)] = '\n'; OutputDebugString(DebugStr); }
+#define Debug4(X, Y, Z, A, B)	{ sprintf(DebugStr, __FILE__ "(" MacroStr2(__LINE__) ") :" #X, Y, Z, A, B); DebugStr[strlen(DebugStr)+1] = 0; DebugStr[strlen(DebugStr)] = '\n'; OutputDebugString(DebugStr); }
+#else  // #ifdef _DEBUG
+#define Debug(X)
+#define Debug1(X, Y)
+#define Debug2(X, Y, Z)
+#define Debug3(X, Y, Z, A)
+#define Debug4(X, Y, Z, A, B)
+#endif // #ifdef _DEBUG
 
 /**
 * The DARKMOD_NOTE macro makes it easy to add reminders which are shown when code is compiled. 
