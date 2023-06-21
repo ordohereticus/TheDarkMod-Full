@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1115 $
- * $Date: 2007-07-13 12:47:49 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1118 $
+ * $Date: 2007-07-14 02:58:15 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1115 2007-07-13 16:47:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1118 2007-07-14 06:58:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -30,7 +30,7 @@ static bool init_version = FileVersionList("$Id: player.cpp 1115 2007-07-13 16:4
 /*
 ===============================================================================
 
-	Player control of the Doom Marine.
+	Player control of the TDM player thief.
 	This object handles all player movement and world interaction.
 
 ===============================================================================
