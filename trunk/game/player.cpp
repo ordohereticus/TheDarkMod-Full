@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 122 $
- * $Date: 2005-04-23 06:08:02 -0400 (Sat, 23 Apr 2005) $
- * $Author: ishtvan $
+ * $Revision: 126 $
+ * $Date: 2005-07-01 17:22:31 -0400 (Fri, 01 Jul 2005) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.19  2005/07/01 21:22:31  sophisticatedzombie
+ * I added a case statement for Impule 24 to the impulse handler which triggers a mantling attempt.
+ *
  * Revision 1.18  2005/04/23 10:08:02  ishtvan
  * added fix for pm_walkspeed being reset to 140 by the engine on map load
  *
@@ -5657,6 +5660,14 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_22: {
 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
 				gameLocal.mpGame.ToggleSpectate();
+			}
+			break;
+		}
+
+		case IMPULSE_24: {
+			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
+			{
+					physicsObj.PerformMantle();
 			}
 			break;
 		}
