@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 942 $
- * $Date: 2007-04-28 13:12:19 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 943 $
+ * $Date: 2007-04-28 13:19:52 -0400 (Sat, 28 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 942 2007-04-28 17:12:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 943 2007-04-28 17:19:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9535,7 +9535,7 @@ void idPlayer::inventoryUseItem(idEntity *ent)
 	else
 	{
 		// greebo: No frob entity highlighted, try to call the "use" method in the entity's scriptobject
-		idThread* thread = ent->CallScriptFunctionArgs("inventoryUse", true, 0, "eef", ent, this, 0);
+		idThread* thread = ent->CallScriptFunctionArgs("inventoryUse", true, 0, "ee", ent, this);
 		if (thread) {
 			thread->Start(); // Start the thread immediately.
 		}
