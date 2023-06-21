@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 986 $
- * $Date: 2007-05-12 07:09:16 -0400 (Sat, 12 May 2007) $
+ * $Revision: 987 $
+ * $Date: 2007-05-12 09:36:09 -0400 (Sat, 12 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 986 2007-05-12 11:09:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 987 2007-05-12 13:36:09Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6754,6 +6754,9 @@ void idPlayer::UpdateHud( void ) {
 	} else {
 		hud->SetStateString( "hudLag", "0" );
 	}
+
+	// Trigger an update of the HUD
+	inventoryChangeSelection(hud, true);
 }
 
 /*

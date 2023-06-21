@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 945 $
- * $Date: 2007-04-29 05:18:19 -0400 (Sun, 29 Apr 2007) $
+ * $Revision: 987 $
+ * $Date: 2007-05-12 09:36:09 -0400 (Sat, 12 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************
@@ -45,7 +45,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: inventory.cpp 945 2007-04-29 09:18:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: inventory.cpp 987 2007-05-12 13:36:09Z greebo $", init_version);
 
 #include "../game/game_local.h"
 
@@ -814,7 +814,7 @@ void CInventoryCursor::DropCurrentItem(void)
 	idEntity *owner = NULL;
 	const function_t* dropScript = NULL;
 
-	if(item && item->IsDroppable() == true)
+	if (item && item->IsDroppable() == true && item->GetCount() > 0)
 	{
 		ent = item->GetItemEntity();
 
@@ -828,11 +828,16 @@ void CInventoryCursor::DropCurrentItem(void)
 		if (dropScript == NULL) {
 			m_Inventory->PutEntityInMap(ent, owner, item);
 		}
-	}
 
-	// greebo: Decrease the stack counter, if applicable
-	if (item->IsStackable() && item->GetCount() > 0) {
-		item->SetCount(item->GetCount() - 1);
+		// greebo: Decrease the stack counter, if applicable
+		if (item->IsStackable()) {
+			item->SetCount(item->GetCount() - 1);
+
+			idPlayer* player = dynamic_cast<idPlayer*>(owner);
+			if (player != NULL) {
+				player->UpdateHud();
+			}
+		}
 	}
 
 	// greebo: Is there a drop script on the entity?
