@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 69 $
- * $Date: 2005-01-20 14:37:49 -0500 (Thu, 20 Jan 2005) $
+ * $Revision: 72 $
+ * $Date: 2005-01-23 19:17:16 -0500 (Sun, 23 Jan 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2005/01/24 00:17:16  sparhawk
+ * Lightgem shadow problem fixed.
+ *
  * Revision 1.3  2005/01/20 19:37:48  sparhawk
  * Lightgem now calculates projected lights as well as parallel lights.
  *
@@ -1353,5 +1356,19 @@ double idLight::GetDistanceColor(double fDistance)
 	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Final ColVal: %f   ImgVal: %f\r", fColVal, fImgVal);
 
 	return fColVal*fImgVal;
+}
+
+bool idLight::CastsShadow(void)
+{
+	if(m_LightMaterial == NULL)
+		m_LightMaterial = g_Global.GetMaterial(m_MaterialName);
+
+	if(m_LightMaterial != NULL)
+	{
+		if(m_LightMaterial->m_AmbientLight == true)
+			return false;
+	}
+
+	return !renderLight.noShadows; 
 }
 

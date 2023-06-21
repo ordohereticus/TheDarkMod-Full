@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 69 $
- * $Date: 2005-01-20 14:37:49 -0500 (Thu, 20 Jan 2005) $
+ * $Revision: 72 $
+ * $Date: 2005-01-23 19:17:16 -0500 (Sun, 23 Jan 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.6  2005/01/24 00:17:16  sparhawk
+ * Lightgem shadow problem fixed.
+ *
  * Revision 1.5  2005/01/20 19:37:49  sparhawk
  * Lightgem now calculates projected lights as well as parallel lights.
  *
@@ -108,6 +111,7 @@ public:
 	 */
 	inline bool		IsParallel(void) { return renderLight.parallel; };
 	inline bool		IsPointlight(void) { return renderLight.pointLight; };
+	bool			CastsShadow(void);
 
 private:
 	renderLight_t	renderLight;				// light presented to the renderer
