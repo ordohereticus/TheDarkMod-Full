@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 939 $
+ * $Date: 2007-04-28 02:41:36 -0400 (Sat, 28 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 939 2007-04-28 06:41:36Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7734,13 +7734,22 @@ Quit:
 	return rc;
 }
 
-void idEntity::Event_DestroyOverlay(int layer)
+void idEntity::Event_DestroyOverlay(int handle)
 {
-	DestroyOverlay(layer);
+	DestroyOverlay(handle);
 }
 
-void idEntity::DestroyOverlay(int layer)
+void idEntity::DestroyOverlay(int handle)
 {
+	if ( handle != OVERLAYS_MIN_HANDLE ) {
+		idUserInterface *gui = m_overlays.getGui( handle );
+		if ( gui )
+			gui->Activate( false, gameLocal.time );
+		m_overlays.destroyOverlay( handle );
+		gameLocal.Printf("Overlay with ID %d destroyed.\n", handle);
+	} else {
+		gameLocal.Warning( "Cannot destroy HUD.\n" );
+	}
 }
 
 void idEntity::Event_CreateOverlay( const char *guiFile, int layer )

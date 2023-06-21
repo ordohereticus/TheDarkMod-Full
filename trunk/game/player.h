@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 939 $
+ * $Date: 2007-04-28 02:41:36 -0400 (Sat, 28 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -880,7 +880,6 @@ private:
 
 	void					Event_SetGui( int handle, const char *guiFile );
 	void					Event_GetInventoryOverlay(void);
-	void					Event_DestroyOverlay( int handle );
 
 	void					Event_PlayStartSound( void );
 	void					Event_MissionFailed( void );

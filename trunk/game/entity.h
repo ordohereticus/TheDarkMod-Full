@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 885 $
- * $Date: 2007-04-01 11:07:13 -0400 (Sun, 01 Apr 2007) $
+ * $Revision: 939 $
+ * $Date: 2007-04-28 02:41:36 -0400 (Sat, 28 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -608,8 +608,12 @@ public:
 	void					Event_CreateOverlay( const char *guiFile, int layer );
 	int						CreateOverlay( const char *guiFile, int layer );
 
-	void					Event_DestroyOverlay(int layer);
-	void					DestroyOverlay(int layer);
+	/**
+	* greebo: DestroyOverlay removes the overlay from this entity. Pass the handle
+	*		  as argument, it's the <int> returned by CreateOverlay.
+	*/
+	void					Event_DestroyOverlay(int handle);
+	void					DestroyOverlay(int handle);
 
 	/**
 	 * Generic function for calling a scriptfunction with arbitrary arguments.

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 939 $
+ * $Date: 2007-04-28 02:41:36 -0400 (Sat, 28 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 939 2007-04-28 06:41:36Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9837,22 +9837,6 @@ void idPlayer::Event_SetGui( int handle, const char *guiFile ) {
 void idPlayer::Event_GetInventoryOverlay(void)
 {
 	idThread::ReturnInt(mInventoryOverlay);
-}
-
-/*
-=====================
-idPlayer::Event_DestroyOverlay
-=====================
-*/
-void idPlayer::Event_DestroyOverlay( int handle ) {
-	if ( handle != OVERLAYS_MIN_HANDLE ) {
-		idUserInterface *gui = m_overlays.getGui( handle );
-		if ( gui )
-			gui->Activate( false, gameLocal.time );
-		m_overlays.destroyOverlay( handle );
-	} else {
-		gameLocal.Warning( "Cannot destroy HUD.\n" );
-	}
 }
 
 void idPlayer::Event_PlayStartSound( void )
