@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 989 $
- * $Date: 2007-05-20 18:39:22 -0400 (Sun, 20 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1014 $
+ * $Date: 2007-06-10 13:38:49 -0400 (Sun, 10 Jun 2007) $
+ * $Author: sophisticatedzombie $
  *
  ***************************************************************************/
 
@@ -1304,6 +1304,7 @@ protected:
 	void Event_StartSearchForHidingSpotsWithExclusionArea (const idVec3& hideFromLocation, const idVec3 &minBounds, const idVec3 &maxBounds, const idVec3 &exclusionMinBounds, const idVec3 &exclusionMaxBounds, int hidingSpotTypesAllowed, idEntity* p_ignoreEntity); 
 	void Event_ContinueSearchForHidingSpots(); 
 	void Event_CloseHidingSpotSearch ();
+	void Event_ResortHidingSpots ( const idVec3& searchCenter, const idVec3& searchRadius);
 	void Event_GetNumHidingSpots ();
 	void Event_GetNthHidingSpotLocation (int hidingSpotIndex);
 	void Event_GetNthHidingSpotType (int hidingSpotIndex);
