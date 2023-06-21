@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 22 $
- * $Date: 2004-11-11 17:15:40 -0500 (Thu, 11 Nov 2004) $
+ * $Revision: 24 $
+ * $Date: 2004-11-11 18:52:28 -0500 (Thu, 11 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2004/11/11 23:52:28  sparhawk
+ * Fixed frob highlight for items and doors.
+ *
  * Revision 1.2  2004/11/11 22:15:40  sparhawk
  * Frobcode is now more generalized. Doors are now frobable.
  *
@@ -4099,16 +4102,16 @@ bool idDoor::ModelCallback(renderEntity_s *renderEntity, const renderView_t *ren
 		return false;
 
 	bool bRc = false;
-	idItem *ent;
+	idDoor *ent;
 
-	ent = static_cast<idItem *>(gameLocal.entities[ renderEntity->entityNum ]);
+	ent = static_cast<idDoor *>(gameLocal.entities[ renderEntity->entityNum ]);
 	if(!ent)
 	{
-		gameLocal.Error( "idItem::ModelCallback: callback with NULL game entity" );
+		gameLocal.Error( "idDoor::ModelCallback: callback with NULL game entity" );
 		bRc = false;
 	}
 	else
-		bRc = ent->Frob(CONTENTS_OPAQUE|CONTENTS_PLAYERCLIP|CONTENTS_RENDERMODEL);
+		bRc = ent->Frob(CONTENTS_OPAQUE|CONTENTS_PLAYERCLIP|CONTENTS_RENDERMODEL, &ent->renderEntity.shaderParms[11]);
 
 	return bRc;
 }

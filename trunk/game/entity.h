@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 22 $
- * $Date: 2004-11-11 17:15:40 -0500 (Thu, 11 Nov 2004) $
+ * $Revision: 24 $
+ * $Date: 2004-11-11 18:52:28 -0500 (Thu, 11 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2004/11/11 23:52:27  sparhawk
+ * Fixed frob highlight for items and doors.
+ *
  * Revision 1.3  2004/11/11 22:15:40  sparhawk
  * Frobcode is now more generalized. Doors are now frobable.
  *
@@ -369,7 +372,7 @@ public:
 	 * CollisionMask specifies the bits needed for TracePoint to determine if the player
 	 * is looking at the item or not.
 	 */
-	bool					Frob(unsigned long CollisionMask);
+	bool					Frob(unsigned long CollisionMask, float *ShaderArray);
 
 	/**
 	 * Frobaction will determine what a particular item should do when an entity is highlighted.
