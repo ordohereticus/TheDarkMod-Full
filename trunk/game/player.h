@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 794 $
- * $Date: 2007-02-06 21:18:14 -0500 (Tue, 06 Feb 2007) $
- * $Author: thelvyn $
+ * $Revision: 796 $
+ * $Date: 2007-02-10 09:10:39 -0500 (Sat, 10 Feb 2007) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.49  2007/02/10 14:10:19  sparhawk
+ * Custom HUDs implemented. Also fixed the bug that the total for loot was alwyas doubled.
+ *
  * Revision 1.48  2007/02/07 02:18:14  thelvyn
  * Removed crashland. Now located in idActor instead
  *
@@ -1007,8 +1010,6 @@ private:
 
 	void					Event_SetGui( int handle, const char *guiFile );
 	void					Event_GetInventoryOverlay(void);
-	void					Event_CreateOverlay( const char *guiFile, int layer );
-	int						CreateOverlay( const char *guiFile, int layer );
 	void					Event_DestroyOverlay( int handle );
 
 	void					Event_PlayStartSound( void );

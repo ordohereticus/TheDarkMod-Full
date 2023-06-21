@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 795 $
- * $Date: 2007-02-07 17:06:35 -0500 (Wed, 07 Feb 2007) $
+ * $Revision: 796 $
+ * $Date: 2007-02-10 09:10:39 -0500 (Sat, 10 Feb 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.62  2007/02/10 14:10:19  sparhawk
+ * Custom HUDs implemented. Also fixed the bug that the total for loot was alwyas doubled.
+ *
  * Revision 1.61  2007/02/07 22:06:13  sparhawk
  * Items can now be frobbed and added to the inventory
  *
@@ -786,6 +789,18 @@ public:
 	void CheckInventoryInit(void);
 
 	/**
+	 * CreateOverlay will create an overaly for the given entity. This is a hud element
+	 * that displays some objects on the screen. The default is for the playerscreen
+	 * to show the inventory items and other stats. However, each entity can have his own
+	 * hud which allows him to add a custom display for inventory items.
+	 */
+	void					Event_CreateOverlay( const char *guiFile, int layer );
+	int						CreateOverlay( const char *guiFile, int layer );
+
+	void					Event_DestroyOverlay(int layer);
+	void					DestroyOverlay(int layer);
+
+	/**
 	 * Generic function for calling a scriptfunction with arbitrary arguments.
 	 * The the thread is returned or NULL.
 	 */
@@ -1128,6 +1143,7 @@ private:			// Events should be public, so they can be used from other places as 
 	void					Event_AddItem(idEntity *item, const char *name);
 	void					Event_GetGroupItem(const char *name, const char *group);
 	void					Event_GetItem(const char *name);
+	void					Event_GetLoot(int LootType);
 
 	void					StimAdd(int Type, float Radius);
 	void					StimRemove(int Type);
