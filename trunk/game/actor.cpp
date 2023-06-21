@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 683 $
- * $Date: 2006-12-30 03:15:19 -0500 (Sat, 30 Dec 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 708 $
+ * $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.31  2007/01/06 10:06:49  ishtvan
+ * fov check fix
+ *
  * Revision 1.30  2006/12/30 08:15:19  sophisticatedzombie
  * idActor::CanSee now ignores the hidden flag on entities.  This is because the hidden
  * flag is used sometimes to turn on and off the rendering of particle effects, such
@@ -116,7 +119,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 683 $   $Date: 2006-12-30 03:15:19 -0500 (Sat, 30 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 708 $   $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1528,7 +1531,10 @@ void idActor::GetViewPos( idVec3 &origin, idMat3 &axis ) const {
 idActor::CheckFOV
 =====================
 */
-bool idActor::CheckFOV( const idVec3 &pos ) const {
+bool idActor::CheckFOV( const idVec3 &pos ) const 
+{
+	//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("idActor::CheckFOV was called\r");
+
 	if ( fovDot == 1.0f ) {
 		return true;
 	}

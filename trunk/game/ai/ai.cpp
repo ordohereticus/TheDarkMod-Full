@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 707 $
- * $Date: 2007-01-05 23:27:50 -0500 (Fri, 05 Jan 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 708 $
+ * $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.52  2007/01/06 10:06:15  ishtvan
+ * fov check fix
+ *
  * Revision 1.51  2007/01/06 04:27:50  sophisticatedzombie
  * rendering FOV cone now uses actual angle of cone.
  * Two cases to prevent gigantic cones at FOV > 45 degrees
@@ -210,7 +213,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 707 $   $Date: 2007-01-05 23:27:50 -0500 (Fri, 05 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 708 $   $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -6966,9 +6969,9 @@ Quit:
 idAI::CheckFOV
 =====================
 */
-bool idAI::CheckFOV( const idVec3 &pos ) 
+bool idAI::CheckFOV( const idVec3 &pos ) const
 {
-	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("idAI::CHeckFOV called \r");
+	//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("idAI::CheckFOV called \r");
 
 	if ( fovDot == 1.0f ) 
 	{
@@ -6979,7 +6982,8 @@ bool idAI::CheckFOV( const idVec3 &pos )
 	idVec3	delta, HeadCenter;
 	idMat3	HeadAxis;
 
-	GetJointWorldTransform( m_HeadJointID, gameLocal.time, HeadCenter, HeadAxis );
+	// ugliness
+	const_cast<idAI *>(this)->GetJointWorldTransform( m_HeadJointID, gameLocal.time, HeadCenter, HeadAxis );
 
 	//GetJointWorldTransform just gives the head attachment joint coordinate.
 	//Offset this by the head center offset (same as KO offset) to get the real head center point

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 690 $
- * $Date: 2006-12-31 07:08:05 -0500 (Sun, 31 Dec 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 708 $
+ * $Date: 2007-01-06 05:06:49 -0500 (Sat, 06 Jan 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.35  2007/01/06 10:06:15  ishtvan
+ * fov check fix
+ *
  * Revision 1.34  2006/12/31 12:08:05  sophisticatedzombie
  * Added script event for testing if a position is visible to an AI (rather than an entity being visible)
  *
@@ -1081,7 +1084,7 @@ protected:
 	/**
 	* Overloaded idActor::CheckFOV with FOV check that depends on head joint orientation
 	**/
-	bool					CheckFOV( const idVec3 &pos );
+	virtual bool			CheckFOV( const idVec3 &pos ) const;
 
 	/**
 	* Darkmod enemy tracking: Is an entity shrouded in darkness?
