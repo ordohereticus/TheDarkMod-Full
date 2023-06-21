@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 317 $
- * $Date: 2006-01-22 19:22:46 -0500 (Sun, 22 Jan 2006) $
- * $Author: ishtvan $
+ * $Revision: 319 $
+ * $Date: 2006-01-24 17:03:46 -0500 (Tue, 24 Jan 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.45  2006/01/24 22:03:46  sparhawk
+ * Stim/Response implementation preliminary
+ *
  * Revision 1.44  2006/01/23 00:22:46  ishtvan
  * moved soundprop gameplay object initialization in MapPopulate to before gentities spawn
  *
@@ -156,6 +159,7 @@
 #include "../darkmod/sndproploader.h"
 #include "../darkmod/sndprop.h"
 #include "../darkmod/darkModLAS.h"
+#include "../darkmod/stimresponse.h"
 
 #include "il/config.h"
 #include "il/il.h"
@@ -2585,6 +2589,8 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 		// 10/9/2005: SophisticatedZombie
 		// Update the Light Awareness System
 		LAS.updateLASState();
+
+		ProcessStimResponse();
 
 		// sort the active entity list
 		SortActiveEntityList();
@@ -5416,5 +5422,29 @@ void idGameLocal::ImpulseFree(ImpulseFunction_t Function)
 {
 	m_KeyData[Function].KeyState = KS_FREE;
 	m_KeyData[Function].Impulse = -1;
+}
+
+void idGameLocal::ProcessStimResponse(void)
+{
+	idEntity *e;
+	int ei, en;
+	int si, sn;
+	CStimResponseCollection *src;
+
+	en = m_StimEntity.Num();
+
+	for(ei = 0; ei < en; ei++)
+	{
+		e = m_StimEntity[ei];
+		if((src = e->GetStimResponseCollection()) != NULL)
+		{
+			idList<CStim *> &stim = src->GetStimList();
+
+			sn = stim.Num();
+			for(si = 0; si < sn; si++)
+			{
+			}
+		}
+	}
 }
 
