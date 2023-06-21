@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1102 $
- * $Date: 2007-07-13 06:18:26 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1103 $
+ * $Date: 2007-07-13 06:57:12 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -489,8 +489,6 @@ public:
 	void					CompleteObjective( const char *title );
 
 	bool					GivePowerUp( int powerup, int time );
-	void					ClearPowerUps( void );
-	bool					PowerUpActive( int powerup ) const;
 	float					PowerUpModifier( int type );
 
 	int						SlotForWeapon( const char *weaponName );
@@ -870,7 +868,6 @@ private:
 	void					Move( void );
 	void					UpdatePowerUps( void );
 	void					UpdateDeathSkin( bool state_hitch );
-	void					ClearPowerup( int i );
 	void					SetSpectateOrigin( void );
 
 	void					ClearFocus( void );

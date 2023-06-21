@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1099 $
- * $Date: 2007-07-13 04:31:47 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1103 $
+ * $Date: 2007-07-13 06:57:12 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1099 2007-07-13 08:31:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 1103 2007-07-13 10:57:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3118,7 +3118,6 @@ void idWeapon::Event_Melee( void ) {
 			if ( gameLocal.isMultiplayer
 				&& weaponDef && weaponDef->dict.GetBool( "stealing" )
 				&& ent->IsType( idPlayer::Type )
-				&& !owner->PowerUpActive( BERSERK )
 				&& ( gameLocal.gameType != GAME_TDM || gameLocal.serverInfo.GetBool( "si_teamDamage" ) || ( owner->team != static_cast< idPlayer * >( ent )->team ) )
 				) {
 				owner->StealWeapon( static_cast< idPlayer * >( ent ) );
@@ -3144,7 +3143,7 @@ void idWeapon::Event_Melee( void ) {
 
 				if ( ent->spawnArgs.GetBool( "bleed" ) ) {
 
-					hitSound = meleeDef->dict.GetString( owner->PowerUpActive( BERSERK ) ? "snd_hit_berserk" : "snd_hit" );
+					hitSound = meleeDef->dict.GetString( "snd_hit" );
 
 					ent->AddDamageEffect( tr, impulse, meleeDef->dict.GetString( "classname" ) );
 
@@ -3270,11 +3269,8 @@ idWeapon::Event_IsInvisible
 ===============
 */
 void idWeapon::Event_IsInvisible( void ) {
-	if ( !owner ) {
-		idThread::ReturnFloat( 0 );
-		return;
-	}
-	idThread::ReturnFloat( owner->PowerUpActive( INVISIBILITY ) ? 1 : 0 );
+	// greebo: No invisibility in TDM currently
+	idThread::ReturnFloat( 0 );
 }
 
 /*

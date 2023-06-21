@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1102 $
- * $Date: 2007-07-13 06:18:26 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1103 $
+ * $Date: 2007-07-13 06:57:12 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #pragma hdrstop
 #include "../DarkMod/KeyboardHook.h"
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 1102 2007-07-13 10:18:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1103 2007-07-13 10:57:12Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -776,8 +776,6 @@ void idPlayerView::RenderPlayerView( idUserInterface *hud )
 			InfluenceVision( hud, view );
 		} else if ( gameLocal.time < dvFinishTime ) {
 			DoubleVision( hud, view, dvFinishTime - gameLocal.time );
-		} else if ( player->PowerUpActive( BERSERK ) ) {
-			BerserkVision( hud, view );
 		} else {
 			SingleView( hud, view );
 		}
