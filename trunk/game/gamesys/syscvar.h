@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 778 $
- * $Date: 2007-01-31 18:41:49 -0500 (Wed, 31 Jan 2007) $
- * $Author: sparhawk $
+ * $Revision: 791 $
+ * $Date: 2007-02-06 11:09:48 -0500 (Tue, 06 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.37  2007/02/06 16:09:48  thelvyn
+ * Added cvars for min/fatal falling deltas and damage scale modifier
+ *
  * Revision 1.36  2007/01/31 23:40:47  sparhawk
  * Inventory updated
  *
@@ -217,6 +220,11 @@ extern idCVar cv_dm_distance;
 */
 extern idCVar cv_ai_fov_show;
 extern idCVar cv_ai_ko_show;
+
+// falling damage
+extern idCVar cv_delta_fall_min;
+extern idCVar cv_delta_fall_fatal;
+extern idCVar cv_delta_scale_modifier; 
 
 /**
 * End DarkMod cvars
