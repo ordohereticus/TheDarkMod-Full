@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1061 $
- * $Date: 2007-06-20 03:44:38 -0400 (Wed, 20 Jun 2007) $
+ * $Revision: 1062 $
+ * $Date: 2007-06-20 23:16:10 -0400 (Wed, 20 Jun 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -1122,6 +1122,11 @@ protected:
 	bool					m_lipSyncActive; /// True iff we're currently lip syncing
 	int						m_lipSyncAnim; /// The number of the animation that we are lipsyncing to
 	int						m_lipSyncEndTimer; /// Time at which to stop lip syncing
+	
+	/** Call the script function DrawWeapon (in a new thread) if it exists */
+	void					DrawWeapon();
+	/** Call the script function SheathWeapon (in a new thread) if it exists */
+	void					SheathWeapon();
 	
 	// Tasks to push onto the queue when the AI dies or is KOed
 	idStr					m_killedTask;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1061 $
- * $Date: 2007-06-20 03:44:38 -0400 (Wed, 20 Jun 2007) $
+ * $Revision: 1062 $
+ * $Date: 2007-06-20 23:16:10 -0400 (Wed, 20 Jun 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1061 2007-06-20 07:44:38Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1062 2007-06-21 03:16:10Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -7285,4 +7285,26 @@ void idAI::StopLipSync()
 		headAnim.StopAnim(1);
 	}
 	m_lipSyncActive = false;
+}
+
+/*
+===================== Sheathing/drawing weapons =====================
+*/
+
+void idAI::DrawWeapon() {
+	const function_t* func = scriptObject.GetFunction("DrawWeapon");
+	if (func) {
+		idThread* thread = new idThread(func);
+		thread->CallFunction(this, func, true);
+		thread->DelayedStart(0);
+	}
+}
+
+void idAI::SheathWeapon() {
+	const function_t* func = scriptObject.GetFunction("SheathWeapon");
+	if (func) {
+		idThread* thread = new idThread(func);
+		thread->CallFunction(this, func, true);
+		thread->DelayedStart(0);
+	}
 }

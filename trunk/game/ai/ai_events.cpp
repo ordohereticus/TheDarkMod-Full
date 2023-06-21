@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1061 $
- * $Date: 2007-06-20 03:44:38 -0400 (Wed, 20 Jun 2007) $
+ * $Revision: 1062 $
+ * $Date: 2007-06-20 23:16:10 -0400 (Wed, 20 Jun 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1061 2007-06-20 07:44:38Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1062 2007-06-21 03:16:10Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3623,25 +3623,9 @@ void idAI::Event_SetAlertLevel( float newAlertLevel)
 	float grace_frac;
 	float grace_count;
 
-	// If alert level is less than 3, sheathe weapon
-	if (newAlertLevel < thresh_3)
-	{
-		/*TODO
-		// Sheathe weapon if appropriate
-		if( m_DrawsWeapon && m_WeaponDrawn )
-		{
-			SheathWeapon();
-		}*/
-	}
-	else
-	{
-		/*TODO
-		// Draw weapon if appropriate
-		if( m_DrawsWeapon && !m_WeaponDrawn )
-		{
-			DrawWeapon();
-		}*/
-	}
+	// If alert level is less than 3, sheathe weapon (if appropriate), otherwise draw it
+	if (newAlertLevel < thresh_3) SheathWeapon();
+	else DrawWeapon();
 
 	// How long should this alert level last?
 	if (newAlertLevel >= thresh_3)
