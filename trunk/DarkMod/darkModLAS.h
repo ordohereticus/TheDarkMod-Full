@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -12,10 +12,10 @@
 //class darkModLAS;
 
 // DarkMod globals (needed for ../game/Light.h)
-#include "../darkmod/darkmodglobals.h"
+#include "../DarkMod/DarkModGlobals.h"
 
 // idLight 
-#include "../game/Light.h"
+#include "../game/light.h"
 
 // The PVS to AAS mapping table
 #include "PVSToAASMapping.h"

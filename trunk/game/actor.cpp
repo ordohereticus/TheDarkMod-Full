@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 909 $
- * $Date: 2007-04-17 03:21:42 -0400 (Tue, 17 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -15,9 +15,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 909 2007-04-17 07:21:42Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 912 2007-04-18 20:39:39Z orbweaver $", init_version);
 
-#include "Game_local.h"
+#include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
 // #include "logmgr.h"

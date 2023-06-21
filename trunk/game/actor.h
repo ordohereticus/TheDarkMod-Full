@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 876 $
- * $Date: 2007-03-28 04:42:27 -0400 (Wed, 28 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -14,7 +14,9 @@
 #ifndef __GAME_ACTOR_H__
 #define __GAME_ACTOR_H__
 
-#include "../../DarkMod/pqueue.h"
+#include "../DarkMod/pqueue.h"
+// [OrbWeaver] previously "../../DarkMod/pqueue.h", not sure why the path was
+// wrong. Hopefully this hasn't broken anything.
 
 /*
 ===============================================================================

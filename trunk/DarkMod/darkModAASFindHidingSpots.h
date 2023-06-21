@@ -1,21 +1,21 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
 #pragma once
 
 // Required includes
-#include "..\game\ai\aas.h"
-#include "..\game\pvs.h"
-#include "..\game\Game_local.h"
-#include "..\game\Entity.h"
-#include "..\darkMod\PVSToAASMapping.h"
-#include "..\darkMod\darkmodHidingSpotTree.h"
+#include "../game/ai/aas.h"
+#include "../game/pvs.h"
+#include "../game/game_local.h"
+#include "../game/entity.h"
+#include "../DarkMod/PVSToAASMapping.h"
+#include "../DarkMod/darkmodHidingSpotTree.h"
 
 /*!
 * This defines hiding spot characteristics as bit flags

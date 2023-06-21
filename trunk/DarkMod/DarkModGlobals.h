@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 906 $
- * $Date: 2007-04-16 18:15:19 -0400 (Mon, 16 Apr 2007) $
- * $Author: nyarlathotep $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -25,12 +25,12 @@
 #define DARKMODGLOBALS_H
 
 #include <stdio.h>
-#include "..\game\game_local.h"
+#include "../game/game_local.h"
 
 /*!
 Darkmod LAS
 */
-#include "..\darkmod\DarkModLAS.h"
+#include "../DarkMod/darkModLAS.h"
 
 #ifndef ILuint
 typedef unsigned int ILuint;

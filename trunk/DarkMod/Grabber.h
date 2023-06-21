@@ -1,17 +1,17 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
 #ifndef __GRABBER_H__
 #define __GRABBER_H__
 
-#include "../Game/Entity.h"
-#include "Force_Grab.h"
+#include "../game/entity.h"
+#include "force_grab.h"
 
 class idPlayer;
 

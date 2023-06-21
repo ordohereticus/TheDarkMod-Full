@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -347,7 +347,7 @@ void idDynamicAlloc<type, baseBlockSize, minBlockSize>::Clear( void ) {
 ==============================================================================
 */
 
-#include "containers/BTree.h"
+#include "containers/btree.h"
 
 //#define DYNAMIC_BLOCK_ALLOC_CHECK
 

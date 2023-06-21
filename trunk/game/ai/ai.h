@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #ifndef __AI_H__
 #define __AI_H__
 
-#include "../../darkmod/relations.h"
-#include "../../darkmod/HidingSpotSearchCollection.h"
-#include "../../darkmod/darkmodHidingSpotTree.h"
+#include "../../DarkMod/Relations.h"
+#include "../../DarkMod/HidingSpotSearchCollection.h"
+#include "../../DarkMod/darkmodHidingSpotTree.h"
 
 /*
 ===============================================================================

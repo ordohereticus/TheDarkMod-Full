@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 912 $
+ * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -39,7 +39,7 @@
 #define RELATIONS_H
 
 #include "../idlib/precompiled.h"
-#include "darkmodglobals.h"
+#include "DarkModGlobals.h"
 
 template <class type> 
 class CMatrixSq;
