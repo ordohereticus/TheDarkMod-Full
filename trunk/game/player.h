@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1109 $
- * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1110 $
+ * $Date: 2007-07-13 10:43:31 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -116,12 +116,7 @@ class idInventory {
 public:
 	int						maxHealth;
 
-	int						pdasViewed[4]; // 128 bit flags for indicating if a pda has been viewed
-
-	int						selPDA;
-	bool					pdaOpened;
 	idList<idDict *>		items;
-	idStrList				pdas;
 
 							idInventory() { Clear(); }
 							~idInventory() { Clear(); }
