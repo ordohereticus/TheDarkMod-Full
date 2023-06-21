@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 11 $
+ * $Date: 2004-10-31 14:09:53 -0500 (Sun, 31 Oct 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:32  sparhawk
- * Initial revision
+ * Revision 1.2  2004/10/31 19:09:53  sparhawk
+ * Added CDarkModPlayer to player
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:32  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -927,6 +930,7 @@ idPlayer::idPlayer
 idPlayer::idPlayer() {
 	memset( &usercmd, 0, sizeof( usercmd ) );
 
+	m_DarkModPlayer			= NULL;
 	noclip					= false;
 	godmode					= false;
 
