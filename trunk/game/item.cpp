@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1028 $
+ * $Date: 2007-06-11 18:12:05 -0400 (Mon, 11 Jun 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1028 2007-06-11 22:12:05Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -141,13 +141,7 @@ bool idItem::UpdateRenderEntity(renderEntity_s *renderEntity, const renderView_t
 {
 	bool bRc = true;
 
-	if(pulse == false)
-	{
-//		bRc = Frob(CONTENTS_SOLID|CONTENTS_OPAQUE|CONTENTS_PLAYERCLIP|CONTENTS_MONSTERCLIP
-// |CONTENTS_MOVEABLECLIP|CONTENTS_BODY|CONTENTS_CORPSE|CONTENTS_RENDERMODEL
-// |CONTENTS_TRIGGER|CONTENTS_FLASHLIGHT_TRIGGER, &renderEntity->shaderParms[11]);
-	}
-	else
+	if(pulse)
 	{
 		if(lastRenderViewTime == renderView->time)
 			return false;
