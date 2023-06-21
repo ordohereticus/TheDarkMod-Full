@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1114 $
- * $Date: 2007-07-13 12:36:38 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1132 $
+ * $Date: 2007-07-18 05:41:02 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -108,7 +108,7 @@ enum {
 	EIM_FROB				= BIT( 7),	// Frobbing.
 	EIM_ATTACK				= BIT( 8),	// Using weapons (NYI)
 	EIM_WEAPON_SELECT		= BIT( 9),	// Selecting weapons.
-	EIM_ITEM				= BIT(10),	// Using items (NYI)
+	EIM_ITEM				= BIT(10),	// Using items
 	EIM_ITEM_SELECT			= BIT(11),	// Selecting items.
 };
 
