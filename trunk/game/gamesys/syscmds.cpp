@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 731 $
- * $Date: 2007-01-18 21:30:55 -0500 (Thu, 18 Jan 2007) $
+ * $Revision: 736 $
+ * $Date: 2007-01-19 05:09:24 -0500 (Fri, 19 Jan 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.15  2007/01/19 10:09:24  thelvyn
+ * Removed old mouse handling code.
+ * Registered some fonts for gui screen display of text.
+ * Added function for same
+ *
  * Revision 1.14  2007/01/19 02:30:55  thelvyn
  * Separated keyboard hook, same as mouse hook
  * #define NEWKEYHANDLERCLASS for this to take effect - NOT defined right now
@@ -59,7 +64,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 731 $   $Date: 2007-01-18 21:30:55 -0500 (Thu, 18 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 736 $   $Date: 2007-01-19 05:09:24 -0500 (Fri, 19 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/sndproploader.h"
@@ -311,11 +316,7 @@ void Cmd_KeyCapture_f( const idCmdArgs &args )
 		gameLocal.Printf( "usage: tdm_keycapture <action index>\n" );	
 	} else {
 		action = (ImpulseFunction_t) atoi( args.Argv(1) );
-#ifndef NEWKEYHANDLERCLASS
-		gameLocal.KeyCaptureStart( action );
-#else
 		gameLocal.m_Keyboard->KeyCaptureStart( action );
-#endif // #ifndef NEWKEYHANDLERCLASS
 	}
 	return;
 }
