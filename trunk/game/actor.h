@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 344 $
- * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
+ * $Revision: 424 $
+ * $Date: 2006-05-24 04:49:06 -0400 (Wed, 24 May 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.9  2006/05/24 08:49:06  ishtvan
+ * added AI group and innocence to idActor
+ *
  * Revision 1.8  2006/02/05 07:12:14  ishtvan
  * redefined function Damage to take additional trace pointer argument
  *
@@ -123,7 +126,15 @@ public:
 	CLASS_PROTOTYPE( idActor );
 
 	int						team;
-	int						rank;				// monsters don't fight back if the attacker's rank is higher
+	int						rank; // monsters don't fight back if the attacker's rank is higher
+	/**
+	* TDM: Defines the type of the AI (human, beast, undead, bot, etc)
+	**/
+	int						m_AItype;
+	/**
+	* TDM: Whether this actor is considered a non-combatant
+	**/
+	bool					m_Innocent;
 	idMat3					viewAxis;			// view axis of the actor
 
 	idLinkList<idActor>		enemyNode;			// node linked into an entity's enemy list for quick lookups of who is attacking him
