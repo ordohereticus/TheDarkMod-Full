@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 192 $
- * $Date: 2005-10-23 14:42:30 -0400 (Sun, 23 Oct 2005) $
+ * $Revision: 204 $
+ * $Date: 2005-11-02 15:41:19 -0500 (Wed, 02 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.32  2005/11/02 20:41:19  sparhawk
+ * Fixed NOCLIP crash.
+ *
  * Revision 1.31  2005/10/23 18:42:30  sparhawk
  * Lightgem cleanup
  *
@@ -5964,16 +5967,23 @@ void idPlayer::AdjustSpeed( void )
 	float crouchspeed;
 	float rate;
 
-	if ( spectating ) {
+	// Intialize crouchspeed
+	speed = pm_walkspeed.GetFloat() * cv_pm_runmod.GetFloat();
+	crouchspeed = speed * cv_pm_crouchmod.GetFloat();
+	if ( spectating )
+	{
 		speed = pm_spectatespeed.GetFloat();
 		bobFrac = 0.0f;
-	} else if ( noclip ) {
+	}
+	else if ( noclip )
+	{
 		speed = pm_noclipspeed.GetFloat();
 		bobFrac = 0.0f;
 
 	// running case
 	// DarkMod: removed check for not crouching..
-	} else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) ) 
+	} 
+	else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) ) 
 	{
 		if ( !gameLocal.isMultiplayer && !PowerUpActive( ADRENALINE ) ) {
 			stamina -= MS2SEC( gameLocal.msec );
