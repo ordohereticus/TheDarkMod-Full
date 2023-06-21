@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1006 $
- * $Date: 2007-06-02 17:38:41 -0400 (Sat, 02 Jun 2007) $
+ * $Revision: 1125 $
+ * $Date: 2007-07-15 02:55:43 -0400 (Sun, 15 Jul 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -77,7 +77,6 @@ protected:
 	**/
 	CFrobDoor				*m_Door;
 	bool					m_FrobLock;
-	idStr					m_DoorHandleScript;
 
 private:
 };
