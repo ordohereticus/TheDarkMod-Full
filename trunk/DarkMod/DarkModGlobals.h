@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 67 $
- * $Date: 2005-01-20 14:36:01 -0500 (Thu, 20 Jan 2005) $
+ * $Revision: 70 $
+ * $Date: 2005-01-23 19:15:22 -0500 (Sun, 23 Jan 2005) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.10  2005/01/24 00:15:22  sparhawk
+ * AmbientLight parameter added to material
+ *
  * Revision 1.9  2005/01/20 19:36:01  sparhawk
  * CImage class implemented to load and store texture images.
  *
@@ -122,6 +125,7 @@ public:
 
 public:
 	idStr		m_MaterialName;
+	bool		m_AmbientLight;		// Set to true if the ambientLight parameter is set.
 
 protected:
 	idStr		m_FallOffTexture;

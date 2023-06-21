@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 67 $
- * $Date: 2005-01-20 14:36:01 -0500 (Thu, 20 Jan 2005) $
+ * $Revision: 70 $
+ * $Date: 2005-01-23 19:15:22 -0500 (Sun, 23 Jan 2005) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.11  2005/01/24 00:15:22  sparhawk
+ * AmbientLight parameter added to material
+ *
  * Revision 1.10  2005/01/20 19:36:00  sparhawk
  * CImage class implemented to load and store texture images.
  *
@@ -412,6 +415,7 @@ CLightMaterial::CLightMaterial(idStr const &MaterialName, idStr const &TextureNa
 	m_MaterialName = MaterialName;
 	m_FallOffTexture = TextureName;
 	m_Map = MapName;
+	m_AmbientLight = false;
 
 	m_FallOffIndex = g_Global.AddImage(TextureName, added);
 	m_MapIndex = g_Global.AddImage(MapName, added);
