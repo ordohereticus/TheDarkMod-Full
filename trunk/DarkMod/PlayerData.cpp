@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 61 $
- * $Date: 2005-01-06 21:05:13 -0500 (Thu, 06 Jan 2005) $
- * $Author: sparhawk $
+ * $Revision: 162 $
+ * $Date: 2005-09-23 23:13:49 -0400 (Fri, 23 Sep 2005) $
+ * $Author: lloyd $
  * $Name$
  *
  * $Log$
+ * Revision 1.5  2005/09/24 03:13:49  lloyd
+ * Changed CGrabber grabber to CGrabber *grabber
+ *
  * Revision 1.4  2005/01/07 02:01:10  sparhawk
  * Lightgem updates
  *
@@ -61,10 +64,15 @@ CDarkModPlayer::CDarkModPlayer(void)
 	m_Selection = 0;
 	m_Inventory.Append(inv_item);
 	m_LightgemValue = 0;
+
+	// TODO: Spawn grabber from a .def file (maybe?)
+	this->grabber = new CGrabber();
 }
 
 CDarkModPlayer::~CDarkModPlayer(void)
 {
+	// remove grabber object	
+	this->grabber->PostEventSec( &EV_Remove, 0 );
 }
 
 void CDarkModPlayer::AddEntity(idEntity *ent)
