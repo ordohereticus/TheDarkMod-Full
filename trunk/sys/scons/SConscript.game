@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 972 $
-#* $Date: 2007-05-04 14:56:36 -0400 (Fri, 04 May 2007) $
+#* $Revision: 985 $
+#* $Date: 2007-05-12 05:25:24 -0400 (Sat, 12 May 2007) $
 #* $Author: orbweaver $
 #*
 #* $Log$
@@ -111,6 +111,7 @@ darkModSrc = '\
 AIComm_Message.cpp \
 AIComm_StimResponse.cpp \
 BinaryFrobMover.cpp \
+ButtonStateTracker.cpp \
 darkModAASFindHidingSpots.cpp \
 DarkModGlobals.cpp \
 darkmodHidingSpotTree.cpp \
