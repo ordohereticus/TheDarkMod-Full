@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 510 $
- * $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 513 $
+ * $Date: 2006-07-27 18:39:14 -0400 (Thu, 27 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.71  2006/07/27 22:39:14  ishtvan
+ * frob fixes
+ *
  * Revision 1.70  2006/07/27 09:02:22  ishtvan
  * frobbing updates
  *
@@ -235,7 +238,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 510 $   $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 513 $   $Date: 2006-07-27 18:39:14 -0400 (Thu, 27 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -10187,7 +10190,7 @@ void idPlayer::FrobCheck( void )
 		idEntity *ent = FrobRangeEnts[i];
 		if( !ent )
 			continue;
-		if( !ent->m_FrobDistance )
+		if( !ent->m_FrobDistance || ent->IsHidden() )
 			continue;
 
 		FrobDistSqr = ent->m_FrobDistance;

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 510 $
- * $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 513 $
+ * $Date: 2006-07-27 18:39:14 -0400 (Thu, 27 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.39  2006/07/27 22:39:14  ishtvan
+ * frob fixes
+ *
  * Revision 1.38  2006/07/27 09:02:22  ishtvan
  * frobbing updates
  *
@@ -714,12 +717,6 @@ protected:
 	* Also, may be used in the future for continuous fade in / fade out.
 	**/
 	int							m_FrobChangeTime;
-
-	/**
-	* Used by idEntity::DisplayFrobHighlight to fade the highlight in and out
-	* Measured in milliseconds.
-	**/
-	int							m_FrobFadeCountdown;
 
 	/**
 	 * FrobActionScript will contain the name of the script that is to be
