@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 328 $
- * $Date: 2006-01-31 17:35:07 -0500 (Tue, 31 Jan 2006) $
- * $Author: sparhawk $
+ * $Revision: 394 $
+ * $Date: 2006-05-01 20:09:23 -0400 (Mon, 01 May 2006) $
+ * $Author: sophisticatedzombie $
  * $Name$
  *
  * $Log$
+ * Revision 1.34  2006/05/02 00:09:23  sophisticatedzombie
+ * Added m_drawAIDebugGraphics. It defaults to 0.0 which is off. Values >= 1.0 draw the AI debug graphics for that number of milliseconds
+ *
  * Revision 1.33  2006/01/31 22:34:44  sparhawk
  * StimReponse first working version
  *
@@ -392,6 +395,19 @@ public:
 	* @author: sophisticatedZombie (DH)
 	*/
 	float m_leanMove_DegreesTilt;
+
+	/*!
+	* This is a boolean that indicates if the AI hiding spot detection routines
+	* should draw debug graphics on the screen.
+	*
+	* The default value is 0.0
+	*
+	* A value of 1.0 or greater indicates a number of milliseconds that the
+	* debug graphics for an AI operation should remain on the screen.
+	*
+	* @author: sophisticatedZobmie (DH)
+	*/
+	float m_drawAIDebugGraphics;
 
 	/**
 	* List of AI Acuities
