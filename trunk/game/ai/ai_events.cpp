@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 658 $
- * $Date: 2006-12-14 04:53:25 -0500 (Thu, 14 Dec 2006) $
+ * $Revision: 671 $
+ * $Date: 2006-12-20 21:00:24 -0500 (Wed, 20 Dec 2006) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.25  2006/12/21 02:00:24  sophisticatedzombie
+ * Event_CanSeeEntity (script call canSee) now takes lighting into consideration
+ * using the Lighting Awareness System.
+ *
  * Revision 1.24  2006/12/14 09:53:25  sophisticatedzombie
  * Now using hiding spot collection
  *
@@ -105,7 +109,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 658 $   $Date: 2006-12-14 04:53:25 -0500 (Thu, 14 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 671 $   $Date: 2006-12-20 21:00:24 -0500 (Wed, 20 Dec 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/relations.h"
@@ -1933,6 +1937,13 @@ void idAI::Event_CanSeeEntity( idEntity *ent ) {
 	}
 
 	bool cansee = CanSee( ent, false );
+	
+	// Also consider lighting and visual acuity of AI
+	if (cansee)
+	{
+		cansee = !IsEntityHiddenByDarkness(ent);
+	}
+
 	idThread::ReturnInt( cansee );
 }
 
