@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 786 $
- * $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $
+ * $Revision: 787 $
+ * $Date: 2007-02-06 08:46:49 -0500 (Tue, 06 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.39  2007/02/06 13:46:49  thelvyn
+ * more falling damage tweaks
+ *
  * Revision 1.38  2007/02/06 03:18:42  thelvyn
  * idActor::CrashLand is now called for both AI and player for falling/collision damage.
  *
@@ -140,7 +143,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 786 $   $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 787 $   $Date: 2007-02-06 08:46:49 -0500 (Tue, 06 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3915,15 +3918,17 @@ void idActor::CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &oldOri
 			if( delta >= 30.0f )
 			{
 				pain_debounce_time = gameLocal.time + pain_delay + 1;  // ignore pain since we'll play our landing anim
-				if( delta > 200.0f )
+				if( delta > 150.0f )
 				{
 					Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_fatalfall", 1.0f, 0 );
 				}
 				else
 				{
+					int startHealth = spawnArgs.GetInt( "health" );
+					Debug1( "Starting health = %i", startHealth );
 					// this seems to scale fairly well
-					float perc = ( health > 100 ? ( health/75 ) : 1 );
-					float dScale = ( delta / 25 ) * ( perc < 1.0f ? 1 : perc );
+					float perc = ( startHealth / 100 );
+					float dScale = ( delta / 25.0f ) * ( perc < 1.0f ? 1.0f : perc );
 					Debug4( "Delta = %f perc = %f dScale = %f Health = %i", delta, perc, dScale, health );
 					Damage( NULL, NULL, idVec3( 0, 0, -1 ), "damage_softfall", dScale, 0 );
 					Debug1( "After damage Health = %i", health );
