@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1129 $
+ * $Date: 2007-07-16 08:55:04 -0400 (Mon, 16 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: overlaysys.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: overlaysys.cpp 1129 2007-07-16 12:55:04Z greebo $", init_version);
 
 #include "../game/game_local.h"
 
@@ -570,4 +570,15 @@ idUserInterface* COverlaySys::findInteractive()
 		m_updateInteractive = false;
 	}
 	return m_highestInteractive;
+}
+
+void COverlaySys::broadcastNamedEvent(const char* eventName)
+{
+	// Cycle through the nodes
+	idLinkList<SOverlay>* oNode = m_overlays.NextNode();
+	while(oNode)
+	{
+		oNode->Owner()->m_gui->HandleNamedEvent(eventName);
+		oNode = oNode->NextNode();
+	}
 }

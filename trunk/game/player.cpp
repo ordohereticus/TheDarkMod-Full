@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1124 $
- * $Date: 2007-07-14 23:00:30 -0400 (Sat, 14 Jul 2007) $
- * $Author: joebarnin $
+ * $Revision: 1129 $
+ * $Date: 2007-07-16 08:55:04 -0400 (Mon, 16 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1124 2007-07-15 03:00:30Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1129 2007-07-16 12:55:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4701,11 +4701,20 @@ void idPlayer::PerformImpulse( int impulse ) {
 			break;
 		}
 
-		case IMPULSE_14: 
+		case IMPULSE_14:		// Next weapon
 		{
 			// If the grabber is active, next weapon increments the distance
 			if(m_bGrabberActive)
 				g_Global.m_DarkModPlayer->grabber->IncrementDistance( false );
+
+			// Pass the "next weapon" event to the GUIs
+			int handle = OVERLAYS_INVALID_HANDLE;
+			while ((handle = m_overlays.getNextOverlay(handle) ) != OVERLAYS_INVALID_HANDLE)
+			{
+				// Retrieve the GUI and set the state variable
+				idUserInterface* gui = m_overlays.getGui(handle);
+				gui->HandleNamedEvent("nextWeapon");
+			}
 
 			// Prevent the player from choosing to switch weapons.
 			if ( GetImmobilization() & EIM_WEAPON_SELECT ) 
@@ -4716,11 +4725,20 @@ void idPlayer::PerformImpulse( int impulse ) {
 			NextWeapon();
 			break;
 		}
-		case IMPULSE_15: 
+		case IMPULSE_15:		// Previous Weapon
 		{
-			// If the grabber is active, next weapon increments the distance
+			// If the grabber is active, previous weapon increments the distance
 			if(m_bGrabberActive)
 				g_Global.m_DarkModPlayer->grabber->IncrementDistance( true );
+
+			// Pass the "previous weapon" event to the GUIs
+			int handle = OVERLAYS_INVALID_HANDLE;
+			while ((handle = m_overlays.getNextOverlay(handle) ) != OVERLAYS_INVALID_HANDLE)
+			{
+				// Retrieve the GUI and set the state variable
+				idUserInterface* gui = m_overlays.getGui(handle);
+				gui->HandleNamedEvent("prevWeapon");
+			}
 
 			// Prevent the player from choosing to switch weapons.
 			if ( GetImmobilization() & EIM_WEAPON_SELECT ) 

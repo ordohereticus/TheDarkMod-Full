@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 971 $
- * $Date: 2007-05-04 14:50:46 -0400 (Fri, 04 May 2007) $
+ * $Revision: 1129 $
+ * $Date: 2007-07-16 08:55:04 -0400 (Mon, 16 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -107,6 +107,12 @@ class COverlaySys
 	void					setInteractive( int handle, bool isInteractive );
 	/// Return whether or not an overlay is considered interactive.
 	bool					isInteractive( int handle );
+
+	/**
+	 * greebo: This cycles through all overlays and calls HandleNamedEvent() 
+	 *		   on each visible GUI.
+	 */
+	void					broadcastNamedEvent(const char* eventName);
 
   private:
 
