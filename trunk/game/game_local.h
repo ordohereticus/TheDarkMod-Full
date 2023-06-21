@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 231 $
- * $Date: 2005-11-17 17:40:37 -0500 (Thu, 17 Nov 2005) $
+ * $Revision: 235 $
+ * $Date: 2005-11-18 16:04:23 -0500 (Fri, 18 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.16  2005/11/18 21:04:23  sparhawk
+ * Particle effect fix
+ *
  * Revision 1.15  2005/11/17 22:40:37  sparhawk
  * Lightgem renderpipe fixed
  *
@@ -494,6 +497,7 @@ public:
 	int						framenum;
 	int						previousTime;			// time in msec of last frame
 	int						time;					// in msec
+	int						m_Interleave;			// How often should the lightgem calculation be skipped?
 	static const int		msec = USERCMD_MSEC;	// time since last update in milliseconds
 
 	int						vacuumAreaNum;			// -1 if level doesn't have any outside areas
