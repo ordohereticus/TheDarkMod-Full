@@ -1,3 +1,18 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Source$
+ * $Revision: 375 $
+ * $Date: 2006-03-23 09:13:51 -0500 (Thu, 23 Mar 2006) $
+ * $Author: gildoran $
+ *
+ * $Log$
+ * Revision 1.2  2006/03/23 14:13:38  gildoran
+ * Added import command to xdata decls.
+ *
+ *
+ *
+ ***************************************************************************/
 
 #ifndef __DARKMOD_DECLXDATA_H__
 #define __DARKMOD_DECLXDATA_H__
