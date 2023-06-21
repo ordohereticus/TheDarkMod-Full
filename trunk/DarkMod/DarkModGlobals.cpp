@@ -9,12 +9,16 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 635 $
- * $Date: 2006-12-09 12:30:20 -0500 (Sat, 09 Dec 2006) $
+ * $Revision: 660 $
+ * $Date: 2006-12-14 04:55:46 -0500 (Thu, 14 Dec 2006) $
  * $Author: sophisticatedzombie $
  * $Name$
  *
  * $Log$
+ * Revision 1.51  2006/12/14 09:55:46  sophisticatedzombie
+ * Some changes to light calculations for observation distance required changes
+ * to default constant values.
+ *
  * Revision 1.50  2006/12/09 17:30:20  sophisticatedzombie
  * Added  a configurable scale for computing maximum observation distance from
  * a lighting quotient given for a point by the LAS.  Visual acuity of the AI still needs
@@ -180,7 +184,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 635 $   $Date: 2006-12-09 12:30:20 -0500 (Sat, 09 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 660 $   $Date: 2006-12-14 04:55:46 -0500 (Thu, 14 Dec 2006) $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -214,7 +218,7 @@ static bool init_version = FileVersionList("$Source$  $Revision: 635 $   $Date: 
 #define DARKMOD_MANTLE_MILLISECONDS_PUSH		800.0f
 
 // The default max light quotient for hiding spots
-#define MAX_HIDING_SPOT_MAX_LIGHT_QUOTIENT 1.0
+#define MAX_HIDING_SPOT_MAX_LIGHT_QUOTIENT 2.0
 
 // Default damage scale for mantling at high velocities
 // The 15.0 m/s minimum limit is based on OCEA guidance (United States labor laws)
