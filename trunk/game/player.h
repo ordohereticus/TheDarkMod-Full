@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 381 $
- * $Date: 2006-04-02 22:04:32 -0400 (Sun, 02 Apr 2006) $
- * $Author: gildoran $
+ * $Revision: 427 $
+ * $Date: 2006-05-25 04:32:58 -0400 (Thu, 25 May 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.23  2006/05/25 08:32:58  ishtvan
+ * added event_playstartsound to play the mission start sound (not yet implemented)
+ *
  * Revision 1.22  2006/04/03 02:04:32  gildoran
  * Added some code for an inventory prototype.
  *
@@ -105,6 +108,7 @@ extern const idEventDef EV_Player_DisableWeapon;
 extern const idEventDef EV_Player_ExitTeleporter;
 extern const idEventDef EV_Player_SelectWeapon;
 extern const idEventDef EV_SpectatorTouch;
+extern const idEventDef EV_Player_PlayStartSound;
 
 const float THIRD_PERSON_FOCUS_DISTANCE	= 512.0f;
 const int	LAND_DEFLECT_TIME = 150;
@@ -864,6 +868,7 @@ private:
 	void					Event_GetGuiFloat( const char *key );
 	void					Event_CallGuiOverlay( const char *namedEvent );
 	void					Event_CopyKeyToGuiParm( idEntity *src, const char *key, const char *guiparm );
+	void					Event_PlayStartSound( void );
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
