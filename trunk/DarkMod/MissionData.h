@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 488 $
- * $Date: 2006-07-16 21:45:59 -0400 (Sun, 16 Jul 2006) $
+ * $Revision: 490 $
+ * $Date: 2006-07-16 22:42:25 -0400 (Sun, 16 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2006/07/17 02:42:25  ishtvan
+ * fixes to comp_custom_clocked and comp_distance
+ *
  * Revision 1.4  2006/07/17 01:45:59  ishtvan
  * updates: custom objectives, distance objectives, custom clocked objectives
  *
@@ -206,8 +209,6 @@ private:
 	int			m_ClockInterval; // milliseconds
 	
 	int			m_TimeStamp;
-
-	idStr		m_CustomClockedScript;
 
 	/**
 	* Whether the objective component latches after it changes once
