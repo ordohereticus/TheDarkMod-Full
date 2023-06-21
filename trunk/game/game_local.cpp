@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 10 $
- * $Date: 2004-10-30 13:19:40 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 12 $
+ * $Date: 2004-10-31 15:01:56 -0500 (Sun, 31 Oct 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2004/10/31 20:01:55  sparhawk
+ * Frob highlights now only for one item at a time.
+ *
  * Revision 1.2  2004/10/30 17:19:39  sparhawk
  * Frob highlight added.
  *
@@ -22,7 +25,8 @@
 #pragma hdrstop
 
 #include "Game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
+#include "../darkmod/darkmodglobals.h"
+#include "../darkmod/playerdata.h"
 
 CGlobal g_Global;
 
@@ -1795,7 +1799,8 @@ void idGameLocal::InitScriptForMap( void ) {
 idGameLocal::SpawnPlayer
 ============
 */
-void idGameLocal::SpawnPlayer( int clientNum ) {
+void idGameLocal::SpawnPlayer( int clientNum )
+{
 	idEntity	*ent;
 	idDict		args;
 
@@ -1817,6 +1822,13 @@ void idGameLocal::SpawnPlayer( int clientNum ) {
 	if ( clientNum >= numClients ) {
 		numClients = clientNum + 1;
 	}
+
+	idPlayer *player;	
+	player = GetLocalPlayer();
+	if(player->m_DarkModPlayer != NULL)
+		delete player->m_DarkModPlayer;
+
+	player->m_DarkModPlayer = new CDarkModPlayer;
 
 	mpGame.SpawnPlayer( clientNum );
 }
