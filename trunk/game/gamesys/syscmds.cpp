@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1109 $
- * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1111 $
+ * $Date: 2007-07-13 10:53:38 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1111 2007-07-13 14:53:38Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -698,7 +698,7 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 	}
 
 	if ( give_all || idStr::Icmp( name, "health" ) == 0 )	{
-		player->health = player->inventory.maxHealth;
+		player->health = player->maxHealth;
 		if ( !give_all ) {
 			return;
 		}
@@ -1856,9 +1856,9 @@ static void Cmd_TestDamage_f( const idCmdArgs &args ) {
 
 	// give the player full health before and after
 	// running the damage
-	player->health = player->inventory.maxHealth;
+	player->health = player->maxHealth;
 	player->Damage( NULL, NULL, dir, damageDefName, 1.0f, INVALID_JOINT );
-	player->health = player->inventory.maxHealth;
+	player->health = player->maxHealth;
 }
 
 /*

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1064 $
- * $Date: 2007-06-28 16:58:24 -0400 (Thu, 28 Jun 2007) $
- * $Author: sparhawk $
+ * $Revision: 1111 $
+ * $Date: 2007-07-13 10:53:38 -0400 (Fri, 13 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -183,6 +183,7 @@ public:
 	idList< idEntityPtr<idEntity> >	targets;		// when this entity is activated these entities entity are activated
 
 	int						health;					// FIXME: do all objects really need health?
+	int						maxHealth;				// greebo: Moved this from idInventory to here
 
 	struct entityFlags_s {
 		bool				notarget			:1;	// if true never attack or target this entity

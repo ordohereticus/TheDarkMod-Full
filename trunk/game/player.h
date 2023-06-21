@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1110 $
- * $Date: 2007-07-13 10:43:31 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1111 $
+ * $Date: 2007-07-13 10:53:38 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -114,8 +114,6 @@ enum {
 
 class idInventory {
 public:
-	int						maxHealth;
-
 	idList<idDict *>		items;
 
 							idInventory() { Clear(); }
