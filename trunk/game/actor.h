@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 567 $
- * $Date: 2006-08-21 02:24:14 -0400 (Mon, 21 Aug 2006) $
- * $Author: ishtvan $
+ * $Revision: 586 $
+ * $Date: 2006-10-09 15:35:46 -0400 (Mon, 09 Oct 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.14  2006/10/09 19:35:46  sparhawk
+ * Added a offsetHeadModel vector
+ *
  * Revision 1.13  2006/08/21 06:24:14  ishtvan
  * *) added event_getattachment
  *
@@ -305,6 +308,7 @@ protected:
 	float					fovDot;				// cos( fovDegrees )
 	idVec3					eyeOffset;			// offset of eye relative to physics origin
 	idVec3					modelOffset;		// offset of visual model relative to the physics origin
+	idVec3					mHeadModelOffset;	// offset for the head
 
 	idAngles				deltaViewAngles;	// delta angles relative to view input angles
 

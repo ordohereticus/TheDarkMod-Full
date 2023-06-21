@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 567 $
- * $Date: 2006-08-21 02:24:14 -0400 (Mon, 21 Aug 2006) $
- * $Author: ishtvan $
+ * $Revision: 586 $
+ * $Date: 2006-10-09 15:35:46 -0400 (Mon, 09 Oct 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.24  2006/10/09 19:35:46  sparhawk
+ * Added a offsetHeadModel vector
+ *
  * Revision 1.23  2006/08/21 06:24:14  ishtvan
  * *) added event_getattachment
  *
@@ -90,7 +93,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 567 $   $Date: 2006-08-21 02:24:14 -0400 (Mon, 21 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 586 $   $Date: 2006-10-09 15:35:46 -0400 (Mon, 09 Oct 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -590,6 +593,7 @@ void idActor::Spawn( void )
 	spawnArgs.GetInt( "type", "0", m_AItype );
 	spawnArgs.GetBool( "innocent", "0", m_Innocent );
 	spawnArgs.GetVector( "offsetModel", "0 0 0", modelOffset );
+	spawnArgs.GetVector( "offsetHeadModel", "0 0 0", mHeadModelOffset );
 
 	spawnArgs.GetBool( "use_combat_bbox", "0", use_combat_bbox );	
 
@@ -760,7 +764,7 @@ void idActor::SetupHead( void ) {
 		idAttachInfo &attach = m_attachments.Alloc();
 		attach.channel = animator.GetChannelForJoint( joint );
 		animator.GetJointTransform( joint, gameLocal.time, origin, axis );
-		origin = renderEntity.origin + ( origin + modelOffset ) * renderEntity.axis;
+		origin = renderEntity.origin + ( origin + modelOffset + mHeadModelOffset ) * renderEntity.axis;
 		attach.ent = headEnt;
 		headEnt->SetOrigin( origin );
 		headEnt->SetAxis( renderEntity.axis );
