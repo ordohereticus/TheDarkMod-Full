@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 66 $
- * $Date: 2005-01-19 18:22:04 -0500 (Wed, 19 Jan 2005) $
+ * $Revision: 69 $
+ * $Date: 2005-01-20 14:37:49 -0500 (Thu, 20 Jan 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.5  2005/01/20 19:37:49  sparhawk
+ * Lightgem now calculates projected lights as well as parallel lights.
+ *
  * Revision 1.4  2005/01/19 23:22:04  sparhawk
  * Bug fixed for ambient lights
  *
@@ -147,7 +150,7 @@ private:
 	/**
 	 * Texturename for the falloff image
 	 */
-	const char		*m_FalloffImage;
+	const char		*m_MaterialName;
 
 	/**
 	 * Pointer to the material that is used for this light. This pointer
