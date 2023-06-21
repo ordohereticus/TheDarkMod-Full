@@ -1,12 +1,3 @@
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
- *
- ***************************************************************************/
-
 // Copyright (C) 2004 Id Software, Inc.
 //
 /*
@@ -24,7 +15,7 @@
 
 // magic flag to keep tiger gl.h from loading glext.h
 #define GL_GLEXT_LEGACY
-#include <gl.h>
+#include <OpenGL/gl.h>
 
 #elif defined( __linux__ )
 

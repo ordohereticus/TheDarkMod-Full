@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -5376,29 +5376,28 @@ void idEntity::ReadBindFromSnapshot( const idBitMsgDelta &msg ) {
 
 	bindInfo = msg.ReadBits( GENTITYNUM_BITS + 3 + 9 );
 	bindEntityNum = bindInfo & ( ( 1 << GENTITYNUM_BITS ) - 1 );
+
 	if ( bindEntityNum != ENTITYNUM_NONE ) {
 		master = gameLocal.entities[ bindEntityNum ];
-		if ( master != bindMaster ) {
-			if ( bindMaster ) {
-				Unbind();
+
+		bindOrientated = ( bindInfo >> GENTITYNUM_BITS ) & 1;
+		bindPos = ( bindInfo >> ( GENTITYNUM_BITS + 3 ) );
+		switch( ( bindInfo >> ( GENTITYNUM_BITS + 1 ) ) & 3 ) {
+			case 1: {
+				BindToJoint( master, (jointHandle_t) bindPos, bindOrientated );
+				break;
 			}
-			bindOrientated = ( bindInfo >> GENTITYNUM_BITS ) & 1;
-			bindPos = ( bindInfo >> ( GENTITYNUM_BITS + 3 ) ) & 3;
-			switch( ( bindInfo >> ( GENTITYNUM_BITS + 1 ) ) & 3 ) {
-				case 1: {
-					BindToJoint( master, (jointHandle_t) bindPos, bindOrientated );
-					break;
-				}
-				case 2: {
-					BindToBody( master, bindPos, bindOrientated );
-					break;
-				}
-				default: {
-					Bind( master, bindOrientated );
-					break;
-				}
+			case 2: {
+				BindToBody( master, bindPos, bindOrientated );
+				break;
+			}
+			default: {
+				Bind( master, bindOrientated );
+				break;
 			}
 		}
+	} else if ( bindMaster ) {
+		Unbind();
 	}
 }
 

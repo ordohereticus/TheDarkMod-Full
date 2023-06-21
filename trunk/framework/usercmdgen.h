@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -150,6 +150,12 @@ public:
 
 	// Continuously modified, never reset. For full screen guis.
 	virtual void		MouseState( int *x, int *y, int *button, bool *down ) = 0;
+
+	// Directly sample a button.
+	virtual int			ButtonState( int key ) = 0;
+
+	// Directly sample a keystate.
+	virtual int			KeyState( int key ) = 0;
 
 	// Directly sample a usercmd.
 	virtual usercmd_t	GetDirectUsercmd( void ) = 0;

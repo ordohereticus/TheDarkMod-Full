@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -40,11 +40,6 @@
 // useful for network debugging, turns off 'LAN' checks, all IPs are classified 'internet'
 #ifndef ID_NOLANADDRESS
 	#define ID_NOLANADDRESS 0
-#endif
-
-#ifndef ID_VERSIONTAG
-	#define ID_VERSIONTAG ""
-	//#define ID_VERSIONTAG ".MP"
 #endif
 
 // let .dds be loaded from FS without altering pure state. only for developement.

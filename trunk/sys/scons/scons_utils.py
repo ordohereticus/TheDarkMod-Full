@@ -4,8 +4,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 221 $
-#* $Date: 2005-11-11 17:57:25 -0500 (Fri, 11 Nov 2005) $
+#* $Revision: 874 $
+#* $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
 #* $Author: sparhawk $
 #*
 #* $Log$
@@ -159,6 +159,7 @@ class idGamePaks( idSetupBase ):
 		# NOTE: ew should have done with zipfile module
 		temp_dir = tempfile.mkdtemp( prefix = 'gamepak' )
 		self.SimpleCommand( 'cp %s %s' % ( source[0].abspath, os.path.join( temp_dir, 'gamex86.so' ) ) )
+		self.SimpleCommand( 'strip %s' % os.path.join( temp_dir, 'gamex86.so' ) )
 		self.SimpleCommand( 'echo 2 > %s' % ( os.path.join( temp_dir, 'binary.conf' ) ) )
 		self.SimpleCommand( 'cd %s ; zip %s gamex86.so binary.conf' % ( temp_dir, os.path.join( temp_dir, target[0].abspath ) ) )
 		self.SimpleCommand( 'rm -r %s' % temp_dir )

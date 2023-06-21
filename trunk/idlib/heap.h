@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -276,7 +276,6 @@ idDynamicAlloc<type, baseBlockSize, minBlockSize>::~idDynamicAlloc( void ) {
 
 template<class type, int baseBlockSize, int minBlockSize>
 void idDynamicAlloc<type, baseBlockSize, minBlockSize>::Init( void ) {
-	freeTree.Init();
 }
 
 template<class type, int baseBlockSize, int minBlockSize>

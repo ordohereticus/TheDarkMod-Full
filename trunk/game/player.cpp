@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -73,6 +73,7 @@ const idEventDef EV_Player_StopAudioLog( "stopAudioLog" );
 const idEventDef EV_Player_HideTip( "hideTip" );
 const idEventDef EV_Player_LevelTrigger( "levelTrigger" );
 const idEventDef EV_SpectatorTouch( "spectatorTouch", "et" );
+const idEventDef EV_Player_GetIdealWeapon( "getIdealWeapon", NULL, 's' );
 
 const idEventDef EV_Player_GetEyePos( "getEyePos", NULL, 'v' );
 const idEventDef EV_Player_SetImmobilization( "setImmobilization", "sd" );
@@ -9156,6 +9157,22 @@ idPlayer::Event_Gibbed
 */
 void idPlayer::Event_Gibbed( void ) {
 	// do nothing
+}
+
+/*
+==================
+idPlayer::Event_GetIdealWeapon 
+==================
+*/
+void idPlayer::Event_GetIdealWeapon( void ) {
+	const char *weapon;
+
+	if ( idealWeapon >= 0 ) {
+		weapon = spawnArgs.GetString( va( "def_weapon%d", idealWeapon ) );
+		idThread::ReturnString( weapon );
+	} else {
+		idThread::ReturnString( "" );
+	}
 }
 
 /*

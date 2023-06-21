@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -48,21 +48,18 @@
 // Mac OSX
 #if defined(MACOS_X) || defined(__APPLE__)
 
-#include "osx/apple_bool.h"
-
+#define BUILD_STRING				"MacOSX-universal"
+#define BUILD_OS_ID					1
 #ifdef __ppc__
-	#define BUILD_STRING				"MacOSX-ppc"
-	#define BUILD_OS_ID					1
 	#define	CPUSTRING					"ppc"
 	#define CPU_EASYARGS				0
 #elif defined(__i386__)
-	#define BUILD_STRING				"MacOSX-x86"
 	#define	CPUSTRING					"x86"
 	#define CPU_EASYARGS				1
 #endif
 
-//#define ALIGN16( x )					( (x) __attribute__ ((aligned (16))) )
-#define ALIGN16( x )					x
+#define ALIGN16( x )					x __attribute__ ((aligned (16)))
+
 #ifdef __MWERKS__
 #define PACKED
 #include <alloca.h>

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -22,8 +22,11 @@
 */
 
 class idSIMD_MMX : public idSIMD_Generic {
-#ifdef _WIN32
 public:
+#if defined(MACOS_X) && defined(__i386__)
+	virtual const char * VPCALL GetName( void ) const;
+
+#elif defined(_WIN32)
 	virtual const char * VPCALL GetName( void ) const;
 
 	virtual void VPCALL Memcpy( void *dst,			const void *src,		const int count );

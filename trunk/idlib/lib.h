@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -39,6 +39,10 @@ public:
 
 	static void					Init( void );
 	static void					ShutDown( void );
+
+	// wrapper to idCommon functions 
+	static void					Error( const char *fmt, ... );
+	static void					Warning( const char *fmt, ... );
 };
 
 

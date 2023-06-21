@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -258,7 +258,7 @@ idHierarchy<type> *idHierarchy<type>::GetPriorSiblingNode( void ) const {
 	}
 
 	if ( node != this ) {
-		idLib::common->Error( "idHierarchy::GetPriorSibling: could not find node in parent's list of children" );
+		idLib::Error( "idHierarchy::GetPriorSibling: could not find node in parent's list of children" );
 	}
 
 	return prev;

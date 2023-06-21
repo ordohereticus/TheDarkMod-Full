@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
 
 #include "../Game_local.h"
 
@@ -660,8 +660,8 @@ pathNode_t *BuildPathTree( const obstacle_t *obstacles, int numObstacles, const 
 	int blockingEdgeNum, blockingObstacle, obstaclePoints, bestNumNodes = MAX_OBSTACLE_PATH;
 	float blockingScale;
 	pathNode_t *root, *node, *child;
-	idQueue(pathNode_t, next) pathNodeQueue, treeQueue;
-
+	// gcc 4.0
+	idQueueTemplate<pathNode_t, offsetof( pathNode_t, next ) > pathNodeQueue, treeQueue;
 	root = pathNodeAllocator.Alloc();
 	root->Init();
 	root->pos = startPos;

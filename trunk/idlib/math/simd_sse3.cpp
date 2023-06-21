@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd_sse3.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: simd_sse3.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
 
 #include "Simd_Generic.h"
 #include "Simd_MMX.h"
@@ -28,7 +28,18 @@ static bool init_version = FileVersionList("$Id: simd_sse3.cpp 866 2007-03-23 21
 //
 //===============================================================
 
-#ifdef _WIN32
+#if defined(MACOS_X) && defined(__i386__)
+
+/*
+============
+idSIMD_SSE3::GetName
+============
+*/
+const char * idSIMD_SSE3::GetName( void ) const {
+	return "MMX & SSE & SSE2 & SSE3";
+}
+
+#elif defined(_WIN32)
 
 #include <xmmintrin.h>
 
@@ -246,13 +257,10 @@ idSIMD_SSE3::TransformVerts
 void VPCALL idSIMD_SSE3::TransformVerts( idDrawVert *verts, const int numVerts, const idJointMat *joints, const idVec4 *weights, const int *index, const int numWeights ) {
 #if 1
 
-#pragma warning( push )
-#pragma warning( disable: 4127 )
 	assert( sizeof( idDrawVert ) == DRAWVERT_SIZE );
 	assert( (int)&((idDrawVert *)0)->xyz == DRAWVERT_XYZ_OFFSET );
 	assert( sizeof( idVec4 ) == JOINTWEIGHT_SIZE );
 	assert( sizeof( idJointMat ) == JOINTMAT_SIZE );
-#pragma warning( pop )
 
 	__asm
 	{

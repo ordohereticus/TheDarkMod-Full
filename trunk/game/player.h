@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 847 $
- * $Date: 2007-03-18 21:51:44 -0400 (Sun, 18 Mar 2007) $
- * $Author: ishtvan $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -846,6 +846,7 @@ private:
 	void					Event_HideTip( void );
 	void					Event_LevelTrigger( void );
 	void					Event_Gibbed( void );
+	void					Event_GetIdealWeapon( void );
 	void					Event_RopeRemovalCleanup( idEntity *RopeEnt );
 
 

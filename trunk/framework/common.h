@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -180,6 +180,18 @@ public:
 
 								// Returns a pointer to the dictionary with language specific strings.
 	virtual const idLangDict *	GetLanguageDict( void ) = 0;
+
+								// Returns key bound to the command
+	virtual const char *		KeysFromBinding( const char *bind ) = 0;
+
+								// Returns the binding bound to the key
+	virtual const char *		BindingFromKey( const char *key ) = 0; 
+
+								// Directly sample a button.
+	virtual int					ButtonState( int key ) = 0;
+
+								// Directly sample a keystate.
+	virtual int					KeyState( int key ) = 0;
 };
 
 extern idCommon *		common;

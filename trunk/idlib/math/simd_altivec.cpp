@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -10,11 +10,10 @@
 // Copyright (C) 2004 Id Software, Inc.
 //
 
-
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd_altivec.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: simd_altivec.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
 
 #include "Simd_Generic.h"
 #include "Simd_AltiVec.h"
@@ -23,10 +22,6 @@ static bool init_version = FileVersionList("$Id: simd_altivec.cpp 866 2007-03-23
 
 #ifdef PPC_INTRINSICS
 	#include <ppc_intrinsics.h>
-#endif
-
-#ifdef bool
-	#undef bool
 #endif
 
 // Doom3 SIMD Library version 0.5
@@ -41,7 +36,7 @@ static bool init_version = FileVersionList("$Id: simd_altivec.cpp 866 2007-03-23
 //
 //===============================================================
 
-#ifdef MACOS_X
+#if defined(MACOS_X) && defined(__ppc__)
 
 // Data struct sizes
 
@@ -4519,7 +4514,7 @@ void VPCALL idSIMD_AltiVec::MatX_LowerTriangularSolveTranspose( const idMatX &L,
 idSIMD_AltiVec::MatX_LDLTFactor
 ============
 */
-unsigned char VPCALL idSIMD_AltiVec::MatX_LDLTFactor( idMatX &mat, idVecX &invDiag, const int n ) {
+bool VPCALL idSIMD_AltiVec::MatX_LDLTFactor( idMatX &mat, idVecX &invDiag, const int n ) {
 	int i, j, k, nc;
 	float *v, *diag, *mptr;
 	float s0, s1, s2, s3, sum, d;

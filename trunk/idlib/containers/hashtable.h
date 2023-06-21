@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 874 $
+ * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -346,6 +346,7 @@ ID_INLINE int idHashTable<Type>::Num( void ) const {
 	return numentries;
 }
 
+#if !defined(__GNUC__) || __GNUC__ < 4
 /*
 ================
 idHashTable<Type>::GetSpread
@@ -374,5 +375,6 @@ int idHashTable<Type>::GetSpread( void ) const {
 	}
 	return 100 - (error * 100 / numentries);
 }
+#endif 
 
 #endif /* !__HASHTABLE_H__ */
