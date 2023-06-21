@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 560 $
- * $Date: 2006-08-21 01:06:49 -0400 (Mon, 21 Aug 2006) $
- * $Author: ishtvan $
+ * $Revision: 578 $
+ * $Date: 2006-09-22 02:00:35 -0400 (Fri, 22 Sep 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.71  2006/09/22 06:00:35  gildoran
+ * Added code to cache TDM_MatInfo declarations for textures applied to surfaces of a map.
+ *
  * Revision 1.70  2006/08/21 05:06:49  ishtvan
  * added PlayerTraceEntity which returns the ent the player is looking at out to 512 units
  *
@@ -236,7 +239,7 @@
 
 #pragma warning(disable : 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 560 $   $Date: 2006-08-21 01:06:49 -0400 (Mon, 21 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 578 $   $Date: 2006-09-22 02:00:35 -0400 (Fri, 22 Sep 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -1189,6 +1192,7 @@ void idGameLocal::LoadMap( const char *mapName, int randseed ) {
 			mapFile = NULL;
 			Error( "Couldn't load %s", mapName );
 		}
+		tdmDeclTDM_MatInfo::precacheMap( mapFile );
 	}
 	mapFileName = mapFile->GetName();
 

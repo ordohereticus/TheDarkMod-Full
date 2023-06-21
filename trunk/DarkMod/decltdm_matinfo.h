@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 376 $
- * $Date: 2006-03-25 03:14:03 -0500 (Sat, 25 Mar 2006) $
+ * $Revision: 578 $
+ * $Date: 2006-09-22 02:00:35 -0400 (Fri, 22 Sep 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.2  2006/09/22 06:00:28  gildoran
+ * Added code to cache TDM_MatInfo declarations for textures applied to surfaces of a map.
+ *
  * Revision 1.1  2006/03/25 08:13:46  gildoran
  * New update for declarations... Improved the documentation/etc for xdata decls, and added some basic code for tdm_matinfo decls.
  *
@@ -29,6 +32,9 @@ public:
 	virtual const char *	DefaultDefinition( void ) const;
 	virtual void			FreeData( void );
 	virtual bool			Parse( const char *text, const int textLength );
+
+	/// Used to cache the TDM_MatInfos for all the materials applied to surfaces of a map.
+	static void precacheMap( idMapFile *map );
 
 	/// The surface type of the material.
 	idStr	surfaceType;

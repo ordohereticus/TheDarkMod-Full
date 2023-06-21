@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 578 $
+ * $Date: 2006-09-22 02:00:35 -0400 (Fri, 22 Sep 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.4  2006/09/22 06:00:28  gildoran
+ * Added code to cache TDM_MatInfo declarations for textures applied to surfaces of a map.
+ *
  * Revision 1.3  2006/06/21 13:05:32  sparhawk
  * Added version tracking per cpp module
  *
@@ -22,7 +25,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 578 $   $Date: 2006-09-22 02:00:35 -0400 (Fri, 22 Sep 2006) $", init_version);
 
 #include "decltdm_matinfo.h"
 
@@ -132,4 +135,35 @@ bool tdmDeclTDM_MatInfo::Parse( const char *text, const int textLength )
 		MakeDefault();
 	}
 	return successfulParse;
+}
+
+/// Used to cache the TDM_MatInfos for all the materials applied to surfaces of a map.
+void tdmDeclTDM_MatInfo::precacheMap( idMapFile *map )
+{
+	int numEntities = map->GetNumEntities();
+	int e;
+	for ( e = 0 ; e < numEntities ; e++ ) {
+		idMapEntity *ent = map->GetEntity(e);
+		int numPrimitives = ent->GetNumPrimitives();
+		int p;
+		for ( p = 0 ; p < numPrimitives ; p++ ) {
+			idMapPrimitive *prim = ent->GetPrimitive(p);
+			if ( prim->GetType() == idMapPrimitive::TYPE_BRUSH ) {
+				idMapBrush *brush = dynamic_cast<idMapBrush*>(prim);
+				int numSides = brush->GetNumSides();
+				int s;
+				for ( s = 0 ; s < numSides ; s++ ) {
+					idMapBrushSide *side = brush->GetSide(s);
+					declManager->FindType( DECL_TDM_MATINFO, side->GetMaterial(), false );
+					//gameLocal.Printf( "Caching: %s\n", side->GetMaterial() );
+				}
+			} else if ( prim->GetType() == idMapPrimitive::TYPE_PATCH ) {
+				idMapPatch *patch = dynamic_cast<idMapPatch*>(prim);
+				declManager->FindType( DECL_TDM_MATINFO, patch->GetMaterial(), false );
+				//gameLocal.Printf( "Caching: %s\n", patch->GetMaterial() );
+			} else {
+				gameLocal.Warning( "tdmDeclTDM_MatInfo(): unknown primitive type: %d\n", prim->GetType() );
+			}
+		}
+	}
 }
