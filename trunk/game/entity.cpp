@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 180 $
- * $Date: 2005-10-18 09:57:06 -0400 (Tue, 18 Oct 2005) $
+ * $Revision: 191 $
+ * $Date: 2005-10-23 14:11:42 -0400 (Sun, 23 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.19  2005/10/23 18:11:21  sparhawk
+ * Lightgem entity spawn implemented
+ *
  * Revision 1.18  2005/10/18 13:56:40  sparhawk
  * Lightgem updates
  *
@@ -2770,7 +2773,7 @@ void idEntity::InitDefaultPhysics( const idVec3 &origin, const idMat3 &axis )
 	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Entity [%s] test for clipmodel\r", name.c_str());
 
 	// We need to make sure that the lightgem surface doesn't have a clipmodel
-	if(name != "lightgem_surface")
+	if(name != LIGHTEM_RENDER_NAME)
 	{
 		// check if a clipmodel key/value pair is set
 		if ( spawnArgs.GetString( "clipmodel", "", &temp ) ) {

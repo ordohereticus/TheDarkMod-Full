@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 187 $
- * $Date: 2005-10-22 10:15:46 -0400 (Sat, 22 Oct 2005) $
+ * $Revision: 191 $
+ * $Date: 2005-10-23 14:11:42 -0400 (Sun, 23 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.30  2005/10/23 18:11:21  sparhawk
+ * Lightgem entity spawn implemented
+ *
  * Revision 1.29  2005/10/22 14:15:46  sparhawk
  * Fixed flickering in lightgem when player is moving.
  *
@@ -1483,7 +1486,7 @@ void idPlayer::Init( void ) {
 	}
 
 	isChatting = false;
-	LightgemSurface = gameLocal.FindEntity("lightgem_surface");
+	LightgemSurface = gameLocal.FindEntity(LIGHTEM_RENDER_NAME);
 	LightgemSurface->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LIGHTGEM_VIEWID;
 	LightgemSurface->GetRenderEntity()->suppressShadowInViewID = 0;
 	DM_LOG(LC_LIGHT, LT_INFO).LogString("LightgemSurface: [%08lX]\r", LightgemSurface);

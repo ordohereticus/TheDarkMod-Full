@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 166 $
- * $Date: 2005-09-23 23:17:53 -0400 (Fri, 23 Sep 2005) $
- * $Author: lloyd $
+ * $Revision: 191 $
+ * $Date: 2005-10-23 14:11:42 -0400 (Sun, 23 Oct 2005) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2005/10/23 18:11:21  sparhawk
+ * Lightgem entity spawn implemented
+ *
  * Revision 1.3  2005/09/24 03:17:53  lloyd
  * Restored file to it's original state
  *
@@ -25,7 +28,6 @@
 #pragma hdrstop
 
 #include "Game_local.h"
-
 
 /*
 ===============================================================================
@@ -1063,7 +1065,8 @@ int idGameEdit::MapGetUniqueMatchingKeyVals( const char *key, const char *list[]
 idGameEdit::MapAddEntity
 ================
 */
-void idGameEdit::MapAddEntity( const idDict *dict ) const {
+void idGameEdit::MapAddEntity( const idDict *dict ) const
+{
 	idMapFile *mapFile = gameLocal.GetLevelMap();
 	if ( mapFile ) {
 		idMapEntity *ent = new idMapEntity();

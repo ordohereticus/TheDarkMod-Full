@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 189 $
- * $Date: 2005-10-23 09:51:30 -0400 (Sun, 23 Oct 2005) $
+ * $Revision: 191 $
+ * $Date: 2005-10-23 14:11:42 -0400 (Sun, 23 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.11  2005/10/23 18:11:21  sparhawk
+ * Lightgem entity spawn implemented
+ *
  * Revision 1.10  2005/10/23 13:51:06  sparhawk
  * Top lightgem shot implemented. Image analyzing now assumes a
  * foursided triangulated rendershot instead of a single surface.
@@ -72,7 +75,8 @@
 #define LIGHTGEM_MAX_RENDERPASSES		2
 #define LIGHTGEM_MAX_IMAGESPLIT			4
 #define LIGHTEM_RENDER_DIRECTORY		"snapshot"
-
+#define LIGHTEM_RENDER_MODEL			"models/props/misc/lightgem.lwo"
+#define LIGHTEM_RENDER_NAME				"lightgem_surface"
 
 /*
 ===============================================================================
@@ -642,6 +646,12 @@ public:
 	 * textures are only loaded when the light is spawned and requests the texture.
 	 */
 	void					LoadLightMaterial(const char *Filename, idList<CLightMaterial *> *);
+
+	/**
+	 * SpawnlightgemEntity will create exactly one lightgem entity for the map and ensures
+	 * that no multiple copies of it will exist.
+	 */
+	void					SpawnLightgemEntity(void);
 
 	/**
 	 * CalcLightgem will do the rendersnapshot and analyze the snaphost image in order
