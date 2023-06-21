@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 632 $
- * $Date: 2006-12-07 04:56:26 -0500 (Thu, 07 Dec 2006) $
- * $Author: ishtvan $
+ * $Revision: 653 $
+ * $Date: 2006-12-11 01:55:57 -0500 (Mon, 11 Dec 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.40  2006/12/11 06:55:57  gildoran
+ * Added the ability to use items directly via hotkey.
+ *
  * Revision 1.39  2006/12/07 09:56:26  ishtvan
  * leaning controls work as either buttons or toggles
  *
@@ -747,6 +750,8 @@ public:
 	void inventoryDropItem( void );
 	/// Uses the currently held/selected item.
 	void inventoryUseItem( void );
+	/// Uses a specific item, if it's in the same inventory.
+	void inventoryUseItem( idEntity* useEnt );
 	/// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
 	bool inventoryChangeSelection( idUserInterface *_hud );
 
