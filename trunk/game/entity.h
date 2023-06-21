@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 995 $
- * $Date: 2007-05-28 02:29:12 -0400 (Mon, 28 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1064 $
+ * $Date: 2007-06-28 16:58:24 -0400 (Thu, 28 Jun 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -497,7 +497,7 @@ public:
 	 * Switches are flipped and/or de-/activated and appropriate scripts are triggered.
 	 * bMaster indicates wheter the entity should call it's master or not.
 	 */
-	virtual void FrobAction(bool bMaster);
+	virtual void FrobAction(bool bMaster, bool bPeer = false);
 
 	/**
 	 * AddToMasterList adds a string entry to a list and checks if a) the new entry

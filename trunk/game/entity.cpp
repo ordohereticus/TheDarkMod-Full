@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1000 $
- * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1064 $
+ * $Date: 2007-06-28 16:58:24 -0400 (Thu, 28 Jun 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1064 2007-06-28 20:58:24Z sparhawk $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6249,7 +6249,7 @@ void idEntity::LoadTDMSettings(void)
 	{
 		idStr temp = kv->GetValue();
 		if( !temp.IsEmpty() )
-			m_FrobPeers.Append( temp );
+			m_FrobPeers.AddUnique(temp);
 		kv = spawnArgs.MatchPrefix( "frob_peer", kv );
 	}
 
@@ -6395,12 +6395,30 @@ Quit:
 
 // Default for entities that are frobable and movable is to pick it up and
 // carry it around (probably throwing or dropping it).
-void idEntity::FrobAction(bool bMaster)
+void idEntity::FrobAction(bool bMaster, bool bPeer)
 {
 	idEntity *ent;
 
+	int n = m_FrobPeers.Num();
+	idStr s;
+
 	if( IsHidden() )
 		goto Quit;
+
+	// Propagate frobactions to all peers to get them triggered as well.
+	if(bPeer == false)
+	{
+		for(int i = 0; i < n; i++)
+		{
+			s = m_FrobPeers[i];
+			if(s == name)
+				continue;
+
+			idEntity *e = gameLocal.FindEntity(s);
+			if(e != NULL)
+				e->FrobAction(false, true);
+		}
+	}
 
 	if(m_FrobActionScript.Length() == 0)
 	{
