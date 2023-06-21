@@ -2,11 +2,17 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 369 $
- * $Date: 2006-03-21 15:55:16 -0500 (Tue, 21 Mar 2006) $
- * $Author: sparhawk $
+ * $Revision: 381 $
+ * $Date: 2006-04-02 22:04:32 -0400 (Sun, 02 Apr 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.59  2006/04/03 02:04:32  gildoran
+ * Added some code for an inventory prototype.
+ *
+ * Revision 1.58  2006/03/31 23:52:40  gildoran
+ * Renamed inventory objects, and added cursor script functions.
+ *
  * Revision 1.57  2006/03/21 20:53:56  sparhawk
  * dm_distance added
  *
@@ -1853,6 +1859,9 @@ void idPlayer::Spawn( void ) {
 
 	//FIX: Set the walkspeed back to the stored value.
 	pm_walkspeed.SetFloat( gameLocal.m_walkSpeed );
+
+	// Have the player's cursor point to their own inventory by default.
+	InventoryCursor()->setInventory( Inventory() );
 }
 
 /*
@@ -6272,6 +6281,27 @@ void idPlayer::PerformImpulse( int impulse ) {
 			}
 		}
 		break;
+
+		/// Inventory previous item
+		case IMPULSE_47: {
+			inventoryPrevItem();
+			break;
+		}
+ 		/// Inventory next item
+		case IMPULSE_48: {
+			inventoryNextItem();
+			break;
+		}
+		/// Inventory previous group
+		case IMPULSE_49: {
+			inventoryPrevGroup();
+			break;
+		}
+ 		/// Inventory next group
+		case IMPULSE_50: {
+			inventoryNextGroup();
+			break;
+		}
 	} 
 }
 
@@ -9610,6 +9640,109 @@ float idPlayer::GetMovementVolMod( void )
 	}
 
 	return returnval;
+}
+
+/*
+=====================
+idPlayer::inventoryNextItem
+=====================
+*/
+void idPlayer::inventoryNextItem() {
+	assert( hud );
+	InventoryCursor()->next();
+	inventoryUpdateHUD();
+	//hud->HandleNamedEvent( "touchInventory" );
+	hud->HandleNamedEvent( "inventoryShiftLeft" );
+}
+
+void idPlayer::inventoryPrevItem() {
+	assert( hud );
+	InventoryCursor()->prev();
+	inventoryUpdateHUD();
+	//hud->HandleNamedEvent( "touchInventory" );
+	hud->HandleNamedEvent( "inventoryShiftRight" );
+}
+
+void idPlayer::inventoryPrevGroup() {
+}
+
+void idPlayer::inventoryNextGroup() {
+}
+
+void idPlayer::inventoryUpdateHUD() {
+	assert( hud );
+
+	tdmInventoryCursor* cur = InventoryCursor();
+
+	// Normally having cursors on the stack would be a bad idea, but the
+	// game cannot be saved in the middle of this function call, so it's ok.
+	tdmInventoryCursor lCur; // left cursor
+	tdmInventoryCursor rCur; // right cursor
+
+	// The list of inventory items to potentially be shown.
+	idEntity* items[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+
+	lCur.copyActiveCursor( *cur );
+	rCur.copyActiveCursor( *cur );
+
+	if ( cur->item() != NULL ) {
+		items[3] = cur->item()->m_owner.GetEntity();
+	}
+	lCur.prev();
+	if ( lCur.item() != NULL ) {
+		items[2] = lCur.item()->m_owner.GetEntity();
+	}
+	rCur.next();
+	if ( rCur.item() != NULL ) {
+		items[4] = rCur.item()->m_owner.GetEntity();
+	}
+	lCur.prev();
+	if ( lCur.item() != NULL ) {
+		items[1] = lCur.item()->m_owner.GetEntity();
+	}
+	rCur.next();
+	if ( rCur.item() != NULL ) {
+		items[5] = rCur.item()->m_owner.GetEntity();
+	}
+	lCur.prev();
+	if ( lCur.item() != NULL ) {
+		items[0] = lCur.item()->m_owner.GetEntity();
+	}
+	rCur.next();
+	if ( rCur.item() != NULL ) {
+		items[6] = rCur.item()->m_owner.GetEntity();
+	}
+
+	int i;
+
+	// Figure out inventory visibility. (which items should appear
+	// in which slots)
+	bool visible[7] = { false, false, false, false, false, false, false };
+	static const int visOrder[5] = { 3, 4, 2, 5, 1 };
+	idEntity* lastVis = NULL;
+	for ( i = 0; i < 5; i++ ) {
+		if ( items[ visOrder[i] ] == lastVis ) {
+			break;
+		}
+		visible[ visOrder[i] ] = true;
+		lastVis = items[ visOrder[i] ];
+	}
+
+	// Copy over the state variables to the HUD
+	for ( i = 0; i < 7; i++ ) {
+		if ( items[i] == NULL ) {
+			hud->SetStateString( va( "inv_item%i_name", i ), "nothing" );
+		} else {
+			//gameLocal.Warning( "Item %i: %s %i\n", i, items[i]->spawnArgs.GetString( "inv_name", "" ), visible[i] );
+			hud->SetStateString( va( "inv_item%i_name", i ), items[i]->spawnArgs.GetString( "inv_name", "" ) );
+			hud->SetStateString( va( "inv_item%i_icon", i ), items[i]->spawnArgs.GetString( "inv_icon", "" ) );
+		}
+		hud->SetStateBool( va( "inv_item%i_vis", i ), visible[i] );
+	}
+
+	hud->StateChanged( gameLocal.time );
+	hud->HandleNamedEvent( "inventoryUpdateItems" );
+
 }
 
 /*
