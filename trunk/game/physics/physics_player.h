@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 752 $
- * $Date: 2007-01-21 06:15:51 -0500 (Sun, 21 Jan 2007) $
+ * $Revision: 808 $
+ * $Date: 2007-03-01 03:20:15 -0500 (Thu, 01 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -324,8 +324,35 @@ private:
 	bool					m_bJustHitRope;
 
 	// ladder movement
-	bool					ladder;
-	idVec3					ladderNormal;
+	/**
+	* Ladder is found ahead of us along view direction
+	**/
+	bool					m_bLadderAhead;
+	/**
+	* We are currently attached to a ladder
+	**/
+	bool					m_bOnLadder;
+	/**
+	* Normal vector of the surface we're climbing on
+	**/
+	idVec3					m_vLadderNormal;
+	/**
+	* Attachment point of where the player's origin attaches to the ladder
+	* In World coordinates
+	* NOTE: This is the last known attachment point
+	* The player is allowed to deviate from this a little to climb around corners
+	**/
+	idVec3					m_vLadderPoint;
+	
+	/**
+	* Entity they're currently climbing on (used to add relative velocity)
+	**/
+	idEntityPtr<idEntity>	m_ClimbingOnEnt;
+	/**
+	* Set to true if the player has just detached from climbing this frame
+	* Used to tell SlideMove to step up at the top of something
+	**/
+	bool					m_bClimbDetachThisFrame;
 
 	/**
 	* View yaw change between this frame and last frame
@@ -371,10 +398,15 @@ private:
 	void					CorrectAllSolid( trace_t &trace, int contents );
 	void					CheckGround( void );
 	void					CheckDuck( void );
-	void					CheckLadder( void );
 	bool					CheckJump( void );
 	bool					CheckRopeJump( void );
 	void					RopeDetach( void );
+
+/**
+* The following are used in wall/ladder climbing
+**/
+	void					CheckLadder( void );
+	void					ClimbDetach( bool bStepUp = false );
 
 #ifndef MOD_WATERPHYSICS
 	void					SetWaterLevel( void );
