@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1124 $
- * $Date: 2007-07-14 23:00:30 -0400 (Sat, 14 Jul 2007) $
- * $Author: joebarnin $
+ * $Revision: 1126 $
+ * $Date: 2007-07-15 06:57:48 -0400 (Sun, 15 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1124 2007-07-15 03:00:30Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1126 2007-07-15 10:57:48Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -568,6 +568,16 @@ void CGlobal::LoadINISettings(void *p)
 			}
 
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_FUNCTION: %c\r", pm->Value[0]);
+		}
+		if(FindMap(ps, "LogClass_ENTITY", TRUE, &pm) != static_cast<ULONG>(-1))
+		{
+			if(pm->Value[0] == '1')
+			{
+				m_ClassArray[LC_ENTITY] = true;
+				Frame = true;
+			}
+
+			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_ENTITY: %c\r", pm->Value[0]);
 		}
 		if(FindMap(ps, "LogClass_INVENTORY", TRUE, &pm) != static_cast<ULONG>(-1))
 		{
