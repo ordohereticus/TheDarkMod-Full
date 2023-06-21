@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 936 $
- * $Date: 2007-04-26 06:46:57 -0400 (Thu, 26 Apr 2007) $
+ * $Revision: 982 $
+ * $Date: 2007-05-11 09:09:56 -0400 (Fri, 11 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 936 2007-04-26 10:46:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 982 2007-05-11 13:09:56Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -225,6 +225,12 @@ void CProjectileResult::Init
 		Event_CopyBind( pProj );
 	}
 
+	// Is this projectile originating from a named shooter?
+	idStr shooter = pProj->spawnArgs.GetString("shooter", "");
+	if (!shooter.IsEmpty()) {
+		// Copy the shooter information to this projectile result
+		spawnArgs.Set("shooter", shooter.c_str());
+	}
 
 	// Run scripts:
 	RunResultScript();
