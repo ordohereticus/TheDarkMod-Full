@@ -2,6 +2,9 @@
 #include "../darkmod/KeyboardHook.h"
 #include "../darkmod/KeyboardHookWindows.h"
 
+static bool init_version = FileVersionList("$Source$  $Revision: 761 $   $Date: 2007-01-23 03:05:33 -0500 (Tue, 23 Jan 2007) $", init_version);
+
+
 // global but NOT. anonymous namespace is only available to this file by design
 // not meant to be used by anyone else
 namespace

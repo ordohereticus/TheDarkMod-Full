@@ -6,6 +6,7 @@
 #endif
 // We will add additional ones for other OS here later
 
+static bool init_version = FileVersionList("$Source$  $Revision: 761 $   $Date: 2007-01-23 03:05:33 -0500 (Tue, 23 Jan 2007) $", init_version);
 
 CKeyCode::CKeyCode():
 KeyState(KS_FREE),
@@ -167,7 +168,6 @@ CKeyboardHook::CKeyboardHook(void):
 	m_KeyCapImpulse(IR_COUNT),
 	m_KeyCapStartCount(0)
 {
-//	memset( &m_KeyPress, 0, sizeof(KeyCode_t) );
 	for( int i = 0; i < IR_COUNT; i++)
 	{
 		m_KeyData[i].KeyState = KS_FREE;
