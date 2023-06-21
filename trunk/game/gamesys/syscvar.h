@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 712 $
- * $Date: 2007-01-09 08:00:19 -0500 (Tue, 09 Jan 2007) $
+ * $Revision: 748 $
+ * $Date: 2007-01-20 21:10:52 -0500 (Sat, 20 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.33  2007/01/21 02:10:52  ishtvan
+ * added lean_to_valid_increments cvar for controlling lean to valid point smoothness
+ *
  * Revision 1.32  2007/01/09 13:00:19  ishtvan
  * lean_forward cvars added
  *
@@ -147,6 +150,7 @@ extern idCVar cv_pm_lean_forward_angle;
 extern idCVar cv_pm_lean_forward_time;
 extern idCVar cv_pm_lean_forward_height;
 extern idCVar cv_pm_lean_forward_stretch;
+extern idCVar cv_pm_lean_to_valid_increments;
 
 extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
