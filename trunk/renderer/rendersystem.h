@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 220 $
- * $Date: 2005-11-11 17:44:06 -0500 (Fri, 11 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 734 $
+ * $Date: 2007-01-19 04:01:24 -0500 (Fri, 19 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.3  2007/01/19 09:01:24  thelvyn
+ * font externs
+ * PrintMessage def
+ *
  * Revision 1.2  2005/11/11 22:42:32  sparhawk
  * SDK 1.3 Merge
  *
@@ -265,4 +269,9 @@ void R_LightProjectionMatrix( const idVec3 &origin, const idPlane &rearPlane, id
 // used by the view shot taker
 void R_ScreenshotFilename( int &lastNumber, const char *base, idStr &fileName );
 
+extern fontInfoEx_t font_an;
+extern fontInfoEx_t font_bank;
+extern fontInfoEx_t font_micro;
+
+void PrintMessage( int x, int y, const char *szMessage, idVec4 colour, fontInfoEx_t &font );
 #endif /* !__RENDERER_H__ */
