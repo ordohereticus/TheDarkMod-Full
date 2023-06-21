@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 180 $
- * $Date: 2005-10-18 09:57:06 -0400 (Tue, 18 Oct 2005) $
+ * $Revision: 186 $
+ * $Date: 2005-10-21 17:57:55 -0400 (Fri, 21 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.8  2005/10/21 21:57:55  sparhawk
+ * Ramdisk support added.
+ *
  * Revision 1.7  2005/10/18 13:57:06  sparhawk
  * Lightgem updates
  *
@@ -79,6 +82,7 @@ extern idCVar cv_lg_width;
 extern idCVar cv_lg_height;
 extern idCVar cv_lg_renderpasses;
 extern idCVar cv_lg_file;
+extern idCVar cv_lg_renderdrive;
 
 /**
 * End DarkMod cvars
