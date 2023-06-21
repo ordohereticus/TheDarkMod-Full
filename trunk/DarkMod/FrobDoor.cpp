@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 596 $
- * $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $
+ * $Revision: 597 $
+ * $Date: 2006-10-30 12:29:05 -0500 (Mon, 30 Oct 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.26  2006/10/30 17:29:05  sparhawk
+ * Doorhandles should inherit the frobable flag, according to their doorsetting.
+ *
  * Revision 1.25  2006/10/30 17:10:25  sparhawk
  * Doorhandles are now working in the first stage.
  *
@@ -100,7 +103,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 596 $   $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 597 $   $Date: 2006-10-30 12:29:05 -0500 (Mon, 30 Oct 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -576,6 +579,7 @@ void CFrobDoor::SetDoorhandle(CFrobDoorHandle *h)
 	m_Doorhandle = h;
 	m_FrobPeers.AddUnique(h->name);
 	h->m_FrobPeers.AddUnique(name);
+	h->m_bFrobable = m_bFrobable;
 
 	h->Bind(this, true);
 }
