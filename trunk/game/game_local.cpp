@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 552 $
- * $Date: 2006-08-13 21:07:38 -0400 (Sun, 13 Aug 2006) $
+ * $Revision: 560 $
+ * $Date: 2006-08-21 01:06:49 -0400 (Mon, 21 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.70  2006/08/21 05:06:49  ishtvan
+ * added PlayerTraceEntity which returns the ent the player is looking at out to 512 units
+ *
  * Revision 1.69  2006/08/14 01:07:38  ishtvan
  * grabber update
  *
@@ -233,7 +236,7 @@
 
 #pragma warning(disable : 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 552 $   $Date: 2006-08-13 21:07:38 -0400 (Sun, 13 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 560 $   $Date: 2006-08-21 01:06:49 -0400 (Mon, 21 Aug 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -5722,3 +5725,37 @@ Quit:
 	return pReturnval;
 }
 
+/*
+===================
+Dark Mod:
+idGameLocal::PlayerTraceEntity
+===================
+*/
+idEntity *idGameLocal::PlayerTraceEntity( void )
+{
+	idVec3		start, end;
+	idEntity	*returnEnt = NULL;
+	idPlayer	*player = NULL;
+	trace_t		trace;
+	int			cm = 0;
+
+	if( !( player = gameLocal.GetLocalPlayer() ) )
+		goto Quit;
+
+	start = player->GetEyePosition();
+	// do a trace 512 doom units ahead
+	end = start + 512.0f * (player->viewAngles.ToForward());
+
+	cm = CONTENTS_SOLID | CONTENTS_BODY | CONTENTS_CORPSE | CONTENTS_TRIGGER;
+	gameLocal.clip.TracePoint( trace, start, end, cm, player );
+	if( trace.fraction < 1.0f )
+	{
+		returnEnt = gameLocal.entities[ trace.c.entityNum ];
+		// don't return the world
+		if( returnEnt == gameLocal.world )
+			returnEnt = NULL;
+	}
+	
+Quit:
+	return returnEnt;
+}
