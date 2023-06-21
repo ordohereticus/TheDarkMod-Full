@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 509 $
- * $Date: 2006-07-27 05:01:07 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 535 $
+ * $Date: 2006-08-07 02:52:55 -0400 (Mon, 07 Aug 2006) $
  * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.12  2006/08/07 06:52:55  ishtvan
+ * added m_FrobTrace variable that gets set by idPlayer::FrobCheck
+ *
  * Revision 1.11  2006/07/27 09:01:07  ishtvan
  * added m_FrobEntityPrevious var to store the frob entity of the previous frame
  *
@@ -61,7 +64,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 509 $   $Date: 2006-07-27 05:01:07 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 535 $   $Date: 2006-08-07 02:52:55 -0400 (Mon, 07 Aug 2006) $", init_version);
 
 #include "../darkmod/darkmodglobals.h"
 #include "../darkmod/playerdata.h"
@@ -80,6 +83,8 @@ CInventoryItem::CInventoryItem(void)
 CDarkModPlayer::CDarkModPlayer(void)
 {
 	m_FrobEntity = NULL;
+	m_FrobJoint = INVALID_JOINT;
+	m_FrobID = 0;
 	m_FrobEntityPrevious = NULL;
 	CInventoryItem inv_item;
 
