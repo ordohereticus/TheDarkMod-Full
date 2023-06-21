@@ -1,35 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
- *
- * $Log$
- * Revision 1.8  2007/01/03 04:08:23  ishtvan
- * stim/response : Fixed resetting of CONTENTS_RESPONSE contents flag
- *
- * Revision 1.7  2006/07/28 01:36:19  ishtvan
- * frobbing bugfixes
- *
- * Revision 1.6  2006/07/27 09:02:22  ishtvan
- * frobbing updates
- *
- * Revision 1.5  2006/06/21 13:05:10  sparhawk
- * Added version tracking per cpp module
- *
- * Revision 1.4  2006/01/29 04:06:53  ishtvan
- * changes to soundprop systems
- *
- * Revision 1.3  2006/01/23 00:22:01  ishtvan
- * added sound prop updating and sound loss for breakable windows
- *
- * Revision 1.2  2005/11/11 20:38:16  sparhawk
- * SDK 1.3 Merge
- *
- * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
- * Initial release
+ * $Revision: 864 $
+ * $Date: 2007-03-22 14:04:56 -0400 (Thu, 22 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -39,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: brittlefracture.cpp 864 2007-03-22 18:04:56Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/sndProp.h"

@@ -1,17 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 316 $
- * $Date: 2006-01-22 19:22:01 -0500 (Sun, 22 Jan 2006) $
- * $Author: ishtvan $
- *
- * $Log$
- * Revision 1.2  2006/01/23 00:22:01  ishtvan
- * added sound prop updating and sound loss for breakable windows
- *
- * Revision 1.1.1.1  2004/10/30 15:52:30  sparhawk
- * Initial release
+ * $Revision: 864 $
+ * $Date: 2007-03-22 14:04:56 -0400 (Thu, 22 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
