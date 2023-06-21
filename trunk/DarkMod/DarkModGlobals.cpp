@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 498 $
- * $Date: 2006-07-20 14:51:24 -0400 (Thu, 20 Jul 2006) $
+ * $Revision: 499 $
+ * $Date: 2006-07-20 17:07:31 -0400 (Thu, 20 Jul 2006) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.47  2006/07/20 21:07:25  sparhawk
+ * Frame logging fixed.
+ *
  * Revision 1.46  2006/07/20 18:51:24  sparhawk
  * Frame setting loaded from INI.
  *
@@ -166,7 +169,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 498 $   $Date: 2006-07-20 14:51:24 -0400 (Thu, 20 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 499 $   $Date: 2006-07-20 17:07:31 -0400 (Thu, 20 Jul 2006) $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -321,6 +324,7 @@ CGlobal::CGlobal(void)
 	m_ClassArray[LC_FUNCTION] = false;
 	m_ClassArray[LC_MOVEMENT] = false;
 
+	m_Frame = 0;
 	m_DefaultFrobDistance = 100.0f;
 	m_MaxFrobDistance = 0;
 	m_LogClass = LC_SYSTEM;
@@ -549,7 +553,7 @@ void CGlobal::LogString(char *fmt, ...)
 	va_list arg;
 	va_start(arg, fmt);
 
-	fprintf(m_LogFile, "[%s:%s (%s) - %4u] ", m_Filename, LTString[lt], LCString[lc], m_Linenumber);
+	fprintf(m_LogFile, "[%s (%4u):%s (%s) FR: %4u] ", m_Filename, m_Linenumber, LTString[lt], LCString[lc], m_Frame);
 	vfprintf(m_LogFile, fmt, arg);
 	fprintf(m_LogFile, "\n");
 	fflush(m_LogFile);
@@ -779,7 +783,7 @@ void CGlobal::LoadINISettings(void *p)
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("AI Debug Grpahics display milliseconds: %f\r", m_drawAIDebugGraphics);
 		}
 	}
-	m_ClassArray[LC_FRAME] = Frame;
+//	m_ClassArray[LC_FRAME] = Frame;
 
 
 	if(FindSection(pfh, "GlobalParams", &ps) != -1)

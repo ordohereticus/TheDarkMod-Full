@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 485 $
- * $Date: 2006-07-14 22:14:52 -0400 (Fri, 14 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 499 $
+ * $Date: 2006-07-20 17:07:31 -0400 (Thu, 20 Jul 2006) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.38  2006/07/20 21:07:25  sparhawk
+ * Frame logging fixed.
+ *
  * Revision 1.37  2006/07/15 02:14:52  ishtvan
  * surface name fix (for real this time)
  *
@@ -314,6 +317,7 @@ public:
 
 	LC_LogClass		m_LogClass;
 	LT_LogType		m_LogType;
+	long			m_Frame;
 	char			m_ModPath[1024];
 	char			m_ModName[256];
 	char			*m_Filename;
