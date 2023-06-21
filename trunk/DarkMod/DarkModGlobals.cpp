@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 84 $
- * $Date: 2005-03-26 15:59:52 -0500 (Sat, 26 Mar 2005) $
- * $Author: sparhawk $
+ * $Revision: 87 $
+ * $Date: 2005-03-29 02:38:42 -0500 (Tue, 29 Mar 2005) $
+ * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.16  2005/03/29 07:38:42  ishtvan
+ * Added declaration of global AI Relations object
+ *
  * Revision 1.15  2005/03/26 20:59:52  sparhawk
  * Logging initialization added for automatic mod name detection.
  *
@@ -82,6 +85,7 @@
 #include "Profile.h"
 #include "direct.h"
 #include "il/il.h"
+#include "relations.h"
 
 static char *LTString[LT_COUNT+1] = {
 	"INI",
@@ -111,6 +115,8 @@ static char *LCString[LC_COUNT+1] = {
 	"MATH",
 	"(empty)"
 };
+
+CRelations g_globalRelations;
 
 CGlobal::CGlobal(void)
 {
