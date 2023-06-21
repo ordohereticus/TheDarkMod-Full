@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 784 $
- * $Date: 2007-02-05 15:13:32 -0500 (Mon, 05 Feb 2007) $
+ * $Revision: 788 $
+ * $Date: 2007-02-06 08:57:44 -0500 (Tue, 06 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.42  2007/02/06 13:57:44  thelvyn
+ * more falling damage tweaks
+ *
  * Revision 1.41  2007/02/05 20:13:32  thelvyn
  * Working ai falling damage with no problems this time I hope
  *
@@ -671,11 +674,10 @@ public:
 
 	/****************************************************************************************
 	*
-	*	Added By Rich to implement AI Falling damage
-	*	Calls Base Class function bool idAFEntity_Base::Collide( collision, velocity ) first.
+	*	Added By Rich
 	*
 	****************************************************************************************/
-	bool Collide( const trace_t &collision, const idVec3 &velocity );
+	//virtual bool Collide( const trace_t &collision, const idVec3 &velocity );
 
 	/****************************************************************************************
 	*
