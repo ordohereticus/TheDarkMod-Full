@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 594 $
- * $Date: 2006-10-22 15:12:13 -0400 (Sun, 22 Oct 2006) $
+ * $Revision: 621 $
+ * $Date: 2006-11-30 03:04:54 -0500 (Thu, 30 Nov 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.29  2006/11/30 08:04:54  ishtvan
+ * bugfix for footstep volume
+ *
  * Revision 1.28  2006/10/22 19:12:13  ishtvan
  * damage bugfixes
  *
@@ -107,7 +110,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 594 $   $Date: 2006-10-22 15:12:13 -0400 (Sun, 22 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 621 $   $Date: 2006-11-30 03:04:54 -0500 (Thu, 30 Nov 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2654,10 +2657,9 @@ void idActor::PlayFootStepSound( void )
 
 	if ( !sound.IsEmpty() ) 
 	{
-		StartSoundShader( declManager->FindSound( sound.c_str() ), SND_CHANNEL_BODY, 0, false, NULL );
-		
 		// apply the movement type modifier to the volume
 		SetSoundVolume( GetMovementVolMod() );
+		StartSoundShader( declManager->FindSound( sound.c_str() ), SND_CHANNEL_BODY, 0, false, NULL );
 
 		// propagate the suspicious sound to other AI
 		PropSoundDirect( static_cast<const char *>( localSound.c_str() ), true, false );
