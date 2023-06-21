@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 249 $
- * $Date: 2005-11-21 01:41:06 -0500 (Mon, 21 Nov 2005) $
+ * $Revision: 284 $
+ * $Date: 2005-12-11 14:53:11 -0500 (Sun, 11 Dec 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.34  2005/12/11 19:53:11  ishtvan
+ * disabled mantling when holding objects
+ *
  * Revision 1.33  2005/11/21 06:41:06  ishtvan
  * lowered weapons when swimming, mantling
  *
@@ -3797,6 +3800,9 @@ void idPhysics_Player::PerformMantle()
 		eyePos = p_player->GetEyePosition();
 	}
 
+	// Ishtvan: Do not attempt to mantle if holding an object
+	if( g_Global.m_DarkModPlayer->grabber->GetSelected() )
+		return;
 
 	// Run mantle trace
 	MantleTargetTrace
