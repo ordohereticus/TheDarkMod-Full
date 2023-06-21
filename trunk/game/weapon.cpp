@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 500 $
- * $Date: 2006-07-21 22:25:55 -0400 (Fri, 21 Jul 2006) $
+ * $Revision: 501 $
+ * $Date: 2006-07-21 23:47:06 -0400 (Fri, 21 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.12  2006/07/22 03:47:06  ishtvan
+ * fix for weapon attachments staying around in midair
+ *
  * Revision 1.11  2006/07/22 02:25:55  ishtvan
  * added weapon attachments
  *
@@ -48,7 +51,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 500 $   $Date: 2006-07-21 22:25:55 -0400 (Fri, 21 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 501 $   $Date: 2006-07-21 23:47:06 -0400 (Fri, 21 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -735,6 +738,15 @@ void idWeapon::Clear( void ) {
 
 	isFiring			= false;
 
+	// TDM: destroy previous weapon attachments
+	// TODO: Find a better way to do this so we don't have to create and destroy objects?
+	for( int i=0; i<m_Attachments.Num(); i++ )
+	{
+		idEntity *ent = m_Attachments[i].entPtr.GetEntity();
+		if( ent )
+			ent->Event_Remove();
+	}
+
 	m_Attachments.Clear();
 }
 
@@ -1010,8 +1022,6 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	weaponOffsetScale = weaponDef->dict.GetFloat( "weaponOffsetScale", "0.005" );
 
 	// spawn any weapon attachments we might have
-// TODO: Set their view ID so they only appear in the player view??
-// TODO: Sep. attachments for viewmodel/ worldmodel?
 	const idKeyValue *KeyVal = weaponDef->dict.MatchPrefix( "def_attach", NULL );
 	idEntity *ent(NULL);
 
