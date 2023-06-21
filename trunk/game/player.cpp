@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 293 $
- * $Date: 2005-12-13 13:44:17 -0500 (Tue, 13 Dec 2005) $
+ * $Revision: 296 $
+ * $Date: 2005-12-14 23:15:47 -0500 (Wed, 14 Dec 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.43  2005/12/15 04:15:47  ishtvan
+ * fixed being able to frob things while holding something in your hands
+ *
  * Revision 1.42  2005/12/13 18:44:17  ishtvan
  * fixed frob distance check to center around player's eyes, not feet
  *
@@ -5898,6 +5901,14 @@ void idPlayer::PerformImpulse( int impulse ) {
 			int i;
 			CDarkModPlayer *pDM = g_Global.m_DarkModPlayer;
 
+			// if the grabber is currently holding something and frob is pressed,
+			// release it.  Do not frob anything new since you're holding an item.
+			if( g_Global.m_DarkModPlayer->grabber->GetSelected() )
+			{
+				g_Global.m_DarkModPlayer->grabber->Update( this );
+				break;
+			}
+
 			frob = pDM->m_FrobEntity;
 
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob: %08lX    Select: %lu\r", frob, pDM->m_Selection);
@@ -5920,11 +5931,11 @@ void idPlayer::PerformImpulse( int impulse ) {
 					}
 				}
 			}
-
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob: %08lX    Frob: %u\r", frob, bFrob);
 			if(bFrob == true && frob != NULL) {
 				frob->FrobAction(true); 
 			}
+
 		}
 		break;
 
