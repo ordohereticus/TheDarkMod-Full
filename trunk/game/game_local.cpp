@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 895 $
- * $Date: 2007-04-09 05:24:05 -0400 (Mon, 09 Apr 2007) $
+ * $Revision: 896 $
+ * $Date: 2007-04-09 06:10:36 -0400 (Mon, 09 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 895 2007-04-09 09:24:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 896 2007-04-09 10:10:36Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5365,7 +5365,7 @@ void idGameLocal::ProcessStimResponse(void)
 				if( (gameLocal.time - pStim->m_TimeInterleaveStamp) < pStim->m_TimeInterleave )
 					continue;
 
-				// If stim has a finite duration, check if it expired.  If so, disable the stim.
+				// If stim has a finite duration, check if it expired. If so, disable the stim.
 				if( pStim->m_Duration 
 					&& (gameLocal.time - pStim->m_EnabledTimeStamp) > pStim->m_Duration )
 				{
@@ -5375,6 +5375,13 @@ void idGameLocal::ProcessStimResponse(void)
 
 				// Save the current timestamp into the stim, so that we know when it was last fired
 				pStim->m_TimeInterleaveStamp = gameLocal.time;
+
+				// greebo: Check if the stim passes the "chance" test
+				// Do this AFTER the m_TimeInterleaveStamp has been set to avoid the stim
+				// from being re-evaluated in the very next frame in case it failed the test.
+				if (!pStim->checkChance()) {
+					continue;
+				}
 
 				// If stim is not disabled and has a radius or uses the ent bounds
 				if(pStim->m_State != SS_DISABLED && ( (radius = pStim->m_Radius) != 0.0 || pStim->m_bUseEntBounds))
