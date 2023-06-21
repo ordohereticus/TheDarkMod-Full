@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 586 $
- * $Date: 2006-10-09 15:35:46 -0400 (Mon, 09 Oct 2006) $
- * $Author: sparhawk $
+ * $Revision: 592 $
+ * $Date: 2006-10-22 03:49:12 -0400 (Sun, 22 Oct 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.15  2006/10/22 07:49:12  ishtvan
+ * added scriptfunction GetNumAttached
+ *
+ * added some logging to track damage locations
+ *
  * Revision 1.14  2006/10/09 19:35:46  sparhawk
  * Added a offsetHeadModel vector
  *
@@ -441,6 +446,7 @@ private:
 	void					Event_GetHead( void );
 	void					Event_GetEyePos( void );
 	void					Event_GetAttachment( int ind );
+	void					Event_GetNumAttachments( void );
 };
 
 #endif /* !__GAME_ACTOR_H__ */
