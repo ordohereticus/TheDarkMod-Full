@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 549 $
- * $Date: 2006-08-13 18:51:26 -0400 (Sun, 13 Aug 2006) $
+ * $Revision: 556 $
+ * $Date: 2006-08-15 12:35:52 -0400 (Tue, 15 Aug 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.68  2006/08/15 16:35:52  gildoran
+ * A couple more inventory fixes. (setInventory() now reads "inv_group" rather than "inventory_group")
+ *
  * Revision 1.67  2006/08/13 22:51:26  gildoran
  * A couple of minor fixes to inventory script events.
  *
@@ -239,7 +242,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 549 $   $Date: 2006-08-13 18:51:26 -0400 (Sun, 13 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 556 $   $Date: 2006-08-15 12:35:52 -0400 (Tue, 15 Aug 2006) $", init_version);
 
 #pragma warning(disable : 4533 )
 
@@ -6875,7 +6878,7 @@ void idEntity::Event_SetInventory( idEntity* ent ) {
 
 
 	const char* group;
-	spawnArgs.GetString( "inventory_group", "", &group );
+	spawnArgs.GetString( "inv_group", "", &group );
 	item->setInventory( inv, group );
 
 	Quit:
