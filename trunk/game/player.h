@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 626 $
- * $Date: 2006-12-03 19:28:33 -0500 (Sun, 03 Dec 2006) $
+ * $Revision: 632 $
+ * $Date: 2006-12-07 04:56:26 -0500 (Thu, 07 Dec 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.39  2006/12/07 09:56:26  ishtvan
+ * leaning controls work as either buttons or toggles
+ *
  * Revision 1.38  2006/12/04 00:28:32  ishtvan
  * *) temporarily made lean controls toggles to debug lean code
  *
@@ -920,10 +923,10 @@ private:
 	void					UseVehicle( void );
 
 	/**
-	* TDM: Check if lean keys have been released this frame ( called by idPlayer::Think() )
-	* If they have been released, this resets their info in the keyhandler and unleans
+	* TDM: Check if our "button" keys have been released this frame ( called by idPlayer::Think() )
+	* If they have been updated and have been released, perform the release action.
 	**/
-	void					CheckLeanKeys( void );
+	void					CheckHeldKeys( void );
 
 	void					Event_GetButtons( void );
 	void					Event_GetMove( void );
