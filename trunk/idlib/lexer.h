@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 47 $
- * $Date: 2004-11-28 04:39:41 -0500 (Sun, 28 Nov 2004) $
- * $Author: sparhawk $
+ * $Revision: 85 $
+ * $Date: 2005-03-29 02:32:32 -0500 (Tue, 29 Mar 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.3  2005/03/29 07:32:32  ishtvan
+ * Modified Parse1DMatrix to allow reading to an integer matrix
+ *
  * Revision 1.2  2004/11/28 09:34:47  sparhawk
  * SDK V2 merge
  *
@@ -181,8 +184,15 @@ public:
 					// read a floating point number.  If errorFlag is NULL, a non-numeric token will
 					// issue an Error().  If it isn't NULL, it will issue a Warning() and set *errorFlag = true
 	float			ParseFloat( bool *errorFlag = NULL );
-					// parse matrices with floats
-	int				Parse1DMatrix( int x, float *m );
+					/**
+					* Parse a 1d float matrix of length x and store it in m.  
+					* If bIntsOnly is TRUE, a non-integer token will issue an Error().
+					**/
+	int				Parse1DMatrix( int x, float *m, bool bIntsOnly = false );
+					/**
+					* Parse 1d integer matrix by overloading parse1DMatrix
+					**/
+	int				Parse1DMatrix( int x, int *m );
 	int				Parse2DMatrix( int y, int x, float *m );
 	int				Parse3DMatrix( int z, int y, int x, float *m );
 					// parse a braced section into a string

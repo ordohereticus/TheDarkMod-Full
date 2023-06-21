@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 47 $
- * $Date: 2004-11-28 04:39:41 -0500 (Sun, 28 Nov 2004) $
- * $Author: sparhawk $
+ * $Revision: 85 $
+ * $Date: 2005-03-29 02:32:32 -0500 (Tue, 29 Mar 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.3  2005/03/29 07:32:32  ishtvan
+ * Modified Parse1DMatrix to allow reading to an integer matrix
+ *
  * Revision 1.2  2004/11/28 09:34:47  sparhawk
  * SDK V2 merge
  *
@@ -1253,14 +1256,18 @@ float idLexer::ParseFloat( bool *errorFlag ) {
 idLexer::Parse1DMatrix
 ================
 */
-int idLexer::Parse1DMatrix( int x, float *m ) {
+int idLexer::Parse1DMatrix( int x, float *m, bool bIntsOnly ) {
 	int i;
 
 	if ( !idLexer::ExpectTokenString( "(" ) ) {
 		return false;
 	}
-
 	for ( i = 0; i < x; i++ ) {
+		if(bIntsOnly)
+		{
+			m[i] = idLexer::ParseInt();
+			continue;
+		}
 		m[i] = idLexer::ParseFloat();
 	}
 
@@ -1268,6 +1275,42 @@ int idLexer::Parse1DMatrix( int x, float *m ) {
 		return false;
 	}
 	return true;
+}
+
+/*
+================
+idLexer::Parse1DMatrix
+
+Overloaded to write an integer matrix instead of float.
+
+Added by Ishtvan @ The Dark Mod
+================
+*/
+int idLexer::Parse1DMatrix( int x, int *m )
+{
+	bool returnval;
+	int i;
+	float *mTemp;
+	if ((mTemp = new float[x]) == NULL)
+	{
+		Error( "Out of memory allocating for float to int conversion" );
+		returnval = false;
+		goto Quit;
+	}
+	if (!Parse1DMatrix( x, mTemp, true ))
+	{
+		returnval = false;
+		goto Quit;
+	}
+	for (i=0; i<x; i++)
+	{
+		m[i] = (int) mTemp[i];
+	}
+	returnval = true;
+Quit:
+	if(mTemp)
+		delete[] mTemp;
+	return returnval;
 }
 
 /*
