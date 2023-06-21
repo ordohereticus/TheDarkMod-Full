@@ -20,10 +20,11 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 143 $
- * $Date: 2005-08-22 00:53:58 -0400 (Mon, 22 Aug 2005) $
+ * $Revision: 153 $
+ * $Date: 2005-09-11 01:03:37 -0400 (Sun, 11 Sep 2005) $
  * $Author: ishtvan $
  * $Name$
+ *
  ******************************************************************************/
 
 
@@ -176,6 +177,8 @@ typedef struct SsndPortal_s
 	idVec3 center; // coordinates of the center of the portal
 
 	idVec3 normal; // normal vector of portal (by convention, this points into the room)
+
+	const idWinding *winding; // point information 	 
 
 	idEntity *doorEnt; // Entity pointer to door - will be written on map startup
 

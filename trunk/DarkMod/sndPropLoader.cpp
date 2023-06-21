@@ -16,10 +16,11 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 143 $
- * $Date: 2005-08-22 00:53:58 -0400 (Mon, 22 Aug 2005) $
+ * $Revision: 153 $
+ * $Date: 2005-09-11 01:03:37 -0400 (Sun, 11 Sep 2005) $
  * $Author: ishtvan $
  * $Name$
+ *
  ******************************************************************************/
 
 #pragma hdrstop
@@ -553,6 +554,7 @@ void CsndPropLoader::CreateAreasData ( void )
 			area->portals[j].from = portalTmp.areas[0]; // areas[0] is the 'from' area
 			area->portals[j].to = portalTmp.areas[1];
 			area->portals[j].center = portalTmp.w->GetCenter();
+			area->portals[j].winding = portalTmp.w;
 			
 			pCenters += area->portals[j].center;
 			area->portals[j].doorEnt = NULL; // this will be set on map start
