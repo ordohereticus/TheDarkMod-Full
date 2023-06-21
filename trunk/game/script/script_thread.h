@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 983 $
- * $Date: 2007-05-11 10:01:34 -0400 (Fri, 11 May 2007) $
- * $Author: greebo $
+ * $Revision: 1128 $
+ * $Date: 2007-07-16 01:23:14 -0400 (Mon, 16 Jul 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -210,11 +210,11 @@ private:
 	/**
 	* TDM priority queue events
 	**/
-	void						idThread::Event_pqNew();
-	void						idThread::Event_pqDelete(int pqueueID);
-	void						idThread::Event_pqPush( int queueID, const char* task, int priority );
-	void						idThread::Event_pqPeek( int queueID );
-	void						idThread::Event_pqPop( int queueID );
+	void						Event_pqNew();
+	void						Event_pqDelete(int pqueueID);
+	void						Event_pqPush( int queueID, const char* task, int priority );
+	void						Event_pqPeek( int queueID );
+	void						Event_pqPop( int queueID );
 
 
 public:							

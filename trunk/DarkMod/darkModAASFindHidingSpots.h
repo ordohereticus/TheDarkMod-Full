@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1012 $
- * $Date: 2007-06-10 01:43:04 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1128 $
+ * $Date: 2007-07-16 01:23:14 -0400 (Mon, 16 Jul 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -289,7 +289,7 @@ protected:
 	*	so no need to call this again the search is done
 	*
 	*/
-	bool darkModAASFindHidingSpots::findMoreHidingSpots
+	bool findMoreHidingSpots
 	(
 		//idList<darkModHidingSpot_t>& inout_hidingSpots,
 		CDarkmodHidingSpotTree& inout_hidingSpots,

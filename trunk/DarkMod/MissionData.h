@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1124 $
- * $Date: 2007-07-14 23:00:30 -0400 (Sat, 14 Jul 2007) $
- * $Author: joebarnin $
+ * $Revision: 1128 $
+ * $Date: 2007-07-16 01:23:14 -0400 (Mon, 16 Jul 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -531,7 +531,7 @@ public:
 	*
 	* This is the most generic version, will be called by the inventory after it puts "value" into the parms
 	**/
-	void CMissionData::MissionEvent
+	void MissionEvent
 		( 
 		EComponentType CompType, 					 
 		SObjEntParms *EntDat1, 				 
@@ -539,7 +539,7 @@ public:
 		bool bBoolArg = false
 		);
 
-	void CMissionData::MissionEvent
+	void MissionEvent
 		( 
 		EComponentType CompType, 					 
 		SObjEntParms *EntDat1, 				 
@@ -552,7 +552,7 @@ public:
 	* (for real ents as opposed to fake inventory items)
 	* Used by AI events, locations, etc
 	**/
-	void CMissionData::MissionEvent
+	void MissionEvent
 		( 
 		EComponentType CompType, 					 
 		idEntity *Ent1, 				 
@@ -561,7 +561,7 @@ public:
 		bool bWhileAirborne = false
 		);
 
-	void CMissionData::MissionEvent
+	void MissionEvent
 		( 
 		EComponentType CompType, 					 
 		idEntity *Ent1, 				 
