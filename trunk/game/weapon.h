@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 500 $
- * $Date: 2006-07-21 22:25:55 -0400 (Fri, 21 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 692 $
+ * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.4  2007/01/03 00:28:03  crispy
+ * New script event rangedThreatTo. Added idWeapon::IsRanged.
+ *
  * Revision 1.3  2006/07/22 02:25:55  ishtvan
  * added weapon attachments
  *
@@ -152,6 +155,11 @@ public:
 	virtual bool			ClientReceiveEvent( int event, int time, const idBitMsg &msg );
 
 	virtual void			ClientPredictionThink( void );
+	
+	/**
+	* TDM: Return true if this is a ranged weapon
+	**/
+	bool					IsRanged();
 
 private:
 	// script control

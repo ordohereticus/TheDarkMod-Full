@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 676 $
- * $Date: 2006-12-23 15:17:44 -0500 (Sat, 23 Dec 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 692 $
+ * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.49  2007/01/03 00:28:03  crispy
+ * New script event rangedThreatTo. Added idWeapon::IsRanged.
+ *
  * Revision 1.48  2006/12/23 20:17:44  sophisticatedzombie
  * Added StimClearIgnoreList event that can be called on an object for a particular stim.
  * The ignore list for that stim on that object will be cleared.
@@ -747,6 +750,12 @@ public:
 	 */
 	void SDKSignal(SDK_SIGNAL SDKSignalId, int bState);
 
+	/**
+	 * Return nonzero if this entity could potentially attack the given (target) entity at range,
+	 * or entities in general if target is NULL.
+	 */
+	virtual float			RangedThreatTo(idEntity* target);
+
 protected:
 	/**
 	* Update frob highlighting and frob entity if frobbed.
@@ -1025,7 +1034,8 @@ private:
 	void					Event_IsInLiquid( void );	// MOD_WATERPHYSICS
 
 #endif		// MOD_WATERPHYSICS
-
+	
+	void					Event_RangedThreatTo(idEntity*);
 };
 
 /*

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 656 $
- * $Date: 2006-12-13 14:29:58 -0500 (Wed, 13 Dec 2006) $
- * $Author: gildoran $
+ * $Revision: 692 $
+ * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.99  2007/01/03 00:28:03  crispy
+ * New script event rangedThreatTo. Added idWeapon::IsRanged.
+ *
  * Revision 1.98  2006/12/13 19:29:58  gildoran
  * Updated and simplified the inventory UI.
  *
@@ -324,7 +327,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 656 $   $Date: 2006-12-13 14:29:58 -0500 (Wed, 13 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 692 $   $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -10513,4 +10516,21 @@ void idPlayer::CheckHeldKeys( void )
 			gameLocal.ImpulseProcessed(IR_LEAN_RIGHT);
 		}
 	}
+}
+
+/*
+================
+idPlayer::RangedThreatTo
+
+Return nonzero if this entity could potentially
+attack the given (target) entity at range, or
+entities in general if target is NULL.
+i.e. Return 1 if we have a projectile weapon
+equipped, and 0 otherwise.
+================
+*/
+float idPlayer::RangedThreatTo(idEntity* target) {
+	idWeapon* weaponEnt = weapon.GetEntity();
+	
+	return weaponEnt->IsRanged();
 }

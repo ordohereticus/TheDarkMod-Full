@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 656 $
- * $Date: 2006-12-13 14:29:58 -0500 (Wed, 13 Dec 2006) $
- * $Author: gildoran $
+ * $Revision: 692 $
+ * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.42  2007/01/03 00:28:03  crispy
+ * New script event rangedThreatTo. Added idWeapon::IsRanged.
+ *
  * Revision 1.41  2006/12/13 19:29:58  gildoran
  * Updated and simplified the inventory UI.
  *
@@ -755,7 +758,10 @@ public:
 	void inventoryUseItem( idEntity* useEnt );
 	/// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
 	void inventoryChangeSelection( idUserInterface *_hud, float shift = 0 );
-
+	
+	/// Am I a ranged threat to the given entity (or entities in general if target is NULL)?
+	float			RangedThreatTo(idEntity* target);
+	
 	void PrintDebugHUD(void);
 
 private:

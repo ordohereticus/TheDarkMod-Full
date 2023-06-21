@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 615 $
- * $Date: 2006-11-19 00:21:21 -0500 (Sun, 19 Nov 2006) $
- * $Author: ishtvan $
+ * $Revision: 692 $
+ * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.15  2007/01/03 00:28:03  crispy
+ * New script event rangedThreatTo. Added idWeapon::IsRanged.
+ *
  * Revision 1.14  2006/11/19 05:21:21  ishtvan
  * fixed melee attacks to attached heads in event_melee
  *
@@ -57,7 +60,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 615 $   $Date: 2006-11-19 00:21:21 -0500 (Sun, 19 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 692 $   $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2426,6 +2429,15 @@ bool idWeapon::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
 		}
 	}
 	return false;
+}
+
+/*
+idWeapon::IsRanged
+*/
+bool idWeapon::IsRanged() {
+	// If our projectile dictionary has entries, then we're probably a ranged weapon;
+	// otherwise we're definitely not.
+	return (bool)(projectileDict.GetNumKeyVals());
 }
 
 /***********************************************************************
