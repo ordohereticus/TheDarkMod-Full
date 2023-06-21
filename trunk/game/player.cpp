@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 837 $
- * $Date: 2007-03-07 16:40:30 -0500 (Wed, 07 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 847 $
+ * $Date: 2007-03-18 21:51:44 -0400 (Sun, 18 Mar 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 837 2007-03-07 21:40:30Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 847 2007-03-19 01:51:44Z ishtvan $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -4332,7 +4332,7 @@ void idPlayer::UpdateWeapon( void ) {
 	} else 	if ( focusCharacter && ( focusCharacter->health > 0 ) ) {
 		Weapon_NPC();
 	} else if( g_Global.m_DarkModPlayer->grabber->GetSelected() ) {
-		this->StopFiring();
+		StopFiring();
 		weapon.GetEntity()->LowerWeapon();
 		g_Global.m_DarkModPlayer->grabber->Update( this, true );
 	} else {
@@ -6207,13 +6207,13 @@ DarkMod Note: Wow... this was pretty badly written
 */
 void idPlayer::AdjustSpeed( void ) 
 {
-	float speed;
-	float crouchspeed;
-	float rate;
+	float speed(0.0f);
+	float crouchspeed(0.0f);
+	float rate(0.0f);
+	float MaxSpeed(0.0f);
 
-	// Intialize crouchspeed
-	speed = pm_walkspeed.GetFloat() * cv_pm_runmod.GetFloat();
-	crouchspeed = speed * cv_pm_crouchmod.GetFloat();
+	MaxSpeed = pm_walkspeed.GetFloat() * cv_pm_runmod.GetFloat() * GetHinderance();
+
 	if ( spectating )
 	{
 		speed = pm_spectatespeed.GetFloat();
@@ -6223,10 +6223,9 @@ void idPlayer::AdjustSpeed( void )
 	{
 		speed = pm_noclipspeed.GetFloat();
 		bobFrac = 0.0f;
-
+	} 
 	// running case
 	// DarkMod: removed check for not crouching..
-	} 
 	else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) ) 
 	{
 		if ( !gameLocal.isMultiplayer && !PowerUpActive( ADRENALINE ) ) {
@@ -6251,9 +6250,12 @@ void idPlayer::AdjustSpeed( void )
 		speed = pm_walkspeed.GetFloat() * cv_pm_runmod.GetFloat();
 		crouchspeed = speed * cv_pm_crouchmod.GetFloat();
 
-	} else 
-
+		// Clamp to encumbrance limits:
+		if( speed > MaxSpeed )
+			speed = MaxSpeed;
+	}
 	// standing still, walking, or creeping case
+	else 
 	{
 		rate = pm_staminarate.GetFloat();
 		
@@ -6278,6 +6280,10 @@ void idPlayer::AdjustSpeed( void )
 
 		// apply movement multipliers to crouch as well
 		crouchspeed = speed * cv_pm_crouchmod.GetFloat();
+
+		// Clamp to encumbrance limits:
+		if( speed > MaxSpeed )
+			speed = MaxSpeed;
 	}
 
 	// leave this in for speed potions or something
@@ -9950,7 +9956,9 @@ void idPlayer::FrobCheck( void )
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Frob: Direct hit on entity %s\r", ent->name.c_str());
 		
 		// only frob frobable, non-hidden entities within their frobdistance
-		if( ent->m_bFrobable && !ent->IsHidden() && (TraceDist < ent->m_FrobDistance) )
+		// also, do not frob the ent we are currently holding in our hands
+		if( ent->m_bFrobable && !ent->IsHidden() && (TraceDist < ent->m_FrobDistance)
+			&& ent != g_Global.m_DarkModPlayer->grabber->GetSelected() )
 		{
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Entity %s was within frobdistance\r", ent->name.c_str());
 			// TODO: Mark as frobbed for this frame
@@ -10009,7 +10017,7 @@ void idPlayer::FrobCheck( void )
 		}
 	}
 
-	if( BestEnt )
+	if( BestEnt && BestEnt != g_Global.m_DarkModPlayer->grabber->GetSelected() )
 	{
 		DM_LOG(LC_FROBBING,LT_DEBUG)LOGSTRING("Frob radius expansion found best entity %s\r", BestEnt->name.c_str() );
 		// Mark the entity as frobbed this frame
@@ -10039,6 +10047,11 @@ int idPlayer::GetImmobilization( const char *source )
 void idPlayer::SetImmobilization( const char *source, int type )
 {
 	Event_SetImmobilization( source, type );
+}
+
+void idPlayer::SetHinderance( const char *source, float mCap, float aCap )
+{
+	Event_SetHinderance( source, mCap, aCap );
 }
 
 void idPlayer::CheckHeldKeys( void )

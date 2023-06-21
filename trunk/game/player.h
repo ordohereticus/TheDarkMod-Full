@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 833 $
- * $Date: 2007-03-07 15:41:08 -0500 (Wed, 07 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 847 $
+ * $Date: 2007-03-18 21:51:44 -0400 (Sun, 18 Mar 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -407,6 +407,11 @@ public:
 	void					SetImmobilization( const char *source, int type );
 
 	float					GetHinderance();
+	/**
+	* Sets the movement hinderance.  This should be a fraction relative to max movement speed
+	* @Gildoran: What are mCap and aCap? Modifier and absolute?
+	**/
+	void					SetHinderance( const char *source, float mCap, float aCap );
 
 	void					UpdateConditions( void );
 	void					SetViewAngles( const idAngles &angles );
