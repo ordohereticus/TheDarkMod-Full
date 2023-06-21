@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 471 $
- * $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $
+ * $Revision: 472 $
+ * $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.3  2006/06/27 08:48:45  ishtvan
+ * fixed closing of portals more cleanly
+ *
  * Revision 1.2  2006/06/27 08:33:57  ishtvan
  * fixed closing of portals
  *
@@ -91,12 +94,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 471 $   $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 472 $   $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
 #include "BinaryFrobMover.h"
-#include "FrobDoor.h"
 #include "sndProp.h"
 
 //===============================================================================
@@ -392,17 +394,8 @@ void CBinaryFrobMover::DoneStateChange(void)
 		// play the closing sound when the door closes completely
 		StartSound( "snd_close", SND_CHANNEL_ANY, 0, false, NULL );
 		
-		// close visportal.  
-		// If we are a door, make sure the double door is also closed before closing portal
-		if( IsType( CFrobDoor::Type ) )
-		{
-			CFrobDoor *DoubleDoor = static_cast<CFrobDoor *>(this)->GetDoubleDoor();
-			// Skip the closing of the portal if the other door is open
-			if(DoubleDoor && DoubleDoor->m_Open)
-				goto Quit;
-		}
-
-		Event_ClosePortal();
+		// close visportal
+		ClosePortal();
 	}
 	else	// door has completely opened
 	{
@@ -436,5 +429,9 @@ void CBinaryFrobMover::GetOpen(void)
 void CBinaryFrobMover::GetLock(void)
 {
 	idThread::ReturnInt(m_Locked);
+}
+void CBinaryFrobMover::ClosePortal(void)
+{
+		Event_ClosePortal();
 }
 

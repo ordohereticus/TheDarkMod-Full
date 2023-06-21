@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 471 $
- * $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $
+ * $Revision: 472 $
+ * $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.23  2006/06/27 08:48:45  ishtvan
+ * fixed closing of portals more cleanly
+ *
  * Revision 1.22  2006/06/27 08:33:57  ishtvan
  * fixed closing of portals
  *
@@ -91,7 +94,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 471 $   $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 472 $   $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -563,5 +566,11 @@ void CFrobDoor::GetPickable(void)
 CFrobDoor* CFrobDoor::GetDoubleDoor( void )
 {
 	return m_DoubleDoor;
+}
+
+void CFrobDoor::ClosePortal( void )
+{
+	if( !m_DoubleDoor || !m_DoubleDoor->m_Open )
+		Event_ClosePortal();
 }
 

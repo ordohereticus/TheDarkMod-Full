@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 471 $
- * $Date: 2006-06-27 04:33:57 -0400 (Tue, 27 Jun 2006) $
+ * $Revision: 472 $
+ * $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.16  2006/06/27 08:48:45  ishtvan
+ * fixed closing of portals more cleanly
+ *
  * Revision 1.15  2006/06/27 08:33:57  ishtvan
  * fixed closing of portals
  *
@@ -126,6 +129,11 @@ public:
 	* Return the double door.  Returns NULL if there is none.
 	**/
 	CFrobDoor *				GetDoubleDoor( void );
+
+	/**
+	* Close the visportal, but only if the double door is also closed.
+	**/
+	void					ClosePortal( void );
 
 protected:
 	/**

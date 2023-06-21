@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 467 $
- * $Date: 2006-06-21 11:02:50 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 472 $
+ * $Date: 2006-06-27 04:48:45 -0400 (Tue, 27 Jun 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.2  2006/06/27 08:48:45  ishtvan
+ * fixed closing of portals more cleanly
+ *
  * Revision 1.1  2006/06/21 15:02:27  sparhawk
  * FrobDoor derived now from BinaryFrobMover
  *
@@ -111,6 +114,11 @@ public:
 	 */
 	virtual void			DoneStateChange(void);
 	virtual void			CallStateScript(void);
+
+	/**
+	* Close the portal.  Overloaded on CFrobDoor
+	**/
+	virtual void			ClosePortal(void);
 
 protected:
 	/**
