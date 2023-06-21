@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 935 $
- * $Date: 2007-04-26 05:55:11 -0400 (Thu, 26 Apr 2007) $
+ * $Revision: 965 $
+ * $Date: 2007-05-03 14:17:09 -0400 (Thu, 03 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 935 2007-04-26 09:55:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 965 2007-05-03 18:17:09Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -30,6 +30,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 935 2007-04-26 0
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/inventory.h"
 #include "../DarkMod/MissionData.h"
+#include "../DarkMod/func_shooter.h"
 
 #include "il/config.h"
 #include "il/il.h"
@@ -5300,6 +5301,12 @@ int idGameLocal::DoResponseAction(CStim *stim, idEntity *Ent[MAX_GENTITIES], int
 		// to it's own stims.
 		if (Ent[i] == e)
 			continue;
+
+		// Check for a shooter entity, these don't need to have a response
+		tdmFuncShooter* shooter = dynamic_cast<tdmFuncShooter*>(Ent[i]);
+		if (shooter != NULL) {
+			shooter->stimulate(static_cast<StimType>(stim->m_StimTypeId));
+		}
 
 		if((r = Ent[i]->GetStimResponseCollection()->GetResponse(stim->m_StimTypeId)) != NULL)
 		{
