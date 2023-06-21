@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 1006 $
+ * $Date: 2007-06-02 17:38:41 -0400 (Sat, 02 Jun 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -47,7 +47,7 @@ public:
 	/**
 	* This is the non-script version of GetOpen 
 	*/
-	bool					isOpen()
+	bool					isOpen(void)
 	{
 		return m_Open;
 	}
@@ -55,7 +55,7 @@ public:
 	/**
 	* This indicates if the door was interrupted in its last action
 	*/
-	bool wasInterrupted()
+	bool wasInterrupted(void)
 	{
 		return m_bInterrupted;
 	}
@@ -63,7 +63,7 @@ public:
 	/**
 	* This is the non-script version of GetLock
 	*/
-	bool					isLocked()
+	virtual bool isLocked(void)
 	{
 		return m_Locked;
 	}

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1004 $
- * $Date: 2007-05-29 05:23:38 -0400 (Tue, 29 May 2007) $
+ * $Revision: 1006 $
+ * $Date: 2007-06-02 17:38:41 -0400 (Sat, 02 Jun 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -66,6 +66,8 @@ public:
 	void					DoneStateChange(void);
 	void					DoneRotating(void);
 	void					DoneMoving(void);
+
+	bool					isLocked(void);
 
 	void					Tap(void);
 

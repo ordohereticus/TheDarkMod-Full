@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1005 $
- * $Date: 2007-05-30 18:05:15 -0400 (Wed, 30 May 2007) $
+ * $Revision: 1006 $
+ * $Date: 2007-06-02 17:38:41 -0400 (Sat, 02 Jun 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1005 2007-05-30 22:05:15Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1006 2007-06-02 21:38:41Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -103,7 +103,6 @@ void CFrobDoor::ReadFromSnapshot( const idBitMsgDelta &msg )
 void CFrobDoor::Spawn( void )
 {
 	idStr str;
-	idMover::Spawn();
 	idEntity *e;
 	CFrobDoor *master;
 	idAngles tempAngle, partialAngle;

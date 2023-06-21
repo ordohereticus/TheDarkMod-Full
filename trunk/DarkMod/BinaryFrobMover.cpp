@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1003 $
- * $Date: 2007-05-28 20:55:53 -0400 (Mon, 28 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1006 $
+ * $Date: 2007-06-02 17:38:41 -0400 (Sat, 02 Jun 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 1003 2007-05-29 00:55:53Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 1006 2007-06-02 21:38:41Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -197,7 +197,7 @@ void CBinaryFrobMover::Open(bool bMaster)
 
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Opening\r" );
 
-	if(m_Locked == true)
+	if(isLocked() == true)
 		StartSound( "snd_locked", SND_CHANNEL_ANY, 0, false, NULL );
 	else
 	{
@@ -217,8 +217,11 @@ void CBinaryFrobMover::Open(bool bMaster)
 		m_Open = true;
 		m_Rotating = true;
 		m_Translating = true;
+		idAngles t = (m_OpenAngles - tempAng).Normalize180();
+		idAngles null;
 
-		Event_RotateOnce( (m_OpenAngles - tempAng).Normalize180() );
+		if(!t.Compare(null))
+			Event_RotateOnce((m_OpenAngles - tempAng).Normalize180());
 		
 		if( m_TransSpeed )
 			Event_SetMoveSpeed( m_TransSpeed );
@@ -359,8 +362,8 @@ void CBinaryFrobMover::CallStateScript(void)
 	idStr str;
 	if(spawnArgs.GetString("state_change_callback", "", str))
 	{
-		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Callscript Open: %d  Locked: %d   Interrupt: %d\r", m_Open, m_Locked, m_bInterrupted);
-		CallScriptFunctionArgs(str.c_str(), true, 0, "ebbb", this, m_Open, m_Locked, m_bInterrupted);
+		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Callscript Open: %d  Locked: %d   Interrupt: %d\r", m_Open, isLocked(), m_bInterrupted);
+		CallScriptFunctionArgs(str.c_str(), true, 0, "ebbb", this, m_Open, isLocked(), m_bInterrupted);
 	}
 }
 
@@ -371,7 +374,7 @@ void CBinaryFrobMover::GetOpen(void)
 
 void CBinaryFrobMover::GetLock(void)
 {
-	idThread::ReturnInt(m_Locked);
+	idThread::ReturnInt(isLocked());
 }
 void CBinaryFrobMover::ClosePortal(void)
 {

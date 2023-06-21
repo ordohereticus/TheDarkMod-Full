@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1004 $
- * $Date: 2007-05-29 05:23:38 -0400 (Tue, 29 May 2007) $
+ * $Revision: 1006 $
+ * $Date: 2007-06-02 17:38:41 -0400 (Sat, 02 Jun 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 1004 2007-05-29 09:23:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 1006 2007-06-02 21:38:41Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -193,3 +193,14 @@ void CFrobDoorHandle::Tap(void)
 	signal = m_Door->AddSDKSignal(SigOpen, NULL);
 	CallScriptFunctionArgs(m_DoorHandleScript.c_str(), true, 0, "eef", this, m_Door, signal);
 }
+
+bool CFrobDoorHandle::isLocked(void)
+{
+	bool bLocked = m_Locked;
+
+	if(m_Door)
+		bLocked = m_Door->isLocked();
+
+	return bLocked;
+}
+
