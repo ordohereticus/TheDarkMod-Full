@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 890 $
- * $Date: 2007-04-03 17:11:16 -0400 (Tue, 03 Apr 2007) $
+ * $Revision: 893 $
+ * $Date: 2007-04-06 17:30:21 -0400 (Fri, 06 Apr 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -742,7 +742,7 @@ private:
 	 * is switched back to impulse. The continous mode is, for example, needed when the
 	 * player uses the lockpicks on a lock.
 	 */
-	bool					m_ContinuousFrob;
+	bool					m_ContinuousUse;
 
 	static const int		NUM_LOGGED_VIEW_ANGLES = 64;		// for weapon turning angle offsets
 	idAngles				loggedViewAngles[NUM_LOGGED_VIEW_ANGLES];	// [gameLocal.framenum&(LOGGED_VIEW_ANGLES-1)]
