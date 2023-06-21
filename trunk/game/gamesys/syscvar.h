@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1013 $
- * $Date: 2007-06-10 13:36:44 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1068 $
+ * $Date: 2007-07-06 16:28:22 -0400 (Fri, 06 Jul 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -145,8 +145,6 @@ extern idCVar cv_dm_distance;
 extern idCVar cv_ai_fov_show;
 extern idCVar cv_ai_ko_show;
 
-
-/**
 
 /**
 * End DarkMod cvars
