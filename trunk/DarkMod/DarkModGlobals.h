@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 906 $
+ * $Date: 2007-04-16 18:15:19 -0400 (Mon, 16 Apr 2007) $
+ * $Author: nyarlathotep $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -240,13 +240,6 @@ public:
 	* Hiding spot search light quotient. This value probably needs tweaking.
 	*/
 	float m_hidingSpotMaxLightQuotient;
-
-
-	/*!
-	* Arm length for mantling
-	* @author: sophisticatedZombie (DH)
-	*/
-	float m_armLengthAsFractionOfPlayerHeight;
 
 	// Mantle trigger timer for holding jump key
 	float m_jumpHoldMantleTrigger_Milliseconds;

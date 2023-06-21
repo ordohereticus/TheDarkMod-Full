@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 906 $
+ * $Date: 2007-04-16 18:15:19 -0400 (Mon, 16 Apr 2007) $
+ * $Author: nyarlathotep $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 906 2007-04-16 22:15:19Z nyarlathotep $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -42,9 +42,6 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 866 2007-03-
 // Default length of time for holding down jump key to start
 // mantling.
 #define DARKMOD_JUMP_HOLD_MANTLE_TRIGGER_MILLISECONDS 100.0f
-
-// Player arm length, as fraction of player height: About 3/5 plus some padding
-#define DARKMOD_MANTLE_ARM_LENGTH_AS_FRACTION_OF_PLAYER_HEIGHT 0.8f
 
 // Default time values for phases of mantling
 #define DARKMOD_MANTLE_MILLISECONDS_HANG		750.0f
@@ -223,9 +220,6 @@ CGlobal::CGlobal(void)
 	// Initialize the Mantling and Leaning variables
 	//*******
 	m_jumpHoldMantleTrigger_Milliseconds = DARKMOD_JUMP_HOLD_MANTLE_TRIGGER_MILLISECONDS;
-
-	// Default arm length for determining reach distances when mantling
-	m_armLengthAsFractionOfPlayerHeight = DARKMOD_MANTLE_ARM_LENGTH_AS_FRACTION_OF_PLAYER_HEIGHT;
 
 	// Default time values for phases of mantling
 	m_mantleHang_Milliseconds = DARKMOD_MANTLE_MILLISECONDS_HANG;

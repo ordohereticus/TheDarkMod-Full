@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 889 $
- * $Date: 2007-04-02 04:25:20 -0400 (Mon, 02 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 906 $
+ * $Date: 2007-04-16 18:15:19 -0400 (Mon, 16 Apr 2007) $
+ * $Author: nyarlathotep $
  *
  * $Log$
  * Revision 1.49  2007/01/23 01:24:07  thelvyn
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 889 $   $Date: 2007-04-02 04:25:20 -0400 (Mon, 02 Apr 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 906 $   $Date: 2007-04-16 18:15:19 -0400 (Mon, 16 Apr 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3633,7 +3633,9 @@ void idPhysics_Player::GetCurrentMantlingReachDistances
 )
 {
 	// Determine arm length
-	float armLength = pm_normalheight.GetFloat() * g_Global.m_armLengthAsFractionOfPlayerHeight;
+	// Nyarlathotep 4/12/07 - use cv_pm_mantle_height instead of 
+	// g_Global.m_armLengthAsFractionOfPlayerHeight
+	float armLength = pm_normalheight.GetFloat() * cv_pm_mantle_height.GetFloat();
 
 	// Trace out as far as arm length from player
 	out_maxMantleTraceDistance = armLength;
