@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 26 $
- * $Date: 2004-11-13 19:44:01 -0500 (Sat, 13 Nov 2004) $
+ * $Revision: 34 $
+ * $Date: 2004-11-14 15:25:24 -0500 (Sun, 14 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.5  2004/11/14 20:25:24  sparhawk
+ * Unneccessary logstatement removed.
+ *
  * Revision 1.4  2004/11/14 00:42:37  sparhawk
  * Added USE/Frob Key.
  *
@@ -5608,7 +5611,6 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_41:
 		{
-			DM_LOG(LC_FROBBING, LT_DEBUG).LogString("Frob key has been hit\r");
 			if(m_DarkModPlayer && m_DarkModPlayer->m_FrobEntity != NULL)
 				m_DarkModPlayer->m_FrobEntity->FrobAction();
 		}
