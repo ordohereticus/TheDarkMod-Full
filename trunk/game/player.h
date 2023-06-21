@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1103 $
- * $Date: 2007-07-13 06:57:12 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1104 $
+ * $Date: 2007-07-13 08:19:47 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -141,9 +141,6 @@ public:
 	idStrList				videos;
 	idStrList				emails;
 
-	bool					ammoPulse;
-	bool					weaponPulse;
-	bool					armorPulse;
 	int						lastGiveTime;
 
 	idList<idLevelTriggerInfo> levelTriggers;
