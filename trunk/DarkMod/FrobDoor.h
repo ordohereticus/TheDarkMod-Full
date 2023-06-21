@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 173 $
- * $Date: 2005-09-29 00:03:08 -0400 (Thu, 29 Sep 2005) $
+ * $Revision: 309 $
+ * $Date: 2006-01-22 04:20:24 -0500 (Sun, 22 Jan 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.8  2006/01/22 09:20:24  ishtvan
+ * rewrote to match new soundprop interface
+ *
  * Revision 1.7  2005/09/29 04:03:08  ishtvan
  * added support for double doors
  *
@@ -72,7 +75,11 @@ public:
 
 	bool					UsedBy(idEntity *);
 
-	float					GetSoundLoss(void);
+	/**
+	* Write the proper sound loss value to the soundprop portal data
+	* Called when door spawns, is and when it is opened or closed
+	**/
+	void					UpdateSoundLoss(void);
 
 	/**
 	* Overloading idMover::DoneRotating in order to close the portal when door closes
