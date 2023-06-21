@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 266 $
- * $Date: 2005-12-03 21:44:30 -0500 (Sat, 03 Dec 2005) $
- * $Author: ishtvan $
+ * $Revision: 271 $
+ * $Date: 2005-12-08 16:33:53 -0500 (Thu, 08 Dec 2005) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.24  2005/12/08 21:33:53  sparhawk
+ * Stim/Response files added.
+ *
  * Revision 1.23  2005/12/04 02:44:30  ishtvan
  * updated surface checks to check new surface types
  *
@@ -97,6 +100,7 @@
 #include "../darkmod/darkmodglobals.h"
 #include "../darkmod/playerdata.h"
 #include "../darkmod/sndprop.h"
+#include "../darkmod/StimResponse.h"
 
 /*
 ===============================================================================
@@ -514,6 +518,9 @@ idEntity::idEntity()
 	m_FrobDistance = 0;
 	m_FrobActionScript = "";
 	m_FrobCallbackChain = NULL;
+
+	// Not every entity has a stim/response
+	m_StimResponseColl = NULL;
 }
 
 /*

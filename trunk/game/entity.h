@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 180 $
- * $Date: 2005-10-18 09:57:06 -0400 (Tue, 18 Oct 2005) $
+ * $Revision: 271 $
+ * $Date: 2005-12-08 16:33:53 -0500 (Thu, 08 Dec 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.13  2005/12/08 21:33:53  sparhawk
+ * Stim/Response files added.
+ *
  * Revision 1.12  2005/10/18 13:56:40  sparhawk
  * Lightgem updates
  *
@@ -57,6 +60,8 @@
 
 #ifndef __GAME_ENTITY_H__
 #define __GAME_ENTITY_H__
+
+class CStimResponseCollection;
 
 /*
 ===============================================================================
@@ -559,6 +564,8 @@ protected:
 	 * in order to ensure that it is also called.
 	 */
 	deferredEntityCallback_t	m_FrobCallbackChain;
+
+	CStimResponseCollection		*m_StimResponseColl;
 
 private:
 	idPhysics_Static		defaultPhysicsObj;					// default physics object
