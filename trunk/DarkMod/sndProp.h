@@ -17,8 +17,8 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 102 $
- * $Date: 2005-04-07 05:16:23 -0400 (Thu, 07 Apr 2005) $
+ * $Revision: 115 $
+ * $Date: 2005-04-22 21:39:33 -0400 (Fri, 22 Apr 2005) $
  * $Author: ishtvan $
  * $Name$
  ******************************************************************************/
@@ -27,6 +27,13 @@
 #define SNDPROP_H
 
 #include "sndproploader.h"
+
+/******************************************************************************
+*
+* DESCRIPTION: Sound propagation class for propagating suspicious sounds to AI
+* during gameplay.  Friend class to CsndPropLoader.
+*
+*****************************************************************************/
 
 template <class type> 
 class CMatRUT;
