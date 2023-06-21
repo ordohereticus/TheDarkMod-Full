@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 768 $
- * $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $
+ * $Revision: 771 $
+ * $Date: 2007-01-27 06:09:10 -0500 (Sat, 27 Jan 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.14  2007/01/27 11:09:10  sparhawk
+ * Fixed a crash in the inventory GetNext/PrevItem
+ *
  * Revision 1.13  2007/01/26 12:52:50  sparhawk
  * New inventory concept.
  *
@@ -76,7 +79,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 768 $   $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 771 $   $Date: 2007-01-27 06:09:10 -0500 (Sat, 27 Jan 2007) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -335,7 +338,7 @@ idEntity *CtdmInventory::GetNextItem(void)
 			m_CurrentItem = 0;
 		else 
 		{
-			m_CurrentItem = m_Group[m_CurrentGroup]->m_Item.Num();
+			m_CurrentItem = m_Group[m_CurrentGroup]->m_Item.Num()-1;
 			goto Quit;
 		}
 	}
@@ -361,7 +364,7 @@ idEntity *CtdmInventory::GetPrevItem(void)
 		}
 
 		if(m_WrapAround == true)
-			m_CurrentItem = m_Group[m_CurrentGroup]->m_Item.Num();
+			m_CurrentItem = m_Group[m_CurrentGroup]->m_Item.Num()-1;
 		else 
 		{
 			m_CurrentItem = 0;

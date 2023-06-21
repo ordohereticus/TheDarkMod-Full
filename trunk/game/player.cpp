@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 769 $
- * $Date: 2007-01-26 17:15:32 -0500 (Fri, 26 Jan 2007) $
+ * $Revision: 771 $
+ * $Date: 2007-01-27 06:09:10 -0500 (Sat, 27 Jan 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.110  2007/01/27 11:09:04  sparhawk
+ * Fixed a crash in the inventory GetNext/PrevItem
+ *
  * Revision 1.109  2007/01/26 22:15:32  sparhawk
  * Inventory additions. Not yet functional.
  *
@@ -366,7 +369,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 769 $   $Date: 2007-01-26 17:15:32 -0500 (Fri, 26 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 771 $   $Date: 2007-01-27 06:09:10 -0500 (Sat, 27 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -9917,11 +9920,13 @@ idPlayer::inventoryNextItem
 */
 void idPlayer::inventoryNextItem()
 {
+	CtdmInventory *i = Inventory();
+
 	// If the entity doesn't have an inventory, we don't need to do anything.
-	if(Inventory() == NULL)
+	if(i == NULL)
 		return;
 
-	Inventory()->GetPrevItem();
+	i->GetPrevItem();
 	if(hud)
 		inventoryChangeSelection(hud, 1);
 }
