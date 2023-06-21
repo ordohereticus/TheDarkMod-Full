@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 352 $
- * $Date: 2006-02-07 13:55:25 -0500 (Tue, 07 Feb 2006) $
+ * $Revision: 368 $
+ * $Date: 2006-03-13 16:05:20 -0500 (Mon, 13 Mar 2006) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.8  2006/03/13 21:05:20  sparhawk
+ * SIT stimtype replaced with INVITE to name it more generic
+ *
  * Revision 1.7  2006/02/07 18:55:01  sparhawk
  * 1. State is now moved to CStimResponse so responses can now also be disabled.
  * 2. Removed state SS_ACTIVE (what was that again for???)
@@ -69,7 +72,7 @@ char *cStimType[] = {
 	"STIM_LIGHT",
 	"STIM_SOUND",
 	"STIM_VISUAL",
-	"STIM_SIT",
+	"STIM_INVITE",
 	"STIM_READ",
 	"STIM_RANDOM",
 	"STIM_TIMER",
