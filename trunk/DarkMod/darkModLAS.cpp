@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 583 $
- * $Date: 2006-10-08 12:38:14 -0400 (Sun, 08 Oct 2006) $
+ * $Revision: 668 $
+ * $Date: 2006-12-20 20:56:36 -0500 (Wed, 20 Dec 2006) $
  * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.7  2006/12/21 01:56:36  sophisticatedzombie
+ * Fixed the lighting test to ignore entities unless they include the CONTENTS_SOLID|CONTENTS_OPAQUE flag.
+ * Also, now tests both end points of the search line when examining shadows.
+ *
  * Revision 1.6  2006/10/08 16:38:14  sophisticatedzombie
  * AAS48 is typically at index 0 for a map's aas list.  Now that we are no longer using
  * aas48, but rather aas32, we have to ask for that one by name.  I changed the
@@ -30,7 +34,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 583 $   $Date: 2006-10-08 12:38:14 -0400 (Sun, 08 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 668 $   $Date: 2006-12-20 20:56:36 -0500 (Wed, 20 Dec 2006) $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/PVS.h"
@@ -237,14 +241,22 @@ void darkModLAS::accumulateEffectOfLightsInArea
 			{
 				trace_t trace;
 
-				gameLocal.clip.TracePoint (trace, testPoint2, p_LASLight->lastWorldPos, CONTENTS_SOLID|CONTENTS_OPAQUE|CONTENTS_PLAYERCLIP|CONTENTS_MONSTERCLIP
-					|CONTENTS_MOVEABLECLIP|CONTENTS_BODY|CONTENTS_CORPSE|CONTENTS_RENDERMODEL
-					|CONTENTS_TRIGGER|CONTENTS_FLASHLIGHT_TRIGGER, p_ignoredEntity);
+				// Test at a point halfway between the test points
+				idVec3 midPoint;
+				midPoint = testPoint1 + testPoint2;
+				midPoint /= 2.0;
+
+				gameLocal.clip.TracePoint (trace, testPoint1, p_LASLight->lastWorldPos, CONTENTS_OPAQUE, p_ignoredEntity);
 				DM_LOG(LC_LIGHT, LT_DEBUG).LogString("TraceFraction: %f\r", trace.fraction);
 				if(trace.fraction < 1.0f)
 				{
-					DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Light [%s]: test point is in a shadow of the light\r", p_LASLight->p_idLight->name.c_str());
-					b_excludeLight = true;
+					gameLocal.clip.TracePoint (trace, testPoint2, p_LASLight->lastWorldPos, CONTENTS_OPAQUE, p_ignoredEntity);
+					DM_LOG(LC_LIGHT, LT_DEBUG).LogString("TraceFraction: %f\r", trace.fraction);
+					if(trace.fraction < 1.0f)
+					{
+						DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Light [%s]: test point is in a shadow of the light\r", p_LASLight->p_idLight->name.c_str());
+						b_excludeLight = true;
+					}
 				}
 			}
 		} 
