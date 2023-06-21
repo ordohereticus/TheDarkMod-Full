@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 469 $
+ * $Date: 2006-06-27 01:53:00 -0400 (Tue, 27 Jun 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.57  2006/06/27 05:53:00  ishtvan
+ * added setting clipmodel contents with spawnArg "clipmodel_contents"
+ *
  * Revision 1.56  2006/06/21 13:05:10  sparhawk
  * Added version tracking per cpp module
  *
@@ -204,7 +207,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 469 $   $Date: 2006-06-27 01:53:00 -0400 (Tue, 27 Jun 2006) $", init_version);
 
 #pragma warning(disable : 4533 )
 
@@ -875,6 +878,10 @@ void idEntity::Spawn( void )
 	}
 
 	m_StimResponseColl->ParseSpawnArgsToStimResponse(&spawnArgs, this);
+
+	// TDM: Set contents based on new spawnArg
+	if( spawnArgs.FindKey( "clipmodel_contents" ) )
+		GetPhysics()->SetContents( spawnArgs.GetInt("clipmodel_contents") );
 
 	LoadTDMSettings();
 }
