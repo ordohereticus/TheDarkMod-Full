@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 486 $
- * $Date: 2006-07-14 22:15:46 -0400 (Fri, 14 Jul 2006) $
+ * $Revision: 521 $
+ * $Date: 2006-07-30 19:37:43 -0400 (Sun, 30 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.18  2006/07/30 23:37:43  ishtvan
+ * removed attachment code from spawn, now done on idEntity
+ *
  * Revision 1.17  2006/07/15 02:15:46  ishtvan
  * surface type name fix
  *
@@ -70,7 +73,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 486 $   $Date: 2006-07-14 22:15:46 -0400 (Fri, 14 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 521 $   $Date: 2006-07-30 19:37:43 -0400 (Sun, 30 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -541,11 +544,12 @@ idActor::~idActor( void ) {
 idActor::Spawn
 =====================
 */
-void idActor::Spawn( void ) {
-	idEntity		*ent;
+void idActor::Spawn( void ) 
+{
 	idStr			jointName;
 	float			fovDegrees;
 	copyJoints_t	copyJoint;
+	const idKeyValue *kv = NULL;
 
 	animPrefix	= "";
 	state		= NULL;
@@ -577,28 +581,6 @@ void idActor::Spawn( void ) {
 	// attachments not binding correctly, so we're stuck setting the IK_ANIM before attaching things.
 	animator.ClearAllAnims( gameLocal.time, 0 );
 	animator.SetFrame( ANIMCHANNEL_ALL, animator.GetAnim( IK_ANIM ), 0, 0, 0 );
-
-	// spawn any attachments we might have
-	const idKeyValue *kv = spawnArgs.MatchPrefix( "def_attach", NULL );
-	while ( kv ) {
-		idDict args;
-
-		args.Set( "classname", kv->GetValue().c_str() );
-
-		// make items non-touchable so the player can't take them out of the character's hands
-		args.Set( "no_touch", "1" );
-
-		// don't let them drop to the floor
-		args.Set( "dropToFloor", "0" );
-		
-		gameLocal.SpawnEntityDef( args, &ent );
-		if ( !ent ) {
-			gameLocal.Error( "Couldn't spawn '%s' to attach to entity '%s'", kv->GetValue().c_str(), name.c_str() );
-		} else {
-			Attach( ent );
-		}
-		kv = spawnArgs.MatchPrefix( "def_attach", kv );
-	}
 
 	SetupDamageGroups();
 	SetupHead();
@@ -1761,7 +1743,8 @@ void idActor::RemoveAttachments( void ) {
 idActor::Attach
 ================
 */
-void idActor::Attach( idEntity *ent ) {
+void idActor::Attach( idEntity *ent ) 
+{
 	idVec3			origin;
 	idMat3			axis;
 	jointHandle_t	joint;
