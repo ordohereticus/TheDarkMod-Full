@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1088 $
- * $Date: 2007-07-12 12:46:32 -0400 (Thu, 12 Jul 2007) $
+ * $Revision: 1089 $
+ * $Date: 2007-07-12 13:28:19 -0400 (Thu, 12 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 1088 2007-07-12 16:46:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1089 2007-07-12 17:28:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1704,7 +1704,7 @@ void idPlayer::addWeaponsToInventory() {
 			if (entityDef != NULL) {
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Adding weapon to inventory: %s\r", weaponDef.c_str());
 				// Allocate a new weapon item using the found entityDef
-				CInventoryWeaponItem* item = new CInventoryWeaponItem(*entityDef, this);
+				CInventoryWeaponItem* item = new CInventoryWeaponItem(*entityDef, weaponDef, this);
 
 				// Add it to the weapon category
 				m_WeaponCursor->GetCurrentCategory()->PutItem(item);
