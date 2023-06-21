@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 335 $
- * $Date: 2006-02-04 05:26:43 -0500 (Sat, 04 Feb 2006) $
- * $Author: gildoran $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.6  2006/06/21 13:05:10  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.5  2006/02/04 10:26:43  gildoran
  * Added a basic version of setGuiOverlay("file") and getGuiOverlay() to the player.
  *
@@ -29,6 +32,8 @@
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "Game_local.h"
 

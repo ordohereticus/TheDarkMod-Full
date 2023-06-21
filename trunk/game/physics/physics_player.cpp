@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 284 $
- * $Date: 2005-12-11 14:53:11 -0500 (Sun, 11 Dec 2005) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.35  2006/06/21 13:07:08  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.34  2005/12/11 19:53:11  ishtvan
  * disabled mantling when holding objects
  *
@@ -126,6 +129,8 @@
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"

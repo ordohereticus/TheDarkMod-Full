@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 419 $
- * $Date: 2006-05-17 01:48:44 -0400 (Wed, 17 May 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.5  2006/06/21 13:08:06  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.4  2006/05/17 05:48:44  sophisticatedzombie
  * In function to call a script function with a var_args list of parameters, changed the way floating points are put on the stack to allow proper value to be returned when popped.  Also, for type "e" (idEntity*) NULL entity pointers can now be passed (inserts entity number 0)
  *
@@ -26,6 +29,8 @@
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../Game_local.h"
 

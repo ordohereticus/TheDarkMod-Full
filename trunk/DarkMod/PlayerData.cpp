@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 289 $
- * $Date: 2005-12-12 00:21:42 -0500 (Mon, 12 Dec 2005) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.10  2006/06/21 13:05:32  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.9  2005/12/12 05:21:42  ishtvan
  * inventory fix - item clipmodel removed when it's picked up so it doesn't get in the way of picking up other items
  *
@@ -54,6 +57,8 @@
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../darkmod/darkmodglobals.h"
 #include "../darkmod/playerdata.h"

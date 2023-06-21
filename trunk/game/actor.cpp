@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 424 $
- * $Date: 2006-05-24 04:49:06 -0400 (Wed, 24 May 2006) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.14  2006/06/21 13:05:10  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.13  2006/05/24 08:49:06  ishtvan
  * added AI group and innocence to idActor
  *
@@ -57,6 +60,8 @@
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"

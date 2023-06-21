@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 229 $
- * $Date: 2005-11-17 04:15:43 -0500 (Thu, 17 Nov 2005) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.7  2006/06/21 13:07:07  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.6  2005/11/17 09:15:43  ishtvan
  * *) added function to find nearest AF body to a point
  *
@@ -31,6 +34,8 @@
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../Game_local.h"
 

@@ -9,12 +9,15 @@
  *
  * PROJECT: LaunchMenu
  * $Source$
- * $Revision: 8 $
- * $Date: 2004-10-30 13:06:36 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.2  2006/06/21 13:05:32  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.1  2004/10/30 17:06:36  sparhawk
  * DarkMod added to project.
  *
@@ -41,6 +44,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include <stdio.h>
 #include <errno.h>

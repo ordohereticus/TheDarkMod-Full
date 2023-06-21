@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 344 $
- * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.9  2006/06/21 13:05:10  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.8  2006/02/05 07:12:14  ishtvan
  * redefined function Damage to take additional trace pointer argument
  *
@@ -38,6 +41,8 @@
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"

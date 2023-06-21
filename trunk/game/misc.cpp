@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 443 $
- * $Date: 2006-05-30 02:26:29 -0400 (Tue, 30 May 2006) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.8  2006/06/21 13:05:10  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.7  2006/05/30 06:25:00  ishtvan
  * objective system updates
  *
@@ -40,6 +43,8 @@ Various utility objects and functions.
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/sndprop.h"

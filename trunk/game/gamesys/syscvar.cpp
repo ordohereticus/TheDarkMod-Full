@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 463 $
- * $Date: 2006-06-16 17:10:10 -0400 (Fri, 16 Jun 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.31  2006/06/21 13:06:52  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.30  2006/06/16 21:10:10  sophisticatedzombie
  * Added cv_ai_ko_show and cv_ai_fov_show to the list of Darkmod cvars.
  *
@@ -109,6 +112,8 @@
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../Game_local.h"
 

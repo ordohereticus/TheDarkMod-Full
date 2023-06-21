@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 49 $
- * $Date: 2004-11-28 05:00:42 -0500 (Sun, 28 Nov 2004) $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2006/06/21 13:05:52  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.2  2004/11/28 09:56:52  sparhawk
  * SDK V2 merge
  *
@@ -20,6 +23,8 @@
 
 #include "../precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "Simd_Generic.h"
 

@@ -16,12 +16,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 383 $
- * $Date: 2006-04-23 14:39:30 -0400 (Sun, 23 Apr 2006) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.11  2006/06/21 13:05:32  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.10  2006/04/23 18:39:30  ishtvan
  * saveing/loading fix for empty matrices
  *
@@ -54,6 +57,8 @@
  ******************************************************************************/
 
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #pragma warning(disable : 4996)
 

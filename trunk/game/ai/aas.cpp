@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 280 $
- * $Date: 2005-12-10 12:26:51 -0500 (Sat, 10 Dec 2005) $
- * $Author: sophisticatedzombie $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2006/06/21 13:04:47  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.2  2005/12/10 17:26:51  sophisticatedzombie
  * Added 2 new functions to aas which provide information about AAS areas
  *
@@ -20,6 +23,8 @@
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "AAS_local.h"
 

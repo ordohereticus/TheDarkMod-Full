@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 460 $
- * $Date: 2006-06-15 02:47:27 -0400 (Thu, 15 Jun 2006) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.26  2006/06/21 13:04:47  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.25  2006/06/15 06:47:27  ishtvan
  * AI FOV should now turn with head bone
  *
@@ -92,6 +95,8 @@
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"

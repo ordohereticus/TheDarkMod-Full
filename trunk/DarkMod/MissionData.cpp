@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 456 $
- * $Date: 2006-06-07 05:56:15 -0400 (Wed, 07 Jun 2006) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.6  2006/06/21 13:05:32  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.5  2006/06/07 09:56:15  ishtvan
  * fixed CObjecitveLocation so that the clipmodel is actually detected as the bounds
  *
@@ -27,6 +30,8 @@
  ***************************************************************************/
 
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #pragma warning(disable : 4996)
 

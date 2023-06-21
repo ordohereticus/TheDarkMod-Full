@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 450 $
- * $Date: 2006-06-05 17:32:18 -0400 (Mon, 05 Jun 2006) $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.20  2006/06/21 13:05:32  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.19  2006/06/05 21:32:18  sparhawk
  * Timercode updated
  *
@@ -81,6 +84,8 @@
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"

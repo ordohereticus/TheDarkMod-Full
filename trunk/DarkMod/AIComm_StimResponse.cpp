@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 428 $
- * $Date: 2006-05-26 00:28:41 -0400 (Fri, 26 May 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2006/06/21 13:05:31  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.3  2006/05/26 04:28:41  sophisticatedzombie
  * Knocked out AIs no longer respond to communications. (No hypnosis allowed)
  *
@@ -17,6 +20,8 @@
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"

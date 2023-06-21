@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 270 $
- * $Date: 2005-12-05 03:47:54 -0500 (Mon, 05 Dec 2005) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.5  2006/06/21 13:07:08  sparhawk
+ * Added version tracking per cpp module
+ *
  * Revision 1.4  2005/12/05 08:47:54  ishtvan
  * removed limit of 1.0 on linear friction
  *
@@ -26,6 +29,8 @@
 
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #include "../Game_local.h"
 

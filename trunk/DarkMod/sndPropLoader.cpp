@@ -16,14 +16,16 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 324 $
- * $Date: 2006-01-28 23:16:34 -0500 (Sat, 28 Jan 2006) $
- * $Author: ishtvan $
+ * $Revision: 465 $
+ * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Author: sparhawk $
  * $Name$
  *
  ******************************************************************************/
 
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
 
 #pragma warning(disable : 4996)
 
