@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 542 $
- * $Date: 2006-08-11 08:32:50 -0400 (Fri, 11 Aug 2006) $
+ * $Revision: 543 $
+ * $Date: 2006-08-11 11:49:19 -0400 (Fri, 11 Aug 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.34  2006/08/11 15:49:19  gildoran
+ * Another inventory related update.
+ *
  * Revision 1.33  2006/08/11 12:32:50  gildoran
  * Added some code so I can start work on the inventory GUI.
  *
@@ -716,7 +719,7 @@ public:
 	/// Copies inventory item info to the HUD.
 	void inventoryUpdateHUD( void );
 	/// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
-	bool inventoryChangeSelection( void );
+	bool inventoryChangeSelection( idUserInterface *_hud );
 
 	void PrintDebugHUD(void);
 
