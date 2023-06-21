@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 601 $
- * $Date: 2006-11-01 11:12:48 -0500 (Wed, 01 Nov 2006) $
+ * $Revision: 607 $
+ * $Date: 2006-11-04 06:00:20 -0500 (Sat, 04 Nov 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.30  2006/11/04 11:00:20  sparhawk
+ * Randomizer for lockpicking added.
+ *
  * Revision 1.29  2006/11/01 16:12:48  sparhawk
  * Fixed some minor issue with the handle.
  *
@@ -112,7 +115,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 601 $   $Date: 2006-11-01 11:12:48 -0500 (Wed, 01 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 607 $   $Date: 2006-11-04 06:00:20 -0500 (Sat, 04 Nov 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -120,6 +123,9 @@ static bool init_version = FileVersionList("$Source$  $Revision: 601 $   $Date: 
 #include "FrobDoor.h"
 #include "FrobDoorHandle.h"
 #include "sndProp.h"
+#include "randomizer/randomc.h"
+
+extern TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd;
 
 //===============================================================================
 //CFrobDoor
@@ -144,6 +150,7 @@ CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_Door_GetDoorhandle,		CFrobDoor::GetDoorhandle)
 END_CLASS
 
+
 E_SDK_SIGNAL_STATE SigOpen(idEntity *oEntity, void *pData)
 {
 	E_SDK_SIGNAL_STATE rc = SIG_REMOVE;
@@ -157,7 +164,6 @@ E_SDK_SIGNAL_STATE SigOpen(idEntity *oEntity, void *pData)
 Quit:
 	return rc;
 }
-
 
 
 CFrobDoor::CFrobDoor(void)
@@ -197,6 +203,29 @@ void CFrobDoor::Spawn( void )
 	CBinaryFrobMover::Spawn();
 
 	LoadTDMSettings();
+
+	// If a door is locked but has no pins, it means it can not be picked and needs a key.
+	// In that case we can ignore the pins, otherwise we must create the patterns.
+	if(spawnArgs.GetString("lock_pins", "", str))
+	{
+		int n = str.Length();
+		int b = cv_lpick_pin_base_count.GetInteger();
+		if(b < MIN_CLICK_NUM)
+			b = MIN_CLICK_NUM;
+
+		for(int i = 0; i < n; i++)
+		{
+			DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Pin: %u - %c\r", i, str[i]);
+			CStringList *p = CreatePinPattern(str[i] - 0x030, b);
+			if(p)
+			{
+				m_Pins.Append(p);
+				m_PinsPicked.Append(false);
+			}
+			else
+				DM_LOG(LC_LOCKPICK, LT_ERROR)LOGSTRING("Door [%s]: couldn't create pin pattern for pin %u value %c\r", name.c_str(), i, str[i]);
+		}
+	}
 
 	if(spawnArgs.GetString("master_open", "", str))
 	{
@@ -667,3 +696,34 @@ void CFrobDoor::ToggleLock(void)
 	if(m_Doorhandle)
 		m_Doorhandle->ToggleLock();
 }
+
+CStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount)
+{
+	CStringList *rc = NULL;
+	int i, r;
+	idStr click;
+
+	if(!(Clicks >= 0 && Clicks <= 9))
+		return NULL;
+
+	if(Clicks == 0)
+		Clicks = 10;
+
+	Clicks += BaseCount;
+	rc = new CStringList();
+
+	for(i = 0; i < Clicks; i++)
+	{
+		if(i % 2)
+			r = gameLocal.random.RandomInt(MAX_PIN_CLICKS);
+		else
+			r = rnd.IRandom(0, MAX_PIN_CLICKS);
+
+		sprintf(click, "snd_lockpick_pin_%02u", r);
+		rc->Append(click);
+		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("PinPattern %u : %s\r", i, click.c_str());
+	}
+
+	return rc;
+}
+
