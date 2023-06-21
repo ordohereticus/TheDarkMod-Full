@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 346 $
- * $Date: 2006-02-05 17:03:29 -0500 (Sun, 05 Feb 2006) $
+ * $Revision: 350 $
+ * $Date: 2006-02-06 17:14:28 -0500 (Mon, 06 Feb 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.21  2006/02/06 22:14:27  sparhawk
+ * Added ignore list for responses.
+ *
  * Revision 1.20  2006/02/05 22:03:29  sparhawk
  * StimEnable event added.
  *
@@ -739,6 +742,10 @@ private:
 	void					StimEnable(int Type, int State);
 	void					ResponseAdd(int Type);
 	void					ResponseRemove(int Type);
+
+	// Add/Remove the response to/from the stim with the given type
+	void					ResponseIgnore(int StimType, idEntity *);
+	void					ResponseAllow(int StimType, idEntity *);
 
 	/**
 	* Used to propagate a sound directly via scripting, without playing the audible sound

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 328 $
- * $Date: 2006-01-31 17:35:07 -0500 (Tue, 31 Jan 2006) $
+ * $Revision: 350 $
+ * $Date: 2006-02-06 17:14:28 -0500 (Mon, 06 Feb 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.24  2006/02/06 22:14:28  sparhawk
+ * Added ignore list for responses.
+ *
  * Revision 1.23  2006/01/31 22:35:07  sparhawk
  * StimReponse first working version
  *
@@ -855,7 +858,7 @@ public:
 	void					RemoveResponse(idEntity *);
 	int						CheckStimResponse(idList<idEntity *> &, idEntity *);
 
-	void					DoResponseAction(int StimType, idEntity *Ent[MAX_GENTITIES], int NumEntities, idEntity *Originator);
+	void					DoResponseAction(CStim *, idEntity *Ent[MAX_GENTITIES], int NumEntities, idEntity *Originator);
 
 	/**
 	 * ProcessStimResponse will check wether stims are in reach of a response and if so activate them.
