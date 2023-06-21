@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 554 $
- * $Date: 2006-08-13 21:12:43 -0400 (Sun, 13 Aug 2006) $
- * $Author: ishtvan $
+ * $Revision: 555 $
+ * $Date: 2006-08-15 11:48:35 -0400 (Tue, 15 Aug 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.83  2006/08/15 15:48:35  gildoran
+ * Another inventory related change.
+ *
  * Revision 1.82  2006/08/14 01:12:43  ishtvan
  * added preliminary drop item in impulse51
  *
@@ -273,7 +276,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 554 $   $Date: 2006-08-13 21:12:43 -0400 (Sun, 13 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 555 $   $Date: 2006-08-15 11:48:35 -0400 (Tue, 15 Aug 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -9913,6 +9916,7 @@ void idPlayer::inventoryNextGroup() {
 
 	InventoryCursor()->iterate( TDMINV_GROUP, false );
 	inventoryChangeSelection( hud );
+	hud->HandleNamedEvent( "inventoryFlashGroupTempVis" );
 }
 
 void idPlayer::inventoryPrevGroup() {
@@ -9924,6 +9928,7 @@ void idPlayer::inventoryPrevGroup() {
 
 	InventoryCursor()->iterate( TDMINV_GROUP, true );
 	inventoryChangeSelection( hud );
+	hud->HandleNamedEvent( "inventoryFlashGroupTempVis" );
 }
 
 bool idPlayer::inventoryChangeSelection( idUserInterface* _hud ) {
