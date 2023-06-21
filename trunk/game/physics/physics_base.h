@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 141 $
- * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
- * $Author: lloyd $
+ * $Revision: 505 $
+ * $Date: 2006-07-25 01:59:02 -0400 (Tue, 25 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.3  2006/07/25 05:59:02  ishtvan
+ * removed some annoying const correctness on GetSelf
+ *
  * Revision 1.2  2005/08/19 00:28:02  lloyd
  * *** empty log message ***
  *
@@ -46,7 +49,7 @@ public:	// common physics interface
 
 	void					SetSelf( idEntity *e );
 #ifdef MOD_WATERPHYSICS
-	inline const idEntity  *GetSelf() { return this->self; } // MOD_WATERPHYSICS
+	idEntity				*GetSelf() { return self; } // MOD_WATERPHYSICS
 #endif		// MOD_WATERPHYSICS
 
 	void					SetClipModel( idClipModel *model, float density, int id = 0, bool freeOld = true );
