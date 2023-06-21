@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 698 $
+ * $Date: 2007-01-02 23:16:06 -0500 (Tue, 02 Jan 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:34  sparhawk
- * Initial revision
+ * Revision 1.2  2007/01/03 04:16:06  ishtvan
+ * added optional impulse modifier argument to ClipTranslationalPush
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:34  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -40,7 +43,7 @@ public:
 					// If results.fraction < 1.0 the move was blocked by results.c.entityNum
 					// Returns total mass of all pushed entities.
 	float			ClipTranslationalPush( trace_t &results, idEntity *pusher, const int flags,
-											const idVec3 &newOrigin, const idVec3 &move );
+											const idVec3 &newOrigin, const idVec3 &move, float ImpulseMod = 1.0f );
 
 	float			ClipRotationalPush( trace_t &results, idEntity *pusher, const int flags,
 											const idMat3 &newAxis, const idRotation &rotation );
