@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 897 $
- * $Date: 2007-04-09 09:17:22 -0400 (Mon, 09 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 910 $
+ * $Date: 2007-04-17 03:22:56 -0400 (Tue, 17 Apr 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 897 2007-04-09 13:17:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 910 2007-04-17 07:22:56Z ishtvan $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -34,9 +34,6 @@ static bool init_version = FileVersionList("$Id: player.cpp 897 2007-04-09 13:17
 */
 
 bool NextFrame = true;
-
-// distance between ladder rungs (actually is half that distance, but this sounds better)
-const int LADDER_RUNG_DISTANCE = 32;
 
 // amount of health per dose from the health station
 const int HEALTH_PER_DOSE = 10;
@@ -6564,6 +6561,20 @@ void idPlayer::Move( void )
 		acc->dir[0] = acc->dir[1] = 0;
 	}
 
+	// play rope movement sounds
+	if( physicsObj.OnRope() )
+	{
+		int old_vert(0), new_vert(0);
+		old_vert = savedOrigin.z / cv_pm_rope_snd_rep_dist.GetInteger();
+		new_vert = physicsObj.GetOrigin().z / cv_pm_rope_snd_rep_dist.GetInteger();
+		
+		if ( old_vert != new_vert ) 
+		{
+			StartSound( "snd_rope_climb", SND_CHANNEL_ANY, 0, false, NULL );
+		}
+	}
+
+
 	// play climbing movement sounds
 	if ( AI_ONLADDER ) 
 	{
@@ -6571,11 +6582,12 @@ void idPlayer::Move( void )
 		bool bSoundPlayed = false;
 		sound.Clear();
 
-		int old_vert = savedOrigin.z / LADDER_RUNG_DISTANCE;
-		int new_vert = physicsObj.GetOrigin().z / LADDER_RUNG_DISTANCE;
+		int old_vert(0), new_vert(0), old_horiz(0), new_horiz(0);
+		old_vert = savedOrigin.z / physicsObj.GetClimbSndRepDistVert();
+		new_vert = physicsObj.GetOrigin().z / physicsObj.GetClimbSndRepDistVert();
 
-		int old_horiz = ((idPhysics_Player *)GetPhysics())->GetClimbLateralCoord( savedOrigin ) / LADDER_RUNG_DISTANCE;
-		int new_horiz = ((idPhysics_Player *)GetPhysics())->GetClimbLateralCoord( GetPhysics()->GetOrigin() ) / LADDER_RUNG_DISTANCE;
+		old_horiz = physicsObj.GetClimbLateralCoord( savedOrigin ) / physicsObj.GetClimbSndRepDistHoriz();
+		new_horiz = physicsObj.GetClimbLateralCoord( physicsObj.GetOrigin() ) / physicsObj.GetClimbSndRepDistHoriz();
 
 		if ( old_vert != new_vert ) 
 		{
