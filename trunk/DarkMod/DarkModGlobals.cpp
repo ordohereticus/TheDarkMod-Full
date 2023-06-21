@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 302 $
- * $Date: 2006-01-12 23:24:53 -0500 (Thu, 12 Jan 2006) $
+ * $Revision: 327 $
+ * $Date: 2006-01-28 23:30:07 -0500 (Sat, 28 Jan 2006) $
  * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.34  2006/01/29 04:30:07  ishtvan
+ * fix for GetSurfName returning invalid pointer
+ *
  * Revision 1.33  2006/01/13 04:24:53  ishtvan
  * commented out some unnecessary logging in GetSurfTypeName
  *
@@ -1136,5 +1139,8 @@ const char *CGlobal::GetSurfName(const idMaterial *material)
 
 Quit:
 //	DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("Found new material name %s\r", returnStr.c_str());
+	if ( returnStr.IsEmpty() )
+		returnStr = "none";
+
 	return returnStr.c_str();
 }
