@@ -1,12 +1,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 659 $   $Date: 2006-12-14 04:54:14 -0500 (Thu, 14 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 662 $   $Date: 2006-12-14 05:00:28 -0500 (Thu, 14 Dec 2006) $", init_version);
 
 #include ".\darkmodaasfindhidingspots.h"
 #include "..\darkmod\darkmodglobals.h"
 #include "..\darkmod\darkModLAS.h"
 #include "..\sys\sys_public.h"
+
+#define HIDE_GRID_SPACING 40.0
 
 // Quality of a hiding spot ranges from 0.0 (HIDING_SPOT_MAX_LIGHT_QUOTIENT) to 1.0 (pitch black)
 #define OCCLUSION_HIDING_SPOT_QUALITY 1.0
@@ -511,7 +513,7 @@ bool darkModAASFindHidingSpots::testingInsideVisibleAASArea
 	float searchRadius = searchLimits.GetRadius();
 
 	// Iterate a gridding within these bounds
-	float hideSearchGridSpacing = 20.0f;
+	float hideSearchGridSpacing = HIDE_GRID_SPACING;
 	
 	// Iterate the coordinates to search
 	// We don't use for loops here so that we can control the end of the iteration
