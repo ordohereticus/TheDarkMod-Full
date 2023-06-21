@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 489 $
- * $Date: 2006-07-16 21:48:00 -0400 (Sun, 16 Jul 2006) $
+ * $Revision: 493 $
+ * $Date: 2006-07-19 05:09:35 -0400 (Wed, 19 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.27  2006/07/19 09:09:35  ishtvan
+ * addd objectives scriptfunctions
+ *
  * Revision 1.26  2006/07/17 01:48:00  ishtvan
  * added scriptfunction for changing objective states: setObjectiveState
  *
@@ -860,7 +863,8 @@ private:
 	void					Event_LevelTrigger( void );
 	void					Event_Gibbed( void );
 	void					Event_RopeRemovalCleanup( idEntity *RopeEnt );
-	void					Event_SetObjectiveState( int ObjIndex, int CompIndex, int bState );
+	void					Event_SetObjectiveState( int ObjIndex, int State );
+	void					Event_SetObjectiveComp( int ObjIndex, int CompIndex, int bState );
 
 /**
 * DarkMod Events
