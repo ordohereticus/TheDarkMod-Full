@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 363 $
- * $Date: 2006-02-23 05:19:49 -0500 (Thu, 23 Feb 2006) $
- * $Author: ishtvan $
+ * $Revision: 365 $
+ * $Date: 2006-03-07 14:27:29 -0500 (Tue, 07 Mar 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.17  2006/03/07 19:27:29  sparhawk
+ * Lightgem adjustement variable added.
+ *
  * Revision 1.16  2006/02/23 10:19:49  ishtvan
  * added throwing related cvars
  *
@@ -109,6 +112,7 @@ extern idCVar cv_lg_player;
 extern idCVar cv_lg_renderpasses;
 extern idCVar cv_lg_debug;
 extern idCVar cv_lg_model;
+extern idCVar cv_lg_adjust;
 
 /**
 * End DarkMod cvars

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 352 $
- * $Date: 2006-02-07 13:55:25 -0500 (Tue, 07 Feb 2006) $
+ * $Revision: 365 $
+ * $Date: 2006-03-07 14:27:29 -0500 (Tue, 07 Mar 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.50  2006/03/07 19:27:05  sparhawk
+ * Lightgem adjustement variable added.
+ *
  * Revision 1.49  2006/02/07 18:55:24  sparhawk
  * 1. State is now moved to CStimResponse so responses can now also be disabled.
  * 2. Removed state SS_ACTIVE (what was that again for???)
@@ -2877,6 +2880,9 @@ void idGameLocal::ProcessLightgem(idPlayer *player, bool bProcessing)
 
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Averaged colorvalue total: %f\r", fColVal);
 
+	fColVal += cv_lg_adjust.GetFloat();
+	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Adjustment %f\r", cv_lg_adjust.GetFloat());
+
 	pDM->m_fColVal = fColVal;
 	pDM->m_LightgemValue = DARKMOD_LG_MAX * fColVal;
 	if(pDM->m_LightgemValue < DARKMOD_LG_MIN)
@@ -5204,7 +5210,6 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 	dim = DARKMOD_LG_RENDER_WIDTH;
 //	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("ImageDimension: %u\r", dim);
 
-	// We only take the brightest value that we could find.
 	fRetVal = 0.0;
 
 	name = DARKMOD_LG_RENDERPIPE_NAME;
