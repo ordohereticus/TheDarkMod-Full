@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 458 $
- * $Date: 2006-06-07 16:37:13 -0400 (Wed, 07 Jun 2006) $
+ * $Revision: 459 $
+ * $Date: 2006-06-13 18:32:16 -0400 (Tue, 13 Jun 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.62  2006/06/13 22:32:16  sparhawk
+ * Finished first working version of StimTimer
+ *
  * Revision 1.61  2006/06/07 20:37:13  sparhawk
  * Changes to stimtimer interface. Start and Reset require now a parameter
  * to initialize the tickcounter.
@@ -5619,7 +5622,7 @@ void idGameLocal::ProcessStimResponse(void)
 	for(ei = 0; ei < en; ei++)
 	{
 		CStim *stim = m_StimTimer[ei];
-		CStimResponseTimer::TimerState tst = CStimResponseTimer::SRTS_DISABLED;
+		int tst = -1;
 
 		// Advance the timer
 		timer = stim->GetTimer();
@@ -5627,12 +5630,13 @@ void idGameLocal::ProcessStimResponse(void)
 		if(timer->GetState() == CStimResponseTimer::SRTS_RUNNING)
 			tst = timer->Tick(ts);
 
-		if(tst == CStimResponseTimer::SRTS_EXPIRED)
+		while(tst > 0)
 		{
 			Ent[0] = stim->m_Owner;
 			e = Ent[0];
 			n = 1;
 			DoResponseAction(stim, Ent, n, e, true);
+			tst--;
 		}
 	}
 
