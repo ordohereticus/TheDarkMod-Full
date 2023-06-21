@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 847 $
- * $Date: 2007-03-18 21:51:44 -0400 (Sun, 18 Mar 2007) $
- * $Author: ishtvan $
+ * $Revision: 860 $
+ * $Date: 2007-03-21 06:36:17 -0400 (Wed, 21 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 847 2007-03-19 01:51:44Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 860 2007-03-21 10:36:17Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -9298,7 +9298,7 @@ void idPlayer::AdjustLightgem(void)
 		{
 			gameLocal.clip.TracePoint(trace, vStart, vLight, CONTENTS_SOLID|CONTENTS_OPAQUE|CONTENTS_PLAYERCLIP|CONTENTS_MONSTERCLIP
 				|CONTENTS_MOVEABLECLIP|CONTENTS_BODY|CONTENTS_CORPSE|CONTENTS_RENDERMODEL
-				|CONTENTS_TRIGGER|CONTENTS_FLASHLIGHT_TRIGGER, this);
+				|CONTENTS_FLASHLIGHT_TRIGGER, this);
 			DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("TraceFraction: %f\r", trace.fraction);
 			if(trace.fraction < 1.0f)
 			{
@@ -9945,7 +9945,7 @@ void idPlayer::FrobCheck( void )
 	// Frob collision mask:
 	int cm = CONTENTS_SOLID|CONTENTS_OPAQUE|CONTENTS_BODY
 		|CONTENTS_CORPSE|CONTENTS_RENDERMODEL
-		|CONTENTS_TRIGGER|CONTENTS_FLASHLIGHT_TRIGGER;
+		|CONTENTS_FLASHLIGHT_TRIGGER;
 
 	gameLocal.clip.TracePoint(trace, start, end, cm, this);
 	TraceDist = g_Global.m_MaxFrobDistance * trace.fraction;
