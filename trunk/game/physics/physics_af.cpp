@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 528 $
- * $Date: 2006-08-04 06:54:20 -0400 (Fri, 04 Aug 2006) $
+ * $Revision: 536 $
+ * $Date: 2006-08-07 02:53:46 -0400 (Mon, 07 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.9  2006/08/07 06:53:46  ishtvan
+ * grabber updates
+ *
  * Revision 1.8  2006/08/04 10:54:20  ishtvan
  * grabber fixes
  *
@@ -38,7 +41,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 528 $   $Date: 2006-08-04 06:54:20 -0400 (Fri, 04 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 536 $   $Date: 2006-08-07 02:53:46 -0400 (Mon, 07 Aug 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/playerdata.h"
@@ -5588,12 +5591,14 @@ bool idPhysics_AF::CollisionImpulse( float timeStep, idAFBody *body, trace_t &co
 	}
 #endif
 
+/* Grabber collision notification commented out for now, results in bug where bodies can't be picked up
 	// Check if we are grabbed by the grabber, and limit collision speed to the maximum grabber external speed
 	if( self == g_Global.m_DarkModPlayer->grabber->GetSelected() )
 	{
 		g_Global.m_DarkModPlayer->grabber->ClampVelocity( MAX_GRABBER_EXT_VELOCITY, MAX_GRABBER_EXT_ANGVEL, collision.c.id );
 		g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
 	}
+*/
 
 	// get info from other entity involved
 	ent->GetImpactInfo( self, collision.c.id, collision.c.point, &info );
