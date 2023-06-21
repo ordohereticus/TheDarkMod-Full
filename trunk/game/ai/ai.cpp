@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 695 $
- * $Date: 2007-01-02 23:01:48 -0500 (Tue, 02 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 706 $
+ * $Date: 2007-01-05 16:32:54 -0500 (Fri, 05 Jan 2007) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.50  2007/01/05 21:32:54  sophisticatedzombie
+ * Modified stepDirection so that if the AI is in MOVE_WANDER mode it
+ * will bump into (path through) idActors that are enemies.  In that way
+ * it can find enemies in darkness while wandering.
+ *
  * Revision 1.49  2007/01/03 04:01:48  ishtvan
  * *) modified PushWithAF to apply impulse to objects instead of setting a velocity, should avoid pushing of huge objects.  They still apply a velocity to AI, but now only in the XY plane
  *
@@ -201,7 +206,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 695 $   $Date: 2007-01-02 23:01:48 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 706 $   $Date: 2007-01-05 16:32:54 -0500 (Fri, 05 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -2621,6 +2626,27 @@ bool idAI::StepDirection( float dir ) {
 		// don't report being blocked if we ran into our goal entity
 		return true;
 	}
+
+	// SZ: January 7, 2006: Wandering uses this, and currently it fails the test if it would bump into another AI.
+	// If we are wandering, we want to make sure we can still bump into the player or enemy AIs, both of which are idActor
+	// based.
+	if (path.blockingEntity && (move.moveCommand == MOVE_WANDER))
+	{
+		// What type of entity is it?
+		if 
+		(
+			(path.blockingEntity->IsType(idActor::Type) )
+		)
+		{
+			// Bump into enemies all you want while wandering
+			int otherTeam = ((idActor*) (path.blockingEntity))->team;
+			if (gameLocal.m_RelationsManager->IsEnemy( team, otherTeam ))
+			{
+				return true;
+			}
+		}
+
+	} // End wandering case
 
 	if ( ( move.moveType == MOVETYPE_FLY ) && ( path.endEvent == SE_BLOCKED ) ) {
 		float z;
