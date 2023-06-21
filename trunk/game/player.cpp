@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 802 $
- * $Date: 2007-02-12 17:19:36 -0500 (Mon, 12 Feb 2007) $
+ * $Revision: 803 $
+ * $Date: 2007-02-13 17:21:37 -0500 (Tue, 13 Feb 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.124  2007/02/13 22:21:37  sparhawk
+ * Fixed a bug that loot was visually only updated when it was not selected in the inventory.
+ *
  * Revision 1.123  2007/02/12 22:19:26  sparhawk
  * Added additional objective callback and refactored some of the inventory code.
  * Also changed the scope of the category constructor, so that it can only be used from the inventory.
@@ -416,7 +419,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 802 $   $Date: 2007-02-12 17:19:36 -0500 (Mon, 12 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 803 $   $Date: 2007-02-13 17:21:37 -0500 (Tue, 13 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -10003,23 +10006,18 @@ void idPlayer::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CIn
 		e = cur->GetItemEntity();
 
 	// Notify the previous entity and the new one that they are un-/selected.
-	if(cur != prev && bUpdate == true)
+	if(prev && cur != prev)
 	{
-		if(prev)
-		{
-			idEntity *ce = prev->GetItemEntity();
-			if(ce)
-				thread = ce->CallScriptFunctionArgs("inventory_item_unselect", true, 0, "eef", ce, prev->GetOwner(), (float)prev->GetOverlay());
-		}
-		if(cur)
-		{
-			if(e)
-				thread = e->CallScriptFunctionArgs("inventory_item_select", true, 0, "eef", e, cur->GetOwner(), (float)cur->GetOverlay());
-		}
+		idEntity *ce = prev->GetItemEntity();
+		if(ce)
+			thread = ce->CallScriptFunctionArgs("inventory_item_unselect", true, 0, "eef", ce, prev->GetOwner(), (float)prev->GetOverlay());
 	}
 
 	if(cur)
 	{
+		if(e && bUpdate == true)
+			thread = e->CallScriptFunctionArgs("inventory_item_select", true, 0, "eef", e, cur->GetOwner(), (float)cur->GetOverlay());
+
 		type = cur->GetType();
 		switch(type)
 		{
