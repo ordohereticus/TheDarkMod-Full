@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 603 $
+ * $Date: 2006-11-03 17:51:02 -0500 (Fri, 03 Nov 2006) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:36  sparhawk
- * Initial revision
+ * Revision 1.2  2006/11/03 22:51:02  sparhawk
+ * Typedef for stringlists added.
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:36  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -935,5 +938,7 @@ ID_INLINE void idList<type>::Swap( idList<type> &other ) {
 	idSwap( granularity, other.granularity );
 	idSwap( list, other.list );
 }
+
+typedef idList<idStr> CStringList;
 
 #endif /* !__LIST_H__ */
