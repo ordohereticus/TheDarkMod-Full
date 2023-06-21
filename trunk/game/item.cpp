@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 36 $
- * $Date: 2004-11-16 19:00:38 -0500 (Tue, 16 Nov 2004) $
+ * $Revision: 240 $
+ * $Date: 2005-11-19 12:29:21 -0500 (Sat, 19 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.10  2005/11/19 17:27:56  sparhawk
+ * LogString with macro replaced
+ *
  * Revision 1.9  2004/11/17 00:00:38  sparhawk
  * Frobcode has been generalized now and resides for all entities in the base classe.
  *
@@ -78,7 +81,7 @@ idItem::idItem
 */
 idItem::idItem()
 {
-	DM_LOG(LC_FUNCTION, LT_DEBUG).LogString("this: %08lX [%s]\r", this, __FUNCTION__);
+	DM_LOG(LC_FUNCTION, LT_DEBUG)LOGSTRING("this: %08lX [%s]\r", this, __FUNCTION__);
 
 	spin = false;
 	inView = false;

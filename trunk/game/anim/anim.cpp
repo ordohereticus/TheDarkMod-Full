@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 183 $
- * $Date: 2005-10-18 10:09:46 -0400 (Tue, 18 Oct 2005) $
+ * $Revision: 240 $
+ * $Date: 2005-11-19 12:29:21 -0500 (Sat, 19 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2005/11/19 17:29:09  sparhawk
+ * LogString with macro replaced
+ *
  * Revision 1.3  2005/10/18 14:09:46  sparhawk
  * Fixed an unneccessary warning about unused lables.
  *
@@ -918,7 +921,7 @@ idMD5Anim::SetFrameRate
 void idMD5Anim::SetFrameRate( int frRate )
 {
 	frameRate = frRate;
-	DM_LOG(LC_SOUND, LT_DEBUG).LogString("ChangeFrameRate: Set rate to %d\r", frameRate);
+	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("ChangeFrameRate: Set rate to %d\r", frameRate);
 
 	return;
 }
