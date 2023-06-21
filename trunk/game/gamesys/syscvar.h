@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 613 $
- * $Date: 2006-11-08 04:27:54 -0500 (Wed, 08 Nov 2006) $
+ * $Revision: 623 $
+ * $Date: 2006-11-30 04:17:01 -0500 (Thu, 30 Nov 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.28  2006/11/30 09:17:01  ishtvan
+ * added leaning cvars
+ *
  * Revision 1.27  2006/11/08 09:27:54  ishtvan
  * added frob bounds debug draw
  *
@@ -115,6 +118,12 @@ extern idCVar cv_ko_show;
 extern idCVar cv_pm_runmod;
 extern idCVar cv_pm_crouchmod;
 extern idCVar cv_pm_creepmod;
+
+/**
+* TDM Leaning vars:
+**/
+extern idCVar cv_pm_lean_angle;
+extern idCVar cv_pm_lean_time;
 
 extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
