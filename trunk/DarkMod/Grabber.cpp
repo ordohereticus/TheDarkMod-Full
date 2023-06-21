@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 273 $
- * $Date: 2005-12-09 00:12:48 -0500 (Fri, 09 Dec 2005) $
- * $Author: lloyd $
+ * $Revision: 282 $
+ * $Date: 2005-12-11 13:08:05 -0500 (Sun, 11 Dec 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2005/12/11 18:08:05  ishtvan
+ * disabled player view changes when using mouse axes to rotate
+ *
  * Revision 1.4  2005/12/09 05:12:48  lloyd
  * Various bug fixes (AF grabbing, mouse deadzone, mouse sensitivty, ...)
  *
@@ -279,6 +282,9 @@ void CGrabber::ManipulateObject( idPlayer *player ) {
 
 		float angle = 0.0f;
 		rotating = true;
+
+		// Ishtvan: Disable player view change
+		player->m_NoViewChange = true;
 		
 		if( !this->DeadMouse() ) {
 			switch( this->rotationAxis ) {
@@ -338,6 +344,9 @@ void CGrabber::ManipulateObject( idPlayer *player ) {
 	}
 	else {
 		rotating = false;
+
+		// Ishtvan: Enable player view change
+		player->m_NoViewChange = false;
 
 		// reset these coordinates so that next time they press zoom the rotation will be fresh
 		this->mousePosition.x = player->usercmd.mx;
