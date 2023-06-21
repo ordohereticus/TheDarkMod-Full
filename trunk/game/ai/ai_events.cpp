@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 928 $
- * $Date: 2007-04-21 11:01:38 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 977 $
+ * $Date: 2007-05-05 07:46:52 -0400 (Sat, 05 May 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 928 2007-04-21 15:01:38Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 977 2007-05-05 11:46:52Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -161,6 +161,8 @@ const idEventDef AI_GetReachableEntityPosition( "getReachableEntityPosition", "e
 
 // TDM
 const idEventDef AI_PlayAndLipSync( "playAndLipSync", "ss" );
+const idEventDef AI_RegisterKilledTask( "registerKilledTask", "sd" );
+const idEventDef AI_RegisterKnockedOutTask( "registerKnockedOutTask", "sd" );
 
 // DarkMod AI Relations Events
 const idEventDef AI_GetRelationEnt( "getRelationEnt", "E", 'd' );
@@ -511,6 +513,8 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_GetReachableEntityPosition,		idAI::Event_GetReachableEntityPosition )
 	
 	EVENT( AI_PlayAndLipSync,					idAI::Event_PlayAndLipSync )
+	EVENT( AI_RegisterKilledTask,				idAI::Event_RegisterKilledTask )
+	EVENT( AI_RegisterKnockedOutTask,			idAI::Event_RegisterKnockedOutTask )
 	EVENT( AI_GetRelationEnt,					idAI::Event_GetRelationEnt )
 	EVENT( AI_IsEnemy,							idAI::Event_IsEnemy )
 	EVENT( AI_IsFriend,							idAI::Event_IsFriend )
@@ -3481,6 +3485,18 @@ void idAI::Event_GetReachableEntityPosition( idEntity *ent ) {
 
 	idThread::ReturnVector( pos );
 
+}
+
+void idAI::Event_RegisterKilledTask(const char* taskName, int priority)
+{
+	m_killedTask = taskName;
+	m_killedTaskPriority = priority;
+}
+
+void idAI::Event_RegisterKnockedOutTask(const char* taskName, int priority)
+{
+	m_knockedOutTask = taskName;
+	m_knockedOutTaskPriority = priority;
 }
 
 /**

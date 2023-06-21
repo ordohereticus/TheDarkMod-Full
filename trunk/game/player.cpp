@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 971 $
- * $Date: 2007-05-04 14:50:46 -0400 (Fri, 04 May 2007) $
- * $Author: greebo $
+ * $Revision: 977 $
+ * $Date: 2007-05-05 07:46:52 -0400 (Sat, 05 May 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 971 2007-05-04 18:50:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 977 2007-05-05 11:46:52Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3019,7 +3019,7 @@ void idPlayer::UpdateConditions( void )
 	// Check if the frob is to be a continous action.
 	if(m_ContinuousUse == true)
 	{
-		if(common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51)) == true)
+		if(common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51)))
 			inventoryUseItem(false);
 		else
 			m_ContinuousUse = false;

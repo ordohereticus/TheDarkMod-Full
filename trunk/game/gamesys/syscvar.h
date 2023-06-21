@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 966 $
- * $Date: 2007-05-03 15:38:52 -0400 (Thu, 03 May 2007) $
- * $Author: sparhawk $
+ * $Revision: 977 $
+ * $Date: 2007-05-05 07:46:52 -0400 (Sat, 05 May 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -28,6 +28,7 @@ extern idCVar cv_ai_sightmaxdist;
 extern idCVar cv_ai_sightmindist;
 extern idCVar cv_ai_tactalert;
 extern idCVar cv_ai_state_show;
+extern idCVar cv_ai_task_show;
 extern idCVar cv_ai_alertnum_show;
 extern idCVar cv_ai_debug;
 extern idCVar cv_spr_debug;

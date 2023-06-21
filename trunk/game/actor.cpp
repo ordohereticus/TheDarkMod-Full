@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 946 $
- * $Date: 2007-04-29 10:36:14 -0400 (Sun, 29 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 977 $
+ * $Date: 2007-05-05 07:46:52 -0400 (Sat, 05 May 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 946 2007-04-29 14:36:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 977 2007-05-05 11:46:52Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1436,12 +1436,12 @@ void idActor::UpdateScript( void ) {
 	}
 	
 	// TDM: Task management
-	// Currently only uses the first priority queue. If there are more pqueues than 1,
-	// then only scripts will ever use the extra ones.
 	if (m_TaskQueue != NULL)
 	{
 		for( i = 0; i < 20; i++ ) // Permit multiple task changes per frame, but avoid infinite loops
 		{
+			//gameLocal.Printf("Task management for queue %d, iteration %d\n", gameLocal.m_PriorityQueues.FindIndex(m_TaskQueue), i);
+			//gameLocal.Printf("Queue contents: %s\n", m_TaskQueue->DebuggingInfo().c_str());
 			idStr topTask = idStr(m_TaskQueue->Peek());
 			int topTaskPriority = m_TaskQueue->PeekPriority();
 			if (topTask.Length() && (topTaskPriority > taskPriority || !task.Length()))
