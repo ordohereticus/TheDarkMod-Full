@@ -17,15 +17,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 466 $
- * $Date: 2006-06-21 10:41:43 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 763 $
+ * $Date: 2007-01-24 09:35:08 -0500 (Wed, 24 Jan 2007) $
+ * $Author: sophisticatedzombie $
  *
  ******************************************************************************/
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 466 $   $Date: 2006-06-21 10:41:43 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 763 $   $Date: 2007-01-24 09:35:08 -0500 (Wed, 24 Jan 2007) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -839,7 +839,7 @@ bool CsndProp::ExpandWave( float volInit, idVec3 origin,
 			
 			} // end portal flood loop
 
-			m_EventAreas[j].bVisited = true;
+			m_EventAreas[area].bVisited = true;
 		} // end area flood loop
 
 		// create the next expansion queue
@@ -1496,7 +1496,8 @@ bool CsndProp::ExpandWaveFast( float volInit, idVec3 origin,
 			
 			} // end portal flood loop
 
-			m_EventAreas[j].bVisited = true;
+			m_EventAreas[area].bVisited = true;
+
 		} // end area flood loop
 
 		// create the next expansion queue
