@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 600 $
- * $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $
- * $Author: sparhawk $
+ * $Revision: 609 $
+ * $Date: 2006-11-06 01:36:33 -0500 (Mon, 06 Nov 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.75  2006/11/06 06:36:33  ishtvan
+ * fix to SetFrobable scriptevent
+ *
  * Revision 1.74  2006/11/01 11:57:38  sparhawk
  * Signals method added to entity.
  *
@@ -260,7 +263,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 600 $   $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 609 $   $Date: 2006-11-06 01:36:33 -0500 (Mon, 06 Nov 2006) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7526,6 +7529,9 @@ Quit:
 void idEntity::Event_SetFrobable( bool bVal )
 {
 	m_bFrobable = bVal;
+
+	if( m_bFrobable )
+		BecomeActive( TH_UPDATEVISUALS );
 }
 
 void idEntity::Event_IsFrobable( void )
