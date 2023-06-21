@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 867 $
- * $Date: 2007-03-24 02:43:12 -0400 (Sat, 24 Mar 2007) $
- * $Author: crispy $
+ * $Revision: 1020 $
+ * $Date: 2007-06-10 20:57:20 -0400 (Sun, 10 Jun 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -217,6 +217,19 @@ protected:
 	* Set to true if this entity should collide with team members when bound to them
 	**/
 	bool					m_bCollideWithTeam;
+
+	/**
+	* Set to true if this animated AF should activate the AF body collision models
+	*	and move them around to collide with the world when animating.
+	* NOTE: This should NOT be set on AI, since they do this anyway
+	**/
+	bool					m_bAFPosedByAnim;
+
+	/**
+	* Set to true if the AF should push aside moveables while animating
+	* NOTE: This does not apply to AI, they have their own var for this
+	**/
+	bool					m_bAFPushMoveables;
 
 protected:
 	/**
