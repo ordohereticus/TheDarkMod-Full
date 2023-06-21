@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 692 $
- * $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $
- * $Author: crispy $
+ * $Revision: 701 $
+ * $Date: 2007-01-02 23:24:29 -0500 (Tue, 02 Jan 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.82  2007/01/03 04:24:29  ishtvan
+ * Stim/Response: Fixed the resetting of CONTENTS_RESPONSE contents flag
+ *
  * Revision 1.81  2007/01/03 00:28:03  crispy
  * New script event rangedThreatTo. Added idWeapon::IsRanged.
  *
@@ -282,7 +285,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 692 $   $Date: 2007-01-02 19:28:03 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 701 $   $Date: 2007-01-02 23:24:29 -0500 (Tue, 02 Jan 2007) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1022,12 +1025,12 @@ void idEntity::Spawn( void )
 
 		ConstructScriptObject();
 	}
-
-	m_StimResponseColl->ParseSpawnArgsToStimResponse(&spawnArgs, this);
-
+	
 	// TDM: Set contents based on new spawnArg
 	if( spawnArgs.FindKey( "clipmodel_contents" ) )
 		GetPhysics()->SetContents( spawnArgs.GetInt("clipmodel_contents") );
+
+	m_StimResponseColl->ParseSpawnArgsToStimResponse(&spawnArgs, this);
 
 	LoadTDMSettings();
 }
