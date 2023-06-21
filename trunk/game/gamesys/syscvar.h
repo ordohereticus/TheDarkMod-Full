@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 367 $
- * $Date: 2006-03-08 01:37:29 -0500 (Wed, 08 Mar 2006) $
- * $Author: ishtvan $
+ * $Revision: 369 $
+ * $Date: 2006-03-21 15:55:16 -0500 (Tue, 21 Mar 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.19  2006/03/21 20:55:16  sparhawk
+ * dm_distance added
+ *
  * Revision 1.18  2006/03/08 06:37:29  ishtvan
  * added knockout debug visualization cvar: cv_ko_show
  *
@@ -117,6 +120,8 @@ extern idCVar cv_lg_renderpasses;
 extern idCVar cv_lg_debug;
 extern idCVar cv_lg_model;
 extern idCVar cv_lg_adjust;
+
+extern idCVar cv_dm_distance;
 
 /**
 * End DarkMod cvars
