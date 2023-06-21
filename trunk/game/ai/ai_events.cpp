@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
+ * $Revision: 928 $
+ * $Date: 2007-04-21 11:01:38 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 914 2007-04-19 17:45:20Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 928 2007-04-21 15:01:38Z orbweaver $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2377,7 +2377,11 @@ void idAI::Event_TestAnimMoveTowardEnemy( const char *animname ) {
 
 	anim = GetAnim( ANIMCHANNEL_LEGS, animname );
 	if ( !anim ) {
+		
+#ifndef SUPPRESS_CONSOLE_WARNINGS
 		gameLocal.DWarning( "missing '%s' animation on '%s' (%s)", animname, name.c_str(), GetEntityDefName() );
+#endif
+
 		idThread::ReturnInt( false );
 		return;
 	}
@@ -2408,7 +2412,11 @@ void idAI::Event_TestAnimMove( const char *animname ) {
 
 	anim = GetAnim( ANIMCHANNEL_LEGS, animname );
 	if ( !anim ) {
+
+#ifndef SUPPRESS_CONSOLE_WARNINGS
 		gameLocal.DWarning( "missing '%s' animation on '%s' (%s)", animname, name.c_str(), GetEntityDefName() );
+#endif
+
 		idThread::ReturnInt( false );
 		return;
 	}
@@ -2466,7 +2474,11 @@ void idAI::Event_TestAnimAttack( const char *animname ) {
 
 	anim = GetAnim( ANIMCHANNEL_LEGS, animname );
 	if ( !anim ) {
+
+#ifndef SUPPRESS_CONSOLE_WARNINGS
 		gameLocal.DWarning( "missing '%s' animation on '%s' (%s)", animname, name.c_str(), GetEntityDefName() );
+#endif
+
 		idThread::ReturnInt( false );
 		return;
 	}
