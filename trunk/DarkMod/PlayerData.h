@@ -9,12 +9,17 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 253 $
- * $Date: 2005-11-26 12:48:03 -0500 (Sat, 26 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 286 $
+ * $Date: 2005-12-11 21:57:33 -0500 (Sun, 11 Dec 2005) $
+ * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.10  2005/12/12 02:57:33  ishtvan
+ * ammo items that are frobbed go into the D3 inventory
+ *
+ * added inventory clearing function
+ *
  * Revision 1.9  2005/11/26 17:42:45  sparhawk
  * Lightgem cleaned up
  *
@@ -153,6 +158,11 @@ public:
 	 */
 	void					SelectNext(void);
 	void					SelectPrev(void);
+
+	/**
+	* Clear the inventory (called when map shuts down)
+	**/
+	void					ClearInventory(void);
 
 	unsigned long			AddLight(idLight *);
 	unsigned long			RemoveLight(idLight *);
