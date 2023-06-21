@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 971 $
+ * $Date: 2007-05-04 14:50:46 -0400 (Fri, 04 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,6 +12,15 @@
 
 const int OVERLAYS_MIN_HANDLE = 1;
 const int OVERLAYS_INVALID_HANDLE = 0;
+
+/**
+* These is the layer order of the overlay for the player GUI.
+*/
+enum {
+	LAYER_UNDERWATER = 0,	// Draw the underwater overlay first
+	LAYER_MAIN_HUD = 1,
+	LAYER_INVENTORY = 2,
+};
 
 struct SOverlay;
 
