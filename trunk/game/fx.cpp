@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
+ * $Revision: 839 $
+ * $Date: 2007-03-07 16:47:01 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  * $Log$
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Id: fx.cpp 839 2007-03-07 21:47:01Z sparhawk $", init_version);
 
 #include "Game_local.h"
 

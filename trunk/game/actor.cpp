@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 826 $
- * $Date: 2007-03-05 02:55:01 -0500 (Mon, 05 Mar 2007) $
- * $Author: crispy $
+ * $Revision: 839 $
+ * $Date: 2007-03-07 16:47:01 -0500 (Wed, 07 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 826 $   $Date: 2007-03-05 02:55:01 -0500 (Mon, 05 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 839 2007-03-07 21:47:01Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
