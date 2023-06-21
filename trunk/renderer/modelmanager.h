@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 220 $
+ * $Date: 2005-11-11 17:44:06 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:34  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 22:42:32  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:34  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -77,6 +80,9 @@ public:
 
 	// called during vid_restart
 	virtual	void			FreeModelVertexCaches() = 0;
+
+	// print memory info
+	virtual	void			PrintMemInfo( MemInfo_t *mi ) = 0;
 };
 
 // this will be statically pointed at a private implementation

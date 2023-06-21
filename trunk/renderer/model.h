@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 220 $
+ * $Date: 2005-11-11 17:44:06 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:34  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 22:42:32  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:34  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -222,7 +225,7 @@ public:
 	virtual int					Memory() const = 0;
 
 	// for reloadModels
-	virtual unsigned			Timestamp() const = 0;
+	virtual unsigned int		Timestamp() const = 0;
 
 	// returns the number of surfaces
 	virtual int					NumSurfaces() const = 0;

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 182 $
- * $Date: 2005-10-18 10:08:37 -0400 (Tue, 18 Oct 2005) $
+ * $Revision: 220 $
+ * $Date: 2005-11-11 17:44:06 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2005/11/11 22:35:08  sparhawk
+ * SDK 1.3 Merge
+ *
  * Revision 1.2  2005/10/18 14:08:37  sparhawk
  * Lightgem updates
  *
@@ -2607,7 +2610,6 @@ ID_INLINE bool idMatX::InverseSelf( void ) {
 		default:
 			return InverseSelfGeneric();
 	}
-	return false;
 }
 
 ID_INLINE idMatX idMatX::InverseFast( void ) const {
