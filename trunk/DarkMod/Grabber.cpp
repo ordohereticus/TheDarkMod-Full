@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 843 $
- * $Date: 2007-03-18 04:52:21 -0400 (Sun, 18 Mar 2007) $
+ * $Revision: 845 $
+ * $Date: 2007-03-18 05:53:58 -0400 (Sun, 18 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -60,7 +60,7 @@
 #include "....//idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 843 $   $Date: 2007-03-18 04:52:21 -0400 (Sun, 18 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 845 $   $Date: 2007-03-18 05:53:58 -0400 (Sun, 18 Mar 2007) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -278,9 +278,8 @@ void CGrabber::Update( idPlayer *player, bool hold )
 // ====================== AF Grounding Testing ===============================
 	// If dragging a body with a certain spawnarg set, you should only be able to pick
 	// it up so far off the ground
-	if( drag->IsType(idAFEntity_Base::Type) )
+	if( drag->IsType(idAFEntity_Base::Type) && (cv_drag_AF_free.GetBool() == false) )
 	{
-		// TODO: Check spawnarg for this behavior
 		idAFEntity_Base *AFPtr = (idAFEntity_Base *) drag;
 		
 		if( AFPtr->IsActiveAF() && AFPtr->m_bGroundWhenDragged )
