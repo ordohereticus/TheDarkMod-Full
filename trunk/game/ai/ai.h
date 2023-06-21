@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 351 $
- * $Date: 2006-02-07 01:31:25 -0500 (Tue, 07 Feb 2006) $
+ * $Revision: 356 $
+ * $Date: 2006-02-12 02:32:22 -0500 (Sun, 12 Feb 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.11  2006/02/12 07:32:22  ishtvan
+ * drowning implemented
+ *
  * Revision 1.10  2006/02/07 06:31:25  ishtvan
  * drowning code framework added - still WIP
  *
@@ -680,6 +683,27 @@ protected:
 	**/
 	idEntity *				m_TactAlertEnt;
 
+	/**
+	* Used for drowning
+	**/
+	int						m_AirCheckTimer;
+
+	int						m_HeadBodyID;
+
+	int						m_AirTics;
+
+	int						m_AirTicksMax;
+
+	/**
+	* number of seconds between air checks
+	**/
+	int						m_AirCheckInterval;
+
+	/**
+	* Offset relative to the eye position, used to locate the mouth
+	**/
+	idVec3					m_MouthOffset;
+
 	//
 	// ai/ai.cpp
 	//
@@ -838,6 +862,11 @@ protected:
 	* Returns true if AI's mouth is underwater
 	**/
 	bool MouthIsUnderwater( void );
+
+	/**
+	* Checks for drowning, damages if drowning
+	**/
+	void UpdateAir( void );
 
 	//
 	// ai/ai_events.cpp
