@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 501 $
- * $Date: 2006-07-21 23:47:06 -0400 (Fri, 21 Jul 2006) $
+ * $Revision: 561 $
+ * $Date: 2006-08-21 01:07:34 -0400 (Mon, 21 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.13  2006/08/21 05:07:34  ishtvan
+ * fixed attachment so that rotation was done first, then translation
+ *
  * Revision 1.12  2006/07/22 03:47:06  ishtvan
  * fix for weapon attachments staying around in midair
  *
@@ -51,7 +54,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 501 $   $Date: 2006-07-21 23:47:06 -0400 (Fri, 21 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 561 $   $Date: 2006-08-21 01:07:34 -0400 (Mon, 21 Aug 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2082,8 +2085,8 @@ void idWeapon::PresentWeapon( bool showViewModel ) {
 		idMat3 AttAxis;
 		
 		GetGlobalJointTransform( true, m_Attachments[i].joint, AttOrigin, AttAxis );
-		Att->SetOrigin( AttOrigin + AttAxis * m_Attachments[i].originOffset );
 		Att->SetAxis( m_Attachments[i].angleOffsetMat * AttAxis );
+		Att->SetOrigin( AttOrigin + AttAxis * m_Attachments[i].originOffset );
 	}
 
 
