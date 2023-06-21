@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 745 $
- * $Date: 2007-01-20 00:25:10 -0500 (Sat, 20 Jan 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 766 $
+ * $Date: 2007-01-25 05:08:40 -0500 (Thu, 25 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.35  2007/01/25 10:08:40  crispy
+ * Implemented lipsync functionality
+ *
  * Revision 1.34  2007/01/20 05:25:10  sophisticatedzombie
  * isFriend, isEnemy and isNeurtal now have special handling for
  * absence marker entities
@@ -156,7 +159,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 745 $   $Date: 2007-01-20 00:25:10 -0500 (Sat, 20 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 766 $   $Date: 2007-01-25 05:08:40 -0500 (Thu, 25 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/relations.h"
@@ -301,6 +304,9 @@ const idEventDef AI_CanReachPosition( "canReachPosition", "v", 'd' );
 const idEventDef AI_CanReachEntity( "canReachEntity", "E", 'd' );
 const idEventDef AI_CanReachEnemy( "canReachEnemy", NULL, 'd' );
 const idEventDef AI_GetReachableEntityPosition( "getReachableEntityPosition", "e", 'v' );
+
+// TDM
+const idEventDef AI_PlayAndLipSync( "playAndLipSync", "ss" );
 
 // DarkMod AI Relations Events
 const idEventDef AI_GetRelationEnt( "getRelationEnt", "E", 'd' );
@@ -649,7 +655,8 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_CanReachEntity,					idAI::Event_CanReachEntity )
 	EVENT( AI_CanReachEnemy,					idAI::Event_CanReachEnemy )
 	EVENT( AI_GetReachableEntityPosition,		idAI::Event_GetReachableEntityPosition )
-		
+	
+	EVENT( AI_PlayAndLipSync,					idAI::Event_PlayAndLipSync )
 	EVENT( AI_GetRelationEnt,					idAI::Event_GetRelationEnt )
 	EVENT( AI_IsEnemy,							idAI::Event_IsEnemy )
 	EVENT( AI_IsFriend,							idAI::Event_IsFriend )

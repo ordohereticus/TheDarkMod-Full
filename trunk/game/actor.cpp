@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 762 $
- * $Date: 2007-01-23 09:06:52 -0500 (Tue, 23 Jan 2007) $
- * $Author: thelvyn $
+ * $Revision: 766 $
+ * $Date: 2007-01-25 05:08:40 -0500 (Thu, 25 Jan 2007) $
+ * $Author: crispy $
  *
  * $Log$
+ * Revision 1.37  2007/01/25 10:08:33  crispy
+ * Implemented lipsync functionality
+ *
  * Revision 1.36  2007/01/23 14:06:06  thelvyn
  * Removed mouse hook, removed some tracing for debugging ai falling damage, have to implement something better.
  *
@@ -134,7 +137,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 762 $   $Date: 2007-01-23 09:06:52 -0500 (Tue, 23 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 766 $   $Date: 2007-01-25 05:08:40 -0500 (Thu, 25 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -276,6 +279,17 @@ void idAnimState::SetState( const char *statename, int blendFrames ) {
 	if ( ai_debugScript.GetInteger() == self->entityNumber ) {
 		gameLocal.Printf( "%d: %s: Animstate: %s\n", gameLocal.time, self->name.c_str(), state.c_str() );
 	}
+}
+
+/*
+=====================
+idAnimState::SetFrame
+=====================
+*/
+
+void idAnimState::SetFrame( int anim, int frame )
+{
+	animator->SetFrame( channel, anim, frame, gameLocal.time, 0 );
 }
 
 /*
