@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 442 $
+ * $Date: 2006-05-30 02:24:14 -0400 (Tue, 30 May 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:31  sparhawk
- * Initial revision
+ * Revision 1.2  2006/05/30 06:24:14  ishtvan
+ * worldspawn now triggers its targets when the map starts
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -85,6 +88,9 @@ void idWorldspawn::Spawn( void ) {
 		thread->DelayedStart( 0 );
 		kv = spawnArgs.MatchPrefix( "call", kv );
 	}
+
+	// activate worldspawn's targets when it spawns
+	PostEventMS( &EV_ActivateTargets, 0, this );
 }
 
 /*
