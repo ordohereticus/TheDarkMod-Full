@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 46 $
- * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
- * $Author: sparhawk $
+ * $Revision: 117 $
+ * $Date: 2005-04-22 21:43:53 -0400 (Fri, 22 Apr 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.3  2005/04/23 01:43:53  ishtvan
+ * Added SetFrameRate frame command, for re-using animations but slowing them down or speeding them up on the fly
+ *
  * Revision 1.2  2004/11/28 09:17:19  sparhawk
  * SDK V2 merge
  *
@@ -137,7 +140,15 @@ typedef enum {
 	FC_ENABLE_LEG_IK,
 	FC_DISABLE_LEG_IK,
 	FC_RECORDDEMO,
-	FC_AVIGAME
+	FC_AVIGAME,
+
+/**
+* DarkMod:
+* FC_SETRATE sets the anim rate, used for speeding up/slowing down walking
+* and crouchwalking animations to get correct footstep sounds.
+**/
+	FC_SETRATE
+
 } frameCommandType_t;
 
 typedef struct {
@@ -253,6 +264,11 @@ public:
 	void					GetOrigin( idVec3 &offset, int currentTime, int cyclecount ) const;
 	void					GetOriginRotation( idQuat &rotation, int time, int cyclecount ) const;
 	void					GetBounds( idBounds &bounds, int currentTime, int cyclecount ) const;
+
+	/**
+	* DarkMod: Set the framerate to something different from what's in the file.
+	**/
+	void					SetFrameRate( int frRate );
 };
 
 /*
