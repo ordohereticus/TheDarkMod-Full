@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 240 $
- * $Date: 2005-11-19 12:29:21 -0500 (Sat, 19 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 244 $
+ * $Date: 2005-11-20 05:39:19 -0500 (Sun, 20 Nov 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.10  2005/11/20 10:39:19  ishtvan
+ * added tactile alert to AI when melee hit occurs
+ *
  * Revision 1.9  2005/11/19 17:28:52  sparhawk
  * LogString with macro replaced
  *
@@ -4539,6 +4542,12 @@ bool idAI::AttackMelee( const char *meleeDefName ) {
 	globalKickDir = ( viewAxis * physicsObj.GetGravityAxis() ) * kickDir;
 
 	enemyEnt->Damage( this, this, globalKickDir, meleeDefName, 1.0f, INVALID_JOINT );
+
+	// cause a LARGE tactile alert in the enemy, if it is an AI
+	if( enemyEnt->IsType(idAI::Type) )
+	{
+		static_cast<idAI *>(enemyEnt)->TactileAlert( this, 100 );
+	}
 
 	lastAttackTime = gameLocal.time;
 
