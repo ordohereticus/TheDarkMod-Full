@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 344 $
- * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
+ * $Revision: 355 $
+ * $Date: 2006-02-12 02:28:45 -0500 (Sun, 12 Feb 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.12  2006/02/12 07:28:45  ishtvan
+ * fixed drowning SFX
+ *
  * Revision 1.11  2006/02/05 07:12:14  ishtvan
  * redefined function Damage to take additional trace pointer argument
  *
@@ -2250,6 +2253,13 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		else
 		{
 			Pain( inflictor, attacker, damage, dir, location );
+
+			// FIX: if drowning, stop pain SFX and play drown SFX on voice channel
+			if ( damageDef->GetBool( "no_air" ) ) 
+			{
+				StopSound( SND_CHANNEL_VOICE, false );
+				StartSound( "snd_airGasp", SND_CHANNEL_VOICE, 0, false, NULL );
+			}
 		}
 	} else 
 	{
