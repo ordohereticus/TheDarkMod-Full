@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 116 $
- * $Date: 2005-04-22 21:42:47 -0400 (Fri, 22 Apr 2005) $
+ * $Revision: 145 $
+ * $Date: 2005-08-22 00:58:21 -0400 (Mon, 22 Aug 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.4  2005/08/22 04:58:21  ishtvan
+ * eliminated unnecessary arguments in idAI::HearSound
+ *
  * Revision 1.3  2005/04/23 01:42:47  ishtvan
  * Added AI awareness of their crouch/run/creep state
  *
@@ -316,7 +319,7 @@ public:
 	* has been called and that the sound is above threshold without
 	* considering environmental noise masking.
 	**/
-	void HearSound( SSprParms *propParms, float noise, idVec3 origin, bool bSameArea );
+	void HearSound( SSprParms *propParms, float noise, idVec3 origin );
 
 	/**
 	* Return the last point at which the AI heard a sound
