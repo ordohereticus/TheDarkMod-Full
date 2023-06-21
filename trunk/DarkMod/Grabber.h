@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 550 $
- * $Date: 2006-08-13 21:06:28 -0400 (Sun, 13 Aug 2006) $
+ * $Revision: 799 $
+ * $Date: 2007-02-11 15:59:57 -0500 (Sun, 11 Feb 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.9  2007/02/11 20:59:57  ishtvan
+ * comments updated for better documentation
+ *
  * Revision 1.8  2006/08/14 01:06:27  ishtvan
  * PutInHands added
  *
@@ -112,6 +115,13 @@ protected:
 
 		/**
 		* Start grabbing an item.  Called internally and by the inventory
+		* 
+		* If newEnt argument is NULL, it tries to grab the entity the player is frobbing
+		* Otherwise it places newEnt in the hands.
+		*
+		* Also calls StopDrag to drop the current item before grabbing the new one, 
+		* but we may need to put a time delay between so that we don't have 
+		* Pauli Exclusion issues.
 		**/
 		void					StartDrag( idPlayer *player, idEntity *newEnt = NULL, int bodyID = 0 );
 
