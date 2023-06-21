@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 540 $
+ * $Date: 2006-08-10 21:48:18 -0400 (Thu, 10 Aug 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.17  2006/08/11 01:48:18  ishtvan
+ * dealt with simultaneous alerts in one frame
+ *
+ * added alertedbyactor and scriptevent to get it
+ *
  * Revision 1.16  2006/06/21 13:04:47  sparhawk
  * Added version tracking per cpp module
  *
@@ -65,7 +70,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 540 $   $Date: 2006-08-10 21:48:18 -0400 (Thu, 10 Aug 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/relations.h"
@@ -221,6 +226,7 @@ const idEventDef AI_GetVisDir( "getVisDir", NULL, 'v' );
 const idEventDef AI_GetTactEnt( "getTactEnt", NULL, 'e');
 const idEventDef AI_SetAcuity( "setAcuity", "sf" );
 const idEventDef AI_GetAcuity( "getAcuity", "s", 'f' );
+const idEventDef AI_GetAlertActor( "getAlertActor", NULL, 'e' );
 
 const idEventDef AI_ClosestReachableEnemy( "closestReachableEnemy", NULL, 'e' );
 
@@ -517,6 +523,7 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_SetAcuity,						idAI::Event_SetAcuity )
 	EVENT( AI_GetAcuity,						idAI::Event_GetAcuity )
 	EVENT( AI_VisScan,							idAI::Event_VisScan )
+	EVENT( AI_GetAlertActor,					idAI::Event_GetAlertActor )
 	EVENT( AI_ClosestReachableEnemy,			idAI::Event_ClosestReachableEnemy )
 	EVENT ( AI_StartSearchForHidingSpots,		idAI::Event_StartSearchForHidingSpots )
 	EVENT ( AI_ContinueSearchForHidingSpots,	idAI::Event_ContinueSearchForHidingSpots )
