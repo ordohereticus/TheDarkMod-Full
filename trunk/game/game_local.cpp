@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 46 $
- * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
+ * $Revision: 56 $
+ * $Date: 2004-11-28 14:51:56 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.6  2004/11/28 19:51:56  sparhawk
+ * SDK V2 merge
+ *
  * Revision 1.5  2004/11/28 09:16:31  sparhawk
  * SDK V2 merge
  *
@@ -76,15 +79,11 @@ const char *idGameLocal::sufaceTypeNames[ MAX_SURFACE_TYPES ] = {
 	"ricochet", "surftype10", "surftype11", "surftype12", "surftype13", "surftype14", "surftype15"
 };
 
-FILE *logfile = NULL;
-
 /*
 ===========
 GetGameAPI
 ============
 */
-extern "C" gameExport_t *GetGameAPI( gameImport_t *import )
-{
 #if __MWERKS__
 #pragma export on
 #endif
@@ -324,9 +323,6 @@ void idGameLocal::Init( void ) {
 	Printf( "...%d aas types\n", aasList.Num() );
 	Printf( "game initialized.\n" );
 	Printf( "--------------------------------------\n" );
-
-	if(logfile)
-		fprintf(logfile, "Init\r");
 }
 
 /*
@@ -337,12 +333,6 @@ idGameLocal::Shutdown
 ============
 */
 void idGameLocal::Shutdown( void ) {
-	if(logfile)
-	{
-		fprintf(logfile, "Shutdown\r");
-		fclose(logfile);
-	}
-
 	if ( !common ) {
 		return;
 	}
