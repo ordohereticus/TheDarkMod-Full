@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1132 $
- * $Date: 2007-07-18 05:41:02 -0400 (Wed, 18 Jul 2007) $
+ * $Revision: 1137 $
+ * $Date: 2007-07-18 11:25:42 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1132 2007-07-18 09:41:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1137 2007-07-18 15:25:42Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -905,7 +905,7 @@ void idPlayer::addWeaponsToInventory() {
 			if (entityDef != NULL) {
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Adding weapon to inventory: %s\r", weaponDef.c_str());
 				// Allocate a new weapon item using the found entityDef
-				CInventoryWeaponItem* item = new CInventoryWeaponItem(*entityDef, weaponDef, this);
+				CInventoryWeaponItem* item = new CInventoryWeaponItem(weaponDef, this);
 				
 				item->setWeaponIndex(i);
 
