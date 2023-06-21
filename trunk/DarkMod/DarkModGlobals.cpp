@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+ * $Revision: 923 $
+ * $Date: 2007-04-21 09:24:36 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 923 2007-04-21 13:24:36Z orbweaver $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -254,6 +254,9 @@ void CGlobal::GetModName()
 {
 	int i, n;
 	char PathSep, *p;
+
+	// Get the mod path from the filesystem
+	assert(fileSystem != NULL);
 	const char *modpath = fileSystem->RelativePathToOSPath(".");
 	char name[256];
 
@@ -311,6 +314,7 @@ void CGlobal::GetModName()
 	}
 
 Quit:
+
 	DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Modpath: [%s]\r", m_ModPath);
 	DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Modname: [%s]\r", m_ModName);
 	return;
@@ -340,7 +344,7 @@ void CGlobal::Init()
 //	strcat(ProfilePath, "\\Darkmod\\darkmod.ini");
 #else   // LINUX
 	char *home = getenv("HOME");
-
+	
 	ProfilePath[0] = 0;
 	if(home)
 		 strcpy(ProfilePath, home);
