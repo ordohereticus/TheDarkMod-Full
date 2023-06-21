@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1129 $
- * $Date: 2007-07-16 08:55:04 -0400 (Mon, 16 Jul 2007) $
+ * $Revision: 1130 $
+ * $Date: 2007-07-17 12:25:11 -0400 (Tue, 17 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1129 2007-07-16 12:55:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1130 2007-07-17 16:25:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4708,13 +4708,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 				g_Global.m_DarkModPlayer->grabber->IncrementDistance( false );
 
 			// Pass the "next weapon" event to the GUIs
-			int handle = OVERLAYS_INVALID_HANDLE;
-			while ((handle = m_overlays.getNextOverlay(handle) ) != OVERLAYS_INVALID_HANDLE)
-			{
-				// Retrieve the GUI and set the state variable
-				idUserInterface* gui = m_overlays.getGui(handle);
-				gui->HandleNamedEvent("nextWeapon");
-			}
+			m_overlays.broadcastNamedEvent("nextWeapon");
 
 			// Prevent the player from choosing to switch weapons.
 			if ( GetImmobilization() & EIM_WEAPON_SELECT ) 
@@ -4732,13 +4726,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 				g_Global.m_DarkModPlayer->grabber->IncrementDistance( true );
 
 			// Pass the "previous weapon" event to the GUIs
-			int handle = OVERLAYS_INVALID_HANDLE;
-			while ((handle = m_overlays.getNextOverlay(handle) ) != OVERLAYS_INVALID_HANDLE)
-			{
-				// Retrieve the GUI and set the state variable
-				idUserInterface* gui = m_overlays.getGui(handle);
-				gui->HandleNamedEvent("prevWeapon");
-			}
+			m_overlays.broadcastNamedEvent("prevWeapon");
 
 			// Prevent the player from choosing to switch weapons.
 			if ( GetImmobilization() & EIM_WEAPON_SELECT ) 
@@ -4945,6 +4933,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
 
+			// Notify the GUIs about the change event, a readable might be open
+			m_overlays.broadcastNamedEvent("inventorySelectionChange");
+
 			inventoryPrevItem();
 			break;
 		}
@@ -4953,6 +4944,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 		{
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
+
+			// Notify the GUIs about the change event, a readable might be open
+			m_overlays.broadcastNamedEvent("inventorySelectionChange");
 
 			inventoryNextItem();
 			break;
@@ -4963,6 +4957,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
 
+			// Notify the GUIs about the change event, a readable might be open
+			m_overlays.broadcastNamedEvent("inventorySelectionChange");
+
 			inventoryPrevGroup();
 			break;
 		}
@@ -4971,6 +4968,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 		{
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
+
+			// Notify the GUIs about the change event, a readable might be open
+			m_overlays.broadcastNamedEvent("inventorySelectionChange");
 
 			inventoryNextGroup();
 			break;
