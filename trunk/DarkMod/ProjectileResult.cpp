@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 935 $
+ * $Date: 2007-04-26 05:55:11 -0400 (Thu, 26 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 935 2007-04-26 09:55:11Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -94,6 +94,8 @@ void CProjectileResult::Init
 	int StimDuration(0), StimEvalInterval(0);
 	float StimMagnitude(1.0f);
 	bool bStimUseBounds(false);
+	idVec3 stimBounds[2];
+	idVec3 stimVelocity;
 
 	// copy in the data
 	m_Collision = collision;
@@ -155,11 +157,23 @@ void CProjectileResult::Init
 				sprintf(key, "stim_radius_%u", stimIdx);
 				pProj->spawnArgs.GetFloat(key, "10", StimRadius);
 
+				sprintf(key, "stim_bounds_mins_%u", stimIdx);
+				pProj->spawnArgs.GetVector(key, "0 0 0", stimBounds[0]);
+
+				sprintf(key, "stim_bounds_maxs_%u", stimIdx);
+				pProj->spawnArgs.GetVector(key, "0 0 0", stimBounds[1]);
+
+				sprintf(key, "stim_radius_%u", stimIdx);
+				pProj->spawnArgs.GetFloat(key, "10", StimRadius);
+
 				sprintf(key, "stim_falloffexponent_%u", stimIdx);
 				pProj->spawnArgs.GetFloat(key, "1", StimFalloffExponent);
 
 				sprintf(key, "stim_duration_%u", stimIdx);
 				pProj->spawnArgs.GetInt(key, "0", StimDuration );
+
+				sprintf(key, "stim_velocity_%u", stimIdx);
+				pProj->spawnArgs.GetVector(key, "0 0 0", stimVelocity );
 
 				sprintf(key, "stim_eval_interval_%u", stimIdx);
 				pProj->spawnArgs.GetInt(key, "0", StimEvalInterval );
@@ -178,6 +192,14 @@ void CProjectileResult::Init
 				s->m_bUseEntBounds = bStimUseBounds;
 				s->m_Magnitude = StimMagnitude;
 				s->m_FallOffExponent = StimFalloffExponent;
+				s->m_Velocity = stimVelocity;
+
+				// Check for valid bounds vectors
+				if (stimBounds[0] != idVec3(0,0,0)) {
+					s->m_Bounds = idBounds(stimBounds[0], stimBounds[1]);
+					s->m_Radius = 0;
+					DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Stim with bounds setup\r");
+				}
 
 				sprintf(key, "stim_state_%u", stimIdx);
 				if( pProj->spawnArgs.GetBool(key, "1") )
