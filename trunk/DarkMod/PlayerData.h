@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 77 $
- * $Date: 2005-03-21 18:02:03 -0500 (Mon, 21 Mar 2005) $
- * $Author: sparhawk $
+ * $Revision: 156 $
+ * $Date: 2005-09-16 20:32:39 -0400 (Fri, 16 Sep 2005) $
+ * $Author: lloyd $
  * $Name$
  *
  * $Log$
+ * Revision 1.6  2005/09/17 00:32:23  lloyd
+ * added copyBind event and arrow sticking functionality (additions to Projectile and modifications to idEntity::RemoveBind
+ *
  * Revision 1.5  2005/03/21 23:02:03  sparhawk
  * Lightgem extended from 16 to 32 stages
  *
@@ -40,6 +43,8 @@
 
 #ifndef PLAYERDATA_H
 #define PLAYERDATA_H
+
+#include "Grabber.h"
 
 /**
  * CInventoryItem is a metaclass for storing entities in the inventory.
@@ -97,6 +102,9 @@ class CDarkModPlayer {
 public:
 	CDarkModPlayer(void);
 	~CDarkModPlayer(void);
+
+	// grabber to help with object manipulation
+	CGrabber		grabber;
 
 	/**
 	 * FrobEntity is NULL when no entity is highlighted. Otherwise it will point 

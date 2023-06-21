@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 156 $
+ * $Date: 2005-09-16 20:32:39 -0400 (Fri, 16 Sep 2005) $
+ * $Author: lloyd $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:31  sparhawk
- * Initial revision
+ * Revision 1.2  2005/09/17 00:32:29  lloyd
+ * added copyBind event and arrow sticking functionality (additions to Projectile and modifications to idEntity::RemoveBind
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -71,8 +74,11 @@ void idCursor3D::Present( void ) {
 
 	const idVec3 &origin = GetPhysics()->GetOrigin();
 	const idMat3 &axis = GetPhysics()->GetAxis();
-	gameRenderWorld->DebugArrow( colorYellow, origin + axis[1] * -5.0f + axis[2] * 5.0f, origin, 2 );
-	gameRenderWorld->DebugArrow( colorRed, origin, draggedPosition, 2 );
+
+	if( this->showCursor ) {
+		gameRenderWorld->DebugArrow( colorYellow, origin + axis[1] * -5.0f + axis[2] * 5.0f, origin, 2 );
+		gameRenderWorld->DebugArrow( colorRed, origin, draggedPosition, 2 );
+	}
 }
 
 /*
