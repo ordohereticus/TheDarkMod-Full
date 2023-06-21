@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 724 $
- * $Date: 2007-01-18 02:45:53 -0500 (Thu, 18 Jan 2007) $
+ * $Revision: 728 $
+ * $Date: 2007-01-18 17:28:20 -0500 (Thu, 18 Jan 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.42  2007/01/18 22:28:20  thelvyn
+ * Keyboard hook now working.
+ *
  * Revision 1.41  2007/01/18 07:45:53  thelvyn
  * Modifications as requested to MouseHook code handler and enums
  * Decoupling from gamelocal.h
@@ -738,9 +741,7 @@ public:
 
 	LRESULT MouseProc( int nCode, WPARAM wParam, LPARAM lParam );
 
-#ifdef _WINDOWS_
 	HHOOK					m_KeyboardHook;
-#endif
 	#pragma Message ("Keyboard Hook. Linux and mac ports need to be added here.")
 
 	CMouseHook*             m_MouseHookHandler;
