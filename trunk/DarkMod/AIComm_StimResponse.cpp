@@ -1,3 +1,17 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Source$
+ * $Revision: 423 $
+ * $Date: 2006-05-19 15:56:50 -0400 (Fri, 19 May 2006) $
+ * $Author: sparhawk $
+ *
+ * $Log$
+ * Revision 1.2  2006/05/19 19:56:50  sparhawk
+ * CVSHeader added
+ *
+ *
+ ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
