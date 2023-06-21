@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1093 $
+ * $Date: 2007-07-12 16:24:07 -0400 (Thu, 12 Jul 2007) $
+ * $Author: thelvyn $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: bitmsg.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: bitmsg.cpp 1093 2007-07-12 20:24:07Z thelvyn $", init_version);
 
 /*
 ==============================================================================
@@ -411,6 +411,8 @@ int idBitMsg::ReadString( char *buffer, int bufferSize ) const {
 	
 	ReadByteAlign();
 	l = 0;
+#pragma warning( push )
+#pragma warning(disable : 4127 )
 	while( 1 ) {
 		c = ReadByte();
 		if ( c <= 0 || c >= 255 ) {
@@ -429,7 +431,7 @@ int idBitMsg::ReadString( char *buffer, int bufferSize ) const {
 			l++;
 		}
 	}
-	
+#pragma warning( pop )	
 	buffer[l] = 0;
 	return l;
 }

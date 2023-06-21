@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1093 $
+ * $Date: 2007-07-12 16:24:07 -0400 (Thu, 12 Jul 2007) $
+ * $Author: thelvyn $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd_sse.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: simd_sse.cpp 1093 2007-07-12 20:24:07Z thelvyn $", init_version);
 
 #include "Simd_Generic.h"
 #include "Simd_MMX.h"
@@ -610,6 +610,8 @@ void VPCALL idSIMD_SSE::Dot( float *dst, const idVec3 &constant, const idPlane *
 #elif defined(_WIN32)
 
 #include <xmmintrin.h>
+#pragma warning( push )
+#pragma warning( disable: 4127 )
 
 #define SHUFFLEPS( x, y, z, w )		(( (x) & 3 ) << 6 | ( (y) & 3 ) << 4 | ( (z) & 3 ) << 2 | ( (w) & 3 ))
 #define R_SHUFFLEPS( x, y, z, w )	(( (w) & 3 ) << 6 | ( (z) & 3 ) << 4 | ( (y) & 3 ) << 2 | ( (x) & 3 ))
@@ -18069,5 +18071,6 @@ void VPCALL idSIMD_SSE::MixedSoundToSamples( short *samples, const float *mixBuf
 
 #endif
 }
+#pragma warning( pop )
 
 #endif /* _WIN32 */
