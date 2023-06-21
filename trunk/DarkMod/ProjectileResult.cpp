@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 328 $
- * $Date: 2006-01-31 17:35:07 -0500 (Tue, 31 Jan 2006) $
+ * $Revision: 338 $
+ * $Date: 2006-02-04 18:51:08 -0500 (Sat, 04 Feb 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2006/02/04 23:51:08  sparhawk
+ * Added a destructor and fixed some stuff for Stim/Response.
+ *
  * Revision 1.3  2006/01/31 22:34:44  sparhawk
  * StimReponse first working version
  *
@@ -89,6 +92,11 @@ CProjectileResult::CProjectileResult( void )
 	m_Collision.c.normal.Set( 0, 0, 1 );
 }
 
+CProjectileResult::~CProjectileResult(void)
+{
+}
+
+
 void CProjectileResult::Init
 		(
 			SFinalProjData *pData, const trace_t &collision,
@@ -139,6 +147,12 @@ void CProjectileResult::Init
 		pProj->spawnArgs.GetFloat("stim_radius", "10", StimRadius);
 		s = AddStim(StimType, StimRadius);
 		s->m_State = SS_ENABLED;
+		idStr Name;
+		sprintf(Name, "%08lX_", this);
+		if(StimType < ST_USER)
+			Name += cStimType[StimType];
+
+		SetName(name.c_str());
         DM_LOG(LC_WEAPON, LT_DEBUG)LOGSTRING("Stim type %u with radius %f added to entity %08lX\r", StimType, StimRadius, this);
 	}
 

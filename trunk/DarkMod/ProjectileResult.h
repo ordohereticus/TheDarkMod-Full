@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 306 $
- * $Date: 2006-01-20 03:47:45 -0500 (Fri, 20 Jan 2006) $
- * $Author: ishtvan $
+ * $Revision: 338 $
+ * $Date: 2006-02-04 18:51:08 -0500 (Sat, 04 Feb 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.2  2006/02/04 23:51:08  sparhawk
+ * Added a destructor and fixed some stuff for Stim/Response.
+ *
  * Revision 1.1  2006/01/20 08:47:45  ishtvan
  * initial version
  *
@@ -37,7 +40,8 @@ class CProjectileResult : public idEntity {
 public:
 	CLASS_PROTOTYPE( CProjectileResult );
 
-	CProjectileResult( void );
+	CProjectileResult(void);
+	~CProjectileResult(void);
 
 /**
 * Initialize the projectile result, called by the projectile
