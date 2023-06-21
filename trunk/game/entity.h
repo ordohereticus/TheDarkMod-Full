@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 344 $
- * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
- * $Author: ishtvan $
+ * $Revision: 346 $
+ * $Date: 2006-02-05 17:03:29 -0500 (Sun, 05 Feb 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.20  2006/02/05 22:03:29  sparhawk
+ * StimEnable event added.
+ *
  * Revision 1.19  2006/02/05 07:12:14  ishtvan
  * redefined function Damage to take additional trace pointer argument
  *
@@ -733,8 +736,10 @@ private:
 	void					Event_SetNeverDormant( int enable );
 	void					StimAdd(int Type, float Radius);
 	void					StimRemove(int Type);
+	void					StimEnable(int Type, int State);
 	void					ResponseAdd(int Type);
 	void					ResponseRemove(int Type);
+
 	/**
 	* Used to propagate a sound directly via scripting, without playing the audible sound
 	**/
