@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 48 $
+ * $Date: 2004-11-28 04:48:30 -0500 (Sun, 28 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:37  sparhawk
- * Initial revision
+ * Revision 1.2  2004/11/28 09:46:48  sparhawk
+ * SDK V2 merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:37  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -1453,6 +1456,15 @@ void idTraceModel::GetMassProperties( const float density, float &mass, idVec3 &
 	}
 
 	VolumeIntegrals( integrals );
+
+	// if no volume
+	if ( integrals.T0 == 0.0f ) {
+	  mass = 1.0f;
+	  centerOfMass.Zero();
+	  inertiaTensor.Identity();
+	  return;
+	}
+
 	// mass of model
 	mass = density * integrals.T0;
 	// center of mass
