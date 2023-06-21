@@ -2,11 +2,17 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 11 $
- * $Date: 2004-10-31 14:09:53 -0500 (Sun, 31 Oct 2004) $
+ * $Revision: 44 $
+ * $Date: 2004-11-24 17:00:05 -0500 (Wed, 24 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2004/11/24 22:00:05  sparhawk
+ * *) Multifrob implemented
+ * *) Usage of items against other items implemented.
+ * *) Basic Inventory system added.
+ * *) Inventory keys added
+ *
  * Revision 1.2  2004/10/31 19:09:53  sparhawk
  * Added CDarkModPlayer to player
  *
@@ -508,6 +514,12 @@ public:
 	virtual	void			DrawPlayerIcons( void );
 	virtual	void			HidePlayerIcons( void );
 	bool					NeedsIcon( void );
+
+	/**
+	 * AddToInventory maps to a scriptfunction which will store an entity into
+	 * the inventory.
+	 */
+	void AddToInventory(idEntity *ent);
 
 private:
 	jointHandle_t			hipJoint;
