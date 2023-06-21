@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 961 $
- * $Date: 2007-05-03 08:08:54 -0400 (Thu, 03 May 2007) $
+ * $Revision: 966 $
+ * $Date: 2007-05-03 15:38:52 -0400 (Thu, 03 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -115,6 +115,8 @@ extern idCVar cv_lg_path;
 extern idCVar cv_lp_pin_base_count;
 extern idCVar cv_lp_sample_delay;
 extern idCVar cv_lp_pick_timeout;
+extern idCVar cv_lp_pick_attempts;
+extern idCVar cv_lp_auto_pick;
 
 extern idCVar cv_dm_distance;
 
