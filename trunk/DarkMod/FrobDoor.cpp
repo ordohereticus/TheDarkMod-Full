@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 966 $
- * $Date: 2007-05-03 15:38:52 -0400 (Thu, 03 May 2007) $
+ * $Revision: 993 $
+ * $Date: 2007-05-24 17:26:23 -0400 (Thu, 24 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 966 2007-05-03 19:38:52Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 993 2007-05-24 21:26:23Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -648,12 +648,15 @@ idStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount)
 	Clicks += BaseCount;
 	rc = new idStringList();
 
+	sprintf(click, "lockpick_pin_%02u", 0);
+	rc->Append(click);
+
 	for(i = 0; i < Clicks; i++)
 	{
 		if(i % 2)
 			r = gameLocal.random.RandomInt(MAX_PIN_CLICKS);
 		else
-			r = rnd.IRandom(0, MAX_PIN_CLICKS);
+			r = rnd.IRandom(1, MAX_PIN_CLICKS);
 
 		sprintf(click, "lockpick_pin_%02u", r);
 		rc->Append(click);
@@ -675,8 +678,22 @@ void CFrobDoor::ProcessLockpick(bool bInit, bool bCallback, int cType)
 
 	if(m_FirstLockedPinIndex >= m_Pins.Num())
 	{
-		// TODO: We need to play a short soundsample here to indicate that the lock already has been picked.
-		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] already picked\r", name.c_str());
+		if(m_SoundTimerStarted == false)
+		{
+			// We need to play a short soundsample here to indicate that the lock already has been picked.
+			oPickSound = "lockpick_pin_wrong";
+			PropSoundDirect(oPickSound, true, false );
+			idSoundShader const *shader = declManager->FindSound(oPickSound);
+			StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
+			DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] already picked\r", name.c_str());
+			PostEventMS(&EV_TDM_LockpickTimer, length, bInit, cType);
+			m_SoundTimerStarted = true;
+		}
+		else
+		{
+			if(bCallback == true || common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51)) == false)
+				m_SoundTimerStarted = false;
+		}
 		goto Quit;
 	}
 
@@ -705,11 +722,19 @@ void CFrobDoor::ProcessLockpick(bool bInit, bool bCallback, int cType)
 					StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
 					DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] successfully picked!\r", name.c_str());
 					Unlock(true);
+					PostEventMS(&EV_TDM_LockpickTimer, length, bInit, cType);
 					goto Quit;
 				}
 			}
 			else
-				DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Pick attempt: %u/%u failed.\r", m_FirstLockedPinIndex, m_SoundPinSampleIndex);
+			{
+				oPickSound = "lockpick_pin_fail";
+				PropSoundDirect(oPickSound, true, false );
+				idSoundShader const *shader = declManager->FindSound(oPickSound);
+				StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
+				DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Pick attempt: %u/%u failed (len: %u).\r", m_FirstLockedPinIndex, m_SoundPinSampleIndex, length);
+				PostEventMS(&EV_TDM_LockpickTimer, length, bInit, cType);
+			}
 		}
 		else
 		{
