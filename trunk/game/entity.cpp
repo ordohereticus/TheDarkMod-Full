@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 556 $
- * $Date: 2006-08-15 12:35:52 -0400 (Tue, 15 Aug 2006) $
+ * $Revision: 569 $
+ * $Date: 2006-09-12 11:03:47 -0400 (Tue, 12 Sep 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.69  2006/09/12 15:03:47  gildoran
+ * Fixed a small error preventing setInventory($null) from working.
+ *
  * Revision 1.68  2006/08/15 16:35:52  gildoran
  * A couple more inventory fixes. (setInventory() now reads "inv_group" rather than "inventory_group")
  *
@@ -242,7 +245,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 556 $   $Date: 2006-08-15 12:35:52 -0400 (Tue, 15 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 569 $   $Date: 2006-09-12 11:03:47 -0400 (Tue, 12 Sep 2006) $", init_version);
 
 #pragma warning(disable : 4533 )
 
@@ -6870,12 +6873,11 @@ void idEntity::Event_SetInventory( idEntity* ent ) {
 	}
 	if ( ent != NULL ) {
 		inv = ent->Inventory();
+		if ( inv == NULL ) {
+			gameLocal.Warning( "Unable to load inventory.\n" );
+			goto Quit;
+		}
 	}
-	if ( inv == NULL ) {
-		gameLocal.Warning( "Unable to load inventory.\n" );
-		goto Quit;
-	}
-
 
 	const char* group;
 	spawnArgs.GetString( "inv_group", "", &group );
