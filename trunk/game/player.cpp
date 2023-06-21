@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 885 $
- * $Date: 2007-04-01 11:07:13 -0400 (Sun, 01 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 887 $
+ * $Date: 2007-04-02 03:34:20 -0400 (Mon, 02 Apr 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 885 2007-04-01 15:07:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 887 2007-04-02 07:34:20Z ishtvan $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -6433,7 +6433,8 @@ void idPlayer::GetAASLocation( idAAS *aas, idVec3 &pos, int &areaNum ) const {
 idPlayer::Move
 ==============
 */
-void idPlayer::Move( void ) {
+void idPlayer::Move( void ) 
+{
 	float newEyeOffset;
 	idVec3 savedOrigin;
 	idVec3 savedVelocity;
@@ -6535,7 +6536,8 @@ void idPlayer::Move( void ) {
 		}
 	}
 
-	if ( AI_JUMP ) {
+	if ( AI_JUMP ) 
+	{
 		// bounce the view weapon
  		loggedAccel_t	*acc = &loggedAccel[currentLoggedAccel&(NUM_LOGGED_ACCELS-1)];
 		currentLoggedAccel++;
@@ -6544,12 +6546,44 @@ void idPlayer::Move( void ) {
 		acc->dir[0] = acc->dir[1] = 0;
 	}
 
-	if ( AI_ONLADDER ) {
-		int old_rung = savedOrigin.z / LADDER_RUNG_DISTANCE;
-		int new_rung = physicsObj.GetOrigin().z / LADDER_RUNG_DISTANCE;
+	// play climbing movement sounds
+	if ( AI_ONLADDER ) 
+	{
+		idStr TempStr, LocalSound, sound;
+		bool bSoundPlayed = false;
+		sound.Clear();
 
-		if ( old_rung != new_rung ) {
-			StartSound( "snd_stepladder", SND_CHANNEL_ANY, 0, false, NULL );
+		int old_vert = savedOrigin.z / LADDER_RUNG_DISTANCE;
+		int new_vert = physicsObj.GetOrigin().z / LADDER_RUNG_DISTANCE;
+
+		int old_horiz = ((idPhysics_Player *)GetPhysics())->GetClimbLateralCoord( savedOrigin ) / LADDER_RUNG_DISTANCE;
+		int new_horiz = ((idPhysics_Player *)GetPhysics())->GetClimbLateralCoord( GetPhysics()->GetOrigin() ) / LADDER_RUNG_DISTANCE;
+
+		if ( old_vert != new_vert ) 
+		{
+			LocalSound = "snd_climb_vert_";
+			bSoundPlayed = true;
+		}
+		else if( old_horiz != new_horiz )
+		{
+			LocalSound = "snd_climb_horiz_";
+			bSoundPlayed = true;
+		}
+
+		if( bSoundPlayed )
+		{
+			idStr SurfName = ((idPhysics_Player *) GetPhysics())->GetClimbSurfaceType();
+			TempStr = LocalSound + SurfName;
+			sound = spawnArgs.GetString( TempStr.c_str() );
+			if( sound.IsEmpty() )
+			{
+				TempStr = LocalSound + "default";
+				sound = spawnArgs.GetString( TempStr.c_str() );
+			}
+
+			// DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("Climb sound: %s\r", TempStr.c_str() );
+			if ( !sound.IsEmpty() )
+				StartSound( TempStr.c_str(), SND_CHANNEL_ANY, 0, false, NULL );
 		}
 	}
 
