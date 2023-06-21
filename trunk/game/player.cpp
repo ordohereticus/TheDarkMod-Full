@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1114 $
- * $Date: 2007-07-13 12:36:38 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1115 $
+ * $Date: 2007-07-13 12:47:49 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1114 2007-07-13 16:36:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1115 2007-07-13 16:47:49Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9143,11 +9143,12 @@ CInventoryItem* idPlayer::AddToInventory(idEntity *ent, idUserInterface *_hud) {
 	CInventoryItem* prev = NULL;
 
 	if (weaponItem != NULL) {
-		// This is a weapon-related inventory item, use the weapon inventory cursor
-		m_WeaponCursor->SetCurrentItem(returnValue);
-
-		// TODO: CVAR check goes here
-		SelectWeapon(weaponItem->getWeaponIndex(), false);
+		// greebo: This is a weapon-related inventory item, use the weapon inventory cursor
+		// Do it only if the respective CVAR is set
+		if (cv_frob_ammo_selects_weapon.GetBool()) {
+			m_WeaponCursor->SetCurrentItem(returnValue);
+			SelectWeapon(weaponItem->getWeaponIndex(), false);
+		}
 	}
 	else {
 		// Ordinary inventory item, set the cursor onto it
