@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 944 $
- * $Date: 2007-04-28 16:37:01 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 947 $
+ * $Date: 2007-04-29 13:56:04 -0400 (Sun, 29 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -147,7 +147,8 @@ protected:
 		CREATED = 1,
 		LAUNCHED = 2,
 		FIZZLED = 3,
-		EXPLODED = 4
+		EXPLODED = 4,
+		INACTIVE = 5	// greebo: this applies to mines that haven't become active yet
 	} projectileState_t;
 	
 	projectileState_t		state;
@@ -170,6 +171,7 @@ private:
 	void					Event_RadiusDamage( idEntity *ignore );
 	void					Event_Touch( idEntity *other, trace_t *trace );
 	void					Event_GetProjectileState( void );
+	void					Event_ActivateProjectile();
 	void					Event_Launch( idVec3 const &origin, idVec3 const &direction, idVec3 const &velocity );
 };
 

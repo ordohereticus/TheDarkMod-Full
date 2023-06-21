@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 941 $
- * $Date: 2007-04-28 08:44:02 -0400 (Sat, 28 Apr 2007) $
+ * $Revision: 947 $
+ * $Date: 2007-04-29 13:56:04 -0400 (Sun, 29 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 941 2007-04-28 12:44:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 947 2007-04-29 17:56:04Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7749,7 +7749,6 @@ void idEntity::DestroyOverlay(int handle)
 		if ( gui )
 			gui->Activate( false, gameLocal.time );
 		m_overlays.destroyOverlay( handle );
-		gameLocal.Printf("Overlay with ID %d destroyed.\n", handle);
 	} else {
 		gameLocal.Warning( "Cannot destroy HUD.\n" );
 	}
