@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1105 $
- * $Date: 2007-07-13 08:34:25 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1106 $
+ * $Date: 2007-07-13 08:48:23 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -137,8 +137,6 @@ public:
 
 	int						lastGiveTime;
 
-	idList<idLevelTriggerInfo> levelTriggers;
-
 							idInventory() { Clear(); }
 							~idInventory() { Clear(); }
 
@@ -235,6 +233,11 @@ public:
 	* container for the player's inventory
 	*/
 	idInventory				inventory;
+
+	// greebo: The levelTrigger were in the old idInventory structure. This contains
+	// all the leveltriggers (which can be used to trigger targets in an upcoming map)
+	// Sounds useful, that's why I moved it here.
+	idList<idLevelTriggerInfo> levelTriggers;
 
 	/**
 	* greebo: Helper class keeping track of which buttons are currently
