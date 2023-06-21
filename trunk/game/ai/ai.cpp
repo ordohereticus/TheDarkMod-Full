@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1022 $
- * $Date: 2007-06-10 23:17:45 -0400 (Sun, 10 Jun 2007) $
- * $Author: crispy $
+ * $Revision: 1026 $
+ * $Date: 2007-06-11 16:00:21 -0400 (Mon, 11 Jun 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1022 2007-06-11 03:17:45Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1026 2007-06-11 20:00:21Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1535,9 +1535,15 @@ void idAI::Think( void ) {
 		FOVDebugDraw();
 	}
 
-	if( cv_ai_state_show.GetBool() && state != NULL )
+	if( cv_ai_state_show.GetBool() )
 	{
-		gameRenderWorld->DrawText( state->Name(), (GetEyePosition() - physicsObj.GetGravityNormal()*15.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		const char *statename;
+		if( state )
+			statename = state->Name();
+		else
+			statename = "NULL State";
+
+		gameRenderWorld->DrawText( statename, (GetEyePosition() - physicsObj.GetGravityNormal()*15.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
 	
 	if ( cv_ai_task_show.GetBool())
@@ -6792,7 +6798,14 @@ bool idAI::TestKnockoutBlow( idVec3 dir, trace_t *tr, bool bIsPowerBlow )
 	idMat3 HeadAxis(mat3_zero);
 	idStr LocationName;
 
-	DM_LOG(LC_AI, LT_DEBUG).LogString("Attempted KO of AI %s in state %s\r", name.c_str(), state->Name());
+	// state name for logging
+	const char *statename;
+	if( state )
+		statename = state->Name();
+	else
+		statename = "NULL State";
+	
+	DM_LOG(LC_AI, LT_DEBUG).LogString("Attempted KO of AI %s in state %s\r", name.c_str(), statename);
 	
 	if( AI_KNOCKEDOUT )
 	{
