@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 301 $
- * $Date: 2006-01-12 23:08:56 -0500 (Thu, 12 Jan 2006) $
+ * $Revision: 304 $
+ * $Date: 2006-01-13 03:53:18 -0500 (Fri, 13 Jan 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.9  2006/01/13 08:53:18  ishtvan
+ * added texture dependent damage multipliers
+ *
  * Revision 1.8  2006/01/13 04:08:56  ishtvan
  * added spawning of projectile result objects when appropriate
  *
@@ -501,6 +504,7 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	idVec3		dir;
 	float		push;
 	float		damageScale;
+	idStr		SurfTypeName;
 
 	if ( state == EXPLODED || state == FIZZLED ) {
 		return true;
@@ -524,6 +528,7 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity ) {
 
 	// get the entity the projectile collided with
 	ent = gameLocal.entities[ collision.c.entityNum ];
+
 	if ( ent == owner.GetEntity() ) {
 		assert( 0 );
 		return true;
@@ -577,12 +582,19 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	ignore = NULL;
 
 	// if the hit entity takes damage
-	if ( ent->fl.takedamage ) {
+	if ( ent->fl.takedamage ) 
+	{
 		if ( damagePower ) {
 			damageScale = damagePower;
 		} else {
 			damageScale = 1.0f;
 		}
+
+		// scale the damage by the surface type multiplier, if any
+		SurfTypeName = g_Global.GetSurfName( collision.c.material );
+		SurfTypeName = "damage_mult_" + SurfTypeName;
+
+		damageScale *= spawnArgs.GetFloat( SurfTypeName.c_str(), "1.0" ); 
 
 		// if the projectile owner is a player
 		if ( owner.GetEntity() && owner.GetEntity()->IsType( idPlayer::Type ) ) {
