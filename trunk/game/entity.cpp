@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 649 $
- * $Date: 2006-12-09 23:53:23 -0500 (Sat, 09 Dec 2006) $
+ * $Revision: 665 $
+ * $Date: 2006-12-15 21:14:44 -0500 (Fri, 15 Dec 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.77  2006/12/16 02:14:44  gildoran
+ * Fixed a bug in the setCursorItem() script event declaration, to allow it to take $null pointers.
+ *
  * Revision 1.76  2006/12/10 04:53:23  gildoran
  * Completely revamped the inventory code again. I took out the other iteration methods leaving only hybrid (and grouped) iteration. This allowed me to slim down and simplify much of the code, hopefully making it easier to read. It still needs to be improved some, but it's much better than before.
  *
@@ -266,7 +269,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 649 $   $Date: 2006-12-09 23:53:23 -0500 (Sat, 09 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 665 $   $Date: 2006-12-15 21:14:44 -0500 (Fri, 15 Dec 2006) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -369,7 +372,7 @@ const idEventDef EV_GetNextItem( "getNextItem", "E", 'E' );
 const idEventDef EV_GetContainer( "getContainer", NULL, 'E' );
 const idEventDef EV_SetCursorInventory( "setCursorInventory", "E" );
 const idEventDef EV_GetCursorInventory( "getCursorInventory", NULL, 'E' );
-const idEventDef EV_SetCursorItem( "setCursorItem", "ed" );
+const idEventDef EV_SetCursorItem( "setCursorItem", "Ed" );
 const idEventDef EV_GetCursorItem( "getCursorItem", NULL, 'E' );
 const idEventDef EV_CopyCursor( "copyCursor", "ed" );
 const idEventDef EV_IterateCursor( "iterateCursor", "d" );
