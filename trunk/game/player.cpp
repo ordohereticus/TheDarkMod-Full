@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 287 $
- * $Date: 2005-12-11 22:01:52 -0500 (Sun, 11 Dec 2005) $
+ * $Revision: 291 $
+ * $Date: 2005-12-13 13:18:05 -0500 (Tue, 13 Dec 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.41  2005/12/13 18:18:05  ishtvan
+ * frob distance check updates
+ *
  * Revision 1.40  2005/12/12 03:01:52  ishtvan
  * moved grabber calls to the frob code on idEntity
  *
@@ -6894,6 +6897,22 @@ void idPlayer::Think( void )
 			num++;
 		}
 		gameLocal.Printf( "%d: enemies\n", num );
+	}
+
+	// Check for entities within max frobdistance and toggle them for frobbing
+	idBounds FrobBounds( physicsObj.GetOrigin() );
+	FrobBounds.ExpandSelf( g_Global.m_MaxFrobDistance );
+	idEntity *FrobRangeEnts[ MAX_GENTITIES ];
+
+	float numFrobEnt = gameLocal.clip.EntitiesTouchingBounds( FrobBounds, -1, FrobRangeEnts, MAX_GENTITIES );
+
+	for( int i=0; i<numFrobEnt; i++ )
+	{
+		if( FrobRangeEnts[i] )
+		{
+			// Within frob Dist should always initially be set to false, so it's toggled
+			FrobRangeEnts[i]->ToggleWithinFrobDist();
+		}
 	}
 
 	// determine if portal sky is in pvs

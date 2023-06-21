@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 271 $
- * $Date: 2005-12-08 16:33:53 -0500 (Thu, 08 Dec 2005) $
- * $Author: sparhawk $
+ * $Revision: 291 $
+ * $Date: 2005-12-13 13:18:05 -0500 (Tue, 13 Dec 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.14  2005/12/13 18:18:05  ishtvan
+ * frob distance check updates
+ *
  * Revision 1.13  2005/12/08 21:33:53  sparhawk
  * Stim/Response files added.
  *
@@ -482,6 +485,17 @@ public:
 	void ParseUsedByList(idList<idStr> &, idStr &);
 
 	/**
+	* Toggle whether the entity is within player's max frob distance.  Called by idPlayer
+	**/
+	void ToggleWithinFrobDist( void );
+
+	/**
+	* Return whether the entity is within player's max frob distance.
+	* Should be false at the beginning of the frame
+	**/
+	bool IsWithinFrobDist( void );
+
+	/**
 	* DarkMod sound prop functions (called by StartSound and StopSound)
 	**/
 
@@ -533,6 +547,11 @@ protected:
 	 * the entity is not frobable.
 	 */
 	int							m_FrobDistance;
+
+	/**
+	* This is set to true if the entity is within the player's max frob distance
+	**/
+	bool						m_bWithinFrobDist;
 
 	/**
 	 * FrobActionScript will contain the name of the script that is to be
