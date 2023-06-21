@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 986 $
- * $Date: 2007-05-12 07:09:16 -0400 (Sat, 12 May 2007) $
+ * $Revision: 1088 $
+ * $Date: 2007-07-12 12:46:32 -0400 (Thu, 12 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -386,7 +386,17 @@ public:
 
 	void					Spawn( void );
 	void					Think( void );
+
+	/**
+	* greebo: This creates all the default inventory items and adds the weapons.
+	*/
 	void					SetupInventory();
+
+	/**
+	* greebo: Parses the spawnargs for any weapon definitions and adds them
+	*         to the inventory. Expects the weapon category to exist.
+	*/
+	void					addWeaponsToInventory();
 
 	// save games
 	void					Save( idSaveGame *savefile ) const;					// archives object for save game file
