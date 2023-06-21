@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 723 $
- * $Date: 2007-01-16 22:45:38 -0500 (Tue, 16 Jan 2007) $
+ * $Revision: 733 $
+ * $Date: 2007-01-19 00:05:10 -0500 (Fri, 19 Jan 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.54  2007/01/19 05:05:10  thelvyn
+ * More keyboard hook work. Mostly tweaking. Not sure what I did to ai.cpp
+ *
  * Revision 1.53  2007/01/17 03:45:12  thelvyn
  * *** empty log message ***
  *
@@ -216,7 +219,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 723 $   $Date: 2007-01-16 22:45:38 -0500 (Tue, 16 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 733 $   $Date: 2007-01-19 00:05:10 -0500 (Fri, 19 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -6260,6 +6263,8 @@ void idAI::HearSound
 
 void idAI::AlertAI( const char *type, float amount )
 {
+//	gameLocal.Printf( "\nMouse info in AlertAI.\nLeft = %s Right = %s Middle = %s\n", gameLocal.m_Mouse_LBPressed ? "True" : "False", gameLocal.m_Mouse_RBPressed ? "True" : "False", gameLocal.m_Mouse_MBPressed ? "True" : "False" );
+//	gameLocal.Printf( "\nMouse info in AlertAI.\nLast Action was %s\n", MouseGetActionString(gameLocal.m_MouseDataCurrent.Action) );
 	float mod(0), alertInc(0);
 	idActor *act(NULL);
 

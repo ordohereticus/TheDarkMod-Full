@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 731 $
- * $Date: 2007-01-18 21:30:55 -0500 (Thu, 18 Jan 2007) $
+ * $Revision: 733 $
+ * $Date: 2007-01-19 00:05:10 -0500 (Fri, 19 Jan 2007) $
  * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.44  2007/01/19 05:04:27  thelvyn
+ * More keyboard hook work. Mostly tweaking. Not sure what I did to ai.cpp
+ *
  * Revision 1.43  2007/01/19 02:30:41  thelvyn
  * Separated keyboard hook, same as mouse hook
  * #define NEWKEYHANDLERCLASS for this to take effect - NOT defined right now
@@ -317,7 +320,7 @@ class CKeyboardHook;// Added by Rich
 #include "Pvs.h"
 #include "MultiplayerGame.h"
 
-#include "../darkmod/MouseData.h"
+// #include "../darkmod/MouseData.h" no longer required
 
 //============================================================================
 
