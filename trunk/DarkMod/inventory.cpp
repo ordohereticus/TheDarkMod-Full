@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 879 $
- * $Date: 2007-03-28 14:52:22 -0400 (Wed, 28 Mar 2007) $
+ * $Revision: 880 $
+ * $Date: 2007-03-28 15:24:04 -0400 (Wed, 28 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************
@@ -45,7 +45,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: inventory.cpp 879 2007-03-28 18:52:22Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: inventory.cpp 880 2007-03-28 19:24:04Z sparhawk $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -404,10 +404,12 @@ void CInventory::PutEntityInMap(idEntity *ent, idEntity *owner, CInventoryItem *
 	if(ent == NULL || owner == NULL || item == NULL)
 		return;
 
-	// Make the item invisible
+	// Make the item visible
 	ent->GetPhysics()->LinkClip();
 	ent->Bind(item->m_BindMaster.GetEntity(), item->m_Orientated);
 	ent->Show();
+	ent->UpdateVisuals();
+	ent->PostEventMS(&EV_Activate, 0, ent);
 
 	// Objectives callback.  Cannot drop loot, so assume it is not loot
 	gameLocal.m_MissionData->InventoryCallback( ent, item->GetName(), item->GetValue(), 1, false ); 
@@ -709,6 +711,10 @@ CInventoryCategory *CInventoryCursor::GetNextCategory(void)
 	int n = m_Inventory->m_Category.Num();
 	int cnt = 0;
 
+	n--;
+	if(n < 0)
+		n = 0;
+
 	while(1)
 	{
 		m_CurrentCategory++;
@@ -751,6 +757,10 @@ CInventoryCategory *CInventoryCursor::GetPrevCategory(void)
 
 	int n = m_Inventory->m_Category.Num();
 	int cnt = 0;
+
+	n--;
+	if(n < 0)
+		n = 0;
 
 	while(1)
 	{
