@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1072 $
- * $Date: 2007-07-10 11:08:53 -0400 (Tue, 10 Jul 2007) $
+ * $Revision: 1107 $
+ * $Date: 2007-07-13 09:14:54 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1072 2007-07-10 15:08:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1107 2007-07-13 13:14:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3859,10 +3859,10 @@ bool idGameLocal::RequirementMet( idEntity *activator, const idStr &requires, in
 	if ( requires.Length() ) {
 		if ( activator->IsType( idPlayer::Type ) ) {
 			idPlayer *player = static_cast<idPlayer *>(activator);
-			idDict *item = player->FindInventoryItem( requires );
+			idDict *item = NULL;//player->FindInventoryItem( requires );
 			if ( item ) {
 				if ( removeItem ) {
-					player->RemoveInventoryItem( item );
+					//player->RemoveInventoryItem( item );
 				}
 				return true;
 			} else {

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1105 $
- * $Date: 2007-07-13 08:34:25 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1107 $
+ * $Date: 2007-07-13 09:14:54 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1105 2007-07-13 12:34:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1107 2007-07-13 13:14:54Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -393,10 +393,13 @@ bool idItem::GiveToPlayer( idPlayer *player )
 		return false;
 	}
 
-	if ( spawnArgs.GetBool( "inv_carry" ) )
+	// greebo: Inventory Items are not handled here. InvItems should be added to the inventory
+	// by calling AddToInventory().
+	
+	/*if ( spawnArgs.GetBool( "inv_carry" ) )
 	{
 		return player->GiveInventoryItem( &spawnArgs );
-	} 
+	}*/ 
 	
 	return player->GiveItem( this );
 }
@@ -1442,7 +1445,8 @@ void idItemRemover::RemoveItem( idPlayer *player ) {
 	const char *remove;
 	
 	remove = spawnArgs.GetString( "remove" );
-	player->RemoveInventoryItem( remove );
+	// greebo: TDM inventory not handled by this itemRemover (yet)
+	//player->RemoveInventoryItem( remove );
 }
 
 /*
