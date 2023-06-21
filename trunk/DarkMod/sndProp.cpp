@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1019 $
+ * $Date: 2007-06-10 20:55:48 -0400 (Sun, 10 Jun 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1019 2007-06-11 00:55:48Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1075,13 +1075,18 @@ Quit:
 **/
 idVec3 CsndProp::OptSurfPoint( idVec3 p1, idVec3 p2, const idWinding *wind, idVec3 WCenter )
 {
-	//TODO: If the winding is not a rectangle, just return the center coordinate
-
 	idVec3 line, u1, u2, v1, v2, edge, isect, lineSect;
 	idVec3 returnVec, tempVec, pointA;
 	idPlane WPlane;
 	float lenV1, lenV2, lineU1, lineU2, Scale, frac;
 	int edgeStart(0), edgeStop(0);
+
+	// If the winding is not a rectangle, just return the center coordinate
+	if( wind->GetNumPoints() != 4 )
+	{
+		returnVec = WCenter;
+		goto Quit;
+	}
 
 	// Want to find a point on the portal rectangle closest to this line:
 	line = p2 - p1;
