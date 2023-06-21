@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 837 $
- * $Date: 2007-03-07 16:40:30 -0500 (Wed, 07 Mar 2007) $
+ * $Revision: 841 $
+ * $Date: 2007-03-15 15:33:37 -0400 (Thu, 15 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 837 2007-03-07 21:40:30Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 841 2007-03-15 19:33:37Z sparhawk $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6472,18 +6472,10 @@ void idEntity::FrobAction(bool bMaster)
 				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found\r", m_FrobList[i].c_str());
 		}
 
-		function_t *pScriptFkt = gameLocal.program.FindFunction(m_FrobActionScript.c_str());
-		if(pScriptFkt)
-		{
-			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("[%s] FrobAction has been triggered using %08lX->[%s] (%u)\r", name.c_str(), pScriptFkt, m_FrobActionScript.c_str(), bMaster);
-			idThread *pThread = new idThread(pScriptFkt);
-			pThread->CallFunction(this, pScriptFkt, true);
-			pThread->DelayedStart(0);
+		if(m_FrobActionScript.Length() > 0)
+            CallScriptFunctionArgs(m_FrobActionScript.c_str(), true, 0, "e", this);
 
-			StartSound( "snd_acquire", SND_CHANNEL_ANY, 0, false, NULL );
-		}
-		else
-			DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("[%s] FrobActionScript not found! %08lX->[%s] (%u)\r", name.c_str(), pScriptFkt, m_FrobActionScript.c_str(), bMaster);
+		StartSound( "snd_acquire", SND_CHANNEL_ANY, 0, false, NULL );
 	}
 
 Quit:
