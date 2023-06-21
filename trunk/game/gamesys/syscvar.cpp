@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 511 $
- * $Date: 2006-07-27 05:03:41 -0400 (Thu, 27 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 525 $
+ * $Date: 2006-08-01 17:13:27 -0400 (Tue, 01 Aug 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.34  2006/08/01 21:13:27  sparhawk
+ * Lightgem splitcode
+ *
  * Revision 1.33  2006/07/27 09:03:41  ishtvan
  * added frobbing cvars cv_frob_width and cv_frob_fadetime
  *
@@ -119,7 +122,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 511 $   $Date: 2006-07-27 05:03:41 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 525 $   $Date: 2006-08-01 17:13:27 -0400 (Tue, 01 Aug 2006) $", init_version);
 
 #include "../Game_local.h"
 
@@ -219,6 +222,7 @@ idCVar cv_lg_renderpasses("tdm_lg_renderpasses",		"2",	CVAR_GAME | CVAR_INTEGER,
 idCVar cv_lg_debug("tdm_lg_debug",		"0",		CVAR_GAME | CVAR_BOOL,	"switch on debug prints." );
 idCVar cv_lg_model("tdm_lg_model",		"models/props/misc/lightgem.lwo",	CVAR_GAME | CVAR_ARCHIVE,	"Set the lightgem model file. Map has to be restarted to take effect." );
 idCVar cv_lg_adjust("tdm_lg_adjust",		"0",		CVAR_GAME | CVAR_FLOAT,	"Adds a constant value to the lightgem." );
+idCVar cv_lg_split("tdm_lg_split",		"1",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves)." );
 
 idCVar cv_dm_distance("tdm_distance",		"",	CVAR_GAME,	"Shows the distance from the player to the entity" );
 

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 464 $
- * $Date: 2006-06-21 06:12:45 -0400 (Wed, 21 Jun 2006) $
+ * $Revision: 525 $
+ * $Date: 2006-08-01 17:13:27 -0400 (Tue, 01 Aug 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.33  2006/08/01 21:13:20  sparhawk
+ * Lightgem splitcode
+ *
  * Revision 1.32  2006/06/21 10:12:45  sparhawk
  * Added version tracking per file
  *
@@ -975,6 +978,8 @@ private:
 	 */
 	idEntity				*m_LightgemSurface;
 	bool					m_DoLightgem;		// Signal when the lightgem may be processed.
+	int						m_LightgemShotSpot;
+	float					m_LightgemShotValue[DARKMOD_LG_MAX_RENDERPASSES];
 	SECURITY_ATTRIBUTES		m_saPipeSecurity;
 	PSECURITY_DESCRIPTOR	m_pPipeSD;
 

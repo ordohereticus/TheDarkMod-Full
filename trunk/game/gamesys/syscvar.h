@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 511 $
- * $Date: 2006-07-27 05:03:41 -0400 (Thu, 27 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 525 $
+ * $Date: 2006-08-01 17:13:27 -0400 (Tue, 01 Aug 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.22  2006/08/01 21:13:27  sparhawk
+ * Lightgem splitcode
+ *
  * Revision 1.21  2006/07/27 09:03:41  ishtvan
  * added frobbing cvars cv_frob_width and cv_frob_fadetime
  *
@@ -129,6 +132,7 @@ extern idCVar cv_lg_renderpasses;
 extern idCVar cv_lg_debug;
 extern idCVar cv_lg_model;
 extern idCVar cv_lg_adjust;
+extern idCVar cv_lg_split;
 
 extern idCVar cv_dm_distance;
 
