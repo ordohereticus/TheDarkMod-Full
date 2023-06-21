@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 455 $
- * $Date: 2006-06-07 05:03:28 -0400 (Wed, 07 Jun 2006) $
+ * $Revision: 456 $
+ * $Date: 2006-06-07 05:56:15 -0400 (Wed, 07 Jun 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2006/06/07 09:56:15  ishtvan
+ * fixed CObjecitveLocation so that the clipmodel is actually detected as the bounds
+ *
  * Revision 1.4  2006/06/07 09:03:28  ishtvan
  * location component updates
  *
@@ -992,6 +995,11 @@ void CObjectiveLocation::Spawn()
 {
 	m_Interval = (int) 1000.0f * spawnArgs.GetFloat( "interval", "1.0" );
 	m_TimeStamp = gameLocal.time;
+
+// Set the contents to a useless trigger so that the collision model will be loaded
+// FLASHLIGHT_TRIGGER seems to be the only one that doesn't do anything else we don't want
+	GetPhysics()->SetContents( CONTENTS_FLASHLIGHT_TRIGGER );
+	GetPhysics()->EnableClip();
 
 	BecomeActive( TH_THINK );
 }
