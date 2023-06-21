@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 122 $
- * $Date: 2005-04-23 06:08:02 -0400 (Sat, 23 Apr 2005) $
+ * $Revision: 144 $
+ * $Date: 2005-08-22 00:55:24 -0400 (Mon, 22 Aug 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.14  2005/08/22 04:55:24  ishtvan
+ * minor changes in soundprop parms and function names
+ *
  * Revision 1.13  2005/04/23 10:07:25  ishtvan
  * added fix for pm_walkspeed being reset to 140 by the engine on map load
  *
@@ -965,7 +968,7 @@ void idGameLocal::LoadMap( const char *mapName, int randseed ) {
 	pvs.Init();
 
 	// this will always fail for now, have not yet written the map compile
-	m_sndPropLoader->LoadSprFile( mapFileName );
+	m_sndPropLoader->CompileMap( mapFile );
 
 	playerPVS.i = -1;
 	playerConnectedAreas.i = -1;
