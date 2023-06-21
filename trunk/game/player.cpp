@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1112 $
- * $Date: 2007-07-13 11:12:47 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1114 $
+ * $Date: 2007-07-13 12:36:38 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1112 2007-07-13 15:12:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1114 2007-07-13 16:36:38Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9133,6 +9133,37 @@ idVec3 idPlayer::GetDoorListenLoc( void )
 	return m_DoorListenLoc;
 }
 
+CInventoryItem* idPlayer::AddToInventory(idEntity *ent, idUserInterface *_hud) {
+	// Pass the call to the base class first
+	CInventoryItem* returnValue = idEntity::AddToInventory(ent, _hud);
+
+	// Has this item been added to a weapon item?
+	CInventoryWeaponItem* weaponItem = dynamic_cast<CInventoryWeaponItem*>(returnValue);
+
+	CInventoryItem* prev = NULL;
+
+	if (weaponItem != NULL) {
+		// This is a weapon-related inventory item, use the weapon inventory cursor
+		m_WeaponCursor->SetCurrentItem(returnValue);
+
+		// TODO: CVAR check goes here
+		SelectWeapon(weaponItem->getWeaponIndex(), false);
+	}
+	else {
+		// Ordinary inventory item, set the cursor onto it
+		prev = InventoryCursor()->GetCurrentItem();
+		// Focus the cursor on the newly added item
+		InventoryCursor()->SetCurrentItem(returnValue);
+	}
+
+	// Fire the script events and update the HUD
+	if(_hud != NULL) {
+		inventoryChangeSelection(_hud, true, prev);
+	}
+
+	return returnValue;
+}
+
 void idPlayer::PerformFrob(void)
 {
 	idEntity *frob;
@@ -9159,6 +9190,8 @@ void idPlayer::PerformFrob(void)
 		frob->ResponseTrigger(this, ST_FROB);
 		
 		frob->FrobAction(true);
+
+		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob: %s \r", frob->name.c_str());
 
 		// First we have to check wether that entity is an inventory 
 		// item. In that case, we have to add it to the inventory and

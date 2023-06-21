@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1113 $
- * $Date: 2007-07-13 11:22:56 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1114 $
+ * $Date: 2007-07-13 12:36:38 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1113 2007-07-13 15:22:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1114 2007-07-13 16:36:38Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7661,9 +7661,6 @@ CInventoryItem *idEntity::AddToInventory(idEntity *ent, idUserInterface *_hud)
 	if(ent->spawnArgs.GetString("inv_name", "", s) == false)
 		goto Quit; // not an inventory item
 
-	// Get the pointer to the current item before adding the new one (needed for script events)
-	prev = crsr->GetCurrentItem();
-
 	// Add the new item to the Inventory (with <this> as owner)
 	rc = crsr->Inventory()->PutItem(ent, this);
 
@@ -7683,13 +7680,6 @@ CInventoryItem *idEntity::AddToInventory(idEntity *ent, idUserInterface *_hud)
 			rc->SetHUD(s, v);
 		}
 	}
-
-	// Focus the cursor on the newly added item
-	crsr->SetCurrentItem(rc);
-
-	// Fire the script events and update the HUD
-	if(_hud != NULL)
-		inventoryChangeSelection(_hud, true, prev);
 
 Quit:
 	return rc;
