@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 158 $
- * $Date: 2005-09-17 03:15:28 -0400 (Sat, 17 Sep 2005) $
- * $Author: sophisticatedzombie $
+ * $Revision: 174 $
+ * $Date: 2005-10-12 10:52:52 -0400 (Wed, 12 Oct 2005) $
+ * $Author: domarius $
  *
  * $Log$
+ * Revision 1.15  2005/10/12 14:52:52  domarius
+ * Rope arrow - initial stage, just sticks you to the rope point of origin... permanently.
+ *
  * Revision 1.14  2005/09/17 07:15:28  sophisticatedzombie
  * Added function that applies damage to the player when mantling at a high relative velocity. The damage amount is computed from minimum and scale constants in DarkModGlobals.
  *
@@ -227,6 +230,7 @@ private:
 
     // rope movement
     bool rope;
+    idEntity *ropeEntity;
 
 	// ladder movement
 	bool					ladder;
