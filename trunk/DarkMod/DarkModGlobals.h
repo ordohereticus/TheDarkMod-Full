@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1016 $
- * $Date: 2007-06-10 13:40:55 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1061 $
+ * $Date: 2007-06-20 03:44:38 -0400 (Wed, 20 Jun 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -26,6 +26,11 @@
 
 #include <stdio.h>
 #include "../game/game_local.h"
+
+// AI constants; please keep these in sync with ai_darkmod_base.script
+#define MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS 15.0f
+#define IDLE_RANDOM_HEAD_TURN_CHANCE_PER_SECOND 0.10f
+#define SLIGHTLY_AGITATED_HEAD_TURN_CHANCE_MULTIPLIER 2.0f
 
 /*!
 Darkmod LAS
