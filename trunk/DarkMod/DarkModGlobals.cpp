@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 138 $
- * $Date: 2005-08-14 19:26:41 -0400 (Sun, 14 Aug 2005) $
- * $Author: sophisticatedzombie $
+ * $Revision: 147 $
+ * $Date: 2005-08-22 03:44:20 -0400 (Mon, 22 Aug 2005) $
+ * $Author: ishtvan $
  * $Name$
  *
  * $Log$
+ * Revision 1.19  2005/08/22 07:44:20  ishtvan
+ * added the #include C:\compiled.h back in
+ *
  * Revision 1.18  2005/08/14 23:26:41  sophisticatedzombie
  * Added mantling and leaning constants to g_Global
  *
@@ -82,7 +85,7 @@
 #pragma warning(disable : 4996)
 
 #ifdef _WINDOWS_
-//#include "c:\compiled.h"
+#include "c:\compiled.h"
 #endif
 
 #include "DarkModGlobals.h"
