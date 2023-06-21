@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 914 $
+ * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,15 +13,15 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 914 2007-04-19 17:45:20Z orbweaver $", init_version);
 
-#include "../Game_local.h"
-#include "../../DarkMod/relations.h"
+#include "../game_local.h"
+#include "../../DarkMod/Relations.h"
 #include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../../DarkMod/darkmodglobals.h"
-#include "../../DarkMod/playerdata.h"
-#include "../../DarkMod/sndprop.h"
+#include "../../DarkMod/DarkModGlobals.h"
+#include "../../DarkMod/PlayerData.h"
+#include "../../DarkMod/sndProp.h"
 
 // For handling the opening of doors and other binary Frob movers
 #include "../../DarkMod/BinaryFrobMover.h"
@@ -6716,14 +6716,25 @@ void idAI::Knockout( void )
 	const char *modelKOd;
 
 	if( !m_bCanBeKnockedOut )
+#ifdef __linux__
+		return; // [OrbWeaver] Jumping past an initialisation is UB, GCC will 
+			    // not compile
+#else
 		goto Quit;
+#endif
 
 	if( AI_KNOCKEDOUT || AI_DEAD )
 	{
 		AI_PAIN = true;
 		AI_DAMAGE = true;
 
+#ifdef __linux__
+		return; // [OrbWeaver] Jumping past an initialisation is UB, GCC will 
+			    // not compile
+#else
 		goto Quit;
+#endif
+
 	}
 	EndAttack();
 

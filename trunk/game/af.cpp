@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 862 $
- * $Date: 2007-03-22 13:59:44 -0400 (Thu, 22 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 914 $
+ * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 862 2007-03-22 17:59:44Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 914 2007-04-19 17:45:20Z orbweaver $", init_version);
 
-#include "Game_local.h"
+#include "game_local.h"
 
 
 /*

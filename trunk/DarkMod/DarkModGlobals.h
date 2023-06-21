@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 912 $
- * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Revision: 914 $
+ * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -88,11 +88,15 @@ public:
 	 */
 	bool LoadImage(const char *Filename = NULL);
 
+#ifndef __linux__
+
 	/**
 	 * Load the image into memory and allow access to it. This method requires
 	 * an already open filehandle.
 	 */
 	bool LoadImage(HANDLE &FileHandle);
+
+#endif // __linux__
 
 	/**
 	 * Initialize Imageinfo like bitmap width, height and other stuff.

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 912 $
- * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Revision: 914 $
+ * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -61,7 +61,7 @@ protected:
 	
 	// The area index is the index into the array
 	// Dereferencing it gives a list of darkModLightRecord_t pointers
-	(idLinkList<darkModLightRecord_t>)** m_pp_areaLightLists;
+	idLinkList<darkModLightRecord_t>** m_pp_areaLightLists;
 
    /*!
    * Called to update the lights in a given bounding area.  

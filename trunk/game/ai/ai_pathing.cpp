@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 914 $
+ * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,12 +13,12 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 914 2007-04-19 17:45:20Z orbweaver $", init_version);
 
-#include "../Game_local.h"
+#include "../game_local.h"
 
-#include "../darkmod/BinaryFrobMover.h"
-#include "../darkmod/FrobDoor.h"
+#include "../../DarkMod/BinaryFrobMover.h"
+#include "../../DarkMod/FrobDoor.h"
 
 /*
 ===============================================================================

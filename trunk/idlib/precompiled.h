@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 912 $
- * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
+ * $Revision: 914 $
+ * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -150,11 +150,7 @@ const int MAX_EXPRESSION_REGISTERS = 4096;
 
 #ifdef GAME_DLL
 
-#if defined(_D3XP)
-#include "../d3xp/Game_local.h"
-#else
-#include "../game/Game_local.h"
-#endif
+#include "../game/game_local.h"
 
 #else
 
