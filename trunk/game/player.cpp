@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 749 $
- * $Date: 2007-01-20 21:11:49 -0500 (Sat, 20 Jan 2007) $
+ * $Revision: 752 $
+ * $Date: 2007-01-21 06:15:51 -0500 (Sun, 21 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.106  2007/01/21 11:15:13  ishtvan
+ * listening thru doors when leaning against them implemented
+ *
  * Revision 1.105  2007/01/21 02:11:49  ishtvan
  * leaned view yaw change now checks for collision and stops the change if so
  *
@@ -354,7 +357,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 749 $   $Date: 2007-01-20 21:11:49 -0500 (Sat, 20 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 752 $   $Date: 2007-01-21 06:15:51 -0500 (Sun, 21 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -1466,6 +1469,9 @@ idPlayer::idPlayer()
 
 	privateCameraView		= NULL;
 
+	m_ListenerLoc			= vec3_zero;
+	m_DoorListenLoc			= vec3_zero;
+
 	// m_immobilization.Clear();
 	m_immobilizationCache	= 0;
 
@@ -2258,6 +2264,8 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteSkin( influenceSkin );
 
 	savefile->WriteObject( privateCameraView );
+	savefile->WriteVec3( m_ListenerLoc );
+	savefile->WriteVec3( m_DoorListenLoc );
 
 	savefile->WriteDict( &m_immobilization );
 	savefile->WriteInt( m_immobilizationCache );
@@ -2510,6 +2518,8 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadSkin( influenceSkin );
 
 	savefile->ReadObject( reinterpret_cast<idClass *&>( privateCameraView ) );
+	savefile->ReadVec3( m_ListenerLoc );
+	savefile->ReadVec3( m_DoorListenLoc );
 
 	savefile->ReadDict( &m_immobilization );
 	savefile->ReadInt( m_immobilizationCache );
@@ -8364,7 +8374,8 @@ idPlayer::CalculateFirstPersonView
 ===============
 */
 void idPlayer::CalculateFirstPersonView( void ) {
-	if ( ( pm_modelView.GetInteger() == 1 ) || ( ( pm_modelView.GetInteger() == 2 ) && ( health <= 0 ) ) ) {
+	if ( ( pm_modelView.GetInteger() == 1 ) || ( ( pm_modelView.GetInteger() == 2 ) && ( health <= 0 ) ) ) 
+	{
 		//	Displays the view from the point of view of the "camera" joint in the player model
 
 		idMat3 axis;
@@ -8386,7 +8397,8 @@ void idPlayer::CalculateFirstPersonView( void ) {
 		animator.GetJointTransform( joint, gameLocal.time, origin, axis );
 		firstPersonViewOrigin = ( origin + modelOffset ) * ( viewAxis * physicsObj.GetGravityAxis() ) + physicsObj.GetOrigin() + viewBob + physicsObj.GetViewLeanTranslation();
 		firstPersonViewAxis = axis * ang.ToMat3() * physicsObj.GetGravityAxis();
-	} else {
+	} else 
+	{
 		// offset for local bobbing and kicks
 		GetViewPos( firstPersonViewOrigin, firstPersonViewAxis );
 #if 0
@@ -8394,6 +8406,13 @@ void idPlayer::CalculateFirstPersonView( void ) {
 		firstPersonViewAxis = firstPersonViewAxis * playerView.ShakeAxis();
 #endif
 	}
+
+	// Set the listener location (on the other side of a door if door leaning)
+	if( static_cast<idPhysics_Player *>(GetPhysics())->IsDoorLeaning() 
+			&& !gameLocal.inCinematic )
+		SetListenerLoc( m_DoorListenLoc );
+	else
+		SetListenerLoc( firstPersonViewOrigin );
 }
 
 /*
@@ -10587,3 +10606,24 @@ float idPlayer::RangedThreatTo(idEntity* target) {
 	
 	return weaponEnt->IsRanged();
 }
+
+void idPlayer::SetListenerLoc( idVec3 loc )
+{
+	m_ListenerLoc = loc;
+}
+
+idVec3 idPlayer::GetListenerLoc( void )
+{
+	return m_ListenerLoc;
+}
+
+void idPlayer::SetDoorListenLoc( idVec3 loc )
+{
+	m_DoorListenLoc = loc;
+}
+
+idVec3 idPlayer::GetDoorListenLoc( void )
+{
+	return m_DoorListenLoc;
+}
+
