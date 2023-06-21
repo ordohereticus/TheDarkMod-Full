@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 63 $
- * $Date: 2005-01-06 21:10:36 -0500 (Thu, 06 Jan 2005) $
- * $Author: sparhawk $
+ * $Revision: 113 $
+ * $Date: 2005-04-07 06:02:42 -0400 (Thu, 07 Apr 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2005/04/07 10:02:42  ishtvan
+ * added event_touch method for triggering AI's tactile alert when player bumps them
+ *
  * Revision 1.4  2005/01/07 02:10:36  sparhawk
  * Lightgem updates
  *
@@ -689,6 +692,16 @@ private:
 	void					Event_HideTip( void );
 	void					Event_LevelTrigger( void );
 	void					Event_Gibbed( void );
+
+	/**
+	* DarkMod Events
+	**/
+
+	/**
+	* Event touch on the player is used to trigger tactile alert on an AI 
+	* when the AI touches the player.
+	**/
+	void					Event_Touch( idEntity *other, trace_t *trace );
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
