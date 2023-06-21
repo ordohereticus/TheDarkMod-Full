@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 558 $
- * $Date: 2006-08-20 16:28:15 -0400 (Sun, 20 Aug 2006) $
+ * $Revision: 566 $
+ * $Date: 2006-08-21 02:21:08 -0400 (Mon, 21 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.19  2006/08/21 06:21:08  ishtvan
+ * moved attachment scriptevents to idActor
+ *
  * Revision 1.18  2006/08/20 20:28:15  ishtvan
  * new attachment scriptevents for AI
  *
@@ -73,7 +76,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 558 $   $Date: 2006-08-20 16:28:15 -0400 (Sun, 20 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 566 $   $Date: 2006-08-21 02:21:08 -0400 (Mon, 21 Aug 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/relations.h"
@@ -380,12 +383,6 @@ const idEventDef AI_GetObservationPosition ("getObservationPosition", "v", 'v');
 **/
 const idEventDef AI_Knockout( "knockout" );
 
-// Attachment Events:
-const idEventDef AI_Attach( "attach", "e" );
-const idEventDef AI_ReAttach( "reAttach", "dsvv" );
-const idEventDef AI_DropAttachment( "dropAttachment", "d" );
-const idEventDef AI_ShowAttachment( "showAttachment", "dd" );
-
 /*
 * This is the AI event table class for a generic NPC actor.
 *
@@ -552,11 +549,6 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT ( AI_IssueCommunication_DOE,			idAI::Event_IssueCommunication_DOE)
 	EVENT ( AI_IssueCommunication_IR,			idAI::Event_IssueCommunication_IR)
 	EVENT ( AI_IssueCommunication,				idAI::Event_IssueCommunication)
-
-	EVENT ( AI_Attach,							idActor::Attach )
-	EVENT ( AI_ReAttach,						idActor::ReAttach )
-	EVENT ( AI_DropAttachment,					idActor::DropAttachment )
-	EVENT ( AI_ShowAttachment,					idActor::ShowAttachment )
 
 END_CLASS
 
