@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 913 $
-#* $Date: 2007-04-19 13:40:23 -0400 (Thu, 19 Apr 2007) $
+#* $Revision: 915 $
+#* $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
 #* $Author: orbweaver $
 #*
 #* $Log$
@@ -40,7 +40,7 @@ game_string = ' \
 	game_local.cpp \
 	game_network.cpp \
 	item.cpp \
-	iK.cpp \
+	ik.cpp \
 	light.cpp \
 	misc.cpp \
 	mover.cpp \
@@ -105,9 +105,6 @@ for i in range( len( game_list ) ):
 	game_list[ i ] = '../../' + game_list[ i ]
 
 local_env = g_game_env.Copy()
-
-if ( local_demo == 1 ):
-	local_env.Append( CPPDEFINES = [ 'ID_DEMO_BUILD' ] )
 
 if ( local_gamedll == 1 ):
 	local_env.Append( CPPDEFINES = [ 'GAME_DLL' ] )

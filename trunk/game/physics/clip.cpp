@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: clip.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: clip.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "../Game_local.h"
+#include "../game_local.h"
 
 #define	MAX_SECTOR_DEPTH				12
 #define MAX_SECTORS						((1<<(MAX_SECTOR_DEPTH+1))-1)

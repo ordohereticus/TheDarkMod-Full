@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 905 $
- * $Date: 2007-04-16 07:33:03 -0400 (Mon, 16 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -16,9 +16,9 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 905 2007-04-16 11:33:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "Game_local.h"
+#include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/darkModLAS.h"
 #include "../DarkMod/decltdm_matinfo.h"
@@ -318,14 +318,16 @@ void idGameLocal::Clear( void )
 	portalSkyActive			= false;
 	//	ResetSlowTimeVars();
 
+#ifndef __linux__
 	memset(&m_saPipeSecurity, 0, sizeof(m_saPipeSecurity));
-
 	m_pPipeSD = (PSECURITY_DESCRIPTOR)malloc(SECURITY_DESCRIPTOR_MIN_LENGTH);
 	InitializeSecurityDescriptor(m_pPipeSD, SECURITY_DESCRIPTOR_REVISION);
 	SetSecurityDescriptorDacl(m_pPipeSD, TRUE, (PACL)NULL, FALSE);
 	m_saPipeSecurity.nLength = sizeof(SECURITY_ATTRIBUTES);
 	m_saPipeSecurity.bInheritHandle = FALSE;
 	m_saPipeSecurity.lpSecurityDescriptor = m_pPipeSD;
+#endif
+
 }
 
 /*
@@ -4869,6 +4871,7 @@ Quit:
 	return;
 }
 
+#ifndef __linux__
 
 HANDLE idGameLocal::CreateRenderPipe(int timeout)
 {
@@ -5183,6 +5186,8 @@ void idGameLocal::AnalyzeRenderImage(HANDLE hPipe, float fColVal[DARKMOD_LG_MAX_
 Quit:
 	return;
 }
+
+#endif // __linux__
 
 void idGameLocal::SpawnLightgemEntity(void)
 {

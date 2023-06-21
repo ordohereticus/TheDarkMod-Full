@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -18,10 +18,10 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "Game_local.h"
-#include "../darkmod/MissionData.h"
+#include "game_local.h"
+#include "../DarkMod/MissionData.h"
 
 /*
 ===============================================================================

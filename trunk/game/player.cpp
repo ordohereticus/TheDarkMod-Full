@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 910 $
- * $Date: 2007-04-17 03:22:56 -0400 (Tue, 17 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,13 +12,13 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 910 2007-04-17 07:22:56Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "Game_local.h"
-#include "../DarkMod/darkmodglobals.h"
-#include "../DarkMod/playerdata.h"
-#include "../DarkMod/intersection.h"
-#include "../DarkMod/relations.h"
+#include "game_local.h"
+#include "../DarkMod/DarkModGlobals.h"
+#include "../DarkMod/PlayerData.h"
+#include "../DarkMod/Intersection.h"
+#include "../DarkMod/Relations.h"
 #include "../DarkMod/darkModAASFindHidingSpots.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/MissionData.h"
@@ -9995,7 +9995,11 @@ void idPlayer::FrobCheck( void )
 			g_Global.m_DarkModPlayer->m_FrobTrace = trace;
 
 			// we have found our frobbed entity, so exit
+#ifdef __linux__
+			return;
+#else
 			goto Quit;
+#endif
 		}
 	}
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,15 +13,15 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: simd.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "Simd_Generic.h"
-#include "Simd_MMX.h"
-#include "Simd_3DNow.h"
-#include "Simd_SSE.h"
-#include "Simd_SSE2.h"
-#include "Simd_SSE3.h"
-#include "Simd_AltiVec.h"
+#include "simd_generic.h"
+#include "simd_mmx.h"
+#include "simd_3dnow.h"
+#include "simd_sse.h"
+#include "simd_sse2.h"
+#include "simd_sse3.h"
+#include "simd_altivec.h"
 
 
 idSIMDProcessor	*	processor = NULL;			// pointer to SIMD processor

@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -81,7 +81,7 @@
 
 #define PTR_SIZE	sizeof(void *)
 
-#ifdef _LINUX_
+#ifdef __linux__
 #define stricmp     strcasecmp
 #define chsize      ftruncate
 #endif

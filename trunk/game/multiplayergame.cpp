@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 888 $
- * $Date: 2007-04-02 04:01:25 -0400 (Mon, 02 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: multiplayergame.cpp 888 2007-04-02 08:01:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: multiplayergame.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "Game_local.h"
+#include "game_local.h"
 
 // could be a problem if players manage to go down sudden deaths till this .. oh well
 #define LASTMAN_NOLIVES -20

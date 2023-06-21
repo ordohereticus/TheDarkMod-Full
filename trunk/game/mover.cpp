@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "Game_local.h"
+#include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 908 $
- * $Date: 2007-04-17 03:20:32 -0400 (Tue, 17 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  * $Log$
  * Revision 1.49  2007/01/23 01:24:07  thelvyn
@@ -185,9 +185,9 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 908 $   $Date: 2007-04-17 03:20:32 -0400 (Tue, 17 Apr 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 915 $   $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $", init_version);
 
-#include "../Game_local.h"
+#include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/BinaryFrobMover.h"
@@ -1136,7 +1136,11 @@ void idPhysics_Player::RopeMove( void )
 	if( !m_RopeEntity.GetEntity() )
 	{
 		RopeDetach();
+#ifdef __linux__
+		return;
+#else
 		goto Quit;
+#endif
 	}
 
 	// store and kill the player's transverse velocity
@@ -1419,7 +1423,11 @@ void idPhysics_Player::LadderMove( void )
 	if ( idPhysics_Player::CheckRopeJump() || command.upmove < 0 ) 
 	{
 		ClimbDetach();
+#ifdef __linux__
+		return;
+#else
 		goto Quit;
+#endif
 	}
 
 	NormalDot = ClimbNormXY * viewForward;
@@ -1427,7 +1435,11 @@ void idPhysics_Player::LadderMove( void )
 	if ( walking && -NormalDot * command.forwardmove < LADDER_WALKDETACH_DOT )
 	{
 		ClimbDetach();
+#ifdef __linux__
+		return;
+#else
 		goto Quit;
+#endif
 	}
 
 	// Add the velocity of whatever entity they're climbing on:
@@ -1585,7 +1597,11 @@ void idPhysics_Player::LadderMove( void )
 		if( NormalDot < 0.0f && -wishvel * gravityNormal > 0 && delta.LengthSqr() < 25.0f )
 		{
 			ClimbDetach( true );
-			goto Quit;
+#ifdef __linux__
+		return;
+#else
+		goto Quit;
+#endif
 		}
 
 		accel = idMath::INFINITY;

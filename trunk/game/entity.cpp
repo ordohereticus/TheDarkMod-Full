@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 904 $
- * $Date: 2007-04-16 07:04:43 -0400 (Mon, 16 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,12 +13,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 904 2007-04-16 11:04:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
-#include "Game_local.h"
-#include "../DarkMod/DarkmodGlobals.h"
+#include "game_local.h"
+#include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/declxdata.h"
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/sndProp.h"
@@ -7122,13 +7122,21 @@ void idEntity::Event_SetGuiStringFromKey( int handle, const char *key, idEntity 
 	if ( !src )
 	{
 		gameLocal.Warning( "Unable to get key, since the source entity was NULL.\n" );
+#ifdef __linux__
+		return;
+#else
 		goto Quit;
+#endif
 	}
 
 	if(!m_overlays.exists(handle))
 	{
 		gameLocal.Warning( "Non-existant GUI handle: %d\n", handle );
+#ifdef __linux__
+		return;
+#else
 		goto Quit;
+#endif
 	}
 
 	idUserInterface *gui = m_overlays.getGui( handle );
@@ -7748,19 +7756,31 @@ int idEntity::CreateOverlay(const char *guiFile, int layer)
 	if(guiFile == NULL || guiFile[0] == 0)
 	{
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Invalid GUI file name\r");
+#ifdef __linux__
+		return rc;
+#else
 		goto Quit;
+#endif
 	}
 
 	if(!uiManager->CheckGui(guiFile))
 	{
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Unable to load GUI file: [%s]\r", guiFile);
+#ifdef __linux__
+		return rc;
+#else
 		goto Quit;
+#endif
 	}
 	handle = m_overlays.createOverlay( layer );
 	if(handle == OVERLAYS_INVALID_HANDLE)
 	{
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Unable to create overlay for GUI [%s]\r", guiFile);
+#ifdef __linux__
+		return rc;
+#else
 		goto Quit;
+#endif
 	}
 
 	m_overlays.setGui(handle, guiFile);

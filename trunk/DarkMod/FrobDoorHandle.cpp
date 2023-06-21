@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "../game/Game_local.h"
+#include "../game/game_local.h"
 #include "DarkModGlobals.h"
 #include "BinaryFrobMover.h"
 #include "FrobDoor.h"

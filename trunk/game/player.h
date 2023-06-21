@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 893 $
- * $Date: 2007-04-06 17:30:21 -0400 (Fri, 06 Apr 2007) $
- * $Author: sparhawk $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -601,7 +601,6 @@ public:
 	 */
 	void					PerformFrob(void);
 
-	/**
 	/**
 	 * AdjustLightgem will calculate how much the lightgem should light up.
 	 * This function is obsolote now and replaced by a different version.

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 908 $
- * $Date: 2007-04-17 03:20:32 -0400 (Tue, 17 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -431,7 +431,7 @@ protected:
 	* This method determines the mantle time required for each phase of the mantle.
 	* I made this a function so you could implement things such as carry-weight,
 	* tiredness, length of lift....
-	/* @param[in] mantlePhase The mantle phase for which the duration is to be retrieved
+	* @param[in] mantlePhase The mantle phase for which the duration is to be retrieved
 	*/
 	float getMantleTimeForPhase 
 	(

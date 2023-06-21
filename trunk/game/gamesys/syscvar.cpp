@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 907 $
- * $Date: 2007-04-17 03:18:20 -0400 (Tue, 17 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 907 2007-04-17 07:18:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "../Game_local.h"
+#include "../game_local.h"
 
 #if defined( _DEBUG )
 	#define	BUILD_DEBUG	"-debug"

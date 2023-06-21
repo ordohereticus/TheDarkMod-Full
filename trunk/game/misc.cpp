@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -18,10 +18,10 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "Game_local.h"
-#include "../DarkMod/sndprop.h"
+#include "game_local.h"
+#include "../DarkMod/sndProp.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 
@@ -2749,6 +2749,7 @@ void idFuncPortal::Event_Activate( idEntity *activator )
 void idFuncPortal::Think( void )
 {
 	idVec3 delta;
+	bool bWithinDist;
 
 	if( !m_bDistDependent )
 		goto Quit;
@@ -2757,7 +2758,7 @@ void idFuncPortal::Think( void )
 		goto Quit;
 
 	m_TimeStamp = gameLocal.time;
-	bool bWithinDist(false);
+	bWithinDist = false;
 
 	delta = gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin();
 	delta -= GetPhysics()->GetOrigin();

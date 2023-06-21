@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 883 $
- * $Date: 2007-04-01 04:52:43 -0400 (Sun, 01 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -12,10 +12,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 883 2007-04-01 08:52:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
 #include "ProjectileResult.h"
-#include "../game/Game_local.h"
+#include "../game/game_local.h"
 #include "../game/projectile.h"
 #include "StimResponse/Stim.h"
 #include "DarkModGlobals.h"

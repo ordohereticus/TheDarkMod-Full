@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 880 $
- * $Date: 2007-03-28 15:24:04 -0400 (Wed, 28 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 915 $
+ * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************
  *
@@ -45,9 +45,9 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: inventory.cpp 880 2007-03-28 19:24:04Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: inventory.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
 
-#include "../game/Game_local.h"
+#include "../game/game_local.h"
 
 #include "inventory.h"
 #include "MissionData.h"
