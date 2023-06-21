@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 381 $
- * $Date: 2006-04-02 22:04:32 -0400 (Sun, 02 Apr 2006) $
- * $Author: gildoran $
+ * $Revision: 389 $
+ * $Date: 2006-04-27 13:37:53 -0400 (Thu, 27 Apr 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.60  2006/04/27 17:37:53  sparhawk
+ * darkModAASFindHidingSpots::testFindHidingSpots currently
+ * hardcoded with a value of 70.0. Has to be fixed by sohpistcatedZombie.
+ *
  * Revision 1.59  2006/04/03 02:04:32  gildoran
  * Added some code for an inventory prototype.
  *
@@ -6057,6 +6061,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 				darkModAASFindHidingSpots::testFindHidingSpots 
 				(
 					searchOrigin,
+					70.0,
 					searchBounds,
 					this, // Ignore self as a hiding screen
 					p_aas
