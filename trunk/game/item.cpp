@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 514 $
- * $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 551 $
+ * $Date: 2006-08-13 21:07:02 -0400 (Sun, 13 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.13  2006/08/14 01:07:02  ishtvan
+ * fixed hide/show in idMoveableItem to disable the clipmodel
+ *
  * Revision 1.12  2006/07/28 01:36:19  ishtvan
  * frobbing bugfixes
  *
@@ -51,7 +54,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 514 $   $Date: 2006-07-27 21:36:19 -0400 (Thu, 27 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 551 $   $Date: 2006-08-13 21:07:02 -0400 (Sun, 13 Aug 2006) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1259,6 +1262,20 @@ idMoveableItem::Event_Gib
 */
 void idMoveableItem::Event_Gib( const char *damageDefName ) {
 	Gib( idVec3( 0, 0, 1 ), damageDefName );
+}
+
+void idMoveableItem::Hide( void )
+{
+	idEntity::Hide();
+	physicsObj.SetContents( 0 );
+	trigger->SetContents( 0 );
+}
+
+void idMoveableItem::Show( void )
+{
+	idEntity::Show();
+	physicsObj.SetContents( CONTENTS_RENDERMODEL );
+	trigger->SetContents( CONTENTS_TRIGGER );
 }
 
 /*
