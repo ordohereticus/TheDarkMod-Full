@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 578 $
- * $Date: 2006-09-22 02:00:35 -0400 (Fri, 22 Sep 2006) $
+ * $Revision: 579 $
+ * $Date: 2006-09-22 10:32:26 -0400 (Fri, 22 Sep 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.72  2006/09/22 14:32:26  gildoran
+ * Added precaching tdm_matinfo decls for models.
+ *
  * Revision 1.71  2006/09/22 06:00:35  gildoran
  * Added code to cache TDM_MatInfo declarations for textures applied to surfaces of a map.
  *
@@ -239,7 +242,7 @@
 
 #pragma warning(disable : 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 578 $   $Date: 2006-09-22 02:00:35 -0400 (Fri, 22 Sep 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 579 $   $Date: 2006-09-22 10:32:26 -0400 (Fri, 22 Sep 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -2058,6 +2061,8 @@ void idGameLocal::CacheDictionaryMedia( const idDict *dict ) {
 				renderModelManager->FindModel( kv->GetValue() );
 				// precache .cm files only
 				collisionModelManager->LoadModel( kv->GetValue(), true );
+				// load any tdm_matinfo decls for materials referenced by the model
+				tdmDeclTDM_MatInfo::precacheModel( renderModelManager->FindModel( kv->GetValue() ) );
 			}
 		}
 		kv = dict->MatchPrefix( "model", kv );
@@ -2099,12 +2104,14 @@ void idGameLocal::CacheDictionaryMedia( const idDict *dict ) {
 	kv = dict->FindKey( "texture" );
 	if ( kv && kv->GetValue().Length() ) {
 		declManager->FindType( DECL_MATERIAL, kv->GetValue() );
+		declManager->FindType( DECL_TDM_MATINFO, kv->GetValue() );
 	}
 
 	kv = dict->MatchPrefix( "mtr", NULL );
 	while( kv ) {
 		if ( kv->GetValue().Length() ) {
 			declManager->FindType( DECL_MATERIAL, kv->GetValue() );
+			declManager->FindType( DECL_TDM_MATINFO, kv->GetValue() );
 		}
 		kv = dict->MatchPrefix( "mtr", kv );
 	}
