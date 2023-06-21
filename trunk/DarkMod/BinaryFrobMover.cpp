@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 992 $
+ * $Date: 2007-05-24 01:22:47 -0400 (Thu, 24 May 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 992 2007-05-24 05:22:47Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -94,7 +94,6 @@ void CBinaryFrobMover::Spawn( void )
 
 	m_Open = spawnArgs.GetBool("open");
 	DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("[%s] open (%u)\r", name.c_str(), m_Open);
-
 	partialAngle = spawnArgs.GetAngles("start_rotate", "0 0 0");
 
 	m_Locked = spawnArgs.GetBool("locked");
@@ -145,6 +144,10 @@ void CBinaryFrobMover::Spawn( void )
 
 	// set the first intent according to the initial doorstate
 	m_bIntentOpen = !m_Open;
+
+	// Let the mapper override the initial frob intent on a partially opened door
+	if( spawnArgs.GetBool("first_frob_open") )
+		m_bIntentOpen = true;
 }
 
 void CBinaryFrobMover::Lock(bool bMaster)
