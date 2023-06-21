@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 218 $
- * $Date: 2005-11-11 17:20:51 -0500 (Fri, 11 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 370 $
+ * $Date: 2006-03-22 09:26:34 -0500 (Wed, 22 Mar 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.5  2006/03/22 14:26:34  gildoran
+ * Fixed a bug where the first character after a set of block comments is ignored.
+ *
  * Revision 1.4  2005/11/11 22:17:26  sparhawk
  * SDK 1.3 Merge
  *
@@ -335,10 +338,6 @@ int idLexer::ReadWhiteSpace( void ) {
 				if ( !*idLexer::script_p ) {
 					return 0;
 				}
-				idLexer::script_p++;
-				if ( !*idLexer::script_p ) {
-					return 0;
-				}
 				continue;
 			}
 		}
@@ -636,16 +635,22 @@ int idLexer::ReadNumber( idToken *token ) {
 			c = *(++idLexer::script_p);
 		}
 		if( c == 'e' && dot == 0) {
+
 			//We have scientific notation without a decimal point
+
 			dot++;
+
 		}
+
 		// if a floating point number
 		if ( dot == 1 ) {
 			token->subtype = TT_DECIMAL | TT_FLOAT;
 			// check for floating point exponent
 			if ( c == 'e' ) {
 				//Append the e so that GetFloatValue code works
+
 				token->AppendDirty( c );
+
 				c = *(++idLexer::script_p);
 				if ( c == '-' ) {
 					token->AppendDirty( c );
@@ -1188,34 +1193,58 @@ int idLexer::ReadTokenOnLine( idToken *token ) {
 }
 
 /*
+
 ================
+
 idLexer::ReadRestOfLine
+
 ================
+
 */
+
 const char*	idLexer::ReadRestOfLine(idStr& out) {
+
 	while(1) {
 
+
 		if(*idLexer::script_p == '\n') {
+
 			idLexer::line++;
+
 			break;
+
 		}
+
 
 		if(!*idLexer::script_p) {
+
 			break;
+
 		}
 
+
 		if(*idLexer::script_p <= ' ') {
+
 			out += " ";
+
 		} else {
+
 			out += *idLexer::script_p;
+
 		}
+
 		idLexer::script_p++;
+
 
 	}
 
+
 	out.Strip(' ');
+
 	return out.c_str();
+
 }
+
 
 /*
 ================
