@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 805 $
- * $Date: 2007-02-25 06:09:10 -0500 (Sun, 25 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.99  2007/02/11 21:34:49  sparhawk
@@ -344,7 +344,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 805 $   $Date: 2007-02-25 06:09:10 -0500 (Sun, 25 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1503,7 +1503,7 @@ bool idEntity::DoDormantTests( void )
 		return false;
 	}
 
-	return false;
+//	return false;
 }
 
 /*
@@ -2398,7 +2398,7 @@ idEntity::PropSoundS
 
 void idEntity::PropSoundS( const char *localName, const char *globalName, float VolModIn )
 {
-	int start, end, len;
+	int start, end = -1, len;
 	bool bHasComma(false), bHasColon(false), bFoundSnd(false);
 	float volMod(0.0), durMod(1.0);
 	idStr gName(globalName), locName, tempstr;
@@ -3457,7 +3457,7 @@ idEntity::RunPhysics
 */
 bool idEntity::RunPhysics( void ) {
 	int			i, reachedTime, startTime, endTime;
-	idEntity *	part, *blockedPart, *blockingEntity;
+	idEntity *	part, *blockedPart, *blockingEntity(NULL);
 	trace_t		results;
 	bool		moved;
 
@@ -5935,7 +5935,7 @@ bool idEntity::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
 			return false;
 		}
 	}
-	return false;
+//	return false;
 }
 
 /*
@@ -6385,7 +6385,7 @@ bool idAnimatedEntity::ClientReceiveEvent( int event, int time, const idBitMsg &
 			return idEntity::ClientReceiveEvent( event, time, msg );
 		}
 	}
-	return false;
+//	return false;
 }
 
 /*

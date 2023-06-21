@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 668 $
- * $Date: 2006-12-20 20:56:36 -0500 (Wed, 20 Dec 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.7  2006/12/21 01:56:36  sophisticatedzombie
@@ -34,7 +34,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 668 $   $Date: 2006-12-20 20:56:36 -0500 (Wed, 20 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/PVS.h"
@@ -699,7 +699,7 @@ float darkModLAS::queryLightingAlongLine
 	float totalIllumination = 0.0f;
 
 	// Find the area that the test points are in
-	int testPointAreaIndex = gameRenderWorld->PointInArea (testPoint1);
+//	int testPointAreaIndex = gameRenderWorld->PointInArea (testPoint1);
 
 	// Compute test bounds
 	idVec3 mins, maxes;

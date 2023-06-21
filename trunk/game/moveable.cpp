@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 790 $
- * $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
@@ -51,7 +51,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 790 $   $Date: 2007-02-06 10:19:58 -0500 (Tue, 06 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1269,5 +1269,5 @@ bool idExplodingBarrel::ClientReceiveEvent( int event, int time, const idBitMsg 
 			return idBarrel::ClientReceiveEvent( event, time, msg );
 		}
 	}
-	return false;
+//	return false;
 }

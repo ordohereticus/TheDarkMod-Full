@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 486 $
- * $Date: 2006-07-14 22:15:46 -0400 (Fri, 14 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.15  2006/07/15 02:15:46  ishtvan
@@ -60,7 +60,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 486 $   $Date: 2006-07-14 22:15:46 -0400 (Fri, 14 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -952,7 +952,7 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 
 		if( e->IsType( idAFEntity_Base::Type ) ) {
 
-			idAFEntity_Base *af = static_cast< idAFEntity_Base * >( e );
+//			idAFEntity_Base *af = static_cast< idAFEntity_Base * >( e );
 
 			this->BindToJoint( e, CLIPMODEL_ID_TO_JOINT_HANDLE( collision.c.id ), true );
 
@@ -1392,7 +1392,7 @@ bool idProjectile::ClientReceiveEvent( int event, int time, const idBitMsg &msg 
 			return idEntity::ClientReceiveEvent( event, time, msg );
 		}
 	}
-	return false;
+//	return false;
 }
 
 /*

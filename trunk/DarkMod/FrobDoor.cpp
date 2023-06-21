@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 681 $
- * $Date: 2006-12-29 02:46:31 -0500 (Fri, 29 Dec 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.31  2006/12/29 07:46:31  sophisticatedzombie
@@ -120,7 +120,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 681 $   $Date: 2006-12-29 02:46:31 -0500 (Fri, 29 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -450,7 +450,8 @@ void CFrobDoor::OpenDoor(bool bMaster)
 			if( m_TransSpeed )
 				Event_SetMoveSpeed( m_TransSpeed );
 
-			Event_MoveToPos(m_StartPos +  m_Translation);
+			idVec3 tv3 = ( m_StartPos +  m_Translation );
+			Event_MoveToPos( tv3 );
 
 			// Update soundprop
 			UpdateSoundLoss();

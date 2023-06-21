@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.3  2006/06/21 13:06:51  sparhawk
@@ -30,7 +30,7 @@ Event are used for scheduling tasks and for linking script commands.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "../Game_local.h"
 
@@ -610,7 +610,8 @@ idEvent::Save
 */
 void idEvent::Save( idSaveGame *savefile ) {
 	char *str;
-	int i, size;
+	int i;
+	size_t size;
 	idEvent	*event;
 	byte *dataPtr;
 	bool validTrace;
@@ -674,7 +675,7 @@ idEvent::Restore
 */
 void idEvent::Restore( idRestoreGame *savefile ) {
 	char    *str;
-	int		num, argsize, i, j, size;
+	int		num, i, j, size, argsize = 0;
 	idStr	name;
 	byte *dataPtr;
 	idEvent	*event;
@@ -711,7 +712,7 @@ void idEvent::Restore( idRestoreGame *savefile ) {
 
 		// read the args
 		savefile->ReadInt( argsize );
-		if ( argsize != event->eventdef->GetArgSize() ) {
+		if ( argsize != (int)event->eventdef->GetArgSize() ) {
 			savefile->Error( "idEvent::Restore: arg size (%d) doesn't match saved arg size(%d) on event '%s'", event->eventdef->GetArgSize(), argsize, event->eventdef->GetName() );
 		}
 		if ( argsize ) {
@@ -753,7 +754,7 @@ void idEvent::Restore( idRestoreGame *savefile ) {
 						break;
 				}
 			}
-			assert( size == event->eventdef->GetArgSize() );
+			assert( size == (int)event->eventdef->GetArgSize() );
 		} else {
 			event->data = NULL;
 		}

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 786 $
- * $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
@@ -311,7 +311,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Source$  $Revision: 786 $   $Date: 2007-02-05 22:18:46 -0500 (Mon, 05 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -574,8 +574,8 @@ void idGameLocal::Clear( void )
 	lastAIAlertTime = 0;
 	spawnArgs.Clear();
 	gravity.Set( 0, 0, -1 );
-	playerPVS.h = -1;
-	playerConnectedAreas.h = -1;
+	playerPVS.h = (unsigned int)-1;
+	playerConnectedAreas.h = (unsigned int)-1;
 	gamestate = GAMESTATE_UNINITIALIZED;
 	skipCinematic = false;
 	influenceActive = false;
@@ -2655,7 +2655,7 @@ idGameLocal::RunFrame
 */
 gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 	idEntity *	ent;
-	int			num;
+	int			num(-1);
 	float		ms;
 	idTimer		timer_think, timer_events, timer_singlethink;
 	gameReturn_t ret;
@@ -5714,7 +5714,8 @@ idEntity *idGameLocal::PlayerTraceEntity( void )
 	trace_t		trace;
 	int			cm = 0;
 
-	if( !( player = gameLocal.GetLocalPlayer() ) )
+	player = gameLocal.GetLocalPlayer();
+	if( ! player )
 		goto Quit;
 
 	start = player->GetEyePosition();

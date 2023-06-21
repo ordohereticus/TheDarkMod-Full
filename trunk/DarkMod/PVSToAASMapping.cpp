@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 582 $
- * $Date: 2006-10-08 12:36:48 -0400 (Sun, 08 Oct 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.5  2006/10/08 16:36:48  sophisticatedzombie
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 582 $   $Date: 2006-10-08 12:36:48 -0400 (Sun, 08 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "./pvstoaasmapping.h"
 #include "../darkMod/darkmodGlobals.h"
@@ -133,7 +133,7 @@ bool PVSToAASMapping::buildMappings(idStr in_aasName)
 	}
 
 	// Iterate AAS areas and add each one to the appropriate PVS area
-	bool b_worked = true;
+//	bool b_worked = true;
 	int numAASAreas = p_aas->GetNumAreas();
 	for (int aasAreaIndex = 0; aasAreaIndex  < numAASAreas; aasAreaIndex ++)
 	{

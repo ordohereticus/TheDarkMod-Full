@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 798 $
- * $Date: 2007-02-10 20:38:15 -0500 (Sat, 10 Feb 2007) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.64  2007/02/11 01:38:15  ishtvan
@@ -251,7 +251,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 798 $   $Date: 2007-02-10 20:38:15 -0500 (Sat, 10 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -4626,7 +4626,7 @@ void idAI::SetEnemyPosition( void ) {
 	idActor		*enemyEnt = enemy.GetEntity();
 	int			enemyAreaNum;
 	int			areaNum;
-	int			lastVisibleReachableEnemyAreaNum;
+	int			lastVisibleReachableEnemyAreaNum = -1;
 	aasPath_t	path;
 	idVec3		pos;
 	bool		onGround;
@@ -6551,8 +6551,8 @@ float idAI::getPlayerVisualStimulusAmount(idEntity* p_playerEntity) const
 	//Quick fix for blind AI:
 	if( GetAcuity("vis") > 0 )
 	{
-		float visFrac = GetVisibility( p_playerEntity );
-		float lgem = (float) g_Global.m_DarkModPlayer->m_LightgemValue;
+//		float visFrac = GetVisibility( p_playerEntity );
+//		float lgem = (float) g_Global.m_DarkModPlayer->m_LightgemValue;
 
 		// Convert to alert units ( 0.6931472 = ln(2) )
 		

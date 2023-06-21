@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 797 $
- * $Date: 2007-02-10 17:57:37 -0500 (Sat, 10 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.50  2007/02/10 22:57:29  sparhawk
@@ -464,6 +464,7 @@ public:
 	int						weapon_pda;
 	int						weapon_fists;
 
+	bool					m_HeartBeatAllow; /// disable hearbeat except when dying or drowning - Need this to track state
 	int						heartRate;
 	idInterpolate<float>	heartInfo;
 	int						lastHeartAdjust;

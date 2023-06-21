@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 801 $
- * $Date: 2007-02-12 02:51:02 -0500 (Mon, 12 Feb 2007) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.23  2007/02/12 07:51:02  ishtvan
@@ -82,7 +82,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 801 $   $Date: 2007-02-12 02:51:02 -0500 (Mon, 12 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1405,7 +1405,7 @@ bool CObjective::ParseLogicStr( idStr *input, SBoolParseNode &output )
 {
 	idLexer		src;
 	idToken		token;
-	idDict		*args( NULL );
+//	idDict		*args( NULL );
 	int			col(0), row(0), level(0);
 	
 	bool		bReturnVal( false );	
@@ -1416,7 +1416,7 @@ bool CObjective::ParseLogicStr( idStr *input, SBoolParseNode &output )
 	bool		bRowAdvanced( true );
 	bool		bColAdvanced( true );
 	
-	SBoolParseNode *CurrentNode( NULL );
+//	SBoolParseNode *CurrentNode( NULL );
 
 
 	// Clear existing parse node structure

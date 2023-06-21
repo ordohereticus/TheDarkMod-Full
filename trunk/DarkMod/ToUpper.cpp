@@ -10,9 +10,9 @@
  *
  * PROJECT: LaunchMenu
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  * $Name$
  *
  * $Log$
@@ -48,7 +48,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Misc.h"
 
@@ -69,20 +69,20 @@ static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 
 BYTE ToUpper(UBYTE b)
 {
 	if(b >= 'a' && b <= 'z')
-		b += 'A'-'a';
+		b += (UBYTE)('A'-'a');
 	else
 	switch(b)
 	{
 		case 0x94:		/* oe */
-			b = (BYTE)0x99;
+			b = (UBYTE)0x99;
 		break;
 
 		case 0x81:  	/* ue */
-			b = (BYTE)0x9A;
+			b = (UBYTE)0x9A;
 		break;
 
 		case 0x84:
-			b = (BYTE)0x8E;
+			b = (UBYTE)0x8E;
 		break;
 	}
 

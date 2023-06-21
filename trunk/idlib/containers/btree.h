@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 760 $
- * $Date: 2007-01-22 20:24:31 -0500 (Mon, 22 Jan 2007) $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
@@ -79,13 +79,14 @@ private:
 	void							CheckTree( void ) const;
 };
 
-#pragma warning( disable : 4533 )
+#pragma warning( push )
+#pragma warning( disable : 4533 4127 )
 template< class objType, class keyType, int maxChildrenPerNode >
 ID_INLINE idBTree<objType,keyType,maxChildrenPerNode>::idBTree( void ) {
 	assert( maxChildrenPerNode >= 4 );
 	root = NULL;
 }
-#pragma warning( default : 4533 )
+#pragma warning( pop )
 
 template< class objType, class keyType, int maxChildrenPerNode >
 ID_INLINE idBTree<objType,keyType,maxChildrenPerNode>::~idBTree( void ) {

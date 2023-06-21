@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 688 $
- * $Date: 2006-12-30 21:30:49 -0500 (Sat, 30 Dec 2006) $
- * $Author: crispy $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.4  2006/12/31 02:30:48  crispy
@@ -31,7 +31,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 688 $   $Date: 2006-12-30 21:30:49 -0500 (Sat, 30 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "AAS_local.h"
 #include "../Game_local.h"		// for cvars and debug drawing
@@ -83,7 +83,7 @@ void idAASLocal::DrawReachability( const idReachability *reach ) const
 
 	switch( reach->travelType ) {
 		case TFL_WALK: {
-			const idReachability_Walk *walk = static_cast<const idReachability_Walk *>(reach);
+//			const idReachability_Walk *walk = static_cast<const idReachability_Walk *>(reach);
 			break;
 		}
 		default: {

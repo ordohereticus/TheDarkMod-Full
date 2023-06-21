@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.6  2006/06/21 13:06:22  sparhawk
@@ -33,8 +33,10 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
+#pragma warning( push )
+#pragma warning( disable : 4127 )
 #define PUNCTABLE
 
 //longer punctuations first
@@ -1867,3 +1869,4 @@ bool idLexer::HadError( void ) const {
 	return hadError;
 }
 
+#pragma warning( pop )

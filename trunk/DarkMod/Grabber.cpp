@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 799 $
- * $Date: 2007-02-11 15:59:57 -0500 (Sun, 11 Feb 2007) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.13  2007/02/11 20:59:57  ishtvan
@@ -54,7 +54,7 @@
 #include "....//idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 799 $   $Date: 2007-02-11 15:59:57 -0500 (Sun, 11 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -193,8 +193,8 @@ void CGrabber::Update( idPlayer *player, bool hold )
 	idVec3 viewPoint, origin, COM, COMWorld;
 	idMat3 viewAxis, axis;
 	trace_t trace;
-	idEntity *newEnt(NULL);
-	jointHandle_t newJoint(INVALID_JOINT);
+//	idEntity *newEnt(NULL);
+//	jointHandle_t newJoint(INVALID_JOINT);
 
 	m_player = player;
 
@@ -300,7 +300,8 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	// If an entity was not explictly passed in, use the frob entity
     if ( !newEnt ) 
 	{
-		if( !(FrobEnt = g_Global.m_DarkModPlayer->m_FrobEntity) )
+		FrobEnt = g_Global.m_DarkModPlayer->m_FrobEntity;
+		if( !FrobEnt )
 			goto Quit;
 
 		newEnt = FrobEnt;
@@ -371,7 +372,8 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	idPhysics *phys = newEnt->GetPhysics();
 	idClipModel *clipModel;
 
-	if ( (clipModel = phys->GetClipModel( m_id )) && clipModel->IsTraceModel() ) 
+	clipModel = phys->GetClipModel( m_id );
+	if( clipModel && clipModel->IsTraceModel() )
 	{
 		float mass;
 		idMat3 inertiaTensor;
@@ -811,7 +813,8 @@ bool CGrabber::PutInHands(idEntity *ent, idPlayer *player, int bodyID)
 		HeldDist = MIN_HELD_DISTANCE;
 
 	// get the center of mass
-	if ( (ClipModel = ent->GetPhysics()->GetClipModel( bodyID )) && ClipModel->IsTraceModel() ) 
+	ClipModel = ent->GetPhysics()->GetClipModel( bodyID );
+	if( ClipModel && ClipModel->IsTraceModel() ) 
 	{
 		float mass;
 		idMat3 inertiaTensor;

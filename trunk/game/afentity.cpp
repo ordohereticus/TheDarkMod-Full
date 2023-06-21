@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 620 $
- * $Date: 2006-11-20 03:43:41 -0500 (Mon, 20 Nov 2006) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.10  2006/11/20 08:43:41  ishtvan
@@ -45,7 +45,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 620 $   $Date: 2006-11-20 03:43:41 -0500 (Mon, 20 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2766,26 +2766,26 @@ idGameEdit::AF_CreateMesh
 ================
 */
 idRenderModel *idGameEdit::AF_CreateMesh( const idDict &args, idVec3 &meshOrigin, idMat3 &meshAxis, bool &poseIsSet ) {
-	int i, jointNum;
-	const idDeclAF *af;
-	const idDeclAF_Body *fb;
+	int i(0), jointNum(0);
+	const idDeclAF *af(NULL);
+	const idDeclAF_Body *fb(NULL);
 	renderEntity_t ent;
-	idVec3 origin, *bodyOrigin, *newBodyOrigin, *modifiedOrigin;
-	idMat3 axis, *bodyAxis, *newBodyAxis, *modifiedAxis;
-	declAFJointMod_t *jointMod;
+	idVec3 origin, *bodyOrigin(NULL), *newBodyOrigin(NULL), *modifiedOrigin(NULL);
+	idMat3 axis, *bodyAxis(NULL), *newBodyAxis(NULL), *modifiedAxis(NULL);
+	declAFJointMod_t *jointMod(NULL);
 	idAngles angles;
-	const idDict *defArgs;
-	const idKeyValue *arg;
+	const idDict *defArgs(NULL);
+	const idKeyValue *arg(NULL);
 	idStr name;
 	jointTransformData_t data;
-	const char *classname, *afName, *modelName;
-	idRenderModel *md5;
-	const idDeclModelDef *modelDef;
-	const idMD5Anim *MD5anim;
-	const idMD5Joint *MD5joint;
-	const idMD5Joint *MD5joints;
+	const char *classname(NULL), *afName(NULL), *modelName(NULL);
+	idRenderModel *md5(NULL);
+	const idDeclModelDef *modelDef(NULL);
+	const idMD5Anim *MD5anim(NULL);
+	const idMD5Joint *MD5joint(NULL);
+	const idMD5Joint *MD5joints(NULL);
 	int numMD5joints;
-	idJointMat *originalJoints;
+	idJointMat *originalJoints(NULL);
 	int parentNum;
 
 	poseIsSet = false;

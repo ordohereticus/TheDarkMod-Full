@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 760 $
- * $Date: 2007-01-22 20:24:31 -0500 (Mon, 22 Jan 2007) $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 760 $   $Date: 2007-01-22 20:24:31 -0500 (Mon, 22 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3273,7 +3273,7 @@ void idPhysics_Player::StartMantle
 
 	// Calculate mantle distance
 	idVec3 mantleDistanceVec = endPos - startPos;
-	float mantleDistance = mantleDistanceVec.Length();
+//	float mantleDistance = mantleDistanceVec.Length();
 
 	// Log starting phase
 	if (initialMantlePhase == hang_DarkModMantlePhase)
@@ -4092,7 +4092,8 @@ idVec3 idPhysics_Player::GetViewLeanTranslation()
 void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaLeanStretch)
 {
 	trace_t trTest;
-	float newLeanTiltDegrees(0.0), newLeanStretch(0.0), angle(0.0f);
+	float newLeanTiltDegrees(0.0), newLeanStretch(0.0);
+	//float angle(0.0f);
 	idVec3 origPoint, newPoint; // test point
 	bool bWouldClip(false);
 	idPlayer *p_player = (idPlayer *) self;

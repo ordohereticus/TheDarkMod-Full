@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 726 $
- * $Date: 2007-01-18 13:35:47 -0500 (Thu, 18 Jan 2007) $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
  * $Author: thelvyn $
  *
  * $Log$
@@ -63,7 +63,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 726 $   $Date: 2007-01-18 13:35:47 -0500 (Thu, 18 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2431,7 +2431,7 @@ bool idWeapon::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
 			return idEntity::ClientReceiveEvent( event, time, msg );
 		}
 	}
-	return false;
+//	return false;
 }
 
 /*

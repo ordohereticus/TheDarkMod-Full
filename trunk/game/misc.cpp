@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 696 $
- * $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.11  2007/01/03 04:08:23  ishtvan
@@ -53,7 +53,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 696 $   $Date: 2007-01-02 23:08:23 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/sndprop.h"
@@ -156,7 +156,7 @@ bool idPlayerStart::ClientReceiveEvent( int event, int time, const idBitMsg &msg
 			return idEntity::ClientReceiveEvent( event, time, msg );
 		}
 	}
-	return false;
+//	return false;
 }
 
 /*

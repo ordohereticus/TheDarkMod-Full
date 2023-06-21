@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 768 $
- * $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.16  2007/01/26 12:52:41  sparhawk
@@ -67,7 +67,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 768 $   $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/sndproploader.h"
@@ -1312,7 +1312,7 @@ Cmd_TestLight_f
 void Cmd_TestLight_f( const idCmdArgs &args ) {
 	int			i;
 	idStr		filename;
-	const char *key, *value, *name;
+	const char *key, *value, *name(NULL);
 	idPlayer *	player;
 	idDict		dict;
 
@@ -1369,7 +1369,7 @@ Cmd_TestPointLight_f
 ===================
 */
 void Cmd_TestPointLight_f( const idCmdArgs &args ) {
-	const char *key, *value, *name;
+	const char *key, *value, *name(NULL);
 	int			i;
 	idPlayer	*player;
 	idDict		dict;
@@ -2025,7 +2025,7 @@ static void Cmd_SaveSelected_f( const idCmdArgs &args ) {
 	idMapFile *mapFile = gameLocal.GetLevelMap();
 	idDict dict;
 	idStr mapName;
-	const char *name;
+	const char *name(NULL);
 
 	player = gameLocal.GetLocalPlayer();
 	if ( !player || !gameLocal.CheatsOk() ) {
@@ -2108,7 +2108,7 @@ static void Cmd_SaveMoveables_f( const idCmdArgs &args ) {
 	idMapEntity *mapEnt;
 	idMapFile *mapFile = gameLocal.GetLevelMap();
 	idStr mapName;
-	const char *name;
+	const char *name(NULL);
 
 	if ( !gameLocal.CheatsOk() ) {
 		return;
@@ -2191,7 +2191,7 @@ static void Cmd_SaveRagdolls_f( const idCmdArgs &args ) {
 	idMapFile *mapFile = gameLocal.GetLevelMap();
 	idDict dict;
 	idStr mapName;
-	const char *name;
+	const char *name(NULL);
 
 	if ( !gameLocal.CheatsOk() ) {
 		return;
@@ -2308,7 +2308,7 @@ static void Cmd_SaveLights_f( const idCmdArgs &args ) {
 	idMapFile *mapFile = gameLocal.GetLevelMap();
 	idDict dict;
 	idStr mapName;
-	const char *name;
+	const char *name(NULL);
 
 	if ( !gameLocal.CheatsOk() ) {
 		return;

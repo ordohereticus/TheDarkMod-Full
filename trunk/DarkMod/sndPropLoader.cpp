@@ -16,16 +16,16 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  * $Name$
  *
  ******************************************************************************/
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -293,7 +293,8 @@ void CsndPropLoader::ExpandBoundsMinAxis( idBounds *bounds, float percent )
 
 void CsndPropLoader::ParseMapEntities ( idMapFile *MapFile )
 {
-	int			i, count(0), missedCount(0);
+	int			i;
+	//int count(0), missedCount(0);
 	idDict		args;
 	
 	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Soundprop: Parsing Map entities\r");
@@ -343,7 +344,7 @@ void CsndPropLoader::ParseAreaPropEnt ( idDict args )
 {
 	int area;
 	float lossMult, VolMod;
-	bool SpherSpread(false);
+//	bool SpherSpread(false);
 	SAreaProp propEntry;
 	idStr lossvalue, VolOffset;
 

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 720 $
- * $Date: 2007-01-14 12:15:31 -0500 (Sun, 14 Jan 2007) $
- * $Author: gildoran $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.17  2007/01/14 17:15:31  gildoran
@@ -66,7 +66,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 720 $   $Date: 2007-01-14 12:15:31 -0500 (Sun, 14 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -501,7 +501,7 @@ void idLight::Spawn( void )
 
 	UpdateVisuals();
 
-	CDarkModPlayer *pDM = g_Global.m_DarkModPlayer;
+//	CDarkModPlayer *pDM = g_Global.m_DarkModPlayer;
 
 	if(renderLight.pointLight == true)
 		m_MaxLightRadius = renderLight.lightRadius.Length();
@@ -1289,7 +1289,7 @@ bool idLight::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
 			return idEntity::ClientReceiveEvent( event, time, msg );
 		}
 	}
-	return false;
+//	return false;
 }
 
 
@@ -1411,8 +1411,8 @@ int idLight::GetTextureIndex(float x, float y, int w, int h, int bpp)
 
 float idLight::GetDistanceColor(float fDistance, float fx, float fy)
 {
-	float fColVal, fImgVal;
-	int fw, fh, iw, ih, i, fbpp, ibpp;
+	float fColVal(0), fImgVal(0);
+	int fw(0), fh(0), iw(0), ih(0), i(0), fbpp(0), ibpp(0);
 	unsigned char *img = NULL;
 	unsigned char *fot = NULL;
 

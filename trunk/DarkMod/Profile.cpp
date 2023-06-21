@@ -9,9 +9,9 @@
  *
  * PROJECT: Profile helper module
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  * $Name$
  *
  * $Log$
@@ -46,8 +46,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
-
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+#pragma warning( push )
+#pragma warning( disable: 4245 )
 #include <malloc.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -611,7 +612,7 @@ BOOL ParseFilebuffer(PROFILE_HANDLE *h)
 	UBYTE buffer[1024], *str;
 	long n, b0, b1, e;
 	PROFILE_SECTION *s = NULL;
-	PROFILE_MAP *m = NULL;
+//	PROFILE_MAP *m = NULL;
 
 	if(h == NULL || h->FileHandle == NULL)
 		goto Quit;
@@ -673,3 +674,4 @@ Quit:
 	return(rc);
 }
 
+#pragma warning( pop )

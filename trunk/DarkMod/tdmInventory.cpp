@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $
- * $Revision: 806 $
- * $Date: 2007-02-28 15:59:55 -0500 (Wed, 28 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * DESCRIPTION: This file contains the inventory handling for TDM. The inventory 
  * has nothing in common with the original idInventory and is totally independent
@@ -44,7 +44,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $  $Revision: 806 $   $Date: 2007-02-28 15:59:55 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -282,7 +282,7 @@ CInventoryItem *CInventory::PutItem(idEntity *ent, idEntity *owner)
 	idStr category;
 	idStr id;
 	bool stackable = false;
-	bool bValidItem = false;
+//	bool bValidItem = false;
 	int v, droppable = 0, del = -1, count = 0;
 	CInventoryItem::LootType lt = CInventoryItem::LT_NONE;
 	CInventoryItem::ItemType it = CInventoryItem::IT_ITEM;

@@ -9,9 +9,9 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 693 $
- * $Date: 2007-01-02 22:59:39 -0500 (Tue, 02 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  * $Name$
  *
  * $Log$
@@ -112,6 +112,8 @@ extern char *cStimType[];
 
 #define TIMER_UNDEFINED		-1
 
+#pragma warning( push )
+#pragma warning( disable : 4201 ) // non standard extension nameless struct/union
 typedef union {
 public:
 	struct {
@@ -126,6 +128,7 @@ public:
 		signed short Millisecond;
 	};
 } TimerValue;
+#pragma warning( pop )
 
 /**
  * CStimResponseTimer handles all timing aspects of stimuli.

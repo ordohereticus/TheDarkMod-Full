@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.5  2006/06/21 13:05:10  sparhawk
@@ -30,7 +30,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 
@@ -173,7 +173,7 @@ void idDragEntity::Update( idPlayer *player ) {
 	trace_t trace;
 	idEntity *newEnt;
 	idAngles angles;
-	jointHandle_t newJoint;
+	jointHandle_t newJoint(INVALID_JOINT);
 	idStr newBodyName;
 
 	player->GetViewPos( viewPoint, viewAxis );

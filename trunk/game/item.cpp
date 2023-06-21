@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 767 $
- * $Date: 2007-01-26 02:35:31 -0500 (Fri, 26 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.17  2007/01/26 07:35:31  ishtvan
@@ -66,7 +66,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 767 $   $Date: 2007-01-26 02:35:31 -0500 (Fri, 26 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -704,7 +704,7 @@ bool idItem::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
 			return idEntity::ClientReceiveEvent( event, time, msg );
 		}
 	}
-	return false;
+//	return false;
 }
 
 /*

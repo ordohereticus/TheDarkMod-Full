@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.2  2006/06/21 13:04:47  sparhawk
@@ -21,7 +21,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "AAS_local.h"
 
@@ -274,7 +274,7 @@ idAASLocal::WalkPathToGoal
 */
 bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags ) const {
 	int i, travelTime, curAreaNum, lastAreas[4], lastAreaIndex, endAreaNum;
-	idReachability *reach;
+	idReachability *reach(NULL);
 	idVec3 endPos;
 
 	path.type = PATHTYPE_WALK;
@@ -450,7 +450,7 @@ idAASLocal::FlyPathToGoal
 */
 bool idAASLocal::FlyPathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags ) const {
 	int i, travelTime, curAreaNum, lastAreas[4], lastAreaIndex, endAreaNum;
-	idReachability *reach;
+	idReachability *reach(NULL);
 	idVec3 endPos;
 
 	path.type = PATHTYPE_WALK;

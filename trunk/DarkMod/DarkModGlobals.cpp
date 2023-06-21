@@ -9,9 +9,9 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 742 $
- * $Date: 2007-01-20 00:18:42 -0500 (Sat, 20 Jan 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  * $Name$
  *
  * $Log$
@@ -193,7 +193,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 742 $   $Date: 2007-01-20 00:18:42 -0500 (Sat, 20 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -1080,7 +1080,7 @@ CImage::CImage(idStr const &Name)
 	m_Name = Name;
 	m_Image = NULL;
 	m_BufferLength = 0L;
-	m_ImageId = -1;
+	m_ImageId = (ILuint)-1;
 	m_Width = 0;
 	m_Height = 0;
 	m_Loaded = false;
@@ -1091,7 +1091,7 @@ CImage::CImage(void)
 {
 	m_Image = NULL;
 	m_BufferLength = 0L;
-	m_ImageId = -1;
+	m_ImageId = (ILuint)-1;
 	m_Width = 0;
 	m_Height = 0;
 	m_Loaded = false;
@@ -1117,7 +1117,7 @@ void CImage::Unload(bool FreeMemory)
 	if(m_ImageId != -1)
 		ilDeleteImages(1, &m_ImageId);
 
-	m_ImageId = -1;
+	m_ImageId = (ILuint)-1;
 }
 
 bool CImage::LoadImage(HANDLE &Handle)

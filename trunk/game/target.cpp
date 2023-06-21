@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 807 $
+ * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
  * Revision 1.3  2006/06/21 13:05:10  sparhawk
@@ -29,7 +29,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/MissionData.h"
@@ -902,7 +902,7 @@ void idTarget_SetInfluence::Event_GatherEntities() {
 	int i, listedEntities;
 	idEntity *entityList[ MAX_GENTITIES ];
 
-	bool demonicOnly = spawnArgs.GetBool( "effect_demonic" );
+//	bool demonicOnly = spawnArgs.GetBool( "effect_demonic" );
 	bool lights = spawnArgs.GetBool( "effect_lights" );
 	bool sounds = spawnArgs.GetBool( "effect_sounds" );
 	bool guis = spawnArgs.GetBool( "effect_guis" );
@@ -1756,7 +1756,7 @@ idTarget_FadeSoundClass::Event_RestoreVolume
 void idTarget_FadeSoundClass::Event_RestoreVolume() {
 	float fadeTime = spawnArgs.GetFloat( "fadeTime" );
 	float fadeDB = spawnArgs.GetFloat( "fadeDB" );
-	int fadeClass = spawnArgs.GetInt( "fadeClass" );
+//	int fadeClass = spawnArgs.GetInt( "fadeClass" );
 	// restore volume
 	gameSoundWorld->FadeSoundClasses( 0, fadeDB, fadeTime );
 }
