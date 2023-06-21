@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 257 $
- * $Date: 2005-12-02 13:21:04 -0500 (Fri, 02 Dec 2005) $
+ * $Revision: 273 $
+ * $Date: 2005-12-09 00:12:48 -0500 (Fri, 09 Dec 2005) $
  * $Author: lloyd $
  *
  * $Log$
+ * Revision 1.4  2005/12/09 05:12:48  lloyd
+ * Various bug fixes (AF grabbing, mouse deadzone, mouse sensitivty, ...)
+ *
  * Revision 1.3  2005/12/02 18:21:04  lloyd
  * Objects start oriented with player
  *
@@ -80,7 +83,8 @@ class CGrabber : public idEntity {
 		idList<CGrabbedEnt>		clipList;
 
 		void					StopDrag( void );
-		
+		bool					DeadMouse( void );	// returns true if the mouse is inside the dead zone
+
 		void					Event_CheckClipList( void );
 };
 
