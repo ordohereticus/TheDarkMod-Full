@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 402 $
- * $Date: 2006-05-03 17:32:40 -0400 (Wed, 03 May 2006) $
+ * $Revision: 404 $
+ * $Date: 2006-05-03 17:40:14 -0400 (Wed, 03 May 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.50  2006/05/03 21:40:14  sparhawk
+ * Fixed text in debugstring.
+ *
  * Revision 1.49  2006/05/03 21:32:40  sparhawk
  * Added an easier interface for calling scriptfunctions
  *
@@ -6978,7 +6981,7 @@ idThread *idEntity::CallScriptFunctionArgs(const char *fkt, bool ClearStack, int
 
 	if(pScriptFkt)
 	{
-		DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("Running ResponseScript\r");
+		DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("Running scriptfunction\r");
 		pThread = new idThread(pScriptFkt);
 		va_start(argptr, fmt);
 		pThread->CallFunctionArgsVN(pScriptFkt, ClearStack, fmt, argptr);
