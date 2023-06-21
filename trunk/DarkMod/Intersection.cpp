@@ -1,20 +1,20 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Intersection.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: Intersection.cpp 916 2007-04-20 20:48:14Z orbweaver $", init_version);
 
 // #include "math.h"
-#include "../darkmod/darkmodglobals.h"
-#include "intersection.h"
+#include "../DarkMod/DarkModGlobals.h"
+#include "Intersection.h"
 
 EIntersection IntersectLinesegmentEllipsoid(const idVec3 Segment[LSG_COUNT], 
 								 const idVec3 Ellipsoid[ELL_COUNT],

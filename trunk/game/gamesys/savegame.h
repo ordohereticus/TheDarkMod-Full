@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -19,7 +19,26 @@ Save game related helper classes.
 
 */
 
+#ifdef __linux__
+#include "renderer/model.h"
+#endif
+
 const int INITIAL_RELEASE_BUILD_NUMBER = 1262;
+
+class idDeclSkin;
+class idDeclParticle;
+class idDeclFX;
+class idSoundShader;
+class idUserInterface;
+typedef struct renderEntity_s renderEntity_t;
+typedef struct renderLight_s renderLight_t;
+struct refSound_t;
+typedef struct renderView_s renderView_t;
+class usercmd_t;
+struct contactInfo_t;
+typedef struct trace_s trace_t;
+class idTraceModel;
+class idClipModel;
 
 class idSaveGame {
 public:

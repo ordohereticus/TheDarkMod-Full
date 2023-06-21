@@ -4,9 +4,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 874 $
-#* $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
-#* $Author: sparhawk $
+#* $Revision: 916 $
+#* $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+#* $Author: orbweaver $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -139,7 +139,6 @@ def checkLDD( target, source, env ):
 	if ( have_undef ):
 		print output
 		print "ERROR: undefined symbols"
-		os.system('rm %s' % target[0])
 		sys.exit(1)
 
 def SharedLibrarySafe( env, target, source ):

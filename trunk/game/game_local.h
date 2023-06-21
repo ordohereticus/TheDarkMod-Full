@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -110,7 +110,10 @@ class CPriorityQueue;
 #define protected	public
 #endif
 
+class idRenderWorld;
 extern idRenderWorld *				gameRenderWorld;
+
+class idSoundWorld;
 extern idSoundWorld *				gameSoundWorld;
 /**
 * place to store the sound world pointer when we temporarily set it to NULL

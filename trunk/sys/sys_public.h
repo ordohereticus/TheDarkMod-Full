@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -86,6 +86,10 @@
 
 // Linux
 #ifdef __linux__
+
+#include <cstdarg>
+#include <cstdio>
+#include <alloca.h>
 
 #ifdef __i386__
 	#define	BUILD_STRING				"linux-x86"

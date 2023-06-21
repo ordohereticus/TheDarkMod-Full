@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  * $Log$
  * Revision 1.1  2004/10/30 15:52:03  sparhawk
@@ -46,7 +46,7 @@ typedef enum {
 } contactType_t;
 
 // contact info
-typedef struct {
+struct contactInfo_t {
 	contactType_t			type;			// contact type
 	idVec3					point;			// point of contact
 	idVec3					normal;			// contact plane normal
@@ -57,7 +57,7 @@ typedef struct {
 	int						trmFeature;		// contact feature on trace model
 	int						entityNum;		// entity the contact surface is a part of
 	int						id;				// id of clip model the contact surface is part of
-} contactInfo_t;
+};
 
 // trace result
 typedef struct trace_s {

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 907 $
- * $Date: 2007-04-17 03:18:20 -0400 (Tue, 17 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -12,6 +12,10 @@
 
 #ifndef __SYS_CVAR_H__
 #define __SYS_CVAR_H__
+
+#ifdef __linux__
+#include "framework/cvarsystem.h"
+#endif
 
 /**
 * DarkMod cvars - See text description in syscvar.cpp for descriptions

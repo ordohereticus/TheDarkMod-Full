@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -187,7 +187,7 @@ extern idGame *					game;
 ===============================================================================
 */
 
-typedef struct {
+struct refSound_t {
 	idSoundEmitter *			referenceSound;	// this is the interface to the sound system, created
 												// with idSoundWorld::AllocSoundEmitter() when needed
 	idVec3						origin;
@@ -198,7 +198,7 @@ typedef struct {
 												// samples in a multi-sample list from the shader are used
 	bool						waitfortrigger;	// don't start it at spawn time
 	soundShaderParms_t			parms;			// override volume, flags, etc
-} refSound_t;
+};
 
 enum {
 	TEST_PARTICLE_MODEL = 0,

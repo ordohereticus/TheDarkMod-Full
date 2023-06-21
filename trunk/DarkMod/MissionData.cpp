@@ -1,15 +1,17 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+#include "../game/game_local.h"
+
+static bool init_version = FileVersionList("$Id: MissionData.cpp 916 2007-04-20 20:48:14Z orbweaver $", init_version);
 
 #pragma warning(disable : 4996)
 

@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 906 $
- * $Date: 2007-04-16 18:15:19 -0400 (Mon, 16 Apr 2007) $
- * $Author: nyarlathotep $
+ * $Revision: 916 $
+ * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 906 2007-04-16 22:15:19Z nyarlathotep $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 916 2007-04-20 20:48:14Z orbweaver $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -30,11 +30,11 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 906 2007-04-
 #include "MissionData.h"
 #include "Misc.h"
 #include "Profile.h"
-#include "direct.h"
+//#include "direct.h" [OrbWeaver] does not exist?
 #include "il/il.h"
-#include "sndproploader.h"
-#include "sndprop.h"
-#include "relations.h"
+#include "sndPropLoader.h"
+#include "sndProp.h"
+#include "Relations.h"
 #include "../game/ai/ai.h"
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
@@ -940,6 +940,8 @@ void CImage::Unload(bool FreeMemory)
 	m_ImageId = (ILuint)-1;
 }
 
+#ifndef __linux__
+
 bool CImage::LoadImage(HANDLE &Handle)
 {
 	bool rc = false;
@@ -1019,6 +1021,8 @@ Quit:
 
 	return rc;
 }
+
+#endif // __linux__
 
 bool CImage::LoadImage(const char *Filename)
 {
