@@ -9,12 +9,16 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 384 $
- * $Date: 2006-04-26 17:29:46 -0400 (Wed, 26 Apr 2006) $
+ * $Revision: 401 $
+ * $Date: 2006-05-03 17:32:02 -0400 (Wed, 03 May 2006) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.10  2006/05/03 21:32:02  sparhawk
+ * Scripthread interface changed. Now it takes
+ * values instead of pointer to values.
+ *
  * Revision 1.9  2006/04/26 21:29:46  sparhawk
  * Timed stim/response core added.
  *
@@ -689,8 +693,8 @@ void CResponse::TriggerResponse(idEntity *StimEnt)
 	{
 		DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Running ResponseScript\r");
 		idThread *pThread = new idThread(pScriptFkt);
-		float n = pThread->GetThreadNum();
-		pThread->CallFunctionArgs(pScriptFkt, true, "eef", m_Owner, StimEnt, &n);
+		int n = pThread->GetThreadNum();
+		pThread->CallFunctionArgs(pScriptFkt, true, "eef", m_Owner, StimEnt, n);
 		pThread->DelayedStart(0);
 	}
 	else
