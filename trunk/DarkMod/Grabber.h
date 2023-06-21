@@ -2,9 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 163 $
- * $Date: 2005-09-23 23:14:51 -0400 (Fri, 23 Sep 2005) $
+ * $Revision: 257 $
+ * $Date: 2005-12-02 13:21:04 -0500 (Fri, 02 Dec 2005) $
  * $Author: lloyd $
+ *
+ * $Log$
+ * Revision 1.3  2005/12/02 18:21:04  lloyd
+ * Objects start oriented with player
+ *
+ * Revision 1.1.1.1  2005/09/22 15:52:33  Lloyd
+ * Initial release
  *
  ***************************************************************************/
 
@@ -12,7 +19,7 @@
 #define __GRABBER_H__
 
 #include "../Game/Entity.h"
-//#include "Force_Grab.h"
+#include "Force_Grab.h"
 
 class idPlayer;
 
@@ -62,11 +69,13 @@ class CGrabber : public idEntity {
 		idStr					bodyName;			// name of the body being dragged
 
 		idPlayer				*player;
-		idForce_Drag			drag;
+		CForce_Grab				drag;
 
-		idVec3					rotatePosition;		// how much to rotate the object
-		idVec2					mousePosition;		// mouse position when user pressed BUTTON_ZOOM
+		idRotation				rotation;
 		int						rotationAxis;		// 0 = none, 1 = x, 2 = y, 3 = z
+		idVec3					rotatePosition;		// how much to rotate the object
+		idVec3					grabbedPosition;	// where the player was looking when the object was grabbed
+		idVec2					mousePosition;		// mouse position when user pressed BUTTON_ZOOM
 
 		idList<CGrabbedEnt>		clipList;
 
