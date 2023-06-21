@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 947 $
- * $Date: 2007-04-29 13:56:04 -0400 (Sun, 29 Apr 2007) $
+ * $Revision: 951 $
+ * $Date: 2007-05-02 05:23:45 -0400 (Wed, 02 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 947 2007-04-29 17:56:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 951 2007-05-02 09:23:45Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7850,9 +7850,17 @@ int idEntity::heal(const char* healDefName, float healScale) {
 	}
 
 	int	healAmount = static_cast<int>(healDef->GetInt( "heal_amount" ) * healScale);
+	int healInterval = healDef->GetInt("heal_interval", "0");
+	int healStepAmount = healDef->GetInt("heal_step_amount", "5");
+	float healIntervalFactor = healDef->GetInt("heal_interval_factor", "0");
 
 	// Check if the entity can be healed in the first place
-	if ( healAmount != 0 && health < spawnArgs.GetInt("health")) {
+	if ( healAmount == 0 || health >= spawnArgs.GetInt("health")) {
+		return 0;
+	}
+	
+	// Is this "instant" healing
+	if (healInterval == 0) {
 		// Yes, heal the entity
 		health += healAmount;
 
@@ -7870,7 +7878,20 @@ int idEntity::heal(const char* healDefName, float healScale) {
 
 		return 1;
 	}
+	// Is this a gradual healing def? This would only apply to idPlayer
+	else if (healInterval > 0 && healStepAmount != 0 && IsType(idPlayer::Type))
+	{
+		idPlayer* player = dynamic_cast<idPlayer*>(this);
+		
+		if (player != NULL) {
+			player->GiveHealthPool(healAmount);
+			// Set the parameters of the health pool
+			player->setHealthPoolTimeInterval(healInterval, healIntervalFactor, healStepAmount);
+		}
+		return 1;
+	}
 	else {
+		// Nothing suitable found in the def arguments, return 0
 		return 0;
 	}
 }
