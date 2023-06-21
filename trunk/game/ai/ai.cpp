@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 91 $
+ * $Date: 2005-03-29 02:47:10 -0500 (Tue, 29 Mar 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:32  sparhawk
- * Initial revision
+ * Revision 1.2  2005/03/29 07:47:10  ishtvan
+ * Modified idAI::ReactionTo to check AI Relations to check if an actor is an enemy before attacking that actor
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:32  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -19,6 +22,9 @@
 #pragma hdrstop
 
 #include "../Game_local.h"
+#include "../../darkmod/relations.h"
+
+class CRelations;
 
 static const char *moveCommandString[ NUM_MOVE_COMMANDS ] = {
 	"MOVE_NONE",
@@ -3155,6 +3161,11 @@ void idAI::StaticMove( void ) {
 /*
 =====================
 idAI::ReactionTo
+
+DarkMod : Added call to AI Relationship Manager
+		  We don't have to hardcode this, could be done
+		  with scripts, but for now it's hardcoded for
+		  testing purposes.
 =====================
 */
 int idAI::ReactionTo( const idEntity *ent ) {
@@ -3174,9 +3185,11 @@ int idAI::ReactionTo( const idEntity *ent ) {
 		return ATTACK_IGNORE;
 	}
 
-	// actors on different teams will always fight each other
-	if ( actor->team != team ) {
-		if ( actor->fl.notarget ) {
+	// actors will always fight if their teams are enemies
+	if ( gameLocal.m_RelationsManager->IsEnemy( team, actor->team ) )
+	{
+		if ( actor->fl.notarget ) 
+		{
 			// don't attack on sight when attacker is notargeted
 			return ATTACK_ON_DAMAGE | ATTACK_ON_ACTIVATE;
 		}
