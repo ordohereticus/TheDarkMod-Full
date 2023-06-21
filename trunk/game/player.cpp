@@ -1,10 +1,19 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Source$
+ * $Revision: 823 $
+ * $Date: 2007-03-04 11:14:19 -0500 (Sun, 04 Mar 2007) $
+ * $Author: sparhawk $
+ *
+ ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
 //
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 814 $   $Date: 2007-03-04 01:45:24 -0500 (Sun, 04 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 823 $   $Date: 2007-03-04 11:14:19 -0500 (Sun, 04 Mar 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
