@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 141 $
- * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
- * $Author: lloyd $
+ * $Revision: 159 $
+ * $Date: 2005-09-20 02:16:58 -0400 (Tue, 20 Sep 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.6  2005/09/20 06:16:58  ishtvan
+ * added dm_showsprop cvar to show sound prop paths for ingame debugging
+ *
  * Revision 1.5  2005/08/19 00:27:55  lloyd
  * *** empty log message ***
  *
@@ -42,6 +45,7 @@ extern idCVar cv_ai_sightmindist;
 extern idCVar cv_ai_tactalert;
 extern idCVar cv_ai_debug;
 extern idCVar cv_spr_debug;
+extern idCVar cv_spr_show;
 
 extern idCVar cv_pm_runmod;
 extern idCVar cv_pm_crouchmod;
@@ -277,9 +281,14 @@ extern idCVar	si_spectators;
 extern const char *ui_skinArgs[];
 
 #ifdef MOD_WATERPHYSICS
+
 extern idCVar af_useBodyDensityBuoyancy;			// MOD_WATERPHYSICS
+
 extern idCVar af_useFixedDensityBuoyancy;			// MOD_WATERPHYSICS
+
 extern idCVar rb_showBuoyancy;								// MOD_WATERPHYSICS
+
 #endif
+
 
 #endif /* !__SYS_CVAR_H__ */
