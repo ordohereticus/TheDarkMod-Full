@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 101 $
- * $Date: 2005-04-07 04:42:38 -0400 (Thu, 07 Apr 2005) $
+ * $Revision: 172 $
+ * $Date: 2005-09-27 04:07:15 -0400 (Tue, 27 Sep 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.6  2005/09/27 08:07:15  ishtvan
+ * *) Added new member vars to support multiple frob functionality
+ *
+ * *) Overloaded idMover::RotationDone()
+ *
  * Revision 1.5  2005/04/07 08:42:38  ishtvan
  * Added placeholder method GetSoundLoss, which is called by CsndProp
  *
@@ -66,6 +71,11 @@ public:
 
 	float					GetSoundLoss(void);
 
+	/**
+	* Overloading idMover::DoneRotating in order to close the portal when door closes
+	**/
+	void					DoneRotating( void );
+
 protected:
 	/**
 	 * LinkedOpen will point to a door that is to be switched when this
@@ -95,10 +105,39 @@ protected:
 	idStr						m_MasterLock;
 	idList<idStr>				m_LockList;
 
+/**
+* m_Open is only set to false when the door is completely closed
+**/
 	bool						m_Open;
+
 	bool						m_Locked;
 	bool						m_Pickable;
+
+	/**
+	* Stores whether the player intends to open or close the door
+	*	Useful for determining what to do when the door is stopped midway.
+	**/
+	bool						m_bIntentOpen;
+
+	/**
+	* Set to true if the door was stopped mid-rotation
+	**/
+	bool						m_bInterrupted;
+
+	/**
+	* Read from the spawnargs, interpreted into m_OpenAngles and m_ClosedAngles
+	**/
 	idAngles					m_Rotate;
+
+	/**
+	* Door angles when completely closed
+	**/
+	idAngles					m_ClosedAngles;
+
+	/**
+	* Door angles when completely open
+	**/
+	idAngles					m_OpenAngles;
 
 private:
 };
