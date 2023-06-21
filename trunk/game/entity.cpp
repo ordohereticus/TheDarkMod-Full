@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 903 $
- * $Date: 2007-04-16 06:22:29 -0400 (Mon, 16 Apr 2007) $
+ * $Revision: 904 $
+ * $Date: 2007-04-16 07:04:43 -0400 (Mon, 16 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 903 2007-04-16 10:22:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 904 2007-04-16 11:04:43Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7334,7 +7334,7 @@ void idEntity::Event_TimerStart(int StimType)
 	if(timer == NULL)
 		goto Quit;
 
-	timer->Start(sys->GetClockTicks());
+	timer->Start(static_cast<unsigned long>(sys->GetClockTicks()));
 
 Quit:
 	return;
@@ -7349,7 +7349,7 @@ void idEntity::Event_TimerRestart(int StimType)
 	if(timer == NULL)
 		goto Quit;
 
-	timer->Restart(sys->GetClockTicks());
+	timer->Restart(static_cast<unsigned long>(sys->GetClockTicks()));
 
 Quit:
 	return;

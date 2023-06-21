@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 903 $
- * $Date: 2007-04-16 06:22:29 -0400 (Mon, 16 Apr 2007) $
+ * $Revision: 904 $
+ * $Date: 2007-04-16 07:04:43 -0400 (Mon, 16 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 903 2007-04-16 10:22:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 904 2007-04-16 11:04:43Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5312,7 +5312,7 @@ void idGameLocal::ProcessStimResponse(void)
 	CStimResponseTimer *timer;
 	idBounds bounds;
 	idEntity *Ent[MAX_GENTITIES];
-	double ticks = sys->GetClockTicks();
+	unsigned long ticks = static_cast<unsigned long>(sys->GetClockTicks());
 
 	// Check the timed stims first.
 	en = m_StimTimer.Num();
