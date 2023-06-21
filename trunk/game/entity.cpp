@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 665 $
- * $Date: 2006-12-15 21:14:44 -0500 (Fri, 15 Dec 2006) $
+ * $Revision: 666 $
+ * $Date: 2006-12-15 21:33:09 -0500 (Fri, 15 Dec 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.78  2006/12/16 02:33:09  gildoran
+ * Changed Event_CursorSelectItem() to allow $nulls to be passed to it.
+ *
  * Revision 1.77  2006/12/16 02:14:44  gildoran
  * Fixed a bug in the setCursorItem() script event declaration, to allow it to take $null pointers.
  *
@@ -269,7 +272,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 665 $   $Date: 2006-12-15 21:14:44 -0500 (Fri, 15 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 666 $   $Date: 2006-12-15 21:33:09 -0500 (Fri, 15 Dec 2006) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7248,26 +7251,22 @@ Selects an item in the cursor's inventory.
 ================
 */
 void idEntity::Event_SetCursorItem( idEntity* ent, int noHistory ) {
-	if ( ent == NULL ) {
-		gameLocal.Warning( "Null passed to cursorSelectItem.\n" );
-		goto Quit;
-	}
 	CtdmInventoryCursor* cursor = InventoryCursor();
-	CtdmInventoryItem* item = ent->InventoryItem();
-	if ( cursor == NULL ) {
+	CtdmInventoryItem* item = ent ? ent->InventoryItem() : NULL;
+	if ( !cursor ) {
 		gameLocal.Warning( "Unable load inventory cursor.\n" );
 		goto Quit;
 	}
-	if ( item == NULL ) {
+	if ( ent && !item ) {
 		gameLocal.Warning( "Unable load inventory item.\n" );
 		goto Quit;
 	}
-	if ( cursor->Inventory() == NULL || cursor->Inventory() != item->Inventory() ) {
+	if ( !cursor->Inventory() || ( item && item->Inventory() != cursor->Inventory() ) ) {
 		gameLocal.Warning( "Cursor doesn't point to the inventory containing item.\n" );
 		goto Quit;
 	}
 	if ( (noHistory & EINV_FAST) != noHistory ) {
-		gameLocal.Warning( "Invalid type passed to cursorSelectItem.\n" );
+		gameLocal.Warning( "Invalid type passed to setCursorItem.\n" );
 		goto Quit;
 	}
 
