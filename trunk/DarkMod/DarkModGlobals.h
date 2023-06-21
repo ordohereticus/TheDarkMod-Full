@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 394 $
- * $Date: 2006-05-01 20:09:23 -0400 (Mon, 01 May 2006) $
+ * $Revision: 415 $
+ * $Date: 2006-05-17 01:39:16 -0400 (Wed, 17 May 2006) $
  * $Author: sophisticatedzombie $
  * $Name$
  *
  * $Log$
+ * Revision 1.35  2006/05/17 05:39:16  sophisticatedzombie
+ * Added new variables related to AIComm_Messsage and AIComm_StimResponse modules.
+ *
  * Revision 1.34  2006/05/02 00:09:23  sophisticatedzombie
  * Added m_drawAIDebugGraphics. It defaults to 0.0 which is off. Values >= 1.0 draw the AI debug graphics for that number of milliseconds
  *
@@ -422,6 +425,18 @@ public:
 	 * This solution is less accurate, though. Default for this value is false.
 	 */
 	bool m_WeakLightgem;
+
+	/**
+	* The maximum distance a Responder can be from an Entity with an active 
+	* AIComm stim (ST_COMMUNICATION) and have its responses potentially triggered.
+	* Note that each Message has its own internal radius which if less than this
+	* value, furthere restricts responding on message by message basis.
+	*
+	* However, this radius is the one that is used to find entities that will
+	* check through the response list. Therefore, setting it higher may make
+	* the processing of ST_COMMUNICATION stims take longer.
+	*/
+	float m_AICommStimRadius;
 
 
 
