@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 480 $
+ * $Date: 2006-07-10 23:52:19 -0400 (Mon, 10 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.27  2006/07/11 03:52:19  ishtvan
+ * added drowning immunity and KO immunity
+ *
  * Revision 1.26  2006/06/21 13:04:47  sparhawk
  * Added version tracking per cpp module
  *
@@ -96,7 +99,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 480 $   $Date: 2006-07-10 23:52:19 -0400 (Mon, 10 Jul 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -593,12 +596,15 @@ idAI::idAI() {
 	*/
 	m_HidingSpotSearchHandle = 0;
 
+	m_bCanDrown = true;
 	m_AirCheckTimer = 0;
 	m_AirTics = 0;
 	m_AirTicksMax = 0;
 	m_HeadBodyID = 0;
 	m_HeadJointID = INVALID_JOINT;
 	m_MouthOffset = vec3_zero;
+
+	m_bCanBeKnockedOut = true;
 	m_KoOffset = vec3_zero;
 }
 
@@ -1189,14 +1195,16 @@ void idAI::Spawn( void ) {
 	}
 
 	// set up drowning timer (add a random bit to make it asynchronous w/ respect to other AI)
+	m_bCanDrown = spawnArgs.GetBool( "can_drown", "1" );
 	m_AirCheckTimer = gameLocal.time + gameLocal.random.RandomInt( 8000 );
 	m_AirTicksMax = spawnArgs.GetInt( "max_air_tics", "5" );
 	m_AirTics = m_AirTicksMax;
 	m_AirCheckInterval = (int) 1000.0f * spawnArgs.GetFloat( "air_check_interval", "4.0" );
 	// end drowning setup
 
-	// Set up KOing
+	// Set up KOing and FOV
 	const char *HeadJointName = spawnArgs.GetString("head_jointname", "Head");
+	m_bCanBeKnockedOut = !( spawnArgs.GetBool("ko_immune", "0") );
 
 	m_HeadJointID = animator.GetJointHandle(HeadJointName);
 	if( m_HeadJointID == INVALID_JOINT )
@@ -1356,7 +1364,7 @@ void idAI::Think( void ) {
 		CheckTactile();
 
 		// Check if drowning
-		if( gameLocal.time > m_AirCheckTimer )
+		if( m_bCanDrown && gameLocal.time > m_AirCheckTimer )
 			UpdateAir();
 
 		if ( num_cinematics ) {
@@ -6176,6 +6184,9 @@ void idAI::Knockout( void )
 {
 	idAngles ang;
 	const char *modelKOd;
+
+	if( !m_bCanBeKnockedOut )
+		goto Quit;
 
 	if( AI_KNOCKEDOUT || AI_DEAD )
 	{
