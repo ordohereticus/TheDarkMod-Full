@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 529 $
- * $Date: 2006-08-04 06:55:08 -0400 (Fri, 04 Aug 2006) $
+ * $Revision: 537 $
+ * $Date: 2006-08-07 02:54:37 -0400 (Mon, 07 Aug 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.38  2006/08/07 06:54:37  ishtvan
+ * got rid of m_NoViewChange and replaced it with Gildoran's immobilization system
+ *
  * Revision 1.37  2006/08/04 10:55:08  ishtvan
  * added GetDeltaYaw function to get player view change
  *
@@ -136,7 +139,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 529 $   $Date: 2006-08-04 06:55:08 -0400 (Fri, 04 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 537 $   $Date: 2006-08-07 02:54:37 -0400 (Mon, 07 Aug 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2377,7 +2380,7 @@ void idPhysics_Player::SetPlayerInput( const usercmd_t &cmd, const idAngles &new
 	m_DeltaViewYaw = SHORT2ANGLE(m_DeltaViewYaw);
 	
 	// don't return a change if the player's view is locked in place
-	if( static_cast<idPlayer *>(self)->m_NoViewChange )
+	if( static_cast<idPlayer *>(self)->GetImmobilization() & EIM_VIEW_ANGLE )
 		m_DeltaViewYaw = 0;
 
 	m_lastCommandViewYaw = command.angles[1];
