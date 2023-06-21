@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1002 $
+ * $Date: 2007-05-28 20:55:03 -0400 (Mon, 28 May 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -301,7 +301,7 @@ public:
 	bool						GetOriginRotation( idQuat &rotation, int animNum, int currentTime, int cyclecount ) const;
 	bool						GetBounds( idBounds &bounds, int animNum, int time, int cyclecount ) const;
 	const char					*AddFrameCommand( const class idDeclModelDef *modelDef, int framenum, idLexer &src, const idDict *def );
-	void						CallFrameCommands( idEntity *ent, int from, int to ) const;
+	void						CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *caller );
 	bool						HasFrameCommands( void ) const;
 
 								// returns first frame (zero based) that command occurs.  returns -1 if not found.

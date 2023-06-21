@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1002 $
+ * $Date: 2007-05-28 20:55:03 -0400 (Mon, 28 May 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 1002 2007-05-29 00:55:03Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -657,7 +657,8 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 idAnim::CallFrameCommands
 =====================
 */
-void idAnim::CallFrameCommands( idEntity *ent, int from, int to ) const {
+void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *caller ) 
+{
 	int index;
 	int end;
 	int frame;
@@ -936,13 +937,15 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to ) const {
 
 				case FC_SETRATE:
 				{
-					int newRate = atoi( command.string->c_str() );
+					int newRate = atof( command.string->c_str() );
 					
 					for( int ind = 0; ind < numAnims; ind++ )
 					{
 						// debug for SetRate debugging
 						//DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("SETFRAMERATE: Setting frame rate: %d, on entity %s, channel %d\r", newRate, ent->name.c_str(), ind );
-						const_cast<idMD5Anim *>(anims[ ind ])->SetFrameRate( newRate );
+						// const_cast<idMD5Anim *>(anims[ ind ])->SetFrameRate( newRate );
+						// Test out this method.  Hope it doesn't effect all anims on the channel.
+						caller->SetPlaybackRate( gameLocal.time, newRate );
 					}
 					break;
 				}
@@ -1726,9 +1729,9 @@ void idAnimBlend::CallFrameCommands( idEntity *ent, int fromtime, int totime ) c
 
 	if ( fromFrameTime <= 0 ) {
 		// make sure first frame is called
-		anim->CallFrameCommands( ent, -1, frame2.frame1 );
+		const_cast<idAnim *>(anim)->CallFrameCommands( ent, -1, frame2.frame1, const_cast<idAnimBlend *>(this) );
 	} else {
-		anim->CallFrameCommands( ent, frame1.frame1, frame2.frame1 );
+		const_cast<idAnim *>(anim)->CallFrameCommands( ent, frame1.frame1, frame2.frame1, const_cast<idAnimBlend *>(this) );
 	}
 }
 
