@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 227 $
- * $Date: 2005-11-17 04:12:33 -0500 (Thu, 17 Nov 2005) $
+ * $Revision: 233 $
+ * $Date: 2005-11-18 05:31:44 -0500 (Fri, 18 Nov 2005) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.20  2005/11/18 10:31:44  ishtvan
+ * rope arrow fixes
+ *
  * Revision 1.19  2005/11/17 09:12:33  ishtvan
  * minor ropearrow update, variable type change
  *
@@ -267,6 +270,11 @@ private:
 	* toggled based on whether the player should stay attached to rope
 	**/
 	bool					m_bRopeAttached;
+
+	/**
+	* toggled on in the frame that the player first attaches to the rope
+	**/
+	bool					m_bJustHitRope;
 
 	// ladder movement
 	bool					ladder;
