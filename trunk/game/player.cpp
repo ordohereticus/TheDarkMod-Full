@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 956 $
- * $Date: 2007-05-02 17:53:38 -0400 (Wed, 02 May 2007) $
- * $Author: sparhawk $
+ * $Revision: 969 $
+ * $Date: 2007-05-04 09:07:11 -0400 (Fri, 04 May 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 956 2007-05-02 21:53:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 969 2007-05-04 13:07:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1084,6 +1084,7 @@ idPlayer::idPlayer()
 	airless					= false;
 	airTics					= 0;
 	lastAirDamage			= 0;
+	underWaterSoundPlaying	= false;
 
 	gibDeath				= false;
 	gibsLaunched			= false;
@@ -6794,6 +6795,21 @@ void idPlayer::StartFxOnBone( const char *fx, const char *bone ) {
 	idEntityFx::StartFx( fx, &offset, &axis, this, true );
 }
 
+void idPlayer::UpdateUnderWaterEffects() {
+	if ( physicsObj.GetWaterLevel() >= WATERLEVEL_HEAD ) {
+		if (!underWaterSoundPlaying) {
+			StartSound( "snd_airless", SND_CHANNEL_DEMONIC, 0, false, NULL );
+			underWaterSoundPlaying = true;
+		}
+	}
+	else {
+		if (underWaterSoundPlaying) {
+			StopSound( SND_CHANNEL_DEMONIC, false );
+			underWaterSoundPlaying = false;
+		}
+	}
+}
+
 /*
 ==============
 idPlayer::Think
@@ -6978,6 +6994,9 @@ void idPlayer::Think( void )
 	}
 
 	UpdateAir();
+
+	// greebo: update underwater overlay and sounds
+	UpdateUnderWaterEffects();
 	
 	UpdateHud();
 

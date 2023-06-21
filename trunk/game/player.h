@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 954 $
- * $Date: 2007-05-02 11:32:19 -0400 (Wed, 02 May 2007) $
+ * $Revision: 969 $
+ * $Date: 2007-05-04 09:07:11 -0400 (Fri, 04 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -526,6 +526,12 @@ public:
 	void					SetCurrentHeartRate( void );
 	int						GetBaseHeartRate( void );
 	void					UpdateAir( void );
+	
+	/**
+	* This updates the audiovisual effects when the player is underwater
+	*/
+	void					UpdateUnderWaterEffects();
+
 	/**
 	* greebo: Accessor methods for the airTicks member variable. 
 	*/
@@ -712,6 +718,7 @@ private:
 	bool					airless;
 	int						airTics;				// set to pm_airTics at start, drops in vacuum
 	int						lastAirDamage;
+	bool					underWaterSoundPlaying;
 
 	bool					gibDeath;
 	bool					gibsLaunched;
