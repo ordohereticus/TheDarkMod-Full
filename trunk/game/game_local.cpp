@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 879 $
- * $Date: 2007-03-28 14:52:22 -0400 (Wed, 28 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 888 $
+ * $Date: 2007-04-02 04:01:25 -0400 (Mon, 02 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 879 2007-03-28 18:52:22Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 888 2007-04-02 08:01:25Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2022,7 +2022,7 @@ void idGameLocal::SpawnPlayer( int clientNum )
 
 	args.SetInt( "spawn_entnum", clientNum );
 	args.Set( "name", va( "player%d", clientNum + 1 ) );
-	args.Set( "classname", isMultiplayer ? "player_doommarine_mp" : "player_doommarine" );
+	args.Set( "classname", isMultiplayer ? "player_tdm_thief_mp" : "player_tdm_thief" );
 	if ( !SpawnEntityDef( args, &ent ) || !entities[ clientNum ] ) {
 		Error( "Failed to spawn player as '%s'", args.GetString( "classname" ) );
 	}

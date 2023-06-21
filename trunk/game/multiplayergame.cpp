@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 888 $
+ * $Date: 2007-04-02 04:01:25 -0400 (Mon, 02 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: multiplayergame.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: multiplayergame.cpp 888 2007-04-02 08:01:25Z greebo $", init_version);
 
 #include "Game_local.h"
 
@@ -3053,7 +3053,7 @@ void idMultiplayerGame::Precache( void ) {
 	if ( !gameLocal.isMultiplayer ) {
 		return;
 	}
-	gameLocal.FindEntityDefDict( "player_doommarine", false );;
+	gameLocal.FindEntityDefDict( "player_tdm_thief", false );;
 	
 	// skins
 	idStr str = cvarSystem->GetCVarString( "mod_validSkins" );
