@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 987 $
- * $Date: 2007-05-12 09:36:09 -0400 (Sat, 12 May 2007) $
- * $Author: greebo $
+ * $Revision: 991 $
+ * $Date: 2007-05-20 20:24:51 -0400 (Sun, 20 May 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 987 2007-05-12 13:36:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 991 2007-05-21 00:24:51Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9656,12 +9656,12 @@ void idPlayer::inventoryDropItem()
 {
 	CGrabber *grabber = g_Global.m_DarkModPlayer->grabber;
 	idEntity *ent = grabber->GetSelected();
-//	CInventoryItem *item = NULL;
 
-	// TODO: If the player holds something in his grabber hands,
-	// the item must be dropped first.
+	// Drop the item in the grabber hands first
 	if(ent != NULL)
-		return;
+	{
+		grabber->Update( this, false );
+	}
 	else
 		InventoryCursor()->DropCurrentItem();
 }
