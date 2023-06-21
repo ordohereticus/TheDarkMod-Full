@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 210 $
+ * $Date: 2005-11-10 14:21:04 -0500 (Thu, 10 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:34  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/10 19:21:04  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:34  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -35,7 +38,8 @@ enum {
 	FX_SHAKE,
 	FX_ATTACHLIGHT,
 	FX_ATTACHENTITY,
-	FX_LAUNCH
+	FX_LAUNCH,
+	FX_SHOCKWAVE
 };
 
 //

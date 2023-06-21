@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 46 $
- * $Date: 2004-11-28 04:21:56 -0500 (Sun, 28 Nov 2004) $
+ * $Revision: 210 $
+ * $Date: 2005-11-10 14:21:04 -0500 (Thu, 10 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2005/11/10 19:21:04  sparhawk
+ * SDK 1.3 Merge
+ *
  * Revision 1.3  2004/11/28 09:15:24  sparhawk
  * SDK V2 merge
  *
@@ -104,7 +107,7 @@ public:
 	int			sequence;						// just for debugging
 
 public:
-	void		ByteSwap();						// on big endien systems, byte swap the shorts and ints
+	void		ByteSwap();						// on big endian systems, byte swap the shorts and ints
 	bool		operator==( const usercmd_t &rhs ) const;
 };
 
