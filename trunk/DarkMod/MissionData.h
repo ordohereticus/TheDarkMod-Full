@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 619 $
- * $Date: 2006-11-20 00:35:44 -0500 (Mon, 20 Nov 2006) $
- * $Author: ishtvan $
+ * $Revision: 795 $
+ * $Date: 2007-02-07 17:06:35 -0500 (Wed, 07 Feb 2007) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.16  2007/02/07 22:06:25  sparhawk
+ * Items can now be frobbed and added to the inventory
+ *
  * Revision 1.15  2006/11/20 05:35:44  ishtvan
  * more preliminary objectives parsing
  *
@@ -111,14 +114,15 @@ typedef enum
 	SPEC_NONE,
 	SPEC_NAME,
 	SPEC_OVERALL,
-	SPEC_GROUP, // for inventory items, info_location groups, etc
-	SPEC_CLASSNAME, // soft/scripting classname
-	SPEC_SPAWNCLASS, // hard / SDK classname
+	SPEC_GROUP,			// for inventory items, info_location groups, etc
+	SPEC_CLASSNAME,		// soft/scripting classname
+	SPEC_SPAWNCLASS,	// hard / SDK classname
 
 // Specifically for AI:
 	SPEC_AI_TYPE,
 	SPEC_AI_TEAM,
-	SPEC_AI_INNOCENCE
+	SPEC_AI_INNOCENCE,
+	SPEC_COUNT					// Dummy entry should not be used for anything
 } ESpecificationMethod;
 
 /**
@@ -136,15 +140,15 @@ typedef enum
 	COMP_AI_FIND_BODY,
 // END AI components that must be kept together
 	COMP_ALERT,
-	COMP_ITEM, // Add inventory item or imaginary loot
-	COMP_LOCATION, // Item X is at location Y
-	COMP_CUSTOM_ASYNC, // asynchronously updated custom objective (updated by mapper from script)
+	COMP_ITEM,			// Add inventory item or imaginary loot (find object X)
+	COMP_LOCATION,		// Item X is at location Y
+	COMP_CUSTOM_ASYNC,	// asynchronously updated custom objective (updated by mapper from script)
 
 // The following are special clocked components, updated in CMissionData::UpdateObjectives
 	COMP_CUSTOM_CLOCKED,
 	COMP_INFO_LOCATION, // like location, but uses existing info_location areas instead of an info_objectivelocation entity
-	COMP_DISTANCE // distance from origin of ent X to that of ent Y
-
+	COMP_DISTANCE,		// distance from origin of ent X to that of ent Y
+	COMP_COUNT			// Dummy entry to yield the number of valid types
 } EComponentType;
 
 // TODO: move to game_local.h?

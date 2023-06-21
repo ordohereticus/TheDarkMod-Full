@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 783 $
- * $Date: 2007-02-03 16:56:21 -0500 (Sat, 03 Feb 2007) $
+ * $Revision: 795 $
+ * $Date: 2007-02-07 17:06:35 -0500 (Wed, 07 Feb 2007) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.61  2007/02/07 22:06:13  sparhawk
+ * Items can now be frobbed and added to the inventory
+ *
  * Revision 1.60  2007/02/03 21:56:11  sparhawk
  * Removed old inventories and fixed a bug in the new one.
  *
@@ -833,6 +836,13 @@ public:
 	 * or entities in general if target is NULL.
 	 */
 	virtual float			RangedThreatTo(idEntity* target);
+
+	/**
+	 * AddToInventory will add an entity to the inventory. The item is only
+	 * added if the appropriate spawnargs are set, otherwise it will be rejected
+	 * and NULL is returned.
+	 */
+	virtual CInventoryItem *AddToInventory(idEntity *ent);
 
 protected:
 	/**
