@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 700 $
- * $Date: 2007-01-02 23:18:34 -0500 (Tue, 02 Jan 2007) $
+ * $Revision: 712 $
+ * $Date: 2007-01-09 08:00:19 -0500 (Tue, 09 Jan 2007) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.32  2007/01/09 13:00:19  ishtvan
+ * lean_forward cvars added
+ *
  * Revision 1.31  2007/01/03 04:18:34  ishtvan
  * Added cvars cv_pm_pushmod and cv_ai_bumpobject_impulse
  *
@@ -140,6 +143,10 @@ extern idCVar cv_pm_lean_angle;
 extern idCVar cv_pm_lean_time;
 extern idCVar cv_pm_lean_height;
 extern idCVar cv_pm_lean_stretch;
+extern idCVar cv_pm_lean_forward_angle;
+extern idCVar cv_pm_lean_forward_time;
+extern idCVar cv_pm_lean_forward_height;
+extern idCVar cv_pm_lean_forward_stretch;
 
 extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
