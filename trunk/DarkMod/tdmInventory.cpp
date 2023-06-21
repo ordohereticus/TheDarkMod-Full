@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 649 $
- * $Date: 2006-12-09 23:53:23 -0500 (Sat, 09 Dec 2006) $
+ * $Revision: 657 $
+ * $Date: 2006-12-13 20:38:28 -0500 (Wed, 13 Dec 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.11  2006/12/14 01:38:28  gildoran
+ * Fixed two bugs in cursor's operator =
+ * 1. CopyActiveCursor was called without turning off group histories, which could create a duplicate group history.
+ * 2. It tried to copy group histories from itself instead of source.
+ *
  * Revision 1.10  2006/12/10 04:53:18  gildoran
  * Completely revamped the inventory code again. I took out the other iteration methods leaving only hybrid (and grouped) iteration. This allowed me to slim down and simplify much of the code, hopefully making it easier to read. It still needs to be improved some, but it's much better than before.
  *
@@ -50,7 +55,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 649 $   $Date: 2006-12-09 23:53:23 -0500 (Sat, 09 Dec 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 657 $   $Date: 2006-12-13 20:38:28 -0500 (Wed, 13 Dec 2006) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -466,12 +471,11 @@ CtdmInventoryCursor& CtdmInventoryCursor::operator = ( const CtdmInventoryCursor
 	}
 
 	// Copy everything except their histories.
-	CopyActiveCursor( source );
+	CopyActiveCursor( source, true );
 
 	// Copy over their histories.
 	CtdmInventoryGroupHistory* groupHistory;
-
-	idLinkList<CtdmInventoryGroupHistory>* ghNode = m_groupHistories.NextNode();
+	idLinkList<CtdmInventoryGroupHistory>* ghNode = source.m_groupHistories.NextNode();
 	while ( ghNode != NULL ) {
 		groupHistory = new CtdmInventoryGroupHistory( &m_groupHistories, ghNode->Owner()->m_slot );
 		if ( groupHistory == NULL ) {
