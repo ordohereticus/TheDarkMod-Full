@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 465 $
- * $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $
- * $Author: sparhawk $
+ * $Revision: 481 $
+ * $Date: 2006-07-11 21:10:58 -0400 (Tue, 11 Jul 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.6  2006/07/12 01:10:58  ishtvan
+ * surface type name now stored as idStr
+ *
  * Revision 1.5  2006/06/21 13:05:32  sparhawk
  * Added version tracking per cpp module
  *
@@ -34,7 +37,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 465 $   $Date: 2006-06-21 09:08:20 -0400 (Wed, 21 Jun 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 481 $   $Date: 2006-07-11 21:10:58 -0400 (Tue, 11 Jul 2006) $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/Game_local.h"
@@ -221,7 +224,8 @@ void CProjectileResult::Event_GetProjMass( void )
 
 void CProjectileResult::Event_GetSurfType( void ) 
 {
-	idThread::ReturnString( m_ProjData.SurfaceType );
+	DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("WEAPON: Surface type returned by GetSurfType was: %s \r", m_ProjData.SurfaceType.c_str() );
+	idThread::ReturnString( m_ProjData.SurfaceType.c_str() );
 }
 
 void CProjectileResult::Event_GetSurfNormal( void ) 
