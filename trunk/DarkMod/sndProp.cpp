@@ -17,8 +17,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 324 $
- * $Date: 2006-01-28 23:16:34 -0500 (Sat, 28 Jan 2006) $
+ * $Revision: 353 $
+ * $Date: 2006-02-12 02:17:18 -0500 (Sun, 12 Feb 2006) $
  * $Author: ishtvan $
  *
  ******************************************************************************/
@@ -404,8 +404,8 @@ void CsndProp::Propagate
 		// TODO : Do something else in the case of Listeners, since they're not AI
 		testAI = static_cast<idAI *>( validTypeEnts[i] );
 
-		// do not propagate to dead AI
-		if( testAI->health <= 0 )
+		// do not propagate to dead or unconscious AI
+		if( testAI->health <= 0 || testAI->IsKnockedOut() )
 			continue;
 		
 		if( !bounds.ContainsPoint( testAI->GetEyePosition() ) ) 
