@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 613 $
- * $Date: 2006-11-08 04:27:54 -0500 (Wed, 08 Nov 2006) $
+ * $Revision: 614 $
+ * $Date: 2006-11-08 05:11:26 -0500 (Wed, 08 Nov 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.91  2006/11/08 10:11:26  ishtvan
+ * fixed bug in frob bounds generation
+ *
  * Revision 1.90  2006/11/08 09:27:16  ishtvan
  * added frob bounds debug draw
  *
@@ -297,7 +300,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 613 $   $Date: 2006-11-08 04:27:54 -0500 (Wed, 08 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 614 $   $Date: 2006-11-08 05:11:26 -0500 (Wed, 08 Nov 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -10481,6 +10484,7 @@ void idPlayer::FrobCheck( void )
 	DM_LOG(LC_FROBBING,LT_DEBUG)LOGSTRING("No entity frobbed by direct LOS frob, trying frob radius.\r");
 	// IF the trace didn't hit anything frobable, do the radius test:
 
+	FrobBounds.Zero();
 	FrobBounds += trace.endpos;
 	FrobBounds.ExpandSelf( cv_frob_width.GetFloat() );
 
