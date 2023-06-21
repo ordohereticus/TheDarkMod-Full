@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 544 $
- * $Date: 2006-08-11 16:03:57 -0400 (Fri, 11 Aug 2006) $
+ * $Revision: 545 $
+ * $Date: 2006-08-12 08:47:24 -0400 (Sat, 12 Aug 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.7  2006/08/12 12:47:13  gildoran
+ * Added a couple of inventory related cvars: tdm_inv_grouping and tdm_inv_opacity. Also fixed a bug with item iteration.
+ *
  * Revision 1.6  2006/08/11 20:03:48  gildoran
  * Another update for inventories.
  *
@@ -38,7 +41,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 544 $   $Date: 2006-08-11 16:03:57 -0400 (Fri, 11 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 545 $   $Date: 2006-08-12 08:47:24 -0400 (Sat, 12 Aug 2006) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -1309,7 +1312,7 @@ void CtdmInventoryCursor::iterateItem( bool backwards, bool noHistory, bool (*fi
 			// Select the item at our slot.
 			selectItem( sNode->Owner()->m_item, noHistory );
 		} else {
-			select( NULL, NULL, NULL, noHistory );
+			select( m_group, NULL, NULL, noHistory );
 		}
 		break;
 	}

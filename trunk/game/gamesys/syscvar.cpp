@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 525 $
- * $Date: 2006-08-01 17:13:27 -0400 (Tue, 01 Aug 2006) $
- * $Author: sparhawk $
+ * $Revision: 545 $
+ * $Date: 2006-08-12 08:47:24 -0400 (Sat, 12 Aug 2006) $
+ * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.35  2006/08/12 12:47:19  gildoran
+ * Added a couple of inventory related cvars: tdm_inv_grouping and tdm_inv_opacity. Also fixed a bug with item iteration.
+ *
  * Revision 1.34  2006/08/01 21:13:27  sparhawk
  * Lightgem splitcode
  *
@@ -122,7 +125,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 525 $   $Date: 2006-08-01 17:13:27 -0400 (Tue, 01 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 545 $   $Date: 2006-08-12 08:47:24 -0400 (Sat, 12 Aug 2006) $", init_version);
 
 #include "../Game_local.h"
 
@@ -190,6 +193,16 @@ idCVar cv_frob_fadetime(			"tdm_frob_fadetime",	"100",		CVAR_GAME | CVAR_ARCHIVE
 idCVar cv_throw_min(				"tdm_throw_min",			"20000.0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Minimum impulse applied to a thrown object." );
 idCVar cv_throw_max(				"tdm_throw_max",			"40000.0",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Maximum impulse applied to a thrown object." );
 idCVar cv_throw_time(				"tdm_throw_time",		"1700",			CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "When throwing an object, time it takes to charge up to the max throw force in milliseconds." );
+
+/**
+* DarkMod Inventory
+**/
+
+idCVar cv_tdm_inv_grouping(	"tdm_inv_grouping",	"0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER,	"The opacity of the inventory GUI.\n"
+																									"0 = ungrouped inventory\n"
+																									"1 = grouped inventory\n"
+																									"2 = hybrid inventory", 0, 2 );
+idCVar cv_tdm_inv_opacity(	"tdm_inv_opacity",	"1",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,		"The opacity of the inventory GUI.", 0, 1 );
 
 /**
 * DarkMod movement volumes.  Walking volume is zero dB, other volumes are added to that
