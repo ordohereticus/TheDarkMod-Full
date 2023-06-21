@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 995 $
- * $Date: 2007-05-28 02:29:12 -0400 (Mon, 28 May 2007) $
+ * $Revision: 1000 $
+ * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 995 2007-05-28 06:29:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7919,7 +7919,8 @@ void idEntity::ProcCollisionStims( idEntity *other )
 {
 	CStimResponseCollection *coll, *coll2;
 
-	if( (coll = GetStimResponseCollection()) != NULL
+	if(	other != NULL
+		&& (coll = GetStimResponseCollection()) != NULL
 		&& (coll2 = other->GetStimResponseCollection()) != NULL
 		&& coll2->HasResponse() )
 	{
@@ -7931,7 +7932,7 @@ void idEntity::ProcCollisionStims( idEntity *other )
 			if( pStim->m_bCollisionBased )
 			{
 				pStim->m_bCollisionFired = true;
-				pStim->m_CollisionEnts.Append( this );
+				pStim->m_CollisionEnts.Append( other );
 			}
 		}
 	}

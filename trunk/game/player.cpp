@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 991 $
- * $Date: 2007-05-20 20:24:51 -0400 (Sun, 20 May 2007) $
+ * $Revision: 1000 $
+ * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 991 2007-05-21 00:24:51Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4591,7 +4591,10 @@ bool idPlayer::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	}
 	idEntity *other = gameLocal.entities[ collision.c.entityNum ];
 	// don't let player collide with grabber entity
-	if ( other && other != g_Global.m_DarkModPlayer->grabber->GetSelected() ) {
+	if ( other && other != g_Global.m_DarkModPlayer->grabber->GetSelected() ) 
+	{
+		ProcCollisionStims( other );
+
 		other->Signal( SIG_TOUCH );
 		if ( !spectating ) {
 			if ( other->RespondsTo( EV_Touch ) ) {

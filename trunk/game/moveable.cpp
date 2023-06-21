@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1000 $
+ * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -299,8 +299,10 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 		nextSoundTime = gameLocal.time + 500;
 	}
 
-	if ( canDamage && damage.Length() && gameLocal.time > nextDamageTime ) {
-		ent = gameLocal.entities[ collision.c.entityNum ];
+	ent = gameLocal.entities[ collision.c.entityNum ];
+
+	if ( canDamage && damage.Length() && gameLocal.time > nextDamageTime ) 
+	{
 		if ( ent && v > minDamageVelocity ) 
 		{
 			f = v > maxDamageVelocity ? 1.0f : idMath::Sqrt( v - minDamageVelocity ) * ( 1.0f / idMath::Sqrt( maxDamageVelocity - minDamageVelocity ) );
@@ -311,11 +313,11 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 		}
 	}
 
-	// Darkmod: Cause a tactile alert if it collides with an AI
-	
-	ent = gameLocal.entities[ collision.c.entityNum ];
+	// Darkmod: Collision stims and a tactile alert if it collides with an AI
 	if ( ent )
 	{
+		ProcCollisionStims( ent );
+
 		if( ent->IsType( idAI::Type ) )
 		{
 			idAI *alertee = static_cast<idAI *>(ent);

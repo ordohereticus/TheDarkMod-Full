@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 996 $
- * $Date: 2007-05-28 02:29:40 -0400 (Mon, 28 May 2007) $
+ * $Revision: 1000 $
+ * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 996 2007-05-28 06:29:40Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5453,12 +5453,15 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 					continue;
 				}
 
-				// If stim is not disabled and has a radius or uses the ent bounds
+				// If stim is not disabled
 				if (pStim->m_State == SS_DISABLED)
 					continue;
 
 				float radius = pStim->m_Radius;
-				if (radius != 0.0 || pStim->m_bUseEntBounds || pStim->m_Bounds.GetVolume() > 0)
+
+				if ( radius != 0.0 || pStim->m_bCollisionBased
+					|| pStim->m_bUseEntBounds 
+					|| pStim->m_Bounds.GetVolume() > 0 )
 				{
 					int numResponses = 0;
 
