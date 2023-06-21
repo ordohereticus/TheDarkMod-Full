@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 918 $
-#* $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+#* $Revision: 919 $
+#* $Date: 2007-04-21 05:07:22 -0400 (Sat, 21 Apr 2007) $
 #* $Author: orbweaver $
 #*
 #* $Log$
@@ -137,7 +137,13 @@ Relations.cpp \
 sndProp.cpp \
 sndPropLoader.cpp \
 Strip.cpp \
-ToUpper.cpp'
+ToUpper.cpp \
+StimResponse/Response.cpp \
+StimResponse/ResponseEffect.cpp \
+StimResponse/Stim.cpp \
+StimResponse/StimResponse.cpp \
+StimResponse/StimResponseCollection.cpp \
+StimResponse/StimResponseTimer.cpp'
 
 darkModList = scons_utils.BuildList('../../DarkMod', darkModSrc)
 
