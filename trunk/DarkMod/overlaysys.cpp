@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 571 $
- * $Date: 2006-09-18 09:38:13 -0400 (Mon, 18 Sep 2006) $
+ * $Revision: 572 $
+ * $Date: 2006-09-18 14:56:58 -0400 (Mon, 18 Sep 2006) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.2  2006/09/18 18:56:50  gildoran
+ * Added getNextOverlay, and code to automatically set an overlay as interactive if the GUI is.
+ *
  * Revision 1.1  2006/09/18 13:38:13  gildoran
  * Added the first version of a unified interface for GUIs.
  *
@@ -17,7 +20,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 571 $   $Date: 2006-09-18 09:38:13 -0400 (Mon, 18 Sep 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 572 $   $Date: 2006-09-18 14:56:58 -0400 (Mon, 18 Sep 2006) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -122,6 +125,30 @@ void COverlaySys::drawOverlays() {
 
 bool COverlaySys::isOpaque() {
 	return findOpaque() != NULL;
+}
+
+int COverlaySys::getNextOverlay( int handle ) {
+	int retHandle = OVERLAYS_MIN_HANDLE - 1;
+
+	idLinkList<SOverlay> *oNode;
+	SOverlay *overlay = findOverlay( handle, false );
+	if ( overlay )
+		oNode = overlay->m_node.NextNode();
+	else if ( handle == OVERLAYS_MIN_HANDLE - 1 )
+		oNode = m_overlays.NextNode();
+	else {
+		gameLocal.Warning( "Non-existant GUI handle: %d\n", handle );
+		goto Quit;
+	}
+
+	if ( oNode ) {
+		m_lastUsedOverlay = oNode->Owner();
+		m_lastUsedHandle  = m_lastUsedOverlay->m_handle;
+		retHandle = m_lastUsedHandle;
+	}
+
+	Quit:
+	return retHandle;
 }
 
 int COverlaySys::createOverlay( int layer, int handle ) {
