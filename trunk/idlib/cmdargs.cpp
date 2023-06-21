@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 218 $
+ * $Date: 2005-11-11 17:20:51 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:35  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 22:17:26  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:35  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -18,6 +21,20 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
+/*
+============
+idCmdArgs::operator=
+============
+*/
+void idCmdArgs::operator=( const idCmdArgs &args ) {
+	int i;
+
+	argc = args.argc;
+	memcpy( tokenized, args.tokenized, MAX_COMMAND_STRING );
+	for ( i = 0; i < argc; i++ ) {
+		argv[ i ] = tokenized + ( args.argv[ i ] - args.tokenized );
+	}
+}
 
 /*
 ============

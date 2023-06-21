@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 85 $
- * $Date: 2005-03-29 02:32:32 -0500 (Tue, 29 Mar 2005) $
- * $Author: ishtvan $
+ * $Revision: 218 $
+ * $Date: 2005-11-11 17:20:51 -0500 (Fri, 11 Nov 2005) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2005/11/11 22:17:26  sparhawk
+ * SDK 1.3 Merge
+ *
  * Revision 1.3  2005/03/29 07:32:32  ishtvan
  * Modified Parse1DMatrix to allow reading to an integer matrix
  *
@@ -632,11 +635,17 @@ int idLexer::ReadNumber( idToken *token ) {
 			token->AppendDirty( c );
 			c = *(++idLexer::script_p);
 		}
+		if( c == 'e' && dot == 0) {
+			//We have scientific notation without a decimal point
+			dot++;
+		}
 		// if a floating point number
 		if ( dot == 1 ) {
 			token->subtype = TT_DECIMAL | TT_FLOAT;
 			// check for floating point exponent
 			if ( c == 'e' ) {
+				//Append the e so that GetFloatValue code works
+				token->AppendDirty( c );
 				c = *(++idLexer::script_p);
 				if ( c == '-' ) {
 					token->AppendDirty( c );
@@ -1176,6 +1185,36 @@ int idLexer::ReadTokenOnLine( idToken *token ) {
 	idLexer::line = lastline;
 	token->Clear();
 	return false;
+}
+
+/*
+================
+idLexer::ReadRestOfLine
+================
+*/
+const char*	idLexer::ReadRestOfLine(idStr& out) {
+	while(1) {
+
+		if(*idLexer::script_p == '\n') {
+			idLexer::line++;
+			break;
+		}
+
+		if(!*idLexer::script_p) {
+			break;
+		}
+
+		if(*idLexer::script_p <= ' ') {
+			out += " ";
+		} else {
+			out += *idLexer::script_p;
+		}
+		idLexer::script_p++;
+
+	}
+
+	out.Strip(' ');
+	return out.c_str();
 }
 
 /*

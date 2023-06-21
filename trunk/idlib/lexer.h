@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 85 $
- * $Date: 2005-03-29 02:32:32 -0500 (Tue, 29 Mar 2005) $
- * $Author: ishtvan $
+ * $Revision: 218 $
+ * $Date: 2005-11-11 17:20:51 -0500 (Fri, 11 Nov 2005) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2005/11/11 22:17:26  sparhawk
+ * SDK 1.3 Merge
+ *
  * Revision 1.3  2005/03/29 07:32:32  ishtvan
  * Modified Parse1DMatrix to allow reading to an integer matrix
  *
@@ -177,6 +180,10 @@ public:
 	void			UnreadToken( const idToken *token );
 					// read a token only if on the same line
 	int				ReadTokenOnLine( idToken *token );
+
+					//Returns the rest of the current line
+	const char*		ReadRestOfLine(idStr& out);
+
 					// read a signed integer
 	int				ParseInt( void );
 					// read a boolean
@@ -230,9 +237,9 @@ public:
 					// returns the current line number
 	const int		GetLineNum( void );
 					// print an error message
-	void			Error( const char *str, ... );
+	void			Error( const char *str, ... ) id_attribute((format(printf,2,3)));
 					// print a warning message
-	void			Warning( const char *str, ... );
+	void			Warning( const char *str, ... ) id_attribute((format(printf,2,3)));
 					// returns true if Error() was called with LEXFL_NOFATALERRORS or LEXFL_NOERRORS set
 	bool			HadError( void ) const;
 

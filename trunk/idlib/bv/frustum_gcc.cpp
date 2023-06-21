@@ -2,19 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 53 $
- * $Date: 2004-11-28 14:09:02 -0500 (Sun, 28 Nov 2004) $
+ * $Revision: 218 $
+ * $Date: 2005-11-11 17:20:51 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.2  2004/11/28 19:09:02  sparhawk
- * Added header and Id Copyright.
+ * Revision 1.1  2005/11/11 22:20:51  sparhawk
+ * SDK 1.3 Merge
  *
  *
  ***************************************************************************/
-
-// Copyright (C) 2004 Id Software, Inc.
-//
 
 #include "../precompiled.h"
 
