@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 21 $
- * $Date: 2004-11-06 12:17:43 -0500 (Sat, 06 Nov 2004) $
+ * $Revision: 26 $
+ * $Date: 2004-11-13 19:44:01 -0500 (Sat, 13 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.4  2004/11/14 00:42:37  sparhawk
+ * Added USE/Frob Key.
+ *
  * Revision 1.3  2004/11/06 17:17:43  sparhawk
  * Removed Frobangles as we don't need them anymore.
  *
@@ -25,6 +28,8 @@
 #pragma hdrstop
 
 #include "Game_local.h"
+#include "../DarkMod/DarkModGlobals.h"
+#include "../DarkMod/PlayerData.h"
 
 /*
 ===============================================================================
@@ -5600,6 +5605,14 @@ void idPlayer::PerformImpulse( int impulse ) {
 			UseVehicle();
 			break;
 		}
+
+		case IMPULSE_41:
+		{
+			DM_LOG(LC_FROBBING, LT_DEBUG).LogString("Frob key has been hit\r");
+			if(m_DarkModPlayer && m_DarkModPlayer->m_FrobEntity != NULL)
+				m_DarkModPlayer->m_FrobEntity->FrobAction();
+		}
+		break;
 	} 
 }
 
