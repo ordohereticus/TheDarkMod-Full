@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 894 $
- * $Date: 2007-04-08 16:02:54 -0400 (Sun, 08 Apr 2007) $
- * $Author: greebo $
+ * $Revision: 902 $
+ * $Date: 2007-04-14 21:24:41 -0400 (Sat, 14 Apr 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 894 2007-04-08 20:02:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 902 2007-04-15 01:24:41Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1486,11 +1486,22 @@ bool idEntity::IsHidden( void ) const {
 idEntity::Hide
 ================
 */
-void idEntity::Hide( void ) {
-	if ( !IsHidden() ) {
+void idEntity::Hide( void ) 
+{
+	if ( !IsHidden() ) 
+	{
 		fl.hidden = true;
 		FreeModelDef();
 		UpdateVisuals();
+
+		// If we are hiding a currently frobbed entity,
+		// set the frob pointers to NULL to avoid stale pointers
+		CDarkModPlayer *pDM = g_Global.m_DarkModPlayer;
+	
+		if( pDM && pDM->m_FrobEntity == this )
+			pDM->m_FrobEntity = NULL;
+		if( pDM && pDM->m_FrobEntityPrevious == this )
+			pDM->m_FrobEntityPrevious = NULL;
 	}
 }
 
@@ -6309,14 +6320,12 @@ void idEntity::LoadTDMSettings(void)
 
 void idEntity::UpdateFrob(void)
 {
-	idPlayer *player;
 	CDarkModPlayer *pDM;
 
-	player = gameLocal.GetLocalPlayer();
 	pDM = g_Global.m_DarkModPlayer;
 
-	// If we have no player there is no point in doing this. :)
-	if(player == NULL || pDM == NULL || IsHidden() )
+	// hidden objects are skipped
+	if(pDM == NULL || IsHidden() )
 		goto Quit;
 
 	if( !m_bFrobbed )	
