@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 219 $
+ * $Date: 2005-11-11 17:27:19 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:37  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 22:27:19  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:37  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -33,7 +36,9 @@ public:
 	idVec3			normal;
 	idVec3			tangents[2];
 	byte			color[4];
-
+#if 0 // was MACOS_X see comments concerning DRAWVERT_PADDED in Simd_Altivec.h 
+	float			padding;
+#endif
 	float			operator[]( const int index ) const;
 	float &			operator[]( const int index );
 
