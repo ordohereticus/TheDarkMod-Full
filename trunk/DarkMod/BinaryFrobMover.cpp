@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 584 $
- * $Date: 2006-10-08 13:16:45 -0400 (Sun, 08 Oct 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 596 $
+ * $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.7  2006/10/30 17:10:25  sparhawk
+ * Doorhandles are now working in the first stage.
+ *
  * Revision 1.6  2006/10/08 17:16:45  sophisticatedzombie
  * Added some functions for getting property states from within C++ code, rather than
  * from script objects.
@@ -104,7 +107,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 584 $   $Date: 2006-10-08 13:16:45 -0400 (Sun, 08 Oct 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 596 $   $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -297,7 +300,7 @@ void CBinaryFrobMover::Open(bool bMaster)
 		}
 
 		physicsObj.GetLocalAngles( tempAng );
-		
+
 		m_Open = true;
 		m_Rotating = true;
 		m_Translating = true;

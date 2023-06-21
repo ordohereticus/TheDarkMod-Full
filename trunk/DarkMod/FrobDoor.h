@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 581 $
- * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Revision: 596 $
+ * $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.18  2006/10/30 17:10:25  sparhawk
+ * Doorhandles are now working in the first stage.
+ *
  * Revision 1.17  2006/10/03 13:13:39  sparhawk
  * Changes for door handles
  *
@@ -111,16 +114,6 @@ public:
 	* Called when door spawns, is and when it is opened or closed
 	**/
 	void					UpdateSoundLoss(void);
-
-	/**
-	* Overloading idMover::DoneRotating in order to close the portal when door closes
-	**/
-	void					DoneRotating( void );
-
-	/**
-	 *
-	 */
-	void					DoneMoving(void);
 
 	/**
 	* Find out if this door is touching another door, and if they share the same portal

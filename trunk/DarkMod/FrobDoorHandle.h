@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 581 $
- * $Date: 2006-10-03 09:13:45 -0400 (Tue, 03 Oct 2006) $
+ * $Revision: 596 $
+ * $Date: 2006-10-30 12:10:25 -0500 (Mon, 30 Oct 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.3  2006/10/30 17:10:25  sparhawk
+ * Doorhandles are now working in the first stage.
+ *
  * Revision 1.2  2006/10/03 13:13:39  sparhawk
  * Changes for door handles
  *
@@ -65,6 +68,17 @@ public:
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed(void);
 	bool					UsedBy(idEntity *);
+	void					FrobAction(bool bMaster);
+
+	// These functions need to be disabled on the handle. Therefore
+	// they are provided but empty.
+	void					ClosePortal(void);
+	void					DoneStateChange(void);
+	void					DoneRotating(void);
+	void					DoneMoving(void);
+
+	void					ToggleOpen(void);
+	void					ToggleLock(void);
 
 protected:
 	/**
