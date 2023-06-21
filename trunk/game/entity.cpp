@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 720 $
- * $Date: 2007-01-14 12:15:31 -0500 (Sun, 14 Jan 2007) $
+ * $Revision: 722 $
+ * $Date: 2007-01-15 11:50:19 -0500 (Mon, 15 Jan 2007) $
  * $Author: gildoran $
  *
  * $Log$
+ * Revision 1.88  2007/01/15 16:50:19  gildoran
+ * Added removeKey() script event.
+ *
  * Revision 1.87  2007/01/14 17:15:30  gildoran
  * Fixed sys.waitForRender($light)
  *
@@ -301,7 +304,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 720 $   $Date: 2007-01-14 12:15:31 -0500 (Sun, 14 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 722 $   $Date: 2007-01-15 11:50:19 -0500 (Mon, 15 Jan 2007) $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -381,6 +384,7 @@ const idEventDef EV_GetIntKey( "getIntKey", "s", 'f' );
 const idEventDef EV_GetFloatKey( "getFloatKey", "s", 'f' );
 const idEventDef EV_GetVectorKey( "getVectorKey", "s", 'v' );
 const idEventDef EV_GetEntityKey( "getEntityKey", "s", 'e' );
+const idEventDef EV_RemoveKey( "removeKey", "s" );
 const idEventDef EV_RestorePosition( "restorePosition" );
 const idEventDef EV_UpdateCameraTarget( "<updateCameraTarget>", NULL );
 const idEventDef EV_DistanceTo( "distanceTo", "E", 'f' );
@@ -522,6 +526,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_GetFloatKey,			idEntity::Event_GetFloatKey )
 	EVENT( EV_GetVectorKey,			idEntity::Event_GetVectorKey )
 	EVENT( EV_GetEntityKey,			idEntity::Event_GetEntityKey )
+	EVENT( EV_RemoveKey,			idEntity::Event_RemoveKey )
 	EVENT( EV_RestorePosition,		idEntity::Event_RestorePosition )
 	EVENT( EV_UpdateCameraTarget,	idEntity::Event_UpdateCameraTarget )
 	EVENT( EV_DistanceTo,			idEntity::Event_DistanceTo )
@@ -5232,6 +5237,15 @@ void idEntity::Event_GetEntityKey( const char *key ) {
 	}
 
 	idThread::ReturnEntity( ent );
+}
+
+/*
+================
+idEntity::Event_RemoveKey
+================
+*/
+void idEntity::Event_RemoveKey( const char *key ) {
+	spawnArgs.Delete( key );
 }
 
 /*
