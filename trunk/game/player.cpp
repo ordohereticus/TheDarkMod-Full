@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1083 $
- * $Date: 2007-07-11 13:31:50 -0400 (Wed, 11 Jul 2007) $
+ * $Revision: 1084 $
+ * $Date: 2007-07-12 05:56:06 -0400 (Thu, 12 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 1083 2007-07-11 17:31:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1084 2007-07-12 09:56:06Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9678,18 +9678,14 @@ void idPlayer::inventoryDropItem()
 		CInventoryItem* item = cursor->GetCurrentItem();
 		CInventoryCategory* category = cursor->GetCurrentCategory();
 
-		// Initialise the parameters for calling the custom drop script to NULL
-		idEntity *ent = NULL;
-		const function_t* dropScript = NULL;
-
 		// Do we have a droppable item in the first place?
 		if (item != NULL && item->IsDroppable() && item->GetCount() > 0)
 		{
 			// Retrieve the actual entity behind the inventory item
-			ent = item->GetItemEntity();
+			idEntity* ent = item->GetItemEntity();
 
 			// greebo: Try to locate a drop script function on the entity's scriptobject
-			dropScript = ent->scriptObject.GetFunction(TDM_INVENTORY_DROPSCRIPT);
+			const function_t* dropScript = ent->scriptObject.GetFunction(TDM_INVENTORY_DROPSCRIPT);
 
 			// greebo: Only place the entity in the world, if there is no custom dropscript
 			// The flashbomb for example is spawning projectiles on its own.
@@ -9698,9 +9694,17 @@ void idPlayer::inventoryDropItem()
 				
 				// Stackable items only have one "real" entity for the whole item stack.
 				// When the stack size == 1, this entity can be dropped as it is,
-				// otherwise we need to spawn a new entity (and restore the spawnargs).
+				// otherwise we need to spawn a new entity.
+				if (item->IsStackable() && item->GetCount() > 1) {
+					DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Spawning new entity from stackable inventory item...\r");
+					// Spawn a new entity of this type
+					idEntity* spawnedEntity;
+					const idDict* entityDef = gameLocal.FindEntityDefDict(ent->GetEntityDefName());
+					gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
 
-				// TODO
+					// Replace the entity to be dropped with the newly spawned one.
+					ent = spawnedEntity;
+				}
 
 				if (!grabber->PutInHands(ent, this)) {
 					// The grabber could not put the item into the player hands
