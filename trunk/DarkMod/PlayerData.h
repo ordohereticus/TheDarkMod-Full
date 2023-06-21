@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 61 $
- * $Date: 2005-01-06 21:05:13 -0500 (Thu, 06 Jan 2005) $
+ * $Revision: 77 $
+ * $Date: 2005-03-21 18:02:03 -0500 (Mon, 21 Mar 2005) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.5  2005/03/21 23:02:03  sparhawk
+ * Lightgem extended from 16 to 32 stages
+ *
  * Revision 1.4  2005/01/07 02:01:11  sparhawk
  * Lightgem updates
  *
@@ -166,8 +169,8 @@ public:
 // LightGem = (0.29900*R+0.58700*G+0.11400*B) * 0.0625
 
 #define LIGHTGEM_MIN			1
-#define LIGHTGEM_MAX			16
-#define LIGHTGEM_FRACTION		(1.0f/16.0f)
+#define LIGHTGEM_MAX			32
+#define LIGHTGEM_FRACTION		(1.0f/32.0f)
 #define LIGHTGEM_RED			0.29900f
 #define LIGHTGEM_GREEN			0.58700f
 #define LIGHTGEM_BLUE			0.11400f
