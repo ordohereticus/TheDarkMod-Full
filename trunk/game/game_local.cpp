@@ -1,9 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source$
- * $Revision: 822 $
- * $Date: 2007-03-04 11:13:03 -0500 (Sun, 04 Mar 2007) $
+ * $Revision: 838 $
+ * $Date: 2007-03-07 16:45:17 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -17,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Source$  $Revision: 822 $   $Date: 2007-03-04 11:13:03 -0500 (Sun, 04 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 838 2007-03-07 21:45:17Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
