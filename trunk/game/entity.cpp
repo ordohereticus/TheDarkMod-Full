@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 882 $
- * $Date: 2007-04-01 02:58:04 -0400 (Sun, 01 Apr 2007) $
- * $Author: ishtvan $
+ * $Revision: 885 $
+ * $Date: 2007-04-01 11:07:13 -0400 (Sun, 01 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 882 2007-04-01 06:58:04Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 885 2007-04-01 15:07:13Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -160,6 +160,7 @@ const idEventDef EV_ResponseRemove( "ResponseRemove", "d" );
 const idEventDef EV_ResponseIgnore( "ResponseIgnore", "de" );
 const idEventDef EV_ResponseAllow( "ResponseAllow", "de" );
 const idEventDef EV_ResponseSetAction( "ResponseSetAction", "ds" );
+const idEventDef EV_ResponseTrigger( "ResponseTrigger", "ed" );
 
 // StimType, Hours, minutes, seconds, miliseconds(?)
 const idEventDef EV_TimerCreate( "CreateTimer", "ddddd" );
@@ -308,6 +309,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_ResponseIgnore,		idEntity::ResponseIgnore)
 	EVENT( EV_ResponseAllow,		idEntity::ResponseAllow)
 	EVENT( EV_ResponseSetAction,	idEntity::ResponseSetAction)
+	EVENT( EV_ResponseTrigger,		idEntity::ResponseTrigger)
 
 	EVENT( EV_TimerCreate,			idEntity::Event_TimerCreate )
 	EVENT( EV_TimerStop,			idEntity::Event_TimerStop )
@@ -6601,6 +6603,23 @@ void idEntity::ResponseEnable(int Type, int State)
 void idEntity::ResponseAdd(int Type)
 {
 	AddResponse(Type);
+}
+
+void idEntity::ResponseTrigger(idEntity* source, int stimType)
+{
+	// Try to lookup the response for this item
+	CResponse* resp = GetStimResponseCollection()->GetResponse(stimType);
+
+	if (resp != NULL)
+	{
+		// There is a response defined
+		if (resp->m_State == SS_ENABLED)
+		{
+			// Fire the response and pass the originating entity plus a NULL as stim object
+			// NULL means that this is no "real" stim just a temporary or virtual one
+			resp->TriggerResponse(source, NULL);
+		}
+	}
 }
 
 void idEntity::ResponseRemove(int Type)
