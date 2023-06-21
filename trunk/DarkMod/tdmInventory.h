@@ -2,10 +2,20 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL: $
- * $LastChangedRevision: 831 $
- * $Date: 2007-03-07 15:24:55 -0500 (Wed, 07 Mar 2007) $
+ * $LastChangedRevision: 832 $
+ * $Date: 2007-03-07 15:30:58 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
+$LastChangedRevision: 832 $
+$Rev: 832 $
+$Revision: 832 $
+$LastChangedDate: 2007-03-07 15:30:58 -0500 (Wed, 07 Mar 2007) $
+$Date: 2007-03-07 15:30:58 -0500 (Wed, 07 Mar 2007) $
+$LastChangedBy: sparhawk $
+$Author: sparhawk $
+$HeadURL: $
+$URL: $
+$Id: tdmInventory.h 832 2007-03-07 20:30:58Z sparhawk $
  ***************************************************************************/
 
 #ifndef __DARKMOD_TDMINVENTORY_H__
