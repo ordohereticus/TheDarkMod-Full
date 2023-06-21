@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 448 $
- * $Date: 2006-06-01 22:48:50 -0400 (Thu, 01 Jun 2006) $
- * $Author: sophisticatedzombie $
+ * $Revision: 449 $
+ * $Date: 2006-06-03 15:47:32 -0400 (Sat, 03 Jun 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.14  2006/06/03 19:47:32  sparhawk
+ * Removed unused variables.
+ *
  * Revision 1.13  2006/06/02 02:48:50  sophisticatedzombie
  * idAASFindObservationPoint added to ai routines. Event_GetObservationPoint added to help with searching routines.
  *
@@ -861,8 +864,6 @@ void idAI::Event_SpawnThrowableProjectile
 	const char* pstr_jointName
 )
 {
-	const char *clsname;
-
 	// Load definition from movable.def
 	projectileDef = gameLocal.FindEntityDefDict( pstr_projectileName );
 	if (!projectileDef)
