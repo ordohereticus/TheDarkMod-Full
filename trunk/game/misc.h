@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 323 $
- * $Date: 2006-01-28 23:09:29 -0500 (Sat, 28 Jan 2006) $
+ * $Revision: 503 $
+ * $Date: 2006-07-23 21:29:03 -0400 (Sun, 23 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.5  2006/07/24 01:29:03  ishtvan
+ * optional distance test added to func_portal
+ *
  * Revision 1.4  2006/01/29 04:09:29  ishtvan
  * added soundprop interface for idLocation objects
  *
@@ -650,10 +653,26 @@ public:
 
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
+	void				Think( void );
 
 private:
 	qhandle_t			portal;
 	bool				state;
+
+	/**
+	* Set to true if the portal state depends on distance from player
+	**/
+	bool				m_bDistDependent;
+	
+	/**
+	* Timestamp and interval between checks, in milliseconds
+	**/
+	int					m_TimeStamp;
+	int					m_Interval;
+	/**
+	* Distance at which the portal shuts off, if it is distance dependent
+	**/
+	float				m_Distance;
 
 	void				Event_Activate( idEntity *activator );
 };
