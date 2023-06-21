@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 807 $
- * $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $
- * $Author: thelvyn $
+ * $Revision: 815 $
+ * $Date: 2007-03-04 05:17:36 -0500 (Sun, 04 Mar 2007) $
+ * $Author: crispy $
  *
  * $Log$
  * Revision 1.5  2006/06/21 13:06:07  sparhawk
@@ -30,7 +30,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 807 $   $Date: 2007-02-28 16:58:45 -0500 (Wed, 28 Feb 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 815 $   $Date: 2007-03-04 05:17:36 -0500 (Sun, 04 Mar 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2430,7 +2430,7 @@ bool idDeclModelDef::ParseAnim( idLexer &src, int numDefaultAnims ) {
 	alias = realname;
 
 	for( i = 0; i < anims.Num(); i++ ) {
-		if ( !strcmp( anims[ i ]->FullName(), realname ) ) {
+		if ( !strcmp( anims[ i ]->FullName(), realname.c_str() ) ) {
 			break;
 		}
 	}
@@ -2753,7 +2753,7 @@ bool idDeclModelDef::Parse( const char *text, const int textLength ) {
 			}
 
 			for( i = ANIMCHANNEL_ALL + 1; i < ANIM_NumAnimChannels; i++ ) {
-				if ( !stricmp( channelNames[ i ], token2 ) ) {
+				if ( !stricmp( channelNames[ i ], token2.c_str() ) ) {
 					break;
 				}
 			}

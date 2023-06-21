@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 218 $
- * $Date: 2005-11-11 17:20:51 -0500 (Fri, 11 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 815 $
+ * $Date: 2007-03-04 05:17:36 -0500 (Sun, 04 Mar 2007) $
+ * $Author: crispy $
  *
  * $Log$
  * Revision 1.2  2005/11/11 22:17:26  sparhawk
@@ -30,7 +30,8 @@
 */
 
 // these library functions should not be used for cross platform compatibility
-#define strcmp			idStr::Cmp		// use_idStr_Cmp
+// TDM: Removed by Crispy. We *want* to use standard library functions, thanks very much.
+/*#define strcmp			idStr::Cmp		// use_idStr_Cmp
 #define strncmp			use_idStr_Cmpn
 #define StrCmpN			use_idStr_Cmpn
 #define strcmpi			use_idStr_Icmp
@@ -45,7 +46,7 @@
 #define snprintf		use_idStr_snPrintf
 #define _snprintf		use_idStr_snPrintf
 #define vsnprintf		use_idStr_vsnPrintf
-#define _vsnprintf		use_idStr_vsnPrintf
+#define _vsnprintf		use_idStr_vsnPrintf*/
 
 class idVec4;
 

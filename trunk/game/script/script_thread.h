@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 717 $
- * $Date: 2007-01-12 00:57:17 -0500 (Fri, 12 Jan 2007) $
- * $Author: gildoran $
+ * $Revision: 815 $
+ * $Date: 2007-03-04 05:17:36 -0500 (Sun, 04 Mar 2007) $
+ * $Author: crispy $
  *
  * $Log$
  * Revision 1.8  2007/01/12 05:57:17  gildoran
@@ -222,7 +222,15 @@ private:
 	**/
 	void						Event_SetPortSoundLoss( int handle, float value );
 	void						Event_GetPortSoundLoss( int handle );
-
+	
+	/**
+	* TDM priority queue events
+	**/
+	void						idThread::Event_pqNew();
+	void						idThread::Event_pqDelete(int pqueueID);
+	void						idThread::Event_pqPush( int queueID, const char* task, int priority );
+	void						idThread::Event_pqPeek( int queueID );
+	void						idThread::Event_pqPop( int queueID );
 
 
 public:							
