@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 877 $
+ * $Date: 2007-03-28 09:16:30 -0400 (Wed, 28 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 877 2007-03-28 13:16:30Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5288,7 +5288,9 @@ int idGameLocal::DoResponseAction(CStim *stim, idEntity *Ent[MAX_GENTITIES], int
 					continue;
 				}
 
-				r->TriggerResponse(e);
+				// Fire the response and pass the originating entity plus the stim object itself
+				// The stim object can be queried for values like magnitude, falloff and such.
+				r->TriggerResponse(e, stim);
 				numRespones++;
 			}
 		}

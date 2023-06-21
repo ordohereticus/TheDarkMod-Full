@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 877 $
+ * $Date: 2007-03-28 09:16:30 -0400 (Wed, 28 Mar 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 874 2007-03-27 20:59:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 877 2007-03-28 13:16:30Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -7466,8 +7466,10 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			// force a blink
 			blink_time = 0;
 
-			// let the anim script know we took damage
-			AI_PAIN = Pain( inflictor, attacker, damage, dir, location );
+			if (!damageDef->dict.GetBool( "no_pain" )) {
+				// let the anim script know we took damage
+				AI_PAIN = Pain( inflictor, attacker, damage, dir, location );
+			}
 			
 			// FIX: if drowning, stop pain SFX and play drown SFX on voice channel
 			if ( damageDef->dict.GetBool( "no_air" ) ) 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Revision: 877 $
+ * $Date: 2007-03-28 09:16:30 -0400 (Wed, 28 Mar 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -32,7 +32,7 @@ public:
 	* than the default stim response, and passes
 	* in the communication stim parameters.
 	*/
-	virtual void TriggerResponse(idEntity *Stim);
+	virtual void TriggerResponse(idEntity *Stim, CStim* stim);
 
 
 

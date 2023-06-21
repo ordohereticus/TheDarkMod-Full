@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Revision: 877 $
+ * $Date: 2007-03-28 09:16:30 -0400 (Wed, 28 Mar 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 877 2007-03-28 13:16:30Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/Game_local.h"
@@ -89,6 +89,7 @@ void CProjectileResult::Init
 	idVec3 dotprod, LinVelocity;
 	float fTemp;
 	int StimType = ST_DEFAULT;
+	float StimFalloffExponent = 1;
 	float StimRadius = 10.0; // we use a (hopefully) reasonable default radius if none is set.
 	int StimDuration(0), StimEvalInterval(0);
 	float StimMagnitude(1.0f);
@@ -134,6 +135,7 @@ void CProjectileResult::Init
 	{
 		CStim *s;
 		pProj->spawnArgs.GetFloat("stim_radius", "10", StimRadius);
+		pProj->spawnArgs.GetFloat("stim_falloffexponent", "1", StimFalloffExponent);
 		pProj->spawnArgs.GetInt("stim_duration", "0", StimDuration );
 		pProj->spawnArgs.GetInt("stim_eval_interval", "0", StimEvalInterval );
 		pProj->spawnArgs.GetBool("stim_use_bounds", "0", bStimUseBounds );
@@ -146,6 +148,7 @@ void CProjectileResult::Init
 		s->m_TimeInterleave = StimEvalInterval;
 		s->m_bUseEntBounds = bStimUseBounds;
 		s->m_Magnitude = StimMagnitude;
+		s->m_FallOffExponent = StimFalloffExponent;
 
 		if( pProj->spawnArgs.GetBool("stim_state", "1") )
 			s->EnableSR(true);

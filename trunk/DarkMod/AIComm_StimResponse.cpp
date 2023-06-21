@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 14:53:32 -0400 (Tue, 27 Mar 2007) $
+ * $Revision: 877 $
+ * $Date: 2007-03-28 09:16:30 -0400 (Wed, 28 Mar 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 877 2007-03-28 13:16:30Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
@@ -38,7 +38,7 @@ CAIComm_Response::~CAIComm_Response(void)
 
 /*----------------------------------------------------------------*/
 
-void CAIComm_Response::TriggerResponse(idEntity *StimEnt)
+void CAIComm_Response::TriggerResponse(idEntity *StimEnt, CStim* stim)
 {
 	// Can't respond if we are unconscious or dead
 	if (m_Owner != NULL)
@@ -170,7 +170,7 @@ void CAIComm_Response::TriggerResponse(idEntity *StimEnt)
 	if(m_FollowUp != NULL)
 	{
 		DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Followup: %08lX\r", m_FollowUp);
-		m_FollowUp->TriggerResponse(StimEnt);
+		m_FollowUp->TriggerResponse(StimEnt, stim);
 	}
 }
 
