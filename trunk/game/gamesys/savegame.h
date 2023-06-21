@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
+ * $Revision: 215 $
+ * $Date: 2005-11-11 16:25:17 -0500 (Fri, 11 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:33  sparhawk
- * Initial revision
+ * Revision 1.2  2005/11/11 21:21:04  sparhawk
+ * SDK 1.3 Merge
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -71,6 +74,7 @@ public:
 	void					WriteUsercmd( const usercmd_t &usercmd );
 	void					WriteContactInfo( const contactInfo_t &contactInfo );
 	void					WriteTrace( const trace_t &trace );
+	void					WriteTraceModel( const idTraceModel &trace );
 	void					WriteClipModel( const class idClipModel *clipModel );
 	void					WriteSoundCommands( void );
 
@@ -93,7 +97,7 @@ public:
 	void					RestoreObjects( void );
 	void					DeleteObjects( void );
 
-	void					Error( const char *fmt, ... );
+	void					Error( const char *fmt, ... ) id_attribute((format(printf,2,3)));
 
 	void					Read( void *buffer, int len );
 	void					ReadInt( int &value );
@@ -130,6 +134,7 @@ public:
 	void					ReadUsercmd( usercmd_t &usercmd );
 	void					ReadContactInfo( contactInfo_t &contactInfo );
 	void					ReadTrace( trace_t &trace );
+	void					ReadTraceModel( idTraceModel &trace );
 	void					ReadClipModel( idClipModel *&clipModel );
 	void					ReadSoundCommands( void );
 
