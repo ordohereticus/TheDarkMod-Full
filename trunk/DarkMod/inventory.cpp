@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 879 $
+ * $Date: 2007-03-28 14:52:22 -0400 (Wed, 28 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************
@@ -45,11 +45,11 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: tdmInventory.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: inventory.cpp 879 2007-03-28 18:52:22Z sparhawk $", init_version);
 
 #include "../game/Game_local.h"
 
-#include "tdmInventory.h"
+#include "inventory.h"
 #include "MissionData.h"
 
 const idEventDef EV_PostRestore( "postRestore", NULL );

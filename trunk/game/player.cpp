@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 877 $
- * $Date: 2007-03-28 09:16:30 -0400 (Wed, 28 Mar 2007) $
- * $Author: greebo $
+ * $Revision: 879 $
+ * $Date: 2007-03-28 14:52:22 -0400 (Wed, 28 Mar 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 877 2007-03-28 13:16:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 879 2007-03-28 18:52:22Z sparhawk $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -22,9 +22,8 @@ static bool init_version = FileVersionList("$Id: player.cpp 877 2007-03-28 13:16
 #include "../DarkMod/darkModAASFindHidingSpots.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/MissionData.h"
-#include "../DarkMod/tdmInventory.h"
+#include "../DarkMod/inventory.h"
 #include "../DarkMod/KeyboardHook.h"
-//#include "../darkmod/MouseHook.h"
 /*
 ===============================================================================
 

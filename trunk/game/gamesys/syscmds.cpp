@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 879 $
+ * $Date: 2007-03-28 14:52:22 -0400 (Wed, 28 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,12 +13,12 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 879 2007-03-28 18:52:22Z sparhawk $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/sndproploader.h"
 #include "../../darkmod/relations.h"
-#include "../darkmod/tdmInventory.h"
+#include "../darkmod/inventory.h"
 #include "../darkmod/KeyboardHook.h"
 
 #include "TypeInfo.h"
