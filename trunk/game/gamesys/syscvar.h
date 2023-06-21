@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 215 $
- * $Date: 2005-11-11 16:25:17 -0500 (Fri, 11 Nov 2005) $
+ * $Revision: 247 $
+ * $Date: 2005-11-20 16:51:15 -0500 (Sun, 20 Nov 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.15  2005/11/20 21:51:15  sparhawk
+ * Some cvars removed. dm_lg_drive, dm_lg_vof[x/y] and dm_lg_file
+ *
  * Revision 1.14  2005/11/11 21:21:04  sparhawk
  * SDK 1.3 Merge
  *
@@ -91,15 +94,12 @@ extern idCVar cv_lg_zoffs;
 extern idCVar cv_lg_oxoffs;
 extern idCVar cv_lg_oyoffs;
 extern idCVar cv_lg_ozoffs;
-extern idCVar cv_lg_fovx;
-extern idCVar cv_lg_fovy;
+extern idCVar cv_lg_fov;
 extern idCVar cv_lg_interleave;
 extern idCVar cv_lg_hud;
 extern idCVar cv_lg_weak;
 extern idCVar cv_lg_player;
 extern idCVar cv_lg_renderpasses;
-extern idCVar cv_lg_file;
-extern idCVar cv_lg_renderdrive;
 extern idCVar cv_lg_debug;
 extern idCVar cv_lg_model;
 
