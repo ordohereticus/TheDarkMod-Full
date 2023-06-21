@@ -2,11 +2,15 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 524 $
- * $Date: 2006-08-01 02:44:23 -0400 (Tue, 01 Aug 2006) $
- * $Author: ishtvan $
+ * $Revision: 584 $
+ * $Date: 2006-10-08 13:16:45 -0400 (Sun, 08 Oct 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.6  2006/10/08 17:16:45  sophisticatedzombie
+ * Added some functions for getting property states from within C++ code, rather than
+ * from script objects.
+ *
  * Revision 1.5  2006/08/01 06:44:23  ishtvan
  * added response to physics impulses
  *
@@ -100,7 +104,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 524 $   $Date: 2006-08-01 02:44:23 -0400 (Tue, 01 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 584 $   $Date: 2006-10-08 13:16:45 -0400 (Sun, 08 Oct 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -498,3 +502,7 @@ void CBinaryFrobMover::ApplyImpulse(idEntity *ent, int id, const idVec3 &point, 
 	idEntity::ApplyImpulse( ent, id, point, impulse);
 }
 
+bool CBinaryFrobMover::isMoving()
+{
+	return ((m_Translating) || (m_Rotating));
+}
