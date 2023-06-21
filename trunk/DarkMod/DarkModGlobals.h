@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 195 $
- * $Date: 2005-10-26 17:13:15 -0400 (Wed, 26 Oct 2005) $
+ * $Revision: 197 $
+ * $Date: 2005-10-30 17:15:49 -0500 (Sun, 30 Oct 2005) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.23  2005/10/30 22:15:26  sparhawk
+ * Renderpipe creation removed because D3 can handle the pipename on it's own.
+ *
  * Revision 1.22  2005/10/26 21:12:42  sparhawk
  * Lightgem renderpipe implemented
  *
@@ -137,7 +140,7 @@ typedef enum {
 
 #define DARKMOD_RENDERPIPE_NAME				"\\\\.\\pipe\\dm_renderpipe"
 #define DARKMOD_RENDERPIPE_BUFSIZE			50*1024		// Buffersize for the renderpipe
-#define DARKMOD_RENDERPIPE_TIMEOUT			5000
+#define DARKMOD_RENDERPIPE_TIMEOUT			1000
 #define DARKMOD_RENDER_WIDTH				50
 
 class CDarkModPlayer;
@@ -227,19 +230,6 @@ public:
 	CImage *GetImage(int Index);
 	CImage *GetImage(idStr const &Name, int &Index);
 
-	/**
-	 * Createrenderpipe will create a pipe that is used to read the snapshot images from.
-	 * Currently this works under Windows only. This is neccessary, because we have to store
-	 * the rendersnapshots somehwere and the only way to do this is via a pipe if we want to
-	 * avoid writing it constantly to disc.
-	 */
-	void CreateRenderPipe(void);
-
-	/**
-	 * CloseRenderPipe will close the renderpipe. Who would have thought that. :)
-	 */
-	void CloseRenderPipe(void);
-
 private:
 	void LoadINISettings(void *);
 
@@ -266,7 +256,6 @@ public:
 	idList<CImage *>				m_Image;
 
 	CImage			m_RenderImage;
-	HANDLE			m_RenderPipe;
 
 public:
 
