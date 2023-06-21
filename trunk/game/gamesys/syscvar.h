@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 608 $
- * $Date: 2006-11-04 06:02:05 -0500 (Sat, 04 Nov 2006) $
- * $Author: sparhawk $
+ * $Revision: 613 $
+ * $Date: 2006-11-08 04:27:54 -0500 (Wed, 08 Nov 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.27  2006/11/08 09:27:54  ishtvan
+ * added frob bounds debug draw
+ *
  * Revision 1.26  2006/11/04 11:02:05  sparhawk
  * Basecounter for lockpickpins.
  *
@@ -114,6 +117,7 @@ extern idCVar cv_pm_crouchmod;
 extern idCVar cv_pm_creepmod;
 
 extern idCVar cv_frob_width;
+extern idCVar cv_frob_debug_bounds;
 extern idCVar cv_frob_fadetime;
 
 extern idCVar cv_throw_min;

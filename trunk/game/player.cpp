@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 580 $
- * $Date: 2006-09-22 16:16:59 -0400 (Fri, 22 Sep 2006) $
- * $Author: sparhawk $
+ * $Revision: 613 $
+ * $Date: 2006-11-08 04:27:54 -0500 (Wed, 08 Nov 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.90  2006/11/08 09:27:16  ishtvan
+ * added frob bounds debug draw
+ *
  * Revision 1.89  2006/09/22 20:16:59  sparhawk
  * Fixed warning
  *
@@ -294,7 +297,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 580 $   $Date: 2006-09-22 16:16:59 -0400 (Fri, 22 Sep 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 613 $   $Date: 2006-11-08 04:27:54 -0500 (Wed, 08 Nov 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -10481,8 +10484,9 @@ void idPlayer::FrobCheck( void )
 	FrobBounds += trace.endpos;
 	FrobBounds.ExpandSelf( cv_frob_width.GetFloat() );
 
-// Uncomment for debug drawing of the frob bounds
-//	gameRenderWorld->DebugBounds( colorBlue, FrobBounds );
+	// Optional debug drawing of frob bounds
+	if( cv_frob_debug_bounds.GetBool() )
+		gameRenderWorld->DebugBounds( colorBlue, FrobBounds );
 
 	idEntity *FrobRangeEnts[ MAX_GENTITIES ];
 
