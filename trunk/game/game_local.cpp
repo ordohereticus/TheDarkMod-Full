@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 538 $
- * $Date: 2006-08-08 16:18:52 -0400 (Tue, 08 Aug 2006) $
- * $Author: sparhawk $
+ * $Revision: 552 $
+ * $Date: 2006-08-13 21:07:38 -0400 (Sun, 13 Aug 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.69  2006/08/14 01:07:38  ishtvan
+ * grabber update
+ *
  * Revision 1.68  2006/08/08 20:18:52  sparhawk
  * Fixed a bug where D3 crashed with a message saying that variable x is uninitialized.
  *
@@ -230,7 +233,7 @@
 
 #pragma warning(disable : 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Source$  $Revision: 538 $   $Date: 2006-08-08 16:18:52 -0400 (Tue, 08 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 552 $   $Date: 2006-08-13 21:07:38 -0400 (Sun, 13 Aug 2006) $", init_version);
 
 #include "Game_local.h"
 
@@ -1869,6 +1872,8 @@ void idGameLocal::MapShutdown( void ) {
 
 	// clear Dark Mod inventory
 	g_Global.m_DarkModPlayer->ClearInventory();
+
+	g_Global.m_DarkModPlayer->grabber->Clear();
 
 	clip.Shutdown();
 	idClipModel::ClearTraceModelCache();
