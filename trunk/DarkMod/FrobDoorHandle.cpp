@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 600 $
- * $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $
+ * $Revision: 601 $
+ * $Date: 2006-11-01 11:12:48 -0500 (Wed, 01 Nov 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.7  2006/11/01 16:12:48  sparhawk
+ * Fixed some minor issue with the handle.
+ *
  * Revision 1.6  2006/11/01 11:57:51  sparhawk
  * Signals method added to entity.
  *
@@ -34,7 +37,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 600 $   $Date: 2006-11-01 06:57:51 -0500 (Wed, 01 Nov 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 601 $   $Date: 2006-11-01 11:12:48 -0500 (Wed, 01 Nov 2006) $", init_version);
 
 #include "../game/Game_local.h"
 #include "DarkModGlobals.h"
@@ -190,6 +193,7 @@ void CFrobDoorHandle::DoneRotating(void)
 
 void CFrobDoorHandle::DoneMoving(void)
 {
+	CBinaryFrobMover::DoneMoving();
 }
 
 void CFrobDoorHandle::Tap(void)
