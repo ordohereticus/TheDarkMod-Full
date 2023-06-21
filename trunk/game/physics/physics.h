@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 505 $
- * $Date: 2006-07-25 01:59:02 -0400 (Tue, 25 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 789 $
+ * $Date: 2007-02-06 10:17:08 -0500 (Tue, 06 Feb 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.4  2007/02/06 15:17:08  thelvyn
+ * mac line endings
+ *
  * Revision 1.3  2006/07/25 05:59:02  ishtvan
  * removed some annoying const correctness on GetSelf
  *
@@ -60,8 +63,11 @@
 
 class idEntity;
 #ifdef MOD_WATERPHYSICS
+
 class idPhysics_Liquid; // MOD_WATERPHYSICS
+
 #endif
+
 
 typedef struct impactInfo_s {
 	float						invMass;			// inverse mass
@@ -179,10 +185,15 @@ public:	// common physics interface
 	virtual void				ReadFromSnapshot( const idBitMsgDelta &msg ) = 0;
 
 #ifdef MOD_WATERPHYSICS
+
 	// gets/sets the water
+
 	virtual idPhysics_Liquid	*GetWater() = 0; // MOD_WATERPHYSICS
+
 	virtual void				SetWater( idPhysics_Liquid *e ) = 0; // MOD_WATERPHYSICS
+
 #endif
+
 };
 
 #endif /* !__PHYSICS_H__ */
