@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 402 $
- * $Date: 2006-05-03 17:32:40 -0400 (Wed, 03 May 2006) $
+ * $Revision: 445 $
+ * $Date: 2006-05-31 16:24:55 -0400 (Wed, 31 May 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.31  2006/05/31 20:24:12  sparhawk
+ * Added timerstim skeleton
+ *
  * Revision 1.30  2006/05/03 21:32:40  sparhawk
  * Added an easier interface for calling scriptfunctions
  *
@@ -826,6 +829,12 @@ private:
 	// Add/Remove the response to/from the stim with the given type
 	void					ResponseIgnore(int StimType, idEntity *);
 	void					ResponseAllow(int StimType, idEntity *);
+
+	void					Event_TimerSet(int StimType, int Hour, int Minute, int Milisecond);
+	void					Event_TimerStop(int StimType);
+	void					Event_TimerPause(int StimType);
+	void					Event_TimerRestart(int StimType);
+	void					Event_TimerReset(int StimType);
 
 	/**
 	* Used to propagate a sound directly via scripting, without playing the audible sound

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 443 $
- * $Date: 2006-05-30 02:26:29 -0400 (Tue, 30 May 2006) $
- * $Author: ishtvan $
+ * $Revision: 445 $
+ * $Date: 2006-05-31 16:24:55 -0400 (Wed, 31 May 2006) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.59  2006/05/31 20:24:32  sparhawk
+ * Added timerstim skeleton
+ *
  * Revision 1.58  2006/05/30 06:25:00  ishtvan
  * objective system updates
  *
@@ -5600,8 +5603,6 @@ void idGameLocal::ProcessStimResponse(void)
 	CStimResponseCollection *src;
 	idBounds bounds;
 	idEntity *Ent[MAX_GENTITIES];
-
-
 
 	en = m_StimEntity.Num();
 
