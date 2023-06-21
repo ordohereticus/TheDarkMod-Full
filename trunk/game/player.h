@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1107 $
- * $Date: 2007-07-13 09:14:54 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1108 $
+ * $Date: 2007-07-13 09:22:35 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -129,8 +129,6 @@ public:
 	idStrList				pdaSecurity;
 	idStrList				videos;
 	idStrList				emails;
-
-	int						lastGiveTime;
 
 							idInventory() { Clear(); }
 							~idInventory() { Clear(); }

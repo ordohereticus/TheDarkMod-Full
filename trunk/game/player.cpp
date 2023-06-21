@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1107 $
- * $Date: 2007-07-13 09:14:54 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1108 $
+ * $Date: 2007-07-13 09:22:35 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1107 2007-07-13 13:14:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1108 2007-07-13 13:22:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -191,8 +191,6 @@ void idInventory::Clear( void ) {
 	selAudio = 0;
 	pdaOpened = false;
 	turkeyScore = false;
-
-	lastGiveTime = 0;
 }
 
 /*
@@ -370,8 +368,6 @@ void idInventory::Save( idSaveGame *savefile ) const {
 	for ( i = 0; i < emails.Num(); i++ ) {
 		savefile->WriteString( emails[ i ] );
 	}
-
-	savefile->WriteInt( lastGiveTime );
 }
 
 /*
@@ -439,8 +435,6 @@ void idInventory::Restore( idRestoreGame *savefile ) {
 		savefile->ReadString( strEmail );
 		emails.Append( strEmail );
 	}
-
-	savefile->ReadInt( lastGiveTime );
 }
 
 /*
