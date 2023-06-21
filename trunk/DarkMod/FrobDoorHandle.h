@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 953 $
+ * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -56,7 +56,7 @@ public:
 	 */
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed(void);
-	bool					UsedBy(idEntity *);
+	bool					UsedBy(bool bInit, idEntity *);
 	void					FrobAction(bool bMaster);
 
 	// These functions need to be disabled on the handle. Therefore

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 932 $
- * $Date: 2007-04-21 13:57:55 -0400 (Sat, 21 Apr 2007) $
+ * $Revision: 953 $
+ * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -55,7 +55,7 @@ public:
 	void					GetPickable(void);
 	void					GetDoorhandle(void);
 
-	bool					UsedBy(idEntity *);
+	bool					UsedBy(bool bInit, idEntity *);
 
 	/**
 	* Write the proper sound loss value to the soundprop portal data

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 951 $
- * $Date: 2007-05-02 05:23:45 -0400 (Wed, 02 May 2007) $
- * $Author: greebo $
+ * $Revision: 953 $
+ * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 951 2007-05-02 09:23:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 953 2007-05-02 11:17:48Z sparhawk $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9551,7 +9551,7 @@ void idPlayer::inventoryUseItem(bool bImpulse, idEntity *ent)
 		if(ent->spawnArgs.GetBool("usable"))
 		{
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Item is usable\r");
-			ent->UsedBy(frob);
+			ent->UsedBy(bImpulse, frob);
 		}
 	}
 	else

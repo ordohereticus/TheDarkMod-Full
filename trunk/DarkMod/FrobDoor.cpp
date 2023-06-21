@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 949 $
- * $Date: 2007-04-30 14:16:22 -0400 (Mon, 30 Apr 2007) $
+ * $Revision: 953 $
+ * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 949 2007-04-30 18:16:22Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 953 2007-05-02 11:17:48Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -429,7 +429,7 @@ void CFrobDoor::Close(bool bMaster)
 	}
 }
 
-bool CFrobDoor::UsedBy(idEntity *ent)
+bool CFrobDoor::UsedBy(bool bInit, idEntity *ent)
 {
 	bool bRc = false;
 	int i, n;
@@ -481,7 +481,7 @@ bool CFrobDoor::UsedBy(idEntity *ent)
 		if((e = gameLocal.FindEntity(m_MasterLock.c_str())) != NULL)
 		{
 			if((master = dynamic_cast<CFrobDoor *>(e)) != NULL)
-				bRc = master->UsedBy(ent);
+				bRc = master->UsedBy(bInit, ent);
 			else
 				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("[%s] Master entity [%s] is not of class CFrobDoor\r", name.c_str(), e->name.c_str());
 		}
