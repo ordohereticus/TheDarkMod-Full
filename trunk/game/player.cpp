@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 881 $
- * $Date: 2007-03-29 16:20:25 -0400 (Thu, 29 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 884 $
+ * $Date: 2007-04-01 06:41:24 -0400 (Sun, 01 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 881 2007-03-29 20:20:25Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 884 2007-04-01 10:41:24Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -10187,6 +10187,20 @@ void idPlayer::PerformFrob(void)
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob: %08lX    Frob: %u\r", frob, bFrob);
 	if(bFrob == true && frob != NULL)
 	{
+		// Try to lookup the STIM_FROB response for this item
+		CResponse* r = frob->GetStimResponseCollection()->GetResponse(ST_FROB);
+
+		if(r != NULL)
+		{
+			// There is a STIM_FROB response defined
+			if(r->m_State == SS_ENABLED)
+			{
+				// Fire the response and pass the originating entity plus a NULL as stim object
+				// NULL means that this is no "real" stim just a temporary or virtual one
+				r->TriggerResponse(this, NULL);
+			}
+		}
+
 		// First we have to check wether that entity is an inventory 
 		// item. In that case, we have to add it to the inventory and
 		// hide the entity. Since we can not know wether the item can
