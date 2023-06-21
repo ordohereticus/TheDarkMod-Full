@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 906 $
- * $Date: 2007-04-16 18:15:19 -0400 (Mon, 16 Apr 2007) $
- * $Author: nyarlathotep $
+ * $Revision: 907 $
+ * $Date: 2007-04-17 03:18:20 -0400 (Tue, 17 Apr 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -35,6 +35,7 @@ extern idCVar cv_pm_crouchmod;
 extern idCVar cv_pm_creepmod;
 extern idCVar cv_pm_pushmod;
 extern idCVar cv_pm_mantle_height;
+extern idCVar cv_pm_rope_snd_rep_dist;
 
 /**
 * TDM Leaning vars:
