@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 953 $
- * $Date: 2007-05-02 07:17:48 -0400 (Wed, 02 May 2007) $
- * $Author: sparhawk $
+ * $Revision: 995 $
+ * $Date: 2007-05-28 02:29:12 -0400 (Mon, 28 May 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -379,6 +379,10 @@ public:
 	virtual bool			GetPhysicsToSoundTransform( idVec3 &origin, idMat3 &axis );
 							// called from the physics object when colliding, should return true if the physics simulation should stop
 	virtual bool			Collide( const trace_t &collision, const idVec3 &velocity );
+	/**
+	* TDM: Process collision stims when collisions occur
+	**/
+	virtual void			ProcCollisionStims( idEntity *other );
 							// retrieves impact information, 'ent' is the entity retrieving the info
 	virtual void			GetImpactInfo( idEntity *ent, int id, const idVec3 &point, impactInfo_t *info );
 							// apply an impulse to the physics object, 'ent' is the entity applying the impulse
