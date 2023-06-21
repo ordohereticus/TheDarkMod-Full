@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1120 $
- * $Date: 2007-07-14 05:51:04 -0400 (Sat, 14 Jul 2007) $
+ * $Revision: 1123 $
+ * $Date: 2007-07-14 17:58:56 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1120 2007-07-14 09:51:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1123 2007-07-14 21:58:56Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7692,12 +7692,12 @@ void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCate
 	CInventoryCategory* category = inventory->GetCategory(invCategory);
 	if (category != NULL) {
 		CInventoryItem* item = category->GetItem(invName);
-		if (item != NULL && item->IsStackable()) {
+		if (item != NULL) {
 			// Change the counter by amount
 			item->SetCount(item->GetCount() + amount);
 
 			if (item->GetCount() <= 0) {
-				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty stackable item from category.\r");
+				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty item from category.\r");
 				// Advance the cursor
 				InventoryCursor()->GetNextItem();
 				// Stackable item count reached zero, remove item from category

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1120 $
- * $Date: 2007-07-14 05:51:04 -0400 (Sat, 14 Jul 2007) $
+ * $Revision: 1123 $
+ * $Date: 2007-07-14 17:58:56 -0400 (Sat, 14 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1120 2007-07-14 09:51:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1123 2007-07-14 21:58:56Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8450,6 +8450,7 @@ void idPlayer::inventoryDropItem()
 				if (!grabber->PutInHands(ent, this)) {
 					// The grabber could not put the item into the player hands
 					// TODO: Emit a sound?
+					DM_LOG(LC_INVENTORY, LT_WARNING)LOGSTRING("Grabber could not put entity in hands: %s\r", ent->name.c_str());
 				}
 				// old code: m_Inventory->PutEntityInMap(ent, this, item);
 			}
@@ -8461,13 +8462,11 @@ void idPlayer::inventoryDropItem()
 				thread->DelayedStart(0);
 			}
 
-			// greebo: Decrease the stack counter, if applicable
-			if (item->IsStackable()) {
-				// Decrease the inventory count (this will also clear empty categories)
-				ChangeInventoryItemCount(item->GetName().c_str(), category->GetName().c_str(), -1);
+			// Decrease the inventory count (this will also clear empty categories)
+			// This applies for both stackable as well as droppable items
+			ChangeInventoryItemCount(item->GetName().c_str(), category->GetName().c_str(), -1);
 
-				UpdateHud();
-			}
+			UpdateHud();
 		}
 	}
 }
