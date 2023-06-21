@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 365 $
- * $Date: 2006-03-07 14:27:29 -0500 (Tue, 07 Mar 2006) $
- * $Author: sparhawk $
+ * $Revision: 367 $
+ * $Date: 2006-03-08 01:37:29 -0500 (Wed, 08 Mar 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.26  2006/03/08 06:37:29  ishtvan
+ * added knockout debug visualization cvar: cv_ko_show
+ *
  * Revision 1.25  2006/03/07 19:27:29  sparhawk
  * Lightgem adjustement variable added.
  *
@@ -135,6 +138,7 @@ idCVar cv_ai_debug(					"dm_ai_debug",				"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR
 
 idCVar cv_spr_debug(				"dm_spr_debug",				"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL,  "If set to true, sound propagation debugging information will be sent to the console, and the log information will become more detailed." );
 idCVar cv_spr_show(					"dm_showsprop",				"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL,  "If set to true, sound propagation paths to nearby AI will be shown as lines." );
+idCVar cv_ko_show(					"dm_showko",				"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL,  "If set to true, knockout zones will be shown for debugging." );
 
 /**
 * DarkMod player movement

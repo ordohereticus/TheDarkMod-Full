@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 365 $
- * $Date: 2006-03-07 14:27:29 -0500 (Tue, 07 Mar 2006) $
- * $Author: sparhawk $
+ * $Revision: 367 $
+ * $Date: 2006-03-08 01:37:29 -0500 (Wed, 08 Mar 2006) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.18  2006/03/08 06:37:29  ishtvan
+ * added knockout debug visualization cvar: cv_ko_show
+ *
  * Revision 1.17  2006/03/07 19:27:29  sparhawk
  * Lightgem adjustement variable added.
  *
@@ -80,6 +83,7 @@ extern idCVar cv_ai_tactalert;
 extern idCVar cv_ai_debug;
 extern idCVar cv_spr_debug;
 extern idCVar cv_spr_show;
+extern idCVar cv_ko_show;
 
 extern idCVar cv_pm_runmod;
 extern idCVar cv_pm_crouchmod;
