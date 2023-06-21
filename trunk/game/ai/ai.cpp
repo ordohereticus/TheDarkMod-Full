@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 480 $
- * $Date: 2006-07-10 23:52:19 -0400 (Mon, 10 Jul 2006) $
+ * $Revision: 491 $
+ * $Date: 2006-07-19 01:14:28 -0400 (Wed, 19 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.28  2006/07/19 05:14:28  ishtvan
+ * AI no longer check for tactile alerts when they're unconscious
+ *
  * Revision 1.27  2006/07/11 03:52:19  ishtvan
  * added drowning immunity and KO immunity
  *
@@ -99,7 +102,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 480 $   $Date: 2006-07-10 23:52:19 -0400 (Mon, 10 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 491 $   $Date: 2006-07-19 01:14:28 -0400 (Wed, 19 Jul 2006) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/relations.h"
@@ -6028,13 +6031,18 @@ Modified 5/25/06 , removed trace computation, found better way of checking
 // TODO OPTIMIZATION: Do not check for touching if the AI is already engaged in combat!
 void idAI::CheckTactile( void )
 {
-		idEntity *BlockEnt = physicsObj.GetSlideMoveEntity();
+	if( AI_KNOCKEDOUT || AI_DEAD )
+		goto Quit;
 
-		if ( BlockEnt && BlockEnt->IsType( idActor::Type ) ) 
-		{
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("TACT: AI %s is bumping actor %s.\r", name.c_str(), BlockEnt->name.c_str() );
-			HadTactile( static_cast<idActor *>(BlockEnt) );
-		}
+	idEntity *BlockEnt = physicsObj.GetSlideMoveEntity();
+
+	if ( BlockEnt && BlockEnt->IsType( idActor::Type ) ) 
+	{
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("TACT: AI %s is bumping actor %s.\r", name.c_str(), BlockEnt->name.c_str() );
+		HadTactile( static_cast<idActor *>(BlockEnt) );
+	}
+Quit:
+		return;
 }
 
 /**
