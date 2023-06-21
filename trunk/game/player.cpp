@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1000 $
- * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
+ * $Revision: 1030 $
+ * $Date: 2007-06-11 18:14:38 -0400 (Mon, 11 Jun 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1030 2007-06-11 22:14:38Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -10080,7 +10080,7 @@ void idPlayer::FrobCheck( void )
 	// Frob collision mask:
 	int cm = CONTENTS_SOLID|CONTENTS_OPAQUE|CONTENTS_BODY
 		|CONTENTS_CORPSE|CONTENTS_RENDERMODEL
-		|CONTENTS_FLASHLIGHT_TRIGGER;
+		|CONTENTS_FROBABLE;
 
 	gameLocal.clip.TracePoint(trace, start, end, cm, this);
 	TraceDist = g_Global.m_MaxFrobDistance * trace.fraction;
