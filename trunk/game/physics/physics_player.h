@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 886 $
+ * $Date: 2007-04-02 03:33:20 -0400 (Mon, 02 Apr 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -111,7 +111,22 @@ public:
 	float					GetStepUp( void ) const;
 	bool					IsCrouching( void ) const;
     bool					OnRope( void ) const;
+	/**
+	* True if the player is climbing on a ladder or wall
+	**/
 	bool					OnLadder( void ) const;
+	/**
+	* Returns the surface type the player is climbing
+	* Returns empty string if the player is not climbing
+	**/
+	idStr					GetClimbSurfaceType( void ) const;
+	/**
+	* Returns the lateral world coordinates resolved into the lateral direction
+	* of the climbing surface.  Used to keep track of lateral position for climb movement sounds
+	**/
+	float					GetClimbLateralCoord( idVec3 OrigVec ) const;
+
+
 	const idVec3 &			PlayerGetOrigin( void ) const;	// != GetOrigin
 
 	/**
@@ -258,6 +273,19 @@ private:
 	* This is intended to fix a hovering-in-midair bug.
 	**/
 	bool					m_bClimbInitialPhase;
+
+	/**
+	* String name of the surface type the player is climbing
+	**/
+	idStr					m_ClimbSurfName;
+	/**
+	* Max horizontal climbing velocity (parsed from player.def for given surface name)
+	**/
+	float					m_ClimbMaxVelHoriz;
+	/**
+	* Max vertical climbing veocity (parsed from player.def for given surface name)
+	**/
+	float					m_ClimbMaxVelVert;
 
 	/**
 	* View yaw change between this frame and last frame
