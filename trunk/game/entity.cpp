@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 951 $
- * $Date: 2007-05-02 05:23:45 -0400 (Wed, 02 May 2007) $
+ * $Revision: 952 $
+ * $Date: 2007-05-02 05:34:54 -0400 (Wed, 02 May 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 951 2007-05-02 09:23:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 952 2007-05-02 09:34:54Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7852,7 +7852,7 @@ int idEntity::heal(const char* healDefName, float healScale) {
 	int	healAmount = static_cast<int>(healDef->GetInt( "heal_amount" ) * healScale);
 	int healInterval = healDef->GetInt("heal_interval", "0");
 	int healStepAmount = healDef->GetInt("heal_step_amount", "5");
-	float healIntervalFactor = healDef->GetInt("heal_interval_factor", "0");
+	float healIntervalFactor = healDef->GetInt("heal_interval_factor", "1");
 
 	// Check if the entity can be healed in the first place
 	if ( healAmount == 0 || health >= spawnArgs.GetInt("health")) {
