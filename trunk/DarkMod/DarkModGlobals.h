@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 70 $
- * $Date: 2005-01-23 19:15:22 -0500 (Sun, 23 Jan 2005) $
+ * $Revision: 73 $
+ * $Date: 2005-01-28 17:56:53 -0500 (Fri, 28 Jan 2005) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.11  2005/01/28 22:56:53  sparhawk
+ * WEAPON class added.
+ *
  * Revision 1.10  2005/01/24 00:15:22  sparhawk
  * AmbientLight parameter added to material
  *
@@ -90,6 +93,7 @@ typedef enum {
 	LC_ENTITY,
 	LC_INVENTORY,		// Everything that has to do with inventory
 	LC_LIGHT,
+	LC_WEAPON,
 	LC_COUNT
 } LC_LogClass;
 

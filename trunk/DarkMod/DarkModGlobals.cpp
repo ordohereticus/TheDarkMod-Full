@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 70 $
- * $Date: 2005-01-23 19:15:22 -0500 (Sun, 23 Jan 2005) $
+ * $Revision: 73 $
+ * $Date: 2005-01-28 17:56:53 -0500 (Fri, 28 Jan 2005) $
  * $Author: sparhawk $
  * $Name$
  *
  * $Log$
+ * Revision 1.12  2005/01/28 22:56:52  sparhawk
+ * WEAPON class added.
+ *
  * Revision 1.11  2005/01/24 00:15:22  sparhawk
  * AmbientLight parameter added to material
  *
@@ -93,6 +96,7 @@ static char *LCString[LC_COUNT+1] = {
 	"ENTITY",
 	"INVENTORY",
 	"LIGHT",
+	"WEAPON",
 	"(empty)"
 };
 
@@ -324,6 +328,13 @@ void CGlobal::LoadINISettings(void *p)
 				m_ClassArray[LC_LIGHT] = true;
 
 			DM_LOG(LC_FORCE, LT_FORCE).LogString("LogClass_LIGHT: %c\r", pm->Value[0]);
+		}
+		if(FindMap(ps, "LogClass_WEAPON", TRUE, &pm) != -1)
+		{
+			if(pm->Value[0] == '1')
+				m_ClassArray[LC_WEAPON] = true;
+
+			DM_LOG(LC_FORCE, LT_FORCE).LogString("LogClass_WEAPON: %c\r", pm->Value[0]);
 		}
 	}
 
