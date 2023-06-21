@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 921 $
+ * $Date: 2007-04-21 05:38:21 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 /************************** MERSENNE.CPP ******************** AgF 2001-10-18 *
@@ -18,14 +18,14 @@
 *                                                                            *
 *  Experts consider this an excellent random number generator.               *
 *                                                                            *
-*  © 2001 - 2004 A. Fog.                                                     *
+*  ï¿½ 2001 - 2004 A. Fog.                                                     *
 *  GNU General Public License www.gnu.org/copyleft/gpl.html                  *
 *****************************************************************************/
 
-#include "../precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mersenne.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: mersenne.cpp 921 2007-04-21 09:38:21Z orbweaver $", init_version);
 
 #include "randomc.h"
 

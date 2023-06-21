@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 921 $
+ * $Date: 2007-04-21 05:38:21 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 /************************* RANROTW.CPP ****************** AgF 1999-03-03 *
@@ -27,13 +27,13 @@
 *  The theory of the RANROT type of generators and the reason for the    *
 *  self-test are described at www.agner.org/random/theory                *
 *                                                                        *
-* ©2002 A. Fog. GNU General Public License www.gnu.org/copyleft/gpl.html *
+* ï¿½2002 A. Fog. GNU General Public License www.gnu.org/copyleft/gpl.html *
 *************************************************************************/
 
-#include "../precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ranrotw.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: ranrotw.cpp 921 2007-04-21 09:38:21Z orbweaver $", init_version);
 
 #include "randomc.h"
 #include <string.h> // some compilers require <mem.h> instead
@@ -45,7 +45,7 @@ static bool init_version = FileVersionList("$Id: ranrotw.cpp 866 2007-03-23 21:2
 // then remove this.
 // uint32 _lrotl (uint32 x, int r) {
 //   return (x << r) | (x >> (sizeof(x)*8-r));}
-
+#include "_lrotl.h"
 
 // constructor:
 TRanrotWGenerator::TRanrotWGenerator(uint32 seed) {
