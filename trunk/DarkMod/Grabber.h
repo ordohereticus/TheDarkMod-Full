@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 843 $
- * $Date: 2007-03-18 04:52:21 -0400 (Sun, 18 Mar 2007) $
+ * $Revision: 846 $
+ * $Date: 2007-03-18 21:49:35 -0400 (Sun, 18 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -49,13 +49,16 @@ class idPlayer;
 
 extern const idEventDef EV_Grabber_CheckClipList;
 
-class CGrabbedEnt {
+class CGrabbedEnt 
+{
 	public: 
-		idEntity	*ent;
-		int			clipMask;
+		idEntity	*m_ent;
+		int			m_clipMask;
+		int			m_contents;
 
-		bool operator==( const CGrabbedEnt &right ) const {
-			if( right.ent == this->ent )
+		bool operator==( const CGrabbedEnt &right ) const 
+		{
+			if( right.m_ent == this->m_ent )
 				return true;
 			return false;
 		}
