@@ -17,9 +17,9 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 115 $
- * $Date: 2005-04-22 21:39:33 -0400 (Fri, 22 Apr 2005) $
- * $Author: ishtvan $
+ * $Revision: 141 $
+ * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
+ * $Author: lloyd $
  * $Name$
  ******************************************************************************/
 
@@ -227,7 +227,7 @@ void CsndProp::Propagate
 	// keep in mind that due to FOV compression, visual distances in FPS look shorter
 	// than they actually are.
 
-	range = pow(2, ((vol0 - m_SndGlobals.MaxRangeCalVol) / 7) ) * m_SndGlobals.MaxRange * s_METERS_TO_DOOM;
+//	range = pow(2, ((vol0 - m_SndGlobals.MaxRangeCalVol) / 7) ) * m_SndGlobals.MaxRange * s_METERS_TO_DOOM;
 
 	bounds.ExpandSelf( range );
 

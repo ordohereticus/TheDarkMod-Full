@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 139 $
- * $Date: 2005-08-14 19:27:31 -0400 (Sun, 14 Aug 2005) $
- * $Author: sophisticatedzombie $
+ * $Revision: 141 $
+ * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
+ * $Author: lloyd $
  *
  * $Log$
+ * Revision 1.23  2005/08/19 00:27:48  lloyd
+ * *** empty log message ***
+ *
  * Revision 1.22  2005/08/14 23:27:31  sophisticatedzombie
  * Updated handling of leaning to use doxygen style comments
  *
@@ -5114,6 +5117,10 @@ void idPlayer::UpdateAir( void ) {
 		return;
 	}
 
+#ifdef MOD_WATERPHYSICS
+	idPhysics_Player *phys = dynamic_cast<idPhysics_Player *>(this->GetPhysics());   // MOD_WATERPHYSICS
+#endif		// MOD_WATERPHYSICS
+
 	// see if the player is connected to the info_vacuum
 	bool	newAirless = false;
 
@@ -5133,6 +5140,11 @@ void idPlayer::UpdateAir( void ) {
 			newAirless = gameRenderWorld->AreasAreConnected( gameLocal.vacuumAreaNum, areaNum, PS_BLOCK_AIR );
 		}
 	}
+
+#ifdef MOD_WATERPHYSICS // check if the player is in water
+	if( phys != NULL && phys->GetWaterLevel() >= WATERLEVEL_HEAD )      // MOD_WATERPHYSICS
+		newAirless = true;	// MOD_WATERPHYSICS
+#endif		// MOD_WATERPHYSICS
 
 	if ( newAirless ) {
 		if ( !airless ) {

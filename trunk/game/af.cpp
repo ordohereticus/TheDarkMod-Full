@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 141 $
+ * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
+ * $Author: lloyd $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:31  sparhawk
- * Initial revision
+ * Revision 1.2  2005/08/19 00:27:48  lloyd
+ * *** empty log message ***
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:31  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -908,6 +911,18 @@ bool idAF::Load( idEntity *ent, const char *fileName ) {
 				name.c_str(), self->name.c_str(), self->GetPhysics()->GetOrigin().ToString(0), animator->GetJointName( (jointHandle_t)i ) );
 		}
 	}
+
+#ifdef MOD_WATERPHYSICS
+	// load how the body will be floated in liquid
+	bool isFixedDensity;
+	if( ent->spawnArgs.GetBool( "fixedDensityBuoyancy", "1", isFixedDensity ) )
+		physicsObj.SetFixedDensityBuoyancy( isFixedDensity );
+
+// load liquid density from file
+	float liquidDensity;
+	if( ent->spawnArgs.GetFloat( "liquidDensity", "", liquidDensity ) )
+		physicsObj.SetLiquidDensity( liquidDensity );
+#endif		// MOD_WATERPHYSICS
 
 	physicsObj.SetMass( file->totalMass );
 	physicsObj.SetChanged();

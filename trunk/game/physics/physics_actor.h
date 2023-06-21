@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 141 $
+ * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
+ * $Author: lloyd $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:33  sparhawk
- * Initial revision
+ * Revision 1.2  2005/08/19 00:28:02  lloyd
+ * *** empty log message ***
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -30,6 +33,15 @@
 ===================================================================================
 */
 
+#ifdef MOD_WATERPHYSICS
+typedef enum {					// MOD_WATERPHYSICS
+	WATERLEVEL_NONE,			// MOD_WATERPHYSICS
+	WATERLEVEL_FEET,			// MOD_WATERPHYSICS
+	WATERLEVEL_WAIST,			// MOD_WATERPHYSICS
+	WATERLEVEL_HEAD				// MOD_WATERPHYSICS
+} waterLevel_t;					// MOD_WATERPHYSICS
+#endif // MOD_WATERPHYSICS
+
 class idPhysics_Actor : public idPhysics_Base {
 
 public:
@@ -47,6 +59,11 @@ public:
 	idEntity *				GetGroundEntity( void ) const;
 							// align the clip model with the gravity direction
 	void					SetClipModelAxis( void );
+
+#ifdef MOD_WATERPHYSICS
+	virtual waterLevel_t	GetWaterLevel( void ) const; 	// MOD_WATERPHYSICS
+	virtual int				GetWaterType( void ) const; 	// MOD_WATERPHYSICS
+#endif
 
 public:	// common physics interface
 	void					SetClipModel( idClipModel *model, float density, int id = 0, bool freeOld = true );
@@ -83,6 +100,12 @@ public:	// common physics interface
 	bool					EvaluateContacts( void );
 
 protected:
+#ifdef MOD_WATERPHYSICS
+	virtual void		SetWaterLevel( void );		// MOD_WATERPHYSICS
+	waterLevel_t		waterLevel;					// MOD_WATERPHYSICS
+	int					waterType;					// MOD_WATERPHYSICS
+#endif
+
 	idClipModel *			clipModel;			// clip model used for collision detection
 	idMat3					clipModelAxis;		// axis of clip model aligned with gravity direction
 

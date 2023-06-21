@@ -2,13 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2 $
- * $Date: 2004-10-30 11:52:07 -0400 (Sat, 30 Oct 2004) $
- * $Author: sparhawk $
+ * $Revision: 141 $
+ * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
+ * $Author: lloyd $
  *
  * $Log$
- * Revision 1.1  2004/10/30 15:52:33  sparhawk
- * Initial revision
+ * Revision 1.2  2005/08/19 00:28:02  lloyd
+ * *** empty log message ***
+ *
+ * Revision 1.1.1.1  2004/10/30 15:52:33  sparhawk
+ * Initial release
  *
  ***************************************************************************/
 
@@ -53,6 +56,9 @@
 #define CONTACT_EPSILON			0.25f				// maximum contact seperation distance
 
 class idEntity;
+#ifdef MOD_WATERPHYSICS
+class idPhysics_Liquid; // MOD_WATERPHYSICS
+#endif
 
 typedef struct impactInfo_s {
 	float						invMass;			// inverse mass
@@ -167,6 +173,12 @@ public:	// common physics interface
 								// networking
 	virtual void				WriteToSnapshot( idBitMsgDelta &msg ) const = 0;
 	virtual void				ReadFromSnapshot( const idBitMsgDelta &msg ) = 0;
+
+#ifdef MOD_WATERPHYSICS
+	// gets/sets the water
+	virtual idPhysics_Liquid	*GetWater() = 0; // MOD_WATERPHYSICS
+	virtual void				SetWater( idPhysics_Liquid *e ) = 0; // MOD_WATERPHYSICS
+#endif
 };
 
 #endif /* !__PHYSICS_H__ */

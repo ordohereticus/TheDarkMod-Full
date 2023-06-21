@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 118 $
- * $Date: 2005-04-22 21:45:16 -0400 (Fri, 22 Apr 2005) $
- * $Author: ishtvan $
+ * $Revision: 141 $
+ * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
+ * $Author: lloyd $
  *
  * $Log$
+ * Revision 1.5  2005/08/19 00:27:55  lloyd
+ * *** empty log message ***
+ *
  * Revision 1.4  2005/04/23 01:45:16  ishtvan
  * *) changed DarkMod cvar names to cv_*
  *
@@ -272,5 +275,11 @@ extern idCVar	si_map;
 extern idCVar	si_spectators;
 
 extern const char *ui_skinArgs[];
+
+#ifdef MOD_WATERPHYSICS
+extern idCVar af_useBodyDensityBuoyancy;			// MOD_WATERPHYSICS
+extern idCVar af_useFixedDensityBuoyancy;			// MOD_WATERPHYSICS
+extern idCVar rb_showBuoyancy;								// MOD_WATERPHYSICS
+#endif
 
 #endif /* !__SYS_CVAR_H__ */

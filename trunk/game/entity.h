@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 106 $
- * $Date: 2005-04-07 05:33:50 -0400 (Thu, 07 Apr 2005) $
- * $Author: ishtvan $
+ * $Revision: 141 $
+ * $Date: 2005-08-18 20:28:02 -0400 (Thu, 18 Aug 2005) $
+ * $Author: lloyd $
  *
  * $Log$
+ * Revision 1.10  2005/08/19 00:27:48  lloyd
+ * *** empty log message ***
+ *
  * Revision 1.9  2005/04/07 09:33:50  ishtvan
  * Added soundprop methods.
  *
@@ -78,6 +81,10 @@ extern const idEventDef EV_SetSkin;
 extern const idEventDef EV_StartSoundShader;
 extern const idEventDef EV_StopSound;
 extern const idEventDef EV_CacheSoundShader;
+#ifdef MOD_WATERPHYSICS
+extern const idEventDef EV_GetMass;				// MOD_WATERPHYSICS
+extern const idEventDef EV_IsInLiquid;			// MOD_WATERPHYSICS
+#endif		// MOD_WATERPHYSICS
 
 // Think flags
 enum {
@@ -645,6 +652,10 @@ private:
 	void					Event_HasFunction( const char *name );
 	void					Event_CallFunction( const char *name );
 	void					Event_SetNeverDormant( int enable );
+#ifdef MOD_WATERPHYSICS
+	void					Event_GetMass( int body );	// MOD_WATERPHYSICS
+	void					Event_IsInLiquid( void );	// MOD_WATERPHYSICS
+#endif		// MOD_WATERPHYSICS
 };
 
 /*
