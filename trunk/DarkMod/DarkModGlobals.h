@@ -9,12 +9,15 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 265 $
- * $Date: 2005-12-03 21:42:29 -0500 (Sat, 03 Dec 2005) $
- * $Author: ishtvan $
+ * $Revision: 275 $
+ * $Date: 2005-12-10 12:18:58 -0500 (Sat, 10 Dec 2005) $
+ * $Author: sophisticatedzombie $
  * $Name$
  *
  * $Log$
+ * Revision 1.31  2005/12/10 17:18:58  sophisticatedzombie
+ * Added header references for LAS and hding spot detection
+ *
  * Revision 1.30  2005/12/04 02:42:29  ishtvan
  * added GetSurfName function for surface names
  *
@@ -119,6 +122,11 @@
 
 #include <stdio.h>
 #include "..\game\game_local.h"
+
+/*!
+Darkmod LAS
+*/
+#include "..\darkmod\DarkModLAS.h"
 
 #ifndef ILuint
 typedef unsigned int ILuint;
@@ -386,6 +394,9 @@ public:
 	 * This solution is less accurate, though. Default for this value is false.
 	 */
 	bool m_WeakLightgem;
+
+
+
 };
 
 extern CGlobal g_Global;
