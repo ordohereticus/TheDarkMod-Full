@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 240 $
- * $Date: 2005-11-19 12:29:21 -0500 (Sat, 19 Nov 2005) $
- * $Author: sparhawk $
+ * $Revision: 294 $
+ * $Date: 2005-12-14 18:20:18 -0500 (Wed, 14 Dec 2005) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.9  2005/12/14 23:20:18  ishtvan
+ * rotation relative to orientation bugfix
+ *
  * Revision 1.8  2005/11/19 17:26:48  sparhawk
  * LogString with macro replaced
  *
@@ -109,7 +112,7 @@ void CFrobDoor::Spawn( void )
 	idMover::Spawn();
 	idEntity *e;
 	CFrobDoor *master;
-	idAngles tempAngle;
+	idAngles tempAngle, partialAngle;
 
 	LoadTDMSettings();
 
@@ -152,6 +155,8 @@ void CFrobDoor::Spawn( void )
 	m_Open = spawnArgs.GetBool("open");
 	DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("[%s] open (%u)\r", name.c_str(), m_Open);
 
+	partialAngle = spawnArgs.GetAngles("start_rotate", "0 0 0");
+
 	m_Locked = spawnArgs.GetBool("locked");
 	DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("[%s] locked (%u)\r", name.c_str(), m_Locked);
 
@@ -167,16 +172,16 @@ void CFrobDoor::Spawn( void )
 
 	if ( !m_Open ) 
 	{
-		// Door starts closed
+		// Door starts _completely_ closed
 		Event_ClosePortal();
 
 		m_ClosedAngles = tempAngle;
-		m_OpenAngles = m_Rotate;
+		m_OpenAngles = tempAngle + m_Rotate;
 	}
 	else
 	{
-		m_ClosedAngles = -1*m_Rotate;
-		m_OpenAngles = tempAngle;
+		m_ClosedAngles = tempAngle - partialAngle;
+		m_OpenAngles = tempAngle + m_Rotate - partialAngle;
 	}
 
 	// set the first intent according to the initial doorstate
