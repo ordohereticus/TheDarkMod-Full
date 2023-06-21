@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 191 $
- * $Date: 2005-10-23 14:11:42 -0400 (Sun, 23 Oct 2005) $
+ * $Revision: 192 $
+ * $Date: 2005-10-23 14:42:30 -0400 (Sun, 23 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.21  2005/10/23 18:42:30  sparhawk
+ * Lightgem cleanup
+ *
  * Revision 1.20  2005/10/23 18:11:21  sparhawk
  * Lightgem entity spawn implemented
  *
@@ -4602,7 +4605,7 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 
 	// Set the viewid to our private screenshot snapshot. If this number is changed 
 	// for some reason, it has to be changed in player.cpp as well.
-	rv.viewID = DARKMOD_LIGHTGEM_VIEWID;
+	rv.viewID = LIGHTGEM_VIEWID;
 	lgrend->suppressShadowInViewID = 0;
 
 	if(cv_lg_player.GetBool() == false)

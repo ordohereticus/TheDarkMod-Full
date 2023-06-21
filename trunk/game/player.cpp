@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 191 $
- * $Date: 2005-10-23 14:11:42 -0400 (Sun, 23 Oct 2005) $
+ * $Revision: 192 $
+ * $Date: 2005-10-23 14:42:30 -0400 (Sun, 23 Oct 2005) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.31  2005/10/23 18:42:30  sparhawk
+ * Lightgem cleanup
+ *
  * Revision 1.30  2005/10/23 18:11:21  sparhawk
  * Lightgem entity spawn implemented
  *
@@ -1487,7 +1490,7 @@ void idPlayer::Init( void ) {
 
 	isChatting = false;
 	LightgemSurface = gameLocal.FindEntity(LIGHTEM_RENDER_NAME);
-	LightgemSurface->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LIGHTGEM_VIEWID;
+	LightgemSurface->GetRenderEntity()->allowSurfaceInViewID = LIGHTGEM_VIEWID;
 	LightgemSurface->GetRenderEntity()->suppressShadowInViewID = 0;
 	DM_LOG(LC_LIGHT, LT_INFO).LogString("LightgemSurface: [%08lX]\r", LightgemSurface);
 }
