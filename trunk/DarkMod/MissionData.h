@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 795 $
- * $Date: 2007-02-07 17:06:35 -0500 (Wed, 07 Feb 2007) $
- * $Author: sparhawk $
+ * $Revision: 801 $
+ * $Date: 2007-02-12 02:51:02 -0500 (Mon, 12 Feb 2007) $
+ * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.17  2007/02/12 07:51:02  ishtvan
+ * added inventory callback to objectives
+ *
  * Revision 1.16  2007/02/07 22:06:25  sparhawk
  * Items can now be frobbed and added to the inventory
  *
@@ -175,6 +178,30 @@ typedef struct SObjEntParms_s
 
 	bool bIsAI;
 	bool bWhileAirborne; // a must-have :)
+
+	SObjEntParms_s( void ) { Clear(); }
+	~SObjEntParms_s( void ) { Clear(); }
+
+	/**
+	* Initialize the struct to default values
+	**/
+	void Clear( void )
+	{
+		name.Clear();
+		group.Clear();
+		classname.Clear();
+		spawnclass.Clear();
+
+		origin = vec3_zero;
+		team = -1;
+		type = -1;
+		innocence = -1;
+
+		value = 1;
+		valueSuperGroup = 1;
+		bIsAI = false;
+		bWhileAirborne = false;
+	}
 } SObjEntParms;
 
 class CObjectiveComponent
@@ -612,6 +639,23 @@ public:
 	* Called when the player damages AI.  Used for damage stats.
 	**/
 	void AIDamagedByPlayer( int DamageAmount );
+
+	/**
+	* Called by the inventory when a player picks up or drops an item.
+	*
+	* Entity is the ent being picked up, bPicked up is true if picked up, false if dropped
+	* TypeName should be set to the name of the item's type.  E.g., for loot, loot_gems, loot_gold...
+	*
+	* For loot items, ItemName is automatically set to "loot_gems", "loot_gold", etc.
+	* For non-loot items, ItemName is the name of the inventory item (e.g., healthpotion)
+	* NOTE: ItemName gets tested when using the "group" specifier.
+	*
+	* For non-loot items, value should be set to the number of stacked items if non-unique, or 1 if unique
+	* For loot items, value should be the current _total_ value of that loot group.
+	* For loot items, OverallVal should be set to the overall loot count
+	* Ent is the actual entity picked up/dropped.  If NULL, default entity properties will be used.
+	**/
+	void InventoryCallback( idEntity *ent, idStr ItemName, int value, int OverallVal = 1, bool bPickedUp = false );
 
 	/**
 	* Parse the objective data on an entity and add it to the objectives system
