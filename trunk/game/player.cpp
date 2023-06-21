@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 319 $
- * $Date: 2006-01-24 17:03:46 -0500 (Tue, 24 Jan 2006) $
+ * $Revision: 321 $
+ * $Date: 2006-01-27 09:07:16 -0500 (Fri, 27 Jan 2006) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.46  2006/01/27 14:07:16  sparhawk
+ * numFrobEntities should be int and not float.
+ *
  * Revision 1.45  2006/01/24 22:03:46  sparhawk
  * Stim/Response implementation preliminary
  *
@@ -6949,9 +6952,9 @@ void idPlayer::Think( void )
 	FrobBounds.ExpandSelf( g_Global.m_MaxFrobDistance );
 	idEntity *FrobRangeEnts[ MAX_GENTITIES ];
 
-	float numFrobEnt = gameLocal.clip.EntitiesTouchingBounds( FrobBounds, -1, FrobRangeEnts, MAX_GENTITIES );
+	int numFrobEnt = gameLocal.clip.EntitiesTouchingBounds( FrobBounds, -1, FrobRangeEnts, MAX_GENTITIES );
 
-	for( int i=0; i<numFrobEnt; i++ )
+	for( int i=0; i < numFrobEnt; i++ )
 	{
 		if( FrobRangeEnts[i] )
 		{
