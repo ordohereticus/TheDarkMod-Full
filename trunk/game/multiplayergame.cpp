@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1102 $
+ * $Date: 2007-07-13 06:18:26 -0400 (Fri, 13 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: multiplayergame.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: multiplayergame.cpp 1102 2007-07-13 10:18:26Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -3338,7 +3338,7 @@ void idMultiplayerGame::ServerWriteInitialReliableMessages( int clientNum ) {
 		ent = gameLocal.entities[ i ]; 
 		if ( i != clientNum && ent && ent->IsType( idPlayer::Type ) ) {
 			outMsg.WriteShort( i );
-			outMsg.WriteShort( static_cast< idPlayer * >( ent )->inventory.powerups );
+//			outMsg.WriteShort( static_cast< idPlayer * >( ent )->inventory.powerups );
 			outMsg.WriteBits( static_cast< idPlayer * >( ent )->spectating, 1 );
 		}
 	}

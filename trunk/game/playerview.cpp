@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1102 $
+ * $Date: 2007-07-13 06:18:26 -0400 (Fri, 13 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #pragma hdrstop
 #include "../DarkMod/KeyboardHook.h"
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1102 2007-07-13 10:18:26Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -568,7 +568,7 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view ) 
 			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial );
 		}
 
-		if ( player->PowerUpActive(BERSERK) ) {
+		/*if ( player->PowerUpActive(BERSERK) ) {
 			int berserkTime = player->inventory.powerupEndTime[ BERSERK ] - gameLocal.time;
 			if ( berserkTime > 0 ) {
 				// start fading if within 10 seconds of going away
@@ -576,7 +576,7 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view ) 
 				renderSystem->SetColor4( 1.0f, 1.0f, 1.0f, alpha );
 				renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, berserkMaterial );
 			}
-		}
+		}*/
 
 		if ( bfgVision ) {
 			renderSystem->SetColor4( 1.0f, 1.0f, 1.0f, 1.0f );
@@ -625,10 +625,10 @@ void idPlayerView::DoubleVision( idUserInterface *hud, const renderView_t *view,
 
 	// carry red tint if in berserk mode
 	idVec4 color(1, 1, 1, 1);
-	if ( gameLocal.time < player->inventory.powerupEndTime[ BERSERK ] ) {
+	/*if ( gameLocal.time < player->inventory.powerupEndTime[ BERSERK ] ) {
 		color.y = 0;
 		color.z = 0;
-	}
+	}*/
 
 	renderSystem->SetColor4( color.x, color.y, color.z, 1.0f );
 	renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, shift, 1, 1, 0, dvMaterial );

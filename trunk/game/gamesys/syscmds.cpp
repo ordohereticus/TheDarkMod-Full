@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1100 $
- * $Date: 2007-07-13 04:54:59 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1102 $
+ * $Date: 2007-07-13 06:18:26 -0400 (Fri, 13 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1100 2007-07-13 08:54:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1102 2007-07-13 10:18:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -699,13 +699,6 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 
 	if ( give_all || idStr::Icmp( name, "health" ) == 0 )	{
 		player->health = player->inventory.maxHealth;
-		if ( !give_all ) {
-			return;
-		}
-	}
-
-	if ( give_all || idStr::Icmp( name, "armor" ) == 0 ) {
-		player->inventory.armor = player->inventory.maxarmor;
 		if ( !give_all ) {
 			return;
 		}
