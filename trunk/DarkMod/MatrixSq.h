@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
+ * $Revision: 1121 $
+ * $Date: 2007-07-14 12:17:25 -0400 (Sat, 14 Jul 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -542,7 +542,7 @@ inline int CMatrixSq<type>::Ind2dTo1d ( int row, int col )
 template <class type>
 inline CMatRUT<type>::~CMatRUT( void )
 {
-	Clear();
+	CMatrixSq<type>::Clear();
 }
 
 template <class type>

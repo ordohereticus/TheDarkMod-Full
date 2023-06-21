@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 985 $
-#* $Date: 2007-05-12 05:25:24 -0400 (Sat, 12 May 2007) $
+#* $Revision: 1121 $
+#* $Date: 2007-07-14 12:17:25 -0400 (Sat, 14 Jul 2007) $
 #* $Author: orbweaver $
 #*
 #* $Log$
@@ -127,7 +127,6 @@ Grabber.cpp \
 HidingSpotSearchCollection.cpp \
 idAbsenceMarkerEntity.cpp \
 Intersection.cpp \
-inventory.cpp \
 KeyboardHook.cpp \
 liquid.cpp \
 MissionData.cpp \
@@ -142,6 +141,11 @@ sndProp.cpp \
 sndPropLoader.cpp \
 Strip.cpp \
 ToUpper.cpp \
+Inventory/Category.cpp \
+Inventory/Cursor.cpp \
+Inventory/Inventory.cpp \
+Inventory/Item.cpp \
+Inventory/WeaponItem.cpp \
 randomizer/mersenne.cpp \
 randomizer/mother.cpp \
 randomizer/ranrotb.cpp \
