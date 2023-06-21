@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 885 $
- * $Date: 2007-04-01 11:07:13 -0400 (Sun, 01 Apr 2007) $
+ * $Revision: 894 $
+ * $Date: 2007-04-08 16:02:54 -0400 (Sun, 08 Apr 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 885 2007-04-01 15:07:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 894 2007-04-08 20:02:54Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -4233,7 +4233,13 @@ void idEntity::ActivateTargets( idEntity *activator ) const {
 		if ( !ent ) {
 			continue;
 		}
+
 		if ( ent->RespondsTo( EV_Activate ) || ent->HasSignal( SIG_TRIGGER ) ) {
+			// greebo: Send the TRIGGER stim to the target
+			if (activator != NULL) {
+				ent->ResponseTrigger(activator, ST_TRIGGER);
+			}
+
 			ent->Signal( SIG_TRIGGER );
 			ent->ProcessEvent( &EV_Activate, activator );
 		} 		
@@ -6615,9 +6621,17 @@ void idEntity::ResponseTrigger(idEntity* source, int stimType)
 		// There is a response defined
 		if (resp->m_State == SS_ENABLED)
 		{
-			// Fire the response and pass the originating entity plus a NULL as stim object
-			// NULL means that this is no "real" stim just a temporary or virtual one
-			resp->TriggerResponse(source, NULL);
+			// Check duration, disable if past duration
+			if (resp->m_Duration && (gameLocal.time - resp->m_EnabledTimeStamp) > resp->m_Duration )
+			{
+				resp->EnableSR(false);
+			}
+			else 
+			{
+				// Fire the response and pass the originating entity plus a NULL as stim object
+				// NULL means that this is no "real" stim just a temporary or virtual one
+				resp->TriggerResponse(source, NULL);
+			}
 		}
 	}
 }

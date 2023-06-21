@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 893 $
- * $Date: 2007-04-06 17:30:21 -0400 (Fri, 06 Apr 2007) $
- * $Author: sparhawk $
+ * $Revision: 894 $
+ * $Date: 2007-04-08 16:02:54 -0400 (Sun, 08 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: player.cpp 893 2007-04-06 21:30:21Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 894 2007-04-08 20:02:54Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/darkmodglobals.h"
@@ -6176,9 +6176,16 @@ void idPlayer::AdjustSpeed( void )
 		speed = pm_spectatespeed.GetFloat();
 		bobFrac = 0.0f;
 	}
-	else if ( noclip )
+	else if ( noclip && !( usercmd.buttons & BUTTON_RUN ))
 	{
+		// "Walk" noclip
 		speed = pm_noclipspeed.GetFloat();
+		bobFrac = 0.0f;
+	}
+	else if ( noclip && ( usercmd.buttons & BUTTON_RUN ))
+	{
+		// "run" noclip
+		speed = pm_noclipspeed.GetFloat() * cv_pm_runmod.GetFloat();
 		bobFrac = 0.0f;
 	} 
 	// running case
