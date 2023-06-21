@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 435 $
- * $Date: 2006-05-26 06:26:24 -0400 (Fri, 26 May 2006) $
+ * $Revision: 443 $
+ * $Date: 2006-05-30 02:26:29 -0400 (Tue, 30 May 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.58  2006/05/30 06:25:00  ishtvan
+ * objective system updates
+ *
  * Revision 1.57  2006/05/26 10:26:24  ishtvan
  * added mission data object, which gets updated in runframe
  *
@@ -1842,6 +1845,7 @@ void idGameLocal::MapShutdown( void ) {
 
 	m_sndProp->Clear();
 	m_RelationsManager->Clear();
+	m_MissionData->Clear();
 
 	// clear Dark Mod inventory
 	g_Global.m_DarkModPlayer->ClearInventory();
