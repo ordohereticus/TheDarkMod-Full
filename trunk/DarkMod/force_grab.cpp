@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 550 $
- * $Date: 2006-08-13 21:06:28 -0400 (Sun, 13 Aug 2006) $
+ * $Revision: 816 $
+ * $Date: 2007-03-04 08:22:29 -0500 (Sun, 04 Mar 2007) $
  * $Author: ishtvan $
  *
  * $Log$
@@ -32,7 +32,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 550 $   $Date: 2006-08-13 21:06:28 -0400 (Sun, 13 Aug 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 816 $   $Date: 2007-03-04 08:22:29 -0500 (Sun, 04 Mar 2007) $", init_version);
 
 #include "../Game/Game_local.h"
 #include "Force_Grab.h"
@@ -51,7 +51,7 @@ CForce_Grab::CForce_Grab
 */
 CForce_Grab::CForce_Grab( void ) 
 {
-	m_damping			= 0.5f;
+	m_damping			= 0.0f;
 	m_physics			= NULL;
 	m_id				= 0;
 	m_p					= vec3_zero;
@@ -77,7 +77,9 @@ void CForce_Grab::Init( float damping ) {
 	if ( damping >= 0.0f && damping < 1.0f ) 
 	{
 		m_damping = damping;
-// Ish: why do we set it to zero?
+	}
+	else
+	{
 		m_damping = 0;
 	}
 }
