@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 925 $
- * $Date: 2007-04-21 09:36:50 -0400 (Sat, 21 Apr 2007) $
+ * $Revision: 931 $
+ * $Date: 2007-04-21 12:01:41 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 925 2007-04-21 13:36:50Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 931 2007-04-21 16:01:41Z orbweaver $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -329,11 +329,7 @@ Quit:
 
 void CGlobal::Init()
 {
-	char ProfilePath[1024];
 	PROFILE_HANDLE *pfh = NULL;
-
-	// Do we need this on Linux as well? I guess not, because in linux the targetdirectory can be
-	// redericted by a link. This has to be tested though but should be no problem.
 
 #ifdef _WINDOWS_
 
@@ -346,23 +342,22 @@ void CGlobal::Init()
 	GetModName();
 
 #ifdef _WINDOWS_
-	strcpy(ProfilePath, m_ModPath);
-	sprintf(ProfilePath, "%s\\%s.ini", m_ModPath, m_ModName);
-//	strcat(ProfilePath, "\\Darkmod\\darkmod.ini");
-#else   // LINUX
-	char *home = getenv("HOME");
-	
-	ProfilePath[0] = 0;
-	if(home)
-		 strcpy(ProfilePath, home);
 
-	strcat(ProfilePath, "/.darkmod.ini");
+	std::string iniPath = 
+		std::string(m_ModPath) + "\\" + std::string(m_ModName) + ".ini";
+
+#else   // LINUX
+	
+	std::string iniPath = 
+		std::string(getenv("HOME")) + "/.doom3/darkmod/darkmod.ini";
+	
 #endif
 
-	DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Trying to open %s\r", ProfilePath);
-	if((pfh = OpenProfile(ProfilePath, TRUE, FALSE)) == NULL)
+	const char* profilePath = iniPath.c_str();
+	DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Trying to open %s\r", profilePath);
+	if((pfh = OpenProfile(profilePath, TRUE, FALSE)) == NULL)
 	{
-		DM_LOG(LC_INIT, LT_INIT)LOGSTRING("%s.ini not found at %s\r", m_ModName, ProfilePath);
+		DM_LOG(LC_INIT, LT_INIT)LOGSTRING("%s.ini not found at %s\r", m_ModName, profilePath);
 	}
 
 	if(pfh != NULL)

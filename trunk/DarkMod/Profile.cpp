@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 931 $
+ * $Date: 2007-04-21 12:01:41 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -26,7 +26,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Profile.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: Profile.cpp 931 2007-04-21 16:01:41Z orbweaver $", init_version);
 #pragma warning( push )
 #pragma warning( disable: 4245 )
 #include <malloc.h>
@@ -43,7 +43,7 @@ static bool init_version = FileVersionList("$Id: Profile.cpp 866 2007-03-23 21:2
 #include "Profile.h"
 #include "Misc.h"
 
-char *StrAlloc(char *s)
+char *StrAlloc(const char *s)
 {
 	char *rc = NULL;
 
@@ -143,7 +143,7 @@ Quit:
 }
 
 
-PROFILE_HANDLE *OpenProfile(char *Path, BOOL CaseSensitive, BOOL bCreate)
+PROFILE_HANDLE *OpenProfile(const char *Path, BOOL CaseSensitive, BOOL bCreate)
 {
 	PROFILE_HANDLE *rc = NULL, *h = NULL;
 

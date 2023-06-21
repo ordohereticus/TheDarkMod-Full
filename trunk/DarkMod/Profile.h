@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 931 $
+ * $Date: 2007-04-21 12:01:41 -0400 (Sat, 21 Apr 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -111,7 +111,7 @@ PROFILE_HANDLE *CreateHandle(void);
 /**
  *  Allocates and copies a string.
  */
-char *StrAlloc(char *str);
+char *StrAlloc(const char *str);
 
 
 
@@ -126,7 +126,7 @@ char *StrAlloc(char *str);
  * @return					- Returns a PROFILE_HANDLE pointer or NULL if not possible.
  *
  */
-PROFILE_HANDLE *OpenProfile(char *Path, BOOL CaseSensitive, BOOL bCreate);
+PROFILE_HANDLE *OpenProfile(const char *Path, BOOL CaseSensitive, BOOL bCreate);
 /**
  * This function will try to open the file for the profile.
  */
