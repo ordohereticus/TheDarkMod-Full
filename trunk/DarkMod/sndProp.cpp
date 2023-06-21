@@ -17,9 +17,9 @@
  *
  * PROJECT: DarkMod
  * $Source$
- * $Revision: 179 $
- * $Date: 2005-10-18 09:53:29 -0400 (Tue, 18 Oct 2005) $
- * $Author: sparhawk $
+ * $Revision: 207 $
+ * $Date: 2005-11-04 02:30:53 -0500 (Fri, 04 Nov 2005) $
+ * $Author: ishtvan $
  * $Name$
  *
  ******************************************************************************/
@@ -881,6 +881,7 @@ void CsndProp::ProcessPopulated( float volInit, idVec3 origin,
 	idVec3 testLoc;
 	SPortEvent *pPortEv;
 	SPopArea *pPopArea;
+	idList<idVec3> showPoints;
 	
 	int initArea = gameRenderWorld->PointInArea( origin );
 
@@ -917,6 +918,15 @@ void CsndProp::ProcessPopulated( float volInit, idVec3 origin,
 				DM_LOG(LC_SOUND, LT_DEBUG).LogString("Dist to AI: %f [m], Propagated volume found to be %f [dB]\r", tempDist, propParms->propVol);
 				
 				ProcessAI( AIPtr, origin, propParms );
+
+				// draw debug lines if show soundprop cvar is set
+				if( cv_spr_show.GetBool() )
+				{
+					showPoints.Clear();
+					showPoints.Append( AIPtr->GetEyePosition() );
+					showPoints.Append( propParms->origin );
+					DrawLines( &showPoints );
+				}
 			}
 		}
 
