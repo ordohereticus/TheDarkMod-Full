@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 945 $
+ * $Date: 2007-04-29 05:18:19 -0400 (Sun, 29 Apr 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************
  *
@@ -45,7 +45,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: inventory.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: inventory.cpp 945 2007-04-29 09:18:19Z greebo $", init_version);
 
 #include "../game/game_local.h"
 
@@ -812,16 +812,37 @@ void CInventoryCursor::DropCurrentItem(void)
 	CInventoryItem *item = GetCurrentItem();
 	idEntity *ent = NULL;
 	idEntity *owner = NULL;
+	const function_t* dropScript = NULL;
 
 	if(item && item->IsDroppable() == true)
 	{
 		ent = item->GetItemEntity();
+
+		// greebo: Try to locate a drop script function on the entity's scriptobject
+		dropScript = ent->scriptObject.GetFunction("inventoryDrop");
+
 		owner = item->GetOwner();
-		m_Inventory->PutEntityInMap(ent, owner, item);
+
+		// greebo: Only place the entity in the world, if there is no custom dropscript
+		// The flashbomb for example is spawning projectiles on its own.
+		if (dropScript == NULL) {
+			m_Inventory->PutEntityInMap(ent, owner, item);
+		}
 	}
 
-//	if(ent)
-//		idThread* thread = useEnt->CallScriptFunctionArgs( "inventoryDrop", true, 0, "ee", useEnt, this );
+	// greebo: Decrease the stack counter, if applicable
+	if (item->IsStackable() && item->GetCount() > 0) {
+		item->SetCount(item->GetCount() - 1);
+	}
+
+	// greebo: Is there a drop script on the entity?
+	if (dropScript != NULL)
+	{
+		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Running inventory drop script...\r");
+		idThread* thread = new idThread(dropScript);
+		thread->CallFunctionArgs(dropScript, true, "ee", ent, owner);
+		thread->DelayedStart(0);
+	}
 }
 
 void CInventoryCursor::SetCategoryIgnored(const CInventoryCategory *c)
