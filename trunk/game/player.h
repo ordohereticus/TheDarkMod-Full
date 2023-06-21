@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 752 $
- * $Date: 2007-01-21 06:15:51 -0500 (Sun, 21 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 773 $
+ * $Date: 2007-01-27 11:15:01 -0500 (Sat, 27 Jan 2007) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.44  2007/01/27 16:15:01  sparhawk
+ * Inventory updates
+ *
  * Revision 1.43  2007/01/21 11:15:13  ishtvan
  * listening thru doors when leaning against them implemented
  *
@@ -826,6 +829,7 @@ private:
 	bool					gibDeath;
 	bool					gibsLaunched;
 	idVec3					gibsDir;
+	int						mInventoryOverlay;
 
 	idInterpolate<float>	zoomFov;
 	idInterpolate<float>	centerView;
@@ -999,7 +1003,9 @@ private:
 	void					Event_GetNextHinderance( const char *prefix, const char *lastMatch );
 
 	void					Event_SetGui( int handle, const char *guiFile );
+	void					Event_GetInventoryOverlay(void);
 	void					Event_CreateOverlay( const char *guiFile, int layer );
+	int						CreateOverlay( const char *guiFile, int layer );
 	void					Event_DestroyOverlay( int handle );
 
 	void					Event_PlayStartSound( void );
