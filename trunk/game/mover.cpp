@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 30 $
- * $Date: 2004-11-14 14:24:56 -0500 (Sun, 14 Nov 2004) $
+ * $Revision: 33 $
+ * $Date: 2004-11-14 15:21:20 -0500 (Sun, 14 Nov 2004) $
  * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.6  2004/11/14 20:21:20  sparhawk
+ * Moved code for doors into a seperate class.
+ *
  * Revision 1.5  2004/11/14 19:24:56  sparhawk
  * Added frobcode to idMover
  *
@@ -4676,7 +4679,7 @@ bool idMover_Binary::ModelCallback(renderEntity_s *renderEntity, const renderVie
 
 void idMover_Binary::FrobAction(void)
 {
-	function_t *pScriptFkt = gameLocal.program.FindFunction("try_door");
+	function_t *pScriptFkt = gameLocal.program.FindFunction("frob_binary_mover");
 	DM_LOG(LC_FROBBING, LT_INFO).LogString("FrobAction has been triggered (%08lX)\r", pScriptFkt);
 	if(pScriptFkt)
 	{
@@ -4713,7 +4716,7 @@ bool idMover::ModelCallback(renderEntity_s *renderEntity, const renderView_t *re
 
 void idMover::FrobAction(void)
 {
-	function_t *pScriptFkt = gameLocal.program.FindFunction("try_door");
+	function_t *pScriptFkt = gameLocal.program.FindFunction("frob_mover");
 	DM_LOG(LC_FROBBING, LT_INFO).LogString("FrobAction has been triggered (%08lX)\r", pScriptFkt);
 	if(pScriptFkt)
 	{
