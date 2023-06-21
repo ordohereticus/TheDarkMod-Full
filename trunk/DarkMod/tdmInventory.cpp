@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $
- * $Revision: 821 $
- * $Date: 2007-03-04 10:52:38 -0500 (Sun, 04 Mar 2007) $
+ * $Revision: 831 $
+ * $Date: 2007-03-07 15:24:55 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  * DESCRIPTION: This file contains the inventory handling for TDM. The inventory 
@@ -44,7 +44,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $  $Revision: 821 $   $Date: 2007-03-04 10:52:38 -0500 (Sun, 04 Mar 2007) $", init_version);
+static bool init_version = FileVersionList("$Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.cpp,v $  $Revision: 831 $   $Date: 2007-03-07 15:24:55 -0500 (Wed, 07 Mar 2007) $", init_version);
 
 #include "../game/Game_local.h"
 
@@ -769,20 +769,100 @@ Quit:
 
 CInventoryCategory *CInventoryCursor::GetNextCategory(void)
 {
-	ValidateCategory();
-	m_CurrentCategory++;
-	ValidateCategory();
+	CInventoryCategory *rc = NULL;
 
-	return m_Inventory->m_Category[m_CurrentCategory];
+	// If category lock is switched on, we don't allow to switch 
+	// to another category.
+	if(m_CategoryLock == true)
+		return NULL;
+
+	int n = m_Inventory->m_Category.Num();
+	int cnt = 0;
+
+	while(1)
+	{
+		m_CurrentCategory++;
+
+		// Check if we already passed through all the available categories.
+		// This means that either the inventory is quite empty, or there are
+		// no categories that are allowed for this cursor.
+		cnt++;
+		if(cnt > n)
+		{
+			rc = NULL;
+			break;
+		}
+
+		if(m_CurrentCategory > n)
+		{
+			if(m_WrapAround == true)
+				m_CurrentCategory = 0;
+			else
+				m_CurrentCategory = n;
+		}
+
+		rc = m_Inventory->m_Category[m_CurrentCategory];
+		if(IsCategoryIgnored(rc) == false)
+			break;
+	}
+
+	return rc;
 }
 
 CInventoryCategory *CInventoryCursor::GetPrevCategory(void)
 {
-	ValidateCategory();
-	m_CurrentCategory--;
-	ValidateCategory();
+	CInventoryCategory *rc = NULL;
 
-	return m_Inventory->m_Category[m_CurrentCategory];
+	// If category lock is switched on, we don't allow to switch 
+	// to another category.
+	if(m_CategoryLock == true)
+		return NULL;
+
+	int n = m_Inventory->m_Category.Num();
+	int cnt = 0;
+
+	while(1)
+	{
+		m_CurrentCategory--;
+
+		// Check if we already passed through all the available categories.
+		// This means that either the inventory is quite empty, or there are
+		// no categories that are allowed for this cursor.
+		cnt++;
+		if(cnt > n)
+		{
+			rc = NULL;
+			break;
+		}
+
+		if(m_CurrentCategory < 0)
+		{
+			if(m_WrapAround == true)
+				m_CurrentCategory = n;
+			else
+				m_CurrentCategory = 0;
+		}
+
+		rc = m_Inventory->m_Category[m_CurrentCategory];
+		if(IsCategoryIgnored(rc) == false)
+			break;
+	}
+
+	return rc;
+}
+
+void CInventoryCursor::SetCurrentCategory(int Index)
+{
+	if(Index < 0)
+		Index = 0;
+	
+	if(Index >= m_Inventory->m_Category.Num())
+	{
+		Index = m_Inventory->m_Category.Num();
+		if(Index != 0)
+			Index--;
+	}
+	m_CurrentCategory = Index;
 }
 
 void CInventoryCursor::DropCurrentItem(void)

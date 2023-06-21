@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Source: /cvsroot/darkmod_src/DarkMod/tdmInventory.h,v $
- * $Revision: 806 $
- * $Date: 2007-02-28 15:59:55 -0500 (Wed, 28 Feb 2007) $
+ * $HeadURL: $
+ * $LastChangedRevision: 831 $
+ * $Date: 2007-03-07 15:24:55 -0500 (Wed, 07 Mar 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -212,10 +212,8 @@ public:
 
 	/**
 	 * Set the current group index.
-	 * Validation of the index is done when doing Nex/Prev Category
-	 * so we don't really care wether this is a valid index or not.
 	 */
-	inline void				SetCurrentCategory(int Index) { m_CurrentCategory = Index; }
+	void				SetCurrentCategory(int Index);
 
 	/**
 	 * Set the current item index.
