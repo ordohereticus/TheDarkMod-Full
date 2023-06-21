@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 503 $
- * $Date: 2006-07-23 21:29:03 -0400 (Sun, 23 Jul 2006) $
+ * $Revision: 515 $
+ * $Date: 2006-07-27 21:37:17 -0400 (Thu, 27 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.6  2006/07/28 01:37:17  ishtvan
+ * objective system updates
+ *
  * Revision 1.5  2006/07/24 01:29:03  ishtvan
  * optional distance test added to func_portal
  *
@@ -466,6 +469,10 @@ public:
 	* Soundprop: Volume offset for sounds originating in location
 	**/
 	float				m_SndVolMod;
+	/**
+	* Objective system: Location's objective index int for objective checks
+	**/
+	int					m_ObjectiveGroup;
 
 private:
 };

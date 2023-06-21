@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 510 $
- * $Date: 2006-07-27 05:02:22 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 515 $
+ * $Date: 2006-07-27 21:37:17 -0400 (Thu, 27 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.30  2006/07/28 01:37:17  ishtvan
+ * objective system updates
+ *
  * Revision 1.29  2006/07/27 09:02:22  ishtvan
  * frobbing updates
  *
@@ -911,6 +914,9 @@ private:
 	void					Event_GetObjectiveComp( int ObjIndex, int CompIndex );
 	void					Event_ObjectiveUnlatch( int ObjIndex );
 	void					Event_ObjectiveComponentUnlatch( int ObjIndex, int CompIndex );
+	void					Event_SetObjectiveVisible( int ObjIndex, bool bVal );
+	void					Event_SetObjectiveOptional( int ObjIndex, bool bVal );
+	void					Event_SetObjectiveOngoing( int ObjIndex, bool bVal );
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {

@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 503 $
- * $Date: 2006-07-23 21:29:03 -0400 (Sun, 23 Jul 2006) $
+ * $Revision: 515 $
+ * $Date: 2006-07-27 21:37:17 -0400 (Thu, 27 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.10  2006/07/28 01:37:17  ishtvan
+ * objective system updates
+ *
  * Revision 1.9  2006/07/24 01:29:03  ishtvan
  * optional distance test added to func_portal
  *
@@ -47,7 +50,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 503 $   $Date: 2006-07-23 21:29:03 -0400 (Sun, 23 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 515 $   $Date: 2006-07-27 21:37:17 -0400 (Thu, 27 Jul 2006) $", init_version);
 
 #include "Game_local.h"
 #include "../DarkMod/sndprop.h"
@@ -2103,6 +2106,7 @@ idLocationEntity::idLocationEntity( void )
 {
 	m_SndLossMult = 1.0;
 	m_SndVolMod = 0.0;
+	m_ObjectiveGroup = 0;
 }
 
 /*
