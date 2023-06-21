@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 921 $
-#* $Date: 2007-04-21 05:38:21 -0400 (Sat, 21 Apr 2007) $
+#* $Revision: 922 $
+#* $Date: 2007-04-21 06:24:32 -0400 (Sat, 21 Apr 2007) $
 #* $Author: orbweaver $
 #*
 #* $Log$
@@ -109,6 +109,7 @@ for i in range( len( game_list ) ):
 
 darkModSrc = '\
 AIComm_Message.cpp \
+AIComm_StimResponse.cpp \
 BinaryFrobMover.cpp \
 darkModAASFindHidingSpots.cpp \
 DarkModGlobals.cpp \
@@ -157,9 +158,9 @@ darkModList = scons_utils.BuildList('../../DarkMod', darkModSrc)
 local_env = g_game_env.Copy()
 
 local_env.Append( CPPDEFINES = [ 'GAME_DLL' ] )
+local_env.Append(LIBS = ['IL'])
 
-ret = local_env.SharedLibrarySafe( 
-		local_env, 'game', game_list + darkModList + idlib_objects )
+ret = local_env.SharedLibrary('game', game_list + darkModList + idlib_objects )
 Return( 'ret' )
 
 

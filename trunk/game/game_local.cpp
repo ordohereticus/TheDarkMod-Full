@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
+ * $Revision: 922 $
+ * $Date: 2007-04-21 06:24:32 -0400 (Sat, 21 Apr 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 922 2007-04-21 10:24:32Z orbweaver $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5187,7 +5187,14 @@ Quit:
 	return;
 }
 
+#else
+
+// Placeholder linux lightgem
+float idGameLocal::CalcLightgem(idPlayer *player) { return 0.0f; }
+
 #endif // __linux__
+
+
 
 void idGameLocal::SpawnLightgemEntity(void)
 {
