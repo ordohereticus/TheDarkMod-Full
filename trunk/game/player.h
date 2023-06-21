@@ -2,11 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 515 $
- * $Date: 2006-07-27 21:37:17 -0400 (Thu, 27 Jul 2006) $
+ * $Revision: 522 $
+ * $Date: 2006-07-30 19:38:44 -0400 (Sun, 30 Jul 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.31  2006/07/30 23:38:44  ishtvan
+ * *) Added frob bias
+ *
+ * *) new objective script event setObjectiveEnabling
+ *
  * Revision 1.30  2006/07/28 01:37:17  ishtvan
  * objective system updates
  *
@@ -917,6 +922,7 @@ private:
 	void					Event_SetObjectiveVisible( int ObjIndex, bool bVal );
 	void					Event_SetObjectiveOptional( int ObjIndex, bool bVal );
 	void					Event_SetObjectiveOngoing( int ObjIndex, bool bVal );
+	void					Event_SetObjectiveEnabling( int ObjIndex, const char *strIn );
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
