@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 881 $
- * $Date: 2007-03-29 16:20:25 -0400 (Thu, 29 Mar 2007) $
+ * $Revision: 890 $
+ * $Date: 2007-04-03 17:11:16 -0400 (Tue, 03 Apr 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -734,6 +734,15 @@ private:
 	**/
 	idDict					m_hinderance;
 	float					m_hinderanceCache;
+
+	/**
+	 * ContinousFrob determines wether the frob should be processed in a continous
+	 * way (aka button) or as an impulse. The default is to set it to impulse. However
+	 * for some actions it needs to be continous until the frob key is released, and it
+	 * is switched back to impulse. The continous mode is, for example, needed when the
+	 * player uses the lockpicks on a lock.
+	 */
+	bool					m_ContinuousFrob;
 
 	static const int		NUM_LOGGED_VIEW_ANGLES = 64;		// for weapon turning angle offsets
 	idAngles				loggedViewAngles[NUM_LOGGED_VIEW_ANGLES];	// [gameLocal.framenum&(LOGGED_VIEW_ANGLES-1)]

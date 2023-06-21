@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 874 $
- * $Date: 2007-03-27 16:59:38 -0400 (Tue, 27 Mar 2007) $
+ * $Revision: 890 $
+ * $Date: 2007-04-03 17:11:16 -0400 (Tue, 03 Apr 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -78,6 +78,12 @@ const int IMPULSE_49			= 49;			// Inventory prev group
 const int IMPULSE_50			= 50;			// Inventory next group
 const int IMPULSE_51			= 51;			// Inventory use item
 const int IMPULSE_52			= 52;			// Inventory drop item
+
+// Darkmod: Added as a baseoffset for the impulse keys, when used with ButtonState.
+// This function requires an int as input which defines the key that should be used,
+// and it looks as if the first impulse starts with the number 25.
+const int IMPULSE_BUTTON_BASE	= 25;
+#define KEY_FROM_IMPULSE(n)		(n + IMPULSE_BUTTON_BASE)
 
 // usercmd_t->flags
 const int UCF_IMPULSE_SEQUENCE	= 0x0001;		// toggled every time an impulse command is sent
