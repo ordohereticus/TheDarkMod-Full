@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 694 $
- * $Date: 2007-01-02 23:00:05 -0500 (Tue, 02 Jan 2007) $
- * $Author: ishtvan $
+ * $Revision: 732 $
+ * $Date: 2007-01-18 21:46:13 -0500 (Thu, 18 Jan 2007) $
+ * $Author: thelvyn $
  *
  * $Log$
+ * Revision 1.20  2007/01/19 02:46:13  thelvyn
+ * removed unused argument - spurious warning
+ *
  * Revision 1.19  2007/01/03 04:00:05  ishtvan
  * stim / response updates
  *
@@ -70,7 +73,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 694 $   $Date: 2007-01-02 23:00:05 -0500 (Tue, 02 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 732 $   $Date: 2007-01-18 21:46:13 -0500 (Thu, 18 Jan 2007) $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1365,7 +1368,7 @@ bool CObjective::ParseLogicStr( idStr *input, SBoolParseNode &output )
 {
 	idLexer		src;
 	idToken		token;
-	idDict		*args;
+//	idDict		*args;
 	int			col(0), row(0), level(0);
 
 	// Clear existing parse node structure
