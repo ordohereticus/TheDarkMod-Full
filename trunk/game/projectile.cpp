@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 344 $
- * $Date: 2006-02-05 02:12:14 -0500 (Sun, 05 Feb 2006) $
+ * $Revision: 454 $
+ * $Date: 2006-06-07 00:16:25 -0400 (Wed, 07 Jun 2006) $
  * $Author: ishtvan $
  *
  * $Log$
+ * Revision 1.12  2006/06/07 04:16:25  ishtvan
+ * changed name of result spawnarg to def_result for precaching purposes
+ *
  * Revision 1.11  2006/02/05 07:12:14  ishtvan
  * redefined function Damage to take additional trace pointer argument
  *
@@ -1015,7 +1018,7 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 	if( spawnArgs.GetBool( "has_result", "0" ) )
 	{
 		DM_LOG(LC_WEAPON, LT_DEBUG)LOGSTRING( "Has_result set to true\r" );
-		const char* resultName = spawnArgs.GetString("result_object");
+		const char* resultName = spawnArgs.GetString("def_result");
 
 		const idDict *resultDef = gameLocal.FindEntityDefDict( resultName, false );
 		if( resultDef )
