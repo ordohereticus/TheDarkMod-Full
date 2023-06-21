@@ -8,11 +8,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 423 $
- * $Date: 2006-05-19 15:56:50 -0400 (Fri, 19 May 2006) $
- * $Author: sparhawk $
+ * $Revision: 462 $
+ * $Date: 2006-06-16 16:26:15 -0400 (Fri, 16 Jun 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.3  2006/06/16 20:26:15  sophisticatedzombie
+ * no message
+ *
  * Revision 1.2  2006/05/19 19:56:50  sparhawk
  * CVSHeader added
  *
@@ -193,7 +196,16 @@ public:
 		*
 		* directObjectEntity: The entity to be attacked
 		*/
-		AttackOrder_CommType
+		AttackOrder_CommType,
+
+		/*
+		* This is sent from an AI to another AI that is
+		* in the way of its movement goal.
+		*
+		* The proper response is to have a uniform way of
+		* passing each other
+		*/
+		GetOutOfTheWayOrder_CommType
 
 	} TCommType;
 
