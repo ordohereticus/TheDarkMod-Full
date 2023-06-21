@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 481 $
- * $Date: 2006-07-11 21:10:58 -0400 (Tue, 11 Jul 2006) $
- * $Author: ishtvan $
+ * $Revision: 669 $
+ * $Date: 2006-12-20 20:57:58 -0500 (Wed, 20 Dec 2006) $
+ * $Author: sophisticatedzombie $
  *
  * $Log$
+ * Revision 1.7  2006/12/21 01:57:58  sophisticatedzombie
+ * The results now call Show() instead of Hide() so that the AI can test them for visibility.
+ *
  * Revision 1.6  2006/07/12 01:10:58  ishtvan
  * surface type name now stored as idStr
  *
@@ -37,7 +40,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 481 $   $Date: 2006-07-11 21:10:58 -0400 (Tue, 11 Jul 2006) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 669 $   $Date: 2006-12-20 20:57:58 -0500 (Wed, 20 Dec 2006) $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/Game_local.h"
@@ -140,10 +143,13 @@ void CProjectileResult::Init
 	
 	m_ProjData.IncidenceAngle = idMath::Abs( idMath::ACos( fTemp ) );
 
-	// Move to the point of the collision, hide self
-	Hide();
+	// Move to the point of the collision
 	GetPhysics()->SetOrigin( pData->FinalOrigin );
 	GetPhysics()->SetAxis( pData->FinalAxis );
+
+	// SZ: Dec 19: Had to change it from Hide() to Show() so the AI could see them
+	// Show self so AI can see it
+	Show();
 
 	// The stim type of the projectile result is defined on the projectile itself
 	// even though it is not used there. Logically, the stim type is a part of the
@@ -171,10 +177,11 @@ void CProjectileResult::Init
 		Event_CopyBind( pProj );
 	}
 
-	// Run scripts:
 
+	// Run scripts:
 	RunResultScript();
 }
+
 
 
 void CProjectileResult::RunResultScript( void )
