@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 762 $
- * $Date: 2007-01-23 09:06:52 -0500 (Tue, 23 Jan 2007) $
- * $Author: thelvyn $
+ * $Revision: 768 $
+ * $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.108  2007/01/26 12:52:33  sparhawk
+ * New inventory concept.
+ *
  * Revision 1.107  2007/01/23 14:06:06  thelvyn
  * Removed mouse hook, removed some tracing for debugging ai falling damage, have to implement something better.
  *
@@ -360,7 +363,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 762 $   $Date: 2007-01-23 09:06:52 -0500 (Tue, 23 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 768 $   $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -2083,7 +2086,7 @@ void idPlayer::Spawn( void )
 	pm_walkspeed.SetFloat( gameLocal.m_walkSpeed );
 
 	// Have the player's cursor point to their own inventory by default.
-	InventoryCursor()->SetInventory( Inventory() );
+	//InventoryCursor()->SetInventory( Inventory() );
 
 	m_invDisplayed = new CtdmInventoryCursor();
 	// Perhaps I should do full-blown code to write an error if this occurs,
@@ -9904,36 +9907,45 @@ float idPlayer::GetMovementVolMod( void )
 idPlayer::inventoryNextItem
 =====================
 */
-void idPlayer::inventoryNextItem() {
-	assert( hud && InventoryCursor() );
+void idPlayer::inventoryNextItem()
+{
+/*	assert( hud && InventoryCursor() );
 
 	InventoryCursor()->IterateItem( false );
 	inventoryChangeSelection( hud, 1 );
+*/
 }
 
-void idPlayer::inventoryPrevItem() {
-	assert( hud && InventoryCursor() );
+void idPlayer::inventoryPrevItem()
+{
+/*	assert( hud && InventoryCursor() );
 
 	InventoryCursor()->IterateItem( true );
 	inventoryChangeSelection( hud, -1 );
+*/
 }
 
-void idPlayer::inventoryNextGroup() {
-	assert( hud && InventoryCursor() );
+void idPlayer::inventoryNextGroup()
+{
+/*	assert( hud && InventoryCursor() );
 
 	InventoryCursor()->IterateGroup( false );
 	inventoryChangeSelection( hud );
+*/
 }
 
-void idPlayer::inventoryPrevGroup() {
-	assert( hud && InventoryCursor() );
+void idPlayer::inventoryPrevGroup()
+{
+/*	assert( hud && InventoryCursor() );
 
 	InventoryCursor()->IterateGroup( true );
 	inventoryChangeSelection( hud );
+*/
 }
 
-void idPlayer::inventoryUseItem() {
-	assert( InventoryCursor() );
+void idPlayer::inventoryUseItem()
+{
+/*	assert( InventoryCursor() );
 
 	// Is there anything in our hands?
 	idEntity* useEnt = g_Global.m_DarkModPlayer->grabber->GetSelected();
@@ -9949,10 +9961,12 @@ void idPlayer::inventoryUseItem() {
 		if (thread)
 			thread->Start(); // Start the thread immediately.
 	}
+*/
 }
 
-void idPlayer::inventoryUseItem( idEntity* useEnt ) {
-	assert( InventoryCursor() );
+void idPlayer::inventoryUseItem( idEntity* useEnt )
+{
+/*	assert( InventoryCursor() );
 
 	// If the item is outside our current inventory, it can't be used.
 	CtdmInventoryItem* item = useEnt->InventoryItem();
@@ -9962,9 +9976,12 @@ void idPlayer::inventoryUseItem( idEntity* useEnt ) {
 		if (thread)
 			thread->Start(); // Start the thread immediately.
 	}
+*/
 }
 
-void idPlayer::inventoryDropItem() {
+void idPlayer::inventoryDropItem()
+{
+/*
 	// Is there anything in our hands?
 	idEntity* useEnt = g_Global.m_DarkModPlayer->grabber->GetSelected();
 	// If not, do we have anything selected?
@@ -9979,11 +9996,12 @@ void idPlayer::inventoryDropItem() {
 		if (thread)
 			thread->Start(); // Start the thread immediately.
 	}
+*/
 }
 
-void idPlayer::inventoryChangeSelection( idUserInterface *_hud, float shift ) {
-
-	assert( InventoryCursor() );
+void idPlayer::inventoryChangeSelection( idUserInterface *_hud, float shift )
+{
+/*	assert( InventoryCursor() );
 	assert( m_invDisplayed );
 
 	CtdmInventoryItem* newItem = InventoryCursor()->Item();
@@ -10027,6 +10045,7 @@ void idPlayer::inventoryChangeSelection( idUserInterface *_hud, float shift ) {
 	_hud->SetStateString( "inventoryOpacity", va( "%f", cv_tdm_inv_opacity.GetFloat() ) );
 	_hud->StateChanged( gameLocal.time );
 	_hud->HandleNamedEvent( "inventoryUpdateOpacity" );
+*/
 }
 
 /*

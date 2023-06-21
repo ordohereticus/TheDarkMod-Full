@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 736 $
- * $Date: 2007-01-19 05:09:24 -0500 (Fri, 19 Jan 2007) $
- * $Author: thelvyn $
+ * $Revision: 768 $
+ * $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.16  2007/01/26 12:52:41  sparhawk
+ * New inventory concept.
+ *
  * Revision 1.15  2007/01/19 10:09:24  thelvyn
  * Removed old mouse handling code.
  * Registered some fonts for gui screen display of text.
@@ -64,7 +67,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 736 $   $Date: 2007-01-19 05:09:24 -0500 (Fri, 19 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 768 $   $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $", init_version);
 
 #include "../Game_local.h"
 #include "../../darkmod/sndproploader.h"
@@ -328,7 +331,7 @@ Cmd_InventoryHotkey_f
 */
 void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 {
-	static const char *key = "inv_hotkey";
+/*	static const char *key = "inv_hotkey";
 
 	if ( 0 > args.Argc() || args.Argc() > 2 ) {
 		gameLocal.Printf( "Usage: %s [item]\n", args.Argv(0) );
@@ -400,6 +403,7 @@ void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 
 	Quit:
 	return;
+*/
 }
 
 /*
@@ -409,7 +413,7 @@ Cmd_InventoryUse_f
 */
 void Cmd_InventoryUse_f( const idCmdArgs &args )
 {
-	static const char *key = "inv_hotkey";
+/*	static const char *key = "inv_hotkey";
 
 	if ( 0 > args.Argc() || args.Argc() > 2 ) {
 		gameLocal.Printf( "Usage: %s [item]\n", args.Argv(0) );
@@ -471,6 +475,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 
 	Quit:
 	return;
+*/
 }
 
 /*

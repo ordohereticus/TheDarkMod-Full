@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 762 $
- * $Date: 2007-01-23 09:06:52 -0500 (Tue, 23 Jan 2007) $
- * $Author: thelvyn $
+ * $Revision: 768 $
+ * $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $
+ * $Author: sparhawk $
  *
  * $Log$
+ * Revision 1.90  2007/01/26 12:52:33  sparhawk
+ * New inventory concept.
+ *
  * Revision 1.89  2007/01/23 14:06:06  thelvyn
  * Removed mouse hook, removed some tracing for debugging ai falling damage, have to implement something better.
  *
@@ -302,7 +305,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Source$  $Revision: 762 $   $Date: 2007-01-23 09:06:52 -0500 (Tue, 23 Jan 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 768 $   $Date: 2007-01-26 07:52:50 -0500 (Fri, 26 Jan 2007) $", init_version);
 
 #include "Game_local.h"
 #include "../darkmod/darkmodglobals.h"
@@ -5765,3 +5768,36 @@ void idGameLocal::PauseGame( bool bPauseState )
 	}
 }
 
+void idGameLocal::AddInventoryEntity(const idStr &TargetName, const idStr &ItemName)
+{
+	SInventoryTarget *s = new SInventoryTarget();
+	s->mTarget = TargetName;
+	s->mItem = ItemName;
+	mInventoryList.Append(s);
+}
+
+bool idGameLocal::GetInventoryEntity(const idStr &TargetName, idEntity **e)
+{
+	bool rc = false;
+	int i;
+
+	if(e == NULL)
+		goto Quit;
+
+	*e = NULL;
+
+	for(i = 0; i < mInventoryList.Num(); i++)
+	{
+		if(mInventoryList[i]->mTarget == TargetName)
+		{
+			*e = FindEntity(mInventoryList[i]->mItem);
+			delete mInventoryList[i];
+			mInventoryList.RemoveIndex(i);
+			rc = true;
+			break;
+		}
+	}
+
+Quit:
+	return rc;
+}
