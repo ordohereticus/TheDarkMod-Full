@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1947 $
- * $Date: 2008-01-03 13:21:04 -0500 (Thu, 03 Jan 2008) $
+ * $Revision: 1952 $
+ * $Date: 2008-01-04 10:26:45 -0500 (Fri, 04 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1947 2008-01-03 18:21:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1952 2008-01-04 15:26:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4870,7 +4870,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		}
 		case IMPULSE_19: // Toggle Objectives GUI (was previously assigned to the PDA)
 		{
-			ToggleObjectivesGUI();
+			// ToggleObjectivesGUI(); // greebo: disabled for Thief's Den release
 			break;
 		}
 		case IMPULSE_20:
