@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1403 $
- * $Date: 2007-10-03 21:48:34 -0400 (Wed, 03 Oct 2007) $
+ * $Revision: 1404 $
+ * $Date: 2007-10-03 22:04:10 -0400 (Wed, 03 Oct 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1403 2007-10-04 01:48:34Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1404 2007-10-04 02:04:10Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -485,7 +485,7 @@ idActor::idActor( void ) {
 
 	waitState			= "";
 	
-	blink_anim			= NULL;
+	blink_anim			= 0;
 	blink_time			= 0;
 	blink_min			= 0;
 	blink_max			= 0;
@@ -1266,7 +1266,7 @@ void idActor::CheckBlink( void ) {
 	}
 
 	// set the next blink time
-	blink_time = gameLocal.time + blink_min + gameLocal.random.RandomFloat() * ( blink_max - blink_min );
+	blink_time = gameLocal.time + blink_min + gameLocal.random.RandomInt( blink_max - blink_min );
 }
 
 /*
@@ -2486,7 +2486,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		gameLocal.Error( "Unknown damageDef '%s'", damageDefName );
 	}
 
-	damage = damageDef->GetInt( "damage" ) * damageScale;
+	damage = (int)(damageDef->GetInt( "damage" ) * damageScale);
 
 	damage = GetDamageForLocation( damage, location );
 
@@ -3044,7 +3044,7 @@ idActor::Event_EnableEyeFocus
 */
 void idActor::Event_EnableEyeFocus( void ) {
 	allowEyeFocus = true;
-	blink_time = gameLocal.time + blink_min + gameLocal.random.RandomFloat() * ( blink_max - blink_min );
+	blink_time = gameLocal.time + blink_min + gameLocal.random.RandomInt( blink_max - blink_min );
 }
 
 /*
@@ -3695,7 +3695,7 @@ idActor::Event_HasAnim
 ================
 */
 void idActor::Event_HasAnim( int channel, const char *animname ) {
-	if ( GetAnim( channel, animname ) != NULL ) {
+	if ( GetAnim( channel, animname ) ) {
 		idThread::ReturnFloat( 1.0f );
 	} else {
 		idThread::ReturnFloat( 0.0f );
