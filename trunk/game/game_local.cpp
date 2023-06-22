@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2212 $
- * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2213 $
+ * $Date: 2008-04-26 03:10:34 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2212 2008-04-26 06:31:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2213 2008-04-26 07:10:34Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3096,7 +3096,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			if (!gui->GetStateBool("SuccessScreenActive"))
 			{
 				// Load the statistics into the GUI
-				m_MissionData->UpdateStatisticsGUI(gui, "stats");
+				m_MissionData->UpdateStatisticsGUI(gui, "listStatistics");
 
 				// Show the success GUI
 				gui->HandleNamedEvent("ShowSuccessScreen");
