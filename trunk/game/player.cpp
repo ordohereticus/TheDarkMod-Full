@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1315 $
- * $Date: 2007-08-25 13:49:16 -0400 (Sat, 25 Aug 2007) $
+ * $Revision: 1328 $
+ * $Date: 2007-08-27 04:59:58 -0400 (Mon, 27 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1315 2007-08-25 17:49:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1328 2007-08-27 08:59:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9126,6 +9126,12 @@ void idPlayer::FrobCheck( void )
 	float	TraceDist;
 	idVec3 delta, VecForward;
 	idBounds FrobBounds;
+
+	// greebo: Don't run this when dead
+	if (AI_DEAD) 
+	{
+		return;
+	}
 
 	idVec3	EyePos = GetEyePosition();
 	idVec3 start = EyePos;
