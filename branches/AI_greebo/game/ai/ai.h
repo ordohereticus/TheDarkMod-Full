@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1453 $
- * $Date: 2007-10-18 11:09:44 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1466 $
+ * $Date: 2007-10-19 07:54:19 -0400 (Fri, 19 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -753,7 +753,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	idScriptFloat			AI_AlertIndex;
 	
 	/* Additional scriptvars, imported from scripting. TODO: Document properly (for now, see script for docs) */
-	idScriptVector			AI_lastAlertPosSearched;
+	idScriptVector			AI_lastAlertPosSearched; // greebo: TODO: Remove this, idVec3 doesn't work?
 	idScriptFloat			AI_chancePerSecond_RandomLookAroundWhileIdle;
 	idScriptFloat			AI_timeOfLastStimulusBark;
 	idScriptFloat			AI_currentAlertLevelDuration;
