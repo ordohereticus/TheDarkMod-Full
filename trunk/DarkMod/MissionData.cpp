@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1893 $
- * $Date: 2007-12-25 10:35:42 -0500 (Tue, 25 Dec 2007) $
+ * $Revision: 1903 $
+ * $Date: 2007-12-26 14:53:20 -0500 (Wed, 26 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1893 2007-12-25 15:35:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1903 2007-12-26 19:53:20Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2020,6 +2020,19 @@ When we advance to the next matrix spot, it can happen in two ways:
 
 Quit:
 	return bReturnVal;
+}
+
+void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle) 
+{
+	assert(entity != NULL); // don't accept NULL entities.
+
+	for (int i = 0; i < m_Objectives.Num(); i++) 
+	{
+		idStr prefix = va("obj%d", i+1);
+		entity->Event_SetGuiString(overlayHandle, prefix + "_text", m_Objectives[i].m_text);
+		entity->Event_SetGuiInt(overlayHandle, prefix + "_state", m_Objectives[i].m_state);
+		entity->Event_SetGuiInt(overlayHandle, prefix + "_visible", m_Objectives[i].m_bVisible);
+	}
 }
 
 void CObjective::Save( idSaveGame *savefile ) const

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1900 $
- * $Date: 2007-12-26 13:38:18 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1903 $
+ * $Date: 2007-12-26 14:53:20 -0500 (Wed, 26 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1900 2007-12-26 18:38:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1903 2007-12-26 19:53:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4727,6 +4727,10 @@ void idPlayer::ToggleObjectivesGUI()
 	{
 		// Objectives GUI not yet open, create
 		objectiveGUIHandle = CreateOverlay(cv_tdm_objectives_gui.GetString(), LAYER_OBJECTIVES);
+		
+		// Update the GUI with the current data
+		gameLocal.m_MissionData->UpdateGUIState(this, objectiveGUIHandle);
+
 		SetImmobilization("obj_gui", EIM_OBJECTIVES_OPEN);
 		gameLocal.PauseGame(true);
 	}

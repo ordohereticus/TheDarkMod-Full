@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1877 $
- * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
- * $Author: ishtvan $
+ * $Revision: 1903 $
+ * $Date: 2007-12-26 14:53:20 -0500 (Wed, 26 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -618,6 +618,15 @@ public:
 	* Returns the index of the LAST objective added, for later addressing
 	**/
 	int AddObjsFromEnt( idEntity *ent );
+
+	/**
+	 * greebo: This updates the given GUI overlay with the current
+	 *         missiondata (objectives state). Called by idPlayer class.
+	 *
+	 * @entity: The entity whose GUI should be updated (usually the player).
+	 * @overlayHandle: the handle of the GUI to be updated.
+	 */
+	void UpdateGUIState(idEntity* entity, int overlayHandle);
 
 // Events
 	/**
