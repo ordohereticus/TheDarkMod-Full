@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1295 $
- * $Date: 2007-08-16 06:09:27 -0400 (Thu, 16 Aug 2007) $
+ * $Revision: 1297 $
+ * $Date: 2007-08-16 06:11:09 -0400 (Thu, 16 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1295 2007-08-16 10:09:27Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1297 2007-08-16 10:11:09Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
