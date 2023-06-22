@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1578 $
- * $Date: 2007-10-27 18:20:44 -0400 (Sat, 27 Oct 2007) $
+ * $Revision: 1585 $
+ * $Date: 2007-10-29 04:21:24 -0400 (Mon, 29 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1578 2007-10-27 22:20:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1585 2007-10-29 08:21:24Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1669,8 +1669,15 @@ void idAI::Think( void )
 		// greebo: We always rely on having a mind
 		assert(mind);
 
+		idTimer thinkTimer;
+		thinkTimer.Clear();
+		thinkTimer.Start();
+
 		// Let the mind do the thinking (after the move updates)
 		mind->Think();
+
+		thinkTimer.Stop();
+		DM_LOG(LC_AI,LT_DEBUG).LogString("Mind's thinking timer says: %lf msecs.\r", thinkTimer.Milliseconds());
 
 		// Clear DarkMod per frame vars now that the mind had time to think
 		AI_ALERTED = false;
