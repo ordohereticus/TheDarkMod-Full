@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1588 $
- * $Date: 2007-10-29 08:38:20 -0400 (Mon, 29 Oct 2007) $
+ * $Revision: 1591 $
+ * $Date: 2007-10-29 10:20:26 -0400 (Mon, 29 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1588 2007-10-29 12:38:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1591 2007-10-29 14:20:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1039,10 +1039,10 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	mind->Restore(savefile);
 
 	// Allocate and install the subsystems
-	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysSenses,		ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysAction,		ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(ai::SubsysMovement, this)));
+	InstallSubsystem(ai::SubsysSenses,		ai::SubsystemPtr(new ai::Subsystem(ai::SubsysSenses, this)));
+	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr(new ai::Subsystem(ai::SubsysCommunication, this)));
+	InstallSubsystem(ai::SubsysAction,		ai::SubsystemPtr(new ai::Subsystem(ai::SubsysAction, this)));
 
 	// Subsystems are already allocated in the constructor
 	for (int i = 0; i < ai::SubsystemCount; i++) 
@@ -1082,10 +1082,10 @@ void idAI::Spawn( void )
 	mind = ai::MindPtr(new ai::BasicMind(this));
 
 	// Allocate and install the subsystems
-	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysSenses,		ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysAction,		ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(ai::SubsysMovement, this)));
+	InstallSubsystem(ai::SubsysSenses,		ai::SubsystemPtr(new ai::Subsystem(ai::SubsysSenses, this)));
+	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr(new ai::Subsystem(ai::SubsysCommunication, this)));
+	InstallSubsystem(ai::SubsysAction,		ai::SubsystemPtr(new ai::Subsystem(ai::SubsysAction, this)));
 
 	if ( !g_monsters.GetBool() ) {
 		PostEventMS( &EV_Remove, 0 );
