@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1177 $
- * $Date: 2007-07-22 02:59:14 -0400 (Sun, 22 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1234 $
+ * $Date: 2007-07-29 03:21:32 -0400 (Sun, 29 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -148,13 +148,8 @@ public:
 	CObjectiveComponent( void );
 	virtual ~CObjectiveComponent( void );
 
-	/**
-	* Input type and argument data for the objective component.
-	* The specification method list, integer arguments list and string arguments
-	* list should all be filled before calling this to copy them in.
-	**/
-//	Setup( EComponentType type, idList<ESpecificationMethod> &SpecMethods, 
-//			idList<int> &IntArgs, idStrList &StrArgs );  
+	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
 
 	/**
 	* Update the state of the objective component.  
@@ -267,8 +262,10 @@ public:
 	friend class CMissionData;
 
 	CObjective( void );
-
 	virtual ~CObjective( void );
+
+	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
 
 	void Clear( void );
 
@@ -313,12 +310,7 @@ public:
 	* True if this objective applies to the current skill level. Otherwise
 	* the objective can be ignored.
 	**/
-	bool m_applies;
-
-	/**
-	* Handle for the FM author to refer to this objective (Not Yet Implemented)
-	**/
-	int m_handle;
+	bool m_bApplies;
 
 protected:
 	/**
@@ -337,6 +329,11 @@ protected:
 	* Integer index of this objective in the array
 	**/
 	int	m_ObjNum;
+
+	/**
+	* Handle for the FM author to refer to this objective (Not Yet Implemented)
+	**/
+	int m_handle;
 
 	/**
 	* Completion state.  Either COMP_INCOMPLETE, COMP_COMPLETE, COMP_FAILED or COMP_INVALID
