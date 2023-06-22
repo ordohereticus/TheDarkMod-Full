@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1915 $
- * $Date: 2007-12-27 15:10:16 -0500 (Thu, 27 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1993 $
+ * $Date: 2008-01-16 05:34:09 -0500 (Wed, 16 Jan 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -116,6 +116,7 @@ extern idCVar cv_drag_encumber_max;
 extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;
 extern idCVar cv_throw_time;
+extern idCVar cv_throw_max_vel;
 
 extern idCVar cv_tdm_rope_pull_force_factor;
 
