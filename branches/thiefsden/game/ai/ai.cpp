@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1962 $
- * $Date: 2008-01-07 11:46:33 -0500 (Mon, 07 Jan 2008) $
+ * $Revision: 1964 $
+ * $Date: 2008-01-07 15:00:19 -0500 (Mon, 07 Jan 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1962 2008-01-07 16:46:33Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1964 2008-01-07 20:00:19Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -3804,7 +3804,7 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos ) {
 				avoidBounds[1] = moverBounds[1] + idVec3(stopDistance, stopDistance, 0);
 				// gameRenderWorld->DebugBox(colorYellow, idBox(avoidBounds), gameLocal.msec);
 				
-				/*
+/*
 				// old version
 				delta.x = avoidBounds[1][0] - avoidBounds[0][0];
 				delta.y = avoidBounds[1][1] - avoidBounds[0][1];
@@ -3816,7 +3816,7 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos ) {
 				sizePerpGrav = gravity.Cross (delta);
 
 				stopDistance = sizePerpGrav.Length();
-
+*/
 				// The door becomes an active dynamic pathing obstacle when we
 				// reach that distance (we will open the door at that point)
 				if ( physicsObj.GetAbsBounds().IntersectsBounds(avoidBounds) )
