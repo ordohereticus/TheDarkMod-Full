@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2164 $
+ * $Date: 2008-03-30 05:48:55 -0400 (Sun, 30 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -126,7 +126,7 @@ extern idSoundWorld *				gameSoundWorld;
 extern idSoundWorld *			gameSoundWorldBuf;
 
 // the "gameversion" client command will print this plus compile date
-#define	GAME_VERSION		"baseDOOM-1"
+#define	GAME_VERSION		"The Dark Mod"
 
 // classes used by idGameLocal
 class idEntity;
