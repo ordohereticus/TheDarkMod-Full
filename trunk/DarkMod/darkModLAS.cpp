@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2033 $
- * $Date: 2008-02-02 08:52:52 -0500 (Sat, 02 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2064 $
+ * $Date: 2008-02-09 02:11:47 -0500 (Sat, 09 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 2033 2008-02-02 13:52:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 2064 2008-02-09 07:11:47Z greebo $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -687,6 +687,9 @@ float darkModLAS::queryLightingAlongLine
 		bool b_useShadows
 )
 {
+	idTimer lightingTimer;
+	lightingTimer.Clear();
+	lightingTimer.Start();
 	if (p_ignoreEntity != NULL)
 	{
 		DM_LOG(LC_LIGHT, LT_DEBUG).LogString
@@ -804,6 +807,9 @@ float darkModLAS::queryLightingAlongLine
 		testPoint2.x, testPoint2.y, testPoint2.z,
 		totalIllumination
 	);
+
+	lightingTimer.Stop();
+	DM_LOG(LC_LIGHT, LT_INFO).LogString("Lighing along line took %lf\r", lightingTimer.Milliseconds());
 
 	// Return total illumination value to the caller
 	return totalIllumination;
