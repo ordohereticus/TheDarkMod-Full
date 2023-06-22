@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1290 $
- * $Date: 2007-08-15 04:35:41 -0400 (Wed, 15 Aug 2007) $
+ * $Revision: 1298 $
+ * $Date: 2007-08-16 07:00:09 -0400 (Thu, 16 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -141,6 +141,8 @@ typedef struct SAddedEnt_s
 	// Must store string name because body ID's get reassigned when any are deleted
 	idStr bodyName;
 	// don't need to store constraint since they are deleted along with body
+
+	int contents; // original clipmodel contents
 } SAddedEnt;
 
 

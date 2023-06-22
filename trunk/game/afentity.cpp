@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1295 $
- * $Date: 2007-08-16 06:09:27 -0400 (Thu, 16 Aug 2007) $
+ * $Revision: 1298 $
+ * $Date: 2007-08-16 07:00:09 -0400 (Thu, 16 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1295 2007-08-16 10:09:27Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1298 2007-08-16 11:00:09Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1181,7 +1181,6 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Linking clipmodel copy... \r" );
 	NewClip->Link( gameLocal.clip, this, 0, orig, axis );
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Clipmodel linked.\r");
-	// Leave the old clipmodel active for stim/response?
 
 	// Add the mass in the AF Structure
 	density = idMath::Fabs( EntMass / MassOut );
@@ -1204,8 +1203,20 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 	SAddedEnt Entry;
 	Entry.ent = ent;
 	Entry.bodyName = AddName;
+	Entry.contents = EntClip->GetContents();
 
 	m_AddedEnts.Append( Entry );
+
+	// Disable the entity's clipmodel
+	// leave CONTENTS_RESPONSE and CONTENTS_FROBABLE alone
+	int SetContents = 0;
+	if( (EntClip->GetContents() & CONTENTS_RESPONSE) != 0 )
+		SetContents = CONTENTS_RESPONSE;
+	if( (EntClip->GetContents() & CONTENTS_FROBABLE) != 0 )
+		SetContents = SetContents | CONTENTS_FROBABLE;
+
+	EntClip->SetContents( SetContents );
+		
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Done.\r");
 }
 
@@ -1217,9 +1228,8 @@ void idAFEntity_Base::UnbindNotify( idEntity *ent )
 	{
 		if(ent && (m_AddedEnts[i].ent.GetEntity() == ent))
 		{
-			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("UnbindNotify: Destroyed added body for ent %s\r", ent->name.c_str());
-			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("UnbindNotify: Deleting body named %s\r",  m_AddedEnts[i].bodyName.c_str());
 			GetAFPhysics()->DeleteBody( m_AddedEnts[i].bodyName.c_str() );
+			ent->GetPhysics()->SetContents( m_AddedEnts[i].contents );
 			m_AddedEnts.RemoveIndex(i);
 		}
 	}
