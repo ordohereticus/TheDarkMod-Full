@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1408 $
- * $Date: 2007-10-07 05:40:48 -0400 (Sun, 07 Oct 2007) $
+ * $Revision: 1420 $
+ * $Date: 2007-10-10 20:57:29 -0400 (Wed, 10 Oct 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 1408 2007-10-07 09:40:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 1420 2007-10-11 00:57:29Z ishtvan $", init_version);
 
 #include "game_local.h"
 
@@ -991,6 +991,9 @@ bool idAF::Load( idEntity *ent, const char *fileName ) {
 	physicsObj.DisableClip();
 
 	isLoaded = true;
+
+	physicsObj.SetNumOrigBodies( physicsObj.GetNumBodies() );
+	physicsObj.SetNumOrigConstraints( physicsObj.GetNumConstraints() );
 
 	return true;
 }
