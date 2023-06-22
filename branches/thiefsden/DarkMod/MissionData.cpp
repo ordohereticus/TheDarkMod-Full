@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1978 $
- * $Date: 2008-01-12 11:10:09 -0500 (Sat, 12 Jan 2008) $
+ * $Revision: 1979 $
+ * $Date: 2008-01-12 16:42:00 -0500 (Sat, 12 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1978 2008-01-12 16:10:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1979 2008-01-12 21:42:00Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -262,7 +262,7 @@ void CMissionData::Save( idSaveGame *savefile ) const
 		savefile->WriteInt( m_Stats.AIStats[j].WhileAirborne );
 		for( int k1=0; k1 < MAX_TEAMS; k1++ )
 			savefile->WriteInt( m_Stats.AIStats[j].ByTeam[k1] );
-		for( int k2=0; k2 < MAX_TEAMS; k2++ )
+		for( int k2=0; k2 < MAX_TYPES; k2++ )
 			savefile->WriteInt( m_Stats.AIStats[j].ByType[k2] );
 		savefile->WriteInt( m_Stats.AIStats[j].ByInnocence[0] );
 		savefile->WriteInt( m_Stats.AIStats[j].ByInnocence[1] );
@@ -274,7 +274,7 @@ void CMissionData::Save( idSaveGame *savefile ) const
 		savefile->WriteInt( m_Stats.AIAlerts[l].WhileAirborne );
 		for( int m1=0; m1 < MAX_TEAMS; m1++ )
 			savefile->WriteInt( m_Stats.AIAlerts[l].ByTeam[m1] );
-		for( int m2=0; m2 < MAX_TEAMS; m2++ )
+		for( int m2=0; m2 < MAX_TYPES; m2++ )
 			savefile->WriteInt( m_Stats.AIAlerts[l].ByType[m2] );
 		savefile->WriteInt( m_Stats.AIAlerts[l].ByInnocence[0] );
 		savefile->WriteInt( m_Stats.AIAlerts[l].ByInnocence[1] );
@@ -319,7 +319,7 @@ void CMissionData::Restore( idRestoreGame *savefile )
 		savefile->ReadInt( m_Stats.AIStats[j].WhileAirborne );
 		for( int k1=0; k1 < MAX_TEAMS; k1++ )
 			savefile->ReadInt( m_Stats.AIStats[j].ByTeam[k1] );
-		for( int k2=0; k2 < MAX_TEAMS; k2++ )
+		for( int k2=0; k2 < MAX_TYPES; k2++ )
 			savefile->ReadInt( m_Stats.AIStats[j].ByType[k2] );
 		savefile->ReadInt( m_Stats.AIStats[j].ByInnocence[0] );
 		savefile->ReadInt( m_Stats.AIStats[j].ByInnocence[1] );
@@ -331,7 +331,7 @@ void CMissionData::Restore( idRestoreGame *savefile )
 		savefile->ReadInt( m_Stats.AIAlerts[l].WhileAirborne );
 		for( int m1=0; m1 < MAX_TEAMS; m1++ )
 			savefile->ReadInt( m_Stats.AIAlerts[l].ByTeam[m1] );
-		for( int m2=0; m2 < MAX_TEAMS; m2++ )
+		for( int m2=0; m2 < MAX_TYPES; m2++ )
 			savefile->ReadInt( m_Stats.AIAlerts[l].ByType[m2] );
 		savefile->ReadInt( m_Stats.AIAlerts[l].ByInnocence[0] );
 		savefile->ReadInt( m_Stats.AIAlerts[l].ByInnocence[1] );
