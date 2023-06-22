@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1648 $
- * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1654 $
+ * $Date: 2007-11-02 13:01:29 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -570,6 +570,11 @@ public:
 	ID_INLINE ai::MindPtr& GetMind()
 	{
 		return mind;
+	}
+
+	ID_INLINE ai::Memory& GetMemory()
+	{
+		return mind->GetMemory();
 	}
 
 protected:
