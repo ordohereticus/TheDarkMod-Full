@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1946 $
- * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 1949 $
+ * $Date: 2008-01-03 14:59:41 -0500 (Thu, 03 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -805,6 +805,10 @@ protected:
 	* Objective system: Location's objective group name for objective checks
 	**/
 	idStr		m_ObjectiveGroup;
+
+private:
+	idClipModel *		clipModel;
+
 
 }; // CObjectiveLocation
 

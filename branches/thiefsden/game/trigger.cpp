@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1949 $
+ * $Date: 2008-01-03 14:59:41 -0500 (Thu, 03 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: trigger.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: trigger.cpp 1949 2008-01-03 19:59:41Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
@@ -1118,7 +1118,8 @@ void idTrigger_Touch::TouchEntities( void ) {
 	idBounds bounds;
 	idClipModel *cm, *clipModelList[ MAX_GENTITIES ];
 
-	if ( clipModel == NULL || scriptFunction == NULL ) {
+	if ( clipModel == NULL)
+	{
 		return;
 	}
 
@@ -1145,9 +1146,12 @@ void idTrigger_Touch::TouchEntities( void ) {
 
 		ActivateTargets( entity );
 
-		idThread *thread = new idThread();
-		thread->CallFunction( entity, scriptFunction, false );
-		thread->DelayedStart( 0 );
+		if (scriptFunction != NULL)
+		{
+			idThread *thread = new idThread();
+			thread->CallFunction( entity, scriptFunction, false );
+			thread->DelayedStart( 0 );
+		}
 	}
 }
 
