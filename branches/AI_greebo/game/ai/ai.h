@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1523 $
- * $Date: 2007-10-22 13:14:56 -0400 (Mon, 22 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1525 $
+ * $Date: 2007-10-22 13:35:07 -0400 (Mon, 22 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -396,14 +396,25 @@ public:
 	**/
 
 	/**
-	* Do a visibility calculation based on 3 things:
-	* The lightgem value, the distance to entity, and the movement velocity
-	* of the entity.
+	* Do a visibility calculation based on 2 things:
+	* The lightgem value, and the distance to entity
+	* NYI: take velocity into account
 	*
 	* The visibility can also be integrated over a number
 	* of frames if we need to do that for optimization later.
 	**/
 	float GetVisibility( idEntity *ent ) const;
+
+	/**
+	* angua: The uncorrected linear light values [1..DARKMOD_LG_MAX] 
+	* didn't produce very believable results when used 
+	* in GetVisibility(). This function takes the linear values
+	* and corrects them with an "empirical" correction curve.
+	* 
+	* @returns: a float between [0...1].It is fairly high at 
+	* values above 20, fairly low below 6 and increases linearly in between.
+	**/
+	float GetCalibratedLightgemValue() const;
 
 	/**
 	* Checks enemies in the AI's FOV and calls Alert( "vis", amount )
