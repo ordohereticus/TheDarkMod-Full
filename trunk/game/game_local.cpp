@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1345 $
- * $Date: 2007-08-29 04:21:00 -0400 (Wed, 29 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1352 $
+ * $Date: 2007-08-29 10:13:23 -0400 (Wed, 29 Aug 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1345 2007-08-29 08:21:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1352 2007-08-29 14:13:23Z sparhawk $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -589,7 +589,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// greebo: Save the priority queue list
 	savegame.WriteInt(m_PriorityQueues.Num());
-	for (int i = 0; i < m_PriorityQueues.Num(); i++)
+	for (i = 0; i < m_PriorityQueues.Num(); i++)
 	{
 		m_PriorityQueues[i]->Save(&savegame);
 	}
@@ -1478,7 +1478,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	int numQueues;
 	savegame.ReadInt(numQueues);
 	m_PriorityQueues.Clear();
-	for (int i = 0; i < numQueues; i++)
+	for (i = 0; i < numQueues; i++)
 	{
 		CPriorityQueue* queue = new CPriorityQueue;
 		queue->Restore(&savegame);
