@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2030 $
+ * $Date: 2008-01-29 11:38:24 -0500 (Tue, 29 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2030 2008-01-29 16:38:24Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -97,6 +97,12 @@ void idMoveable::Spawn( void ) {
 	if ( !collisionModelManager->TrmFromModel( clipModelName, trm ) ) {
 		gameLocal.Error( "idMoveable '%s': cannot load collision model %s", name.c_str(), clipModelName.c_str() );
 		return;
+	}
+
+	// angua: check if the cm is valid
+	if (idMath::Fabs(trm.bounds[0].x) == idMath::INFINITY)
+	{
+		gameLocal.Error( "idMoveable '%s': invalid collision model %s", name.c_str(), clipModelName.c_str() );
 	}
 
 	// if the model should be shrinked
