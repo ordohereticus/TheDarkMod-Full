@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1791 $
- * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1794 $
+ * $Date: 2007-11-14 17:59:38 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1791 2007-11-14 16:26:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1794 2007-11-14 22:59:38Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5113,6 +5113,12 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 	LGPos.x += ( Cam.x - Pos.x ) * 0.3; // Move the lightgem out a fraction along the leaning x vector
 	LGPos.y += ( Cam.y - Pos.y ) * 0.3; // Move the lightgem out a fraction along the leaning y vector
 	LGPos.z = Cam.z; // Set the lightgem's Z-axis position to that of the player's eyes
+
+	if (LGPos.z < Pos.z + 50 && static_cast<idPhysics_Player*>(player->GetPlayerPhysics())->IsCrouching())
+	{
+		// Prevent lightgem from clipping into the floor while crouching
+		LGPos.z = Pos.z + 50;
+	}
 
 	// Adjust the modelposition with userdefined offsets.
 	// Move the lightgem testmodel to the players feet based on the eye position
