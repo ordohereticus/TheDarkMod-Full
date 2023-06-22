@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1755 $
- * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 2062 $
+ * $Date: 2008-02-08 14:54:14 -0500 (Fri, 08 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -140,7 +140,8 @@ typedef enum {
 * FC_SETRATE sets the anim rate, used for speeding up/slowing down walking
 * and crouchwalking animations to get correct footstep sounds.
 **/
-	FC_SETRATE
+	FC_SETRATE,
+	FC_REATTACH
 
 } frameCommandType_t;
 

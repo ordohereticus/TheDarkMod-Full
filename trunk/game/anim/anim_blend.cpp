@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2062 $
+ * $Date: 2008-02-08 14:54:14 -0500 (Fri, 08 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 2062 2008-02-08 19:54:14Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -610,7 +610,24 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		fc.type = FC_SETRATE;
 		fc.string = new idStr( token );
 	} 
-	
+	else if ( token == "reattach" ) 
+	{
+		if( !src.ReadTokenOnLine( &token ) ) {
+			return "Unexpected end of line";
+		}
+		fc.type = FC_REATTACH;
+		fc.string = new idStr( token );
+
+		if( !src.ReadTokenOnLine( &token ) ) {
+			return "Unexpected end of line";
+		}
+		
+		jointInfo = modelDef->FindJoint( token );
+		if ( !jointInfo ) {
+			return va( "Joint '%s' not found", token.c_str() );
+		}
+		fc.index = jointInfo->num;
+	}
 	else {
 		return va( "Unknown command '%s'", token.c_str() );
 	}
@@ -950,7 +967,15 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					break;
 				}
 
-
+				case FC_REATTACH:
+				{
+					idActor* actor = dynamic_cast<idActor*>(ent);
+					if (actor != NULL)
+					{
+						// TODO
+					}
+					break;
+				}
 			}
 		}
 	}
