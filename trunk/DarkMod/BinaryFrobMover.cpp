@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1006 $
- * $Date: 2007-06-02 17:38:41 -0400 (Sat, 02 Jun 2007) $
- * $Author: sparhawk $
+ * $Revision: 1220 $
+ * $Date: 2007-07-26 04:01:27 -0400 (Thu, 26 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 1006 2007-06-02 21:38:41Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 1220 2007-07-26 08:01:27Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -68,10 +68,72 @@ CBinaryFrobMover::CBinaryFrobMover(void)
 
 void CBinaryFrobMover::Save(idSaveGame *savefile) const
 {
+	savefile->WriteBool(m_Open);
+	savefile->WriteBool(m_Locked);
+	savefile->WriteBool(m_bIntentOpen);
+	savefile->WriteBool(m_StateChange);
+	savefile->WriteBool(m_bInterruptable);
+	savefile->WriteBool(m_bInterrupted);
+	
+	savefile->WriteFloat(m_Rotate.pitch);
+	savefile->WriteFloat(m_Rotate.yaw);
+	savefile->WriteFloat(m_Rotate.roll);
+	
+	savefile->WriteVec3(m_StartPos);
+	savefile->WriteVec3(m_Translation);
+	savefile->WriteFloat(m_TransSpeed);
+
+	savefile->WriteFloat(m_ClosedAngles.pitch);
+	savefile->WriteFloat(m_ClosedAngles.yaw);
+	savefile->WriteFloat(m_ClosedAngles.roll);
+
+	savefile->WriteFloat(m_OpenAngles.pitch);
+	savefile->WriteFloat(m_OpenAngles.yaw);
+	savefile->WriteFloat(m_OpenAngles.roll);
+
+	savefile->WriteString(m_CompletionScript.c_str());
+
+	savefile->WriteBool(m_Rotating);
+	savefile->WriteBool(m_Translating);
+	savefile->WriteFloat(m_ImpulseThreshCloseSq);
+	savefile->WriteFloat(m_ImpulseThreshOpenSq);
+	savefile->WriteVec3(m_vImpulseDirOpen);
+	savefile->WriteVec3(m_vImpulseDirClose);
 }
 
 void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 {
+	savefile->ReadBool(m_Open);
+	savefile->ReadBool(m_Locked);
+	savefile->ReadBool(m_bIntentOpen);
+	savefile->ReadBool(m_StateChange);
+	savefile->ReadBool(m_bInterruptable);
+	savefile->ReadBool(m_bInterrupted);
+	
+	savefile->ReadFloat(m_Rotate.pitch);
+	savefile->ReadFloat(m_Rotate.yaw);
+	savefile->ReadFloat(m_Rotate.roll);
+	
+	savefile->ReadVec3(m_StartPos);
+	savefile->ReadVec3(m_Translation);
+	savefile->ReadFloat(m_TransSpeed);
+
+	savefile->ReadFloat(m_ClosedAngles.pitch);
+	savefile->ReadFloat(m_ClosedAngles.yaw);
+	savefile->ReadFloat(m_ClosedAngles.roll);
+
+	savefile->ReadFloat(m_OpenAngles.pitch);
+	savefile->ReadFloat(m_OpenAngles.yaw);
+	savefile->ReadFloat(m_OpenAngles.roll);
+
+	savefile->ReadString(m_CompletionScript);
+
+	savefile->ReadBool(m_Rotating);
+	savefile->ReadBool(m_Translating);
+	savefile->ReadFloat(m_ImpulseThreshCloseSq);
+	savefile->ReadFloat(m_ImpulseThreshOpenSq);
+	savefile->ReadVec3(m_vImpulseDirOpen);
+	savefile->ReadVec3(m_vImpulseDirClose);
 }
 
 void CBinaryFrobMover::WriteToSnapshot( idBitMsgDelta &msg ) const

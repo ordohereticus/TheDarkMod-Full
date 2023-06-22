@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1219 $
- * $Date: 2007-07-26 03:54:56 -0400 (Thu, 26 Jul 2007) $
+ * $Revision: 1220 $
+ * $Date: 2007-07-26 04:01:27 -0400 (Thu, 26 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1219 2007-07-26 07:54:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1220 2007-07-26 08:01:27Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -86,6 +86,8 @@ CFrobDoor::~CFrobDoor(void)
 
 void CFrobDoor::Save(idSaveGame *savefile) const
 {
+	CBinaryFrobMover::Save(savefile);
+
 	savefile->WriteString(m_MasterOpen.c_str());
 
 	savefile->WriteInt(m_OpenList.Num());
@@ -126,6 +128,8 @@ void CFrobDoor::Save(idSaveGame *savefile) const
 void CFrobDoor::Restore( idRestoreGame *savefile )
 {
 	int num;
+
+	CBinaryFrobMover::Restore(savefile);
 
 	savefile->ReadString(m_MasterOpen);
 
