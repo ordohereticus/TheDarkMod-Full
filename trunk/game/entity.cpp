@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2226 $
- * $Date: 2008-04-26 15:35:52 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2228 $
+ * $Date: 2008-04-26 16:01:21 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2226 2008-04-26 19:35:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2228 2008-04-26 20:01:21Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8147,6 +8147,16 @@ void idEntity::Event_GetLoot(int LootType)
 
 void idEntity::Event_InitInventory(int callCount)
 {
+	// greebo: Check if this entity represents loot - if yes, update the total mission loot count
+	int lootValue = spawnArgs.GetInt("inv_loot_value", "0");
+	int lootType = spawnArgs.GetInt("inv_loot_type", "0");
+
+	// Check if the loot type is valid
+	if (lootType > CInventoryItem::LT_NONE && lootType < CInventoryItem::LT_COUNT && lootValue != 0) 
+	{
+		gameLocal.m_MissionData->AddMissionLoot(lootType, lootValue);
+	}
+
 	// Check if this object should be put into the inventory of some entity
 	// when the object spawns. Default is no.
 	if (spawnArgs.GetBool("inv_map_start", "0"))

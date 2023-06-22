@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2226 $
- * $Date: 2008-04-26 15:35:52 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2228 $
+ * $Date: 2008-04-26 16:01:21 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2226 2008-04-26 19:35:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2228 2008-04-26 20:01:21Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1644,6 +1644,11 @@ void CMissionData::ChangeFoundLoot(int amount)
 	m_Stats.FoundLoot += amount;
 }
 
+void CMissionData::AddMissionLoot(int lootType, int amount)
+{
+	// greebo: For now, we disregard the various loot types, just add to the sum
+	m_Stats.TotalLootInMission += amount;
+}
 
 // =============== Boolean Logic Parsing for Objective Failure/Success ==============
 
@@ -2363,6 +2368,10 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 
 	key = "Loot Acquired";
 	value = idStr(m_Stats.FoundLoot);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+
+	key = "Total Loot in Mission";
+	value = idStr(m_Stats.TotalLootInMission);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 
 	key = "Killed by the Player";
