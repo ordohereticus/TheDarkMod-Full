@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1750 $
- * $Date: 2007-11-10 20:14:09 -0500 (Sat, 10 Nov 2007) $
+ * $Revision: 1756 $
+ * $Date: 2007-11-11 20:44:49 -0500 (Sun, 11 Nov 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1750 2007-11-11 01:14:09Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1756 2007-11-12 01:44:49Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4970,7 +4970,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		{
 			// If the grabber is active, prev weapon increments the distance
 			if(m_bGrabberActive)
-				g_Global.m_DarkModPlayer->grabber->IncrementDistance( false );
+				g_Global.m_DarkModPlayer->grabber->IncrementDistance( true );
 
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryPrevItem");
@@ -4989,7 +4989,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		{
 			// If the grabber is active, next weapon increments the distance
 			if(m_bGrabberActive)
-				g_Global.m_DarkModPlayer->grabber->IncrementDistance( true );
+				g_Global.m_DarkModPlayer->grabber->IncrementDistance( false );
 
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryNextItem");
