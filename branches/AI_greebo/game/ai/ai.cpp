@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1438 $
- * $Date: 2007-10-17 04:16:06 -0400 (Wed, 17 Oct 2007) $
+ * $Revision: 1439 $
+ * $Date: 2007-10-17 05:30:46 -0400 (Wed, 17 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,11 +13,11 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1438 2007-10-17 08:16:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1439 2007-10-17 09:30:46Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
-#include "../../DarkMod/AI/MovementSubsystem.h"
+#include "../../DarkMod/AI/Subsystem.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
@@ -595,10 +595,11 @@ idAI::idAI()
 
 	m_lipSyncActive		= false;
 
-	subsystems[ai::SubsysMovement] = ai::SubsystemPtr(new ai::MovementSubsystem(this));
-	subsystems[ai::SubsysSenses] = ai::SubsystemPtr();
-	subsystems[ai::SubsysCommunication] = ai::SubsystemPtr();
-	subsystems[ai::SubsysAction] = ai::SubsystemPtr();
+	// Allocate and install the subsystems
+	InstallSubsystem(ai::SubsysMovement, ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysSenses, ai::SubsystemPtr());
+	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr());
+	InstallSubsystem(ai::SubsysAction, ai::SubsystemPtr());
 }
 
 /*

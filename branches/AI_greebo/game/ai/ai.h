@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1438 $
- * $Date: 2007-10-17 04:16:06 -0400 (Wed, 17 Oct 2007) $
+ * $Revision: 1439 $
+ * $Date: 2007-10-17 05:30:46 -0400 (Wed, 17 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -540,7 +540,11 @@ public:
 		return subsystems[id];
 	}
 
-	ID_INLINE void InstallSubsystem(ai::SubsystemId id, ai::SubsystemPtr& subsystem)
+	/**
+	 * greebo: Replaces an AI subsystem with the given one. This removes the old
+	 *         subsystem from the array (which usually triggers a shared_ptr destruction).
+	 */ 
+	ID_INLINE void InstallSubsystem(ai::SubsystemId id, const ai::SubsystemPtr& subsystem)
 	{
 		subsystems[id] = subsystem;
 	}
