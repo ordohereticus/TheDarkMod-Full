@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1293 $
- * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1383 $
+ * $Date: 2007-09-15 14:30:21 -0400 (Sat, 15 Sep 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 1293 2007-08-15 09:29:45Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 1383 2007-09-15 18:30:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -384,6 +384,14 @@ void idProjectile::Launch( const idVec3 &start, const idVec3 &dir, const idVec3 
 	physicsObj.SetLinearVelocity( axis[ 2 ] * speed + pushVelocity );
 	physicsObj.SetAngularVelocity( angular_velocity.ToAngularVelocity() * axis );
 	physicsObj.SetOrigin( start );
+
+	// greebo: Allow overriding of the projectile orientation via "angles" spawnarg
+	idAngles angles;
+	if (spawnArgs.GetAngles("angles", "0 0 0", angles))
+	{
+		axis = angles.ToMat3();
+	}
+
 	physicsObj.SetAxis( axis );
 
 	thruster.SetPosition( &physicsObj, 0, idVec3( GetPhysics()->GetBounds()[ 0 ].x, 0, 0 ) );
