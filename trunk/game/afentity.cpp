@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1316 $
- * $Date: 2007-08-25 14:13:05 -0400 (Sat, 25 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1318 $
+ * $Date: 2007-08-25 21:46:19 -0400 (Sat, 25 Aug 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1316 2007-08-25 18:13:05Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1318 2007-08-26 01:46:19Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1175,8 +1175,7 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 	SAddedEnt Entry;
 	idStr AddName;
 
-	if( !af.IsLoaded() )
-		goto Quit;
+	if( !af.IsLoaded() ) return;
 
 	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("AddEntByBody: Called, ent %s, body %d\r", ent->name.c_str(), bodID );
 
