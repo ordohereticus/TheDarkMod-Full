@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2003 $
- * $Date: 2008-01-22 12:33:20 -0500 (Tue, 22 Jan 2008) $
+ * $Revision: 2008 $
+ * $Date: 2008-01-24 12:58:34 -0500 (Thu, 24 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2003 2008-01-22 17:33:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2008 2008-01-24 17:58:34Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9725,12 +9725,35 @@ bool idPlayer::AddGrabberEntityToInventory()
 	return false;
 }
 
-int idPlayer::GetLightgemModifier()
+int idPlayer::GetLightgemModifier(int curLightgemValue)
 {
 	// Take the compiled lightgem modifier as starting point
-	int returnValue = m_LightgemModifier;
+	int returnValue = curLightgemValue + m_LightgemModifier;
 
-	// First, check the inventory items
+	// greebo: Take the current velocity into account
+	// This is a multiplicative modifier and is applied first
+	{
+		// Get the velocity, but don't take "inherited" speed into account.
+		idVec3 velocityVec = physicsObj.GetLinearVelocity() - physicsObj.GetPushedLinearVelocity();
+
+		const idVec3& gravityDir = physicsObj.GetGravityNormal();
+		velocityVec -= (velocityVec * gravityDir) * gravityDir;
+		
+		float velocity = velocityVec.LengthFast();
+		float minVelocity = cv_lg_velocity_mod_min_velocity.GetFloat();
+		float maxVelocity = cv_lg_velocity_mod_max_velocity.GetFloat();
+
+		float velocityFactor = (velocity - minVelocity) / (maxVelocity - minVelocity);
+
+		// Force the factor into [0..1]
+		if (velocityFactor > 1) velocityFactor = 1;
+		if (velocityFactor < 0) velocityFactor = 0;
+
+		float factor = 1.0f + velocityFactor*cv_lg_velocity_mod_amount.GetFloat();
+		returnValue *= factor;
+	}
+
+	// Check the weapon/inventory items
 	if (m_WeaponCursor != NULL)
 	{
 		CInventoryItem* weapon = m_WeaponCursor->GetCurrentItem();
@@ -9750,22 +9773,6 @@ int idPlayer::GetLightgemModifier()
 	if (physicsObj.IsCrouching())
 	{
 		returnValue += cv_lg_crouch_modifier.GetInteger();
-	}
-
-	// greebo: Take the current velocity into account
-	{
-		float velocity = physicsObj.GetLinearVelocity().LengthFast();
-		float minVelocity = cv_lg_velocity_mod_min_velocity.GetFloat();
-		float maxVelocity = cv_lg_velocity_mod_max_velocity.GetFloat();
-
-		float factor = (velocity - minVelocity) / (maxVelocity - minVelocity);
-
-		// Force the factor into [0..1]
-		if (factor > 1) factor = 1;
-		if (factor < 0) factor = 0;
-
-		int amount = cv_lg_velocity_mod_amount.GetInteger();
-		returnValue += amount * factor;
 	}
 
 	// No need to cap the value, this is done in idGameLocal again.

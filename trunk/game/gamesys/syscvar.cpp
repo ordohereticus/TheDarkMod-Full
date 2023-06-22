@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2007 $
- * $Date: 2008-01-24 12:51:49 -0500 (Thu, 24 Jan 2008) $
- * $Author: newhorizon $
+ * $Revision: 2008 $
+ * $Date: 2008-01-24 12:58:34 -0500 (Thu, 24 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2007 2008-01-24 17:51:49Z newhorizon $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2008 2008-01-24 17:58:34Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -217,7 +217,7 @@ idCVar cv_lg_screen_width("tdm_lg_screen_width",	"640",	CVAR_GAME | CVAR_INTEGER
 idCVar cv_lg_screen_height("tdm_lg_screen_height",	"480",	CVAR_GAME | CVAR_INTEGER,		"Defines the screen height of the lightem rendering. WARNING!!! Increasing this severly affects performance!" );
 idCVar cv_lg_velocity_mod_min_velocity("tdm_lg_velocity_mod_min_velocity", "0", CVAR_GAME | CVAR_FLOAT, "The minimum velocity the player must be at to make the lightgem level increase.");
 idCVar cv_lg_velocity_mod_max_velocity("tdm_lg_velocity_mod_max_velocity", "300", CVAR_GAME | CVAR_FLOAT, "The maximum player speed taken into account for the lightgem.");
-idCVar cv_lg_velocity_mod_amount("tdm_lg_velocity_mod_amount", "6", CVAR_GAME | CVAR_INTEGER, "The maximum light level increase due to player velocity (this will be added when the player velocity is >= tdm_lg_player_velocity_mod_max).");
+idCVar cv_lg_velocity_mod_amount("tdm_lg_velocity_mod_amount", "1", CVAR_GAME | CVAR_FLOAT, "The maximum light level increase factor due to player velocity (this will be multiplied when the player velocity is >= tdm_lg_player_velocity_mod_max).");
 
 /**
  * Variables needed for lockpicking.

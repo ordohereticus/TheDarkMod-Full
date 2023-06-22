@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2008 $
+ * $Date: 2008-01-24 12:58:34 -0500 (Thu, 24 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -673,7 +673,7 @@ public:
 	 *         and other factors (like crouching). Returns a value between 0 and DARKMOD_LG_MAX. 
 	 *         This value is added to the calculated lightgem value.
 	 */
-	int GetLightgemModifier();
+	int GetLightgemModifier(int curLightgemValue);
 
 	/// Am I a ranged threat to the given entity (or entities in general if target is NULL)?
 	float			RangedThreatTo(idEntity* target);

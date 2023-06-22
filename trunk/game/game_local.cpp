@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2002 $
- * $Date: 2008-01-20 14:39:40 -0500 (Sun, 20 Jan 2008) $
+ * $Revision: 2008 $
+ * $Date: 2008-01-24 12:58:34 -0500 (Thu, 24 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2002 2008-01-20 19:39:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2008 2008-01-24 17:58:34Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -2983,7 +2983,7 @@ void idGameLocal::ProcessLightgem(idPlayer *player, bool bProcessing)
 	pDM->m_LightgemValue = int(DARKMOD_LG_MAX * fColVal);
 
 	// Give the player and inventory items a chance to adjust the lightgem (fire arrow, crouching)
-	pDM->m_LightgemValue += player->GetLightgemModifier();
+	pDM->m_LightgemValue = player->GetLightgemModifier(pDM->m_LightgemValue);
 
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("After player adjustment %d\r", pDM->m_LightgemValue);
 
