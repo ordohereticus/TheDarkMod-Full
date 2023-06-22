@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1441 $
- * $Date: 2007-10-17 08:13:36 -0400 (Wed, 17 Oct 2007) $
+ * $Revision: 1446 $
+ * $Date: 2007-10-18 03:28:33 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1441 2007-10-17 12:13:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1446 2007-10-18 07:28:33Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1791,7 +1791,7 @@ idAI::UpdateAIScript
 */
 void idAI::UpdateAIScript( void )
 {
-	UpdateScript();
+	//UpdateScript();
 
 	// clear the hit enemy flag so we catch the next time we hit someone
 	AI_HIT_ENEMY = false;
