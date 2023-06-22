@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1959 $
- * $Date: 2008-01-05 08:47:54 -0500 (Sat, 05 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 1960 $
+ * $Date: 2008-01-05 09:37:07 -0500 (Sat, 05 Jan 2008) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1959 2008-01-05 13:47:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1960 2008-01-05 14:37:07Z orbweaver $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2958,9 +2958,7 @@ void idActor::DropAttachment( int ind )
 	m_attachments[ind].ent = NULL; 
 
 	// greebo: Check if we should extinguish the attachment, like torches
-	bool extinguish = ent->spawnArgs.GetBool("extinguish_on_drop", "0");
-
-	if (extinguish)
+	if (ent->spawnArgs.GetBool("extinguish_on_drop", "0"))
 	{
 		// Get the delay in milliseconds
 		int delay = SEC2MS(ent->spawnArgs.GetInt("extinguish_on_drop_delay", "3"));
