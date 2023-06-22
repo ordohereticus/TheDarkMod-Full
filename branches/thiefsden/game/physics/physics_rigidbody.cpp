@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1885 $
- * $Date: 2007-12-24 08:29:51 -0500 (Mon, 24 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1967 $
+ * $Date: 2008-01-08 13:45:15 -0500 (Tue, 08 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1885 2007-12-24 13:29:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1967 2008-01-08 18:45:15Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1047,7 +1047,7 @@ void idPhysics_RigidBody::SetClipModel( idClipModel *model, const float density,
 
 	// check whether or not the clip model has valid mass properties
 	if ( mass <= 0.0f || FLOAT_IS_NAN( mass ) ) {
-		gameLocal.Warning( "idPhysics_RigidBody::SetClipModel: invalid mass for entity '%s' type '%s'",
+		DM_LOG(LC_ENTITY, LT_INFO).LogString( "idPhysics_RigidBody::SetClipModel: invalid mass for entity '%s' type '%s'",
 							self->name.c_str(), self->GetType()->classname );
 		mass = 1.0f;
 		centerOfMass.Zero();
