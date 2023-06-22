@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1872 $
- * $Date: 2007-12-14 11:43:33 -0500 (Fri, 14 Dec 2007) $
- * $Author: sparhawk $
+ * $Revision: 1873 $
+ * $Date: 2007-12-14 20:44:05 -0500 (Fri, 14 Dec 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1872 2007-12-14 16:43:33Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1873 2007-12-15 01:44:05Z crispy $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -965,7 +965,7 @@ bool CImage::LoadImage(CRenderPipe* pipe)
 		if(pipe != NULL)
 		{
 			static char pipe_buf[DARKMOD_LG_RENDERPIPE_BUFSIZE];
-			int BufLen = DARKMOD_LG_RENDERPIPE_BUFSIZE;
+			unsigned int BufLen = DARKMOD_LG_RENDERPIPE_BUFSIZE;
 			
 			// For debugging
 			for (int i=0; i<DARKMOD_LG_RENDERPIPE_BUFSIZE; i++) {
