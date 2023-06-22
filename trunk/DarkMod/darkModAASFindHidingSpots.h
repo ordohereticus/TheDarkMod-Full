@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1768 $
- * $Date: 2007-11-12 15:53:18 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1786 $
+ * $Date: 2007-11-14 06:53:51 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -107,6 +107,9 @@ protected:
 	idBounds searchIgnoreLimits;
 	int hidingSpotTypesAllowed;
 	idEntityPtr<idEntity> p_ignoreEntity;
+
+	// A counter for AAS areas tested each findMoreHidingSpot call
+	int areasTestedThisPass;
 
 	/* This tracks the last game frame during which points were tested so 
 	* we don't test more and more points if more than one AI sharing the search
