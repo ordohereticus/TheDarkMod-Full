@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2059 $
- * $Date: 2008-02-08 14:04:28 -0500 (Fri, 08 Feb 2008) $
+ * $Revision: 2070 $
+ * $Date: 2008-02-09 14:00:15 -0500 (Sat, 09 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -455,7 +455,7 @@ public:
 	* The amount is in alert units, so as usual 1 = barely noticible, 
 	*	10 = twice as noticable, etc.
 	**/
-	void TactileAlert( idEntity *ent, float amount = -1 );
+	void TactileAlert(idEntity* tactEnt, float amount = -1);
 
 	/**
 	* This is called in the frame if the AI bumped into another actor.
