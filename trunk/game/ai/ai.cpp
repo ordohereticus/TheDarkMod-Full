@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2059 $
- * $Date: 2008-02-08 14:04:28 -0500 (Fri, 08 Feb 2008) $
+ * $Revision: 2063 $
+ * $Date: 2008-02-09 02:10:26 -0500 (Sat, 09 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2059 2008-02-08 19:04:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2063 2008-02-09 07:10:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7749,49 +7749,10 @@ float idAI::GetCalibratedLightgemValue() const
 
 void idAI::TactileAlert(idEntity *entest, float amount)
 {
-	if (entest == NULL || m_bIgnoreAlerts)
+	if (entest != NULL && !m_bIgnoreAlerts)
 	{
-		return;
-	}
-
-	// The actor is either the touched entity or the originator of the tactile alert
-	idActor* RespActor = (entest->IsType(idActor::Type)) ? static_cast<idActor*>(entest) : entest->m_SetInMotionByActor.GetEntity();
-
-	// Don't get alerted by dead actors or non-enemies
-	if (RespActor == NULL || RespActor->health <= 0 || !gameLocal.m_RelationsManager->IsEnemy(team, RespActor->team))
-	{
-		return;
-	}
-
-	// Set the alert amount to the according tactile alert value
-	if (amount == -1)
-	{
-		amount = cv_ai_tactalert.GetFloat();
-	}
-
-	// If we got this far, we give the alert
-	// NOTE: Latest tactile alert always overrides other alerts
-	m_TactAlertEnt = entest;
-	m_AlertedByActor = RespActor;
-	AlertAI("tact", amount);
-
-	// Set last visual contact location to this location as that is used in case
-	// the target gets away
-	m_LastSight = entest->GetPhysics()->GetOrigin();
-
-	// If no enemy set so far, set the last visible enemy position.
-	if (enemy.GetEntity() == NULL)
-	{
-		lastVisibleEnemyPos = entest->GetPhysics()->GetOrigin();
-	}
-
-	AI_TACTALERT = true;
-
-	if( cv_ai_debug.GetBool() )
-	{
-		// Note: This can spam the log a lot, so only put it in if cv_ai_debug.GetBool() is true
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s FELT entity %s\r", name.c_str(), entest->name.c_str() );
-		gameLocal.Printf( "[DM AI] AI %s FELT entity %s\n", name.c_str(), entest->name.c_str() );
+		// greebo: Tactile alerts are handled by the state of mind
+		mind->GetState()->OnTactileAlert(entest, amount);
 	}
 }
 
