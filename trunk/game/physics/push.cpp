@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2146 $
- * $Date: 2008-03-28 16:29:17 -0400 (Fri, 28 Mar 2008) $
+ * $Revision: 2147 $
+ * $Date: 2008-03-28 16:48:42 -0400 (Fri, 28 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: push.cpp 2146 2008-03-28 20:29:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: push.cpp 2147 2008-03-28 20:48:42Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -919,6 +919,20 @@ int idPush::TryTranslatePushEntity( trace_t &results, idEntity *check, idClipMod
 		if ( results.fraction >= 1.0f ) {
 			return PUSH_NO;
 		}
+
+		
+		// greebo: At this point, the pushes knows that the check entity is in the way
+		// Normally, the pusher tries to rotate the entity to see if the entity itself 
+		// is colliding with anything else, but for players, we want to (optionally) skip that.
+		if ((flags & PUSHFL_NOPLAYER) && check->IsType(idPlayer::Type)) 
+		{
+			// We are colliding with a player and are not allowed to push it, return BLOCKED
+			results.c.normal = -results.c.normal;
+			results.c.dist = -results.c.dist;
+
+			return PUSH_BLOCKED;
+		}
+
 		// vector along which the entity is pushed
 		checkMove = move * (1.0f - results.fraction);
 		// move the entity colliding with all other entities except the pusher itself
