@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2223 $
- * $Date: 2008-04-26 14:43:38 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2224 $
+ * $Date: 2008-04-26 15:03:05 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2223 2008-04-26 18:43:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2224 2008-04-26 19:03:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3159,6 +3159,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		gui->HandleNamedEvent("HideBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 0);
+		gui->HandleNamedEvent("HideSuccessScreen");
 
 		// Start the timer again, we're closing the menu
 		m_GamePlayTimer.Start();
