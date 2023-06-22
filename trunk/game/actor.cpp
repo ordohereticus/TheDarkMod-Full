@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1672 $
- * $Date: 2007-11-04 05:37:08 -0500 (Sun, 04 Nov 2007) $
- * $Author: angua $
+ * $Revision: 1738 $
+ * $Date: 2007-11-08 12:45:24 -0500 (Thu, 08 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1672 2007-11-04 10:37:08Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1738 2007-11-08 17:45:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2091,9 +2091,10 @@ idActor::SetAnimState
 void idActor::SetAnimState( int channel, const char *statename, int blendFrames ) {
 	const function_t *func;
 
+	// greebo: Try to lookup the script function of this animstate
 	func = scriptObject.GetFunction( statename );
 	if ( !func ) {
-		assert( 0 );
+//		assert( 0 ); // greebo: don't just crash, a missing script function can happen...
 		gameLocal.Error( "Can't find function '%s' in object '%s'", statename, scriptObject.GetTypeName() );
 	}
 
