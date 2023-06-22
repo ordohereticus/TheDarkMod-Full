@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Revision: 2140 $
+ * $Date: 2008-03-23 04:48:37 -0400 (Sun, 23 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1014,6 +1014,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// returns thinking frequency frame number depending on distance
 	int						GetThinkInterleave();
+
+	int						m_lastThinkTime;
+	int						m_nextThinkFrame;
 
 	/**
 	 * greebo: Sets the chatter sound depending on having an enemy or not. The chat_time
