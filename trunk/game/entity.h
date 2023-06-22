@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2243 $
- * $Date: 2008-04-29 04:10:01 -0400 (Tue, 29 Apr 2008) $
- * $Author: ishtvan $
+ * $Revision: 2266 $
+ * $Date: 2008-05-06 15:28:57 -0400 (Tue, 06 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -500,6 +500,8 @@ public:
 	void					FindTargets( void );
 	void					RemoveNullTargets( void );
 	void					ActivateTargets( idEntity *activator ) const;
+	// greebo: Removes the given target ent from this entity's targets.
+	void					RemoveTarget(idEntity* target);
 
 	// misc
 	virtual void			Teleport( const idVec3 &origin, const idAngles &angles, idEntity *destination );

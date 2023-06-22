@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2252 $
- * $Date: 2008-05-01 04:44:21 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2266 $
+ * $Date: 2008-05-06 15:28:57 -0400 (Tue, 06 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2252 2008-05-01 08:44:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2266 2008-05-06 19:28:57Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -4641,6 +4641,18 @@ void idEntity::ActivateTargets( idEntity *activator ) const {
 			if ( ent->renderEntity.gui[ j ] ) {
 				ent->renderEntity.gui[ j ]->Trigger( gameLocal.time );
 			}
+		}
+	}
+}
+
+void idEntity::RemoveTarget(idEntity* target)
+{
+	for (int i = 0; i < targets.Num(); i++)
+	{
+		if (targets[i].GetEntity() == target)
+		{
+			targets.RemoveIndex(i);
+			return;
 		}
 	}
 }
