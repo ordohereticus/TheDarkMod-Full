@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1973 $
- * $Date: 2008-01-10 14:53:58 -0500 (Thu, 10 Jan 2008) $
+ * $Revision: 1975 $
+ * $Date: 2008-01-12 07:41:46 -0500 (Sat, 12 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1973 2008-01-10 19:53:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1975 2008-01-12 12:41:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3073,9 +3073,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 				// Stop the objectives music
 				gui->HandleNamedEvent("StopObjectivesMusic");
-
-				gui->HandleNamedEvent("HideResumeGameButton");
-				gui->HandleNamedEvent("HideObjectivesButton");
 				gui->HandleNamedEvent("SetupObjectivesForMapStart");
 
 				// Avoid duplicate triggering
@@ -3110,12 +3107,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			// Only trigger the visuals update once
 			if (!gui->GetStateBool("GameStateActive"))
 			{
-				gui->SetStateBool("SaveMissionEnabled", true);
-
 				gui->HandleNamedEvent("SetupObjectivesForIngame");
-
-				gui->HandleNamedEvent("ShowObjectivesButton");
-				gui->HandleNamedEvent("ShowResumeGameButton");
 
 				gui->SetStateBool("GameStateActive", true);
 				gui->SetStateBool("GameStateNoMap", false);
@@ -3134,12 +3126,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			// Only trigger the visuals once
 			if (!gui->GetStateBool("GameStateNoMap"))
 			{
-				gui->SetStateBool("SaveMissionEnabled", false);
-
 				gui->HandleNamedEvent("SetupObjectivesForMapStart");
-
-				gui->HandleNamedEvent("HideResumeGameButton");
-				gui->HandleNamedEvent("HideObjectivesButton");
 
 				gui->SetStateBool("GameStateNoMap", true);
 				gui->SetStateBool("GameStateActive", false);
