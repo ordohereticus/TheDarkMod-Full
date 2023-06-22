@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1656 $
- * $Date: 2007-11-03 03:42:13 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1662 $
+ * $Date: 2007-11-03 08:47:51 -0400 (Sat, 03 Nov 2007) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -368,6 +368,7 @@ extern idCVar	g_testParticle;
 extern idCVar	g_testParticleName;
 
 extern idCVar	g_testPostProcess;
+extern idCVar	g_rotoscope;
 
 extern idCVar	g_testModelRotate;
 extern idCVar	g_testModelAnimate;

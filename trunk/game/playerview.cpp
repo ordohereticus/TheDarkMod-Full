@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1656 $
- * $Date: 2007-11-03 03:42:13 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1662 $
+ * $Date: 2007-11-03 08:47:51 -0400 (Sat, 03 Nov 2007) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 1656 2007-11-03 07:42:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1662 2007-11-03 12:47:51Z dram $", init_version);
 
 #include "game_local.h"
 
@@ -585,6 +585,18 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, bfgMaterial );
 		}
 		
+	}
+
+	// Rotoscope (Cartoon-like) rendering - (Rotoscope Shader v1.0 by Hellborg)
+	if ( g_rotoscope.GetBool() ) {
+		const idMaterial *mtr = declManager->FindMaterial( "textures/postprocess/rotoedge", false );
+		if ( !mtr ) {
+			common->Printf( "Rotoscope material not found.\n" );
+		} else {
+			renderSystem->CaptureRenderToImage( "_currentRender" );
+			renderSystem->SetColor4( 1.0f, 1.0f, 1.0f, 1.0f );
+			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, mtr );
+		}
 	}
 
 	// test a single material drawn over everything

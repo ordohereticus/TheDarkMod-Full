@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1656 $
- * $Date: 2007-11-03 03:42:13 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1662 $
+ * $Date: 2007-11-03 08:47:51 -0400 (Sat, 03 Nov 2007) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1656 2007-11-03 07:42:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1662 2007-11-03 12:47:51Z dram $", init_version);
 
 #include "../game_local.h"
 
@@ -478,6 +478,8 @@ idCVar g_testModelBlend(			"g_testModelBlend",			"0",			CVAR_GAME | CVAR_INTEGER
 idCVar g_testDeath(					"g_testDeath",				"0",			CVAR_GAME | CVAR_BOOL, "" );
 idCVar g_exportMask(				"g_exportMask",				"",				CVAR_GAME, "" );
 idCVar g_flushSave(					"g_flushSave",				"0",			CVAR_GAME | CVAR_BOOL, "1 = don't buffer file writing for save games." );
+
+idCVar g_rotoscope(					"g_rotoscope",				"0",			CVAR_GAME | CVAR_BOOL, "Noir cartoon-like rendering" );
 
 idCVar aas_test(					"aas_test",					"0",			CVAR_GAME | CVAR_INTEGER, "" );
 idCVar aas_showAreas(				"aas_showAreas",			"0",			CVAR_GAME | CVAR_BOOL, "" );
