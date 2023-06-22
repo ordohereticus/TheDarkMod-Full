@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1163 $
- * $Date: 2007-07-20 09:15:04 -0400 (Fri, 20 Jul 2007) $
+ * $Revision: 1205 $
+ * $Date: 2007-07-23 12:44:21 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -70,7 +70,7 @@ class CPriorityQueue;
 // consider more stages though.
 #define DARKMOD_LG_MAX_RENDERPASSES			2
 #define DARKMOD_LG_MAX_IMAGESPLIT			4
-#define DARKMOD_LG_RENDER_MODEL				"models/props/misc/lightgem.lwo"
+#define DARKMOD_LG_RENDER_MODEL				"models/darkmod/misc/system/lightgem.lwo"
 #define DARKMOD_LG_ENTITY_NAME				"lightgem_surface"
 // The lightgem viewid defines the viewid that is to be used for the lightgem surfacetestmodel
 #define DARKMOD_LG_VIEWID					-1
