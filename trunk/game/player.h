@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1899 $
- * $Date: 2007-12-26 13:21:55 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1907 $
+ * $Date: 2007-12-27 04:29:40 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -227,6 +227,9 @@ public:
 	idUserInterface *		objectiveSystem;	 // not used by TDM (only for PDA)
 	bool					objectiveSystemOpen; // not used by TDM (only for PDA)
 	int						objectiveGUIHandle; // is non-zero if objective system is open
+
+	// greebo: A list of HUD messages which are displayed one after the other
+	idList<idStr>			hudMessages;
 
 	int						weapon_soulcube;
 	int						weapon_pda;
@@ -510,6 +513,10 @@ public:
 
 	void					RouteGuiMouse( idUserInterface *gui );
 	void					UpdateHud( void );
+
+	// greebo: Checks if any messages are still pending.
+	void					UpdateHUDMessages();
+
 	const idDeclPDA *		GetPDA( void ) const;
 	void					SetInfluenceFov( float fov );
 	void					SetInfluenceView( const char *mtr, const char *skinname, float radius, idEntity *ent );
@@ -659,6 +666,9 @@ public:
 	/// Am I a ranged threat to the given entity (or entities in general if target is NULL)?
 	float			RangedThreatTo(idEntity* target);
 	
+	// greebo: Sends a message to the HUD (used for "Game Saved" and such).
+	void SendHUDMessage(const idStr& text);
+
 	void PrintDebugHUD(void);
 
 	/**

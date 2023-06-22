@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1874 $
- * $Date: 2007-12-14 21:12:42 -0500 (Fri, 14 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1907 $
+ * $Date: 2007-12-27 04:29:40 -0500 (Thu, 27 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1874 2007-12-15 02:12:42Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1907 2007-12-27 09:29:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -785,6 +785,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 	g_Global.m_DarkModPlayer->Save(&savegame);
 
 	savegame.Close();
+
+	// Send a message to the HUD
+	GetLocalPlayer()->SendHUDMessage("Game Saved");
 }
 
 /*
