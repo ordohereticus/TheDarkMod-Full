@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1669 $
+ * $Date: 2007-11-03 17:10:03 -0400 (Sat, 03 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 1669 2007-11-03 21:10:03Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"

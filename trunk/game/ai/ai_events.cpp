@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1643 $
- * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1669 $
+ * $Date: 2007-11-03 17:10:03 -0400 (Sat, 03 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1643 2007-11-02 07:00:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1669 2007-11-03 21:10:03Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -41,7 +41,7 @@ const idEventDef AI_ClosestReachableEnemyOfEntity( "closestReachableEnemyOfEntit
 const idEventDef AI_HeardSound( "heardSound", "d", 'e' );
 // greebo: TDM Event: Try to find a visible AI of the given team
 const idEventDef AI_FindFriendlyAI( "findFriendlyAI", "d", 'e' );
-const idEventDef AI_ProcessVisualStim("processVisualStim", "e", NULL);
+const idEventDef AI_ProcessVisualStim("processVisualStim", "e", 0);
 
 const idEventDef AI_SetEnemy( "setEnemy", "E" );
 const idEventDef AI_ClearEnemy( "clearEnemy" );
