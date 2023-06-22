@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1657 $
- * $Date: 2007-11-03 03:45:41 -0400 (Sat, 03 Nov 2007) $
+ * $Revision: 1661 $
+ * $Date: 2007-11-03 08:19:48 -0400 (Sat, 03 Nov 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1657 2007-11-03 07:45:41Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1661 2007-11-03 12:19:48Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -2508,10 +2508,22 @@ bool idAI::Flee(idEntity* entityToFleeFrom, int algorithm, int distanceOption)
 		moveAreaNum = goal.areaNum;
 	}
 
+	StopMove(MOVE_STATUS_DONE);
+	MoveToPosition(moveDest);
+	return true;
+/*
 	if ( ReachedPos( moveDest, move.moveCommand ) ) {
 		StopMove( MOVE_STATUS_DONE );
 		return true;
 	}
+	
+	if ( !move.toAreaNum && !NewWanderDir( moveDest ) ) 
+	{
+		StopMove( MOVE_STATUS_DEST_UNREACHABLE );
+		AI_DEST_UNREACHABLE = true;
+		return false;
+	}
+*/
 
 	move.moveDest		= moveDest;
 	move.toAreaNum		= moveAreaNum;
