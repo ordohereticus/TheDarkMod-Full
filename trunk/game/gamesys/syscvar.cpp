@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1406 $
- * $Date: 2007-10-06 10:53:06 -0400 (Sat, 06 Oct 2007) $
+ * $Revision: 1411 $
+ * $Date: 2007-10-09 01:36:55 -0400 (Tue, 09 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1406 2007-10-06 14:53:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1411 2007-10-09 05:36:55Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -154,6 +154,8 @@ idCVar cv_tdm_hud_opacity(	"tdm_hud_opacity", "1",	CVAR_GAME | CVAR_ARCHIVE | CV
 idCVar cv_tdm_inv_fadein(	"tdm_inv_fade_in", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"Time it takes to fade in the inventory. 0 = immediately");
 idCVar cv_tdm_inv_fadeout(	"tdm_inv_fade_out", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"Time it takes to fade out the inventory. 0 = immediately");
 idCVar cv_tdm_inv_loot_sound("tdm_inv_loot_sound", "frob_loot",	CVAR_GAME | CVAR_ARCHIVE, "The name of the sound that is to be played when loot has been aquired.");
+
+idCVar cv_tdm_rope_pull_force_factor("tdm_rope_pull_force_factor", "40", CVAR_GAME | CVAR_ARCHIVE, "The factor by which the pulling force when jumping on a rope gets multiplied.");
 
 /**
 * DarkMod movement volumes.  Walking volume is zero dB, other volumes are added to that

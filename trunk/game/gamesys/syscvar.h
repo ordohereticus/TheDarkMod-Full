@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1406 $
- * $Date: 2007-10-06 10:53:06 -0400 (Sat, 06 Oct 2007) $
+ * $Revision: 1411 $
+ * $Date: 2007-10-09 01:36:55 -0400 (Tue, 09 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -102,6 +102,8 @@ extern idCVar cv_drag_AF_free;
 extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;
 extern idCVar cv_throw_time;
+
+extern idCVar cv_tdm_rope_pull_force_factor;
 
 extern idCVar cv_tdm_hud_opacity;
 
