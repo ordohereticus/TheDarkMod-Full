@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2224 $
- * $Date: 2008-04-26 15:03:05 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2233 $
+ * $Date: 2008-04-27 08:36:47 -0400 (Sun, 27 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2224 2008-04-26 19:03:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2233 2008-04-27 12:36:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -1485,9 +1485,6 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	m_MissionData->ClearGUIState();
 
 	Printf( "--------------------------------------\n" );
-
-	m_GamePlayTimer.Clear();
-	m_GamePlayTimer.Start();
 }
 
 /*

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2225 $
- * $Date: 2008-04-26 15:23:30 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2233 $
+ * $Date: 2008-04-27 08:36:47 -0400 (Sun, 27 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -975,6 +975,9 @@ private:
 	// Basically waits for any HUD messages and fades out the screen, afterwards
 	// the Mission Success event is called.
 	void					Event_TriggerMissionEnd();
+
+	// Gets called in the first few frames
+	void					Event_StartGamePlayTimer();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
