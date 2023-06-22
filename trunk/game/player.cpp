@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1789 $
- * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1793 $
+ * $Date: 2007-11-14 17:02:43 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1789 2007-11-14 14:37:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1793 2007-11-14 22:02:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9442,7 +9442,8 @@ CInventoryItem* idPlayer::AddToInventory(idEntity *ent, idUserInterface *_hud) {
 
 	CInventoryItem* prev = NULL;
 
-	if (weaponItem != NULL) {
+	if (weaponItem != NULL)
+	{
 		// greebo: This is a weapon-related inventory item, use the weapon inventory cursor
 		// Do it only if the respective CVAR is set
 		if (cv_frob_ammo_selects_weapon.GetBool()) {
@@ -9450,16 +9451,18 @@ CInventoryItem* idPlayer::AddToInventory(idEntity *ent, idUserInterface *_hud) {
 			SelectWeapon(weaponItem->getWeaponIndex(), false);
 		}
 	}
-	else {
+	else if (returnValue != NULL)
+	{
 		// Ordinary inventory item, set the cursor onto it
 		prev = InventoryCursor()->GetCurrentItem();
 		// Focus the cursor on the newly added item
 		InventoryCursor()->SetCurrentItem(returnValue);
-	}
 
-	// Fire the script events and update the HUD
-	if(_hud != NULL) {
-		inventoryChangeSelection(_hud, true, prev);
+		// Fire the script events and update the HUD
+		if (_hud != NULL)
+		{
+			inventoryChangeSelection(_hud, true, prev);
+		}
 	}
 
 	return returnValue;
