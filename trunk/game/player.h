@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1917 $
- * $Date: 2007-12-27 15:54:02 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1918 $
+ * $Date: 2007-12-28 02:27:48 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -40,6 +40,7 @@ extern const idEventDef EV_Player_PlayStartSound;
 extern const idEventDef EV_Player_DeathMenu;
 extern const idEventDef EV_Player_MissionFailed;
 extern const idEventDef EV_Player_GiveHealthPool;
+extern const idEventDef EV_Mission_Success;
 
 const float THIRD_PERSON_FOCUS_DISTANCE	= 512.0f;
 const int	LAND_DEFLECT_TIME = 150;
@@ -960,6 +961,9 @@ private:
 	void					Event_Pausegame();
 	void					Event_Unpausegame();
 	void					Event_UpdateObjectivesGUI(int guiHandle);
+
+	// Ends the game (fade out, success.gui, etc.)
+	void					Event_MissionSuccess();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {

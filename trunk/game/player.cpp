@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1917 $
- * $Date: 2007-12-27 15:54:02 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1918 $
+ * $Date: 2007-12-28 02:27:48 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1917 2007-12-27 20:54:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1918 2007-12-28 07:27:48Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -109,6 +109,8 @@ const idEventDef EV_Player_SetObjectiveEnabling( "setObjectiveEnabling", "ds" );
 // greebo: This allows scripts to set the "healthpool" for gradual healing
 const idEventDef EV_Player_GiveHealthPool("giveHealthPool", "f");
 
+const idEventDef EV_Mission_Success("missionSuccess", NULL);
+
 // greebo: These events are handling the FOV.
 const idEventDef EV_Player_StartZoom("startZoom", "fff");
 const idEventDef EV_Player_EndZoom("endZoom", "f");
@@ -184,6 +186,8 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_PauseGame,				idPlayer::Event_Pausegame )
 	EVENT( EV_Player_UnpauseGame,			idPlayer::Event_Unpausegame )
 	EVENT( EV_Player_UpdateObjectivesGUI,	idPlayer::Event_UpdateObjectivesGUI)
+
+	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
 
 END_CLASS
 
@@ -9765,4 +9769,16 @@ void idPlayer::Event_UpdateObjectivesGUI(int guiHandle)
 {
 	// Pass the call to the MissionData class
 	gameLocal.m_MissionData->UpdateGUIState(this, guiHandle);
+}
+
+void idPlayer::Event_MissionSuccess()
+{
+	if (hudMessages.Num() > 0)
+	{
+		// There are still HUD messages pending, postpone this event
+		PostEventMS(&EV_Mission_Success, 3000);
+		return;
+	}
+
+	playerView.Fade( colorBlack, 3000 );
 }
