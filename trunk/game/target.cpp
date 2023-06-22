@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 1999 $
+ * $Date: 2008-01-19 04:47:59 -0500 (Sat, 19 Jan 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 1999 2008-01-19 09:47:59Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1822,6 +1822,101 @@ void CTarget_SetObjectiveState::Event_Activate( idEntity *activator )
 
 		// greebo: Lookup the next matching spawnarg
 		keyVal = spawnArgs.MatchPrefix("obj_id", keyVal);
+	}
+}
+
+/*
+===============================================================================
+
+CTarget_SetObjectiveVisibility
+
+===============================================================================
+*/
+CLASS_DECLARATION( idTarget, CTarget_SetObjectiveVisibility )
+	EVENT( EV_Activate,	CTarget_SetObjectiveVisibility::Event_Activate )
+END_CLASS
+
+void CTarget_SetObjectiveVisibility::Spawn( void )
+{
+	if( !spawnArgs.GetBool( "wait_for_trigger" ) )
+	{
+		// Immediately fire the activate event, as we 
+		// don't need to wait for a trigger event
+		PostEventMS(&EV_Activate, 0, this);
+	}
+}
+
+void CTarget_SetObjectiveVisibility::Event_Activate( idEntity *activator )
+{
+	// Get the visibility we should set the objectives to
+	bool bVisible = spawnArgs.GetBool("obj_visibility", "0");
+
+	// Find all values that match the given prefix
+	const idKeyValue* keyVal = spawnArgs.MatchPrefix("obj_id");
+	
+	// Cycle through all matching spawnargs
+	while (keyVal != NULL) 
+	{
+		int objId = atoi(keyVal->GetValue().c_str());
+
+		if (objId > 0)
+			gameLocal.m_MissionData->Event_SetObjVisible(objId-1, bVisible);
+		else
+			gameLocal.Warning("Invalid objective ID %s on CTarget_SetObjectiveState %s\n", keyVal->GetValue().c_str(), name.c_str());
+
+		// Lookup the next matching spawnarg
+		keyVal = spawnArgs.MatchPrefix("obj_id", keyVal);
+	}
+}
+
+/*
+===============================================================================
+
+CTarget_SetObjectiveComponentState
+
+===============================================================================
+*/
+CLASS_DECLARATION( idTarget, CTarget_SetObjectiveComponentState )
+	EVENT( EV_Activate,	CTarget_SetObjectiveComponentState::Event_Activate )
+END_CLASS
+
+void CTarget_SetObjectiveComponentState::Spawn( void )
+{
+	if( !spawnArgs.GetBool( "wait_for_trigger" ) )
+	{
+		// Immediately fire the activate event, as we 
+		// don't need to wait for a trigger event
+		PostEventMS(&EV_Activate, 0, this);
+	}
+}
+
+void CTarget_SetObjectiveComponentState::Event_Activate( idEntity *activator )
+{
+	// Get the state we should set the objectives to
+	bool state = spawnArgs.GetBool("comp_state", "0");
+
+	// Find all values that match the given prefix
+	const idKeyValue* keyVal = spawnArgs.MatchPrefix("comp_id");
+	
+	// Cycle through all matching spawnargs
+	while (keyVal != NULL) 
+	{
+		idStr StringID = keyVal->GetValue();
+		idStr objIDStr(StringID), compIDStr(StringID);
+		
+		objIDStr.StripTrailing(",");
+		compIDStr.StripLeading(",");
+		
+		int objId = atoi( objIDStr.c_str() );
+		int compId = atoi( compIDStr.c_str() );
+
+		if (objId > 0 && compId > 0)
+			gameLocal.m_MissionData->SetComponentState_Ext(objId, compId, state);
+		else
+			gameLocal.Warning("Invalid objective component ID %s on CTarget_SetObjectiveState %s\n", StringID.c_str(), name.c_str());
+
+		// Lookup the next matching spawnarg
+		keyVal = spawnArgs.MatchPrefix("comp_id", keyVal);
 	}
 }
 

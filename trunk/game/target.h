@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 1999 $
+ * $Date: 2008-01-19 04:47:59 -0500 (Sat, 19 Jan 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -572,6 +572,32 @@ class CTarget_SetObjectiveState :
 {
 public:
 	CLASS_PROTOTYPE( CTarget_SetObjectiveState );
+private:
+	void				Event_Activate( idEntity *activator );
+	virtual void		Spawn( void );
+};
+
+/**
+* Target for hiding or showing certain objectives.
+**/
+class CTarget_SetObjectiveVisibility : 
+	public idTarget 
+{
+public:
+	CLASS_PROTOTYPE( CTarget_SetObjectiveVisibility );
+private:
+	void				Event_Activate( idEntity *activator );
+	virtual void		Spawn( void );
+};
+
+/**
+* Target for setting the state of an objective component
+**/
+class CTarget_SetObjectiveComponentState : 
+	public idTarget 
+{
+public:
+	CLASS_PROTOTYPE( CTarget_SetObjectiveComponentState );
 private:
 	void				Event_Activate( idEntity *activator );
 	virtual void		Spawn( void );
