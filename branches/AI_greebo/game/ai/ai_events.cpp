@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1557 $
- * $Date: 2007-10-24 13:12:36 -0400 (Wed, 24 Oct 2007) $
+ * $Revision: 1563 $
+ * $Date: 2007-10-25 15:05:06 -0400 (Thu, 25 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1557 2007-10-24 17:12:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1563 2007-10-25 19:05:06Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -937,7 +937,7 @@ void idAI::Event_SpawnThrowableProjectile
 	projectileDef = gameLocal.FindEntityDefDict( pstr_projectileName );
 	if (!projectileDef)
 	{
-		DM_LOG(LC_AI, LT_WARNING).LogString ("Projectile with name '%s' was not found\n", pstr_projectileName);
+		DM_LOG(LC_AI, LT_WARNING).LogString ("Projectile with name '%s' was not found\r", pstr_projectileName);
 		idThread::ReturnEntity (NULL);
 	}
 
@@ -3692,7 +3692,7 @@ void idAI::destroyCurrentHidingSpotSearch()
 		HidingSpotSearchCollection.dereference (m_HidingSpotSearchHandle);
 		m_HidingSpotSearchHandle = NULL_HIDING_SPOT_SEARCH_HANDLE;
 
-		DM_LOG(LC_AI, LT_DEBUG).LogString ("Hiding spot search dereferenced\n");
+		DM_LOG(LC_AI, LT_DEBUG).LogString ("Hiding spot search dereferenced\r");
 	}
 
 	// No hiding spots
@@ -3712,7 +3712,7 @@ void idAI::Event_StartSearchForHidingSpots
 	idEntity* p_ignoreEntity
 )
 {
-	DM_LOG(LC_AI, LT_DEBUG).LogString ("Event_StartSearchForHidingSpots called.\n");
+	DM_LOG(LC_AI, LT_DEBUG).LogString ("Event_StartSearchForHidingSpots called.\r");
 
 	// Destroy any current search
 	destroyCurrentHidingSpotSearch();
@@ -3728,7 +3728,7 @@ void idAI::Event_StartSearchForHidingSpots
 	if (aas != NULL)
 	{
 		// Allocate object that handles the search
-		DM_LOG(LC_AI, LT_DEBUG).LogString ("Making finder\n");
+		DM_LOG(LC_AI, LT_DEBUG).LogString ("Making finder\r");
 		bool b_searchCompleted = false;
 		m_HidingSpotSearchHandle = HidingSpotSearchCollection.getOrCreateSearch
 		(
@@ -3750,7 +3750,7 @@ void idAI::Event_StartSearchForHidingSpots
 	}
 	else
 	{
-		DM_LOG(LC_AI, LT_ERROR).LogString ("Cannot perform Event_StartSearchForHidingSpots if no AAS is set for the AI\n");
+		DM_LOG(LC_AI, LT_ERROR).LogString ("Cannot perform Event_StartSearchForHidingSpots if no AAS is set for the AI\r");
 	
 		// Search is done since there is no search
 		idThread::ReturnInt(0);
@@ -3793,7 +3793,7 @@ void idAI::Event_CloseHidingSpotSearch ()
 {
        
 	// Destroy current hiding spot search
-	DM_LOG(LC_AI, LT_DEBUG).LogString ("Closing hiding spot search\n");
+	DM_LOG(LC_AI, LT_DEBUG).LogString ("Closing hiding spot search\r");
 	destroyCurrentHidingSpotSearch();
 }
 
@@ -3805,7 +3805,7 @@ void idAI::Event_ResortHidingSpots
 	const idVec3& searchRadius
 )
 {
-	DM_LOG(LC_AI, LT_DEBUG).LogString ("Resorting hiding spots for new search center\n");
+	DM_LOG(LC_AI, LT_DEBUG).LogString ("Resorting hiding spots for new search center\r");
 	m_hidingSpots.sortForNewCenter
 	(
 		searchCenter,
@@ -3858,7 +3858,7 @@ void idAI::Event_GetNthHidingSpotType (int hidingSpotIndex)
 	}
 	else
 	{
-		DM_LOG(LC_AI, LT_ERROR).LogString ("Index %d is out of bounds, there are %d hiding spots\n", hidingSpotIndex, numSpots);
+		DM_LOG(LC_AI, LT_ERROR).LogString ("Index %d is out of bounds, there are %d hiding spots\r", hidingSpotIndex, numSpots);
 	}
 
 	// Return the type
@@ -3907,7 +3907,7 @@ void idAI::Event_GetVariableFromOtherAI (idEntity* p_otherEntity, const char* ps
 	}
 	else
 	{
-		DM_LOG(LC_AI, LT_ERROR).LogString ("Unexpected AI variable name '%s' requested, value 0.0 returned\n", pstr_variableName);
+		DM_LOG(LC_AI, LT_ERROR).LogString ("Unexpected AI variable name '%s' requested, value 0.0 returned\r", pstr_variableName);
 		value = 0.0;
 	}
 
