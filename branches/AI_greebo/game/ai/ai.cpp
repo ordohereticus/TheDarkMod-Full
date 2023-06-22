@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1492 $
- * $Date: 2007-10-20 10:46:11 -0400 (Sat, 20 Oct 2007) $
+ * $Revision: 1493 $
+ * $Date: 2007-10-20 11:12:44 -0400 (Sat, 20 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1492 2007-10-20 14:46:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1493 2007-10-20 15:12:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -6436,51 +6436,49 @@ Quit:
 	return;
 }
 
-float idAI::GetAcuity( const char *type ) const
+float idAI::GetAcuity(const char *type) const
 {
-	float returnval;
-	int ind;
+	float returnval(-1);
 
-	ind = g_Global.m_AcuityHash.First( g_Global.m_AcuityHash.GenerateKey( type, false ) );
+	// Try to lookup the ID in the hashindex. This corresponds to an entry in m_acuityNames.
+	int ind = g_Global.m_AcuityHash.First( g_Global.m_AcuityHash.GenerateKey(type, false) );
 //	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Retrived Acuity index %d for type %s\r", ind, type);
 
 	if (ind == -1 )
 	{
 		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("AI %s attempted to query nonexistant acuity type: %s", name.c_str(), type);
 		gameLocal.Warning("[AI] AI %s attempted to query nonexistant acuity type: %s", name.c_str(), type);
-		returnval = -1;
-		goto Quit;
+		return returnval;
 	}
-	else if( ind > m_Acuities.Num() )
+	else if (ind > m_Acuities.Num())
+	{
 		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Acuity index %d exceed acuity array size %d!\r", ind, m_Acuities.Num());
+		return returnval;
+	}
 
+	// Lookup the acuity value using the index from the hashindex
 	returnval = m_Acuities[ind];
 
 	// SZ: June 10, 2007
-	// Accuities are now modified by alert level
+	// Acuities are now modified by alert level
 	if (returnval > 0.0)
 	{
-			float thresh_1 = spawnArgs.GetFloat ("alert_thresh1");
-			float thresh_2 = spawnArgs.GetFloat ("alert_thresh2");
-			float thresh_3 = spawnArgs.GetFloat ("alert_thresh3");
-
-			if (AI_AlertNum >= thresh_3)
-			{
-				returnval *= cv_ai_acuity_L3.GetFloat();
-			}
-			else if (AI_AlertNum >= thresh_2)
-			{
-				returnval *= cv_ai_acuity_L2.GetFloat();
-			}
-			else if (AI_AlertNum >= thresh_1)
-			{
-				returnval *= cv_ai_acuity_L1.GetFloat();
-			}
+		if (AI_AlertNum >= thresh_3)
+		{
+			returnval *= cv_ai_acuity_L3.GetFloat();
+		}
+		else if (AI_AlertNum >= thresh_2)
+		{
+			returnval *= cv_ai_acuity_L2.GetFloat();
+		}
+		else if (AI_AlertNum >= thresh_1)
+		{
+			returnval *= cv_ai_acuity_L1.GetFloat();
+		}
 	}
 
 	//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Acuity %s = %f\r", type, returnval);
 
-Quit:
 	return returnval;
 }
 
@@ -6523,7 +6521,7 @@ idEntity *idAI::GetTactEnt( void )
 	return m_TactAlertEnt.GetEntity();
 }
 
-idActor *idAI::VisualScan( float timecheck )
+idActor* idAI::VisualScan(float timecheck)
 {
 	// greebo: This returns non-NULL if this AI is in the player's PVS
 	// and the AI can see the player actor.
