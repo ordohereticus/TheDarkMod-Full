@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1761 $
- * $Date: 2007-11-12 04:46:03 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1763 $
+ * $Date: 2007-11-12 06:23:10 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1761 2007-11-12 09:46:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1763 2007-11-12 11:23:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5715,6 +5715,7 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 				{
 					// Radius based stims
 					n = clip.EntitiesTouchingBounds(bounds, CONTENTS_RESPONSE, srEntities, MAX_GENTITIES);
+					//DM_LOG(LC_STIM_RESPONSE, LT_INFO).LogString("Entities touching bounds: %d\r", n);
 				}
 				
 				if (n > 0)
