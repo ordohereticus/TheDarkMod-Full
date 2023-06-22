@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1179 $
- * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1181 $
+ * $Date: 2007-07-22 03:56:28 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1179 2007-07-22 07:42:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1181 2007-07-22 07:56:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8217,8 +8217,10 @@ void idPlayer::AdjustLightgem(void)
 
 	for(i = 0; i < n; i++)
 	{
-		if((light = dynamic_cast<idLight *>(pDM->m_LightList[i])) == NULL)
-			continue;
+		light = pDM->m_LightList[i].GetEntity();
+		// greebo: The lightlist doesn't contain other entity types than idLight, right?
+		/*if((light = dynamic_cast<idLight *>(pDM->m_LightList[i])) == NULL)
+			continue;*/
 
 		vPlayer = vPlayerPos;
 		idVec3 vLight(light->GetPhysics()->GetOrigin());
@@ -8313,7 +8315,7 @@ void idPlayer::AdjustLightgem(void)
 		// time to sort an everchanging array.
 		if(h != -1)
 		{
-			helper = pDM->m_LightList[h];
+			helper = pDM->m_LightList[h].GetEntity();
 			pDM->m_LightList[h] = light;
 			pDM->m_LightList[i] = helper;
 			h = -1;

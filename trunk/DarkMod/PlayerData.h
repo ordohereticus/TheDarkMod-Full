@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1180 $
- * $Date: 2007-07-22 03:47:40 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1181 $
+ * $Date: 2007-07-22 03:56:28 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -88,7 +88,7 @@ public:
 	 * Each light entity must register here itself. This is used
 	 * to calculate the value for the lightgem.
 	 */
-	idList<idLight *>			m_LightList;
+	idList< idEntityPtr<idLight> >	m_LightList;
 };
 
 #endif
