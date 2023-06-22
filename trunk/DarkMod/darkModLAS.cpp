@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1784 $
- * $Date: 2007-11-14 04:29:13 -0500 (Wed, 14 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 2033 $
+ * $Date: 2008-02-02 08:52:52 -0500 (Sat, 02 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1784 2007-11-14 09:29:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 2033 2008-02-02 13:52:52Z angua $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -110,7 +110,8 @@ __inline bool darkModLAS::moveLightBetweenAreas (darkModLightRecord_t* p_LASLigh
 	p_LASLight->areaIndex = newAreaNum;
 	p_LASLight->p_idLight->LASAreaIndex = newAreaNum;
 
-	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Area %d has now %d elements\r", oldAreaNum, m_pp_areaLightLists[oldAreaNum]->Num());
+	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Area %d has now %d elements\r", oldAreaNum, 
+		m_pp_areaLightLists[oldAreaNum] ? m_pp_areaLightLists[oldAreaNum]->Num() : 0);
 	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Area %d has now %d elements\r", newAreaNum, m_pp_areaLightLists[newAreaNum]->Num());
 
 	// Done
@@ -142,6 +143,10 @@ void darkModLAS::accumulateEffectOfLightsInArea
 	idVec3 vTargetSeg[LSG_COUNT];
 	vTargetSeg[0] = testPoint1;
 	vTargetSeg[1] = testPoint2 - testPoint1;
+	if (cv_las_showtraces.GetBool())
+	{
+		gameRenderWorld->DebugArrow(colorBlue, testPoint1, testPoint2, 2, 1000);
+	}
 
 	assert(areaIndex >= 0 && areaIndex < m_numAreas);
 	idLinkList<darkModLightRecord_t>* p_cursor = m_pp_areaLightLists[areaIndex];
@@ -242,17 +247,25 @@ void darkModLAS::accumulateEffectOfLightsInArea
 			else if (b_useShadows && p_LASLight->p_idLight->CastsShadow()) 
 			{
 				trace_t trace;
-
-				// Test at a point halfway between the test points
-				idVec3 midPoint;
-				midPoint = testPoint1 + testPoint2;
-				midPoint /= 2.0;
-
 				gameLocal.clip.TracePoint(trace, testPoint1, p_LASLight->lastWorldPos, CONTENTS_OPAQUE, p_ignoredEntity);
+				if (cv_las_showtraces.GetBool())
+				{
+					gameRenderWorld->DebugArrow(
+							trace.fraction == 1 ? colorGreen : colorRed, 
+							trace.fraction == 1 ? testPoint1 : trace.endpos, 
+							p_LASLight->lastWorldPos, 1, 1000);
+				}
 				DM_LOG(LC_LIGHT, LT_DEBUG).LogString("TraceFraction: %f\r", trace.fraction);
 				if(trace.fraction < 1.0f)
 				{
 					gameLocal.clip.TracePoint (trace, testPoint2, p_LASLight->lastWorldPos, CONTENTS_OPAQUE, p_ignoredEntity);
+					if (cv_las_showtraces.GetBool())
+					{
+						gameRenderWorld->DebugArrow(
+							trace.fraction == 1 ? colorGreen : colorRed, 
+							trace.fraction == 1 ? testPoint2 : trace.endpos, 
+							p_LASLight->lastWorldPos, 1, 1000);
+					}
 					DM_LOG(LC_LIGHT, LT_DEBUG).LogString("TraceFraction: %f\r", trace.fraction);
 					if(trace.fraction < 1.0f)
 					{

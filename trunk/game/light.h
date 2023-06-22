@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1643 $
- * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 2033 $
+ * $Date: 2008-02-02 08:52:52 -0500 (Sat, 02 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -171,6 +171,12 @@ private:
 	* "On" light levels are > 0.0
 	*/
 	void			Event_GetLightLevel();
+
+
+	/*
+	*	Add the light to the appropriate LAS area
+	*/
+	void			Event_AddToLAS();
 
 	/**	Returns 1 if the light is in PVS.
 	 *	Doesn't take into account vis-area optimizations for shadowcasting lights.

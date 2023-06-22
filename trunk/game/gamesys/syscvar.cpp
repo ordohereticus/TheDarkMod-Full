@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2013 $
- * $Date: 2008-01-26 12:54:37 -0500 (Sat, 26 Jan 2008) $
- * $Author: newhorizon $
+ * $Revision: 2033 $
+ * $Date: 2008-02-02 08:52:52 -0500 (Sat, 02 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2013 2008-01-26 17:54:37Z newhorizon $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2033 2008-02-02 13:52:52Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -87,6 +87,8 @@ idCVar cv_ai_opt_novisualstim (			"tdm_ai_opt_novisualstim",		"0",			CVAR_GAME |
 idCVar cv_ai_opt_nolipsync (			"tdm_ai_opt_nolipsync",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not play lipsync animations." );
 idCVar cv_ai_opt_nopresent (			"tdm_ai_opt_nopresent",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not be presented." );
 idCVar cv_ai_opt_noobstacleavoidance (			"tdm_ai_opt_noobstacleavoidace",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not check for obstacles." );
+
+idCVar cv_las_showtraces(			"tdm_las_showtraces",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), traces from light origin to testpoints used for visibility testiung are drawn." );
 
 idCVar cv_sr_disable (				"tdm_sr_disable",           "0",           CVAR_GAME | CVAR_BOOL, "Set to 1 to disable all stim/response processing." );
 

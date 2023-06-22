@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2009 $
- * $Date: 2008-01-26 07:40:59 -0500 (Sat, 26 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2033 $
+ * $Date: 2008-02-02 08:52:52 -0500 (Sat, 02 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -50,6 +50,8 @@ extern idCVar cv_ai_opt_novisualstim;
 extern idCVar cv_ai_opt_nolipsync;
 extern idCVar cv_ai_opt_nopresent;
 extern idCVar cv_ai_opt_noobstacleavoidance;
+
+extern idCVar cv_las_showtraces;
 
 extern idCVar cv_sr_disable;
 
