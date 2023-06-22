@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1796 $
- * $Date: 2007-11-15 12:26:40 -0500 (Thu, 15 Nov 2007) $
+ * $Revision: 1798 $
+ * $Date: 2007-11-15 15:15:14 -0500 (Thu, 15 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1796 2007-11-15 17:26:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1798 2007-11-15 20:15:14Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -778,8 +778,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteFloat(m_VisDistMax);
 
-	DM_LOG(LC_AI, LT_DEBUG).LogString("Saved hiding spot search with id %d\r", CHidingSpotSearchCollection::Instance().getSearchId(m_HidingSpotSearchHandle));
-	savefile->WriteInt(CHidingSpotSearchCollection::Instance().getSearchId(m_HidingSpotSearchHandle));
+	savefile->WriteInt(m_HidingSpotSearchHandle);
 	m_hidingSpots.Save(savefile);
 
 	savefile->WriteInt(m_AirCheckTimer);
@@ -1001,14 +1000,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadFloat(m_VisDistMax);
 
-	int searchId;
-	savefile->ReadInt(searchId);
-	DM_LOG(LC_AI, LT_DEBUG).LogString("Restored hiding spot search with id %d (entity %s)\r", searchId, name.c_str());
-	m_HidingSpotSearchHandle = CHidingSpotSearchCollection::Instance().getSearchHandle(searchId);
-	if (searchId != -1 && m_HidingSpotSearchHandle == NULL_HIDING_SPOT_SEARCH_HANDLE)
-	{
-		DM_LOG(LC_AI, LT_DEBUG).LogString("Warning! Could not resolve hiding spot search with id %d (entity %s)\r", searchId, name.c_str());
-	}
+	savefile->ReadInt(m_HidingSpotSearchHandle);
 	m_hidingSpots.Restore(savefile);
 
 	savefile->ReadInt(m_AirCheckTimer);
