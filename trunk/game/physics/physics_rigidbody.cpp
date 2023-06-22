@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1845 $
- * $Date: 2007-11-23 16:16:45 -0500 (Fri, 23 Nov 2007) $
+ * $Revision: 1880 $
+ * $Date: 2007-12-22 15:49:42 -0500 (Sat, 22 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1845 2007-11-23 21:16:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1880 2007-12-22 20:49:42Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1568,6 +1568,16 @@ void idPhysics_RigidBody::ApplyImpulse( const int id, const idVec3 &point, const
 	if ( noImpact ) {
 		return;
 	}
+
+	// greebo: Check if we have a master - if yes, propagate the impulse to it
+	if ( hasMaster ) {
+		idEntity* master = self->GetBindMaster();
+
+		assert(master != NULL); // Bind master must not be null
+
+		master->GetPhysics()->ApplyImpulse(id, point, impulse);
+	}
+
 	current.i.linearMomentum += impulse;
 	current.i.angularMomentum += ( point - ( current.i.position + centerOfMass * current.i.orientation ) ).Cross( impulse );
 	Activate();
