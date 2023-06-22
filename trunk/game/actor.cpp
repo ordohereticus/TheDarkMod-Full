@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1878 $
- * $Date: 2007-12-18 13:45:14 -0500 (Tue, 18 Dec 2007) $
+ * $Revision: 1879 $
+ * $Date: 2007-12-22 13:36:41 -0500 (Sat, 22 Dec 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1878 2007-12-18 18:45:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1879 2007-12-22 18:36:41Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1610,11 +1610,10 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const
 	}
 
 	// angua: If the target entity is an idActor,
-	// use its eyeposition, the origin and a position in between
+	// use its eyeposition, the origin and the shoulders
 	if (ent->IsType(idActor::Type)) 
 	{
 		idActor* actor = static_cast<idActor*>(ent);
-		
 		idVec3 entityEyePos = actor->GetEyePosition();
 
 		if (!gameLocal.clip.TracePoint(result, eye, entityEyePos, MASK_OPAQUE, this) || 
@@ -1631,22 +1630,28 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const
 			// gameRenderWorld->DebugArrow(colorGreen,eye, entityOrigin, 1, 32);
 			return true;
 		}
-		else if (!gameLocal.clip.TracePoint(result, eye, (entityOrigin+entityEyePos)*0.5f, MASK_OPAQUE, this) || 
-			 gameLocal.GetTraceEntity(result) == actor) 
+		else  
 		{
-			// Eye to (origin+eye)/2 trace succeeded (entity center position)
-			// gameRenderWorld->DebugArrow(colorGreen,eye, (entityOrigin+entityEyePos)*0.5f, 1, 32);
-			return true;
-		}
-		
-		// Debug output
-		//else
-		//{
-		//	gameRenderWorld->DebugArrow(colorRed,eye, entityEyePos, 1, 32);
-		//	gameRenderWorld->DebugArrow(colorRed,eye, entityOrigin, 1, 32);
-		//	gameRenderWorld->DebugArrow(colorRed,eye, (entityOrigin+entityEyePos)*0.5f, 1, 32);
-		//}
+			idVec3 origin;
+			idMat3 viewaxis;
+			actor->GetViewPos(origin, viewaxis);
 
+			const idVec3 &gravityDir = GetPhysics()->GetGravityNormal();
+			idVec3 dir = (viewaxis[0] - gravityDir * ( gravityDir * viewaxis[0] )).Cross(gravityDir);
+			
+			float dist = 8;
+
+			if (!gameLocal.clip.TracePoint(result, eye, entityOrigin + (entityEyePos - entityOrigin)*0.7f + dir * dist, MASK_OPAQUE, this) 
+				|| gameLocal.GetTraceEntity(result) == actor
+				|| !gameLocal.clip.TracePoint(result, eye, entityOrigin + (entityEyePos - entityOrigin)*0.7f + dir * dist, MASK_OPAQUE, this) 
+				|| gameLocal.GetTraceEntity(result) == actor)
+			{
+				// Eye to shoulders traces succeeded
+				// gameRenderWorld->DebugArrow(colorGreen,eye, entityOrigin + (entityEyePos - entityOrigin)*0.7f + dir * dist, 1, 32);
+				// gameRenderWorld->DebugArrow(colorGreen,eye, entityOrigin + (entityEyePos - entityOrigin)*0.7f - dir * dist, 1, 32);	
+				return true;
+			}
+		}
 	}
 	// otherwise just use the origin (for general entities).
 	// Perform a trace from the eye position to the target entity
