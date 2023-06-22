@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2047 $
- * $Date: 2008-02-06 11:09:57 -0500 (Wed, 06 Feb 2008) $
+ * $Revision: 2053 $
+ * $Date: 2008-02-08 00:58:06 -0500 (Fri, 08 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -976,6 +976,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	int m_gracecount_1, m_gracecount_2, m_gracecount_3, m_gracecount_4;
 	// De-alert times for each alert level
 	float atime1, atime2, atime3, atime4;
+
+	float atime1_fuzzyness, atime2_fuzzyness, atime3_fuzzyness, atime4_fuzzyness;
 
 	// The mind of this AI
 	ai::MindPtr mind;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2047 $
- * $Date: 2008-02-06 11:09:57 -0500 (Wed, 06 Feb 2008) $
+ * $Revision: 2053 $
+ * $Date: 2008-02-08 00:58:06 -0500 (Fri, 08 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2047 2008-02-06 16:09:57Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2053 2008-02-08 05:58:06Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2711,17 +2711,21 @@ idAI::Event_LookAtPosition
 */
 void idAI::Event_LookAtPosition (const idVec3& lookAtWorldPosition, float duration)
 {
-	if ( ( focusEntity.GetEntity() != NULL ) || ( currentFocusPos != lookAtWorldPosition) || (gameLocal.time ) ) 
+	// angua: AI must not look at infinity
+	// this rips their upper body off and leads to really low frame rates
+	if (lookAtWorldPosition.x != idMath::INFINITY)
 	{
-		focusEntity	= NULL;
-		currentFocusPos = lookAtWorldPosition;
-		alignHeadTime = gameLocal.time;
-		forceAlignHeadTime = gameLocal.time + SEC2MS( 1 );
-		blink_time = 0;
+		if ( ( focusEntity.GetEntity() != NULL ) || ( currentFocusPos != lookAtWorldPosition) || (gameLocal.time ) ) 
+		{
+			focusEntity	= NULL;
+			currentFocusPos = lookAtWorldPosition;
+			alignHeadTime = gameLocal.time;
+			forceAlignHeadTime = gameLocal.time + SEC2MS( 1 );
+			blink_time = 0;
+		}
+
+		focusTime = gameLocal.time + SEC2MS( duration );
 	}
-
-	focusTime = gameLocal.time + SEC2MS( duration );
-
 }
 
 
