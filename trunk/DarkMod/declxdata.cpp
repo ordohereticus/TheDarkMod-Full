@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1549 $
+ * $Date: 2007-10-23 13:47:45 -0400 (Tue, 23 Oct 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: declxdata.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: declxdata.cpp 1549 2007-10-23 17:47:45Z tels $", init_version);
 
 #include "declxdata.h"
 
@@ -198,7 +198,7 @@ bool tdmDeclXData::Parse( const char *text, const int textLength )
 					if ( !src.ReadToken( &tKey ) ||
 						 tKey.type != TT_NAME ||
 						 tKey.Icmp("from") != 0 ) {
-						src.Warning( "Missing from statement.", tKey.c_str() );
+						src.Warning( "Missing from statement: %s.", tKey.c_str() );
 						goto Quit;
 					}
 
