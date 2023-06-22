@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1178 $
- * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1182 $
+ * $Date: 2007-07-22 04:09:07 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -150,7 +150,7 @@ protected:
 		int						m_id;					// id of body being dragged
 		idVec3					m_localEntityPoint;	// dragged point in entity space
 
-		idPlayer				*m_player;
+		idEntityPtr<idPlayer>	m_player;
 		CForce_Grab				m_drag;
 
 		idRotation				m_rotation;
