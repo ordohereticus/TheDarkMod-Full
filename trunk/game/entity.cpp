@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1297 $
- * $Date: 2007-08-16 06:11:09 -0400 (Thu, 16 Aug 2007) $
+ * $Revision: 1304 $
+ * $Date: 2007-08-22 02:13:36 -0400 (Wed, 22 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1297 2007-08-16 10:11:09Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1304 2007-08-22 06:13:36Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2574,7 +2574,7 @@ void idEntity::BindToJoint( idEntity *master, const char *jointname, bool orient
 	// Add the ent clipmodel to the AF if appropriate (not done if this ent is an AF)
 	if	( 
 		master->IsType( idAFEntity_Base::Type )
-		&& !IsType( idAFEntity_Base::Type )
+		&& !IsType( idAnimatedEntity::Type )
 		&& ( jointnum != INVALID_JOINT )
 		&& ( GetPhysics()->GetClipModel() != NULL )
 		&& ( GetPhysics()->GetClipModel()->IsTraceModel() )
@@ -2615,7 +2615,7 @@ void idEntity::BindToJoint( idEntity *master, jointHandle_t jointnum, bool orien
 	// Add the ent clipmodel to the AF if appropriate (not done if this ent is an AF)
 	if	( 
 		master->IsType( idAFEntity_Base::Type )
-		&& !IsType( idAFEntity_Base::Type )
+		&& !IsType( idAnimatedEntity::Type )
 		&& ( jointnum != INVALID_JOINT )
 		&& ( GetPhysics()->GetClipModel() != NULL )
 		&& ( GetPhysics()->GetClipModel()->IsTraceModel() )
@@ -2652,7 +2652,7 @@ void idEntity::BindToBody( idEntity *master, int bodyId, bool orientated )
 	// Add the ent clipmodel to the AF if appropriate (not done if this ent is an AF)
 	if	( 
 		master->IsType( idAFEntity_Base::Type )
-		&& !IsType( idAFEntity_Base::Type )
+		&& !IsType( idAnimatedEntity::Type )
 		&& ( GetPhysics()->GetClipModel() != NULL )
 		&& ( GetPhysics()->GetClipModel()->IsTraceModel() )
 		&& ( (GetPhysics()->GetContents() & (CONTENTS_SOLID|CONTENTS_CORPSE)) != 0 ) 
