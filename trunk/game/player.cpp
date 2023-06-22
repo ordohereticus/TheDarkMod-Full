@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1658 $
- * $Date: 2007-11-03 04:00:24 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1750 $
+ * $Date: 2007-11-10 20:14:09 -0500 (Sat, 10 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1658 2007-11-03 08:00:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1750 2007-11-11 01:14:09Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4968,9 +4968,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_47:	// Inventory previous item
 		{
-			// Check for a held grabber entity, which should be put back into the inventory
-			if (AddGrabberEntityToInventory())
-				return;
+			// If the grabber is active, prev weapon increments the distance
+			if(m_bGrabberActive)
+				g_Global.m_DarkModPlayer->grabber->IncrementDistance( false );
 
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryPrevItem");
@@ -4987,9 +4987,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_48:	// Inventory next item
 		{
-			// Check for a held grabber entity, which should be put back into the inventory
-			if (AddGrabberEntityToInventory())
-				return;
+			// If the grabber is active, next weapon increments the distance
+			if(m_bGrabberActive)
+				g_Global.m_DarkModPlayer->grabber->IncrementDistance( true );
 
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryNextItem");
@@ -5044,6 +5044,17 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_51:	// Inventory use item
 		{
+			// Check for a held grabber entity, which should be put back into the inventory
+			if (AddGrabberEntityToInventory())
+				return;
+
+			// If the grabber item can be equipped/dequipped, use item does this
+			if ( g_Global.m_DarkModPlayer->grabber->GetSelected() )
+			{
+				if( g_Global.m_DarkModPlayer->grabber->ToggleEquip() )
+					return;
+			}
+
 			// Pass the "inventoryUseItem" event to the GUIs
 			m_overlays.broadcastNamedEvent("inventoryUseItem");
 
