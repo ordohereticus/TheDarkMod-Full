@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1291 $
+ * $Date: 2007-08-15 04:36:05 -0400 (Wed, 15 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -694,6 +694,12 @@ public:
 	void					InverseWorldSpatialInertiaMultiply( idVecX &dst, const float *v ) const;
 	idVec6 &				GetResponseForce( int index ) { return reinterpret_cast<idVec6 &>(response[ index * 8 ]); }
 
+	/**
+	* Get or set the entity that stims and damage are routed to
+	**/
+	void					SetRerouteEnt( idEntity *ent );
+	idEntity *				GetRerouteEnt( void );
+
 	void					Save( idSaveGame *saveFile );
 	void					Restore( idRestoreGame *saveFile );
 
@@ -703,6 +709,11 @@ private:
 	idAFBody *				parent;						// parent of this body
 	idList<idAFBody *>		children;					// children of this body
 	idClipModel *			clipModel;					// model used for collision detection
+	/**
+	* Entity to reroute damage and stims to, used when dynamically adding ents to an AF
+	* Defaults to NULL
+	**/
+	idEntityPtr<idEntity>	m_RerouteEnt;
 	idAFConstraint *		primaryConstraint;			// primary constraint (this->constraint->body1 = this)
 	idList<idAFConstraint *>constraints;				// all constraints attached to this body
 	idAFTree *				tree;						// tree structure this body is part of

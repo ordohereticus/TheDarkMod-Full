@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1280 $
- * $Date: 2007-08-05 04:14:03 -0400 (Sun, 05 Aug 2007) $
+ * $Revision: 1291 $
+ * $Date: 2007-08-15 04:36:05 -0400 (Wed, 15 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 1280 2007-08-05 08:14:03Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 1291 2007-08-15 08:36:05Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -4231,6 +4231,8 @@ void idAFBody::Init( void ) {
 
 	fl.selfCollision			= true;
 	fl.isZero					= true;
+
+	m_RerouteEnt				= NULL;
 }
 
 /*
@@ -4446,6 +4448,7 @@ void idAFBody::Save( idSaveGame *saveFile ) {
 	saveFile->WriteVec6( current->externalForce );
 	saveFile->WriteVec3( atRestOrigin );
 	saveFile->WriteMat3( atRestAxis );
+	m_RerouteEnt.Save( saveFile );
 }
 
 /*
@@ -4482,6 +4485,17 @@ void idAFBody::Restore( idRestoreGame *saveFile ) {
 	saveFile->ReadVec6( current->externalForce );
 	saveFile->ReadVec3( atRestOrigin );
 	saveFile->ReadMat3( atRestAxis );
+	m_RerouteEnt.Restore( saveFile );
+}
+
+idEntity *idAFBody::GetRerouteEnt( void )
+{
+	return m_RerouteEnt.GetEntity();
+}
+
+void idAFBody::SetRerouteEnt( idEntity *ent )
+{
+	m_RerouteEnt = ent;
 }
 
 #ifdef MOD_WATERPHYSICS
