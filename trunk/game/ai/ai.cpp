@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1661 $
- * $Date: 2007-11-03 08:19:48 -0400 (Sat, 03 Nov 2007) $
- * $Author: angua $
+ * $Revision: 1663 $
+ * $Date: 2007-11-03 13:38:59 -0400 (Sat, 03 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1661 2007-11-03 12:19:48Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1663 2007-11-03 17:38:59Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -5253,16 +5253,14 @@ void idAI::UpdateEnemyPosition()
 idAI::SetEnemy
 =====================
 */
-void idAI::SetEnemy(idActor* newEnemy)
+bool idAI::SetEnemy(idActor* newEnemy)
 {
 	// Don't continue if we're dead or knocked out
 	if (newEnemy == NULL || AI_DEAD || AI_KNOCKEDOUT)
 	{
 		ClearEnemy();
-		return;
+		return false; // not a valid enemy
 	}
-
-	AI_ENEMY_DEAD = false;
 
 	// greebo: Check if the new enemy is different
 	if (enemy.GetEntity() != newEnemy)
@@ -5275,7 +5273,7 @@ void idAI::SetEnemy(idActor* newEnemy)
 		if (newEnemy->health <= 0)
 		{
 			EnemyDead();
-			return;
+			return false; // not a valid enemy
 		}
 
 		int enemyAreaNum(-1);
@@ -5304,6 +5302,14 @@ void idAI::SetEnemy(idActor* newEnemy)
 			aas->PushPointIntoAreaNum( enemyAreaNum, lastReachableEnemyPos );
 			lastVisibleReachableEnemyPos = lastReachableEnemyPos;
 		}
+
+		return true; // valid enemy
+	}
+	else
+	{
+		// greebo: update the ENEMY_DEAD status
+		AI_ENEMY_DEAD = (newEnemy->health <= 0); 
+		return true; // still a valid enemy
 	}
 }
 
