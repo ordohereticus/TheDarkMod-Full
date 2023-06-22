@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1349 $
- * $Date: 2007-08-29 08:37:57 -0400 (Wed, 29 Aug 2007) $
+ * $Revision: 1356 $
+ * $Date: 2007-08-29 14:33:23 -0400 (Wed, 29 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1349 2007-08-29 12:37:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1356 2007-08-29 18:33:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2380,8 +2380,9 @@ bool idAI::Flee(idEntity* entityToFleeFrom, float maxDist)
 	conditions.fromEntity = entityToFleeFrom;
 	conditions.aas = aas;
 	conditions.fromPosition = org;
-	conditions.maxDistance = 1000.0f;
 	conditions.self = this;
+	conditions.findNearest = true;
+	conditions.algorithm = FIND_ANY;
 
 	// Request the escape goal from the manager
 	EscapeGoal goal = gameLocal.m_EscapePointManager->GetEscapeGoal(conditions);
