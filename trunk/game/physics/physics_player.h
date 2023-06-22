@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1254 $
+ * $Date: 2007-07-30 05:18:04 -0400 (Mon, 30 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -135,11 +135,12 @@ public:
 	const idVec3 &			PlayerGetOrigin( void ) const;	// != GetOrigin
 
 	/**
-	* Get the view yaw change between last frame and this frame
+	* Get the view yaw and pitch changes between last frame and this frame
 	* Useful for rotating items in response to yaw, rope arrow, etc
 	* Returns the change in degrees
 	**/
-	float					GetDeltaViewYaw( void );					
+	float					GetDeltaViewYaw( void );
+	float					GetDeltaViewPitch( void );
 
 public:	// common physics interface
 	bool					Evaluate( int timeStepMSec, int endTimeMSec );
@@ -299,10 +300,11 @@ private:
 	int						m_ClimbSndRepDistHoriz;
 
 	/**
-	* View yaw change between this frame and last frame
+	* View yaw and pitch changes between this frame and last frame
 	* In degrees.
 	**/
 	float					m_DeltaViewYaw;
+	float					m_DeltaViewPitch;
 
 	/**
 	* Door that the player is leaning into
@@ -690,6 +692,7 @@ protected:
 	idAngles m_lastPlayerViewAngles;
 
 	float m_lastCommandViewYaw;
+	float m_lastCommandViewPitch;
 	
 	/*!
 	* The current resulting view lean angles
