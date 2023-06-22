@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2210 $
- * $Date: 2008-04-25 11:23:13 -0400 (Fri, 25 Apr 2008) $
+ * $Revision: 2215 $
+ * $Date: 2008-04-26 03:43:15 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2210 2008-04-25 15:23:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2215 2008-04-26 07:43:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2599,29 +2599,23 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 					  const char *damageDefName, const float damageScale, const int location,
 					  trace_t *collision ) 
 {
-	bool bKO(false), bKOPowerBlow(false);
-	int bodID(0);
-	idEntity *reroute = NULL;
-	idAFBody *StruckBody = NULL;
-	const idDict *damageDef = NULL;
-	int damage;
-
-	if( collision )
+	if (collision != NULL)
 	{
-		bodID = BodyForClipModelId( collision->c.id );
+		int bodID = BodyForClipModelId( collision->c.id );
 		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Fun is trying to call getBody with bodyID %d\r", bodID );
-		StruckBody = GetAFPhysics()->GetBody( bodID );
+		idAFBody* StruckBody = GetAFPhysics()->GetBody( bodID );
 		
 		if( StruckBody != NULL )
-			reroute = StruckBody->GetRerouteEnt();
+		{
+			idEntity* reroute = StruckBody->GetRerouteEnt();
+			if (reroute != NULL) 
+			{
+				reroute->Damage( inflictor, attacker, dir, damageDefName, damageScale, location, collision );
+				return;
+			}
+		}
 	}
 
-	if( reroute != NULL )
-	{
-		reroute->Damage( inflictor, attacker, dir, damageDefName, damageScale, location, collision );
-		goto Quit;
-	}
-	
 	if ( !fl.takedamage ) {
 		return;
 	}
@@ -2637,12 +2631,14 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		return;
 	}
 
-	damageDef = gameLocal.FindEntityDefDict( damageDefName );
+	// Try to find the damage entityDef
+	const idDict* damageDef = gameLocal.FindEntityDefDict( damageDefName );
 	if ( !damageDef ) {
 		gameLocal.Error( "Unknown damageDef '%s'", damageDefName );
 	}
 
-	damage = (int)(damageDef->GetInt( "damage" ) * damageScale);
+	// Get the damage amount
+	int damage = static_cast<int>(damageDef->GetInt( "damage" ) * damageScale);
 
 	damage = GetDamageForLocation( damage, location );
 
@@ -2652,24 +2648,23 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	attacker->DamageFeedback( this, inflictor, damage );
 
 	// DarkMod: check for KO damage type and knockout AI if appropriate
-	bKO = damageDef->GetBool( "knockout" );
-	bKOPowerBlow = damageDef->GetBool( "knockout_power" );
+	bool bKO = damageDef->GetBool( "knockout" );
+	bool bKOPowerBlow = damageDef->GetBool( "knockout_power" );
 	
 	if( (bKO || bKOPowerBlow) && collision )
 	{
-			if( TestKnockoutBlow( dir, collision, bKOPowerBlow ) )
+		if( TestKnockoutBlow( dir, collision, bKOPowerBlow ) )
+		{
+			if (attacker != NULL && attacker->IsType(idActor::Type)) 
 			{
-				if (attacker != NULL && attacker->IsType(idActor::Type)) 
-				{
-					// Add a KO to the player stats
-					gameLocal.m_MissionData->KOCallback(this, static_cast<idActor*>(attacker));
-				}
-
-				// For now, first KO blow does no health damage
-				goto Quit;
+				// Add a KO to the player stats
+				gameLocal.m_MissionData->KOCallback(this, static_cast<idActor*>(attacker));
 			}
-	}
 
+			// For now, first KO blow does no health damage
+			damage = 0;
+		}
+	}
 
 	if ( damage > 0 )
 	{
@@ -2697,7 +2692,8 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 				StartSound( "snd_airGasp", SND_CHANNEL_VOICE, 0, false, NULL );
 			}
 		}
-	} else 
+	}
+	else 
 	{
 		// don't accumulate knockback
 		if ( af.IsLoaded() ) 
@@ -2709,9 +2705,6 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 			BecomeActive( TH_PHYSICS );
 		}
 	}
-
-Quit:
-	return;
 }
 
 /*
