@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1943 $
- * $Date: 2008-01-02 14:17:40 -0500 (Wed, 02 Jan 2008) $
+ * $Revision: 1946 $
+ * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1943 2008-01-02 19:17:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1946 2008-01-03 18:09:13Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -883,7 +883,7 @@ void CMissionData::Event_MissionComplete( void )
 		// This sound is played by the success.gui
 		//player->StartSoundShader( declManager->FindSound( "mission_complete" ), SND_CHANNEL_ANY, 0, false, NULL );
 		player->SendHUDMessage("Mission Complete");
-		player->PostEventMS(&EV_Mission_Success, 100);
+		player->PostEventMS(&EV_PrepareMapForMissionEnd, 100);
 	}
 }
 
@@ -891,6 +891,9 @@ void CMissionData::Event_MissionFailed( void )
 {
 	DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objectives: MISSION FAILED. \r");
 	gameLocal.Printf("MISSION FAILED\n");
+
+	// greebo: Notify the local game about this
+	gameLocal.SetMissionResult(MISSION_FAILED);
 
 	idPlayer *player = gameLocal.GetLocalPlayer();
 	if(player)

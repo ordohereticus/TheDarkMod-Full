@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1922 $
- * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1946 $
+ * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -41,6 +41,7 @@ extern const idEventDef EV_Player_DeathMenu;
 extern const idEventDef EV_Player_MissionFailed;
 extern const idEventDef EV_Player_GiveHealthPool;
 extern const idEventDef EV_Mission_Success;
+extern const idEventDef EV_PrepareMapForMissionEnd;
 
 const float THIRD_PERSON_FOCUS_DISTANCE	= 512.0f;
 const int	LAND_DEFLECT_TIME = 150;

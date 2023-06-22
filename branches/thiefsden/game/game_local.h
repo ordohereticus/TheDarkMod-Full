@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1928 $
- * $Date: 2007-12-29 09:58:14 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1946 $
+ * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -180,6 +180,8 @@ void gameError( const char *fmt, ... );
 // Forward decl.
 class DarkRadiantRCFServer;
 typedef boost::shared_ptr<DarkRadiantRCFServer> DarkRadiantRCFServerPtr;
+
+typedef enum EMissionResult;
 
 #ifdef __linux__
 #include "renderer/renderworld.h"
@@ -438,6 +440,7 @@ public:
 * Pointer to global Mission Data object (objectives & stats)
 **/
 	CMissionData *			m_MissionData;
+	EMissionResult			m_MissionResult; // holds the global mission state
 
 /**
 * Pointer to global sound prop loader object
@@ -607,6 +610,9 @@ public:
 	 *         world and sets all moveables to rest.
 	 */
 	void					PrepareForMissionEnd();
+
+	void					 SetMissionResult(EMissionResult result) { m_MissionResult = result; }
+	ID_INLINE EMissionResult GetMissionResult() const { return m_MissionResult; }
 
 	idEntity *				SpawnEntityType( const idTypeInfo &classdef, const idDict *args = NULL, bool bIsClientReadSnapshot = false );
 	bool					SpawnEntityDef( const idDict &args, idEntity **ent = NULL, bool setDefaults = true );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1940 $
- * $Date: 2008-01-01 08:42:46 -0500 (Tue, 01 Jan 2008) $
+ * $Revision: 1946 $
+ * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1940 2008-01-01 13:42:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1946 2008-01-03 18:09:13Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9782,22 +9782,29 @@ void idPlayer::Event_UpdateStatisticsGUI(int guiHandle, const char* listDefName)
 
 void idPlayer::Event_MissionSuccess()
 {
-	if (hudMessages.Num() > 0)
-	{
-		// There are still HUD messages pending, postpone this event
-		PostEventMS(&EV_Mission_Success, 3000);
-		return;
-	}
+	// greebo: Hooked off this script, this will be handled via the main menu (TODO: Cleanup)
+	// CallScriptFunctionArgs("onMissionSuccess", true, 0, "e", this);
 
-	CallScriptFunctionArgs("onMissionSuccess", true, 0, "e", this);
+	// Set the gamestate (and remove all irrelevant entities <<-- can be skipped (FIXME))
+	gameLocal.PrepareForMissionEnd();
+	gameLocal.SetMissionResult(MISSION_COMPLETE);
+	gameLocal.sessionCommand = "disconnect";
 }
 
 void idPlayer::Event_PrepareMapForMissionEnd() 
 {
-	gameLocal.Printf("Map shutdown for mission success.\n");
+	if (hudMessages.Num() > 0)
+	{
+		// There are still HUD messages pending, postpone this event
+		PostEventMS(&EV_PrepareMapForMissionEnd, 3000);
+		return;
+	}
 
-	// Pass the call to gameLocal
-	gameLocal.PrepareForMissionEnd();
+	idVec4 fadeColor(0,0,0,1);
+	playerView.Fade(fadeColor, 1500);
+
+	// Schedule an mission success event right after fadeout
+	PostEventMS(&EV_Mission_Success, 1500);
 }
 
 void idPlayer::Event_DisplaySuccessGUI(const char* guiFile) 
