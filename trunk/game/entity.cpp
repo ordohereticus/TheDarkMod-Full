@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1266 $
- * $Date: 2007-08-02 13:47:13 -0400 (Thu, 02 Aug 2007) $
+ * $Revision: 1267 $
+ * $Date: 2007-08-02 17:59:43 -0400 (Thu, 02 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1266 2007-08-02 17:47:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1267 2007-08-02 21:59:43Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7402,6 +7402,8 @@ void idEntity::BindNotify( idEntity *ent )
 
 void idEntity::UnbindNotify( idEntity *ent )
 {
+	// greebo: Activate physics on "Unbind" of any slaves
+	physics->Activate();
 }
 
 void idEntity::Event_TimerCreate(int StimType, int Hour, int Minute, int Seconds, int Millisecond)
