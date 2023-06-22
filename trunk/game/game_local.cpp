@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1869 $
- * $Date: 2007-12-13 06:45:27 -0500 (Thu, 13 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1870 $
+ * $Date: 2007-12-13 07:38:46 -0500 (Thu, 13 Dec 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1869 2007-12-13 11:45:27Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1870 2007-12-13 12:38:46Z sparhawk $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -34,6 +34,11 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1869 2007-12-13 
 #include "../DarkMod/DifficultyMenu.h"
 #include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/ModMenu.h"
+#ifdef _WINDOWS
+#include "../DarkMod/renderpipewindows.h"
+#else
+#include "DarkMod/renderpipeposix.h"
+#endif
 
 #ifdef __linux__
 	#include <boost/asio.hpp>
@@ -341,16 +346,6 @@ void idGameLocal::Clear( void )
 	portalSkyEnt			= NULL;
 	portalSkyActive			= false;
 	//	ResetSlowTimeVars();
-
-#ifndef __linux__
-	memset(&m_saPipeSecurity, 0, sizeof(m_saPipeSecurity));
-	m_pPipeSD = (PSECURITY_DESCRIPTOR)malloc(SECURITY_DESCRIPTOR_MIN_LENGTH);
-	InitializeSecurityDescriptor(m_pPipeSD, SECURITY_DESCRIPTOR_REVISION);
-	SetSecurityDescriptorDacl(m_pPipeSD, TRUE, (PACL)NULL, FALSE);
-	m_saPipeSecurity.nLength = sizeof(SECURITY_ATTRIBUTES);
-	m_saPipeSecurity.bInheritHandle = FALSE;
-	m_saPipeSecurity.lpSecurityDescriptor = m_pPipeSD;
-#endif
 
 	m_EscapePointManager->Clear();
 }

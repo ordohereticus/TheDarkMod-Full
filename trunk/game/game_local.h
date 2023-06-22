@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1869 $
- * $Date: 2007-12-13 06:45:27 -0500 (Thu, 13 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1870 $
+ * $Date: 2007-12-13 07:38:46 -0500 (Thu, 13 Dec 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -28,15 +28,12 @@
 #define	__GAME_LOCAL_H__
 
 #include "game.h"
-#ifdef _WINDOWS
-#include "DarkMod/renderpipewindows.h"
-#else
-#include "DarkMod/renderpipeposix.h"
-#endif
 
 #ifdef __linux__
 #include "framework/usercmdgen.h"
 #endif
+
+class CRenderPipe;
 
 #pragma warning(disable : 4996)
 /**
@@ -832,13 +829,6 @@ private:
 	bool					m_DoLightgem;		// Signal when the lightgem may be processed.
 	int						m_LightgemShotSpot;
 	float					m_LightgemShotValue[DARKMOD_LG_MAX_RENDERPASSES];
-
-#ifndef __linux__
-
-	SECURITY_ATTRIBUTES		m_saPipeSecurity;
-	PSECURITY_DESCRIPTOR	m_pPipeSD;
-	
-#endif // __linux__
 
 	idList<idEntity *>		m_SignalList;
 

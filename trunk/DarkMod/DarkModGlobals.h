@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1869 $
- * $Date: 2007-12-13 06:45:27 -0500 (Thu, 13 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1870 $
+ * $Date: 2007-12-13 07:38:46 -0500 (Thu, 13 Dec 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -35,6 +35,8 @@
 Darkmod LAS
 */
 #include "../DarkMod/darkModLAS.h"
+
+class CRenderPipe;
 
 #ifndef ILuint
 typedef unsigned int ILuint;

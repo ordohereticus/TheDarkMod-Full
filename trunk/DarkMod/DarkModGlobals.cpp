@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1869 $
- * $Date: 2007-12-13 06:45:27 -0500 (Thu, 13 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1870 $
+ * $Date: 2007-12-13 07:38:46 -0500 (Thu, 13 Dec 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1869 2007-12-13 11:45:27Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1870 2007-12-13 12:38:46Z sparhawk $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -42,6 +42,7 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1869 2007-12
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
 #include "DarkRadiantRCFServer.h"
+#include "renderpipe.h"
 
 // Default length of time for holding down jump key to start
 // mantling.
