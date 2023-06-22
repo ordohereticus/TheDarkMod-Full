@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1334 $
- * $Date: 2007-08-28 03:51:11 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1398 $
+ * $Date: 2007-09-30 17:25:46 -0400 (Sun, 30 Sep 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -220,8 +220,7 @@ protected:
 * Values of the specifier to match, e.g., if specmethod is group, specvalue is "beast"
 * Could be either an int or a string depending on spec type, so make room for both.
 **/
-	idStr m_SpecStrVal[2];
-	int   m_SpecIntVal[2];
+	idStr m_SpecVal[2];
 
 	/**
 	* Current component state (true/false)
@@ -233,8 +232,7 @@ protected:
 	**/
 	bool		m_bLatched;
 
-	idList<int>	m_IntArgs;
-	idStrList	m_StrArgs;
+	idStrList	m_Args;
 
 // Only used by clocked objectives:
 	int			m_ClockInterval; // milliseconds
