@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1758 $
- * $Date: 2007-11-12 02:08:40 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1858 $
+ * $Date: 2007-12-07 11:54:52 -0500 (Fri, 07 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -69,6 +69,7 @@ public:
 	bool					AnimDone( int blendFrames ) const;
 	bool					IsIdle( void ) const;
 	animFlags_t				GetAnimFlags( void ) const;
+	idAnimator*				GetAnimator();
 
 private:
 	idActor *				self;
@@ -272,6 +273,7 @@ public:
 	
 							// animation state control
 	int						GetAnim( int channel, const char *name );
+	idAnimator*				GetAnimatorForChannel(int channel);
 	const char*				LookupReplacementAnim( const char *name );
 	void					StopAnim(int channel, int frames);
 	void					UpdateAnimState( void );

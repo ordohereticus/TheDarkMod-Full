@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1853 $
- * $Date: 2007-12-06 06:34:06 -0500 (Thu, 06 Dec 2007) $
- * $Author: angua $
+ * $Revision: 1858 $
+ * $Date: 2007-12-07 11:54:52 -0500 (Fri, 07 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1853 2007-12-06 11:34:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1858 2007-12-07 16:54:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -265,6 +265,11 @@ animFlags_t idAnimState::GetAnimFlags( void ) const {
 	}
 
 	return flags;
+}
+
+idAnimator*	idAnimState::GetAnimator()
+{
+	return animator;
 }
 
 /*
@@ -2248,6 +2253,28 @@ int idActor::GetAnim( int channel, const char *animname ) {
 	if (!anim) anim = animatorPtr->GetAnim( animname );
 
 	return anim;
+}
+
+idAnimator*	idActor::GetAnimatorForChannel(int channel)
+{
+	switch (channel) 
+	{
+		case ANIMCHANNEL_HEAD :
+			return headAnim.GetAnimator();
+			break;
+
+		case ANIMCHANNEL_TORSO :
+			torsoAnim.GetAnimator();
+			break;
+
+		case ANIMCHANNEL_LEGS :
+			legsAnim.GetAnimator();
+			break;
+
+		default:
+			gameLocal.Error( "Unknown anim group" );
+			break;
+	};
 }
 
 /*
