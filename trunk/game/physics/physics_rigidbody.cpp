@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1266 $
- * $Date: 2007-08-02 13:47:13 -0400 (Thu, 02 Aug 2007) $
+ * $Revision: 1271 $
+ * $Date: 2007-08-03 13:24:02 -0400 (Fri, 03 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1266 2007-08-02 17:47:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1271 2007-08-03 17:24:02Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -415,6 +415,26 @@ bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &im
 		impulseDenominator += info.invMass + ( ( info.invInertiaTensor * info.position.Cross( collision.c.normal ) ).Cross( info.position ) * collision.c.normal );
 	}
 	impulse = (impulseNumerator / impulseDenominator) * collision.c.normal;
+
+#ifdef DEBUG_COLLISIONS
+	idVec3 velocityN(GetLinearVelocity());
+	velocityN.NormalizeFast();
+
+	idVec3 velocityA(GetAngularVelocity());
+	velocityA.NormalizeFast();
+
+	idVec3 impulseN(impulse);
+	impulseN.NormalizeFast();
+
+	idVec3 impulseA(r.Cross(impulse));
+	impulseA.NormalizeFast();
+
+	gameRenderWorld->DebugArrow(colorRed, current.i.position, current.i.position + velocityN*20, 1, 1000);
+	gameRenderWorld->DebugArrow(colorBlue, current.i.position, current.i.position + velocityA*20, 1, 1000);
+
+	gameRenderWorld->DebugArrow(colorMagenta, current.i.position + velocityN*20, current.i.position + velocityN*20 + impulseN*10, 1, 1000);
+	gameRenderWorld->DebugArrow(colorGreen, current.i.position + velocityA*20, current.i.position + velocityA*20 + impulseA*10, 1, 1000);
+#endif
 
 	// update linear and angular momentum with impulse
 	current.i.linearMomentum += impulse;
