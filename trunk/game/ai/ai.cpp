@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2227 $
- * $Date: 2008-04-26 15:46:20 -0400 (Sat, 26 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2230 $
+ * $Date: 2008-04-27 04:15:12 -0400 (Sun, 27 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2227 2008-04-26 19:46:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2230 2008-04-27 08:15:12Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -497,6 +497,7 @@ idAI::idAI()
 	m_AlertLevelThisFrame = 0.0f;
 	m_prevAlertIndex = 0;
 	m_maxAlertLevel = 0;
+	m_maxAlertIndex = 0;
 	m_AlertedByActor = NULL;
 
 	m_TactAlertEnt = NULL;
@@ -701,6 +702,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat( m_AlertLevelThisFrame );
 	savefile->WriteInt( m_prevAlertIndex );
 	savefile->WriteFloat( m_maxAlertLevel);
+	savefile->WriteInt( m_maxAlertIndex);
 	savefile->WriteFloat(m_lastAlertLevel);
 	savefile->WriteBool( m_bIgnoreAlerts );
 
@@ -954,6 +956,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( m_AlertLevelThisFrame );
 	savefile->ReadInt( m_prevAlertIndex );
 	savefile->ReadFloat( m_maxAlertLevel );
+	savefile->ReadInt( m_maxAlertIndex);
 	savefile->ReadFloat(m_lastAlertLevel);
 	savefile->ReadBool( m_bIgnoreAlerts );
 
@@ -7585,6 +7588,12 @@ void idAI::SetAlertLevel(float newAlertLevel)
 		grace_frac = 0.0;
 		grace_count = 0;
 	}
+
+	// greebo: Remember the highest alert index
+	if (AI_AlertIndex > m_maxAlertIndex)
+	{
+		m_maxAlertIndex = AI_AlertIndex;
+	}
 	
 	// Add random variance to alert level duration
 	AI_currentAlertLevelDuration = AI_currentAlertLevelDuration*(1.0 + gameLocal.random.RandomFloat()*0.50);
@@ -7631,15 +7640,12 @@ void idAI::SetAlertLevel(float newAlertLevel)
 		//DEBUG_PRINT ("Clearing last searched alert position");
 		AI_lastAlertPosSearched = idVec3(0,0,0);
 	}
-
 }
-
 
 bool idAI::AlertIndexIncreased() 
 {
 	return (AI_AlertIndex > m_prevAlertIndex);
 }
-
 
 float idAI::GetAcuity(const char *type) const
 {

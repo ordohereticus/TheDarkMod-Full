@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2227 $
- * $Date: 2008-04-26 15:46:20 -0400 (Sat, 26 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2230 $
+ * $Date: 2008-04-27 04:15:12 -0400 (Sun, 27 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -422,7 +422,6 @@ public:
 	// than the previous one, false otherwise
 	bool AlertIndexIncreased();
 
-
 	/**
 	* Returns the float val of the specific AI's acuity
 	* Acuity type is a char, from the same list as alert types
@@ -766,8 +765,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	// angua: stores the previous alert index at alert index changes
 	int						m_prevAlertIndex;
 
-	// angua: the highest alert level the AI reached already 
+	// angua: the highest alert level/index the AI reached already 
 	float						m_maxAlertLevel;
+	int							m_maxAlertIndex;
 
 	// angua: the alert level the AI had after the last alert level increase
 	float						m_lastAlertLevel;
