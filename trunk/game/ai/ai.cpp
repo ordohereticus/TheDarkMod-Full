@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2203 $
- * $Date: 2008-04-22 16:31:01 -0400 (Tue, 22 Apr 2008) $
+ * $Revision: 2205 $
+ * $Date: 2008-04-24 01:19:35 -0400 (Thu, 24 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2203 2008-04-22 20:31:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2205 2008-04-24 05:19:35Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2096,16 +2096,21 @@ bool idAI::ReEvaluateArea(int areaNum)
 		return false;
 	}
 
+	// Remember the time
+	lastReEvaluationTime = gameLocal.time;
+
 	// Let's see if we have a valid door info structure in our memory
 	ai::DoorInfoPtr doorInfo = GetMemory().GetDoorInfo(areaNum);
 
 	if (doorInfo != NULL)
 	{
-		// TODO: Re-evaluate
+		if (doorInfo->lastTimeTriedToOpen + 60000 < gameLocal.time)
+		{
+			// Re-try the door after 60 seconds
+			gameLocal.m_AreaManager.RemoveForbiddenArea(areaNum, this);
+			return true;
+		}
 	}
-
-	// Remember the time
-	lastReEvaluationTime = gameLocal.time;
 
 	return false;
 }
