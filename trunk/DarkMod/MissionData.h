@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1748 $
+ * $Date: 2007-11-10 18:43:37 -0500 (Sat, 10 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -732,8 +732,8 @@ public:
 	void Think( void );
 	void Spawn( void );
 
-//	void Save( idSaveGame *savefile ) const;
-//	void Restore( idRestoreGame *savefile );
+	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
 
 protected:
 	/**

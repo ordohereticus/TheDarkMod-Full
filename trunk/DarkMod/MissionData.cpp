@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1627 $
- * $Date: 2007-11-01 08:46:34 -0400 (Thu, 01 Nov 2007) $
- * $Author: tels $
+ * $Revision: 1748 $
+ * $Date: 2007-11-10 18:43:37 -0500 (Sat, 10 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1627 2007-11-01 12:46:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1748 2007-11-10 23:43:37Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2091,6 +2091,30 @@ void CObjectiveLocation::Spawn()
 	GetPhysics()->EnableClip();
 
 	BecomeActive( TH_THINK );
+}
+
+void CObjectiveLocation::Save( idSaveGame *savefile ) const
+{
+	savefile->WriteInt( m_Interval );
+	savefile->WriteInt( m_TimeStamp );
+
+	savefile->WriteInt( m_EntsInBounds.Num() );
+	for( int i=0;i < m_EntsInBounds.Num(); i++ )
+		savefile->WriteString( m_EntsInBounds[i] );
+}
+
+void CObjectiveLocation::Restore( idRestoreGame *savefile )
+{
+	int num;
+
+	savefile->ReadInt( m_Interval );
+	savefile->ReadInt( m_TimeStamp );
+
+	m_EntsInBounds.Clear();
+	savefile->ReadInt( num );
+	m_EntsInBounds.SetNum( num );
+	for( int i=0;i < num; i++ )
+		savefile->ReadString( m_EntsInBounds[i] );
 }
 
 void CObjectiveLocation::Think()
