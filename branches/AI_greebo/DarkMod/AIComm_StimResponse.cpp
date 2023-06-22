@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1598 $
- * $Date: 2007-10-30 07:20:25 -0400 (Tue, 30 Oct 2007) $
+ * $Revision: 1599 $
+ * $Date: 2007-10-30 09:14:54 -0400 (Tue, 30 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,11 +10,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1598 2007-10-30 11:20:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1599 2007-10-30 13:14:54Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
 #include "StimResponse/StimResponseCollection.h"
+#include "AI/States/State.h"
 
 #define MAX_COMMUNICATION_RADIUS 5000.0
 
@@ -46,7 +47,7 @@ void CAIComm_Response::TriggerResponse(idEntity *StimEnt, CStim* stim)
 	idAI* owner = static_cast<idAI*>(ownerEnt);
 
 	// Can't respond if we are unconscious or dead
-	if (owner->IsKnockedOut())
+	if (owner->IsKnockedOut() || owner->AI_DEAD)
 	{
 		return;
 	}
@@ -126,7 +127,7 @@ void CAIComm_Response::TriggerResponse(idEntity *StimEnt, CStim* stim)
 		if (distanceFromIssuance <= maxRadiusForResponse)
 		{
 			// Pass the AIComm_Message object to the AI's Mind
-			owner->GetMind()->OnAICommMessage(p_message);
+			owner->GetMind()->GetState()->OnAICommMessage(p_message);
 
 			/*idThread *pThread = new idThread(pScriptFkt);
 			int n = pThread->GetThreadNum();
