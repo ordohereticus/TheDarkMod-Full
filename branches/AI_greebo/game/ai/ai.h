@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1489 $
- * $Date: 2007-10-20 04:14:53 -0400 (Sat, 20 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1490 $
+ * $Date: 2007-10-20 05:25:19 -0400 (Sat, 20 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -962,6 +962,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					PlayChatter( void );
 	virtual void			Hide( void );
 	virtual void			Show( void );
+	virtual bool			CanBecomeSolid(void);
 	idVec3					FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags ) const;
 	void					CalculateAttackOffsets( void );
 	void					PlayCinematic( void );

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1481 $
- * $Date: 2007-10-19 14:11:32 -0400 (Fri, 19 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1490 $
+ * $Date: 2007-10-20 05:25:19 -0400 (Sat, 20 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1481 2007-10-19 18:11:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1490 2007-10-20 09:25:19Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1232,33 +1232,7 @@ idAI::Event_CanBecomeSolid
 =====================
 */
 void idAI::Event_CanBecomeSolid( void ) {
-	int			i;
-	int			num;
-	idEntity *	hit;
-	idClipModel *cm;
-	idClipModel *clipModels[ MAX_GENTITIES ];
-
-	num = gameLocal.clip.ClipModelsTouchingBounds( physicsObj.GetAbsBounds(), MASK_MONSTERSOLID, clipModels, MAX_GENTITIES );
-	for ( i = 0; i < num; i++ ) {
-		cm = clipModels[ i ];
-
-		// don't check render entities
-		if ( cm->IsRenderModel() ) {
-			continue;
-		}
-
-		hit = cm->GetEntity();
-		if ( ( hit == this ) || !hit->fl.takedamage ) {
-			continue;
-		}
-
-		if ( physicsObj.ClipContents( cm ) ) {
-			idThread::ReturnFloat( false );
-			return;
-		}
-	}
-
-	idThread::ReturnFloat( true );
+	idThread::ReturnFloat( CanBecomeSolid );
 }
 
 /*

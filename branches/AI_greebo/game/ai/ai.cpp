@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1489 $
- * $Date: 2007-10-20 04:14:53 -0400 (Sat, 20 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1490 $
+ * $Date: 2007-10-20 05:25:19 -0400 (Sat, 20 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1489 2007-10-20 08:14:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1490 2007-10-20 09:25:19Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -5736,7 +5736,35 @@ void idAI::Show( void ) {
 	SetChatSound();
 	StartSound( "snd_ambient", SND_CHANNEL_AMBIENT, 0, false, NULL );
 }
+/*
+================
+idAI::CanBecomeSolid
+================
+*/
+bool idAI::CanBecomeSolid( void ) {
+	idClipModel* clipModels[ MAX_GENTITIES ];
 
+	int num = gameLocal.clip.ClipModelsTouchingBounds( physicsObj.GetAbsBounds(), MASK_MONSTERSOLID, clipModels, MAX_GENTITIES );
+	for ( int i = 0; i < num; i++ ) {
+		idClipModel* cm = clipModels[ i ];
+
+		// don't check render entities
+		if ( cm->IsRenderModel() ) {
+			continue;
+		}
+
+		idEntity* hit = cm->GetEntity();
+		if ( ( hit == this ) || !hit->fl.takedamage ) {
+			continue;
+		}
+
+		if ( physicsObj.ClipContents( cm ) ) {
+			return false;
+		}
+	}
+	return true;
+
+}
 /*
 =====================
 idAI::SetChatSound
