@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2213 $
- * $Date: 2008-04-26 03:10:34 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2214 $
+ * $Date: 2008-04-26 03:26:46 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2213 2008-04-26 07:10:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2214 2008-04-26 07:26:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -512,6 +512,9 @@ void idGameLocal::Shutdown( void ) {
 	mpGame.Shutdown();
 
 	MapShutdown();
+	// greebo: Separately clear the missiondata, which is not 
+	// cleared in MapShutdown() (needed for mission statistics)
+	m_MissionData->Clear();
 
 	aasList.DeleteContents( true );
 	aasNames.Clear();
@@ -1880,7 +1883,6 @@ void idGameLocal::MapShutdown( void ) {
 
 	m_sndProp->Clear();
 	m_RelationsManager->Clear();
-	m_MissionData->Clear();
 
 	clip.Shutdown();
 	idClipModel::ClearTraceModelCache();
