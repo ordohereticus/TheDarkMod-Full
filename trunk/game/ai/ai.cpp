@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2100 $
- * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2103 $
+ * $Date: 2008-02-23 14:13:41 -0500 (Sat, 23 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2100 2008-02-23 09:32:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2103 2008-02-23 19:13:41Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3776,7 +3776,14 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos ) {
 	// If there is an obstacle, this is the distance from it we should stop to take action
 	float stopDistance = 0.0f;
 
-	if ( !foundPath ) {
+	if ( !foundPath )
+	{
+		if (path.frobMoverObstacle != NULL) 
+		{
+			// We have a frobmover in our way, raise a signal to the current state
+			mind->GetState()->OnFrobMoverEncounter(path.frobMoverObstacle);
+		}
+
 		// couldn't get around obstacles
 		if ( path.firstObstacle )
 		{

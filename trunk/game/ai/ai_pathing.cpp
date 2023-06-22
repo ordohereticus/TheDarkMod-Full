@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2098 $
- * $Date: 2008-02-16 15:16:48 -0500 (Sat, 16 Feb 2008) $
+ * $Revision: 2103 $
+ * $Date: 2008-02-23 14:13:41 -0500 (Sat, 23 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2098 2008-02-16 20:16:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2103 2008-02-23 19:13:41Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -297,7 +297,7 @@ GetObstacles
 */
 int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ignore, int areaNum, 
 				  const idVec3 &startPos, const idVec3 &seekPos, obstacle_t *obstacles, int maxObstacles, 
-				  idBounds &clipBounds ) 
+				  idBounds &clipBounds, obstaclePath_t& pathInfo ) 
 {
 	int clipMask;
 	float stepHeight, headHeight, min, max;
@@ -308,7 +308,10 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	 * If NULL its not, if non NULL it is, and the pointer is a cast to it
 	 * as a binary mover
 	 */
-	CBinaryFrobMover* p_binaryFrobMover = NULL;
+	// So far, we don't have a mover
+	pathInfo.frobMoverObstacle = NULL;
+
+	//CBinaryFrobMover* p_binaryFrobMover = NULL;
 
 	// TDM: Store our team. const_cast<> is necessary due to GetSelf() not being const
 	idActor* self = static_cast<idActor*>(const_cast<idPhysics*>(physics)->GetSelf()); 
@@ -379,7 +382,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		// SZ: Oct 9, 2006: BinaryMovers are now dynamic pathing obstacles too
 		else if (obEnt->IsType(CBinaryFrobMover::Type))
 		{
-			p_binaryFrobMover = static_cast<CBinaryFrobMover*>(obEnt);
+			//p_binaryFrobMover = static_cast<CBinaryFrobMover*>(obEnt);
 		}
 		else if (obEnt->IsType(idMoveable::Type)) 
 		{
@@ -476,6 +479,13 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		{
 			// No first obstacle found
 			return 0;
+		}
+
+		if (blockingObstacle != -1 && obstacles[blockingObstacle].entity != NULL && 
+			obstacles[blockingObstacle].entity->IsType(CBinaryFrobMover::Type))
+		{
+			// greebo: We have a frobmover as first blocking obstacle
+			pathInfo.frobMoverObstacle = static_cast<CBinaryFrobMover*>(obstacles[blockingObstacle].entity);
 		}
 	}
 
@@ -1038,7 +1048,7 @@ bool idAI::FindPathAroundObstacles( const idPhysics *physics, const idAAS *aas, 
 	// get all the nearby obstacles
 	obstacle_t obstacles[MAX_OBSTACLES];
 	idBounds clipBounds;
-	int numObstacles = GetObstacles( physics, aas, ignore, areaNum, path.startPosOutsideObstacles, path.seekPosOutsideObstacles, obstacles, MAX_OBSTACLES, clipBounds );
+	int numObstacles = GetObstacles( physics, aas, ignore, areaNum, path.startPosOutsideObstacles, path.seekPosOutsideObstacles, obstacles, MAX_OBSTACLES, clipBounds, path );
 
 	// get a source position outside the obstacles
 	int insideObstacle;

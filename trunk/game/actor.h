@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2073 $
- * $Date: 2008-02-09 19:13:37 -0500 (Sat, 09 Feb 2008) $
- * $Author: ishtvan $
+ * $Revision: 2103 $
+ * $Date: 2008-02-23 14:13:41 -0500 (Sat, 23 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -74,10 +74,8 @@ public:
 	const char *			WaitState( void ) const;
 	void					SetWaitState( const char *_waitstate );
 
-protected:
-	idStr					waitState;
-
 private:
+	idStr					waitState;
 	idActor *				self;
 	idAnimator *			animator;
 	idThread *				thread;
