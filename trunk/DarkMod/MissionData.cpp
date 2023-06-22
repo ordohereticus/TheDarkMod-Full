@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2212 $
- * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2220 $
+ * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2212 2008-04-26 06:31:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2220 2008-04-26 14:31:05Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2386,6 +2386,16 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 
 	key = "KOed by the Player";
 	value = idStr(m_Stats.AIStats[COMP_KO].ByTeam[m_PlayerTeam]);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+
+	key = "Frames";
+	value = idStr(gameLocal.framenum);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+	key = "GameLocal.time";
+	value = idStr(gameLocal.time);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+	key = "GameLocal.realClientTime";
+	value = idStr(gameLocal.realClientTime);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 
 	// Force a redraw

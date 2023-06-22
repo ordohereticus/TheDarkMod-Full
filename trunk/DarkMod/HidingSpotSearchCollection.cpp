@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1800 $
- * $Date: 2007-11-15 15:43:38 -0500 (Thu, 15 Nov 2007) $
+ * $Revision: 2220 $
+ * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1800 2007-11-15 20:43:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 2220 2008-04-26 14:31:05Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -216,7 +216,10 @@ int CHidingSpotSearchCollection::getOrCreateSearch
 
 	// Make new search
 	HidingSpotSearchNodePtr node = getNewSearch();
-	assert(node != NULL);
+	if (node == NULL)
+	{
+		return -1;
+	}
 
 	// At this point, we have a valid handle, we rely on it being inserted in the map
 	

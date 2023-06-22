@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2214 $
- * $Date: 2008-04-26 03:26:46 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2220 $
+ * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2214 2008-04-26 07:26:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2220 2008-04-26 14:31:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -352,6 +352,8 @@ void idGameLocal::Clear( void )
 	//	ResetSlowTimeVars();
 
 	m_EscapePointManager->Clear();
+
+	m_GamePlayTimer.Clear();
 }
 
 /*
@@ -1482,6 +1484,9 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	m_MissionData->ClearGUIState();
 
 	Printf( "--------------------------------------\n" );
+
+	m_GamePlayTimer.Clear();
+	m_GamePlayTimer.Start();
 }
 
 /*
@@ -2650,6 +2655,9 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 
 	// Check for any activated signals, and trigger them.
 	CheckSDKSignal();
+
+	// Update the gameplay timer
+	m_GamePlayTimer.Update();
 
 	if ( !isMultiplayer && g_stopTime.GetBool() ) {
 		// clear any debug lines from a previous frame

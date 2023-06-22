@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2216 $
- * $Date: 2008-04-26 03:52:05 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2220 $
+ * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2216 2008-04-26 07:52:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2220 2008-04-26 14:31:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5887,6 +5887,12 @@ void idPlayer::UpdateHud( void ) {
 
 	// Check if any HUD messages are pending
 	UpdateHUDMessages();
+
+	if (cv_show_gameplay_time.GetBool())
+	{
+		// Update the playing time in the HUD, if desired
+		hud->SetStateString("PlayingTime", gameLocal.m_GamePlayTimer.GetTime().c_str());
+	}
 }
 
 void idPlayer::UpdateHUDMessages()
