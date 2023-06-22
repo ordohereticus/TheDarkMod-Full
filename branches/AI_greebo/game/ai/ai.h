@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1445 $
- * $Date: 2007-10-18 03:18:46 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1448 $
+ * $Date: 2007-10-18 08:00:38 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -675,6 +675,7 @@ protected:
 	idVec3					lastReachableEnemyPos;
 	bool					wakeOnFlashlight;
 
+public: // greebo: Made these public for now, I didn't want to write an accessor for EVERYTHING
 	// script variables
 	idScriptBool			AI_TALK;
 	idScriptBool			AI_DAMAGE;
