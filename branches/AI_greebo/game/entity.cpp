@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1518 $
- * $Date: 2007-10-22 03:21:55 -0400 (Mon, 22 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1574 $
+ * $Date: 2007-10-27 15:35:08 -0400 (Sat, 27 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1518 2007-10-22 07:21:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1574 2007-10-27 19:35:08Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7673,6 +7673,19 @@ if the player has a bow equipped and 0 otherwise.
 float idEntity::RangedThreatTo(idEntity* target)
 {
 	// Most entities are not capable of attacking at range
+	if (target == NULL)
+	{
+		return 0;
+	}
+
+	if (target->IsType(idPlayer::Type))
+	{
+		idPlayer* player = static_cast<idPlayer*>(target);
+		CInventoryWeaponItem* currentWeapon = player->getCurrentWeaponItem();
+
+		// TODO: Check for ranged weapon
+		return 0;
+	}
 	return 0;
 }
 
