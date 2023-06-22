@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2162 $
- * $Date: 2008-03-30 04:22:43 -0400 (Sun, 30 Mar 2008) $
- * $Author: greebo $
+ * $Revision: 2182 $
+ * $Date: 2008-04-17 01:37:17 -0400 (Thu, 17 Apr 2008) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2162 2008-03-30 08:22:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2182 2008-04-17 05:37:17Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3972,21 +3972,23 @@ void idPlayer::BobCycle( const idVec3 &pushVelocity ) {
 	else {
 		if ( physicsObj.IsCrouching() ) {
 			bobmove = pm_crouchbob.GetFloat();
-			// ducked characters never play footsteps
 		} else {
 			// vary the bobbing based on the speed of the player
 			bobmove = pm_walkbob.GetFloat() * ( 1.0f - bobFrac ) + pm_runbob.GetFloat() * bobFrac;
 		}
-
-		// check for footstep / splash sounds <--- old D3 comment, probably legacy
+		
 		// additional explanatory comments added by Crispy
+		
 		old = bobCycle;
-		// bobCycle is effectively an 8-bit integer, which increases at a speed determined by bobmove,
+		
+		// bobCycle is effectively an 8-bit integer, which increases at a speed determined by bobmove
 		// and wraps around when it exceeds 8 bits.
 		bobCycle = (int)( old + bobmove * gameLocal.msec ) & 255;
+		
 		// bobFoot = most significant bit of bobCycle, so it will be equal to 1 for half the time,
 		// and 0 for the other half. This represents which foot we're placing our weight on right now.
 		bobFoot = ( bobCycle & 128 ) >> 7;
+		
 		// Take the other 7 bits of bobCycle, scale them to range from 0 to PI, and take the sine.
 		// The result produces positive values only, from within the first "hump" of the function.
 		// (Look at the graph of sin(x) with x = 0...PI)
