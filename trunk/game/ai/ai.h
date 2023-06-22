@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1520 $
- * $Date: 2007-10-22 07:29:37 -0400 (Mon, 22 Oct 2007) $
+ * $Revision: 1535 $
+ * $Date: 2007-10-23 03:14:59 -0400 (Tue, 23 Oct 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -769,6 +769,11 @@ protected:
 	* Should be cleared at the start of each frame.
 	**/
 	float					m_AlertNumThisFrame;
+
+	/**
+	* If true, the AI ignores alerts during all actions
+	**/
+	bool					m_bIgnoreAlerts;
 
 	/**
 	* Array containing the various AI acuities (visual, aural, tactile, etc)
