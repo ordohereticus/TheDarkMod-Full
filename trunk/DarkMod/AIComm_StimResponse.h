@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1643 $
+ * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,12 +22,6 @@ class CAIComm_Response:
 {
 public:
 	CAIComm_Response(idEntity* Owner, int Type, int uniqueId);
-	virtual ~CAIComm_Response(void);
-
-	virtual void Save(idSaveGame *savefile) const;
-	virtual void Restore(idRestoreGame *savefile);
-
-public:
 
 	/**
 	* This override of the base class version
