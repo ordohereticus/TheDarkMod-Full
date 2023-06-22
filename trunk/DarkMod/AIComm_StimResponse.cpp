@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1191 $
- * $Date: 2007-07-22 15:32:35 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1192 $
+ * $Date: 2007-07-22 16:21:50 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1191 2007-07-22 19:32:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1192 2007-07-22 20:21:50Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
@@ -139,7 +139,7 @@ void CAIComm_Response::TriggerResponse(idEntity *StimEnt, CStim* stim)
 					pScriptFkt, 
 					true, 
 					"eeffeeev", 
-					m_Owner, 
+					m_Owner.GetEntity(), 
 					StimEnt, 
 					(float) n,
 					(float) commType,
