@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2120 $
- * $Date: 2008-03-01 14:11:56 -0500 (Sat, 01 Mar 2008) $
+ * $Revision: 2122 $
+ * $Date: 2008-03-01 14:59:57 -0500 (Sat, 01 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1394,6 +1394,10 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// angua: this is used to check whether the AI is able to unlock a specific door
 	bool					CanUnlock(CBinaryFrobMover *frobMover);
+
+	// angua: this checks whether the AI should close the door after passing through
+	bool					ShouldCloseDoor(CBinaryFrobMover *frobMover);
+
 	
 	//
 	// ai/ai_events.cpp
