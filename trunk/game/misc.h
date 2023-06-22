@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1801 $
- * $Date: 2007-11-15 19:33:08 -0500 (Thu, 15 Nov 2007) $
+ * $Revision: 1865 $
+ * $Date: 2007-12-12 03:47:14 -0500 (Wed, 12 Dec 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -478,6 +478,9 @@ public:
 	idLocationEntity( void );
 
 	void				Spawn( void );
+
+	void				Save( idSaveGame *savefile ) const;
+	void				Restore( idRestoreGame *savefile );
 
 	const char *		GetLocation( void ) const;
 

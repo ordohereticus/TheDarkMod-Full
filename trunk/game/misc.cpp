@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1801 $
- * $Date: 2007-11-15 19:33:08 -0500 (Thu, 15 Nov 2007) $
+ * $Revision: 1865 $
+ * $Date: 2007-12-12 03:47:14 -0500 (Wed, 12 Dec 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1801 2007-11-16 00:33:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 1865 2007-12-12 08:47:14Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -2232,6 +2232,31 @@ void idLocationEntity::Spawn()
 
 	m_SndLossMult = idMath::Fabs( spawnArgs.GetFloat("sound_loss_mult", "1.0") );
 	m_SndVolMod = spawnArgs.GetFloat( "sound_vol_offset", "0.0" );
+	m_ObjectiveGroup = spawnArgs.GetString( "objective_group", "" );
+}
+
+/*
+======================
+idLocationEntity::Save
+======================
+*/
+void idLocationEntity::Save( idSaveGame *savefile ) const
+{
+	savefile->WriteFloat( m_SndLossMult );
+	savefile->WriteFloat( m_SndVolMod );
+	savefile->WriteString( m_ObjectiveGroup );
+}
+
+/*
+======================
+idLocationEntity::Restore
+======================
+*/
+void idLocationEntity::Restore( idRestoreGame *savefile )
+{
+	savefile->ReadFloat( m_SndLossMult );
+	savefile->ReadFloat( m_SndVolMod );
+	savefile->ReadString( m_ObjectiveGroup );
 }
 
 /*
