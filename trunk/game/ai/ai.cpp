@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2063 $
- * $Date: 2008-02-09 02:10:26 -0500 (Sat, 09 Feb 2008) $
+ * $Revision: 2067 $
+ * $Date: 2008-02-09 11:04:21 -0500 (Sat, 09 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2063 2008-02-09 07:10:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2067 2008-02-09 16:04:21Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4816,9 +4816,8 @@ int idAI::ReactionTo( const idEntity *ent )
 idAI::Pain
 =====================
 */
-bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location ) {
-	idActor	*actor;
-
+bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location )
+{
 	AI_PAIN = idActor::Pain( inflictor, attacker, damage, dir, location );
 	AI_DAMAGE = true;
 
@@ -4834,39 +4833,6 @@ bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVe
 		} else
 		{
 			AI_SPECIAL_DAMAGE = 0;
-		}
-
-		// angua: alert the AI
-		if (attacker->IsType(idActor::Type))
-		{
-			if (AI_AlertLevel <= (thresh_5 - 0.1))
-			{
-				SetAlertLevel(thresh_5 - 0.1);
-				if (inflictor->IsType(idProjectile::Type))
-				{
-					// Set up search
-					ai::Memory& memory = GetMemory();
-					memory.alertClass = ai::EAlertTactile;
-					memory.alertType = ai::EAlertTypeDamage;
-					memory.alertPos = physicsObj.GetOrigin() - dir * 300;
-					memory.alertPos.x += 200 * gameLocal.random.RandomFloat() - 100;
-					memory.alertPos.y += 200 * gameLocal.random.RandomFloat() - 100;
-					memory.alertRadius = LOST_ENEMY_ALERT_RADIUS;
-					memory.alertSearchVolume = LOST_ENEMY_SEARCH_VOLUME;
-					memory.alertSearchExclusionVolume.Zero();
-				}
-			}
-
-			if ( enemy.GetEntity() != attacker ) 
-			{
-				actor = ( idActor * )attacker;
-				if ( ReactionTo( actor ) & ATTACK_ON_DAMAGE )
-				{
-					// being attacked always overrides the previous alert
-					gameLocal.AlertAI( actor );
-					SetEnemy( actor );
-				}
-			}
 		}
 	}
 
