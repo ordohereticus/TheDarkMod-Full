@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1600 $
+ * $Date: 2007-10-30 09:29:34 -0400 (Tue, 30 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -194,7 +194,14 @@ public:
 		* The proper response is to have a uniform way of
 		* passing each other
 		*/
-		GetOutOfTheWayOrder_CommType
+		GetOutOfTheWayOrder_CommType,
+
+		/**
+		 * greebo: These three were defined the script, but not here >> added.
+		 */
+		ConveyWarning_EvidenceOfIntruders_CommType,
+		ConveyWarning_ItemsHaveBeenStolen_CommType,
+		ConveyWarning_EnemiesHaveBeenSeen_CommType,
 
 	} TCommType;
 
