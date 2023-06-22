@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1505 $
- * $Date: 2007-10-21 05:04:00 -0400 (Sun, 21 Oct 2007) $
+ * $Revision: 1506 $
+ * $Date: 2007-10-21 05:11:19 -0400 (Sun, 21 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1214,9 +1214,12 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool MouthIsUnderwater( void );
 
 	/**
-	* Checks for drowning, damages if drowning
+	* Checks for drowning, damages if drowning.
+	*
+	* greebo: Only enabled if the entity is able to drown and the 
+	* interleave timer is elapsed (is not checked each frame).
 	**/
-	void UpdateAir( void );
+	void					UpdateAir();
 
 	/**
 	* Halts lipsync
