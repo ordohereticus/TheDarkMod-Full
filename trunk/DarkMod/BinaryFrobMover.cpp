@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2126 $
- * $Date: 2008-03-07 12:02:53 -0500 (Fri, 07 Mar 2008) $
+ * $Revision: 2132 $
+ * $Date: 2008-03-16 11:18:46 -0400 (Sun, 16 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2126 2008-03-07 17:02:53Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2132 2008-03-16 15:18:46Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -348,6 +348,10 @@ void CBinaryFrobMover::Open(bool bMaster)
 		if (!t.Compare(null))
 		{
 			Event_RotateOnce((m_OpenAngles - tempAng).Normalize180());
+		}
+		else
+		{
+			m_Rotating = false;
 		}
 		
 		if( m_TransSpeed )
