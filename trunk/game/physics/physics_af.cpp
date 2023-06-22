@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1280 $
+ * $Date: 2007-08-05 04:14:03 -0400 (Sun, 05 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 1280 2007-08-05 08:14:03Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -5563,12 +5563,16 @@ bool idPhysics_AF::CollisionImpulse( float timeStep, idAFBody *body, trace_t &co
 	}
 #endif
 
-/* Grabber collision notification commented out for now, results in bug where bodies can't be picked up
 	// Check if we are grabbed by the grabber, and limit collision speed to the maximum grabber external speed
+/*
 	if( self == g_Global.m_DarkModPlayer->grabber->GetSelected() )
 	{
-		g_Global.m_DarkModPlayer->grabber->ClampVelocity( MAX_GRABBER_EXT_VELOCITY, MAX_GRABBER_EXT_ANGVEL, collision.c.id );
-		g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
+		// Don't collide with own bind slaves, or self
+		if ( ent != self 
+			&& (ent->GetBindMaster() == NULL || self != ent->GetBindMaster()) )
+		{
+			g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
+		}
 	}
 */
 
