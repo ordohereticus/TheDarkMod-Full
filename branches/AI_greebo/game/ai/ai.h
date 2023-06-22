@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1466 $
- * $Date: 2007-10-19 07:54:19 -0400 (Fri, 19 Oct 2007) $
+ * $Revision: 1469 $
+ * $Date: 2007-10-19 09:07:45 -0400 (Fri, 19 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1101,6 +1101,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 * calculation.
 **/
 	idActor * FindEnemy( bool useFOV ) ;
+
+	idActor* FindEnemyAI(bool useFOV);
 
 /**
 * Similarly to FindEnemy, this was previously only an Event_ scripting

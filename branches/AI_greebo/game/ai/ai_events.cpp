@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1457 $
- * $Date: 2007-10-18 12:45:49 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1469 $
+ * $Date: 2007-10-19 09:07:45 -0400 (Fri, 19 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1457 2007-10-18 16:45:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1469 2007-10-19 13:07:45Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -655,42 +655,7 @@ idAI::Event_FindEnemyAI
 =====================
 */
 void idAI::Event_FindEnemyAI( int useFOV ) {
-	idEntity	*ent;
-	idActor		*actor;
-	idActor		*bestEnemy;
-	float		bestDist;
-	float		dist;
-	idVec3		delta;
-	pvsHandle_t pvs;
-
-	pvs = gameLocal.pvs.SetupCurrentPVS( GetPVSAreas(), GetNumPVSAreas() );
-
-	bestDist = idMath::INFINITY;
-	bestEnemy = NULL;
-	for ( ent = gameLocal.activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next() ) {
-		if ( ent->fl.hidden || ent->fl.isDormant || !ent->IsType( idActor::Type ) ) {
-			continue;
-		}
-
-		actor = static_cast<idActor *>( ent );
-		if ( ( actor->health <= 0 ) || !( ReactionTo( actor ) & ATTACK_ON_SIGHT ) ) {
-			continue;
-		}
-
-		if ( !gameLocal.pvs.InCurrentPVS( pvs, actor->GetPVSAreas(), actor->GetNumPVSAreas() ) ) {
-			continue;
-		}
-
-		delta = physicsObj.GetOrigin() - actor->GetPhysics()->GetOrigin();
-		dist = delta.LengthSqr();
-		if ( ( dist < bestDist ) && CanSee( actor, useFOV != 0 ) ) {
-			bestDist = dist;
-			bestEnemy = actor;
-		}
-	}
-
-	gameLocal.pvs.FreeCurrentPVS( pvs );
-	idThread::ReturnEntity( bestEnemy );
+	idThread::ReturnEntity(FindEnemyAI(useFOV));
 }
 
 void idAI::Event_FindFriendlyAI(int requiredTeam)
