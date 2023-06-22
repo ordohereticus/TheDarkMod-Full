@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1109 $
- * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1308 $
+ * $Date: 2007-08-24 04:35:54 -0400 (Fri, 24 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1308 2007-08-24 08:35:54Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1148,6 +1148,14 @@ void idMoveableItem::Spawn( void )
 	physicsObj.SetGravity( gameLocal.GetGravity() );
 	physicsObj.SetContents( CONTENTS_RENDERMODEL );
 	physicsObj.SetClipMask( MASK_SOLID | CONTENTS_MOVEABLECLIP );
+
+	// greebo: Allow the entityDef to override the clipmodel contents
+	if( spawnArgs.FindKey( "clipmodel_contents" ) )
+	{
+		DM_LOG(LC_ENTITY,LT_INFO).LogString("Setting clipmask of %s to %d again\r", name.c_str(), spawnArgs.GetInt("clipmodel_contents"));
+		physicsObj.SetContents( spawnArgs.GetInt("clipmodel_contents") );
+	}
+
 	// SR CONTENTS_RESONSE FIX
 	if( m_StimResponseColl->HasResponse() )
 		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
@@ -1385,9 +1393,16 @@ void idMoveableItem::Show( void )
 	idEntity::Show();
 	physicsObj.SetContents( CONTENTS_RENDERMODEL );
 
+	// greebo: Allow the entityDef to override the clipmodel contents
+	if( spawnArgs.FindKey( "clipmodel_contents" ) )
+	{
+		DM_LOG(LC_ENTITY,LT_INFO).LogString("Setting clipmask of %s to %d in show\r", name.c_str(), spawnArgs.GetInt("clipmodel_contents"));
+		GetPhysics()->SetContents( spawnArgs.GetInt("clipmodel_contents") );
+	}
+
 // SR CONTENTS_RESPONSE FIX:
 	if( m_StimResponseColl->HasResponse() )
-		physicsObj.SetContents( CONTENTS_RENDERMODEL | CONTENTS_RESPONSE );
+		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
 
 	trigger->SetContents( CONTENTS_FROBABLE );
 }

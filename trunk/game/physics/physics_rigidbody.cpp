@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1280 $
- * $Date: 2007-08-05 04:14:03 -0400 (Sun, 05 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1308 $
+ * $Date: 2007-08-24 04:35:54 -0400 (Fri, 24 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1280 2007-08-05 08:14:03Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1308 2007-08-24 08:35:54Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -446,7 +446,7 @@ bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &im
 	current.i.linearMomentum += impulse;
 	current.i.angularMomentum += r.Cross(impulse);
 
-	DM_LOG(LC_ENTITY, LT_INFO).LogString("Collision fraction of %s = %f\r", self->name.c_str(), collision.fraction);
+	//DM_LOG(LC_ENTITY, LT_INFO).LogString("Collision fraction of %s = %f\r", self->name.c_str(), collision.fraction);
 
 	// if no movement at all don't blow up
 	if ( collision.fraction < 0.0001f ) {
@@ -1293,23 +1293,17 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 		self->GetMasterPosition( masterOrigin, masterAxis );
 
 		current.i.position = masterOrigin + current.localOrigin * masterAxis;
+		current.i.orientation = (isOrientated) ? current.localAxis * masterAxis : current.localAxis;
 
-		if ( isOrientated ) {
-			current.i.orientation = current.localAxis * masterAxis;
-		}
-		else {
-			current.i.orientation = current.localAxis;
-		}
-
-		bool isAF = self->GetBindMaster()->GetPhysics()->IsType(idPhysics_AF::Type);
-		
-		if (!isAF)
+		DM_LOG(LC_ENTITY, LT_INFO).LogString("Clipmask of %s: %d\r", self->name.c_str(), GetContents());
+		// greebo: Only check for collisions for "solid" bind slaves and if the master is non-AF
+		if ((clipModel->GetContents() & (CONTENTS_SOLID|CONTENTS_CORPSE)) && !self->GetBindMaster()->GetPhysics()->IsType(idPhysics_AF::Type))
 		{
 			// For non-AF masters we check for collisions
 			gameLocal.push.ClipPush( collisionTrace, self, PUSHFL_CLIP|PUSHFL_APPLYIMPULSE, oldOrigin, oldAxis, current.i.position, current.i.orientation );
 
-			if (collisionTrace.fraction < 1.0f ) {
-
+			if (collisionTrace.fraction < 1.0f )
+			{
 				clipModel->Link( gameLocal.clip, self, 0, oldOrigin, oldAxis );
 				current.i.position = oldOrigin;
 				current.i.orientation = oldAxis;
