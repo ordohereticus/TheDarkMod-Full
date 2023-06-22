@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1109 $
- * $Date: 2007-07-13 10:20:47 -0400 (Fri, 13 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1159 $
+ * $Date: 2007-07-20 05:07:37 -0400 (Fri, 20 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 1109 2007-07-13 14:20:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 1159 2007-07-20 09:07:37Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1760,6 +1760,12 @@ CTarget_AddObjectives
 CLASS_DECLARATION( idTarget, CTarget_AddObjectives )
 	EVENT( EV_Activate,	CTarget_AddObjectives::Event_Activate )
 END_CLASS
+
+void CTarget_AddObjectives::Spawn( void )
+{
+	if( !spawnArgs.GetBool( "wait_for_trigger" ) )
+		PostEventMS( &EV_Activate, 0, this );
+}
 
 void CTarget_AddObjectives::Event_Activate( idEntity *activator )
 {

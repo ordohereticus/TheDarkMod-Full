@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1159 $
+ * $Date: 2007-07-20 05:07:37 -0400 (Fri, 20 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -561,6 +561,7 @@ public:
 	CLASS_PROTOTYPE( CTarget_AddObjectives );
 private:
 	void				Event_Activate( idEntity *activator );
+	virtual void		Spawn( void );
 };
 
 
