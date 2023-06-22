@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1363 $
- * $Date: 2007-08-30 03:36:44 -0400 (Thu, 30 Aug 2007) $
+ * $Revision: 1366 $
+ * $Date: 2007-08-30 16:26:58 -0400 (Thu, 30 Aug 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1363 2007-08-30 07:36:44Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1366 2007-08-30 20:26:58Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -850,6 +850,8 @@ void CFrobDoor::SetHandlePosition(EHandleReset nPos, int pin, int sample)
 			v = (m_PinTranslationFraction * pin) + (m_SampleTranslationFraction * sample);
 			m->SetOrigin(v);
 		}
+
+		m->UpdateVisuals();
 	}
 }
 
