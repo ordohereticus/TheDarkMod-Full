@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1663 $
- * $Date: 2007-11-03 13:38:59 -0400 (Sat, 03 Nov 2007) $
+ * $Revision: 1665 $
+ * $Date: 2007-11-03 13:56:30 -0400 (Sat, 03 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1663 2007-11-03 17:38:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1665 2007-11-03 17:56:30Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -5302,6 +5302,8 @@ bool idAI::SetEnemy(idActor* newEnemy)
 			aas->PushPointIntoAreaNum( enemyAreaNum, lastReachableEnemyPos );
 			lastVisibleReachableEnemyPos = lastReachableEnemyPos;
 		}
+
+		GetMemory().lastTimeEnemySeen = gameLocal.time;
 
 		return true; // valid enemy
 	}
