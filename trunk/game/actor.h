@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2039 $
- * $Date: 2008-02-03 03:39:12 -0500 (Sun, 03 Feb 2008) $
+ * $Revision: 2073 $
+ * $Date: 2008-02-09 19:13:37 -0500 (Sat, 09 Feb 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -154,7 +154,14 @@ public:
 	idVec3					EyeOffset( void ) const;
 	idVec3					GetEyePosition( void ) const;
 	virtual void			GetViewPos( idVec3 &origin, idMat3 &axis ) const;
-	void					SetFOV( float fov );
+	/**
+	* Sets the actor's field of view (doesn't apply to players)
+	* Input is horizontal FOV, vertical FOV.
+	* If no vertical is provided, it is assumed the same as the vertical
+	*
+	* Sets the FOV dot products to those of the half-angles of the full fov
+	**/
+	void					SetFOV( float fovHoriz, float fovVert = -1 );
 	virtual bool			CheckFOV( const idVec3 &pos ) const;
 
 	/**
@@ -313,7 +320,8 @@ protected:
 
 	friend class			idAnimState;
 
-	float					fovDot;				// cos( fovDegrees )
+	float					m_fovDotHoriz;		// cos( Horizontal fov [degrees] )
+	float					m_fovDotVert;		// cos( Vertical fov [degrees] )
 	idVec3					eyeOffset;			// offset of eye relative to physics origin
 	idVec3					modelOffset;		// offset of visual model relative to the physics origin
 	idVec3					mHeadModelOffset;	// offset for the head
