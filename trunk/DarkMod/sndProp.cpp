@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1217 $
- * $Date: 2007-07-25 14:50:24 -0400 (Wed, 25 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1379 $
+ * $Date: 2007-09-12 04:09:43 -0400 (Wed, 12 Sep 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1217 2007-07-25 18:50:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1379 2007-09-12 08:09:43Z crispy $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -426,6 +426,7 @@ void CsndProp::Propagate
 	idList<idEntity *>	validTypeEnts, validEnts;
 	const idDict *		parms;
 	SPopArea			*pPopArea;
+	int areaNum;
 
 	timer_Prop.Clear();
 	timer_Prop.Start();
@@ -455,8 +456,9 @@ void CsndProp::Propagate
 
 	vol0 = parms->GetFloat("vol","0") + volMod;
 
-	// add the area-specific volMod
-	vol0 += m_AreaPropsG[ gameRenderWorld->PointInArea(origin) ].VolMod;
+	// add the area-specific volMod, if we're in an area
+	areaNum = gameRenderWorld->PointInArea(origin);
+	if (areaNum >= 0) vol0 += m_AreaPropsG[areaNum].VolMod;
 
 	// scale the volume by some amount that is be a cvar for now for tweaking
 	// later we will put a permananet value in the def for globals->Vol
