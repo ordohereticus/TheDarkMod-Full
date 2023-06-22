@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2286 $
+ * $Date: 2008-05-10 12:00:41 -0400 (Sat, 10 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: aas_debug.cpp 2286 2008-05-10 16:00:41Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing
@@ -57,10 +57,10 @@ void idAASLocal::DrawReachability( const idReachability *reach ) const
 	{
 		reachColor = colorRed;
 	}
-	gameRenderWorld->DebugArrow( reachColor, reach->start, reach->end, 2 );
+	gameRenderWorld->DebugArrow( reachColor, reach->start, reach->end, 1, 10000 );
 
 	if ( gameLocal.GetLocalPlayer() ) {
-		gameRenderWorld->DrawText( va( "%d", reach->edgeNum ), ( reach->start + reach->end ) * 0.5f, 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAxis );
+		gameRenderWorld->DrawText( va( "%d", reach->edgeNum ), ( reach->start + reach->end ) * 0.5f, 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAxis, 1, 10000 );
 	}
 
 	switch( reach->travelType ) {
@@ -262,7 +262,7 @@ void idAASLocal::ShowWalkPath( const idVec3 &origin, int goalAreaNum, const idVe
 			break;
 		}
 
-		gameRenderWorld->DebugArrow( colorGreen, org, reach->start, 2 );
+		gameRenderWorld->DebugArrow( colorGreen, org, reach->start, 1, 10000 );
 		DrawReachability( reach );
 
 		if ( reach->toAreaNum == goalAreaNum ) {
@@ -274,7 +274,7 @@ void idAASLocal::ShowWalkPath( const idVec3 &origin, int goalAreaNum, const idVe
 	}
 
 	if ( WalkPathToGoal( path, areaNum, origin, goalAreaNum, goalOrigin, TFL_WALK|TFL_AIR, NULL ) ) {
-		gameRenderWorld->DebugArrow( colorBlue, origin, path.moveGoal, 2 );
+		gameRenderWorld->DebugArrow( colorBlue, origin, path.moveGoal, 1, 10000 );
 	}
 }
 
