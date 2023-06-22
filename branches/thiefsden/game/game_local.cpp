@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1976 $
- * $Date: 2008-01-12 08:09:08 -0500 (Sat, 12 Jan 2008) $
+ * $Revision: 1977 $
+ * $Date: 2008-01-12 08:12:12 -0500 (Sat, 12 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1976 2008-01-12 13:09:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1977 2008-01-12 13:12:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3100,16 +3100,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		
 		// The main menu is visible, check if we should display the "Objectives" option
 		
-		// Only switch during map runtime and if not already triggered
+		// Only update the objectives during map runtime and if not already triggered
 		if (GameState() == GAMESTATE_ACTIVE)
 		{
-			// Only trigger the visuals update once
-			if (!gui->GetStateBool("GameStateActive"))
-			{
-				gui->SetStateBool("GameStateActive", true);
-				gui->SetStateBool("GameStateNoMap", false);
-			}
-
 			if (!m_MissionDataLoadedIntoGUI)
 			{
 				// Load the objectives into the GUI
@@ -3117,15 +3110,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			}
 
 			m_MissionDataLoadedIntoGUI = true;
-		}
-		else
-		{
-			// Only trigger the visuals once
-			if (!gui->GetStateBool("GameStateNoMap"))
-			{
-				gui->SetStateBool("GameStateNoMap", true);
-				gui->SetStateBool("GameStateActive", false);
-			}
 		}
 	}
 	else if (cmd == "objective_open_request")
