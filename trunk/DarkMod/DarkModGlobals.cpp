@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1126 $
- * $Date: 2007-07-15 06:57:48 -0400 (Sun, 15 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1197 $
+ * $Date: 2007-07-22 20:37:02 -0400 (Sun, 22 Jul 2007) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1126 2007-07-15 10:57:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1197 2007-07-23 00:37:02Z joebarnin $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -36,6 +36,7 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1126 2007-07
 #include "sndProp.h"
 #include "Relations.h"
 #include "shop.h"
+#include "DifficultyMenu.h"
 #include "../game/ai/ai.h"
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
@@ -133,6 +134,7 @@ CsndProp		g_SoundProp;
 CRelations		g_globalRelations;
 CMissionData	g_MissionData;
 CShop			g_Shop;
+CDifficultyMenu	g_Diff;
 
 static idList<const char *> *s_FileVersion = NULL;
 

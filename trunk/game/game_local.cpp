@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1186 $
- * $Date: 2007-07-22 12:03:55 -0400 (Sun, 22 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1197 $
+ * $Date: 2007-07-22 20:37:02 -0400 (Sun, 22 Jul 2007) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1186 2007-07-22 16:03:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1197 2007-07-23 00:37:02Z joebarnin $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -31,6 +31,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1186 2007-07-22 
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/func_shooter.h"
 #include "../DarkMod/shop.h"
+#include "../DarkMod/DifficultyMenu.h"
 
 #include "il/config.h"
 #include "il/il.h"
@@ -46,7 +47,8 @@ extern CRelations		g_globalRelations;
 extern CMissionData		g_MissionData;
 extern CsndPropLoader	g_SoundPropLoader;
 extern CsndProp			g_SoundProp;
-extern CShop				g_Shop;
+extern CShop			g_Shop;
+extern CDifficultyMenu	g_Diff;
 
 #define BUFFER_LEN 4096
 
@@ -2924,6 +2926,7 @@ handles main menu commands.
 */
 void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui )
 {
+	g_Diff.HandleCommands(menuCommand, gui);
 	g_Shop.HandleCommands(menuCommand, gui);
 }
 
