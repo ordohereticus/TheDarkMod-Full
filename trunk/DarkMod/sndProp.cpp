@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1754 $
- * $Date: 2007-11-11 10:05:33 -0500 (Sun, 11 Nov 2007) $
- * $Author: tels $
+ * $Revision: 2207 $
+ * $Date: 2008-04-24 14:59:15 -0400 (Thu, 24 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1754 2007-11-11 15:05:33Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2207 2008-04-24 18:59:15Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -513,7 +513,7 @@ void CsndProp::Propagate
 		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Found %d ents with valid type for propagation\r", validTypeEnts.Num() );
 
 	timer_Prop.Stop();
-	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Timer: Finished finding all AI entities, comptime=%d [ms]\r", (int) timer_Prop.Milliseconds() );
+	DM_LOG(LC_SOUND, LT_INFO)LOGSTRING("Timer: Finished finding all AI entities, comptime=%lf [ms]\r", timer_Prop.Milliseconds() );
 	timer_Prop.Start();
 	// cull the list by testing distance and valid team flag
 
@@ -579,7 +579,7 @@ void CsndProp::Propagate
 	}
 
 	timer_Prop.Stop();
-	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Timer: Finished culling AI list, comptime=%d [ms]\r", (int) timer_Prop.Milliseconds() );
+	DM_LOG(LC_SOUND, LT_INFO)LOGSTRING("Timer: Finished culling AI list, comptime=%lf [ms]\r", timer_Prop.Milliseconds() );
 	timer_Prop.Start();
 
 	/* handle environmental sounds here
@@ -654,7 +654,7 @@ void CsndProp::Propagate
 	}
 	
 	timer_Prop.Stop();
-	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Timer: Finished filling populated areas, comptime=%d [ms]\r", (int) timer_Prop.Milliseconds() );
+	DM_LOG(LC_SOUND, LT_INFO)LOGSTRING("Timer: Finished filling populated areas, comptime=%lf [ms]\r", timer_Prop.Milliseconds() );
 	timer_Prop.Start();
 
 
@@ -667,12 +667,12 @@ void CsndProp::Propagate
 
 	timer_Prop.Stop();
 	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Expansion done, processing AI\r" );
-	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Timer: COMPTIME=%d [ms]\r", (int) timer_Prop.Milliseconds() );
+	DM_LOG(LC_SOUND, LT_INFO)LOGSTRING("Timer: COMPTIME=%lf [ms]\r", timer_Prop.Milliseconds() );
 	timer_Prop.Start();
 	ProcessPopulated( vol0, origin, &propParms );
 
 	timer_Prop.Stop();
-	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Total TIME for propagation: %d [ms]\r", (int) (int) timer_Prop.Milliseconds() );
+	DM_LOG(LC_SOUND, LT_INFO)LOGSTRING("Total TIME for propagation: %lf [ms]\r", timer_Prop.Milliseconds() );
 
 Quit:
 

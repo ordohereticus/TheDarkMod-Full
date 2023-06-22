@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2179 $
- * $Date: 2008-04-13 12:02:11 -0400 (Sun, 13 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2207 $
+ * $Date: 2008-04-24 14:59:15 -0400 (Thu, 24 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -62,6 +62,7 @@ extern idCVar cv_las_showtraces;
 
 extern idCVar cv_sr_disable;
 
+extern idCVar cv_sndprop_disable;
 extern idCVar cv_spr_debug;
 extern idCVar cv_spr_show;
 extern idCVar cv_ko_show;

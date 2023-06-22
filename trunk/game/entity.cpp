@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2163 $
- * $Date: 2008-03-30 04:50:56 -0400 (Sun, 30 Mar 2008) $
+ * $Revision: 2207 $
+ * $Date: 2008-04-24 14:59:15 -0400 (Thu, 24 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2163 2008-03-30 08:50:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2207 2008-04-24 18:59:15Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2446,6 +2446,11 @@ idEntity::PropSoundS
 
 void idEntity::PropSoundS( const char *localName, const char *globalName, float VolModIn )
 {
+	if (cv_sndprop_disable.GetBool())
+	{
+		return;
+	}
+
 	int start, end = -1, len;
 	bool bHasComma(false), bHasColon(false), bFoundSnd(false);
 	float volMod(0.0), durMod(1.0);
