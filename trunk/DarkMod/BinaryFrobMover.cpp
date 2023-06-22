@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2259 $
- * $Date: 2008-05-01 10:54:20 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2287 $
+ * $Date: 2008-05-10 14:26:00 -0400 (Sat, 10 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2259 2008-05-01 14:54:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2287 2008-05-10 18:26:00Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -59,6 +59,7 @@ CBinaryFrobMover::CBinaryFrobMover(void)
 	m_bInterruptable = true;
 	m_bInterrupted = false;
 	m_StoppedDueToBlock = false;
+	m_LastBlockingEnt = NULL;
 	m_bIntentOpen = false;
 	m_StateChange = false;
 	m_Rotating = false;
@@ -80,6 +81,8 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 	savefile->WriteBool(m_bInterruptable);
 	savefile->WriteBool(m_bInterrupted);
 	savefile->WriteBool(m_StoppedDueToBlock);
+
+	m_LastBlockingEnt.Save(savefile);
 	
 	savefile->WriteAngles(m_Rotate);
 		
@@ -118,6 +121,8 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 	savefile->ReadBool(m_bInterruptable);
 	savefile->ReadBool(m_bInterrupted);
 	savefile->ReadBool(m_StoppedDueToBlock);
+
+	m_LastBlockingEnt.Restore(savefile);
 	
 	savefile->ReadAngles(m_Rotate);
 	
@@ -361,6 +366,8 @@ void CBinaryFrobMover::Open(bool bMaster)
 	StimEnable(ST_VISUAL, 1);
 
 	m_StoppedDueToBlock = false;
+	m_LastBlockingEnt = NULL;
+
 
 	// If the door is already open, we don't have anything to do. :)
 	if(m_Open == true && !m_bInterrupted && !IsBlocked())
@@ -429,6 +436,7 @@ void CBinaryFrobMover::Close(bool bMaster)
 	StimEnable(ST_VISUAL, 1);
 
 	m_StoppedDueToBlock = false;
+	m_LastBlockingEnt = NULL;
 
 	idAngles tempAng;
 
@@ -610,6 +618,7 @@ void CBinaryFrobMover::Event_Activate( idEntity *activator )
 
 void CBinaryFrobMover::Event_TeamBlocked( idEntity *blockedPart, idEntity *blockingEntity )
 {
+	m_LastBlockingEnt = blockingEntity;
 	// greebo: If we're blocked by something, check if we should stop moving
 	if (m_stopWhenBlocked)
 	{

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2209 $
- * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2287 $
+ * $Date: 2008-05-10 14:26:00 -0400 (Sat, 10 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -66,6 +66,10 @@ public:
 		return 	m_StoppedDueToBlock;
 	}
 
+	idEntity* 				GetLastBlockingEnt()
+	{
+		return m_LastBlockingEnt.GetEntity();
+	}
 
 	/**
 	* This is the non-script version of GetLock
@@ -207,6 +211,8 @@ protected:
 	 *	until the door changes its state again
 	 */
 	bool						m_StoppedDueToBlock;
+
+	idEntityPtr<idEntity>		m_LastBlockingEnt;
 
 	/**
 	* Read from the spawnargs, interpreted into m_OpenAngles and m_ClosedAngles
