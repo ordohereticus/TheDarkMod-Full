@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1939 $
- * $Date: 2007-12-31 11:15:52 -0500 (Mon, 31 Dec 2007) $
+ * $Revision: 1942 $
+ * $Date: 2008-01-02 13:06:19 -0500 (Wed, 02 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1939 2007-12-31 16:15:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1942 2008-01-02 18:06:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -2978,8 +2978,6 @@ idGameLocal::HandleESC
 */
 escReply_t idGameLocal::HandleESC( idUserInterface **gui ) {
 
-	// greebo: This could be a potential entry point for our in-game Objectives GUI Display.
-
 	if ( isMultiplayer ) {
 		*gui = StartMenu();
 		// we may set the gui back to NULL to hide it
@@ -3079,16 +3077,25 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 		objectivesUpdated = true;
 	}
+	else if (cmd == "showMods") // Called by "New Mission"
+	{
+		// User requested a map start
+		gui->HandleNamedEvent("ShowBriefingScreen");
+	}
 	else if (cmd == "close") 
 	{
 		// Set the objectives state flag back to dirty
 		objectivesUpdated = false;
 		gui->HandleNamedEvent("HideObjectiveScreen");
+		gui->HandleNamedEvent("HideBriefingScreen");
 	}
 
+	/* greebo: Commented these out for the Thief's Den release only.
+	   Right after release, these have to be enabled again!
+	
 	g_Diff.HandleCommands(menuCommand, gui);
 	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());
-	g_Mods.HandleCommands(menuCommand, gui);
+	g_Mods.HandleCommands(menuCommand, gui);*/
 }
 
 /*
