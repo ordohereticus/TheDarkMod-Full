@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1506 $
- * $Date: 2007-10-21 05:11:19 -0400 (Sun, 21 Oct 2007) $
+ * $Revision: 1507 $
+ * $Date: 2007-10-21 05:33:01 -0400 (Sun, 21 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1506 2007-10-21 09:11:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1507 2007-10-21 09:33:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1603,19 +1603,27 @@ void idAI::Think( void ) {
 		// Check air ticks (is interleaved and not checked each frame)
 		UpdateAir();
 
-		if ( num_cinematics ) {
+		if (num_cinematics > 0)
+		{
+			// Active cinematics
 			if ( !IsHidden() && torsoAnim.AnimDone( 0 ) ) {
 				PlayCinematic();
 			}
 			RunPhysics();
-		} else if ( !allowHiddenMovement && IsHidden() ) {
+		}
+		else if (!allowHiddenMovement && IsHidden())
+		{
 			// hidden monsters
 			UpdateAIScript();
-		} else {
+		}
+		else
+		{
 			// clear the ik before we do anything else so the skeleton doesn't get updated twice
 			walkIK.ClearJointMods();
 
-			switch( move.moveType ) {
+			// Update moves, depending on move type 
+			switch (move.moveType)
+			{
 			case MOVETYPE_DEAD :
 				// dead monsters
 				UpdateAIScript();
@@ -1664,17 +1672,20 @@ void idAI::Think( void ) {
 		AI_PAIN = false;
 		AI_SPECIAL_DAMAGE = 0;
 		AI_PUSHED = false;
-
-	} else if ( thinkFlags & TH_PHYSICS ) {
+	}
+	else if (thinkFlags & TH_PHYSICS)
+	{
+		// Thinking not allowed, but physics are still enabled
 		RunPhysics();
 	}
 
-	if ( m_bAFPushMoveables )
+	if (m_bAFPushMoveables)
 	{
 		PushWithAF();
 	}
 
-	if ( fl.hidden && allowHiddenMovement ) {
+	if (fl.hidden && allowHiddenMovement)
+	{
 		// UpdateAnimation won't call frame commands when hidden, so call them here when we allow hidden movement
 		animator.ServiceAnims( gameLocal.previousTime, gameLocal.time );
 	}
@@ -1690,6 +1701,11 @@ void idAI::Think( void ) {
 	Present();
 	UpdateDamageEffects();
 	LinkCombat();
+
+	if ( health > 0 )
+	{
+		idActor::CrashLand( physicsObj, oldOrigin, oldVelocity );
+	}
 
 	// DarkMod: Show debug info
 	if( cv_ai_ko_show.GetBool() )
@@ -1728,10 +1744,6 @@ void idAI::Think( void ) {
 	if( cv_ai_alertnum_show.GetBool() )
 	{
 		gameRenderWorld->DrawText( va("Alert: %f; Index: %d", (float) AI_AlertNum, (int)AI_AlertIndex), (GetEyePosition() - physicsObj.GetGravityNormal()*32.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
-	}
-	if ( health > 0 )
-	{
-		idActor::CrashLand( physicsObj, oldOrigin, oldVelocity );
 	}
 }
 
