@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1910 $
- * $Date: 2007-12-27 08:07:44 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1911 $
+ * $Date: 2007-12-27 12:17:39 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -112,8 +112,6 @@ enum {
 	EIM_ITEM_SELECT			= BIT(11),	// Selecting items.
 	EIM_ITEM_DROP			= BIT(12),	// Dropping inventory items.
 };
-// greebo: The immobilisation mask during objectives GUI display
-const int EIM_OBJECTIVES_OPEN = EIM_ALL;
 
 typedef struct {
 	int		time;
@@ -226,7 +224,8 @@ public:
 	idUserInterface *		hud;				// MP: is NULL if not local player
 	idUserInterface *		objectiveSystem;	 // not used by TDM (only for PDA)
 	bool					objectiveSystemOpen; // not used by TDM (only for PDA)
-	int						objectiveGUIHandle; // is non-zero if objective system is open
+	idThread*				objectiveGUIThread; // only non-NULL when objective system is open
+	idScriptBool			objectiveGUICloseRequest;
 
 	// greebo: A list of HUD messages which are displayed one after the other
 	idList<idStr>			hudMessages;
@@ -959,7 +958,7 @@ private:
 
 	// Objectives GUI-related events
 	void					Event_Pausegame();
-	void					Event_DestroyObjectivesGUI();
+	void					Event_Unpausegame();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
