@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1542 $
- * $Date: 2007-10-23 09:14:08 -0400 (Tue, 23 Oct 2007) $
+ * $Revision: 1555 $
+ * $Date: 2007-10-24 12:03:06 -0400 (Wed, 24 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1542 2007-10-23 13:14:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1555 2007-10-24 16:03:06Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8058,5 +8058,57 @@ void idAI::DropOnRagdoll( void )
 			ent->m_bFrobable = true;
 
 		ent->GetPhysics()->Activate();
+	}
+}
+
+int idAI::StartSearchForHidingSpotsWithExclusionArea
+(
+	const idVec3& hideFromLocation,
+	const idVec3& minBounds, 
+	const idVec3& maxBounds, 
+	const idVec3& exclusionMinBounds, 
+	const idVec3& exclusionMaxBounds, 
+	int hidingSpotTypesAllowed, 
+	idEntity* p_ignoreEntity
+)
+{
+	DM_LOG(LC_AI, LT_DEBUG).LogString ("Event_StartSearchForHidingSpots called.\n");
+
+	// Destroy any current search
+	destroyCurrentHidingSpotSearch();
+
+	// Make caller's search bounds
+	idBounds searchBounds (minBounds, maxBounds);
+	idBounds searchExclusionBounds (exclusionMinBounds, exclusionMaxBounds);
+
+	// Get aas
+	if (aas != NULL)
+	{
+		// Allocate object that handles the search
+		DM_LOG(LC_AI, LT_DEBUG).LogString ("Making finder\n");
+		bool b_searchCompleted = false;
+		m_HidingSpotSearchHandle = HidingSpotSearchCollection.getOrCreateSearch
+		(
+			hideFromLocation, 
+			aas, 
+			HIDING_OBJECT_HEIGHT,
+			searchBounds,
+			searchExclusionBounds,
+			hidingSpotTypesAllowed,
+			p_ignoreEntity,
+			gameLocal.framenum,
+			b_searchCompleted
+		);
+
+		// Wait at least one frame for other AIs to indicate they want to share
+		// this search. Return result indicating search is not done yet.
+		return 1;
+	}
+	else
+	{
+		DM_LOG(LC_AI, LT_ERROR).LogString ("Cannot perform Event_StartSearchForHidingSpotsWithExclusionArea if no AAS is set for the AI\n");
+	
+		// Search is done since there is no search
+		return 0;
 	}
 }
