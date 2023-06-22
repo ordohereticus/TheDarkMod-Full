@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1783 $
- * $Date: 2007-11-14 04:15:48 -0500 (Wed, 14 Nov 2007) $
- * $Author: angua $
+ * $Revision: 1799 $
+ * $Date: 2007-11-15 15:25:43 -0500 (Thu, 15 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -874,9 +874,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	int						m_AlertGraceCountLimit;
 
 	/**
-	* The current mod hiding spot search of this AI, usually NULL (0)
+	* The current mod hiding spot search of this AI, usually -1
 	*/
-	THidingSpotSearchHandle m_HidingSpotSearchHandle;
+	int						m_HidingSpotSearchHandle;
 
 	/**
 	* The spots resulting from the current search or gotten from

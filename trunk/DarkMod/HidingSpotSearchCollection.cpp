@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1798 $
- * $Date: 2007-11-15 15:15:14 -0500 (Thu, 15 Nov 2007) $
+ * $Revision: 1799 $
+ * $Date: 2007-11-15 15:25:43 -0500 (Thu, 15 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1798 2007-11-15 20:15:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1799 2007-11-15 20:25:43Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -57,7 +57,7 @@ void CHidingSpotSearchCollection::Save(idSaveGame *savefile) const
 	savefile->WriteInt(searches.size());
 	for (HidingSpotSearchMap::const_iterator i = searches.begin(); i != searches.end(); i++)
 	{
-		TDarkmodHidingSpotSearchNode* node = i->second;
+		HidingSpotSearchNode* node = i->second;
 
 		savefile->WriteInt(node->searchId);
 		savefile->WriteInt(node->refCount);
@@ -76,7 +76,7 @@ void CHidingSpotSearchCollection::Restore(idRestoreGame *savefile)
 
 	for (int i = 0; i < num; i++)
 	{
-		TDarkmodHidingSpotSearchNode* node = new TDarkmodHidingSpotSearchNode;
+		HidingSpotSearchNode* node = new HidingSpotSearchNode;
 
 		savefile->ReadInt(node->searchId);
 		savefile->ReadInt(node->refCount);
@@ -93,7 +93,7 @@ void CHidingSpotSearchCollection::Restore(idRestoreGame *savefile)
 
 //--------------------------------------------------------------------
 
-THidingSpotSearchHandle CHidingSpotSearchCollection::getUnusedSearch()
+int CHidingSpotSearchCollection::getNewSearch()
 {
 	if (searches.size() >= MAX_NUM_HIDING_SPOT_SEARCHES)
 	{
@@ -101,7 +101,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getUnusedSearch()
 	}
 	else
 	{
-		TDarkmodHidingSpotSearchNode* p_node = new TDarkmodHidingSpotSearchNode;
+		HidingSpotSearchNode* p_node = new HidingSpotSearchNode;
 		if (p_node == NULL)
 		{
 			return NULL_HIDING_SPOT_SEARCH_HANDLE;
@@ -131,7 +131,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getUnusedSearch()
 
 CDarkmodAASHidingSpotFinder* CHidingSpotSearchCollection::getSearchByHandle
 (
-	THidingSpotSearchHandle searchHandle
+	int searchHandle
 )
 {
 	HidingSpotSearchMap::const_iterator found = searches.find(searchHandle);
@@ -144,7 +144,7 @@ CDarkmodAASHidingSpotFinder* CHidingSpotSearchCollection::getSearchByHandle
 
 CDarkmodAASHidingSpotFinder* CHidingSpotSearchCollection::getSearchAndReferenceCountByHandle
 (
-	THidingSpotSearchHandle searchHandle,
+	int searchHandle,
 	unsigned int& out_refCount
 )
 {
@@ -166,7 +166,7 @@ CDarkmodAASHidingSpotFinder* CHidingSpotSearchCollection::getSearchAndReferenceC
 
 //------------------------------------------------------------------------------
 
-void CHidingSpotSearchCollection::dereference(THidingSpotSearchHandle searchHandle)
+void CHidingSpotSearchCollection::dereference(int searchHandle)
 {
 	HidingSpotSearchMap::iterator found = searches.find(searchHandle);
 
@@ -185,7 +185,7 @@ void CHidingSpotSearchCollection::dereference(THidingSpotSearchHandle searchHand
 
 //------------------------------------------------------------------------------
 
-THidingSpotSearchHandle CHidingSpotSearchCollection::findSearchByBounds 
+int CHidingSpotSearchCollection::findSearchByBounds 
 (
 	idBounds bounds,
 	idBounds exclusionBounds
@@ -193,7 +193,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::findSearchByBounds
 {
 	for (HidingSpotSearchMap::iterator i = searches.begin(); i != searches.end(); i++)
 	{
-		TDarkmodHidingSpotSearchNode* node = i->second;
+		HidingSpotSearchNode* node = i->second;
 
 		idBounds existingBounds = node->search.getSearchLimits();
 		idBounds existingExclusionBounds = node->search.getSearchExclusionLimits();
@@ -215,7 +215,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::findSearchByBounds
 
 //------------------------------------------------------------------------------
 
-THidingSpotSearchHandle CHidingSpotSearchCollection::getOrCreateSearch
+int CHidingSpotSearchCollection::getOrCreateSearch
 (
 	const idVec3 &hideFromPos, 
 	idAAS* in_p_aas, 
@@ -229,7 +229,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getOrCreateSearch
 )
 {
 	// Search with same bounds already?
-	THidingSpotSearchHandle hSearch = findSearchByBounds(in_searchLimits, in_searchExclusionLimits);
+	int hSearch = findSearchByBounds(in_searchLimits, in_searchExclusionLimits);
 
 	if (hSearch != NULL_HIDING_SPOT_SEARCH_HANDLE)
 	{
@@ -239,7 +239,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getOrCreateSearch
 	}
 
 	// Make new search
-	hSearch = getUnusedSearch();
+	hSearch = getNewSearch();
 	if (hSearch == NULL_HIDING_SPOT_SEARCH_HANDLE)
 	{
 		return hSearch;
