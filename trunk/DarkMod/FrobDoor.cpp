@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1402 $
- * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
+ * $Revision: 1428 $
+ * $Date: 2007-10-14 14:51:03 -0400 (Sun, 14 Oct 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1402 2007-10-02 21:44:14Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1428 2007-10-14 18:51:03Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -594,6 +594,11 @@ bool CFrobDoor::UsedBy(IMPULSE_STATE nState, idEntity *ent)
 
 	// When we are here we know that the item is usable
 	// so we have to check if it is associated with this entity.
+	// We ignore all repeat or release events to make it a true 
+	// IMPULSE event.
+	if(nState != IS_PRESSED)
+		goto Quit;
+
 	n = m_UsedBy.Num();
 	for(i = 0; i < n; i++)
 	{
@@ -617,6 +622,7 @@ bool CFrobDoor::UsedBy(IMPULSE_STATE nState, idEntity *ent)
 		}
 	}
 
+Quit:
 	return bRc;
 }
 
