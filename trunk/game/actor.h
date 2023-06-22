@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2103 $
- * $Date: 2008-02-23 14:13:41 -0500 (Sat, 23 Feb 2008) $
+ * $Revision: 2145 $
+ * $Date: 2008-03-27 14:56:49 -0400 (Thu, 27 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -423,6 +423,7 @@ private:
 	void					FinishSetup( void );
 	void					SetupHead( void );
 
+public:
 	void					Event_EnableEyeFocus( void );
 	void					Event_DisableEyeFocus( void );
 	void					Event_Footstep( void );
