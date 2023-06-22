@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1375 $
- * $Date: 2007-09-03 05:37:41 -0400 (Mon, 03 Sep 2007) $
+ * $Revision: 1395 $
+ * $Date: 2007-09-29 06:17:43 -0400 (Sat, 29 Sep 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 1375 2007-09-03 09:37:41Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 1395 2007-09-29 10:17:43Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -4235,6 +4235,9 @@ bool idAnimator::CreateFrame( int currentTime, bool force ) {
 			return false;
 		}
 	}
+	
+	// Optional optimisation: Skip animations for dormant entities
+	if (cv_ai_opt_noanims.GetBool() && entity->CheckDormant()) return false;
 
 	lastTransformTime = currentTime;
 	stoppedAnimatingUpdate = false;

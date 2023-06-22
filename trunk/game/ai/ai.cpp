@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1374 $
- * $Date: 2007-09-03 05:34:25 -0400 (Mon, 03 Sep 2007) $
+ * $Revision: 1395 $
+ * $Date: 2007-09-29 06:17:43 -0400 (Sat, 29 Sep 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1374 2007-09-03 09:34:25Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1395 2007-09-29 10:17:43Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1502,9 +1502,11 @@ idAI::Think
 */
 void idAI::Think( void ) {
 	// if we are completely closed off from the player, don't do anything at all
-	if ( CheckDormant() ) {
+	bool outsidePVS = CheckDormant();
+	if (outsidePVS && cv_ai_opt_disable.GetBool()) {
 		return;
 	}
+	
 	idVec3 oldOrigin;
 	idVec3 oldVelocity;
 
@@ -1527,7 +1529,7 @@ void idAI::Think( void ) {
 		viewAxis = idAngles( 0, current_yaw, 0 ).ToMat3();
 
 		// TDM: Fake lipsync
-		if ( m_lipSyncActive && GetSoundEmitter() )
+		if ( m_lipSyncActive && GetSoundEmitter() && !AI_DEAD && !AI_KNOCKEDOUT )
 		{
 			if (gameLocal.time < m_lipSyncEndTimer )
 			{
@@ -1546,8 +1548,11 @@ void idAI::Think( void ) {
 		}
 
 		// Look for enemies
-		idActor* actor = this->VisualScan();
-		if (actor) SetEnemy(actor);
+		if ( !(outsidePVS && cv_ai_opt_novisualscan.GetBool()) )
+		{
+			idActor* actor = this->VisualScan();
+			if (actor) SetEnemy(actor);
+		}
 
 		// Check for tactile alert due to AI movement
 		CheckTactile();
@@ -2950,6 +2955,9 @@ bool idAI::GetMovePos( idVec3 &seekPos ) {
 		seekPos = org;
 		return false;
 		break;
+	default:
+		break; // Handled below (note the returns in all cases above)
+		// (default case added to suppress GCC warnings)
 	}
 
 	if ( move.moveCommand == MOVE_TO_ENTITY ) {

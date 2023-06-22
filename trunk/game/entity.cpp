@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1393 $
- * $Date: 2007-09-27 17:34:30 -0400 (Thu, 27 Sep 2007) $
- * $Author: sparhawk $
+ * $Revision: 1395 $
+ * $Date: 2007-09-29 06:17:43 -0400 (Sat, 29 Sep 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1393 2007-09-27 21:34:30Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1395 2007-09-29 10:17:43Z crispy $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1268,6 +1268,7 @@ off from the player can skip all of their work
 */
 bool idEntity::DoDormantTests( void )
 {
+	if (cv_ai_opt_forceopt.GetBool()) return true; // Everything always dormant!
 	if ( fl.neverDormant ) {
 		return false;
 	}
@@ -1285,7 +1286,10 @@ bool idEntity::DoDormantTests( void )
 	} else {
 		// the monster area is topologically connected to a player, but if
 		// the monster hasn't been woken up before, do the more precise PVS check
-		if ( !fl.hasAwakened ) {
+		// TDM: Never wake up permanently; always do PVS check.
+		//      (This may cause bugs. I did this for AI optimisation testing.)
+		//	--Crispy
+		if ( true || !fl.hasAwakened ) {
 			if ( !gameLocal.InPlayerPVS( this ) ) {
 				return true;		// stay dormant
 			}
@@ -1294,6 +1298,7 @@ bool idEntity::DoDormantTests( void )
 		// wake up
 		dormantStart = 0;
 		fl.hasAwakened = true;		// only go dormant when area closed off now, not just out of PVS
+		
 		return false;
 	}
 

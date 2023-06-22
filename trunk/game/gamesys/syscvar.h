@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1392 $
- * $Date: 2007-09-27 12:21:20 -0400 (Thu, 27 Sep 2007) $
- * $Author: sparhawk $
+ * $Revision: 1395 $
+ * $Date: 2007-09-29 06:17:43 -0400 (Sat, 29 Sep 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -38,6 +38,10 @@ extern idCVar cv_ai_acuity_L2;
 extern idCVar cv_ai_acuity_L3;
 extern idCVar cv_ai_acuity_susp;
 extern idCVar cv_ai_visdist_show;
+extern idCVar cv_ai_opt_disable;
+extern idCVar cv_ai_opt_noanims;
+extern idCVar cv_ai_opt_novisualscan;
+extern idCVar cv_ai_opt_forceopt;
 
 
 extern idCVar cv_spr_debug;
