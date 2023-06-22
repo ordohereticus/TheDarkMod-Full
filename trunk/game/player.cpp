@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1407 $
- * $Date: 2007-10-07 03:51:08 -0400 (Sun, 07 Oct 2007) $
+ * $Revision: 1414 $
+ * $Date: 2007-10-09 14:36:30 -0400 (Tue, 09 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1407 2007-10-07 07:51:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1414 2007-10-09 18:36:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4344,7 +4344,8 @@ idPlayer::AddGuiPDAData
 ==============
  */
 int idPlayer::AddGuiPDAData( const declType_t dataType, const char *listName, const idDeclPDA *src, idUserInterface *gui ) {
-	/*int c, i;
+#if 0
+	int c, i;
 	idStr work;
 	if ( dataType == DECL_EMAIL ) {
 		c = src->GetNumEmails();
@@ -4386,7 +4387,8 @@ int idPlayer::AddGuiPDAData( const declType_t dataType, const char *listName, co
 			gui->SetStateString( va( "%s_item_%i", listName, i ), work );
 		}
 		return c;
-	}*/
+	}
+#endif
 	return 0;
 }
 
@@ -4410,7 +4412,8 @@ idPlayer::UpdatePDAInfo
 */
 void idPlayer::UpdatePDAInfo( bool updatePDASel ) {
 	// greebo: Commented out this whole block, no PDAs in TDM
-	/*int j, sel;
+#if 0
+	int j, sel;
 
 	if ( objectiveSystem == NULL ) {
 		return;
@@ -4530,7 +4533,7 @@ void idPlayer::UpdatePDAInfo( bool updatePDASel ) {
 				int audioCount = AddGuiPDAData( DECL_AUDIO, "listPDAAudio", pda, objectiveSystem );
 				objectiveSystem->SetStateInt( "audioLogCount", audioCount );
 				l = objectiveSystem->State().GetInt( "listPDAAudio_sel_0", "0" );
-				/*const idDeclAudio *aud = NULL;
+				const idDeclAudio *aud = NULL;
 				if ( sel >= 0 ) {
 					aud = pda->GetAudioByIndex( sel );
 				}
@@ -4565,7 +4568,8 @@ void idPlayer::UpdatePDAInfo( bool updatePDASel ) {
 	if ( objectiveSystem->State().GetInt( "listPDA_sel_0", "-1" ) == -1 ) {
 		objectiveSystem->SetStateInt( "listPDA_sel_0", 0 );
 	}
-	objectiveSystem->StateChanged( gameLocal.time );*/
+	objectiveSystem->StateChanged( gameLocal.time );
+#endif
 }
 
 /*
@@ -4575,7 +4579,8 @@ idPlayer::TogglePDA
 */
 void idPlayer::TogglePDA( void ) {
 	// greebo: Commented this out, no PDAs in TDM.
-	/*if ( objectiveSystem == NULL ) {
+#if 0	
+	if ( objectiveSystem == NULL ) {
 		return;
 	}
 
@@ -4632,7 +4637,8 @@ void idPlayer::TogglePDA( void ) {
 		//inventory.selPDA = objectiveSystem->State().GetInt( "listPDA_sel_0" );
 		objectiveSystem->Activate( false, gameLocal.time );
 	}
-	objectiveSystemOpen ^= 1;*/
+	objectiveSystemOpen ^= 1;
+#endif
 }
 
 /*
