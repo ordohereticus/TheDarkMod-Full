@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1438 $
+ * $Date: 2007-10-17 04:16:06 -0400 (Wed, 17 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,9 +13,11 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1438 2007-10-17 08:16:06Z greebo $", init_version);
 
 #include "../game_local.h"
+#include "../../DarkMod/AI/BasicMind.h"
+#include "../../DarkMod/AI/MovementSubsystem.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
@@ -460,7 +462,8 @@ bool idAASFindObservationPosition::getBestGoalResult
 idAI::idAI
 =====================
 */
-idAI::idAI() {
+idAI::idAI()
+{
 	aas					= NULL;
 	travelFlags			= TFL_WALK|TFL_AIR;
 
@@ -591,6 +594,11 @@ idAI::idAI() {
 	m_KoOffset = vec3_zero;
 
 	m_lipSyncActive		= false;
+
+	subsystems[ai::SubsysMovement] = ai::SubsystemPtr(new ai::MovementSubsystem(this));
+	subsystems[ai::SubsysSenses] = ai::SubsystemPtr();
+	subsystems[ai::SubsysCommunication] = ai::SubsystemPtr();
+	subsystems[ai::SubsysAction] = ai::SubsystemPtr();
 }
 
 /*
@@ -806,6 +814,13 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt(m_killedTaskPriority);
 	savefile->WriteString(m_knockedOutTask.c_str());
 	savefile->WriteInt(m_knockedOutTaskPriority);
+
+	mind->Save(savefile);
+
+	for (int i = 0; i < ai::SubsystemCount; i++) 
+	{
+		subsystems[i]->Save(savefile);
+	}
 }
 
 /*
@@ -1031,6 +1046,14 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadString(m_knockedOutTask);
 	savefile->ReadInt(m_knockedOutTaskPriority);
 
+	mind->Restore(savefile);
+
+	// Subsystems are already allocated in the constructor
+	for (int i = 0; i < ai::SubsystemCount; i++) 
+	{
+		subsystems[i]->Restore(savefile);
+	}
+
 	SetCombatModel();
 	LinkCombat();
 
@@ -1058,6 +1081,9 @@ void idAI::Spawn( void )
 	jointHandle_t		joint;
 	idVec3				local_dir;
 	bool				talks;
+
+	// Allocate a new default mind
+	mind = ai::MindPtr(new ai::BasicMind(this));
 
 	if ( !g_monsters.GetBool() ) {
 		PostEventMS( &EV_Remove, 0 );
@@ -1509,6 +1535,13 @@ void idAI::Think( void ) {
 	oldVelocity = physicsObj.GetLinearVelocity();
 
 	if ( thinkFlags & TH_THINK ) {
+		
+		// greebo: We always rely on having a mind
+		assert(mind);
+
+		// Let the mind do the thinking
+		mind->Think();
+
 		// clear out the enemy when he dies or is hidden
 		idActor *enemyEnt = enemy.GetEntity();
 		if ( enemyEnt ) {
