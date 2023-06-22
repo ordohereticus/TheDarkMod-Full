@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2111 $
- * $Date: 2008-02-27 04:50:35 -0500 (Wed, 27 Feb 2008) $
+ * $Revision: 2120 $
+ * $Date: 2008-03-01 14:11:56 -0500 (Sat, 01 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1391,6 +1391,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					DrawWeapon();
 	/** Call the script function SheathWeapon (in a new thread) if it exists */
 	void					SheathWeapon();
+
+	// angua: this is used to check whether the AI is able to unlock a specific door
+	bool					CanUnlock(CBinaryFrobMover *frobMover);
 	
 	//
 	// ai/ai_events.cpp
