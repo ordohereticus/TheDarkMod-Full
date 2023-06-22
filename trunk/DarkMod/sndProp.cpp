@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1168 $
- * $Date: 2007-07-21 14:13:56 -0400 (Sat, 21 Jul 2007) $
+ * $Revision: 1169 $
+ * $Date: 2007-07-21 14:33:50 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1168 2007-07-21 18:13:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1169 2007-07-21 18:33:50Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -610,15 +610,19 @@ void CsndProp::Propagate
 			pPopArea->VisitedPorts.Clear();
 
 			// add the first AI to the contents list
-			pPopArea->AIContents.Append( static_cast< idAI * >(validEnts[j]) );
+			idEntityPtr<idAI> ai;
+			ai = static_cast<idAI*>(validEnts[j]);
+			pPopArea->AIContents.Append(ai);
 
 			// append the index of this area to the popAreasInd list for later processing
 			m_PopAreasInd.Append( AIAreaNum );
 		}
 		else
 		{
-		// This area has already been updated in this propagation, just add the next AI
-			pPopArea->AIContents.Append( static_cast< idAI * >(validEnts[j]) );
+			// This area has already been updated in this propagation, just add the next AI
+			idEntityPtr<idAI> ai;
+			ai = static_cast<idAI*>(validEnts[j]);
+			pPopArea->AIContents.Append(ai);
 		}
 		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Processed AI %s in area %d\r", validEnts[j]->name.c_str(), AIAreaNum );
 	}
@@ -978,7 +982,7 @@ void CsndProp::ProcessPopulated( float volInit, idVec3 origin,
 
 			for( j=0; j < pPopArea->AIContents.Num(); j++)
 			{
-				AIPtr = pPopArea->AIContents[j];
+				AIPtr = pPopArea->AIContents[j].GetEntity();
 				
 				if (AIPtr == NULL)
 					continue;
@@ -1017,7 +1021,7 @@ void CsndProp::ProcessPopulated( float volInit, idVec3 origin,
 
 			for( int aiNum = 0; aiNum < pPopArea->AIContents.Num(); aiNum++ )
 			{
-				AIPtr = pPopArea->AIContents[ aiNum ];
+				AIPtr = pPopArea->AIContents[ aiNum ].GetEntity();
 
 				if (AIPtr == NULL)
 				{

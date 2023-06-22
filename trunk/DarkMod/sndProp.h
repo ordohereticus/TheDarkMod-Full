@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1166 $
- * $Date: 2007-07-21 12:25:30 -0400 (Sat, 21 Jul 2007) $
+ * $Revision: 1169 $
+ * $Date: 2007-07-21 14:33:50 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -63,7 +63,7 @@ typedef struct SPopArea_s
 	
 	bool			bVisited; // area was visited at least once in wavefront expansion
 
-	idList<idAI *>	AIContents; // list of AI that are present in area
+	idList< idEntityPtr<idAI> >	AIContents; // list of AI that are present in area
 
 	//TODO: Handle Listeners in another list here
 
