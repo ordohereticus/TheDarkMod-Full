@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1755 $
- * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
+ * $Revision: 1986 $
+ * $Date: 2008-01-13 20:06:22 -0500 (Sun, 13 Jan 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1755 2007-11-12 01:44:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1986 2008-01-14 01:06:22Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1195,6 +1195,10 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 	
 	EntClip = ent->GetPhysics()->GetClipModel();
 	NewClip = new idClipModel(EntClip);
+
+	// Propagate CONTENTS_CORPSE from AF to new clipmodel
+	if( GetAFPhysics()->GetContents() & CONTENTS_CORPSE )
+		NewClip->SetContents( (NewClip->GetContents() & (~CONTENTS_SOLID)) | CONTENTS_CORPSE ); 
 	
 	// EntMass = ent->GetPhysics()->GetMass();
 	// FIX: Large masses aren't working, the AFs are not quite that flexible that you can put on a huge mass
@@ -1259,7 +1263,10 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 	int SetContents = 0;
 	if( (EntClip->GetContents() & CONTENTS_RESPONSE) != 0 )
 		SetContents = CONTENTS_RESPONSE;
-	if( (EntClip->GetContents() & CONTENTS_FROBABLE) != 0 )
+	
+	if( (EntClip->GetContents() & CONTENTS_FROBABLE) != 0
+		// Temporary fix: CONTENTS_FROBABLE is not currently set on all frobables
+		|| ent->m_bFrobable )
 		SetContents = SetContents | CONTENTS_FROBABLE;
 
 	EntClip->SetContents( SetContents );
