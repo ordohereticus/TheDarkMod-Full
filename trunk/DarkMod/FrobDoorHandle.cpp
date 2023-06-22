@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2097 $
+ * $Date: 2008-02-16 14:33:35 -0500 (Sat, 16 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2097 2008-02-16 19:33:35Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -62,9 +62,6 @@ void CFrobDoorHandle::ReadFromSnapshot( const idBitMsgDelta &msg )
 
 void CFrobDoorHandle::Spawn(void)
 {
-	CBinaryFrobMover::Spawn();
-	LoadTDMSettings();
-
 	// Dorhandles are always non-interruptable
 	m_bInterruptable = false;
 }

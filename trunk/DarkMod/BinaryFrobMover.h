@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2097 $
+ * $Date: 2008-02-16 14:33:35 -0500 (Sat, 16 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -110,6 +110,21 @@ public:
 	*/
 	virtual bool isChangingState();
 
+	ID_INLINE const idVec3&		GetOpenPos() const
+	{
+		return m_OpenPos;
+	}
+
+	ID_INLINE const idVec3&		GetClosedPos() const
+	{
+		return m_ClosedPos;
+	}
+
+	ID_INLINE const idVec3&		GetOpenDir() const
+	{
+		return m_OpenDir;
+	}
+
 	/**
 	* This is used to get the remaining translation left on the clip model
 	* if it is moving
@@ -190,6 +205,15 @@ protected:
 	* Door angles when completely open
 	**/
 	idAngles					m_OpenAngles;
+
+	// angua: the positions of the far edge measured from the origin 
+	// when the door is closed or open.
+	idVec3						m_ClosedPos;
+	idVec3						m_OpenPos;
+
+	// angua: points toward the opening direction of the door 
+	// (perpendicular to door face and rotation axis)
+	idVec3						m_OpenDir;
 
 	/**
 	 * Scriptfunction that is called, whenever the door is finished rotating

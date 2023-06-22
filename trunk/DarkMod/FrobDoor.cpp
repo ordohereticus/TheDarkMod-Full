@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1895 $
- * $Date: 2007-12-25 18:56:28 -0500 (Tue, 25 Dec 2007) $
- * $Author: tels $
+ * $Revision: 2097 $
+ * $Date: 2008-02-16 14:33:35 -0500 (Sat, 16 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1895 2007-12-25 23:56:28Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2097 2008-02-16 19:33:35Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -243,10 +243,6 @@ void CFrobDoor::ReadFromSnapshot( const idBitMsgDelta &msg )
 void CFrobDoor::Spawn( void )
 {
 	idStr str;
-
-	CBinaryFrobMover::Spawn();
-
-	LoadTDMSettings();
 
 	// If a door is locked but has no pins, it means it can not be picked and needs a key.
 	// In that case we can ignore the pins, otherwise we must create the patterns.
