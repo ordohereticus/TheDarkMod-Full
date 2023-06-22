@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2100 $
+ * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1998 $   $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2100 $   $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4466,7 +4466,7 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 		// Door leaning test
 		if( TrEnt 
 			&& TrEnt->IsType(CFrobDoor::Type)
-			&& !( static_cast<CFrobDoor *>(TrEnt)->isOpen() )
+			&& !( static_cast<CFrobDoor *>(TrEnt)->IsOpen() )
 			&& m_LeanDoorEnt.GetEntity() == NULL )
 		{
 			// If it is a door, can it be listened through?
@@ -4868,7 +4868,7 @@ void idPhysics_Player::UpdateLeanDoor( void )
 	if( door && pPlayer )
 	{
 		if( !m_LeanDoorEnt.IsValid() 
-			|| door->isOpen()
+			|| door->IsOpen()
 			|| !IsLeaning() )
 		{
 			m_LeanDoorEnt = NULL;

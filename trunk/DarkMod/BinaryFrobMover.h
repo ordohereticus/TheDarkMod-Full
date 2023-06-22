@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2097 $
- * $Date: 2008-02-16 14:33:35 -0500 (Sat, 16 Feb 2008) $
+ * $Revision: 2100 $
+ * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -47,7 +47,7 @@ public:
 	/**
 	* This is the non-script version of GetOpen 
 	*/
-	bool					isOpen(void)
+	bool					IsOpen(void)
 	{
 		return m_Open;
 	}
@@ -55,7 +55,7 @@ public:
 	/**
 	* This indicates if the door was interrupted in its last action
 	*/
-	bool wasInterrupted(void)
+	bool					WasInterrupted(void)
 	{
 		return m_bInterrupted;
 	}
@@ -63,7 +63,7 @@ public:
 	/**
 	* This is the non-script version of GetLock
 	*/
-	virtual bool isLocked(void)
+	virtual bool			IsLocked(void)
 	{
 		return m_Locked;
 	}
@@ -103,24 +103,24 @@ public:
 	/**
 	* This is used to test if the mover is moving
 	*/
-	virtual bool			isMoving();
+	virtual bool			IsMoving();
 
 	/**
 	* This is used to test if it is changing state
 	*/
-	virtual bool isChangingState();
+	virtual bool			IsChangingState();
 
-	ID_INLINE const idVec3&		GetOpenPos() const
+	ID_INLINE const idVec3&	GetOpenPos() const
 	{
 		return m_OpenPos;
 	}
 
-	ID_INLINE const idVec3&		GetClosedPos() const
+	ID_INLINE const idVec3&	GetClosedPos() const
 	{
 		return m_ClosedPos;
 	}
 
-	ID_INLINE const idVec3&		GetOpenDir() const
+	ID_INLINE const idVec3&	GetOpenDir() const
 	{
 		return m_OpenDir;
 	}

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2097 $
- * $Date: 2008-02-16 14:33:35 -0500 (Sat, 16 Feb 2008) $
+ * $Revision: 2100 $
+ * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2097 2008-02-16 19:33:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2100 2008-02-23 09:32:58Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -161,7 +161,7 @@ bool CFrobDoorHandle::isLocked(void)
 	bool bLocked = m_Locked;
 
 	if(m_Door)
-		bLocked = m_Door->isLocked();
+		bLocked = m_Door->IsLocked();
 
 	return bLocked;
 }

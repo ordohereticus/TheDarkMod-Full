@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2097 $
- * $Date: 2008-02-16 14:33:35 -0500 (Sat, 16 Feb 2008) $
+ * $Revision: 2100 $
+ * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2097 2008-02-16 19:33:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2100 2008-02-23 09:32:58Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -311,7 +311,7 @@ void CBinaryFrobMover::Open(bool bMaster)
 
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Opening\r" );
 
-	if(isLocked() == true)
+	if(IsLocked() == true)
 		StartSound( "snd_locked", SND_CHANNEL_ANY, 0, false, NULL );
 	else
 	{
@@ -497,7 +497,7 @@ void CBinaryFrobMover::GetOpen(void)
 
 void CBinaryFrobMover::GetLock(void)
 {
-	idThread::ReturnInt(isLocked());
+	idThread::ReturnInt(IsLocked());
 }
 void CBinaryFrobMover::ClosePortal(void)
 {
@@ -546,14 +546,14 @@ void CBinaryFrobMover::ApplyImpulse(idEntity *ent, int id, const idVec3 &point, 
 
 /*-------------------------------------------------------------------------*/
 
-bool CBinaryFrobMover::isMoving()
+bool CBinaryFrobMover::IsMoving()
 {
 	return ((m_Translating) || (m_Rotating));
 }
 
 /*-------------------------------------------------------------------------*/
 
-bool CBinaryFrobMover::isChangingState()
+bool CBinaryFrobMover::IsChangingState()
 {
 	return m_StateChange;
 }
