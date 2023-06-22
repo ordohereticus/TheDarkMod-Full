@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1586 $
- * $Date: 2007-10-29 04:55:17 -0400 (Mon, 29 Oct 2007) $
+ * $Revision: 1587 $
+ * $Date: 2007-10-29 07:01:21 -0400 (Mon, 29 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1586 2007-10-29 08:55:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1587 2007-10-29 11:01:21Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -168,7 +168,6 @@ const idEventDef AI_GetReachableEntityPosition( "getReachableEntityPosition", "e
 // TDM
 const idEventDef AI_PlayAndLipSync( "playAndLipSync", "ss", 'd' );
 const idEventDef AI_RegisterKilledTask( "registerKilledTask", "sd" );
-const idEventDef AI_RegisterKnockedOutTask( "registerKnockedOutTask", "sd" );
 
 const idEventDef AI_PushState("pushState", "s");
 const idEventDef AI_QueueState("queueState", "s");
@@ -522,7 +521,6 @@ CLASS_DECLARATION( idActor, idAI )
 
 	EVENT( AI_PlayAndLipSync,					idAI::Event_PlayAndLipSync )
 	EVENT( AI_RegisterKilledTask,				idAI::Event_RegisterKilledTask )
-	EVENT( AI_RegisterKnockedOutTask,			idAI::Event_RegisterKnockedOutTask )
 	EVENT( AI_GetRelationEnt,					idAI::Event_GetRelationEnt )
 	EVENT( AI_IsEnemy,							idAI::Event_IsEnemy )
 	EVENT( AI_IsFriend,							idAI::Event_IsFriend )
@@ -3417,12 +3415,6 @@ void idAI::Event_RegisterKilledTask(const char* taskName, int priority)
 {
 	m_killedTask = taskName;
 	m_killedTaskPriority = priority;
-}
-
-void idAI::Event_RegisterKnockedOutTask(const char* taskName, int priority)
-{
-	m_knockedOutTask = taskName;
-	m_knockedOutTaskPriority = priority;
 }
 
 /**

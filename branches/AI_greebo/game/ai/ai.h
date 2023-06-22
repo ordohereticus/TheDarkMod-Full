@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1586 $
- * $Date: 2007-10-29 04:55:17 -0400 (Mon, 29 Oct 2007) $
+ * $Revision: 1587 $
+ * $Date: 2007-10-29 07:01:21 -0400 (Mon, 29 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1371,8 +1371,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	// Tasks to push onto the queue when the AI dies or is KOed
 	idStr					m_killedTask;
 	int						m_killedTaskPriority;
-	idStr					m_knockedOutTask;
-	int						m_knockedOutTaskPriority;
 
 	//
 	// ai/ai_events.cpp
