@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2233 $
- * $Date: 2008-04-27 08:36:47 -0400 (Sun, 27 Apr 2008) $
+ * $Revision: 2252 $
+ * $Date: 2008-05-01 04:44:21 -0400 (Thu, 01 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2233 2008-04-27 12:36:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2252 2008-05-01 08:44:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -2657,7 +2657,7 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 */
 
 	// Check for any activated signals, and trigger them.
-	CheckSDKSignal();
+	CheckSDKSignals();
 
 	// Update the gameplay timer
 	m_GamePlayTimer.Update();
@@ -5956,13 +5956,13 @@ void idGameLocal::AddSDKSignal(idEntity *oObject)
 		m_SignalList.Append(oObject);
 }
 
-void idGameLocal::CheckSDKSignal(void)
+void idGameLocal::CheckSDKSignals()
 {
-	int i, n;
-
-	n = m_SignalList.Num();
-	for(i = 0; i < n; i++)
+	int n = m_SignalList.Num();
+	for(int i = 0; i < n; i++)
+	{
 		m_SignalList[i]->CheckSDKSignal();
+	}
 }
 
 void idGameLocal::PauseGame( bool bPauseState )

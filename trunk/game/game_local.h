@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2220 $
- * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2252 $
+ * $Date: 2008-05-01 04:44:21 -0400 (Thu, 01 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -795,7 +795,7 @@ public:
 	/**
 	 * CheckSignal will call all entites registered for a signal actacvtion.
 	 */
-	void					CheckSDKSignal(void);
+	void					CheckSDKSignals();
 	void					AddSDKSignal(idEntity *oObject);
 
 private:
