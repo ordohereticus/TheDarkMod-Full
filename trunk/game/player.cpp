@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1257 $
- * $Date: 2007-07-31 18:58:21 -0400 (Tue, 31 Jul 2007) $
+ * $Revision: 1258 $
+ * $Date: 2007-07-31 21:05:29 -0400 (Tue, 31 Jul 2007) $
  * $Author: nyarlathotep $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1257 2007-07-31 22:58:21Z nyarlathotep $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1258 2007-08-01 01:05:29Z nyarlathotep $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5086,19 +5086,19 @@ void idPlayer::PerformKeyRelease(int impulse, int holdTime) {
 
 	switch (impulse) {
 		case IMPULSE_44:
-			if ( !cv_pm_lean_toggle.GetBool() )
+			if ( !cv_pm_lean_toggle.GetBool() && physicsObj.IsLeaning() )
 			{
 				physicsObj.ToggleLean(90.0);
 			}
 			break;
 		case IMPULSE_45:
-			if ( !cv_pm_lean_toggle.GetBool() )
+			if ( !cv_pm_lean_toggle.GetBool() && physicsObj.IsLeaning() )
 			{
 				physicsObj.ToggleLean(180.0);
 			}
 			break;
 		case IMPULSE_46:
-			if ( !cv_pm_lean_toggle.GetBool() )
+			if ( !cv_pm_lean_toggle.GetBool() && physicsObj.IsLeaning() )
 			{
 				physicsObj.ToggleLean(0.0);
 			}
