@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1714 $
-#* $Date: 2007-11-06 09:52:34 -0500 (Tue, 06 Nov 2007) $
+#* $Revision: 1736 $
+#* $Date: 2007-11-08 10:30:44 -0500 (Thu, 08 Nov 2007) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -169,7 +169,6 @@ AI/Subsystem.cpp \
 AI/States/AgitatedSearchingState.cpp \
 AI/States/CombatState.cpp \
 AI/States/DeadState.cpp \
-AI/States/EmptyState.cpp \
 AI/States/FleeState.cpp \
 AI/States/FleeDoneState.cpp \
 AI/States/IdleState.cpp \

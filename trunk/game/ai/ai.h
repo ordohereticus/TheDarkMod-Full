@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1734 $
- * $Date: 2007-11-08 08:51:28 -0500 (Thu, 08 Nov 2007) $
+ * $Revision: 1736 $
+ * $Date: 2007-11-08 10:30:44 -0500 (Thu, 08 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1558,8 +1558,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					Event_EndState();
 
 	void					Event_PlayAndLipSync( const char *soundName, const char *animName );
-	void					Event_RegisterKilledTask( const char* taskName, int priority );
-	void					Event_RegisterKnockedOutTask(const char* taskName, int priority);
 	
 	/**
 	* Frontend scripting functions for Dark Mod Relations Manager
