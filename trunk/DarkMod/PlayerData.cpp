@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1179 $
- * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1180 $
+ * $Date: 2007-07-22 03:47:40 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PlayerData.cpp 1179 2007-07-22 07:42:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PlayerData.cpp 1180 2007-07-22 07:47:40Z greebo $", init_version);
 
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
@@ -45,7 +45,7 @@ void CDarkModPlayer::Save( idSaveGame *savefile ) const
 	savefile->WriteJoint(m_FrobJoint);
 	savefile->WriteInt(m_FrobID);
 	savefile->WriteTrace(m_FrobTrace);
-	//idEntity	*m_FrobEntityPrevious;
+	m_FrobEntityPrevious.Save(savefile);
 	savefile->WriteInt(m_LightgemValue);
 	savefile->WriteFloat(m_fColVal);
 	//idList<idLight *>			m_LightList;
@@ -61,7 +61,7 @@ void CDarkModPlayer::Restore( idRestoreGame *savefile )
 	savefile->ReadJoint(m_FrobJoint);
 	savefile->ReadInt(m_FrobID);
 	savefile->ReadTrace(m_FrobTrace);
-	//idEntity	*m_FrobEntityPrevious;
+	m_FrobEntityPrevious.Restore(savefile);
 	savefile->ReadInt(m_LightgemValue);
 	savefile->ReadFloat(m_fColVal);
 	//idList<idLight *>			m_LightList;

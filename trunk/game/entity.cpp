@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1179 $
- * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1180 $
+ * $Date: 2007-07-22 03:47:40 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1179 2007-07-22 07:42:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1180 2007-07-22 07:47:40Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1531,7 +1531,7 @@ void idEntity::Hide( void )
 	
 		if( pDM && pDM->m_FrobEntity.GetEntity() == this )
 			pDM->m_FrobEntity = NULL;
-		if( pDM && pDM->m_FrobEntityPrevious == this )
+		if( pDM && pDM->m_FrobEntityPrevious.GetEntity() == this )
 			pDM->m_FrobEntityPrevious = NULL;
 	}
 }
@@ -6308,7 +6308,7 @@ void idEntity::UpdateFrob(void)
 		}
 		// Otherwise, we are updating AFTER the newly frobbed entity
 		// and should not set m_FrobEntity to NULL.
-		else if( pDM->m_FrobEntityPrevious == this )
+		else if( pDM->m_FrobEntityPrevious.GetEntity() == this )
 		{
 			// if this one updates last, set the previous frob entity to 
 			// the newly frobbed ent for the next frame.
@@ -6334,7 +6334,7 @@ void idEntity::UpdateFrob(void)
 		// again there's a trick here for syncronicity
 		// we don't want to overwrite it if the old frob entity has not updated yet,
 		// so if it's NULL, we know that old frob ent already updated.
-		if( pDM->m_FrobEntityPrevious == NULL )
+		if( pDM->m_FrobEntityPrevious.GetEntity() == NULL )
 			pDM->m_FrobEntityPrevious = this;
 	}
 
