@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1514 $
- * $Date: 2007-10-22 01:50:07 -0400 (Mon, 22 Oct 2007) $
+ * $Revision: 1645 $
+ * $Date: 2007-11-02 03:22:14 -0400 (Fri, 02 Nov 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1514 2007-10-22 05:50:07Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1645 2007-11-02 07:22:14Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -587,11 +587,9 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	m_MaxForce = cv_drag_force_max.GetFloat() * ForceMod;
 
 	player->m_bGrabberActive = true;
-	// don't let the player switch weapons or items, and lower their weapon
-	player->SetImmobilization( "Grabber", EIM_ITEM_SELECT | EIM_WEAPON_SELECT | EIM_ATTACK );
 
-	// Set movement encumbrance
-	player->SetHinderance( "Grabber", 1.0f, m_dragEnt.GetEntity()->spawnArgs.GetFloat("grab_encumbrance", "1.0") );
+	// Apply Grabber Restrictions and Encumbrance
+	SetDragEncumbrance();
 
 	m_drag.LimitForce( cv_drag_limit_force.GetBool() );
 	m_drag.ApplyDamping( true );
@@ -1172,5 +1170,43 @@ void CGrabber::CheckStuck( void )
 		else
 			m_bObjStuck = false;
 	}
+}
+
+void CGrabber::SetDragEncumbrance( void )
+{
+	int Immobilizations(0);
+	float encumbrance(0.0f), mass(0.0f), minmass(0.0f), maxmass(0.0f);
+	
+	idPlayer *player = m_player.GetEntity();
+
+	if( !player )
+		goto Quit;
+
+	// don't let the player switch weapons or items, and lower their weapon
+	Immobilizations = EIM_ITEM_SELECT | EIM_WEAPON_SELECT | EIM_ATTACK;
+
+	mass = m_dragEnt.GetEntity()->GetPhysics()->GetMass();
+	// Don't jump if mass is over the limit
+	// TODO: Later reduce jump height continuously with mass carried?
+	if( mass > cv_drag_jump_masslimit.GetFloat() )
+		Immobilizations = Immobilizations | EIM_JUMP;
+
+	player->SetImmobilization( "Grabber", Immobilizations );
+
+	minmass = cv_drag_encumber_minmass.GetFloat();
+	maxmass = cv_drag_encumber_maxmass.GetFloat();
+
+	if( mass < minmass )
+		mass = minmass;
+	else if( mass > maxmass )
+		mass = maxmass;
+
+	encumbrance = 1.0f - ((mass - minmass)/(maxmass - minmass) * ( 1.0f - cv_drag_encumber_max.GetFloat() ));
+		
+	// Set movement encumbrance
+	player->SetHinderance( "Grabber", 1.0f, encumbrance );
+
+Quit:
+	return;
 }
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1645 $
+ * $Date: 2007-11-02 03:22:14 -0400 (Fri, 02 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -130,6 +130,18 @@ protected:
 		void					StartDrag( idPlayer *player, idEntity *newEnt = NULL, int bodyID = 0 );
 
 		/**
+		* Stop dragging and drop the current item if there is one
+		**/
+		void					StopDrag( void );
+
+		/**
+		* Set encumbrance on the player as a function of the dragged object's mass
+		* May also set jump encumbrance (no jumping)
+		* Assumes m_player and m_dragEnt are already set
+		**/
+		void					SetDragEncumbrance( void );
+
+		/**
 		* Performs object rotation
 		* Also turns the item to face the player when they yaw their view.
 		**/
@@ -146,11 +158,6 @@ protected:
 		* used to determine strength of the throw
 		**/
 		void					Throw( int HeldTime );
-
-		/**
-		* Stop dragging and drop the current item if there is one
-		**/
-		void					StopDrag( void );
 		
 		/**
 		*  returns true if the mouse is inside the dead zone
