@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1944 $
- * $Date: 2008-01-02 14:36:09 -0500 (Wed, 02 Jan 2008) $
+ * $Revision: 1945 $
+ * $Date: 2008-01-02 14:47:58 -0500 (Wed, 02 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1944 2008-01-02 19:36:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1945 2008-01-02 19:47:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3087,8 +3087,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			// Hide the briefing screen
 			gui->HandleNamedEvent("HideBriefingScreen");
 			gui->SetStateInt("BriefingIsVisible", 0);
-
-			gui->HandleNamedEvent("SetupObjectivesForMapstart");
 		}
 
 		gui->HandleNamedEvent("ShowObjectiveScreen");
