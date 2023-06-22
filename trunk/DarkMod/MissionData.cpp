@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1908 $
- * $Date: 2007-12-27 04:38:17 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1913 $
+ * $Date: 2007-12-27 12:37:50 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1908 2007-12-27 09:38:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1913 2007-12-27 17:37:50Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2024,12 +2024,19 @@ void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle)
 {
 	assert(entity != NULL); // don't accept NULL entities.
 
+	idUserInterface* ui = entity->GetOverlay(overlayHandle);
+
+	if (ui == NULL) {
+		gameLocal.Warning("Can't update objectives GUI, invalid handle.\n");
+		return; // invalid handle, do nothing
+	}
+
 	for (int i = 0; i < m_Objectives.Num(); i++) 
 	{
 		idStr prefix = va("obj%d", i+1);
-		entity->Event_SetGuiString(overlayHandle, prefix + "_text", m_Objectives[i].m_text);
-		entity->Event_SetGuiInt(overlayHandle, prefix + "_state", m_Objectives[i].m_state);
-		entity->Event_SetGuiInt(overlayHandle, prefix + "_visible", m_Objectives[i].m_bVisible);
+		ui->SetStateString(prefix + "_text", m_Objectives[i].m_text);
+		ui->SetStateInt(prefix + "_state", m_Objectives[i].m_state);
+		ui->SetStateInt(prefix + "_visible", m_Objectives[i].m_bVisible);
 	}
 }
 

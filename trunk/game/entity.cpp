@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1894 $
- * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
+ * $Revision: 1913 $
+ * $Date: 2007-12-27 12:37:50 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1894 2007-12-25 18:32:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1913 2007-12-27 17:37:50Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8059,6 +8059,11 @@ int idEntity::CreateOverlay(const char *guiFile, int layer)
 	m_overlays.setInteractive(handle, gui->IsInteractive());
 
 	return handle;
+}
+
+idUserInterface* idEntity::GetOverlay(int handle)
+{
+	return m_overlays.getGui(handle);
 }
 
 void idEntity::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CInventoryItem *Prev)

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1894 $
- * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
+ * $Revision: 1913 $
+ * $Date: 2007-12-27 12:37:50 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -652,6 +652,9 @@ public:
 	*/
 	void					Event_DestroyOverlay(int handle);
 	void					DestroyOverlay(int handle);
+
+	// Returns the GUI with the given handle or NULL if not found
+	idUserInterface*		GetOverlay(int handle);
 
 	/**
 	 * Generic function for calling a scriptfunction with arbitrary arguments.
