@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1448 $
- * $Date: 2007-10-18 08:00:38 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1453 $
+ * $Date: 2007-10-18 11:09:44 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1180,6 +1180,12 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Halts lipsync
 	**/
 	void					StopLipSync();
+
+	/**
+	 * Plays and lipsyncs the given sound name, returns the duration in msecs.
+	 */
+	int						PlayAndLipSync(const char *soundName, const char *animName);
+
 	// Lip sync stuff
 	bool					m_lipSyncActive; /// True iff we're currently lip syncing
 	int						m_lipSyncAnim; /// The number of the animation that we are lipsyncing to

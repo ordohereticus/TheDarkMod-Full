@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1447 $
- * $Date: 2007-10-18 06:55:21 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1453 $
+ * $Date: 2007-10-18 11:09:44 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1447 2007-10-18 10:55:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1453 2007-10-18 15:09:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -7486,7 +7486,7 @@ void idAI::setAirTicks(int airTicks) {
 /*
 ===================== Lipsync =====================
 */
-void idAI::Event_PlayAndLipSync( const char *soundName, const char *animName )
+int idAI::PlayAndLipSync(const char *soundName, const char *animName)
 {
 	const idSoundShader *shader;
 	const char *sound;
@@ -7518,7 +7518,13 @@ void idAI::Event_PlayAndLipSync( const char *soundName, const char *animName )
 			headAnim.CycleAnim( m_lipSyncAnim );
 		}
 	}
-	idThread::ReturnInt(MS2SEC(duration));
+
+	return duration;
+}
+
+void idAI::Event_PlayAndLipSync( const char *soundName, const char *animName )
+{
+	idThread::ReturnInt(MS2SEC(PlayAndLipSync(soundName, animName)));
 }
 
 void idAI::StopLipSync()
