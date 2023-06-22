@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1790 $
- * $Date: 2007-11-14 11:00:41 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1806 $
+ * $Date: 2007-11-17 05:27:33 -0500 (Sat, 17 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -291,6 +291,12 @@ protected:
 public:
 
 	/*!
+	* This hiding spot list which is a public member of the object can be used for the first
+	* parameter of findHidingSpots if so desired.
+	*/
+	CDarkmodHidingSpotTree hidingSpotList;
+
+	/*!
 	* Constructor
 	* We use this to set up the aspects of the PVS which are used
 	* to determine visibility of adjacent areas for the actor.
@@ -360,12 +366,6 @@ public:
 	* @return if search not yet completed
 	*/
 	bool isSearchCompleted();
-
-	/*!
-	* This hiding spot list which is a member of the object can be used for the first
-	* parameter of findHidingSpots if so desired.
-	*/
-	CDarkmodHidingSpotTree hidingSpotList;
 
 	/*!
 	* This gets the bounds of the search
