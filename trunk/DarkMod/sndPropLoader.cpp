@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1172 $
- * $Date: 2007-07-21 16:37:47 -0400 (Sat, 21 Jul 2007) $
+ * $Revision: 1173 $
+ * $Date: 2007-07-21 16:51:24 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1172 2007-07-21 20:37:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1173 2007-07-21 20:51:24Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -83,9 +83,15 @@ void CsndPropBase::Save(idSaveGame *savefile) const
 		}
 	}
 
-	/*
-	idList<SAreaProp>	 m_AreaPropsG;
-	SPortData			*m_PortData;*/
+	savefile->WriteInt(m_AreaPropsG.Num());
+	for (int i = 0; i < m_AreaPropsG.Num(); i++)
+	{
+		savefile->WriteInt(m_AreaPropsG[i].area);
+		savefile->WriteFloat(m_AreaPropsG[i].LossMult);
+		savefile->WriteFloat(m_AreaPropsG[i].VolMod);
+		savefile->WriteBool(m_AreaPropsG[i].DataEntered);
+	}
+	/*SPortData			*m_PortData;*/
 
 	// TODO
 }
@@ -137,9 +143,18 @@ void CsndPropBase::Restore(idRestoreGame *savefile)
 		}
 	}
 
-	/*
-	idList<SAreaProp>	 m_AreaPropsG;
-	SPortData			*m_PortData;*/
+	int num;
+	savefile->ReadInt(num);
+	m_AreaPropsG.Clear();
+	m_AreaPropsG.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		savefile->ReadInt(m_AreaPropsG[i].area);
+		savefile->ReadFloat(m_AreaPropsG[i].LossMult);
+		savefile->ReadFloat(m_AreaPropsG[i].VolMod);
+		savefile->ReadBool(m_AreaPropsG[i].DataEntered);
+	}
+	/*SPortData			*m_PortData;*/
 
 	// TODO
 }
