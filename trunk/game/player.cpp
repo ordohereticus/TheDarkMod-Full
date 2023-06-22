@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1160 $
- * $Date: 2007-07-20 05:12:41 -0400 (Fri, 20 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1161 $
+ * $Date: 2007-07-20 05:44:38 -0400 (Fri, 20 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1160 2007-07-20 09:12:41Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1161 2007-07-20 09:44:38Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8539,7 +8539,8 @@ void idPlayer::inventoryDropItem()
 				thread->CallFunctionArgs(dropScript, true, "ee", ent, this);
 				thread->DelayedStart(0);
 				
-				bDropped = true;
+				// The dropScript changes the inventory count itself, so don't set 
+				// bDropped to true here.
 			}
 			// greebo: Only place the entity in the world, if there is no custom dropscript
 			// The flashbomb for example is spawning projectiles on its own.
@@ -8578,9 +8579,10 @@ void idPlayer::inventoryDropItem()
 			if( bDropped)
 			{
 				ChangeInventoryItemCount(item->GetName().c_str(), category->GetName().c_str(), -1);
-
-				UpdateHud();
 			}
+
+			// Always update the HUD, the drop script might have changed the inventory count itself.
+			UpdateHud();
 		}
 	}
 }
