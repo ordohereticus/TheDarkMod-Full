@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1275 $
- * $Date: 2007-08-04 17:12:03 -0400 (Sat, 04 Aug 2007) $
+ * $Revision: 1284 $
+ * $Date: 2007-08-05 16:23:29 -0400 (Sun, 05 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -398,6 +398,13 @@ protected:
 	* The current mantling phase
 	*/
 	EDarkMod_MantlePhase m_mantlePhase;
+
+	/**
+	 * greebo: Set to TRUE if the next mantling can start. Set to FALSE at the 
+	 *         beginning of a mantle process - the jump button has to be released
+	 *         again during a non-mantling phase to set this to TRUE again.
+	 */
+	bool m_mantleStartPossible;
 
 	/*!
 	* Points along the mantle path
