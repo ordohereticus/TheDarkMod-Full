@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1328 $
- * $Date: 2007-08-27 04:59:58 -0400 (Mon, 27 Aug 2007) $
+ * $Revision: 1332 $
+ * $Date: 2007-08-28 02:46:09 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1328 2007-08-27 08:59:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1332 2007-08-28 06:46:09Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6708,9 +6708,10 @@ Fixed fov at intermissions, otherwise account for fov variable and zooms.
 */
 float idPlayer::CalcFov( bool honorZoom ) {
 	float fov;
+	float defaultFov = DefaultFov();
 
 	if ( fxFov ) {
-		return DefaultFov() + 10.0f + cos( ( gameLocal.time + 2000 ) * 0.01 ) * 10.0f;
+		return defaultFov + 10.0f + cos( ( gameLocal.time + 2000 ) * 0.01 ) * 10.0f;
 	}
 
 	if ( influenceFov ) {
@@ -6719,13 +6720,22 @@ float idPlayer::CalcFov( bool honorZoom ) {
 
 	// prevent FOV from zooming if the player is holding an object
 	if( g_Global.m_DarkModPlayer->grabber->GetSelected() ) {
-		return DefaultFov();
+		return defaultFov;
 	}
 
-	if ( zoomFov.IsDone( gameLocal.time ) ) {
-		fov = ( honorZoom && usercmd.buttons & BUTTON_ZOOM ) && weapon.GetEntity() ? weapon.GetEntity()->GetZoomFov() : zoomFov.GetCurrentValue(gameLocal.time);
-	} else {
-		fov = zoomFov.GetCurrentValue( gameLocal.time );
+	// Check if a transition is still ongoing
+	bool zoomDone = zoomFov.IsDone(gameLocal.time);
+	float curZoomFov = zoomFov.GetCurrentValue(gameLocal.time);
+
+	// Take the interpolation value, if the zoom is enabled, take the default otherwise
+	fov = (zoomFov.Enabled()) ? curZoomFov : defaultFov;
+
+	// Check if we need the zoom interpolation anymore
+	if (zoomFov.Enabled() && zoomDone && curZoomFov == defaultFov)
+	{
+		// Zoom is done and is equal to default fov, so we no longer need it
+		zoomFov.SetEnabled(false);
+		fov = DefaultFov();
 	}
 
 	// bound normal viewsize
@@ -9104,19 +9114,19 @@ void idPlayer::Event_GiveHealthPool( float amount ) {
 
 void idPlayer::Event_StartZoom(float duration, float startFOV, float endFOV)
 {
-	// greebo: Start the new transition from startFOV >> endFOV
+	// greebo: Start the new transition from startFOV >> endFOV, this enables the idInterpolate
 	zoomFov.Init(gameLocal.time, duration, startFOV, endFOV);
 }
 
 void idPlayer::Event_EndZoom(float duration)
 {
-	// greebo: Make a transition from the current FOV back to the default FOV.
+	// greebo: Make a transition from the current FOV back to the default FOV, this enables the idInterpolate
 	zoomFov.Init(gameLocal.time, duration, zoomFov.GetCurrentValue(gameLocal.time), DefaultFov());
 }
 
 void idPlayer::Event_ResetZoom()
 {
-	// Reset the FOV to the default values
+	// Reset the FOV to the default values, this enables the idInterpolate
 	zoomFov.Init(gameLocal.time, 0, DefaultFov(), DefaultFov());
 }
 
