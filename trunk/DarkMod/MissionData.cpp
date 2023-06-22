@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2228 $
- * $Date: 2008-04-26 16:01:21 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2229 $
+ * $Date: 2008-04-27 02:58:32 -0400 (Sun, 27 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2228 2008-04-26 20:01:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2229 2008-04-27 06:58:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2380,6 +2380,14 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 
 	key = "KOed by the Player";
 	value = idStr(m_Stats.AIStats[COMP_KO].ByTeam[m_PlayerTeam]);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+
+	key = "Bodies found";
+	int numBodiesFound = 0;
+	for (int i = 0; i < MAX_TEAMS; i++) {
+		numBodiesFound += m_Stats.AIStats[COMP_AI_FIND_BODY].ByTeam[i];
+	}
+	value = idStr(numBodiesFound);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 
 	/*key = "Frames";
