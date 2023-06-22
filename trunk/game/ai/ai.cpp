@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1758 $
- * $Date: 2007-11-12 02:08:40 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1759 $
+ * $Date: 2007-11-12 03:10:17 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1758 2007-11-12 07:08:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1759 2007-11-12 08:10:17Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1516,6 +1516,11 @@ idAI::Think
 */
 void idAI::Think( void ) 
 {
+	if (cv_ai_opt_nothink.GetBool()) 
+	{
+		return; // Thinking is disabled.
+	}
+
 	// if we are completely closed off from the player, don't do anything at all
 	bool outsidePVS = CheckDormant();
 	if (outsidePVS && cv_ai_opt_disable.GetBool()) {

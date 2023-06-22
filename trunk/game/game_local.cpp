@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1646 $
- * $Date: 2007-11-02 03:47:33 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1759 $
+ * $Date: 2007-11-12 03:10:17 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1646 2007-11-02 07:47:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1759 2007-11-12 08:10:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5573,6 +5573,11 @@ CStimResponse* idGameLocal::FindStimResponse(int uniqueId)
 
 void idGameLocal::ProcessStimResponse(unsigned long ticks)
 {
+	if (cv_sr_disable.GetBool())
+	{
+		return; // S/R disabled, skip this
+	}
+
 	idEntity *e;
 	int ei, en;
 	int n;

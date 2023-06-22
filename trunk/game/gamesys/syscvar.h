@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1751 $
- * $Date: 2007-11-11 08:03:20 -0500 (Sun, 11 Nov 2007) $
- * $Author: dram $
+ * $Revision: 1759 $
+ * $Date: 2007-11-12 03:10:17 -0500 (Mon, 12 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -43,7 +43,9 @@ extern idCVar cv_ai_opt_disable;
 extern idCVar cv_ai_opt_noanims;
 extern idCVar cv_ai_opt_novisualscan;
 extern idCVar cv_ai_opt_forceopt;
+extern idCVar cv_ai_opt_nothink;
 
+extern idCVar cv_sr_disable;
 
 extern idCVar cv_spr_debug;
 extern idCVar cv_spr_show;
