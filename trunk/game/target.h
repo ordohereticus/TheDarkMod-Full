@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1683 $
- * $Date: 2007-11-04 19:46:10 -0500 (Sun, 04 Nov 2007) $
+ * $Revision: 1684 $
+ * $Date: 2007-11-05 00:16:28 -0500 (Mon, 05 Nov 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -586,6 +586,14 @@ private:
 	* Current frob state, whether stuff inside has been set frobable or not
 	**/
 	bool				m_bCurFrobState;
+
+	/**
+	* List of the names of entities previously set unfrobable
+	* This list is maintained to avoid accidentally setting anything frobable
+	* that was not frobable before it went in the brush
+	* Only ents that get added to this list will become frobable.
+	**/
+	idStrList			m_EntsSetUnfrobable;
 };
 
 
