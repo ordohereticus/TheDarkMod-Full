@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1366 $
- * $Date: 2007-08-30 16:26:58 -0400 (Thu, 30 Aug 2007) $
+ * $Revision: 1370 $
+ * $Date: 2007-08-31 09:51:16 -0400 (Fri, 31 Aug 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1366 2007-08-30 20:26:58Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1370 2007-08-31 13:51:16Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -828,6 +828,7 @@ void CFrobDoor::SetHandlePosition(EHandleReset nPos, int pin, int sample)
 	{
 		m->GetPhysics()->SetAxis(m_OriginalAngle.ToMat3());
 		m->SetOrigin(m_OriginalPosition);
+		m->UpdateVisuals();
 	}
 	else
 	{
