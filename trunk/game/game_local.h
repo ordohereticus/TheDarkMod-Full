@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2002 $
+ * $Date: 2008-01-20 14:39:40 -0500 (Sun, 20 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -441,7 +441,6 @@ public:
 **/
 	CMissionData *			m_MissionData;
 	EMissionResult			m_MissionResult; // holds the global mission state
-	bool					m_MissionDataLoadedIntoGUI; // true if the main menu GUI is up to date
 
 /**
 * Pointer to global sound prop loader object
