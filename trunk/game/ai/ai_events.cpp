@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1711 $
- * $Date: 2007-11-06 06:22:54 -0500 (Tue, 06 Nov 2007) $
- * $Author: angua $
+ * $Revision: 1713 $
+ * $Date: 2007-11-06 09:40:19 -0500 (Tue, 06 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1711 2007-11-06 11:22:54Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1713 2007-11-06 14:40:19Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3297,7 +3297,8 @@ void idAI::Event_SetAlertLevel( float newAlertLevel)
 	// How long should this alert level last, and which alert index should we be in now?
 	if (newAlertLevel >= thresh_3)
 	{
-		if (newAlertLevel >= thresh_combat)
+		// greebo: Only allow switching to combat if a valid enemy is set.
+		if (newAlertLevel >= thresh_combat && GetEnemy() != NULL)
 		{
 			AI_AlertIndex = 4;
 		}
