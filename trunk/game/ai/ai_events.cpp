@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1364 $
- * $Date: 2007-08-30 05:39:30 -0400 (Thu, 30 Aug 2007) $
+ * $Revision: 1365 $
+ * $Date: 2007-08-30 12:30:29 -0400 (Thu, 30 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1364 2007-08-30 09:39:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1365 2007-08-30 16:30:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -162,7 +162,7 @@ const idEventDef AI_CanReachEnemy( "canReachEnemy", NULL, 'd' );
 const idEventDef AI_GetReachableEntityPosition( "getReachableEntityPosition", "e", 'v' );
 
 // TDM
-const idEventDef AI_PlayAndLipSync( "playAndLipSync", "ss" );
+const idEventDef AI_PlayAndLipSync( "playAndLipSync", "ss", 'd' );
 const idEventDef AI_RegisterKilledTask( "registerKilledTask", "sd" );
 const idEventDef AI_RegisterKnockedOutTask( "registerKnockedOutTask", "sd" );
 

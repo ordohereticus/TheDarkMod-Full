@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1364 $
- * $Date: 2007-08-30 05:39:30 -0400 (Thu, 30 Aug 2007) $
+ * $Revision: 1365 $
+ * $Date: 2007-08-30 12:30:29 -0400 (Thu, 30 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1364 2007-08-30 09:39:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1365 2007-08-30 16:30:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -7455,6 +7455,7 @@ void idAI::Event_PlayAndLipSync( const char *soundName, const char *animName )
 			headAnim.CycleAnim( m_lipSyncAnim );
 		}
 	}
+	idThread::ReturnInt(MS2SEC(duration));
 }
 
 void idAI::StopLipSync()
