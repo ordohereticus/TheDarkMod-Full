@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1990 $
- * $Date: 2008-01-15 01:46:21 -0500 (Tue, 15 Jan 2008) $
+ * $Revision: 1994 $
+ * $Date: 2008-01-16 05:34:57 -0500 (Wed, 16 Jan 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1990 2008-01-15 06:46:21Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1994 2008-01-16 10:34:57Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -963,8 +963,12 @@ void CGrabber::Throw( int HeldTime )
 	if( FracPower > 1.0 )
 		FracPower = 1.0;
 
+	float mass = m_dragEnt.GetEntity()->GetPhysics()->GetMass();
+
 	// Try out a linear scaling between max and min
 	ThrowImpulse = cv_throw_min.GetFloat() + (cv_throw_max.GetFloat() - cv_throw_min.GetFloat()) * FracPower;
+	// Clamp to max velocity
+	ThrowImpulse = idMath::ClampFloat( 0.0f, cv_throw_max_vel.GetFloat() * mass, ThrowImpulse );
 	ImpulseVec *= ThrowImpulse;  
 
 	ClampVelocity( MAX_RELEASE_LINVEL, MAX_RELEASE_ANGVEL, m_id );
