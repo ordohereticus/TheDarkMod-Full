@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1502 $
- * $Date: 2007-10-21 03:18:36 -0400 (Sun, 21 Oct 2007) $
+ * $Revision: 1510 $
+ * $Date: 2007-10-21 15:43:27 -0400 (Sun, 21 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1502 2007-10-21 07:18:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1510 2007-10-21 19:43:27Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3567,10 +3567,10 @@ void idAI::Event_SetAudThresh( float val )
 
 void idAI::Event_SetAlertLevel( float newAlertLevel)
 {
-	// greebo: Clamp the (log) alert number to twice the third threshold.
-	if (newAlertLevel > thresh_3*2)
+	// greebo: Clamp the (log) alert number to twice the combat threshold.
+	if (newAlertLevel > thresh_combat*2)
 	{
-		newAlertLevel = thresh_3*2;
+		newAlertLevel = thresh_combat*2;
 	}
 
 	bool bool_alertRising = (newAlertLevel > AI_AlertNum);
