@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1153 $
- * $Date: 2007-07-19 09:47:05 -0400 (Thu, 19 Jul 2007) $
+ * $Revision: 1156 $
+ * $Date: 2007-07-20 04:38:07 -0400 (Fri, 20 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1153 2007-07-19 13:47:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1156 2007-07-20 08:38:07Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1203,6 +1203,8 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteDict( &m_hinderance );
 	savefile->WriteFloat( m_hinderanceCache );
 
+	savefile->WriteBool(m_ContinuousUse);
+
 	for( i = 0; i < NUM_LOGGED_VIEW_ANGLES; i++ ) {
 		savefile->WriteAngles( loggedViewAngles[ i ] );
 	}
@@ -1473,6 +1475,8 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadDict( &m_hinderance );
 	savefile->ReadFloat( m_hinderanceCache );
+
+	savefile->ReadBool(m_ContinuousUse);
 
 	for( i = 0; i < NUM_LOGGED_VIEW_ANGLES; i++ ) {
 		savefile->ReadAngles( loggedViewAngles[ i ] );
