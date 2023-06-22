@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1949 $
- * $Date: 2008-01-03 14:59:41 -0500 (Thu, 03 Jan 2008) $
- * $Author: angua $
+ * $Revision: 1950 $
+ * $Date: 2008-01-03 16:10:14 -0500 (Thu, 03 Jan 2008) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1949 2008-01-03 19:59:41Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1950 2008-01-03 21:10:14Z orbweaver $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2357,7 +2357,8 @@ void CObjectiveLocation::Restore( idRestoreGame *savefile )
 void CObjectiveLocation::Think()
 {
 	idStrList current, added, missing;
-
+	bool bFound = false;
+	
 	// only check on clock ticks
 	if( (gameLocal.time - m_TimeStamp) < m_Interval )
 		goto Quit;
@@ -2418,8 +2419,6 @@ void CObjectiveLocation::Think()
 		}
 	}
 	
-	bool bFound(false);
-
 	// compare current list to previous clock tick list to generate added list
 	for( int i = 0; i < current.Num(); i++ )
 	{

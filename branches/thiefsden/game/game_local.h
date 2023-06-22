@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1946 $
- * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 1950 $
+ * $Date: 2008-01-03 16:10:14 -0500 (Thu, 03 Jan 2008) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -175,13 +175,13 @@ void gameError( const char *fmt, ... );
 #include "pvs.h"
 #include "multiplayergame.h"
 
+#include "DarkMod/EMissionResult.h"
+
 #include <boost/shared_ptr.hpp>
 
 // Forward decl.
 class DarkRadiantRCFServer;
 typedef boost::shared_ptr<DarkRadiantRCFServer> DarkRadiantRCFServerPtr;
-
-typedef enum EMissionResult;
 
 #ifdef __linux__
 #include "renderer/renderworld.h"

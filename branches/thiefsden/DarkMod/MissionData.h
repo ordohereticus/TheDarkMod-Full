@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1949 $
- * $Date: 2008-01-03 14:59:41 -0500 (Thu, 03 Jan 2008) $
- * $Author: angua $
+ * $Revision: 1950 $
+ * $Date: 2008-01-03 16:10:14 -0500 (Thu, 03 Jan 2008) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -41,12 +41,7 @@ typedef enum
 // NOTE: STATE_INVALID may also be used for initially deactivating objectives, 
 // then activating later by setting STATE_INCOMPLETE
 
-enum EMissionResult {
-	MISSION_NOTEVENSTARTED = 0,	// before any map is loaded (at game startup, for instance)
-	MISSION_INPROGRESS = 1,		// mission not yet accomplished (in-game)
-	MISSION_FAILED = 2,			// mission failed
-	MISSION_COMPLETE = 3,		// mission completed
-};
+#include "EMissionResult.h"
 
 /**
 * Objective component specification types
