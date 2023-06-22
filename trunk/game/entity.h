@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2044 $
- * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
+ * $Revision: 2054 $
+ * $Date: 2008-02-08 09:05:02 -0500 (Fri, 08 Feb 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -174,7 +174,7 @@ typedef struct SAttachPosition_s
 } SAttachPosition;
 
 // Used by m_renderTrigger
-#define EMPTY_MODEL "models/darkmod/props/misc/empty.lwo"
+#define EMPTY_MODEL "models/darkmod/misc/system/empty.lwo"
 
 class idEntity : public idClass {
 public:
