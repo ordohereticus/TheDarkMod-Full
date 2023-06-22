@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2084 $
- * $Date: 2008-02-10 13:37:29 -0500 (Sun, 10 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2091 $
+ * $Date: 2008-02-14 13:24:37 -0500 (Thu, 14 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2084 2008-02-10 18:37:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2091 2008-02-14 18:24:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3388,7 +3388,7 @@ void idGameLocal::RunDebugInfo( void ) {
 	}
 
 	if ( ai_showObstacleAvoidance.GetInteger() == 2 ) {
-		idAAS *aas = GetAAS( 0 );
+		idAAS *aas = GetAAS("aas32");
 		if ( aas ) {
 			idVec3 seekPos;
 			obstaclePath_t path;
