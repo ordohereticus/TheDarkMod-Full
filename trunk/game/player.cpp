@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1258 $
- * $Date: 2007-07-31 21:05:29 -0400 (Tue, 31 Jul 2007) $
- * $Author: nyarlathotep $
+ * $Revision: 1261 $
+ * $Date: 2007-08-01 06:49:27 -0400 (Wed, 01 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1258 2007-08-01 01:05:29Z nyarlathotep $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1261 2007-08-01 10:49:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4947,7 +4947,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_51:	// Inventory use item
 		{
-			if (GetImmobilization() & EIM_ITEM)
+			// Pass the "inventoryUseItem" event to the GUIs
+			m_overlays.broadcastNamedEvent("inventoryUseItem");
+
+			if (GetImmobilization() & EIM_ITEM_USE)
 				return;
 
 			inventoryUseItem(true);
@@ -4956,7 +4959,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_52:	// Inventory drop item
 		{
-			if (GetImmobilization() & EIM_ITEM) {
+			// Pass the "inventoryDropItem" event to the GUIs
+			m_overlays.broadcastNamedEvent("inventoryDropItem");
+
+			if (GetImmobilization() & EIM_ITEM_DROP) {
 				return;
 			}
 

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1229 $
- * $Date: 2007-07-28 16:17:21 -0400 (Sat, 28 Jul 2007) $
+ * $Revision: 1261 $
+ * $Date: 2007-08-01 06:49:27 -0400 (Wed, 01 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -108,8 +108,9 @@ enum {
 	EIM_FROB				= BIT( 7),	// Frobbing.
 	EIM_ATTACK				= BIT( 8),	// Using weapons (NYI)
 	EIM_WEAPON_SELECT		= BIT( 9),	// Selecting weapons.
-	EIM_ITEM				= BIT(10),	// Using items
+	EIM_ITEM_USE			= BIT(10),	// Using items
 	EIM_ITEM_SELECT			= BIT(11),	// Selecting items.
+	EIM_ITEM_DROP			= BIT(12),	// Dropping inventory items.
 };
 
 typedef struct {
