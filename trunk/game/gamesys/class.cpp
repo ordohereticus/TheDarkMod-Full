@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1179 $
+ * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ instancing of objects.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: class.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: class.cpp 1179 2007-07-22 07:42:45Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/PlayerData.h"
@@ -1037,7 +1037,7 @@ void idClass::Event_Remove( void )
 	// set the frob pointers to NULL to avoid stale pointers
 	CDarkModPlayer *pDM = g_Global.m_DarkModPlayer;
 
-	if( pDM && pDM->m_FrobEntity == this )
+	if( pDM && pDM->m_FrobEntity.GetEntity() == this )
 		pDM->m_FrobEntity = NULL;
 	if( pDM && pDM->m_FrobEntityPrevious == this )
 		pDM->m_FrobEntityPrevious = NULL;

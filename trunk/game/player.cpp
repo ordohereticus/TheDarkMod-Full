@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1176 $
- * $Date: 2007-07-21 20:30:58 -0400 (Sat, 21 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1179 $
+ * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1176 2007-07-22 00:30:58Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1179 2007-07-22 07:42:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4894,7 +4894,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			idEntity *useEnt = grabber->GetSelected();
 			if(useEnt == NULL)
 			{
-				idEntity *frob = g_Global.m_DarkModPlayer->m_FrobEntity;
+				idEntity *frob = g_Global.m_DarkModPlayer->m_FrobEntity.GetEntity();
 				if(frob != NULL)
 					grabber->PutInHands(frob, this);
 			}
@@ -8492,7 +8492,7 @@ void idPlayer::inventoryUseItem(bool bImpulse, idEntity *ent)
 	// Sanity check
 	if (ent == NULL) return;
 
-	idEntity *frob = g_Global.m_DarkModPlayer->m_FrobEntity;
+	idEntity *frob = g_Global.m_DarkModPlayer->m_FrobEntity.GetEntity();
 
 	DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Inventory selection %08lX  Impulse: %u\r", ent, (int)bImpulse);
 	if(frob != NULL)
@@ -9302,7 +9302,7 @@ void idPlayer::PerformFrob(void)
 		goto Quit;
 	}
 
-	frob = pDM->m_FrobEntity;
+	frob = pDM->m_FrobEntity.GetEntity();
 
 	if(frob != NULL)
 	{

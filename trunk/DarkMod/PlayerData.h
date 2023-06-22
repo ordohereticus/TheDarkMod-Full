@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1178 $
- * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1179 $
+ * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -46,7 +46,7 @@ public:
 	 * FrobEntity is NULL when no entity is highlighted. Otherwise it will point 
 	 * to the entity which is currently highlighted.
 	 */
-	idEntity		*m_FrobEntity;
+	idEntityPtr<idEntity>	m_FrobEntity;
 
 	/**
 	* Frobbed joint and frobbed clipmodel ID if an AF has been frobbed

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1178 $
- * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1179 $
+ * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1178 2007-07-22 07:30:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1179 2007-07-22 07:42:45Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -352,7 +352,7 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	// If an entity was not explictly passed in, use the frob entity
     if ( !newEnt ) 
 	{
-		FrobEnt = g_Global.m_DarkModPlayer->m_FrobEntity;
+		FrobEnt = g_Global.m_DarkModPlayer->m_FrobEntity.GetEntity();
 		if( !FrobEnt )
 #ifdef __linux__
 			return;

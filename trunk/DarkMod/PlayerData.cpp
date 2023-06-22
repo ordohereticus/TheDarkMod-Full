@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1178 $
- * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1179 $
+ * $Date: 2007-07-22 03:42:45 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PlayerData.cpp 1178 2007-07-22 07:30:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PlayerData.cpp 1179 2007-07-22 07:42:45Z greebo $", init_version);
 
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
@@ -41,7 +41,7 @@ void CDarkModPlayer::Save( idSaveGame *savefile ) const
 {
 	grabber->Save(savefile);
 
-	// idEntity		*m_FrobEntity;
+	m_FrobEntity.Save(savefile);
 	savefile->WriteJoint(m_FrobJoint);
 	savefile->WriteInt(m_FrobID);
 	savefile->WriteTrace(m_FrobTrace);
@@ -57,7 +57,7 @@ void CDarkModPlayer::Restore( idRestoreGame *savefile )
 
 	grabber->Restore(savefile);
 
-	// idEntity		*m_FrobEntity;
+	m_FrobEntity.Restore(savefile);
 	savefile->ReadJoint(m_FrobJoint);
 	savefile->ReadInt(m_FrobID);
 	savefile->ReadTrace(m_FrobTrace);
