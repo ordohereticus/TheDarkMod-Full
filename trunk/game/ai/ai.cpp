@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1725 $
- * $Date: 2007-11-07 07:08:28 -0500 (Wed, 07 Nov 2007) $
+ * $Revision: 1735 $
+ * $Date: 2007-11-08 10:17:55 -0500 (Thu, 08 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1725 2007-11-07 12:08:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1735 2007-11-08 15:17:55Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8235,17 +8235,6 @@ void idAI::Knockout( void )
 	mind->ClearStates();
 	mind->PushState(STATE_KNOCKED_OUT);
 	
-	/*if (m_TaskQueue && m_knockedOutTask.Length())
-	{
-		m_TaskQueue->Push(m_knockedOutTaskPriority, m_knockedOutTask.c_str());
-	}
-	else
-	{
-		state = GetScriptFunction( "state_KnockedOut" );
-		SetState( state );
-		SetWaitState( "" );
-	}*/
-
 	// drop items
 	DropOnRagdoll();
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1646 $
- * $Date: 2007-11-02 03:47:33 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1735 $
+ * $Date: 2007-11-08 10:17:55 -0500 (Thu, 08 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -59,7 +59,6 @@ bool FileVersionList(const char *str, bool state);
 
 class CStim;
 class CStimResponseTimer;
-class CPriorityQueue;
 
 // enables water physics
 #define MOD_WATERPHYSICS
