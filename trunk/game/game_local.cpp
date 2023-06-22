@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2017 $
- * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
+ * $Revision: 2029 $
+ * $Date: 2008-01-29 10:12:45 -0500 (Tue, 29 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2017 2008-01-27 20:35:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2029 2008-01-29 15:12:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -256,6 +256,8 @@ void idGameLocal::Clear( void )
 	m_MissionData = &g_MissionData;
 	// greebo: don't clear the Mission Result, Clear() is called during map shutdown
 	m_MissionData->ClearGUIState();
+
+	m_DifficultyManager.Clear();
 
 	m_EscapePointManager = CEscapePointManager::Instance();
 	m_Interleave = 0;
