@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1937 $
- * $Date: 2007-12-31 06:19:03 -0500 (Mon, 31 Dec 2007) $
+ * $Revision: 1939 $
+ * $Date: 2007-12-31 11:15:52 -0500 (Mon, 31 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1937 2007-12-31 11:19:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1939 2007-12-31 16:15:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3029,9 +3029,6 @@ const char* idGameLocal::HandleGuiCommands( const char *menuCommand ) {
 /*
 ================
 idGameLocal::HandleMainMenuCommands
-
-Currently the shop (purchase screen) is the only component that
-handles main menu commands.
 ================
 */
 void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui )

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1931 $
- * $Date: 2007-12-29 14:18:38 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1939 $
+ * $Date: 2007-12-31 11:15:52 -0500 (Mon, 31 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1931 2007-12-29 19:18:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1939 2007-12-31 16:15:52Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2068,21 +2068,30 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 	{
 		int index = objIndices[i];
 
+		// Get a shortcut to the target objective
+		CObjective& obj = m_Objectives[index];
+
 		idStr prefix = va("obj%d", objCount+1);
 
-		ui->SetStateString(prefix + "_text", m_Objectives[index].m_text);
+		// Set the text
+		ui->SetStateString(prefix + "_text", obj.m_text);
 
-		ui->SetStateInt(
-			prefix + "_complete",
-			m_Objectives[index].m_state == STATE_COMPLETE && !m_Objectives[index].m_bOngoing // not complete if ongoing
-		);
+		// Set the state, this requires some logic
+		EObjCompletionState state = obj.m_state;
 
-		ui->SetStateInt(
-			prefix + "_failed",
-			m_Objectives[index].m_state == STATE_FAILED
-		);
+		// State is not complete for ongoing objectives
+		if (obj.m_state == STATE_COMPLETE && obj.m_bOngoing)
+		{
+			state = STATE_INCOMPLETE;
+		}
 
-		ui->SetStateInt(prefix + "_visible", m_Objectives[index].m_bVisible);
+		// Write the state to the GUI
+		ui->SetStateInt(prefix + "_state", static_cast<int>(state));
+
+		ui->SetStateInt(prefix + "_visible", obj.m_bVisible);
+
+		// Call UpdateObjectiveStateN to perform some GUI-specific updates
+		ui->HandleNamedEvent(va("UpdateObjective%d", index));
 	}
 
 	// Force a redraw
