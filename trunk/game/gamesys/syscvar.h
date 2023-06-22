@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1662 $
- * $Date: 2007-11-03 08:47:51 -0400 (Sat, 03 Nov 2007) $
+ * $Revision: 1723 $
+ * $Date: 2007-11-07 02:41:22 -0500 (Wed, 07 Nov 2007) $
  * $Author: dram $
  *
  ***************************************************************************/
@@ -409,6 +409,13 @@ extern const char *si_gameTypeArgs[];
 
 
 extern const char *ui_skinArgs[];
+
+
+// HDR-like Shift Sensitivity Bloom - by maha_x
+extern idCVar	z_bloom;
+extern idCVar	z_bloomBufferSize;
+extern idCVar	z_bloomIterations;
+extern idCVar	z_bloomShift;
 
 #ifdef MOD_WATERPHYSICS
 
