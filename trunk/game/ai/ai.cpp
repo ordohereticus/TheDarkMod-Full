@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1717 $
- * $Date: 2007-11-06 10:55:55 -0500 (Tue, 06 Nov 2007) $
+ * $Revision: 1718 $
+ * $Date: 2007-11-06 12:53:13 -0500 (Tue, 06 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1717 2007-11-06 15:55:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1718 2007-11-06 17:53:13Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1194,7 +1194,6 @@ void idAI::Spawn( void )
 	AI_HEARDSOUND = false;
 	AI_VISALERT = false;
 	AI_TACTALERT = false;
-	AI_ALERTED_BY_PLAYER = false;
 
 	fl.takedamage		= !spawnArgs.GetBool( "noDamage" );
 	enemy				= NULL;
@@ -1819,7 +1818,6 @@ void idAI::LinkScriptVariables( void )
 	AI_HEARDSOUND.LinkTo(		scriptObject, "AI_HEARDSOUND");
 	AI_VISALERT.LinkTo(			scriptObject, "AI_VISALERT");
 	AI_TACTALERT.LinkTo(		scriptObject, "AI_TACTALERT");
-	AI_ALERTED_BY_PLAYER.LinkTo(	scriptObject, "AI_ALERTED_BY_PLAYER");
 
 	AI_CROUCH.LinkTo(			scriptObject, "AI_CROUCH");
 	AI_RUN.LinkTo(				scriptObject, "AI_RUN");

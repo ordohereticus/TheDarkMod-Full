@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1711 $
- * $Date: 2007-11-06 06:22:54 -0500 (Tue, 06 Nov 2007) $
- * $Author: angua $
+ * $Revision: 1718 $
+ * $Date: 2007-11-06 12:53:13 -0500 (Tue, 06 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -751,11 +751,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Set to true if the AI was pushed by or bumped into an enemy.
 	**/
 	idScriptBool			AI_TACTALERT;
-
-	/**
-	* Set to true if the actor responsible for alert is the player
-	**/
-	idScriptBool			AI_ALERTED_BY_PLAYER;
 
 	/**
 	* The current alert number of the AI.
