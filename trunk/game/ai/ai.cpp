@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2140 $
- * $Date: 2008-03-23 04:48:37 -0400 (Sun, 23 Mar 2008) $
+ * $Revision: 2152 $
+ * $Date: 2008-03-29 06:14:30 -0400 (Sat, 29 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2140 2008-03-23 08:48:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2152 2008-03-29 10:14:30Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1505,38 +1505,12 @@ void idAI::Think( void )
 	}
 	
 	// Interleaved thinking
-	int frameNum = gameLocal.framenum;
-	if (frameNum < m_nextThinkFrame)
+	if (!ThinkingIsAllowed())
 	{
-		bool skipPVScheck = cv_ai_opt_interleavethinkskippvscheck.GetBool();
-		if (skipPVScheck)
-		{
-			return;
-		}
-
-		bool inPVS = gameLocal.InPlayerPVS(this);
-		if (!inPVS)
-		{
-			return;
-		}
+		return;
 	}
 
-	int thinkFrame = GetThinkInterleave();
-	if (thinkFrame > 1)
-	{
-		if (frameNum < (5 + gameLocal.random.RandomInt(5)))
-		{
-			m_nextThinkFrame = frameNum + 1;
-		}
-		else
-		{
-			m_nextThinkFrame = frameNum + thinkFrame;
-		}
-	}
-	else
-	{
-		m_nextThinkFrame = frameNum + 1;
-	}
+	SetNextThinkFrame();
 			
 	// save old origin and velocity for crashlanding
 	idVec3 oldOrigin = physicsObj.GetOrigin();
@@ -1799,6 +1773,68 @@ void idAI::Think( void )
 	}
 
 	m_lastThinkTime = gameLocal.time;
+}
+
+/*
+=====================
+idAI::ThinkingIsAllowed
+=====================
+*/
+bool idAI::ThinkingIsAllowed()
+{
+	int frameNum = gameLocal.framenum;
+	if (frameNum < m_nextThinkFrame)
+	{
+		// Ragdolls think every frame to avoid physics weirdness.
+		if (health <= 0)
+		{
+			return true;
+		}
+
+		// skips PVS check, AI will also do interleaved thinking when in player view.
+		bool skipPVScheck = cv_ai_opt_interleavethinkskippvscheck.GetBool();
+		if (skipPVScheck)
+		{
+			return false;
+		}
+
+		// PVS check: let the AI think every frame as long as the player sees them.
+		bool inPVS = gameLocal.InPlayerPVS(this);
+		if (!inPVS)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+
+
+/*
+=====================
+idAI::SetNextThinkFrame
+=====================
+*/
+void idAI::SetNextThinkFrame()
+{
+	int frameNum = gameLocal.framenum;
+	int thinkFrame = GetThinkInterleave();
+	if (thinkFrame > 1)
+	{
+		// Let them think for the first few frames to initialize state and tasks
+		if (frameNum < (5 + gameLocal.random.RandomInt(5)))
+		{
+			m_nextThinkFrame = frameNum + 1;
+		}
+		else
+		{
+			m_nextThinkFrame = frameNum + thinkFrame;
+		}
+	}
+	else
+	{
+		m_nextThinkFrame = frameNum + 1;
+	}
 }
 
 /*
