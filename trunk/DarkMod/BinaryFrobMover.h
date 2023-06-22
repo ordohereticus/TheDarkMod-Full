@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2121 $
- * $Date: 2008-03-01 14:41:59 -0500 (Sat, 01 Mar 2008) $
+ * $Revision: 2123 $
+ * $Date: 2008-03-02 03:42:19 -0500 (Sun, 02 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -155,6 +155,11 @@ protected:
 	* By default, a BinaryFrobMover toggles its state when triggered
 	**/
 	void					Event_Activate( idEntity *activator );
+
+	/**
+	 * greebo: "Override" the TeamBlocked event to detect collisions with the player.
+	 */
+	void					Event_TeamBlocked( idEntity *blockedPart, idEntity *blockingEntity );
 
 protected:
 	/**

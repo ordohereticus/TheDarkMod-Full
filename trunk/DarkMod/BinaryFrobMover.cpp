@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2121 $
- * $Date: 2008-03-01 14:41:59 -0500 (Sat, 01 Mar 2008) $
+ * $Revision: 2123 $
+ * $Date: 2008-03-02 03:42:19 -0500 (Sun, 02 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2121 2008-03-01 19:41:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2123 2008-03-02 08:42:19Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -43,6 +43,7 @@ CLASS_DECLARATION( idMover, CBinaryFrobMover )
 	EVENT( EV_TDM_Door_GetOpen,				CBinaryFrobMover::GetOpen)
 	EVENT( EV_TDM_Door_GetLock,				CBinaryFrobMover::GetLock)
 	EVENT( EV_Activate,						CBinaryFrobMover::Event_Activate )
+	EVENT( EV_TeamBlocked,					CBinaryFrobMover::Event_TeamBlocked )
 END_CLASS
 
 
@@ -502,6 +503,20 @@ void CBinaryFrobMover::ClosePortal(void)
 void CBinaryFrobMover::Event_Activate( idEntity *activator ) 
 {
 	ToggleOpen();
+}
+
+void CBinaryFrobMover::Event_TeamBlocked( idEntity *blockedPart, idEntity *blockingEntity )
+{
+	// greebo: If we're blocked by the player, stop moving
+	if (blockingEntity->IsType(idPlayer::Type))
+	{
+		m_bInterrupted = true;
+		Event_StopRotating();
+		Event_StopMoving();
+
+		// reverse the intent
+		m_bIntentOpen = !m_bIntentOpen;
+	}
 }
 
 void CBinaryFrobMover::ApplyImpulse(idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse)
