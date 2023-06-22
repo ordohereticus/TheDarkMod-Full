@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2266 $
- * $Date: 2008-05-06 15:28:57 -0400 (Tue, 06 May 2008) $
+ * $Revision: 2271 $
+ * $Date: 2008-05-07 12:49:23 -0400 (Wed, 07 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2266 2008-05-06 19:28:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2271 2008-05-07 16:49:23Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7086,8 +7086,11 @@ void idEntity::FrobAction(bool bMaster, bool bPeer)
 		if(m_FrobActionScript.Length() > 0)
 		{
 			idThread* thread = CallScriptFunctionArgs(m_FrobActionScript.c_str(), true, 0, "e", this);
-			// greebo: Run the thread at once, the script result might be needed below.
-			thread->Execute();
+			if (thread != NULL)
+			{
+				// greebo: Run the thread at once, the script result might be needed below.
+				thread->Execute();
+			}
 		}
 
 		StartSound( "snd_acquire", SND_CHANNEL_ANY, 0, false, NULL );
