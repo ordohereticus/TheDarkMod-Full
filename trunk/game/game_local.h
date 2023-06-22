@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2002 $
- * $Date: 2008-01-20 14:39:40 -0500 (Sun, 20 Jan 2008) $
+ * $Revision: 2015 $
+ * $Date: 2008-01-27 07:47:25 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -176,6 +176,7 @@ void gameError( const char *fmt, ... );
 #include "multiplayergame.h"
 
 #include "../DarkMod/EMissionResult.h"
+#include "../DarkMod/DifficultyManager.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -431,6 +432,10 @@ public:
 
 	idSmokeParticles *		smokeParticles;			// global smoke trails
 	idEditEntities *		editEntities;			// in game editing
+
+	// The object handling the difficulty settings
+	CDifficultyManager		m_DifficultyManager;
+
 /**
 * Pointer to global AI Relations object
 **/

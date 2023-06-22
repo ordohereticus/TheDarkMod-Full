@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2014 $
- * $Date: 2008-01-27 06:21:10 -0500 (Sun, 27 Jan 2008) $
+ * $Revision: 2015 $
+ * $Date: 2008-01-27 07:47:25 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2014 2008-01-27 11:21:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2015 2008-01-27 12:47:25Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -615,6 +615,8 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// Save the global hiding spot search collection
 	CHidingSpotSearchCollection::Instance().Save(&savegame);
+
+	m_DifficultyManager.Save(&savegame);
 
 	savegame.WriteInt( g_skill.GetInteger() );
 
@@ -1509,6 +1511,8 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	// Restore the global hiding spot search collection
 	CHidingSpotSearchCollection::Instance().Restore(&savegame);
+
+	m_DifficultyManager.Restore(&savegame);
 
 	savegame.ReadInt( i );
 	g_skill.SetInteger( i );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2010 $
- * $Date: 2008-01-26 09:09:22 -0500 (Sat, 26 Jan 2008) $
+ * $Revision: 2015 $
+ * $Date: 2008-01-27 07:47:25 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2010 2008-01-26 14:09:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2015 2008-01-27 12:47:25Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3761,19 +3761,20 @@ void idAI::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec
 idAI::GetMoveDelta
 =====================
 */
-void idAI::GetMoveDelta( const idMat3 &oldaxis, const idMat3 &axis, idVec3 &delta ) {
-	idVec3 oldModelOrigin;
-	idVec3 modelOrigin;
-
-	animator.GetDelta( gameLocal.time - gameLocal.msec, gameLocal.time, delta );
+void idAI::GetMoveDelta( const idMat3 &oldaxis, const idMat3 &axis, idVec3 &delta )
+{
+	// Get the delta from the animation system (for one frame) and transform it
+	animator.GetDelta( gameLocal.time - gameLocal.msec, gameLocal.time, delta);
 	delta = axis * delta;
 
-	if ( modelOffset != vec3_zero ) {
+	if ( modelOffset != vec3_zero )
+	{
 		// the pivot of the monster's model is around its origin, and not around the bounding
 		// box's origin, so we have to compensate for this when the model is offset so that
 		// the monster still appears to rotate around it's origin.
-		oldModelOrigin = modelOffset * oldaxis;
-		modelOrigin = modelOffset * axis;
+		idVec3 oldModelOrigin = modelOffset * oldaxis;
+		idVec3 modelOrigin = modelOffset * axis;	
+		
 		delta += oldModelOrigin - modelOrigin;
 	}
 
