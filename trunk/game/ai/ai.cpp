@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1735 $
- * $Date: 2007-11-08 10:17:55 -0500 (Thu, 08 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1739 $
+ * $Date: 2007-11-08 16:26:49 -0500 (Thu, 08 Nov 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1735 2007-11-08 15:17:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1739 2007-11-08 21:26:49Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -5375,14 +5375,16 @@ void idAI::UpdateEnemyPosition()
 		// Enemy is considered visible if not hidden in darkness and not obscured
 		AI_ENEMY_VISIBLE = true;
 
-		// Store the last time the enemy was visible
-		mind->GetMemory().lastTimeEnemySeen = gameLocal.time;
 
 		// Now perform the FOV check manually
 		if (CheckFOV( enemyEnt->GetPhysics()->GetOrigin()))
 		{
 			AI_ENEMY_IN_FOV = true;
 			// TODO: call SetEnemyPosition here only?
+
+			// Store the last time the enemy was visible
+			mind->GetMemory().lastTimeEnemySeen = gameLocal.time;
+
 		}
 
 		SetEnemyPosition();
@@ -7369,6 +7371,9 @@ float idAI::GetVisibility( idEntity *ent ) const
 		idStr alertText4(returnval);
 		alertText4 = "returnval: "+ alertText4;
 		gameRenderWorld->DrawText(alertText4.c_str(), GetEyePosition() + idVec3(0,0,30), 0.2f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec);
+		idStr alertText5(dist);
+		alertText4 = "distance: "+ alertText5;
+		gameRenderWorld->DrawText(alertText4.c_str(), GetEyePosition() + idVec3(0,0,40), 0.2f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec);
 	}
 	
 	return returnval;
@@ -7476,7 +7481,9 @@ idActor *idAI::FindEnemy(bool useFOV)
 			continue;
 		}
 
-		if (CanSee(actor, useFOV))
+		// angua: does not take lighting into account any more, 
+		// this is done afterwards in the visualscan
+		if (CanSeeExt(actor, useFOV, false))
 		{
 			// Enemy actor found and visible, return it 
 			return actor;
