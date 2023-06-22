@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2168 $
- * $Date: 2008-04-08 15:53:58 -0400 (Tue, 08 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2190 $
+ * $Date: 2008-04-20 11:49:28 -0400 (Sun, 20 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -512,7 +512,13 @@ public:
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
 
+	// greebo: Allows callers to invert the rotation direction
+	void					SetDirection(bool forward);
+
 private:
+	// Reads the rotation axis and speed from the spawnargs and starts/stops to rotate
+	void					SetRotationFromSpawnargs(bool forward);
+
 	idEntityPtr<idEntity>	activatedBy;
 
 	void					Event_Activate( idEntity *activator );
