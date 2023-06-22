@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1321 $
- * $Date: 2007-08-26 02:38:28 -0400 (Sun, 26 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1322 $
+ * $Date: 2007-08-26 03:06:04 -0400 (Sun, 26 Aug 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -713,9 +713,21 @@ protected:
 	/**
 	* The current alert number of the AI.
 	* This is checked to see if the AI should
-	* change alertstates.  This var is very important!
+	* change alert indices.  This var is very important!
+	* NOTE: Don't change this directly. Instead, call Event_SetAlertLevel
+	* to change it.
 	**/
 	idScriptFloat			AI_AlertNum;
+	
+	/**
+	* Current alert index of the AI. Is set based on AI_AlertNum and the alert threshold values:
+	* 	0 if AI_AlertNum < thresh_1
+	* 	1 if thresh_1 <= AI_AlertNum < thresh_2
+	* 	2 if thresh_2 <= AI_AlertNum < thresh_3
+	* 	3 if thresh_3 <= AI_AlertNum < thresh_combat
+	* 	4 if thresh_combat <= AI_AlertNum
+	**/
+	idScriptFloat			AI_AlertIndex;
 	
 	/* Additional scriptvars, imported from scripting. TODO: Document properly (for now, see script for docs) */
 	idScriptVector			AI_lastAlertPosSearched;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1321 $
- * $Date: 2007-08-26 02:38:28 -0400 (Sun, 26 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1322 $
+ * $Date: 2007-08-26 03:06:04 -0400 (Sun, 26 Aug 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1321 2007-08-26 06:38:28Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1322 2007-08-26 07:06:04Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1675,7 +1675,7 @@ void idAI::Think( void ) {
 
 	if( cv_ai_alertnum_show.GetBool() )
 	{
-		gameRenderWorld->DrawText( va("Alert: %f", (float) AI_AlertNum), (GetEyePosition() - physicsObj.GetGravityNormal()*32.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		gameRenderWorld->DrawText( va("Alert: %f; Index: %d", (float) AI_AlertNum, (int)AI_AlertIndex), (GetEyePosition() - physicsObj.GetGravityNormal()*32.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
 	if ( health > 0 )
 	{
@@ -1720,6 +1720,7 @@ void idAI::LinkScriptVariables( void )
 	AI_ALERTED.LinkTo(			scriptObject, "AI_ALERTED" );
 
 	AI_AlertNum.LinkTo(			scriptObject, "AI_AlertNum" );
+	AI_AlertIndex.LinkTo(			scriptObject, "AI_AlertIndex" );
 
 	AI_lastAlertPosSearched.LinkTo(			scriptObject, "AI_lastAlertPosSearched");
 	AI_chancePerSecond_RandomLookAroundWhileIdle.LinkTo(scriptObject, "AI_chancePerSecond_RandomLookAroundWhileIdle");
@@ -6232,8 +6233,8 @@ void idAI::AlertAI( const char *type, float amount )
 		}
 		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Alert %f above threshold %f, or actor is not grace period actor\r", alertInc, m_AlertGraceThresh);
 	}
-
-	AI_AlertNum = AI_AlertNum + alertInc;
+	
+	Event_SetAlertLevel(AI_AlertNum + alertInc);
 
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING( "AI ALERT: AI %s alerted by alert type \"%s\", base amount %f, modified by acuity %f percent.  Total alert level now: %f\r", name.c_str(), type, amount, mod, (float) AI_AlertNum );
 
