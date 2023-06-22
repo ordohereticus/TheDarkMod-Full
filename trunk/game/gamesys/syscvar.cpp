@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2008 $
- * $Date: 2008-01-24 12:58:34 -0500 (Thu, 24 Jan 2008) $
+ * $Revision: 2009 $
+ * $Date: 2008-01-26 07:40:59 -0500 (Sat, 26 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2008 2008-01-24 17:58:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2009 2008-01-26 12:40:59Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -86,6 +86,7 @@ idCVar cv_ai_opt_nomind (			"tdm_ai_opt_nomind",		"0",			CVAR_GAME | CVAR_BOOL, 
 idCVar cv_ai_opt_novisualstim (			"tdm_ai_opt_novisualstim",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not process any incoming visual stimuli." );
 idCVar cv_ai_opt_nolipsync (			"tdm_ai_opt_nolipsync",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not play lipsync animations." );
 idCVar cv_ai_opt_nopresent (			"tdm_ai_opt_nopresent",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not be presented." );
+idCVar cv_ai_opt_noobstacleavoidance (			"tdm_ai_opt_noobstacleavoidace",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not check for obstacles." );
 
 idCVar cv_sr_disable (				"tdm_sr_disable",           "0",           CVAR_GAME | CVAR_BOOL, "Set to 1 to disable all stim/response processing." );
 
