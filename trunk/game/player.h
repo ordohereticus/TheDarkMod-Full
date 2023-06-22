@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2008 $
- * $Date: 2008-01-24 12:58:34 -0500 (Thu, 24 Jan 2008) $
+ * $Revision: 2066 $
+ * $Date: 2008-02-09 02:27:06 -0500 (Sat, 09 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -227,8 +227,6 @@ public:
 	idUserInterface *		hud;				// MP: is NULL if not local player
 	idUserInterface *		objectiveSystem;	 // not used by TDM (only for PDA)
 	bool					objectiveSystemOpen; // not used by TDM (only for PDA)
-	idThread*				objectiveGUIThread; // only non-NULL when objective system is open
-	idScriptBool			objectiveGUICloseRequest;
 
 	// greebo: A list of HUD messages which are displayed one after the other
 	idList<idStr>			hudMessages;
@@ -519,9 +517,6 @@ public:
 	void					Spectate( bool spectate );
 	void					TogglePDA( void );
 	void					ToggleScoreboard( void );
-
-	// greebo: Toggles the objectives GUI
-	void					ToggleObjectivesGUI();
 
 	void					RouteGuiMouse( idUserInterface *gui );
 	void					UpdateHud( void );
