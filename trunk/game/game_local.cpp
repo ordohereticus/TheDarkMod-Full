@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1163 $
- * $Date: 2007-07-20 09:15:04 -0400 (Fri, 20 Jul 2007) $
+ * $Revision: 1164 $
+ * $Date: 2007-07-21 05:26:47 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1163 2007-07-20 13:15:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1164 2007-07-21 09:26:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -705,6 +705,12 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// Save the lightgem entity spawnId
 	m_LightgemSurface.Save(&savegame);
+	savegame.WriteBool(m_DoLightgem);
+	savegame.WriteInt(m_LightgemShotSpot);
+	for (int i = 0; i < DARKMOD_LG_MAX_RENDERPASSES; i++)
+	{
+		savegame.WriteFloat(m_LightgemShotValue[i]);
+	}
 
 	// spawnSpots
 	// initialSpots
@@ -1590,6 +1596,12 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	// Restore the lightgem entity pointer
 	m_LightgemSurface.Restore(&savegame);
+	savegame.ReadBool(m_DoLightgem);
+	savegame.ReadInt(m_LightgemShotSpot);
+	for (int i = 0; i < DARKMOD_LG_MAX_RENDERPASSES; i++)
+	{
+		savegame.ReadFloat(m_LightgemShotValue[i]);
+	}
 
 	m_LightgemSurface.GetEntity()->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
 	m_LightgemSurface.GetEntity()->GetRenderEntity()->suppressShadowInViewID = 0;
