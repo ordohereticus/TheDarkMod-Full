@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2207 $
- * $Date: 2008-04-24 14:59:15 -0400 (Thu, 24 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2282 $
+ * $Date: 2008-05-10 05:28:30 -0400 (Sat, 10 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2207 2008-04-24 18:59:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2282 2008-05-10 09:28:30Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -465,19 +465,17 @@ void CsndProp::Propagate
 	// later we will put a permananet value in the def for globals->Vol
 	vol0 += cv_ai_sndvol.GetFloat();
 
-	propParms.duration *= durMod;
-	// DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Found modified duration %f\r", propParms.duration);
-
 	// set team alert and propagation flags from the parms
 	SetupParms( parms, &propParms, addFlags, &tmask );
 
+	propParms.duration *= durMod;
+	// DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Found modified duration %f\r", propParms.duration);
 	propParms.maker = maker;
-
 	propParms.origin = origin;
 
 	if( maker->IsType(idActor::Type) )
 	{
-		mteam = static_cast<idAI *>(maker)->team;
+		mteam = static_cast<idActor *>(maker)->team;
 	}
 	else
 	{

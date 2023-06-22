@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1701 $
- * $Date: 2007-11-05 16:58:32 -0500 (Mon, 05 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 2282 $
+ * $Date: 2008-05-10 05:28:30 -0400 (Sat, 10 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1701 2007-11-05 21:58:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 2282 2008-05-10 09:28:30Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -42,6 +42,46 @@ const float s_METERS_TO_DOOM = (1.0f/DOOM_TO_METERS);	// meters to doom
 
 const float s_DBM_TO_M = 1.0/(10*log10( idMath::E )); // convert between dB/m and 1/m
 
+void SsndPGlobals::Save(idSaveGame *savefile) const
+{
+	savefile->WriteString(AreaPropName);
+	savefile->WriteString(doorName);
+	savefile->WriteString(d3DoorName);
+	savefile->WriteString(fileExt);
+	savefile->WriteInt(MaxPaths);
+	savefile->WriteFloat(DoorExpand);
+	savefile->WriteFloat(Falloff_Outd);
+	savefile->WriteFloat(Falloff_Ind);
+	savefile->WriteFloat(kappa0);
+	savefile->WriteFloat(DefaultDoorLoss);
+	savefile->WriteFloat(DefaultThreshold);
+	savefile->WriteFloat(Vol);
+	savefile->WriteFloat(MaxRange);
+	savefile->WriteFloat(MaxRangeCalVol);
+	savefile->WriteFloat(MaxEnvRange);
+	savefile->WriteBool(bDebug);
+}
+
+void SsndPGlobals::Restore(idRestoreGame *savefile)
+{
+	savefile->ReadString(AreaPropName);
+	savefile->ReadString(doorName);
+	savefile->ReadString(d3DoorName);
+	savefile->ReadString(fileExt);
+	savefile->ReadInt(MaxPaths);
+	savefile->ReadFloat(DoorExpand);
+	savefile->ReadFloat(Falloff_Outd);
+	savefile->ReadFloat(Falloff_Ind);
+	savefile->ReadFloat(kappa0);
+	savefile->ReadFloat(DefaultDoorLoss);
+	savefile->ReadFloat(DefaultThreshold);
+	savefile->ReadFloat(Vol);
+	savefile->ReadFloat(MaxRange);
+	savefile->ReadFloat(MaxRangeCalVol);
+	savefile->ReadFloat(MaxEnvRange);
+	savefile->ReadBool(bDebug);
+}
+
 /*********************************************************
 *
 *	CsndPropBase Implementation
@@ -50,6 +90,7 @@ const float s_DBM_TO_M = 1.0/(10*log10( idMath::E )); // convert between dB/m an
 
 void CsndPropBase::Save(idSaveGame *savefile) const
 {
+	m_SndGlobals.Save(savefile);
 	savefile->WriteBool(m_bLoadSuccess);
 	savefile->WriteBool(m_bDefaultSpherical);
 	savefile->WriteInt(m_numAreas);
@@ -104,6 +145,8 @@ void CsndPropBase::Save(idSaveGame *savefile) const
 
 void CsndPropBase::Restore(idRestoreGame *savefile)
 {
+	m_SndGlobals.Restore(savefile);
+
 	savefile->ReadBool(m_bLoadSuccess);
 	savefile->ReadBool(m_bDefaultSpherical);
 	savefile->ReadInt(m_numAreas);
