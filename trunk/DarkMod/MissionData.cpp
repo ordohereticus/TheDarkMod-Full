@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2221 $
- * $Date: 2008-04-26 10:56:54 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2222 $
+ * $Date: 2008-04-26 12:17:34 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2221 2008-04-26 14:56:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2222 2008-04-26 16:17:34Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1018,6 +1018,16 @@ int CMissionData::GetDamageDealt( void )
 int CMissionData::GetDamageReceived( void )
 {
 	return m_Stats.DamageReceived;
+}
+
+int CMissionData::GetHealthReceived()
+{
+	return m_Stats.HealthReceived;
+}
+
+void CMissionData::HealthReceivedByPlayer(int amount)
+{
+	m_Stats.HealthReceived += amount;
 }
 
 // ============================== Misc.  ==============================
@@ -2380,6 +2390,10 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 
 	key = "Damage Received"; 
 	value = idStr(m_Stats.DamageReceived);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+
+	key = "Health Restored"; 
+	value = idStr(m_Stats.HealthReceived);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 
 	key = "Pockets Picked"; 
