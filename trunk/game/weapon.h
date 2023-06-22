@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2039 $
- * $Date: 2008-02-03 03:39:12 -0500 (Sun, 03 Feb 2008) $
+ * $Revision: 2239 $
+ * $Date: 2008-04-27 23:49:14 -0400 (Sun, 27 Apr 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -172,20 +172,9 @@ private:
 	idEntityPtr<idAnimatedEntity>	worldModel;
 
 	/**
-	* TDM: Struct for storing weapon attachment info
-	**/
-	typedef struct SWeaponAttachInfo
-	{
-		idEntityPtr<idEntity>	entPtr;
-		jointHandle_t			joint;
-		idVec3					originOffset;
-		idMat3					angleOffsetMat;
-	} SWeaponAttachInfo;
-
-	/**
 	* TDM: List of attachments attached to weapon
 	**/
-	idList<SWeaponAttachInfo>	m_Attachments;
+	idList< idEntityPtr<idEntity> >	m_Attachments;
 
 	// hiding (for GUIs and NPCs)
 	int						hideTime;
