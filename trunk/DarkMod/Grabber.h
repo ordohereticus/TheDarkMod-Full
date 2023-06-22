@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1184 $
- * $Date: 2007-07-22 08:43:07 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1185 $
+ * $Date: 2007-07-22 08:54:41 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,15 +21,13 @@ extern const idEventDef EV_Grabber_RestorePhysics;
 class CGrabbedEnt 
 {
 	public: 
-		idEntity	*m_ent;
+		idEntityPtr<idEntity>	m_ent;
 		int			m_clipMask;
 		int			m_contents;
 
 		bool operator==( const CGrabbedEnt &right ) const 
 		{
-			if( right.m_ent == this->m_ent )
-				return true;
-			return false;
+			return right.m_ent.GetEntity() == m_ent.GetEntity();
 		}
 };
 
