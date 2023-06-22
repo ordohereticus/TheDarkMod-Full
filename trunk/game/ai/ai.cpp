@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1791 $
- * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1796 $
+ * $Date: 2007-11-15 12:26:40 -0500 (Thu, 15 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1791 2007-11-14 16:26:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1796 2007-11-15 17:26:40Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8775,6 +8775,8 @@ int idAI::ContinueSearchForHidingSpots()
 		{
 			return 1;
 		}
+
+		// No more processing to do at this point
 		
 		unsigned int refCount;
 
@@ -8787,6 +8789,8 @@ int idAI::ContinueSearchForHidingSpots()
 			);
 
 		m_hidingSpots.clear();
+		// greebo: Now retrieve our share from the completed hiding spot search
+		// Given that three other AI are referencing this hiding spot finder, this AI draws a third.
 		p_hidingSpotFinder->hidingSpotList.getOneNth(refCount, m_hidingSpots);
 
 		// Done with search object, dereference so other AIs know how many

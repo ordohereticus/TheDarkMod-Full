@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1790 $
- * $Date: 2007-11-14 11:00:41 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1796 $
+ * $Date: 2007-11-15 12:26:40 -0500 (Thu, 15 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 1790 2007-11-14 16:00:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 1796 2007-11-15 17:26:40Z greebo $", init_version);
 
 #include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
@@ -1138,7 +1138,7 @@ void CDarkmodAASHidingSpotFinder::testFindHidingSpots
 bool CDarkmodAASHidingSpotFinder::isSearchCompleted()
 {
 	// Make sure search wasn't destroyed
-	if ((h_hideFromPVS.h == 0) && (h_hideFromPVS.i == -1))
+	if (h_hideFromPVS.h == 0 && h_hideFromPVS.i == -1)
 	{
 		// Search was destroyed, search is done
 		return true;
@@ -1212,16 +1212,18 @@ bool CDarkmodAASHidingSpotFinder::continueSearchForHidingSpots
 {
 	DM_LOG(LC_AI, LT_INFO).LogString("Finder:continueSearchForHidingSpots called, last frame processed = %d, this frame = %d\r", lastProcessingFrameNumber, frameNumber);
 
-	// If we already tested points this frame, don't test any more
-	if (frameNumber == lastProcessingFrameNumber)
+	bool searchCompleted = isSearchCompleted();
+
+	if (searchCompleted || frameNumber == lastProcessingFrameNumber) 
 	{
-		return !isSearchCompleted();
+		// Search is completed or we already searched this frame.
+		return !searchCompleted; // return TRUE if we have still points to process
 	}
-	else
-	{
-		// Remember that we are testing points this frame
-		lastProcessingFrameNumber = frameNumber;
-	}
+
+	// Search is not completed yet at this point AND we haven't processed anything this frame
+
+	// Remember that we are testing points this frame
+	lastProcessingFrameNumber = frameNumber;
 
 	// The number of points this pass
 	int numPointsTestedThisPass = 0;
