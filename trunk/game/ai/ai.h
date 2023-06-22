@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2070 $
- * $Date: 2008-02-09 14:00:15 -0500 (Sat, 09 Feb 2008) $
+ * $Revision: 2071 $
+ * $Date: 2008-02-09 14:20:06 -0500 (Sat, 09 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -383,7 +383,7 @@ public:
 	* has been called and that the sound is above threshold without
 	* considering environmental noise masking.
 	**/
-	void HearSound( SSprParms *propParms, float noise, idVec3 origin );
+	void HearSound( SSprParms *propParms, float noise, const idVec3& origin );
 
 	/**
 	* Return the last point at which the AI heard a sound

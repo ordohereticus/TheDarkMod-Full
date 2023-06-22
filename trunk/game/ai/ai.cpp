@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2070 $
- * $Date: 2008-02-09 14:00:15 -0500 (Sat, 09 Feb 2008) $
+ * $Revision: 2071 $
+ * $Date: 2008-02-09 14:20:06 -0500 (Sat, 09 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2070 2008-02-09 19:00:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2071 2008-02-09 19:20:06Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7138,9 +7138,7 @@ bool idAI::CheckHearing( SSprParms *propParms )
 	return returnval;
 }
 
-void idAI::HearSound
-	( SSprParms *propParms, float noise,
-	  idVec3 origin )
+void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 {
 	float psychLoud(0.0f);
 
@@ -7185,6 +7183,10 @@ void idAI::HearSound
 
 		AlertAI( "aud", psychLoud );
 		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s HEARD a sound\r", name.c_str() );
+
+		// greebo: Notify the currently active state
+		mind->GetState()->OnAudioAlert();
+
 		if( cv_ai_debug.GetBool() )
 			gameLocal.Printf("AI %s HEARD a sound\n", name.c_str() );
 	}
