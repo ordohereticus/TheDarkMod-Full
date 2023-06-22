@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2225 $
- * $Date: 2008-04-26 15:23:30 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2226 $
+ * $Date: 2008-04-26 15:35:52 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2225 2008-04-26 19:23:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2226 2008-04-26 19:35:52Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -263,7 +263,8 @@ void CMissionData::Save( idSaveGame *savefile ) const
 	savefile->WriteInt( m_Stats.DamageDealt );
 	savefile->WriteInt( m_Stats.DamageReceived );
 	savefile->WriteInt( m_Stats.PocketsPicked );
-	savefile->WriteInt( m_Stats.LootOverall );
+	savefile->WriteInt( m_Stats.FoundLoot );
+	savefile->WriteInt( m_Stats.TotalLootInMission );
 
 	savefile->WriteString( m_SuccessLogicStr );
 	savefile->WriteString( m_FailureLogicStr );
@@ -322,7 +323,8 @@ void CMissionData::Restore( idRestoreGame *savefile )
 	savefile->ReadInt( m_Stats.DamageDealt );
 	savefile->ReadInt( m_Stats.DamageReceived );
 	savefile->ReadInt( m_Stats.PocketsPicked );
-	savefile->ReadInt( m_Stats.LootOverall );
+	savefile->ReadInt( m_Stats.FoundLoot );
+	savefile->ReadInt( m_Stats.TotalLootInMission );
 
 	savefile->ReadString( m_SuccessLogicStr );
 	savefile->ReadString( m_FailureLogicStr );
@@ -565,7 +567,7 @@ bool	CMissionData::EvaluateObjective
 			case SPEC_OVERALL:
 				// greebo: Take the stored Total Loot Value, not the supergroup stuff, 
 				//         as non-loot items always have supergroup set to 1.
-				value = GetTotalLoot();
+				value = GetFoundLoot();
 				//value = EntDat1->valueSuperGroup;
 				break;
 			case SPEC_GROUP:
@@ -573,7 +575,7 @@ bool	CMissionData::EvaluateObjective
 
 				// special case for overall loot
 				if( pComp->m_SpecVal[1] == "loot_total" )
-					value = GetTotalLoot();
+					value = GetFoundLoot();
 				break;
 			default:
 				break;
@@ -1632,14 +1634,14 @@ void CMissionData::KOCallback(idActor* target, idActor* inflictor)
 	MissionEvent(COMP_KO, inflictor, target, true, false);
 }
 
-int CMissionData::GetTotalLoot( void )
+int CMissionData::GetFoundLoot( void )
 {
-	return m_Stats.LootOverall;
+	return m_Stats.FoundLoot;
 }
 
-void CMissionData::ChangeTotalLoot(int amount)
+void CMissionData::ChangeFoundLoot(int amount)
 {
-	m_Stats.LootOverall += amount;
+	m_Stats.FoundLoot += amount;
 }
 
 
@@ -2359,8 +2361,8 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	value = idStr(m_Stats.PocketsPicked);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 
-	key = "Loot Overall"; 
-	value = idStr(m_Stats.LootOverall);
+	key = "Loot Acquired";
+	value = idStr(m_Stats.FoundLoot);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 
 	key = "Killed by the Player";

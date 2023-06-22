@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2207 $
- * $Date: 2008-04-24 14:59:15 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2226 $
+ * $Date: 2008-04-26 15:35:52 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2207 2008-04-24 18:59:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2226 2008-04-26 19:35:52Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8246,7 +8246,7 @@ void idEntity::ChangeLootAmount(int lootType, int amount)
 	if( rc != 0 )
 	{	
 		gameLocal.m_MissionData->InventoryCallback( NULL, Groupname, GroupTotal, Total, bGained );  
-		gameLocal.m_MissionData->ChangeTotalLoot( amount );
+		gameLocal.m_MissionData->ChangeFoundLoot( amount );
 	}
 
 	idThread::ReturnInt(rc);
