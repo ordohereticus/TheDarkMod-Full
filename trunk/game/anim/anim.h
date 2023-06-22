@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1755 $
+ * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -454,7 +454,8 @@ public:
 typedef enum {
 	AF_JOINTMOD_AXIS,
 	AF_JOINTMOD_ORIGIN,
-	AF_JOINTMOD_BOTH
+	AF_JOINTMOD_BOTH,
+	AF_JOINTMOD_NONE // Added for TDM
 } AFJointModType_t;
 
 class idAFPoseJointMod {

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1755 $
+ * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -219,6 +219,12 @@ public:
 	**/
 	void					AddEntByBody( idEntity *ent, int bodyID );
 	void					AddEntByJoint( idEntity *ent, jointHandle_t jointNum );
+
+	/**
+	* TDM: Remove a dynamically added ent from the AF of this AFEntity
+	* Called by UnBindNotify
+	**/
+	void					RemoveAddedEnt( idEntity *ent );
 
 	virtual void			ShowEditingDialog( void );
 

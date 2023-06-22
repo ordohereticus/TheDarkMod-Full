@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1755 $
+ * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -28,6 +28,7 @@ class idDeclAF_Constraint;
 
 typedef struct jointConversion_s {
 	int						bodyId;				// id of the body
+	idStr					bodyName;			// TDM: String name of body.  Only used on add/remove for performance
 	jointHandle_t			jointHandle;		// handle of joint this body modifies
 	AFJointModType_t		jointMod;			// modify joint axis, origin or both
 	idVec3					jointBodyOrigin;	// origin of body relative to joint
@@ -87,6 +88,8 @@ public:
 
 	/**
 	* TDM: Delete an externally added body
+	* NOTE: Must remove the body on the AFPhysics object BEFORE calling this.
+	* Because this also refreshes the jointMod bodyID's based on the physics object.
 	**/
 	void DeleteBodyExtern( idAFEntity_Base *ent, const char *bodyName );
 
