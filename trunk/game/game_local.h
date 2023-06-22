@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2015 $
- * $Date: 2008-01-27 07:47:25 -0500 (Sun, 27 Jan 2008) $
+ * $Revision: 2017 $
+ * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -434,7 +434,7 @@ public:
 	idEditEntities *		editEntities;			// in game editing
 
 	// The object handling the difficulty settings
-	CDifficultyManager		m_DifficultyManager;
+	difficulty::DifficultyManager	m_DifficultyManager;
 
 /**
 * Pointer to global AI Relations object

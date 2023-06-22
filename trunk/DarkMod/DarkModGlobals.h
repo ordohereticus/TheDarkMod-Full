@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1905 $
- * $Date: 2007-12-27 02:14:44 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 2017 $
+ * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -80,6 +80,7 @@ typedef enum {
 	LC_FRAME,			// This is intended only as a framemarker and will always switched on if at least one other option is on.
 	LC_STIM_RESPONSE,
 	LC_OBJECTIVES,
+	LC_DIFFICULTY,		// anything difficulty-related
 	LC_COUNT
 } LC_LogClass;
 

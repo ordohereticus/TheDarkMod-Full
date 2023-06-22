@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2017 $
+ * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2017 2008-01-27 20:35:19Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -708,6 +708,9 @@ void idEntity::Spawn( void )
 	if ( def ) {
 		entityDefNumber = def->Index();
 	}
+
+	// greebo: Apply the difficulty settings before any values get filled from the spawnarg data
+	gameLocal.m_DifficultyManager.ApplyDifficultySettings(spawnArgs);
 
 	FixupLocalizedStrings();
 

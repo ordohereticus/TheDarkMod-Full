@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1905 $
- * $Date: 2007-12-27 02:14:44 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 2017 $
+ * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1905 2007-12-27 07:14:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2017 2008-01-27 20:35:19Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -117,6 +117,7 @@ static char *LCString[LC_COUNT+1] = {
 	"FRAME",
 	"STIMRESP",
 	"OBJECTIVES",
+	"DIFFICULTY",
 	"(empty)"
 };
 
@@ -196,6 +197,7 @@ CGlobal::CGlobal(void)
 	m_ClassArray[LC_FUNCTION] = false;
 	m_ClassArray[LC_MOVEMENT] = false;
 	m_ClassArray[LC_OBJECTIVES] = false;
+	m_ClassArray[LC_DIFFICULTY] = false;
 	m_ClassArray[LC_STIM_RESPONSE] = false;
 
 	m_Frame = 0;
@@ -669,6 +671,16 @@ void CGlobal::LoadINISettings(void *p)
 
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_OBJECTIVES: %c\r", pm->Value[0]);
 		}
+		if(FindMap(ps, "LogClass_DIFFICULTY", TRUE, &pm) != static_cast<ULONG>(-1))
+		{
+			if(pm->Value[0] == '1')
+			{
+				m_ClassArray[LC_DIFFICULTY] = true;
+				Frame = true;
+			}
+
+			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_DIFFICULTY: %c\r", pm->Value[0]);
+		}
 		if(FindMap(ps, "LogClass_LOCKPICK", TRUE, &pm) != static_cast<ULONG>(-1))
 		{
 			if(pm->Value[0] == '1')
@@ -787,7 +799,6 @@ void CGlobal::LoadINISettings(void *p)
 
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("AICommStimRadius: %f\r", m_AICommStimRadius);
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("maxHidingSpotTestsPerAIFrame: %d\r", m_maxNumHidingSpotPointTestsPerAIFrame);
-
 	}
 }
 
