@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1277 $
- * $Date: 2007-08-05 04:11:39 -0400 (Sun, 05 Aug 2007) $
+ * $Revision: 1281 $
+ * $Date: 2007-08-05 04:30:18 -0400 (Sun, 05 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -108,6 +108,12 @@ public:
 		* Set to true if the grabbed entity collided in the previous frame
 		**/
 		bool					m_bPrevFrameCollided;
+
+		/**
+		* Stores the max force the player can apply in [mass] * doomunits/sec^2
+		* Currently only effects linear motion, not angular
+		**/
+		float					m_MaxForce;
 
 protected:
 

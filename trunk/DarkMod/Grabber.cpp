@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1277 $
- * $Date: 2007-08-05 04:11:39 -0400 (Sun, 05 Aug 2007) $
+ * $Revision: 1281 $
+ * $Date: 2007-08-05 04:30:18 -0400 (Sun, 05 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1277 2007-08-05 08:11:39Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1281 2007-08-05 08:30:18Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -114,6 +114,7 @@ void CGrabber::Clear( void )
 	m_MaxDistCount	= DIST_GRANULARITY;
 	m_LockedHeldDist = 0;
 	m_bObjStuck = false;
+	m_MaxForce = 0;
 
 	while( this->HasClippedEntity() )
 		this->RemoveFromClipList( 0 );
@@ -162,6 +163,7 @@ void CGrabber::Save( idSaveGame *savefile ) const
 	savefile->WriteInt(m_MinHeldDist);
 	savefile->WriteInt(m_LockedHeldDist);
 	savefile->WriteBool(m_bObjStuck);
+	savefile->WriteFloat(m_MaxForce);
 }
 
 void CGrabber::Restore( idRestoreGame *savefile )
@@ -211,6 +213,7 @@ void CGrabber::Restore( idRestoreGame *savefile )
 	savefile->ReadInt(m_MinHeldDist);
 	savefile->ReadInt(m_LockedHeldDist);
 	savefile->ReadBool(m_bObjStuck);
+	savefile->ReadFloat(m_MaxForce);
 }
 
 /*
@@ -577,6 +580,8 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 
 	m_drag.SetPhysics( phys, m_id, m_LocalEntPoint );
 	m_drag.SetRefEnt( player );
+	float ForceMod = newEnt->spawnArgs.GetFloat("drag_force_mod", "1.0");
+	m_MaxForce = cv_drag_force_max.GetFloat() * ForceMod;
 
 	player->m_bGrabberActive = true;
 	// don't let the player switch weapons or items, and lower their weapon

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1278 $
- * $Date: 2007-08-05 04:12:40 -0400 (Sun, 05 Aug 2007) $
+ * $Revision: 1281 $
+ * $Date: 2007-08-05 04:30:18 -0400 (Sun, 05 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_grab.cpp 1278 2007-08-05 08:12:40Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: force_grab.cpp 1281 2007-08-05 08:30:18Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "force_grab.h"
@@ -179,7 +179,7 @@ void CForce_Grab::Evaluate( int time )
 	Accel = ( 1.0f - m_damping ) * l1 / (dT * dT);
 	if( m_bLimitForce )
 	{
-		MaxAccel = cv_drag_force_max.GetFloat() / m_physics->GetMass();
+		MaxAccel = g_Global.m_DarkModPlayer->grabber->m_MaxForce / m_physics->GetMass();
 		Accel = idMath::ClampFloat(0.0f, MaxAccel, Accel );
 	}
 
