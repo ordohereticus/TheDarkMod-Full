@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2009 $
- * $Date: 2008-01-26 07:40:59 -0500 (Sat, 26 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2032 $
+ * $Date: 2008-02-01 04:22:35 -0500 (Fri, 01 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -490,6 +490,12 @@ public:
 	 */
 	void SetAlertLevel(float newAlertLevel);
 
+
+	// angua: returns true if the current alert index is higher 
+	// than the previous one, false otherwise
+	bool AlertIndexIncreased();
+
+
 	/**
 	* Returns the float val of the specific AI's acuity
 	* Acuity type is a char, from the same list as alert types
@@ -818,6 +824,10 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Should be cleared at the start of each frame.
 	**/
 	float					m_AlertNumThisFrame;
+
+
+	// angua: stores the previous alert index at alert index changes
+	int						m_prevAlertIndex;
 
 	/**
 	* If true, the AI ignores alerts during all actions
