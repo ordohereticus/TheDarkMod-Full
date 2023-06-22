@@ -7,6 +7,9 @@ namespace SF {
 
     static Registry *pRegistry;
 
+    // greebo: Added this missing forward decl.
+    void initRegistrySingleton();
+    
     Registry::Registry() :
         readWriteMutex(Platform::Threads::writer_priority)
     {}
