@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1844 $
- * $Date: 2007-11-23 12:00:30 -0500 (Fri, 23 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1892 $
+ * $Date: 2007-12-25 06:25:58 -0500 (Tue, 25 Dec 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1844 2007-11-23 17:00:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1892 2007-12-25 11:25:58Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9208,11 +9208,7 @@ void idPlayer::FrobCheck( void )
 			g_Global.m_DarkModPlayer->m_FrobTrace = trace;
 
 			// we have found our frobbed entity, so exit
-#ifdef __linux__
 			return;
-#else
-			goto Quit;
-#endif
 		}
 	}
 
@@ -9271,7 +9267,6 @@ void idPlayer::FrobCheck( void )
 		g_Global.m_DarkModPlayer->m_FrobTrace = trace;
 	}
 
-Quit:
 	return;
 }
 
