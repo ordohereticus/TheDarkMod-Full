@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1417 $
- * $Date: 2007-10-10 02:08:24 -0400 (Wed, 10 Oct 2007) $
- * $Author: dram $
+ * $Revision: 1430 $
+ * $Date: 2007-10-15 13:06:37 -0400 (Mon, 15 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1417 2007-10-10 06:08:24Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1430 2007-10-15 17:06:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4902,22 +4902,24 @@ void idPlayer::PerformImpulse( int impulse ) {
 			searchBounds.AddPoint (endPoint);
 
 			// Get AAS
-			idAAS* p_aas = gameLocal.GetAAS( 0 );
-			if (p_aas != NULL)
+			idAAS* p_aas = NULL;
+			for (int i = 0; i < gameLocal.NumAAS(); i++) {
+				p_aas = gameLocal.GetAAS(i);
+				if (p_aas != NULL) {
+					darkModAASFindHidingSpots::testFindHidingSpots(
+						searchOrigin,
+						0.35f,
+						searchBounds,
+						this, // Ignore self as a hiding screen
+						p_aas
+					);
+					DM_LOG(LC_AI, LT_DEBUG).LogString("Done hiding spot test");
+				}
+			}
+
+			if (p_aas == NULL)
 			{
-				darkModAASFindHidingSpots::testFindHidingSpots 
-				(
-					searchOrigin,
-					0.35f,
-					searchBounds,
-					this, // Ignore self as a hiding screen
-					p_aas
-				);
-				DM_LOG(LC_AI, LT_DEBUG).LogString("Done hiding spot test");
-			}				
-			else
-			{
-				DM_LOG(LC_AI, LT_WARNING).LogString("No default AAS is present for map");
+				DM_LOG(LC_AI, LT_WARNING).LogString("No default AAS is present for map, number of AAS: %d\n", gameLocal.NumAAS());
 			}
 			
 		}
