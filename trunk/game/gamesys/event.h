@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2085 $
+ * $Date: 2008-02-10 13:46:38 -0500 (Sun, 10 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,7 +36,7 @@ Event are used for scheduling tasks and for linking script commands.
 #define	D_EVENT_ENTITY_NULL			'E'			// event can handle NULL entity pointers
 #define D_EVENT_TRACE				't'
 
-#define MAX_EVENTS					4096
+#define MAX_EVENTS					8192
 
 class idClass;
 class idTypeInfo;
