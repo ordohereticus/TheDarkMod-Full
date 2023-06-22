@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1215 $
- * $Date: 2007-07-25 10:47:36 -0400 (Wed, 25 Jul 2007) $
+ * $Revision: 1226 $
+ * $Date: 2007-07-28 12:19:07 -0400 (Sat, 28 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1215 2007-07-25 14:47:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1226 2007-07-28 16:19:07Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2937,6 +2937,12 @@ void idGameLocal::ProcessLightgem(idPlayer *player, bool bProcessing)
 
 	pDM->m_fColVal = fColVal;
 	pDM->m_LightgemValue = int(DARKMOD_LG_MAX * fColVal);
+
+	// Give the inventory items a chance to adjust the lightgem 
+	pDM->m_LightgemValue += player->GetInventoryLightgemModifier();
+
+	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("After inventory adjustment %d\r", pDM->m_LightgemValue);
+
 	if(pDM->m_LightgemValue < DARKMOD_LG_MIN)
 		pDM->m_LightgemValue = DARKMOD_LG_MIN;
 	else

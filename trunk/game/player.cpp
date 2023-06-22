@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1222 $
- * $Date: 2007-07-28 05:50:27 -0400 (Sat, 28 Jul 2007) $
+ * $Revision: 1226 $
+ * $Date: 2007-07-28 12:19:07 -0400 (Sat, 28 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1222 2007-07-28 09:50:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1226 2007-07-28 16:19:07Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9363,4 +9363,32 @@ bool idPlayer::AddGrabberEntityToInventory()
 	}
 
 	return false;
+}
+
+int idPlayer::GetInventoryLightgemModifier()
+{
+	int returnValue = 0;
+
+	if (m_WeaponCursor != NULL)
+	{
+		CInventoryItem* weapon = m_WeaponCursor->GetCurrentItem();
+		if (weapon != NULL)
+		{
+			returnValue += weapon->GetLightgemModifier();
+		}
+	}
+
+	CInventoryItem* item = InventoryCursor()->GetCurrentItem();
+	if (item != NULL)
+	{
+		returnValue += item->GetLightgemModifier();
+	}
+
+	// Cap the value at LG_MAX
+	if (returnValue > DARKMOD_LG_MAX)
+	{
+		returnValue = DARKMOD_LG_MAX;
+	}
+
+	return returnValue;
 }
