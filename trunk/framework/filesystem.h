@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1895 $
+ * $Date: 2007-12-25 18:56:28 -0500 (Tue, 25 Dec 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -181,7 +181,7 @@ public:
 							// otherwise, only pak files that match one of the checksums will be checked for files
 							// with the sole exception of .cfg files.
 							// the function tries to configure pure mode from the paks already referenced and this new list
-							// it returns wether the switch was successfull, and sets the missing checksums
+							// it returns whether the switch was successfull, and sets the missing checksums
 							// the process is verbosive when fs_debug 1
 	virtual fsPureReply_t	SetPureServerChecksums( const int pureChecksums[ MAX_PURE_PAKS ], int gamePakChecksum, int missingChecksums[ MAX_PURE_PAKS ], int *missingGamePakChecksum ) = 0;
 							// fills a 0-terminated list of pak checksums for a client

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1894 $
- * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1895 $
+ * $Date: 2007-12-25 18:56:28 -0500 (Tue, 25 Dec 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1894 2007-12-25 18:32:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1895 2007-12-25 23:56:28Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -801,7 +801,7 @@ void idPlayer::Spawn( void )
 	// init the damage effects
 	playerView.SetPlayerEntity( this );
 
-	// supress model in non-player views, but allow it in mirrors and remote views
+	// suppress model in non-player views, but allow it in mirrors and remote views
 	renderEntity.suppressSurfaceInViewID = entityNumber+1;
 
 	// don't project shadow on self or weapon
@@ -9487,7 +9487,7 @@ void idPlayer::PerformFrob(idEntity* target)
 	
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob target: %s \r", target->name.c_str());
 
-	// First we have to check wether that entity is an inventory 
+	// First we have to check whether that entity is an inventory 
 	// item. In that case, we have to add it to the inventory and
 	// hide the entity.
 	CInventoryItem* item = AddToInventory(target, hud);

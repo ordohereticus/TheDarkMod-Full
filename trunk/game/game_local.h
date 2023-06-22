@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1871 $
- * $Date: 2007-12-14 06:51:32 -0500 (Fri, 14 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1895 $
+ * $Date: 2007-12-25 18:56:28 -0500 (Tue, 25 Dec 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -581,7 +581,7 @@ public:
 	void					LocalMapRestart( void );
 	void					MapRestart( void );
 	static void				MapRestart_f( const idCmdArgs &args );
-	bool					NextMap( void );	// returns wether serverinfo settings have been modified
+	bool					NextMap( void );	// returns whether serverinfo settings have been modified
 	static void				NextMap_f( const idCmdArgs &args );
 
 	idMapFile *				GetLevelMap( void );
@@ -751,7 +751,7 @@ public:
 	void					ProcessTimer(unsigned long ticks);
 
 	/**
-	 * ProcessStimResponse will check wether stims are in reach of a response and if so activate them.
+	 * ProcessStimResponse will check whether stims are in reach of a response and if so activate them.
 	 */
 	void					ProcessStimResponse(unsigned long ticks);
 

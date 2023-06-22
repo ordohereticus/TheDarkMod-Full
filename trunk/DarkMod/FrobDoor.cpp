@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1682 $
- * $Date: 2007-11-04 19:45:17 -0500 (Sun, 04 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1895 $
+ * $Date: 2007-12-25 18:56:28 -0500 (Tue, 25 Dec 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1682 2007-11-05 00:45:17Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1895 2007-12-25 23:56:28Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -966,7 +966,7 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 
 		// If the pin sample has been finished and we get the callback we check if
 		// the key is still pressed. If the user released the key in this intervall
-		// and we have to check wether it was the correct pin, and if yes, it will
+		// and we have to check whether it was the correct pin, and if yes, it will
 		// be unlocked.
 		case LPSOUND_RELEASED:
 		{
