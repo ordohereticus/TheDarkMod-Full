@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1228 $
- * $Date: 2007-07-28 15:48:23 -0400 (Sat, 28 Jul 2007) $
+ * $Revision: 1235 $
+ * $Date: 2007-07-29 03:40:09 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -701,6 +701,11 @@ public:
 	 * Script event: Chagnes the amount of the given loot type in the inventory of this entity.
 	 */
 	void ChangeLootAmount(int lootType, int amount);
+
+	/**
+	 * Script event: Changes the lightgem modifier value of the given item <name> in <category> to <icon>
+	 */
+	void ChangeInventoryIcon(const char* invName, const char* invCategory, const char* icon);
 
 	/**
 	 * Script event: Changes the lightgem modifier value of the given item <name> in <category> to <value>
