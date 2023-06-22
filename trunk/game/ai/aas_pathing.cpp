@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2281 $
+ * $Date: 2008-05-10 03:55:15 -0400 (Sat, 10 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2138 $   $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2281 $   $Date: 2008-05-10 03:55:15 -0400 (Sat, 10 May 2008) $", init_version);
 
 #include "aas_local.h"
 
@@ -271,10 +271,7 @@ idAASLocal::WalkPathToGoal
 ============
 */
 bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags, const idActor* actor ) const {
-	int i, travelTime, curAreaNum, lastAreas[4], lastAreaIndex, endAreaNum;
-	idReachability *reach(NULL);
-	idVec3 endPos;
-
+	// Set the default values
 	path.type = PATHTYPE_WALK;
 	path.moveGoal = origin;
 	path.moveAreaNum = areaNum;
@@ -286,12 +283,15 @@ bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &ori
 		return true;
 	}
 
-	lastAreas[0] = lastAreas[1] = lastAreas[2] = lastAreas[3] = areaNum;
-	lastAreaIndex = 0;
+	int lastAreas[4] = { areaNum, areaNum, areaNum, areaNum };
+	int lastAreaIndex = 0;
 
-	curAreaNum = areaNum;
+	int curAreaNum = areaNum;
+	idReachability* reach(NULL);
+	idVec3 endPos;
+	int travelTime, endAreaNum;
 
-	for ( i = 0; i < maxWalkPathIterations; i++ ) {
+	for ( int i = 0; i < maxWalkPathIterations; i++ ) {
 
 		if ( !idAASLocal::RouteToGoalArea( curAreaNum, path.moveGoal, goalAreaNum, travelFlags, travelTime, &reach, actor ) ) {
 			break;
