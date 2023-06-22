@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1608 $
- * $Date: 2007-10-30 16:14:49 -0400 (Tue, 30 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1644 $
+ * $Date: 2007-11-02 03:20:22 -0400 (Fri, 02 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -98,6 +98,11 @@ extern idCVar cv_drag_damping;
 extern idCVar cv_drag_damping_AF;
 extern idCVar cv_drag_AF_ground_timer;
 extern idCVar cv_drag_AF_free;
+extern idCVar cv_drag_jump_masslimit;
+extern idCVar cv_drag_encumber_minmass;
+extern idCVar cv_drag_encumber_minmass;
+extern idCVar cv_drag_encumber_maxmass;
+extern idCVar cv_drag_encumber_max;
 
 extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;
