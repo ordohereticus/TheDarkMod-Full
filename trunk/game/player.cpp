@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1143 $
- * $Date: 2007-07-18 16:02:00 -0400 (Wed, 18 Jul 2007) $
+ * $Revision: 1144 $
+ * $Date: 2007-07-18 16:13:32 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1143 2007-07-18 20:02:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1144 2007-07-18 20:13:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8414,17 +8414,22 @@ void idPlayer::inventoryUseKeyRelease(int holdTime) {
 	CInventoryItem *it = crsr->GetCurrentItem();
 
 	// Check if there is a valid item selected
-	if (it->GetType() != CInventoryItem::IT_DUMMY) {
+	if (it != NULL && it->GetType() != CInventoryItem::IT_DUMMY)
+	{
 		// greebo: Notify the inventory item about the key release event
 		idEntity* item = it->GetItemEntity();
 
-		idThread* thread = item->CallScriptFunctionArgs(
-			"inventoryUseKeyRelease", true, 0, 
-			"eef", item, this, static_cast<float>(holdTime)
-		);
+		if (item != NULL)
+		{
+			idThread* thread = item->CallScriptFunctionArgs(
+				"inventoryUseKeyRelease", true, 0, 
+				"eef", item, this, static_cast<float>(holdTime)
+			);
 
-		if (thread) {
-			thread->Start(); // Start the thread immediately.
+			if (thread)
+			{
+				thread->Start(); // Start the thread immediately.
+			}
 		}
 	}
 }
@@ -8436,7 +8441,7 @@ void idPlayer::inventoryUseItem(bool bImpulse)
 	// precedence over the frobaction.
 	CInventoryCursor *crsr = InventoryCursor();
 	CInventoryItem *it = crsr->GetCurrentItem();
-	if(it->GetType() != CInventoryItem::IT_DUMMY) {
+	if (it != NULL && it->GetType() != CInventoryItem::IT_DUMMY) {
 		inventoryUseItem(bImpulse, it->GetItemEntity());
 	}
 }
