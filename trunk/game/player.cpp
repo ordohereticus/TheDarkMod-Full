@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1147 $
- * $Date: 2007-07-18 16:57:34 -0400 (Wed, 18 Jul 2007) $
+ * $Revision: 1149 $
+ * $Date: 2007-07-19 05:28:38 -0400 (Thu, 19 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1147 2007-07-18 20:57:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1149 2007-07-19 09:28:38Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1251,6 +1251,11 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteInt(mInventoryOverlay);
 
+	savefile->WriteBool(m_WeaponCursor != NULL);
+	if (m_WeaponCursor != NULL) {
+		savefile->WriteInt(m_WeaponCursor->GetId());
+	}
+
 	if(hud)
 	{
 		hud->SetStateString( "message", common->GetLanguageDict()->GetString( "#str_02916" ) );
@@ -1525,6 +1530,14 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt(healthPoolTimeIntervalFactor);
 
 	savefile->ReadInt(mInventoryOverlay);
+
+	bool hasWeaponCursor;
+	savefile->ReadBool(hasWeaponCursor);
+	if (hasWeaponCursor) {
+		int cursorId;
+		savefile->ReadInt(cursorId);
+		m_WeaponCursor = Inventory()->GetCursor(cursorId);
+	}
 
 	// create combat collision hull for exact collision detection
 	SetCombatModel();
