@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2052 $
+ * $Date: 2008-02-07 11:40:53 -0500 (Thu, 07 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2052 2008-02-07 16:40:53Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -288,7 +288,7 @@ void CGrabber::Update( idPlayer *player, bool hold )
 	/* idPhysics_Player* */ playerPhys = static_cast<idPhysics_Player *>(player->GetPhysics());
 	// if the player is climbing a rope or ladder, don't let them grab things
 	// greebo: Disabled this, it let things currently held by the grabber drop to the ground
-	// and the reattach them after the player has finished climbing
+	// and then reattach them after the player has finished climbing
 	/*if( playerPhys->OnRope() || playerPhys->OnLadder() )
 		goto Quit;*/
 
@@ -952,7 +952,7 @@ CGrabber::Throw
 void CGrabber::Throw( int HeldTime )
 {
 	float ThrowImpulse(0), FracPower(0);
-	idVec3 ImpulseVec(vec3_zero), IdentVec( 1, 0, 1), ThrowPoint(vec3_zero);
+	idVec3 ImpulseVec(vec3_zero), IdentVec( 1, 0, 1), ThrowPoint(vec3_zero), TumbleVec(vec3_zero);
 
 	idEntity *ent = m_dragEnt.GetEntity();
 	ImpulseVec = m_player.GetEntity()->firstPersonViewAxis[0];
@@ -977,7 +977,14 @@ void CGrabber::Throw( int HeldTime )
 	if (ent->spawnArgs.GetBool("throwable", "1")) 
 	{
 		ThrowPoint = ent->GetPhysics()->GetOrigin(m_id) + ent->GetPhysics()->GetAxis(m_id) * m_LocalEntPoint;
-		ent->ApplyImpulse( m_player.GetEntity(), m_id, ThrowPoint, ImpulseVec );
+		// tels
+		// add a small random offset to ThrowPoint, so the object tumbles
+		TumbleVec[0] += (gameLocal.random.RandomFloat() / 20) - 0.025; 
+		TumbleVec[1] += (gameLocal.random.RandomFloat() / 20) - 0.025; 
+		TumbleVec[2] += (gameLocal.random.RandomFloat() / 20) - 0.025;
+		// scale the offset by the mass, so lightweight objects don't spin too much
+		TumbleVec *= mass;
+		ent->ApplyImpulse( m_player.GetEntity(), m_id, ThrowPoint + TumbleVec, ImpulseVec );
 		ent->m_SetInMotionByActor = m_player.GetEntity();
 		ent->m_MovedByActor =  m_player.GetEntity();
 	}
