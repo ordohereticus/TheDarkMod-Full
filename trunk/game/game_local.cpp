@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2029 $
- * $Date: 2008-01-29 10:12:45 -0500 (Tue, 29 Jan 2008) $
+ * $Revision: 2041 $
+ * $Date: 2008-02-03 04:11:33 -0500 (Sun, 03 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2029 2008-01-29 15:12:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2041 2008-02-03 09:11:33Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3751,6 +3751,7 @@ bool idGameLocal::InhibitEntitySpawn( idDict &spawnArgs ) {
 	
 	bool result = false;
 
+	/* greebo: Disabled vanilla D3 stuff, will be handled by our DifficultyManager 
 	if ( isMultiplayer ) {
 		spawnArgs.GetBool( "not_multiplayer", "0", result );
 	} else if ( g_skill.GetInteger() == 0 ) {
@@ -3776,7 +3777,10 @@ bool idGameLocal::InhibitEntitySpawn( idDict &spawnArgs ) {
 		if ( idStr::Icmp( name, "weapon_bfg" ) == 0 || idStr::Icmp( name, "weapon_soulcube" ) == 0 ) {
 			result = true;
 		}
-	}
+	}*/
+
+	// Consult the difficulty manager, whether this entity should be prevented from being spawned.
+	result = m_DifficultyManager.InhibitEntitySpawn(spawnArgs);
 
 	return result;
 }
