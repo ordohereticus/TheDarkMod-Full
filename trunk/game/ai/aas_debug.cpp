@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2286 $
- * $Date: 2008-05-10 12:00:41 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2288 $
+ * $Date: 2008-05-10 14:29:23 -0400 (Sat, 10 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 2286 2008-05-10 16:00:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_debug.cpp 2288 2008-05-10 18:29:23Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing
@@ -58,6 +58,8 @@ void idAASLocal::DrawReachability( const idReachability *reach ) const
 		reachColor = colorRed;
 	}
 	gameRenderWorld->DebugArrow( reachColor, reach->start, reach->end, 1, 10000 );
+
+	gameRenderWorld->DebugArrow( colorLtGrey, AreaCenter(reach->fromAreaNum), AreaCenter(reach->toAreaNum), 1, 10000);
 
 	if ( gameLocal.GetLocalPlayer() ) {
 		gameRenderWorld->DrawText( va( "%d", reach->edgeNum ), ( reach->start + reach->end ) * 0.5f, 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAxis, 1, 10000 );
