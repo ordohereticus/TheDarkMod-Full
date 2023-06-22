@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1668 $
+ * $Date: 2007-11-03 17:00:07 -0400 (Sat, 03 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 /*!
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 1668 2007-11-03 21:00:07Z tels $", init_version);
 
 #include "darkmodHidingSpotTree.h"
 
@@ -35,8 +35,8 @@ CDarkmodHidingSpotTree::CDarkmodHidingSpotTree()
 	p_lastArea = NULL;
 
 	lastIndex_indexRetrieval = 0;
-	lastAreaHandle_indexRetrieval = NULL;
-	lastSpotHandle_indexRetrieval = NULL;
+	lastAreaHandle_indexRetrieval = 0;
+	lastSpotHandle_indexRetrieval = 0;
 
 	maxAreaNodeId = 0;
 	maxSpotNodeId = 0;
@@ -360,8 +360,8 @@ TDarkmodHidingSpotAreaNode* CDarkmodHidingSpotTree::getArea
 void CDarkmodHidingSpotTree::clearIndexRetrievalTracking()
 {
 	lastIndex_indexRetrieval = 0;
-	lastAreaHandle_indexRetrieval = NULL;
-	lastSpotHandle_indexRetrieval = NULL;
+	lastAreaHandle_indexRetrieval = 0;
+	lastSpotHandle_indexRetrieval = 0;
 
 }
 
@@ -1125,8 +1125,8 @@ darkModHidingSpot_t* CDarkmodHidingSpotTree::getNthSpot
 			p_areaCursor = p_areaCursor->p_nextSibling;
 			if (p_areaCursor == NULL)
 			{
-				lastAreaHandle_indexRetrieval = NULL;
-				lastSpotHandle_indexRetrieval = NULL;
+				lastAreaHandle_indexRetrieval = 0;
+				lastSpotHandle_indexRetrieval = 0;
 				lastIndex_indexRetrieval = 0;
 				return NULL;
 			}
@@ -1162,8 +1162,8 @@ darkModHidingSpot_t* CDarkmodHidingSpotTree::getNthSpot
 	}
 
 	// Index requested is out of bounds
-	lastAreaHandle_indexRetrieval = NULL;
-	lastSpotHandle_indexRetrieval = NULL;
+	lastAreaHandle_indexRetrieval = 0;
+	lastSpotHandle_indexRetrieval = 0;
 	lastIndex_indexRetrieval = 0;
 	return NULL;
 
@@ -1249,8 +1249,8 @@ darkModHidingSpot_t* CDarkmodHidingSpotTree::getNthSpotWithAreaNodeBounds
 			p_areaCursor = p_areaCursor->p_nextSibling;
 			if (p_areaCursor == NULL)
 			{
-				lastAreaHandle_indexRetrieval = NULL;
-				lastSpotHandle_indexRetrieval = NULL;
+				lastAreaHandle_indexRetrieval = 0;
+				lastSpotHandle_indexRetrieval = 0;
 				lastIndex_indexRetrieval = 0;
 				out_areaNodeBounds.Clear();
 				return NULL;
@@ -1288,8 +1288,8 @@ darkModHidingSpot_t* CDarkmodHidingSpotTree::getNthSpotWithAreaNodeBounds
 	}
 
 	// Index requested is out of bounds
-	lastAreaHandle_indexRetrieval = NULL;
-	lastSpotHandle_indexRetrieval = NULL;
+	lastAreaHandle_indexRetrieval = 0;
+	lastSpotHandle_indexRetrieval = 0;
 	lastIndex_indexRetrieval = 0;
 	out_areaNodeBounds.Clear();
 	return NULL;
