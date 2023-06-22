@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1666 $
- * $Date: 2007-11-03 16:36:14 -0400 (Sat, 03 Nov 2007) $
- * $Author: tels $
+ * $Revision: 2107 $
+ * $Date: 2008-02-25 06:03:50 -0500 (Mon, 25 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -35,7 +35,7 @@ typedef struct pvsCurrent_s {
 	byte *			pvs;		// current pvs bit string
 } pvsCurrent_t;
 
-#define MAX_CURRENT_PVS		8		// must be a power of 2
+#define MAX_CURRENT_PVS		16		// must be a power of 2
 
 typedef enum {
 	PVS_NORMAL				= 0,	// PVS through portals taking portal states into account

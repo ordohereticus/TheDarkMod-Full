@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2107 $
+ * $Date: 2008-02-25 06:03:50 -0500 (Mon, 25 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: pvs.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: pvs.cpp 2107 2008-02-25 11:03:50Z angua $", init_version);
 
 #include "game_local.h"
 
@@ -1094,6 +1094,13 @@ pvsHandle_t idPVS::AllocCurrentPVS( unsigned int h ) const {
 		if ( currentPVS[i].handle.i == -1 ) {
 			currentPVS[i].handle.i = i;
 			currentPVS[i].handle.h = h;
+/*
+			// angua: debug output, shows allocated PVS numbers in front of the player
+			idVec3 viewPos = gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin() + idVec3(0,0,50+6*i)
+				+ gameLocal.GetLocalPlayer()->viewAngles.ToForward() * 30;
+			idStr maxPVS(i);
+			gameRenderWorld->DrawText(maxPVS.c_str(), viewPos, 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1,  gameLocal.msec);
+*/
 			return currentPVS[i].handle;
 		}
 	}
