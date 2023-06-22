@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1749 $
- * $Date: 2007-11-10 20:12:43 -0500 (Sat, 10 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1958 $
+ * $Date: 2008-01-05 02:17:00 -0500 (Sat, 05 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1749 2007-11-11 01:12:43Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1958 2008-01-05 07:17:00Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -287,8 +287,10 @@ void CGrabber::Update( idPlayer *player, bool hold )
 
 	/* idPhysics_Player* */ playerPhys = static_cast<idPhysics_Player *>(player->GetPhysics());
 	// if the player is climbing a rope or ladder, don't let them grab things
-	if( playerPhys->OnRope() || playerPhys->OnLadder() )
-		goto Quit;
+	// greebo: Disabled this, it let things currently held by the grabber drop to the ground
+	// and the reattach them after the player has finished climbing
+	/*if( playerPhys->OnRope() || playerPhys->OnLadder() )
+		goto Quit;*/
 
 	player->GetViewPos( viewPoint, viewAxis );
 
