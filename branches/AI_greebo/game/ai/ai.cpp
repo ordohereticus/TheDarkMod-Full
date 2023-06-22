@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1469 $
- * $Date: 2007-10-19 09:07:45 -0400 (Fri, 19 Oct 2007) $
+ * $Revision: 1481 $
+ * $Date: 2007-10-19 14:11:32 -0400 (Fri, 19 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1469 2007-10-19 13:07:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1481 2007-10-19 18:11:32Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -7440,6 +7440,38 @@ void idAI::FOVDebugDraw( void )
 
 Quit:
 	return;
+}
+
+bool idAI::CanReachEnemy()
+{
+	aasPath_t	path;
+	int			toAreaNum;
+	int			areaNum;
+	idVec3		pos;
+	idActor		*enemyEnt;
+
+	enemyEnt = enemy.GetEntity();
+	if ( !enemyEnt ) {
+		return false;
+	}
+
+	if ( move.moveType != MOVETYPE_FLY ) {
+		if ( enemyEnt->OnLadder() ) {
+			return false;
+		}
+		enemyEnt->GetAASLocation( aas, pos, toAreaNum );
+	}  else {
+		pos = enemyEnt->GetPhysics()->GetOrigin();
+		toAreaNum = PointReachableAreaNum( pos );
+	}
+
+	if ( !toAreaNum ) {
+		return false;
+	}
+
+	const idVec3 &org = physicsObj.GetOrigin();
+	areaNum	= PointReachableAreaNum( org );
+	return PathToGoal(path, areaNum, org, toAreaNum, pos);
 }
 
 bool idAI::MouthIsUnderwater( void )

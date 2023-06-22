@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1469 $
- * $Date: 2007-10-19 09:07:45 -0400 (Fri, 19 Oct 2007) $
+ * $Revision: 1481 $
+ * $Date: 2007-10-19 14:11:32 -0400 (Fri, 19 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1167,6 +1167,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	// AI script state management
 	void					LinkScriptVariables( void );
 	void					UpdateAIScript( void );
+
+	// Returns true if the current enemy can be reached
+	bool					CanReachEnemy();
 
 	/**
 	* Returns true if AI's mouth is underwater

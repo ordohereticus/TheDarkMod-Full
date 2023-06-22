@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1477 $
- * $Date: 2007-10-19 13:06:37 -0400 (Fri, 19 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1481 $
+ * $Date: 2007-10-19 14:11:32 -0400 (Fri, 19 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1477 2007-10-19 17:06:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1481 2007-10-19 18:11:32Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3420,41 +3420,7 @@ idAI::Event_CanReachEnemy
 ================
 */
 void idAI::Event_CanReachEnemy( void ) {
-	aasPath_t	path;
-	int			toAreaNum;
-	int			areaNum;
-	idVec3		pos;
-	idActor		*enemyEnt;
-
-	enemyEnt = enemy.GetEntity();
-	if ( !enemyEnt ) {
-		idThread::ReturnInt( false );
-		return;
-	}
-
-	if ( move.moveType != MOVETYPE_FLY ) {
-		if ( enemyEnt->OnLadder() ) {
-			idThread::ReturnInt( false );
-			return;
-		}
-		enemyEnt->GetAASLocation( aas, pos, toAreaNum );
-	}  else {
-		pos = enemyEnt->GetPhysics()->GetOrigin();
-		toAreaNum = PointReachableAreaNum( pos );
-	}
-
-	if ( !toAreaNum ) {
-		idThread::ReturnInt( false );
-		return;
-	}
-
-	const idVec3 &org = physicsObj.GetOrigin();
-	areaNum	= PointReachableAreaNum( org );
-	if ( !PathToGoal( path, areaNum, org, toAreaNum, pos ) ) {
-		idThread::ReturnInt( false );
-	} else {
-		idThread::ReturnInt( true );
-	}
+	idThread::ReturnInt(CanReachEnemy());
 }
 
 /*
