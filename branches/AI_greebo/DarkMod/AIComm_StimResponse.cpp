@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1595 $
+ * $Date: 2007-10-30 05:15:49 -0400 (Tue, 30 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1595 2007-10-30 09:15:49Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
@@ -29,26 +29,6 @@ static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1435 20
 CAIComm_Response::CAIComm_Response(idEntity* Owner, int Type, int uniqueId) : 
 	CResponse (Owner, Type, uniqueId)
 {
-}
-
-/*----------------------------------------------------------------*/
-
-CAIComm_Response::~CAIComm_Response(void)
-{
-}
-
-void CAIComm_Response::Save(idSaveGame *savefile) const
-{
-	CResponse::Save(savefile);
-
-	// Nothing special to save here. I'll leave this virtual method for future members.
-}
-
-void CAIComm_Response::Restore(idRestoreGame *savefile)
-{
-	CResponse::Restore(savefile);
-
-	// Nothing special to save here. I'll leave this virtual method for future members.
 }
 
 /*----------------------------------------------------------------*/
