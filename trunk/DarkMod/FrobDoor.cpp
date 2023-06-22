@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1388 $
- * $Date: 2007-09-25 15:13:53 -0400 (Tue, 25 Sep 2007) $
+ * $Revision: 1392 $
+ * $Date: 2007-09-27 12:21:20 -0400 (Thu, 27 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1388 2007-09-25 19:13:53Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1392 2007-09-27 16:21:20Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -741,8 +741,11 @@ idStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount, int MaxCoun
 	idStr head;
 	sprintf(head, str+"%%0%uu", StrNumLen);
 
-	sprintf(click, head, 0);
-	rc->Append(click);
+	if(cv_lp_pawlow.GetBool() == false)
+	{
+		sprintf(click, head, 0);
+		rc->Append(click);
+	}
 
 	for(i = 0; i < Clicks; i++)
 	{
@@ -754,6 +757,12 @@ idStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount, int MaxCoun
 		sprintf(click, head, r);
 		rc->Append(click);
 		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("PinPattern %u : %s\r", i, click.c_str());
+	}
+
+	if(cv_lp_pawlow.GetBool() == true)
+	{
+		sprintf(click, head, 0);
+		rc->Append(click);
 	}
 
 	return rc;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1387 $
- * $Date: 2007-09-25 14:53:37 -0400 (Tue, 25 Sep 2007) $
+ * $Revision: 1392 $
+ * $Date: 2007-09-27 12:21:20 -0400 (Thu, 27 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1387 2007-09-25 18:53:37Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1392 2007-09-27 16:21:20Z sparhawk $", init_version);
 
 #include "../game_local.h"
 
@@ -194,6 +194,7 @@ idCVar cv_lp_pick_timeout("tdm_lp_pick_timeout",	"100",	CVAR_GAME | CVAR_INTEGER
 idCVar cv_lp_max_pick_attempts("tdm_lp_max_pick_attempts",	"0",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "How many pick attemps before it automatically gets picked? 0 = unlimited (you must solve it yourself)" );
 idCVar cv_lp_auto_pick("tdm_lp_auto_pick",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "Determines if auto picking is enabled (see tdm_lp_max_pick_attempts)" );
 idCVar cv_lp_randomize("tdm_lp_randomize",	"1",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1, the jiggling, while lockpicking, will be randomized, otherwise it is linear." );
+idCVar cv_lp_pawlow("tdm_lp_pawlow",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the sweetspot sound will play at the end of the pattern instead of at the beginning. Thus making it into a reaction game." );
 
 idCVar cv_dm_distance("tdm_distance",		"",	CVAR_GAME,	"Shows the distance from the player to the entity" );
 
