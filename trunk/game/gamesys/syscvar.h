@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1804 $
- * $Date: 2007-11-16 21:02:45 -0500 (Fri, 16 Nov 2007) $
+ * $Revision: 1896 $
+ * $Date: 2007-12-25 23:07:28 -0500 (Tue, 25 Dec 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -62,6 +62,7 @@ extern idCVar cv_pm_creepmod;
 extern idCVar cv_pm_pushmod;
 extern idCVar cv_pm_mantle_height;
 extern idCVar cv_pm_mantle_reach;
+extern idCVar cv_pm_mantle_minflatness;
 extern idCVar cv_pm_rope_snd_rep_dist;
 extern idCVar cv_pm_rope_velocity_letgo;
 

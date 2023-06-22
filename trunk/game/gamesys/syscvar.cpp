@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1887 $
- * $Date: 2007-12-24 10:36:51 -0500 (Mon, 24 Dec 2007) $
- * $Author: tels $
+ * $Revision: 1896 $
+ * $Date: 2007-12-25 23:07:28 -0500 (Tue, 25 Dec 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1887 2007-12-24 15:36:51Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1896 2007-12-26 04:07:28Z crispy $", init_version);
 
 #include "../game_local.h"
 
@@ -97,6 +97,8 @@ idCVar cv_pm_crouchmod(				"pm_crouchmod",			"0.54",			CVAR_GAME | CVAR_ARCHIVE 
 idCVar cv_pm_pushmod(				"pm_pushmod",			"0.15",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Alters the impulse applied when the player runs into an object.  Fractional modifier that multiplies the default D3 impulse.  Default is 0.15" );
 idCVar cv_pm_mantle_reach(			"pm_mantle_reach",		"0.5",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Horizontal reach of mantle ability, as fraction of player height.  Default is 0.5" );
 idCVar cv_pm_mantle_height(			"pm_mantle_height",		"0.2",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Vertical reach of mantle ability, as fraction of player height.  Default is 0.2" );
+idCVar cv_pm_mantle_minflatness(		"pm_mantle_minflatness",		"0.5",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Cannot mantle on top of surfaces whose angle's cosine is smaller than this value. e.g. >1.0 means nothing can be mantled; 1.0 means only perfectly flat floors (0 degrees) can be mantled on top of; 0.707 means no surfaces steeper than 45 degrees can be mantled on top of; 0.5 means no surfaces steeper than 60 degrees can be mantled on top of; a large negative value (like -10) means all surfaces can be mantled regardless of steepness. Default is 0.5." );
+
 
 /**
 * Dark Mod Leaning
