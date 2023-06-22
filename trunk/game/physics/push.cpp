@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1747 $
+ * $Date: 2007-11-10 16:41:58 -0500 (Sat, 10 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: push.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: push.cpp 1747 2007-11-10 21:41:58Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -788,9 +788,11 @@ int idPush::TryRotatePushEntity( trace_t &results, idEntity *check, idClipModel 
 	SaveEntityPosition( check );
 
 	newRotation.Set( rotation.GetOrigin(), rotation.GetVec(), checkAngle );
+#ifndef __linux__
 	// NOTE:	this code prevents msvc 6.0 & 7.0 from screwing up the above code in
 	//			release builds moving less floats than it should
 	static float shit = checkAngle;
+#endif
 
 	newRotation.RotatePoint( rotationPoint );
 

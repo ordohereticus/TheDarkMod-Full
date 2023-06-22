@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1747 $
+ * $Date: 2007-11-10 16:41:58 -0500 (Sat, 10 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,14 +13,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 1747 2007-11-10 21:41:58Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 
-// a mover will update any gui entities in it's target list with 
+// a mover will update any gui entities in its target list with 
 // a key/val pair of "mover" "state" from below.. guis can represent
 // realtime info like this
 // binary only
