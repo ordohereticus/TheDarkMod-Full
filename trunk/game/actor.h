@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1380 $
- * $Date: 2007-09-14 04:50:00 -0400 (Fri, 14 Sep 2007) $
+ * $Revision: 1386 $
+ * $Date: 2007-09-24 09:27:01 -0400 (Mon, 24 Sep 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -466,6 +466,12 @@ private:
 
 	void					Event_AttachTaskQueue(int queueID);
 	void					Event_DetachTaskQueue();
+
+	/**
+	 * greebo: Script events to get/set the team of this actor.
+	 */
+	void					Event_GetTeam();
+	void					Event_SetTeam(int newTeam);
 };
 
 #endif /* !__GAME_ACTOR_H__ */
