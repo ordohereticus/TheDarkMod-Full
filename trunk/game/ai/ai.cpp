@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1856 $
- * $Date: 2007-12-06 08:17:07 -0500 (Thu, 06 Dec 2007) $
+ * $Revision: 1863 $
+ * $Date: 2007-12-09 16:14:44 -0500 (Sun, 09 Dec 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1856 2007-12-06 13:17:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1863 2007-12-09 21:14:44Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8971,4 +8971,11 @@ int idAI::GetSomeOfOtherEntitiesHidingSpotList(idEntity* p_ownerOfSearch)
 
 	// Done
 	return m_hidingSpots.getNumSpots();
+}
+
+
+float idAI::GetArmReachLength()
+{
+	idVec3 size = aas->GetSettings()->boundingBoxes[0][1];
+	return size.z * 0.5;
 }

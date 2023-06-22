@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1853 $
- * $Date: 2007-12-06 06:34:06 -0500 (Thu, 06 Dec 2007) $
+ * $Revision: 1863 $
+ * $Date: 2007-12-09 16:14:44 -0500 (Sun, 09 Dec 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -592,11 +592,17 @@ public:
 		return mind->GetMemory();
 	}
 
-	ID_INLINE float GetMeleeRange()
+	ID_INLINE float GetMeleeRange() const
 	{
 		return melee_range;
 	}
 
+	ID_INLINE idAAS* GetAAS() const
+	{
+		return aas;
+	}
+
+	float GetArmReachLength();
 
 protected:
 	// navigation
