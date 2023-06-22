@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2057 $
-#* $Date: 2008-02-08 13:18:30 -0500 (Fri, 08 Feb 2008) $
+#* $Revision: 2099 $
+#* $Date: 2008-02-16 16:32:34 -0500 (Sat, 16 Feb 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -66,6 +66,7 @@ game_string = ' \
 	ai/ai_events.cpp \
 	ai/ai_pathing.cpp \
 	ai/ai_vagary.cpp \
+	ai/MoveState.cpp \
 	ai/tdmAASFindEscape.cpp \
 	gamesys/debuggraph.cpp \
 	gamesys/class.cpp \
