@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2150 $
+ * $Date: 2008-03-29 05:18:23 -0400 (Sat, 29 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_actor.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_actor.cpp 2150 2008-03-29 09:18:23Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -421,7 +421,12 @@ void idPhysics_Actor::SetWaterLevel( void ) {
 			waterLevel = WATERLEVEL_WAIST;
 
 			// check at head level
-			point = origin - ( bounds[1][2] - 1.0f ) * gravityNormal;
+			// point = origin - ( bounds[1][2] - 1.0f ) * gravityNormal;
+
+			// greebo: Changed the check for head level to test the eyeheight. This is enough
+			// for letting AI drown or for the player to "feel" underwater.
+			point = static_cast<idActor*>(self)->GetEyePosition();
+
 			contents = gameLocal.clip.Contents( point, NULL, mat3_identity, -1, self );
 			if ( contents & MASK_WATER ) {
 				waterLevel = WATERLEVEL_HEAD;
