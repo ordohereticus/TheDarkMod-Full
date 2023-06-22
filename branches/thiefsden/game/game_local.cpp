@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1933 $
- * $Date: 2007-12-29 16:13:52 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1934 $
+ * $Date: 2007-12-31 05:01:30 -0500 (Mon, 31 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1933 2007-12-29 21:13:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1934 2007-12-31 10:01:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3038,7 +3038,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 {
 	idStr cmd(menuCommand);
 
-	static bool objectivesTriggered = false;
+	static bool objectivesUpdated = false;
 
 	if (cmd == "objective_close_request")
 	{
@@ -3047,24 +3047,38 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}
 	else if (cmd == "mainmenu_heartbeat")
 	{
-		// The main menu is visible, check if we should switch to the objectives screen
+		// The main menu is visible, check if we should display the "Objectives" option
 		
 		// Only switch during map runtime and if not already triggered
-		if (GameState() == GAMESTATE_ACTIVE && !objectivesTriggered)
+		if (GameState() == GAMESTATE_ACTIVE)
 		{
+			gui->HandleNamedEvent("ShowObjectivesButton");
+			gui->HandleNamedEvent("ShowResumeGameButton");
+
 			// Objectives not yet shown, trigger them now
-			gui->HandleNamedEvent("ShowObjectiveScreen");
-			gui->HandleNamedEvent("InitObjectives");
+			//gui->HandleNamedEvent("ShowObjectiveScreen");
+			//gui->HandleNamedEvent("InitObjectives");
 
-			objectivesTriggered = true;
+			//objectivesTriggered = true;
 
-			// Load the objectives into the GUI
-			m_MissionData->UpdateGUIState(gui); 
+			if (!objectivesUpdated)
+			{
+				// Load the objectives into the GUI
+				m_MissionData->UpdateGUIState(gui); 
+			}
+
+			objectivesUpdated = true;
+		}
+		else
+		{
+			gui->HandleNamedEvent("HideResumeGameButton");
+			gui->HandleNamedEvent("HideObjectivesButton");
 		}
 	}
 	else if (cmd == "close") 
 	{
-		objectivesTriggered = false;
+		// Set the objectives state flag back to dirty
+		objectivesUpdated = false;
 		gui->HandleNamedEvent("HideObjectiveScreen");
 	}
 
