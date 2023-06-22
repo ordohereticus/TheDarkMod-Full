@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1279 $
- * $Date: 2007-08-05 04:13:33 -0400 (Sun, 05 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1378 $
+ * $Date: 2007-09-11 14:58:20 -0400 (Tue, 11 Sep 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -143,6 +143,7 @@ extern idCVar cv_lp_sample_delay;
 extern idCVar cv_lp_pick_timeout;
 extern idCVar cv_lp_pick_attempts;
 extern idCVar cv_lp_auto_pick;
+extern idCVar cv_lp_randomize;
 
 extern idCVar cv_dm_distance;
 
