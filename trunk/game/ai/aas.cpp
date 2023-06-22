@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2112 $
+ * $Date: 2008-02-27 13:38:29 -0500 (Wed, 27 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,11 +13,9 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas.cpp 2112 2008-02-27 18:38:29Z tels $", init_version);
 
 #include "aas_local.h"
-#include "../../DarkMod/BinaryFrobMover.h"
-#include "../../DarkMod/FrobDoor.h"
 
 
 /*
