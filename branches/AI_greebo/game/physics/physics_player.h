@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1518 $
+ * $Date: 2007-10-22 03:21:55 -0400 (Mon, 22 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -112,6 +112,13 @@ public:
 	bool					IsCrouching( void ) const;
 
 	/**
+	* Returns the reference entity velocity.  Nonzero only when the
+	* player is climbing/roping so that their reference frame
+	* is determined by some ent they're attached to
+	**/
+	idVec3					GetRefEntVel( void ) const;
+
+	/**
 	 * greebo: Returns the rope entity or NULL if the player is not attached to any rope.
 	 */
 	idEntity*				GetRopeEntity();
@@ -214,6 +221,13 @@ private:
 	bool					groundPlane;
 	trace_t					groundTrace;
 	const idMaterial *		groundMaterial;
+
+	/**
+	* When the player is climbing on an entity (rope/wall, TODO: Apply to mantling)
+	* This stores the velocity of the entity they're climbing on, for adding and subtracting
+	* across functions if needed.
+	**/
+	idVec3					m_RefEntVelocity;
 
     // rope movement
 
@@ -353,6 +367,12 @@ private:
 	bool					CheckJump( void );
 	bool					CheckRopeJump( void );
 	void					RopeDetach( void );
+	/**
+	* Read in the entity's velocity and store it to m_RefEntVelocity
+	* If the ent is a static, the bindmaster velocity is read off instead
+	* bodID is the clipmodel ID for AFs, defaults to zero
+	**/
+	void					SetRefEntVel( idEntity *ent, int bodID = 0 );
 
 /**
 * The following are used in wall/ladder climbing

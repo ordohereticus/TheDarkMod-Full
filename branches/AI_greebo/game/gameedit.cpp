@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1518 $
+ * $Date: 2007-10-22 03:21:55 -0400 (Mon, 22 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: gameedit.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: gameedit.cpp 1518 2007-10-22 07:21:55Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -172,6 +172,8 @@ void idDragEntity::Update( idPlayer *player ) {
 				newEnt = gameLocal.entities[ trace.c.entityNum ];
 				if ( newEnt ) {
 
+					// Ish: We sometimes want to select things that are bound
+					/*
 					if ( newEnt->GetBindMaster() ) {
 						if ( newEnt->GetBindJoint() ) {
 							trace.c.id = JOINT_HANDLE_TO_CLIPMODEL_ID( newEnt->GetBindJoint() );
@@ -180,6 +182,7 @@ void idDragEntity::Update( idPlayer *player ) {
 						}
 						newEnt = newEnt->GetBindMaster();
 					}
+					*/
 
 					if ( newEnt->IsType( idAFEntity_Base::Type ) && static_cast<idAFEntity_Base *>(newEnt)->IsActiveAF() ) {
 						idAFEntity_Base *af = static_cast<idAFEntity_Base *>(newEnt);

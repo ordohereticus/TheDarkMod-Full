@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1509 $
- * $Date: 2007-10-21 15:22:23 -0400 (Sun, 21 Oct 2007) $
+ * $Revision: 1518 $
+ * $Date: 2007-10-22 03:21:55 -0400 (Mon, 22 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1509 2007-10-21 19:22:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1518 2007-10-22 07:21:55Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -6812,44 +6812,54 @@ float idAI::GetVisibility( idEntity *ent ) const
 
 void idAI::TactileAlert( idEntity *entest, float amount )
 {
+	idActor *RespActor = NULL;
+
 	if ( amount == -1 )
 		amount = cv_ai_tactalert.GetFloat();
 
-	if( entest != NULL )
+	if( entest == NULL )
 	{
-		// aesthetic touch: Don't alert when the AI touches the dead player
-		if ( entest->IsType(idPlayer::Type)
-			&& ( static_cast< idPlayer * >( entest )->health < 0 ) )
-		{
-			goto Quit;
-		}
-// TODO: Query responsible actor if the entity touched is not an actor (e.g., moveable)
-
-		// NOTE: Latest tactile alert always overrides other alerts
-		m_TactAlertEnt = entest;
-		if( entest->IsType(idActor::Type) )
-			m_AlertedByActor = static_cast<idActor *>(entest);
-
-		AlertAI( "tact", amount );
-
-		// Set last visual contact location to this location as that is used in case
-		// the target gets away
-		m_LastSight = entest->GetPhysics()->GetOrigin();
-		if (enemy.GetEntity()== NULL)
-		{
-			lastVisibleEnemyPos = entest->GetPhysics()->GetOrigin();
-		}
-
-		AI_TACTALERT = true;
-
-		if( cv_ai_debug.GetBool() )
-		{
-			// Note: This can spam the log a lot, so only put it in if cv_ai_debug.GetBool() is true
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s FELT entity %s\r", name.c_str(), entest->name.c_str() );
-			gameLocal.Printf( "[DM AI] AI %s FELT entity %s\n", name.c_str(), entest->name.c_str() );
-		}
+		goto Quit;
 	}
 
+	
+	if( entest->IsType(idActor::Type) )
+		RespActor = (idActor *) entest;
+	else
+		RespActor = entest->m_SetInMotionByActor.GetEntity();
+
+	if( !RespActor || !gameLocal.m_RelationsManager->IsEnemy( team, RespActor->team ) )
+		goto Quit;
+
+	// aesthetic touch: Don't alert when the AI touches the dead player
+	if ( entest->IsType(idPlayer::Type)
+		&& ( static_cast< idPlayer * >( entest )->health < 0 ) )
+	{
+		goto Quit;
+	}
+
+	// If we got this far, we give the alert
+	// NOTE: Latest tactile alert always overrides other alerts
+	m_TactAlertEnt = entest;
+	m_AlertedByActor = RespActor;
+	AlertAI( "tact", amount );
+
+	// Set last visual contact location to this location as that is used in case
+	// the target gets away
+	m_LastSight = entest->GetPhysics()->GetOrigin();
+	if (enemy.GetEntity()== NULL)
+	{
+		lastVisibleEnemyPos = entest->GetPhysics()->GetOrigin();
+	}
+
+	AI_TACTALERT = true;
+
+	if( cv_ai_debug.GetBool() )
+	{
+		// Note: This can spam the log a lot, so only put it in if cv_ai_debug.GetBool() is true
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s FELT entity %s\r", name.c_str(), entest->name.c_str() );
+		gameLocal.Printf( "[DM AI] AI %s FELT entity %s\n", name.c_str(), entest->name.c_str() );
+	}
 Quit:
 	return;
 }
@@ -7202,7 +7212,7 @@ void idAI::HadTactile( idActor *actor )
 		TactileAlert( actor );
 	else
 	{
-		// FLAG BLOCKED BY FRIENDLY SO THE SCRIPT CAN DO SOMETHING ABOUT IT
+		// TODO: FLAG BLOCKED BY FRIENDLY SO THE SCRIPT CAN DO SOMETHING ABOUT IT
 	}
 
 	// alert both AI if they bump into eachother

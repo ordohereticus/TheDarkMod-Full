@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1518 $
+ * $Date: 2007-10-22 03:21:55 -0400 (Mon, 22 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1518 2007-10-22 07:21:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -914,7 +914,16 @@ bool idAFEntity_Base::Collide( const trace_t &collision, const idVec3 &velocity 
 	float v, f;
 
 	idEntity *e = gameLocal.entities[collision.c.entityNum];
-	ProcCollisionStims( e, collision.c.id );
+
+	if(e)
+	{
+		ProcCollisionStims( e, collision.c.id );
+		if( e->IsType( idAI::Type ) )
+		{
+			idAI *alertee = static_cast<idAI *>(e);
+			alertee->TactileAlert( this );
+		}
+	}
 
 	if ( af.IsActive() ) 
 	{
