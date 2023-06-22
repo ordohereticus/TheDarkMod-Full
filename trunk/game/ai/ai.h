@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1758 $
- * $Date: 2007-11-12 02:08:40 -0500 (Mon, 12 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1772 $
+ * $Date: 2007-11-13 04:17:40 -0500 (Tue, 13 Nov 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -708,6 +708,7 @@ public: // greebo: Made these public
 	idVec3					lastVisibleEnemyEyeOffset;
 	idVec3					lastVisibleReachableEnemyPos;
 	idVec3					lastReachableEnemyPos;
+	bool					enemyReachable;
 	bool					wakeOnFlashlight;
 
 public: // greebo: Made these public for now, I didn't want to write an accessor for EVERYTHING
