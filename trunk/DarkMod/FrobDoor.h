@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2106 $
+ * $Date: 2008-02-23 15:31:31 -0500 (Sat, 23 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -102,7 +102,6 @@ public:
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed(void);
 
-	void					DoneStateChange(void);
 	void					ToggleOpen(void);
 	void					ToggleLock(void);
 

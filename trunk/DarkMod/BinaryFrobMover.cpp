@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2100 $
- * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2106 $
+ * $Date: 2008-02-23 15:31:31 -0500 (Sat, 23 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2100 2008-02-23 09:32:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2106 2008-02-23 20:31:31Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -155,13 +155,12 @@ void CBinaryFrobMover::ReadFromSnapshot( const idBitMsgDelta &msg )
 void CBinaryFrobMover::Spawn( void )
 {
 	idStr str;
-	idAngles tempAngle, partialAngle;
 
 	m_Rotate = spawnArgs.GetAngles("rotate", "0 90 0");
 
 	m_Open = spawnArgs.GetBool("open");
 	DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("[%s] open (%u)\r", name.c_str(), m_Open);
-	partialAngle = spawnArgs.GetAngles("start_rotate", "0 0 0");
+	idAngles partialAngle = spawnArgs.GetAngles("start_rotate", "0 0 0");
 
 	m_Locked = spawnArgs.GetBool("locked");
 	DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("[%s] locked (%u)\r", name.c_str(), m_Locked);
@@ -173,6 +172,7 @@ void CBinaryFrobMover::Spawn( void )
 	if( areaPortal > 0 )
 		DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("FrobDoor [%s] found portal handle %d on spawn \r", name.c_str(), areaPortal);
 
+	idAngles tempAngle;
 	physicsObj.GetLocalAngles( tempAngle );
 
 	// Original starting position of the door in case it is a sliding door.

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2104 $
- * $Date: 2008-02-23 14:22:35 -0500 (Sat, 23 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2106 $
+ * $Date: 2008-02-23 15:31:31 -0500 (Sat, 23 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2104 2008-02-23 19:22:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2106 2008-02-23 20:31:31Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -743,11 +743,6 @@ bool CFrobDoor::IsFrobbed(void)
 	}
 
 	return idEntity::IsFrobbed();
-}
-
-void CFrobDoor::DoneStateChange(void)
-{
-	CBinaryFrobMover::DoneStateChange();
 }
 
 void CFrobDoor::ToggleOpen(void)
