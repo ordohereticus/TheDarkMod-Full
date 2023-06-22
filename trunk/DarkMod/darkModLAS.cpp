@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1784 $
+ * $Date: 2007-11-14 04:29:13 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1784 2007-11-14 09:29:13Z greebo $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -143,14 +143,14 @@ void darkModLAS::accumulateEffectOfLightsInArea
 	vTargetSeg[0] = testPoint1;
 	vTargetSeg[1] = testPoint2 - testPoint1;
 
-	assert ((areaIndex >= 0) && (areaIndex < m_numAreas));
+	assert(areaIndex >= 0 && areaIndex < m_numAreas);
 	idLinkList<darkModLightRecord_t>* p_cursor = m_pp_areaLightLists[areaIndex];
 
 	// Iterate lights in this area
 	while (p_cursor != NULL)
 	{
 		// Get the light to be tested
-		darkModLightRecord_t* p_LASLight = (darkModLightRecord_t*) (p_cursor->Owner());
+		darkModLightRecord_t* p_LASLight = p_cursor->Owner();
 		if (p_LASLight == NULL)
 		{
 			// Log error
@@ -239,7 +239,7 @@ void darkModLAS::accumulateEffectOfLightsInArea
 				b_excludeLight = true;
 				DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Light [%s]: exluded due to max light radius\r", p_LASLight->p_idLight->name.c_str());
 			}
-			else if ((b_useShadows) && (p_LASLight->p_idLight->CastsShadow()) ) 
+			else if (b_useShadows && p_LASLight->p_idLight->CastsShadow()) 
 			{
 				trace_t trace;
 
@@ -248,7 +248,7 @@ void darkModLAS::accumulateEffectOfLightsInArea
 				midPoint = testPoint1 + testPoint2;
 				midPoint /= 2.0;
 
-				gameLocal.clip.TracePoint (trace, testPoint1, p_LASLight->lastWorldPos, CONTENTS_OPAQUE, p_ignoredEntity);
+				gameLocal.clip.TracePoint(trace, testPoint1, p_LASLight->lastWorldPos, CONTENTS_OPAQUE, p_ignoredEntity);
 				DM_LOG(LC_LIGHT, LT_DEBUG).LogString("TraceFraction: %f\r", trace.fraction);
 				if(trace.fraction < 1.0f)
 				{
