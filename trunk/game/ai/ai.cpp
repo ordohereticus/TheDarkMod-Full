@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2067 $
- * $Date: 2008-02-09 11:04:21 -0500 (Sat, 09 Feb 2008) $
+ * $Revision: 2068 $
+ * $Date: 2008-02-09 13:13:50 -0500 (Sat, 09 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2067 2008-02-09 16:04:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2068 2008-02-09 18:13:50Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7586,6 +7586,9 @@ void idAI::PerformVisualScan(float timecheck)
 		// Remember this actor
 		m_AlertedByActor = player;
 		AlertAI("vis", incAlert);
+
+		// Call the visual alert handler on the current state
+		mind->GetState()->OnVisualAlert(player);
 	}
 
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s SAW actor %s\r", name.c_str(), player->name.c_str() );
