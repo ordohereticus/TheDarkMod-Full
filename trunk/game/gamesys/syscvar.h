@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1745 $
- * $Date: 2007-11-10 07:24:04 -0500 (Sat, 10 Nov 2007) $
+ * $Revision: 1751 $
+ * $Date: 2007-11-11 08:03:20 -0500 (Sun, 11 Nov 2007) $
  * $Author: dram $
  *
  ***************************************************************************/
@@ -430,5 +430,6 @@ extern idCVar   r_bloom_shift_delay;				// clone_jc_denton
 extern idCVar   r_bloom_blurIterations;				// clone_jc_denton
 extern idCVar   r_bloom_buffer;						// clone_jc_denton
 extern idCVar	r_bloom_hud;
+extern idCVar	r_bloom_lightRayScale;
 
 #endif /* !__SYS_CVAR_H__ */
