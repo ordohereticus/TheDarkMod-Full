@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2002 $
- * $Date: 2008-01-20 14:39:40 -0500 (Sun, 20 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2019 $
+ * $Date: 2008-01-27 15:37:47 -0500 (Sun, 27 Jan 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2002 2008-01-20 19:39:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2019 2008-01-27 20:37:47Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1462,15 +1462,23 @@ int CMissionData::AddObjsFromDict(const idDict& dict)
 		}
 	}
 
-	// parse overall mission logic
+	// parse overall mission logic (for specific difficulty if applicable)
+	idStr DiffStr = va("_diff_%d", g_skill.GetInteger() );
+	StrTemp = "mission_logic_success";
+	if( dict.FindKey( StrTemp + DiffStr ) )
+		StrTemp = StrTemp + DiffStr;
 	// Only one of these per mission, so empty args on this object should not overwrite existing args
-	StrTemp = dict.GetString("mission_logic_success", "");
+	StrTemp = dict.GetString(StrTemp.c_str(), "");
 	if( StrTemp != "" )
 	{
 		bLogicMod = true;
 		m_SuccessLogicStr = StrTemp;
 	}
-	StrTemp = dict.GetString("mission_logic_failure", "");
+
+	StrTemp = "mission_logic_failure";
+	if( dict.FindKey( StrTemp + DiffStr ) )
+		StrTemp = StrTemp + DiffStr;
+	StrTemp = dict.GetString(StrTemp.c_str(), "");
 	if( StrTemp != "" )
 	{
 		bLogicMod = true;
