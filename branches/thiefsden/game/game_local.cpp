@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1943 $
- * $Date: 2008-01-02 14:17:40 -0500 (Wed, 02 Jan 2008) $
+ * $Revision: 1944 $
+ * $Date: 2008-01-02 14:36:09 -0500 (Wed, 02 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1943 2008-01-02 19:17:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1944 2008-01-02 19:36:09Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3047,6 +3047,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Only switch during map runtime and if not already triggered
 		if (GameState() == GAMESTATE_ACTIVE)
 		{
+			gui->HandleNamedEvent("SetupObjectivesForIngame");
+
 			gui->HandleNamedEvent("ShowObjectivesButton");
 			gui->HandleNamedEvent("ShowResumeGameButton");
 
@@ -3060,6 +3062,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		}
 		else
 		{
+			gui->HandleNamedEvent("SetupObjectivesForMapStart");
+
 			gui->HandleNamedEvent("HideResumeGameButton");
 			gui->HandleNamedEvent("HideObjectivesButton");
 		}
@@ -3082,6 +3086,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 			// Hide the briefing screen
 			gui->HandleNamedEvent("HideBriefingScreen");
+			gui->SetStateInt("BriefingIsVisible", 0);
+
+			gui->HandleNamedEvent("SetupObjectivesForMapstart");
 		}
 
 		gui->HandleNamedEvent("ShowObjectiveScreen");
@@ -3107,6 +3114,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		objectivesUpdated = false;
 		gui->HandleNamedEvent("HideObjectiveScreen");
 		gui->HandleNamedEvent("HideBriefingScreen");
+		gui->SetStateInt("BriefingIsVisible", 0);
 	}
 
 	/* greebo: Commented these out for the Thief's Den release only.
