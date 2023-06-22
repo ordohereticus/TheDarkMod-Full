@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1247 $
- * $Date: 2007-07-29 19:51:29 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1300 $
+ * $Date: 2007-08-17 01:50:20 -0400 (Fri, 17 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -661,6 +661,12 @@ protected:
 	* Internal function used to parse boolean logic into a conditional matrix
 	**/
 	bool ParseLogicStr( idStr *input, SBoolParseNode *output );
+
+	/**
+	* Parse the success and failure logic strings if they are non-empty
+	* Returns true if parsing succeeded
+	**/
+	bool ParseLogicStrs( void );
 
 protected:
 	/**
