@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1298 $
- * $Date: 2007-08-16 07:00:09 -0400 (Thu, 16 Aug 2007) $
+ * $Revision: 1316 $
+ * $Date: 2007-08-25 14:13:05 -0400 (Sat, 25 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -35,6 +35,19 @@ public:
 
 	virtual void			Think( void );
 	virtual void			Present( void );
+
+protected:
+	/**
+	* Parsing attachments happens at a different time in the spawn routine for
+	* idAFEntities.  To accomplish this, the function is overloaded to do
+	* nothing and a new function is called at the proper time.
+	**/
+	virtual void			ParseAttachments( void );
+
+	/**
+	* Same as idEntity::ParseAttachments, but called at a different point in spawn routine
+	**/
+	virtual void			ParseAttachmentsAF( void );
 
 protected:
 	idPhysics_AF			physicsObj;
@@ -282,6 +295,18 @@ protected:
 	* If the AF physics pointer is NULL, it returns 0.
 	**/
 	void					Event_GetNumBodies( void );
+
+	/**
+	* Parsing attachments happens at a different time in the spawn routine for
+	* idAFEntities.  To accomplish this, the function is overloaded to do
+	* nothing and a new function is called at the proper time.
+	**/
+	virtual void			ParseAttachments( void );
+
+	/**
+	* Same as idEntity::ParseAttachments, but called at a different point in spawn routine
+	**/
+	virtual void			ParseAttachmentsAF( void );
 
 	/**
 	* Set the linear and angular velocities of a particular body given by ID argument

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1293 $
- * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
+ * $Revision: 1316 $
+ * $Date: 2007-08-25 14:13:05 -0400 (Sat, 25 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -739,6 +739,11 @@ protected:
 	* Also calls this on any of the entity's peers
 	**/
 	void FrobHighlight( bool bVal );
+
+	/**
+	* Parses spawnarg list of attachments and binds them on to the ent
+	**/
+	virtual void ParseAttachments( void );
 
 	/**
 	* Bind to the same object that the "other" argument is bound to

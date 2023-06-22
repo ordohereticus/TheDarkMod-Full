@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1311 $
- * $Date: 2007-08-24 13:36:01 -0400 (Fri, 24 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1316 $
+ * $Date: 2007-08-25 14:13:05 -0400 (Sat, 25 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1311 2007-08-24 17:36:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1316 2007-08-25 18:13:05Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -675,7 +675,6 @@ void idEntity::Spawn( void )
 	const idKeyValue	*networkSync;
 	const char			*classname;
 	const char			*scriptObjectName;
-	idEntity			*ent;
 
 	gameLocal.RegisterEntity( this );
 
@@ -780,27 +779,7 @@ void idEntity::Spawn( void )
 	}
 
 	//TDM: Spawn and attach any attachments
-	const idKeyValue *kv = spawnArgs.MatchPrefix( "def_attach", NULL );
-	while ( kv ) {
-		idDict args;
-
-		args.Set( "classname", kv->GetValue().c_str() );
-
-		// make items non-touchable so the player can't take them out of the character's hands
-		args.Set( "no_touch", "1" );
-
-		// don't let them drop to the floor
-		args.Set( "dropToFloor", "0" );
-		
-		gameLocal.SpawnEntityDef( args, &ent );
-		if ( !ent ) {
-			gameLocal.Error( "Couldn't spawn '%s' to attach to entity '%s'", kv->GetValue().c_str(), name.c_str() );
-		} else {
-			Attach( ent );
-		}
-		kv = spawnArgs.MatchPrefix( "def_attach", kv );
-	}
-
+	ParseAttachments();
 
 	// auto-start a sound on the entity
 	if ( refSound.shader && !refSound.waitfortrigger ) {
@@ -8262,3 +8241,28 @@ Quit:
 	return;
 }
 
+void idEntity::ParseAttachments( void )
+{
+	idEntity *ent = NULL;
+
+	const idKeyValue *kv = spawnArgs.MatchPrefix( "def_attach", NULL );
+	while ( kv ) {
+		idDict args;
+
+		args.Set( "classname", kv->GetValue().c_str() );
+
+		// make items non-touchable so the player can't take them out of the character's hands
+		args.Set( "no_touch", "1" );
+
+		// don't let them drop to the floor
+		args.Set( "dropToFloor", "0" );
+		
+		gameLocal.SpawnEntityDef( args, &ent );
+		if ( !ent ) {
+			gameLocal.Error( "Couldn't spawn '%s' to attach to entity '%s'", kv->GetValue().c_str(), name.c_str() );
+		} else {
+			Attach( ent );
+		}
+		kv = spawnArgs.MatchPrefix( "def_attach", kv );
+	}
+}
