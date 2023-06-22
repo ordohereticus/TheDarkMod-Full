@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1319 $
- * $Date: 2007-08-25 22:33:47 -0400 (Sat, 25 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1321 $
+ * $Date: 2007-08-26 02:38:28 -0400 (Sun, 26 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1319 2007-08-26 02:33:47Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1321 2007-08-26 06:38:28Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -183,9 +183,8 @@ const idEventDef AI_GetAudThresh( "getAudThresh", NULL, 'f' );
 const idEventDef AI_SetAudThresh( "setAudThresh", "f" );
 const idEventDef AI_GetAlertActor( "getAlertActor", NULL, 'e' );
 const idEventDef AI_SetAlertGracePeriod( "setAlertGracePeriod", "fff" );
-
 const idEventDef AI_ClosestReachableEnemy( "closestReachableEnemy", NULL, 'e' );
-
+const idEventDef AI_FoundBody( "foundBody", "e" );
 const idEventDef AI_IssueCommunication_IR_DOE ("issueCommunication_IR_DOE", "ffeev");
 const idEventDef AI_IssueCommunication_IR ( "issueCommunication_IR", "ffev");
 const idEventDef AI_IssueCommunication_DOE ( "issueCommunication_DOE", "ffev" );
@@ -546,6 +545,7 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_GetAlertActor,					idAI::Event_GetAlertActor )
 	EVENT( AI_SetAlertGracePeriod,				idAI::Event_SetAlertGracePeriod )
 	EVENT( AI_ClosestReachableEnemy,			idAI::Event_ClosestReachableEnemy )
+	EVENT( AI_FoundBody,						idAI::Event_FoundBody )
 	EVENT ( AI_StartSearchForHidingSpots,		idAI::Event_StartSearchForHidingSpots )
 	EVENT ( AI_StartSearchForHidingSpotsWithExclusionArea,		idAI::Event_StartSearchForHidingSpotsWithExclusionArea )
 	EVENT ( AI_ContinueSearchForHidingSpots,	idAI::Event_ContinueSearchForHidingSpots )
@@ -4256,4 +4256,9 @@ void idAI::Event_SetAlertGracePeriod( float frac, float duration, int count )
 	m_AlertGraceThresh = m_AlertNumThisFrame * frac;
 	m_AlertGraceCountLimit = count;
 	m_AlertGraceCount = 0;
+}
+
+void idAI::Event_FoundBody( idEntity *body )
+{
+	FoundBody( body );
 }

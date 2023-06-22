@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1268 $
- * $Date: 2007-08-03 08:13:07 -0400 (Fri, 03 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1321 $
+ * $Date: 2007-08-26 02:38:28 -0400 (Sun, 26 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -465,6 +465,11 @@ public:
 	* Sets the AI acuity for a certain type of alert.
 	**/
 	void SetAcuity( const char *type, float acuity );
+
+	/**
+	* Calls objective system when the AI finds a body
+	**/
+	void FoundBody( idEntity *body );
 
 	/**
 	* Get the volume modifier for a given movement type
@@ -1157,6 +1162,7 @@ protected:
 	void					Event_HeardSound( int ignore_team );
 	void					Event_SetEnemy( idEntity *ent );
 	void					Event_ClearEnemy( void );
+	void					Event_FoundBody( idEntity *body );
 	void					Event_MuzzleFlash( const char *jointname );
 	void					Event_CreateMissile( const char *jointname );
 	void					Event_AttackMissile( const char *jointname );

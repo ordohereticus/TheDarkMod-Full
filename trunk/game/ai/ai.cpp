@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1319 $
- * $Date: 2007-08-25 22:33:47 -0400 (Sat, 25 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1321 $
+ * $Date: 2007-08-26 02:38:28 -0400 (Sun, 26 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1319 2007-08-26 02:33:47Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1321 2007-08-26 06:38:28Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -6246,6 +6246,10 @@ void idAI::AlertAI( const char *type, float amount )
 	// set the last alert value so that simultaneous alerts only overwrite if they are greater than the value
 	m_AlertNumThisFrame = amount;
 
+	// Objectives callback
+	// TODO: Replace the "0" here with the actual alert state index, once that is stored somewhere
+	gameLocal.m_MissionData->AlertCallback( this, m_AlertedByActor.GetEntity(), 0 );
+
 Quit:
 	return;
 }
@@ -7171,6 +7175,16 @@ Quit:
 * ========================== END TDM KNOCKOUT CODE =============================
 **/
 
+/*
+=====================
+idAI::FoundBody
+=====================
+*/
+void idAI::FoundBody( idEntity *body )
+{
+	// TODO: Check if the player is responsible for the body
+	gameLocal.m_MissionData->MissionEvent( COMP_AI_FIND_BODY, body, true );
+}
 
 /*
 =====================
@@ -7390,7 +7404,8 @@ void idAI::StopLipSync()
 ===================== Sheathing/drawing weapons =====================
 */
 
-void idAI::DrawWeapon() {
+void idAI::DrawWeapon() 
+{
 	const function_t* func = scriptObject.GetFunction("DrawWeapon");
 	if (func) {
 		idThread* thread = new idThread(func);
@@ -7399,7 +7414,8 @@ void idAI::DrawWeapon() {
 	}
 }
 
-void idAI::SheathWeapon() {
+void idAI::SheathWeapon() 
+{
 	const function_t* func = scriptObject.GetFunction("SheathWeapon");
 	if (func) {
 		idThread* thread = new idThread(func);
