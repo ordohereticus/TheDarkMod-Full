@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2075 $
- * $Date: 2008-02-10 03:50:22 -0500 (Sun, 10 Feb 2008) $
+ * $Revision: 2078 $
+ * $Date: 2008-02-10 05:55:44 -0500 (Sun, 10 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2075 2008-02-10 08:50:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2078 2008-02-10 10:55:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3831,6 +3831,15 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos ) {
 		return;
 	}
 
+	if (cv_ai_goalpos_show.GetBool()) 
+	{
+		idVec4 color(colorCyan);
+		color.x = gameLocal.random.RandomFloat();
+		color.y = gameLocal.random.RandomFloat();
+		color.z = gameLocal.random.RandomFloat();
+		gameRenderWorld->DebugArrow(color, goalPos, goalPos + idVec3(0,0,15), 2, 16);
+	}
+
 	const idVec3& origin = physicsObj.GetOrigin();
 
 	idEntity* obstacle = NULL;
@@ -4124,6 +4133,7 @@ void idAI::AnimMove()
 		// greebo: We have a valid goalposition (not reached the target yet), check for obstacles
 		if (move.moveCommand != MOVE_WANDER && move.moveCommand != MOVE_VECTOR) 
 		{
+			//gameRenderWorld->DebugArrow(colorCyan, goalPos, goalPos + idVec3(0,0,15), 2, 1000);
 			if (!cv_ai_opt_noobstacleavoidance.GetBool())
 			{
 				CheckObstacleAvoidance( goalPos, newDest );
