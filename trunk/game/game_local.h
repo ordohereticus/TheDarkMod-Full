@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1210 $
- * $Date: 2007-07-23 16:30:30 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1215 $
+ * $Date: 2007-07-25 10:47:36 -0400 (Wed, 25 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -811,6 +811,12 @@ public:
 	 * exist for this targetname.
 	 */
 	bool GetInventoryEntity(const idStr &Targetname, idEntity **);
+
+	/**
+	 * greebo: Returns the priority queue with the given index
+	 *		   or NULL for invalid indices.
+	 */
+	CPriorityQueue*	GetPriorityQueue(int index);
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;

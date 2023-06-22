@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1025 $
- * $Date: 2007-06-11 15:59:28 -0400 (Mon, 11 Jun 2007) $
- * $Author: ishtvan $
+ * $Revision: 1215 $
+ * $Date: 2007-07-25 10:47:36 -0400 (Wed, 25 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1025 2007-06-11 19:59:28Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1215 2007-07-25 14:47:36Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -458,6 +458,7 @@ idActor::idActor( void ) {
 	task				= "";
 	taskPriority        = 0;
 	m_TaskQueue			= NULL;
+	m_TaskQueueID		= -1;
 
 	leftEyeJoint		= INVALID_JOINT;
 	rightEyeJoint		= INVALID_JOINT;
@@ -900,15 +901,7 @@ void idActor::Save( idSaveGame *savefile ) const {
 	
 	// Save task info
 	savefile->WriteString(task.c_str());
-	if (m_TaskQueue)
-	{
-		savefile->WriteBool(true);
-		m_TaskQueue->Save(savefile);
-	}
-	else
-	{
-		savefile->WriteBool(false);
-	}
+	savefile->WriteInt(m_TaskQueueID);
 }
 
 /*
@@ -1025,12 +1018,10 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	
 	// Restore task info
 	savefile->ReadString(task);
-	bool taskqueueexists=false;
-	savefile->ReadBool(taskqueueexists);
-	if (taskqueueexists)
+	savefile->ReadInt(m_TaskQueueID);
+	if (m_TaskQueueID != -1)
 	{
-		if (!m_TaskQueue) m_TaskQueue = new CPriorityQueue();
-		m_TaskQueue->Restore(savefile);
+		m_TaskQueue = gameLocal.GetPriorityQueue(m_TaskQueueID);
 	}
 }
 
@@ -3956,15 +3947,22 @@ float idActor::CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &saved
 
 void idActor::Event_AttachTaskQueue(int queueID)
 {
-	if (queueID < 0 || queueID >= gameLocal.m_PriorityQueues.Num())
+	// Request the queue with the given ID from gameLocal
+	CPriorityQueue* taskQueue = gameLocal.GetPriorityQueue(queueID);
+
+	if (taskQueue != NULL)
+	{
+		m_TaskQueueID = queueID;
+		m_TaskQueue = taskQueue;
+	}
+	else 
 	{
 		scriptThread->Error("attachTaskQueue: Priority queue #%d does not exist");
-		return;
 	}
-	m_TaskQueue = gameLocal.m_PriorityQueues[queueID];
 }
 
 void idActor::Event_DetachTaskQueue()
 {
 	m_TaskQueue = NULL;
+	m_TaskQueueID = -1;
 }

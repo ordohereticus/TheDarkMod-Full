@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 912 $
- * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1215 $
+ * $Date: 2007-07-25 10:47:36 -0400 (Wed, 25 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -323,7 +323,11 @@ protected:
 	/**
 	* The priority queue that this actor uses as a task queue.
 	* Used for, and initialised by, AI scripts. Can be NULL.
+	*
+	* greebo: The task queue ID is the one that gets saved and
+	*		  restored to/from a savegame.
 	**/
+	int						m_TaskQueueID;
 	CPriorityQueue*			m_TaskQueue;
 
 	// joint handles
