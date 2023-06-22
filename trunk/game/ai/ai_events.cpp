@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1789 $
- * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1790 $
+ * $Date: 2007-11-14 11:00:41 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1789 2007-11-14 14:37:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1790 2007-11-14 16:00:41Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3276,15 +3276,12 @@ void idAI::Event_GetTactEnt( void )
 
 void idAI::Event_VisScan( void )
 {
-	idActor *actor;
-	float time;
-	
 	// assume we are checking over one frame
-	time = 1.0f/60.0f;
+	float time(1.0f/60.0f);
 
-	PerformVisualScan( time );
+	PerformVisualScan(time);
 	
-	idThread::ReturnEntity( GetEnemy() );
+	idThread::ReturnEntity(GetEnemy());
 }
 
 void idAI::Event_ClosestReachableEnemy( void ) 
