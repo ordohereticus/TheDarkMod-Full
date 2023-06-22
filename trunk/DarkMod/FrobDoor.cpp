@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2097 $
- * $Date: 2008-02-16 14:33:35 -0500 (Sat, 16 Feb 2008) $
+ * $Revision: 2104 $
+ * $Date: 2008-02-23 14:22:35 -0500 (Sat, 23 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2097 2008-02-16 19:33:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2104 2008-02-23 19:22:35Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -383,7 +383,7 @@ void CFrobDoor::Open(bool bMaster)
 	idAngles tempAng;
 
 	// If the door is already open, we don't have anything to do. :)
-	if(m_Open == true && !m_bInterrupted)
+	if(m_Open == true && !m_bInterrupted && !IsBlocked())
 		return;
 
 	// If we have a doorhandle we want to tap it before the door starts to open if the door wasn't
