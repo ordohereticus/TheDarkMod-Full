@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1270 $
- * $Date: 2007-08-03 09:58:23 -0400 (Fri, 03 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1279 $
+ * $Date: 2007-08-05 04:13:33 -0400 (Sun, 05 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1270 2007-08-03 13:58:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1279 2007-08-05 08:13:33Z ishtvan $", init_version);
 
 #include "../game_local.h"
 
@@ -115,6 +115,9 @@ idCVar cv_frob_ammo_selects_weapon(	"tdm_frob_ammo_selects_weapon", "1",		CVAR_G
 idCVar cv_collision_damage_scale_vert(	"tdm_collision_dmg_scale_vert", "0.0001",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "This globally scales the damage AI take from vertical collisions/decelerations.  This multiplies delta-velocity squared." );
 idCVar cv_collision_damage_scale_horiz(	"tdm_collision_dmg_scale_horiz", "0.00005",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "This globally scales the damage AI take from horizontal collisions/decelerations.  This multiplies delta-velocity squared." );
 idCVar cv_collision_damage_min(			"tdm_collision_dmg_min", "5.0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Minimum damage the player takes from collisions above the minimum delta" );
+idCVar cv_drag_limit_force(				"tdm_drag_limit_force", "1", CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to use the maximum force limit when the player is moving an object in hands" );
+idCVar cv_drag_force_max(				"tdm_drag_force_max", "500000", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Maximum force the player can apply to a dragged object [kg * doom units / second^2]" );
+idCVar cv_drag_stuck_dist(				"tdm_drag_stuck_dist", "30.0", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Distance from the grab point at which object is determined to be 'stuck' and possibly auto-dropped." );
 idCVar cv_drag_damping(					"tdm_drag_damping", "0.0", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Damping applied to objects being grabbed by the player" );
 idCVar cv_drag_damping_AF(				"tdm_drag_damping_af", "0.4", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Damping applied to ragdolls being grabbed by the player" );
 idCVar cv_drag_AF_ground_timer(			"tdm_drag_af_ground_timer", "800", CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "Time in milliseconds that it takes to ramp up to full vertical velocity after a ground-restricted body has come back to ground contact." );

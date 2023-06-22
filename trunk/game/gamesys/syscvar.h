@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1270 $
- * $Date: 2007-08-03 09:58:23 -0400 (Fri, 03 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1279 $
+ * $Date: 2007-08-05 04:13:33 -0400 (Sun, 05 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -87,6 +87,9 @@ extern idCVar cv_frob_ammo_selects_weapon;
 extern idCVar cv_collision_damage_scale_vert;
 extern idCVar cv_collision_damage_scale_horiz;
 extern idCVar cv_collision_damage_min;
+extern idCVar cv_drag_limit_force;
+extern idCVar cv_drag_force_max;
+extern idCVar cv_drag_stuck_dist;
 extern idCVar cv_drag_damping;
 extern idCVar cv_drag_damping_AF;
 extern idCVar cv_drag_AF_ground_timer;
