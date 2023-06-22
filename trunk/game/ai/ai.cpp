@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1062 $
- * $Date: 2007-06-20 23:16:10 -0400 (Wed, 20 Jun 2007) $
- * $Author: crispy $
+ * $Revision: 1237 $
+ * $Date: 2007-07-29 08:31:18 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1062 2007-06-21 03:16:10Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1237 2007-07-29 12:31:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -760,6 +760,46 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( m_AlertGraceCountLimit );
 
 	savefile->WriteBool( GetPhysics() == static_cast<const idPhysics *>(&physicsObj) );
+
+	savefile->WriteFloat(m_VisDistMax);
+	// greebo: TODO m_HidingSpotSearchHandle is a raw pointer (void*)
+	// greebo: TODO Save CDarkmodHidingSpotTree m_hidingSpots
+
+	savefile->WriteInt(m_AirCheckTimer);
+	savefile->WriteBool(m_bCanDrown);
+	savefile->WriteInt(m_HeadBodyID);
+	savefile->WriteJoint(m_HeadJointID);
+	savefile->WriteInt(m_AirTics);
+	savefile->WriteInt(m_AirTicksMax);
+	savefile->WriteInt(m_AirCheckInterval);
+
+	savefile->WriteVec3(m_MouthOffset);
+	savefile->WriteBool(m_bCanBeKnockedOut);
+	savefile->WriteVec3(m_KoOffset);
+		
+	savefile->WriteFloat(thresh_1);
+	savefile->WriteFloat(thresh_2);
+	savefile->WriteFloat(thresh_3);
+	savefile->WriteFloat(thresh_combat);
+
+	savefile->WriteFloat(m_gracetime_1);
+	savefile->WriteFloat(m_gracetime_2);
+	savefile->WriteFloat(m_gracetime_3);
+	savefile->WriteFloat(m_gracefrac_1);
+	savefile->WriteFloat(m_gracefrac_2);
+	savefile->WriteFloat(m_gracefrac_3);
+	savefile->WriteFloat(m_gracecount_1);
+	savefile->WriteFloat(m_gracecount_2);
+	savefile->WriteFloat(m_gracecount_3);
+
+	savefile->WriteFloat(atime1);
+	savefile->WriteFloat(atime2);
+	savefile->WriteFloat(atime3);
+
+	savefile->WriteString(m_killedTask.c_str());
+	savefile->WriteInt(m_killedTaskPriority);
+	savefile->WriteString(m_knockedOutTask.c_str());
+	savefile->WriteInt(m_knockedOutTaskPriority);
 }
 
 /*
@@ -936,6 +976,46 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	if ( gravity == gameLocal.GetGravity() ) {
 		SetAAS();
 	}
+
+	savefile->ReadFloat(m_VisDistMax);
+	// greebo: TODO m_HidingSpotSearchHandle is a raw pointer (void*)
+	// greebo: TODO Save CDarkmodHidingSpotTree m_hidingSpots
+
+	savefile->ReadInt(m_AirCheckTimer);
+	savefile->ReadBool(m_bCanDrown);
+	savefile->ReadInt(m_HeadBodyID);
+	savefile->ReadJoint(m_HeadJointID);
+	savefile->ReadInt(m_AirTics);
+	savefile->ReadInt(m_AirTicksMax);
+	savefile->ReadInt(m_AirCheckInterval);
+
+	savefile->ReadVec3(m_MouthOffset);
+	savefile->ReadBool(m_bCanBeKnockedOut);
+	savefile->ReadVec3(m_KoOffset);
+		
+	savefile->ReadFloat(thresh_1);
+	savefile->ReadFloat(thresh_2);
+	savefile->ReadFloat(thresh_3);
+	savefile->ReadFloat(thresh_combat);
+
+	savefile->ReadFloat(m_gracetime_1);
+	savefile->ReadFloat(m_gracetime_2);
+	savefile->ReadFloat(m_gracetime_3);
+	savefile->ReadFloat(m_gracefrac_1);
+	savefile->ReadFloat(m_gracefrac_2);
+	savefile->ReadFloat(m_gracefrac_3);
+	savefile->ReadFloat(m_gracecount_1);
+	savefile->ReadFloat(m_gracecount_2);
+	savefile->ReadFloat(m_gracecount_3);
+
+	savefile->ReadFloat(atime1);
+	savefile->ReadFloat(atime2);
+	savefile->ReadFloat(atime3);
+
+	savefile->ReadString(m_killedTask);
+	savefile->ReadInt(m_killedTaskPriority);
+	savefile->ReadString(m_knockedOutTask);
+	savefile->ReadInt(m_knockedOutTaskPriority);
 
 	SetCombatModel();
 	LinkCombat();
