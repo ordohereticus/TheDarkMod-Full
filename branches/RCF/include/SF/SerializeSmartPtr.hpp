@@ -101,12 +101,12 @@ namespace SF {
                 }
                 else if (pt) {
                     ctx.add( pt, typeid(SmartPtr<T>), *pps );
-                    //**pps = SmartPtr<T>(pt); // causes ICE with codewarrior 9.0
+                    // **pps = SmartPtr<T>(pt); // causes ICE with codewarrior 9.0
                     SmartPtr<T> spt(pt);
                     **pps = spt;
                 }
                 else {
-                    //**pps = SmartPtr<T>(pt); // causes ICE with codewarrior 9.0
+                    // **pps = SmartPtr<T>(pt); // causes ICE with codewarrior 9.0
                     SmartPtr<T> spt(pt);
                     **pps = spt;
                 }

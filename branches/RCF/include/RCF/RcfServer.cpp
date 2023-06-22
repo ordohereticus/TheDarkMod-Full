@@ -37,9 +37,9 @@ namespace RCF {
     // RcfServer
 
     RcfServer::RcfServer() :
+    	mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mOpened(RCF_DEFAULT_INIT),
         mStarted(RCF_DEFAULT_INIT),
-        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mStubMapMutex(WriterPriority),
         mServicesMutex(WriterPriority),
         mRcfRuntimeVersion(gRcfRuntimeVersion)
@@ -48,9 +48,9 @@ namespace RCF {
     }
 
     RcfServer::RcfServer(const I_Endpoint &endpoint) :
-        mOpened(RCF_DEFAULT_INIT),
+    	mServerThreadsStopFlag(RCF_DEFAULT_INIT),
+    	mOpened(RCF_DEFAULT_INIT),
         mStarted(RCF_DEFAULT_INIT),
-        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mStubMapMutex(WriterPriority),
         mServicesMutex(WriterPriority),
         mRcfRuntimeVersion(gRcfRuntimeVersion)
@@ -67,9 +67,9 @@ namespace RCF {
     }
 
     RcfServer::RcfServer(const ServicePtr &servicePtr) :
+        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mOpened(RCF_DEFAULT_INIT),
         mStarted(RCF_DEFAULT_INIT),
-        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mStubMapMutex(WriterPriority),
         mServicesMutex(WriterPriority),
         mRcfRuntimeVersion(gRcfRuntimeVersion)
@@ -80,9 +80,9 @@ namespace RCF {
     }
 
     RcfServer::RcfServer(const ServerTransportPtr &serverTransportPtr) :
+        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mOpened(RCF_DEFAULT_INIT),
         mStarted(RCF_DEFAULT_INIT),
-        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mStubMapMutex(WriterPriority),
         mServicesMutex(WriterPriority),
         mRcfRuntimeVersion(gRcfRuntimeVersion)
@@ -93,9 +93,9 @@ namespace RCF {
     }
 
     RcfServer::RcfServer(std::vector<ServerTransportPtr> serverTransports) :
+        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mOpened(RCF_DEFAULT_INIT),
         mStarted(RCF_DEFAULT_INIT),
-        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mStubMapMutex(WriterPriority),
         mServicesMutex(WriterPriority),
         mRcfRuntimeVersion(gRcfRuntimeVersion)
@@ -107,9 +107,9 @@ namespace RCF {
     }
 
     RcfServer::RcfServer(std::vector<ServicePtr> services) :
+    	mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mOpened(RCF_DEFAULT_INIT),
         mStarted(RCF_DEFAULT_INIT),
-        mServerThreadsStopFlag(RCF_DEFAULT_INIT),
         mStubMapMutex(WriterPriority),
         mServicesMutex(WriterPriority),
         mRcfRuntimeVersion(gRcfRuntimeVersion)
@@ -849,7 +849,9 @@ namespace RCF {
     void RcfServer::cycleSessions(int timeoutMs, const volatile bool &stopFlag)
     {
         RCF_UNUSED_VARIABLE(timeoutMs);
-        RCF_UNUSED_VARIABLE(stopFlag);
+        //RCF_UNUSED_VARIABLE(stopFlag);
+        
+        stopFlag == stopFlag;
 
         //RCF_TRACE("")(timeoutMs);
 

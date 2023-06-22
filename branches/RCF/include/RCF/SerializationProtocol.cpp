@@ -49,8 +49,8 @@ namespace RCF {
 
     SerializationProtocolIn::SerializationProtocolIn() :
         mProtocol(DefaultSerializationProtocol),
-        mIstrVec(sizeof(std::istrstream)),
-        mIsPtr(RCF_DEFAULT_INIT)
+        mIsPtr(RCF_DEFAULT_INIT),
+        mIstrVec(sizeof(std::istrstream))
     {
     }
 

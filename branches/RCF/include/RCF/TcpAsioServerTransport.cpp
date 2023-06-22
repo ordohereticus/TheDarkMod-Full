@@ -171,15 +171,15 @@ namespace RCF {
     TcpAsioServerTransport::SessionState::SessionState(
         TcpAsioServerTransport &transport,
         DemuxerPtr demuxerPtr) :
-            mSocketPtr(new Socket(*demuxerPtr)),
-            mState(Ready),
+        	mState(Ready),
             mReadBufferRemaining(RCF_DEFAULT_INIT),
             mWriteBufferRemaining(RCF_DEFAULT_INIT),
-            mReflecting(RCF_DEFAULT_INIT),
+            mSocketPtr(new Socket(*demuxerPtr)),
             mTransport(transport),
             mFilterAdapterPtr(new FilterAdapter(*this)),
             mClosed(RCF_DEFAULT_INIT),
-            mSynchronized(RCF_DEFAULT_INIT)
+            mSynchronized(RCF_DEFAULT_INIT),
+            mReflecting(RCF_DEFAULT_INIT)
     {
     }
 
@@ -910,7 +910,8 @@ namespace RCF {
     {
         RCF2_TRACE("");
 
-        RCF_UNUSED_VARIABLE(stopFlag);
+        //RCF_UNUSED_VARIABLE(stopFlag);
+        stopFlag == stopFlag;
         RCF_ASSERT(timeoutMs >= -1)(timeoutMs);
 
         mInterrupt = returnEarly;
@@ -997,11 +998,11 @@ namespace RCF {
 
     TcpAsioServerTransport::TcpAsioServerTransport(int port) :
         mDemuxerPtr(),
-        mCycleTimerPtr(),
-        mInterrupt(RCF_DEFAULT_INIT),
         mReadWriteMutexPtr( new ReadWriteMutex(ReaderPriority) ),
         mPort(port),
         mAcceptorPtr(),
+        mCycleTimerPtr(),
+        mInterrupt(RCF_DEFAULT_INIT),
         mStopFlag(RCF_DEFAULT_INIT),
         pServer(RCF_DEFAULT_INIT)
     {}

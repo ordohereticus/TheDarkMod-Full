@@ -6,10 +6,10 @@
 namespace SF {
 
     static Registry *pRegistry;
-
-    // greebo: Added this missing forward decl.
-    void initRegistrySingleton();
     
+    // greebo: Added missing forward declaration for Linux systems
+    void initRegistrySingleton();
+
     Registry::Registry() :
         readWriteMutex(Platform::Threads::writer_priority)
     {}

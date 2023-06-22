@@ -62,7 +62,7 @@ namespace SF {
             boost::uint32_t count = static_cast<boost::uint32_t >(t.length());
             ar & count;
             dynamic_cast<SF::OStream *>(ar.getStream())->writeRaw(
-                (char *) t.c_str(),
+                t.c_str(),
                 count*sizeof(C));
         }
     }

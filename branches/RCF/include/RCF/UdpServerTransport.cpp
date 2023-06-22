@@ -20,8 +20,8 @@ namespace RCF {
         mpSessionManager(RCF_DEFAULT_INIT),
         mPort(port),
         mFd(-1),
-        mPollingDelayMs(RCF_DEFAULT_INIT),
-        mStopFlag(RCF_DEFAULT_INIT)
+        mStopFlag(RCF_DEFAULT_INIT),
+        mPollingDelayMs(RCF_DEFAULT_INIT)
     {
     }
 
@@ -151,7 +151,8 @@ namespace RCF {
     {
         // poll the UDP socket for messages, and read a message if one is available
 
-        RCF_UNUSED_VARIABLE(stopFlag);
+        //RCF_UNUSED_VARIABLE(stopFlag);
+    	stopFlag == stopFlag;
         fd_set fdSet;
         FD_ZERO(&fdSet);
         FD_SET( static_cast<SOCKET>(mFd), &fdSet);

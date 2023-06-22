@@ -35,6 +35,7 @@ namespace RCF {
     {}
 
     UdpEndpoint::UdpEndpoint(const UdpEndpoint &rhs) :
+    	I_Endpoint(rhs),
         mIp(rhs.mIp),
         mPort(rhs.mPort)
     {}

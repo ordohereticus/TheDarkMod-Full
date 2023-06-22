@@ -367,11 +367,11 @@ namespace RCF {
         mFd(-1),
         mOwn(true),
         mMaxSendSize(1024*1024*10),
-        mError(RCF_DEFAULT_INIT),
         mBytesTransferred(RCF_DEFAULT_INIT),
         mBytesSent(RCF_DEFAULT_INIT),
         mBytesRead(RCF_DEFAULT_INIT),
         mBytesTotal(RCF_DEFAULT_INIT),
+        mError(RCF_DEFAULT_INIT),
         mEndTimeMs(RCF_DEFAULT_INIT)
     {
         memset(&mRemoteAddr, 0, sizeof(mRemoteAddr));
@@ -385,11 +385,11 @@ namespace RCF {
         mFd(-1),
         mOwn(true),
         mMaxSendSize(1024*1024*10),
-        mError(RCF_DEFAULT_INIT),
         mBytesTransferred(RCF_DEFAULT_INIT),
         mBytesSent(RCF_DEFAULT_INIT),
         mBytesRead(RCF_DEFAULT_INIT),
         mBytesTotal(RCF_DEFAULT_INIT),
+        mError(RCF_DEFAULT_INIT),
         mEndTimeMs(RCF_DEFAULT_INIT)
     {
         setTransportFilters( std::vector<FilterPtr>() );
@@ -397,17 +397,18 @@ namespace RCF {
 
     TcpClientTransport::TcpClientTransport(const TcpClientTransport &rhs) :
         I_ClientTransport(rhs),
+        WithProgressCallback(rhs),
         mRemoteAddr(rhs.mRemoteAddr),
         mIp(rhs.mIp),
         mPort(rhs.mPort),
         mFd(-1),
         mOwn(true),
         mMaxSendSize(1024*1024*10),
-        mError(RCF_DEFAULT_INIT),
         mBytesTransferred(RCF_DEFAULT_INIT),
         mBytesSent(RCF_DEFAULT_INIT),
         mBytesRead(RCF_DEFAULT_INIT),
         mBytesTotal(RCF_DEFAULT_INIT),
+        mError(RCF_DEFAULT_INIT),
         mEndTimeMs(RCF_DEFAULT_INIT)
     {
         setTransportFilters( std::vector<FilterPtr>() );
@@ -420,11 +421,11 @@ namespace RCF {
         mFd(fd),
         mOwn(true),
         mMaxSendSize(1024*1024*10),
-        mError(RCF_DEFAULT_INIT),
         mBytesTransferred(RCF_DEFAULT_INIT),
         mBytesSent(RCF_DEFAULT_INIT),
         mBytesRead(RCF_DEFAULT_INIT),
         mBytesTotal(RCF_DEFAULT_INIT),
+        mError(RCF_DEFAULT_INIT),
         mEndTimeMs(RCF_DEFAULT_INIT)
     {
         memset(&mRemoteAddr, 0, sizeof(mRemoteAddr));

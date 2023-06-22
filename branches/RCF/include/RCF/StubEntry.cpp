@@ -21,8 +21,8 @@ namespace RCF {
     }
 
     StubEntry::StubEntry(const RcfClientPtr &rcfClientPtr) :
-        mTimeStamp(getCurrentTimeS()),
-        mRcfClientPtr(rcfClientPtr)
+        mRcfClientPtr(rcfClientPtr),
+        mTimeStamp(getCurrentTimeS())
     {
         RCF_ASSERT(rcfClientPtr);
     }

@@ -19,10 +19,10 @@ namespace RCF {
         const std::string &endpointName,
         const std::string &endpointClientPassword,
         const std::string &endpointServerPassword) :
-            mServerTransportPtr(serverTransportPtr),
             mEndpointName(endpointName),
+            mEndpointServerPassword(endpointServerPassword),
             mEndpointClientPassword(endpointClientPassword),
-            mEndpointServerPassword(endpointServerPassword)
+            mServerTransportPtr(serverTransportPtr)
     {}
 
     boost::int32_t EndpointBroker::bindToEndpoint()

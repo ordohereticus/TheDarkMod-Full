@@ -12,8 +12,8 @@
 namespace RCF {
 
     I_IpServerTransport::I_IpServerTransport() :
-        mReadWriteMutex(WriterPriority),
-        mNetworkInterface("127.0.0.1")
+    	mNetworkInterface("127.0.0.1"),
+    	mReadWriteMutex(WriterPriority)
     {}
 
     void I_IpServerTransport::setNetworkInterface(

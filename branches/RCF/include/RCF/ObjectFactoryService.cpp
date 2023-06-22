@@ -101,8 +101,8 @@ namespace RCF {
         unsigned int clientStubTimeoutS,
         unsigned int cleanupIntervalS,
         float cleanupThreshold) :
+        	mTokenFactory(numberOfTokens),
             mClientStubTimeoutS(clientStubTimeoutS),
-            mTokenFactory(numberOfTokens),
             mCleanupIntervalS(cleanupIntervalS),
             mCleanupThreshold(cleanupThreshold),
             mStubMapMutex(WriterPriority),

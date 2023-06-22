@@ -17,8 +17,8 @@
 namespace RCF {
 
     TcpServerTransport::SessionState::SessionState(Fd fd) :
-        fd(fd),
-        state(Ready)
+    	state(Ready),
+        fd(fd)
     {}
 
     TcpServerTransport::TcpProactor::TcpProactor(
@@ -92,15 +92,15 @@ namespace RCF {
     }
 
     TcpServerTransport::TcpServerTransport(int port /*= 0*/) :
-        allowedIpsMutex(WriterPriority),
-        FdPartitionCount(10),
-        pSessionManager(RCF_DEFAULT_INIT),
-        networkInterface("0.0.0.0"),
-        maxPendingConnectionCount(100),
+    	FdPartitionCount(10),
+    	pSessionManager(RCF_DEFAULT_INIT),
+    	acceptorFd(-1),
+    	mStopFlag(RCF_DEFAULT_INIT),
+    	selecting(RCF_DEFAULT_INIT),
+    	allowedIpsMutex(WriterPriority),
         port(port),
-        selecting(RCF_DEFAULT_INIT),
-        mStopFlag(RCF_DEFAULT_INIT),
-        acceptorFd(-1)
+        networkInterface("0.0.0.0"),
+        maxPendingConnectionCount(100)
     {}
 
     void TcpServerTransport::setSessionManager(I_SessionManager &sessionManager)
@@ -644,7 +644,8 @@ namespace RCF {
 
     void TcpServerTransport::cycle(int timeoutMs, const volatile bool &stopFlag)
     {
-        RCF_UNUSED_VARIABLE(stopFlag);
+        //RCF_UNUSED_VARIABLE(stopFlag);
+    	stopFlag == stopFlag;
         cycleWrite();
         cycleClose();
         cycleAccept();

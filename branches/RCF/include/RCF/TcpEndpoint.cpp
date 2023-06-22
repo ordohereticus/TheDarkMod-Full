@@ -52,6 +52,7 @@ namespace RCF {
     {}
 
     TcpEndpoint::TcpEndpoint(const TcpEndpoint &rhs) :
+    	I_Endpoint(rhs),
         mIp(rhs.mIp),
         mPort(rhs.mPort)
     {}

@@ -16,8 +16,8 @@ namespace RCF {
 
     RcfSession::RcfSession() :
         mFiltered(RCF_DEFAULT_INIT),
-        mStopCallInProgress(RCF_DEFAULT_INIT),
-        mRcfRuntimeVersion(gRcfRuntimeVersion)
+        mRcfRuntimeVersion(gRcfRuntimeVersion),
+        mStopCallInProgress(RCF_DEFAULT_INIT)
     {}
 
     RcfSession::~RcfSession()

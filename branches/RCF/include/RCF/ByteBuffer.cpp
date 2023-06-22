@@ -23,22 +23,22 @@ namespace RCF {
     {}
 
     ByteBuffer::ByteBuffer(std::size_t pvlen) :
+    	mSpvc(new std::vector<char>(pvlen)),
         mPv( mSpvc->empty() ? NULL : &mSpvc->front()),
         mPvlen(pvlen),
         mLeftMargin(RCF_DEFAULT_INIT),
-        mReadOnly(RCF_DEFAULT_INIT),
-        mSpvc(new std::vector<char>(pvlen))           
+        mReadOnly(RCF_DEFAULT_INIT)
     {}
 
     ByteBuffer::ByteBuffer(
         const boost::shared_ptr<std::vector<char> > &spvc,
         bool readOnly) :
+        	mSpvc(spvc),
+        	mSpos(),
             mPv( spvc->empty() ? NULL : const_cast<char*>(&spvc->front())),
             mPvlen(spvc->size()),
             mLeftMargin(RCF_DEFAULT_INIT),
-            mReadOnly(readOnly),
-            mSpvc(spvc),
-            mSpos()
+            mReadOnly(readOnly)
     {}
 
     ByteBuffer::ByteBuffer(
@@ -67,11 +67,11 @@ namespace RCF {
         std::size_t pvlen,
         const boost::shared_ptr<std::ostrstream> &spos,
         bool readOnly) :
+        	mSpos(spos),
             mPv(pv),
             mPvlen(pvlen),
             mLeftMargin(RCF_DEFAULT_INIT),
-            mReadOnly(readOnly),
-            mSpos(spos)
+            mReadOnly(readOnly)
     {}
 
     ByteBuffer::ByteBuffer(
@@ -80,11 +80,11 @@ namespace RCF {
         std::size_t leftMargin,
         const boost::shared_ptr<std::ostrstream> &spos,
         bool readOnly) :
+        	 mSpos(spos),
             mPv(pv),
             mPvlen(pvlen),
             mLeftMargin(leftMargin),
-            mReadOnly(readOnly),
-            mSpos(spos)
+            mReadOnly(readOnly)
     {}
 
     ByteBuffer::ByteBuffer(
@@ -92,11 +92,11 @@ namespace RCF {
         std::size_t pvlen,
         const boost::shared_ptr<std::vector<char> > &spvc,
         bool readOnly) :
+        	mSpvc(spvc),
             mPv(pv),
             mPvlen(pvlen),
             mLeftMargin(RCF_DEFAULT_INIT),
-            mReadOnly(readOnly),
-            mSpvc(spvc)           
+            mReadOnly(readOnly)           
     {}
 
     ByteBuffer::ByteBuffer(
@@ -105,23 +105,23 @@ namespace RCF {
         std::size_t leftMargin,
         const boost::shared_ptr<std::vector<char> > &spvc,
         bool readOnly) :
+        	 mSpvc(spvc),
             mPv(pv),
             mPvlen(pvlen),
             mLeftMargin(leftMargin),
-            mReadOnly(readOnly),
-            mSpvc(spvc)
+            mReadOnly(readOnly)
     {}
 
     ByteBuffer::ByteBuffer(
         const ByteBuffer &byteBuffer,
         std::size_t offset,
         std::size_t len) :
+        	mSpvc(byteBuffer.mSpvc),
+        	mSpos(byteBuffer.mSpos),
             mPv(byteBuffer.mPv + offset),
             mPvlen( len == -1 ? byteBuffer.mPvlen-offset : len),
             mLeftMargin( offset ? 0 : byteBuffer.mLeftMargin),
-            mReadOnly(byteBuffer.mReadOnly),
-            mSpos(byteBuffer.mSpos),
-            mSpvc(byteBuffer.mSpvc)
+            mReadOnly(byteBuffer.mReadOnly)
     {
         RCF_ASSERT(offset <= byteBuffer.mPvlen)(offset)(byteBuffer.mPvlen);
 

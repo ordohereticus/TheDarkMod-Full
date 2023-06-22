@@ -73,11 +73,11 @@ namespace RCF {
         mInterfaceName(interfaceName),
         mRemoteCallTimeoutMs(gClientRemoteCallTimeoutMs),
         mConnectTimeoutMs(gClientConnectTimeoutMs),
-        mConnected(RCF_DEFAULT_INIT),
         mAutoReconnect(true),
+        mConnected(RCF_DEFAULT_INIT),
+        mTries(RCF_DEFAULT_INIT),
         mAutoVersioning(true),
-        mRcfRuntimeVersion(gRcfRuntimeVersion),
-        mTries(RCF_DEFAULT_INIT)
+        mRcfRuntimeVersion(gRcfRuntimeVersion)
     {
     }
 
@@ -90,11 +90,11 @@ namespace RCF {
         mInterfaceName(interfaceName),
         mRemoteCallTimeoutMs(gClientRemoteCallTimeoutMs),
         mConnectTimeoutMs(gClientConnectTimeoutMs),
-        mConnected(RCF_DEFAULT_INIT),
         mAutoReconnect(true),
+        mConnected(RCF_DEFAULT_INIT),
+        mTries(RCF_DEFAULT_INIT),
         mAutoVersioning(true),
-        mRcfRuntimeVersion(gRcfRuntimeVersion),
-        mTries(RCF_DEFAULT_INIT)
+        mRcfRuntimeVersion(gRcfRuntimeVersion)
     {
     }
 
@@ -107,11 +107,11 @@ namespace RCF {
         mInterfaceName(rhs.mInterfaceName),
         mRemoteCallTimeoutMs(rhs.mRemoteCallTimeoutMs),
         mConnectTimeoutMs(rhs.mConnectTimeoutMs),
-        mConnected(RCF_DEFAULT_INIT),
         mAutoReconnect(rhs.mAutoReconnect),
+        mConnected(RCF_DEFAULT_INIT),
+        mTries(RCF_DEFAULT_INIT),
         mAutoVersioning(rhs.mAutoVersioning),
-        mRcfRuntimeVersion(rhs.mRcfRuntimeVersion),
-        mTries(RCF_DEFAULT_INIT)
+        mRcfRuntimeVersion(rhs.mRcfRuntimeVersion)
     {
         setEndpoint( rhs.getEndpoint() );
     }

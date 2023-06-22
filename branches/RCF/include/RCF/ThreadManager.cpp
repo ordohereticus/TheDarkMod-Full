@@ -122,8 +122,8 @@ namespace RCF {
     // FixedThreadPool
 
     FixedThreadPool::FixedThreadPool(std::size_t threadCount) :
-        mThreadCount(threadCount),
-        mStarted(RCF_DEFAULT_INIT)
+    	mStarted(RCF_DEFAULT_INIT),
+        mThreadCount(threadCount)
     {
         RCF1_TRACE("");
     }
@@ -266,7 +266,8 @@ namespace RCF {
             static_cast<int>(mThreads.size()) <= mThreadMaxCount)
             (mThreads.size())(mThreadMaxCount);
 
-        if (static_cast<int>(mThreads.size()) == mThreadMaxCount)
+       // if (static_cast<int>(mThreads.size()) == mThreadMaxCount)
+        if (mThreads.size() == mThreadMaxCount)
         {
             return false; // out of threads
         }
