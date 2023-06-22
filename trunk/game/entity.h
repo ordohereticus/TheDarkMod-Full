@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1683 $
- * $Date: 2007-11-04 19:46:10 -0500 (Sun, 04 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1894 $
+ * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -894,6 +894,9 @@ protected:
 	void					Event_IsFrobable( void );
 	void					Event_SetFrobable( bool bVal );
 	void					Event_IsHilighted( void );
+
+	// Frobs this entity.
+	void					Event_Frob();
 
 private:
 	idPhysics_Static		defaultPhysicsObj;					// default physics object

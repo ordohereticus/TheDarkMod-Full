@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1843 $
- * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Revision: 1894 $
+ * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1894 2007-12-25 18:32:39Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -2605,6 +2605,11 @@ void Cmd_SignalCMDDone_f(const idCmdArgs& args)
 	}
 }
 
+void Cmd_TDM_Toggle_Menu_f(const idCmdArgs& args)
+{
+	gameLocal.Printf("Toggling menu.");
+}
+
 /*
 =================
 idGameLocal::InitConsoleCommands
@@ -2701,6 +2706,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "inventory_hotkey",		Cmd_InventoryHotkey_f,		CMD_FL_GAME,				"Usage: inventory_hotkey [item]\nSelects an item from the currently available inventory. If 'item' is omitted, it will return the current item's hotkey name, if any." );
 	cmdSystem->AddCommand( "inventory_use",			Cmd_InventoryUse_f,			CMD_FL_GAME,				"Usage: inventory_use [item]\nUses an item in the currently available inventory without selectign it. If 'item' is omitted, it will use the currently selected item." );
 
+	cmdSystem->AddCommand( "tdm_toggle_menu",		Cmd_TDM_Toggle_Menu_f,		CMD_FL_GAME,				"Toggles the menu (when no map is loaded) or the objectives screen (during map runtime)." );
 	cmdSystem->AddCommand( "darkradiant_signal_cmd_done",	Cmd_SignalCMDDone_f,		CMD_FL_GAME,				"Called by DarkRadiant to receive the DONE signal after issuing commands." );
 
 #ifndef	ID_DEMO_BUILD

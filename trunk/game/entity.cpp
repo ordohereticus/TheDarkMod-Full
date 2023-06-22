@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1892 $
- * $Date: 2007-12-25 06:25:58 -0500 (Tue, 25 Dec 2007) $
- * $Author: tels $
+ * $Revision: 1894 $
+ * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1892 2007-12-25 11:25:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1894 2007-12-25 18:32:39Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -207,6 +207,7 @@ const idEventDef EV_CopyBind( "copyBind", "e" );
 const idEventDef EV_IsFrobable( "isFrobable", NULL, 'd' );
 const idEventDef EV_SetFrobable( "setFrobable", "d" );
 const idEventDef EV_IsHilighted( "isHilighted", NULL, 'd' );
+const idEventDef EV_Frob("frob", NULL, 'd');
 
 // greebo: Script event to check whether this entity can see a target entity
 const idEventDef EV_CanSeeEntity("canSeeEntity", "ed", 'd');
@@ -363,6 +364,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_IsFrobable,			idEntity::Event_IsFrobable )
 	EVENT( EV_SetFrobable,			idEntity::Event_SetFrobable )
 	EVENT( EV_IsHilighted,			idEntity::Event_IsHilighted )
+	EVENT( EV_Frob,					idEntity::Event_Frob )
 	EVENT( EV_CanSeeEntity,			idEntity::Event_CanSeeEntity )
 
 END_CLASS
@@ -7545,6 +7547,16 @@ void idEntity::Event_SetFrobable( bool bVal )
 void idEntity::Event_IsFrobable( void )
 {
 	idThread::ReturnInt( (int) m_bFrobable );
+}
+
+void idEntity::Event_Frob()
+{
+	idPlayer* player = static_cast<idPlayer*>(gameLocal.entities[gameLocal.localClientNum]);
+	if (player != NULL)
+	{
+		// Let the player frob this entity.
+		player->PerformFrob(this);
+	}
 }
 
 void idEntity::Event_IsHilighted( void )

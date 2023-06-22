@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1892 $
- * $Date: 2007-12-25 06:25:58 -0500 (Tue, 25 Dec 2007) $
- * $Author: tels $
+ * $Revision: 1894 $
+ * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1892 2007-12-25 11:25:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1894 2007-12-25 18:32:39Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9463,53 +9463,78 @@ CInventoryItem* idPlayer::AddToInventory(idEntity *ent, idUserInterface *_hud) {
 	return returnValue;
 }
 
+void idPlayer::PerformFrob(idEntity* target)
+{
+	if (target == NULL) {
+		return;
+	}
+
+	if (target->IsHidden()) {
+		// greebo: Don't perform frobs on hidden entities
+		return;
+	}
+
+	CDarkModPlayer* pDM = g_Global.m_DarkModPlayer;
+	assert(pDM != NULL); // must not be NULL
+
+	// greebo: Check the frob entity, this might be the same as the argument
+	// Retrieve the entity before trying to add it to the inventory, the pointer
+	// might be cleared after calling AddToInventory().
+	idEntity* highlightedEntity = pDM->m_FrobEntity.GetEntity();
+
+	// Fire the STIM_FROB response (if defined) on this entity
+	target->ResponseTrigger(this, ST_FROB);
+	
+	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob target: %s \r", target->name.c_str());
+
+	// First we have to check wether that entity is an inventory 
+	// item. In that case, we have to add it to the inventory and
+	// hide the entity.
+	CInventoryItem* item = AddToInventory(target, hud);
+
+	// Check if the frobbed entity is the one currently highlighted by the player
+	if (item != NULL && highlightedEntity == target) {
+		// Item has been added to the inventory, clear the entity pointer
+		pDM->m_FrobEntity = NULL;
+
+		// greebo: Release any items from the grabber, this immobilized the player somehow before
+		pDM->grabber->Update( this, false );
+
+		// greebo: Prevent the grabber from checking the added entity (it may be 
+		// entirely removed from the game, which would cause crashes).
+		pDM->grabber->RemoveFromClipList(target);
+	}
+	else
+	{
+		// greebo: Only perform the default FrobAction if adding the item to the
+		// inventory has failed.
+		target->FrobAction(true);
+	}
+}
+
 void idPlayer::PerformFrob(void)
 {
-	idEntity *frob;
-	CDarkModPlayer *pDM = g_Global.m_DarkModPlayer;
-
 	// Ignore frobs if player-frobbing is immobilized.
 	if ( GetImmobilization() & EIM_FROB )
-		goto Quit;
+	{
+		return;
+	}
+
+	CDarkModPlayer* pDM = g_Global.m_DarkModPlayer;
 
 	// if the grabber is currently holding something and frob is pressed,
 	// release it.  Do not frob anything new since you're holding an item.
 	if( pDM->grabber->GetSelected() )
 	{
 		pDM->grabber->Update( this );
-		goto Quit;
+		return;
 	}
 
-	frob = pDM->m_FrobEntity.GetEntity();
+	// Get the currently frobbed entity
+	idEntity* frob = pDM->m_FrobEntity.GetEntity();
 
-	if(frob != NULL)
-	{
-		// Fire the STIM_FROB response (if defined) on this entity
-		frob->ResponseTrigger(this, ST_FROB);
-		
-		frob->FrobAction(true);
-
-		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob: %s \r", frob->name.c_str());
-
-		// First we have to check wether that entity is an inventory 
-		// item. In that case, we have to add it to the inventory and
-		// hide the entity.
-		CInventoryItem* item = AddToInventory(frob, hud);
-
-		if (item != NULL) {
-			// Item has been added to the inventory
-			pDM->m_FrobEntity = NULL;
-
-			// greebo: Release any items from the grabber, this immobilized the player somehow before
-			pDM->grabber->Update( this, false );
-
-			// greebo: Prevent the grabber from checking the added entity (it may be 
-			// entirely removed from the game, which would cause crashes).
-			pDM->grabber->RemoveFromClipList(frob);
-		}
-	}
-Quit:
-	return;
+	// Relay the function to the specialised method
+	PerformFrob(frob);
 }
 
 void idPlayer::setHealthPoolTimeInterval(int newTimeInterval, float factor, int stepAmount) {

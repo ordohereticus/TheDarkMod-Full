@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1843 $
- * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Revision: 1894 $
+ * $Date: 2007-12-25 13:32:39 -0500 (Tue, 25 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -571,10 +571,16 @@ public:
 	**/
 	void					FrobCheck( void );
 
+	// Gets called when the player hits the frob button.
+	void					PerformFrob();
+
 	/**
-	 *
+	 * greebo: Performs a frob action on the given entity. The above method
+	 *         PerformFrob() without arguments redirects the call to this one.
+	 *         This method might be invoked by scripts as well to simulate a 
+	 *         frob action without having the player to hit any buttons.
 	 */
-	void					PerformFrob(void);
+	void					PerformFrob(idEntity* frobbed);
 
 	/**
 	 * AdjustLightgem will calculate how much the lightgem should light up.
