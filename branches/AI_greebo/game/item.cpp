@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1631 $
+ * $Date: 2007-11-01 10:40:55 -0400 (Thu, 01 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1631 2007-11-01 14:40:55Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -332,7 +332,7 @@ void idItem::Spawn( void )
 		{
 			gameLocal.Error( "Item couldn't find owner '%s'", giveTo.c_str() );
 		}
-		PostEventMS( &EV_Touch, 0, ent, NULL );
+		PostEventMS( &EV_Touch, 0, ent, 0 );
 	}
 
 	if ( spawnArgs.GetBool( "spin" ) || gameLocal.isMultiplayer )
@@ -674,6 +674,7 @@ idItem::Event_Touch
 ================
 */
 void idItem::Event_Touch( idEntity *other, trace_t *trace ) {
+	/* only allow touches from the player */
 	if ( !other->IsType( idPlayer::Type ) ) {
 		return;
 	}
