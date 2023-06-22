@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1758 $
- * $Date: 2007-11-12 02:08:40 -0500 (Mon, 12 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1853 $
+ * $Date: 2007-12-06 06:34:06 -0500 (Thu, 06 Dec 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1758 2007-11-12 07:08:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1853 2007-12-06 11:34:06Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3839,6 +3839,10 @@ int idActor::GetNumMeleeWeapons()
 int idActor::GetNumRangedWeapons()
 {
 	int numRangedWeapons(0);
+	
+	if (spawnArgs.GetBool("unarmed_ranged", "0")) {
+		return 1;
+	}
 
 	for (int i = 0; i < m_attachments.Num(); i++)
 	{

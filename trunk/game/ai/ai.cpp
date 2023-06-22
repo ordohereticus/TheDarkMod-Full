@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1845 $
- * $Date: 2007-11-23 16:16:45 -0500 (Fri, 23 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1853 $
+ * $Date: 2007-12-06 06:34:06 -0500 (Thu, 06 Dec 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1845 2007-11-23 21:16:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1853 2007-12-06 11:34:06Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -2046,7 +2046,11 @@ int idAI::PointReachableAreaNum( const idVec3 &pos, const float boundsScale ) co
 	bounds[0] = -size;
 	size.z = 32.0f;
 	bounds[1] = size;
-
+/*
+	idBounds temp(bounds);
+	temp.TranslateSelf(pos);
+	gameRenderWorld->DebugBox(colorGreen, idBox(temp),gameLocal.msec);
+*/
 	if ( move.moveType == MOVETYPE_FLY ) {
 		areaNum = aas->PointReachableAreaNum( pos, bounds, AREA_REACHABLE_WALK | AREA_REACHABLE_FLY );
 	} else {
@@ -5301,19 +5305,29 @@ bool idAI::EntityInAttackCone(idEntity* ent)
 	return ( idMath::Fabs( relYaw ) < ( attack_cone * 0.5f ) );
 }
 
-bool idAI::CanHitEntity(idActor* entity)
+bool idAI::CanHitEntity(idActor* entity, ECombatType combatType)
 {
 	if (entity != NULL)
 	{
-		if (GetNumRangedWeapons() > 0)
-		{
-			return TestRanged();
-		}
-		else if (GetNumMeleeWeapons() > 0)
+		if (combatType == COMBAT_MELEE)
 		{
 			return TestMelee();
 		}
-
+		else if (combatType == COMBAT_RANGED)
+		{
+			return TestRanged();
+		}
+		else
+		{
+			if (GetNumRangedWeapons() > 0)
+			{
+				return TestRanged();
+			}
+			else if (GetNumMeleeWeapons() > 0)
+			{
+				return TestMelee();
+			}
+		}
 	}
 
 	return false;
@@ -5371,7 +5385,6 @@ void idAI::UpdateEnemyPosition()
 			{
 				// We have a valid enemy area number
 				// Get the own area number
-				areaNum = PointReachableAreaNum(org);
 
 				// Try to setup a path to the goal
 				aasPath_t path;
