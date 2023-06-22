@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1670 $
- * $Date: 2007-11-03 17:14:55 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1711 $
+ * $Date: 2007-11-06 06:22:54 -0500 (Tue, 06 Nov 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1670 2007-11-03 21:14:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1711 2007-11-06 11:22:54Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1426,166 +1426,9 @@ query that is within MoveToAttackPosition
 */
 void idAI::Event_GetObservationPosition (const idVec3& pointToObserve, const float visualAcuityZeroToOne)
 {
-	int				areaNum;
-	aasObstacle_t	obstacle;
-	aasGoal_t		goal;
-	idBounds		bounds;
-	idVec3			observeFromPos;
-	aasPath_t	path;
-
-	if ( !aas ) 
-	{	
-		observeFromPos = GetPhysics()->GetOrigin();
-		idThread::ReturnVector (observeFromPos);
-		AI_DEST_UNREACHABLE = true;
-		return;
-	}
-
-	const idVec3 &org = physicsObj.GetOrigin();
-	areaNum	= PointReachableAreaNum( org );
-
-	// Raise point up just a bit so it isn't on the floor of the aas
-	idVec3 pointToObserve2 = pointToObserve;
-	pointToObserve2.z += 45.0;
-
-	// What is the lighting along the line where the thing to be observed
-	// might be.
-	float maxDistanceToObserve = getMaximumObservationDistance
-	(
-		pointToObserve,
-		pointToObserve2,
-		NULL
-	);
-		
-	idAASFindObservationPosition findGoal
-	(
-		this, 
-		physicsObj.GetGravityAxis(), 
-		pointToObserve2, 
-		GetEyePosition() - org,  // Offset of eye from origin
-		maxDistanceToObserve // Maximum distance from which we can observe
-	);
-
-	if (!aas->FindNearestGoal
-	(
-		goal, 
-		areaNum, 
-		org,
-		pointToObserve2, // It is also the goal target
-		travelFlags, 
-		NULL, 
-		0, 
-		findGoal 
-	) ) 
-	{
-		float bestDistance;
-
-		// See if we can get to the point itself since noplace was good enough
-		// for just looking from a distance due to lighting/occlusion/reachability.
-		if (PathToGoal( path, areaNum, physicsObj.GetOrigin(), areaNum, org ) ) 
-		{
-
-			// Can reach the point itself, so walk right up to it
-			observeFromPos = pointToObserve; 
-
-			// Draw the AI Debug Graphics
-			if (cv_ai_search_show.GetInteger() >= 1.0)
-			{
-				idVec4 markerColor (0.0, 1.0, 1.0, 1.0);
-				idVec3 arrowLength (0.0, 0.0, 50.0);
-
-				gameRenderWorld->DebugArrow
-				(
-					markerColor,
-					observeFromPos + arrowLength,
-					observeFromPos,
-					2,
-					cv_ai_search_show.GetInteger()
-				);
-			}
-
-		}
-		else if (findGoal.getBestGoalResult
-		(
-			bestDistance,
-			goal
-		))
-		{
-
-			// Use closest reachable observation point that we found
-			observeFromPos = goal.origin;
-
-			// Draw the AI Debug Graphics
-			if (cv_ai_search_show.GetInteger() >= 1.0)
-			{
-				idVec4 markerColor (1.0, 1.0, 0.0, 1.0);
-				idVec3 arrowLength (0.0, 0.0, 50.0);
-
-				gameRenderWorld->DebugArrow
-				(
-					markerColor,
-					observeFromPos,
-					pointToObserve,
-					2,
-					cv_ai_search_show.GetInteger()
-				);
-			}
-
-		}
-		else
-		{
-			// No choice but to try to walk up to it as much as we can
-			observeFromPos = pointToObserve; 
-
-			// Draw the AI Debug Graphics
-			if (cv_ai_search_show.GetInteger() >= 1.0)
-			{
-				idVec4 markerColor (1.0, 0.0, 0.0, 1.0);
-				idVec3 arrowLength (0.0, 0.0, 50.0);
-
-				gameRenderWorld->DebugArrow
-				(
-					markerColor,
-					observeFromPos + arrowLength,
-					observeFromPos,
-					2,
-					cv_ai_search_show.GetInteger()
-				);
-			}
-
-		}
-		
-		
-		idThread::ReturnVector (observeFromPos);
-
-		
-		return;
-	}
-	else
-	{
-		observeFromPos = goal.origin;
-		AI_DEST_UNREACHABLE = false;
-
-		// Draw the AI Debug Graphics
-		if (cv_ai_search_show.GetInteger() >= 1.0)
-		{
-			idVec4 markerColor (0.0, 1.0, 0.0, 1.0);
-			idVec3 arrowLength (0.0, 0.0, 50.0);
-
-			gameRenderWorld->DebugArrow
-			(
-				markerColor,
-				observeFromPos,
-				pointToObserve,
-				2,
-				cv_ai_search_show.GetInteger()
-			);
-		}
-
-		idThread::ReturnVector (observeFromPos);
-		return;
-	}
-	
+	idVec3 observeFromPos = GetObservationPosition(pointToObserve, visualAcuityZeroToOne);
+	idThread::ReturnVector (observeFromPos);
+	return;
 }
 
 /*

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1680 $
- * $Date: 2007-11-04 16:17:31 -0500 (Sun, 04 Nov 2007) $
+ * $Revision: 1711 $
+ * $Date: 2007-11-06 06:22:54 -0500 (Tue, 06 Nov 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1189,6 +1189,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * greebo: Flee from the given entity. Pass the maximum distance this AI should search escape areas in.
 	 */
 	bool					Flee(idEntity* entityToFleeFrom, int algorithm, int distanceOption);
+	aasGoal_t				GetPositionWithinRange(const idVec3& targetPos);
+	idVec3					GetObservationPosition (const idVec3& pointToObserve, const float visualAcuityZeroToOne);
 	bool					MoveToAttackPosition( idEntity *ent, int attack_anim );
 	bool					MoveToEnemy( void );
 	bool					MoveToEntity( idEntity *ent );
