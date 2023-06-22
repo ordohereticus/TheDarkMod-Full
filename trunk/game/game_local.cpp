@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1612 $
- * $Date: 2007-10-31 06:25:31 -0400 (Wed, 31 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1616 $
+ * $Date: 2007-10-31 10:22:24 -0400 (Wed, 31 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1612 2007-10-31 10:25:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1616 2007-10-31 14:22:24Z sparhawk $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5264,6 +5264,7 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 			// The result is an image that is split in four triangles with an angle of 
 			// 45 degree, thus the square shape.
 			renderSystem->CropRenderSize(dim, dim, true);
+			gameRenderWorld->SetRenderView(&rv);
 			gameRenderWorld->RenderScene(&rv);
 			renderSystem->CaptureRenderToFile(name);
 			dp = cv_lg_path.GetString();
