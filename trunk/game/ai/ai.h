@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2175 $
- * $Date: 2008-04-11 15:27:35 -0400 (Fri, 11 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2179 $
+ * $Date: 2008-04-13 12:02:11 -0400 (Sun, 13 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -762,6 +762,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	// angua: the highest alert level the AI reached already 
 	float						m_maxAlertLevel;
 
+	// angua: the alert level the AI had after the last alert level increase
+	float						m_lastAlertLevel;
+
 	/**
 	* If true, the AI ignores alerts during all actions
 	**/
@@ -1325,6 +1328,13 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* like determining what targets to engage with ranged weapons.
 	**/	
 	idActor * FindNearestEnemy( bool useFOV = true );
+
+
+	/**
+	 * angua: this returns if the AI has seen evidence of an intruder already 
+	 * (the enemy, a body, missing loot...)
+	 */
+	bool HasSeenEvidence();
 
 	/**
 	* Draw the debug cone representing valid knockout area

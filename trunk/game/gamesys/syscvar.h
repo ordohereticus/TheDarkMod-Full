@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2166 $
- * $Date: 2008-04-04 07:36:44 -0400 (Fri, 04 Apr 2008) $
- * $Author: crispy $
+ * $Revision: 2179 $
+ * $Date: 2008-04-13 12:02:11 -0400 (Sun, 13 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -21,6 +21,7 @@
 * DarkMod cvars - See text description in syscvar.cpp for descriptions
 **/
 extern idCVar cv_ai_sndvol;
+extern idCVar cv_ai_bark_show;
 extern idCVar cv_ai_bumpobject_impulse;
 extern idCVar cv_ai_sight_prob;
 extern idCVar cv_ai_sight_mag;
