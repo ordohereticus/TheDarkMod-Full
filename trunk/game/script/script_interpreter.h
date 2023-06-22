@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1425 $
+ * $Date: 2007-10-14 08:13:12 -0400 (Sun, 14 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,6 +12,10 @@
 
 #ifndef __SCRIPT_INTERPRETER_H__
 #define __SCRIPT_INTERPRETER_H__
+
+#ifdef PROFILE_SCRIPT
+#include <stack>
+#endif
 
 #define MAX_STACK_DEPTH 	64
 #define LOCALSTACK_SIZE 	6144
@@ -41,6 +45,11 @@ private:
 	idEntity			*eventEntity;
 
 	idThread			*thread;
+
+#ifdef PROFILE_SCRIPT
+	typedef std::stack<idTimer> TimerStack;
+	TimerStack			functionTimers;
+#endif
 
 	void				PopParms( int numParms );
 	void				PushString( const char *string );

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1408 $
- * $Date: 2007-10-07 05:40:48 -0400 (Sun, 07 Oct 2007) $
- * $Author: ishtvan $
+ * $Revision: 1425 $
+ * $Date: 2007-10-14 08:13:12 -0400 (Sun, 14 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1408 2007-10-07 09:40:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1425 2007-10-14 12:13:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1519,7 +1519,19 @@ void idActor::UpdateScript( void ) {
 			// don't call script until it's done waiting
 			if ( scriptThread->IsWaiting() ) break;
 	        
+#ifdef PROFILE_SCRIPT
+			idTimer scriptTimer(0);
+			scriptTimer.Clear();
+			DM_LOG(LC_AI, LT_INFO).LogString("Entering Task thread on entity %s, task is %s.", name.c_str(), task.c_str());
+			scriptTimer.Start();
+#endif
+
 			scriptThread->Execute();
+
+#ifdef PROFILE_SCRIPT
+			scriptTimer.Stop();
+			DM_LOG(LC_AI, LT_INFO).LogString("AI Script thread on entity %s took %lf msec, task is %s.", name.c_str(), scriptTimer.Milliseconds(), task.c_str());
+#endif
 			
 			// If the function returned, the task is done, so look for another task
 			if (scriptThread->IsDying() && task.Length())

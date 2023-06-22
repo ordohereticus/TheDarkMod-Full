@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1425 $
+ * $Date: 2007-10-14 08:13:12 -0400 (Sun, 14 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -35,6 +35,9 @@ public:
 	void			Start( void );
 	void			Stop( void );
 	void			Clear( void );
+
+	bool			Running() const;
+
 	double			ClockTicks( void ) const;
 	double			Milliseconds( void ) const;
 
@@ -146,6 +149,16 @@ ID_INLINE void idTimer::Stop( void ) {
 		clockTicks -= base;
 	}
 	state = TS_STOPPED;
+}
+
+/*
+=================
+TDM: idTimer::Clear
+=================
+*/
+ID_INLINE bool idTimer::Running() const
+{
+	return state == TS_STARTED;
 }
 
 /*
