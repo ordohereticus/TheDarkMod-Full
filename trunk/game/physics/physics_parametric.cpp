@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2209 $
- * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2236 $
+ * $Date: 2008-04-27 10:02:29 -0400 (Sun, 27 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2209 2008-04-24 20:18:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2236 2008-04-27 14:02:29Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -442,6 +442,10 @@ idPhysics_Parametric::GetLocalOrigin
 */
 void idPhysics_Parametric::GetLocalOrigin( idVec3 &curOrigin ) const {
 	curOrigin = current.localOrigin;
+}
+
+const idVec3& idPhysics_Parametric::GetLocalOrigin() const {
+	return current.localOrigin;
 }
 
 /*
