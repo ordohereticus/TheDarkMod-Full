@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1345 $
- * $Date: 2007-08-29 04:21:00 -0400 (Wed, 29 Aug 2007) $
+ * $Revision: 1423 $
+ * $Date: 2007-10-11 05:36:55 -0400 (Thu, 11 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -377,13 +377,6 @@ public:
 private:
 	int						spawnId;
 };
-
-//============================================================================
-
-typedef struct {
-	idStr		mTarget;
-	idStr		mItem;
-} SInventoryTarget;
 
 //============================================================================
 
@@ -805,22 +798,6 @@ public:
 	void					AddSDKSignal(idEntity *oObject);
 
 	/**
-	 * Adds an entity to the list, that needs to be put into various inventories
-	 * but the target has not spawned yet, so we have to wait until the target spawns.
-	 */
-	void					AddInventoryEntity(const idStr &Targetname, const idStr &ItemName);
-
-	/**
-	 * Returns the first entity that registered itself to be put into the targets
-	 * inventory. For each successive call, the next entities are returned, as each
-	 * entity is removed from the list. The function can be called as long as true is 
-	 * returned. If true is returned, the idEntity pointer can still be NULL though
-	 * because the entity can be destroyed already. If fasle is returned no more entries
-	 * exist for this targetname.
-	 */
-	bool GetInventoryEntity(const idStr &Targetname, idEntity **);
-
-	/**
 	 * greebo: Returns the priority queue with the given index
 	 *		   or NULL for invalid indices.
 	 */
@@ -829,7 +806,6 @@ public:
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;
 
-	idList<SInventoryTarget *>	mInventoryList;	// List of entities to be put in some inventory
 	idStr					mapFileName;			// name of the map, empty string if no map loaded
 	idMapFile *				mapFile;				// will be NULL during the game unless in-game editing is used
 	bool					mapCycleLoaded;

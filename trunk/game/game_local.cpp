@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1422 $
- * $Date: 2007-10-11 04:09:25 -0400 (Thu, 11 Oct 2007) $
+ * $Revision: 1423 $
+ * $Date: 2007-10-11 05:36:55 -0400 (Thu, 11 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1422 2007-10-11 08:09:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1423 2007-10-11 09:36:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5838,40 +5838,6 @@ void idGameLocal::PauseGame( bool bPauseState )
 		
 		g_stopTime.SetBool( false );
 	}
-}
-
-void idGameLocal::AddInventoryEntity(const idStr &TargetName, const idStr &ItemName)
-{
-	SInventoryTarget *s = new SInventoryTarget();
-	s->mTarget = TargetName;
-	s->mItem = ItemName;
-	mInventoryList.Append(s);
-}
-
-bool idGameLocal::GetInventoryEntity(const idStr &TargetName, idEntity **e)
-{
-	bool rc = false;
-	int i;
-
-	if(e == NULL)
-		goto Quit;
-
-	*e = NULL;
-
-	for(i = 0; i < mInventoryList.Num(); i++)
-	{
-		if(mInventoryList[i]->mTarget == TargetName)
-		{
-			*e = FindEntity(mInventoryList[i]->mItem);
-			delete mInventoryList[i];
-			mInventoryList.RemoveIndex(i);
-			rc = true;
-			break;
-		}
-	}
-
-Quit:
-	return rc;
 }
 
 CPriorityQueue*	idGameLocal::GetPriorityQueue(int index)
