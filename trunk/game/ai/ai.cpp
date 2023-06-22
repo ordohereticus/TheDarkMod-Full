@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2179 $
- * $Date: 2008-04-13 12:02:11 -0400 (Sun, 13 Apr 2008) $
+ * $Revision: 2187 $
+ * $Date: 2008-04-18 11:57:23 -0400 (Fri, 18 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2179 2008-04-13 16:02:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2187 2008-04-18 15:57:23Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5136,6 +5136,19 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 	// Update TDM objective system
 	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, bPlayerResponsible );
+}
+
+
+/*
+=====================
+idAI::PostDeath
+=====================
+*/
+void idAI::PostDeath()
+{
+	headAnim.Disable();
+	legsAnim.Disable();
+	torsoAnim.Disable();
 }
 
 /***********************************************************************
