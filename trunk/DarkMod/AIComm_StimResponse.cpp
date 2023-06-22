@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1192 $
- * $Date: 2007-07-22 16:21:50 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1195 $
+ * $Date: 2007-07-22 17:25:52 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1192 2007-07-22 20:21:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1195 2007-07-22 21:25:52Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
@@ -164,13 +164,6 @@ void CAIComm_Response::TriggerResponse(idEntity *StimEnt, CStim* stim)
 	else
 	{
 		DM_LOG(LC_STIM_RESPONSE, LT_ERROR)LOGSTRING("ResponseActionScript not found! [%s]\r", m_ScriptFunction.c_str());
-	}
-
-	// Continue the chain if we have a followup response to be triggered.
-	if(m_FollowUp != NULL)
-	{
-		DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Followup: %08lX\r", m_FollowUp);
-		m_FollowUp->TriggerResponse(StimEnt, stim);
 	}
 }
 
