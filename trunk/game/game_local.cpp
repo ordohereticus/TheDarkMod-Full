@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1162 $
- * $Date: 2007-07-20 06:09:49 -0400 (Fri, 20 Jul 2007) $
+ * $Revision: 1163 $
+ * $Date: 2007-07-20 09:15:04 -0400 (Fri, 20 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1162 2007-07-20 10:09:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1163 2007-07-20 13:15:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -702,6 +702,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 	{
 		m_PriorityQueues[i]->Save(&savegame);
 	}
+
+	// Save the lightgem entity spawnId
+	m_LightgemSurface.Save(&savegame);
 
 	// spawnSpots
 	// initialSpots
@@ -1585,6 +1588,16 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 		m_PriorityQueues.Append(queue);
 	}
 
+	// Restore the lightgem entity pointer
+	m_LightgemSurface.Restore(&savegame);
+
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->suppressShadowInViewID = 0;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->noDynamicInteractions = false;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->noShadow = true;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->noSelfShadow = true;
+	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface.GetEntity());
+
 	// spawnSpots
 	// initialSpots
 	// currentInitialSpot
@@ -1605,15 +1618,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	animationLib.FlushUnusedAnims();
 
 	gamestate = GAMESTATE_ACTIVE;
-
-	// Set the lightgem surface pointer to the lightgem entity
-	m_LightgemSurface = FindEntity(DARKMOD_LG_ENTITY_NAME);
-	m_LightgemSurface->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
-	m_LightgemSurface->GetRenderEntity()->suppressShadowInViewID = 0;
-	m_LightgemSurface->GetRenderEntity()->noDynamicInteractions = false;
-	m_LightgemSurface->GetRenderEntity()->noShadow = true;
-	m_LightgemSurface->GetRenderEntity()->noSelfShadow = true;
-	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface);
 
 	//FIX: Set the walkspeed back to the stored value.
 	pm_walkspeed.SetFloat( m_walkSpeed );
@@ -3626,12 +3630,12 @@ void idGameLocal::SpawnMapEntities( void ) {
 	}
 
 	m_LightgemSurface = gameLocal.FindEntity(DARKMOD_LG_ENTITY_NAME);
-	m_LightgemSurface->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
-	m_LightgemSurface->GetRenderEntity()->suppressShadowInViewID = 0;
-	m_LightgemSurface->GetRenderEntity()->noDynamicInteractions = false;
-	m_LightgemSurface->GetRenderEntity()->noShadow = true;
-	m_LightgemSurface->GetRenderEntity()->noSelfShadow = true;
-	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface);
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->suppressShadowInViewID = 0;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->noDynamicInteractions = false;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->noShadow = true;
+	m_LightgemSurface.GetEntity()->GetRenderEntity()->noSelfShadow = true;
+	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface.GetEntity());
 
 	Printf( "...%i entities spawned, %i inhibited\n\n", num, inhibit );
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("... %i entities spawned, %i inhibited\r", num, inhibit);
@@ -4970,7 +4974,7 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 	HANDLE hPipe;
 	const char *dp = NULL;
 
-	lg = m_LightgemSurface;
+	lg = m_LightgemSurface.GetEntity();
 	idVec3 Cam = player->GetEyePosition();
 	idVec3 Pos = player->GetPhysics()->GetOrigin();
 	idVec3 LGPos = Cam;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 932 $
- * $Date: 2007-04-21 13:57:55 -0400 (Sat, 21 Apr 2007) $
- * $Author: sparhawk $
+ * $Revision: 1163 $
+ * $Date: 2007-07-20 09:15:04 -0400 (Fri, 20 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -852,7 +852,7 @@ private:
 	 * Lightgemsurface contains a pointer to the lightgem surface entity. This
 	 * is constantly required and therfore we store it permanently.
 	 */
-	idEntity				*m_LightgemSurface;
+	idEntityPtr<idEntity>	m_LightgemSurface;
 	bool					m_DoLightgem;		// Signal when the lightgem may be processed.
 	int						m_LightgemShotSpot;
 	float					m_LightgemShotValue[DARKMOD_LG_MAX_RENDERPASSES];
