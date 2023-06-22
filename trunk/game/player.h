@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1912 $
- * $Date: 2007-12-27 12:31:43 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1917 $
+ * $Date: 2007-12-27 15:54:02 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -776,7 +776,7 @@ private:
 	 *         via script events to allow several modifiers to be active at the same time.
 	 *         To save for performance, the sum of these values is stored in m_LightgemModifier
 	 */
-	std::map<idStr, int>	m_LightgemModifierList;
+	std::map<std::string, int>	m_LightgemModifierList;
 
 	// greebo: The sum of the values in the above list
 	int						m_LightgemModifier;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1912 $
- * $Date: 2007-12-27 12:31:43 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1917 $
+ * $Date: 2007-12-27 15:54:02 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1912 2007-12-27 17:31:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1917 2007-12-27 20:54:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1322,7 +1322,7 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt(m_LightgemModifier);
 
 	savefile->WriteInt(static_cast<int>(m_LightgemModifierList.size()));
-	for (std::map<idStr, int>::const_iterator i = m_LightgemModifierList.begin(); i != m_LightgemModifierList.end(); i++)
+	for (std::map<std::string, int>::const_iterator i = m_LightgemModifierList.begin(); i != m_LightgemModifierList.end(); i++)
 	{
 		savefile->WriteString(i->first.c_str());
 		savefile->WriteInt(i->second);
@@ -1631,7 +1631,7 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 		savefile->ReadString(name);
 		savefile->ReadInt(value);
 		// Store the pair into the map
-		m_LightgemModifierList[name] = value;
+		m_LightgemModifierList[std::string(name.c_str())] = value;
 	}
 
 	// create combat collision hull for exact collision detection
@@ -9697,30 +9697,26 @@ void idPlayer::Event_SetLightgemModifier(const char* modifierName, int amount)
 	if (amount != 0)
 	{
 		DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Setting modifier %s to %d\r", modifierName, amount);
-		m_LightgemModifierList[modifierName] = amount;
+		m_LightgemModifierList[std::string(modifierName)] = amount;
 	}
 	else 
 	{
 		DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Removing modifier %s as %d was passed\r", modifierName, amount);
 		// Zero value passed, remove the named value
-		idStr modifierNameStr(modifierName);
-		std::map<idStr, int>::iterator i = m_LightgemModifierList.begin();//find(modifierNameStr);
-		while (i != m_LightgemModifierList.end())
-		{
-			if (i->first == modifierNameStr)
-			{
-				// Value found, remove it
-				m_LightgemModifierList.erase(i);
-				DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Removed.\r");
-				break;
-			}
+		std::string modifierNameStr(modifierName);
+		std::map<std::string, int>::iterator i = m_LightgemModifierList.find(modifierNameStr);
+
+		if (i != m_LightgemModifierList.end()) {
+			// Value found, remove it
+			m_LightgemModifierList.erase(i);
+			DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Removed.\r");
 		}
 	}
 
 	// Recalculate the lightgem modifier value
 	m_LightgemModifier = 0;
 
-	for (std::map<idStr, int>::const_iterator i = m_LightgemModifierList.begin(); 
+	for (std::map<std::string, int>::const_iterator i = m_LightgemModifierList.begin(); 
 	     i != m_LightgemModifierList.end();
 		 i++)
 	{
