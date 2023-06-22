@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1790 $
- * $Date: 2007-11-14 11:00:41 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1791 $
+ * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1790 2007-11-14 16:00:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1791 2007-11-14 16:26:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3298,7 +3298,7 @@ void idAI::destroyCurrentHidingSpotSearch()
 	if (m_HidingSpotSearchHandle != NULL_HIDING_SPOT_SEARCH_HANDLE)
 	{
 		// Dereference current search
-		HidingSpotSearchCollection.dereference (m_HidingSpotSearchHandle);
+		CHidingSpotSearchCollection::Instance().dereference(m_HidingSpotSearchHandle);
 		m_HidingSpotSearchHandle = NULL_HIDING_SPOT_SEARCH_HANDLE;
 
 		DM_LOG(LC_AI, LT_DEBUG).LogString ("Hiding spot search dereferenced\r");
@@ -3339,7 +3339,7 @@ void idAI::Event_StartSearchForHidingSpots
 		// Allocate object that handles the search
 		DM_LOG(LC_AI, LT_DEBUG).LogString ("Making finder\r");
 		bool b_searchCompleted = false;
-		m_HidingSpotSearchHandle = HidingSpotSearchCollection.getOrCreateSearch
+		m_HidingSpotSearchHandle = CHidingSpotSearchCollection::Instance().getOrCreateSearch
 		(
 			hideFromLocation, 
 			aas, 

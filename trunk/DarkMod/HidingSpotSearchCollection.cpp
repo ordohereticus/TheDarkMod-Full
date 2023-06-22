@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1789 $
- * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1791 $
+ * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1789 2007-11-14 14:37:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1791 2007-11-14 16:26:01Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -20,26 +20,29 @@ static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 
 
 //--------------------------------------------------------------------
 
-// Global instance
-CHidingSpotSearchCollection HidingSpotSearchCollection;
-
-//--------------------------------------------------------------------
-
 // Constructor
 
-CHidingSpotSearchCollection::CHidingSpotSearchCollection(void)
-{
-	numSearchesInUse = 0;
-	p_firstSearch = NULL;
-}
+CHidingSpotSearchCollection::CHidingSpotSearchCollection() :
+	highestSearchId(0),
+	numSearchesInUse(0),
+	p_firstSearch(NULL)
+{}
 
 //--------------------------------------------------------------------
 
 // Destructor
 
-CHidingSpotSearchCollection::~CHidingSpotSearchCollection(void)
+CHidingSpotSearchCollection::~CHidingSpotSearchCollection()
 {
 	clear();
+}
+
+//--------------------------------------------------------------------
+
+CHidingSpotSearchCollection& CHidingSpotSearchCollection::Instance()
+{
+	static CHidingSpotSearchCollection _instance;
+	return _instance;
 }
 
 //--------------------------------------------------------------------
@@ -67,6 +70,7 @@ void CHidingSpotSearchCollection::clear()
 
 void CHidingSpotSearchCollection::Save( idSaveGame *savefile ) const
 {
+	savefile->WriteInt(highestSearchId);
 	savefile->WriteUnsignedInt(numSearchesInUse);
 
 	int searchesSaved = 0;
@@ -92,6 +96,7 @@ void CHidingSpotSearchCollection::Restore( idRestoreGame *savefile )
 {
 	clear();
 
+	savefile->ReadInt(highestSearchId);
 	savefile->ReadUnsignedInt(numSearchesInUse);
 
 	p_firstSearch = NULL;
@@ -142,8 +147,11 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getUnusedSearch()
 		// We are returning to somebody, so they have a reference
 		p_node->refCount = 1;
 
-		// greebo: Use the numSearchesInUse counter, this should give a nice unique id
-		p_node->searchId = numSearchesInUse;
+		// greebo: Assign a unique ID to this searchnode
+		p_node->searchId = highestSearchId;
+
+		// Increase the unique ID
+		highestSearchId++;
 
 		p_node->p_prev = NULL;
 		p_node->p_next = p_firstSearch;
@@ -154,7 +162,7 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getUnusedSearch()
 		p_firstSearch = p_node;
 
 		// One more search in use
-		numSearchesInUse ++;
+		numSearchesInUse++;
 
 		return (THidingSpotSearchHandle) p_node;
 	}
@@ -247,13 +255,15 @@ CDarkmodAASHidingSpotFinder* CHidingSpotSearchCollection::getSearchAndReferenceC
 
 //------------------------------------------------------------------------------
 
-void CHidingSpotSearchCollection::dereference (THidingSpotSearchHandle searchHandle)
+void CHidingSpotSearchCollection::dereference(THidingSpotSearchHandle searchHandle)
 {
-	TDarkmodHidingSpotSearchNode* p_node = (TDarkmodHidingSpotSearchNode*) searchHandle;
+	TDarkmodHidingSpotSearchNode* p_node = 
+		reinterpret_cast<TDarkmodHidingSpotSearchNode*>(searchHandle);
+
 	if (p_node != NULL)
 	{
 		// Decrement Refcount
-		p_node->refCount --;
+		p_node->refCount--;
 
 		if (p_node->refCount <= 0)
 		{

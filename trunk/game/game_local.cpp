@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1763 $
- * $Date: 2007-11-12 06:23:10 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1791 $
+ * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1763 2007-11-12 11:23:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1791 2007-11-14 16:26:01Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -585,7 +585,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 	program.Save( &savegame );
 
 	// Save the global hiding spot search collection
-	HidingSpotSearchCollection.Save(&savegame);
+	CHidingSpotSearchCollection::Instance().Save(&savegame);
 
 	savegame.WriteInt( g_skill.GetInteger() );
 
@@ -1464,7 +1464,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	LoadMap( mapName, 0 );
 
 	// Restore the global hiding spot search collection
-	HidingSpotSearchCollection.Restore(&savegame);
+	CHidingSpotSearchCollection::Instance().Restore(&savegame);
 
 	savegame.ReadInt( i );
 	g_skill.SetInteger( i );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1789 $
- * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1791 $
+ * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -51,17 +51,24 @@ typedef void* THidingSpotSearchHandle;
 
 class CHidingSpotSearchCollection
 {
-public:
+private:
+	int highestSearchId;
 
 	/**
-	* Constructor
+	* Constructor (private, this is a singleton class)
 	*/
-	CHidingSpotSearchCollection(void);
+	CHidingSpotSearchCollection();
 
+public:
 	/**
 	* Destructor
 	*/
-	~CHidingSpotSearchCollection(void);
+	~CHidingSpotSearchCollection();
+
+	/**
+	 * greebo: Contains the singleton instance of this class.
+	 */
+	static CHidingSpotSearchCollection& Instance();
 
 	/**
 	 * greebo: Return the integer handle for the given search. Returns -1 for unknown searches.
@@ -98,7 +105,7 @@ public:
 	* Once this is called, the handle should be considered invalid and never
 	* be used again.
 	*/
-	void dereference (THidingSpotSearchHandle hSearch);
+	void dereference(THidingSpotSearchHandle hSearch);
 
 	/**
 	* This attempts to get or create a new search. If the search
@@ -156,9 +163,4 @@ protected:
 		idBounds bounds,
 		idBounds exclusionBounds
 	);
-
-
-
 };
-
-extern CHidingSpotSearchCollection HidingSpotSearchCollection;
