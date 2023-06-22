@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1195 $
- * $Date: 2007-07-22 17:25:52 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1206 $
+ * $Date: 2007-07-23 13:05:05 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1195 2007-07-22 21:25:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1206 2007-07-23 17:05:05Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
@@ -34,6 +34,20 @@ CAIComm_Response::CAIComm_Response(idEntity* Owner, int Type) : CResponse (Owner
 
 CAIComm_Response::~CAIComm_Response(void)
 {
+}
+
+void CAIComm_Response::Save(idSaveGame *savefile) const
+{
+	CResponse::Save(savefile);
+
+	// TODO
+}
+
+void CAIComm_Response::Restore(idRestoreGame *savefile)
+{
+	CResponse::Restore(savefile);
+
+	// TODO
 }
 
 /*----------------------------------------------------------------*/
@@ -189,6 +203,20 @@ CAIComm_Stim::CAIComm_Stim (idEntity* Owner, int Type) : CStim (Owner, Type)
 CAIComm_Stim::~CAIComm_Stim(void)
 {
 	clearMessages();
+}
+
+void CAIComm_Stim::Save(idSaveGame *savefile) const
+{
+	CStim::Save(savefile);
+
+	// TODO
+}
+
+void CAIComm_Stim::Restore(idRestoreGame *savefile)
+{
+	CStim::Restore(savefile);
+
+	// TODO
 }
 
 /*-------------------------------------------------------------------------*/
