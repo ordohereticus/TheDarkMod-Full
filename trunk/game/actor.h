@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1289 $
- * $Date: 2007-08-14 03:09:17 -0400 (Tue, 14 Aug 2007) $
+ * $Revision: 1326 $
+ * $Date: 2007-08-26 19:36:25 -0400 (Sun, 26 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -446,6 +446,10 @@ private:
 	void					Event_GetState( void );
 	void					Event_GetHead( void );
 	void					Event_GetEyePos( void );
+	/**
+	* Attaches the entity and also returns its index in the attachment list
+	**/
+	void					Event_Attach( idEntity *ent );
 	void					Event_GetAttachment( int ind );
 	void					Event_GetNumAttachments( void );
 	void					Event_AttachTaskQueue(int queueID);
