@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1899 $
- * $Date: 2007-12-26 13:21:55 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1900 $
+ * $Date: 2007-12-26 13:38:18 -0500 (Wed, 26 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1899 2007-12-26 18:21:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1900 2007-12-26 18:38:18Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5150,6 +5150,11 @@ bool idPlayer::HandleESC( void ) {
 	if ( objectiveSystemOpen ) {
 		TogglePDA();
 		return true;
+	}
+
+	if (objectiveGUIHandle > 0) {
+		ToggleObjectivesGUI();
+		return true; // TRUE = don't propagate ESC to system
 	}
 
 	if ( m_overlays.findInteractive() ) {
