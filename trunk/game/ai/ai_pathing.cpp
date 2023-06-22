@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
+ * $Revision: 1397 $
+ * $Date: 2007-09-30 06:31:36 -0400 (Sun, 30 Sep 2007) $
  * $Author: orbweaver $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 914 2007-04-19 17:45:20Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 1397 2007-09-30 10:31:36Z orbweaver $", init_version);
 
 #include "../game_local.h"
 
@@ -140,7 +140,7 @@ void GetPointOutsideObstacles( const obstacle_t *obstacles, const int numObstacl
 	int i, j, k, n, bestObstacle, bestEdgeNum, queueStart, queueEnd, edgeNums[2];
 	float d, bestd, scale[2];
 	idVec3 plane, bestPlane;
-	idVec2 newPoint, dir, bestPoint;
+	idVec2 newPoint, dir, bestPoint(0, 0);
 	int *queue;
 	bool *obstacleVisited;
 	idWinding2D w1, w2;
@@ -301,7 +301,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	int wallEdges[MAX_AAS_WALL_EDGES], numWallEdges, verts[2], lastVerts[2], nextVerts[2];
 	float stepHeight, headHeight, blockingScale, min, max;
 	idVec3 seekDelta, silVerts[32], start, end, nextStart, nextEnd;
-	idVec2 expBounds[2], edgeDir, edgeNormal, nextEdgeDir, nextEdgeNormal, lastEdgeNormal;
+	idVec2 expBounds[2], edgeDir, edgeNormal, nextEdgeDir, nextEdgeNormal(0, 0), lastEdgeNormal;
 	idVec2 obDelta;
 	idPhysics *obPhys;
 	idBox box;

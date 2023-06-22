@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1395 $
- * $Date: 2007-09-29 06:17:43 -0400 (Sat, 29 Sep 2007) $
- * $Author: crispy $
+ * $Revision: 1397 $
+ * $Date: 2007-09-30 06:31:36 -0400 (Sun, 30 Sep 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1395 2007-09-29 10:17:43Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1397 2007-09-30 10:31:36Z orbweaver $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7854,7 +7854,7 @@ Quit:
 
 void idEntity::ChangeLootAmount(int lootType, int amount)
 {
-	int Gold, Jewelry, Goods, GroupTotal, Total;
+	int Gold, Jewelry, Goods, GroupTotal = 0, Total;
 	int rc = 0;
 	idStr Groupname;
 
