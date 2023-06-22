@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1326 $
- * $Date: 2007-08-26 19:36:25 -0400 (Sun, 26 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1375 $
+ * $Date: 2007-09-03 05:37:41 -0400 (Mon, 03 Sep 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1326 2007-08-26 23:36:25Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1375 2007-09-03 09:37:41Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -638,7 +638,22 @@ void idActor::Spawn( void )
 			gameLocal.Warning( "idAnimated '%s' at (%s): cannot find joint '%s' for sound playback", name.c_str(), GetPhysics()->GetOrigin().ToString(0), jointName.c_str() );
 		}
 	}
-
+	
+	// Cache animation rates
+	int anims = animator.NumAnims();
+	m_animRates.Clear();
+	m_animRates.AssureSize(anims);
+	for (int i=0; i<anims; i++) {
+		const idAnim *anim = animator.GetAnim(i);
+		if (anim != NULL) {
+			idStr spawnargname = "anim_rate_";
+			spawnargname += anim->Name();
+			m_animRates[i] = spawnArgs.GetFloat(spawnargname, "1");
+		} else {
+			m_animRates[i] = 1.0f;
+		}
+	}
+	
 	finalBoss = spawnArgs.GetBool( "finalBoss" );
 
 	FinishSetup();

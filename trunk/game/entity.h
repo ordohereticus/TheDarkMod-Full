@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1324 $
- * $Date: 2007-08-26 04:53:09 -0400 (Sun, 26 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1375 $
+ * $Date: 2007-09-03 05:37:41 -0400 (Mon, 03 Sep 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -247,6 +247,14 @@ public:
 	* static ropes or AF entities, so it makes sense to let all entities have this var
 	**/
 	bool					m_bIsClimbableRope;
+
+	/**
+	* TDM: The default playback rate of each animation, indexed by the animation's
+	* index number. Only used by idActor; but the animation classes deal with idEntity
+	* directly, and it's more efficient to declare this on all entities than to do
+	* RTTI on every animation frame.
+	**/
+	idList<float>                           m_animRates;
 
 public:
 	ABSTRACT_PROTOTYPE( idEntity );
