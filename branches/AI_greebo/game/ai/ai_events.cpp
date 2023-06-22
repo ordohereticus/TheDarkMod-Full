@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1457 $
+ * $Date: 2007-10-18 12:45:49 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1457 2007-10-18 16:45:49Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3079,7 +3079,6 @@ void idAI::Event_LookAtAngles (float yawAngleClockwise, float pitchAngleUp, floa
 	}
 
 	focusTime = gameLocal.time + SEC2MS( durationInSeconds );
-
 }
 
 /*
