@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1012 $
- * $Date: 2007-06-10 01:43:04 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1242 $
+ * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1012 2007-06-10 05:43:04Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1242 2007-07-29 15:43:55Z greebo $", init_version);
 
 #include "darkModAASFindHidingSpots.h"
 #include "DarkModGlobals.h"
@@ -205,6 +205,16 @@ darkModAASFindHidingSpots::~darkModAASFindHidingSpots(void)
 	}
 }
 
+
+void darkModAASFindHidingSpots::Save( idSaveGame *savefile ) const
+{
+	// NULL
+}
+
+void darkModAASFindHidingSpots::Restore( idRestoreGame *savefile )
+{
+	// NULL
+}
 
 //-------------------------------------------------------------------------------------------------------
 

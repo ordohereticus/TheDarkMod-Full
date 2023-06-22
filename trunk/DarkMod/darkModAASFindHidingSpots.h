@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1128 $
- * $Date: 2007-07-16 01:23:14 -0400 (Mon, 16 Jul 2007) $
- * $Author: crispy $
+ * $Revision: 1242 $
+ * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -343,6 +343,10 @@ public:
 	* is called immediately afterword.
 	*/
 	darkModAASFindHidingSpots();
+
+	// Save/Restores this class to/from a savegame
+	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
 
 	/*!
 	* This should be called if the default (paramterless) constructor was

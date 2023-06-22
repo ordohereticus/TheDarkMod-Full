@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1241 $
- * $Date: 2007-07-29 11:00:26 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1242 $
+ * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1241 2007-07-29 15:00:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1242 2007-07-29 15:43:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -591,6 +591,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 		m_PriorityQueues[i]->Save(&savegame);
 	}
 
+	// Save the global hiding spot search collection
+	HidingSpotSearchCollection.Save(&savegame);
+
 	savegame.WriteInt( g_skill.GetInteger() );
 
 	savegame.WriteDict( &serverInfo );
@@ -763,9 +766,6 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// Save the DarkMod player object, this contains a lot of other TDM-related classes
 	g_Global.m_DarkModPlayer->Save(&savegame);
-
-	// Save the global hiding spot search collection
-	HidingSpotSearchCollection.Save(&savegame);
 
 	savegame.Close();
 }
@@ -1477,6 +1477,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 		m_PriorityQueues.Append(queue);
 	}
 
+	// Restore the global hiding spot search collection
+	HidingSpotSearchCollection.Restore(&savegame);
+
 	savegame.ReadInt( i );
 	g_skill.SetInteger( i );
 
@@ -1704,9 +1707,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	// Restore the DarkMod player object, this contains a lot of other TDM-related classes
 	g_Global.m_DarkModPlayer->Restore(&savegame);
-
-	// Restore the global hiding spot search collection
-	HidingSpotSearchCollection.Restore(&savegame);
 
 	savegame.RestoreObjects();
 

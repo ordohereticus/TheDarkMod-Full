@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1241 $
- * $Date: 2007-07-29 11:00:26 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1242 $
+ * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -26,6 +26,9 @@
 
 typedef struct tagTDarkmodHidingSpotSearchNode
 {
+	// greebo: The id of this search, to resolve pointers after map restore
+	int searchId;
+
 	int refCount;
 	darkModAASFindHidingSpots search;
 
@@ -59,6 +62,16 @@ public:
 	* Destructor
 	*/
 	~CHidingSpotSearchCollection(void);
+
+	/**
+	 * greebo: Return the integer handle for the given search. Returns -1 for unknown searches.
+	 */
+	int getSearchId(THidingSpotSearchHandle searchHandle);
+
+	/**
+	 * greebo: Returns the search handle for the given id. Can return the NULL searchHandle.
+	 */
+	THidingSpotSearchHandle getSearchHandle(int searchId);
 
 	/**
 	* This gets a search by its handle
