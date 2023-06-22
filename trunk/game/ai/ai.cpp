@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2217 $
- * $Date: 2008-04-26 04:16:19 -0400 (Sat, 26 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2227 $
+ * $Date: 2008-04-26 15:46:20 -0400 (Sat, 26 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2217 2008-04-26 08:16:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2227 2008-04-26 19:46:20Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1160,7 +1160,23 @@ void idAI::Spawn( void )
 	spawnArgs.GetFloat( "min_interleave_think_dist",		"1000",		m_minInterleaveThinkDist);
 	spawnArgs.GetFloat( "max_interleave_think_dist",		"3000",		m_maxInterleaveThinkDist);
 
-	spawnArgs.GetBool( "ignore_alerts",			"0",		m_bIgnoreAlerts );
+	spawnArgs.GetBool( "ignore_alerts",						"0",		m_bIgnoreAlerts );
+
+	float headTurnSec;
+	spawnArgs.GetFloat( "headturn_delay_min",				"3",		headTurnSec);
+	m_timeBetweenHeadTurnChecks = SEC2MS(headTurnSec);
+
+	spawnArgs.GetFloat( "headturn_chance_idle",				"0.1",		m_headTurnChanceIdle);
+	spawnArgs.GetFloat( "headturn_factor_alerted",			"2",		m_headTurnFactorAlerted);
+	spawnArgs.GetFloat( "headturn_yaw",						"60",		m_headTurnMaxYaw);
+	spawnArgs.GetFloat( "headturn_pitch",					"40",		m_headTurnMaxPitch);
+
+	spawnArgs.GetFloat( "headturn_duration_min",			"1",		headTurnSec);
+	m_headTurnMinDuration = SEC2MS(headTurnSec);
+
+	spawnArgs.GetFloat( "headturn_duration_max",			"3",		headTurnSec);
+	m_headTurnMaxDuration = SEC2MS(headTurnSec);
+
 
 	alertTypeWeight[ai::EAlertTypeNone] = 0;
 	alertTypeWeight[ai::EAlertTypeEnemy] = 50;
@@ -1990,7 +2006,6 @@ void idAI::LinkScriptVariables( void )
 	AI_AlertIndex.LinkTo(			scriptObject, "AI_AlertIndex" );
 
 	AI_lastAlertPosSearched.LinkTo(			scriptObject, "AI_lastAlertPosSearched");
-	AI_chancePerSecond_RandomLookAroundWhileIdle.LinkTo(scriptObject, "AI_chancePerSecond_RandomLookAroundWhileIdle");
 	AI_timeOfLastStimulusBark.LinkTo(		scriptObject, "AI_timeOfLastStimulusBark");
 	AI_currentAlertLevelDuration.LinkTo(	scriptObject, "AI_currentAlertLevelDuration");
 	AI_currentAlertLevelStartTime.LinkTo(	scriptObject, "AI_currentAlertLevelStartTime");
@@ -7581,7 +7596,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 
 	// Begin the grace period
 	Event_SetAlertGracePeriod( grace_frac, grace_time, grace_count );
-
+/*
 	// Only bark if we haven't barked too recently
 	if (( MS2SEC(gameLocal.time) - AI_timeOfLastStimulusBark) > MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 	{
@@ -7608,6 +7623,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 			}
 		}
 	}
+	*/
 	
 	// If less than alert 1, all new stimuli should be considered new
 	if (newAlertLevel < thresh_2)
@@ -7615,13 +7631,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 		//DEBUG_PRINT ("Clearing last searched alert position");
 		AI_lastAlertPosSearched = idVec3(0,0,0);
 	}
-	
-	// If somewhat alerted, have double chance of looking around while idle
-	if (newAlertLevel > 0)
-	{
-		//DEBUG_PRINT ("Chance of looking around while idle is higher due to agitation");
-		AI_chancePerSecond_RandomLookAroundWhileIdle = IDLE_RANDOM_HEAD_TURN_CHANCE_PER_SECOND * SLIGHTLY_AGITATED_HEAD_TURN_CHANCE_MULTIPLIER;
-	}
+
 }
 
 

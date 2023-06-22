@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2017 $
- * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2227 $
+ * $Date: 2008-04-26 15:46:20 -0400 (Sat, 26 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -26,10 +26,6 @@
 
 #include <stdio.h>
 #include "../game/game_local.h"
-
-// AI constants; please keep these in sync with ai_darkmod_base.script
-#define IDLE_RANDOM_HEAD_TURN_CHANCE_PER_SECOND 0.10f
-#define SLIGHTLY_AGITATED_HEAD_TURN_CHANCE_MULTIPLIER 2.0f
 
 /*!
 Darkmod LAS
