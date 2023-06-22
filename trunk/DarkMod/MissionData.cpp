@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2019 $
- * $Date: 2008-01-27 15:37:47 -0500 (Sun, 27 Jan 2008) $
+ * $Revision: 2035 $
+ * $Date: 2008-02-02 15:53:11 -0500 (Sat, 02 Feb 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -11,11 +11,12 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2019 2008-01-27 20:37:47Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2035 2008-02-02 20:53:11Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
 #include "MissionData.h"
+#include "DifficultyManager.h"
 #include "../game/player.h"
 #include "StimResponse/StimResponseCollection.h"
 
@@ -1358,7 +1359,7 @@ int CMissionData::AddObjsFromDict(const idDict& dict)
 			while( src.ReadToken( &token ) )
 			{
 				if( token.IsNumeric() )
-					if (g_skill.GetInteger() == token.GetIntValue()) {
+					if (gameLocal.m_DifficultyManager.GetDifficultyLevel() == token.GetIntValue()) {
 						ObjTemp.m_bApplies = true;
 						break;
 					}
@@ -1463,7 +1464,7 @@ int CMissionData::AddObjsFromDict(const idDict& dict)
 	}
 
 	// parse overall mission logic (for specific difficulty if applicable)
-	idStr DiffStr = va("_diff_%d", g_skill.GetInteger() );
+	idStr DiffStr = va("_diff_%d", gameLocal.m_DifficultyManager.GetDifficultyLevel() );
 	StrTemp = "mission_logic_success";
 	if( dict.FindKey( StrTemp + DiffStr ) )
 		StrTemp = StrTemp + DiffStr;
