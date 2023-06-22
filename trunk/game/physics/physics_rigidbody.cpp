@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1308 $
- * $Date: 2007-08-24 04:35:54 -0400 (Fri, 24 Aug 2007) $
+ * $Revision: 1309 $
+ * $Date: 2007-08-24 10:25:15 -0400 (Fri, 24 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1308 2007-08-24 08:35:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1309 2007-08-24 14:25:15Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1295,7 +1295,6 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 		current.i.position = masterOrigin + current.localOrigin * masterAxis;
 		current.i.orientation = (isOrientated) ? current.localAxis * masterAxis : current.localAxis;
 
-		DM_LOG(LC_ENTITY, LT_INFO).LogString("Clipmask of %s: %d\r", self->name.c_str(), GetContents());
 		// greebo: Only check for collisions for "solid" bind slaves and if the master is non-AF
 		if ((clipModel->GetContents() & (CONTENTS_SOLID|CONTENTS_CORPSE)) && !self->GetBindMaster()->GetPhysics()->IsType(idPhysics_AF::Type))
 		{

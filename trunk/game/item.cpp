@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1308 $
- * $Date: 2007-08-24 04:35:54 -0400 (Fri, 24 Aug 2007) $
+ * $Revision: 1309 $
+ * $Date: 2007-08-24 10:25:15 -0400 (Fri, 24 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1308 2007-08-24 08:35:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1309 2007-08-24 14:25:15Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1152,7 +1152,6 @@ void idMoveableItem::Spawn( void )
 	// greebo: Allow the entityDef to override the clipmodel contents
 	if( spawnArgs.FindKey( "clipmodel_contents" ) )
 	{
-		DM_LOG(LC_ENTITY,LT_INFO).LogString("Setting clipmask of %s to %d again\r", name.c_str(), spawnArgs.GetInt("clipmodel_contents"));
 		physicsObj.SetContents( spawnArgs.GetInt("clipmodel_contents") );
 	}
 
