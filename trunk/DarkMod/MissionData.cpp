@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1919 $
- * $Date: 2007-12-28 03:04:28 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1922 $
+ * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1919 2007-12-28 08:04:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1922 2007-12-28 10:53:41Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2090,6 +2090,41 @@ void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle)
 
 		ui->SetStateInt(prefix + "_visible", m_Objectives[index].m_bVisible);
 	}
+
+	// Force a redraw
+	ui->StateChanged(gameLocal.time, true);
+}
+
+void CMissionData::UpdateStatisticsGUI(idEntity* entity, int overlayHandle, const idStr& listDefName)
+{
+	assert(entity != NULL); // don't accept NULL entities.
+
+	idUserInterface* ui = entity->GetOverlay(overlayHandle);
+
+	if (ui == NULL) {
+		gameLocal.Warning("Can't update statistics GUI, invalid handle.\n");
+		return; // invalid handle, do nothing
+	}
+
+	int index(0);
+	idStr key("");
+	idStr value("");
+	
+	key = "Damage Dealt"; 
+	value = idStr(m_Stats.DamageDealt);
+	ui->SetStateString(va("%s_item_%i", listDefName.c_str(), index++), key + "\t" + value);
+
+	key = "Damage Received"; 
+	value = idStr(m_Stats.DamageReceived);
+	ui->SetStateString(va("%s_item_%i", listDefName.c_str(), index++), key + "\t" + value);
+
+	key = "Pockets Picked"; 
+	value = idStr(m_Stats.PocketsPicked);
+	ui->SetStateString(va("%s_item_%i", listDefName.c_str(), index++), key + "\t" + value);
+
+	key = "Loot Overall"; 
+	value = idStr(m_Stats.LootOverall);
+	ui->SetStateString(va("%s_item_%i", listDefName.c_str(), index++), key + "\t" + value);
 
 	// Force a redraw
 	ui->StateChanged(gameLocal.time, true);

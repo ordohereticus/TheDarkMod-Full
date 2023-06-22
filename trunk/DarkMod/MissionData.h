@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1903 $
- * $Date: 2007-12-26 14:53:20 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1922 $
+ * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -627,6 +627,15 @@ public:
 	 * @overlayHandle: the handle of the GUI to be updated.
 	 */
 	void UpdateGUIState(idEntity* entity, int overlayHandle);
+
+	/**
+	 * greebo: Updates the statistics in the given GUI.
+	 *
+	 * @entity: The entity the GUI is belonging to (usually the player).
+	 * @overlayHandle: The handle of the GUI to be updated.
+	 * @listDefName: the name of the listDef in the GUI, which should be filled with the values.
+	 */
+	void UpdateStatisticsGUI(idEntity* entity, int overlayHandle, const idStr& listDefName);
 
 // Events
 	/**
