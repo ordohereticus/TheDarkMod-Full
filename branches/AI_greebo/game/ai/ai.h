@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1556 $
- * $Date: 2007-10-24 13:00:58 -0400 (Wed, 24 Oct 2007) $
+ * $Revision: 1557 $
+ * $Date: 2007-10-24 13:12:36 -0400 (Wed, 24 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1018,6 +1018,12 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	*
 	*/
 	int ContinueSearchForHidingSpots();
+
+	/*!
+	* This method returns the Nth hiding spot location. 
+	* Param is 0-based hiding spot index.
+	*/
+	idVec3 GetNthHidingSpotLocation(int hidingSpotIndex);
 
 	void					SetAAS( void );
 	virtual	void			DormantBegin( void );	// called when entity becomes dormant

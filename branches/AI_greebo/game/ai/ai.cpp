@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1556 $
- * $Date: 2007-10-24 13:00:58 -0400 (Wed, 24 Oct 2007) $
+ * $Revision: 1557 $
+ * $Date: 2007-10-24 13:12:36 -0400 (Wed, 24 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1556 2007-10-24 17:00:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1557 2007-10-24 17:12:36Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8187,4 +8187,62 @@ int idAI::ContinueSearchForHidingSpots()
 			return 0;
 		}
 	}
+}
+
+idVec3 idAI::GetNthHidingSpotLocation(int hidingSpotIndex)
+{
+	idVec3 outLocation(0,0,0);
+
+	int numSpots = m_hidingSpots.getNumSpots();
+
+	// In bounds?
+	if ((hidingSpotIndex >= 0) && (hidingSpotIndex < numSpots))
+	{
+		idBounds areaNodeBounds;
+		darkModHidingSpot_t* p_spot = m_hidingSpots.getNthSpotWithAreaNodeBounds(hidingSpotIndex, areaNodeBounds);
+		if (p_spot == NULL)
+		{
+			outLocation.x = 0;
+			outLocation.y = 0;
+			outLocation.z = 0;
+		}
+		else
+		{
+			outLocation = p_spot->goal.origin;
+		}
+
+		if (cv_ai_search_show.GetInteger() >= 1.0)
+		{
+			idVec4 markerColor (1.0, 1.0, 1.0, 1.0);
+			idVec3 arrowLength (0.0, 0.0, 50.0);
+
+			// Debug draw the point to be searched
+			gameRenderWorld->DebugArrow
+			(
+				markerColor,
+				outLocation + arrowLength,
+				outLocation,
+				2,
+				cv_ai_search_show.GetInteger()
+			);
+
+			// Debug draw the bounds of the area node containing the hiding spot point
+			// This may be smaller than the containing AAS area due to octant subdivision.
+			gameRenderWorld->DebugBounds
+			(
+				markerColor,
+				areaNodeBounds,
+				vec3_origin,
+				cv_ai_search_show.GetInteger()
+			);
+		}
+
+    }
+	else
+	{
+		DM_LOG(LC_AI, LT_ERROR).LogString ("Index %d is out of bounds, there are %d hiding spots\n", hidingSpotIndex, numSpots);
+	}
+
+	// Return the location
+	return outLocation;
 }
