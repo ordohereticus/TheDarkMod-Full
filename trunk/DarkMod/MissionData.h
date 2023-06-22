@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1867 $
- * $Date: 2007-12-13 03:32:55 -0500 (Thu, 13 Dec 2007) $
+ * $Revision: 1877 $
+ * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -227,6 +227,19 @@ protected:
 	* Current component state (true/false)
 	**/
 	bool		m_bState;
+
+	/**
+	* Current count of the number of times this event
+	* happened and the specifiers were matched.
+	* Some objective components use this, others rely on
+	* other counters, like overall stats or the inventory
+	**/
+	int			m_EventCount;
+
+	/**
+	* Set to true if this component is only satisfied when the player performs the action
+	**/
+	bool		m_bPlayerResponsibleOnly;
 
 	/**
 	* Whether the irreversible component has latched into a state

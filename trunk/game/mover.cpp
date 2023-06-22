@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1868 $
- * $Date: 2007-12-13 03:33:58 -0500 (Thu, 13 Dec 2007) $
+ * $Revision: 1877 $
+ * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 1868 2007-12-13 08:33:58Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 1877 2007-12-17 01:37:01Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -439,11 +439,19 @@ void idMover::Show( void ) {
 idMover::Killed
 ============
 */
-void idMover::Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location ) {
+void idMover::Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location ) 
+{
+	bool bPlayerResponsible(false);
+
 	fl.takedamage = false;
 	ActivateTargets( this );
 
-	gameLocal.m_MissionData->MissionEvent( COMP_DESTROY, this, false );
+	if ( attacker && attacker->IsType( idPlayer::Type ) )
+		bPlayerResponsible = ( attacker == gameLocal.GetLocalPlayer() );
+	else if( attacker && attacker->m_SetInMotionByActor.GetEntity() )
+		bPlayerResponsible = ( attacker->m_SetInMotionByActor.GetEntity() == gameLocal.GetLocalPlayer() );
+
+	gameLocal.m_MissionData->MissionEvent( COMP_DESTROY, this, bPlayerResponsible );
 }
 
 

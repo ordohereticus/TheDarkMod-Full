@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1863 $
- * $Date: 2007-12-09 16:14:44 -0500 (Sun, 09 Dec 2007) $
- * $Author: angua $
+ * $Revision: 1877 $
+ * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1863 2007-12-09 21:14:44Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1877 2007-12-17 01:37:01Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -4868,6 +4868,10 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	{
 		static_cast< idPlayer* >( attacker )->AddAIKill();
 		bPlayerResponsible = ( attacker == gameLocal.GetLocalPlayer() );
+	}
+	else if( attacker && attacker->m_SetInMotionByActor.GetEntity() )
+	{
+		bPlayerResponsible = ( attacker->m_SetInMotionByActor.GetEntity() == gameLocal.GetLocalPlayer() );
 	}
 
 	// Update TDM objective system
