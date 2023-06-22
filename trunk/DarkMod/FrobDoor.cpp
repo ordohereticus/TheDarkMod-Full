@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1377 $
- * $Date: 2007-09-11 14:51:35 -0400 (Tue, 11 Sep 2007) $
+ * $Revision: 1387 $
+ * $Date: 2007-09-25 14:53:37 -0400 (Tue, 25 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1377 2007-09-11 18:51:35Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1387 2007-09-25 18:53:37Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -112,6 +112,16 @@ void CFrobDoor::Save(idSaveGame *savefile) const
 			savefile->WriteString(stringList[j].c_str());
 	}
 
+	savefile->WriteInt(m_RandomPins.Num());
+	for (int i = 0; i < m_RandomPins.Num(); i++)
+	{
+		idStringList& stringList = *m_RandomPins[i];
+
+		savefile->WriteInt(stringList.Num());
+		for (int j = 0; j < stringList.Num(); j++)
+			savefile->WriteString(stringList[j].c_str());
+	}
+
 	savefile->WriteBool(m_PinTranslationFractionFlag);
 	savefile->WriteVec3(m_PinTranslationFraction);
 	savefile->WriteVec3(m_SampleTranslationFraction);
@@ -170,6 +180,18 @@ void CFrobDoor::Restore( idRestoreGame *savefile )
 			savefile->ReadString( (*m_Pins[i])[j] );
 	}
 
+	savefile->ReadInt(numPins);
+	m_RandomPins.SetNum(numPins);
+	for (int i = 0; i < numPins; i++)
+	{
+		m_RandomPins[i] = new idStringList;
+		
+		savefile->ReadInt(num);
+		m_RandomPins[i]->SetNum(num);
+		for (int j = 0; j < num; j++)
+			savefile->ReadString( (*m_RandomPins[i])[j] );
+	}
+
 	savefile->ReadBool(m_PinTranslationFractionFlag);
 	savefile->ReadVec3(m_PinTranslationFraction);
 	savefile->ReadVec3(m_SampleTranslationFraction);
@@ -217,6 +239,8 @@ void CFrobDoor::Spawn( void )
 	// In that case we can ignore the pins, otherwise we must create the patterns.
 	if(spawnArgs.GetString("lock_pins", "", str))
 	{
+		idStr head = "lockpick_pin_";
+		idStr empty = "";
 		int n = str.Length();
 		int b = cv_lp_pin_base_count.GetInteger();
 		if(b < MIN_CLICK_NUM)
@@ -225,11 +249,20 @@ void CFrobDoor::Spawn( void )
 		for(int i = 0; i < n; i++)
 		{
 			DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Pin: %u - %c\r", i, str[i]);
-			idStringList *p = CreatePinPattern(str[i] - 0x030, b);
+			idStringList *p = CreatePinPattern(str[i] - 0x030, b, MAX_PIN_CLICKS, 2, head);
 			if(p)
 				m_Pins.Append(p);
 			else
 				DM_LOG(LC_LOCKPICK, LT_ERROR)LOGSTRING("Door [%s]: couldn't create pin pattern for pin %u value %c\r", name.c_str(), i, str[i]);
+
+			if(cv_lp_randomize.GetBool() == true)
+			{
+				p = CreatePinPattern(str[i] - 0x030, b, 9, 1, empty);
+				if(p)
+					m_RandomPins.Append(p);
+				else
+					DM_LOG(LC_LOCKPICK, LT_ERROR)LOGSTRING("Door [%s]: couldn't create pin jiggle pattern for pin %u value %c\r", name.c_str(), i, str[i]);
+			}
 		}
 	}
 
@@ -699,7 +732,7 @@ void CFrobDoor::ToggleLock(void)
 		m_Doorhandle.GetEntity()->ToggleLock();
 }
 
-idStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount)
+idStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount, int MaxCount, int StrNumLen, idStr &str)
 {
 	idStringList *rc = NULL;
 	int i, r;
@@ -714,17 +747,20 @@ idStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount)
 	Clicks += BaseCount;
 	rc = new idStringList();
 
-	sprintf(click, "lockpick_pin_%02u", 0);
+	idStr head;
+	sprintf(head, str+"%%0%uu", StrNumLen);
+
+	sprintf(click, head, 0);
 	rc->Append(click);
 
 	for(i = 0; i < Clicks; i++)
 	{
 		if(i % 2)
-			r = gameLocal.random.RandomInt(MAX_PIN_CLICKS);
+			r = gameLocal.random.RandomInt(MaxCount);
 		else
-			r = rnd.IRandom(1, MAX_PIN_CLICKS);
+			r = rnd.IRandom(1, MaxCount);
 
-		sprintf(click, "lockpick_pin_%02u", r);
+		sprintf(click, head, r);
 		rc->Append(click);
 		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("PinPattern %u : %s\r", i, click.c_str());
 	}
@@ -764,6 +800,13 @@ void CFrobDoor::SetHandlePosition(EHandleReset nPos, int msec, int pin, int samp
 		n = m_Pins[pin]->Num();
 		if(sample < 0)
 			sample = 0;
+
+		if(m_RandomPins.Num() > 0)
+		{
+			idList<idStr> &sl = *m_RandomPins[pin];
+			idStr s = sl[sample];
+			sample = s[0] - '0';
+		}
 
 		if(m_PinRotationFractionFlag == true)
 		{

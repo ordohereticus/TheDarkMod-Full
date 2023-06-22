@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1377 $
- * $Date: 2007-09-11 14:51:35 -0400 (Tue, 11 Sep 2007) $
+ * $Revision: 1387 $
+ * $Date: 2007-09-25 14:53:37 -0400 (Tue, 25 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -125,7 +125,7 @@ protected:
 	 * number of clicks for this pin, and BaseCount, defines the minimum number
 	 * of clicks, which is always added.
 	 */
-	idStringList				*CreatePinPattern(int Clicks, int BaseCount);
+	idStringList				*CreatePinPattern(int Clicks, int BaseCount, int MaxCount, int StrNumLen, idStr &Header);
 
 protected:
 	/**
@@ -157,6 +157,7 @@ protected:
 	idList<idStr>				m_LockList;
 
 	idList<idStringList *>		m_Pins;
+	idList<idStringList *>		m_RandomPins;
 	bool						m_Pickable;
 
 	/**
