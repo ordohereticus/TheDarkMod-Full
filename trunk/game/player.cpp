@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1252 $
- * $Date: 2007-07-29 22:48:07 -0400 (Sun, 29 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1257 $
+ * $Date: 2007-07-31 18:58:21 -0400 (Tue, 31 Jul 2007) $
+ * $Author: nyarlathotep $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1252 2007-07-30 02:48:07Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1257 2007-07-31 22:58:21Z nyarlathotep $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5085,6 +5085,24 @@ void idPlayer::PerformKeyRelease(int impulse, int holdTime) {
 	DM_LOG(LC_FROBBING, LT_INFO)LOGSTRING("Button %d has been released, has been held down %d ms.\r", impulse, holdTime);
 
 	switch (impulse) {
+		case IMPULSE_44:
+			if ( !cv_pm_lean_toggle.GetBool() )
+			{
+				physicsObj.ToggleLean(90.0);
+			}
+			break;
+		case IMPULSE_45:
+			if ( !cv_pm_lean_toggle.GetBool() )
+			{
+				physicsObj.ToggleLean(180.0);
+			}
+			break;
+		case IMPULSE_46:
+			if ( !cv_pm_lean_toggle.GetBool() )
+			{
+				physicsObj.ToggleLean(0.0);
+			}
+			break;
 		case IMPULSE_51:
 			inventoryUseKeyRelease(holdTime);
 			break;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1255 $
- * $Date: 2007-07-30 12:37:53 -0400 (Mon, 30 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1257 $
+ * $Date: 2007-07-31 18:58:21 -0400 (Tue, 31 Jul 2007) $
+ * $Author: nyarlathotep $
  *
  ***************************************************************************/
 
@@ -76,6 +76,7 @@ extern idCVar cv_pm_lean_to_valid_increments;
 extern idCVar cv_pm_lean_door_increments;
 extern idCVar cv_pm_lean_door_max;
 extern idCVar cv_pm_lean_door_bounds_exp;
+extern idCVar cv_pm_lean_toggle;
 
 extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
