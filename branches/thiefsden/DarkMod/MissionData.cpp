@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1922 $
- * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1925 $
+ * $Date: 2007-12-28 13:54:19 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1922 2007-12-28 10:53:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1925 2007-12-28 18:54:19Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2098,8 +2098,13 @@ void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle)
 void CMissionData::UpdateStatisticsGUI(idEntity* entity, int overlayHandle, const idStr& listDefName)
 {
 	assert(entity != NULL); // don't accept NULL entities.
-
-	idUserInterface* ui = entity->GetOverlay(overlayHandle);
+	if (!entity->IsType(idPlayer::Type)) {
+		return;
+	}
+	
+	idPlayer* player = static_cast<idPlayer*>(entity);
+	
+	idUserInterface* ui = player->GetOverlay(overlayHandle);
 
 	if (ui == NULL) {
 		gameLocal.Warning("Can't update statistics GUI, invalid handle.\n");
@@ -2124,6 +2129,14 @@ void CMissionData::UpdateStatisticsGUI(idEntity* entity, int overlayHandle, cons
 
 	key = "Loot Overall"; 
 	value = idStr(m_Stats.LootOverall);
+	ui->SetStateString(va("%s_item_%i", listDefName.c_str(), index++), key + "\t" + value);
+
+	key = "Killed by the Player";
+	value = idStr(m_Stats.AIStats[COMP_KILL].ByTeam[player->team]);
+	ui->SetStateString(va("%s_item_%i", listDefName.c_str(), index++), key + "\t" + value);
+
+	key = "KOed by the Player";
+	value = idStr(m_Stats.AIStats[COMP_KO].ByTeam[player->team]);
 	ui->SetStateString(va("%s_item_%i", listDefName.c_str(), index++), key + "\t" + value);
 
 	// Force a redraw
