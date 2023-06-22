@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1337 $
- * $Date: 2007-08-28 10:00:20 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1338 $
+ * $Date: 2007-08-28 15:25:58 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1337 2007-08-28 14:00:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1338 2007-08-28 19:25:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1377,6 +1377,9 @@ void idGameLocal::MapPopulate( void ) {
 	m_sndProp->SetupFromLoader( m_sndPropLoader );
 
 	m_sndPropLoader->Shutdown();
+	
+	// Initialise the escape point manager after all the entities have been spawned.
+	m_EscapePointManager->InitAAS();
 
 	// execute pending events before the very first game frame
 	// this makes sure the map script main() function is called

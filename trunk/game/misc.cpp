@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1337 $
- * $Date: 2007-08-28 10:00:20 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1338 $
+ * $Date: 2007-08-28 15:25:58 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1337 2007-08-28 14:00:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 1338 2007-08-28 19:25:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -430,8 +430,11 @@ tdmPathFlee::Spawn
 =====================
 */
 void tdmPathFlee::Spawn( void ) {
+
+	// Get the location of this entity within the AAS
+	
+
 	// Register this class with the escape point manager
-	DM_LOG(LC_AI, LT_INFO).LogString("tdmPathFlee spawned.\r");
 	gameLocal.m_EscapePointManager->AddEscapePoint(this);
 }
 
