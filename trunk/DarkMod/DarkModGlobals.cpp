@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1873 $
- * $Date: 2007-12-14 20:44:05 -0500 (Fri, 14 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1905 $
+ * $Date: 2007-12-27 02:14:44 -0500 (Thu, 27 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1873 2007-12-15 01:44:05Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1905 2007-12-27 07:14:44Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -116,6 +116,7 @@ static char *LCString[LC_COUNT+1] = {
 	"LOCKPICK",
 	"FRAME",
 	"STIMRESP",
+	"OBJECTIVES",
 	"(empty)"
 };
 
@@ -194,6 +195,8 @@ CGlobal::CGlobal(void)
 	m_ClassArray[LC_SOUND] = false;
 	m_ClassArray[LC_FUNCTION] = false;
 	m_ClassArray[LC_MOVEMENT] = false;
+	m_ClassArray[LC_OBJECTIVES] = false;
+	m_ClassArray[LC_STIM_RESPONSE] = false;
 
 	m_Frame = 0;
 	m_DefaultFrobDistance = 100.0f;
@@ -655,6 +658,16 @@ void CGlobal::LoadINISettings(void *p)
 			}
 
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_STIM_RESPONSE: %c\r", pm->Value[0]);
+		}
+		if(FindMap(ps, "LogClass_OBJECTIVES", TRUE, &pm) != static_cast<ULONG>(-1))
+		{
+			if(pm->Value[0] == '1')
+			{
+				m_ClassArray[LC_OBJECTIVES] = true;
+				Frame = true;
+			}
+
+			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_OBJECTIVES: %c\r", pm->Value[0]);
 		}
 		if(FindMap(ps, "LogClass_LOCKPICK", TRUE, &pm) != static_cast<ULONG>(-1))
 		{

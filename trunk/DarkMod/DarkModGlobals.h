@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1870 $
- * $Date: 2007-12-13 07:38:46 -0500 (Thu, 13 Dec 2007) $
- * $Author: sparhawk $
+ * $Revision: 1905 $
+ * $Date: 2007-12-27 02:14:44 -0500 (Thu, 27 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -79,6 +79,7 @@ typedef enum {
 	LC_LOCKPICK,
 	LC_FRAME,			// This is intended only as a framemarker and will always switched on if at least one other option is on.
 	LC_STIM_RESPONSE,
+	LC_OBJECTIVES,
 	LC_COUNT
 } LC_LogClass;
 
