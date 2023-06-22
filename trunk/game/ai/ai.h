@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2201 $
- * $Date: 2008-04-22 16:09:28 -0400 (Tue, 22 Apr 2008) $
+ * $Revision: 2206 $
+ * $Date: 2008-04-24 11:58:17 -0400 (Thu, 24 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -543,8 +543,12 @@ protected:
 	idAAS *					aas;
 	int						travelFlags;
 
-	// greebo: When this AI has last re-evaluated a forbidden area
-	int						lastReEvaluationTime;
+	// greebo: When this AI has last re-evaluated a forbidden area (game time)
+	int						lastAreaReevaluationTime;
+	// The minimum time that needs to pass by before the AI re-evaluates a forbidden area (msec)
+	int						maxAreaReevaluationInterval;
+	// The time that needs to pass before locked doors are enabled for another try (msec)
+	int						doorRetryTime;
 
 	idMoveState				move;
 	idMoveState				savedMove;
