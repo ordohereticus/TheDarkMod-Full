@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1329 $
- * $Date: 2007-08-27 12:58:37 -0400 (Mon, 27 Aug 2007) $
+ * $Revision: 1364 $
+ * $Date: 2007-08-30 05:39:30 -0400 (Thu, 30 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1034,7 +1034,7 @@ protected:
 	/**
 	 * greebo: Flee from the given entity. Pass the maximum distance this AI should search escape areas in.
 	 */
-	bool					Flee(idEntity* entityToFleeFrom, float maxDist);
+	bool					Flee(idEntity* entityToFleeFrom, int algorithm, int distanceOption);
 	bool					MoveToAttackPosition( idEntity *ent, int attack_anim );
 	bool					MoveToEnemy( void );
 	bool					MoveToEntity( idEntity *ent );
@@ -1224,7 +1224,7 @@ protected:
 	void					Event_MoveToEnemy( void );
 	void					Event_MoveToEnemyHeight( void );
 	void					Event_MoveOutOfRange( idEntity *entity, float range );
-	void					Event_Flee(idEntity* entityToFleeFrom, float maxDist);
+	void					Event_Flee(idEntity* entityToFleeFrom, int algorithm, int distanceOption);
 	void					Event_MoveToAttackPosition( idEntity *entity, const char *attack_anim );
 	void					Event_MoveToEntity( idEntity *ent );
 	void					Event_MoveToPosition( const idVec3 &pos );
