@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2190 $
- * $Date: 2008-04-20 11:49:28 -0400 (Sun, 20 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2209 $
+ * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2190 2008-04-20 15:49:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 2209 2008-04-24 20:18:49Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1106,6 +1106,15 @@ void idMover::MoveToPos( const idVec3 &pos ) {
 	BeginMove( NULL );
 }
 
+/*
+================
+idMover::MoveToLocalPos
+================
+*/
+void idMover::MoveToLocalPos( const idVec3 &pos ) {
+	dest_position = pos;
+	BeginMove( NULL );
+}
 /*
 ================
 idMover::Event_MoveToPos

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2197 $
- * $Date: 2008-04-22 01:26:52 -0400 (Tue, 22 Apr 2008) $
+ * $Revision: 2209 $
+ * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2197 2008-04-22 05:26:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2209 2008-04-24 20:18:49Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -756,14 +756,14 @@ idPhysics_Parametric::SetOrigin
 ================
 */
 void idPhysics_Parametric::SetOrigin( const idVec3 &newOrigin, int id ) {
-	idVec3 masterOrigin;
-	idMat3 masterAxis;
 
 	current.linearExtrapolation.SetStartValue( newOrigin );
 	current.linearInterpolation.SetStartValue( newOrigin );
 
 	current.localOrigin = current.linearExtrapolation.GetCurrentValue( current.time );
 	if ( hasMaster ) {
+		idVec3 masterOrigin;
+		idMat3 masterAxis;
 		self->GetMasterPosition( masterOrigin, masterAxis );
 		current.origin = masterOrigin + current.localOrigin * masterAxis;
 	}
@@ -775,6 +775,28 @@ void idPhysics_Parametric::SetOrigin( const idVec3 &newOrigin, int id ) {
 	}
 	Activate();
 }
+
+void idPhysics_Parametric::SetLocalOrigin( const idVec3 &newOrigin) {
+	current.localOrigin = newOrigin;
+	if ( hasMaster ) {
+		idVec3 masterOrigin;
+		idMat3 masterAxis;
+		self->GetMasterPosition( masterOrigin, masterAxis );
+		current.origin = masterOrigin + current.localOrigin * masterAxis;
+	}
+	else {
+		current.origin = current.localOrigin;
+	}
+	if ( clipModel ) {
+		clipModel->Link( gameLocal.clip, self, 0, current.origin, current.axis );
+	}
+
+	current.linearExtrapolation.SetStartValue( current.localOrigin );
+	current.linearInterpolation.SetStartValue( current.localOrigin );
+
+	Activate();
+}
+
 
 /*
 ================

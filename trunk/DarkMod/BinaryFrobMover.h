@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2168 $
- * $Date: 2008-04-08 15:53:58 -0400 (Tue, 08 Apr 2008) $
+ * $Revision: 2209 $
+ * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -27,6 +27,7 @@ public:
 							CBinaryFrobMover( void );
 
 	void					Spawn( void );
+	void					Event_PostSpawn();
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );

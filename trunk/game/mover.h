@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2190 $
- * $Date: 2008-04-20 11:49:28 -0400 (Sun, 20 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2209 $
+ * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -111,6 +111,8 @@ protected:
 	void					Event_PartBlocked( idEntity *blockingEntity );
 
 	void					MoveToPos( const idVec3 &pos);
+	void					MoveToLocalPos( const idVec3 &pos );
+
 	void					UpdateMoveSound( moveStage_t stage );
 	void					UpdateRotationSound( moveStage_t stage );
 	void					SetGuiStates( const char *state );

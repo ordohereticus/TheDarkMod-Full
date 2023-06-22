@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2197 $
- * $Date: 2008-04-22 01:26:52 -0400 (Tue, 22 Apr 2008) $
+ * $Revision: 2209 $
+ * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -72,6 +72,7 @@ public:
 	bool					UsingSplineAngles( void ) const;
 
 	void					GetLocalOrigin( idVec3 &curOrigin ) const;
+	void					SetLocalOrigin( const idVec3 &newOrigin);
 	void					GetLocalAngles( idAngles &curAngles ) const;
 	const idAngles&			GetLocalAngles() const;
 	void					SetLocalAngles(idAngles curAngles);
