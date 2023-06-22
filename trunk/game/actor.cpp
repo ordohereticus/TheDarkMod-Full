@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2129 $
- * $Date: 2008-03-10 13:21:24 -0400 (Mon, 10 Mar 2008) $
+ * $Revision: 2131 $
+ * $Date: 2008-03-14 17:29:14 -0400 (Fri, 14 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2129 2008-03-10 17:21:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2131 2008-03-14 21:29:14Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2032,6 +2032,17 @@ void idActor::UnbindNotify( idEntity *ent )
 		}
 
 		KeyVal = ent->spawnArgs.MatchPrefix( "replace_anim_", KeyVal );
+	}
+
+	// angua: remove from attachments
+	for (int i = 0; i < m_attachments.Num(); i++)
+	{
+		idEntity* attachment = m_attachments[i].ent.GetEntity();
+
+		if (attachment != NULL && attachment->name == ent->name)
+		{
+			m_attachments[i].ent = NULL;
+		}
 	}
 }
 

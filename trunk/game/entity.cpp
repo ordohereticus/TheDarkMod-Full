@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2129 $
- * $Date: 2008-03-10 13:21:24 -0400 (Mon, 10 Mar 2008) $
+ * $Revision: 2131 $
+ * $Date: 2008-03-14 17:29:14 -0400 (Fri, 14 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2129 2008-03-10 17:21:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2131 2008-03-14 21:29:14Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2712,7 +2712,12 @@ bool idEntity::InitBind( idEntity *master )
 	}
 
 	// unbind myself from my master
-	Unbind();
+	// angua: only do this if the entity is already bound to something
+	// and the new master is different from the old one
+	if (bindMaster != NULL && master != bindMaster)
+	{
+		Unbind();
+	}
 
 	// add any bind constraints to an articulated figure
 	if ( master && IsType( idAFEntity_Base::Type ) ) {
