@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1226 $
- * $Date: 2007-07-28 12:19:07 -0400 (Sat, 28 Jul 2007) $
+ * $Revision: 1227 $
+ * $Date: 2007-07-28 12:49:35 -0400 (Sat, 28 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1226 2007-07-28 16:19:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1227 2007-07-28 16:49:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9365,10 +9365,11 @@ bool idPlayer::AddGrabberEntityToInventory()
 	return false;
 }
 
-int idPlayer::GetInventoryLightgemModifier()
+int idPlayer::GetLightgemModifier()
 {
 	int returnValue = 0;
 
+	// First, check the inventory items
 	if (m_WeaponCursor != NULL)
 	{
 		CInventoryItem* weapon = m_WeaponCursor->GetCurrentItem();
@@ -9384,11 +9385,15 @@ int idPlayer::GetInventoryLightgemModifier()
 		returnValue += item->GetLightgemModifier();
 	}
 
-	// Cap the value at LG_MAX
-	if (returnValue > DARKMOD_LG_MAX)
+	// Take the crouching into account
+	if (physicsObj.IsCrouching())
 	{
-		returnValue = DARKMOD_LG_MAX;
+		returnValue += cv_lg_crouch_modifier.GetInteger();
 	}
+
+	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Modifier: %d\r", returnValue);
+
+	// No need to cap the value, this is done in idGameLocal again.
 
 	return returnValue;
 }

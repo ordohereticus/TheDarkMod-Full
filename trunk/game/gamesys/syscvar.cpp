@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1205 $
- * $Date: 2007-07-23 12:44:21 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1227 $
+ * $Date: 2007-07-28 12:49:35 -0400 (Sat, 28 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1205 2007-07-23 16:44:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1227 2007-07-28 16:49:35Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -179,7 +179,7 @@ idCVar cv_lg_model("tdm_lg_model",		"models/darkmod/misc/system/lightgem.lwo",	C
 idCVar cv_lg_adjust("tdm_lg_adjust",		"0",		CVAR_GAME | CVAR_FLOAT,	"Adds a constant value to the lightgem." );
 idCVar cv_lg_split("tdm_lg_split",		"1",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves)." );
 idCVar cv_lg_path("tdm_lg_path",		"",	CVAR_GAME,	"Dump the rendersnapshot to the filepath specified here." );
-
+idCVar cv_lg_crouch_modifier("tdm_lg_crouch_modifier",	"-5",	CVAR_GAME | CVAR_INTEGER,	"The value the lightgem is adjusted by when the player is crouching." );
 /**
  * Variables needed for lockpicking.
  */

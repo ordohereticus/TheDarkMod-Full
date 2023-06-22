@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1115 $
- * $Date: 2007-07-13 12:47:49 -0400 (Fri, 13 Jul 2007) $
+ * $Revision: 1227 $
+ * $Date: 2007-07-28 12:49:35 -0400 (Sat, 28 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -130,6 +130,7 @@ extern idCVar cv_lg_model;
 extern idCVar cv_lg_adjust;
 extern idCVar cv_lg_split;
 extern idCVar cv_lg_path;
+extern idCVar cv_lg_crouch_modifier;
 
 // Lockpicking
 extern idCVar cv_lp_pin_base_count;
