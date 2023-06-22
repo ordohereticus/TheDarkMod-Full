@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1309 $
- * $Date: 2007-08-24 10:25:15 -0400 (Fri, 24 Aug 2007) $
+ * $Revision: 1424 $
+ * $Date: 2007-10-11 05:37:53 -0400 (Thu, 11 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1309 2007-08-24 14:25:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1424 2007-10-11 09:37:53Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1221,6 +1221,7 @@ idPhysics_RigidBody::SetContents
 ================
 */
 void idPhysics_RigidBody::SetContents( int contents, int id ) {
+	assert(clipModel != NULL);
 	clipModel->SetContents( contents );
 }
 
@@ -1230,6 +1231,7 @@ idPhysics_RigidBody::GetContents
 ================
 */
 int idPhysics_RigidBody::GetContents( int id ) const {
+	assert(clipModel != NULL);
 	return clipModel->GetContents();
 }
 
@@ -1239,6 +1241,7 @@ idPhysics_RigidBody::GetBounds
 ================
 */
 const idBounds &idPhysics_RigidBody::GetBounds( int id ) const {
+	assert(clipModel != NULL);
 	return clipModel->GetBounds();
 }
 
@@ -1248,6 +1251,7 @@ idPhysics_RigidBody::GetAbsBounds
 ================
 */
 const idBounds &idPhysics_RigidBody::GetAbsBounds( int id ) const {
+	assert(clipModel != NULL);
 	return clipModel->GetAbsBounds();
 }
 
