@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2289 $
+ * $Date: 2008-05-10 14:37:44 -0400 (Sat, 10 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -185,7 +185,7 @@ private:	// pathing
 	idVec3						SubSampleWalkPath( int areaNum, const idVec3 &origin, const idVec3 &start, const idVec3 &end, int travelFlags, int &endAreaNum, const idActor* actor ) const;
 	idVec3						SubSampleFlyPath( int areaNum, const idVec3 &origin, const idVec3 &start, const idVec3 &end, int travelFlags, int &endAreaNum ) const;
 
-private:	// debug
+public:	// debug
 	const idBounds &			DefaultSearchBounds( void ) const;
 	void						DrawCone( const idVec3 &origin, const idVec3 &dir, float radius, const idVec4 &color ) const;
 	void						DrawArea( int areaNum ) const;

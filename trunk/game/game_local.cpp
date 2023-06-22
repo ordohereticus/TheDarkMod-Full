@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2252 $
- * $Date: 2008-05-01 04:44:21 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2289 $
+ * $Date: 2008-05-10 14:37:44 -0400 (Sat, 10 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2252 2008-05-01 08:44:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2289 2008-05-10 18:37:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -29,6 +29,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 2252 2008-05-01 
 #include "../DarkMod/sndProp.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/MissionData.h"
+#include "../DarkMod/MultiStateMover.h"
 #include "../DarkMod/func_shooter.h"
 #include "../DarkMod/shop.h"
 #include "../DarkMod/DifficultyMenu.h"
@@ -1468,6 +1469,9 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	InitScriptForMap();
 
 	MapPopulate();
+
+	// greebo: Add the elevator reachabilities to the AAS
+	SetupElevatorConnections();
 
 	// initialize the AI relationships based on worldspawn
 	m_RelationsManager->SetFromArgs( &world->spawnArgs );
@@ -3567,6 +3571,48 @@ void idGameLocal::RemoveAllAASObstacles( void ) {
 
 	for( i = 0; i < aasList.Num(); i++ ) {
 		aasList[ i ]->RemoveAllObstacles();
+	}
+}
+
+void idGameLocal::SetupElevatorConnections()
+{
+	// Cycle through the entities and find all elevators
+	for (idEntity* ent = spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next())
+	{
+		if (!ent->IsType(CMultiStateMover::Type))
+		{
+			continue;
+		}
+
+		// Get all position entities of that mover
+		CMultiStateMover* mover = static_cast<CMultiStateMover*>(ent);
+		const idList<MoverPositionInfo>& infoEnts = mover->GetPositionInfoList();
+
+		for (int aasNum = 0; aasNum < NumAAS(); aasNum++)
+		{
+			idAAS* aas = GetAAS(aasNum);
+			if (aas == NULL) continue;
+
+			for (int i = 0; i < infoEnts.Num(); i++)
+			{
+				idEntity* positionEnt = infoEnts[i].positionEnt.GetEntity();
+
+				int areaNum = aas->PointAreaNum(positionEnt->GetPhysics()->GetOrigin());
+
+				if (areaNum == 0) continue;
+
+				// Add a reachability connecting this floor to all other floors
+				for (int j = 0; j < infoEnts.Num(); j++)
+				{
+					if (i == j) continue; // don't add reachability to self
+
+					const idVec3& otherOrg = infoEnts[j].positionEnt.GetEntity()->GetPhysics()->GetOrigin();
+					int otherAreaNum = aas->PointAreaNum(otherOrg);
+					if (otherAreaNum == 0) continue;
+
+				}
+			}
+		}
 	}
 }
 
