@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1627 $
+ * $Date: 2007-11-01 08:46:34 -0400 (Thu, 01 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1627 2007-11-01 12:46:34Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1355,8 +1355,8 @@ int CMissionData::AddObjsFromEnt( idEntity *ent )
 
 				if( SpecNum == -1 )
 				{
-					DM_LOG(LC_AI,LT_ERROR)LOGSTRING("Unknown objective component specification type '%s' when adding objective %d, component %d \r", TypeString, Counter, Counter2 );
-					gameLocal.Printf("Objective System Error: Unknown objective component specification type '%s' when adding objective %d, component %d.  Setting default specifier type 'none' \n", TypeString, Counter, Counter2 );
+					DM_LOG(LC_AI,LT_ERROR)LOGSTRING("Unknown objective component specification type '%s' when adding objective %d, component %d \r", TypeString.c_str(), Counter, Counter2 );
+					gameLocal.Printf("Objective System Error: Unknown objective component specification type '%s' when adding objective %d, component %d.  Setting default specifier type 'none' \n", TypeString.c_str(), Counter, Counter2 );
 					SpecNum = 0;
 				}
 				CompTemp.m_SpecMethod[ind] = (ESpecificationMethod) SpecNum;

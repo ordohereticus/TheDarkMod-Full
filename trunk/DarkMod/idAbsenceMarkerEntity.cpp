@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1627 $
+ * $Date: 2007-11-01 08:46:34 -0400 (Thu, 01 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -209,8 +209,6 @@ void idAbsenceMarkerEntity::Save( idSaveGame *savefile ) const
 
 void idAbsenceMarkerEntity::Restore( idRestoreGame *savefile )
 {
-	int refEntityNum = -1;
-
 	idVec3 refPosition;
 	idMat3 refOrientation;
 
@@ -248,7 +246,7 @@ void idAbsenceMarkerEntity::Restore( idRestoreGame *savefile )
 		}
 		else
 		{
-			DM_LOG(LC_AI, LT_ERROR).LogString ("Failed to get spawn args from entity def name on restore, name = '%s'\r", referenced_entityDefName);
+			DM_LOG(LC_AI, LT_ERROR).LogString ("Failed to get spawn args from entity def name on restore, name = '%s'\r", referenced_entityDefName.c_str());
 		}
 	}
 
