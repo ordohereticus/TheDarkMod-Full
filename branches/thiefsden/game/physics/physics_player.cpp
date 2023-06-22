@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1898 $
- * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1966 $
+ * $Date: 2008-01-08 11:14:46 -0500 (Tue, 08 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1898 $   $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1966 $   $Date: 2008-01-08 11:14:46 -0500 (Tue, 08 Jan 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1002,7 +1002,12 @@ void idPhysics_Player::RopeMove( void )
 	// (orig - ropeOrig) * gravNormal = | offset along rope axis | * (rope axis * gravNormal)
 	// Solve for offset along rope axis
 	idVec3 deltaPlayerBody = PlayerPoint - ropeBodyOrig;
-	float offsetMag = (deltaPlayerBody * gravityNormal) / (climbDir * gravityNormal);
+
+	// float offsetMag = (deltaPlayerBody * gravityNormal) / (climbDir * gravityNormal);
+
+	// angua: the other method got huge values for offsetMag at large angles 
+	// between the climbDir and the gravity axis.
+	float offsetMag = deltaPlayerBody * climbDir;
 	ropePoint = ropeBodyOrig + offsetMag * climbDir;
 	
 	// Uncomment for climb axis debugging
@@ -2190,7 +2195,8 @@ void idPhysics_Player::MovePlayer( int msec ) {
 		idEntity* ropeEntity = m_RopeEntity.GetEntity();
 		if (ropeEntity != NULL)
 		{
-			float ropeVelocity = ropeEntity->/*GetBindMaster()->*/GetPhysics()->GetLinearVelocity().LengthFast();
+
+			float ropeVelocity = ropeEntity->/*GetBindMaster()->*/GetPhysics()->GetLinearVelocity().z;
 
 			//gameLocal.Printf("Rope Velocity: %f\n", m_RopeEntity.GetEntity()->GetBindMaster()->GetPhysics()->GetLinearVelocity().LengthFast());
 			if (ropeVelocity > maxRopeVelocity)
