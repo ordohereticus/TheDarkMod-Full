@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1791 $
- * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1797 $
+ * $Date: 2007-11-15 15:02:29 -0500 (Thu, 15 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,21 +21,18 @@
 
 // Required includes
 #include "DarkmodAASHidingSpotFinder.h"
+#include <map>
 
 //---------------------------------------------------------------------------
 
-typedef struct tagTDarkmodHidingSpotSearchNode
+struct TDarkmodHidingSpotSearchNode
 {
 	// greebo: The id of this search, to resolve pointers after map restore
 	int searchId;
 
 	int refCount;
 	CDarkmodAASHidingSpotFinder search;
-
-	tagTDarkmodHidingSpotSearchNode* p_prev;
-	tagTDarkmodHidingSpotSearchNode* p_next;
-	
-} TDarkmodHidingSpotSearchNode;
+};
 
 //---------------------------------------------------------------------------
 
@@ -43,9 +40,10 @@ typedef struct tagTDarkmodHidingSpotSearchNode
 * This is the handle type by which an AI references searches in which it is 
 * interested.
 */
-typedef void* THidingSpotSearchHandle;
+typedef int THidingSpotSearchHandle;
 
-#define NULL_HIDING_SPOT_SEARCH_HANDLE NULL
+#define NULL_HIDING_SPOT_SEARCH_HANDLE -1
+#define MAX_NUM_HIDING_SPOT_SEARCHES 4
 
 //---------------------------------------------------------------------------
 
@@ -132,6 +130,10 @@ public:
 	void Restore( idRestoreGame *savefile );
 	
 protected:
+
+	// greebo: The array holding all active hiding spot search pointers
+	typedef std::map<int, TDarkmodHidingSpotSearchNode*> HidingSpotSearchMap;
+	HidingSpotSearchMap searches;
 
 	/**
 	* The list of hiding spot searches. 
