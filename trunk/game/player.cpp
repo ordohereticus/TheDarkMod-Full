@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1313 $
- * $Date: 2007-08-25 05:46:20 -0400 (Sat, 25 Aug 2007) $
+ * $Revision: 1315 $
+ * $Date: 2007-08-25 13:49:16 -0400 (Sat, 25 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1313 2007-08-25 09:46:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1315 2007-08-25 17:49:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6722,17 +6722,11 @@ float idPlayer::CalcFov( bool honorZoom ) {
 		return DefaultFov();
 	}
 
-	// greebo: TODO: Add immobilization check for zooming. The player has to be prevented from
-	// using the spyglass zoom functionality when a weapon is used.
-
-	/*if ( zoomFov.IsDone( gameLocal.time ) ) {
-		fov = ( honorZoom && usercmd.buttons & BUTTON_ZOOM ) && weapon.GetEntity() ? weapon.GetEntity()->GetZoomFov() : DefaultFov();
+	if ( zoomFov.IsDone( gameLocal.time ) ) {
+		fov = ( honorZoom && usercmd.buttons & BUTTON_ZOOM ) && weapon.GetEntity() ? weapon.GetEntity()->GetZoomFov() : zoomFov.GetCurrentValue(gameLocal.time);
 	} else {
 		fov = zoomFov.GetCurrentValue( gameLocal.time );
-	}*/
-
-	// Retrieve the current zoom value for the given game time
-	fov = zoomFov.GetCurrentValue( gameLocal.time );
+	}
 
 	// bound normal viewsize
 	if ( fov < 1 ) {
