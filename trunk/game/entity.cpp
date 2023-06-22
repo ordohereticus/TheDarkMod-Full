@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1269 $
- * $Date: 2007-08-03 08:31:57 -0400 (Fri, 03 Aug 2007) $
+ * $Revision: 1285 $
+ * $Date: 2007-08-07 12:40:27 -0400 (Tue, 07 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1269 2007-08-03 12:31:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1285 2007-08-07 16:40:27Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7815,16 +7815,6 @@ CInventoryItem *idEntity::AddToInventory(idEntity *ent, idUserInterface *_hud)
 		s = cv_tdm_inv_loot_sound.GetString();
 
 	StartSoundShader(declManager->FindSound(s), SCHANNEL_ANY, 0, false, &v);
-
-	if(rc)
-	{
-		// Item could be added to the inventory, check for custom HUD
-		if(ent->spawnArgs.GetString("inv_hud", "", s) != false)
-		{
-			ent->spawnArgs.GetInt("inv_hud_layer", "0", v);
-			rc->SetHUD(s, v);
-		}
-	}
 
 Quit:
 	return rc;
