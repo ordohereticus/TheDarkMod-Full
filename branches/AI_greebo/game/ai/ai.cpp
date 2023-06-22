@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1529 $
- * $Date: 2007-10-22 14:46:29 -0400 (Mon, 22 Oct 2007) $
+ * $Revision: 1533 $
+ * $Date: 2007-10-22 15:49:01 -0400 (Mon, 22 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1529 2007-10-22 18:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1533 2007-10-22 19:49:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -4978,8 +4978,10 @@ bool idAI::CanHitEntity(idActor* entity)
 {
 	if (entity != NULL)
 	{
-		float distance = (entity->GetEyePosition() - GetEyePosition()).LengthSqr();
-		return (distance < 2500);
+		// greebo: Route this call to TestMelee
+		return TestMelee();
+
+		// TODO: Support for ranged attacks
 	}
 
 	return false;
