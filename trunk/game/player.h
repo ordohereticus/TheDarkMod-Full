@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1907 $
- * $Date: 2007-12-27 04:29:40 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1910 $
+ * $Date: 2007-12-27 08:07:44 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -956,6 +956,10 @@ private:
 	void					Event_EndZoom(float duration);
 	void					Event_ResetZoom();
 	void					Event_GetFov();
+
+	// Objectives GUI-related events
+	void					Event_Pausegame();
+	void					Event_DestroyObjectivesGUI();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {

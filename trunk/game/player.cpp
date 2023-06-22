@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1907 $
- * $Date: 2007-12-27 04:29:40 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1910 $
+ * $Date: 2007-12-27 08:07:44 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1907 2007-12-27 09:29:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1910 2007-12-27 13:07:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -115,6 +115,9 @@ const idEventDef EV_Player_EndZoom("endZoom", "f");
 const idEventDef EV_Player_ResetZoom("resetZoom", NULL);
 const idEventDef EV_Player_GetFov("getFov", NULL, 'f');
 
+const idEventDef EV_Player_PauseGame("pauseGame", NULL);
+const idEventDef EV_Player_DestroyObjectivesGUI("destroyObjectivesGUI", NULL);
+
 // greebo: Allows scripts to set a named lightgem modifier to a certain value (e.g. "lantern" => 32)
 const idEventDef EV_Player_SetLightgemModifier("setLightgemModifier", "sd");
 const idEventDef EV_ReadLightgemModifierFromWorldspawn("readLightgemModifierFromWorldspawn", NULL);
@@ -175,6 +178,10 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_EndZoom,				idPlayer::Event_EndZoom )
 	EVENT( EV_Player_ResetZoom,				idPlayer::Event_ResetZoom )
 	EVENT( EV_Player_GetFov,				idPlayer::Event_GetFov )
+
+	// Events needed for the Objectives GUI (is a blocking GUI - pauses the game)
+	EVENT( EV_Player_PauseGame,				idPlayer::Event_Pausegame )
+	EVENT( EV_Player_DestroyObjectivesGUI,	idPlayer::Event_DestroyObjectivesGUI )
 
 END_CLASS
 
@@ -4738,6 +4745,12 @@ void idPlayer::UseVehicle( void ) {
 
 void idPlayer::ToggleObjectivesGUI() 
 {
+	if (objectiveGUIHandle && !g_stopTime.GetBool())
+	{
+		// We're in the middle of a transition, don't handle this request
+		return;
+	}
+
 	if (objectiveGUIHandle == 0)
 	{
 		// Objectives GUI not yet open, create
@@ -4747,15 +4760,17 @@ void idPlayer::ToggleObjectivesGUI()
 		gameLocal.m_MissionData->UpdateGUIState(this, objectiveGUIHandle);
 
 		SetImmobilization("obj_gui", EIM_OBJECTIVES_OPEN);
-		gameLocal.PauseGame(true);
+		
+		// Pause the game in one second
+		PostEventMS(&EV_Player_PauseGame, 1000);
 	}
 	else 
 	{
-		// GUI already open (handle is non-zero), destroy
-		DestroyOverlay(objectiveGUIHandle);
-		objectiveGUIHandle = 0;
-		SetImmobilization("obj_gui", 0);
+		// Unpause the game
 		gameLocal.PauseGame(false);
+
+		// Destroy the GUI in one second
+		PostEventMS(&EV_Player_DestroyObjectivesGUI, 1000);
 	}
 }
 
@@ -9748,4 +9763,18 @@ void idPlayer::SendHUDMessage(const idStr& text)
 	}
 
 	hudMessages.Append(text);
+}
+
+void idPlayer::Event_Pausegame() {
+	gameLocal.PauseGame(true);
+}
+
+void idPlayer::Event_DestroyObjectivesGUI() {
+	if (objectiveGUIHandle > 0)
+	{
+		// GUI already open (handle is non-zero), destroy
+		DestroyOverlay(objectiveGUIHandle);
+		objectiveGUIHandle = 0;
+		SetImmobilization("obj_gui", 0);		
+	}
 }
