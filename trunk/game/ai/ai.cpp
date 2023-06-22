@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1242 $
- * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1246 $
+ * $Date: 2007-07-29 13:04:18 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1242 2007-07-29 15:43:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1246 2007-07-29 17:04:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -6292,7 +6292,7 @@ float idAI::GetAcuity( const char *type ) const
 			}
 	}
 
-	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Acuity %s = %f\r", type, returnval);
+	//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Acuity %s = %f\r", type, returnval);
 
 Quit:
 	return returnval;
