@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2082 $
- * $Date: 2008-02-10 11:45:57 -0500 (Sun, 10 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2110 $
+ * $Date: 2008-02-26 07:51:30 -0500 (Tue, 26 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2082 2008-02-10 16:45:57Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2110 2008-02-26 12:51:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -211,6 +211,7 @@ idMoveable::Save
 */
 void idMoveable::Save( idSaveGame *savefile ) const {
 
+	savefile->WriteString( brokenModel );
 	savefile->WriteString( damage );
 	savefile->WriteString( fxCollide );
 	savefile->WriteInt( nextCollideFxTime );
