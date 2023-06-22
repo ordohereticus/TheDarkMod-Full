@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1291 $
- * $Date: 2007-08-15 04:36:05 -0400 (Wed, 15 Aug 2007) $
+ * $Revision: 1296 $
+ * $Date: 2007-08-16 06:10:14 -0400 (Thu, 16 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 1291 2007-08-15 08:36:05Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 1296 2007-08-16 10:10:14Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -7576,7 +7576,7 @@ idPhysics_AF::GetBody
 */
 idAFBody *idPhysics_AF::GetBody( const int id ) const {
 	if ( id < 0 || id >= bodies.Num() ) {
-		gameLocal.Error( "GetBody: no body with id %d exists\n", id );
+		gameLocal.Error( "GetBody: no body with id %d exists on ent %s\n", id, self->name.c_str() );
 		return NULL;
 	}
 	return bodies[id];
