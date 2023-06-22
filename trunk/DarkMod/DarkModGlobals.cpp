@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2017 $
- * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
+ * $Revision: 2171 $
+ * $Date: 2008-04-11 10:42:29 -0400 (Fri, 11 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,10 +19,10 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2017 2008-01-27 20:35:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2171 2008-04-11 14:42:29Z greebo $", init_version);
 
 #ifdef _WINDOWS_
-#include "c:\compiled.h"
+//#include "c:\compiled.h"
 #endif
 
 #include "DarkModGlobals.h"
