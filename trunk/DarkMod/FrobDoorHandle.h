@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1125 $
- * $Date: 2007-07-15 02:55:43 -0400 (Sun, 15 Jul 2007) $
+ * $Revision: 1372 $
+ * $Date: 2007-09-02 16:17:48 -0400 (Sun, 02 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -45,12 +45,6 @@ public:
 	CFrobDoor				*GetDoor(void);
 	void					Event_GetDoor(void);
 	void					Event_Tap(void);
-	void					Event_FindHandleDoor(void);
-
-	/**
-	 * Find the door, that is associated with this handle.
-	 */
-	CFrobDoor				*FindDoor(idStr &Doorname);
 
 	/**
 	 * Functions that must be forwarded to the door.
