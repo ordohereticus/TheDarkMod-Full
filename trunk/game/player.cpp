@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2003 $
+ * $Date: 2008-01-22 12:33:20 -0500 (Tue, 22 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2003 2008-01-22 17:33:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9750,6 +9750,22 @@ int idPlayer::GetLightgemModifier()
 	if (physicsObj.IsCrouching())
 	{
 		returnValue += cv_lg_crouch_modifier.GetInteger();
+	}
+
+	// greebo: Take the current velocity into account
+	{
+		float velocity = physicsObj.GetLinearVelocity().LengthFast();
+		float minVelocity = cv_lg_velocity_mod_min_velocity.GetFloat();
+		float maxVelocity = cv_lg_velocity_mod_max_velocity.GetFloat();
+
+		float factor = (velocity - minVelocity) / (maxVelocity - minVelocity);
+
+		// Force the factor into [0..1]
+		if (factor > 1) factor = 1;
+		if (factor < 0) factor = 0;
+
+		int amount = cv_lg_velocity_mod_amount.GetInteger();
+		returnValue += amount * factor;
 	}
 
 	// No need to cap the value, this is done in idGameLocal again.

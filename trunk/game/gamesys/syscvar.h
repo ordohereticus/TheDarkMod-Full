@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2000 $
- * $Date: 2008-01-20 01:43:39 -0500 (Sun, 20 Jan 2008) $
- * $Author: crispy $
+ * $Revision: 2003 $
+ * $Date: 2008-01-22 12:33:20 -0500 (Tue, 22 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -163,6 +163,9 @@ extern idCVar cv_lg_crouch_modifier;
 extern idCVar cv_lg_image_width;
 extern idCVar cv_lg_screen_width;
 extern idCVar cv_lg_screen_height;
+extern idCVar cv_lg_velocity_mod_min_velocity;
+extern idCVar cv_lg_velocity_mod_max_velocity;
+extern idCVar cv_lg_velocity_mod_amount;
 
 // Lockpicking
 extern idCVar cv_lp_pin_base_count;
