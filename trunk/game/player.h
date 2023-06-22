@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1312 $
- * $Date: 2007-08-24 15:19:31 -0400 (Fri, 24 Aug 2007) $
+ * $Revision: 1313 $
+ * $Date: 2007-08-25 05:46:20 -0400 (Sat, 25 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -922,7 +922,7 @@ private:
 	 * greebo: These scriptevents handle the player zoom in/out behaviour.
 	 */
 	void					Event_StartZoom(float duration, float startFOV, float endFOV);
-	void					Event_StopZoom(float duration);
+	void					Event_EndZoom(float duration);
 	void					Event_ResetZoom();
 };
 
