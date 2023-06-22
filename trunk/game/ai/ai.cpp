@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1739 $
- * $Date: 2007-11-08 16:26:49 -0500 (Thu, 08 Nov 2007) $
- * $Author: angua $
+ * $Revision: 1740 $
+ * $Date: 2007-11-08 17:05:26 -0500 (Thu, 08 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1739 2007-11-08 21:26:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1740 2007-11-08 22:05:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1744,6 +1744,20 @@ void idAI::Think( void )
 	if( cv_ai_alertnum_show.GetBool() )
 	{
 		gameRenderWorld->DrawText( va("Alert: %f; Index: %d", (float) AI_AlertNum, (int)AI_AlertIndex), (GetEyePosition() - physicsObj.GetGravityNormal()*45.0f), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+	}
+
+	if (cv_ai_animstate_show.GetBool())
+	{
+		idStr debugText("Torso: ");
+		debugText += GetAnimState(ANIMCHANNEL_TORSO);
+		debugText += "\nLegs: ";
+		debugText += GetAnimState(ANIMCHANNEL_LEGS);
+		debugText += "\n";
+		if (WaitState() != NULL)
+		{
+			debugText += idStr("Waitstate: ") + WaitState();
+		}
+		gameRenderWorld->DrawText( debugText, (GetEyePosition() - physicsObj.GetGravityNormal()*-4), 0.25f, colorMagenta, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
 }
 
