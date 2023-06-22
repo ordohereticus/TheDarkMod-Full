@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1775 $
- * $Date: 2007-11-13 11:24:11 -0500 (Tue, 13 Nov 2007) $
+ * $Revision: 1785 $
+ * $Date: 2007-11-14 05:48:27 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1775 2007-11-13 16:24:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1785 2007-11-14 10:48:27Z greebo $", init_version);
 
 #include "darkModAASFindHidingSpots.h"
 #include "DarkModGlobals.h"
@@ -600,6 +600,12 @@ bool darkModAASFindHidingSpots::testingAASAreas_InVisiblePVSArea
 		{
 			// Initialize grid search for inside visible AAS area
 			idBounds currentAASAreaBounds = p_aas->GetAreaBounds (aasAreaIndex);
+
+			// greebo: Uncomment for AAS area bounds drawing
+			//idBounds testBounds(currentAASAreaBounds);
+			//idBox box(testBounds);
+			//gameRenderWorld->DebugBox(colorRed, box, 1000);
+
 			currentGridSearchBounds = searchLimits.Intersect (currentAASAreaBounds);
 			currentGridSearchAASAreaNum = aasAreaIndex;
 			currentGridSearchBoundMins = currentGridSearchBounds[0];
@@ -674,6 +680,7 @@ bool darkModAASFindHidingSpots::testingInsideVisibleAASArea
 	{
 		while (currentGridSearchPoint.y <= currentGridSearchBoundMaxes.y - WALL_MARGIN_SIZE + 0.1)
 		{
+			DM_LOG(LC_AI, LT_DEBUG).LogString("iterating %f,%f\r", currentGridSearchPoint.x, currentGridSearchPoint.y);
 			// See if we have filled our point quota
 			if (inout_numPointsTestedThisPass >= numPointsToTestThisPass)
 			{
