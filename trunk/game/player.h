@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1898 $
- * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1899 $
+ * $Date: 2007-12-26 13:21:55 -0500 (Wed, 26 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -112,6 +112,8 @@ enum {
 	EIM_ITEM_SELECT			= BIT(11),	// Selecting items.
 	EIM_ITEM_DROP			= BIT(12),	// Dropping inventory items.
 };
+// greebo: The immobilisation mask during objectives GUI display
+const int EIM_OBJECTIVES_OPEN = EIM_ALL;
 
 typedef struct {
 	int		time;
@@ -502,6 +504,10 @@ public:
 	void					Spectate( bool spectate );
 	void					TogglePDA( void );
 	void					ToggleScoreboard( void );
+
+	// greebo: Toggles the objectives GUI
+	void					ToggleObjectivesGUI();
+
 	void					RouteGuiMouse( idUserInterface *gui );
 	void					UpdateHud( void );
 	const idDeclPDA *		GetPDA( void ) const;

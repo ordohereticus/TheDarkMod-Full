@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1898 $
- * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1899 $
+ * $Date: 2007-12-26 13:21:55 -0500 (Wed, 26 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1898 2007-12-26 18:10:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1899 2007-12-26 18:21:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4721,6 +4721,25 @@ void idPlayer::UseVehicle( void ) {
 	}
 }
 
+void idPlayer::ToggleObjectivesGUI() 
+{
+	if (objectiveGUIHandle == 0)
+	{
+		// Objectives GUI not yet open, create
+		objectiveGUIHandle = CreateOverlay(cv_tdm_objectives_gui.GetString(), LAYER_OBJECTIVES);
+		SetImmobilization("obj_gui", EIM_OBJECTIVES_OPEN);
+		gameLocal.PauseGame(true);
+	}
+	else 
+	{
+		// GUI already open (handle is non-zero), destroy
+		DestroyOverlay(objectiveGUIHandle);
+		objectiveGUIHandle = 0;
+		SetImmobilization("obj_gui", 0);
+		gameLocal.PauseGame(false);
+	}
+}
+
 /*
 ==============
 idPlayer::PerformImpulse
@@ -4811,19 +4830,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		}
 		case IMPULSE_19: // Toggle Objectives GUI (was previously assigned to the PDA)
 		{
-			if (objectiveGUIHandle == 0)
-			{
-				// Objectives GUI not yet open, create
-				objectiveGUIHandle = CreateOverlay(cv_tdm_objectives_gui.GetString(), LAYER_OBJECTIVES);
-				gameLocal.PauseGame(true);
-			}
-			else 
-			{
-				// GUI already open (handle is non-zero), destroy
-				DestroyOverlay(objectiveGUIHandle);
-				objectiveGUIHandle = 0;
-				gameLocal.PauseGame(false);
-			}
+			ToggleObjectivesGUI();
 			break;
 		}
 		case IMPULSE_20:
