@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1630 $
- * $Date: 2007-11-01 10:29:51 -0400 (Thu, 01 Nov 2007) $
+ * $Revision: 1632 $
+ * $Date: 2007-11-01 10:43:07 -0400 (Thu, 01 Nov 2007) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1630 2007-11-01 14:29:51Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1632 2007-11-01 14:43:07Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -674,7 +674,7 @@ idItem::Event_Touch
 ================
 */
 void idItem::Event_Touch( idEntity *other, trace_t *trace ) {
-	/* only allow touches from the player */
+	// only allow touches from the player
 	if ( !other->IsType( idPlayer::Type ) ) {
 		return;
 	}
