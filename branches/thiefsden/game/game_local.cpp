@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1932 $
- * $Date: 2007-12-29 16:00:10 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1933 $
+ * $Date: 2007-12-29 16:13:52 -0500 (Sat, 29 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1932 2007-12-29 21:00:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1933 2007-12-29 21:13:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3045,17 +3045,12 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Objectives GUI requests closure, shut it down
 		gui->HandleNamedEvent("CloseObjectives");
 	}
-	else if (cmd == "objectives_closed")
-	{
-		//objectivesTriggered = false;//gui->SetStateBool("ObjectivesTriggered", "0");
-	}
 	else if (cmd == "mainmenu_heartbeat")
 	{
 		// The main menu is visible, check if we should switch to the objectives screen
-		bool alreadyTriggered = objectivesTriggered;//gui->GetStateBool("ObjectivesTriggered", "0");
-
+		
 		// Only switch during map runtime and if not already triggered
-		if (GameState() == GAMESTATE_ACTIVE && !alreadyTriggered)
+		if (GameState() == GAMESTATE_ACTIVE && !objectivesTriggered)
 		{
 			// Objectives not yet shown, trigger them now
 			gui->HandleNamedEvent("ShowObjectiveScreen");
@@ -3069,7 +3064,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}
 	else if (cmd == "close") 
 	{
-		objectivesTriggered = false;//gui->SetStateBool("ObjectivesTriggered", "0");
+		objectivesTriggered = false;
+		gui->HandleNamedEvent("HideObjectiveScreen");
 	}
 
 	g_Diff.HandleCommands(menuCommand, gui);
