@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2230 $
- * $Date: 2008-04-27 04:15:12 -0400 (Sun, 27 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2237 $
+ * $Date: 2008-04-27 10:54:09 -0400 (Sun, 27 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2230 2008-04-27 08:15:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2237 2008-04-27 14:54:09Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1182,6 +1182,7 @@ void idAI::Spawn( void )
 
 
 	alertTypeWeight[ai::EAlertTypeNone] = 0;
+	alertTypeWeight[ai::EAlertTypeSuspicious] = 5;
 	alertTypeWeight[ai::EAlertTypeEnemy] = 50;
 	alertTypeWeight[ai::EAlertTypeWeapon] = 35;
 	alertTypeWeight[ai::EAlertTypeDeadPerson] = 41;
