@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1607 $
- * $Date: 2007-10-30 14:56:06 -0400 (Tue, 30 Oct 2007) $
+ * $Revision: 1608 $
+ * $Date: 2007-10-30 16:14:49 -0400 (Tue, 30 Oct 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -144,6 +144,8 @@ extern idCVar cv_lg_split;
 extern idCVar cv_lg_path;
 extern idCVar cv_lg_crouch_modifier;
 extern idCVar cv_lg_image_width;
+extern idCVar cv_lg_screen_width;
+extern idCVar cv_lg_screen_height;
 
 // Lockpicking
 extern idCVar cv_lp_pin_base_count;

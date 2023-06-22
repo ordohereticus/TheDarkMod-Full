@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1607 $
- * $Date: 2007-10-30 14:56:06 -0400 (Tue, 30 Oct 2007) $
+ * $Revision: 1608 $
+ * $Date: 2007-10-30 16:14:49 -0400 (Tue, 30 Oct 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1607 2007-10-30 18:56:06Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1608 2007-10-30 20:14:49Z sparhawk $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5147,8 +5147,10 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 		rv.shaderParms[i] = gameLocal.globalShaderParms[i];
 
 	rv.globalMaterial = gameLocal.GetGlobalMaterial();
-	rv.width = SCREEN_WIDTH;
-	rv.height = SCREEN_HEIGHT;
+//	rv.width = SCREEN_WIDTH;
+//	rv.height = SCREEN_HEIGHT;
+	rv.width = cv_lg_screen_width.GetInteger();
+	rv.height = cv_lg_screen_height.GetInteger();
 	rv.fov_x = cv_lg_fov.GetInteger();
 	rv.fov_y = cv_lg_fov.GetInteger();		// Bigger values means more compressed view
 	rv.forceUpdate = false;
