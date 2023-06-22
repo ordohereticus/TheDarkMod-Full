@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1922 $
- * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1980 $
+ * $Date: 2008-01-12 17:06:00 -0500 (Sat, 12 Jan 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1922 2007-12-28 10:53:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1980 2008-01-12 22:06:00Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9299,6 +9299,15 @@ void idPlayer::FrobCheck( void )
 
 		// greebo: Check if the frobbed entity is the bind master of the currently climbed rope
 		bool isRopeMaster = playerPhysics->OnRope() && playerPhysics->GetRopeEntity()->GetBindMaster() == ent;
+
+		// ishtvan: Check if the frobbed entity is a dynamically added AF body linked to another entity
+		if( ent->IsType(idAFEntity_Base::Type) )
+		{
+			idAFEntity_Base *afEnt = static_cast<idAFEntity_Base *>(ent);
+			idAFBody *AFbod = afEnt->GetAFPhysics()->GetBody( afEnt->BodyForClipModelId(trace.c.id) );
+			if( AFbod->GetRerouteEnt() && AFbod->GetRerouteEnt()->m_bFrobable )
+				ent = AFbod->GetRerouteEnt();
+		}
 	
 		// only frob frobable, non-hidden entities within their frobdistance
 		// also, do not frob the ent we are currently holding in our hands
