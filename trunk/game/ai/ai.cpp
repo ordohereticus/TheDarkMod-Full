@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1765 $
- * $Date: 2007-11-12 09:18:26 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1768 $
+ * $Date: 2007-11-12 15:53:18 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1765 2007-11-12 14:18:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1768 2007-11-12 20:53:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8794,7 +8794,7 @@ idVec3 idAI::GetNthHidingSpotLocation(int hidingSpotIndex)
 	if (hidingSpotIndex >= 0 && hidingSpotIndex < numSpots)
 	{
 		idBounds areaNodeBounds;
-		darkModHidingSpot_t* p_spot = m_hidingSpots.getNthSpotWithAreaNodeBounds(hidingSpotIndex, areaNodeBounds);
+		darkModHidingSpot* p_spot = m_hidingSpots.getNthSpotWithAreaNodeBounds(hidingSpotIndex, areaNodeBounds);
 		if (p_spot != NULL)
 		{
 			outLocation = p_spot->goal.origin;

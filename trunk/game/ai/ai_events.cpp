@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1734 $
- * $Date: 2007-11-08 08:51:28 -0500 (Thu, 08 Nov 2007) $
+ * $Revision: 1768 $
+ * $Date: 2007-11-12 15:53:18 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1734 2007-11-08 13:51:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1768 2007-11-12 20:53:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3461,7 +3461,7 @@ void idAI::Event_GetNthHidingSpotType (int hidingSpotIndex)
 	// In bounds?
 	if ((hidingSpotIndex >= 0) && (hidingSpotIndex < numSpots))
 	{
-		darkModHidingSpot_t* p_spot = m_hidingSpots.getNthSpot(hidingSpotIndex);
+		darkModHidingSpot* p_spot = m_hidingSpots.getNthSpot(hidingSpotIndex);
 		if (p_spot == NULL)
 		{
 			outTypeFlags = 0;
