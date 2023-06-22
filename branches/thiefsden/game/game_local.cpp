@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1931 $
- * $Date: 2007-12-29 14:18:38 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1932 $
+ * $Date: 2007-12-29 16:00:10 -0500 (Sat, 29 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1931 2007-12-29 19:18:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1932 2007-12-29 21:00:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -2985,7 +2985,7 @@ escReply_t idGameLocal::HandleESC( idUserInterface **gui ) {
 		// we may set the gui back to NULL to hide it
 		return ESC_GUI;
 	}
-	
+
 	// If we're in the process of ending the mission, ignore all ESC keys.
 	if (GameState() == GAMESTATE_COMPLETED) {
 		return ESC_IGNORE;
@@ -3036,10 +3036,23 @@ handles main menu commands.
 */
 void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui )
 {
-	if (idStr(menuCommand) == "mainmenu_heartbeat")
+	idStr cmd(menuCommand);
+
+	static bool objectivesTriggered = false;
+
+	if (cmd == "objective_close_request")
+	{
+		// Objectives GUI requests closure, shut it down
+		gui->HandleNamedEvent("CloseObjectives");
+	}
+	else if (cmd == "objectives_closed")
+	{
+		//objectivesTriggered = false;//gui->SetStateBool("ObjectivesTriggered", "0");
+	}
+	else if (cmd == "mainmenu_heartbeat")
 	{
 		// The main menu is visible, check if we should switch to the objectives screen
-		bool alreadyTriggered = gui->GetStateBool("ObjectivesTriggered", "0");
+		bool alreadyTriggered = objectivesTriggered;//gui->GetStateBool("ObjectivesTriggered", "0");
 
 		// Only switch during map runtime and if not already triggered
 		if (GameState() == GAMESTATE_ACTIVE && !alreadyTriggered)
@@ -3048,9 +3061,15 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			gui->HandleNamedEvent("ShowObjectiveScreen");
 			gui->HandleNamedEvent("InitObjectives");
 
+			objectivesTriggered = true;
+
 			// Load the objectives into the GUI
 			m_MissionData->UpdateGUIState(gui); 
 		}
+	}
+	else if (cmd == "close") 
+	{
+		objectivesTriggered = false;//gui->SetStateBool("ObjectivesTriggered", "0");
 	}
 
 	g_Diff.HandleCommands(menuCommand, gui);
