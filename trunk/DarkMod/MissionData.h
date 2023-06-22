@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1748 $
- * $Date: 2007-11-10 18:43:37 -0500 (Sat, 10 Nov 2007) $
+ * $Revision: 1866 $
+ * $Date: 2007-12-12 03:48:02 -0500 (Wed, 12 Dec 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -746,7 +746,11 @@ protected:
 	/**
 	* List of entity names that intersected bounds in previous clock tick
 	**/
-	idStrList m_EntsInBounds;
+	idStrList	m_EntsInBounds;
+	/**
+	* Objective system: Location's objective group name for objective checks
+	**/
+	idStr		m_ObjectiveGroup;
 
 }; // CObjectiveLocation
 
