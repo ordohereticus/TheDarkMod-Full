@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2041 $
- * $Date: 2008-02-03 04:11:33 -0500 (Sun, 03 Feb 2008) $
+ * $Revision: 2045 $
+ * $Date: 2008-02-05 13:21:23 -0500 (Tue, 05 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2041 2008-02-03 09:11:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2045 2008-02-05 18:21:23Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3880,6 +3880,9 @@ void idGameLocal::SpawnMapEntities( void ) {
 		if ( !InhibitEntitySpawn( args ) ) {
 			// precache any media specified in the map entity
 			CacheDictionaryMedia( &args );
+
+			// greebo: Apply the difficulty settings before any values get filled from the spawnarg data
+			m_DifficultyManager.ApplyDifficultySettings(args);
 
 			SpawnEntityDef( args );
 			num++;
