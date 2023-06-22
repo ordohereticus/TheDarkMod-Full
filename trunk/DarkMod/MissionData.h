@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2002 $
- * $Date: 2008-01-20 14:39:40 -0500 (Sun, 20 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2047 $
+ * $Date: 2008-02-06 11:09:57 -0500 (Wed, 06 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -26,7 +26,7 @@
 #define MAX_TEAMS 64
 #define MAX_TYPES 16
 #define MAX_AICOMP 16
-#define MAX_ALERTNUMS 16
+#define MAX_ALERTLEVELS 16
 
 /**
 * Objective completion states
@@ -411,7 +411,7 @@ typedef struct SMissionStats_s
 // AI Stats:
 	SStat AIStats[ MAX_AICOMP ];
 	
-	SStat AIAlerts[ MAX_ALERTNUMS ];
+	SStat AIAlerts[ MAX_ALERTLEVELS ];
 
 	int DamageDealt;
 	int DamageReceived;
@@ -505,17 +505,17 @@ public:
 * index for the category (for example, the index would be the team int if 
 * you are calling GetStatByTeam)
 * 
-* The AlertNum must be specified if you are getting alert stats, but otherwise
+* The AlertLevel must be specified if you are getting alert stats, but otherwise
 * is optional.
 **/
-	int GetStatByTeam( EComponentType CompType, int index, int AlertNum = 0 );
-	int GetStatByType( EComponentType CompType, int index, int AlertNum = 0 );
-	int GetStatByInnocence( EComponentType CompType, int index, int AlertNum = 0 );
+	int GetStatByTeam( EComponentType CompType, int index, int AlertLevel = 0 );
+	int GetStatByType( EComponentType CompType, int index, int AlertLevel = 0 );
+	int GetStatByInnocence( EComponentType CompType, int index, int AlertLevel = 0 );
 /**
 * The following stat functions don't need an index var, since there is only one of them tracked
 **/
-	int GetStatOverall( EComponentType CompType, int AlertNum = 0 );
-	int GetStatAirborne( EComponentType CompType, int AlertNum = 0);
+	int GetStatOverall( EComponentType CompType, int AlertLevel = 0 );
+	int GetStatAirborne( EComponentType CompType, int AlertLevel = 0);
 	int GetDamageDealt( void );
 	int GetDamageReceived( void );
 

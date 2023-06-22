@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2033 $
- * $Date: 2008-02-02 08:52:52 -0500 (Sat, 02 Feb 2008) $
+ * $Revision: 2047 $
+ * $Date: 2008-02-06 11:09:57 -0500 (Wed, 06 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -29,15 +29,15 @@ extern idCVar cv_ai_sightmindist;
 extern idCVar cv_ai_tactalert;
 extern idCVar cv_ai_state_show;
 extern idCVar cv_ai_task_show;
-extern idCVar cv_ai_alertnum_show;
+extern idCVar cv_ai_alertlevel_show;
 extern idCVar cv_ai_dest_show;
 extern idCVar cv_ai_debug;
 extern idCVar cv_ai_sight_thresh;
 extern idCVar cv_ai_sight_scale;
 extern idCVar cv_ai_show_enemy_visibility;
-extern idCVar cv_ai_acuity_L1;
-extern idCVar cv_ai_acuity_L2;
 extern idCVar cv_ai_acuity_L3;
+extern idCVar cv_ai_acuity_L4;
+extern idCVar cv_ai_acuity_L5;
 extern idCVar cv_ai_acuity_susp;
 extern idCVar cv_ai_visdist_show;
 extern idCVar cv_ai_opt_disable;
