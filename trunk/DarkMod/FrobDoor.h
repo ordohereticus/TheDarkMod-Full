@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1393 $
- * $Date: 2007-09-27 17:34:30 -0400 (Thu, 27 Sep 2007) $
+ * $Revision: 1394 $
+ * $Date: 2007-09-28 15:43:38 -0400 (Fri, 28 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -118,6 +118,8 @@ public:
 	 * the entities are loaded, should be done here.
 	 */
 	void					Event_Init(void);
+
+	void					PropPickSound(idStr &picksound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex);
 
 protected:
 	/**
