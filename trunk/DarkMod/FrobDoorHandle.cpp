@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2100 $
- * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
+ * $Revision: 2253 $
+ * $Date: 2008-05-01 07:15:58 -0400 (Thu, 01 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2100 2008-02-23 09:32:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2253 2008-05-01 11:15:58Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -127,6 +127,10 @@ void CFrobDoorHandle::ClosePortal(void)
 {
 }
 
+void CFrobDoorHandle::ToggleOpen(void)
+{
+}
+
 void CFrobDoorHandle::DoneStateChange(void)
 {
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("doorhandle [%s] finished state_change.\r", name.c_str());
@@ -152,8 +156,8 @@ void CFrobDoorHandle::Tap(void)
 	if(s.Length() == 0 || m_Door == NULL)
 		return;
 
-	signal = m_Door->AddSDKSignal(SigOpen, NULL);
-	CallScriptFunctionArgs(s.c_str(), true, 0, "eef", this, m_Door, signal);
+//	signal = m_Door->AddSDKSignal(SigOpen, NULL);
+	CallScriptFunctionArgs(s.c_str(), true, 0, "ee", this, m_Door);
 }
 
 bool CFrobDoorHandle::isLocked(void)

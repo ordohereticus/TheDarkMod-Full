@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2209 $
- * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2253 $
+ * $Date: 2008-05-01 07:15:58 -0400 (Thu, 01 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2209 2008-04-24 20:18:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2253 2008-05-01 11:15:58Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -35,6 +35,7 @@ extern TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd;
 //===============================================================================
 
 const idEventDef EV_TDM_Door_Open( "Open", "f" );
+const idEventDef EV_TDM_Door_OpenDoor( "OpenDoor", "f" );
 const idEventDef EV_TDM_Door_Close( "Close", "f" );
 const idEventDef EV_TDM_Door_ToggleOpen( "ToggleOpen", NULL );
 const idEventDef EV_TDM_Door_Lock( "Lock", "f" );
@@ -48,6 +49,7 @@ const idEventDef EV_TDM_Door_Init( "Init", NULL);						// set the bar/handle ent
 CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_Door_Init,				CFrobDoor::Event_Init)
 	EVENT( EV_TDM_Door_Open,				CFrobDoor::Open)
+	EVENT( EV_TDM_Door_OpenDoor,			CFrobDoor::OpenDoor)
 	EVENT( EV_TDM_Door_Close,				CFrobDoor::Close)
 	EVENT( EV_TDM_Door_Lock,				CFrobDoor::Lock)
 	EVENT( EV_TDM_Door_Unlock,				CFrobDoor::Unlock)
@@ -394,8 +396,6 @@ void CFrobDoor::Open(bool bMaster)
 
 	m_StoppedDueToBlock = false;
 
-	idAngles tempAng;
-
 	// If the door is already open, we don't have anything to do. :)
 	if(m_Open == true && !m_bInterrupted && !IsBlocked())
 	{
@@ -421,7 +421,6 @@ void CFrobDoor::OpenDoor(bool bMaster)
 {
 	CFrobDoor *ent;
 	idEntity *e;
-	idAngles tempAng;
 
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Opening\r" );
 
@@ -481,12 +480,12 @@ void CFrobDoor::OpenDoor(bool bMaster)
 					ActivateTargets( this );
 			}
 
-			physicsObj.GetLocalAngles( tempAng );
 			
 			m_Open = true;
 			m_Rotating = true;
 			m_Translating = true;
 
+			idAngles tempAng = physicsObj.GetLocalAngles();
 			Event_RotateOnce( (m_OpenAngles - tempAng).Normalize180() );
 			
 			if( m_TransSpeed )
@@ -510,7 +509,6 @@ void CFrobDoor::Close(bool bMaster)
 
 	CFrobDoor *ent;
 	idEntity *e;
-	idAngles tempAng;
 
 	if(m_Open == false)
 		return;
@@ -562,7 +560,7 @@ void CFrobDoor::Close(bool bMaster)
 				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found\r", m_LockList[i].c_str());
 		}
 
-		physicsObj.GetLocalAngles( tempAng );
+		idAngles tempAng = physicsObj.GetLocalAngles();
 		
 		m_StateChange = true;
 		m_Rotating = true;
@@ -773,8 +771,8 @@ bool CFrobDoor::IsFrobbed(void)
 void CFrobDoor::ToggleOpen(void)
 {
 	CBinaryFrobMover::ToggleOpen();
-	if(m_Doorhandle.GetEntity())
-		m_Doorhandle.GetEntity()->ToggleOpen();
+	// if(m_Doorhandle.GetEntity())
+	//	m_Doorhandle.GetEntity()->ToggleOpen();
 }
 
 void CFrobDoor::ToggleLock(void)

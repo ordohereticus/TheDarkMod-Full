@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2253 $
+ * $Date: 2008-05-01 07:15:58 -0400 (Thu, 01 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -56,6 +56,7 @@ public:
 
 	// These functions need to be disabled on the handle. Therefore
 	// they are provided but empty.
+	void					ToggleOpen();
 	void					ClosePortal(void);
 	void					DoneStateChange(void);
 	void					DoneRotating(void);
