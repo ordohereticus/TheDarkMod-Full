@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
+ * $Revision: 1361 $
+ * $Date: 2007-08-29 15:57:49 -0400 (Wed, 29 Aug 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -141,6 +141,7 @@ protected:
 	void					VectorForDir( float dir, idVec3 &vec );
 	idCurve_Spline<idVec3> *GetSpline( idEntity *splineEntity ) const;
 
+public:
 	void					Event_SetCallback( void );	
 	void					Event_TeamBlocked( idEntity *blockedPart, idEntity *blockingEntity );
 	void					Event_StopMoving( void );
