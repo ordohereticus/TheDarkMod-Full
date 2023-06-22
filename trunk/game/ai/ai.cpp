@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1367 $
- * $Date: 2007-08-30 17:43:44 -0400 (Thu, 30 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1374 $
+ * $Date: 2007-09-03 05:34:25 -0400 (Mon, 03 Sep 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1367 2007-08-30 21:43:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1374 2007-09-03 09:34:25Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3116,8 +3116,8 @@ bool idAI::CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting )
 					markerColor,
 					observeFrom,
 					observeFrom + arrowLength,
-					2.0f,
-					cv_ai_visdist_show.GetFloat()
+					2,
+					cv_ai_visdist_show.GetInteger()
 				);
 
 
@@ -3127,8 +3127,8 @@ bool idAI::CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting )
 					markerColor2,
 					observeFrom + arrowLength,
 					midPoint,
-					2.0f,
-					cv_ai_visdist_show.GetFloat()
+					2,
+					cv_ai_visdist_show.GetInteger()
 				);
 			}
 			else
@@ -3141,8 +3141,8 @@ bool idAI::CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting )
 					markerColor,
 					observeFrom,
 					midPoint,
-					2.0f,
-					cv_ai_visdist_show.GetFloat()
+					2,
+					cv_ai_visdist_show.GetInteger()
 				);
 			}
 
@@ -6742,8 +6742,8 @@ bool idAI::IsEntityHiddenByDarkness (idEntity* p_entity) const
 					markerColor,
 					observeFrom,
 					p_physics->GetOrigin(),
-					2.0f,
-					cv_ai_visdist_show.GetFloat()
+					2,
+					cv_ai_visdist_show.GetInteger()
 				);
 
 
@@ -6799,8 +6799,8 @@ bool idAI::IsEntityHiddenByDarkness (idEntity* p_entity) const
 						markerColor,
 						observeFrom,
 						observeFrom + arrowLength,
-						2.0f,
-						cv_ai_visdist_show.GetFloat()
+						2,
+						cv_ai_visdist_show.GetInteger()
 					);
 
 
@@ -6810,8 +6810,8 @@ bool idAI::IsEntityHiddenByDarkness (idEntity* p_entity) const
 						markerColor2,
 						observeFrom + arrowLength,
 						midPoint,
-						2.0f,
-						cv_ai_visdist_show.GetFloat()
+						2,
+						cv_ai_visdist_show.GetInteger()
 					);
 
 
@@ -6832,8 +6832,8 @@ bool idAI::IsEntityHiddenByDarkness (idEntity* p_entity) const
 						markerColor,
 						observeFrom,
 						midPoint,
-						2.0f,
-						cv_ai_visdist_show.GetFloat()
+						2,
+						cv_ai_visdist_show.GetInteger()
 					);
 
 				}
