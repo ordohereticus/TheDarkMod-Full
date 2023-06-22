@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1201 $
- * $Date: 2007-07-23 06:58:05 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1228 $
+ * $Date: 2007-07-28 15:48:23 -0400 (Sat, 28 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -701,6 +701,11 @@ public:
 	 * Script event: Chagnes the amount of the given loot type in the inventory of this entity.
 	 */
 	void ChangeLootAmount(int lootType, int amount);
+
+	/**
+	 * Script event: Changes the lightgem modifier value of the given item <name> in <category> to <value>
+	 */
+	void ChangeInventoryLightgemModifier(const char* invName, const char* invCategory, int value);
 
 	/**
 	 * Return true if this entity can be mantled, false otherwise.
