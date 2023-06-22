@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1493 $
- * $Date: 2007-10-20 11:12:44 -0400 (Sat, 20 Oct 2007) $
+ * $Revision: 1494 $
+ * $Date: 2007-10-20 11:19:30 -0400 (Sat, 20 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1493 2007-10-20 15:12:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1494 2007-10-20 15:19:30Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -6553,28 +6553,34 @@ idActor* idAI::VisualScan(float timecheck)
 		return NULL;
 	}
 
+	// greebo: At this point, the actor is identified as enemy and is visible
+
 	// set AI_VISALERT and the vector for last sighted position
 
 	//quick fix for blind AI:
-	if( GetAcuity("vis") > 0 )
+	if (GetAcuity("vis") > 0)
 	{
 		AI_VISALERT = true;
 		m_LastSight = actor->GetPhysics()->GetOrigin();
 
+		// Get the visual alert amount by the enemy
 		float incAlert = getPlayerVisualStimulusAmount(actor);
 
-		if( incAlert > m_AlertNumThisFrame )
+		// If the alert amount is larger than everything else encountered this frame
+		// ignore the previous alerts and remember this actor as enemy.
+		if (incAlert > m_AlertNumThisFrame)
 		{
+			// Remember this actor
 			m_AlertedByActor = actor;
-			AlertAI( "vis", incAlert );
+			AlertAI("vis", incAlert);
 		}
-	}
 
-	if (actor != NULL)
-	{
 		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s SAW actor %s\r", name.c_str(), actor->name.c_str() );
-		if( cv_ai_debug.GetBool() )
+
+		if (cv_ai_debug.GetBool())
+		{
 			gameLocal.Printf( "[DM AI] AI %s SAW actor %s\n", name.c_str(), actor->name.c_str() );
+		}
 	}
 
 	return actor;
