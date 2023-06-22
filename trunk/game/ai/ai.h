@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1733 $
- * $Date: 2007-11-08 08:42:23 -0500 (Thu, 08 Nov 2007) $
+ * $Revision: 1734 $
+ * $Date: 2007-11-08 08:51:28 -0500 (Thu, 08 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1554,7 +1554,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// Script interface for state manipulation
 	void					Event_PushState(const char* state);
-	void					Event_QueueState(const char* state);
 	void					Event_SwitchState(const char* state);
 	void					Event_EndState();
 
