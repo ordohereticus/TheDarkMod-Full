@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1386 $
- * $Date: 2007-09-24 09:27:01 -0400 (Mon, 24 Sep 2007) $
- * $Author: greebo $
+ * $Revision: 1403 $
+ * $Date: 2007-10-03 21:48:34 -0400 (Wed, 03 Oct 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1386 2007-09-24 13:27:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1403 2007-10-04 01:48:34Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2288,14 +2288,16 @@ int idActor::GetAnim( int channel, const char *animname ) {
 	}
 
 	if ( animPrefix.Length() ) {
-		temp = LookupReplacementAnim( va( "%s_%s", animPrefix.c_str(), animname ) );
-		anim = animatorPtr->GetAnim( temp );
-		if ( anim ) {
+		temp = va( "%s_%s", animPrefix.c_str(), animname );
+		anim = animatorPtr->GetAnim( LookupReplacementAnim( temp ) );
+		if (!anim) anim = animatorPtr->GetAnim( temp );
+		if (anim) {
 			return anim;
 		}
 	}
 
 	anim = animatorPtr->GetAnim( LookupReplacementAnim( animname ) );
+	if (!anim) anim = animatorPtr->GetAnim( animname );
 
 	return anim;
 }
