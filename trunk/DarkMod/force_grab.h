@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 912 $
- * $Date: 2007-04-18 16:39:39 -0400 (Wed, 18 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1184 $
+ * $Date: 2007-07-22 08:43:07 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -41,6 +41,9 @@ class CForce_Grab : public idForce {
 		idVec3				GetCenterOfMass( void ) const;
 							// rotates p about the center of mass of the grabbed object
 		void				Rotate( const idVec3 &vec, float angle );
+
+		void				Save( idSaveGame *savefile ) const;
+		void				Restore( idRestoreGame *savefile );
 
 	public: // common force interface
 		virtual void		Evaluate( int time );

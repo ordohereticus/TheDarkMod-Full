@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1182 $
- * $Date: 2007-07-22 04:09:07 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1184 $
+ * $Date: 2007-07-22 08:43:07 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,6 +16,7 @@
 class idPlayer;
 
 extern const idEventDef EV_Grabber_CheckClipList;
+extern const idEventDef EV_Grabber_RestorePhysics;
 
 class CGrabbedEnt 
 {
@@ -43,8 +44,8 @@ public:
 		void					Clear( void );
 		void					Update( idPlayer *player, bool hold = false );
 
-		void Save( idSaveGame *savefile ) const;
-		void Restore( idRestoreGame *savefile );
+		void					Save( idSaveGame *savefile ) const;
+		void					Restore( idRestoreGame *savefile );
 
 
 		void					Spawn( void );
@@ -125,6 +126,11 @@ protected:
 		void					RemoveFromClipList( int index );
 
 		void					Event_CheckClipList( void );
+
+		/**
+		 * Restores the physics object from the drag entity after loading.
+		 */
+		void					Event_RestorePhysics();
 
 		/**
 		* Throws the current item.

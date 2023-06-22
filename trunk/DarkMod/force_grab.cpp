@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1184 $
+ * $Date: 2007-07-22 08:43:07 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_grab.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: force_grab.cpp 1184 2007-07-22 12:43:07Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "force_grab.h"
@@ -60,6 +60,32 @@ void CForce_Grab::Init( float damping ) {
 	{
 		m_damping = 0;
 	}
+}
+
+void CForce_Grab::Save( idSaveGame *savefile ) const
+{
+	savefile->WriteFloat(m_damping);
+	savefile->WriteVec3(m_centerOfMass);
+
+	// Don't save m_physics, gets restored from the parent class after load
+	
+	savefile->WriteVec3(m_p);
+	savefile->WriteInt(m_id);
+	savefile->WriteVec3(m_dragPosition);
+	savefile->WriteVec3(m_prevOrigin);
+}
+
+void CForce_Grab::Restore( idRestoreGame *savefile )
+{
+	savefile->ReadFloat(m_damping);
+	savefile->ReadVec3(m_centerOfMass);
+
+	m_physics = NULL; // gets restored from the parent class after loading
+
+	savefile->ReadVec3(m_p);
+	savefile->ReadInt(m_id);
+	savefile->ReadVec3(m_dragPosition);
+	savefile->ReadVec3(m_prevOrigin);
 }
 
 /*
