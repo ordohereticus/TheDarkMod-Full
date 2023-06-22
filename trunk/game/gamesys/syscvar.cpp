@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1549 $
- * $Date: 2007-10-23 13:47:45 -0400 (Tue, 23 Oct 2007) $
- * $Author: tels $
+ * $Revision: 1558 $
+ * $Date: 2007-10-25 12:14:30 -0400 (Thu, 25 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1549 2007-10-23 17:47:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1558 2007-10-25 16:14:30Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -192,6 +192,7 @@ idCVar cv_lg_adjust("tdm_lg_adjust",		"0",		CVAR_GAME | CVAR_FLOAT,	"Adds a cons
 idCVar cv_lg_split("tdm_lg_split",		"1",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves)." );
 idCVar cv_lg_path("tdm_lg_path",		"",	CVAR_GAME,	"Dump the rendersnapshot to the filepath specified here." );
 idCVar cv_lg_crouch_modifier("tdm_lg_crouch_modifier",	"-5",	CVAR_GAME | CVAR_INTEGER,	"The value the lightgem is adjusted by when the player is crouching." );
+idCVar cv_lg_modifier("tdm_lg_modifier",	"0",	CVAR_GAME | CVAR_INTEGER,	"EVIL CVAR: The value the lightgem is offset at any time." );
 /**
  * Variables needed for lockpicking.
  */
