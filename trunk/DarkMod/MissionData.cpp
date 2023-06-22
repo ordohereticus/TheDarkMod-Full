@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2234 $
- * $Date: 2008-04-27 08:38:43 -0400 (Sun, 27 Apr 2008) $
+ * $Revision: 2235 $
+ * $Date: 2008-04-27 09:18:44 -0400 (Sun, 27 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2234 2008-04-27 12:38:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2235 2008-04-27 13:18:44Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2403,12 +2403,12 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
 
 	key = "Loot Acquired";
-	value = idStr(m_Stats.FoundLoot);
+	value = idStr(m_Stats.FoundLoot) + " out of " + idStr(m_Stats.TotalLootInMission);
 	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
 
-	key = "Total Loot in Mission";
+	/*key = "Total Loot in Mission";
 	value = idStr(m_Stats.TotalLootInMission);
-	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
+	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);*/
 
 	key = "Killed by the Player";
 	value = idStr(m_Stats.AIStats[COMP_KILL].ByTeam[m_PlayerTeam]);
@@ -2422,13 +2422,22 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	value = idStr(m_Stats.AIStats[COMP_AI_FIND_BODY].Overall);
 	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
 
+	float stealthScore = 0;
+
 	for (int i = 0; i < ai::EAlertStateNum; i++) 
 	{
 		key = idStr("AI alerted to level '") + ai::AlertStateNames[i] + "'";
 		value = idStr(m_Stats.MaxAlertIndices[i]);
 		gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
-	}
 
+		// Increase the stealth factor based on the number of alerted AI weighted with the seriousness
+		stealthScore += -i * m_Stats.MaxAlertIndices[i];
+	}
+	
+	key = "Stealth Score";
+	value = idStr(stealthScore);
+	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
+	
 	/*key = "Frames";
 	value = idStr(gameLocal.framenum);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value + postfix);
