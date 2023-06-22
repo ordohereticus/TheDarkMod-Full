@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2222 $
- * $Date: 2008-04-26 12:17:34 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2225 $
+ * $Date: 2008-04-26 15:23:30 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2222 2008-04-26 16:17:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2225 2008-04-26 19:23:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -120,7 +120,6 @@ const idEventDef EV_Player_GetFov("getFov", NULL, 'f');
 
 const idEventDef EV_Player_PauseGame("pauseGame", NULL);
 const idEventDef EV_Player_UnpauseGame("unpauseGame", NULL);
-const idEventDef EV_Player_UpdateObjectivesGUI("updateObjectivesGUI", "d");
 
 // greebo: Allows scripts to set a named lightgem modifier to a certain value (e.g. "lantern" => 32)
 const idEventDef EV_Player_SetLightgemModifier("setLightgemModifier", "sd");
@@ -186,7 +185,6 @@ CLASS_DECLARATION( idActor, idPlayer )
 	// Events needed for the Objectives GUI (is a blocking GUI - pauses the game)
 	EVENT( EV_Player_PauseGame,				idPlayer::Event_Pausegame )
 	EVENT( EV_Player_UnpauseGame,			idPlayer::Event_Unpausegame )
-	EVENT( EV_Player_UpdateObjectivesGUI,	idPlayer::Event_UpdateObjectivesGUI)
 
 	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
 	EVENT( EV_TriggerMissionEnd,			idPlayer::Event_TriggerMissionEnd )
@@ -9868,12 +9866,6 @@ void idPlayer::Event_Pausegame()
 void idPlayer::Event_Unpausegame()
 {
 	gameLocal.PauseGame(false);
-}
-
-void idPlayer::Event_UpdateObjectivesGUI(int guiHandle) 
-{
-	// Pass the call to the MissionData class
-	gameLocal.m_MissionData->UpdateGUIState(this, guiHandle);
 }
 
 void idPlayer::Event_MissionSuccess()

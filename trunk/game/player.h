@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2212 $
- * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2225 $
+ * $Date: 2008-04-26 15:23:30 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -967,7 +967,6 @@ private:
 	// Objectives GUI-related events
 	void					Event_Pausegame();
 	void					Event_Unpausegame();
-	void					Event_UpdateObjectivesGUI(int guiHandle);
 
 	// Ends the game (fade out, success.gui, etc.)
 	void					Event_MissionSuccess();

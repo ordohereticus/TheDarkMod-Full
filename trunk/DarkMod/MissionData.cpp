@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2222 $
- * $Date: 2008-04-26 12:17:34 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2225 $
+ * $Date: 2008-04-26 15:23:30 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2222 2008-04-26 16:17:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2225 2008-04-26 19:23:30Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -213,35 +213,8 @@ void CMissionData::Clear( void )
 	m_Objectives.Clear();
 	m_ClockedComponents.Clear();
 
-	// Clear all the stats (this is kind've ugly)
-	// create a cleared stat to copy to all the SStat fields
-	SStat ClearedSt;
-	ClearedSt.ByInnocence[0] = 0;
-	ClearedSt.ByInnocence[1] = 0;
-	ClearedSt.WhileAirborne = 0;
-	for( int n1=0; n1<MAX_TEAMS; n1++ )
-	{
-		ClearedSt.ByTeam[n1] = 0;
-	}
-	for( int n2=0; n2<MAX_TYPES; n2++ )
-	{
-		ClearedSt.ByType[n2] = 0;
-	}
-	ClearedSt.Overall = 0;
-
-	for( int n2=0; n2<MAX_AICOMP; n2++ )
-	{
-		m_Stats.AIStats[n2] = ClearedSt;
-	}
-	for( int n3=0; n3<MAX_ALERTLEVELS; n3++ )
-	{
-		m_Stats.AIAlerts[n3] = ClearedSt;
-	}
-
-	m_Stats.DamageDealt = 0;
-	m_Stats.DamageReceived = 0;
-	m_Stats.PocketsPicked = 0;
-	m_Stats.LootOverall = 0;
+	// Clear all the stats 
+	m_Stats.Clear();
 
 	m_SuccessLogicStr = "";
 	m_FailureLogicStr = "";
@@ -2189,20 +2162,6 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 
 	// Force a redraw
 	ui->StateChanged(gameLocal.time, true);
-}
-
-void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle) 
-{
-	assert(entity != NULL); // don't accept NULL entities.
-
-	idUserInterface* ui = entity->GetOverlay(overlayHandle);
-
-	if (ui == NULL) {
-		gameLocal.Warning("Can't update objectives GUI, invalid handle.\n");
-		return; // invalid handle, do nothing
-	}
-
-	UpdateGUIState(ui);
 }
 
 void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui)
