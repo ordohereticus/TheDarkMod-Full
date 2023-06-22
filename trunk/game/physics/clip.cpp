@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1288 $
+ * $Date: 2007-08-11 05:04:54 -0400 (Sat, 11 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: clip.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: clip.cpp 1288 2007-08-11 09:04:54Z ishtvan $", init_version);
 
 #include "../game_local.h"
 
@@ -1649,4 +1649,16 @@ bool idClip::DrawModelContactFeature( const contactInfo_t &contact, const idClip
 	gameRenderWorld->DrawText( contact.material->GetName(), winding.GetCenter() - 4.0f * axis[2], 0.1f, colorWhite, axis, 1, 5000 );
 
 	return true;
+}
+
+void idClipModel::TranslateOrigin( const idVec3 &translation )
+{
+	if( IsTraceModel() )
+	{
+		// Copy the tracemodel
+		idTraceModel trm = *(idClipModel::GetCachedTraceModel( traceModelIndex ));
+		trm.Translate( translation );
+		
+		LoadModel( trm );
+	}
 }
