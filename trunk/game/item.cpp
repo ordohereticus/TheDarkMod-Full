@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1981 $
- * $Date: 2008-01-12 17:07:20 -0500 (Sat, 12 Jan 2008) $
- * $Author: ishtvan $
+ * $Revision: 2093 $
+ * $Date: 2008-02-14 14:40:49 -0500 (Thu, 14 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1981 2008-01-12 22:07:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 2093 2008-02-14 19:40:49Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -359,8 +359,6 @@ void idItem::Spawn( void )
 
 	// What team owns it?
 	spawnArgs.GetInt ("ownerTeam", "0", ownerTeam);
-
-	LoadTDMSettings();
 }
 
 /*

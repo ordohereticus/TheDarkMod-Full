@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2090 $
- * $Date: 2008-02-12 03:19:14 -0500 (Tue, 12 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2093 $
+ * $Date: 2008-02-14 14:40:49 -0500 (Thu, 14 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -533,9 +533,8 @@ public:
 
 	/**
 	 * LoadTDMSettings will initialize the settings required for 
-	 * darkmod to operate. It should be called form the respective
-	 * Spawn function on each object as there is no common function
-	 * that is called on Spawn for all entities. If a class needs
+	 * darkmod to operate. It should be called from idEntity::Spawn(), 
+	 * which will be valid for all entities. If a class needs
 	 * to load additional settings, which are only of interest to this
 	 * particular class it should override this virtual function but
 	 * don't forget to call it for the base class.
