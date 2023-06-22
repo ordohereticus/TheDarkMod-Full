@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1510 $
- * $Date: 2007-10-21 15:43:27 -0400 (Sun, 21 Oct 2007) $
+ * $Revision: 1523 $
+ * $Date: 2007-10-22 13:14:56 -0400 (Mon, 22 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1510 2007-10-21 19:43:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1523 2007-10-22 17:14:56Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1894,34 +1894,7 @@ idAI::Event_EntityInAttackCone
 =====================
 */
 void idAI::Event_EntityInAttackCone( idEntity *ent ) {
-	float	attack_cone;
-	idVec3	delta;
-	float	yaw;
-	float	relYaw;
-	
-	if ( !ent ) {
-		idThread::ReturnInt( false );
-		return;
-	}
-
-	delta = ent->GetPhysics()->GetOrigin() - GetEyePosition();
-
-	// get our gravity normal
-	const idVec3 &gravityDir = GetPhysics()->GetGravityNormal();
-
-	// infinite vertical vision, so project it onto our orientation plane
-	delta -= gravityDir * ( gravityDir * delta );
-
-	delta.Normalize();
-	yaw = delta.ToYaw();
-
-	attack_cone = spawnArgs.GetFloat( "attack_cone", "70" );
-	relYaw = idMath::AngleNormalize180( ideal_yaw - yaw );
-	if ( idMath::Fabs( relYaw ) < ( attack_cone * 0.5f ) ) {
-		idThread::ReturnInt( true );
-	} else {
-		idThread::ReturnInt( false );
-	}
+	idThread::ReturnInt( EntityInAttackCone(ent) );
 }
 
 /*
