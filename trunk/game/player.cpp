@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1200 $
- * $Date: 2007-07-23 04:43:34 -0400 (Mon, 23 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1216 $
+ * $Date: 2007-07-25 13:41:14 -0400 (Wed, 25 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1200 2007-07-23 08:43:34Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1216 2007-07-25 17:41:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1543,6 +1543,12 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 		int cursorId;
 		savefile->ReadInt(cursorId);
 		m_WeaponCursor = Inventory()->GetCursor(cursorId);
+	}
+
+	// greebo: Workaround for invisible arrows after loading >> switch to unarmed
+	if (m_WeaponCursor != NULL)
+	{
+		SelectWeapon(0, false);
 	}
 
 	// create combat collision hull for exact collision detection
