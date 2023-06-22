@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1975 $
- * $Date: 2008-01-12 07:41:46 -0500 (Sat, 12 Jan 2008) $
+ * $Revision: 1976 $
+ * $Date: 2008-01-12 08:09:08 -0500 (Sat, 12 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1975 2008-01-12 12:41:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1976 2008-01-12 13:09:08Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3073,7 +3073,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 				// Stop the objectives music
 				gui->HandleNamedEvent("StopObjectivesMusic");
-				gui->HandleNamedEvent("SetupObjectivesForMapStart");
 
 				// Avoid duplicate triggering
 				gui->SetStateBool("SuccessScreenActive", true);
@@ -3107,8 +3106,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			// Only trigger the visuals update once
 			if (!gui->GetStateBool("GameStateActive"))
 			{
-				gui->HandleNamedEvent("SetupObjectivesForIngame");
-
 				gui->SetStateBool("GameStateActive", true);
 				gui->SetStateBool("GameStateNoMap", false);
 			}
@@ -3126,8 +3123,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			// Only trigger the visuals once
 			if (!gui->GetStateBool("GameStateNoMap"))
 			{
-				gui->HandleNamedEvent("SetupObjectivesForMapStart");
-
 				gui->SetStateBool("GameStateNoMap", true);
 				gui->SetStateBool("GameStateActive", false);
 			}
