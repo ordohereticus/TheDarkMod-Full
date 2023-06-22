@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1590 $
-#* $Date: 2007-10-29 09:03:29 -0400 (Mon, 29 Oct 2007) $
+#* $Revision: 1638 $
+#* $Date: 2007-11-01 14:46:50 -0400 (Thu, 01 Nov 2007) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -167,21 +167,24 @@ AI/Subsystem.cpp \
 AI/States/CombatState.cpp \
 AI/States/DeadState.cpp \
 AI/States/EmptyState.cpp \
+AI/States/FleeState.cpp \
 AI/States/IdleState.cpp \
 AI/States/KnockedOutState.cpp \
 AI/States/LostTrackOfEnemyState.cpp \
 AI/States/ReactingToStimulusState.cpp \
 AI/States/SearchingState.cpp \
+AI/States/State.cpp \
 AI/States/TakeCoverState.cpp \
 AI/States/UnreachableTargetState.cpp \
 AI/Tasks/ChaseEnemyTask.cpp \
-AI/Tasks/EmergeFromCoverTask.cpp \
 AI/Tasks/EmptyTask.cpp \
+AI/Tasks/FleeTask.cpp \
 AI/Tasks/IdleBarkTask.cpp \
 AI/Tasks/IdleSensoryTask.cpp \
 AI/Tasks/InvestigateSpotTask.cpp \
 AI/Tasks/MeleeCombatTask.cpp \
 AI/Tasks/MoveToCoverTask.cpp \
+AI/Tasks/MoveToPositionTask.cpp \
 AI/Tasks/PathCornerTask.cpp \
 AI/Tasks/PathHideTask.cpp \
 AI/Tasks/PathShowTask.cpp \
@@ -189,6 +192,7 @@ AI/Tasks/PathTurnTask.cpp \
 AI/Tasks/PathWaitForTriggerTask.cpp \
 AI/Tasks/PathWaitTask.cpp \
 AI/Tasks/PatrolTask.cpp \
+AI/Tasks/RepeatedBarkTask.cpp \
 AI/Tasks/SearchTask.cpp \
 AI/Tasks/SingleBarkTask.cpp \
 AI/Tasks/StimulusSensoryTask.cpp \
