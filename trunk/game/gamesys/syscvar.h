@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1644 $
- * $Date: 2007-11-02 03:20:22 -0400 (Fri, 02 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1651 $
+ * $Date: 2007-11-02 12:04:26 -0400 (Fri, 02 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -33,6 +33,7 @@ extern idCVar cv_ai_alertnum_show;
 extern idCVar cv_ai_debug;
 extern idCVar cv_ai_sight_thresh;
 extern idCVar cv_ai_sight_scale;
+extern idCVar cv_ai_show_enemy_visibility;
 extern idCVar cv_ai_acuity_L1;
 extern idCVar cv_ai_acuity_L2;
 extern idCVar cv_ai_acuity_L3;

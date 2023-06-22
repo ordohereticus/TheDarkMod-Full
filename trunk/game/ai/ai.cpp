@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1650 $
- * $Date: 2007-11-02 07:58:51 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1651 $
+ * $Date: 2007-11-02 12:04:26 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1650 2007-11-02 11:58:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1651 2007-11-02 16:04:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -5186,8 +5186,11 @@ void idAI::UpdateEnemyPosition()
 	
 	if (CanSee(enemyEnt, false))
 	{
-		// greebo: A trace to the enemy is possible (no FOV check!) and the entity is not hidden in darkness
-		//gameRenderWorld->DebugArrow(colorGreen, GetEyePosition(), GetEyePosition() + idVec3(0,0,10), 2, 100);
+		if (cv_ai_show_enemy_visibility.GetBool())
+		{
+			// greebo: A trace to the enemy is possible (no FOV check!) and the entity is not hidden in darkness
+			gameRenderWorld->DebugArrow(colorGreen, GetEyePosition(), GetEyePosition() + idVec3(0,0,10), 2, 100);
+		}
 
 		// Enemy is considered visible if not hidden in darkness and not obscured
 		AI_ENEMY_VISIBLE = true;
@@ -5206,8 +5209,11 @@ void idAI::UpdateEnemyPosition()
 	}
 	else
 	{
-		// Enemy can't be seen (obscured or hidden in darkness)
-		//gameRenderWorld->DebugArrow(colorRed, GetEyePosition(), GetEyePosition() + idVec3(0,0,10), 2, 100);
+		if (cv_ai_show_enemy_visibility.GetBool())
+		{
+			// Enemy can't be seen (obscured or hidden in darkness)
+			gameRenderWorld->DebugArrow(colorRed, GetEyePosition(), GetEyePosition() + idVec3(0,0,10), 2, 100);
+		}
 
 		// check if we heard any sounds in the last frame
 		if (enemyEnt == gameLocal.GetAlertEntity())
