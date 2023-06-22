@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1656 $
- * $Date: 2007-11-03 03:42:13 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1745 $
+ * $Date: 2007-11-10 07:24:04 -0500 (Sat, 10 Nov 2007) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -85,6 +85,13 @@ private:
 	idAngles			kickAngles;			
 
 	bool				bfgVision;			// 
+
+	// Bloom related - by JC_Denton & Maha_X - added by Dram
+	int					shiftSensitivityDelay;
+	int					screenHeight;
+	int					screenWidth;
+	float				shiftScale_x;
+	float				shiftScale_y;
 
 	const idMaterial *	tunnelMaterial;		// health tunnel vision
 	const idMaterial *	armorMaterial;		// armor damage view effect
