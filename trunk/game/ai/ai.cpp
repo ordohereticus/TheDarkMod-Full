@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1770 $
- * $Date: 2007-11-12 16:45:24 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1771 $
+ * $Date: 2007-11-13 03:23:03 -0500 (Tue, 13 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1770 2007-11-12 21:45:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1771 2007-11-13 08:23:03Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1638,7 +1638,10 @@ void idAI::Think( void )
 				// animation based movement
 				UpdateEnemyPosition();
 				UpdateAIScript();
-				AnimMove();
+				if (!cv_ai_opt_noanims.GetBool())
+				{
+					AnimMove();
+				}
 				PlayChatter();
 				CheckBlink();
 				break;
@@ -1703,9 +1706,15 @@ void idAI::Think( void )
 */
 
 	UpdateMuzzleFlash();
-	UpdateAnimation();
+	if (!cv_ai_opt_noanims.GetBool())
+	{
+		UpdateAnimation();
+	}
 	UpdateParticles();
-	Present();
+	if (!cv_ai_opt_nopresent.GetBool())
+	{
+		Present();
+	}
 	UpdateDamageEffects();
 	LinkCombat();
 
@@ -1841,7 +1850,10 @@ void idAI::UpdateAIScript( void )
 
 	if ( allowHiddenMovement || !IsHidden() ) {
 		// update the animstate if we're not hidden
-		UpdateAnimState();
+		if (!cv_ai_opt_noanims.GetBool())
+		{
+			UpdateAnimState();
+		}
 	}
 }
 
