@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2187 $
- * $Date: 2008-04-18 11:57:23 -0400 (Fri, 18 Apr 2008) $
+ * $Revision: 2192 $
+ * $Date: 2008-04-20 14:52:19 -0400 (Sun, 20 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -471,6 +471,7 @@ public:
 	**/
 	idEntityPtr<idActor>	m_AlertedByActor;
 
+	int						alertTypeWeight[ai::EAlertTypeCount];
 	/**
 	* Set these flags so we can tell if the AI is running or creeping
 	* for the purposes of playing audible sounds and propagated sounds.

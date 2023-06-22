@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2168 $
- * $Date: 2008-04-08 15:53:58 -0400 (Tue, 08 Apr 2008) $
+ * $Revision: 2192 $
+ * $Date: 2008-04-20 14:52:19 -0400 (Sun, 20 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2168 2008-04-08 19:53:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2192 2008-04-20 18:52:19Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -24,6 +24,7 @@ static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2168 2008-04-08 19
 #include "sndProp.h"
 #include "randomizer/randomc.h"
 #include "StimResponse/StimResponseTimer.h"
+#include "StimResponse/StimResponse.h"
 
 #include "../game/ai/aas.h"
 
@@ -386,6 +387,10 @@ void CFrobDoor::Unlock(bool bMaster)
 
 void CFrobDoor::Open(bool bMaster)
 {
+	// Clear this door from the ignore list so AI can react to it again	
+	StimClearIgnoreList(ST_VISUAL);
+	StimEnable(ST_VISUAL, 1);
+
 	m_StoppedDueToBlock = false;
 
 	idAngles tempAng;
@@ -497,6 +502,10 @@ void CFrobDoor::OpenDoor(bool bMaster)
 
 void CFrobDoor::Close(bool bMaster)
 {
+	// Clear this door from the ignore list so AI can react to it again	
+	StimClearIgnoreList(ST_VISUAL);
+	StimEnable(ST_VISUAL, 1);
+
 	m_StoppedDueToBlock = false;
 
 	CFrobDoor *ent;
