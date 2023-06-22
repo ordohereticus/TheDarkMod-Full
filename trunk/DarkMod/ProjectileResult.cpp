@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1729 $
- * $Date: 2007-11-07 11:24:40 -0500 (Wed, 07 Nov 2007) $
+ * $Revision: 1741 $
+ * $Date: 2007-11-08 17:48:48 -0500 (Thu, 08 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 1729 2007-11-07 16:24:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 1741 2007-11-08 22:48:48Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -89,7 +89,7 @@ void CProjectileResult::Init
 	idVec3 dotprod, LinVelocity;
 	float fTemp;
 	int StimType = ST_DEFAULT;
-	float StimFalloffExponent = 1;
+	int StimFalloffExponent = 1;
 	float StimRadius = 10.0; // we use a (hopefully) reasonable default radius if none is set.
 	int StimDuration(0), StimEvalInterval(0);
 	float StimMagnitude(1.0f);
@@ -120,7 +120,7 @@ void CProjectileResult::Init
 	LinVelocity.NormalizeFast();
 	fTemp = (LinVelocity * collision.c.normal);
 	
-	m_ProjData.IncidenceAngle = idMath::Abs( idMath::ACos( fTemp ) );
+	m_ProjData.IncidenceAngle = idMath::Fabs( idMath::ACos( fTemp ) );
 
 	// Move to the point of the collision
 	GetPhysics()->SetOrigin( pData->FinalOrigin );
@@ -156,7 +156,7 @@ void CProjectileResult::Init
 				spawnArgs.GetFloat(va("sr_radius_%u", stimIdx), "10", StimRadius);
 				spawnArgs.GetVector(va("sr_bounds_mins_%u", stimIdx), "0 0 0", stimBounds[0]);
 				spawnArgs.GetVector(va("sr_bounds_maxs_%u", stimIdx), "0 0 0", stimBounds[1]);
-				spawnArgs.GetFloat(va("sr_falloffexponent_%u", stimIdx), "1", StimFalloffExponent);
+				spawnArgs.GetInt(va("sr_falloffexponent_%u", stimIdx), "1", StimFalloffExponent);
 				spawnArgs.GetInt(va("sr_duration_%u", stimIdx), "0", StimDuration );
 				spawnArgs.GetVector(va("sr_velocity_%u", stimIdx), "0 0 0", stimVelocity );
 				spawnArgs.GetInt(va("sr_time_interval_%u", stimIdx), "0", StimEvalInterval );
@@ -191,7 +191,7 @@ void CProjectileResult::Init
 					stim->EnableSR(false);
 				}
 
-				idStr Name(va("%08lX_", this));
+				idStr Name(va("%p", this));
 				if (StimType < ST_USER)
 				{
 					Name += cStimType[StimType];
