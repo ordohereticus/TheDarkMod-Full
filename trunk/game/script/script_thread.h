@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1314 $
- * $Date: 2007-08-25 07:56:17 -0400 (Sat, 25 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1390 $
+ * $Date: 2007-09-27 10:13:06 -0400 (Thu, 27 Sep 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -216,6 +216,8 @@ private:
 	void						Event_pqPeek( int queueID );
 	void						Event_pqPeekPriority( int queueID );
 	void						Event_pqPop( int queueID );
+	// greebo: removes the given task from the queue, returns 1 if the item was existing, 0 if not
+	void						Event_pqRemoveTask(int queueID, const char* task);
 
 
 public:							
