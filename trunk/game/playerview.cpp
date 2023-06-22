@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1655 $
+ * $Date: 2007-11-03 03:25:52 -0400 (Sat, 03 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1655 2007-11-03 07:25:52Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -771,13 +771,24 @@ void idPlayerView::RenderPlayerView( idUserInterface *hud )
 	}
 	else 
 	{
-		if ( player->GetInfluenceMaterial() || player->GetInfluenceEntity() ) {
+		
+		/*if ( player->GetInfluenceMaterial() || player->GetInfluenceEntity() ) {
 			InfluenceVision( hud, view );
 		} else if ( gameLocal.time < dvFinishTime ) {
 			DoubleVision( hud, view, dvFinishTime - gameLocal.time );
-		} else {
+		} else {*/
+
+		// greebo: For underwater effects, use the Doom3 Doubleview
+		if (static_cast<idPhysics_Player*>(player->GetPlayerPhysics())->GetWaterLevel() >= WATERLEVEL_HEAD)
+		{
+			DoubleVision(hud, view, 1);
+		}
+		else
+		{
 			SingleView( hud, view );
 		}
+
+		//}
 		ScreenFade();
 	}
 	if ( net_clientLagOMeter.GetBool() && lagoMaterial && gameLocal.isClient ) {
