@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1322 $
- * $Date: 2007-08-26 03:06:04 -0400 (Sun, 26 Aug 2007) $
+ * $Revision: 1323 $
+ * $Date: 2007-08-26 03:30:58 -0400 (Sun, 26 Aug 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1322 2007-08-26 07:06:04Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1323 2007-08-26 07:30:58Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3615,6 +3615,9 @@ void idAI::Event_SetAudThresh( float val )
 void idAI::Event_SetAlertLevel( float newAlertLevel)
 {
 	bool bool_alertRising = false;
+	
+	if (AI_DEAD || AI_KNOCKEDOUT) return;
+	
 	if (newAlertLevel > AI_AlertNum) bool_alertRising = true;
 	AI_AlertNum = newAlertLevel;
 	
