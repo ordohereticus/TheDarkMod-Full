@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2103 $
- * $Date: 2008-02-23 14:13:41 -0500 (Sat, 23 Feb 2008) $
- * $Author: greebo $
+ * $Revision: 2108 $
+ * $Date: 2008-02-25 12:23:09 -0500 (Mon, 25 Feb 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2103 2008-02-23 19:13:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2108 2008-02-25 17:23:09Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1487,6 +1487,17 @@ void idAI::Think( void )
 	// save old origin and velocity for crashlanding
 	oldOrigin = physicsObj.GetOrigin();
 	oldVelocity = physicsObj.GetLinearVelocity();
+
+	float interleavethinkdist = cv_ai_opt_interleavethinkdist.GetFloat();
+	if (interleavethinkdist > 0)
+	{
+		float playerDist = (oldOrigin - gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin()).LengthFast();
+		if (playerDist > interleavethinkdist && gameLocal.framenum % 5 != 0)
+		{
+			return;
+		}
+	}
+
 
 	if (thinkFlags & TH_THINK)
 	{

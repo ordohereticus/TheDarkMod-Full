@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2105 $
- * $Date: 2008-02-23 14:40:57 -0500 (Sat, 23 Feb 2008) $
+ * $Revision: 2108 $
+ * $Date: 2008-02-25 12:23:09 -0500 (Mon, 25 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2105 2008-02-23 19:40:57Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2108 2008-02-25 17:23:09Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -84,6 +84,7 @@ idCVar cv_ai_opt_noanims (			"tdm_ai_opt_noanims",		"0",			CVAR_GAME | CVAR_BOOL
 idCVar cv_ai_opt_novisualscan (			"tdm_ai_opt_novisualscan",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AIs not in the Potentially Visible Set will not look for enemies, not even enemy AIs.");
 idCVar cv_ai_opt_forceopt (			"tdm_ai_opt_forceopt",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AIs will always be treated as being outside the PVS for the purposes of the other tdm_ai_opt_* spawnargs." );
 idCVar cv_ai_opt_nothink (			"tdm_ai_opt_nothink",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not perform their regular thinking routine (including Mind)." );
+idCVar cv_ai_opt_interleavethinkdist (			"tdm_ai_opt_interleavethinkdist",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "If true (nonzero), AI will perform their regular thinking routine only every 5th frame if the distance to the player is greater than the set value." );
 idCVar cv_ai_opt_nomind (			"tdm_ai_opt_nomind",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI has its Mind thinking routines disabled." );
 idCVar cv_ai_opt_novisualstim (			"tdm_ai_opt_novisualstim",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not process any incoming visual stimuli." );
 idCVar cv_ai_opt_nolipsync (			"tdm_ai_opt_nolipsync",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not play lipsync animations." );

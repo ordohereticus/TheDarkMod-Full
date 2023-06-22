@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2105 $
- * $Date: 2008-02-23 14:40:57 -0500 (Sat, 23 Feb 2008) $
+ * $Revision: 2108 $
+ * $Date: 2008-02-25 12:23:09 -0500 (Mon, 25 Feb 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -47,6 +47,7 @@ extern idCVar cv_ai_opt_noanims;
 extern idCVar cv_ai_opt_novisualscan;
 extern idCVar cv_ai_opt_forceopt;
 extern idCVar cv_ai_opt_nothink;
+extern idCVar cv_ai_opt_interleavethinkdist;
 extern idCVar cv_ai_opt_nomind;
 extern idCVar cv_ai_opt_novisualstim;
 extern idCVar cv_ai_opt_nolipsync;
