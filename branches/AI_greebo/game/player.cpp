@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1518 $
- * $Date: 2007-10-22 03:21:55 -0400 (Mon, 22 Oct 2007) $
+ * $Revision: 1613 $
+ * $Date: 2007-10-31 07:29:46 -0400 (Wed, 31 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1518 2007-10-22 07:21:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1613 2007-10-31 11:29:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2698,45 +2698,6 @@ idPlayer::GivePDA
 */
 void idPlayer::GivePDA( const char *pdaName, idDict *item )
 {
-	// greebo: Commented out this whole block, no PDAs in TDM
-	/*if ( gameLocal.isMultiplayer && spectating ) {
-		return;
-	}
-
-	if ( pdaName == NULL || *pdaName == NULL ) {
-		pdaName = "personal";
-	}
-
-	const idDeclPDA *pda = static_cast< const idDeclPDA* >( declManager->FindType( DECL_PDA, pdaName ) );
-
-	inventory.pdas.AddUnique( pdaName );
-
-	// This is kind of a hack, but it works nicely
-	// We don't want to display the 'you got a new pda' message during a map load
-	if ( gameLocal.GetFrameNum() > 10 ) {
-		if ( pda && hud ) {
-			idStr pdaName = pda->GetPdaName();
-			pdaName.RemoveColors();
-			hud->SetStateString( "pda", "1" );
-			hud->SetStateString( "pda_text", pdaName );
-			const char *sec = pda->GetSecurity();
-			hud->SetStateString( "pda_security", ( sec && *sec ) ? "1" : "0" );
-			hud->HandleNamedEvent( "pdaPickup" );
-		}
-
-		if ( inventory.pdas.Num() == 1 ) {
-			GetPDA()->RemoveAddedEmailsAndVideos();
-			if ( !objectiveSystemOpen ) {
-				TogglePDA();
-			}
-			objectiveSystem->HandleNamedEvent( "showPDATip" );
-			//ShowTip( spawnArgs.GetString( "text_infoTitle" ), spawnArgs.GetString( "text_firstPDA" ), true );
-		}
-
-		if ( inventory.pdas.Num() > 1 && pda->GetNumVideos() > 0 && hud ) {
-			hud->HandleNamedEvent( "videoPickup" );
-		}
-	}*/
 }
 
 /*

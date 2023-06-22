@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1613 $
+ * $Date: 2007-10-31 07:29:46 -0400 (Wed, 31 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1613 2007-10-31 11:29:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5147,13 +5147,15 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 		rv.shaderParms[i] = gameLocal.globalShaderParms[i];
 
 	rv.globalMaterial = gameLocal.GetGlobalMaterial();
-	rv.width = SCREEN_WIDTH;
-	rv.height = SCREEN_HEIGHT;
+//	rv.width = SCREEN_WIDTH;
+//	rv.height = SCREEN_HEIGHT;
+	rv.width = cv_lg_screen_width.GetInteger();
+	rv.height = cv_lg_screen_height.GetInteger();
 	rv.fov_x = cv_lg_fov.GetInteger();
 	rv.fov_y = cv_lg_fov.GetInteger();		// Bigger values means more compressed view
 	rv.forceUpdate = false;
-	rv.x = 0+100;
-	rv.y = 0+100;
+	rv.x = 0;
+	rv.y = 0;
 	rv.time = time;
 
 	n = cv_lg_renderpasses.GetInteger();
@@ -5198,7 +5200,10 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 	if((hdef = player->GetHeadEntity()->GetModelDefHandle()) != -1)
 		gameRenderWorld->UpdateEntityDef(hdef, hrent);
 
-	dim = DARKMOD_LG_RENDER_WIDTH;
+	dim = cv_lg_image_width.GetInteger();
+	if(dim <= 0 || dim > 1024)
+		dim = DARKMOD_LG_RENDER_WIDTH;
+
 	fRetVal = 0.0;
 
 	name = DARKMOD_LG_RENDERPIPE_NAME;
