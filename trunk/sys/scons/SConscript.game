@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1842 $
-#* $Date: 2007-11-23 10:46:27 -0500 (Fri, 23 Nov 2007) $
-#* $Author: greebo $
+#* $Revision: 1862 $
+#* $Date: 2007-12-08 16:10:18 -0500 (Sat, 08 Dec 2007) $
+#* $Author: angua $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -179,6 +179,7 @@ AI/States/SearchingState.cpp \
 AI/States/State.cpp \
 AI/States/StayInCoverState.cpp \
 AI/States/SuspiciousState.cpp \
+AI/States/SwitchOnLightState.cpp \
 AI/States/TakeCoverState.cpp \
 AI/States/UnreachableTargetState.cpp \
 AI/Tasks/ChaseEnemyRangedTask.cpp \
