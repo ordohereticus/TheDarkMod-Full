@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2206 $
- * $Date: 2008-04-24 11:58:17 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2217 $
+ * $Date: 2008-04-26 04:16:19 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2206 2008-04-24 15:58:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2217 2008-04-26 08:16:19Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5135,9 +5135,10 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	// end our looping ambient sound
 	StopSound( SND_CHANNEL_AMBIENT, false );
 
+	/* greebo: This is not needed anymore, I reckon.
 	if ( attacker && attacker->IsType( idActor::Type ) ) {
 		gameLocal.AlertAI( ( idActor * )attacker );
-	}
+	}*/
 
 	// activate targets
 	ActivateTargets( attacker );
@@ -5195,7 +5196,7 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	}
 
 	// Update TDM objective system
-	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, bPlayerResponsible );
+	gameLocal.m_MissionData->MissionEvent( COMP_KILL, attacker, this, bPlayerResponsible );
 }
 
 
