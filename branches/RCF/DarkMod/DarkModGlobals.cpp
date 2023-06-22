@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1826 $
- * $Date: 2007-11-20 18:16:31 -0500 (Tue, 20 Nov 2007) $
+ * $Revision: 1834 $
+ * $Date: 2007-11-22 13:14:36 -0500 (Thu, 22 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1826 2007-11-20 23:16:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1834 2007-11-22 18:14:36Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -337,9 +337,11 @@ void CGlobal::Init()
 {
 	PROFILE_HANDLE *pfh = NULL;
 
+	// greebo: Intercept the periodic Frame call to run the RCF Server cycle
+	SH_ADD_HOOK_STATICFUNC(idCommon, Frame, common, DarkRadiantRCFServer::Frame, 0);
+	
 #ifdef _WINDOWS_
 
-	SH_ADD_HOOK_STATICFUNC(idCommon, Frame, common, DarkRadiantRCFServer::Frame, 0);
 	SH_ADD_HOOK_STATICFUNC(idFileSystem, BuildOSPath, fileSystem, DM_BuildOSPath, 0);
 //	SH_ADD_HOOK_STATICFUNC(idFileSystem, OSPathToRelativePath, fileSystem, DM_OSPathToRelativePath, 0);
 //	SH_ADD_HOOK_STATICFUNC(idFileSystem, RelativePathToOSPath, fileSystem, DM_RelativePathToOSPath, 0);
