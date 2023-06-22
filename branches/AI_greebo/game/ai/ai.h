@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1439 $
- * $Date: 2007-10-17 05:30:46 -0400 (Wed, 17 Oct 2007) $
+ * $Revision: 1445 $
+ * $Date: 2007-10-18 03:18:46 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -547,6 +547,11 @@ public:
 	ID_INLINE void InstallSubsystem(ai::SubsystemId id, const ai::SubsystemPtr& subsystem)
 	{
 		subsystems[id] = subsystem;
+	}
+
+	ID_INLINE ai::MindPtr& GetMind()
+	{
+		return mind;
 	}
 
 protected:
