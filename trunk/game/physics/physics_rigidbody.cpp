@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1259 $
- * $Date: 2007-08-01 04:19:37 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1260 $
+ * $Date: 2007-08-01 05:54:24 -0400 (Wed, 01 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1259 2007-08-01 08:19:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1260 2007-08-01 09:54:24Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -272,10 +272,14 @@ bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &im
 	ent->GetImpactInfo( self, collision.c.id, collision.c.point, &info );
 	
 	// Check if we are grabbed by the grabber, and limit collision speed to the maximum grabber external speed
-	if( self == g_Global.m_DarkModPlayer->grabber->GetSelected() )
+	if ( self == g_Global.m_DarkModPlayer->grabber->GetSelected() )
 	{
-		g_Global.m_DarkModPlayer->grabber->ClampVelocity( MAX_GRABBER_EXT_VELOCITY, MAX_GRABBER_EXT_ANGVEL );
-		g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
+		// greebo: Don't collide grabbed entities with its own bindslaves
+		if (ent->GetBindMaster() == NULL || self != ent->GetBindMaster())
+		{
+			g_Global.m_DarkModPlayer->grabber->ClampVelocity( MAX_GRABBER_EXT_VELOCITY, MAX_GRABBER_EXT_ANGVEL );
+			g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
+		}
 	}
 
 	// collision point relative to the body center of mass
