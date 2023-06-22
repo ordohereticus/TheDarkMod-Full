@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1268 $
- * $Date: 2007-08-03 08:13:07 -0400 (Fri, 03 Aug 2007) $
+ * $Revision: 1319 $
+ * $Date: 2007-08-25 22:33:47 -0400 (Sat, 25 Aug 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1268 2007-08-03 12:13:07Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1319 2007-08-26 02:33:47Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -7357,6 +7357,15 @@ void idAI::Event_PlayAndLipSync( const char *soundName, const char *animName )
 		if (shader && !strstr(shader->GetDescription(), "nolipsync"))
 		{
 			// The sound exists and isn't marked "nolipsync", so start the lipsync
+			
+			// Get the default animation name if necessary
+			if (animName==NULL || animName[0]=='\0')
+			{
+				// Not specified; get the default from a spawnarg.
+				// If even the spawnarg doesn't exist, revert to talk.
+				animName = spawnArgs.GetString("lipsync_anim_name","talk");
+			}
+			
 			m_lipSyncActive = true;
 			m_lipSyncAnim = GetAnim( ANIMCHANNEL_HEAD, animName );
 			m_lipSyncEndTimer = gameLocal.time + duration;

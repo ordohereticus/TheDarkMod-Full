@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1268 $
- * $Date: 2007-08-03 08:13:07 -0400 (Fri, 03 Aug 2007) $
+ * $Revision: 1319 $
+ * $Date: 2007-08-25 22:33:47 -0400 (Sat, 25 Aug 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1268 2007-08-03 12:13:07Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1319 2007-08-26 02:33:47Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3671,7 +3671,7 @@ void idAI::Event_SetAlertLevel( float newAlertLevel)
 	// Only bark if we haven't barked too recently
 	if (( gameLocal.realClientTime - AI_timeOfLastStimulusBark) > MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 	{
-		// Note: Alert rising sounds are played based on the type of stimulus before we ever reach this function/
+		// Note: Alert rising sounds are played based on the type of stimulus before we ever reach this function
 		// We only have to do alert-down sounds here
 		if (!bool_alertRising)
 		{
@@ -3679,18 +3679,18 @@ void idAI::Event_SetAlertLevel( float newAlertLevel)
 			{
 				AI_timeOfLastStimulusBark = gameLocal.realClientTime;
 				// TODO: Shouldn't hard-code the animation name, talk1, here (and below)
-				Event_PlayAndLipSync( "snd_alert3s", "talk1" );
+				Event_PlayAndLipSync( "snd_alert3s", "" );
 			}
 			else if (newAlertLevel > thresh_2)
 			{
 			
 				AI_timeOfLastStimulusBark = gameLocal.realClientTime;
-				Event_PlayAndLipSync( "snd_alertdown2", "talk1" );
+				Event_PlayAndLipSync( "snd_alertdown2", "" );
 			}	
 			else if (newAlertLevel > thresh_1) 
 			{
 				AI_timeOfLastStimulusBark = gameLocal.realClientTime;
-				Event_PlayAndLipSync( "snd_alertdown1", "talk1" );
+				Event_PlayAndLipSync( "snd_alertdown1", "" );
 			}
 		}
 	}
