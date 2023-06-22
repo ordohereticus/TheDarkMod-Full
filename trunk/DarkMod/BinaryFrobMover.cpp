@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2238 $
- * $Date: 2008-04-27 14:53:33 -0400 (Sun, 27 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2259 $
+ * $Date: 2008-05-01 10:54:20 -0400 (Thu, 01 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2238 2008-04-27 18:53:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2259 2008-05-01 14:54:20Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -362,10 +362,12 @@ void CBinaryFrobMover::Open(bool bMaster)
 
 	m_StoppedDueToBlock = false;
 
-
 	// If the door is already open, we don't have anything to do. :)
-	if(m_Open == true && !m_bInterrupted)
+	if(m_Open == true && !m_bInterrupted && !IsBlocked())
+	{
+		m_bIntentOpen = false;
 		return;
+	}
 
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Opening\r" );
 
