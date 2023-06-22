@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1515 $
+ * $Date: 2007-10-22 01:50:51 -0400 (Mon, 22 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -261,6 +261,17 @@ public:
 	* RTTI on every animation frame.
 	**/
 	idList<float>                           m_animRates;
+
+	/**
+	* Actor who set this item in motion.  Cleared when it comes to rest.
+	* Always NULL for non-physical items.
+	**/
+	idEntityPtr<idActor>	m_SetInMotionByActor;
+	/**
+	* Actor who last moved this item.  Never cleared.
+	* Always NULL for non-physical items.
+	**/
+	idEntityPtr<idActor>	m_MovedByActor;
 
 public:
 	ABSTRACT_PROTOTYPE( idEntity );

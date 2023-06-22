@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1515 $
+ * $Date: 2007-10-22 01:50:51 -0400 (Mon, 22 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 1515 2007-10-22 05:50:51Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3073,6 +3073,10 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 			}
 
 			proj->Launch( muzzle_pos, dir, pushVelocity, fuseOffset, launchPower, dmgPower );
+
+			// TDM: Update responsible actor for the projectile, so it can be tracked for alerts
+			proj->m_SetInMotionByActor = owner;
+			proj->m_MovedByActor = owner;
 		}
 
 		// toss the brass
