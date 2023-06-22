@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1390 $
- * $Date: 2007-09-27 10:13:06 -0400 (Thu, 27 Sep 2007) $
+ * $Revision: 1429 $
+ * $Date: 2007-10-14 15:09:38 -0400 (Sun, 14 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -207,6 +207,9 @@ private:
 	void						Event_SetPortSoundLoss( int handle, float value );
 	void						Event_GetPortSoundLoss( int handle );
 	
+	// The scriptevent counterpart of DM_LOG
+	void						Event_LogString(int logClass, int logType, const char* output);
+
 	/**
 	* TDM priority queue events
 	**/

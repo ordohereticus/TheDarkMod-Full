@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1061 $
- * $Date: 2007-06-20 03:44:38 -0400 (Wed, 20 Jun 2007) $
- * $Author: crispy $
+ * $Revision: 1429 $
+ * $Date: 2007-10-14 15:09:38 -0400 (Sun, 14 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -58,6 +58,8 @@ typedef enum {
 // that this class is a C++ type class. For example. We have a class
 // Frobbing which contains all loginfo concerning frobbing an item
 // independent of it's class (like AI, item, doors, switche, etc.).
+
+// greebo: NOTE: Keep these in accordance to the ones in scripts/darkmod_defs.script!
 typedef enum {
 	LC_INIT,
 	LC_FORCE,			// Never use this

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1391 $
- * $Date: 2007-09-27 10:35:43 -0400 (Thu, 27 Sep 2007) $
+ * $Revision: 1429 $
+ * $Date: 2007-10-14 15:09:38 -0400 (Sun, 14 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 1391 2007-09-27 14:35:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 1429 2007-10-14 19:09:38Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
@@ -119,6 +119,9 @@ const idEventDef EV_PointInLiquid( "pointInLiquid", "ve", 'f' );
 
 const idEventDef EV_Thread_DebugTDM_MatInfo( "debug_tdm_material", "s" );
 
+// greebo: Writes the string to the Darkmod.log file using DM_LOG
+const idEventDef EV_LogString("logString", "dds");
+
 // Priority queue events
 const idEventDef EV_TDM_pqNew( "pqNew", NULL, 'd' );
 const idEventDef EV_TDM_pqDelete( "pqDelete", "d" );
@@ -219,6 +222,8 @@ CLASS_DECLARATION( idClass, idThread )
 
 	EVENT( EV_Thread_DebugTDM_MatInfo,		idThread::Event_DebugTDM_MatInfo )
 	
+	EVENT( EV_LogString,					idThread::Event_LogString )
+
 	EVENT( EV_TDM_pqNew,					idThread::Event_pqNew )
 	EVENT( EV_TDM_pqDelete,					idThread::Event_pqDelete )
 	EVENT( EV_TDM_pqPush,					idThread::Event_pqPush )
@@ -1924,6 +1929,11 @@ void	idThread::Event_SetPortSoundLoss( int handle, float value )
 void	idThread::Event_GetPortSoundLoss( int handle )
 {
 	idThread::ReturnFloat( gameLocal.m_sndProp->GetPortalLoss( handle ) );
+}
+
+void idThread::Event_LogString(int logClass, int logType, const char* output) 
+{
+	DM_LOG(static_cast<LC_LogClass>(logClass), static_cast<LT_LogType>(logType)).LogString(const_cast<char*>(output));
 }
 
 /*
