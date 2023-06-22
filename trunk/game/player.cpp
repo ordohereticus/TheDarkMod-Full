@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1310 $
- * $Date: 2007-08-24 12:48:43 -0400 (Fri, 24 Aug 2007) $
+ * $Revision: 1311 $
+ * $Date: 2007-08-24 13:36:01 -0400 (Fri, 24 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1310 2007-08-24 16:48:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1311 2007-08-24 17:36:01Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8682,7 +8682,7 @@ void idPlayer::inventoryDropItem()
 			}
 
 			// Always update the HUD, the drop script might have changed the inventory count itself.
-			UpdateHud();
+			inventoryChangeSelection(hud, true, item);
 		}
 	}
 }

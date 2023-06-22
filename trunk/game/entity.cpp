@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1304 $
- * $Date: 2007-08-22 02:13:36 -0400 (Wed, 22 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1311 $
+ * $Date: 2007-08-24 13:36:01 -0400 (Fri, 24 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1304 2007-08-22 06:13:36Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1311 2007-08-24 17:36:01Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7973,10 +7973,10 @@ void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCate
 			if (category->isEmpty()) 
 			{
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty inventory category.\r");
-				// Switch the cursor to the next category
-				InventoryCursor()->GetNextCategory();
 				// Remove category from inventory
 				InventoryCursor()->Inventory()->removeCategory(category);
+				// Switch the cursor to the next category (after removal)
+				InventoryCursor()->GetNextCategory();
 			}
 		}
 		else
