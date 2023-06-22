@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2210 $
- * $Date: 2008-04-25 11:23:13 -0400 (Fri, 25 Apr 2008) $
+ * $Revision: 2211 $
+ * $Date: 2008-04-25 12:43:56 -0400 (Fri, 25 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2210 2008-04-25 15:23:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2211 2008-04-25 16:43:56Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1632,7 +1632,8 @@ void CMissionData::AlertCallback(idEntity *Alerted, idEntity *Alerter, int Alert
 
 void CMissionData::KOCallback(idActor* target, idActor* inflictor)
 {
-
+	// greebo: TODO: Add "is airborne" check
+	MissionEvent(COMP_KO, inflictor, target, true, false);
 }
 
 int CMissionData::GetTotalLoot( void )
