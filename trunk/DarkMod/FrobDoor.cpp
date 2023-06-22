@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2106 $
- * $Date: 2008-02-23 15:31:31 -0500 (Sat, 23 Feb 2008) $
- * $Author: greebo $
+ * $Revision: 2114 $
+ * $Date: 2008-03-01 07:41:15 -0500 (Sat, 01 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2106 2008-02-23 20:31:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2114 2008-03-01 12:41:15Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -384,7 +384,10 @@ void CFrobDoor::Open(bool bMaster)
 
 	// If the door is already open, we don't have anything to do. :)
 	if(m_Open == true && !m_bInterrupted && !IsBlocked())
+	{
+		m_bIntentOpen = false;
 		return;
+	}
 
 	// If we have a doorhandle we want to tap it before the door starts to open if the door wasn't
 	// already interrupted
@@ -396,6 +399,7 @@ void CFrobDoor::Open(bool bMaster)
 	else
 	{
 		OpenDoor(bMaster);
+		m_bInterrupted = false;
 	}
 }
 
@@ -491,6 +495,8 @@ void CFrobDoor::Close(bool bMaster)
 
 	if(m_Open == false)
 		return;
+
+	m_bInterrupted = false;
 
 	// When we close the door, we don't want to do the handle tap, as 
 	// it looks a bit strange

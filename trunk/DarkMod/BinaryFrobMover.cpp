@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2106 $
- * $Date: 2008-02-23 15:31:31 -0500 (Sat, 23 Feb 2008) $
- * $Author: greebo $
+ * $Revision: 2114 $
+ * $Date: 2008-03-01 07:41:15 -0500 (Sat, 01 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2106 2008-02-23 20:31:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2114 2008-03-01 12:41:15Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -447,8 +447,8 @@ void CBinaryFrobMover::DoneStateChange(void)
 	m_StateChange = false;
 	CallScript = true;
 
-	// door has completely closed
-	if(!m_bIntentOpen)
+	// angua: use the angles to check if the door is open or closed
+	if (GetPhysics()->GetAxis().ToAngles().Compare(m_ClosedAngles))
 	{
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Closed completely\r" );
 
@@ -465,7 +465,7 @@ void CBinaryFrobMover::DoneStateChange(void)
 		if( spawnArgs.GetBool("trigger_on_close","") )
 			ActivateTargets( this );
 	}
-	else	// door has completely opened
+	else
 	{
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Opened completely\r" );
 		m_Open = true;
