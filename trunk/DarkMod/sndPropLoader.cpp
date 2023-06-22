@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1167 $
+ * $Date: 2007-07-21 13:39:49 -0400 (Sat, 21 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1167 2007-07-21 17:39:49Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -48,6 +48,15 @@ const float s_DBM_TO_M = 1.0/(10*log10( idMath::E )); // convert between dB/m an
 *
 **********************************************************/
 
+void CsndPropBase::Save(idSaveGame *savefile) const
+{
+	// TODO
+}
+
+void CsndPropBase::Restore(idRestoreGame *savefile)
+{
+	// TODO
+}
 
 void CsndPropBase::GlobalsFromDef( void )
 {
@@ -137,6 +146,22 @@ CsndPropLoader::~CsndPropLoader ( void )
 {
 	// Call shutdown in case it was not called before destruction
 	Shutdown();
+}
+
+void CsndPropLoader::Save(idSaveGame *savefile) const
+{
+	// Pass the call to the base class first
+	CsndPropBase::Save(savefile);
+
+	// TODO
+}
+
+void CsndPropLoader::Restore(idRestoreGame *savefile)
+{
+	// Pass the call to the base class first
+	CsndPropBase::Restore(savefile);
+
+	// TODO
 }
 
 /**

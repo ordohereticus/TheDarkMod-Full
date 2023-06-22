@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1167 $
+ * $Date: 2007-07-21 13:39:49 -0400 (Sat, 21 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -228,6 +228,9 @@ public:
 	CsndPropBase( void ) {}
 	virtual ~CsndPropBase( void ) {}
 
+	void	Save(idSaveGame *savefile) const;
+	void	Restore(idRestoreGame *savefile);
+
 	/**
 	* Structure containing global sound properties.
 	**/
@@ -343,6 +346,9 @@ public:
 
 	CsndPropLoader ( void );
 	~CsndPropLoader ( void );
+
+	void	Save(idSaveGame *savefile) const;
+	void	Restore(idRestoreGame *savefile);
 
 	/**
 	* Load sound prop system from a loaded mapfile.
