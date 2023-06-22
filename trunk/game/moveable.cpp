@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2044 $
- * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
+ * $Revision: 2082 $
+ * $Date: 2008-02-10 11:45:57 -0500 (Sun, 10 Feb 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2044 2008-02-04 18:47:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2082 2008-02-10 16:45:57Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -222,7 +222,7 @@ void idMoveable::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( canDamage );
 	savefile->WriteInt( nextDamageTime );
 	savefile->WriteInt( nextSoundTime );
-	savefile->WriteInt( initialSpline != NULL ? initialSpline->GetTime( 0 ) : -1 );
+	savefile->WriteInt( initialSpline != NULL ? (int)initialSpline->GetTime( 0 ) : -1 );
 	savefile->WriteVec3( initialSplineDir );
 
 	savefile->WriteStaticObject( physicsObj );
