@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1338 $
- * $Date: 2007-08-28 15:25:58 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1345 $
+ * $Date: 2007-08-29 04:21:00 -0400 (Wed, 29 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1338 2007-08-28 19:25:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1345 2007-08-29 08:21:00Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3298,6 +3298,26 @@ idGameLocal::NumAAS
 */
 int	idGameLocal::NumAAS( void ) const {
 	return aasList.Num();
+}
+
+/*
+==================
+idGameLocal::GetAASId (TDM)
+==================
+*/
+int	idGameLocal::GetAASId( idAAS* aas ) const
+{
+	// Do a reverse lookup in the aasList array
+	for (int i = 0; i < aasList.Num(); i++)
+	{
+		if (aasList[i] == aas)
+		{
+			// Found the pointer, return it
+			return i;
+		}
+	}
+	// Not found
+	return -1;
 }
 
 /*

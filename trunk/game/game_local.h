@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1337 $
- * $Date: 2007-08-28 10:00:20 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1345 $
+ * $Date: 2007-08-29 04:21:00 -0400 (Wed, 29 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -602,6 +602,7 @@ public:
 	const char *			GetMapName( void ) const;
 
 	int						NumAAS( void ) const;
+	int						GetAASId( idAAS* aas ) const; // greebo: Returns the ID for the given pointer (-1 for invalid pointers)
 	idAAS *					GetAAS( int num ) const;
 	idAAS *					GetAAS( const char *name ) const;
 	void					SetAASAreaState( const idBounds &bounds, const int areaContents, bool closed );
