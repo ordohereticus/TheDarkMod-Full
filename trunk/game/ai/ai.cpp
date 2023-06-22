@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1768 $
- * $Date: 2007-11-12 15:53:18 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1770 $
+ * $Date: 2007-11-12 16:45:24 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1768 2007-11-12 20:53:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1770 2007-11-12 21:45:24Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1553,7 +1553,7 @@ void idAI::Think( void )
 		viewAxis = idAngles(0, current_yaw, 0).ToMat3();
 
 		// TDM: Fake lipsync
-		if (m_lipSyncActive && GetSoundEmitter() && !AI_DEAD && !AI_KNOCKEDOUT)
+		if (m_lipSyncActive && !cv_ai_opt_nolipsync.GetBool() && GetSoundEmitter() && !AI_DEAD && !AI_KNOCKEDOUT)
 		{
 			if (gameLocal.time < m_lipSyncEndTimer )
 			{
@@ -1654,18 +1654,21 @@ void idAI::Think( void )
 			}
 		}
 
-		// greebo: We always rely on having a mind
-		assert(mind);
+		if (!cv_ai_opt_nomind.GetBool())
+		{
+			// greebo: We always rely on having a mind
+			assert(mind);
 
-		idTimer thinkTimer;
-		thinkTimer.Clear();
-		thinkTimer.Start();
+			idTimer thinkTimer;
+			thinkTimer.Clear();
+			thinkTimer.Start();
 
-		// Let the mind do the thinking (after the move updates)
-		mind->Think();
+			// Let the mind do the thinking (after the move updates)
+			mind->Think();
 
-		thinkTimer.Stop();
-		DM_LOG(LC_AI,LT_DEBUG).LogString("Mind's thinking timer says: %lf msecs.\r", thinkTimer.Milliseconds());
+			thinkTimer.Stop();
+			DM_LOG(LC_AI,LT_DEBUG).LogString("Mind's thinking timer says: %lf msecs.\r", thinkTimer.Milliseconds());
+		}
 
 		// Clear DarkMod per frame vars now that the mind had time to think
 		AI_ALERTED = false;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1769 $
- * $Date: 2007-11-12 16:15:46 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1770 $
+ * $Date: 2007-11-12 16:45:24 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1769 2007-11-12 21:15:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1770 2007-11-12 21:45:24Z greebo $", init_version);
 
 #include "darkModAASFindHidingSpots.h"
 #include "DarkModGlobals.h"
@@ -665,6 +665,8 @@ bool darkModAASFindHidingSpots::testingInsideVisibleAASArea
 
 	// No hiding spot area node yet used
 	TDarkmodHidingSpotAreaNode* p_hidingAreaNode = NULL;
+
+	DM_LOG(LC_AI, LT_DEBUG).LogString("Starting hide grid iteration for AAS area %d, point quota = %d\r", currentGridSearchAASAreaNum, numPointsToTestThisPass);
 
 	// Iterate X grid
 	while (currentGridSearchPoint.x <= currentGridSearchBoundMaxes.x - WALL_MARGIN_SIZE + 0.1)

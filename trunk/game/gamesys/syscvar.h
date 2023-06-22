@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1762 $
- * $Date: 2007-11-12 05:35:56 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1770 $
+ * $Date: 2007-11-12 16:45:24 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -44,7 +44,9 @@ extern idCVar cv_ai_opt_noanims;
 extern idCVar cv_ai_opt_novisualscan;
 extern idCVar cv_ai_opt_forceopt;
 extern idCVar cv_ai_opt_nothink;
+extern idCVar cv_ai_opt_nomind;
 extern idCVar cv_ai_opt_novisualstim;
+extern idCVar cv_ai_opt_nolipsync;
 
 extern idCVar cv_sr_disable;
 
