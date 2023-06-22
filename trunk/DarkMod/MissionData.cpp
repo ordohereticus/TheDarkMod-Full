@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1877 $
- * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
- * $Author: ishtvan $
+ * $Revision: 1888 $
+ * $Date: 2007-12-24 17:18:58 -0500 (Mon, 24 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1877 2007-12-17 01:37:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1888 2007-12-24 22:18:58Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -796,7 +796,11 @@ void CMissionData::Event_ObjectiveComplete( int ind )
 			pThread->CallFunction( pScriptFun, true );
 			pThread->DelayedStart( 0 );
 		}
-// TODO: Update the GUI to mark the objective as complete
+
+		// greebo: Call the general "objective complete" function on the player's scriptobject
+		player->CallScriptFunctionArgs("on_objective_complete", true, 0, "e", player);
+
+		// TODO: Update the GUI to mark the objective as complete
 	}
 
 	if( !m_SuccessLogic.IsEmpty() )
