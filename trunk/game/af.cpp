@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1317 $
+ * $Date: 2007-08-25 18:57:39 -0400 (Sat, 25 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 914 2007-04-19 17:45:20Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 1317 2007-08-25 22:57:39Z ishtvan $", init_version);
 
 #include "game_local.h"
 
@@ -559,7 +559,8 @@ bool idAF::LoadBody( const idDeclAF_Body *fb, const idJointMat *joints ) {
 	if ( fb->linearFriction != -1.0f ) {
 		body->SetFriction( fb->linearFriction, fb->angularFriction, fb->contactFriction );
 	}
-	body->SetClipMask( fb->clipMask );
+	// TDM FIX: Remove MOVEABLE_CLIP flag that the parser seems to add in by default
+	body->SetClipMask( fb->clipMask & ~CONTENTS_MOVEABLECLIP );
 	body->SetSelfCollision( fb->selfCollision );
 
 	if ( fb->jointName == "origin" ) {
