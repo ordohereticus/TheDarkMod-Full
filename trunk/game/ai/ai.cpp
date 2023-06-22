@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1764 $
- * $Date: 2007-11-12 07:32:20 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1765 $
+ * $Date: 2007-11-12 09:18:26 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1764 2007-11-12 12:32:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1765 2007-11-12 14:18:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -7040,7 +7040,12 @@ void idAI::SetAlertLevel(float newAlertLevel)
 		newAlertLevel = thresh_combat*2;
 	}
 
-	bool bool_alertRising = (newAlertLevel > AI_AlertNum);
+	bool alertRising = (newAlertLevel > AI_AlertNum);
+
+	if (alertRising)
+	{
+		GetMemory().lastAlertRiseTime = gameLocal.time;
+	}
 	
 	if (AI_DEAD || AI_KNOCKEDOUT) return;
 	
@@ -7130,7 +7135,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	{
 		// Note: Alert rising sounds are played based on the type of stimulus before we ever reach this function
 		// We only have to do alert-down sounds here
-		if (!bool_alertRising)
+		if (!alertRising)
 		{
 			if (newAlertLevel > thresh_3)
 			{
