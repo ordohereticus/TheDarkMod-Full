@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1788 $
- * $Date: 2007-11-14 09:31:54 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1789 $
+ * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,9 +10,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1788 2007-11-14 14:31:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 1789 2007-11-14 14:37:01Z greebo $", init_version);
 
-#include "CDarkmodAASHidingSpotFinder.h"
+#include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
 #include "darkModLAS.h"
 #include "../sys/sys_public.h"

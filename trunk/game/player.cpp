@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1775 $
- * $Date: 2007-11-13 11:24:11 -0500 (Tue, 13 Nov 2007) $
+ * $Revision: 1789 $
+ * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,14 +14,14 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1775 2007-11-13 16:24:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1789 2007-11-14 14:37:01Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/Intersection.h"
 #include "../DarkMod/Relations.h"
-#include "../DarkMod/darkModAASFindHidingSpots.h"
+#include "../DarkMod/DarkmodAASHidingSpotFinder.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/Inventory/Inventory.h"
@@ -4871,7 +4871,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			for (int i = 0; i < gameLocal.NumAAS(); i++) {
 				p_aas = gameLocal.GetAAS(i);
 				if (p_aas != NULL) {
-					darkModAASFindHidingSpots::testFindHidingSpots(
+					CDarkmodAASHidingSpotFinder::testFindHidingSpots(
 						searchOrigin,
 						0.35f,
 						searchBounds,

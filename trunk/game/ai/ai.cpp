@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1783 $
- * $Date: 2007-11-14 04:15:48 -0500 (Wed, 14 Nov 2007) $
- * $Author: angua $
+ * $Revision: 1789 $
+ * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1783 2007-11-14 09:15:48Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1789 2007-11-14 14:37:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8745,7 +8745,7 @@ int idAI::ContinueSearchForHidingSpots()
 	DM_LOG(LC_AI, LT_DEBUG).LogString ("ContinueSearchForHidingSpots called.\r");
 
 	// Get hiding spot search instance from handle
-	darkModAASFindHidingSpots* p_hidingSpotFinder = NULL;
+	CDarkmodAASHidingSpotFinder* p_hidingSpotFinder = NULL;
 	if (m_HidingSpotSearchHandle != NULL_HIDING_SPOT_SEARCH_HANDLE)
 	{
 		p_hidingSpotFinder = HidingSpotSearchCollection.getSearchByHandle(
@@ -8781,7 +8781,7 @@ int idAI::ContinueSearchForHidingSpots()
 			unsigned int refCount;
 
 			// Get finder we just referenced
-			darkModAASFindHidingSpots* p_hidingSpotFinder = 
+			CDarkmodAASHidingSpotFinder* p_hidingSpotFinder = 
 				HidingSpotSearchCollection.getSearchAndReferenceCountByHandle 
 				(
 					m_HidingSpotSearchHandle,

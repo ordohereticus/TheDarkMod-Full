@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1789 $
+ * $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@
 */
 
 // Required includes
-#include "darkModAASFindHidingSpots.h"
+#include "DarkmodAASHidingSpotFinder.h"
 
 //---------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ typedef struct tagTDarkmodHidingSpotSearchNode
 	int searchId;
 
 	int refCount;
-	darkModAASFindHidingSpots search;
+	CDarkmodAASHidingSpotFinder search;
 
 	tagTDarkmodHidingSpotSearchNode* p_prev;
 	tagTDarkmodHidingSpotSearchNode* p_next;
@@ -76,7 +76,7 @@ public:
 	/**
 	* This gets a search by its handle
 	*/
-	darkModAASFindHidingSpots* getSearchByHandle
+	CDarkmodAASHidingSpotFinder* getSearchByHandle
 	(
 		THidingSpotSearchHandle searchHandle
 	);
@@ -85,7 +85,7 @@ public:
 	* This gets a search by its handle and indicates how many people
 	* (including the caller) have a reference handle to the search.
 	*/
-	darkModAASFindHidingSpots* getSearchAndReferenceCountByHandle
+	CDarkmodAASHidingSpotFinder* getSearchAndReferenceCountByHandle
 	(
 		THidingSpotSearchHandle searchHandle,
 		unsigned int& out_refCount
