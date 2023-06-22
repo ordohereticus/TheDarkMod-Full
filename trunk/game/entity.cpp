@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1235 $
- * $Date: 2007-07-29 03:40:09 -0400 (Sun, 29 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1249 $
+ * $Date: 2007-07-29 21:23:12 -0400 (Sun, 29 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1235 2007-07-29 07:40:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1249 2007-07-30 01:23:12Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7804,25 +7804,33 @@ Quit:
 
 void idEntity::ChangeLootAmount(int lootType, int amount)
 {
-	int Gold, Jewelry, Goods, Total;
+	int Gold, Jewelry, Goods, GroupTotal, Total;
 	int rc = 0;
+	idStr Groupname;
 
 	Total = Inventory()->GetLoot(Gold, Jewelry, Goods);
+	bool bGained = (amount >= 0);
 
 	switch(lootType)
 	{
 		case CInventoryItem::LT_GOLD:
 			Gold += amount;
+			GroupTotal = Gold;
+			Groupname = "loot_gold";
 			rc = Gold;
 		break;
 
 		case CInventoryItem::LT_GOODS:
 			Goods += amount;
+			GroupTotal = Goods;
+			Groupname = "loot_goods";
 			rc = Goods;
 		break;
 
 		case CInventoryItem::LT_JEWELS:
 			Jewelry += amount;
+			GroupTotal = Jewelry;
+			Groupname = "loot_jewels";
 			rc = Jewelry;
 		break;
 
@@ -7833,6 +7841,12 @@ void idEntity::ChangeLootAmount(int lootType, int amount)
 
 	// Set the new values
 	Inventory()->SetLoot(Gold, Jewelry, Goods);
+
+	if( rc != 0 )
+	{	
+		gameLocal.m_MissionData->InventoryCallback( NULL, Groupname, GroupTotal, Total, bGained );  
+		gameLocal.m_MissionData->ChangeTotalLoot( amount );
+	}
 
 	idThread::ReturnInt(rc);
 }
