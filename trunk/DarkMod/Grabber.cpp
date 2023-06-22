@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1281 $
- * $Date: 2007-08-05 04:30:18 -0400 (Sun, 05 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1287 $
+ * $Date: 2007-08-11 03:08:24 -0400 (Sat, 11 Aug 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1281 2007-08-05 08:30:18Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1287 2007-08-11 07:08:24Z orbweaver $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -540,7 +540,11 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	} else 
 	{
 		// don't drag it if its clipmodel is not a trace model
+#ifdef __linux__
+		return;
+#else
 		goto Quit;
+#endif
 	}
 	COMWorld = phys->GetOrigin( m_id ) + COM * phys->GetAxis( m_id );
 
