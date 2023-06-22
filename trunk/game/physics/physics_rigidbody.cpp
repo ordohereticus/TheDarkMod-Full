@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1885 $
- * $Date: 2007-12-24 08:29:51 -0500 (Mon, 24 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1970 $
+ * $Date: 2008-01-10 00:49:14 -0500 (Thu, 10 Jan 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1885 2007-12-24 13:29:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1970 2008-01-10 05:49:14Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1298,7 +1298,7 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 	idAngles angles;
 	trace_t collision;
 	idVec3 impulse;
-	idEntity *ent;
+	idEntity *ent(NULL);
 	idVec3 oldOrigin, masterOrigin;
 	idMat3 oldAxis, masterAxis;
 	float timeStep;
@@ -1319,7 +1319,17 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 		current.i.orientation = (isOrientated) ? current.localAxis * masterAxis : current.localAxis;
 
 		// greebo: Only check for collisions for "solid" bind slaves and if the master is non-AF
-		if ((clipModel->GetContents() & (CONTENTS_SOLID|CONTENTS_CORPSE)) && !self->GetBindMaster()->GetPhysics()->IsType(idPhysics_AF::Type))
+		// Ishtvan: Do not block an AF attachment that is itself attached to an AF.  
+		// This causes problems with AF evaluation.
+		// TODO: Use advanced AF binding code to add AF body for entity in this case, as if it were bound directly to AF
+		if ( 
+				(clipModel->GetContents() & (CONTENTS_SOLID|CONTENTS_CORPSE)) 
+				&& !self->GetBindMaster()->GetPhysics()->IsType(idPhysics_AF::Type)
+				&& !(
+						self->GetBindMaster()->IsType(idAFAttachment::Type) 
+						&& static_cast<idAFAttachment *>(self->GetBindMaster())->GetBody()
+					)
+			)
 		{
 			// For non-AF masters we check for collisions
 			gameLocal.push.ClipPush( collisionTrace, self, PUSHFL_CLIP|PUSHFL_APPLYIMPULSE, oldOrigin, oldAxis, current.i.position, current.i.orientation );
