@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2215 $
- * $Date: 2008-04-26 03:43:15 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2241 $
+ * $Date: 2008-04-28 16:21:37 -0400 (Mon, 28 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2215 2008-04-26 07:43:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2241 2008-04-28 20:21:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2653,14 +2653,8 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	
 	if( (bKO || bKOPowerBlow) && collision )
 	{
-		if( TestKnockoutBlow( dir, collision, bKOPowerBlow ) )
+		if( TestKnockoutBlow( attacker, dir, collision, bKOPowerBlow ) )
 		{
-			if (attacker != NULL && attacker->IsType(idActor::Type)) 
-			{
-				// Add a KO to the player stats
-				gameLocal.m_MissionData->KOCallback(this, static_cast<idActor*>(attacker));
-			}
-
 			// For now, first KO blow does no health damage
 			damage = 0;
 		}

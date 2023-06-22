@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2219 $
- * $Date: 2008-04-26 09:39:01 -0400 (Sat, 26 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2241 $
+ * $Date: 2008-04-28 16:21:37 -0400 (Mon, 28 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2219 2008-04-26 13:39:01Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2241 2008-04-28 20:21:37Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -356,9 +356,9 @@ const idEventDef AI_GetObservationPosition ("getObservationPosition", "vf", 'v')
 
 
 /**
-* This event handles a knockout of the AI
+* This event handles a knockout of the AI (takes the attacker as argument)
 **/
-const idEventDef AI_Knockout( "knockout" );
+const idEventDef AI_Knockout( "knockout", "e" );
 
 /*
 * This is the AI event table class for a generic NPC actor.

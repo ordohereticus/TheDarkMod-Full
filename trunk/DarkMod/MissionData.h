@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2230 $
- * $Date: 2008-04-27 04:15:12 -0400 (Sun, 27 Apr 2008) $
+ * $Revision: 2241 $
+ * $Date: 2008-04-28 16:21:37 -0400 (Mon, 28 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -675,11 +675,6 @@ public:
 	* The alert value is the alert state, e.g. state 0 = no significant alert, 4 = combat
 	**/
 	void AlertCallback(idEntity *Alerted, idEntity *Alerter, int AlertVal);
-
-	/**
-	* greebo: This gets called when an actor ("inflictor") knocks out another actor ("target").
-	**/
-	void KOCallback(idActor* target, idActor* inflictor);
 
 	int GetFoundLoot( void );
 	void ChangeFoundLoot( int amount );
