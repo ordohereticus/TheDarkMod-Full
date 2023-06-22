@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1388 $
- * $Date: 2007-09-25 15:13:53 -0400 (Tue, 25 Sep 2007) $
+ * $Revision: 1393 $
+ * $Date: 2007-09-27 17:34:30 -0400 (Thu, 27 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -28,6 +28,7 @@ typedef enum
 {
 	LPSOUND_INIT,				// Initial call (impulse has been triggered)
 	LPSOUND_REPEAT,				// Call from the keyboardhandler for repeated presses
+	LPSOUND_RELEASED,			// Call from the keyboardhandler for released presses
 	LPSOUND_PIN_SAMPLE,			// Callback for pin sample
 	LPSOUND_PIN_FAILED,			// Callback when the pin failed sound is finished
 	LPSOUND_PIN_SUCCESS,		// Callback for the success sound sample
@@ -72,7 +73,7 @@ public:
 	void					GetPickable(void);
 	void					GetDoorhandle(void);
 
-	bool					UsedBy(bool bInit, idEntity *);
+	bool					UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *);
 
 	/**
 	 * Write the proper sound loss value to the soundprop portal data
@@ -223,6 +224,8 @@ protected:
 
 	idVec3						m_OriginalPosition;
 	idAngles					m_OriginalAngle;
+
+	bool						m_KeyReleased;
 
 private:
 };

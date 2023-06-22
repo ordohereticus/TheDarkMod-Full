@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1388 $
- * $Date: 2007-09-25 15:13:53 -0400 (Tue, 25 Sep 2007) $
+ * $Revision: 1393 $
+ * $Date: 2007-09-27 17:34:30 -0400 (Thu, 27 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -110,6 +110,12 @@ enum {
 	TH_UPDATEVISUALS		= 8,		// update renderEntity
 	TH_UPDATEPARTICLES		= 16
 };
+
+typedef enum {
+	IS_PRESSED,
+	IS_RELEASED,
+	IS_REPEAT
+} IMPULSE_STATE;
 
 //
 // Signals
@@ -528,7 +534,7 @@ public:
 	 * like using the lockpíck), the feirst call when the USE button is pressed, this
 	 * would be set to true and in subsequent calls it would be set to false.
 	 */
-	virtual bool UsedBy(bool bInit, idEntity *);
+	virtual bool UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *);
 
 	/**
 	 * Parses a used_by string. For a detailed information on how to use this feature

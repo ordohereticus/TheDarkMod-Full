@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1333 $
- * $Date: 2007-08-28 03:33:15 -0400 (Tue, 28 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1393 $
+ * $Date: 2007-09-27 17:34:30 -0400 (Thu, 27 Sep 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -602,7 +602,8 @@ public:
 	void inventoryUseKeyRelease(int holdTime);
 
 	// Uses a specific item, if it's in the same inventory.
-	void inventoryUseItem(bool bImpulse, idEntity* useEnt);
+	void inventoryUseItem(bool bImpulse, IMPULSE_STATE nState, idEntity* useEnt, int holdTime);
+
 	// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
 	void inventoryChangeSelection(idUserInterface *_hud, bool bUpdate = false, CInventoryItem *Prev = NULL);
 
