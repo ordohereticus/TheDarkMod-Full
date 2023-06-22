@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1371 $
- * $Date: 2007-09-02 12:34:24 -0400 (Sun, 02 Sep 2007) $
- * $Author: joebarnin $
+ * $Revision: 1422 $
+ * $Date: 2007-10-11 04:09:25 -0400 (Thu, 11 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1371 2007-09-02 16:34:24Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1422 2007-10-11 08:09:25Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3207,6 +3207,12 @@ void idGameLocal::RunDebugInfo( void ) {
 			if ( viewTextBounds.IntersectsBounds( entBounds ) ) {
 				gameRenderWorld->DrawText( ent->name.c_str(), entBounds.GetCenter(), 0.1f, colorWhite, axis, 1 );
 				gameRenderWorld->DrawText( va( "#%d", ent->entityNumber ), entBounds.GetCenter() + up, 0.1f, colorWhite, axis, 1 );
+				gameRenderWorld->DrawText( 
+					va( "%d / %d", ent->GetPhysics()->GetContents(), ent->GetPhysics()->GetClipMask() ), 
+					entBounds.GetCenter() - up, 0.1f, 
+					colorWhite, 
+					axis, 1 
+				);
 			}
 		}
 	}
