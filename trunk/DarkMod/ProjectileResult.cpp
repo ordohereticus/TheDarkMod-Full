@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1741 $
- * $Date: 2007-11-08 17:48:48 -0500 (Thu, 08 Nov 2007) $
+ * $Revision: 2240 $
+ * $Date: 2008-04-28 16:00:22 -0400 (Mon, 28 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 1741 2007-11-08 22:48:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 2240 2008-04-28 20:00:22Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -101,6 +101,7 @@ void CProjectileResult::Init
 	// copy in the data
 	m_Collision = collision;
 	
+	m_ProjData.Owner = pData->Owner.GetEntity();
 	m_ProjData.FinalOrigin = pData->FinalOrigin;
 	m_ProjData.FinalAxis = pData->FinalAxis;
 	m_ProjData.LinVelocity = pData->LinVelocity;
@@ -218,6 +219,12 @@ void CProjectileResult::Init
 	if (!shooter.IsEmpty()) {
 		// Copy the shooter information to this projectile result
 		spawnArgs.Set("shooter", shooter.c_str());
+	}
+
+	// greebo: Store the name of the owner into the projectile spawnargs
+	if (m_ProjData.Owner.GetEntity() != NULL)
+	{
+		spawnArgs.Set("projectile_owner", m_ProjData.Owner.GetEntity()->name);
 	}
 
 	// Run scripts:

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2240 $
+ * $Date: 2008-04-28 16:00:22 -0400 (Mon, 28 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,6 +19,11 @@
 **/
 typedef struct SFinalProjData_s
 {
+	/**
+	 * greebo: The entity which fired the projectile
+	 */
+	idEntityPtr<idEntity> Owner;
+
 	/**
 	* Final world position of the origin of the projectile on impact
 	**/

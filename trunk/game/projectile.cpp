@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1843 $
- * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Revision: 2240 $
+ * $Date: 2008-04-28 16:00:22 -0400 (Mon, 28 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 2240 2008-04-28 20:00:22Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1058,6 +1058,7 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 			// Populate the data object to pass to the projectile result object
 			SFinalProjData DataIn;
 			
+			DataIn.Owner = owner.GetEntity();
 			DataIn.FinalOrigin = collision.endpos;
 			DataIn.FinalAxis = GetPhysics()->GetAxis();
 			DataIn.LinVelocity = tempVel;
