@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1334 $
- * $Date: 2007-08-28 03:51:11 -0400 (Tue, 28 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1341 $
+ * $Date: 2007-08-28 16:37:03 -0400 (Tue, 28 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1334 2007-08-28 07:51:11Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1341 2007-08-28 20:37:03Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -193,7 +193,7 @@ CMissionData::CMissionData( void )
 	for(i = 0; i < COMP_COUNT; i++)
 		CompTypeNames.Append(gCompTypeName[i]);
 
-	for(i = 0; i < COMP_COUNT; i++)
+	for(i = 0; i < SPEC_COUNT; i++)
 		SpecTypeNames.Append(gSpecTypeName[i]);
 
 	CompTypeNames.Condense();
