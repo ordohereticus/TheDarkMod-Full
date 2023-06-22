@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1605 $
- * $Date: 2007-10-30 13:20:18 -0400 (Tue, 30 Oct 2007) $
+ * $Revision: 1610 $
+ * $Date: 2007-10-31 05:58:40 -0400 (Wed, 31 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1605 2007-10-30 17:20:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1610 2007-10-31 09:58:40Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3902,45 +3902,7 @@ void idAI::Event_GetAlertNumOfOtherAI (idEntity* p_otherEntity)
 
 void idAI::Event_GetSomeOfOtherEntitiesHidingSpotList (idEntity* p_ownerOfSearch)
 {
-	// Test parameters
-	if (p_ownerOfSearch == NULL) 
-	{
-		idThread::ReturnInt (0);
-		return;
-	}
-
-
-	// The other entity must be an AI
-	idAI* p_otherAI = dynamic_cast<idAI*>(p_ownerOfSearch);
-	if (p_otherAI == NULL)
-	{
-		// Not an AI
-		idThread::ReturnInt (0);
-		return;
-	}
-
-
-	CDarkmodHidingSpotTree* p_othersTree = &(p_otherAI->m_hidingSpots);
-	if (p_othersTree->getNumSpots() <= 1)
-	{
-		// No points
-		idThread::ReturnInt (0);
-		return;
-	}
-
-	// We must clear our current hiding spot search
-	destroyCurrentHidingSpotSearch();
-
-	// Move points from their tree to ours
-	p_othersTree->getOneNth
-	(
-		2,
-		&m_hidingSpots
-	);
-
-	// Done
-	idThread::ReturnInt (m_hidingSpots.getNumSpots());
-
+	idThread::ReturnInt(GetSomeOfOtherEntitiesHidingSpotList(p_ownerOfSearch));
 }
 
 //--------------------------------------------------------------------------------

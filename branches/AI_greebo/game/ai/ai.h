@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1605 $
- * $Date: 2007-10-30 13:20:18 -0400 (Tue, 30 Oct 2007) $
+ * $Revision: 1610 $
+ * $Date: 2007-10-31 05:58:40 -0400 (Wed, 31 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1028,6 +1028,19 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Param is 0-based hiding spot index.
 	*/
 	idVec3 GetNthHidingSpotLocation(int hidingSpotIndex);
+
+	/*!
+	* This event splits off half of the hiding spot list of another entity
+	* and sets our hiding spot list to the "taken" points.
+	*
+	* As such, it is useful for getting hiding spots from a seraching AI that this
+	* AI is trying to assist.
+	*
+	* @param p_otherEntity The other entity who's hiding spots we are taking
+	* 
+	* @return The number of points in the list gotten
+	*/
+	int GetSomeOfOtherEntitiesHidingSpotList(idEntity* p_ownerOfSearch);
 
 	void					SetAAS( void );
 	virtual	void			DormantBegin( void );	// called when entity becomes dormant
