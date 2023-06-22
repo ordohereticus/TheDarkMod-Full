@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1843 $
- * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Revision: 1844 $
+ * $Date: 2007-11-23 12:00:30 -0500 (Fri, 23 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1844 2007-11-23 17:00:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5655,7 +5655,7 @@ void idPlayer::Move( void )
 		int endTime = gameLocal.time;
 		float RefZOffset = MS2SEC(endTime - startTime) * physicsObj.GetRefEntVel().z;
 		
-		old_vert = savedOrigin.z / cv_pm_rope_snd_rep_dist.GetInteger();
+		old_vert = static_cast<int>(savedOrigin.z / cv_pm_rope_snd_rep_dist.GetInteger());
 		new_vert = (physicsObj.GetOrigin().z - RefZOffset) / cv_pm_rope_snd_rep_dist.GetInteger();
 		
 		if ( old_vert != new_vert ) 

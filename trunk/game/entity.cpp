@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1792 $
- * $Date: 2007-11-14 12:49:55 -0500 (Wed, 14 Nov 2007) $
- * $Author: tels $
+ * $Revision: 1844 $
+ * $Date: 2007-11-23 12:00:30 -0500 (Fri, 23 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1792 2007-11-14 17:49:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1844 2007-11-23 17:00:30Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6399,7 +6399,7 @@ void idEntity::LoadTDMSettings(void)
 		spawnArgs.GetFloat("frob_bias", "1.0", m_FrobBias);
 
 		if( m_FrobDistance <= 0  )
-			m_FrobDistance = g_Global.m_DefaultFrobDistance;
+			m_FrobDistance = static_cast<int>(g_Global.m_DefaultFrobDistance);
 	}
 
 	// update the max frobdistance if necessary
