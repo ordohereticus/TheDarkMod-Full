@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2100 $
- * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2121 $
+ * $Date: 2008-03-01 14:41:59 -0500 (Sat, 01 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -143,6 +143,14 @@ public:
 	);
 
 protected:
+
+	/**
+	 * greebo: Overrides the base class method to calculate the move_time fraction
+	 *         according to the current rotation state. This is needed to let doors
+	 *         open/close in the right speed after they've been interrupted.
+	 */
+	virtual float			GetMoveTimeFraction();
+
 	/**
 	* By default, a BinaryFrobMover toggles its state when triggered
 	**/

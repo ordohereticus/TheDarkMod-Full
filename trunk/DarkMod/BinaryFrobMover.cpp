@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2115 $
- * $Date: 2008-03-01 09:43:33 -0500 (Sat, 01 Mar 2008) $
+ * $Revision: 2121 $
+ * $Date: 2008-03-01 14:41:59 -0500 (Sat, 01 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2115 2008-03-01 14:43:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2121 2008-03-01 19:41:59Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -585,4 +585,33 @@ void CBinaryFrobMover::getRemainingMovement
 	}
 
 	// Done
+}
+
+float CBinaryFrobMover::GetMoveTimeFraction()
+{
+	// Get the current angles
+	idAngles curAngles;
+	physicsObj.GetLocalAngles(curAngles);
+
+	// Calculate the delta
+	idAngles delta = dest_angles - curAngles;
+	delta[0] = idMath::Fabs(delta[0]);
+	delta[1] = idMath::Fabs(delta[1]);
+	delta[2] = idMath::Fabs(delta[2]);
+
+	// greebo: Note that we don't need to compare against zero angles here, because
+	// this code won't be called in this case (see idMover::BeginRotation).
+
+	idAngles fullRotation = m_OpenAngles - m_ClosedAngles;
+	fullRotation[0] = idMath::Fabs(fullRotation[0]);
+	fullRotation[1] = idMath::Fabs(fullRotation[1]);
+	fullRotation[2] = idMath::Fabs(fullRotation[2]);
+
+	// Get the maximum angle component
+	int index = (delta[0] > delta[1]) ? 0 : 1;
+	index = (delta[2] > delta[index]) ? 2 : index;
+
+	float fraction = delta[index]/fullRotation[index];
+
+	return fraction;
 }
