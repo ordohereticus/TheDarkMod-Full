@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1668 $
- * $Date: 2007-11-03 17:00:07 -0400 (Sat, 03 Nov 2007) $
+ * $Revision: 1671 $
+ * $Date: 2007-11-03 17:39:39 -0400 (Sat, 03 Nov 2007) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1668 2007-11-03 21:00:07Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1671 2007-11-03 21:39:39Z tels $", init_version);
 
 #include "darkModAASFindHidingSpots.h"
 #include "DarkModGlobals.h"
@@ -143,7 +143,7 @@ bool darkModAASFindHidingSpots::initialize
 )
 {
 	// Be certain we free our PVS node graph
-	if ((h_hideFromPVS.h != NULL) || (h_hideFromPVS.i != -1))
+	if ((h_hideFromPVS.h != 0) || (h_hideFromPVS.i != -1))
 	{
 		gameLocal.pvs.FreeCurrentPVS( h_hideFromPVS );
 		h_hideFromPVS.h = 0;
@@ -197,7 +197,7 @@ darkModAASFindHidingSpots::~darkModAASFindHidingSpots(void)
 {
 
 	// Be certain we free our PVS node graph
-	if ((h_hideFromPVS.h != NULL) || (h_hideFromPVS.i != -1))
+	if ((h_hideFromPVS.h != 0) || (h_hideFromPVS.i != -1))
 	{
 		gameLocal.pvs.FreeCurrentPVS( h_hideFromPVS );
 		h_hideFromPVS.h = 0;
