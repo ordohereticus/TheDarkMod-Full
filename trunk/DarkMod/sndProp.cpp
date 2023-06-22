@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1190 $
- * $Date: 2007-07-22 14:18:13 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1217 $
+ * $Date: 2007-07-25 14:50:24 -0400 (Wed, 25 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1190 2007-07-22 18:18:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1217 2007-07-25 18:50:24Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -173,9 +173,9 @@ void CsndProp::Save(idSaveGame *savefile) const
 		}
 
 		savefile->WriteInt(m_PopAreas[i].VisitedPorts.Num());
-		for (int i = 0; i < m_PopAreas[i].VisitedPorts.Num(); i++)
+		for (int j = 0; j < m_PopAreas[i].VisitedPorts.Num(); j++)
 		{
-			savefile->WriteInt(m_PopAreas[i].VisitedPorts[i]);
+			savefile->WriteInt(m_PopAreas[i].VisitedPorts[j]);
 		}
 	}
 
@@ -233,9 +233,9 @@ void CsndProp::Restore(idRestoreGame *savefile)
 		savefile->ReadInt(num);
 		m_PopAreas[i].VisitedPorts.Clear();
 		m_PopAreas[i].VisitedPorts.SetNum(num);
-		for (int i = 0; i < num; i++)
+		for (int j = 0; j < num; j++)
 		{
-			savefile->ReadInt(m_PopAreas[i].VisitedPorts[i]);
+			savefile->ReadInt(m_PopAreas[i].VisitedPorts[j]);
 		}
 	}
 
