@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2037 $
+ * $Date: 2008-02-02 20:32:56 -0500 (Sat, 02 Feb 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -158,6 +158,20 @@ enum {
 	EINV_PREV	= 2, // Iterate backwards.
 	EINV_FAST	= 4, // Don't use group histories.
 };
+
+/**
+* Info structure for attaching things to named positions
+**/
+typedef struct SAttachPosition_s
+{
+	idStr			name; // name of this position
+	jointHandle_t	joint; // joint it's relative to
+	idAngles		angleOffset; // rotational offset relative to joint orientation
+	idVec3			originOffset; // origin offset relative to joint origin
+
+	void			Save( idSaveGame *savefile ) const;
+	void			Restore( idRestoreGame *savefile );
+} SAttachPosition;
 
 // Used by m_renderTrigger
 #define EMPTY_MODEL "models/darkmod/props/misc/empty.lwo"
@@ -669,6 +683,12 @@ public:
 	* Will be overloaded in derived classes with joints to call BindToJoint.
 	**/
 	virtual void Attach( idEntity *ent );
+
+	/**
+	* Returns a pointer to the attachment position with this name. 
+	* Returns NULL if no attachment position exists with this name.
+	**/
+	virtual SAttachPosition *GetAttachPosition( const char *AttachName );
 	
 	/**
 	* Called when the given entity is about to attach (bind) to this entity.
@@ -771,6 +791,11 @@ protected:
 	* Parses spawnarg list of attachments and binds them on to the ent
 	**/
 	virtual void ParseAttachments( void );
+
+	/**
+	* Parse attachment positions from the spawnargs
+	**/
+	virtual void ParseAttachPositions( void );
 
 	/**
 	* Bind to the same object that the "other" argument is bound to
@@ -901,6 +926,12 @@ protected:
 
 	// Frobs this entity.
 	void					Event_Frob();
+
+	/**
+	* List of predefined attachment positions for this entity
+	* If the entity doesn't have joints, positions are relative to origin
+	**/
+	idList<SAttachPosition>	m_AttachPositions;
 
 private:
 	idPhysics_Static		defaultPhysicsObj;					// default physics object
