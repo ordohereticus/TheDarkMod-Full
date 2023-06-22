@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2275 $
+ * $Date: 2008-05-09 11:57:56 -0400 (Fri, 09 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_import.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_import.cpp 2275 2008-05-09 15:57:56Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../MayaImport/maya_main.h"
@@ -96,10 +96,21 @@ bool idModelExport::CheckMayaInstall( void ) {
 	lres = RegOpenKey( HKEY_LOCAL_MACHINE, "SOFTWARE\\Alias|Wavefront\\Maya", &hKey );
 	RegCloseKey( hKey );
 
-	if ( lres != ERROR_SUCCESS ) {
-		return false;
+	if ( lres == ERROR_SUCCESS ) {
+		return true;
 	}
-	return true;
+
+	// greebo: Could not find "Alias|WaveFront" Maya key, check for AutoDesk
+	lres = RegOpenKey( HKEY_LOCAL_MACHINE, "SOFTWARE\\Autodesk\\Maya", &hKey );
+	RegCloseKey( hKey );
+
+	if ( lres == ERROR_SUCCESS ) {
+		return true;
+	}
+
+	gameLocal.Warning("Maya key not found in registry, continuing...\n");
+
+	return true; // greebo: both keys failed, let the game continue anyways
 #endif
 }
 
