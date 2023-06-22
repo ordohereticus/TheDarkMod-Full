@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1870 $
- * $Date: 2007-12-13 07:38:46 -0500 (Thu, 13 Dec 2007) $
- * $Author: sparhawk $
+ * $Revision: 1871 $
+ * $Date: 2007-12-14 06:51:32 -0500 (Fri, 14 Dec 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -829,7 +829,9 @@ private:
 	bool					m_DoLightgem;		// Signal when the lightgem may be processed.
 	int						m_LightgemShotSpot;
 	float					m_LightgemShotValue[DARKMOD_LG_MAX_RENDERPASSES];
-
+	
+	CRenderPipe *			m_RenderPipe;
+	
 	idList<idEntity *>		m_SignalList;
 
 	void					Clear( void );
