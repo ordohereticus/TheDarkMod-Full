@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1956 $
- * $Date: 2008-01-04 12:07:27 -0500 (Fri, 04 Jan 2008) $
+ * $Revision: 1961 $
+ * $Date: 2008-01-06 03:11:05 -0500 (Sun, 06 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1956 2008-01-04 17:07:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1961 2008-01-06 08:11:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3104,6 +3104,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			// Only trigger the visuals update once
 			if (!gui->GetStateBool("GameStateActive"))
 			{
+				gui->SetStateBool("SaveMissionEnabled", true);
+
 				gui->HandleNamedEvent("SetupObjectivesForIngame");
 
 				gui->HandleNamedEvent("ShowObjectivesButton");
@@ -3126,6 +3128,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			// Only trigger the visuals once
 			if (!gui->GetStateBool("GameStateNoMap"))
 			{
+				gui->SetStateBool("SaveMissionEnabled", false);
+
 				gui->HandleNamedEvent("SetupObjectivesForMapStart");
 
 				gui->HandleNamedEvent("HideResumeGameButton");
