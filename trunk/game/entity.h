@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2087 $
- * $Date: 2008-02-10 16:05:07 -0500 (Sun, 10 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2088 $
+ * $Date: 2008-02-11 00:54:48 -0500 (Mon, 11 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -556,7 +556,7 @@ public:
 	 * Will evaluate one def_broken flinder and find out how many of this piece
 	 * to spawn, then spawn them. Called from BecomeBroken().
 	*/
-	virtual int				SpawnFlinder(const BrokenSpawn *bs);
+	virtual int				SpawnFlinder(const BrokenSpawn& bs);
 
 	/**
 	 * Frobaction will determine what a particular item should do when an entity is highlighted.
