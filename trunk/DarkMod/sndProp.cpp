@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1170 $
- * $Date: 2007-07-21 14:38:57 -0400 (Sat, 21 Jul 2007) $
+ * $Revision: 1171 $
+ * $Date: 2007-07-21 14:54:40 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1170 2007-07-21 18:38:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1171 2007-07-21 18:54:40Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -185,7 +185,17 @@ void CsndProp::Save(idSaveGame *savefile) const
 	{
 		savefile->WriteBool(m_EventAreas->bVisited);
 
-		//TODO: Save: m_EventAreas->PortalDat
+		savefile->WriteBool(m_EventAreas->PortalDat != NULL);
+		if (m_EventAreas->PortalDat != NULL)
+		{
+			savefile->WriteFloat(m_EventAreas->PortalDat->Loss);
+			savefile->WriteFloat(m_EventAreas->PortalDat->Dist);
+			savefile->WriteFloat(m_EventAreas->PortalDat->Att);
+			savefile->WriteInt(m_EventAreas->PortalDat->Floods);
+
+			/*SsndPortal *ThisPort; // pointer to the snd portal object for this portal 
+			  SPortEvent_s *PrevPort; // the portal visited immediately before each portal*/
+		}
 	}
 }
 
@@ -244,7 +254,19 @@ void CsndProp::Restore(idRestoreGame *savefile)
 		m_EventAreas = new SEventArea;
 		savefile->ReadBool(m_EventAreas->bVisited);
 
-		//TODO: Save: m_EventAreas->PortalDat
+		bool hasPortalDat;
+		savefile->ReadBool(hasPortalDat);
+		if (hasPortalDat)
+		{
+			m_EventAreas->PortalDat = new SPortEvent;
+			savefile->ReadFloat(m_EventAreas->PortalDat->Loss);
+			savefile->ReadFloat(m_EventAreas->PortalDat->Dist);
+			savefile->ReadFloat(m_EventAreas->PortalDat->Att);
+			savefile->ReadInt(m_EventAreas->PortalDat->Floods);
+
+			/*SsndPortal *ThisPort; // pointer to the snd portal object for this portal 
+			  SPortEvent_s *PrevPort; // the portal visited immediately before each portal*/
+		}
 	}
 }
 
