@@ -1,23 +1,13 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1128 $
- * $Date: 2007-07-16 01:23:14 -0400 (Mon, 16 Jul 2007) $
- * $Author: crispy $
+ * $Revision: 1158 $
+ * $Date: 2007-07-20 05:06:59 -0400 (Fri, 20 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 // Copyright (C) 2006 Chris Sarantos <csarantos@gmail.com>
-//
-
-// TODO: Add support for irreversible objectives/components
-
-// TODO: Item in inventory?  Could put the inventory name in the second entdata parms
-// that would allow automatic handling of objectives like put so many things in a chest,
-// or give some AI so many things.  Maybe this isn't needed tho, maybe it could just be
-// done with scripting in those particular cases.
-// Basically we'd just have to make COMP_ITEM take a second ObjEntParms arg and make it
-// match the name of the inventory to that as well as the rest.
 
 // TODO: Right now, AI_FindBody stats does not track the stat of team of body found
 // AND team of AI finding body.  It only tracks team of AI finding body.
@@ -255,6 +245,7 @@ class CObjective
 
 		SBoolParseNode_s( void ) { Clear(); }
 		~SBoolParseNode_s( void ) { Clear(); }
+		bool IsEmpty( void ) { return (Cols.Num() == 0 && CompNum == -1); }
 
 		/**
 		* Clear the parse node
@@ -324,6 +315,11 @@ public:
 	**/
 	bool m_applies;
 
+	/**
+	* Handle for the FM author to refer to this objective (Not Yet Implemented)
+	**/
+	int m_handle;
+
 protected:
 	/**
 	* Internal function used by CheckFailure and CheckSuccess
@@ -333,7 +329,7 @@ protected:
 	/**
 	* Internal function used by ParseLogicStrs
 	**/
-	bool ParseLogicStr( idStr *input, SBoolParseNode &output );
+	bool ParseLogicStr( idStr *input, SBoolParseNode *output );
 
 protected:
 
