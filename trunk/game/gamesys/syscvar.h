@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2000 $
+ * $Date: 2008-01-20 01:43:39 -0500 (Sun, 20 Jan 2008) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -30,6 +30,7 @@ extern idCVar cv_ai_tactalert;
 extern idCVar cv_ai_state_show;
 extern idCVar cv_ai_task_show;
 extern idCVar cv_ai_alertnum_show;
+extern idCVar cv_ai_dest_show;
 extern idCVar cv_ai_debug;
 extern idCVar cv_ai_sight_thresh;
 extern idCVar cv_ai_sight_scale;
