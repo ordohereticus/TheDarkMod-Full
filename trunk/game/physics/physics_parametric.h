@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2167 $
- * $Date: 2008-04-06 14:41:22 -0400 (Sun, 06 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2197 $
+ * $Date: 2008-04-22 01:26:52 -0400 (Tue, 22 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -74,6 +74,7 @@ public:
 	void					GetLocalOrigin( idVec3 &curOrigin ) const;
 	void					GetLocalAngles( idAngles &curAngles ) const;
 	const idAngles&			GetLocalAngles() const;
+	void					SetLocalAngles(idAngles curAngles);
 
 	void					GetAngles( idAngles &curAngles ) const;
 

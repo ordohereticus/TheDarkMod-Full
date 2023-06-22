@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2192 $
- * $Date: 2008-04-20 14:52:19 -0400 (Sun, 20 Apr 2008) $
+ * $Revision: 2197 $
+ * $Date: 2008-04-22 01:26:52 -0400 (Tue, 22 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2192 2008-04-20 18:52:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2197 2008-04-22 05:26:52Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -287,6 +287,7 @@ void CFrobDoor::Spawn( void )
 	//TODO: Add portal/door pair to soundprop data here, 
 	//	replacing the old way in sndPropLoader
 
+	// Flag the AAS areas the door is located in with door travel flag
 	for (int i = 0; i < gameLocal.NumAAS(); i++)
 	{
 		idAAS*	aas = gameLocal.GetAAS(i);
@@ -491,8 +492,7 @@ void CFrobDoor::OpenDoor(bool bMaster)
 			if( m_TransSpeed )
 				Event_SetMoveSpeed( m_TransSpeed );
 
-			idVec3 tv3 = ( m_StartPos +  m_Translation );
-			Event_MoveToPos( tv3 );
+			Event_MoveToPos( m_OpenOrigin );
 
 			// Update soundprop
 			UpdateSoundLoss();
@@ -573,7 +573,7 @@ void CFrobDoor::Close(bool bMaster)
 		if( m_TransSpeed )
 			Event_SetMoveSpeed( m_TransSpeed );
 
-		Event_MoveToPos(m_StartPos);
+		Event_MoveToPos(m_ClosedOrigin);
 	}
 }
 

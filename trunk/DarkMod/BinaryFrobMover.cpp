@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2192 $
- * $Date: 2008-04-20 14:52:19 -0400 (Sun, 20 Apr 2008) $
+ * $Revision: 2197 $
+ * $Date: 2008-04-22 01:26:52 -0400 (Tue, 22 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2192 2008-04-20 18:52:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2197 2008-04-22 05:26:52Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -177,7 +177,7 @@ void CBinaryFrobMover::Spawn( void )
 		DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("FrobDoor [%s] found portal handle %d on spawn \r", name.c_str(), areaPortal);
 
 	idAngles tempAngle;
-	physicsObj.GetLocalAngles( tempAngle );
+	tempAngle = physicsObj.GetLocalAngles();
 
 	// angua: the origin of the door in closed state
 	m_ClosedOrigin = physicsObj.GetOrigin();
@@ -204,19 +204,9 @@ void CBinaryFrobMover::Spawn( void )
 	if( m_vImpulseDirClose.LengthSqr() > 0 )
 		m_vImpulseDirClose.Normalize();
 
-	if(!m_Open) 
-	{
-		// Door starts _completely_ closed
-		Event_ClosePortal();
+	m_ClosedAngles = tempAngle;
+	m_OpenAngles = tempAngle + m_Rotate;
 
-		m_ClosedAngles = tempAngle;
-		m_OpenAngles = tempAngle + m_Rotate;
-	}
-	else
-	{
-		m_ClosedAngles = tempAngle - partialAngle;
-		m_OpenAngles = tempAngle + m_Rotate - partialAngle;
-	}
 
 	if (m_ClosedOrigin.Compare(m_OpenOrigin) && m_ClosedAngles.Compare(m_OpenAngles))
 	{
@@ -280,6 +270,21 @@ void CBinaryFrobMover::Spawn( void )
 	m_OpenDir = ( (m_OpenPos - GetPhysics()->GetOrigin()) * normal ) * normal;
 	m_OpenDir.Normalize();
 	// gameRenderWorld->DebugArrow(colorBlue, GetPhysics()->GetOrigin(), GetPhysics()->GetOrigin() + 20 * m_OpenDir, 2, 200000);
+
+	if(!m_Open) 
+	{
+		// Door starts _completely_ closed
+		Event_ClosePortal();
+
+	}
+	else
+	{
+		// door starts out partially open, set origin and angles to the values defined in the spawnargs.
+		physicsObj.SetOrigin(m_StartPos);
+		physicsObj.SetLocalAngles(tempAngle + partialAngle);
+	}
+
+	UpdateVisuals();
 }
 
 void CBinaryFrobMover::Lock(bool bMaster)

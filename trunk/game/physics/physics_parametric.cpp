@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2167 $
- * $Date: 2008-04-06 14:41:22 -0400 (Sun, 06 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2197 $
+ * $Date: 2008-04-22 01:26:52 -0400 (Tue, 22 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2167 2008-04-06 18:41:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2197 2008-04-22 05:26:52Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -458,6 +458,32 @@ const idAngles& idPhysics_Parametric::GetLocalAngles() const
 	return current.localAngles;
 }
 
+void idPhysics_Parametric::	SetLocalAngles(idAngles curAngles)
+{
+	current.localAngles = curAngles;
+
+	current.angularExtrapolation.SetStartValue( current.localAngles );
+	current.angularInterpolation.SetStartValue( current.localAngles );
+
+	current.localAngles = current.angularExtrapolation.GetCurrentValue( current.time );
+	if ( hasMaster && isOrientated ) {
+		idVec3 masterOrigin;
+		idMat3 masterAxis;
+		self->GetMasterPosition( masterOrigin, masterAxis );
+		current.axis = current.localAngles.ToMat3() * masterAxis;
+		current.angles = current.axis.ToAngles();
+	}
+	else {
+		current.axis = current.localAngles.ToMat3();
+		current.angles = current.localAngles;
+	}
+	if ( clipModel ) {
+		clipModel->Link( gameLocal.clip, self, 0, current.origin, current.axis );
+	}
+	Activate();
+}
+
+
 /*
 ================
 idPhysics_Parametric::SetClipModel
@@ -756,28 +782,7 @@ idPhysics_Parametric::SetAxis
 ================
 */
 void idPhysics_Parametric::SetAxis( const idMat3 &newAxis, int id ) {
-	idVec3 masterOrigin;
-	idMat3 masterAxis;
-
-	current.localAngles = newAxis.ToAngles();
-
-	current.angularExtrapolation.SetStartValue( current.localAngles );
-	current.angularInterpolation.SetStartValue( current.localAngles );
-
-	current.localAngles = current.angularExtrapolation.GetCurrentValue( current.time );
-	if ( hasMaster && isOrientated ) {
-		self->GetMasterPosition( masterOrigin, masterAxis );
-		current.axis = current.localAngles.ToMat3() * masterAxis;
-		current.angles = current.axis.ToAngles();
-	}
-	else {
-		current.axis = current.localAngles.ToMat3();
-		current.angles = current.localAngles;
-	}
-	if ( clipModel ) {
-		clipModel->Link( gameLocal.clip, self, 0, current.origin, current.axis );
-	}
-	Activate();
+	SetLocalAngles(newAxis.ToAngles());
 }
 
 /*
