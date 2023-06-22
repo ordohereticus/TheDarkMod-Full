@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2155 $
- * $Date: 2008-03-29 13:35:06 -0400 (Sat, 29 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2208 $
+ * $Date: 2008-04-24 15:45:53 -0400 (Thu, 24 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2155 2008-03-29 17:35:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2208 2008-04-24 19:45:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -459,12 +459,13 @@ void idGameLocal::Init( void ) {
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "micro" ), font_micro );
 
 	// Start the DarkRadiant RCF Server instance
-	
+	if (cvarSystem->GetCVarBool("darkradiant_rcfserver_enable"))
+	{
 #ifdef __linux__
 	// Linux is using the boost::asio library, this may throw an exception
 	try {
 		m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr(new DarkRadiantRCFServer);
-		Printf( "------------ RCF Server started -----------\n" );
+		Printf( "------------ DarkRadiant RCF Server started -----------\n" );
 	}
 	catch (const boost::asio::error& e) {
 		m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr();
@@ -473,8 +474,13 @@ void idGameLocal::Init( void ) {
 #else
 	// Win32 builds just instantiate the server, shouldn't throw
 	m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr(new DarkRadiantRCFServer);
-	Printf( "------------ RCF Server started -----------\n" );
+	Printf( "------------ DarkRadiant RCF Server started -----------\n" );
 #endif
+	}
+	else
+	{
+		Printf( "Info: DarkRadiant RCF Server disabled.\n" );
+	}
 	
 	// Create render pipe
 	m_RenderPipe = new CRenderPipe();

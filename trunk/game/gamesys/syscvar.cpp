@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2207 $
- * $Date: 2008-04-24 14:59:15 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2208 $
+ * $Date: 2008-04-24 15:45:53 -0400 (Thu, 24 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2207 2008-04-24 18:59:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2208 2008-04-24 19:45:53Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -249,6 +249,8 @@ idCVar cv_lp_randomize("tdm_lp_randomize",	"1",	CVAR_GAME | CVAR_BOOL | CVAR_ARC
 idCVar cv_lp_pawlow("tdm_lp_pawlow",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the sweetspot sound will play at the end of the pattern instead of at the beginning. Thus making it into a reaction game." );
 
 idCVar cv_dm_distance("tdm_distance",		"",	CVAR_GAME,	"Shows the distance from the player to the entity" );
+
+idCVar cv_darkradiant_rcfserver_enable("darkradiant_rcfserver_enable",	"0",	CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the DarkRadiant RCF Server will be enabled during the next startup." );
 
 /**
 * End DarkMod cvars
