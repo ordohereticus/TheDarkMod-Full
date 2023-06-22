@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1329 $
- * $Date: 2007-08-27 12:58:37 -0400 (Mon, 27 Aug 2007) $
+ * $Revision: 1348 $
+ * $Date: 2007-08-29 07:30:16 -0400 (Wed, 29 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1329 2007-08-27 16:58:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1348 2007-08-29 11:30:16Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -22,6 +22,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 1329 2007-08-27 16:58:37
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/PlayerData.h"
 #include "../../DarkMod/sndProp.h"
+#include "../../DarkMod/EscapePointManager.h"
 
 // For handling the opening of doors and other binary Frob movers
 #include "../../DarkMod/BinaryFrobMover.h"
@@ -2373,8 +2374,29 @@ bool idAI::Flee(idEntity* entityToFleeFrom, float maxDist)
 	const idVec3 &org = physicsObj.GetOrigin();
 	areaNum	= PointReachableAreaNum( org );
 
+	// Setup the escape conditions
+	EscapeConditions conditions;
+	
+	conditions.fromEntity = dynamic_cast<idAI*>(entityToFleeFrom);
+	conditions.aas = aas;
+	conditions.fromPosition = org;
+	conditions.maxDistance = 1000.0f;
+	conditions.self = this;
+
+	// Request the escape goal from the manager
+	EscapeGoal goal = gameLocal.m_EscapePointManager->GetEscapeGoal(conditions);
+
+	if (goal.escapePointId == -1)
+	{
+		// Invalid escape point id returned
+		return false;
+	}
+
+	// Get the actual point (this should never be NULL)
+	EscapePoint* targetPoint = gameLocal.m_EscapePointManager->GetEscapePoint(goal.escapePointId);
+		
 	// consider the entity the monster is getting close to as an obstacle
-	obstacle.absBounds = entityToFleeFrom->GetPhysics()->GetAbsBounds();
+	/*obstacle.absBounds = entityToFleeFrom->GetPhysics()->GetAbsBounds();
 
 	if ( entityToFleeFrom == enemy.GetEntity() ) {
 		pos = lastVisibleEnemyPos;
@@ -2387,15 +2409,15 @@ bool idAI::Flee(idEntity* entityToFleeFrom, float maxDist)
 	aasGoal_t dummy;
 	aas->FindNearestGoal( dummy, areaNum, org, pos, travelFlags, &obstacle, 1, findEscapeArea );
 
-	aasGoal_t& goal = findEscapeArea.GetEscapeGoal();
+	aasGoal_t& goal = findEscapeArea.GetEscapeGoal();*/
 
-	if ( ReachedPos( goal.origin, move.moveCommand ) ) {
+	if ( ReachedPos( targetPoint->origin, move.moveCommand ) ) {
 		StopMove( MOVE_STATUS_DONE );
 		return true;
 	}
 
-	move.moveDest		= goal.origin;
-	move.toAreaNum		= goal.areaNum;
+	move.moveDest		= targetPoint->origin;
+	move.toAreaNum		= targetPoint->areaNum;
 	move.goalEntity		= entityToFleeFrom;
 	move.moveCommand	= MOVE_FLEE;
 	move.moveStatus		= MOVE_STATUS_MOVING;
