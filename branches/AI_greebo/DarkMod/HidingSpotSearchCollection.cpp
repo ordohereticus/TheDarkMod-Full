@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1564 $
+ * $Date: 2007-10-26 09:35:37 -0400 (Fri, 26 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1564 2007-10-26 13:35:37Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -356,14 +356,14 @@ THidingSpotSearchHandle CHidingSpotSearchCollection::getOrCreateSearch
 	);
 
 	// Start search
-	DM_LOG(LC_AI, LT_DEBUG).LogString ("Starting search for hiding spots\n");
+	DM_LOG(LC_AI, LT_DEBUG).LogString ("Starting search for hiding spots\r");
 	bool b_moreProcessingToDo = p_search->startHidingSpotSearch
 	(
 		p_search->hidingSpotList,
 		g_Global.m_maxNumHidingSpotPointTestsPerAIFrame,
 		frameIndex
 	);
-	DM_LOG(LC_AI, LT_DEBUG).LogString ("First pass of hiding spot search found %d spots\n", p_search->hidingSpotList.getNumSpots());
+	DM_LOG(LC_AI, LT_DEBUG).LogString ("First pass of hiding spot search found %d spots\r", p_search->hidingSpotList.getNumSpots());
 
 	// Is search completed?
 	out_b_searchCompleted = !b_moreProcessingToDo;
