@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1496 $
- * $Date: 2007-10-20 11:44:22 -0400 (Sat, 20 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1497 $
+ * $Date: 2007-10-20 16:49:37 -0400 (Sat, 20 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1496 2007-10-20 15:44:22Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1497 2007-10-20 20:49:37Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -6385,13 +6385,11 @@ void idAI::AlertAI(const char *type, float amount)
 	// Ignore actors in notarget mode
 	idActor* actor = m_AlertedByActor.GetEntity();
 
-	if (actor == NULL && actor->fl.notarget)
+	if (actor != NULL && actor->fl.notarget)
 	{
 		// No alerting actor, or actor is set to notarget, quit
 		return;
 	}
-
-	// greebo: Below this point, we have a valid enemy <actor> (which is not NULL)
 
 	if (m_AlertGraceTime)
 	{
@@ -6407,6 +6405,7 @@ void idAI::AlertAI(const char *type, float amount)
 			m_AlertGraceCountLimit = 0;
 		}
 		else if (alertInc < m_AlertGraceThresh && 
+				  actor != NULL &&
 				  actor == m_AlertGraceActor.GetEntity() && 
 				  m_AlertGraceCount < m_AlertGraceCountLimit)
 		{
