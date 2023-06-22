@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1824 $
+ * $Date: 2007-11-20 16:31:04 -0500 (Tue, 20 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1824 2007-11-20 21:31:04Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -123,11 +123,15 @@ int g_PLID = 0;
 const char *DM_OSPathToRelativePath(const char *OSPath);
 const char *DM_RelativePathToOSPath(const char *relativePath, const char *basePath = "fs_devpath");
 const char *DM_BuildOSPath(const char *base, const char *game, const char *relativePath);
+//void DM_Printf(const char* fmt, ...);
 
 // Intercept declarations
 //SH_DECL_HOOK1(idFileSystem, OSPathToRelativePath, SH_NOATTRIB, 0, const char *, const char *);
 //SH_DECL_HOOK2(idFileSystem, RelativePathToOSPath, SH_NOATTRIB, 0, const char *, const char *, const char *);
 SH_DECL_HOOK3(idFileSystem, BuildOSPath, SH_NOATTRIB, 0, const char *, const char *, const char *, const char *);
+
+// greebo: Intercept declaration for idCommon::VPrintf 
+//SH_DECL_HOOK0_void_vafmt(idCommon, Printf, SH_NOATTRIB, 0);
 
 // declare various global objects
 CsndPropLoader	g_SoundPropLoader;
@@ -335,6 +339,8 @@ void CGlobal::Init()
 	SH_ADD_HOOK_STATICFUNC(idFileSystem, BuildOSPath, fileSystem, DM_BuildOSPath, 0);
 //	SH_ADD_HOOK_STATICFUNC(idFileSystem, OSPathToRelativePath, fileSystem, DM_OSPathToRelativePath, 0);
 //	SH_ADD_HOOK_STATICFUNC(idFileSystem, RelativePathToOSPath, fileSystem, DM_RelativePathToOSPath, 0);
+
+//	SH_ADD_HOOK_STATICFUNC(idCommon, Printf, common, DM_Printf, 0);
 
 #endif
 
@@ -1121,6 +1127,18 @@ const char *DM_RelativePathToOSPath(const char *relativePath, const char *basePa
 	RETURN_META_VALUE(MRES_HANDLED, NULL);
 }
 */
+
+void DM_Printf(const char* fmt, ...)
+{
+	va_list arg;
+	char text[1024];
+
+	va_start( arg, fmt );
+	vsprintf( text, fmt, arg );
+	va_end( arg );
+
+	DM_LOG(LC_AI, LT_INFO).LogString("Console output %s!\r", text);
+}
 
 const char *DM_BuildOSPath(const char *basePath, const char *game, const char *relativePath)
 {
