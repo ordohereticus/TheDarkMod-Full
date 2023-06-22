@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1587 $
- * $Date: 2007-10-29 07:01:21 -0400 (Mon, 29 Oct 2007) $
+ * $Revision: 1588 $
+ * $Date: 2007-10-29 08:38:20 -0400 (Mon, 29 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1368,10 +1368,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	/** Call the script function SheathWeapon (in a new thread) if it exists */
 	void					SheathWeapon();
 	
-	// Tasks to push onto the queue when the AI dies or is KOed
-	idStr					m_killedTask;
-	int						m_killedTaskPriority;
-
 	//
 	// ai/ai_events.cpp
 	//
