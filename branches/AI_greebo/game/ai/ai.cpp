@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1539 $
- * $Date: 2007-10-23 06:14:00 -0400 (Tue, 23 Oct 2007) $
+ * $Revision: 1542 $
+ * $Date: 2007-10-23 09:14:08 -0400 (Tue, 23 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1539 2007-10-23 10:14:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1542 2007-10-23 13:14:08Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -5069,6 +5069,9 @@ void idAI::UpdateEnemyPosition()
 
 		// Enemy is considered visible if not hidden in darkness and not obscured
 		AI_ENEMY_VISIBLE = true;
+
+		// Store the last time the enemy was visible
+		mind->GetMemory().lastTimeEnemySeen = gameLocal.time;
 
 		// Now perform the FOV check manually
 		if (CheckFOV( enemyEnt->GetPhysics()->GetOrigin()))
