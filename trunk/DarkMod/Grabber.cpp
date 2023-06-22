@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1666 $
- * $Date: 2007-11-03 16:36:14 -0400 (Sat, 03 Nov 2007) $
- * $Author: tels $
+ * $Revision: 1749 $
+ * $Date: 2007-11-10 20:12:43 -0500 (Sat, 10 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1666 2007-11-03 20:36:14Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1749 2007-11-11 01:12:43Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -109,6 +109,7 @@ void CGrabber::Clear( void )
 	m_MaxDistCount	= DIST_GRANULARITY;
 	m_LockedHeldDist = 0;
 	m_bObjStuck = false;
+	m_bObjEquipped = false;
 	m_MaxForce = 0;
 
 	while( this->HasClippedEntity() )
@@ -158,6 +159,7 @@ void CGrabber::Save( idSaveGame *savefile ) const
 	savefile->WriteInt(m_MinHeldDist);
 	savefile->WriteInt(m_LockedHeldDist);
 	savefile->WriteBool(m_bObjStuck);
+	savefile->WriteBool(m_bObjEquipped);
 	savefile->WriteFloat(m_MaxForce);
 }
 
@@ -208,6 +210,7 @@ void CGrabber::Restore( idRestoreGame *savefile )
 	savefile->ReadInt(m_MinHeldDist);
 	savefile->ReadInt(m_LockedHeldDist);
 	savefile->ReadBool(m_bObjStuck);
+	savefile->ReadBool(m_bObjEquipped);
 	savefile->ReadFloat(m_MaxForce);
 }
 
@@ -1195,5 +1198,11 @@ void CGrabber::SetDragEncumbrance( void )
 
 Quit:
 	return;
+}
+
+bool CGrabber::ToggleEquip( void )
+{
+	// TODO: Equip code goes here
+	return false;
 }
 

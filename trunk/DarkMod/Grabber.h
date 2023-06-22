@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1645 $
- * $Date: 2007-11-02 03:22:14 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1749 $
+ * $Date: 2007-11-10 20:12:43 -0500 (Sat, 10 Nov 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -97,6 +97,12 @@ public:
 		* Returns true if the item held by the grabber is stuck
 		**/
 		bool					ObjStuck( void );
+
+		/**
+		* Try to eqiup/dequip a junk item
+		* Returns true if the current item was equipped or dequipped
+		**/
+		bool					ToggleEquip( void );
 
 public:
 		/**
@@ -263,6 +269,14 @@ protected:
 		* Stuck in this context means too far away from the grab point
 		**/
 		bool					m_bObjStuck;
+
+		/**
+		* Set to true when the junk object is "equipped"
+		* This can mean different things for different objects
+		* For AI bodies, it means toggling between shouldering the AI
+		* and dragging the AI.
+		**/
+		bool					m_bObjEquipped;
 };
 
 
