@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2064 $
- * $Date: 2008-02-09 02:11:47 -0500 (Sat, 09 Feb 2008) $
- * $Author: greebo $
+ * $Revision: 2084 $
+ * $Date: 2008-02-10 13:37:29 -0500 (Sun, 10 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2064 2008-02-09 07:11:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2084 2008-02-10 18:37:29Z tels $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -2779,7 +2779,7 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 
 		timer_think.Stop();
 	
-		DM_LOG(LC_ENTITY, LT_INFO).LogString("Thinking timer: %lf\r", timer_think.Milliseconds());
+		//DM_LOG(LC_ENTITY, LT_INFO).LogString("Thinking timer: %lfms\r", timer_think.Milliseconds());
 
 		timer_events.Clear();
 		timer_events.Start();
