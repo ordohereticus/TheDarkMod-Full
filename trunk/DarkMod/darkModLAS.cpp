@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1218 $
- * $Date: 2007-07-25 16:09:42 -0400 (Wed, 25 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1426 $
+ * $Date: 2007-10-14 12:40:39 -0400 (Sun, 14 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1218 2007-07-25 20:09:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1426 2007-10-14 16:40:39Z angua $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -62,6 +62,12 @@ __inline bool darkModLAS::moveLightBetweenAreas (darkModLightRecord_t* p_LASLigh
 		darkModLightRecord_t* p_thisLASLight = (darkModLightRecord_t*) (p_cursor->Owner());
 		if (p_thisLASLight == p_LASLight)
 		{
+			// angua: Check if this is the only light in this area. 
+			if (p_cursor->ListHead() == p_cursor && p_cursor->NextNode() == NULL) 
+			{
+				// set this list to empty.
+				m_pp_areaLightLists[oldAreaNum] = NULL;
+			}
 			// Remove this node from its list
 			p_cursor->RemoveHeadsafe();
 			break;
