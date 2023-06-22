@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1558 $
- * $Date: 2007-10-25 12:14:30 -0400 (Thu, 25 Oct 2007) $
+ * $Revision: 1560 $
+ * $Date: 2007-10-25 12:43:28 -0400 (Thu, 25 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1558 2007-10-25 16:14:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1560 2007-10-25 16:43:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9494,8 +9494,6 @@ int idPlayer::GetLightgemModifier()
 	{
 		returnValue += cv_lg_crouch_modifier.GetInteger();
 	}
-
-	returnValue += cv_lg_modifier.GetInteger();
 
 	// No need to cap the value, this is done in idGameLocal again.
 
