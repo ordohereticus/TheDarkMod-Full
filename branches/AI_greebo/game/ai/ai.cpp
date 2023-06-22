@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1453 $
- * $Date: 2007-10-18 11:09:44 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1455 $
+ * $Date: 2007-10-18 11:28:51 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1453 2007-10-18 15:09:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1455 2007-10-18 15:28:51Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1041,7 +1041,14 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadString(m_knockedOutTask);
 	savefile->ReadInt(m_knockedOutTaskPriority);
 
+	mind = ai::MindPtr(new ai::BasicMind(this));
 	mind->Restore(savefile);
+
+	// Allocate and install the subsystems
+	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysSenses,		ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysAction,		ai::SubsystemPtr(new ai::Subsystem(this)));
 
 	// Subsystems are already allocated in the constructor
 	for (int i = 0; i < ai::SubsystemCount; i++) 
