@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1656 $
+ * $Date: 2007-11-03 03:42:13 -0400 (Sat, 03 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -68,7 +68,7 @@ public:
 	void				EnableBFGVision( bool b ) { bfgVision = b; };
 
 private:
-	void				SingleView( idUserInterface *hud, const renderView_t *view );
+	void				SingleView( idUserInterface *hud, const renderView_t *view, bool drawHUD = true);
 	void				DoubleVision( idUserInterface *hud, const renderView_t *view, int offset );
 	void				BerserkVision( idUserInterface *hud, const renderView_t *view );
 	void				InfluenceVision( idUserInterface *hud, const renderView_t *view );
