@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1339 $
-#* $Date: 2007-08-28 16:02:53 -0400 (Tue, 28 Aug 2007) $
+#* $Revision: 1350 $
+#* $Date: 2007-08-29 09:28:54 -0400 (Wed, 29 Aug 2007) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -120,6 +120,7 @@ darkModLAS.cpp \
 decltdm_matinfo.cpp \
 declxdata.cpp \
 DifficultyMenu.cpp \
+EscapePointEvaluator.cpp \
 EscapePointManager.cpp \
 fdchar.cpp \
 force_grab.cpp \
