@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1520 $
- * $Date: 2007-10-22 07:29:37 -0400 (Mon, 22 Oct 2007) $
+ * $Revision: 1528 $
+ * $Date: 2007-10-22 14:31:10 -0400 (Mon, 22 Oct 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1520 2007-10-22 11:29:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1528 2007-10-22 18:31:10Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2829,7 +2829,7 @@ idAI::MoveAlongVector
 bool idAI::MoveAlongVector( float yaw ) 
 {
 	StopMove( MOVE_STATUS_DONE );
-	move.moveDir = idAngles( 0, dir, 0 ).ToForward();
+	move.moveDir = idAngles( 0, yaw, 0 ).ToForward();
 	move.moveDest = physicsObj.GetOrigin() + move.moveDir * 256.0f;
 
 	move.moveCommand	= MOVE_VECTOR;
