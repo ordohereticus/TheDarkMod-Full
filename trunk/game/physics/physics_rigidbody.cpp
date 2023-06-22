@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2031 $
+ * $Date: 2008-01-29 12:22:20 -0500 (Tue, 29 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2031 2008-01-29 17:22:20Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -256,9 +256,9 @@ bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& im
 {
 	DM_LOG(LC_ENTITY, LT_INFO).LogString("Contacts with this entity %s = %d\r", self->name.c_str(), contacts.Num());
 
-	if (impulse.LengthSqr() == 0)
+	if (impulse.LengthSqr() < 1e-5)
 	{
-		// greebo: Don't process incoming zero impulses, quit at once.
+		// greebo: Don't process incoming small impulses, quit at once.
 		return false;
 	}
 
