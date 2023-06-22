@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2248 $
- * $Date: 2008-04-30 16:01:57 -0400 (Wed, 30 Apr 2008) $
+ * $Revision: 2249 $
+ * $Date: 2008-05-01 02:32:48 -0400 (Thu, 01 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2248 2008-04-30 20:01:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2249 2008-05-01 06:32:48Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9649,12 +9649,8 @@ CInventoryItem* idPlayer::AddToInventory(idEntity *ent, idUserInterface *_hud) {
 
 void idPlayer::PerformFrob(idEntity* target)
 {
-	if (target == NULL) {
-		return;
-	}
-
-	if (target->IsHidden()) {
-		// greebo: Don't perform frobs on hidden entities
+	if (target == NULL || target->IsHidden()) {
+		// greebo: Don't perform frobs on hidden or NULL entities
 		return;
 	}
 
@@ -9668,6 +9664,21 @@ void idPlayer::PerformFrob(idEntity* target)
 
 	// Fire the STIM_FROB response (if defined) on this entity
 	target->ResponseTrigger(this, ST_FROB);
+
+	// The entity was not added to the inventory, check if we have 
+	// a "use" relationship with the currently selected inventory item (key => door)
+	CInventoryItem* item = InventoryCursor()->GetCurrentItem();
+	if (item != NULL && item->UseOnFrob())
+	{
+		// Check the item entity for the right spawnargs
+		if (highlightedEntity->UsedBy(IS_PRESSED, item->GetItemEntity()))
+		{
+			// The highlighted entity could be used, we're done here
+			return;
+		}
+	}
+
+	// Inventory item could not be used with the highlighted entity, proceed with ordinary frob action
 
 	// Trigger the frob action script
 	target->FrobAction(true);
@@ -9690,17 +9701,6 @@ void idPlayer::PerformFrob(idEntity* target)
 		// greebo: Prevent the grabber from checking the added entity (it may be 
 		// entirely removed from the game, which would cause crashes).
 		pDM->grabber->RemoveFromClipList(target);
-	}
-	else if (addedItem == NULL)
-	{
-		// The entity was not added to the inventory, check if we have 
-		// a "use" relationship with the currently selected inventory item (key => door)
-		CInventoryItem* item = InventoryCursor()->GetCurrentItem();
-		if (item != NULL && item->UseOnFrob())
-		{
-			// Check the item entity for the right spawnargs
-			highlightedEntity->UsedBy(IS_PRESSED, item->GetItemEntity());
-		}
 	}
 }
 
