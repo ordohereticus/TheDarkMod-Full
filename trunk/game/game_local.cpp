@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1336 $
- * $Date: 2007-08-28 09:31:29 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1337 $
+ * $Date: 2007-08-28 10:00:20 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1336 2007-08-28 13:31:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1337 2007-08-28 14:00:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -32,6 +32,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1336 2007-08-28 
 #include "../DarkMod/func_shooter.h"
 #include "../DarkMod/shop.h"
 #include "../DarkMod/DifficultyMenu.h"
+#include "../DarkMod/EscapePointManager.h"
 
 #include "il/config.h"
 #include "il/il.h"
@@ -250,6 +251,7 @@ void idGameLocal::Clear( void )
 	m_sndProp = &g_SoundProp;
 	m_RelationsManager = &g_globalRelations;
 	m_MissionData = &g_MissionData;
+	m_EscapePointManager = CEscapePointManager::Instance();
 	m_Interleave = 0;
 	m_LightgemSurface = NULL;
 	m_LightgemShotSpot = 0;
@@ -349,7 +351,7 @@ void idGameLocal::Clear( void )
 	m_saPipeSecurity.lpSecurityDescriptor = m_pPipeSD;
 #endif
 
-	m_EscapePointManager.Clear();
+	m_EscapePointManager->Clear();
 }
 
 /*
@@ -755,7 +757,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 		m_RespEntity[i].Save(&savegame);
 	}
 
-	m_EscapePointManager.Save(&savegame);
+	m_EscapePointManager->Save(&savegame);
 
 	// spawnSpots
 	// initialSpots
@@ -1698,7 +1700,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 		m_RespEntity[i].Restore(&savegame);
 	}
 
-	m_EscapePointManager.Restore(&savegame);
+	m_EscapePointManager->Restore(&savegame);
 
 	// spawnSpots
 	// initialSpots
