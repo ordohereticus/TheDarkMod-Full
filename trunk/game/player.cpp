@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1406 $
- * $Date: 2007-10-06 10:53:06 -0400 (Sat, 06 Oct 2007) $
+ * $Revision: 1407 $
+ * $Date: 2007-10-07 03:51:08 -0400 (Sun, 07 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1406 2007-10-06 14:53:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1407 2007-10-07 07:51:08Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8588,28 +8588,32 @@ void idPlayer::inventoryUseItem(IMPULSE_STATE nState, idEntity *ent, int holdTim
 	idThread *thread = NULL;
 	idEntity *frob = g_Global.m_DarkModPlayer->m_FrobEntity.GetEntity();
 
-	DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Inventory selection %08lX  KeyState: %u\r", ent, nState);
+	DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Inventory selection %s  KeyState: %u\r", ent->name.c_str(), nState);
 	if(frob != NULL)
 	{
 		if(ent->spawnArgs.GetBool("usable") == true)
 		{
-			// We have a frob entity in front of the player
-			// Check if the usage should become continuous when this item is active
-			if(nState == IS_PRESSED && ent->spawnArgs.GetBool("inv_cont_use") == true)
-				m_ButtonStateTracker.startTracking(IMPULSE_51);
-
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Item is usable\r");
 			frob->UsedBy(nState, ent);
 		}
 	}
 
 	if(nState == IS_PRESSED)
+	{
+		// greebo: Start tracking of this impulse when the button is pressed
+		m_ButtonStateTracker.startTracking(IMPULSE_51);
+
 		thread = ent->CallScriptFunctionArgs("inventoryUse", true, 0, "eeed", ent, this, frob, nState);
+	}
 	else if(nState == IS_RELEASED)
+	{
 		thread = ent->CallScriptFunctionArgs("inventoryUseKeyRelease", true, 0, "eeef", ent, this, frob, static_cast<float>(holdTime));
+	}
 
 	if (thread)
+	{
 		thread->Start(); // Start the thread immediately.
+	}
 }
 
 void idPlayer::inventoryDropItem()
