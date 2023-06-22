@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1588 $
- * $Date: 2007-10-29 08:38:20 -0400 (Mon, 29 Oct 2007) $
+ * $Revision: 1605 $
+ * $Date: 2007-10-30 13:20:18 -0400 (Tue, 30 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -345,6 +345,10 @@ public:
 	* other entity is an enemy of this AI.
 	**/
 	bool IsEnemy( idEntity *other );
+	// As above, but checks for Friend
+	bool IsFriend( idEntity *other );
+	// As above, but checks for Neutral
+	bool IsNeutral( idEntity *other );
 	
 	/**
 	* Interface with Dark Mod Sound Propagation

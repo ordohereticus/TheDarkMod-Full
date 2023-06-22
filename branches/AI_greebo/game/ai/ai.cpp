@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1591 $
- * $Date: 2007-10-29 10:20:26 -0400 (Mon, 29 Oct 2007) $
+ * $Revision: 1605 $
+ * $Date: 2007-10-30 13:20:18 -0400 (Tue, 30 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1591 2007-10-29 14:20:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1605 2007-10-30 17:20:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -23,6 +23,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 1591 2007-10-29 14:20:26
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
+#include "../../DarkMod/idAbsenceMarkerEntity.h"
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/PlayerData.h"
 #include "../../DarkMod/sndProp.h"
@@ -7344,15 +7345,67 @@ Quit:
 	return bestEnemy;
 }
 
+bool idAI::IsFriend(idEntity *other)
+{
+	if (other == NULL)
+	{
+		return false;
+	}
+	else if (other->IsType (idAbsenceMarkerEntity::Type))
+	{
+		idAbsenceMarkerEntity* marker = static_cast<idAbsenceMarkerEntity*>(other);
+		return gameLocal.m_RelationsManager->IsFriend(team, marker->ownerTeam);
+	}
+	else if (other->IsType(idActor::Type)) 
+	{
+		idActor* actor = static_cast<idActor*>(other);
+		return gameLocal.m_RelationsManager->IsFriend(team, actor->team);
+	}
+	
+	return false;
+}
+
+bool idAI::IsNeutral(idEntity *other)
+{
+	if (other == NULL)
+	{
+		return false;
+	}
+	else if (other->IsType(idAbsenceMarkerEntity::Type))
+	{
+		idAbsenceMarkerEntity* marker = static_cast<idAbsenceMarkerEntity*>(other);
+		return gameLocal.m_RelationsManager->IsNeutral(team, marker->ownerTeam);
+	}
+	else if (!other->IsType(idActor::Type)) 
+	{
+		// inanimate objects are neutral to everyone
+		return true;
+	}
+
+	// Must be an actor
+	idActor* actor = static_cast<idActor*>(other);
+	return gameLocal.m_RelationsManager->IsNeutral(team, actor->team);
+}
+
 bool idAI::IsEnemy( idEntity *other )
 {
-	bool returnval = false;
-	if ( other->IsType( idActor::Type ) )
+	if (other == NULL)
 	{
-		idActor *actor = static_cast<idActor *>( other );
-		returnval = gameLocal.m_RelationsManager->IsEnemy( team, actor->team );
+		/* The NULL pointer is not your enemy! As long as you remember to check for it to avoid crashes. */
+		return false;
 	}
-	return returnval;
+	else if (other->IsType(idAbsenceMarkerEntity::Type))
+	{
+		idAbsenceMarkerEntity* marker = static_cast<idAbsenceMarkerEntity*>(other);
+		return gameLocal.m_RelationsManager->IsEnemy(team, marker->ownerTeam);
+	}
+	else if (other->IsType(idActor::Type))
+	{
+		idActor* actor = static_cast<idActor*>(other);
+		return gameLocal.m_RelationsManager->IsEnemy(team, actor->team);
+	}
+
+	return false;
 }
 
 void idAI::HadTactile( idActor *actor )
