@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2132 $
- * $Date: 2008-03-16 11:18:46 -0400 (Sun, 16 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2146 $
+ * $Date: 2008-03-28 16:29:17 -0400 (Fri, 28 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2132 2008-03-16 15:18:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2146 2008-03-28 20:29:17Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -65,6 +65,7 @@ CBinaryFrobMover::CBinaryFrobMover(void)
 	m_ImpulseThreshOpenSq = 0;
 	m_vImpulseDirOpen.Zero();
 	m_vImpulseDirClose.Zero();
+	m_stopWhenBlocked = false;
 }
 
 void CBinaryFrobMover::Save(idSaveGame *savefile) const
@@ -100,6 +101,8 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 	savefile->WriteFloat(m_ImpulseThreshOpenSq);
 	savefile->WriteVec3(m_vImpulseDirOpen);
 	savefile->WriteVec3(m_vImpulseDirClose);
+
+	savefile->WriteBool(m_stopWhenBlocked);
 }
 
 void CBinaryFrobMover::Restore( idRestoreGame *savefile )
@@ -135,6 +138,8 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 	savefile->ReadFloat(m_ImpulseThreshOpenSq);
 	savefile->ReadVec3(m_vImpulseDirOpen);
 	savefile->ReadVec3(m_vImpulseDirClose);
+
+	savefile->ReadBool(m_stopWhenBlocked);
 }
 
 void CBinaryFrobMover::WriteToSnapshot( idBitMsgDelta &msg ) const
@@ -148,6 +153,8 @@ void CBinaryFrobMover::ReadFromSnapshot( const idBitMsgDelta &msg )
 void CBinaryFrobMover::Spawn( void )
 {
 	idStr str;
+
+	m_stopWhenBlocked = spawnArgs.GetBool("stop_when_blocked", "1");
 
 	m_Rotate = spawnArgs.GetAngles("rotate", "0 90 0");
 
@@ -540,8 +547,8 @@ void CBinaryFrobMover::Event_Activate( idEntity *activator )
 
 void CBinaryFrobMover::Event_TeamBlocked( idEntity *blockedPart, idEntity *blockingEntity )
 {
-	// greebo: If we're blocked by the player, stop moving
-	if (blockingEntity->IsType(idPlayer::Type))
+	// greebo: If we're blocked by something, check if we should stop moving
+	if (m_stopWhenBlocked)
 	{
 		m_bInterrupted = true;
 		Event_StopRotating();

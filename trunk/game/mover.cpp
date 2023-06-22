@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2121 $
- * $Date: 2008-03-01 14:41:59 -0500 (Sat, 01 Mar 2008) $
+ * $Revision: 2146 $
+ * $Date: 2008-03-28 16:29:17 -0400 (Fri, 28 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2121 2008-03-01 19:41:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 2146 2008-03-28 20:29:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -346,7 +346,13 @@ void idMover::Spawn( void )
 		physicsObj.SetContents( 0 );
 	}
 	if ( !renderEntity.hModel || !spawnArgs.GetBool( "nopush" ) ) {
-		physicsObj.SetPusher( 0 );
+		// greebo: Check if we should be able to push the player (default is yes)
+		if (spawnArgs.GetBool("push_player", "1")) {
+			physicsObj.SetPusher(0);
+		}
+		else {
+			physicsObj.SetPusher(PUSHFL_NOPLAYER);
+		}
 	}
 	physicsObj.SetLinearExtrapolation( EXTRAPOLATION_NONE, 0, 0, dest_position, vec3_origin, vec3_origin );
 	physicsObj.SetAngularExtrapolation( EXTRAPOLATION_NONE, 0, 0, dest_angles, ang_zero, ang_zero );

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2126 $
- * $Date: 2008-03-07 12:02:53 -0500 (Fri, 07 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2146 $
+ * $Date: 2008-03-28 16:29:17 -0400 (Fri, 28 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -264,6 +264,12 @@ protected:
 	**/
 	idVec3						m_vImpulseDirOpen;
 	idVec3						m_vImpulseDirClose;
+
+	/** 
+	 * greebo: If this is TRUE, the door will stop as soon as something is in the way.
+	 *         Corresponds to spawnarg "stop_when_blocked"
+	 */
+	bool						m_stopWhenBlocked;
 
 private:
 };

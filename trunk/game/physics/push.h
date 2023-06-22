@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2146 $
+ * $Date: 2008-03-28 16:29:17 -0400 (Fri, 28 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -26,6 +26,7 @@
 #define PUSHFL_CLIP					4		// also clip against all non-moveable entities
 #define PUSHFL_CRUSH				8		// kill blocking entities
 #define PUSHFL_APPLYIMPULSE			16		// apply impulse to pushed entities
+#define PUSHFL_NOPLAYER				32		// greebo: Don't push player entities
 
 //#define NEW_PUSH
 
