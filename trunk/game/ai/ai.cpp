@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1853 $
- * $Date: 2007-12-06 06:34:06 -0500 (Thu, 06 Dec 2007) $
+ * $Revision: 1855 $
+ * $Date: 2007-12-06 06:55:31 -0500 (Thu, 06 Dec 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1853 2007-12-06 11:34:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1855 2007-12-06 11:55:31Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -2033,7 +2033,7 @@ bool idAI::ReachedPos( const idVec3 &pos, const moveCommand_t moveCommand ) cons
 idAI::PointReachableAreaNum
 =====================
 */
-int idAI::PointReachableAreaNum( const idVec3 &pos, const float boundsScale ) const {
+int idAI::PointReachableAreaNum( const idVec3 &pos, const float boundsScale, const idVec3& offset) const {
 	int areaNum;
 	idVec3 size;
 	idBounds bounds;
