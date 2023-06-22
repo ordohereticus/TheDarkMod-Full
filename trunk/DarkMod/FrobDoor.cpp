@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1682 $
+ * $Date: 2007-11-04 19:45:17 -0500 (Sun, 04 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1682 2007-11-05 00:45:17Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -461,6 +461,10 @@ void CFrobDoor::OpenDoor(bool bMaster)
 				
 				// Open visportal
 				Event_OpenPortal();
+
+				// trigger our targets on opening, if set to do so
+				if( spawnArgs.GetBool("trigger_on_open","") )
+					ActivateTargets( this );
 			}
 
 			physicsObj.GetLocalAngles( tempAng );
