@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2257 $
- * $Date: 2008-05-01 09:15:35 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2264 $
+ * $Date: 2008-05-06 14:27:23 -0400 (Tue, 06 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2257 2008-05-01 13:15:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2264 2008-05-06 18:27:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9075,7 +9075,7 @@ int idAI::StartSearchForHidingSpotsWithExclusionArea
 	idEntity* p_ignoreEntity
 )
 {
-	DM_LOG(LC_AI, LT_DEBUG).LogString ("Event_StartSearchForHidingSpots called.\r");
+	DM_LOG(LC_AI, LT_DEBUG).LogString ("StartSearchForHidingSpots called.\r");
 
 	// Destroy any current search
 	destroyCurrentHidingSpotSearch();
@@ -9083,6 +9083,10 @@ int idAI::StartSearchForHidingSpotsWithExclusionArea
 	// Make caller's search bounds
 	idBounds searchBounds (minBounds, maxBounds);
 	idBounds searchExclusionBounds (exclusionMinBounds, exclusionMaxBounds);
+
+	// greebo: Remember the initial alert position
+	ai::Memory& memory = GetMemory();
+	memory.alertSearchCenter = memory.alertPos;
 
 	// Get aas
 	if (aas != NULL)

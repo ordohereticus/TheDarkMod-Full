@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2241 $
- * $Date: 2008-04-28 16:21:37 -0400 (Mon, 28 Apr 2008) $
+ * $Revision: 2264 $
+ * $Date: 2008-05-06 14:27:23 -0400 (Tue, 06 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2241 2008-04-28 20:21:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2264 2008-05-06 18:27:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3330,7 +3330,6 @@ void idAI::Event_ClosestReachableEnemy( void )
 
 void idAI::destroyCurrentHidingSpotSearch()
 {
-
 	// Check to see if there is one
 	if (m_HidingSpotSearchHandle != NULL_HIDING_SPOT_SEARCH_HANDLE)
 	{
@@ -3344,7 +3343,8 @@ void idAI::destroyCurrentHidingSpotSearch()
 	// No hiding spots
 	m_hidingSpots.clear();
 
-	
+	// greebo: Clear the initial alert position
+	GetMemory().alertSearchCenter = idVec3(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY);
 }
 
 //-----------------------------------------------------------------------------------------------------
@@ -3367,6 +3367,9 @@ void idAI::Event_StartSearchForHidingSpots
 	idBounds searchBounds (minBounds, maxBounds);
 	idBounds searchExclusionBounds;
 	searchExclusionBounds.Clear(); // no exclusion bounds
+
+	// greebo: Remember the initial alert position
+	GetMemory().alertSearchCenter = hideFromLocation;
 
 	// SZ: Must use same AAS that LAS used during setup
 
@@ -3437,8 +3440,7 @@ void idAI::Event_ContinueSearchForHidingSpots()
 
 void idAI::Event_CloseHidingSpotSearch ()
 {
-       
-	// Destroy current hiding spot search
+    // Destroy current hiding spot search
 	DM_LOG(LC_AI, LT_DEBUG).LogString ("Closing hiding spot search\r");
 	destroyCurrentHidingSpotSearch();
 }
