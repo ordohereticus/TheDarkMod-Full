@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1516 $
+ * $Date: 2007-10-22 01:51:37 -0400 (Mon, 22 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 1516 2007-10-22 05:51:37Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -5577,21 +5577,33 @@ bool idPhysics_AF::CollisionImpulse( float timeStep, idAFBody *body, trace_t &co
 	}
 #endif
 
-	// Check if we are grabbed by the grabber, and limit collision speed to the maximum grabber external speed
-/*
-	if( self == g_Global.m_DarkModPlayer->grabber->GetSelected() )
-	{
-		// Don't collide with own bind slaves, or self
-		if ( ent != self 
-			&& (ent->GetBindMaster() == NULL || self != ent->GetBindMaster()) )
-		{
-			g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
-		}
-	}
-*/
-
 	// get info from other entity involved
 	ent->GetImpactInfo( self, collision.c.id, collision.c.point, &info );
+
+	// Update moved by and set in motion by actor
+	if( self->m_SetInMotionByActor.GetEntity() )
+	{
+		ent->m_SetInMotionByActor = self->m_SetInMotionByActor.GetEntity();
+		ent->m_MovedByActor = self->m_MovedByActor.GetEntity();
+	}
+	// Note: Actors should not overwrite the moved by other actors when they are hit with something
+	// So only overwrite if MovedByActor is NULL
+	if( ent->IsType(idActor::Type) 
+		&& self->m_SetInMotionByActor.GetEntity() == NULL
+		&& !(static_cast<idActor *>(ent)->IsKnockedOut() || ent->health < 0) )
+	{
+		self->m_SetInMotionByActor = (idActor *) ent;
+		self->m_MovedByActor = (idActor *) ent;
+	}
+	if( self->IsType(idActor::Type) 
+		&& ent->m_SetInMotionByActor.GetEntity() == NULL
+		&& !(static_cast<idActor *>(self)->IsKnockedOut() || self->health < 0) )
+	{
+		ent->m_SetInMotionByActor = (idActor *) self;
+		ent->m_MovedByActor = (idActor *) self;
+	}
+
+
 	// collision point relative to the body center of mass
 	r = collision.c.point - (body->current->worldOrigin + body->centerOfMass * body->current->worldAxis);
 	// the velocity at the collision point
@@ -6280,6 +6292,7 @@ void idPhysics_AF::Rest( void ) {
 	}
 
 	self->BecomeInactive( TH_PHYSICS );
+	self->m_SetInMotionByActor = NULL;
 }
 
 /*

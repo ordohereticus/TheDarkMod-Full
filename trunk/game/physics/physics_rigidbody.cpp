@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1516 $
+ * $Date: 2007-10-22 01:51:37 -0400 (Mon, 22 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1516 2007-10-22 05:51:37Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -369,7 +369,8 @@ idPhysics_RigidBody::CollisionImpulse
   The current state should be set to the moment of impact.
 ================
 */
-bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &impulse ) {
+bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &impulse ) 
+{
 	idVec3 r, linearVelocity, angularVelocity, velocity;
 	idMat3 inverseWorldInertiaTensor;
 	float impulseNumerator, impulseDenominator, vel;
@@ -388,6 +389,22 @@ bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &im
 		{
 			g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
 		}
+	}
+
+	// Update moved by and set in motion by actor
+	if( self->m_SetInMotionByActor.GetEntity() != NULL )
+	{
+		ent->m_SetInMotionByActor = self->m_SetInMotionByActor.GetEntity();
+		ent->m_MovedByActor = self->m_MovedByActor.GetEntity();
+	}
+	// Note: Actors should not overwrite the moved by other actors when they are hit with something
+	// So only overwrite if MovedByActor is NULL
+	if( ent->IsType(idActor::Type) 
+		&& self->m_SetInMotionByActor.GetEntity() == NULL
+		&& !(static_cast<idActor *>(ent)->IsKnockedOut() || ent->health < 0) )
+	{
+		self->m_SetInMotionByActor = (idActor *) ent;
+		self->m_MovedByActor = (idActor *) ent;
 	}
 
 	// collision point relative to the body center of mass
@@ -1150,11 +1167,13 @@ void idPhysics_RigidBody::SetBouncyness( const float b ) {
 idPhysics_RigidBody::Rest
 ================
 */
-void idPhysics_RigidBody::Rest( void ) {
+void idPhysics_RigidBody::Rest( void ) 
+{
 	current.atRest = gameLocal.time;
 	current.i.linearMomentum.Zero();
 	current.i.angularMomentum.Zero();
 	self->BecomeInactive( TH_PHYSICS );
+	self->m_SetInMotionByActor = NULL;
 }
 
 /*
