@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1662 $
- * $Date: 2007-11-03 08:47:51 -0400 (Sat, 03 Nov 2007) $
- * $Author: dram $
+ * $Revision: 1673 $
+ * $Date: 2007-11-04 06:48:53 -0500 (Sun, 04 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 1662 2007-11-03 12:47:51Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1673 2007-11-04 11:48:53Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -648,9 +648,9 @@ void idPlayerView::DoubleVision( idUserInterface *hud, const renderView_t *view,
 	}*/
 
 	renderSystem->SetColor4( color.x, color.y, color.z, 1.0f );
-	renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, shift, 1, 1, 0, dvMaterial );
+	renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, shift, 1-shift, 1, 0, dvMaterial );
 	renderSystem->SetColor4( color.x, color.y, color.z, 0.5f );
-	renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 1, 1-shift, 0, dvMaterial );
+	renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 1, 1-shift, shift, dvMaterial );
 
 	player->DrawHUD(hud);
 }
