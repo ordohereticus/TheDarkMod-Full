@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1255 $
- * $Date: 2007-07-30 12:37:53 -0400 (Mon, 30 Jul 2007) $
+ * $Revision: 1256 $
+ * $Date: 2007-07-30 15:42:19 -0400 (Mon, 30 Jul 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1255 $   $Date: 2007-07-30 12:37:53 -0400 (Mon, 30 Jul 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1256 $   $Date: 2007-07-30 15:42:19 -0400 (Mon, 30 Jul 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1166,9 +1166,20 @@ void idPhysics_Player::RopeMove( void )
 
 			//gameLocal.Printf("ropeBindMaster.name.c_str() = %s\n", ropeBindMaster->name.c_str());
 			idPhysics* bindMasterPhysics = ropeBindMaster->GetPhysics();
-
+			
 			idVec3 ropeOrigin = m_RopeEntity.GetEntity()->GetPhysics()->GetOrigin();
 			//gameRenderWorld->DebugArrow(colorBlue, ropeOrigin, ropeOrigin + direction * 6, 1, 10000);
+
+			idPhysics_AF* ropePhysics = static_cast<idPhysics_AF*>(m_RopeEntity.GetEntity()->GetPhysics());
+			idAFBody* topMostBody = ropePhysics->GetBody(0);
+			if (topMostBody != NULL)
+			{
+				// Correc the pull direction using the orientation of the topmost body.
+				const idMat3& axis = topMostBody->GetWorldAxis();
+				direction = topMostBody->GetWorldAxis() * idVec3(0,0,1);
+				gameRenderWorld->DebugAxis(ropeOrigin, topMostBody->GetWorldAxis());
+			}
+
 			bindMasterPhysics->ApplyImpulse(0, ropeOrigin, direction * mass * 400);
 		}
 
