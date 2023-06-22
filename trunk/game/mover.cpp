@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2117 $
- * $Date: 2008-03-01 11:19:27 -0500 (Sat, 01 Mar 2008) $
- * $Author: greebo $
+ * $Revision: 2119 $
+ * $Date: 2008-03-01 14:06:09 -0500 (Sat, 01 Mar 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2117 2008-03-01 16:19:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 2119 2008-03-01 19:06:09Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -160,36 +160,18 @@ void idMover::Save( idSaveGame *savefile ) const
 	int i;
 
 	savefile->WriteStaticObject( physicsObj );
-
 	savefile->WriteInt( move.stage );
-
 	savefile->WriteInt( move.acceleration );
-
 	savefile->WriteInt( move.movetime );
 
 	savefile->WriteInt( move.deceleration );
-
 	savefile->WriteVec3( move.dir );
 
-	
-
 	savefile->WriteInt( rot.stage );
-
 	savefile->WriteInt( rot.acceleration );
-
 	savefile->WriteInt( rot.movetime );
-
 	savefile->WriteInt( rot.deceleration );
-
-	savefile->WriteFloat( rot.rot.pitch );
-
-	savefile->WriteFloat( rot.rot.yaw );
-
-	savefile->WriteFloat( rot.rot.roll );
-
-
-	savefile->Write( &move, sizeof( move ) );
-	savefile->Write( &rot, sizeof( rot ) );
+	savefile->WriteAngles( rot.rot );
 
 	savefile->WriteInt( move_thread );
 	savefile->WriteInt( rotate_thread );
@@ -247,34 +229,17 @@ void idMover::Restore( idRestoreGame *savefile ) {
 	RestorePhysics( &physicsObj );
 
 	savefile->ReadInt( (int&)move.stage );
-
 	savefile->ReadInt( move.acceleration );
-
 	savefile->ReadInt( move.movetime );
-
 	savefile->ReadInt( move.deceleration );
-
 	savefile->ReadVec3( move.dir );
 
-	
-
 	savefile->ReadInt( (int&)rot.stage );
-
 	savefile->ReadInt( rot.acceleration );
-
 	savefile->ReadInt( rot.movetime );
-
 	savefile->ReadInt( rot.deceleration );
 
-	savefile->ReadFloat( rot.rot.pitch );
-
-	savefile->ReadFloat( rot.rot.yaw );
-
-	savefile->ReadFloat( rot.rot.roll );
-
-
-	savefile->Read( &move, sizeof( move ) );
-	savefile->Read( &rot, sizeof( rot ) );
+	savefile->ReadAngles( rot.rot );
 
 	savefile->ReadInt( move_thread );
 	savefile->ReadInt( rotate_thread );
