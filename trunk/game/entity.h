@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1316 $
- * $Date: 2007-08-25 14:13:05 -0400 (Sat, 25 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1324 $
+ * $Date: 2007-08-26 04:53:09 -0400 (Sun, 26 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -958,6 +958,12 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_GetLinearVelocity( void );
 	void					Event_SetAngularVelocity( const idVec3 &velocity );
 	void					Event_GetAngularVelocity( void );
+
+	void					Event_SetContents(const int contents);
+	void					Event_GetContents();
+	void					Event_SetClipMask(const int clipMask);
+	void					Event_GetClipMask();
+
 	void					Event_SetSize( const idVec3 &mins, const idVec3 &maxs );
 	void					Event_GetSize( void );
 	void					Event_GetMins( void );
