@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2201 $
- * $Date: 2008-04-22 16:09:28 -0400 (Tue, 22 Apr 2008) $
+ * $Revision: 2203 $
+ * $Date: 2008-04-22 16:31:01 -0400 (Tue, 22 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2201 2008-04-22 20:09:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2203 2008-04-22 20:31:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2096,7 +2096,13 @@ bool idAI::ReEvaluateArea(int areaNum)
 		return false;
 	}
 
-	// TODO: Re-evaluate
+	// Let's see if we have a valid door info structure in our memory
+	ai::DoorInfoPtr doorInfo = GetMemory().GetDoorInfo(areaNum);
+
+	if (doorInfo != NULL)
+	{
+		// TODO: Re-evaluate
+	}
 
 	// Remember the time
 	lastReEvaluationTime = gameLocal.time;
