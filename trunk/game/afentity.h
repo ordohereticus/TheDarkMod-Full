@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1289 $
- * $Date: 2007-08-14 03:09:17 -0400 (Tue, 14 Aug 2007) $
+ * $Revision: 1290 $
+ * $Date: 2007-08-15 04:35:41 -0400 (Wed, 15 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -171,6 +171,9 @@ public:
 	const char *			GetAFName( void ) const { return af.GetName(); }
 	idPhysics_AF *			GetAFPhysics( void ) { return af.GetPhysics(); }
 
+	virtual	void			Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir,
+									const char *damageDefName, const float damageScale,
+									const int location, trace_t *tr = NULL );
 	void					SetCombatModel( void );
 	idClipModel *			GetCombatModel( void ) const;
 							// contents of combatModel can be set to 0 or re-enabled (mp)

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1289 $
- * $Date: 2007-08-14 03:09:17 -0400 (Tue, 14 Aug 2007) $
+ * $Revision: 1290 $
+ * $Date: 2007-08-15 04:35:41 -0400 (Wed, 15 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1289 2007-08-14 07:09:17Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1290 2007-08-15 08:35:41Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2415,6 +2415,24 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 					  trace_t *collision ) 
 {
 	bool bKO(false), bKOPowerBlow(false);
+	int bodID(0);
+	idEntity *reroute = NULL;
+	idAFBody *StruckBody = NULL;
+
+	if( collision )
+	{
+		bodID = BodyForClipModelId( collision->c.id );
+		StruckBody = GetAFPhysics()->GetBody( bodID );
+		
+		if( StruckBody != NULL )
+			reroute = StruckBody->GetRerouteEnt();
+	}
+
+	if( reroute != NULL )
+	{
+		reroute->Damage( inflictor, attacker, dir, damageDefName, damageScale, location, collision );
+		goto Quit;
+	}
 	
 	if ( !fl.takedamage ) {
 		return;
