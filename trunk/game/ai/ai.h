@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1062 $
- * $Date: 2007-06-20 23:16:10 -0400 (Wed, 20 Jun 2007) $
+ * $Revision: 1268 $
+ * $Date: 2007-08-03 08:13:07 -0400 (Fri, 03 Aug 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -882,7 +882,7 @@ protected:
 	// Grace period info for each alert level
 	float m_gracetime_1, m_gracetime_2, m_gracetime_3;
 	float m_gracefrac_1, m_gracefrac_2, m_gracefrac_3;
-	float m_gracecount_1, m_gracecount_2, m_gracecount_3;
+	int m_gracecount_1, m_gracecount_2, m_gracecount_3;
 	// De-alert times for each alert level
 	float atime1, atime2, atime3;
 	

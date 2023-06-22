@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1267 $
- * $Date: 2007-08-02 17:59:43 -0400 (Thu, 02 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1268 $
+ * $Date: 2007-08-03 08:13:07 -0400 (Fri, 03 Aug 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1267 2007-08-02 21:59:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1268 2007-08-03 12:13:07Z crispy $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3381,7 +3381,10 @@ bool idEntity::RunPhysics( void ) {
 			}
 			else
 			{
-				rigidBodyPhysics->CollisionImpulse(*blockedPart->GetPhysics()->GetBlockingInfo(), -physics->GetLinearVelocity()*physics->GetMass());
+				// Crispy: the use of a separate kineticEnergy variable here is necessary because gcc
+				// doesn't let you pass temporaries into functions by reference.
+				idVec3 kineticEnergy = -physics->GetLinearVelocity()*physics->GetMass();
+				rigidBodyPhysics->CollisionImpulse(*blockedPart->GetPhysics()->GetBlockingInfo(), kineticEnergy);
 
 				// greebo: Apply some damping due to the collision with a slave
 				rigidBodyPhysics->State().i.linearMomentum *= 0.95f;
