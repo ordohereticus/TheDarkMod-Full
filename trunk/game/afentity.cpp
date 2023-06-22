@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1408 $
- * $Date: 2007-10-07 05:40:48 -0400 (Sun, 07 Oct 2007) $
- * $Author: ishtvan $
+ * $Revision: 1413 $
+ * $Date: 2007-10-09 08:56:53 -0400 (Tue, 09 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1408 2007-10-07 09:40:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1413 2007-10-09 12:56:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1690,6 +1690,10 @@ void idAFEntity_Generic::Event_Activate( idEntity *activator ) {
 	} else {
 		PostEventSec( &EV_SetAngularVelocity, delay, init_avelocity );
 	}
+
+	// greebo: Reactivate the animation flag, just in case
+	// This hopefully helps rope arrows to not stick out straight in the air
+	BecomeActive(TH_ANIMATE);
 }
 
 
