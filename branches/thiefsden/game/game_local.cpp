@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1953 $
- * $Date: 2008-01-04 11:09:16 -0500 (Fri, 04 Jan 2008) $
+ * $Revision: 1954 $
+ * $Date: 2008-01-04 11:34:12 -0500 (Fri, 04 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1953 2008-01-04 16:09:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1954 2008-01-04 16:34:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3058,6 +3058,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 				// Show the success GUI
 				gui->HandleNamedEvent("ShowSuccessScreen");
 
+				// Stop the objectives music
+				gui->HandleNamedEvent("StopObjectivesMusic");
+
 				gui->HandleNamedEvent("HideResumeGameButton");
 				gui->HandleNamedEvent("HideObjectivesButton");
 				gui->HandleNamedEvent("SetupObjectivesForMapStart");
@@ -3066,6 +3069,24 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 				gui->SetStateBool("SuccessScreenActive", true);
 			}
 			return;
+		}
+
+		// greebo: Check for the right ambient music
+		if (GameState() == GAMESTATE_ACTIVE)
+		{
+			if (!gui->GetStateBool("ObjectivesMusicPlaying")) 
+			{
+				gui->HandleNamedEvent("StartObjectivesMusic");
+				gui->SetStateBool("ObjectivesMusicPlaying", true);
+			}
+		}
+		else // GameState != ACTIVE
+		{
+			if (gui->GetStateBool("ObjectivesMusicPlaying"))
+			{
+				gui->HandleNamedEvent("StopObjectivesMusic");
+				gui->SetStateBool("ObjectivesMusicPlaying", false);
+			}
 		}
 		
 		// The main menu is visible, check if we should display the "Objectives" option
@@ -3088,7 +3109,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			if (!objectivesUpdated)
 			{
 				// Load the objectives into the GUI
-				m_MissionData->UpdateGUIState(gui); 
+				m_MissionData->UpdateGUIState(gui);
 			}
 
 			objectivesUpdated = true;
@@ -3131,7 +3152,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 		gui->HandleNamedEvent("ShowObjectiveScreen");
 		gui->HandleNamedEvent("InitObjectives");
-
+		
 		if (!objectivesUpdated)
 		{
 			// Load the objectives into the GUI
@@ -3150,6 +3171,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		// Set the objectives state flag back to dirty
 		objectivesUpdated = false;
+
 		gui->HandleNamedEvent("HideObjectiveScreen");
 		gui->HandleNamedEvent("HideBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 0);
