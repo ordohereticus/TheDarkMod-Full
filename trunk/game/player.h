@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1261 $
- * $Date: 2007-08-01 06:49:27 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1312 $
+ * $Date: 2007-08-24 15:19:31 -0400 (Fri, 24 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -917,6 +917,13 @@ private:
 	* greebo: This scriptevent routes the call to the member method "GiveHealthPool".
 	*/
 	void					Event_GiveHealthPool( float amount );
+
+	/**
+	 * greebo: These scriptevents handle the player zoom in/out behaviour.
+	 */
+	void					Event_StartZoom(float duration, float startFOV, float endFOV);
+	void					Event_StopZoom(float duration);
+	void					Event_ResetZoom();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {

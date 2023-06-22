@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1311 $
- * $Date: 2007-08-24 13:36:01 -0400 (Fri, 24 Aug 2007) $
+ * $Revision: 1312 $
+ * $Date: 2007-08-24 15:19:31 -0400 (Fri, 24 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1311 2007-08-24 17:36:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1312 2007-08-24 19:19:31Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -109,6 +109,11 @@ const idEventDef EV_Player_SetObjectiveEnabling( "setObjectiveEnabling", "ds" );
 // greebo: This allows scripts to set the "healthpool" for gradual healing
 const idEventDef EV_Player_GiveHealthPool("giveHealthPool", "f");
 
+// greebo: These events are handling the FOV.
+const idEventDef EV_Player_StartZoom("startZoom", "fff");
+const idEventDef EV_Player_StopZoom("endZoom", "f");
+const idEventDef EV_Player_ResetZoom("resetZoom", NULL);
+
 // greebo: Allows scripts to set a named lightgem modifier to a certain value (e.g. "lantern" => 32)
 const idEventDef EV_Player_SetLightgemModifier("setLightgemModifier", "sd");
 
@@ -162,6 +167,10 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_GiveHealthPool,		idPlayer::Event_GiveHealthPool )
 
 	EVENT( EV_Player_SetLightgemModifier,	idPlayer::Event_SetLightgemModifier )
+
+	EVENT( EV_Player_StartZoom,				idPlayer::Event_StartZoom )
+	EVENT( EV_Player_StopZoom,				idPlayer::Event_StopZoom )
+	EVENT( EV_Player_ResetZoom,				idPlayer::Event_ResetZoom )
 
 END_CLASS
 
@@ -9088,6 +9097,21 @@ void idPlayer::Event_SetObjectiveEnabling( int ObjIndex, const char *strIn )
 void idPlayer::Event_GiveHealthPool( float amount ) {
 	// Pass the call to the proper member method
 	GiveHealthPool(amount);
+}
+
+void idPlayer::Event_StartZoom(float duration, float startFOV, float endFOV)
+{
+	// TODO
+}
+
+void idPlayer::Event_StopZoom(float duration)
+{
+	// TODO
+}
+
+void idPlayer::Event_ResetZoom()
+{
+	// TODO
 }
 
 void idPlayer::FrobCheck( void )
