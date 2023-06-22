@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1889 $
- * $Date: 2007-12-24 17:28:40 -0500 (Mon, 24 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1891 $
+ * $Date: 2007-12-25 05:28:09 -0500 (Tue, 25 Dec 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1889 2007-12-24 22:28:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1891 2007-12-25 10:28:09Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -839,7 +839,7 @@ void CMissionData::Event_ObjectiveFailed( int ind )
 	idPlayer* player = static_cast<idPlayer*>(gameLocal.entities[gameLocal.localClientNum]);
 	assert(player != NULL);
 
-	// greebo: Call the general "objective complete" function on the player's scriptobject
+	// greebo: Call the general "objective failed" function on the player's scriptobject
 	player->CallScriptFunctionArgs("on_objective_failed", true, 0, "e", player);
 
 	if( !m_FailureLogic.IsEmpty() )
