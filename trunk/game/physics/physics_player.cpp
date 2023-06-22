@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1263 $
- * $Date: 2007-08-01 13:06:18 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1264 $
+ * $Date: 2007-08-01 14:50:11 -0400 (Wed, 01 Aug 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1263 $   $Date: 2007-08-01 13:06:18 -0400 (Wed, 01 Aug 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1264 $   $Date: 2007-08-01 14:50:11 -0400 (Wed, 01 Aug 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -543,8 +543,10 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 
 			// clip & push
 			
-			// greebo: Don't use the idPusher
-			//totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end - current.origin, cv_pm_pushmod.GetFloat() );
+			// greebo: Use the idPusher only for trace completion
+			//totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end /*- current.origin*/, cv_pm_pushmod.GetFloat() );
+			trace.fraction = 0.0f;
+			trace.endpos = current.origin;
 
 			// greebo: Tell the object to take the impulse and propagate it to any touching objects (if there are any)
 			idEntity* pushedEnt = gameLocal.entities[trace.c.entityNum];
