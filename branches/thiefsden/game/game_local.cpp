@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1946 $
- * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
+ * $Revision: 1947 $
+ * $Date: 2008-01-03 13:21:04 -0500 (Thu, 03 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1946 2008-01-03 18:09:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1947 2008-01-03 18:21:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3840,34 +3840,6 @@ gameState_t	idGameLocal::GameState( void ) const {
 void idGameLocal::PrepareForMissionEnd() {
 	// Raise the gamestate to "Completed"
 	gamestate = GAMESTATE_COMPLETED;
-
-	for (int i = 0; i < MAX_GENTITIES; i++)
-	{
-		idEntity* entity = gameLocal.entities[i];
-
-		if (entity == NULL) {
-			continue;
-		}
-
-		// Put moveables to rest
-		if (entity->IsType(idMoveable::Type)) {
-			static_cast<idMoveable*>(entity)->GetPhysics()->PutToRest();
-		}
-
-		if (entity->IsType(idAI::Type)) {
-			// Deleting the entity object is enough to remove it from the game
-			// It de-registers itself in its destructor
-			delete entity;
-		}
-
-		// Remove all lights, targets, triggers, emitters and speakers
-		if (entity->IsType(idLight::Type) || entity->IsType(idTarget::Type) ||
-			entity->IsType(idTrigger::Type) || entity->IsType(idFuncEmitter::Type) ||
-			entity->IsType(idSound::Type))
-		{
-			delete entity;
-		}
-	}
 }
 
 /*

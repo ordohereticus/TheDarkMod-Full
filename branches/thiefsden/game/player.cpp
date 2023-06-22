@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1946 $
- * $Date: 2008-01-03 13:09:13 -0500 (Thu, 03 Jan 2008) $
+ * $Revision: 1947 $
+ * $Date: 2008-01-03 13:21:04 -0500 (Thu, 03 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1946 2008-01-03 18:09:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1947 2008-01-03 18:21:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -110,9 +110,7 @@ const idEventDef EV_Player_SetObjectiveEnabling( "setObjectiveEnabling", "ds" );
 const idEventDef EV_Player_GiveHealthPool("giveHealthPool", "f");
 
 const idEventDef EV_Mission_Success("missionSuccess", NULL);
-const idEventDef EV_PrepareMapForMissionEnd("prepareMapForMissionEnd", NULL);
-// returns the handle of the success GUI
-const idEventDef EV_DisplaySuccessGUI("displaySuccessGUI", "s", 'd');
+const idEventDef EV_TriggerMissionEnd("triggerMissionEnd", NULL);
 
 // greebo: These events are handling the FOV.
 const idEventDef EV_Player_StartZoom("startZoom", "fff");
@@ -193,8 +191,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_UpdateStatisticsGUI,	idPlayer::Event_UpdateStatisticsGUI)
 
 	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
-	EVENT( EV_PrepareMapForMissionEnd,		idPlayer::Event_PrepareMapForMissionEnd )
-	EVENT( EV_DisplaySuccessGUI,			idPlayer::Event_DisplaySuccessGUI )
+	EVENT( EV_TriggerMissionEnd,			idPlayer::Event_TriggerMissionEnd )
 
 END_CLASS
 
@@ -9786,34 +9783,24 @@ void idPlayer::Event_MissionSuccess()
 	// CallScriptFunctionArgs("onMissionSuccess", true, 0, "e", this);
 
 	// Set the gamestate (and remove all irrelevant entities <<-- can be skipped (FIXME))
-	gameLocal.PrepareForMissionEnd();
 	gameLocal.SetMissionResult(MISSION_COMPLETE);
 	gameLocal.sessionCommand = "disconnect";
 }
 
-void idPlayer::Event_PrepareMapForMissionEnd() 
+void idPlayer::Event_TriggerMissionEnd() 
 {
 	if (hudMessages.Num() > 0)
 	{
 		// There are still HUD messages pending, postpone this event
-		PostEventMS(&EV_PrepareMapForMissionEnd, 3000);
+		PostEventMS(&EV_TriggerMissionEnd, 3000);
 		return;
 	}
+
+	gameLocal.PrepareForMissionEnd();
 
 	idVec4 fadeColor(0,0,0,1);
 	playerView.Fade(fadeColor, 1500);
 
 	// Schedule an mission success event right after fadeout
 	PostEventMS(&EV_Mission_Success, 1500);
-}
-
-void idPlayer::Event_DisplaySuccessGUI(const char* guiFile) 
-{
-	gameLocal.Printf("Showing success GUI.\n");
-
-	int handle = CreateOverlay(guiFile, 20);
-
-	// Set up the success GUI here
-
-	idThread::ReturnInt(handle);
 }
