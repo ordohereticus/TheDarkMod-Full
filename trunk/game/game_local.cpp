@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2045 $
- * $Date: 2008-02-05 13:21:23 -0500 (Tue, 05 Feb 2008) $
+ * $Revision: 2046 $
+ * $Date: 2008-02-06 10:15:46 -0500 (Wed, 06 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2045 2008-02-05 18:21:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2046 2008-02-06 15:15:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3674,6 +3674,9 @@ bool idGameLocal::SpawnEntityDef( const idDict &args, idEntity **ent, bool setDe
 
 	spawnArgs.SetDefaults( &def->dict );
 
+	// greebo: Apply the difficulty settings before any values get filled from the spawnarg data
+	m_DifficultyManager.ApplyDifficultySettings(spawnArgs);
+
 	// check if we should spawn a class object
 	spawnArgs.GetString( "spawnclass", NULL, &spawn );
 	if ( spawn ) {
@@ -3880,9 +3883,6 @@ void idGameLocal::SpawnMapEntities( void ) {
 		if ( !InhibitEntitySpawn( args ) ) {
 			// precache any media specified in the map entity
 			CacheDictionaryMedia( &args );
-
-			// greebo: Apply the difficulty settings before any values get filled from the spawnarg data
-			m_DifficultyManager.ApplyDifficultySettings(args);
 
 			SpawnEntityDef( args );
 			num++;
