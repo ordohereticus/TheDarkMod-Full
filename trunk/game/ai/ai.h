@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1725 $
- * $Date: 2007-11-07 07:08:28 -0500 (Wed, 07 Nov 2007) $
+ * $Revision: 1733 $
+ * $Date: 2007-11-08 08:42:23 -0500 (Thu, 08 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1557,8 +1557,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					Event_QueueState(const char* state);
 	void					Event_SwitchState(const char* state);
 	void					Event_EndState();
-	void					Event_PushStateIfHigherPriority(const char* state, int priority);
-	void					Event_SwitchStateIfHigherPriority(const char* state, int priority);
 
 	void					Event_PlayAndLipSync( const char *soundName, const char *animName );
 	void					Event_RegisterKilledTask( const char* taskName, int priority );

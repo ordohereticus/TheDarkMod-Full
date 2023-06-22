@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1725 $
- * $Date: 2007-11-07 07:08:28 -0500 (Wed, 07 Nov 2007) $
+ * $Revision: 1733 $
+ * $Date: 2007-11-08 08:42:23 -0500 (Thu, 08 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1725 2007-11-07 12:08:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1733 2007-11-08 13:42:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -174,8 +174,6 @@ const idEventDef AI_PushState("pushState", "s");
 const idEventDef AI_QueueState("queueState", "s");
 const idEventDef AI_SwitchState("switchState", "s");
 const idEventDef AI_EndState("endState", NULL, 'd');
-const idEventDef AI_PushStateIfHigherPriority("pushStateIfHigherPriority", "sd", 'd');
-const idEventDef AI_SwitchStateIfHigherPriority("switchStateIfHigherPriority", "sd", 'd');
 
 // DarkMod AI Relations Events
 const idEventDef AI_GetRelationEnt( "getRelationEnt", "E", 'd' );
@@ -503,8 +501,6 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT(  AI_QueueState,						idAI::Event_QueueState )
 	EVENT(  AI_SwitchState,						idAI::Event_SwitchState )
 	EVENT(  AI_EndState,						idAI::Event_EndState )
-	EVENT(  AI_PushStateIfHigherPriority,		idAI::Event_PushStateIfHigherPriority )
-	EVENT(  AI_SwitchStateIfHigherPriority,		idAI::Event_SwitchStateIfHigherPriority )
 
 	EVENT( AI_PlayAndLipSync,					idAI::Event_PlayAndLipSync )
 	EVENT( AI_GetRelationEnt,					idAI::Event_GetRelationEnt )
@@ -3560,16 +3556,6 @@ void idAI::Event_SwitchState(const char* state)
 void idAI::Event_EndState()
 {
 	idThread::ReturnInt(static_cast<int>(mind->EndState()));
-}
-
-void idAI::Event_PushStateIfHigherPriority(const char* state, int priority)
-{
-	idThread::ReturnInt(static_cast<int>(mind->PushStateIfHigherPriority(state, priority)));
-}
-
-void idAI::Event_SwitchStateIfHigherPriority(const char* state, int priority)
-{
-	idThread::ReturnInt(static_cast<int>(mind->SwitchStateIfHigherPriority(state, priority)));
 }
 
 void idAI::Event_ProcessVisualStim(idEntity* stimSource)
