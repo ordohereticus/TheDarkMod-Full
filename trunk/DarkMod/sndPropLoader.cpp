@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1167 $
- * $Date: 2007-07-21 13:39:49 -0400 (Sat, 21 Jul 2007) $
+ * $Revision: 1172 $
+ * $Date: 2007-07-21 16:37:47 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1167 2007-07-21 17:39:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1172 2007-07-21 20:37:47Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -50,11 +50,97 @@ const float s_DBM_TO_M = 1.0/(10*log10( idMath::E )); // convert between dB/m an
 
 void CsndPropBase::Save(idSaveGame *savefile) const
 {
+	savefile->WriteBool(m_bLoadSuccess);
+	savefile->WriteBool(m_bDefaultSpherical);
+	savefile->WriteInt(m_numAreas);
+	savefile->WriteInt(m_numPortals);
+
+	for (int area = 0; area < m_numAreas; area++)
+	{
+		savefile->WriteFloat(m_sndAreas[area].LossMult);
+		savefile->WriteFloat(m_sndAreas[area].VolMod);
+		savefile->WriteInt(m_sndAreas[area].numPortals);
+		savefile->WriteVec3(m_sndAreas[area].center);
+
+		for (int portal = 0; portal < m_sndAreas[area].numPortals; portal++)
+		{
+			SsndPortal_s& soundportal = m_sndAreas[area].portals[portal];
+
+			savefile->WriteInt(soundportal.handle);
+			savefile->WriteInt(soundportal.portalNum);
+			savefile->WriteInt(soundportal.from);
+			savefile->WriteInt(soundportal.to);
+			savefile->WriteVec3(soundportal.center);
+			savefile->WriteVec3(soundportal.normal);
+			// greebo: Don't save winding pointer, gets restored from idRenderWorld.
+		}
+
+		savefile->WriteInt(m_sndAreas[area].portalDists->NumFilled());
+		// greebo: Write the RUT loss matrix by using a 1D index
+		for (int i = 0; i < m_sndAreas[area].portalDists->NumFilled(); i++)
+		{
+			savefile->WriteFloat(*m_sndAreas[area].portalDists->Get1d(i));
+		}
+	}
+
+	/*
+	idList<SAreaProp>	 m_AreaPropsG;
+	SPortData			*m_PortData;*/
+
 	// TODO
 }
 
 void CsndPropBase::Restore(idRestoreGame *savefile)
 {
+	savefile->ReadBool(m_bLoadSuccess);
+	savefile->ReadBool(m_bDefaultSpherical);
+	savefile->ReadInt(m_numAreas);
+	savefile->ReadInt(m_numPortals);
+
+	m_sndAreas = new SsndArea[m_numAreas];
+
+	for (int area = 0; area < m_numAreas; area++)
+	{
+		savefile->ReadFloat(m_sndAreas[area].LossMult);
+		savefile->ReadFloat(m_sndAreas[area].VolMod);
+		savefile->ReadInt(m_sndAreas[area].numPortals);
+		savefile->ReadVec3(m_sndAreas[area].center);
+
+		m_sndAreas[area].portals = new SsndPortal[m_sndAreas[area].numPortals];
+
+		for (int portal = 0; portal < m_sndAreas[area].numPortals; portal++)
+		{
+			SsndPortal_s& soundportal = m_sndAreas[area].portals[portal];
+
+			savefile->ReadInt(soundportal.handle);
+			savefile->ReadInt(soundportal.portalNum);
+			savefile->ReadInt(soundportal.from);
+			savefile->ReadInt(soundportal.to);
+			savefile->ReadVec3(soundportal.center);
+			savefile->ReadVec3(soundportal.normal);
+
+			// Restore the winding pointer from idRenderWorld
+			exitPortal_t p = gameRenderWorld->GetPortal(area, portal);
+			soundportal.winding = p.w;
+		}
+
+		int num;
+		savefile->ReadInt(num);
+
+		// Allocate and resize the triangle matrix
+		m_sndAreas[area].portalDists = new CMatRUT<float>;
+		m_sndAreas[area].portalDists->Init(m_sndAreas[area].numPortals);
+
+		for (int i = 0; i < num; i++)
+		{
+			savefile->ReadFloat(*m_sndAreas[area].portalDists->Get1d(i));
+		}
+	}
+
+	/*
+	idList<SAreaProp>	 m_AreaPropsG;
+	SPortData			*m_PortData;*/
+
 	// TODO
 }
 
