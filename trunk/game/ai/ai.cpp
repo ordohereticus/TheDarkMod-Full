@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1643 $
- * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1646 $
+ * $Date: 2007-11-02 03:47:33 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1643 2007-11-02 07:00:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1646 2007-11-02 07:47:33Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1740,8 +1740,6 @@ void idAI::Think( void )
 
 	if ( cv_ai_task_show.GetBool())
 	{
-		/*idStr str = idStr::FormatNumber(taskPriority) + "   ";
-		str += idStr(task);*/
 		idStr str("State: ");
 		str += mind->GetState()->GetName() + "\n";
 		
@@ -1751,10 +1749,6 @@ void idAI::Think( void )
 		if (GetSubsystem(ai::SubsysAction)->IsEnabled()) str += "Action: " + GetSubsystem(ai::SubsysAction)->GetDebugInfo() + "\n";
 
 		gameRenderWorld->DrawText( str, (GetEyePosition() - physicsObj.GetGravityNormal()*35.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
-		/*if (m_TaskQueue != NULL)
-		{
-			gameRenderWorld->DrawText( m_TaskQueue->DebuggingInfo().c_str(), (GetEyePosition() - physicsObj.GetGravityNormal()*10.0f), 0.20f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
-		}*/
 	}
 
 	if( cv_ai_alertnum_show.GetBool() )
@@ -1834,7 +1828,7 @@ idAI::UpdateAIScript
 */
 void idAI::UpdateAIScript( void )
 {
-	//UpdateScript();
+	UpdateScript();
 
 	// clear the hit enemy flag so we catch the next time we hit someone
 	AI_HIT_ENEMY = false;

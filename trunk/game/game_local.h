@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1607 $
- * $Date: 2007-10-30 14:56:06 -0400 (Tue, 30 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1646 $
+ * $Date: 2007-11-02 03:47:33 -0400 (Fri, 02 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -446,11 +446,6 @@ public:
 	 */
 	CEscapePointManager*	m_EscapePointManager;
 	
-	/**
-	* All priority queues that have been instantiated during the run of this map.
-	**/
-	idList<CPriorityQueue*> m_PriorityQueues;
-
 /**
 * Temporary storage of the walkspeed.  This is a workaround
 *	because the walkspeed keeps getting reset.
@@ -780,12 +775,6 @@ public:
 	 */
 	void					CheckSDKSignal(void);
 	void					AddSDKSignal(idEntity *oObject);
-
-	/**
-	 * greebo: Returns the priority queue with the given index
-	 *		   or NULL for invalid indices.
-	 */
-	CPriorityQueue*	GetPriorityQueue(int index);
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;

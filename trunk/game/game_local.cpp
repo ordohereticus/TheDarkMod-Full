@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1621 $
- * $Date: 2007-11-01 01:35:13 -0400 (Thu, 01 Nov 2007) $
- * $Author: dram $
+ * $Revision: 1646 $
+ * $Date: 2007-11-02 03:47:33 -0400 (Fri, 02 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1621 2007-11-01 05:35:13Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1646 2007-11-02 07:47:33Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -583,13 +583,6 @@ void idGameLocal::SaveGame( idFile *f ) {
 	savegame.WriteObjectList();
 
 	program.Save( &savegame );
-
-	// greebo: Save the priority queue list
-	savegame.WriteInt(m_PriorityQueues.Num());
-	for (i = 0; i < m_PriorityQueues.Num(); i++)
-	{
-		m_PriorityQueues[i]->Save(&savegame);
-	}
 
 	// Save the global hiding spot search collection
 	HidingSpotSearchCollection.Save(&savegame);
@@ -1470,18 +1463,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	// load the map needed for this savegame
 	LoadMap( mapName, 0 );
 
-	// greebo: Restore the saved priority queues, this must happen before 
-	// the entities are saved, because the Actors request their queues upon Restore().
-	int numQueues;
-	savegame.ReadInt(numQueues);
-	m_PriorityQueues.Clear();
-	for (i = 0; i < numQueues; i++)
-	{
-		CPriorityQueue* queue = new CPriorityQueue;
-		queue->Restore(&savegame);
-		m_PriorityQueues.Append(queue);
-	}
-
 	// Restore the global hiding spot search collection
 	HidingSpotSearchCollection.Restore(&savegame);
 
@@ -1828,7 +1809,6 @@ void idGameLocal::MapShutdown( void ) {
 	m_sndProp->Clear();
 	m_RelationsManager->Clear();
 	m_MissionData->Clear();
-	m_PriorityQueues.DeleteContents(true);
 
 	clip.Shutdown();
 	idClipModel::ClearTraceModelCache();
@@ -5842,9 +5822,4 @@ void idGameLocal::PauseGame( bool bPauseState )
 		
 		g_stopTime.SetBool( false );
 	}
-}
-
-CPriorityQueue*	idGameLocal::GetPriorityQueue(int index)
-{
-	return (index < 0 || index >= m_PriorityQueues.Num()) ? NULL : m_PriorityQueues[index];
 }
