@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1387 $
- * $Date: 2007-09-25 14:53:37 -0400 (Tue, 25 Sep 2007) $
+ * $Revision: 1388 $
+ * $Date: 2007-09-25 15:13:53 -0400 (Tue, 25 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -98,7 +98,6 @@ public:
 	 **/
 	void					ClosePortal( void );
 
-	void					SetDoorhandle(CFrobDoorHandle *);
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed(void);
 

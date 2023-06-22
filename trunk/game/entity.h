@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1375 $
- * $Date: 2007-09-03 05:37:41 -0400 (Mon, 03 Sep 2007) $
- * $Author: crispy $
+ * $Revision: 1388 $
+ * $Date: 2007-09-25 15:13:53 -0400 (Tue, 25 Sep 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -725,6 +725,8 @@ public:
 	 * Return true if this entity can be mantled, false otherwise.
 	 */
 	virtual bool			IsMantleable();
+
+	inline idStrList		GetFrobPeers(void) { return m_FrobPeers; }
 
 protected:
 	/**

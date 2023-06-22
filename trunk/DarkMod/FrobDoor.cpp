@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1387 $
- * $Date: 2007-09-25 14:53:37 -0400 (Tue, 25 Sep 2007) $
+ * $Revision: 1388 $
+ * $Date: 2007-09-25 15:13:53 -0400 (Tue, 25 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1387 2007-09-25 18:53:37Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1388 2007-09-25 19:13:53Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -682,15 +682,6 @@ void CFrobDoor::ClosePortal( void )
 		Event_ClosePortal();
 }
 
-void CFrobDoor::SetDoorhandle(CFrobDoorHandle *h)
-{
-	m_Doorhandle = h;
-	m_FrobPeers.AddUnique(h->name);
-	h->m_FrobPeers.AddUnique(name);
-	h->m_bFrobable = m_bFrobable;
-	h->Bind(this, true);
-}
-
 void CFrobDoor::SetFrobbed(bool val)
 {
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("door_body [%s] %08lX is frobbed\r", name.c_str(), this);
@@ -1014,6 +1005,7 @@ void CFrobDoor::Event_Init(void)
 	idEntity *e;
 	CFrobDoor *master;
 	idAngles tempAngle, partialAngle;
+	bool flag = true;
 
 	if(spawnArgs.GetString("master_open", "", str))
 	{
@@ -1066,15 +1058,14 @@ void CFrobDoor::Event_Init(void)
 			else
 				DM_LOG(LC_LOCKPICK, LT_ERROR)LOGSTRING("Doorhandle entity not a valid doorhandle: %s\r", str.c_str());
 
-			/*
-			This should not be done, because the door and the lock
-			may not be in the same position, and in such a case it may
-			not be desireable to highlight the lock/handle along with the door.
-
-			m_FrobPeers.AddUnique(e->name);
-			e->m_FrobPeers.AddUnique(name);
-			e->m_bFrobable = m_bFrobable;
-			*/
+			spawnArgs.GetBool("door_handle_bind_flag", "1", flag);
+			if(flag == true)
+			{
+				m_FrobPeers.AddUnique(e->name);
+				e->GetFrobPeers().AddUnique(name);
+				e->m_bFrobable = m_bFrobable;
+				e->Bind(this, true);
+			}
 		}
 		else
 			DM_LOG(LC_LOCKPICK, LT_ERROR)LOGSTRING("Doorhandle entity not found: %s\r", str.c_str());
@@ -1093,15 +1084,15 @@ void CFrobDoor::Event_Init(void)
 			m_OriginalPosition = e->GetPhysics()->GetOrigin();
 			m_OriginalAngle = e->GetPhysics()->GetAxis().ToAngles();
 
-			/*
-			This should not be done, because the door and the lock
-			may not be in the same position, and in such a case it may
-			not be desireable to highlight the lock/handle along with the door.
-
-			m_FrobPeers.AddUnique(e->name);
-			e->m_FrobPeers.AddUnique(name);
-			e->m_bFrobable = m_bFrobable;
-			*/
+			flag = true;
+			spawnArgs.GetBool("lockpick_bar_bind_flag", "1", flag);
+			if(flag == true)
+			{
+				m_FrobPeers.AddUnique(e->name);
+				e->GetFrobPeers().AddUnique(name);
+				e->m_bFrobable = m_bFrobable;
+				e->Bind(this, true);
+			}
 		}
 		else
 			DM_LOG(LC_LOCKPICK, LT_ERROR)LOGSTRING("Bar entity name not found: %s\r", str.c_str());
