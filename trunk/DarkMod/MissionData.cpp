@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2230 $
- * $Date: 2008-04-27 04:15:12 -0400 (Sun, 27 Apr 2008) $
+ * $Revision: 2231 $
+ * $Date: 2008-04-27 04:44:48 -0400 (Sun, 27 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2230 2008-04-27 08:15:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2231 2008-04-27 08:44:48Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2374,6 +2374,11 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	// The listdef item (name + _) prefix
 	idStr prefix = va("%s_item_", listDefName.c_str());
 	
+	int difficultyLevel = gameLocal.m_DifficultyManager.GetDifficultyLevel();
+	key = "Difficulty Level";
+	value = gameLocal.m_DifficultyManager.GetDifficultyName(difficultyLevel);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+
 	key = "Time";
 	value = idStr(GamePlayTimer::TimeToStr(m_TotalGamePlayTime));
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
