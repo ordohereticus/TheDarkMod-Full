@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1683 $
- * $Date: 2007-11-04 19:46:10 -0500 (Sun, 04 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1792 $
+ * $Date: 2007-11-14 12:49:55 -0500 (Wed, 14 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1683 2007-11-05 00:46:10Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1792 2007-11-14 17:49:55Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7434,7 +7434,7 @@ idThread *idEntity::CallScriptFunctionArgs(const char *fkt, bool ClearStack, int
 
 	if(pScriptFkt)
 	{
-		DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("Running scriptfunction\r");
+		DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("Running scriptfunction '%s'\r", fkt);
 		pThread = new idThread(pScriptFkt);
 		va_start(argptr, fmt);
 		pThread->CallFunctionArgsVN(pScriptFkt, ClearStack, fmt, argptr);

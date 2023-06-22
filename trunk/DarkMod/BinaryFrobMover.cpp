@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1682 $
- * $Date: 2007-11-04 19:45:17 -0500 (Sun, 04 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1792 $
+ * $Date: 2007-11-14 12:49:55 -0500 (Wed, 14 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 1682 2007-11-05 00:45:17Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 1792 2007-11-14 17:49:55Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -432,8 +432,9 @@ void CBinaryFrobMover::CallStateScript(void)
 	idStr str;
 	if(spawnArgs.GetString("state_change_callback", "", str))
 	{
-		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Callscript Open: %d  Locked: %d   Interrupt: %d\r", m_Open, isLocked(), m_bInterrupted);
-		CallScriptFunctionArgs(str.c_str(), true, 0, "ebbb", this, m_Open, isLocked(), m_bInterrupted);
+		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Callscript '%s' Open: %d  Locked: %d   Interrupt: %d\r",
+			str.c_str(), m_Open, m_Locked, m_bInterrupted);
+		CallScriptFunctionArgs(str.c_str(), true, 0, "ebbb", this, m_Open, m_Locked, m_bInterrupted);
 	}
 }
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1792 $
+ * $Date: 2007-11-14 12:49:55 -0500 (Wed, 14 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_interpreter.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_interpreter.cpp 1792 2007-11-14 17:49:55Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -1939,7 +1939,6 @@ bool idInterpreter::EnterFunctionVarArgVN(const function_t *func, bool clearStac
 	char c;
 	int i;
 	float f;
-	bool b;
 	idEntity *e;
 	idVec3 *v;
 
@@ -1990,8 +1989,7 @@ bool idInterpreter::EnterFunctionVarArgVN(const function_t *func, bool clearStac
 			break;
 
 			case 'b':
-				b = va_arg(args, bool);
-				i = b;
+				i = va_arg(args, int);
 				Push(i);
 			break;
 
