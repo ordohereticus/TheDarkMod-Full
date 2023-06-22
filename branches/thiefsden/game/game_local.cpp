@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1948 $
- * $Date: 2008-01-03 13:37:18 -0500 (Thu, 03 Jan 2008) $
+ * $Revision: 1951 $
+ * $Date: 2008-01-04 00:39:59 -0500 (Fri, 04 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1948 2008-01-03 18:37:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1951 2008-01-04 05:39:59Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -5943,4 +5943,14 @@ void idGameLocal::PauseGame( bool bPauseState )
 		
 		g_stopTime.SetBool( false );
 	}
+}
+
+void idGameLocal::SetMissionResult(EMissionResult result)
+{
+	m_MissionResult = result;
+}
+
+EMissionResult idGameLocal::GetMissionResult() const 
+{
+	return m_MissionResult;
 }

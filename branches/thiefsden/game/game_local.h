@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1950 $
- * $Date: 2008-01-03 16:10:14 -0500 (Thu, 03 Jan 2008) $
- * $Author: orbweaver $
+ * $Revision: 1951 $
+ * $Date: 2008-01-04 00:39:59 -0500 (Fri, 04 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -175,7 +175,7 @@ void gameError( const char *fmt, ... );
 #include "pvs.h"
 #include "multiplayergame.h"
 
-#include "DarkMod/EMissionResult.h"
+#include "../DarkMod/EMissionResult.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -611,8 +611,8 @@ public:
 	 */
 	void					PrepareForMissionEnd();
 
-	void					 SetMissionResult(EMissionResult result) { m_MissionResult = result; }
-	ID_INLINE EMissionResult GetMissionResult() const { return m_MissionResult; }
+	void					 SetMissionResult(EMissionResult result);
+	ID_INLINE EMissionResult GetMissionResult() const;
 
 	idEntity *				SpawnEntityType( const idTypeInfo &classdef, const idDict *args = NULL, bool bIsClientReadSnapshot = false );
 	bool					SpawnEntityDef( const idDict &args, idEntity **ent = NULL, bool setDefaults = true );
