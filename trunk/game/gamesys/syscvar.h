@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2163 $
- * $Date: 2008-03-30 04:50:56 -0400 (Sun, 30 Mar 2008) $
- * $Author: greebo $
+ * $Revision: 2166 $
+ * $Date: 2008-04-04 07:36:44 -0400 (Fri, 04 Apr 2008) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -78,6 +78,7 @@ extern idCVar cv_pm_rope_velocity_letgo;
 extern idCVar cv_pm_water_downwards_velocity;
 extern idCVar cv_pm_water_z_friction;
 extern idCVar cv_pm_show_waterlevel;
+extern idCVar cv_pm_climb_distance;
 
 /**
 * This cvar controls if ai hiding spot search debug graphics are drawn

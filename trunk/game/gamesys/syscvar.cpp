@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2163 $
- * $Date: 2008-03-30 04:50:56 -0400 (Sun, 30 Mar 2008) $
- * $Author: greebo $
+ * $Revision: 2166 $
+ * $Date: 2008-04-04 07:36:44 -0400 (Fri, 04 Apr 2008) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2163 2008-03-30 08:50:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2166 2008-04-04 11:36:44Z crispy $", init_version);
 
 #include "../game_local.h"
 
@@ -203,6 +203,8 @@ idCVar cv_pm_rope_velocity_letgo(	"pm_rope_velocity_letgo",	"100",		CVAR_GAME | 
 idCVar cv_pm_water_downwards_velocity(	"pm_water_downwards_velocity",	"-4",		CVAR_GAME | CVAR_FLOAT, "The factor which the gravity vector gets scaled with to calculate the standard downwards velocity in water volumes. Negative values will let the player float upwards." );
 idCVar cv_pm_water_z_friction(	"pm_water_z_friction",	"0.995",		CVAR_GAME | CVAR_FLOAT , "When the player is underwater and has really small z-velocities, this factor gets applied each frame, so that the player stops floating upwards when reaching the surface." );
 idCVar cv_pm_show_waterlevel(	"pm_show_waterlevel",	"0",		CVAR_GAME | CVAR_BOOL , "Shows the waterlevel of the player." );
+idCVar cv_pm_climb_distance(	"pm_climb_distance",	"10",		CVAR_GAME | CVAR_FLOAT , "How far away the edge of the player clipbox is from climbed surfaces (e.g. ladders)" );
+
 /**
  * Darkmod lightgem variables. These are only for debuggingpurpose to tweak the lightgem
  * in a release version they should be disabled.

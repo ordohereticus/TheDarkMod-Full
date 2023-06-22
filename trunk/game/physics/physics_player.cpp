@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2161 $
- * $Date: 2008-03-29 17:26:04 -0400 (Sat, 29 Mar 2008) $
- * $Author: greebo $
+ * $Revision: 2166 $
+ * $Date: 2008-04-04 07:36:44 -0400 (Fri, 04 Apr 2008) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2161 $   $Date: 2008-03-29 17:26:04 -0400 (Sat, 29 Mar 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2166 $   $Date: 2008-04-04 07:36:44 -0400 (Fri, 04 Apr 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -101,11 +101,6 @@ const float CLIMB_SURFCHECK_DELTA = 5.0f;
 * Needs to allow for worst case overhang
 **/
 const float CLIMB_SURFCHECK_NORMDELTA = 20.0f;
-
-/**
-* How far the edge of the player clipbox is away from the ladder
-**/
-const float LADDER_DISTANCE = 10.0f;
 
 /**
 * how far away is the player allowed to push out from the climbable section?
@@ -1377,7 +1372,7 @@ void idPhysics_Player::LadderMove( void )
 	if( SurfTrace.fraction != 1.0f && SurfTrace.c.material 
 		&& (SurfTrace.c.material->GetSurfaceFlags() & SURF_LADDER ) )
 	{
-		m_vClimbPoint = SurfTrace.endpos + LADDER_DISTANCE * ClimbNormXY;
+		m_vClimbPoint = SurfTrace.endpos + cv_pm_climb_distance.GetFloat() * ClimbNormXY;
 		AttachVel = 10 * (m_vClimbPoint - current.origin);
 
 		// Now that we have a valid point, don't need to use the initial one
