@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1255 $
- * $Date: 2007-07-30 12:37:53 -0400 (Mon, 30 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1396 $
+ * $Date: 2007-09-30 05:56:24 -0400 (Sun, 30 Sep 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1255 2007-07-30 16:37:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 1396 2007-09-30 09:56:24Z orbweaver $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -791,7 +791,7 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	const char *projectileName;
 	const char *brassDefName;
 	const char *smokeName;
-	int			ammoAvail;
+	int			ammoAvail = 0;
 
 	Clear();
 
@@ -2962,9 +2962,9 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 			}
 		}
 
-		weaponItem->useAmmo(( powerAmmo ) ? dmgPower : ammoRequired);
+		weaponItem->useAmmo(( powerAmmo ) ? (int) dmgPower : ammoRequired);
 		if ( clipSize && ammoRequired ) {
-			ammoClip -= powerAmmo ? dmgPower : 1;
+			ammoClip -= powerAmmo ? (int) dmgPower : 1;
 		}
 
 	}
