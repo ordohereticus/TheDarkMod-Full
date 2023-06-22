@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1637 $
+ * $Date: 2007-11-01 14:20:46 -0400 (Thu, 01 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -65,6 +65,11 @@ public:
 	qhandle_t		GetLightDefHandle( void ) const { return lightDefHandle; }
 	void			SetLightParent( idEntity *lparent ) { lightParent = lparent; }
 	void			SetLightLevel( void );
+
+	/**
+	 * greebo: Returns the current lightlevel (currentlevel).
+	 */
+	int				GetLightLevel() const;
 
 	virtual void	ShowEditingDialog( void );
 
