@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1481 $
- * $Date: 2007-10-19 14:11:32 -0400 (Fri, 19 Oct 2007) $
+ * $Revision: 1489 $
+ * $Date: 2007-10-20 04:14:53 -0400 (Sat, 20 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -691,7 +691,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	idScriptBool			AI_ACTIVATED;
 	idScriptBool			AI_FORWARD;
 	idScriptBool			AI_JUMP;
-	idScriptBool			AI_ENEMY_REACHABLE;
+	bool					AI_ENEMY_REACHABLE;
 	idScriptBool			AI_BLOCKED;
 	idScriptBool			AI_OBSTACLE_IN_PATH;
 	idScriptBool			AI_DEST_UNREACHABLE;

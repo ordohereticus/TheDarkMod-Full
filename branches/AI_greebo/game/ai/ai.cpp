@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1481 $
- * $Date: 2007-10-19 14:11:32 -0400 (Fri, 19 Oct 2007) $
+ * $Revision: 1489 $
+ * $Date: 2007-10-20 04:14:53 -0400 (Sat, 20 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1481 2007-10-19 18:11:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1489 2007-10-20 08:14:53Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1708,13 +1708,14 @@ void idAI::Think( void ) {
 
 	if ( cv_ai_task_show.GetBool())
 	{
-		idStr str = idStr::FormatNumber(taskPriority) + "   ";
-		str += idStr(task);
+		/*idStr str = idStr::FormatNumber(taskPriority) + "   ";
+		str += idStr(task);*/
+		idStr str = mind->GetState()->GetName();
 		gameRenderWorld->DrawText( str, (GetEyePosition() - physicsObj.GetGravityNormal()*15.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
-		if (m_TaskQueue != NULL)
+		/*if (m_TaskQueue != NULL)
 		{
 			gameRenderWorld->DrawText( m_TaskQueue->DebuggingInfo().c_str(), (GetEyePosition() - physicsObj.GetGravityNormal()*10.0f), 0.20f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
-		}
+		}*/
 	}
 
 	if( cv_ai_alertnum_show.GetBool() )
@@ -4891,15 +4892,18 @@ void idAI::UpdateEnemyPosition( void ) {
 
 	AI_ENEMY_IN_FOV		= false;
 	AI_ENEMY_VISIBLE	= false;
+	AI_ENEMY_REACHABLE  = false;
 
 	if ( CanSee( enemyEnt, false ) )
 	{
-
 		AI_ENEMY_VISIBLE = true;
 		if ( CheckFOV( enemyEnt->GetPhysics()->GetOrigin() ) )
 		{
 			AI_ENEMY_IN_FOV = true;
 		}
+
+		idVec3 distance(GetEyePosition() - enemyEnt->GetEyePosition());
+		AI_ENEMY_REACHABLE = (distance.LengthFast() < 100);
 
 		SetEnemyPosition();
 	}
