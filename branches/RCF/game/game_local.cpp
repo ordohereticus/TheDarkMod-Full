@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1831 $
- * $Date: 2007-11-21 17:18:52 -0500 (Wed, 21 Nov 2007) $
+ * $Revision: 1833 $
+ * $Date: 2007-11-22 11:50:44 -0500 (Thu, 22 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1831 2007-11-21 22:18:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1833 2007-11-22 16:50:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkRadiantRCFServer.h"
@@ -34,6 +34,10 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1831 2007-11-21 
 #include "../DarkMod/DifficultyMenu.h"
 #include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/ModMenu.h"
+
+#ifdef __linux__
+	#include <boost/asio.hpp>
+#endif
 
 #include "il/config.h"
 #include "il/il.h"
@@ -456,8 +460,22 @@ void idGameLocal::Init( void ) {
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "micro" ), font_micro );
 
 	// Start the DarkRadiant RCF Server instance
+	
+#ifdef __linux__
+	// Linux is using the boost::asio library, this may throw an exception
+	try {
+		m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr(new DarkRadiantRCFServer);
+		Printf( "------------ RCF Server started -----------\n" );
+	}
+	catch (const boost::asio::error& e) {
+		m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr();
+		Warning("Could not start RCF Server: %s", e.what());
+	}
+#else
+	// Win32 builds just instantiate the server, shouldn't throw
 	m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr(new DarkRadiantRCFServer);
 	Printf( "------------ RCF Server started -----------\n" );
+#endif
 }
 
 /*
