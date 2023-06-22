@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1414 $
- * $Date: 2007-10-09 14:36:30 -0400 (Tue, 09 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1417 $
+ * $Date: 2007-10-10 02:08:24 -0400 (Wed, 10 Oct 2007) $
+ * $Author: dram $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1414 2007-10-09 18:36:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1417 2007-10-10 06:08:24Z dram $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6866,7 +6866,9 @@ Calculate the bobbing position of the view weapon
 */
 void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	float		scale;
-	float		fracsin;
+	float		fracsin1;
+	float		fracsin2;
+	float		fracsin3;
 	idAngles	angles;
 	int			delta;
 
@@ -6913,11 +6915,14 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	}
 
 	// speed sensitive idle drift
+	// Dram: Changed so that each axis has it's own fracsin. Now they move independantly of each other
 	scale = xyspeed + 40.0f;
-	fracsin = scale * sin( MS2SEC( gameLocal.time ) ) * 0.01f;
-	angles.roll		+= fracsin;
-	angles.yaw		+= fracsin;
-	angles.pitch	+= fracsin;
+	fracsin1 = scale * sin( MS2SEC( gameLocal.time * 0.42 ) ) * 0.006f;
+	fracsin2 = scale * sin( MS2SEC( gameLocal.time * 1.63 ) ) * 0.008f;
+	fracsin3 = scale * sin( MS2SEC( gameLocal.time * 2 ) ) * 0.01f;
+	angles.roll		+= fracsin1;
+	angles.yaw		+= fracsin2;
+	angles.pitch	+= fracsin3;
 
 	axis = angles.ToMat3() * viewAxis;
 }

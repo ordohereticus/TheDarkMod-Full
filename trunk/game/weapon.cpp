@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1396 $
- * $Date: 2007-09-30 05:56:24 -0400 (Sun, 30 Sep 2007) $
- * $Author: orbweaver $
+ * $Revision: 1417 $
+ * $Date: 2007-10-10 02:08:24 -0400 (Wed, 10 Oct 2007) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1396 2007-09-30 09:56:24Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 1417 2007-10-10 06:08:24Z dram $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3012,7 +3012,8 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 			for( i = 0; i < num_projectiles; i++ ) {
 				ang = idMath::Sin( spreadRad * gameLocal.random.RandomFloat() );
 				spin = (float)DEG2RAD( 360.0f ) * gameLocal.random.RandomFloat();
-				dir = playerViewAxis[ 0 ] + playerViewAxis[ 2 ] * ( ang * idMath::Sin( spin ) ) - playerViewAxis[ 1 ] * ( ang * idMath::Cos( spin ) );
+				//dir = playerViewAxis[ 0 ] + playerViewAxis[ 2 ] * ( ang * idMath::Sin( spin ) ) - playerViewAxis[ 1 ] * ( ang * idMath::Cos( spin ) );
+				dir = muzzleAxis[ 0 ]; // Dram: Make the weapon shoot directly from the barrel bone. Found by Ishtvan
 				dir.Normalize();
 				gameLocal.clip.Translation( tr, muzzle_pos, muzzle_pos + dir * 4096.0f, NULL, mat3_identity, MASK_SHOT_RENDERMODEL, owner );
 				if ( tr.fraction < 1.0f ) {
@@ -3031,7 +3032,8 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 		for( i = 0; i < num_projectiles; i++ ) {
 			ang = idMath::Sin( spreadRad * gameLocal.random.RandomFloat() );
 			spin = (float)DEG2RAD( 360.0f ) * gameLocal.random.RandomFloat();
-			dir = playerViewAxis[ 0 ] + playerViewAxis[ 2 ] * ( ang * idMath::Sin( spin ) ) - playerViewAxis[ 1 ] * ( ang * idMath::Cos( spin ) );
+			//dir = playerViewAxis[ 0 ] + playerViewAxis[ 2 ] * ( ang * idMath::Sin( spin ) ) - playerViewAxis[ 1 ] * ( ang * idMath::Cos( spin ) );
+			dir = muzzleAxis[ 0 ]; // Dram: Make the weapon shoot directly from the barrel bone. Found by Ishtvan
 			dir.Normalize();
 
 			if ( projectileEnt ) {
