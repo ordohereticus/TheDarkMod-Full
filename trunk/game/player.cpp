@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1262 $
- * $Date: 2007-08-01 07:24:04 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1275 $
+ * $Date: 2007-08-04 17:12:03 -0400 (Sat, 04 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1262 2007-08-01 11:24:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1275 2007-08-04 21:12:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9095,10 +9095,15 @@ void idPlayer::FrobCheck( void )
 		idEntity *ent = gameLocal.entities[ trace.c.entityNum ];
 		//DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Frob: Direct hit on entity %s\r", ent->name.c_str());
 		
+		idPhysics_Player* playerPhysics = static_cast<idPhysics_Player*>(GetPhysics());
+
+		// greebo: Check if the frobbed entity is the bind master of the currently climbed rope
+		bool isRopeMaster = playerPhysics->OnRope() && playerPhysics->GetRopeEntity()->GetBindMaster() == ent;
+	
 		// only frob frobable, non-hidden entities within their frobdistance
 		// also, do not frob the ent we are currently holding in our hands
 		if( ent->m_bFrobable && !ent->IsHidden() && (TraceDist < ent->m_FrobDistance)
-			&& ent != g_Global.m_DarkModPlayer->grabber->GetSelected() )
+			&& ent != g_Global.m_DarkModPlayer->grabber->GetSelected() && !isRopeMaster)
 		{
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Entity %s was within frobdistance\r", ent->name.c_str());
 			// TODO: Mark as frobbed for this frame

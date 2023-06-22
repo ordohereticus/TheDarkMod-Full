@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1274 $
- * $Date: 2007-08-04 14:43:47 -0400 (Sat, 04 Aug 2007) $
+ * $Revision: 1275 $
+ * $Date: 2007-08-04 17:12:03 -0400 (Sat, 04 Aug 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1274 $   $Date: 2007-08-04 14:43:47 -0400 (Sat, 04 Aug 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1275 $   $Date: 2007-08-04 17:12:03 -0400 (Sat, 04 Aug 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2495,6 +2495,11 @@ idPhysics_Player::IsCrouching
 */
 bool idPhysics_Player::IsCrouching( void ) const {
 	return ( ( current.movementFlags & PMF_DUCKED ) != 0 );
+}
+
+idEntity* idPhysics_Player::GetRopeEntity()
+{
+	return (m_bOnRope) ? m_RopeEntity.GetEntity() : NULL;
 }
 
 /*

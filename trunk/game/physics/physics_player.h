@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1272 $
- * $Date: 2007-08-04 02:17:32 -0400 (Sat, 04 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1275 $
+ * $Date: 2007-08-04 17:12:03 -0400 (Sat, 04 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -110,6 +110,12 @@ public:
 	bool					HasSteppedUp( void ) const;
 	float					GetStepUp( void ) const;
 	bool					IsCrouching( void ) const;
+
+	/**
+	 * greebo: Returns the rope entity or NULL if the player is not attached to any rope.
+	 */
+	idEntity*				GetRopeEntity();
+
     bool					OnRope( void ) const;
 	/**
 	* True if the player is climbing on a ladder or wall
