@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1721 $
- * $Date: 2007-11-06 13:45:33 -0500 (Tue, 06 Nov 2007) $
+ * $Revision: 1725 $
+ * $Date: 2007-11-07 07:08:28 -0500 (Wed, 07 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1721 2007-11-06 18:45:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1725 2007-11-07 12:08:28Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1245,20 +1245,6 @@ void idAI::Spawn( void )
 	// DarkMod: State of mind, allow the FM author to set initial values
 	AI_AlertNum			= spawnArgs.GetFloat( "alert_initial", "0" );
 
-	// greebo: TODO: Redirect this into the Memory container.
-	stateOfMind_b_enemiesHaveBeenSeen = spawnArgs.GetBool ("stateOfMind_b_enemiesHaveBeenSeen");
-	stateOfMind_b_itemsHaveBeenStolen = spawnArgs.GetBool ("stateOfMind_b_itemsHaveBeenStolen");
-	stateOfMind_count_evidenceOfIntruders = spawnArgs.GetFloat ("stateOfMind_count_evidenceOfIntruders", "0.0");
-
-	/**
-	* This tracks how much indirect evidence of an intruder or intruders the AI
-	* has accumulated itself or heard about from other AIs.
-	* It is used for stateful communication with other AIs and can also influence behaivior.
-	**/
-	idScriptFloat			stateOfMind_count_evidenceOfIntruders;
-
-
-
 	flashJointWorld = animator.GetJointHandle( "flash" );
 
 	if ( head.GetEntity() ) {
@@ -1808,11 +1794,6 @@ void idAI::LinkScriptVariables( void )
 
 	AI_bMeleeWeapDrawn.LinkTo( scriptObject, "AI_bMeleeWeapDrawn" );
 	AI_bRangedWeapDrawn.LinkTo( scriptObject, "AI_bRangedWeapDrawn" );
-
-	stateOfMind_b_enemiesHaveBeenSeen.LinkTo ( scriptObject, "stateOfMind_b_enemiesHaveBeenSeen" );
-	stateOfMind_b_itemsHaveBeenStolen.LinkTo ( scriptObject, "stateOfMind_b_itemsHaveBeenStolen" );
-	stateOfMind_count_evidenceOfIntruders.LinkTo ( scriptObject, "stateOfMind_count_evidenceOfIntruders" );
-
 
 	//these are set until unset by the script
 	AI_HEARDSOUND.LinkTo(		scriptObject, "AI_HEARDSOUND");

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1721 $
- * $Date: 2007-11-06 13:45:33 -0500 (Tue, 06 Nov 2007) $
+ * $Revision: 1725 $
+ * $Date: 2007-11-07 07:08:28 -0500 (Wed, 07 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -793,26 +793,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	**/
 	idScriptBool			AI_bMeleeWeapDrawn;
 	idScriptBool			AI_bRangedWeapDrawn;
-
-	/**
-	* This tracks if the AI has information about any enemies having been spotted.
-	* It is used for stateful communication with other AIs and can also influence behaivior.
-	**/
-	idScriptBool			stateOfMind_b_enemiesHaveBeenSeen;
-
-	/**
-	* This tracks if the AI has information about any items having gone missing.
-	* It is used for stateful communication with other AIs and can also influence behaivior.
-	**/
-	idScriptBool			stateOfMind_b_itemsHaveBeenStolen;
-
-	/**
-	* This tracks how much indirect evidence of an intruder or intruders the AI
-	* has accumulated itself or heard about from other AIs.
-	* It is used for stateful communication with other AIs and can also influence behaivior.
-	**/
-	idScriptFloat			stateOfMind_count_evidenceOfIntruders;
-
 
 	/**
 	* Stores the amount alerted in this frame
@@ -1637,11 +1617,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Will return 0.0 to script if other entity is NULL or not an AI.
 	*/
 	void Event_GetAlertNumOfOtherAI (idEntity* p_otherEntity);
-
-	/**
-	* Gets the value of a script linked variable from another AI.
-	*/
-	void Event_GetVariableFromOtherAI (idEntity* p_otherEntity, const char* pstr_variableName);
 
 	/*!
 	* This event is used by an AI script to issue a message to other AI's through
