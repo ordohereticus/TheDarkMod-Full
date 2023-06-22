@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2241 $
- * $Date: 2008-04-28 16:21:37 -0400 (Mon, 28 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2247 $
+ * $Date: 2008-04-29 16:21:37 -0400 (Tue, 29 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -905,6 +905,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * greebo: Is set to TRUE if the AI is able to open/close doors at all.
 	 */
 	bool					m_bCanOperateDoors;
+
+	/**
+	 * angua: is set true while the AI is handling the door.
+	 */
+	bool					m_HandlingDoor;
 
 	/**
 	* Head center offset in head joint coordinates, relative to head joint

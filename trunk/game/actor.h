@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2243 $
- * $Date: 2008-04-29 04:10:01 -0400 (Tue, 29 Apr 2008) $
- * $Author: ishtvan $
+ * $Revision: 2247 $
+ * $Date: 2008-04-29 16:21:37 -0400 (Tue, 29 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -381,7 +381,7 @@ protected:
 
 	int						painTime;
 
-	idList<CAttachInfo>	m_attachments;
+//	idList<CAttachInfo>	m_Attachments;
 	
 	// Maps animation names to the names of their replacements
 	idDict					m_replacementAnims;
