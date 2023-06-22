@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2273 $
- * $Date: 2008-05-08 14:00:24 -0400 (Thu, 08 May 2008) $
+ * $Revision: 2274 $
+ * $Date: 2008-05-08 14:40:11 -0400 (Thu, 08 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -753,6 +753,7 @@ public:
 	void				Restore( idRestoreGame *savefile );
 
 	// greebo: Public function to set the state directly
+	// Note: Passing TRUE means that the AAS area is DISABLED
 	void				SetAASState(bool newState);
 
 private:

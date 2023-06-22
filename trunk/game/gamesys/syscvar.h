@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2220 $
- * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2274 $
+ * $Date: 2008-05-08 14:40:11 -0400 (Thu, 08 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -57,6 +57,8 @@ extern idCVar cv_ai_opt_novisualstim;
 extern idCVar cv_ai_opt_nolipsync;
 extern idCVar cv_ai_opt_nopresent;
 extern idCVar cv_ai_opt_noobstacleavoidance;
+
+extern idCVar cv_ai_show_aasfuncobstacle_state;
 
 extern idCVar cv_las_showtraces;
 extern idCVar cv_show_gameplay_time;

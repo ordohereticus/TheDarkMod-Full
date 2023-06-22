@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2273 $
- * $Date: 2008-05-08 14:00:24 -0400 (Thu, 08 May 2008) $
+ * $Revision: 2274 $
+ * $Date: 2008-05-08 14:40:11 -0400 (Thu, 08 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 2273 2008-05-08 18:00:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 2274 2008-05-08 18:40:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -3048,7 +3048,10 @@ idFuncAASObstacle::Spawn
 void idFuncAASObstacle::Spawn( void ) {
 	state = spawnArgs.GetBool( "start_on" );
 	gameLocal.SetAASAreaState( GetPhysics()->GetAbsBounds(), AREACONTENTS_OBSTACLE, state );
-	gameRenderWorld->DebugBounds(state ? colorGreen : colorRed, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 15000);
+	if (cv_ai_show_aasfuncobstacle_state.GetBool())
+	{
+		gameRenderWorld->DebugBounds(state ? colorRed : colorGreen, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 15000);
+	}
 }
 
 /*
@@ -3059,14 +3062,20 @@ idFuncAASObstacle::Event_Activate
 void idFuncAASObstacle::Event_Activate( idEntity *activator ) {
 	state ^= 1;
 	gameLocal.SetAASAreaState( GetPhysics()->GetAbsBounds(), AREACONTENTS_OBSTACLE, state );
-	gameRenderWorld->DebugBounds(state ? colorGreen : colorRed, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 2000);
+	if (cv_ai_show_aasfuncobstacle_state.GetBool())
+	{
+		gameRenderWorld->DebugBounds(state ? colorRed : colorGreen, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 2000);
+	}
 }
 
 void idFuncAASObstacle::SetAASState(bool newState)
 {
 	state = newState;
 	gameLocal.SetAASAreaState( GetPhysics()->GetAbsBounds(), AREACONTENTS_OBSTACLE, state );
-	gameRenderWorld->DebugBounds(state ? colorGreen : colorRed, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 2000);
+	if (cv_ai_show_aasfuncobstacle_state.GetBool())
+	{
+		gameRenderWorld->DebugBounds(state ? colorRed : colorGreen, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 2000);
+	}
 }
 
 
