@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1791 $
- * $Date: 2007-11-14 11:26:01 -0500 (Wed, 14 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1901 $
+ * $Date: 2007-12-26 13:58:04 -0500 (Wed, 26 Dec 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1791 2007-11-14 16:26:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1901 2007-12-26 18:58:04Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -41,6 +41,7 @@ const idEventDef AI_ClosestReachableEnemyOfEntity( "closestReachableEnemyOfEntit
 const idEventDef AI_HeardSound( "heardSound", "d", 'e' );
 // greebo: TDM Event: Try to find a visible AI of the given team
 const idEventDef AI_FindFriendlyAI( "findFriendlyAI", "d", 'e' );
+const idEventDef AI_ProcessBlindStim( "processBlindStim", "ed" );
 const idEventDef AI_ProcessVisualStim("processVisualStim", "e");
 
 const idEventDef AI_SetEnemy( "setEnemy", "E" );
@@ -367,6 +368,7 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_FindEnemyInCombatNodes,			idAI::Event_FindEnemyInCombatNodes )
 	EVENT( AI_ClosestReachableEnemyOfEntity,	idAI::Event_ClosestReachableEnemyOfEntity )
 	EVENT( AI_FindFriendlyAI,					idAI::Event_FindFriendlyAI )
+	EVENT( AI_ProcessBlindStim,					idAI::Event_ProcessBlindStim )
 	EVENT( AI_ProcessVisualStim,				idAI::Event_ProcessVisualStim )
 	EVENT( AI_HeardSound,						idAI::Event_HeardSound )
 	EVENT( AI_SetEnemy,							idAI::Event_SetEnemy )
@@ -3543,6 +3545,12 @@ void idAI::Event_SwitchState(const char* state)
 void idAI::Event_EndState()
 {
 	idThread::ReturnInt(static_cast<int>(mind->EndState()));
+}
+
+
+void idAI::Event_ProcessBlindStim(idEntity* stimSource, int skipVisibilityCheck)
+{
+	mind->GetState()->OnBlindStim(stimSource, skipVisibilityCheck != 0);
 }
 
 void idAI::Event_ProcessVisualStim(idEntity* stimSource)

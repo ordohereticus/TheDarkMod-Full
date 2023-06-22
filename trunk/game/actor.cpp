@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1879 $
- * $Date: 2007-12-22 13:36:41 -0500 (Sat, 22 Dec 2007) $
+ * $Revision: 1901 $
+ * $Date: 2007-12-26 13:58:04 -0500 (Wed, 26 Dec 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1879 2007-12-22 18:36:41Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1901 2007-12-26 18:58:04Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1593,12 +1593,6 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const
 		return false;
 	}*/
 
-	// This will hold the results of the traces
-	trace_t result;
-
-	// eye position of the AI
-	idVec3 eye(GetEyePosition());
-
 	// The enemy's origin
 	idVec3 entityOrigin = ent->GetPhysics()->GetOrigin();
 
@@ -1608,6 +1602,12 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const
 		// FOV check failed
 		return false;
 	}
+
+	// This will hold the results of the traces
+	trace_t result;
+
+	// eye position of the AI
+	idVec3 eye(GetEyePosition());
 
 	// angua: If the target entity is an idActor,
 	// use its eyeposition, the origin and the shoulders

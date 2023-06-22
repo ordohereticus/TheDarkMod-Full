@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1863 $
- * $Date: 2007-12-09 16:14:44 -0500 (Sun, 09 Dec 2007) $
+ * $Revision: 1901 $
+ * $Date: 2007-12-26 13:58:04 -0500 (Wed, 26 Dec 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1667,6 +1667,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void Event_IssueCommunication_DOE ( float messageType, float maxRadius, idEntity* directObjectEntity, const idVec3& directObjectLocation);
 	void Event_IssueCommunication ( float messageType, float maxRadius, const idVec3& directObjectLocation);
 
+
+	void Event_ProcessBlindStim(idEntity* stimSource, int skipVisibilityCheck);
 	/**
 	 * greebo: Script event for processing a visual stim coming from the entity <stimSource>
 	 */
