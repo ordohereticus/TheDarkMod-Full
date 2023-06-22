@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1680 $
-#* $Date: 2007-11-04 16:17:31 -0500 (Sun, 04 Nov 2007) $
-#* $Author: angua $
+#* $Revision: 1687 $
+#* $Date: 2007-11-05 04:48:37 -0500 (Mon, 05 Nov 2007) $
+#* $Author: greebo $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -199,7 +199,6 @@ AI/Tasks/RandomTurningTask.cpp \
 AI/Tasks/RangedCombatTask.cpp \
 AI/Tasks/RepeatedBarkTask.cpp \
 AI/Tasks/SingleBarkTask.cpp \
-AI/Tasks/StimulusSensoryTask.cpp \
 AI/Tasks/ThrowObjectTask.cpp \
 AI/Tasks/WaitTask.cpp \
 sourcehook/sourcehook.cpp'
