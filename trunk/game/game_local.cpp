@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1178 $
- * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1186 $
+ * $Date: 2007-07-22 12:03:55 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1178 2007-07-22 07:30:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1186 2007-07-22 16:03:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -568,6 +568,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// Add relationship matrix object
 	savegame.AddObject( m_RelationsManager );
+	savegame.AddObject( g_Global.m_DarkModPlayer->grabber );
 
 	// write out complete object list
 	savegame.WriteObjectList();
@@ -715,9 +716,6 @@ void idGameLocal::SaveGame( idFile *f ) {
 	m_sndProp->Save(&savegame);
 	m_MissionData->Save(&savegame);
 	
-	// Save the DarkMod player object, this contains a lot of other TDM-related classes
-	g_Global.m_DarkModPlayer->Save(&savegame);
-
 	// spawnSpots
 	// initialSpots
 	// currentInitialSpot
@@ -727,6 +725,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// write out pending events
 	idEvent::Save( &savegame );
+
+	// Save the DarkMod player object, this contains a lot of other TDM-related classes
+	g_Global.m_DarkModPlayer->Save(&savegame);
 
 	savegame.Close();
 }
@@ -1619,9 +1620,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_sndProp->Restore(&savegame);
 	m_MissionData->Restore(&savegame);
 
-	// Restore the DarkMod player object, this contains a lot of other TDM-related classes
-	g_Global.m_DarkModPlayer->Restore(&savegame);
-
 	// spawnSpots
 	// initialSpots
 	// currentInitialSpot
@@ -1631,6 +1629,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	// Read out pending events
 	idEvent::Restore( &savegame );
+
+	// Restore the DarkMod player object, this contains a lot of other TDM-related classes
+	g_Global.m_DarkModPlayer->Restore(&savegame);
 
 	savegame.RestoreObjects();
 
@@ -1645,6 +1646,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	//FIX: Set the walkspeed back to the stored value.
 	pm_walkspeed.SetFloat( m_walkSpeed );
+
+	// Restore the physics pointer in the grabber.
+	g_Global.m_DarkModPlayer->grabber->SetPhysicsFromDragEntity();
 
 	Printf( "--------------------------------------\n" );
 
@@ -1713,6 +1717,9 @@ void idGameLocal::MapShutdown( void ) {
 		inCinematic = false;
 	}
 
+	// Run the grabber->clear() method before the entities get deleted from the map
+	g_Global.m_DarkModPlayer->grabber->Clear();
+
 	MapClear( true );
 
 	// reset the script to the state it was before the map was started
@@ -1733,8 +1740,6 @@ void idGameLocal::MapShutdown( void ) {
 	m_RelationsManager->Clear();
 	m_MissionData->Clear();
 	m_PriorityQueues.DeleteContents(true);
-
-	g_Global.m_DarkModPlayer->grabber->Clear();
 
 	clip.Shutdown();
 	idClipModel::ClearTraceModelCache();
