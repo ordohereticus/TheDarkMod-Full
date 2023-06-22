@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1375 $
- * $Date: 2007-09-03 05:37:41 -0400 (Mon, 03 Sep 2007) $
- * $Author: crispy $
+ * $Revision: 1380 $
+ * $Date: 2007-09-14 04:50:00 -0400 (Fri, 14 Sep 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1375 2007-09-03 09:37:41Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1380 2007-09-14 08:50:00Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -369,6 +369,9 @@ const idEventDef AI_DropAttachment( "dropAttachment", "d" );
 const idEventDef AI_ShowAttachment( "showAttachment", "dd" );
 const idEventDef AI_GetAttachment( "getAttachment", "d", 'e' );
 const idEventDef AI_GetNumAttachments( "getNumAttachments", NULL, 'd' );
+// Weapon attachment related events
+const idEventDef AI_GetNumRangedWeapons( "getNumRangedWeapons", NULL, 'd' );
+const idEventDef AI_GetNumMeleeWeapons( "getNumMeleeWeapons", NULL, 'd' );
 
 // Task queue events
 const idEventDef AI_AttachTaskQueue( "attachTaskQueue", "d" );
@@ -424,6 +427,8 @@ CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT ( AI_ShowAttachment,			idActor::ShowAttachment )
 	EVENT ( AI_GetAttachment,			idActor::Event_GetAttachment )
 	EVENT ( AI_GetNumAttachments,		idActor::Event_GetNumAttachments )
+	EVENT ( AI_GetNumRangedWeapons,		idActor::Event_GetNumRangedWeapons )
+	EVENT ( AI_GetNumMeleeWeapons,		idActor::Event_GetNumMeleeWeapons )
 
 	EVENT ( AI_AttachTaskQueue,			idActor::Event_AttachTaskQueue )
 	EVENT ( AI_DetachTaskQueue,			idActor::Event_DetachTaskQueue )
@@ -3930,6 +3935,36 @@ idActor::Event_GetAttachment
 void idActor::Event_GetNumAttachments( void )
 {
 	idThread::ReturnInt( m_attachments.Num() );
+}
+
+/*
+=====================
+idActor::Event_GetNumMeleeWeapons
+=====================
+*/
+void idActor::Event_GetNumMeleeWeapons()
+{
+	idThread::ReturnInt(GetNumMeleeWeapons());
+}
+
+/*
+=====================
+idActor::Event_GetNumRangedWeapons
+=====================
+*/
+void idActor::Event_GetNumRangedWeapons()
+{
+	idThread::ReturnInt(GetNumRangedWeapons());
+}
+
+int idActor::GetNumMeleeWeapons()
+{
+	return 0;
+}
+
+int idActor::GetNumRangedWeapons()
+{
+	return 0;
 }
 
 /****************************************************************************************
