@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1775 $
+ * $Date: 2007-11-13 11:24:11 -0500 (Tue, 13 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 1775 2007-11-13 16:24:11Z greebo $", init_version);
 
 #include "PVSToAASMapping.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -252,3 +252,35 @@ void PVSToAASMapping::getAASAreasForPVSArea(int pvsAreaIndex, idList<int>& out_a
 	// Done
 }
 
+void PVSToAASMapping::DebugShowMappings(int lifetime)
+{
+	if (numPVSAreas <= 0)
+	{
+		gameLocal.Printf("Cannot draw mappings, no PVS areas available.\n");
+	}
+
+	idAAS* aas = gameLocal.GetAAS(aasName.c_str());
+
+	idMat3 playerViewMatrix(gameLocal.GetLocalPlayer()->viewAngles.ToMat3());
+
+	idVec4 color(1,1,1,1);
+
+	for (int i = 0; i < numPVSAreas; i++)
+	{
+		PVSToAASMappingNode* node = m_p_AASAreaIndicesPerPVSArea[i];
+
+		while (node != NULL)
+		{
+			int aasArea = node->AASAreaIndex;
+			idVec3 areaCenter = aas->AreaCenter(aasArea);
+
+			gameRenderWorld->DrawText(va("%d", aasArea), areaCenter, 0.75f, color, playerViewMatrix, 1, lifetime);
+
+			node = node->p_next;
+		}
+
+		color.x = gameLocal.random.RandomFloat() + 0.1f;
+		color.y = gameLocal.random.RandomFloat() + 0.1f;
+		color.z = gameLocal.random.RandomFloat() + 0.1f;
+	}
+}

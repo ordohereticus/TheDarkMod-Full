@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1756 $
- * $Date: 2007-11-11 20:44:49 -0500 (Sun, 11 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1775 $
+ * $Date: 2007-11-13 11:24:11 -0500 (Tue, 13 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1756 2007-11-12 01:44:49Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1775 2007-11-13 16:24:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4889,6 +4889,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 			
 		}
 		break;
+
+		case IMPULSE_27:
+			LAS.pvsToAASMappingTable.DebugShowMappings(10000);
+			break;
 
 		case IMPULSE_28:
 		{

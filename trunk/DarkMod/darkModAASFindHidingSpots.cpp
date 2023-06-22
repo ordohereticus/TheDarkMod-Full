@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1770 $
- * $Date: 2007-11-12 16:45:24 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1775 $
+ * $Date: 2007-11-13 11:24:11 -0500 (Tue, 13 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1770 2007-11-12 21:45:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1775 2007-11-13 16:24:11Z greebo $", init_version);
 
 #include "darkModAASFindHidingSpots.h"
 #include "DarkModGlobals.h"
@@ -331,9 +331,7 @@ bool darkModAASFindHidingSpots::findMoreHidingSpots
 	int& inout_numPointsTestedThisPass
 )
 {
-	// Holds the center of an AAS area during testing
-	idVec3	areaCenter;
-
+	DM_LOG(LC_AI, LT_INFO).LogString("Find more hiding spots called, searchState = %d.\r", searchState);
 	// Make sure search wasn't destroyed
 	if (h_hideFromPVS.h == 0 && h_hideFromPVS.i == -1)
 	{
@@ -341,13 +339,17 @@ bool darkModAASFindHidingSpots::findMoreHidingSpots
 		return false;
 	}
 
+	// Holds the center of an AAS area during testing
+	idVec3	areaCenter;
+
 	// Branch based on state until search is done or we have tested enough points this pass
 	bool b_searchNotDone = (searchState != done_searchState);
+
 	while (b_searchNotDone && inout_numPointsTestedThisPass < numPointsToTestThisPass)
 	{
 		if (searchState == newPVSArea_searchState)
 		{
-			b_searchNotDone = testNewPVSArea 
+			b_searchNotDone = testNewPVSArea
 			(
 				inout_hidingSpots,
 				numPointsToTestThisPass,
@@ -424,7 +426,6 @@ bool darkModAASFindHidingSpots::testNewPVSArea
 		// thus considered hidden.
 		if (!gameLocal.pvs.InCurrentPVS( h_hideFromPVS, PVSAreas[numPVSAreasIterated]))
 		{
-
 			// Only put these in here if PVS based hiding spots are allowed
 			if ((hidingSpotTypesAllowed & PVS_AREA_HIDING_SPOT_TYPE) != 0)
 			{
@@ -1166,12 +1167,7 @@ bool darkModAASFindHidingSpots::startHidingSpotSearch
 	// Note, the id code below did this by expanding a bound out from the area center, regardless
 	// of the size of the area.  This uses our function-local PVSArea array to
 	// hold the intersecting PVS Areas.
-	numPVSAreas = gameLocal.pvs.GetPVSAreas
-	(
-		searchLimits, 
-		PVSAreas, 
-		idEntity::MAX_PVS_AREAS 
-	);
+	numPVSAreas = gameLocal.pvs.GetPVSAreas(searchLimits, PVSAreas, idEntity::MAX_PVS_AREAS);
 
 	// Haven't iterated any PVS areas yet
 	numPVSAreasIterated = 0;
@@ -1203,6 +1199,8 @@ bool darkModAASFindHidingSpots::continueSearchForHidingSpots
 	int frameNumber
 )
 {
+	DM_LOG(LC_AI, LT_INFO).LogString("Finder:continueSearchForHidingSpots called, last frame processed = %d, this frame = %d\r", lastProcessingFrameNumber, frameNumber);
+
 	// If we already tested points this frame, don't test any more
 	if (frameNumber == lastProcessingFrameNumber)
 	{

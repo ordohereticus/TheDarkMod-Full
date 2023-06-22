@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1775 $
+ * $Date: 2007-11-13 11:24:11 -0500 (Tue, 13 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -95,5 +95,10 @@ public:
    */
    void getAASAreasForPVSArea(int pvsAreaIndex, idList<int>& out_aasAreaIndices);
 
-
+	/**
+     * greebo: Draws the AAS areas per PVS area.
+	 *
+	 * @lifetime: How long the debug draws should be visible (in msecs.)
+	 */
+	void DebugShowMappings(int lifetime);
 };
