@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2212 $
- * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2221 $
+ * $Date: 2008-04-26 10:56:54 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -797,6 +797,9 @@ protected:
 
 	// The team number of the player, needed for the statistics GUI
 	int			m_PlayerTeam;
+
+	// This gets read out right at "mission complete" time, is 0 before
+	unsigned int	m_TotalGamePlayTime;
 
 }; // CMissionData
 

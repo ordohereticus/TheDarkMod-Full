@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2220 $
- * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2221 $
+ * $Date: 2008-04-26 10:56:54 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2220 2008-04-26 14:31:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2221 2008-04-26 14:56:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -633,6 +633,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	m_DifficultyManager.Save(&savegame);
 
+	m_GamePlayTimer.Save(&savegame);
 	m_AreaManager.Save(&savegame);
 
 	savegame.WriteInt( g_skill.GetInteger() );
@@ -1537,6 +1538,8 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	m_DifficultyManager.Restore(&savegame);
 
+	m_GamePlayTimer.Restore(&savegame);
+	m_GamePlayTimer.SetEnabled(false);
 	m_AreaManager.Restore(&savegame);
 
 	savegame.ReadInt( i );
@@ -1801,6 +1804,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	}
 
 	Printf( "--------------------------------------\n" );
+
+	// Restart the timer
+	m_GamePlayTimer.Start();
 
 	return true;
 }

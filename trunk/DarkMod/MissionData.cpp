@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2220 $
- * $Date: 2008-04-26 10:31:05 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2221 $
+ * $Date: 2008-04-26 10:56:54 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2220 2008-04-26 14:31:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2221 2008-04-26 14:56:54Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -173,7 +173,8 @@ void CObjectiveComponent::Restore( idRestoreGame *savefile )
 }
 
 CMissionData::CMissionData( void ) :
-	m_PlayerTeam(0)
+	m_PlayerTeam(0),
+	m_TotalGamePlayTime(0)
 {
 	int i;
 
@@ -254,6 +255,7 @@ void CMissionData::Clear( void )
 void CMissionData::Save( idSaveGame *savefile ) const
 {
 	savefile->WriteInt(m_PlayerTeam);
+	savefile->WriteUnsignedInt(m_TotalGamePlayTime);
 	savefile->WriteBool( m_bObjsNeedUpdate );
 	
 	savefile->WriteInt( m_Objectives.Num() );
@@ -299,6 +301,7 @@ void CMissionData::Restore( idRestoreGame *savefile )
 	int num(0);
 
 	savefile->ReadInt(m_PlayerTeam);
+	savefile->ReadUnsignedInt(m_TotalGamePlayTime);
 	savefile->ReadBool( m_bObjsNeedUpdate );
 	
 	savefile->ReadInt( num );
@@ -884,6 +887,9 @@ void CMissionData::Event_MissionComplete( void )
 	gameLocal.Printf("MISSION COMPLETED\n");
 
 	// TODO: Read off which map to go to next, basically call endLevel
+
+	// greebo: Stop the gameplay timer, we've completed all objectives
+	m_TotalGamePlayTime = gameLocal.m_GamePlayTimer.GetTimeInSeconds();
 	
 	// for now, just play the sound (later it will be played in the GUI)
 	idPlayer *player = gameLocal.GetLocalPlayer();
@@ -2364,6 +2370,10 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	// The listdef item (name + _) prefix
 	idStr prefix = va("%s_item_", listDefName.c_str());
 	
+	key = "Time";
+	value = idStr(GamePlayTimer::TimeToStr(m_TotalGamePlayTime));
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+
 	key = "Damage Dealt"; 
 	value = idStr(m_Stats.DamageDealt);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
@@ -2388,7 +2398,7 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	value = idStr(m_Stats.AIStats[COMP_KO].ByTeam[m_PlayerTeam]);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 
-	key = "Frames";
+	/*key = "Frames";
 	value = idStr(gameLocal.framenum);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 	key = "GameLocal.time";
@@ -2396,7 +2406,7 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
 	key = "GameLocal.realClientTime";
 	value = idStr(gameLocal.realClientTime);
-	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);
+	gui->SetStateString(prefix + idStr(index++), key + "\t" + value);*/
 
 	// Force a redraw
 	gui->StateChanged(gameLocal.time, true);
