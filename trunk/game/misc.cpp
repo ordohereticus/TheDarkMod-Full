@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1020 $
- * $Date: 2007-06-10 20:57:20 -0400 (Sun, 10 Jun 2007) $
- * $Author: ishtvan $
+ * $Revision: 1335 $
+ * $Date: 2007-08-28 08:50:16 -0400 (Tue, 28 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1020 2007-06-11 00:57:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 1335 2007-08-28 12:50:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -404,6 +404,27 @@ void idPathCorner::Event_RandomPath( void ) {
 
 	path = RandomPath( this, NULL );
 	idThread::ReturnEntity( path );
+}
+
+/*
+===============================================================================
+
+tdmPathFlee
+
+===============================================================================
+*/
+
+CLASS_DECLARATION( idEntity, tdmPathFlee )
+END_CLASS
+
+/*
+=====================
+tdmPathFlee::Spawn
+=====================
+*/
+void tdmPathFlee::Spawn( void ) {
+	// Register this class with the flee location manager
+	DM_LOG(LC_AI, LT_INFO).LogString("tdmPathFlee spawned.\r");
 }
 
 /*
