@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2091 $
- * $Date: 2008-02-14 13:24:37 -0500 (Thu, 14 Feb 2008) $
+ * $Revision: 2092 $
+ * $Date: 2008-02-14 13:27:23 -0500 (Thu, 14 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2091 2008-02-14 18:24:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2092 2008-02-14 18:27:23Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -1005,12 +1005,6 @@ bool idAI::FindPathAroundObstacles( const idPhysics *physics, const idAAS *aas, 
 
 	if (aas == NULL) {
 		return true; // no AAS!
-	}
-
-	// greebo: Optimisation: don't perform obstace avoidance when we're basically at the seek position
-	idVec3 seekDelta = seekPos - startPos;
-	if (seekDelta.LengthSqr() < 100.0f) {
-		return true;
 	}
 
 	idBounds bounds;
