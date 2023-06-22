@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1911 $
- * $Date: 2007-12-27 12:17:39 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1912 $
+ * $Date: 2007-12-27 12:31:43 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1911 2007-12-27 17:17:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1912 2007-12-27 17:31:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -117,6 +117,7 @@ const idEventDef EV_Player_GetFov("getFov", NULL, 'f');
 
 const idEventDef EV_Player_PauseGame("pauseGame", NULL);
 const idEventDef EV_Player_UnpauseGame("unpauseGame", NULL);
+const idEventDef EV_Player_UpdateObjectivesGUI("updateObjectivesGUI", "d");
 
 // greebo: Allows scripts to set a named lightgem modifier to a certain value (e.g. "lantern" => 32)
 const idEventDef EV_Player_SetLightgemModifier("setLightgemModifier", "sd");
@@ -182,6 +183,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 	// Events needed for the Objectives GUI (is a blocking GUI - pauses the game)
 	EVENT( EV_Player_PauseGame,				idPlayer::Event_Pausegame )
 	EVENT( EV_Player_UnpauseGame,			idPlayer::Event_Unpausegame )
+	EVENT( EV_Player_UpdateObjectivesGUI,	idPlayer::Event_UpdateObjectivesGUI)
 
 END_CLASS
 
@@ -4768,26 +4770,6 @@ void idPlayer::ToggleObjectivesGUI()
 		// Send a signal to the running thread, this should be enough
 		objectiveGUICloseRequest = true;
 	}
-	
-	/*// Objectives GUI not yet open, create
-	objectiveGUIHandle = CreateOverlay(cv_tdm_objectives_gui.GetString(), LAYER_OBJECTIVES);
-	
-	// Update the GUI with the current data
-	gameLocal.m_MissionData->UpdateGUIState(this, objectiveGUIHandle);
-
-	SetImmobilization("obj_gui", EIM_OBJECTIVES_OPEN);*/
-	/*}
-	else 
-	{
-		// Send the signal to the objectives GUI to begin the fade out
-		m_overlays.getGui(objectiveGUIHandle)->HandleNamedEvent("close");
-
-		// Unpause the game
-		gameLocal.PauseGame(false);
-
-		// Destroy the GUI in one second
-		PostEventMS(&EV_Player_DestroyObjectivesGUI, 1000);
-	}*/
 }
 
 /*
@@ -9773,10 +9755,18 @@ void idPlayer::SendHUDMessage(const idStr& text)
 	hudMessages.Append(text);
 }
 
-void idPlayer::Event_Pausegame() {
+void idPlayer::Event_Pausegame()
+{
 	gameLocal.PauseGame(true);
 }
 
-void idPlayer::Event_Unpausegame() {
+void idPlayer::Event_Unpausegame()
+{
 	gameLocal.PauseGame(false);
+}
+
+void idPlayer::Event_UpdateObjectivesGUI(int guiHandle) 
+{
+	// Pass the call to the MissionData class
+	gameLocal.m_MissionData->UpdateGUIState(this, guiHandle);
 }

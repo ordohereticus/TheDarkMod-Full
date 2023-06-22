@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1911 $
- * $Date: 2007-12-27 12:17:39 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1912 $
+ * $Date: 2007-12-27 12:31:43 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -959,6 +959,7 @@ private:
 	// Objectives GUI-related events
 	void					Event_Pausegame();
 	void					Event_Unpausegame();
+	void					Event_UpdateObjectivesGUI(int guiHandle);
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
