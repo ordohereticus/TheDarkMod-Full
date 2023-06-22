@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2121 $
- * $Date: 2008-03-01 14:41:59 -0500 (Sat, 01 Mar 2008) $
- * $Author: greebo $
+ * $Revision: 2168 $
+ * $Date: 2008-04-08 15:53:58 -0400 (Tue, 08 Apr 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -48,6 +48,11 @@ public:
 	void					SetPortalState( bool open );
 
 	bool					IsBlocked( void );
+
+	ID_INLINE idPhysics_Parametric*	GetMoverPhysics()
+	{
+		return &physicsObj;
+	}
 
 
 protected:

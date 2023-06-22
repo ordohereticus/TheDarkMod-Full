@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Revision: 2168 $
+ * $Date: 2008-04-08 15:53:58 -0400 (Tue, 08 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2168 2008-04-08 19:53:58Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -286,14 +286,6 @@ void CFrobDoor::Spawn( void )
 	//TODO: Add portal/door pair to soundprop data here, 
 	//	replacing the old way in sndPropLoader
 
-	idClipModel *clipModel = GetPhysics()->GetClipModel();
-	if (clipModel == NULL)
-	{
-		gameLocal.Error("Frob Door %s has no clip model", name.c_str());
-	}
-
-	idVec3 center = (m_ClosedPos + GetPhysics()->GetOrigin()) * 0.5;
-	center.z = GetPhysics()->GetOrigin().z;
 	for (int i = 0; i < gameLocal.NumAAS(); i++)
 	{
 		idAAS*	aas = gameLocal.GetAAS(i);
@@ -301,7 +293,8 @@ void CFrobDoor::Spawn( void )
 		{
 			continue;
 		}
-		int areaNum = aas->PointReachableAreaNum( center, clipModel->GetBounds(), AREA_REACHABLE_WALK );
+		
+		int areaNum = GetFrobMoverAasArea(aas);
 		idStr areatext(areaNum);
 		//gameRenderWorld->DrawText(areatext.c_str(), center + idVec3(0,0,i), 0.2f, colorGreen, 
 		//	mat3_identity, 1, 10000000);
@@ -393,6 +386,8 @@ void CFrobDoor::Unlock(bool bMaster)
 
 void CFrobDoor::Open(bool bMaster)
 {
+	m_StoppedDueToBlock = false;
+
 	idAngles tempAng;
 
 	// If the door is already open, we don't have anything to do. :)
@@ -502,6 +497,8 @@ void CFrobDoor::OpenDoor(bool bMaster)
 
 void CFrobDoor::Close(bool bMaster)
 {
+	m_StoppedDueToBlock = false;
+
 	CFrobDoor *ent;
 	idEntity *e;
 	idAngles tempAng;
