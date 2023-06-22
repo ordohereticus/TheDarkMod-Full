@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1496 $
+ * $Date: 2007-10-20 11:44:22 -0400 (Sat, 20 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -76,7 +76,7 @@ public:
 	/**
 	 * LightgemValue determines the level of visibillity of the player.
 	 * This value is used to light up the lightgem and is defined as
-	 * 1 <= N <= 16
+	 * 1 <= N <= 32
 	 */
 	int							m_LightgemValue;
 	/**
