@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1508 $
- * $Date: 2007-10-21 07:25:29 -0400 (Sun, 21 Oct 2007) $
+ * $Revision: 1509 $
+ * $Date: 2007-10-21 15:22:23 -0400 (Sun, 21 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1508 2007-10-21 11:25:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1509 2007-10-21 19:22:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1544,12 +1544,6 @@ void idAI::Think( void ) {
 
 	if (thinkFlags & TH_THINK)
 	{
-		// greebo: We always rely on having a mind
-		assert(mind);
-
-		// Let the mind do the thinking
-		mind->Think();
-
 		// clear out the enemy when he dies
 		idActor* enemyEnt = enemy.GetEntity();
 		if (enemyEnt != NULL)
@@ -1667,6 +1661,12 @@ void idAI::Think( void ) {
 				break;
 			}
 		}
+
+		// greebo: We always rely on having a mind
+		assert(mind);
+
+		// Let the mind do the thinking (after the move updates)
+		mind->Think();
 
 		// clear pain flag so that we recieve any damage between now and the next time we run the script
 		AI_PAIN = false;
