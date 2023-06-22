@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1843 $
- * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1849 $
+ * $Date: 2007-11-28 03:47:32 -0500 (Wed, 28 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1849 2007-11-28 08:47:32Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -498,6 +498,11 @@ bool	CMissionData::MatchSpec
 			break;
 		case SPEC_GROUP:
 			bReturnVal = ( pComp->m_SpecVal[ind] == EntDat->group );
+			
+			// Special case for items:
+			if( pComp->m_Type == COMP_ITEM && pComp->m_SpecVal[ind] == "loot_total" )
+				bReturnVal = true;
+
 			break;
 		case SPEC_CLASSNAME:
 			bReturnVal = ( pComp->m_SpecVal[ind] == EntDat->classname );
@@ -608,6 +613,10 @@ bool	CMissionData::EvaluateObjective
 				break;
 			case SPEC_GROUP:
 				value = EntDat1->value;
+
+				// special case for overall loot
+				if( pComp->m_SpecVal[1] == "loot_total" )
+					value = EntDat1->valueSuperGroup;
 				break;
 			default:
 				break;
