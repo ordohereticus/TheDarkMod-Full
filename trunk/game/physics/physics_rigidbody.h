@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1266 $
- * $Date: 2007-08-02 13:47:13 -0400 (Thu, 02 Aug 2007) $
+ * $Revision: 1273 $
+ * $Date: 2007-08-04 14:00:36 -0400 (Sat, 04 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -39,6 +39,7 @@ typedef struct rigidBodyPState_s {
 	idVec6					pushVelocity;				// push velocity
 	idVec3					externalForce;				// external force relative to center of mass
 	idVec3					externalTorque;				// external torque relative to center of mass
+	idVec3					externalForcePoint;			// point where the externalForce is being applied at
 	rigidBodyIState_t		i;							// state used for integration
 } rigidBodyPState_t;
 
