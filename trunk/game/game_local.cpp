@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2008 $
- * $Date: 2008-01-24 12:58:34 -0500 (Thu, 24 Jan 2008) $
+ * $Revision: 2014 $
+ * $Date: 2008-01-27 06:21:10 -0500 (Sun, 27 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2008 2008-01-24 17:58:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2014 2008-01-27 11:21:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3095,24 +3095,22 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			}
 		}
 	}
-	else if (cmd == "showMods") // Called by "New Mission"
+	// greebo: This was used for Thief's Den only
+	/*else if (cmd == "showMods") // Called by "New Mission"
 	{
 		// User requested a map start
 		gui->HandleNamedEvent("ShowBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 1);
-	}
+	}*/
 	else if (cmd == "close") 
 	{
 		gui->HandleNamedEvent("HideBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 0);
 	}
 
-	/* greebo: Commented these out for the Thief's Den release only.
-	   Right after release, these have to be enabled again!
-	
 	g_Diff.HandleCommands(menuCommand, gui);
 	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());
-	g_Mods.HandleCommands(menuCommand, gui);*/
+	g_Mods.HandleCommands(menuCommand, gui);
 }
 
 /*
