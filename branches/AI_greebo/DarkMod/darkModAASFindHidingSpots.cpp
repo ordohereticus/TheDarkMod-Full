@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1563 $
- * $Date: 2007-10-25 15:05:06 -0400 (Thu, 25 Oct 2007) $
+ * $Revision: 1628 $
+ * $Date: 2007-11-01 09:00:18 -0400 (Thu, 01 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1563 2007-10-25 19:05:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1628 2007-11-01 13:00:18Z greebo $", init_version);
 
 #include "darkModAASFindHidingSpots.h"
 #include "DarkModGlobals.h"
@@ -157,7 +157,7 @@ bool darkModAASFindHidingSpots::initialize
 	p_aas = gameLocal.GetAAS (LAS.getAASName());
 	if (p_aas == NULL)
 	{
-		DM_LOG(LC_AI, LT_ERROR).LogString("AAS with name %s not found\n", LAS.getAASName());
+		DM_LOG(LC_AI, LT_ERROR).LogString("AAS with name %s not found\n", LAS.getAASName().c_str());
 		return false;
 	}
 
