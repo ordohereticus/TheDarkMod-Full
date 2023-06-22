@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1264 $
- * $Date: 2007-08-01 14:50:11 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1265 $
+ * $Date: 2007-08-02 04:36:14 -0400 (Thu, 02 Aug 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1264 $   $Date: 2007-08-01 14:50:11 -0400 (Wed, 01 Aug 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1265 $   $Date: 2007-08-02 04:36:14 -0400 (Thu, 02 Aug 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -543,8 +543,10 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 
 			// clip & push
 			
-			// greebo: Use the idPusher only for trace completion
-			//totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end /*- current.origin*/, cv_pm_pushmod.GetFloat() );
+			// greebo: Don't use the idPusher
+			//totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end - current.origin, cv_pm_pushmod.GetFloat() );
+
+			// Set the trace result to zero, we're pushing into things here
 			trace.fraction = 0.0f;
 			trace.endpos = current.origin;
 

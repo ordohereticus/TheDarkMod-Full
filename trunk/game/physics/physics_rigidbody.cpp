@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1263 $
- * $Date: 2007-08-01 13:06:18 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1265 $
+ * $Date: 2007-08-02 04:36:14 -0400 (Thu, 02 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1263 2007-08-01 17:06:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1265 2007-08-02 08:36:14Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1273,22 +1273,27 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 			current.i.orientation = current.localAxis;
 		}
 
-		gameLocal.push.ClipPush( collisionTrace, self, PUSHFL_CLIP|PUSHFL_APPLYIMPULSE, oldOrigin, oldAxis, current.i.position, current.i.orientation );
-		if ( collisionTrace.fraction < 1.0f ) {
-			clipModel->Link( gameLocal.clip, self, 0, oldOrigin, oldAxis );
-			current.i.position = oldOrigin;
-			current.i.orientation = oldAxis;
-			isBlocked = true;
-			return false;
-		}
-		else
+		bool isAF = self->GetBindMaster()->GetPhysics()->IsType(idPhysics_AF::Type);
+		
+		if (!isAF)
 		{
-			clipModel->Link( gameLocal.clip, self, clipModel->GetId(), current.i.position, current.i.orientation );
-			current.i.linearMomentum = mass * ( ( current.i.position - oldOrigin ) / timeStep );
-			current.i.angularMomentum = inertiaTensor * ( ( current.i.orientation * oldAxis.Transpose() ).ToAngularVelocity() / timeStep );
-			current.externalForce.Zero();
-			current.externalTorque.Zero();
+			// For non-AF masters we check for collisions
+			gameLocal.push.ClipPush( collisionTrace, self, PUSHFL_CLIP|PUSHFL_APPLYIMPULSE, oldOrigin, oldAxis, current.i.position, current.i.orientation );
+
+			if (collisionTrace.fraction < 1.0f ) {
+				clipModel->Link( gameLocal.clip, self, 0, oldOrigin, oldAxis );
+				current.i.position = oldOrigin;
+				current.i.orientation = oldAxis;
+				isBlocked = true;
+				return false;
+			}
 		}
+
+		clipModel->Link( gameLocal.clip, self, clipModel->GetId(), current.i.position, current.i.orientation );
+		current.i.linearMomentum = mass * ( ( current.i.position - oldOrigin ) / timeStep );
+		current.i.angularMomentum = inertiaTensor * ( ( current.i.orientation * oldAxis.Transpose() ).ToAngularVelocity() / timeStep );
+		current.externalForce.Zero();
+		current.externalTorque.Zero();		
 
 		return ( current.i.position != oldOrigin || current.i.orientation != oldAxis );
 	}
