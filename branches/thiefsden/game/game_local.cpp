@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1951 $
- * $Date: 2008-01-04 00:39:59 -0500 (Fri, 04 Jan 2008) $
+ * $Revision: 1953 $
+ * $Date: 2008-01-04 11:09:16 -0500 (Fri, 04 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1951 2008-01-04 05:39:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1953 2008-01-04 16:09:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3073,10 +3073,17 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Only switch during map runtime and if not already triggered
 		if (GameState() == GAMESTATE_ACTIVE)
 		{
-			gui->HandleNamedEvent("SetupObjectivesForIngame");
+			// Only trigger the visuals update once
+			if (!gui->GetStateBool("GameStateActive"))
+			{
+				gui->HandleNamedEvent("SetupObjectivesForIngame");
 
-			gui->HandleNamedEvent("ShowObjectivesButton");
-			gui->HandleNamedEvent("ShowResumeGameButton");
+				gui->HandleNamedEvent("ShowObjectivesButton");
+				gui->HandleNamedEvent("ShowResumeGameButton");
+
+				gui->SetStateBool("GameStateActive", true);
+				gui->SetStateBool("GameStateNoMap", false);
+			}
 
 			if (!objectivesUpdated)
 			{
@@ -3088,10 +3095,17 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		}
 		else
 		{
-			gui->HandleNamedEvent("SetupObjectivesForMapStart");
+			// Only trigger the visuals once
+			if (!gui->GetStateBool("GameStateNoMap"))
+			{
+				gui->HandleNamedEvent("SetupObjectivesForMapStart");
 
-			gui->HandleNamedEvent("HideResumeGameButton");
-			gui->HandleNamedEvent("HideObjectivesButton");
+				gui->HandleNamedEvent("HideResumeGameButton");
+				gui->HandleNamedEvent("HideObjectivesButton");
+
+				gui->SetStateBool("GameStateNoMap", true);
+				gui->SetStateBool("GameStateActive", false);
+			}
 		}
 	}
 	else if (cmd == "objective_open_request")
