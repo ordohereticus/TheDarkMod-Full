@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1751 $
- * $Date: 2007-11-11 08:03:20 -0500 (Sun, 11 Nov 2007) $
- * $Author: dram $
+ * $Revision: 1843 $
+ * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 1751 2007-11-11 13:03:20Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -780,8 +780,8 @@ void idPlayerView::InfluenceVision( idUserInterface *hud, const renderView_t *vi
 		SingleView( hud, view );
 		return;
 	} else {
-		int offset =  25 + sin( (float)gameLocal.time );
-		DoubleVision( hud, view, pct * offset );
+		int offset =  static_cast<int>(25 + sin(static_cast<float>(gameLocal.time)));
+		DoubleVision( hud, view, static_cast<int>(pct * offset) );
 	}
 }
 

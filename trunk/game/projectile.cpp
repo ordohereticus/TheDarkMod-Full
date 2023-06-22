@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1515 $
- * $Date: 2007-10-22 01:50:51 -0400 (Mon, 22 Oct 2007) $
- * $Author: ishtvan $
+ * $Revision: 1843 $
+ * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 1515 2007-10-22 05:50:51Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -975,7 +975,7 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 		float delay = spawnArgs.GetFloat( "delay_splash" );
 		if ( delay ) {
 			if ( removeTime < delay * 1000 ) {
-				removeTime = ( delay + 0.10 ) * 1000;
+				removeTime = static_cast<int>( delay + 0.10f ) * 1000;
 			}
 			PostEventSec( &EV_RadiusDamage, delay, ignore );
 		} else {

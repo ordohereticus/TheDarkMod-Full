@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1648 $
- * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1843 $
+ * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -247,7 +247,7 @@ public:
 	// greebo: added these to make the interval customisable
 	int						healthPoolStepAmount;			// The amount of healing in each pulse
 	int						healthPoolTimeInterval;			// The time between health pulses
-	int						healthPoolTimeIntervalFactor;	// The factor to increase the time interval after each pulse
+	float					healthPoolTimeIntervalFactor;	// The factor to increase the time interval after each pulse
 
 
 	bool					hiddenWeapon;		// if the weapon is hidden ( in noWeapons maps )

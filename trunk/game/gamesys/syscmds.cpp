@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1839 $
- * $Date: 2007-11-23 03:47:29 -0500 (Fri, 23 Nov 2007) $
+ * $Revision: 1843 $
+ * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1839 2007-11-23 08:47:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -1406,7 +1406,7 @@ static void Cmd_AddDebugLine_f( const idCmdArgs &args ) {
 	debugLines[i].end.x = Cmd_GetFloatArg( args, argNum );
 	debugLines[i].end.y = Cmd_GetFloatArg( args, argNum );
 	debugLines[i].end.z = Cmd_GetFloatArg( args, argNum );
-	debugLines[i].color = Cmd_GetFloatArg( args, argNum );
+	debugLines[i].color = static_cast<int>(Cmd_GetFloatArg( args, argNum ));
 }
 
 /*
@@ -1481,9 +1481,10 @@ PrintFloat
 ==================
 */
 static void PrintFloat( float f ) {
-	char buf[128], i;
+	char buf[128];
+	int i;
 
-	for ( i = sprintf( buf, "%3.2f", f ); i < 7; i++ ) {
+	for (i = sprintf( buf, "%3.2f", f ); i < 7; i++) {
 		buf[i] = ' ';
 	}
 	buf[i] = '\0';

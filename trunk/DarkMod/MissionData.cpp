@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1820 $
- * $Date: 2007-11-20 04:24:23 -0500 (Tue, 20 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1843 $
+ * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1820 2007-11-20 09:24:23Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -582,6 +582,8 @@ bool	CMissionData::EvaluateObjective
 				bReturnVal = true;
 				goto Quit;
 				break;
+			default: // greebo: compiler complained about SPEC_GROUP not being handled
+				break;
 		}
 
 		bReturnVal = value >= atoi(pComp->m_Args[0]);
@@ -665,7 +667,7 @@ void CMissionData::UpdateObjectives( void )
 			delta = ent1->GetPhysics()->GetOrigin();
 			delta = delta - ent2->GetPhysics()->GetOrigin();
 
-			dist = atof(pComp->m_Args[2]);
+			dist = static_cast<int>(atof(pComp->m_Args[2]));
 			dist *= dist;
 
 			SetComponentState( pComp, ( delta.LengthSqr() < dist ) );
@@ -2082,7 +2084,7 @@ CObjectiveLocation::CObjectiveLocation( void )
 
 void CObjectiveLocation::Spawn()
 {
-	m_Interval = (int) 1000.0f * spawnArgs.GetFloat( "interval", "1.0" );
+	m_Interval = static_cast<int>(1000.0f * spawnArgs.GetFloat( "interval", "1.0" ));
 	m_TimeStamp = gameLocal.time;
 
 // Set the contents to a useless trigger so that the collision model will be loaded

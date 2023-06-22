@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1632 $
- * $Date: 2007-11-01 10:43:07 -0400 (Thu, 01 Nov 2007) $
- * $Author: tels $
+ * $Revision: 1843 $
+ * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 1632 2007-11-01 14:43:07Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -174,7 +174,7 @@ bool idItem::UpdateRenderEntity(renderEntity_s *renderEntity, const renderView_t
 			if(inView)
 			{
 				inView = false;
-				lastCycle = ceil(cycle);
+				lastCycle = static_cast<int>(ceil(cycle));
 			}
 		}
 
