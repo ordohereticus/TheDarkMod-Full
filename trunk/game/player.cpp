@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1332 $
- * $Date: 2007-08-28 02:46:09 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1333 $
+ * $Date: 2007-08-28 03:33:15 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1332 2007-08-28 06:46:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1333 2007-08-28 07:33:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -113,6 +113,7 @@ const idEventDef EV_Player_GiveHealthPool("giveHealthPool", "f");
 const idEventDef EV_Player_StartZoom("startZoom", "fff");
 const idEventDef EV_Player_EndZoom("endZoom", "f");
 const idEventDef EV_Player_ResetZoom("resetZoom", NULL);
+const idEventDef EV_Player_GetFov("getFov", NULL, 'f');
 
 // greebo: Allows scripts to set a named lightgem modifier to a certain value (e.g. "lantern" => 32)
 const idEventDef EV_Player_SetLightgemModifier("setLightgemModifier", "sd");
@@ -171,6 +172,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_StartZoom,				idPlayer::Event_StartZoom )
 	EVENT( EV_Player_EndZoom,				idPlayer::Event_EndZoom )
 	EVENT( EV_Player_ResetZoom,				idPlayer::Event_ResetZoom )
+	EVENT( EV_Player_GetFov,				idPlayer::Event_GetFov )
 
 END_CLASS
 
@@ -9128,6 +9130,12 @@ void idPlayer::Event_ResetZoom()
 {
 	// Reset the FOV to the default values, this enables the idInterpolate
 	zoomFov.Init(gameLocal.time, 0, DefaultFov(), DefaultFov());
+}
+
+void idPlayer::Event_GetFov()
+{
+	// greebo: Return the current fov
+	idThread::ReturnFloat(CalcFov(true));
 }
 
 void idPlayer::FrobCheck( void )

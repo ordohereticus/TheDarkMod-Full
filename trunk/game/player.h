@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1313 $
- * $Date: 2007-08-25 05:46:20 -0400 (Sat, 25 Aug 2007) $
+ * $Revision: 1333 $
+ * $Date: 2007-08-28 03:33:15 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -924,6 +924,7 @@ private:
 	void					Event_StartZoom(float duration, float startFOV, float endFOV);
 	void					Event_EndZoom(float duration);
 	void					Event_ResetZoom();
+	void					Event_GetFov();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
