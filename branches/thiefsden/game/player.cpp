@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1922 $
- * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1928 $
+ * $Date: 2007-12-29 09:58:14 -0500 (Sat, 29 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1922 2007-12-28 10:53:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1928 2007-12-29 14:58:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9799,33 +9799,8 @@ void idPlayer::Event_PrepareMapForMissionEnd()
 {
 	gameLocal.Printf("Map shutdown for mission success.\n");
 
-	for (int i = 0; i < MAX_GENTITIES; i++)
-	{
-		idEntity* entity = gameLocal.entities[i];
-
-		if (entity == NULL) {
-			continue;
-		}
-
-		// Put moveables to rest
-		if (entity->IsType(idMoveable::Type)) {
-			static_cast<idMoveable*>(entity)->GetPhysics()->PutToRest();
-		}
-
-		if (entity->IsType(idAI::Type)) {
-			// Deleting the entity object is enough to remove it from the game
-			// It de-registers itself in its destructor
-			delete entity;
-		}
-
-		// Remove all lights, targets, triggers, emitters and speakers
-		if (entity->IsType(idLight::Type) || entity->IsType(idTarget::Type) ||
-			entity->IsType(idTrigger::Type) || entity->IsType(idFuncEmitter::Type) ||
-			entity->IsType(idSound::Type))
-		{
-			delete entity;
-		}
-	}
+	// Pass the call to gameLocal
+	gameLocal.PrepareForMissionEnd();
 }
 
 void idPlayer::Event_DisplaySuccessGUI(const char* guiFile) 

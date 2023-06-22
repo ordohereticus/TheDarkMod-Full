@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1907 $
- * $Date: 2007-12-27 04:29:40 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1928 $
+ * $Date: 2007-12-29 09:58:14 -0500 (Sat, 29 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1907 2007-12-27 09:29:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1928 2007-12-29 14:58:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -2974,11 +2974,20 @@ idGameLocal::HandleESC
 ================
 */
 escReply_t idGameLocal::HandleESC( idUserInterface **gui ) {
+
+	// greebo: This could be a potential entry point for our in-game Objectives GUI Display.
+
 	if ( isMultiplayer ) {
 		*gui = StartMenu();
 		// we may set the gui back to NULL to hide it
 		return ESC_GUI;
 	}
+	
+	// If we're in the process of ending the mission, ignore all ESC keys.
+	if (GameState() == GAMESTATE_COMPLETED) {
+		return ESC_IGNORE;
+	}
+
 	idPlayer *player = GetLocalPlayer();
 	if ( player ) {
 		if ( player->HandleESC() ) {
@@ -3716,6 +3725,39 @@ Used to allow entities to know if they're being spawned during the initial spawn
 */
 gameState_t	idGameLocal::GameState( void ) const {
 	return gamestate;
+}
+
+void idGameLocal::PrepareForMissionEnd() {
+	// Raise the gamestate to "Completed"
+	gamestate = GAMESTATE_COMPLETED;
+
+	for (int i = 0; i < MAX_GENTITIES; i++)
+	{
+		idEntity* entity = gameLocal.entities[i];
+
+		if (entity == NULL) {
+			continue;
+		}
+
+		// Put moveables to rest
+		if (entity->IsType(idMoveable::Type)) {
+			static_cast<idMoveable*>(entity)->GetPhysics()->PutToRest();
+		}
+
+		if (entity->IsType(idAI::Type)) {
+			// Deleting the entity object is enough to remove it from the game
+			// It de-registers itself in its destructor
+			delete entity;
+		}
+
+		// Remove all lights, targets, triggers, emitters and speakers
+		if (entity->IsType(idLight::Type) || entity->IsType(idTarget::Type) ||
+			entity->IsType(idTrigger::Type) || entity->IsType(idFuncEmitter::Type) ||
+			entity->IsType(idSound::Type))
+		{
+			delete entity;
+		}
+	}
 }
 
 /*

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1895 $
- * $Date: 2007-12-25 18:56:28 -0500 (Tue, 25 Dec 2007) $
- * $Author: tels $
+ * $Revision: 1928 $
+ * $Date: 2007-12-29 09:58:14 -0500 (Sat, 29 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -259,6 +259,7 @@ typedef enum {
 	GAMESTATE_NOMAP,				// no map loaded
 	GAMESTATE_STARTUP,				// inside InitFromNewMap().  spawning map entities.
 	GAMESTATE_ACTIVE,				// normal gameplay
+	GAMESTATE_COMPLETED,			// greebo: Active during "Mission Complete" (TDM)
 	GAMESTATE_SHUTDOWN				// inside MapShutdown().  clearing memory.
 } gameState_t;
 
@@ -599,6 +600,14 @@ public:
 	bool					CheatsOk( bool requirePlayer = true );
 	void					SetSkill( int value );
 	gameState_t				GameState( void ) const;
+
+	/**
+	 * greebo: Prepares the running map for mission end. Does nothing if the current gamestate
+	 *         is lower than GAMESTATE_ACTIVE. Removes all entities of certain types from the
+	 *         world and sets all moveables to rest.
+	 */
+	void					PrepareForMissionEnd();
+
 	idEntity *				SpawnEntityType( const idTypeInfo &classdef, const idDict *args = NULL, bool bIsClientReadSnapshot = false );
 	bool					SpawnEntityDef( const idDict &args, idEntity **ent = NULL, bool setDefaults = true );
 	int						GetSpawnId( const idEntity *ent ) const;
