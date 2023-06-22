@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1206 $
- * $Date: 2007-07-23 13:05:05 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1209 $
+ * $Date: 2007-07-23 14:42:06 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,7 +21,7 @@ class CAIComm_Response:
 	public CResponse
 {
 public:
-	CAIComm_Response(idEntity* Owner, int Type);
+	CAIComm_Response(idEntity* Owner, int Type, int uniqueId);
 	virtual ~CAIComm_Response(void);
 
 	virtual void Save(idSaveGame *savefile) const;
@@ -73,7 +73,7 @@ public:
 	/*!
 	* Constructor
 	*/
-	CAIComm_Stim (idEntity* Owner, int Type);
+	CAIComm_Stim (idEntity* Owner, int Type, int uniqueId);
 
 	/*!
 	* Destructor

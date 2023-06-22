@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1207 $
- * $Date: 2007-07-23 13:31:05 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1209 $
+ * $Date: 2007-07-23 14:42:06 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1207 2007-07-23 17:31:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1209 2007-07-23 18:42:06Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
@@ -26,7 +26,8 @@ static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1207 20
 
 /*----------------------------------------------------------------*/
 
-CAIComm_Response::CAIComm_Response(idEntity* Owner, int Type) : CResponse (Owner, Type)
+CAIComm_Response::CAIComm_Response(idEntity* Owner, int Type, int uniqueId) : 
+	CResponse (Owner, Type, uniqueId)
 {
 }
 
@@ -187,7 +188,8 @@ void CAIComm_Response::TriggerResponse(idEntity *StimEnt, CStim* stim)
 **************************************************************************
 */
 
-CAIComm_Stim::CAIComm_Stim (idEntity* Owner, int Type) : CStim (Owner, Type)
+CAIComm_Stim::CAIComm_Stim (idEntity* Owner, int Type, int uniqueId) : 
+	CStim (Owner, Type, uniqueId)
 {
 	messageCount = 0;
 	p_firstMessage = NULL;

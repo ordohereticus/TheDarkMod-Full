@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1197 $
- * $Date: 2007-07-22 20:37:02 -0400 (Sun, 22 Jul 2007) $
- * $Author: joebarnin $
+ * $Revision: 1209 $
+ * $Date: 2007-07-23 14:42:06 -0400 (Mon, 23 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1197 2007-07-23 00:37:02Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1209 2007-07-23 18:42:06Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -214,6 +214,7 @@ idGameLocal::idGameLocal
 
 idGameLocal::idGameLocal() 
 {
+	m_HighestSRId = 0;
 	m_Keyboard = CKeyboard::getInstance();
 	assert( NULL != m_Keyboard );
 	Clear();
@@ -238,6 +239,12 @@ idGameLocal::Clear
 void idGameLocal::Clear( void )
 {
 	int i;
+
+	m_HighestSRId = 0;
+	m_StimTimer.Clear();
+	m_Timer.Clear();
+	m_StimEntity.Clear();
+	m_RespEntity.Clear();
 
 	m_sndPropLoader = &g_SoundPropLoader;
 	m_sndProp = &g_SoundProp;
@@ -717,7 +724,19 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	m_sndProp->Save(&savegame);
 	m_MissionData->Save(&savegame);
-	
+
+	savegame.WriteInt(m_HighestSRId);
+
+	savegame.WriteInt(m_Timer.Num());
+	for (int i = 0; i < m_Timer.Num(); i++)
+	{
+		m_Timer[i]->Save(&savegame);
+	}
+
+	//TODO idList<CStim *>			m_StimTimer;			// All stims that have a timer associated. 
+	//TODO idList<idEntity *>		m_StimEntity;			// all entities that currently have a stim regardless of it's state
+	//TODO idList<idEntity *>		m_RespEntity;			// all entities that currently have a response regardless of it's state
+
 	// spawnSpots
 	// initialSpots
 	// currentInitialSpot
@@ -1621,6 +1640,17 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	m_sndProp->Restore(&savegame);
 	m_MissionData->Restore(&savegame);
+
+	savegame.ReadInt(m_HighestSRId);
+
+	int numTimers;
+	savegame.ReadInt(numTimers);
+	m_Timer.SetNum(numTimers);
+	for (int i = 0; i < m_Timer.Num(); i++)
+	{
+		m_Timer[i] = new CStimResponseTimer;
+		m_Timer[i]->Restore(&savegame);
+	}
 
 	// spawnSpots
 	// initialSpots

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1205 $
- * $Date: 2007-07-23 12:44:21 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1209 $
+ * $Date: 2007-07-23 14:42:06 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -458,6 +458,9 @@ public:
 *	because the walkspeed keeps getting reset.
 **/
 	float					m_walkSpeed;
+
+	// The highest used unique stim/response id
+	int						m_HighestSRId;
 
 	idList<CStimResponseTimer *> m_Timer;			// generic timer used for other purposes than stims.
 	idList<CStim *>			m_StimTimer;			// All stims that have a timer associated. 
