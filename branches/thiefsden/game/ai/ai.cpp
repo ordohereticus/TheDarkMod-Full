@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1927 $
- * $Date: 2007-12-29 05:32:51 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1955 $
+ * $Date: 2008-01-04 11:39:35 -0500 (Fri, 04 Jan 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1927 2007-12-29 10:32:51Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1955 2008-01-04 16:39:35Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -3908,8 +3908,12 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos ) {
 						bool b_canOpen = true;
 						if (p_door->isLocked())
 						{
+							b_canOpen = false;
+							AI_DEST_UNREACHABLE = true;
+							StopMove(MOVE_STATUS_DEST_UNREACHABLE);
+
 							// TODO: Call script to see if I have this key. For now
-							// answer is always yes.
+							// answer is always no.
 
 						}
 
