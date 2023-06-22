@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1596 $
- * $Date: 2007-10-30 06:47:45 -0400 (Tue, 30 Oct 2007) $
- * $Author: dram $
+ * $Revision: 1607 $
+ * $Date: 2007-10-30 14:56:06 -0400 (Tue, 30 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1596 2007-10-30 10:47:45Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1607 2007-10-30 18:56:06Z sparhawk $", init_version);
 
 #include "../game_local.h"
 
@@ -192,6 +192,7 @@ idCVar cv_lg_adjust("tdm_lg_adjust",		"0",		CVAR_GAME | CVAR_FLOAT,	"Adds a cons
 idCVar cv_lg_split("tdm_lg_split",		"1",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves)." );
 idCVar cv_lg_path("tdm_lg_path",		"",	CVAR_GAME,	"Dump the rendersnapshot to the filepath specified here." );
 idCVar cv_lg_crouch_modifier("tdm_lg_crouch_modifier",	"-5",	CVAR_GAME | CVAR_INTEGER,	"The value the lightgem is adjusted by when the player is crouching." );
+idCVar cv_lg_image_width("tdm_lg_image_width",	"50",	CVAR_GAME | CVAR_INTEGER,		"Defines the pixel width of the lightem rendering. WARNING!!! Increasing this severly affects performance!" );
 /**
  * Variables needed for lockpicking.
  */
