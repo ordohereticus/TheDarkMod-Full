@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2134 $
- * $Date: 2008-03-20 06:47:16 -0400 (Thu, 20 Mar 2008) $
- * $Author: crispy $
+ * $Revision: 2151 $
+ * $Date: 2008-03-29 05:19:17 -0400 (Sat, 29 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2134 2008-03-20 10:47:16Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2151 2008-03-29 09:19:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6243,6 +6243,20 @@ void idPlayer::Think( void )
 			num++;
 		}
 		gameLocal.Printf( "%d: enemies\n", num );
+	}
+
+	if (cv_pm_show_waterlevel.GetBool())
+	{
+		idStr waterStr;
+		switch (physicsObj.GetWaterLevel())
+		{
+			case WATERLEVEL_NONE: waterStr = "WATERLEVEL: NONE"; break;
+			case WATERLEVEL_FEET: waterStr = "WATERLEVEL: FEET"; break;
+			case WATERLEVEL_WAIST: waterStr = "WATERLEVEL: WAIST"; break;
+			case WATERLEVEL_HEAD: waterStr = "WATERLEVEL: HEAD"; break;
+			default: waterStr = "WATERLEVEL: ???"; break;
+		};
+		gameRenderWorld->DrawText(waterStr.c_str(), GetEyePosition() + viewAxis.ToAngles().ToForward()*200, 0.7, colorWhite, viewAxis, 1, 16);
 	}
 
 	// determine if portal sky is in pvs
