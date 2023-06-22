@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1386 $
- * $Date: 2007-09-24 09:27:01 -0400 (Mon, 24 Sep 2007) $
- * $Author: greebo $
+ * $Revision: 1410 $
+ * $Date: 2007-10-07 05:42:44 -0400 (Sun, 07 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1386 2007-09-24 13:27:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1410 2007-10-07 09:42:44Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2852,7 +2852,7 @@ idAI::Event_EnableAFPush
 =====================
 */
 void idAI::Event_EnableAFPush( void ) {
-	af_push_moveables = true;
+	m_bAFPushMoveables = true;
 }
 
 /*
@@ -2861,7 +2861,7 @@ idAI::Event_DisableAFPush
 =====================
 */
 void idAI::Event_DisableAFPush( void ) {
-	af_push_moveables = false;
+	m_bAFPushMoveables = false;
 }
 
 /*

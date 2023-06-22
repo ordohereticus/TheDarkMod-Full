@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1386 $
- * $Date: 2007-09-24 09:27:01 -0400 (Mon, 24 Sep 2007) $
- * $Author: greebo $
+ * $Revision: 1410 $
+ * $Date: 2007-10-07 05:42:44 -0400 (Sun, 07 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -576,7 +576,6 @@ protected:
 	bool					allowMove;					// disables any animation movement
 	bool					allowHiddenMovement;		// allows character to still move around while hidden
 	bool					disableGravity;				// disables gravity and allows vertical movement by the animation
-	bool					af_push_moveables;			// allow the articulated figure to push moveable objects
 	
 	// weapon/attack vars
 	bool					lastHitCheckResult;
