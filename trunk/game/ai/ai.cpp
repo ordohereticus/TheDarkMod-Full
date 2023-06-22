@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1759 $
- * $Date: 2007-11-12 03:10:17 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1764 $
+ * $Date: 2007-11-12 07:32:20 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1759 2007-11-12 08:10:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1764 2007-11-12 12:32:20Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -7065,9 +7065,20 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	if (newAlertLevel >= thresh_3)
 	{
 		// greebo: Only allow switching to combat if a valid enemy is set.
-		if (newAlertLevel >= thresh_combat && GetEnemy() != NULL)
+		if (newAlertLevel >= thresh_combat)
 		{
-			AI_AlertIndex = 4;
+			if (GetEnemy() != NULL) 
+			{
+				// We have an enemy, raise the index
+				AI_AlertIndex = 4;
+			}
+			else
+			{
+				// No enemy, can't switch to Combat mode
+				AI_AlertIndex = 3;
+				// Set the alert level back to just below combat threshold
+				AI_AlertNum = thresh_combat - 0.01;
+			}
 		}
 		else
 		{
