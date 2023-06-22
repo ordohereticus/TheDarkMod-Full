@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1380 $
- * $Date: 2007-09-14 04:50:00 -0400 (Fri, 14 Sep 2007) $
+ * $Revision: 1381 $
+ * $Date: 2007-09-14 04:58:19 -0400 (Fri, 14 Sep 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1380 2007-09-14 08:50:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1381 2007-09-14 08:58:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3959,12 +3959,46 @@ void idActor::Event_GetNumRangedWeapons()
 
 int idActor::GetNumMeleeWeapons()
 {
-	return 0;
+	int numMeleeWeapons(0);
+
+	for (int i = 0; i < m_attachments.Num(); i++)
+	{
+		idEntity* ent = m_attachments[i].ent.GetEntity();
+
+		if (ent == NULL || !m_attachments[i].ent.IsValid())
+		{
+			continue;
+		}
+
+		if (ent->spawnArgs.GetBool("is_weapon_melee"))
+		{
+			numMeleeWeapons++;
+		}
+	}
+
+	return numMeleeWeapons;
 }
 
 int idActor::GetNumRangedWeapons()
 {
-	return 0;
+	int numRangedWeapons(0);
+
+	for (int i = 0; i < m_attachments.Num(); i++)
+	{
+		idEntity* ent = m_attachments[i].ent.GetEntity();
+
+		if (ent == NULL || !m_attachments[i].ent.IsValid())
+		{
+			continue;
+		}
+
+		if (ent->spawnArgs.GetBool("is_weapon_ranged"))
+		{
+			numRangedWeapons++;
+		}
+	}
+
+	return numRangedWeapons;
 }
 
 /****************************************************************************************
