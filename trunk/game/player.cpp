@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1275 $
- * $Date: 2007-08-04 17:12:03 -0400 (Sat, 04 Aug 2007) $
+ * $Revision: 1286 $
+ * $Date: 2007-08-07 13:01:06 -0400 (Tue, 07 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1275 2007-08-04 21:12:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1286 2007-08-07 17:01:06Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8694,16 +8694,22 @@ void idPlayer::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CIn
 	// Notify the previous entity and the new one that they are un-/selected.
 	if(prev && cur != prev)
 	{
+		// greebo: Call the "UN-SELECT" script method on the "old" item
 		idEntity *ce = prev->GetItemEntity();
 		if(ce) {
 			thread = ce->CallScriptFunctionArgs("inventory_item_unselect", true, 0, "eef", ce, prev->GetOwner(), (float)prev->GetOverlay());
+		}
+
+		// greebo: Call the "SELECT" script method on the newly selected item
+		if(e) {
+			thread = e->CallScriptFunctionArgs("inventory_item_select", true, 0, "eef", e, cur->GetOwner(), (float)cur->GetOverlay());
 		}
 	}
 
 	if(cur)
 	{
 		if(e && bUpdate == true) {
-			thread = e->CallScriptFunctionArgs("inventory_item_select", true, 0, "eef", e, cur->GetOwner(), (float)cur->GetOverlay());
+			thread = e->CallScriptFunctionArgs("inventory_item_update", true, 0, "eef", e, cur->GetOwner(), (float)cur->GetOverlay());
 		}
 
 		type = cur->GetType();
