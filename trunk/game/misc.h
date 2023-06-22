@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2198 $
- * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
+ * $Revision: 2273 $
+ * $Date: 2008-05-08 14:00:24 -0400 (Thu, 08 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -751,6 +751,9 @@ public:
 
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
+
+	// greebo: Public function to set the state directly
+	void				SetAASState(bool newState);
 
 private:
 	bool				state;

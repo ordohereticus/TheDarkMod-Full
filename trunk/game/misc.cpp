@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1877 $
- * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
- * $Author: ishtvan $
+ * $Revision: 2273 $
+ * $Date: 2008-05-08 14:00:24 -0400 (Thu, 08 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1877 2007-12-17 01:37:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 2273 2008-05-08 18:00:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -3048,6 +3048,7 @@ idFuncAASObstacle::Spawn
 void idFuncAASObstacle::Spawn( void ) {
 	state = spawnArgs.GetBool( "start_on" );
 	gameLocal.SetAASAreaState( GetPhysics()->GetAbsBounds(), AREACONTENTS_OBSTACLE, state );
+	gameRenderWorld->DebugBounds(state ? colorGreen : colorRed, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 15000);
 }
 
 /*
@@ -3058,8 +3059,15 @@ idFuncAASObstacle::Event_Activate
 void idFuncAASObstacle::Event_Activate( idEntity *activator ) {
 	state ^= 1;
 	gameLocal.SetAASAreaState( GetPhysics()->GetAbsBounds(), AREACONTENTS_OBSTACLE, state );
+	gameRenderWorld->DebugBounds(state ? colorGreen : colorRed, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 2000);
 }
 
+void idFuncAASObstacle::SetAASState(bool newState)
+{
+	state = newState;
+	gameLocal.SetAASAreaState( GetPhysics()->GetAbsBounds(), AREACONTENTS_OBSTACLE, state );
+	gameRenderWorld->DebugBounds(state ? colorGreen : colorRed, GetPhysics()->GetBounds(), GetPhysics()->GetOrigin(), 2000);
+}
 
 
 /*
