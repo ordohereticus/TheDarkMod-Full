@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1361 $
- * $Date: 2007-08-29 15:57:49 -0400 (Wed, 29 Aug 2007) $
+ * $Revision: 1363 $
+ * $Date: 2007-08-30 03:36:44 -0400 (Thu, 30 Aug 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -43,6 +43,12 @@ typedef enum
  * of idDoor and idMover.
  */
 class CFrobDoor : public CBinaryFrobMover {
+public:
+	typedef enum {
+		HANDLE_POS_ORIGINAL,	// Reset it to the original starting value
+		HANDLE_POS_SAMPLE		// Position it to a sample index.
+	} EHandleReset;
+
 public:
 	CLASS_PROTOTYPE( CFrobDoor );
 
@@ -103,7 +109,7 @@ public:
 	void					ProcessLockpick(int cType, ELockpickSoundsample nSampleType);
 	void					LockpickTimerEvent(int cType, ELockpickSoundsample nSoundSample);
 
-	void					SetHandlePosition(bool bReset = false);
+	void					SetHandlePosition(EHandleReset, int pin_index = 0, int sample_index = 0);
 
 protected:
 	/**

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1361 $
- * $Date: 2007-08-29 15:57:49 -0400 (Wed, 29 Aug 2007) $
+ * $Revision: 1363 $
+ * $Date: 2007-08-30 03:36:44 -0400 (Thu, 30 Aug 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1361 2007-08-29 19:57:49Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1363 2007-08-30 07:36:44Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -811,8 +811,12 @@ void CFrobDoor::LockpickTimerEvent(int cType, ELockpickSoundsample nSampleType)
 }
 
 
-void CFrobDoor::SetHandlePosition(bool bReset)
+void CFrobDoor::SetHandlePosition(EHandleReset nPos, int pin, int sample)
 {
+	idAngles a;
+	idVec3 v;
+	double n;
+
 	idMover *m = m_Tap.GetEntity();
 	if(!m)
 		m = m_Doorhandle.GetEntity();
@@ -820,25 +824,30 @@ void CFrobDoor::SetHandlePosition(bool bReset)
 	if(!m)
 		return;
 
-	if(bReset == true)
+	if(nPos == HANDLE_POS_ORIGINAL)
 	{
-		idMat3 mat = m_OriginalAngle.ToMat3();
-
-		m->GetPhysics()->SetAxis(mat);
+		m->GetPhysics()->SetAxis(m_OriginalAngle.ToMat3());
 		m->SetOrigin(m_OriginalPosition);
 	}
 	else
 	{
+		n = m_Pins[pin]->Num();
+		if(sample < 0)
+			sample = 0;
+
 		if(m_PinRotationFractionFlag == true)
 		{
-			idAngles a = m_PinRotationFraction * (m_FirstLockedPinIndex+1) * (m_SoundPinSampleIndex+1);
-			idMat3 mat = a.ToMat3();
-			m->GetPhysics()->SetAxis(mat);
+			m_SampleRotationFraction = m_PinRotationFraction/n;
+
+			a = (m_PinRotationFraction * pin) + (m_SampleRotationFraction * sample);
+			m->GetPhysics()->SetAxis(a.ToMat3());
 		}
 
 		if(m_PinTranslationFractionFlag == true)
 		{
-			idVec3 v = m_PinTranslationFraction * (m_FirstLockedPinIndex+1) * (m_SoundPinSampleIndex+1);
+			m_SampleTranslationFraction = m_PinTranslationFraction/n;
+
+			v = (m_PinTranslationFraction * pin) + (m_SampleTranslationFraction * sample);
 			m->SetOrigin(v);
 		}
 	}
@@ -920,6 +929,7 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 			// Otherwise we reset the lock to the initial soundsample for the current pin. Pins are not
 			// reset, so the player doesn't have to start all over if he gets interrupted while picking.
 			m_SoundPinSampleIndex = -1;
+			SetHandlePosition(HANDLE_POS_SAMPLE, m_FirstLockedPinIndex);
 		}
 		break;
 
@@ -947,7 +957,7 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 					{
 						m_FirstLockedPinIndex = m_Pins.Num();
 						oPickSound = "lockpick_pin_success";
-						SetHandlePosition(true);			// Reset the handle position to the original state.
+						SetHandlePosition(HANDLE_POS_ORIGINAL);
 						m_SoundTimerStarted++;
 
 						PropSoundDirect(oPickSound, true, false );
@@ -972,7 +982,7 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 
 					// Reset the pin to the first sample for the next try.
 					m_SoundPinSampleIndex = -1;
-					SetHandlePosition();
+					SetHandlePosition(HANDLE_POS_SAMPLE, m_FirstLockedPinIndex);
 				}
 			}
 		}
@@ -1005,7 +1015,7 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 				pick_timeout = 0;
 
 			oPickSound = l[m_SoundPinSampleIndex];
-			SetHandlePosition(false);
+			SetHandlePosition(HANDLE_POS_SAMPLE, m_FirstLockedPinIndex, m_SoundPinSampleIndex);
 			m_SoundTimerStarted++;
 
 			PropSoundDirect(oPickSound, true, false );
