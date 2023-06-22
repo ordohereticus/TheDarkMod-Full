@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1128 $
- * $Date: 2007-07-16 01:23:14 -0400 (Mon, 16 Jul 2007) $
+ * $Revision: 1314 $
+ * $Date: 2007-08-25 07:56:17 -0400 (Sat, 25 Aug 2007) $
  * $Author: crispy $
  *
  ***************************************************************************/
@@ -214,6 +214,7 @@ private:
 	void						Event_pqDelete(int pqueueID);
 	void						Event_pqPush( int queueID, const char* task, int priority );
 	void						Event_pqPeek( int queueID );
+	void						Event_pqPeekPriority( int queueID );
 	void						Event_pqPop( int queueID );
 
 
