@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2157 $
- * $Date: 2008-03-29 13:49:46 -0400 (Sat, 29 Mar 2008) $
+ * $Revision: 2162 $
+ * $Date: 2008-03-30 04:22:43 -0400 (Sun, 30 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2157 2008-03-29 17:49:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2162 2008-03-30 08:22:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9317,6 +9317,12 @@ void idPlayer::FrobCheck( void )
 
 	// greebo: Don't run this when dead
 	if (AI_DEAD) 
+	{
+		return;
+	}
+
+	// greebo: Don't run the frobcheck when we're dragging items around
+	if (m_bGrabberActive)
 	{
 		return;
 	}
