@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1318 $
- * $Date: 2007-08-25 21:46:19 -0400 (Sat, 25 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1331 $
+ * $Date: 2007-08-27 17:19:38 -0400 (Mon, 27 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1318 2007-08-26 01:46:19Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1331 2007-08-27 21:19:38Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1246,9 +1246,6 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 	EntClip->SetContents( SetContents );
 		
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Done.\r");
-
-Quit:
-	return;
 }
 
 void idAFEntity_Base::UnbindNotify( idEntity *ent )
