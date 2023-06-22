@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1290 $
- * $Date: 2007-08-15 04:35:41 -0400 (Wed, 15 Aug 2007) $
+ * $Revision: 1295 $
+ * $Date: 2007-08-16 06:09:27 -0400 (Thu, 16 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1290 2007-08-15 08:35:41Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1295 2007-08-16 10:09:27Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1920,13 +1920,11 @@ void idActor::Attach( idEntity *ent )
 
 /*
 ================
-idActor::UnbindNotify
+idActor::BindNotify
 ================
 */
 void idActor::BindNotify( idEntity *ent )
 {
-	idAFEntity_Base::UnbindNotify( ent );
-
 	// Override our animations based on the bound entity's replace_anim_* spawnargs
 	const idKeyValue *KeyVal = ent->spawnArgs.MatchPrefix( "replace_anim_", NULL );
 	while ( KeyVal )
@@ -1947,6 +1945,8 @@ idActor::UnbindNotify
 */
 void idActor::UnbindNotify( idEntity *ent )
 {
+	idAFEntity_Base::UnbindNotify( ent );
+
 	// Remove animation overrides
 	const idKeyValue *KeyVal = ent->spawnArgs.MatchPrefix( "replace_anim_", NULL );
 	while ( KeyVal )
