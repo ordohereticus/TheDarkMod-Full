@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1215 $
- * $Date: 2007-07-25 10:47:36 -0400 (Wed, 25 Jul 2007) $
+ * $Revision: 1223 $
+ * $Date: 2007-07-28 06:00:26 -0400 (Sat, 28 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1215 2007-07-25 14:47:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1223 2007-07-28 10:00:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -902,6 +902,16 @@ void idActor::Save( idSaveGame *savefile ) const {
 	// Save task info
 	savefile->WriteString(task.c_str());
 	savefile->WriteInt(m_TaskQueueID);
+
+	savefile->WriteFloat(m_stepvol_walk);
+	savefile->WriteFloat(m_stepvol_run);
+	savefile->WriteFloat(m_stepvol_creep);
+
+	savefile->WriteFloat(m_stepvol_crouch_walk);
+	savefile->WriteFloat(m_stepvol_crouch_creep);
+	savefile->WriteFloat(m_stepvol_crouch_run);
+
+	savefile->WriteDict(&m_replacementAnims);
 }
 
 /*
@@ -1023,6 +1033,16 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	{
 		m_TaskQueue = gameLocal.GetPriorityQueue(m_TaskQueueID);
 	}
+
+	savefile->ReadFloat(m_stepvol_walk);
+	savefile->ReadFloat(m_stepvol_run);
+	savefile->ReadFloat(m_stepvol_creep);
+
+	savefile->ReadFloat(m_stepvol_crouch_walk);
+	savefile->ReadFloat(m_stepvol_crouch_creep);
+	savefile->ReadFloat(m_stepvol_crouch_run);
+
+	savefile->ReadDict(&m_replacementAnims);
 }
 
 /*
