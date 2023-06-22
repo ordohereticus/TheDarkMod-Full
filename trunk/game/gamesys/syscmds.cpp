@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1837 $
- * $Date: 2007-11-22 15:44:55 -0500 (Thu, 22 Nov 2007) $
+ * $Revision: 1839 $
+ * $Date: 2007-11-23 03:47:29 -0500 (Fri, 23 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,13 +13,13 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1837 2007-11-22 20:44:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1839 2007-11-23 08:47:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/Inventory/Inventory.h"
-#include "../../DarkMod/DarkRadiantRCFServer.h"
+#include <DarkRadiantRCFServer.h>
 
 #include "typeinfo.h"
 
