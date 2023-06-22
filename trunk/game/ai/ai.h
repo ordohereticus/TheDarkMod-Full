@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1325 $
- * $Date: 2007-08-26 05:03:25 -0400 (Sun, 26 Aug 2007) $
+ * $Revision: 1327 $
+ * $Date: 2007-08-26 19:37:23 -0400 (Sun, 26 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -735,6 +735,12 @@ protected:
 	idScriptFloat			AI_timeOfLastStimulusBark;
 	idScriptFloat			AI_currentAlertLevelDuration;
 	idScriptFloat			AI_currentAlertLevelStartTime;
+
+	/**
+	* Boolean scriptvars set to true if either ranged or melee weapons are drawn
+	**/
+	idScriptBool			AI_bMeleeWeapDrawn;
+	idScriptBool			AI_bRangedWeapDrawn;
 
 	/**
 	* This tracks if the AI has information about any enemies having been spotted.
