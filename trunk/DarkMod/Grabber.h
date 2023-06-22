@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1186 $
- * $Date: 2007-07-22 12:03:55 -0400 (Sun, 22 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1253 $
+ * $Date: 2007-07-30 05:16:49 -0400 (Mon, 30 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -147,11 +147,28 @@ protected:
 		bool					DeadMouse( void );
 
 protected:
-
-		idEntityPtr<idEntity>	m_dragEnt;			// entity being dragged
+		/**
+		* Entity being dragged
+		**/
+		idEntityPtr<idEntity>	m_dragEnt;
 		jointHandle_t			m_joint;				// joint being dragged
-		int						m_id;					// id of body being dragged
-		idVec3					m_localEntityPoint;	// dragged point in entity space
+		int						m_id;					// id of AF body being dragged
+		/**
+		* Grabbed point on the entity (in entity space)
+		**/
+		idVec3					m_LocalEntPoint;
+		/**
+		* Offset between object center of mass and dragged point
+		**/
+		idVec3					m_vLocalEntOffset;
+		/**
+		* Offset vector between player view center and hold position
+		**/
+		idVec3					m_vOffset; 
+		/**
+		* If true, the item does not pitch up and down when the player pitches their view
+		*/
+		bool					m_bMaintainPitch; 
 
 		idEntityPtr<idPlayer>	m_player;
 		CForce_Grab				m_drag;
