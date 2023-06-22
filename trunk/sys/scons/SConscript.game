@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2201 $
-#* $Date: 2008-04-22 16:09:28 -0400 (Tue, 22 Apr 2008) $
+#* $Revision: 2245 $
+#* $Date: 2008-04-29 14:24:52 -0400 (Tue, 29 Apr 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -222,6 +222,7 @@ AI/Tasks/RandomTurningTask.cpp \
 AI/Tasks/RangedCombatTask.cpp \
 AI/Tasks/RepeatedBarkTask.cpp \
 AI/Tasks/SingleBarkTask.cpp \
+AI/Tasks/ScriptTask.cpp \
 AI/Tasks/ThrowObjectTask.cpp \
 AI/Tasks/WaitTask.cpp \
 AI/Tasks/WanderInLocationTask.cpp \
