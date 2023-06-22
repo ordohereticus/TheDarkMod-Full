@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1971 $
- * $Date: 2008-01-10 00:53:44 -0500 (Thu, 10 Jan 2008) $
+ * $Revision: 1989 $
+ * $Date: 2008-01-15 01:03:45 -0500 (Tue, 15 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1971 2008-01-10 05:53:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1989 2008-01-15 06:03:45Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -843,13 +843,19 @@ void CGrabber::Event_CheckClipList( void )
 
 	// Check for any entity touching the players bounds
 	// If the entity is not in our list, remove it.
-	num = gameLocal.clip.EntitiesTouchingBounds( m_player.GetEntity()->GetPhysics()->GetAbsBounds(), CONTENTS_SOLID, ent, MAX_GENTITIES );
+	// greebo: Changed the clipmask from SOLID to SOLID|CORPSE|MONSTERCLIP. 
+	// Some readables didn't have CORPSE|SOLID set, but MONSTERCLIP, so this is a workaround for finding them.
+	num = gameLocal.clip.EntitiesTouchingBounds(
+		m_player.GetEntity()->GetPhysics()->GetAbsBounds(), 
+		CONTENTS_SOLID|CONTENTS_CORPSE|CONTENTS_MONSTERCLIP, ent, MAX_GENTITIES
+	);
 	for( i = 0; i < m_clipList.Num(); i++ ) 
 	{
 		// Check clipEntites against entities touching player
+		idEntity* clipListEnt = m_clipList[i].m_ent.GetEntity();
 
 		// We keep an entity if it is the one we're dragging 
-		if( this->GetSelected() == m_clipList[i].m_ent.GetEntity() ) 
+		if( this->GetSelected() == clipListEnt ) 
 		{
 			keep = true;
 		}
@@ -860,7 +866,7 @@ void CGrabber::Event_CheckClipList( void )
 			// OR if it's touching the player and still in the clipList
 			for( j = 0; !keep && j < num; j++ ) 
 			{
-				if( m_clipList[i].m_ent.GetEntity() == ent[j] ) 
+				if( clipListEnt == ent[j] ) 
 					keep = true;
 			}
 		}
