@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1524 $
- * $Date: 2007-10-22 13:32:08 -0400 (Mon, 22 Oct 2007) $
- * $Author: tels $
+ * $Revision: 1991 $
+ * $Date: 2008-01-15 12:35:37 -0500 (Tue, 15 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 1524 2007-10-22 17:32:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 1991 2008-01-15 17:35:37Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -61,6 +61,7 @@ CRelations &CRelations::operator=(const CRelations &in)
 		Clear();
 
 	m_RelMat->Copy( in.m_RelMat );
+	m_bMatFailed = in.m_bMatFailed;
 
 	return *this;
 }
