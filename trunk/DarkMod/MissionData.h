@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1300 $
- * $Date: 2007-08-17 01:50:20 -0400 (Fri, 17 Aug 2007) $
+ * $Revision: 1320 $
+ * $Date: 2007-08-25 23:48:54 -0400 (Sat, 25 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -587,6 +587,12 @@ public:
 	* Ent is the actual entity picked up/dropped.  If NULL, default entity properties will be used.
 	**/
 	void InventoryCallback( idEntity *ent, idStr ItemName, int value, int OverallVal = 1, bool bPickedUp = false );
+
+	/**
+	* Called when AI are alerted
+	* The alert value is the alert state, e.g. state 0 = no significant alert, 4 = combat
+	**/
+	void AlertCallback(idEntity *Alerted, idEntity *Alerter, int AlertVal);
 
 	int GetTotalLoot( void );
 	void ChangeTotalLoot( int amount );

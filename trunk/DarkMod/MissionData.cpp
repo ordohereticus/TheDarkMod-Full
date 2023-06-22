@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1300 $
- * $Date: 2007-08-17 01:50:20 -0400 (Fri, 17 Aug 2007) $
+ * $Revision: 1320 $
+ * $Date: 2007-08-25 23:48:54 -0400 (Sat, 25 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1300 2007-08-17 05:50:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1320 2007-08-26 03:48:54Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -373,7 +373,7 @@ void CMissionData::MissionEvent
 	}
 
 	// Update AI stats, don't add to stats if playerresponsible is false
-	// Stas for KOs, kills, body found, item found
+	// Stats for KOs, kills, body found, item found
 	if( ( ( CompType == COMP_KILL && EntDat1->bIsAI ) || CompType == COMP_KO
 		|| CompType == COMP_AI_FIND_BODY || CompType == COMP_AI_FIND_ITEM
 		|| CompType == COMP_ALERT ) && bBoolArg )
@@ -1510,8 +1510,29 @@ void CMissionData::InventoryCallback(idEntity *ent, idStr ItemName, int value, i
 	Parms.valueSuperGroup = OverallVal;
 
 	MissionEvent( COMP_ITEM, &Parms, bPickedUp );
+}
 
-	return;
+void CMissionData::AlertCallback(idEntity *Alerted, idEntity *Alerter, int AlertVal)
+{
+	SObjEntParms Parms1, Parms2;
+	bool bPlayerResponsible(false);
+
+	if( Alerted )
+	{
+		FillParmsData( Alerted, &Parms1 );
+		// The alert value is stored in the alerted entity data packet
+		Parms1.value = AlertVal;
+	}
+
+	if( Alerter )
+	{
+		FillParmsData( Alerter, &Parms2 );
+
+		if( Alerter == gameLocal.GetLocalPlayer() )
+			bPlayerResponsible = true;
+	}
+
+	MissionEvent( COMP_ALERT, &Parms1, &Parms2, bPlayerResponsible );
 }
 
 int CMissionData::GetTotalLoot( void )
