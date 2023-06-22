@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1525 $
- * $Date: 2007-10-22 13:35:07 -0400 (Mon, 22 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1539 $
+ * $Date: 2007-10-23 06:14:00 -0400 (Tue, 23 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -805,6 +805,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Should be cleared at the start of each frame.
 	**/
 	float					m_AlertNumThisFrame;
+
+	/**
+	* If true, the AI ignores alerts during all actions
+	**/
+	bool					m_bIgnoreAlerts;
 
 	/**
 	* Array containing the various AI acuities (visual, aural, tactile, etc)
