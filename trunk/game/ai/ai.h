@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1663 $
- * $Date: 2007-11-03 13:38:59 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1680 $
+ * $Date: 2007-11-04 16:17:31 -0500 (Sun, 04 Nov 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -627,6 +627,7 @@ protected:
 	int						lastHitCheckTime;
 	int						lastAttackTime;
 	float					melee_range;
+	float					fire_range;
 	float					projectile_height_to_distance_ratio;	// calculates the maximum height a projectile can be thrown
 	idList<idVec3>			missileLaunchOffset;
 
@@ -1347,6 +1348,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	virtual void			DamageFeedback( idEntity *victim, idEntity *inflictor, int &damage );
 	void					DirectDamage( const char *meleeDefName, idEntity *ent );
 	bool					TestMelee( void ) const;
+	bool					TestRanged( void ) const;
 	bool					AttackMelee( const char *meleeDefName );
 	void					BeginAttack( const char *name );
 	void					EndAttack( void );

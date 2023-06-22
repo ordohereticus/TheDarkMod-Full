@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1665 $
- * $Date: 2007-11-03 13:56:30 -0400 (Sat, 03 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1680 $
+ * $Date: 2007-11-04 16:17:31 -0500 (Sun, 04 Nov 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1665 2007-11-03 17:56:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1680 2007-11-04 21:17:31Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -498,6 +498,7 @@ idAI::idAI()
 	lastHitCheckTime	= 0;
 	lastAttackTime		= 0;
 	melee_range			= 0.0f;
+	fire_range			= 0.0f;
 	projectile_height_to_distance_ratio = 1.0f;
 	projectileDef		= NULL;
 	projectile			= NULL;
@@ -1107,6 +1108,7 @@ void idAI::Spawn( void )
 	spawnArgs.GetFloat( "fly_pitch_max",		"30",		fly_pitch_max );
 
 	spawnArgs.GetFloat( "melee_range",			"64",		melee_range );
+	spawnArgs.GetFloat( "fire_range",			"0",		fire_range );
 	spawnArgs.GetFloat( "projectile_height_to_distance_ratio",	"1", projectile_height_to_distance_ratio );
 
 	spawnArgs.GetFloat( "turn_rate",			"360",		turnRate );
@@ -5115,10 +5117,15 @@ bool idAI::CanHitEntity(idActor* entity)
 {
 	if (entity != NULL)
 	{
-		// greebo: Route this call to TestMelee
-		return TestMelee();
+		if (GetNumRangedWeapons() > 0)
+		{
+			return TestRanged();
+		}
+		else if (GetNumMeleeWeapons() > 0)
+		{
+			return TestMelee();
+		}
 
-		// TODO: Support for ranged attacks
 	}
 
 	return false;
@@ -5774,6 +5781,28 @@ bool idAI::TestMelee( void ) const {
 
 	return false;
 }
+
+/*
+=====================
+idAI::TestRanged
+=====================
+*/
+bool idAI::TestRanged() const 
+{
+	trace_t trace;
+	idActor *enemyEnt = enemy.GetEntity();
+
+	if ( !enemyEnt) 
+	{
+		return false;
+	}
+
+	// Test if the enemy is within range, in FOV and not occluded
+	float dist = (GetEyePosition() - enemyEnt->GetEyePosition()).LengthFast();
+
+	return dist <= fire_range && CanSeeExt(enemyEnt, false, false);
+}
+
 
 /*
 =====================
