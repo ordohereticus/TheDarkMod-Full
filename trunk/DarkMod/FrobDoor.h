@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1005 $
- * $Date: 2007-05-30 18:05:15 -0400 (Wed, 30 May 2007) $
- * $Author: sparhawk $
+ * $Revision: 1219 $
+ * $Date: 2007-07-26 03:54:56 -0400 (Thu, 26 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -167,12 +167,12 @@ protected:
 	* The doubledoor does not necessarily have to be linked in a frob chain,
 	*	it could be independently opened.
 	**/
-	CFrobDoor					*m_DoubleDoor;
+	idEntityPtr<CFrobDoor>		m_DoubleDoor;
 
 	/**
 	 * Handle that is associated with this door, if the door has one.
 	 */
-	CFrobDoorHandle				*m_Doorhandle;
+	idEntityPtr<CFrobDoorHandle>	m_Doorhandle;
 
 private:
 };
