@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1450 $
- * $Date: 2007-10-18 10:08:41 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1452 $
+ * $Date: 2007-10-18 10:45:50 -0400 (Thu, 18 Oct 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1450 2007-10-18 14:08:41Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1452 2007-10-18 14:45:50Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -932,7 +932,7 @@ CGrabber::Throw
 void CGrabber::Throw( int HeldTime )
 {
 	float ThrowImpulse(0), FracPower(0);
-	idVec3 ImpulseVec(vec3_zero), IdentVec( 1, 0, 1);
+	idVec3 ImpulseVec(vec3_zero), IdentVec( 1, 0, 1), ThrowPoint(vec3_zero);
 
 	idEntity *ent = m_dragEnt.GetEntity();
 	ImpulseVec = m_player.GetEntity()->firstPersonViewAxis[0];
@@ -950,8 +950,10 @@ void CGrabber::Throw( int HeldTime )
 	ClampVelocity( MAX_RELEASE_LINVEL, MAX_RELEASE_ANGVEL, m_id );
 
 	// Only apply the impulse for throwable items
-	if (ent->spawnArgs.GetBool("throwable", "1")) {
-		ent->ApplyImpulse( m_player.GetEntity(), m_id, ent->GetPhysics()->GetOrigin(), ImpulseVec );
+	if (ent->spawnArgs.GetBool("throwable", "1")) 
+	{
+		ThrowPoint = ent->GetPhysics()->GetOrigin(m_id) + ent->GetPhysics()->GetAxis(m_id) * m_LocalEntPoint;
+		ent->ApplyImpulse( m_player.GetEntity(), m_id, ThrowPoint, ImpulseVec );
 	}
 
 	StopDrag();
