@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1298 $
- * $Date: 2007-08-16 07:00:09 -0400 (Thu, 16 Aug 2007) $
+ * $Revision: 1299 $
+ * $Date: 2007-08-16 07:53:40 -0400 (Thu, 16 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1298 2007-08-16 11:00:09Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1299 2007-08-16 11:53:40Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1231,6 +1231,7 @@ void idAFEntity_Base::UnbindNotify( idEntity *ent )
 			GetAFPhysics()->DeleteBody( m_AddedEnts[i].bodyName.c_str() );
 			ent->GetPhysics()->SetContents( m_AddedEnts[i].contents );
 			m_AddedEnts.RemoveIndex(i);
+			GetPhysics()->SetMass( GetPhysics()->GetMass() - ent->GetPhysics()->GetMass() );
 		}
 	}
 }
