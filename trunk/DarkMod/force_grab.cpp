@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1281 $
- * $Date: 2007-08-05 04:30:18 -0400 (Sun, 05 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_grab.cpp 1281 2007-08-05 08:30:18Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: force_grab.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "force_grab.h"

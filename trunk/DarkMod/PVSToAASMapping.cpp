@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1009 $
- * $Date: 2007-06-10 01:38:02 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 1009 2007-06-10 05:38:02Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "PVSToAASMapping.h"
 #include "../DarkMod/DarkModGlobals.h"

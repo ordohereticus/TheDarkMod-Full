@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1431 $
- * $Date: 2007-10-15 15:46:43 -0400 (Mon, 15 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 1431 2007-10-15 19:46:43Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "game_local.h"
 

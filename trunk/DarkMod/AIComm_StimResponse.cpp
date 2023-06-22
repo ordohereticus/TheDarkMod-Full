@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1209 $
- * $Date: 2007-07-23 14:42:06 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1209 2007-07-23 18:42:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"

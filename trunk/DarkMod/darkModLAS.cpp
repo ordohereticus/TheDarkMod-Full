@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1426 $
- * $Date: 2007-10-14 12:40:39 -0400 (Sun, 14 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1426 2007-10-14 16:40:39Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"

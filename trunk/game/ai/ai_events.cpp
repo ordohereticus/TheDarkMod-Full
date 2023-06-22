@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1410 $
- * $Date: 2007-10-07 05:42:44 -0400 (Sun, 07 Oct 2007) $
- * $Author: ishtvan $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1410 2007-10-07 09:42:44Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"

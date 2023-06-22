@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1379 $
- * $Date: 2007-09-12 04:09:43 -0400 (Wed, 12 Sep 2007) $
- * $Author: crispy $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1379 2007-09-12 08:09:43Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 

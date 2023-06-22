@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1395 $
- * $Date: 2007-09-29 06:17:43 -0400 (Sat, 29 Sep 2007) $
- * $Author: crispy $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 1395 2007-09-29 10:17:43Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"

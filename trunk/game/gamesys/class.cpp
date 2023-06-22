@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1180 $
- * $Date: 2007-07-22 03:47:40 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ instancing of objects.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: class.cpp 1180 2007-07-22 07:47:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: class.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/PlayerData.h"

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 999 $
- * $Date: 2007-05-28 04:03:03 -0400 (Mon, 28 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 999 2007-05-28 08:03:03Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1429 $
- * $Date: 2007-10-14 15:09:38 -0400 (Sun, 14 Oct 2007) $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 1429 2007-10-14 19:09:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"

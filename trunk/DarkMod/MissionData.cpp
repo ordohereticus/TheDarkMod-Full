@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1398 $
- * $Date: 2007-09-30 17:25:46 -0400 (Sun, 30 Sep 2007) $
- * $Author: ishtvan $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1398 2007-09-30 21:25:46Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 

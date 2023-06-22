@@ -82,9 +82,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 605 $
- * $Date: 2006-11-04 05:47:29 -0500 (Sat, 04 Nov 2006) $
- * $Author: sparhawk $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  * $Log$
  * Revision 1.1  2006/11/04 10:47:28  sparhawk

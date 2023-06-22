@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 921 $
- * $Date: 2007-04-21 05:38:21 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /************************** MERSENNE.CPP ******************** AgF 2001-10-18 *
@@ -25,7 +25,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mersenne.cpp 921 2007-04-21 09:38:21Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: mersenne.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "randomc.h"
 

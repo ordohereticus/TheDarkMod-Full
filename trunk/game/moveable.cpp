@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1293 $
- * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 1293 2007-08-15 09:29:45Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"

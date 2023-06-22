@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1181 $
- * $Date: 2007-07-22 03:56:28 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PlayerData.cpp 1181 2007-07-22 07:56:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PlayerData.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"

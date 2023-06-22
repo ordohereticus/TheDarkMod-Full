@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1411 $
- * $Date: 2007-10-09 01:36:55 -0400 (Tue, 09 Oct 2007) $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1411 $   $Date: 2007-10-09 01:36:55 -0400 (Tue, 09 Oct 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1435 $   $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"

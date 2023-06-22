@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1093 $
- * $Date: 2007-07-12 16:24:07 -0400 (Thu, 12 Jul 2007) $
- * $Author: thelvyn $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: bitmsg.cpp 1093 2007-07-12 20:24:07Z thelvyn $", init_version);
+static bool init_version = FileVersionList("$Id: bitmsg.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 /*
 ==============================================================================

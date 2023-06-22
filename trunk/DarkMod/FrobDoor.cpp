@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1428 $
- * $Date: 2007-10-14 14:51:03 -0400 (Sun, 14 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1428 2007-10-14 18:51:03Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"

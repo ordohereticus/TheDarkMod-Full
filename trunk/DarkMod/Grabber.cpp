@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1287 $
- * $Date: 2007-08-11 03:08:24 -0400 (Sat, 11 Aug 2007) $
- * $Author: orbweaver $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1287 2007-08-11 07:08:24Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"

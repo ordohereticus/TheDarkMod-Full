@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 914 $   $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1435 $   $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $", init_version);
 
 #include "aas_local.h"
 

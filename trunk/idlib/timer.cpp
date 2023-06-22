@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1427 $
- * $Date: 2007-10-14 14:32:33 -0400 (Sun, 14 Oct 2007) $
+ * $Revision: 1435 $
+ * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: timer.cpp 1427 2007-10-14 18:32:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: timer.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
 
 double idTimer::base = -1.0;
 
