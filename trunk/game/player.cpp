@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1144 $
- * $Date: 2007-07-18 16:13:32 -0400 (Wed, 18 Jul 2007) $
+ * $Revision: 1147 $
+ * $Date: 2007-07-18 16:57:34 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1144 2007-07-18 20:13:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1147 2007-07-18 20:57:34Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1162,6 +1162,9 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( airTics );
 	savefile->WriteInt( lastAirDamage );
 
+	savefile->WriteBool(underWaterEffectsActive);
+	savefile->WriteInt(underWaterGUIHandle);
+
 	savefile->WriteBool( gibDeath );
 	savefile->WriteBool( gibsLaunched );
 	savefile->WriteVec3( gibsDir );
@@ -1415,6 +1418,9 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( airless );
 	savefile->ReadInt( airTics );
 	savefile->ReadInt( lastAirDamage );
+
+	savefile->ReadBool(underWaterEffectsActive);
+	savefile->ReadInt(underWaterGUIHandle);
 
 	savefile->ReadBool( gibDeath );
 	savefile->ReadBool( gibsLaunched );
