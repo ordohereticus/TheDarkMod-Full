@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1294 $
- * $Date: 2007-08-16 00:04:01 -0400 (Thu, 16 Aug 2007) $
- * $Author: joebarnin $
+ * $Revision: 1310 $
+ * $Date: 2007-08-24 12:48:43 -0400 (Fri, 24 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1294 2007-08-16 04:04:01Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1310 2007-08-24 16:48:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5022,7 +5022,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_47:	// Inventory previous item
 		{
-			// Check for an held grabber entity, which should be put back into the inventory
+			// Check for a held grabber entity, which should be put back into the inventory
 			if (AddGrabberEntityToInventory())
 				return;
 
@@ -5041,7 +5041,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_48:	// Inventory next item
 		{
-			// Check for an held grabber entity, which should be put back into the inventory
+			// Check for a held grabber entity, which should be put back into the inventory
 			if (AddGrabberEntityToInventory())
 				return;
 
@@ -5060,7 +5060,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_49:	// Inventory previous group
 		{
-			// Check for an held grabber entity, which should be put back into the inventory
+			// Check for a held grabber entity, which should be put back into the inventory
 			if (AddGrabberEntityToInventory())
 				return;
 
@@ -5079,7 +5079,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_50:	// Inventory next group
 		{
-			// Check for an held grabber entity, which should be put back into the inventory
+			// Check for a held grabber entity, which should be put back into the inventory
 			if (AddGrabberEntityToInventory())
 				return;
 
@@ -9440,7 +9440,7 @@ bool idPlayer::AddGrabberEntityToInventory()
 
 	if (heldEntity != NULL)
 	{
-		CInventoryItem* item = AddToInventory(heldEntity);
+		CInventoryItem* item = AddToInventory(heldEntity, hud);
 
 		if (item != NULL)
 		{
