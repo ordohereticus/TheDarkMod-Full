@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1322 $
- * $Date: 2007-08-26 03:06:04 -0400 (Sun, 26 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1325 $
+ * $Date: 2007-08-26 05:03:25 -0400 (Sun, 26 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1322 2007-08-26 07:06:04Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1325 2007-08-26 09:03:25Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -4325,15 +4325,8 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 		SetWaitState( "" );
 	}
 
-	const idKeyValue *kv = spawnArgs.MatchPrefix( "def_drops", NULL );
-	while( kv ) {
-		idDict args;
-
-		args.Set( "classname", kv->GetValue() );
-		args.Set( "origin", physicsObj.GetOrigin().ToString() );
-		gameLocal.SpawnEntityDef( args );
-		kv = spawnArgs.MatchPrefix( "def_drops", kv );
-	}
+	// drop items
+	DropOnRagdoll();
 
 	if ( ( attacker && attacker->IsType( idPlayer::Type ) ) && ( inflictor && !inflictor->IsType( idSoulCubeMissile::Type ) ) )
 	{
@@ -6248,8 +6241,7 @@ void idAI::AlertAI( const char *type, float amount )
 	m_AlertNumThisFrame = amount;
 
 	// Objectives callback
-	// TODO: Replace the "0" here with the actual alert state index, once that is stored somewhere
-	gameLocal.m_MissionData->AlertCallback( this, m_AlertedByActor.GetEntity(), 0 );
+	gameLocal.m_MissionData->AlertCallback( this, m_AlertedByActor.GetEntity(), (int) AI_AlertIndex );
 
 Quit:
 	return;
@@ -7153,16 +7145,7 @@ void idAI::Knockout( void )
 	}
 
 	// drop items
-	const idKeyValue *kv = spawnArgs.MatchPrefix( "def_drops", NULL );
-	while( kv )
-	{
-		idDict args;
-
-		args.Set( "classname", kv->GetValue() );
-		args.Set( "origin", physicsObj.GetOrigin().ToString() );
-		gameLocal.SpawnEntityDef( args );
-		kv = spawnArgs.MatchPrefix( "def_drops", kv );
-	}
+	DropOnRagdoll();
 
 	// Update TDM objective system
 	// TODO: Need a way to determine if player was responsible for the KO
@@ -7423,4 +7406,60 @@ void idAI::SheathWeapon()
 		thread->CallFunction(this, func, true);
 		thread->DelayedStart(0);
 	}
+}
+
+void idAI::DropOnRagdoll( void )
+{
+	idEntity *ent = NULL;
+	bool bDrop(false), bDropWhenDrawn(false), bSetSolid(false), bSetCorpse(false);
+	int mask(0);
+	// Id style def_drops
+	const idKeyValue *kv = spawnArgs.MatchPrefix( "def_drops", NULL );
+	
+	while( kv )
+	{
+		idDict args;
+
+		args.Set( "classname", kv->GetValue() );
+		args.Set( "origin", physicsObj.GetOrigin().ToString() );
+		gameLocal.SpawnEntityDef( args );
+		kv = spawnArgs.MatchPrefix( "def_drops", kv );
+	}
+
+	// Drop TDM style attachments
+	for( int i=0; i<m_attachments.Num(); i++ )
+	{
+		ent = m_attachments[i].ent.GetEntity();
+		if( !ent || !m_attachments[i].ent.IsValid() )
+			continue;
+
+		bDrop = ent->spawnArgs.GetBool( "drops_on_ragdoll" );
+		bDropWhenDrawn = ent->spawnArgs.GetBool( "drops_when_drawn" );
+		bSetSolid = ent->spawnArgs.GetBool( "drop_add_cont_solid" );
+		bSetCorpse = ent->spawnArgs.GetBool( "drop_add_cont_corpse" );
+
+		if( !bDrop )
+			continue;
+
+		if( bDropWhenDrawn )
+		{
+		// TODO: Check if this weapon is drawn here
+			if( !true )
+				continue;
+		}
+
+		// Proceed with droppage
+		DropAttachment( i );
+
+		if( bSetSolid )
+			mask = CONTENTS_SOLID;
+		if( bSetCorpse )
+			mask = mask | CONTENTS_CORPSE;
+
+		if( mask )
+			ent->GetPhysics()->SetContents( ent->GetPhysics()->GetContents() | mask );
+
+		ent->GetPhysics()->Activate();
+	}
+
 }

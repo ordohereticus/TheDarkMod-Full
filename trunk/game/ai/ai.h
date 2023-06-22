@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1322 $
- * $Date: 2007-08-26 03:06:04 -0400 (Sun, 26 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1325 $
+ * $Date: 2007-08-26 05:03:25 -0400 (Sun, 26 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -967,6 +967,12 @@ protected:
 	* also can be called by itself and is called by scriptevent Event_Knockout.
 	**/
 	void					Knockout( void );
+
+	/**
+	* Drop certain attachments and def_drop items when transitioning into a ragdoll state
+	* Called by idActor::Killed and idActor::KnockedOut
+	**/
+	void					DropOnRagdoll( void );
 
 	// navigation
 	void					KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick );
