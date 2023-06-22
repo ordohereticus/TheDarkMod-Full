@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1843 $
- * $Date: 2007-11-23 11:41:37 -0500 (Fri, 23 Nov 2007) $
+ * $Revision: 1845 $
+ * $Date: 2007-11-23 16:16:45 -0500 (Fri, 23 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1843 2007-11-23 16:41:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1845 2007-11-23 21:16:45Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -3178,7 +3178,7 @@ bool idAI::NewWanderDir( const idVec3 &dest ) {
 	}
 
 	// try other directions
-	if ( ( gameLocal.random.RandomInt() & 1 ) || abs( deltay ) > abs( deltax ) ) {
+	if ( ( gameLocal.random.RandomInt() & 1 ) || fabs( deltay ) > fabs( deltax ) ) {
 		tdir = d[ 1 ];
 		d[ 1 ] = d[ 2 ];
 		d[ 2 ] = tdir;

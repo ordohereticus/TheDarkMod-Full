@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1845 $
+ * $Date: 2007-11-23 16:16:45 -0500 (Fri, 23 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: securitycamera.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: securitycamera.cpp 1845 2007-11-23 21:16:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
@@ -128,7 +128,7 @@ void idSecurityCamera::Spawn( void ) {
 	}
 
 	negativeSweep = ( sweepAngle < 0 ) ? true : false;
-	sweepAngle = abs( sweepAngle );
+	sweepAngle = fabs( sweepAngle );
 
 	scanFovCos = cos( scanFov * idMath::PI / 360.0f );
 

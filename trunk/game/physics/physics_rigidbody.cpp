@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1516 $
- * $Date: 2007-10-22 01:51:37 -0400 (Mon, 22 Oct 2007) $
- * $Author: ishtvan $
+ * $Revision: 1845 $
+ * $Date: 2007-11-23 16:16:45 -0500 (Fri, 23 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1516 2007-10-22 05:51:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1845 2007-11-23 21:16:45Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -109,12 +109,12 @@ float idPhysics_RigidBody::GetSubmergedPercent( const idVec3 &pos, const idMat3 
   bounds *= rotation;
 
   // gets the position of the object relative to the surface of the water
-  height = abs(bounds[1] * gravityNormal * 2);
+  height = fabs(bounds[1] * gravityNormal * 2);
 
   // calculates the depth of the bottom of the object
   bottom += (height * 0.5f) * gravityNormal;
   depth = this->water->GetDepth(bottom);
-  d = abs(depth * gravityNormal);
+  d = fabs(depth * gravityNormal);
 
   if( d > height ) {
     // the body is totally submerged
