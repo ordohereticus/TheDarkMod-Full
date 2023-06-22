@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1702 $
-#* $Date: 2007-11-05 17:14:38 -0500 (Mon, 05 Nov 2007) $
+#* $Revision: 1710 $
+#* $Date: 2007-11-06 06:08:24 -0500 (Tue, 06 Nov 2007) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -137,6 +137,7 @@ MissionData.cpp \
 ModMenu.cpp \
 overlaysys.cpp \
 PlayerData.cpp \
+PositionWithinRangeFinder.cpp \
 Profile.cpp \
 ProjectileResult.cpp \
 PVSToAASMapping.cpp \
@@ -184,6 +185,7 @@ AI/Tasks/ChaseEnemyRangedTask.cpp \
 AI/Tasks/ChaseEnemyTask.cpp \
 AI/Tasks/EmptyTask.cpp \
 AI/Tasks/FleeTask.cpp \
+AI/Tasks/IdleAnimationTask.cpp \
 AI/Tasks/IdleBarkTask.cpp \
 AI/Tasks/IdleSensoryTask.cpp \
 AI/Tasks/InvestigateSpotTask.cpp \
