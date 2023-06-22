@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1719 $
- * $Date: 2007-11-06 13:22:44 -0500 (Tue, 06 Nov 2007) $
+ * $Revision: 1721 $
+ * $Date: 2007-11-06 13:45:33 -0500 (Tue, 06 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -474,6 +474,16 @@ public:
 	* seeing something or just barely hearing a whisper of a sound.
 	**/
 	void AlertAI( const char *type, float amount );
+
+	/**
+	 * greebo: Sets the AI_AlertNum of this AI and updates the AI_AlertIndex.
+	 *
+	 * This also updates the grace timers, alert times and checks for
+	 * a valid agitatedsearching>combat transition.
+	 *
+	 * Additionally, the transition alert sounds ("snd_alertdown2") are played.
+	 */
+	void SetAlertLevel(float newAlertLevel);
 
 	/**
 	* Returns the float val of the specific AI's acuity
