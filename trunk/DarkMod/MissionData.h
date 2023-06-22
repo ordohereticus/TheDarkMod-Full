@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1234 $
- * $Date: 2007-07-29 03:21:32 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1236 $
+ * $Date: 2007-07-29 06:00:52 -0400 (Sun, 29 Jul 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,8 +15,6 @@
 // average guards wouldn't react to a dead rat, but an elite might.
 // If that's the case, we don't have to track both variables in the stats, since
 // AI will only call FindBody if they react to that type of body.
-
-// TODO: Make difficulty a bitfield instead of a minimum integer value
 
 #ifndef MISSIONDATA_H
 #define MISSIONDATA_H
