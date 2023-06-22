@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1165 $
- * $Date: 2007-07-21 05:27:32 -0400 (Sat, 21 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1176 $
+ * $Date: 2007-07-21 20:30:58 -0400 (Sat, 21 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1165 2007-07-21 09:27:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1176 2007-07-22 00:30:58Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8595,6 +8595,8 @@ void idPlayer::inventoryDropItem()
 			if( bDropped)
 			{
 				ChangeInventoryItemCount(item->GetName().c_str(), category->GetName().c_str(), -1);
+				// Objectives callback.  Cannot drop loot, so assume it is not loot
+				gameLocal.m_MissionData->InventoryCallback( ent, item->GetName(), item->GetValue(), 1, false ); 
 			}
 
 			// Always update the HUD, the drop script might have changed the inventory count itself.
