@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1011 $
- * $Date: 2007-06-10 01:41:44 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1238 $
+ * $Date: 2007-07-29 08:57:02 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*!
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 1011 2007-06-10 05:41:44Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 1238 2007-07-29 12:57:02Z greebo $", init_version);
 
 #include "darkmodHidingSpotTree.h"
 
@@ -76,6 +76,16 @@ void CDarkmodHidingSpotTree::clear()
 	p_firstArea = NULL;
 	p_lastArea = NULL;
 
+}
+
+void CDarkmodHidingSpotTree::Save( idSaveGame *savefile ) const
+{
+	// TODO
+}
+
+void CDarkmodHidingSpotTree::Restore( idRestoreGame *savefile )
+{
+	// TODO
 }
 
 //-------------------------------------------------------------------------

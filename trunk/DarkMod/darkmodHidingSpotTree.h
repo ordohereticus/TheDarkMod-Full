@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1011 $
- * $Date: 2007-06-10 01:41:44 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1238 $
+ * $Date: 2007-07-29 08:57:02 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*!
@@ -191,6 +191,9 @@ public:
 	* usage.
 	*/
 	void clear();
+
+	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
 
 	/*!
 	* Get the number of spots in the entire tree

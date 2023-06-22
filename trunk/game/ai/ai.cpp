@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1237 $
- * $Date: 2007-07-29 08:31:18 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1238 $
+ * $Date: 2007-07-29 08:57:02 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1237 2007-07-29 12:31:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1238 2007-07-29 12:57:02Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -764,6 +764,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat(m_VisDistMax);
 	// greebo: TODO m_HidingSpotSearchHandle is a raw pointer (void*)
 	// greebo: TODO Save CDarkmodHidingSpotTree m_hidingSpots
+	m_hidingSpots.Save(savefile);
 
 	savefile->WriteInt(m_AirCheckTimer);
 	savefile->WriteBool(m_bCanDrown);
@@ -979,7 +980,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadFloat(m_VisDistMax);
 	// greebo: TODO m_HidingSpotSearchHandle is a raw pointer (void*)
-	// greebo: TODO Save CDarkmodHidingSpotTree m_hidingSpots
+	m_hidingSpots.Restore(savefile);
 
 	savefile->ReadInt(m_AirCheckTimer);
 	savefile->ReadBool(m_bCanDrown);
