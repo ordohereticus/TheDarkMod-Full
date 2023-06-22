@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1303 $
- * $Date: 2007-08-21 16:18:33 -0400 (Tue, 21 Aug 2007) $
+ * $Revision: 1307 $
+ * $Date: 2007-08-23 17:12:02 -0400 (Thu, 23 Aug 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -183,8 +183,13 @@ protected:
 	 * handle) and the lock has 6 pins, then the fraction is 45/6 = 7.5 degrees
 	 * per successfully picked pin.
 	 */
+	idEntityPtr<idMover>		m_Tap;
+	bool						m_PinTranslationFractionFlag;
+	bool						m_PinRotationFractionFlag;
 	idVec3						m_PinTranslationFraction;
 	idAngles					m_PinRotationFraction;
+	idVec3						m_OriginalPosition;
+	idAngles					m_OriginalAngle;
 
 private:
 };
