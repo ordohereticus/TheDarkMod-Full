@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2017 $
-#* $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
+#* $Revision: 2057 $
+#* $Date: 2008-02-08 13:18:30 -0500 (Fri, 08 Feb 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -167,7 +167,7 @@ StimResponse/Stim.cpp \
 StimResponse/StimResponse.cpp \
 StimResponse/StimResponseCollection.cpp \
 StimResponse/StimResponseTimer.cpp \
-AI/BasicMind.cpp \
+AI/Mind.cpp \
 AI/Subsystem.cpp \
 AI/States/AgitatedSearchingState.cpp \
 AI/States/BlindedState.cpp \
@@ -179,6 +179,7 @@ AI/States/FleeDoneState.cpp \
 AI/States/IdleState.cpp \
 AI/States/KnockedOutState.cpp \
 AI/States/LostTrackOfEnemyState.cpp \
+AI/States/ObservantState.cpp \
 AI/States/SearchingState.cpp \
 AI/States/State.cpp \
 AI/States/StayInCoverState.cpp \
