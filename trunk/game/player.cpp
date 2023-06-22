@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1161 $
- * $Date: 2007-07-20 05:44:38 -0400 (Fri, 20 Jul 2007) $
+ * $Revision: 1165 $
+ * $Date: 2007-07-21 05:27:32 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1161 2007-07-20 09:44:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1165 2007-07-21 09:27:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4965,6 +4965,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_47:	// Inventory previous item
 		{
+			// Check for an held grabber entity, which should be put back into the inventory
+			if (AddGrabberEntityToInventory())
+				return;
+
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryPrevItem");
 
@@ -4980,6 +4984,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_48:	// Inventory next item
 		{
+			// Check for an held grabber entity, which should be put back into the inventory
+			if (AddGrabberEntityToInventory())
+				return;
+
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryNextItem");
 
@@ -4995,6 +5003,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_49:	// Inventory previous group
 		{
+			// Check for an held grabber entity, which should be put back into the inventory
+			if (AddGrabberEntityToInventory())
+				return;
+
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryPrevGroup");
 
@@ -5010,6 +5022,10 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_50:	// Inventory next group
 		{
+			// Check for an held grabber entity, which should be put back into the inventory
+			if (AddGrabberEntityToInventory())
+				return;
+
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryNextGroup");
 
@@ -9320,4 +9336,29 @@ void idPlayer::setHealthPoolTimeInterval(int newTimeInterval, float factor, int 
 	healthPoolTimeInterval = newTimeInterval;
 	healthPoolTimeIntervalFactor = factor;
 	healthPoolStepAmount = stepAmount;
+}
+
+bool idPlayer::AddGrabberEntityToInventory()
+{
+	CGrabber* grabber = g_Global.m_DarkModPlayer->grabber;
+	idEntity* heldEntity = grabber->GetSelected();
+
+	if (heldEntity != NULL)
+	{
+		CInventoryItem* item = AddToInventory(heldEntity);
+
+		if (item != NULL)
+		{
+			// greebo: Release any items from the grabber, this immobilized the player somehow before
+			grabber->Update( this, false );
+
+			// greebo: Prevent the grabber from checking the added entity (it may be 
+			// entirely removed from the game, which would cause crashes).
+			grabber->RemoveFromClipList(heldEntity);
+
+			return true;
+		}
+	}
+
+	return false;
 }
