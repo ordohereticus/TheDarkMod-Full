@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1405 $
- * $Date: 2007-10-04 03:54:39 -0400 (Thu, 04 Oct 2007) $
+ * $Revision: 1418 $
+ * $Date: 2007-10-10 04:23:46 -0400 (Wed, 10 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1405 2007-10-04 07:54:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1418 2007-10-10 08:23:46Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -2576,6 +2576,46 @@ void Cmd_TestId_f( const idCmdArgs &args ) {
 	gameLocal.mpGame.AddChatLine( common->GetLanguageDict()->GetString( id ), "<nothing>", "<nothing>", "<nothing>" );	
 }
 
+void Cmd_SetClipMask(const idCmdArgs& args)
+{
+	if (args.Argc() != 3)
+	{
+		common->Printf( "usage: setClipMask <entity> <clipMask>\n" );
+		return;
+	}
+
+	idStr targetEntity = args.Argv(1);
+	int clipMask = atoi(args.Argv(2));
+
+	idEntity* ent = gameLocal.FindEntity(targetEntity.c_str());
+
+	if (ent != NULL && ent->GetPhysics() != NULL)
+	{
+		ent->GetPhysics()->SetClipMask(clipMask);
+		common->Printf("Clipmask of entity %s set to %d\n", ent->name.c_str(), clipMask);
+	}
+}
+
+void Cmd_SetClipContents(const idCmdArgs& args)
+{
+	if (args.Argc() != 3)
+	{
+		common->Printf( "usage: setClipContents <entity> <contents>\n" );
+		return;
+	}
+
+	idStr targetEntity = args.Argv(1);
+	int contents = atoi(args.Argv(2));
+
+	idEntity* ent = gameLocal.FindEntity(targetEntity.c_str());
+
+	if (ent != NULL && ent->GetPhysics() != NULL)
+	{
+		ent->GetPhysics()->SetContents(contents);
+		common->Printf("Contents of entity %s set to %d\n", ent->name.c_str(), contents);
+	}
+}
+
 /*
 =================
 idGameLocal::InitConsoleCommands
@@ -2695,6 +2735,10 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "serverForceReady",	idMultiplayerGame::ForceReady_f,CMD_FL_GAME,				"force all players ready" );
 	cmdSystem->AddCommand( "serverNextMap",			idGameLocal::NextMap_f,		CMD_FL_GAME,				"change to the next map" );
 #endif
+
+	// greebo: Added commands to alter the clipmask/contents of entities.
+	cmdSystem->AddCommand( "setClipMask",			Cmd_SetClipMask,			CMD_FL_GAME,				"Set the clipmask of the target entity, usage: 'setClipMask crate01 1313'", idGameLocal::ArgCompletion_EntityName);
+	cmdSystem->AddCommand( "setClipContents",		Cmd_SetClipContents,		CMD_FL_GAME,				"Set the contents flags of the target entity, usage: 'setClipContents crate01 1313'", idGameLocal::ArgCompletion_EntityName);
 
 	// localization help commands
 	cmdSystem->AddCommand( "nextGUI",				Cmd_NextGUI_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"teleport the player to the next func_static with a gui" );
