@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2175 $
- * $Date: 2008-04-11 15:27:35 -0400 (Fri, 11 Apr 2008) $
+ * $Revision: 2178 $
+ * $Date: 2008-04-12 06:22:37 -0400 (Sat, 12 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2175 2008-04-11 19:27:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2178 2008-04-12 10:22:37Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4060,7 +4060,7 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos ) {
 												  path.seekPosObstacle->GetPhysics()->GetAxis()), 16);*/
 
 		// greebo: Check if we have a frobmover entity at our seek position
-		if (path.seekPosObstacle->IsType(CBinaryFrobMover::Type)) 
+		if (path.seekPosObstacle->IsType(CBinaryFrobMover::Type) && m_bCanOperateDoors) 
 		{
 			// We have a frobmover in our way, raise a signal to the current state
 			mind->GetState()->OnFrobMoverEncounter(static_cast<CBinaryFrobMover*>(path.seekPosObstacle));
