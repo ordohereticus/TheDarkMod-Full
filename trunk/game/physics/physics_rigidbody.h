@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1259 $
- * $Date: 2007-08-01 04:19:37 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1263 $
+ * $Date: 2007-08-01 13:06:18 -0400 (Wed, 01 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -136,6 +136,14 @@ public:	// common physics interface
 
 	void					WriteToSnapshot( idBitMsgDelta &msg ) const;
 	void					ReadFromSnapshot( const idBitMsgDelta &msg );
+
+public:
+	/**
+	 * greebo: This is similar to ApplyImpulse, although this distributes the impulse
+	 *         on all entities in contact with this one in *this* very frame. If no
+	 *         no entities are in contact, all the impulse gets applied to this one.
+	 */
+	bool					PropagateImpulse(const idVec3& point, const idVec3& impulse);
 
 private:
 	// state of the rigid body

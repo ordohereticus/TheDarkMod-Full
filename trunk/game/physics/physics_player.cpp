@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1256 $
- * $Date: 2007-07-30 15:42:19 -0400 (Mon, 30 Jul 2007) $
+ * $Revision: 1263 $
+ * $Date: 2007-08-01 13:06:18 -0400 (Wed, 01 Aug 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1256 $   $Date: 2007-07-30 15:42:19 -0400 (Mon, 30 Jul 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1263 $   $Date: 2007-08-01 13:06:18 -0400 (Wed, 01 Aug 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -542,7 +542,22 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 			pushFlags = PUSHFL_CLIP|PUSHFL_ONLYMOVEABLE|PUSHFL_NOGROUNDENTITIES|PUSHFL_APPLYIMPULSE;
 
 			// clip & push
-			totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end - current.origin, cv_pm_pushmod.GetFloat() );
+			
+			// greebo: Don't use the idPusher
+			//totalMass = gameLocal.push.ClipTranslationalPush( trace, self, pushFlags, end, end - current.origin, cv_pm_pushmod.GetFloat() );
+
+			// greebo: Tell the object to take the impulse and propagate it to any touching objects (if there are any)
+			idEntity* pushedEnt = gameLocal.entities[trace.c.entityNum];
+			if (pushedEnt != NULL)
+			{
+				// Check for any rigid bodies that can be kicked
+				idPhysics_RigidBody* rigidBodyPhysics = dynamic_cast<idPhysics_RigidBody*>(pushedEnt->GetPhysics());
+				if (rigidBodyPhysics != NULL)
+				{
+					rigidBodyPhysics->PropagateImpulse(trace.c.point, current.velocity*GetMass()*cv_pm_pushmod.GetFloat());
+				}
+				totalMass = pushedEnt->GetPhysics()->GetMass();
+			}
 
 			if ( totalMass > 0.0f ) {
 				// decrease velocity based on the total mass of the objects being pushed ?
@@ -1177,7 +1192,7 @@ void idPhysics_Player::RopeMove( void )
 				// Correc the pull direction using the orientation of the topmost body.
 				const idMat3& axis = topMostBody->GetWorldAxis();
 				direction = topMostBody->GetWorldAxis() * idVec3(0,0,1);
-				gameRenderWorld->DebugAxis(ropeOrigin, topMostBody->GetWorldAxis());
+				//gameRenderWorld->DebugAxis(ropeOrigin, topMostBody->GetWorldAxis());
 			}
 
 			bindMasterPhysics->ApplyImpulse(0, ropeOrigin, direction * mass * 400);
