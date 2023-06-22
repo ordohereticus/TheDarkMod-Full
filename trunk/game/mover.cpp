@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1747 $
- * $Date: 2007-11-10 16:41:58 -0500 (Sat, 10 Nov 2007) $
- * $Author: tels $
+ * $Revision: 1868 $
+ * $Date: 2007-12-13 03:33:58 -0500 (Thu, 13 Dec 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 1747 2007-11-10 21:41:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 1868 2007-12-13 08:33:58Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -443,7 +443,7 @@ void idMover::Killed( idEntity *inflictor, idEntity *attacker, int damage, const
 	fl.takedamage = false;
 	ActivateTargets( this );
 
-	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, false );
+	gameLocal.m_MissionData->MissionEvent( COMP_DESTROY, this, false );
 }
 
 

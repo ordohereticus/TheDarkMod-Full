@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1868 $
+ * $Date: 2007-12-13 03:33:58 -0500 (Thu, 13 Dec 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 1868 2007-12-13 08:33:58Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -375,7 +375,7 @@ void idMoveable::Killed( idEntity *inflictor, idEntity *attacker, int damage, co
 
 	fl.takedamage = false;
 
-	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, false );
+	gameLocal.m_MissionData->MissionEvent( COMP_DESTROY, this, false );
 }
 
 /*

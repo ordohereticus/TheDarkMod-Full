@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1865 $
- * $Date: 2007-12-12 03:47:14 -0500 (Wed, 12 Dec 2007) $
+ * $Revision: 1868 $
+ * $Date: 2007-12-13 03:33:58 -0500 (Thu, 13 Dec 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1865 2007-12-12 08:47:14Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 1868 2007-12-13 08:33:58Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -583,7 +583,7 @@ void idDamagable::Killed( idEntity *inflictor, idEntity *attacker, int damage, c
 		return;
 	}
 
-	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, false );
+	gameLocal.m_MissionData->MissionEvent( COMP_DESTROY, this, false );
 	BecomeBroken( attacker );
 }
 
