@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1222 $
- * $Date: 2007-07-28 05:50:27 -0400 (Sat, 28 Jul 2007) $
+ * $Revision: 1255 $
+ * $Date: 2007-07-30 12:37:53 -0400 (Mon, 30 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1222 2007-07-28 09:50:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 1255 2007-07-30 16:37:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2605,7 +2605,8 @@ idWeapon::Event_AmmoAvailable
 ===============
 */
 void idWeapon::Event_AmmoAvailable( void ) {
-	int ammoAvail = owner->getCurrentWeaponItem()->hasAmmo();
+	CInventoryWeaponItem* currentWeapon = owner->getCurrentWeaponItem();
+	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->hasAmmo() : 0;
 	idThread::ReturnFloat( ammoAvail );
 }
 
@@ -2615,7 +2616,8 @@ idWeapon::Event_TotalAmmoCount
 ===============
 */
 void idWeapon::Event_TotalAmmoCount( void ) {
-	int ammoAvail = owner->getCurrentWeaponItem()->hasAmmo();
+	CInventoryWeaponItem* currentWeapon = owner->getCurrentWeaponItem();
+	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->hasAmmo() : 0;
 	idThread::ReturnFloat( ammoAvail );
 }
 

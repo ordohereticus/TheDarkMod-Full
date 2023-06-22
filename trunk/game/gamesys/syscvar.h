@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1227 $
- * $Date: 2007-07-28 12:49:35 -0400 (Sat, 28 Jul 2007) $
+ * $Revision: 1255 $
+ * $Date: 2007-07-30 12:37:53 -0400 (Mon, 30 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -51,6 +51,7 @@ extern idCVar cv_pm_creepmod;
 extern idCVar cv_pm_pushmod;
 extern idCVar cv_pm_mantle_height;
 extern idCVar cv_pm_rope_snd_rep_dist;
+extern idCVar cv_pm_rope_velocity_letgo;
 
 /**
 * This cvar controls if ai hiding spot search debug graphics are drawn
