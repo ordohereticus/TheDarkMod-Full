@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2117 $
+ * $Date: 2008-03-01 11:19:27 -0500 (Sat, 01 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -116,6 +116,16 @@ protected:
 	virtual void			DoneRotating( void );
 	virtual void			BeginMove( idThread *thread = NULL );
 	virtual void			BeginRotation( idThread *thread, bool stopwhendone );
+
+	/**
+	 * greebo: Calculates the move_time. For standard-movers, this does more or less nothing
+	 *         but subclasses might do more complicated things based on the current rotation state,
+	 *         like BinaryFrobMovers do.
+	 *
+	 * Note: This is an internal function used by BeginRotation() only.
+	 */
+	virtual void			CalculateMoveTime();
+
 	moveState_t				move;
 
 protected:
