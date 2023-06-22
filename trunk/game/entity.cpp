@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1262 $
- * $Date: 2007-08-01 07:24:04 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1266 $
+ * $Date: 2007-08-02 13:47:13 -0400 (Thu, 02 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1262 2007-08-01 11:24:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1266 2007-08-02 17:47:13Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3368,7 +3368,25 @@ bool idEntity::RunPhysics( void ) {
 		idPhysics_RigidBody* rigidBodyPhysics = dynamic_cast<idPhysics_RigidBody*>(physics);
 		if (rigidBodyPhysics != NULL)
 		{
-			rigidBodyPhysics->CollisionImpulse(*blockedPart->GetPhysics()->GetBlockingInfo(), -physics->GetLinearVelocity()*physics->GetMass());
+			// Calculate the movement (proportional to kinetic energy)
+			float movement = rigidBodyPhysics->GetLinearVelocity().LengthSqr() + 
+				              rigidBodyPhysics->GetAngularVelocity().LengthSqr();
+
+			//DM_LOG(LC_ENTITY, LT_INFO).LogString("Movement is %f\r", movement);
+
+			if (movement < 10.0f)
+			{
+				DM_LOG(LC_ENTITY, LT_INFO).LogString("Putting %s to rest, velocity was %f\r", name.c_str(), physics->GetLinearVelocity().LengthFast());
+				physics->PutToRest();
+			}
+			else
+			{
+				rigidBodyPhysics->CollisionImpulse(*blockedPart->GetPhysics()->GetBlockingInfo(), -physics->GetLinearVelocity()*physics->GetMass());
+
+				// greebo: Apply some damping due to the collision with a slave
+				rigidBodyPhysics->State().i.linearMomentum *= 0.95f;
+				rigidBodyPhysics->State().i.angularMomentum *= 0.99f;
+			}
 		}
 
 		// restore the positions of any pushed entities

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1265 $
- * $Date: 2007-08-02 04:36:14 -0400 (Thu, 02 Aug 2007) $
+ * $Revision: 1266 $
+ * $Date: 2007-08-02 13:47:13 -0400 (Thu, 02 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1265 2007-08-02 08:36:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1266 2007-08-02 17:47:13Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -419,6 +419,8 @@ bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &im
 	// update linear and angular momentum with impulse
 	current.i.linearMomentum += impulse;
 	current.i.angularMomentum += r.Cross(impulse);
+
+	//DM_LOG(LC_ENTITY, LT_INFO).LogString("Collision fraction of %s = %f\r", self->name.c_str(), collision.fraction);
 
 	// if no movement at all don't blow up
 	if ( collision.fraction < 0.0001f ) {
@@ -1281,6 +1283,7 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 			gameLocal.push.ClipPush( collisionTrace, self, PUSHFL_CLIP|PUSHFL_APPLYIMPULSE, oldOrigin, oldAxis, current.i.position, current.i.orientation );
 
 			if (collisionTrace.fraction < 1.0f ) {
+
 				clipModel->Link( gameLocal.clip, self, 0, oldOrigin, oldAxis );
 				current.i.position = oldOrigin;
 				current.i.orientation = oldAxis;

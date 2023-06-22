@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1263 $
- * $Date: 2007-08-01 13:06:18 -0400 (Wed, 01 Aug 2007) $
+ * $Revision: 1266 $
+ * $Date: 2007-08-02 13:47:13 -0400 (Thu, 02 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -144,6 +144,11 @@ public:
 	 *         no entities are in contact, all the impulse gets applied to this one.
 	 */
 	bool					PropagateImpulse(const idVec3& point, const idVec3& impulse);
+
+	/**
+	 * greebo: "Accessor" method to the internal state. This is a bit hacky, I admit.
+	 */
+	rigidBodyPState_t&		State() { return current; }
 
 private:
 	// state of the rigid body
