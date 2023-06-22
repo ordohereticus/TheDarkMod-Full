@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1348 $
- * $Date: 2007-08-29 07:30:16 -0400 (Wed, 29 Aug 2007) $
+ * $Revision: 1349 $
+ * $Date: 2007-08-29 08:37:57 -0400 (Wed, 29 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1348 2007-08-29 11:30:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1349 2007-08-29 12:37:57Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2377,7 +2377,7 @@ bool idAI::Flee(idEntity* entityToFleeFrom, float maxDist)
 	// Setup the escape conditions
 	EscapeConditions conditions;
 	
-	conditions.fromEntity = dynamic_cast<idAI*>(entityToFleeFrom);
+	conditions.fromEntity = entityToFleeFrom;
 	conditions.aas = aas;
 	conditions.fromPosition = org;
 	conditions.maxDistance = 1000.0f;
