@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1643 $
-#* $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
+#* $Revision: 1676 $
+#* $Date: 2007-11-04 13:21:08 -0500 (Sun, 04 Nov 2007) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -196,7 +196,6 @@ AI/Tasks/PathWaitTask.cpp \
 AI/Tasks/PatrolTask.cpp \
 AI/Tasks/RandomTurningTask.cpp \
 AI/Tasks/RepeatedBarkTask.cpp \
-AI/Tasks/SearchTask.cpp \
 AI/Tasks/SingleBarkTask.cpp \
 AI/Tasks/StimulusSensoryTask.cpp \
 AI/Tasks/ThrowObjectTask.cpp \
