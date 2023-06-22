@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1210 $
- * $Date: 2007-07-23 16:30:30 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1211 $
+ * $Date: 2007-07-23 16:40:03 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1210 2007-07-23 20:30:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1211 2007-07-23 20:40:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1665,13 +1665,13 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 		m_Timer[i]->Restore(&savegame);
 	}
 
+	// The list to take all the values, they will be restored later on
+	idList<int> tempStimTimerIdList;
 	savegame.ReadInt(num);
-	m_StimTimer.SetNum(num);
+	tempStimTimerIdList.SetNum(num);
 	for (int i = 0; i < num; i++)
 	{
-		int uniqueId;
-		savegame.ReadInt(uniqueId);
-		m_StimTimer[i] = static_cast<CStim*>(FindStimResponse(uniqueId));
+		savegame.ReadInt(tempStimTimerIdList[i]);
 	}
 
 	savegame.ReadInt(num);
@@ -1717,6 +1717,13 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	// Restore the physics pointer in the grabber.
 	g_Global.m_DarkModPlayer->grabber->SetPhysicsFromDragEntity();
+
+	// Restore the CStim* pointers in the m_StimTimer list
+	m_StimTimer.SetNum(tempStimTimerIdList.Num());
+	for (int i = 0; i < tempStimTimerIdList.Num(); i++)
+	{
+		m_StimTimer[i] = static_cast<CStim*>(FindStimResponse(tempStimTimerIdList[i]));
+	}
 
 	Printf( "--------------------------------------\n" );
 
