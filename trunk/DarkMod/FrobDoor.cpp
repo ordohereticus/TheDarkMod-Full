@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2119 $
- * $Date: 2008-03-01 14:06:09 -0500 (Sat, 01 Mar 2008) $
- * $Author: tels $
+ * $Revision: 2138 $
+ * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,16 +13,19 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2119 2008-03-01 19:06:09Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
 #include "BinaryFrobMover.h"
 #include "FrobDoor.h"
 #include "FrobDoorHandle.h"
+#include "../tools/compilers/aas/aasfile.h"
 #include "sndProp.h"
 #include "randomizer/randomc.h"
 #include "StimResponse/StimResponseTimer.h"
+
+#include "../game/ai/aas.h"
 
 extern TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd;
 
@@ -282,6 +285,28 @@ void CFrobDoor::Spawn( void )
 
 	//TODO: Add portal/door pair to soundprop data here, 
 	//	replacing the old way in sndPropLoader
+
+	idClipModel *clipModel = GetPhysics()->GetClipModel();
+	if (clipModel == NULL)
+	{
+		gameLocal.Error("Frob Door %s has no clip model", name.c_str());
+	}
+
+	idVec3 center = (m_ClosedPos + GetPhysics()->GetOrigin()) * 0.5;
+	center.z = GetPhysics()->GetOrigin().z;
+	for (int i = 0; i < gameLocal.NumAAS(); i++)
+	{
+		idAAS*	aas = gameLocal.GetAAS(i);
+		if (aas == NULL)
+		{
+			continue;
+		}
+		int areaNum = aas->PointReachableAreaNum( center, clipModel->GetBounds(), AREA_REACHABLE_WALK );
+		idStr areatext(areaNum);
+		//gameRenderWorld->DrawText(areatext.c_str(), center + idVec3(0,0,i), 0.2f, colorGreen, 
+		//	mat3_identity, 1, 10000000);
+		aas->SetAreaTravelFlag(areaNum, TFL_DOOR);
+	}
 }
 
 void CFrobDoor::Lock(bool bMaster)

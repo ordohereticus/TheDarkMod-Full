@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2017 $
- * $Date: 2008-01-27 15:35:19 -0500 (Sun, 27 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2138 $
+ * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -177,6 +177,7 @@ void gameError( const char *fmt, ... );
 
 #include "../DarkMod/EMissionResult.h"
 #include "../DarkMod/DifficultyManager.h"
+#include "../DarkMod/AI/AreaManager.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -435,6 +436,8 @@ public:
 
 	// The object handling the difficulty settings
 	difficulty::DifficultyManager	m_DifficultyManager;
+
+	ai::AreaManager			m_AreaManager;
 
 /**
 * Pointer to global AI Relations object

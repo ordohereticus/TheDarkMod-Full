@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2112 $
- * $Date: 2008-02-27 13:38:29 -0500 (Wed, 27 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2138 $
+ * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 2112 2008-02-27 18:38:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: aas.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
 
 #include "aas_local.h"
 
@@ -401,6 +401,15 @@ idReachability* idAASLocal::GetAreaFirstReachability(int areaNum) const
 	return area.reach;
 	
 }
+
+void idAASLocal::SetAreaTravelFlag( int index, int flag )
+{
+	if (file != NULL)
+	{
+		file->SetAreaTravelFlag(index, flag);
+	}
+}
+
 
 /*
 ============

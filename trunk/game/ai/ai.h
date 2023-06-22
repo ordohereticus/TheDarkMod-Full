@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2125 $
- * $Date: 2008-03-05 12:51:23 -0500 (Wed, 05 Mar 2008) $
+ * $Revision: 2138 $
+ * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1108,7 +1108,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 */
 	int						PointReachableAreaNum(const idVec3 &pos, const float boundsScale = 2.0f, const idVec3& offset = idVec3(0,0,0)) const;
 
-	bool					PathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin ) const;
+	bool					PathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, idActor* actor ) const;
 	void					DrawRoute( void ) const;
 	bool					GetMovePos( idVec3 &seekPos );
 	bool					MoveDone( void ) const;

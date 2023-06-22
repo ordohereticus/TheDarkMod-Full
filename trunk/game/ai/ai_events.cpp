@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2055 $
- * $Date: 2008-02-08 09:38:33 -0500 (Fri, 08 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2138 $
+ * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2055 2008-02-08 14:38:33Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -719,7 +719,7 @@ void idAI::Event_ClosestReachableEnemyOfEntity( idEntity *team_mate ) {
 		if ( distSquared < bestDistSquared ) {
 			const idVec3 &enemyPos = ent->GetPhysics()->GetOrigin();
 			enemyAreaNum = PointReachableAreaNum( enemyPos );
-			if ( ( areaNum != 0 ) && PathToGoal( path, areaNum, origin, enemyAreaNum, enemyPos ) ) {
+			if ( ( areaNum != 0 ) && PathToGoal( path, areaNum, origin, enemyAreaNum, enemyPos, this ) ) {
 				bestEnt = ent;
 				bestDistSquared = distSquared;
 			}
@@ -3079,7 +3079,7 @@ void idAI::Event_CanReachPosition( const idVec3 &pos ) {
 
 	toAreaNum = PointReachableAreaNum( pos );
 	areaNum	= PointReachableAreaNum( physicsObj.GetOrigin() );
-	if ( !toAreaNum || !PathToGoal( path, areaNum, physicsObj.GetOrigin(), toAreaNum, pos ) ) {
+	if ( !toAreaNum || !PathToGoal( path, areaNum, physicsObj.GetOrigin(), toAreaNum, pos, this ) ) {
 		idThread::ReturnInt( false );
 	} else {
 		idThread::ReturnInt( true );
@@ -3123,7 +3123,7 @@ void idAI::Event_CanReachEntity( idEntity *ent ) {
 
 	const idVec3 &org = physicsObj.GetOrigin();
 	areaNum	= PointReachableAreaNum( org );
-	if ( !toAreaNum || !PathToGoal( path, areaNum, org, toAreaNum, pos ) ) {
+	if ( !toAreaNum || !PathToGoal( path, areaNum, org, toAreaNum, pos, this ) ) {
 		idThread::ReturnInt( false );
 	} else {
 		idThread::ReturnInt( true );

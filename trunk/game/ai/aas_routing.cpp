@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2138 $
+ * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -991,7 +991,7 @@ idRoutingCache *idAASLocal::GetPortalRoutingCache( int clusterNum, int areaNum, 
 idAASLocal::RouteToGoalArea
 ============
 */
-bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalAreaNum, int travelFlags, int &travelTime, idReachability **reach ) const {
+bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalAreaNum, int travelFlags, int &travelTime, idReachability **reach, const idActor* actor ) const {
 	int clusterNum, goalClusterNum, portalNum, i, clusterAreaNum;
 	unsigned short int t, bestTime;
 	const aasPortal_t *portal;
@@ -1099,6 +1099,14 @@ bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalArea
 		}
 
 		portal = &file->GetPortal( portalNum );
+		int portalAreaNum = portal->areaNum;
+
+		// angua: area is forbidden (e.g. locked door)
+		if (actor != NULL && gameLocal.m_AreaManager.AreaIsForbidden(portalAreaNum, actor))
+		{
+			continue;
+		}
+
 		// get the cache of the portal area
 		areaCache = GetAreaRoutingCache( clusterNum, portal->areaNum, travelFlags );
 		// if the portal is not reachable from this area
@@ -1147,7 +1155,7 @@ bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalArea
 idAASLocal::TravelTimeToGoalArea
 ============
 */
-int idAASLocal::TravelTimeToGoalArea( int areaNum, const idVec3 &origin, int goalAreaNum, int travelFlags ) const {
+int idAASLocal::TravelTimeToGoalArea( int areaNum, const idVec3 &origin, int goalAreaNum, int travelFlags, idActor* actor ) const {
 	int travelTime;
 	idReachability *reach;
 
@@ -1155,7 +1163,7 @@ int idAASLocal::TravelTimeToGoalArea( int areaNum, const idVec3 &origin, int goa
 		return 0;
 	}
 
-	if ( !RouteToGoalArea( areaNum, origin, goalAreaNum, travelFlags, travelTime, &reach ) ) {
+	if ( !RouteToGoalArea( areaNum, origin, goalAreaNum, travelFlags, travelTime, &reach, actor ) ) {
 		return 0;
 	}
 	return travelTime;
