@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1242 $
- * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1245 $
+ * $Date: 2007-07-29 12:10:01 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -106,7 +106,7 @@ protected:
 	float searchRadius;
 	idBounds searchIgnoreLimits;
 	int hidingSpotTypesAllowed;
-	idEntity* p_ignoreEntity;
+	idEntityPtr<idEntity> p_ignoreEntity;
 
 	/* This tracks the last game frame during which points were tested so 
 	* we don't test more and more points if more than one AI sharing the search

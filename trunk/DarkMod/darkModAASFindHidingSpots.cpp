@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1244 $
- * $Date: 2007-07-29 12:02:09 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1245 $
+ * $Date: 2007-07-29 12:10:01 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1244 2007-07-29 16:02:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModAASFindHidingSpots.cpp 1245 2007-07-29 16:10:01Z greebo $", init_version);
 
 #include "darkModAASFindHidingSpots.h"
 #include "DarkModGlobals.h"
@@ -240,7 +240,7 @@ void darkModAASFindHidingSpots::Save( idSaveGame *savefile ) const
 	
 	savefile->WriteInt(numAASAreaIndicesSearched);
     
-	// TODO: idAAS *p_aas;
+	// p_aas gets restored using the LAS singleton class
 
 	savefile->WriteFloat(hidingHeight);
 	savefile->WriteBounds(searchLimits);
@@ -249,7 +249,7 @@ void darkModAASFindHidingSpots::Save( idSaveGame *savefile ) const
 	savefile->WriteBounds(searchIgnoreLimits);
 	savefile->WriteInt(hidingSpotTypesAllowed);
 
-	// TODO: idEntity* p_ignoreEntity;
+	p_ignoreEntity.Save(savefile);
 
 	savefile->WriteInt(lastProcessingFrameNumber);
 
@@ -300,7 +300,8 @@ void darkModAASFindHidingSpots::Restore( idRestoreGame *savefile )
 	
 	savefile->ReadInt(numAASAreaIndicesSearched);
     
-	// TODO: idAAS *p_aas;
+	// Restore the AAS pointer from the LAS singleton
+	p_aas = gameLocal.GetAAS(LAS.getAASName());
 
 	savefile->ReadFloat(hidingHeight);
 	savefile->ReadBounds(searchLimits);
@@ -309,7 +310,7 @@ void darkModAASFindHidingSpots::Restore( idRestoreGame *savefile )
 	savefile->ReadBounds(searchIgnoreLimits);
 	savefile->ReadInt(hidingSpotTypesAllowed);
 
-	// TODO: idEntity* p_ignoreEntity;
+	p_ignoreEntity.Restore(savefile);
 
 	savefile->ReadInt(lastProcessingFrameNumber);
 
@@ -713,7 +714,7 @@ bool darkModAASFindHidingSpots::testingInsideVisibleAASArea
 					searchRadius,
 					hidingHeight,
 					hidingSpotTypesAllowed,
-					p_ignoreEntity,
+					p_ignoreEntity.GetEntity(),
 					hidingSpot.lightQuotient,
 					hidingSpot.qualityWithoutDistanceFactor,
 					hidingSpot.quality
