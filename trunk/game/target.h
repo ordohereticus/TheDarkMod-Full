@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1684 $
- * $Date: 2007-11-05 00:16:28 -0500 (Mon, 05 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1998 $
+ * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -559,6 +559,19 @@ class CTarget_AddObjectives : public idTarget
 {
 public:
 	CLASS_PROTOTYPE( CTarget_AddObjectives );
+private:
+	void				Event_Activate( idEntity *activator );
+	virtual void		Spawn( void );
+};
+
+/**
+ * greebo: Target for altering the state of certain objectives.
+ */
+class CTarget_SetObjectiveState : 
+	public idTarget 
+{
+public:
+	CLASS_PROTOTYPE( CTarget_SetObjectiveState );
 private:
 	void				Event_Activate( idEntity *activator );
 	virtual void		Spawn( void );

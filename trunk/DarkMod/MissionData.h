@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1922 $
- * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1998 $
+ * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -40,6 +40,8 @@ typedef enum
 } EObjCompletionState;
 // NOTE: STATE_INVALID may also be used for initially deactivating objectives, 
 // then activating later by setting STATE_INCOMPLETE
+
+#include "EMissionResult.h"
 
 /**
 * Objective component specification types
@@ -618,6 +620,13 @@ public:
 	* Returns the index of the LAST objective added, for later addressing
 	**/
 	int AddObjsFromEnt( idEntity *ent );
+	int AddObjsFromDict(const idDict& dict);
+
+	/**
+	 * greebo: Load the objectives directly from the given map file.
+	 *         This is called by the main menu SDK code.
+	 **/
+	void LoadDirectlyFromMapFile(const idStr& mapName);
 
 	/**
 	 * greebo: This updates the given GUI overlay with the current
@@ -626,7 +635,15 @@ public:
 	 * @entity: The entity whose GUI should be updated (usually the player).
 	 * @overlayHandle: the handle of the GUI to be updated.
 	 */
-	void UpdateGUIState(idEntity* entity, int overlayHandle);
+	void UpdateGUIState(idEntity* entity, int overlayHandle); // deprecated, do not call anymore
+
+	/**
+	 * greebo: This updates the given GUI with the current
+	 *         missiondata (objectives state). Called by gameLocal on demand of the main menu.
+	 *
+	 * @ui: the GUI to be updated.
+	 */
+	void UpdateGUIState(idUserInterface* ui);
 
 	/**
 	 * greebo: Updates the statistics in the given GUI.
@@ -783,6 +800,10 @@ protected:
 	* Objective system: Location's objective group name for objective checks
 	**/
 	idStr		m_ObjectiveGroup;
+
+private:
+	idClipModel *		clipModel;
+
 
 }; // CObjectiveLocation
 

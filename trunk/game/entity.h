@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1913 $
- * $Date: 2007-12-27 12:37:50 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1998 $
+ * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -80,6 +80,7 @@ extern const idEventDef EV_SetSkin;
 extern const idEventDef EV_StartSoundShader;
 extern const idEventDef EV_StopSound;
 extern const idEventDef EV_CacheSoundShader;
+extern const idEventDef EV_ExtinguishLights;
 
 extern const idEventDef EV_IsType;
 
@@ -1016,6 +1017,11 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_HasFunction( const char *name );
 	void					Event_CallFunction( const char *name );
 	void					Event_SetNeverDormant( int enable );
+
+	/**
+	 * greebo: Extinguishes all lights in the teamchain, including self.
+	 */
+	void					Event_ExtinguishLights();
 
 	void					Event_InPVS( void );
 	void					Event_WaitForRender( void );

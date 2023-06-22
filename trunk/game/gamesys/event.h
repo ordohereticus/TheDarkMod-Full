@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1998 $
+ * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,6 +16,10 @@ Event are used for scheduling tasks and for linking script commands.
 */
 #ifndef __SYS_EVENT_H__
 #define __SYS_EVENT_H__
+
+#ifdef __linux__
+#include <cassert>
+#endif
 
 #include "../../idlib/lib.h"
 #include <cstring>

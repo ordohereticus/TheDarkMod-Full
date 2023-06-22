@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1877 $
- * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
- * $Author: ishtvan $
+ * $Revision: 1998 $
+ * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 1877 2007-12-17 01:37:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -151,7 +151,16 @@ void idMoveable::Spawn( void ) {
 	physicsObj.SetBouncyness( bouncyness );
 	physicsObj.SetFriction( air_friction_linear, air_friction_angular, friction );
 	physicsObj.SetGravity( gameLocal.GetGravity() );
-	physicsObj.SetContents( CONTENTS_SOLID | CONTENTS_OPAQUE );
+
+	int contents = CONTENTS_SOLID | CONTENTS_OPAQUE;
+	// greebo: Set the frobable contents flag if the spawnarg says so
+	if (spawnArgs.GetBool("frobable", "0"))
+	{
+		contents |= CONTENTS_FROBABLE;
+	}
+	
+	physicsObj.SetContents( contents );
+
 	physicsObj.SetClipMask( MASK_SOLID | CONTENTS_BODY | CONTENTS_CORPSE | CONTENTS_MOVEABLECLIP );
 	SetPhysics( &physicsObj );
 

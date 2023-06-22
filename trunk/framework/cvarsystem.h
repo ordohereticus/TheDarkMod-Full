@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1998 $
+ * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -66,6 +66,7 @@
 #ifdef __linux__
 #include "cmdsystem.h"
 #include <typeinfo>
+#include <cassert>
 #endif
 
 typedef enum {

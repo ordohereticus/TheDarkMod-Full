@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1970 $
- * $Date: 2008-01-10 00:49:14 -0500 (Thu, 10 Jan 2008) $
- * $Author: ishtvan $
+ * $Revision: 1998 $
+ * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1970 2008-01-10 05:49:14Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -255,6 +255,12 @@ void idPhysics_RigidBody::Integrate( float deltaTime, rigidBodyPState_t &next ) 
 bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& impulse)
 {
 	DM_LOG(LC_ENTITY, LT_INFO).LogString("Contacts with this entity %s = %d\r", self->name.c_str(), contacts.Num());
+
+	if (impulse.LengthSqr() == 0)
+	{
+		// greebo: Don't process incoming zero impulses, quit at once.
+		return false;
+	}
 
 	// greebo: Check all entities touching this physics object
 	EvaluateContacts();
@@ -1047,7 +1053,7 @@ void idPhysics_RigidBody::SetClipModel( idClipModel *model, const float density,
 
 	// check whether or not the clip model has valid mass properties
 	if ( mass <= 0.0f || FLOAT_IS_NAN( mass ) ) {
-		gameLocal.Warning( "idPhysics_RigidBody::SetClipModel: invalid mass for entity '%s' type '%s'",
+		DM_LOG(LC_ENTITY, LT_INFO).LogString( "idPhysics_RigidBody::SetClipModel: invalid mass for entity '%s' type '%s'",
 							self->name.c_str(), self->GetType()->classname );
 		mass = 1.0f;
 		centerOfMass.Zero();
