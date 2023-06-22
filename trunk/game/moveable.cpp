@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1000 $
- * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
- * $Author: ishtvan $
+ * $Revision: 1283 $
+ * $Date: 2007-08-05 12:10:02 -0400 (Sun, 05 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 1283 2007-08-05 16:10:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -61,6 +61,10 @@ idMoveable::idMoveable( void ) {
 	unbindOnDeath		= false;
 	allowStep			= false;
 	canDamage			= false;
+
+	// greebo: A fraction of -1 is considered to be an invalid trace here
+	memset(&lastCollision, 0, sizeof(lastCollision));
+	lastCollision.fraction = -1;
 }
 
 /*
@@ -201,6 +205,8 @@ void idMoveable::Save( idSaveGame *savefile ) const {
 	savefile->WriteVec3( initialSplineDir );
 
 	savefile->WriteStaticObject( physicsObj );
+
+	savefile->WriteTrace(lastCollision);
 }
 
 /*
@@ -234,6 +240,8 @@ void idMoveable::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadStaticObject( physicsObj );
 	RestorePhysics( &physicsObj );
+
+	savefile->ReadTrace(lastCollision);
 }
 
 /*
@@ -276,8 +284,14 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	idStr SndNameLocal;
 	const char *SndName(NULL);
 
+	// greebo: Check whether we are colliding with the nearly exact same point again
+	bool sameCollisionAgain = (lastCollision.fraction != -1 && lastCollision.c.point.Compare(collision.c.point, 0.05f));
+
+	// greebo: Save the collision info for the next call
+	lastCollision = collision;
+
 	v = -( velocity * collision.c.normal );
-	if ( v > BOUNCE_SOUND_MIN_VELOCITY && gameLocal.time > nextSoundTime ) 
+	if ( !sameCollisionAgain && v > BOUNCE_SOUND_MIN_VELOCITY && gameLocal.time > nextSoundTime ) 
 	{
 		material = collision.c.material;
 		if( material != NULL)

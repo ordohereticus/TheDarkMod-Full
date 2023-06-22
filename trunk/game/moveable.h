@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1283 $
+ * $Date: 2007-08-05 12:10:02 -0400 (Sun, 05 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -64,6 +64,9 @@ protected:
 	bool					canDamage;				// only apply damage when this is set
 	int						nextDamageTime;			// next time the movable can hurt the player
 	int						nextSoundTime;			// next time the moveable can make a sound
+
+	// greebo: Stores the last collision info to avoid constant playing of the collision sound when stuck
+	trace_t					lastCollision;
 
 	const idMaterial *		GetRenderModelMaterial( void ) const;
 	void					BecomeNonSolid( void );
