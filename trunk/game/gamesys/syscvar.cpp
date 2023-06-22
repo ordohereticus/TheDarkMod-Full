@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1759 $
- * $Date: 2007-11-12 03:10:17 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1762 $
+ * $Date: 2007-11-12 05:35:56 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1759 2007-11-12 08:10:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1762 2007-11-12 10:35:56Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -80,6 +80,7 @@ idCVar cv_ai_opt_noanims (			"tdm_ai_opt_noanims",		"0",			CVAR_GAME | CVAR_BOOL
 idCVar cv_ai_opt_novisualscan (			"tdm_ai_opt_novisualscan",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AIs not in the Potentially Visible Set will not look for enemies, not even enemy AIs.");
 idCVar cv_ai_opt_forceopt (			"tdm_ai_opt_forceopt",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AIs will always be treated as being outside the PVS for the purposes of the other tdm_ai_opt_* spawnargs." );
 idCVar cv_ai_opt_nothink (			"tdm_ai_opt_nothink",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not perform their thinking routine." );
+idCVar cv_ai_opt_novisualstim (			"tdm_ai_opt_novisualstim",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not process any incoming visual stimuli." );
 
 idCVar cv_sr_disable (				"tdm_sr_disable",           "0",           CVAR_GAME | CVAR_BOOL, "Set to 1 to disable all stim/response processing." );
 
