@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2154 $
- * $Date: 2008-03-29 09:41:11 -0400 (Sat, 29 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2173 $
+ * $Date: 2008-04-11 15:01:22 -0400 (Fri, 11 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2154 2008-03-29 13:41:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2173 2008-04-11 19:01:22Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2337,6 +2337,11 @@ void idAI::StopMove( moveStatus_t status ) {
 	move.moveDir.Zero();
 	move.lastMoveOrigin.Zero();
 	move.lastMoveTime	= gameLocal.time;
+}
+
+const idVec3& idAI::GetMoveDest() const
+{
+	return move.moveDest;
 }
 
 /*

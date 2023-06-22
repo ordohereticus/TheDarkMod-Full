@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2154 $
- * $Date: 2008-03-29 09:41:11 -0400 (Sat, 29 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2173 $
+ * $Date: 2008-04-11 15:01:22 -0400 (Fri, 11 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1187,6 +1187,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					DirectMoveToPosition( const idVec3 &pos );
 	bool					MoveToEnemyHeight( void );
 	bool					MoveOutOfRange( idEntity *entity, float range );
+	const idVec3&			GetMoveDest() const;
 	/**
 	 * greebo: Flee from the given entity. Pass the maximum distance this AI should search escape areas in.
 	 */
