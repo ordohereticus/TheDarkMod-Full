@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1646 $
- * $Date: 2007-11-02 03:47:33 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1921 $
+ * $Date: 2007-12-28 05:08:24 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -186,6 +186,9 @@ private:
 	* @returns: returns TRUE to the calling thread if the point is in a liquid
 	*/
 	void						Event_PointInLiquid( const idVec3 &point, idEntity* ignoreEntity );
+
+	// Emits the string to the session command variable in gameLocal.
+	void						Event_SessionCommand(const char* cmd);
 
 	// For test purposes only.
 	void						Event_DebugTDM_MatInfo( const char *mat );
