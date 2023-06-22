@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2044 $
+ * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_base.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_base.cpp 2044 2008-02-04 18:47:47Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -30,6 +30,7 @@ idPhysics_Base::idPhysics_Base( void ) {
 #ifdef MOD_WATERPHYSICS
 	water = NULL;	// MOD_WATERPHYSICS
 #endif		// MOD_WATERPHYSICS
+
 	clipMask = 0;
 	SetGravity( gameLocal.GetGravity() );
 	ClearContacts();

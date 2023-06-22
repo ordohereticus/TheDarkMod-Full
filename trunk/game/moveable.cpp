@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2040 $
- * $Date: 2008-02-03 03:43:22 -0500 (Sun, 03 Feb 2008) $
+ * $Revision: 2044 $
+ * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2040 2008-02-03 08:43:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2044 2008-02-04 18:47:47Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -87,6 +87,7 @@ void idMoveable::Spawn( void ) {
 	float density, friction, bouncyness, mass, air_friction_linear, air_friction_angular;
 	int clipShrink;
 	idStr clipModelName;
+	idVec3 maxForce, maxTorque;
 
 	// check if a clip model is set
 	spawnArgs.GetString( "clipmodel", "", clipModelName );
@@ -131,7 +132,9 @@ void idMoveable::Spawn( void ) {
 	fxCollide = spawnArgs.GetString( "fx_collide" );
 	nextCollideFxTime = 0;
 
-	fl.takedamage = true;
+// tels: set by LoadModels()
+//	fl.takedamage = true;
+
 	damage = spawnArgs.GetString( "def_damage", "" );
 	canDamage = spawnArgs.GetBool( "damageWhenActive" ) ? false : true;
 	minDamageVelocity = spawnArgs.GetFloat( "minDamageVelocity", "100" );
@@ -140,13 +143,9 @@ void idMoveable::Spawn( void ) {
 	nextSoundTime = 0;
 
 	health = spawnArgs.GetInt( "health", "0" );
-	spawnArgs.GetString( "broken", "", brokenModel );
 
-	if ( health ) {
-		if ( brokenModel != "" && !renderModelManager->CheckModel( brokenModel ) ) {
-			gameLocal.Error( "idMoveable '%s' at (%s): cannot load broken model '%s'", name.c_str(), GetPhysics()->GetOrigin().ToString(0), brokenModel.c_str() );
-		}
-	}
+	// tels: load a visual model, as well as a brokenModel
+	LoadModels();
 
 	// setup the physics
 	physicsObj.SetSelf( this );
@@ -174,6 +173,14 @@ void idMoveable::Spawn( void ) {
 		physicsObj.SetMass( mass );
 	}
 
+	// tels
+	if ( spawnArgs.GetVector( "max_force", "", maxForce ) ) {
+		physicsObj.SetMaxForce( maxForce );
+	}
+	if ( spawnArgs.GetVector( "max_torque", "", maxTorque ) ) {
+		physicsObj.SetMaxTorque( maxTorque );
+	}
+	
 	if ( spawnArgs.GetBool( "nodrop" ) ) {
 		physicsObj.PutToRest();
 	} else {
@@ -204,7 +211,6 @@ idMoveable::Save
 */
 void idMoveable::Save( idSaveGame *savefile ) const {
 
-	savefile->WriteString( brokenModel );
 	savefile->WriteString( damage );
 	savefile->WriteString( fxCollide );
 	savefile->WriteInt( nextCollideFxTime );
@@ -375,9 +381,8 @@ void idMoveable::Killed( idEntity *inflictor, idEntity *attacker, int damage, co
 		Unbind();
 	}
 
-	if ( brokenModel != "" ) {
-		SetModel( brokenModel );
-	}
+	// tels: call base class method to switch to broken model
+	idEntity::BecomeBroken( inflictor );
 
 	if ( explode ) {
 		if ( brokenModel == "" ) {

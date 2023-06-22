@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2036 $
- * $Date: 2008-02-02 20:31:50 -0500 (Sat, 02 Feb 2008) $
- * $Author: ishtvan $
+ * $Revision: 2044 $
+ * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -50,7 +50,6 @@ public:
 
 protected:
 	idPhysics_RigidBody		physicsObj;				// physics object
-	idStr					brokenModel;			// model set when health drops down to or below zero
 	idStr					damage;					// if > 0 apply damage to hit entities
 	idStr					fxCollide;				// fx system to start when collides with something
 	int						nextCollideFxTime;		// next time it is ok to spawn collision fx

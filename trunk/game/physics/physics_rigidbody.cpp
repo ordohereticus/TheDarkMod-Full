@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2040 $
- * $Date: 2008-02-03 03:43:22 -0500 (Sun, 03 Feb 2008) $
+ * $Revision: 2044 $
+ * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2040 2008-02-03 08:43:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2044 2008-02-04 18:47:47Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -897,6 +897,10 @@ idPhysics_RigidBody::idPhysics_RigidBody( void ) {
 
 	isBlocked = false;
 	memset(&collisionTrace, 0, sizeof(collisionTrace));
+
+	// tels
+	maxForce.Zero();
+	maxTorque.Zero();
 }
 
 /*
@@ -987,6 +991,10 @@ void idPhysics_RigidBody::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteBool(isBlocked);
 	savefile->WriteTrace(collisionTrace);
+
+	// tels
+	savefile->WriteVec3( maxForce );
+	savefile->WriteVec3( maxTorque );
 }
 
 /*
@@ -1024,6 +1032,10 @@ void idPhysics_RigidBody::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadBool(isBlocked);
 	savefile->ReadTrace(collisionTrace);
+
+	// tels
+	savefile->ReadVec3( maxForce );
+	savefile->ReadVec3( maxTorque );
 }
 
 /*
@@ -1581,12 +1593,31 @@ idPhysics_RigidBody::ApplyImpulse
 ================
 */
 void idPhysics_RigidBody::ApplyImpulse( const int id, const idVec3 &point, const idVec3 &impulse ) {
-	if ( noImpact ) {
+	if ( noImpact )
+	{
+		return;
+	}
+
+	// tels: check that the impulse does not exceed the max values
+	// FIXME: the comparisation here is just a dummy
+	if ((maxForce.x > 0) && 
+	    ((fabs(impulse.x) > maxForce.x) || 
+		 (fabs(impulse.y) > maxForce.y) || 
+		 (fabs(impulse.z) > maxForce.z)) ) 
+	{
+		DM_LOG(LC_ENTITY, LT_INFO).LogString("impulse (%f %f %f) > maxForce (%f %f %f) for entity %s\r\r", 
+			impulse.x, impulse.y, impulse.z,
+			maxForce.x, maxForce.y, maxForce.z,
+			self->name.c_str()
+			);
+		// FIXME: self needs to be replaced by whatever entity generated the impulse
+		self->Killed( gameLocal.world, gameLocal.world, 0, self->GetLocalCoordinates(GetOrigin()), 0);
 		return;
 	}
 
 	// greebo: Check if we have a master - if yes, propagate the impulse to it
-	if ( hasMaster ) {
+	if ( hasMaster )
+	{
 		idEntity* master = self->GetBindMaster();
 
 		assert(master != NULL); // Bind master must not be null
@@ -1812,6 +1843,42 @@ const idVec3 &idPhysics_RigidBody::GetAngularVelocity( int id ) const {
 	inverseWorldInertiaTensor = current.i.orientation.Transpose() * inverseInertiaTensor * current.i.orientation;
 	curAngularVelocity = inverseWorldInertiaTensor * current.i.angularMomentum;
 	return curAngularVelocity;
+}
+
+/*
+================
+idPhysics_RigidBody::SetMaxForce
+================
+*/
+void idPhysics_RigidBody::SetMaxForce( const idVec3 &newMaxForce ) {
+	maxForce = newMaxForce;
+}
+
+/*
+================
+idPhysics_RigidBody::SetMaxTorque
+================
+*/
+void idPhysics_RigidBody::SetMaxTorque( const idVec3 &newMaxTorque ) {
+	maxTorque = newMaxTorque;
+}
+
+/*
+================
+idPhysics_RigidBody::GetMaxForce
+================
+*/
+const idVec3 &idPhysics_RigidBody::GetMaxForce( void ) const {
+	return maxForce;
+}
+
+/*
+================
+idPhysics_RigidBody::GetMaxTorque
+================
+*/
+const idVec3 &idPhysics_RigidBody::GetMaxTorque( void ) const {
+	return maxTorque;
 }
 
 /*

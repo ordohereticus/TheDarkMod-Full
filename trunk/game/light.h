@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2033 $
- * $Date: 2008-02-02 08:52:52 -0500 (Sat, 02 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2044 $
+ * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -127,7 +127,6 @@ private:
 	idVec3			localLightOrigin;			// light origin relative to the physics origin
 	idMat3			localLightAxis;				// light axis relative to physics axis
 	qhandle_t		lightDefHandle;				// handle to renderer light def
-	idStr			brokenModel;
 	int				levels;
 	int				currentLevel;
 	idVec3			baseColor;
