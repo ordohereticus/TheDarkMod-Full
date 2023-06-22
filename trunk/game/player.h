@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1561 $
+ * $Date: 2007-10-25 13:00:07 -0400 (Thu, 25 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -892,6 +892,11 @@ private:
 	 * Setting the modifier to 0 removes it from the internal list.
 	 */
 	void					Event_SetLightgemModifier(const char* modifierName, int amount);
+
+	/**
+	 * greebo: Reads the lightgem modifier setting from the worldspawn entity (defaults to 0).
+	 */
+	void					Event_ReadLightgemModifierFromWorldspawn();
 
 /**
 * NOTE: The following objective functions all take the "user" objective indices
