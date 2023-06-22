@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2167 $
+ * $Date: 2008-04-06 14:41:22 -0400 (Sun, 06 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_parametric.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2167 2008-04-06 18:41:22Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -451,6 +451,11 @@ idPhysics_Parametric::GetLocalAngles
 */
 void idPhysics_Parametric::GetLocalAngles( idAngles &curAngles ) const {
 	curAngles = current.localAngles;
+}
+
+const idAngles& idPhysics_Parametric::GetLocalAngles() const
+{
+	return current.localAngles;
 }
 
 /*

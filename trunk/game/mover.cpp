@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2146 $
- * $Date: 2008-03-28 16:29:17 -0400 (Fri, 28 Mar 2008) $
+ * $Revision: 2167 $
+ * $Date: 2008-04-06 14:41:22 -0400 (Sun, 06 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2146 2008-03-28 20:29:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 2167 2008-04-06 18:41:22Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1277,14 +1277,11 @@ idMover::Event_Rotate
 ================
 */
 void idMover::Event_Rotate( idAngles &angles ) {
-	idAngles ang;
-
 	if ( rotate_thread ) {
 		DoneRotating();
 	}
 
-	physicsObj.GetLocalAngles( ang );
-	dest_angles = ang + angles * ( move_time - ( acceltime + deceltime ) / 2 ) * 0.001f;
+	dest_angles = physicsObj.GetLocalAngles() + angles * ( move_time - ( acceltime + deceltime ) / 2 ) * 0.001f;
 
 	BeginRotation( idThread::CurrentThread(), false );
 }
@@ -1295,14 +1292,11 @@ idMover::Event_RotateOnce
 ================
 */
 void idMover::Event_RotateOnce( idAngles &angles ) {
-	idAngles ang;
-
 	if ( rotate_thread ) {
 		DoneRotating();
 	}
 
-	physicsObj.GetLocalAngles( ang );
-	dest_angles = ang + angles;
+	dest_angles = physicsObj.GetLocalAngles() + angles;
 
 	BeginRotation( idThread::CurrentThread(), true );
 }

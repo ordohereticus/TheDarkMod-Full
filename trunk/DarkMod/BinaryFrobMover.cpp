@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2146 $
- * $Date: 2008-03-28 16:29:17 -0400 (Fri, 28 Mar 2008) $
+ * $Revision: 2167 $
+ * $Date: 2008-04-06 14:41:22 -0400 (Sun, 06 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2146 2008-03-28 20:29:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2167 2008-04-06 18:41:22Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -480,8 +480,9 @@ void CBinaryFrobMover::DoneStateChange(void)
 	else
 	{
 		// in all other cases, use the angles and position of origin to check if the door is open or closed
-		checkClose = GetPhysics()->GetAxis().ToAngles().Compare(m_ClosedAngles)
-			&& GetPhysics()->GetOrigin().Compare(m_ClosedOrigin);
+		// greebo: Let the check be slightly inaccurate (use the standard epsilon).
+		checkClose = physicsObj.GetLocalAngles().Compare(m_ClosedAngles, VECTOR_EPSILON)
+			&& physicsObj.GetOrigin().Compare(m_ClosedOrigin, VECTOR_EPSILON);
 	}
 
 	if (checkClose)
