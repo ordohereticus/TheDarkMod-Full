@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1188 $
- * $Date: 2007-07-22 13:51:50 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1189 $
+ * $Date: 2007-07-22 14:14:31 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1188 2007-07-22 17:51:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1189 2007-07-22 18:14:31Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -970,6 +970,15 @@ void idEntity::Save( idSaveGame *savefile ) const
 		savefile->WriteString(m_FrobList[i].c_str());
 	}
 
+	savefile->WriteInt(m_Signal);
+
+	// greebo: TODO: Find a way to save function pointers in SDKSignalInfo?
+	//idList<SDKSignalInfo *>	m_SignalList;
+
+	savefile->WriteBool(m_bIsMantleable);
+
+	m_StimResponseColl->Save(savefile);
+
 	savefile->WriteRenderEntity( renderEntity );
 	savefile->WriteInt( modelDefHandle );
 	savefile->WriteRefSound( refSound );
@@ -1101,6 +1110,12 @@ void idEntity::Restore( idRestoreGame *savefile )
 	{
 		savefile->ReadString(m_FrobList[i]);
 	}
+
+	savefile->ReadInt(m_Signal);
+
+	savefile->ReadBool(m_bIsMantleable);
+
+	m_StimResponseColl->Restore(savefile);
 
 	savefile->ReadRenderEntity( renderEntity );
 	savefile->ReadInt( modelDefHandle );
