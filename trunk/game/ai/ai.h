@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1643 $
- * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1648 $
+ * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1081,6 +1081,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					FlyTurn( void );
 	void					FlyMove( void );
 	void					StaticMove( void );
+
+	// greebo: Overrides idActor::PlayFootStepSound()
+	virtual void			PlayFootStepSound();
 
 	// damage
 	virtual bool			Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );

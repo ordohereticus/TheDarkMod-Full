@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1646 $
- * $Date: 2007-11-02 03:47:33 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1648 $
+ * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -395,11 +395,16 @@ protected:
 	**/
 	virtual bool TestKnockoutBlow( idVec3 dir, trace_t *tr, bool bIsPowerBlow ) {return false;} ;
 
+	/**
+	 * greebo: Plays the footstep sound according to the current movement type.
+	 *         Note: AI and Player are overriding this method.
+	 */
+	virtual void PlayFootStepSound(); // empty default implementation
+
 private:
 	void					SyncAnimChannels( int channel, int syncToChannel, int blendFrames );
 	void					FinishSetup( void );
 	void					SetupHead( void );
-	void					PlayFootStepSound( void );
 
 	void					Event_EnableEyeFocus( void );
 	void					Event_DisableEyeFocus( void );

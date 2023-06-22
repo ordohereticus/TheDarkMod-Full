@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1561 $
- * $Date: 2007-10-25 13:00:07 -0400 (Thu, 25 Oct 2007) $
+ * $Revision: 1648 $
+ * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -357,6 +357,11 @@ public:
 	* @Gildoran: What are mCap and aCap? Modifier and absolute?
 	**/
 	void					SetHinderance( const char *source, float mCap, float aCap );
+
+	/**
+	 * greebo: Plays the footstep sound according to the current movement type.
+	 */
+	virtual void			PlayFootStepSound();
 
 	void					UpdateConditions( void );
 	void					SetViewAngles( const idAngles &angles );
