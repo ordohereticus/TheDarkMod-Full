@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1869 $
+ * $Date: 2007-12-13 06:45:27 -0500 (Thu, 13 Dec 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: parser.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: parser.cpp 1869 2007-12-13 11:45:27Z crispy $", init_version);
 
 #pragma warning( push )
 #pragma warning( disable : 4127 )
@@ -3240,3 +3240,4 @@ idParser::~idParser( void ) {
 }
 
 #pragma warning( pop )
+

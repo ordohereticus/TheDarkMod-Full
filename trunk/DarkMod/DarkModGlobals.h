@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1643 $
- * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1869 $
+ * $Date: 2007-12-13 06:45:27 -0500 (Thu, 13 Dec 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -94,15 +94,11 @@ public:
 	 */
 	bool LoadImage(const char *Filename = NULL);
 
-#ifndef __linux__
-
 	/**
-	 * Load the image into memory and allow access to it. This method requires
-	 * an already open filehandle.
+	 * Load the image into memory and allow access to it, reading the image
+	 * data from a renderpipe.
 	 */
-	bool LoadImage(HANDLE &FileHandle);
-
-#endif // __linux__
+	bool LoadImage(CRenderPipe *FileHandle);
 
 	/**
 	 * Initialize Imageinfo like bitmap width, height and other stuff.
