@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1186 $
- * $Date: 2007-07-22 12:03:55 -0400 (Sun, 22 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1250 $
+ * $Date: 2007-07-29 22:47:31 -0400 (Sun, 29 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1186 2007-07-22 16:03:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1250 2007-07-30 02:47:31Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -560,8 +560,8 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	m_drag.SetPhysics( phys, m_id, m_localEntityPoint );
 
 	player->m_bGrabberActive = true;
-	// don't let the player switch weapons or items
-	player->SetImmobilization( "Grabber", EIM_ITEM_SELECT | EIM_WEAPON_SELECT );
+	// don't let the player switch weapons or items, and lower their weapon
+	player->SetImmobilization( "Grabber", EIM_ITEM_SELECT | EIM_WEAPON_SELECT | EIM_ATTACK );
 
 	// Set movement encumbrance
 	player->SetHinderance( "Grabber", 1.0f, m_dragEnt.GetEntity()->spawnArgs.GetFloat("grab_encumbrance", "1.0") );
