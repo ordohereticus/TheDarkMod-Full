@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2192 $
- * $Date: 2008-04-20 14:52:19 -0400 (Sun, 20 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2201 $
+ * $Date: 2008-04-22 16:09:28 -0400 (Tue, 22 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2192 2008-04-20 18:52:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2201 2008-04-22 20:09:28Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -390,6 +390,7 @@ idAI::idAI()
 {
 	aas					= NULL;
 	travelFlags			= TFL_WALK|TFL_AIR|TFL_DOOR;
+	lastReEvaluationTime = -1;
 
 	kickForce			= 2048.0f;
 	ignore_obstacles	= false;
@@ -562,6 +563,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	int i;
 
 	savefile->WriteInt( travelFlags );
+	savefile->WriteInt(lastReEvaluationTime);
 	move.Save( savefile );
 	savedMove.Save( savefile );
 	savefile->WriteFloat( kickForce );
@@ -797,6 +799,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	idBounds	bounds;
 
 	savefile->ReadInt( travelFlags );
+	savefile->ReadInt(lastReEvaluationTime);
 	move.Restore( savefile );
 	savedMove.Restore( savefile );
 	savefile->ReadFloat( kickForce );
@@ -2083,6 +2086,22 @@ void idAI::KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick )
 		forceVec = delta * force * alwaysKick->GetPhysics()->GetMass();
 		alwaysKick->ApplyImpulse( this, 0, alwaysKick->GetPhysics()->GetOrigin(), forceVec );
 	}
+}
+
+bool idAI::ReEvaluateArea(int areaNum)
+{
+	// Only re-evaluate every now and then, not each frame
+	if (gameLocal.time < lastReEvaluationTime + 2000) 
+	{
+		return false;
+	}
+
+	// TODO: Re-evaluate
+
+	// Remember the time
+	lastReEvaluationTime = gameLocal.time;
+
+	return false;
 }
 
 /*

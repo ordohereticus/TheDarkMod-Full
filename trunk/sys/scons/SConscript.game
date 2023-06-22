@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2191 $
-#* $Date: 2008-04-20 13:56:57 -0400 (Sun, 20 Apr 2008) $
+#* $Revision: 2201 $
+#* $Date: 2008-04-22 16:09:28 -0400 (Tue, 22 Apr 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -174,7 +174,9 @@ StimResponse/StimResponse.cpp \
 StimResponse/StimResponseCollection.cpp \
 StimResponse/StimResponseTimer.cpp \
 AI/AreaManager.cpp \
+AI/DoorInfo.cpp \
 AI/Mind.cpp \
+AI/Memory.cpp \
 AI/Subsystem.cpp \
 AI/States/AgitatedSearchingState.cpp \
 AI/States/AlertIdleState.cpp \

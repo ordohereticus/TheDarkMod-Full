@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2192 $
- * $Date: 2008-04-20 14:52:19 -0400 (Sun, 20 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2201 $
+ * $Date: 2008-04-22 16:09:28 -0400 (Tue, 22 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -542,6 +542,9 @@ protected:
 	// navigation
 	idAAS *					aas;
 	int						travelFlags;
+
+	// greebo: When this AI has last re-evaluated a forbidden area
+	int						lastReEvaluationTime;
 
 	idMoveState				move;
 	idMoveState				savedMove;
@@ -1119,6 +1122,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// navigation
 	void					KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick );
+
+	// greebo: For Documentation, see idActor class (this is an override).
+	virtual bool			ReEvaluateArea(int areaNum);
 
 	/**
 	 * greebo: ReachedPos checks whether we the AI has reached the given target position <pos>.

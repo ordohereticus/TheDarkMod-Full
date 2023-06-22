@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2145 $
- * $Date: 2008-03-27 14:56:49 -0400 (Thu, 27 Mar 2008) $
+ * $Revision: 2201 $
+ * $Date: 2008-04-22 16:09:28 -0400 (Tue, 22 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -306,6 +306,18 @@ public:
 	virtual float			GetMovementVolMod( void ) { return 0; };
 
 	virtual bool			IsKnockedOut( void ) { return false; };
+
+	/** 
+	 * greebo: This gets called by the pathing routine to let the actor
+	 * reconsider the "forbidden" status of the given area. After some time
+	 * AI should be able to re-try opening locked doors otherwise the door's AAS area
+	 * stays flagged as "forbidden" for all times.
+	 *
+	 * Note: This method is overriden by the AI class.
+	 *
+	 * @returns: TRUE if the area is now considered as "allowed", FALSE otherwise.
+	 */
+	virtual bool			ReEvaluateArea(int areaNum);
 
 protected:
 
