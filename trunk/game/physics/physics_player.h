@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1254 $
- * $Date: 2007-07-30 05:18:04 -0400 (Mon, 30 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1272 $
+ * $Date: 2007-08-04 02:17:32 -0400 (Sat, 04 Aug 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -794,7 +794,11 @@ public:
 	* @retval true if the player is changing lean
 	* @retval false if the player is not changing lean
 	*/
+	#ifdef linux
+	bool IsLeaning();
+	#else
 	__inline bool IsLeaning();
+	#endif
 
 	/**
 	* Returns true if the player is leaning against a door

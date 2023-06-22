@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1265 $
- * $Date: 2007-08-02 04:36:14 -0400 (Thu, 02 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1272 $
+ * $Date: 2007-08-04 02:17:32 -0400 (Sat, 04 Aug 2007) $
+ * $Author: crispy $
  *
  * $Log$
  * Revision 1.49  2007/01/23 01:24:07  thelvyn
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1265 $   $Date: 2007-08-02 04:36:14 -0400 (Thu, 02 Aug 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1272 $   $Date: 2007-08-04 02:17:32 -0400 (Sat, 04 Aug 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4456,7 +4456,11 @@ void idPhysics_Player::ToggleLean
 
 //----------------------------------------------------------------------
 
+#ifdef linux
+bool idPhysics_Player::IsLeaning()
+#else
 __inline bool idPhysics_Player::IsLeaning()
+#endif
 {
 	if (m_CurrentLeanTiltDegrees < 0.001)
 	{

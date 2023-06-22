@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1128 $
-#* $Date: 2007-07-16 01:23:14 -0400 (Mon, 16 Jul 2007) $
+#* $Revision: 1272 $
+#* $Date: 2007-08-04 02:17:32 -0400 (Sat, 04 Aug 2007) $
 #* $Author: crispy $
 #*
 #* $Log$
@@ -118,6 +118,7 @@ darkmodHidingSpotTree.cpp \
 darkModLAS.cpp \
 decltdm_matinfo.cpp \
 declxdata.cpp \
+DifficultyMenu.cpp \
 fdchar.cpp \
 force_grab.cpp \
 func_shooter.cpp \
