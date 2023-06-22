@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2047 $
- * $Date: 2008-02-06 11:09:57 -0500 (Wed, 06 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2130 $
+ * $Date: 2008-03-10 19:04:29 -0400 (Mon, 10 Mar 2008) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -626,7 +626,7 @@ public:
 	 * greebo: Load the objectives directly from the given map file.
 	 *         This is called by the main menu SDK code.
 	 **/
-	void LoadDirectlyFromMapFile(const idStr& mapName);
+	idMapFile* LoadDirectlyFromMapFile(idMapFile* mapFile);
 
 	/**
 	 * greebo: This updates the given GUI overlay with the current
@@ -779,6 +779,9 @@ protected:
 
 	// true if the main menu GUI is up to date
 	bool m_MissionDataLoadedIntoGUI; 
+
+	// parsed map for use by Difficulty screen
+	idMapFile* m_mapFile;
 
 }; // CMissionData
 

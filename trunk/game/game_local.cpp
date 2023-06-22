@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2091 $
- * $Date: 2008-02-14 13:24:37 -0500 (Thu, 14 Feb 2008) $
- * $Author: greebo $
+ * $Revision: 2130 $
+ * $Date: 2008-03-10 19:04:29 -0400 (Mon, 10 Mar 2008) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2091 2008-02-14 18:24:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2130 2008-03-10 23:04:29Z joebarnin $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3126,7 +3126,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		gui->SetStateInt("BriefingIsVisible", 0);
 	}
 
-	g_Diff.HandleCommands(menuCommand, gui);
 	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());
 	g_Mods.HandleCommands(menuCommand, gui);
 }
