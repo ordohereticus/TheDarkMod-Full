@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1880 $
- * $Date: 2007-12-22 15:49:42 -0500 (Sat, 22 Dec 2007) $
+ * $Revision: 1885 $
+ * $Date: 2007-12-24 08:29:51 -0500 (Mon, 24 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1880 2007-12-22 20:49:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1885 2007-12-24 13:29:51Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -336,7 +336,7 @@ bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& im
 				continue;
 
 			DM_LOG(LC_ENTITY, LT_INFO).LogString("Propagating impulse to entity %s\r", pushed->name.c_str());
-			gameRenderWorld->DebugArrow(colorRed, touching[i].point, touching[i].point - touching[i].normal*10, 1, 1000);
+			//gameRenderWorld->DebugArrow(colorRed, touching[i].point, touching[i].point - touching[i].normal*10, 1, 1000);
 
 			rigidBodyPhysics->PropagateImpulse(touching[i].point, -touching[i].normal * impulseFractionLen);
 
