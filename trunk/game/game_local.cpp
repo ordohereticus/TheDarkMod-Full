@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2208 $
- * $Date: 2008-04-24 15:45:53 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2212 $
+ * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2208 2008-04-24 19:45:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2212 2008-04-26 06:31:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3095,11 +3095,11 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		{
 			if (!gui->GetStateBool("SuccessScreenActive"))
 			{
+				// Load the statistics into the GUI
+				m_MissionData->UpdateStatisticsGUI(gui, "stats");
+
 				// Show the success GUI
 				gui->HandleNamedEvent("ShowSuccessScreen");
-
-				// Stop the objectives music
-				gui->HandleNamedEvent("StopObjectivesMusic");
 
 				// Avoid duplicate triggering
 				gui->SetStateBool("SuccessScreenActive", true);
@@ -3136,6 +3136,14 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		gui->HandleNamedEvent("HideBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 0);
+	}
+	else if (cmd == "close_success_screen")
+	{
+		// Clear the mission result flag
+		SetMissionResult(MISSION_NOTEVENSTARTED);
+
+		// Set the boolean back to false for the next map start
+		gui->SetStateBool("SuccessScreenActive", false);
 	}
 
 	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());

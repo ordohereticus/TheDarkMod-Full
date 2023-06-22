@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2182 $
- * $Date: 2008-04-17 01:37:17 -0400 (Thu, 17 Apr 2008) $
- * $Author: crispy $
+ * $Revision: 2212 $
+ * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2182 2008-04-17 05:37:17Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2212 2008-04-26 06:31:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -121,7 +121,6 @@ const idEventDef EV_Player_GetFov("getFov", NULL, 'f');
 const idEventDef EV_Player_PauseGame("pauseGame", NULL);
 const idEventDef EV_Player_UnpauseGame("unpauseGame", NULL);
 const idEventDef EV_Player_UpdateObjectivesGUI("updateObjectivesGUI", "d");
-const idEventDef EV_Player_UpdateStatisticsGUI("updateStatisticsGUI", "ds");
 
 // greebo: Allows scripts to set a named lightgem modifier to a certain value (e.g. "lantern" => 32)
 const idEventDef EV_Player_SetLightgemModifier("setLightgemModifier", "sd");
@@ -188,7 +187,6 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_PauseGame,				idPlayer::Event_Pausegame )
 	EVENT( EV_Player_UnpauseGame,			idPlayer::Event_Unpausegame )
 	EVENT( EV_Player_UpdateObjectivesGUI,	idPlayer::Event_UpdateObjectivesGUI)
-	EVENT( EV_Player_UpdateStatisticsGUI,	idPlayer::Event_UpdateStatisticsGUI)
 
 	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
 	EVENT( EV_TriggerMissionEnd,			idPlayer::Event_TriggerMissionEnd )
@@ -9856,11 +9854,6 @@ void idPlayer::Event_UpdateObjectivesGUI(int guiHandle)
 {
 	// Pass the call to the MissionData class
 	gameLocal.m_MissionData->UpdateGUIState(this, guiHandle);
-}
-
-void idPlayer::Event_UpdateStatisticsGUI(int guiHandle, const char* listDefName) 
-{
-	gameLocal.m_MissionData->UpdateStatisticsGUI(this, guiHandle, listDefName);
 }
 
 void idPlayer::Event_MissionSuccess()

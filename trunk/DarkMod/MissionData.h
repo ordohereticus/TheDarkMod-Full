@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2210 $
- * $Date: 2008-04-25 11:23:13 -0400 (Fri, 25 Apr 2008) $
+ * $Revision: 2212 $
+ * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -662,11 +662,12 @@ public:
 	/**
 	 * greebo: Updates the statistics in the given GUI.
 	 *
-	 * @entity: The entity the GUI is belonging to (usually the player).
-	 * @overlayHandle: The handle of the GUI to be updated.
+	 * @gui: The GUI to be updated.
 	 * @listDefName: the name of the listDef in the GUI, which should be filled with the values.
 	 */
-	void UpdateStatisticsGUI(idEntity* entity, int overlayHandle, const idStr& listDefName);
+	void UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDefName);
+
+	
 
 // Events
 	/**
@@ -679,7 +680,13 @@ public:
 	void Event_MissionFailed( void );
 
 protected:
-	
+	/**
+	 * greebo: Tells the missiondata class to remember playerteam. As mission statistics
+	 * are populated after the map has been closed, there's no way to know the actual
+	 * team of the player, hence this function is used to let the missiondata know.
+	 */
+	void SetPlayerTeam(int team);
+
 	/**
 	* Sets a given component state.  
 	* Internally used version: Doesn't check/report index validity
@@ -787,6 +794,9 @@ protected:
 
 	// parsed map for use by Difficulty screen
 	idMapFile* m_mapFile;
+
+	// The team number of the player, needed for the statistics GUI
+	int			m_PlayerTeam;
 
 }; // CMissionData
 

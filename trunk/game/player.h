@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2066 $
- * $Date: 2008-02-09 02:27:06 -0500 (Sat, 09 Feb 2008) $
+ * $Revision: 2212 $
+ * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -968,7 +968,6 @@ private:
 	void					Event_Pausegame();
 	void					Event_Unpausegame();
 	void					Event_UpdateObjectivesGUI(int guiHandle);
-	void					Event_UpdateStatisticsGUI(int guiHandle, const char* listDefName);
 
 	// Ends the game (fade out, success.gui, etc.)
 	void					Event_MissionSuccess();
