@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1229 $
- * $Date: 2007-07-28 16:17:21 -0400 (Sat, 28 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1252 $
+ * $Date: 2007-07-29 22:48:07 -0400 (Sun, 29 Jul 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1229 2007-07-28 20:17:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1252 2007-07-30 02:48:07Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3211,10 +3211,12 @@ void idPlayer::LowerWeapon( void ) {
 idPlayer::RaiseWeapon
 ===============
 */
-void idPlayer::RaiseWeapon( void ) {
-	if ( weapon.GetEntity() && weapon.GetEntity()->IsHidden() ) {
+void idPlayer::RaiseWeapon( void ) 
+{
+	if ( weapon.GetEntity() 
+		&& weapon.GetEntity()->IsHidden()
+		&& ! (GetImmobilization() & EIM_ATTACK) ) 
 		weapon.GetEntity()->RaiseWeapon();
-	}
 }
 
 /*
@@ -3327,11 +3329,15 @@ void idPlayer::UpdateWeapon( void ) {
 	} else 	if ( focusCharacter && ( focusCharacter->health > 0 ) ) {
 		Weapon_NPC();
 	} else if( g_Global.m_DarkModPlayer->grabber->GetSelected() ) {
-		StopFiring();
-		weapon.GetEntity()->LowerWeapon();
 		g_Global.m_DarkModPlayer->grabber->Update( this, true );
 	} else {
 		Weapon_Combat();
+	}
+
+	if( GetImmobilization() & EIM_ATTACK )
+	{
+		StopFiring();
+		weapon.GetEntity()->LowerWeapon();
 	}
 	
 	if ( hiddenWeapon ) {
