@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2153 $
+ * $Date: 2008-03-29 06:48:25 -0400 (Sat, 29 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -95,7 +95,11 @@ protected:
 #ifdef MOD_WATERPHYSICS
 	virtual void		SetWaterLevel( void );		// MOD_WATERPHYSICS
 	waterLevel_t		waterLevel;					// MOD_WATERPHYSICS
+	waterLevel_t		previousWaterLevel;			// greebo: The water level of the previous frame
 	int					waterType;					// MOD_WATERPHYSICS
+
+	// greebo: This is TRUE if the water level has changed since the last physics evaluation (frame)
+	bool				waterLevelChanged;
 #endif
 
 	idClipModel *			clipModel;			// clip model used for collision detection
