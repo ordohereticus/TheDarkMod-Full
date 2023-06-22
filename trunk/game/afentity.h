@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1755 $
- * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 2198 $
+ * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -31,7 +31,7 @@ public:
 	CLASS_PROTOTYPE( idMultiModelAF );
 
 	void					Spawn( void );
-							~idMultiModelAF( void );
+	virtual ~idMultiModelAF( void );
 
 	virtual void			Think( void );
 	virtual void			Present( void );
@@ -348,7 +348,7 @@ public:
 	CLASS_PROTOTYPE( idAFEntity_Gibbable );
 
 							idAFEntity_Gibbable( void );
-							~idAFEntity_Gibbable( void );
+	virtual ~idAFEntity_Gibbable( void );
 
 	void					Spawn( void );
 	void					Save( idSaveGame *savefile ) const;
@@ -382,7 +382,7 @@ public:
 	CLASS_PROTOTYPE( idAFEntity_Generic );
 
 							idAFEntity_Generic( void );
-							~idAFEntity_Generic( void );
+	virtual ~idAFEntity_Generic( void );
 
 	void					Spawn( void );
 
@@ -412,7 +412,7 @@ public:
 	CLASS_PROTOTYPE( idAFEntity_WithAttachedHead );
 
 							idAFEntity_WithAttachedHead();
-							~idAFEntity_WithAttachedHead();
+	virtual ~idAFEntity_WithAttachedHead();
 
 	void					Spawn( void );
 
@@ -484,7 +484,7 @@ public:
 	CLASS_PROTOTYPE( idAFEntity_VehicleSimple );
 
 							idAFEntity_VehicleSimple( void );
-							~idAFEntity_VehicleSimple( void );
+	virtual ~idAFEntity_VehicleSimple( void );
 
 	void					Spawn( void );
 	virtual void			Think( void );
@@ -560,7 +560,7 @@ public:
 	CLASS_PROTOTYPE( idAFEntity_SteamPipe );
 
 							idAFEntity_SteamPipe( void );
-							~idAFEntity_SteamPipe( void );
+	virtual ~idAFEntity_SteamPipe( void );
 
 	void					Spawn( void );
 	void					Save( idSaveGame *savefile ) const;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1755 $
- * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 2198 $
+ * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -44,7 +44,7 @@ typedef struct afTouch_s {
 class idAF {
 public:
 							idAF( void );
-							~idAF( void );
+	virtual ~idAF( void );
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2198 $
+ * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,7 +25,7 @@ class idWorldspawn : public idEntity {
 public:
 	CLASS_PROTOTYPE( idWorldspawn );
 
-					~idWorldspawn();
+	virtual ~idWorldspawn();
 
 	void			Spawn( void );
 

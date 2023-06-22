@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2044 $
- * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2198 $
+ * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -30,8 +30,8 @@ class idLight : public idEntity {
 public:
 	CLASS_PROTOTYPE( idLight );
 
-					idLight();
-					~idLight();
+	idLight();
+	virtual ~idLight();
 
 	void			Spawn( void );
 

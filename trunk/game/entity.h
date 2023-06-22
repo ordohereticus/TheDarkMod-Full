@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2094 $
- * $Date: 2008-02-14 15:51:26 -0500 (Thu, 14 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2198 $
+ * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -302,8 +302,8 @@ public:
 public:
 	ABSTRACT_PROTOTYPE( idEntity );
 
-							idEntity();
-							~idEntity();
+	idEntity();
+	virtual ~idEntity();
 
 	void					Spawn( void );
 

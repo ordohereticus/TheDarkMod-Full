@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1865 $
- * $Date: 2007-12-12 03:47:14 -0500 (Wed, 12 Dec 2007) $
- * $Author: ishtvan $
+ * $Revision: 2198 $
+ * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -262,8 +262,8 @@ class idAnimated : public idAFEntity_Gibbable {
 public:
 	CLASS_PROTOTYPE( idAnimated );
 
-							idAnimated();
-							~idAnimated();
+	idAnimated();
+	virtual ~idAnimated();
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
@@ -824,17 +824,11 @@ private:
 };
 
 /*
-
 ===============================================================================
-
-
 
 idPortalSky
 
-
-
 ===============================================================================
-
 */
 
 class idPortalSky : public idEntity {
@@ -843,22 +837,14 @@ public:
 
 	CLASS_PROTOTYPE( idPortalSky );
 
-
-
 	idPortalSky();
 
-	~idPortalSky();
-
-
+	virtual ~idPortalSky();
 
 	void				Spawn( void );
-
 	void				Event_PostSpawn();
-
 	void				Event_Activate( idEntity *activator );
-
 };
-
 
 
 #endif /* !__GAME_MISC_H__ */
