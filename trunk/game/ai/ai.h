@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2173 $
- * $Date: 2008-04-11 15:01:22 -0400 (Fri, 11 Apr 2008) $
+ * $Revision: 2175 $
+ * $Date: 2008-04-11 15:27:35 -0400 (Fri, 11 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -890,6 +890,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Set to true if the AI can be KO'd (defaults to true)
 	**/
 	bool					m_bCanBeKnockedOut;
+
+	/**
+	 * greebo: Is set to TRUE if the AI is able to open/close doors at all.
+	 */
+	bool					m_bCanOperateDoors;
 
 	/**
 	* Head center offset in head joint coordinates, relative to head joint

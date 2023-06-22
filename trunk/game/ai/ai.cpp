@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2173 $
- * $Date: 2008-04-11 15:01:22 -0400 (Fri, 11 Apr 2008) $
+ * $Revision: 2175 $
+ * $Date: 2008-04-11 15:27:35 -0400 (Fri, 11 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2173 2008-04-11 19:01:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2175 2008-04-11 19:27:35Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -521,6 +521,8 @@ idAI::idAI()
 	m_bCanBeKnockedOut = true;
 	m_HeadCenterOffset = vec3_zero;
 
+	m_bCanOperateDoors = false;
+
 	m_lipSyncActive		= false;
 
 	m_maxInterleaveThinkFrames = 0;
@@ -758,6 +760,8 @@ void idAI::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteInt(m_lastThinkTime);
 	savefile->WriteInt(m_nextThinkFrame);
+
+	savefile->WriteBool(m_bCanOperateDoors);
 
 	int size = unlockableDoors.size();
 	savefile->WriteInt(size);
@@ -1006,6 +1010,8 @@ void idAI::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadInt(m_lastThinkTime);
 	savefile->ReadInt(m_nextThinkFrame);
+
+	savefile->ReadBool(m_bCanOperateDoors);
 
 	int size;
 	savefile->ReadInt(size);
@@ -1373,6 +1379,8 @@ void idAI::Spawn( void )
 	m_AirTics = m_AirTicksMax;
 	m_AirCheckInterval = (int) 1000.0f * spawnArgs.GetFloat( "air_check_interval", "4.0" );
 	// end drowning setup
+
+	m_bCanOperateDoors = spawnArgs.GetBool("canOperateDoors", "0");
 
 	// Set up KOing and FOV
 	const char *HeadJointName = spawnArgs.GetString("head_jointname", "Head");
@@ -3949,7 +3957,7 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos ) {
 
 	if ( !foundPath )
 	{
-		if (path.frobMoverObstacle != NULL) 
+		if (path.frobMoverObstacle != NULL && m_bCanOperateDoors) 
 		{
 			// We have a frobmover in our way, raise a signal to the current state
 			mind->GetState()->OnFrobMoverEncounter(path.frobMoverObstacle);
