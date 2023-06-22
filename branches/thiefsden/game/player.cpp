@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1928 $
- * $Date: 2007-12-29 09:58:14 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1940 $
+ * $Date: 2008-01-01 08:42:46 -0500 (Tue, 01 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1928 2007-12-29 14:58:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1940 2008-01-01 13:42:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9587,6 +9587,9 @@ void idPlayer::PerformFrob(idEntity* target)
 
 	// Fire the STIM_FROB response (if defined) on this entity
 	target->ResponseTrigger(this, ST_FROB);
+
+	// Trigger the frob action script
+	target->FrobAction(true);
 	
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob target: %s \r", target->name.c_str());
 
@@ -9606,12 +9609,6 @@ void idPlayer::PerformFrob(idEntity* target)
 		// greebo: Prevent the grabber from checking the added entity (it may be 
 		// entirely removed from the game, which would cause crashes).
 		pDM->grabber->RemoveFromClipList(target);
-	}
-	else
-	{
-		// greebo: Only perform the default FrobAction if adding the item to the
-		// inventory has failed.
-		target->FrobAction(true);
 	}
 }
 
