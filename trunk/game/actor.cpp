@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1648 $
- * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1672 $
+ * $Date: 2007-11-04 05:37:08 -0500 (Sun, 04 Nov 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1648 2007-11-02 09:06:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1672 2007-11-04 10:37:08Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1539,37 +1539,76 @@ bool idActor::CheckFOV( const idVec3 &pos ) const
 idActor::CanSee
 =====================
 */
-bool idActor::CanSee( idEntity *ent, bool useFov ) const {
-	trace_t		tr;
-	idVec3		eye;
-	idVec3		toPos;
-
+bool idActor::CanSee( idEntity *ent, bool useFov ) const
+{
 	// TDM: We need to be able to see lights that are off and hence hidden
-	/*
-	if ( ent->IsHidden() ) 
+	/*if ( ent->IsHidden() ) 
 	{
 		return false;
-	}
-	*/
+	}*/
 
-	// greebo: If the target entity is an idActor, use its eyeposition,
-	// otherwise just use the origin (for general entities).
-	if ( ent->IsType( idActor::Type ) ) {
-		toPos = ( ( idActor * )ent )->GetEyePosition();
-	} else {
-		toPos = ent->GetPhysics()->GetOrigin();
-	}
+	// This will hold the results of the traces
+	trace_t result;
+
+	// eye position of the AI
+	idVec3 eye(GetEyePosition());
+
+	// The enemy's origin
+	idVec3 entityOrigin = ent->GetPhysics()->GetOrigin();
 
 	// Check the field of view if specified
-	if ( useFov && !CheckFOV( toPos ) ) {
+	if (useFov && !CheckFOV(entityOrigin))
+	{
+		// FOV check failed
 		return false;
 	}
 
-	eye = GetEyePosition();
+	// angua: If the target entity is an idActor,
+	// use its eyeposition, the origin and a position in between
+	if (ent->IsType(idActor::Type)) 
+	{
+		idActor* actor = static_cast<idActor*>(ent);
+		
+		idVec3 entityEyePos = actor->GetEyePosition();
 
+		if (!gameLocal.clip.TracePoint(result, eye, entityEyePos, MASK_OPAQUE, this) || 
+			 gameLocal.GetTraceEntity(result) == actor) 
+		{
+			// Eye to eye trace succeeded
+			// gameRenderWorld->DebugArrow(colorGreen,eye, entityEyePos, 1, 32);
+			return true;
+		}
+		else if (!gameLocal.clip.TracePoint(result, eye, entityOrigin, MASK_OPAQUE, this) || 
+			 gameLocal.GetTraceEntity(result) == actor) 
+		{
+			// Eye to origin trace succeeded
+			// gameRenderWorld->DebugArrow(colorGreen,eye, entityOrigin, 1, 32);
+			return true;
+		}
+		else if (!gameLocal.clip.TracePoint(result, eye, (entityOrigin+entityEyePos)*0.5f, MASK_OPAQUE, this) || 
+			 gameLocal.GetTraceEntity(result) == actor) 
+		{
+			// Eye to (origin+eye)/2 trace succeeded (entity center position)
+			// gameRenderWorld->DebugArrow(colorGreen,eye, (entityOrigin+entityEyePos)*0.5f, 1, 32);
+			return true;
+		}
+		
+		// Debug output
+		//else
+		//{
+		//	gameRenderWorld->DebugArrow(colorRed,eye, entityEyePos, 1, 32);
+		//	gameRenderWorld->DebugArrow(colorRed,eye, entityOrigin, 1, 32);
+		//	gameRenderWorld->DebugArrow(colorRed,eye, (entityOrigin+entityEyePos)*0.5f, 1, 32);
+		//}
+
+	}
+	// otherwise just use the origin (for general entities).
 	// Perform a trace from the eye position to the target entity
-	gameLocal.clip.TracePoint( tr, eye, toPos, MASK_OPAQUE, this );
-	if ( tr.fraction >= 1.0f || ( gameLocal.GetTraceEntity( tr ) == ent ) ) {
+	// TracePoint will return FALSE, when the trace.result is >= 1
+	else if (!gameLocal.clip.TracePoint(result, eye, entityOrigin, MASK_OPAQUE, this) || 
+			 gameLocal.GetTraceEntity(result) == ent) 
+	{
+		// Trace succeeded or hit the target entity itself
 		return true;
 	}
 
