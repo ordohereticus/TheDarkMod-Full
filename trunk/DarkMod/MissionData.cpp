@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1905 $
- * $Date: 2007-12-27 02:14:44 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1908 $
+ * $Date: 2007-12-27 04:38:17 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1905 2007-12-27 07:14:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1908 2007-12-27 09:38:17Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -797,10 +797,8 @@ void CMissionData::Event_ObjectiveComplete( int ind )
 			pThread->DelayedStart( 0 );
 		}
 
-		// greebo: Call the general "objective complete" function on the player's scriptobject
-		player->CallScriptFunctionArgs("on_objective_complete", true, 0, "e", player);
-
-		// TODO: Update the GUI to mark the objective as complete
+		// greebo: Notify the player
+		player->SendHUDMessage("Objective complete");
 	}
 
 	if( !m_SuccessLogic.IsEmpty() )
@@ -841,8 +839,8 @@ void CMissionData::Event_ObjectiveFailed( int ind )
 
 	player->StartSound("snd_objective_failed", SND_CHANNEL_ANY, 0, false, NULL);
 
-	// greebo: Call the general "objective failed" function on the player's scriptobject
-	player->CallScriptFunctionArgs("on_objective_failed", true, 0, "e", player);
+	// greebo: notify the player
+	player->SendHUDMessage("Objective failed");
 
 	if( !m_FailureLogic.IsEmpty() )
 		bTest = EvalBoolLogic( &m_FailureLogic, true );
