@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1896 $
- * $Date: 2007-12-25 23:07:28 -0500 (Tue, 25 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1898 $
+ * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1896 $   $Date: 2007-12-25 23:07:28 -0500 (Tue, 25 Dec 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1898 $   $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1525,9 +1525,6 @@ void idPhysics_Player::LadderMove( void )
 	current.velocity += m_RefEntVelocity;
 
 	idPhysics_Player::SlideMove( false, ( command.forwardmove > 0 ), false, false );
-
-Quit:
-	return;
 }
 
 /*
@@ -1537,7 +1534,6 @@ idPhysics_Player::CorrectAllSolid
 */
 void idPhysics_Player::CorrectAllSolid( trace_t &trace, int contents ) {
 	if ( debugLevel ) {
-		
 		gameLocal.Printf( "%i:allsolid\n", c_pmove );
 	}
 

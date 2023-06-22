@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1898 $
+ * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,6 +20,7 @@ enum {
 	LAYER_UNDERWATER = 0,	// Draw the underwater overlay first
 	LAYER_MAIN_HUD = 1,
 	LAYER_INVENTORY = 2,
+	LAYER_OBJECTIVES = 12,
 };
 
 struct SOverlay;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1895 $
- * $Date: 2007-12-25 18:56:28 -0500 (Tue, 25 Dec 2007) $
- * $Author: tels $
+ * $Revision: 1898 $
+ * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1895 2007-12-25 23:56:28Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1898 2007-12-26 18:10:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -196,7 +196,8 @@ idPlayer::idPlayer
 ==============
 */
 idPlayer::idPlayer() :
-	m_ButtonStateTracker(this)
+	m_ButtonStateTracker(this),
+	objectiveGUIHandle(0)
 {
 	memset( &usercmd, 0, sizeof( usercmd ) );
 
@@ -1101,6 +1102,7 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteUserInterface( hud, false );
 	savefile->WriteUserInterface( objectiveSystem, false );
 	savefile->WriteBool( objectiveSystemOpen );
+	savefile->WriteInt(objectiveGUIHandle);
 
 	savefile->WriteInt( weapon_soulcube );
 	savefile->WriteInt( weapon_pda );
@@ -1365,6 +1367,7 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadUserInterface( hud );
 	savefile->ReadUserInterface( objectiveSystem );
 	savefile->ReadBool( objectiveSystemOpen );
+	savefile->ReadInt(objectiveGUIHandle);
 
 	savefile->ReadInt( weapon_soulcube );
 	savefile->ReadInt( weapon_pda );
@@ -4806,16 +4809,20 @@ void idPlayer::PerformImpulse( int impulse ) {
 			centerView.Init(gameLocal.time, 200, viewAngles.pitch, 0);
 			break;
 		}
-		case IMPULSE_19:
+		case IMPULSE_19: // Toggle Objectives GUI (was previously assigned to the PDA)
 		{
-			// when we're not in single player, IMPULSE_19 is used for showScores
-			// otherwise it opens the pda
-			if ( !gameLocal.isMultiplayer ) {
-				if ( objectiveSystemOpen ) {
-					TogglePDA();
-				} else if ( weapon_pda >= 0 ) {
-					SelectWeapon( weapon_pda, true );
-				}
+			if (objectiveGUIHandle == 0)
+			{
+				// Objectives GUI not yet open, create
+				objectiveGUIHandle = CreateOverlay(cv_tdm_objectives_gui.GetString(), LAYER_OBJECTIVES);
+				gameLocal.PauseGame(true);
+			}
+			else 
+			{
+				// GUI already open (handle is non-zero), destroy
+				DestroyOverlay(objectiveGUIHandle);
+				objectiveGUIHandle = 0;
+				gameLocal.PauseGame(false);
 			}
 			break;
 		}

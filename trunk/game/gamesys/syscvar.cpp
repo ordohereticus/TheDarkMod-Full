@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1896 $
- * $Date: 2007-12-25 23:07:28 -0500 (Tue, 25 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1898 $
+ * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1896 2007-12-26 04:07:28Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1898 2007-12-26 18:10:35Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -173,6 +173,9 @@ idCVar cv_tdm_inv_loot_sound("tdm_inv_loot_sound", "frob_loot",	CVAR_GAME | CVAR
 idCVar cv_tdm_rope_pull_force_factor("tdm_rope_pull_force_factor", "140", CVAR_GAME | CVAR_ARCHIVE, "The factor by which the pulling force when jumping on a rope gets multiplied.");
 
 idCVar cv_tdm_underwater_blur("tdm_underwater_blur", "3", CVAR_GAME | CVAR_ARCHIVE, "The strength of the blur effect when the player is underwater.");
+
+idCVar cv_tdm_objectives_gui("tdm_objectives_gui", "guis/objectives.gui", CVAR_GAME | CVAR_ARCHIVE, "The GUI file to use for the objectives display (relative to darkmod root).");
+
 /**
 * DarkMod movement volumes.  Walking volume is zero dB, other volumes are added to that
 **/
