@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1291 $
- * $Date: 2007-08-15 04:36:05 -0400 (Wed, 15 Aug 2007) $
+ * $Revision: 1409 $
+ * $Date: 2007-10-07 05:42:12 -0400 (Sun, 07 Oct 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -986,6 +986,10 @@ public:	// common physics interface
 
 	void					WriteToSnapshot( idBitMsgDelta &msg ) const;
 	void					ReadFromSnapshot( const idBitMsgDelta &msg );
+	/**
+	* TDM: Had to make this public so we could call it earlier than intended
+	**/
+	void					BuildTrees( void );
 
 private:
 							// articulated figure
@@ -1055,7 +1059,6 @@ private:
 	idLCP *					lcp;							// linear complementarity problem solver
 
 private:
-	void					BuildTrees( void );
 	bool					IsClosedLoop( const idAFBody *body1, const idAFBody *body2 ) const;
 	void					PrimaryFactor( void );
 	void					EvaluateBodies( float timeStep );
