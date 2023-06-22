@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1571 $
- * $Date: 2007-10-27 14:47:28 -0400 (Sat, 27 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1578 $
+ * $Date: 2007-10-27 18:20:44 -0400 (Sat, 27 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1571 2007-10-27 18:47:28Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1578 2007-10-27 22:20:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1742,8 +1742,15 @@ void idAI::Think( void )
 	{
 		/*idStr str = idStr::FormatNumber(taskPriority) + "   ";
 		str += idStr(task);*/
-		idStr str = mind->GetState()->GetName();
-		gameRenderWorld->DrawText( str, (GetEyePosition() - physicsObj.GetGravityNormal()*15.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		idStr str("State: ");
+		str += mind->GetState()->GetName() + "\n";
+		
+		if (GetSubsystem(ai::SubsysSenses)->IsEnabled()) str += "Senses: " + GetSubsystem(ai::SubsysSenses)->GetDebugInfo() + "\n";
+		if (GetSubsystem(ai::SubsysMovement)->IsEnabled()) str += "Movement: " + GetSubsystem(ai::SubsysMovement)->GetDebugInfo() + "\n";
+		if (GetSubsystem(ai::SubsysCommunication)->IsEnabled()) str += "Comm: " + GetSubsystem(ai::SubsysCommunication)->GetDebugInfo() + "\n";
+		if (GetSubsystem(ai::SubsysAction)->IsEnabled()) str += "Action: " + GetSubsystem(ai::SubsysAction)->GetDebugInfo() + "\n";
+
+		gameRenderWorld->DrawText( str, (GetEyePosition() - physicsObj.GetGravityNormal()*35.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 		/*if (m_TaskQueue != NULL)
 		{
 			gameRenderWorld->DrawText( m_TaskQueue->DebuggingInfo().c_str(), (GetEyePosition() - physicsObj.GetGravityNormal()*10.0f), 0.20f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
