@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1178 $
+ * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PlayerData.cpp 918 2007-04-21 08:42:18Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: PlayerData.cpp 1178 2007-07-22 07:30:17Z greebo $", init_version);
 
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
@@ -23,6 +23,10 @@ CDarkModPlayer::CDarkModPlayer(void)
 	m_FrobEntityPrevious = NULL;
 	m_LightgemValue = 0;
 
+	// greebo: Initialise the frob trace contact material to avoid 
+	// crashing during map save when nothing has been frobbed yet
+	m_FrobTrace.c.material = NULL;
+
 	// TODO: Spawn grabber from a .def file (maybe?)
 	this->grabber = new CGrabber();
 }
@@ -31,6 +35,36 @@ CDarkModPlayer::~CDarkModPlayer(void)
 {
 	// remove grabber object	
 	this->grabber->PostEventSec( &EV_Remove, 0 );
+}
+
+void CDarkModPlayer::Save( idSaveGame *savefile ) const
+{
+	grabber->Save(savefile);
+
+	// idEntity		*m_FrobEntity;
+	savefile->WriteJoint(m_FrobJoint);
+	savefile->WriteInt(m_FrobID);
+	savefile->WriteTrace(m_FrobTrace);
+	//idEntity	*m_FrobEntityPrevious;
+	savefile->WriteInt(m_LightgemValue);
+	savefile->WriteFloat(m_fColVal);
+	//idList<idLight *>			m_LightList;
+}
+
+void CDarkModPlayer::Restore( idRestoreGame *savefile )
+{
+	// TODO
+
+	grabber->Restore(savefile);
+
+	// idEntity		*m_FrobEntity;
+	savefile->ReadJoint(m_FrobJoint);
+	savefile->ReadInt(m_FrobID);
+	savefile->ReadTrace(m_FrobTrace);
+	//idEntity	*m_FrobEntityPrevious;
+	savefile->ReadInt(m_LightgemValue);
+	savefile->ReadFloat(m_fColVal);
+	//idList<idLight *>			m_LightList;
 }
 
 unsigned long CDarkModPlayer::AddLight(idLight *light)

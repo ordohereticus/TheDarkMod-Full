@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1177 $
- * $Date: 2007-07-22 02:59:14 -0400 (Sun, 22 Jul 2007) $
+ * $Revision: 1178 $
+ * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1177 2007-07-22 06:59:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1178 2007-07-22 07:30:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -714,6 +714,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	m_sndProp->Save(&savegame);
 	m_MissionData->Save(&savegame);
+	
+	// Save the DarkMod player object, this contains a lot of other TDM-related classes
+	g_Global.m_DarkModPlayer->Save(&savegame);
 
 	// spawnSpots
 	// initialSpots
@@ -1615,6 +1618,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	m_sndProp->Restore(&savegame);
 	m_MissionData->Restore(&savegame);
+
+	// Restore the DarkMod player object, this contains a lot of other TDM-related classes
+	g_Global.m_DarkModPlayer->Restore(&savegame);
 
 	// spawnSpots
 	// initialSpots

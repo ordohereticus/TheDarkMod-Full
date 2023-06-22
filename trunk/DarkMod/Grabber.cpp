@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1157 $
- * $Date: 2007-07-20 05:05:52 -0400 (Fri, 20 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1178 $
+ * $Date: 2007-07-22 03:30:17 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1157 2007-07-20 09:05:52Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1178 2007-07-22 07:30:17Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -113,6 +113,16 @@ void CGrabber::Clear( void )
 
 	while( this->HasClippedEntity() )
 		this->RemoveFromClipList( 0 );
+}
+
+void CGrabber::Save( idSaveGame *savefile ) const
+{
+	// TODO
+}
+
+void CGrabber::Restore( idRestoreGame *savefile )
+{
+	// TODO
 }
 
 /*
