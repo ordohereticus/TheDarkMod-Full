@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1915 $
- * $Date: 2007-12-27 15:10:16 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1916 $
+ * $Date: 2007-12-27 15:22:25 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1915 2007-12-27 20:10:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1916 2007-12-27 20:22:25Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2065,7 +2065,17 @@ void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle)
 		idStr prefix = va("obj%d", objCount+1);
 
 		ui->SetStateString(prefix + "_text", m_Objectives[index].m_text);
-		ui->SetStateInt(prefix + "_state", m_Objectives[index].m_state);
+
+		ui->SetStateInt(
+			prefix + "_complete",
+			m_Objectives[index].m_state == STATE_COMPLETE && !m_Objectives[index].m_bOngoing // not complete if ongoing
+		);
+
+		ui->SetStateInt(
+			prefix + "_failed",
+			m_Objectives[index].m_state == STATE_FAILED
+		);
+
 		ui->SetStateInt(prefix + "_visible", m_Objectives[index].m_bVisible);
 	}
 
