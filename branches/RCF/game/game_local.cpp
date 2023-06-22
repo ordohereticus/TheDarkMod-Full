@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1794 $
- * $Date: 2007-11-14 17:59:38 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 1817 $
+ * $Date: 2007-11-20 02:30:53 -0500 (Tue, 20 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1794 2007-11-14 22:59:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1817 2007-11-20 07:30:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -34,6 +34,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1794 2007-11-14 
 #include "../DarkMod/DifficultyMenu.h"
 #include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/ModMenu.h"
+#include "../DarkMod/DarkRadiantRCFServer.h"
 
 #include "il/config.h"
 #include "il/il.h"
@@ -454,6 +455,8 @@ void idGameLocal::Init( void ) {
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "an" ), font_an );
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "bank" ), font_bank );
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "micro" ), font_micro );
+
+	TestStartRCFServer();
 }
 
 /*
