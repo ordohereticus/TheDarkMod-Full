@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1285 $
- * $Date: 2007-08-07 12:40:27 -0400 (Tue, 07 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1293 $
+ * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1285 2007-08-07 16:40:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1293 2007-08-15 09:29:45Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8186,9 +8186,28 @@ void idEntity::Event_CanSeeEntity(idEntity* target, int useLighting)
 	idThread::ReturnInt(canSeeEntity(target, useLighting) ? 1 : 0);
 }
 
-void idEntity::ProcCollisionStims( idEntity *other )
+void idEntity::ProcCollisionStims( idEntity *other, int body )
 {
-	CStimResponseCollection *coll, *coll2;
+	CStimResponseCollection *coll(NULL), *coll2(NULL);
+	idEntity *reroute(NULL);
+	
+	if( IsType(idAFEntity_Base::Type) && body >= 0 )
+	{
+		idAFBody *StruckBody(NULL);
+
+		idAFEntity_Base *selfAF = static_cast<idAFEntity_Base *>(this);
+		int bodID = selfAF->BodyForClipModelId( body );
+		StruckBody = selfAF->GetAFPhysics()->GetBody( bodID );
+
+		if( StruckBody != NULL )
+			reroute = StruckBody->GetRerouteEnt();
+	}
+
+	if( reroute != NULL )
+	{
+		reroute->ProcCollisionStims( other, body );
+		goto Quit;
+	}
 
 	if(	other != NULL
 		&& (coll = GetStimResponseCollection()) != NULL
@@ -8207,5 +8226,8 @@ void idEntity::ProcCollisionStims( idEntity *other )
 			}
 		}
 	}
+
+Quit:
+	return;
 }
 

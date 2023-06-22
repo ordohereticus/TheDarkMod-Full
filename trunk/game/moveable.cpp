@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1283 $
- * $Date: 2007-08-05 12:10:02 -0400 (Sun, 05 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1293 $
+ * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 1283 2007-08-05 16:10:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 1293 2007-08-15 09:29:45Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -330,7 +330,7 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	// Darkmod: Collision stims and a tactile alert if it collides with an AI
 	if ( ent )
 	{
-		ProcCollisionStims( ent );
+		ProcCollisionStims( ent, collision.c.id );
 
 		if( ent->IsType( idAI::Type ) )
 		{

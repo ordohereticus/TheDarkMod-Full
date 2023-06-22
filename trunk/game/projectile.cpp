@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1000 $
- * $Date: 2007-05-28 04:04:02 -0400 (Mon, 28 May 2007) $
+ * $Revision: 1293 $
+ * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 1000 2007-05-28 08:04:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 1293 2007-08-15 09:29:45Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -538,7 +538,7 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	// get the entity the projectile collided with
 	ent = gameLocal.entities[ collision.c.entityNum ];
 
-	ProcCollisionStims( ent );
+	ProcCollisionStims( ent, collision.c.id );
 
 	if ( ent == owner.GetEntity() ) {
 		assert( 0 );

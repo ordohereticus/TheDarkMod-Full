@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1290 $
- * $Date: 2007-08-15 04:35:41 -0400 (Wed, 15 Aug 2007) $
+ * $Revision: 1293 $
+ * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1290 2007-08-15 08:35:41Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 1293 2007-08-15 09:29:45Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -891,7 +891,7 @@ bool idAFEntity_Base::Collide( const trace_t &collision, const idVec3 &velocity 
 	float v, f;
 
 	idEntity *e = gameLocal.entities[collision.c.entityNum];
-	ProcCollisionStims( e );
+	ProcCollisionStims( e, collision.c.id );
 
 	if ( af.IsActive() ) 
 	{

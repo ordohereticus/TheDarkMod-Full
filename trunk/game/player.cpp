@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1286 $
- * $Date: 2007-08-07 13:01:06 -0400 (Tue, 07 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1293 $
+ * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1286 2007-08-07 17:01:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1293 2007-08-15 09:29:45Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3559,7 +3559,7 @@ bool idPlayer::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	// don't let player collide with grabber entity
 	if ( other && other != g_Global.m_DarkModPlayer->grabber->GetSelected() ) 
 	{
-		ProcCollisionStims( other );
+		ProcCollisionStims( other, collision.c.id );
 
 		other->Signal( SIG_TOUCH );
 		if ( !spectating ) {

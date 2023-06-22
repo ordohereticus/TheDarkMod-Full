@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1235 $
- * $Date: 2007-07-29 03:40:09 -0400 (Sun, 29 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1293 $
+ * $Date: 2007-08-15 05:29:45 -0400 (Wed, 15 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -382,8 +382,9 @@ public:
 	virtual bool			Collide( const trace_t &collision, const idVec3 &velocity );
 	/**
 	* TDM: Process collision stims when collisions occur
+	* Body is the AF body that was struck (defaults to -1)
 	**/
-	virtual void			ProcCollisionStims( idEntity *other );
+	virtual void			ProcCollisionStims( idEntity *other, int body = -1 );
 							// retrieves impact information, 'ent' is the entity retrieving the info
 	virtual void			GetImpactInfo( idEntity *ent, int id, const idVec3 &point, impactInfo_t *info );
 							// apply an impulse to the physics object, 'ent' is the entity applying the impulse
