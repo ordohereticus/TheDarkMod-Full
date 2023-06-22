@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2156 $
+ * $Date: 2008-03-29 13:40:53 -0400 (Sat, 29 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_monster.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_monster.cpp 2156 2008-03-29 17:40:53Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -492,7 +492,7 @@ bool idPhysics_Monster::Evaluate( int timeStepMSec, int endTimeMSec ) {
 
 #ifdef MOD_WATERPHYSICS
 	// check water level / type
-	idPhysics_Monster::SetWaterLevel();		// MOD_WATERPHYSICS
+	SetWaterLevel(true);		// MOD_WATERPHYSICS
 #endif		// MOD_WATERPHYSICS
 
 	// check if on the ground

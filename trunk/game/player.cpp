@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2151 $
- * $Date: 2008-03-29 05:19:17 -0400 (Sat, 29 Mar 2008) $
+ * $Revision: 2156 $
+ * $Date: 2008-03-29 13:40:53 -0400 (Sat, 29 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2151 2008-03-29 09:19:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2156 2008-03-29 17:40:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6256,7 +6256,7 @@ void idPlayer::Think( void )
 			case WATERLEVEL_HEAD: waterStr = "WATERLEVEL: HEAD"; break;
 			default: waterStr = "WATERLEVEL: ???"; break;
 		};
-		gameRenderWorld->DrawText(waterStr.c_str(), GetEyePosition() + viewAxis.ToAngles().ToForward()*200, 0.7, colorWhite, viewAxis, 1, 16);
+		gameRenderWorld->DrawText(waterStr.c_str(), GetEyePosition() + viewAxis.ToAngles().ToForward()*200, 0.7f, colorWhite, viewAxis, 1, 16);
 	}
 
 	// determine if portal sky is in pvs
