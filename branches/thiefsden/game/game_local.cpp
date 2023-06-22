@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1934 $
- * $Date: 2007-12-31 05:01:30 -0500 (Mon, 31 Dec 2007) $
+ * $Revision: 1937 $
+ * $Date: 2007-12-31 06:19:03 -0500 (Mon, 31 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1934 2007-12-31 10:01:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1937 2007-12-31 11:19:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3055,12 +3055,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			gui->HandleNamedEvent("ShowObjectivesButton");
 			gui->HandleNamedEvent("ShowResumeGameButton");
 
-			// Objectives not yet shown, trigger them now
-			//gui->HandleNamedEvent("ShowObjectiveScreen");
-			//gui->HandleNamedEvent("InitObjectives");
-
-			//objectivesTriggered = true;
-
 			if (!objectivesUpdated)
 			{
 				// Load the objectives into the GUI
@@ -3074,6 +3068,19 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			gui->HandleNamedEvent("HideResumeGameButton");
 			gui->HandleNamedEvent("HideObjectivesButton");
 		}
+	}
+	else if (cmd == "objective_open_request")
+	{
+		gui->HandleNamedEvent("ShowObjectiveScreen");
+		gui->HandleNamedEvent("InitObjectives");
+
+		if (!objectivesUpdated)
+		{
+			// Load the objectives into the GUI
+			m_MissionData->UpdateGUIState(gui); 
+		}
+
+		objectivesUpdated = true;
 	}
 	else if (cmd == "close") 
 	{
