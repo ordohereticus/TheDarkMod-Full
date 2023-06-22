@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2249 $
- * $Date: 2008-05-01 02:32:48 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2250 $
+ * $Date: 2008-05-01 02:41:48 -0400 (Thu, 01 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2249 2008-05-01 06:32:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2250 2008-05-01 06:41:48Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -9886,10 +9886,7 @@ void idPlayer::Event_Unpausegame()
 
 void idPlayer::Event_MissionSuccess()
 {
-	// greebo: Hooked off this script, this will be handled via the main menu (TODO: Cleanup)
-	// CallScriptFunctionArgs("onMissionSuccess", true, 0, "e", this);
-
-	// Set the gamestate (and remove all irrelevant entities <<-- can be skipped (FIXME))
+	// Set the gamestate
 	gameLocal.SetMissionResult(MISSION_COMPLETE);
 	gameLocal.sessionCommand = "disconnect";
 }
