@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1610 $
- * $Date: 2007-10-31 05:58:40 -0400 (Wed, 31 Oct 2007) $
+ * $Revision: 1623 $
+ * $Date: 2007-11-01 07:36:07 -0400 (Thu, 01 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1644,6 +1644,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void Event_IssueCommunication_IR ( float messageType, float maxRadius, idEntity* intendedRecipientEntity, const idVec3& directObjectLocation);
 	void Event_IssueCommunication_DOE ( float messageType, float maxRadius, idEntity* directObjectEntity, const idVec3& directObjectLocation);
 	void Event_IssueCommunication ( float messageType, float maxRadius, const idVec3& directObjectLocation);
+
+	/**
+	 * greebo: Script event for processing a visual stim coming from the entity <stimSource>
+	 */
+	void Event_ProcessVisualStim(idEntity* stimSource);
 
 	/*!
 	* Spawns a new stone projectile that the AI can throw
