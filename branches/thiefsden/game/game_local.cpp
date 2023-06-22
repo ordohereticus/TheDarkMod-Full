@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1928 $
- * $Date: 2007-12-29 09:58:14 -0500 (Sat, 29 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1930 $
+ * $Date: 2007-12-29 11:56:53 -0500 (Sat, 29 Dec 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1928 2007-12-29 14:58:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1930 2007-12-29 16:56:53Z angua $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -487,6 +487,9 @@ void idGameLocal::Shutdown( void ) {
 	if ( !common ) {
 		return;
 	}
+
+	// Destruct RCF server to avoid memory deallocation issues
+	m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr();
 
 	Printf( "------------ Game Shutdown -----------\n" );
 	
