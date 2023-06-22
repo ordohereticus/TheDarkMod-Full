@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1875 $
- * $Date: 2007-12-15 06:32:43 -0500 (Sat, 15 Dec 2007) $
+ * $Revision: 1878 $
+ * $Date: 2007-12-18 13:45:14 -0500 (Tue, 18 Dec 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -70,6 +70,12 @@ public:
 	bool					IsIdle( void ) const;
 	animFlags_t				GetAnimFlags( void ) const;
 	idAnimator*				GetAnimator();
+	void					FinishAction(const idStr& actionname);
+	const char *			WaitState( void ) const;
+	void					SetWaitState( const char *_waitstate );
+
+protected:
+	idStr					waitState;
 
 private:
 	idActor *				self;
@@ -281,7 +287,9 @@ public:
 	const char *			GetAnimState( int channel ) const;
 	bool					InAnimState( int channel, const char *name ) const;
 	const char *			WaitState( void ) const;
+	const char *			WaitState( int channel ) const;
 	void					SetWaitState( const char *_waitstate );
+	void					SetWaitState( int channel, const char *_waitstate );
 	bool					AnimDone( int channel, int blendFrames ) const;
 	virtual void			SpawnGibs( const idVec3 &dir, const char *damageDefName );
 
@@ -436,6 +444,7 @@ private:
 	void					Event_GetAnimState( int channel );
 	void					Event_InAnimState( int channel, const char *name );
 	void					Event_FinishAction( const char *name );
+	void					Event_FinishChannelAction(int channel, const char *name );
 	void					Event_AnimDone( int channel, int blendFrames );
 	void					Event_HasAnim( int channel, const char *name );
 	void					Event_CheckAnim( int channel, const char *animname );

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1877 $
- * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
- * $Author: ishtvan $
+ * $Revision: 1878 $
+ * $Date: 2007-12-18 13:45:14 -0500 (Tue, 18 Dec 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1877 2007-12-17 01:37:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1878 2007-12-18 18:45:14Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1761,9 +1761,19 @@ void idAI::Think( void )
 	{
 		idStr debugText("Torso: ");
 		debugText += GetAnimState(ANIMCHANNEL_TORSO);
+		debugText += " Waitstate: ";
+		debugText += WaitState(ANIMCHANNEL_TORSO);
 		debugText += "\nLegs: ";
 		debugText += GetAnimState(ANIMCHANNEL_LEGS);
+		debugText += " Waitstate: ";
+		debugText += WaitState(ANIMCHANNEL_LEGS);
+		debugText += "\nHead: ";
+		debugText += GetAnimState(ANIMCHANNEL_HEAD);
+		debugText += " Waitstate: ";
+		debugText += WaitState(ANIMCHANNEL_LEGS);
 		debugText += "\n";
+
+
 		if (WaitState() != NULL)
 		{
 			debugText += idStr("Waitstate: ") + WaitState();
@@ -7156,16 +7166,6 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	float grace_frac;
 	int grace_count;
 
-	// If alert level is less than 3, sheathe weapon (if appropriate), otherwise draw it
-	if (newAlertLevel < thresh_3) 
-	{
-		SheathWeapon();
-	}
-	else 
-	{
-		DrawWeapon();
-	}
-
 	// How long should this alert level last, and which alert index should we be in now?
 	if (newAlertLevel >= thresh_3)
 	{
@@ -8355,6 +8355,9 @@ void idAI::Knockout( void )
 
 void idAI::PostKnockOut()
 {
+	headAnim.Disable();
+	legsAnim.Disable();
+	torsoAnim.Disable();
 	// make original self nonsolid
 	physicsObj.SetContents( 0 );
 	physicsObj.GetClipModel()->Unlink();
