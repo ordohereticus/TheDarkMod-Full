@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1555 $
- * $Date: 2007-10-24 12:03:06 -0400 (Wed, 24 Oct 2007) $
+ * $Revision: 1556 $
+ * $Date: 2007-10-24 13:00:58 -0400 (Wed, 24 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1555 2007-10-24 16:03:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1556 2007-10-24 17:00:58Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3783,79 +3783,7 @@ void idAI::Event_StartSearchForHidingSpotsWithExclusionArea
 
 void idAI::Event_ContinueSearchForHidingSpots()
 {
-	DM_LOG(LC_AI, LT_DEBUG).LogString ("Event_ContinueSearchForHidingSpots called.\n");
-
-	// Get hiding spot search instance from handle
-	darkModAASFindHidingSpots* p_hidingSpotFinder = NULL;
-	if (m_HidingSpotSearchHandle != NULL_HIDING_SPOT_SEARCH_HANDLE)
-	{
-		p_hidingSpotFinder = HidingSpotSearchCollection.getSearchByHandle
-		(
-			m_HidingSpotSearchHandle
-		);
-	}
-
-	// Make sure search still around
-	if (p_hidingSpotFinder == NULL)
-	{
-		// No hiding spot search to continue
-		DM_LOG(LC_AI, LT_DEBUG).LogString ("No current hiding spot search to continue\n");
-		idThread::ReturnInt(0);
-	}
-	else
-	{
-		// Call finder method to continue search
-		bool b_moreProcessingToDo = p_hidingSpotFinder->continueSearchForHidingSpots
-		(
-			p_hidingSpotFinder->hidingSpotList,
-			g_Global.m_maxNumHidingSpotPointTestsPerAIFrame,
-			gameLocal.framenum
-		);
-
-
-		// Return result
-		if (b_moreProcessingToDo)
-		{
-			idThread::ReturnInt(1);
-		}
-		else
-		{
-			unsigned int refCount;
-
-			// Get finder we just referenced
-			darkModAASFindHidingSpots* p_hidingSpotFinder = 
-				HidingSpotSearchCollection.getSearchAndReferenceCountByHandle 
-				(
-					m_HidingSpotSearchHandle,
-					refCount
-				);
-
-			m_hidingSpots.clear();
-			p_hidingSpotFinder->hidingSpotList.getOneNth
-			(
-				refCount,
-				&m_hidingSpots
-			);
-
-			// Done with search object, dereference so other AIs know how many
-			// AIs will still be retrieving points from the search
-			HidingSpotSearchCollection.dereference (m_HidingSpotSearchHandle);
-			m_HidingSpotSearchHandle = NULL_HIDING_SPOT_SEARCH_HANDLE;
-
-
-			// DEBUGGING
-			if (cv_ai_search_show.GetInteger() >= 1.0)
-			{
-				// Clear the debug draw list and then fill with our results
-				p_hidingSpotFinder->debugClearHidingSpotDrawList();
-				p_hidingSpotFinder->debugAppendHidingSpotsToDraw (m_hidingSpots);
-				p_hidingSpotFinder->debugDrawHidingSpots (cv_ai_search_show.GetInteger());
-			}
-
-			DM_LOG(LC_AI, LT_DEBUG).LogString ("Hiding spot search completed\n");
-			idThread::ReturnInt(0);
-		}
-	}
+	idThread::ReturnInt(ContinueSearchForHidingSpots());
 }
 
 

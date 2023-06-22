@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1555 $
- * $Date: 2007-10-24 12:03:06 -0400 (Wed, 24 Oct 2007) $
+ * $Revision: 1556 $
+ * $Date: 2007-10-24 13:00:58 -0400 (Wed, 24 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1007,6 +1007,17 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 		int hidingSpotTypesAllowed, 
 		idEntity* p_ignoreEntity
 	);
+
+	/*
+	* This method continues searching for hiding spots. It will only find so many before
+	* returning so as not to cause long delays.  Detected spots are added to the currently
+	* building hiding spot list.
+	*
+	* The return value is 0 if the end of the search was reached, or 1 if there
+	* is more processing to do (call this method again next AI frame)
+	*
+	*/
+	int ContinueSearchForHidingSpots();
 
 	void					SetAAS( void );
 	virtual	void			DormantBegin( void );	// called when entity becomes dormant
