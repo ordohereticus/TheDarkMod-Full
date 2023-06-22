@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1871 $
- * $Date: 2007-12-14 06:51:32 -0500 (Fri, 14 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 1872 $
+ * $Date: 2007-12-14 11:43:33 -0500 (Fri, 14 Dec 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1871 2007-12-14 11:51:32Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 1872 2007-12-14 16:43:33Z sparhawk $", init_version);
 
 #ifdef _WINDOWS_
 #include "c:\compiled.h"
@@ -1121,7 +1121,7 @@ const char *DM_BuildOSPath(const char *basePath, const char *game, const char *r
 	static char p[1024];
 	if(idStr::Cmpn("\\\\.\\", relativePath, 4) == 0)
 	{
-		strcpy(p, DARKMOD_LG_RENDERPIPE_NAME_WINDOWS);
+		strcpy(p, DARKMOD_LG_RENDERPIPE_NAME);
 		Ret = MRES_SUPERCEDE;
 		pRet = p;
 	}
