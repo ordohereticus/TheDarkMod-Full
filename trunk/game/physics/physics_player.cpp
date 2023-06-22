@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1284 $
- * $Date: 2007-08-05 16:23:29 -0400 (Sun, 05 Aug 2007) $
+ * $Revision: 1305 $
+ * $Date: 2007-08-23 10:45:13 -0400 (Thu, 23 Aug 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1284 $   $Date: 2007-08-05 16:23:29 -0400 (Sun, 05 Aug 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1305 $   $Date: 2007-08-23 10:45:13 -0400 (Thu, 23 Aug 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1803,8 +1803,6 @@ void idPhysics_Player::CheckGround( void ) {
 		if ( debugLevel ) {
 			gameLocal.Printf( "%i:steep\n", c_pmove );
 		}
-
-		gameLocal.Printf("Too steep.\n");
 
 		// FIXME: if they can't slide down the slope, let them walk (sharp crevices)
 
