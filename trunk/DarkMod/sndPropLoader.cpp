@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1701 $
+ * $Date: 2007-11-05 16:58:32 -0500 (Mon, 05 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 1701 2007-11-05 21:58:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -516,6 +516,7 @@ void CsndPropLoader::ParseAreaPropEnt ( idDict args )
 	propEntry.LossMult = lossMult * m_SndGlobals.kappa0;
 	propEntry.VolMod = VolMod;
 	propEntry.area = area;
+	propEntry.DataEntered = false; // greebo: Initialised to false to fix gcc warning
 
 	//add to the area properties list
 	m_AreaProps.Append( static_cast<const SAreaProp>(propEntry) );

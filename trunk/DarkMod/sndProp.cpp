@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1701 $
+ * $Date: 2007-11-05 16:58:32 -0500 (Mon, 05 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1701 2007-11-05 21:58:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -288,6 +288,7 @@ void CsndProp::SetupFromLoader( const CsndPropLoader *in )
 		defaultArea.area = 0;
 		defaultArea.LossMult = 1.0 * m_SndGlobals.kappa0;
 		defaultArea.VolMod = 0.0;
+		defaultArea.DataEntered = false;
 
 		m_AreaPropsG.Append( defaultArea );
 		m_AreaPropsG.Condense();
@@ -1506,6 +1507,7 @@ bool CsndProp::ExpandWaveFast( float volInit, idVec3 origin,
 			tempQEntry.curAtt = tempAtt;
 			tempQEntry.portalH = pSndAreas->portals[i2].handle;
 			tempQEntry.PrevPort = NULL;
+			tempQEntry.curLoss = 0.0f; // greebo: Initialised to 0.0f to fix gcc warning
 
 			NextAreas.Append( tempQEntry );
 		}
