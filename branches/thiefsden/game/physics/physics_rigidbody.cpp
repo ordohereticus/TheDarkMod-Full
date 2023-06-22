@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1972 $
- * $Date: 2008-01-10 00:55:00 -0500 (Thu, 10 Jan 2008) $
+ * $Revision: 1985 $
+ * $Date: 2008-01-13 09:42:12 -0500 (Sun, 13 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1972 2008-01-10 05:55:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 1985 2008-01-13 14:42:12Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -255,6 +255,12 @@ void idPhysics_RigidBody::Integrate( float deltaTime, rigidBodyPState_t &next ) 
 bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& impulse)
 {
 	DM_LOG(LC_ENTITY, LT_INFO).LogString("Contacts with this entity %s = %d\r", self->name.c_str(), contacts.Num());
+
+	if (impulse.LengthSqr() == 0)
+	{
+		// greebo: Don't process incoming zero impulses, quit at once.
+		return false;
+	}
 
 	// greebo: Check all entities touching this physics object
 	EvaluateContacts();
