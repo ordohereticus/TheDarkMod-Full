@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1372 $
- * $Date: 2007-09-02 16:17:48 -0400 (Sun, 02 Sep 2007) $
+ * $Revision: 1377 $
+ * $Date: 2007-09-11 14:51:35 -0400 (Tue, 11 Sep 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -109,7 +109,7 @@ public:
 	void					ProcessLockpick(int cType, ELockpickSoundsample nSampleType);
 	void					LockpickTimerEvent(int cType, ELockpickSoundsample nSoundSample);
 
-	void					SetHandlePosition(EHandleReset, int pin_index = 0, int sample_index = 0);
+	void					SetHandlePosition(EHandleReset, int msec, int pin_index = 0, int sample_index = 0);
 
 	/**
 	 * Init will read the spawnargs lockpick_bar, lockpick_rotate and 
