@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1335 $
- * $Date: 2007-08-28 08:50:16 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1336 $
+ * $Date: 2007-08-28 09:31:29 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,10 +18,11 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1335 2007-08-28 12:50:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 1336 2007-08-28 13:31:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
+#include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 
@@ -417,14 +418,21 @@ tdmPathFlee
 CLASS_DECLARATION( idEntity, tdmPathFlee )
 END_CLASS
 
+tdmPathFlee::~tdmPathFlee()
+{
+	// Unregister self with the escape point manager
+	gameLocal.m_EscapePointManager.RemoveEscapePoint(this);
+}
+
 /*
 =====================
 tdmPathFlee::Spawn
 =====================
 */
 void tdmPathFlee::Spawn( void ) {
-	// Register this class with the flee location manager
+	// Register this class with the escape point manager
 	DM_LOG(LC_AI, LT_INFO).LogString("tdmPathFlee spawned.\r");
+	gameLocal.m_EscapePointManager.AddEscapePoint(this);
 }
 
 /*

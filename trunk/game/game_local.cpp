@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1294 $
- * $Date: 2007-08-16 00:04:01 -0400 (Thu, 16 Aug 2007) $
- * $Author: joebarnin $
+ * $Revision: 1336 $
+ * $Date: 2007-08-28 09:31:29 -0400 (Tue, 28 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1294 2007-08-16 04:04:01Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1336 2007-08-28 13:31:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -349,6 +349,7 @@ void idGameLocal::Clear( void )
 	m_saPipeSecurity.lpSecurityDescriptor = m_pPipeSD;
 #endif
 
+	m_EscapePointManager.Clear();
 }
 
 /*
@@ -753,6 +754,8 @@ void idGameLocal::SaveGame( idFile *f ) {
 	{
 		m_RespEntity[i].Save(&savegame);
 	}
+
+	m_EscapePointManager.Save(&savegame);
 
 	// spawnSpots
 	// initialSpots
@@ -1694,6 +1697,8 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	{
 		m_RespEntity[i].Restore(&savegame);
 	}
+
+	m_EscapePointManager.Restore(&savegame);
 
 	// spawnSpots
 	// initialSpots

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1215 $
- * $Date: 2007-07-25 10:47:36 -0400 (Wed, 25 Jul 2007) $
+ * $Revision: 1336 $
+ * $Date: 2007-08-28 09:31:29 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -179,6 +179,8 @@ void gameError( const char *fmt, ... );
 
 #include "pvs.h"
 #include "multiplayergame.h"
+
+#include "../DarkMod/EscapePointManager.h"
 
 #ifdef __linux__
 #include "renderer/renderworld.h"
@@ -448,6 +450,12 @@ public:
 * Pointer to global sound prop gameplay object
 **/
 	CsndProp *				m_sndProp;
+
+	/**
+	 * greebo: The escape point manager which is keeping track
+	 *         of all the tdmPathFlee entities.
+	 */
+	CEscapePointManager		m_EscapePointManager;
 	
 	/**
 	* All priority queues that have been instantiated during the run of this map.

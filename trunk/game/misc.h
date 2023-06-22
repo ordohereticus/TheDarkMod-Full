@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1335 $
- * $Date: 2007-08-28 08:50:16 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1336 $
+ * $Date: 2007-08-28 09:31:29 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -134,6 +134,8 @@ private:
 class tdmPathFlee : public idEntity {
 public:
 	CLASS_PROTOTYPE( tdmPathFlee );
+
+	virtual ~tdmPathFlee();
 
 	void				Spawn( void );
 
