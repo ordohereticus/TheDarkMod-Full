@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1498 $
- * $Date: 2007-10-20 17:00:14 -0400 (Sat, 20 Oct 2007) $
+ * $Revision: 1499 $
+ * $Date: 2007-10-20 17:03:42 -0400 (Sat, 20 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1139,10 +1139,10 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	/**
 	* The point of this function is to determine the visual stimulus level caused
-	* by the players current lightgem value.
+	* by addition of the CVAR tdm_ai_sight_mag. The current alert level is taken 
+	* as reference value and the difference in logarithmic alert units is returned.
 	*/
-	float GetPlayerVisualStimulusAmount(idEntity* p_playerEntity) const;
-
+	float GetPlayerVisualStimulusAmount() const;
 
 	// attacks
 	void					CreateProjectileClipModel( void ) const;
