@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1648 $
- * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1649 $
+ * $Date: 2007-11-02 05:23:30 -0400 (Fri, 02 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1648 2007-11-02 09:06:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1649 2007-11-02 09:23:30Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -1753,7 +1753,7 @@ void idAI::Think( void )
 
 	if( cv_ai_alertnum_show.GetBool() )
 	{
-		gameRenderWorld->DrawText( va("Alert: %f; Index: %d", (float) AI_AlertNum, (int)AI_AlertIndex), (GetEyePosition() - physicsObj.GetGravityNormal()*32.0f), 0.25f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		gameRenderWorld->DrawText( va("Alert: %f; Index: %d", (float) AI_AlertNum, (int)AI_AlertIndex), (GetEyePosition() - physicsObj.GetGravityNormal()*45.0f), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
 }
 
