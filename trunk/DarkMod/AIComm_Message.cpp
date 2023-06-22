@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1207 $
- * $Date: 2007-07-23 13:31:05 -0400 (Mon, 23 Jul 2007) $
+ * $Revision: 1208 $
+ * $Date: 2007-07-23 13:38:55 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 1207 2007-07-23 17:31:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 1208 2007-07-23 17:38:55Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_Message.h"
@@ -56,9 +56,9 @@ CAIComm_Message::CAIComm_Message
 	m_positionOfIssuance.x = 0.0;
 	m_positionOfIssuance.y = 0.0;
 	m_positionOfIssuance.z = 0.0;
-	if (m_p_issuingEntity != NULL)
+	if (m_p_issuingEntity.GetEntity() != NULL)
 	{
-		idPhysics* p_phys  = m_p_issuingEntity->GetPhysics();
+		idPhysics* p_phys  = m_p_issuingEntity.GetEntity()->GetPhysics();
 		if (p_phys != NULL)
 		{
 			m_positionOfIssuance = p_phys->GetOrigin();
@@ -85,10 +85,24 @@ CAIComm_Message::~CAIComm_Message()
 
 void CAIComm_Message::Save(idSaveGame *savefile) const
 {
-	// TODO
+	savefile->WriteInt(static_cast<int>(m_commType));
+	m_p_issuingEntity.Save(savefile);
+	m_p_recipientEntity.Save(savefile);
+	m_p_directObjectEntity.Save(savefile);
+	savefile->WriteVec3(m_directObjectLocation);
+	savefile->WriteVec3(m_positionOfIssuance);
+	savefile->WriteFloat(m_maximumRadiusInWorldCoords);
 }
 
 void CAIComm_Message::Restore(idRestoreGame *savefile)
 {
-	// TODO
+	int tempInt;
+	savefile->ReadInt(tempInt);
+	m_commType = static_cast<TCommType>(tempInt);
+	m_p_issuingEntity.Restore(savefile);
+	m_p_recipientEntity.Restore(savefile);
+	m_p_directObjectEntity.Restore(savefile);
+	savefile->ReadVec3(m_directObjectLocation);
+	savefile->ReadVec3(m_positionOfIssuance);
+	savefile->ReadFloat(m_maximumRadiusInWorldCoords);
 }
