@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1947 $
- * $Date: 2008-01-03 13:21:04 -0500 (Thu, 03 Jan 2008) $
+ * $Revision: 1957 $
+ * $Date: 2008-01-04 15:02:19 -0500 (Fri, 04 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -50,6 +50,7 @@ const int	FOCUS_TIME = 300;
 const int	FOCUS_GUI_TIME = 500;
 
 #define TDM_PLAYER_WEAPON_CATEGORY			"Weapons"
+#define TDM_PLAYER_MAPS_CATEGORY			"Maps"
 const int MAX_WEAPONS = 16;
 
 const int DEAD_HEARTRATE = 0;			// fall to as you die
@@ -300,7 +301,9 @@ public:
 	idDragEntity			dragEntity;
 
 	// A pointer to our weaponslot.
-	CInventoryCursor		*m_WeaponCursor;
+	CInventoryCursor*		m_WeaponCursor;
+	// A pointer to the current map/floorplan.
+	CInventoryCursor*		m_MapCursor;
 
 public:
 	CLASS_PROTOTYPE( idPlayer );
@@ -321,6 +324,14 @@ public:
 	*         to the inventory. Expects the weapon category to exist.
 	*/
 	void					addWeaponsToInventory();
+
+	/**
+	 * greebo: Cycles through the inventory and opens the next map.
+	 * If no map is displayed currently, the first map is toggled.
+	 * If there is a map currently on the HUD, the next one is chosen.
+	 * If there is no next map, the map is closed again.
+	 */
+	void					NextInventoryMap();
 
 	// save games
 	void					Save( idSaveGame *savefile ) const;					// archives object for save game file

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1942 $
- * $Date: 2008-01-02 13:06:19 -0500 (Wed, 02 Jan 2008) $
+ * $Revision: 1957 $
+ * $Date: 2008-01-04 15:02:19 -0500 (Fri, 04 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1942 2008-01-02 18:06:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1957 2008-01-04 20:02:19Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -335,6 +335,23 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 			gameLocal.Printf( "%s: Could not find item in player inventory: %s\n", args.Argv(0), args.Argv(1) );
 		}
 	}
+}
+
+/*
+==================
+Cmd_InventoryCycleMaps_f
+==================
+*/
+void Cmd_InventoryCycleMaps_f( const idCmdArgs &args )
+{
+	idPlayer *player = gameLocal.GetLocalPlayer();
+	if ( player == NULL ) {
+		gameLocal.Printf( "%s: No player exists.\n", args.Argv(0) );
+		return;
+	}
+
+	// Pass the call to the specialised method
+	player->NextInventoryMap();
 }
 
 /*
@@ -2700,6 +2717,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 	cmdSystem->AddCommand( "inventory_hotkey",		Cmd_InventoryHotkey_f,		CMD_FL_GAME,				"Usage: inventory_hotkey [item]\nSelects an item from the currently available inventory. If 'item' is omitted, it will return the current item's hotkey name, if any." );
 	cmdSystem->AddCommand( "inventory_use",			Cmd_InventoryUse_f,			CMD_FL_GAME,				"Usage: inventory_use [item]\nUses an item in the currently available inventory without selectign it. If 'item' is omitted, it will use the currently selected item." );
+	cmdSystem->AddCommand( "inventory_cycle_maps",	Cmd_InventoryCycleMaps_f,	CMD_FL_GAME,				"Usage: Bind a key to this command to cycle through the inventory maps." );
 
 	cmdSystem->AddCommand( "darkradiant_signal_cmd_done",	Cmd_SignalCMDDone_f,		CMD_FL_GAME,				"Called by DarkRadiant to receive the DONE signal after issuing commands." );
 
