@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1323 $
- * $Date: 2007-08-26 03:30:58 -0400 (Sun, 26 Aug 2007) $
- * $Author: crispy $
+ * $Revision: 1329 $
+ * $Date: 2007-08-27 12:58:37 -0400 (Mon, 27 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1323 2007-08-26 07:30:58Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1329 2007-08-27 16:58:37Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -70,6 +70,8 @@ const idEventDef AI_MoveToCoverFrom( "moveToCoverFrom", "E" );
 const idEventDef AI_MoveToEnemy( "moveToEnemy" );
 const idEventDef AI_MoveToEnemyHeight( "moveToEnemyHeight" );
 const idEventDef AI_MoveOutOfRange( "moveOutOfRange", "ef" );
+// greebo: Flee from an entity
+const idEventDef AI_Flee( "flee", "ef" );
 const idEventDef AI_MoveToAttackPosition( "moveToAttackPosition", "es" );
 const idEventDef AI_Wander( "wander" );
 const idEventDef AI_MoveToEntity( "moveToEntity", "e" );
@@ -434,6 +436,7 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_MoveToEnemy,						idAI::Event_MoveToEnemy )
 	EVENT( AI_MoveToEnemyHeight,				idAI::Event_MoveToEnemyHeight )
 	EVENT( AI_MoveOutOfRange,					idAI::Event_MoveOutOfRange )
+	EVENT( AI_Flee,								idAI::Event_Flee )
 	EVENT( AI_MoveToAttackPosition,				idAI::Event_MoveToAttackPosition )
 	EVENT( AI_Wander,							idAI::Event_Wander )
 	EVENT( AI_MoveToEntity,						idAI::Event_MoveToEntity )
@@ -1484,6 +1487,16 @@ idAI::Event_MoveOutOfRange
 void idAI::Event_MoveOutOfRange( idEntity *entity, float range ) {
 	StopMove( MOVE_STATUS_DEST_NOT_FOUND );
 	MoveOutOfRange( entity, range );
+}
+
+/*
+=====================
+idAI::Event_Flee
+=====================
+*/
+void idAI::Event_Flee(idEntity *entityToFleeFrom, float maxDist) {
+	StopMove(MOVE_STATUS_DEST_NOT_FOUND);
+	Flee(entityToFleeFrom, maxDist);
 }
 
 /*
