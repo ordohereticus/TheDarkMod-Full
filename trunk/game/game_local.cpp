@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1175 $
- * $Date: 2007-07-21 17:53:16 -0400 (Sat, 21 Jul 2007) $
+ * $Revision: 1177 $
+ * $Date: 2007-07-22 02:59:14 -0400 (Sun, 22 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1175 2007-07-21 21:53:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1177 2007-07-22 06:59:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -713,7 +713,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 	}
 
 	m_sndProp->Save(&savegame);
-	m_sndPropLoader->Save(&savegame); // greebo: This might not be necessary, check this
+	m_MissionData->Save(&savegame);
 
 	// spawnSpots
 	// initialSpots
@@ -1614,7 +1614,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface.GetEntity());
 
 	m_sndProp->Restore(&savegame);
-	m_sndPropLoader->Restore(&savegame); // greebo: This might not be necessary, check this
+	m_MissionData->Restore(&savegame);
 
 	// spawnSpots
 	// initialSpots

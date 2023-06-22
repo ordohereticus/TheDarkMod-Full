@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1158 $
- * $Date: 2007-07-20 05:06:59 -0400 (Fri, 20 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1177 $
+ * $Date: 2007-07-22 02:59:14 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -436,6 +436,9 @@ public:
 	virtual ~CMissionData( void );
 
 	void Clear( void );
+
+	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
 
 	/**
 	* Update objectives if they need it

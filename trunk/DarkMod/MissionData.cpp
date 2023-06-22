@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1158 $
- * $Date: 2007-07-20 05:06:59 -0400 (Fri, 20 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1177 $
+ * $Date: 2007-07-22 02:59:14 -0400 (Sun, 22 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1158 2007-07-20 09:06:59Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1177 2007-07-22 06:59:14Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -186,6 +186,15 @@ void CMissionData::Clear( void )
 	m_Stats.LootOverall = 0;
 }
 
+void CMissionData::Save( idSaveGame *savefile ) const
+{
+	// TODO
+}
+
+void CMissionData::Restore( idRestoreGame *savefile )
+{
+	// TODO
+}
 
 void CMissionData::MissionEvent
 	(
