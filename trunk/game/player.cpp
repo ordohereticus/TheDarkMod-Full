@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1141 $
- * $Date: 2007-07-18 15:36:51 -0400 (Wed, 18 Jul 2007) $
+ * $Revision: 1143 $
+ * $Date: 2007-07-18 16:02:00 -0400 (Wed, 18 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1141 2007-07-18 19:36:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1143 2007-07-18 20:02:00Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1242,6 +1242,10 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( m_bDraggingBody );
 	savefile->WriteBool( m_bShoulderingBody );
 
+	savefile->WriteInt(healthPoolStepAmount);
+	savefile->WriteInt(healthPoolTimeInterval);
+	savefile->WriteInt(healthPoolTimeIntervalFactor);
+
 	savefile->WriteInt(mInventoryOverlay);
 
 	if(hud)
@@ -1509,6 +1513,10 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( m_bGrabberActive );
 	savefile->ReadBool( m_bDraggingBody );
 	savefile->ReadBool( m_bShoulderingBody );
+
+	savefile->ReadInt(healthPoolStepAmount);
+	savefile->ReadInt(healthPoolTimeInterval);
+	savefile->ReadInt(healthPoolTimeIntervalFactor);
 
 	savefile->ReadInt(mInventoryOverlay);
 
