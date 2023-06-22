@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1858 $
- * $Date: 2007-12-07 11:54:52 -0500 (Fri, 07 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1875 $
+ * $Date: 2007-12-15 06:32:43 -0500 (Sat, 15 Dec 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -429,6 +429,7 @@ private:
 	void					Event_SetSyncedAnimWeight( int channel, int anim, float weight );
 	void					Event_OverrideAnim( int channel );
 	void					Event_EnableAnim( int channel, int blendFrames );
+	void					Event_DisableAnimchannel( int channel );
 	void					Event_SetBlendFrames( int channel, int blendFrames );
 	void					Event_GetBlendFrames( int channel );
 	void					Event_AnimState( int channel, const char *name, int blendFrames );

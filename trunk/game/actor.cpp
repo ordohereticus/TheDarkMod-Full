@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1861 $
- * $Date: 2007-12-07 13:43:02 -0500 (Fri, 07 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 1875 $
+ * $Date: 2007-12-15 06:32:43 -0500 (Sat, 15 Dec 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1861 2007-12-07 18:43:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1875 2007-12-15 11:32:43Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -348,6 +348,7 @@ const idEventDef AI_FinishAction( "finishAction", "s" );
 const idEventDef AI_AnimDone( "animDone", "dd", 'd' );
 const idEventDef AI_OverrideAnim( "overrideAnim", "d" );
 const idEventDef AI_EnableAnim( "enableAnim", "dd" );
+const idEventDef AI_DisableAnimchannel( "disableAnimchannel", "d" );
 const idEventDef AI_PreventPain( "preventPain", "f" );
 const idEventDef AI_DisablePain( "disablePain" );
 const idEventDef AI_EnablePain( "enablePain" );
@@ -411,6 +412,7 @@ CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT( AI_AnimDone,					idActor::Event_AnimDone )
 	EVENT( AI_OverrideAnim,				idActor::Event_OverrideAnim )
 	EVENT( AI_EnableAnim,				idActor::Event_EnableAnim )
+	EVENT( AI_DisableAnimchannel,		idActor::Event_DisableAnimchannel )
 	EVENT( AI_HasAnim,					idActor::Event_HasAnim )
 	EVENT( AI_CheckAnim,				idActor::Event_CheckAnim )
 	EVENT( AI_ChooseAnim,				idActor::Event_ChooseAnim )
@@ -3427,6 +3429,32 @@ void idActor::Event_EnableAnim( int channel, int blendFrames ) {
 
 	case ANIMCHANNEL_LEGS :
 		legsAnim.Enable( blendFrames );
+		break;
+
+	default:
+		gameLocal.Error( "Unknown anim group" );
+		break;
+	}
+}
+
+
+/*
+===============
+idActor::Event_DisableAnimchannel
+===============
+*/
+void idActor::Event_DisableAnimchannel( int channel ) {
+	switch( channel ) {
+	case ANIMCHANNEL_HEAD :
+		headAnim.Disable();
+		break;
+
+	case ANIMCHANNEL_TORSO :
+		torsoAnim.Disable();
+		break;
+
+	case ANIMCHANNEL_LEGS :
+		legsAnim.Disable();
 		break;
 
 	default:
