@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1221 $
- * $Date: 2007-07-26 04:08:48 -0400 (Thu, 26 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1303 $
+ * $Date: 2007-08-21 16:18:33 -0400 (Tue, 21 Aug 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1221 2007-07-26 08:08:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1303 2007-08-21 20:18:33Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -114,6 +114,11 @@ void CFrobDoor::Save(idSaveGame *savefile) const
 		}
 	}
 
+	savefile->WriteVec3(m_PinTranslationFraction);
+	savefile->WriteFloat(m_PinRotationFraction.pitch);
+	savefile->WriteFloat(m_PinRotationFraction.yaw);
+	savefile->WriteFloat(m_PinRotationFraction.roll);
+
 	savefile->WriteBool(m_Pickable);
 	savefile->WriteInt(m_FirstLockedPinIndex);
 	savefile->WriteInt(m_SoundPinSampleIndex);
@@ -159,6 +164,11 @@ void CFrobDoor::Restore( idRestoreGame *savefile )
 			savefile->ReadString( (*m_Pins[i])[j] );
 		}
 	}
+
+	savefile->ReadVec3(m_PinTranslationFraction);
+	savefile->ReadFloat(m_PinRotationFraction.pitch);
+	savefile->ReadFloat(m_PinRotationFraction.yaw);
+	savefile->ReadFloat(m_PinRotationFraction.roll);
 
 	savefile->ReadBool(m_Pickable);
 	savefile->ReadInt(m_FirstLockedPinIndex);
@@ -206,6 +216,9 @@ void CFrobDoor::Spawn( void )
 			else
 				DM_LOG(LC_LOCKPICK, LT_ERROR)LOGSTRING("Door [%s]: couldn't create pin pattern for pin %u value %c\r", name.c_str(), i, str[i]);
 		}
+
+		m_PinRotationFraction = spawnArgs.GetAngles("rotate", "0 90 0")/m_Pins.Num();
+		m_PinTranslationFraction = spawnArgs.GetVector("translate", "0 0 0")/m_Pins.Num();
 	}
 
 	if(spawnArgs.GetString("master_open", "", str))
