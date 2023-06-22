@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1534 $
+ * $Date: 2007-10-22 16:10:27 -0400 (Mon, 22 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1534 2007-10-22 20:10:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3689,33 +3689,37 @@ void idActor::Event_FinishAction( const char *actionname ) {
 	}
 }
 
+bool idActor::AnimDone( int channel, int blendFrames ) const
+{
+	bool result = false;
+
+	switch( channel ) {
+		case ANIMCHANNEL_HEAD :
+			result = headAnim.AnimDone( blendFrames );
+			break;
+
+		case ANIMCHANNEL_TORSO :
+			result = torsoAnim.AnimDone( blendFrames );
+			break;
+
+		case ANIMCHANNEL_LEGS :
+			result = legsAnim.AnimDone( blendFrames );
+			break;
+
+		default:
+			gameLocal.Error( "Unknown anim group" );
+	}
+
+	return result;
+}
+
 /*
 ===============
 idActor::Event_AnimDone
 ===============
 */
 void idActor::Event_AnimDone( int channel, int blendFrames ) {
-	bool result;
-
-	switch( channel ) {
-	case ANIMCHANNEL_HEAD :
-		result = headAnim.AnimDone( blendFrames );
-		idThread::ReturnInt( result );
-		break;
-
-	case ANIMCHANNEL_TORSO :
-		result = torsoAnim.AnimDone( blendFrames );
-		idThread::ReturnInt( result );
-		break;
-
-	case ANIMCHANNEL_LEGS :
-		result = legsAnim.AnimDone( blendFrames );
-		idThread::ReturnInt( result );
-		break;
-
-	default:
-		gameLocal.Error( "Unknown anim group" );
-	}
+	idThread::ReturnInt(AnimDone(channel, blendFrames));
 }
 
 /*
