@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1491 $
- * $Date: 2007-10-20 09:41:12 -0400 (Sat, 20 Oct 2007) $
+ * $Revision: 1492 $
+ * $Date: 2007-10-20 10:46:11 -0400 (Sat, 20 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1491 2007-10-20 13:41:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1492 2007-10-20 14:46:11Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -6525,34 +6525,34 @@ idEntity *idAI::GetTactEnt( void )
 
 idActor *idAI::VisualScan( float timecheck )
 {
-	float visFrac, randFrac, incAlert(0);
-	idActor *actor;
+	// greebo: This returns non-NULL if this AI is in the player's PVS
+	// and the AI can see the player actor.
+	idActor* actor = FindEnemy(true);
 
-	actor = FindEnemy( true );
-
-	if( !actor )
+	if (actor == NULL)
 	{
-		goto Quit;
+		// No actor in sight, quit
+		return NULL;
 	}
 
 	if( !actor->IsType( idPlayer::Type ) )
 	{
-		actor = NULL;
-		goto Quit;
+		// Not a player, quit
+		return NULL;
 	}
 
-	visFrac = GetVisibility( actor );
+	// Check the candidate's visibility.
+	float visFrac = GetVisibility(actor);
 
 	// uncomment for visibility fraction debugging (spams the log)
 	//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Visibility fraction for %s = %f\r", actor->name.c_str(), visFrac );
 
 	// Do the percentage check
-	randFrac = gameLocal.random.RandomFloat( );
+	float randFrac = gameLocal.random.RandomFloat();
 	if( randFrac > ( (timecheck / s_VisNormtime * cv_ai_sight_prob.GetFloat()) * visFrac ) )
 	{
 		//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Random number check failed: random %f > number %f\r", randFrac, (timecheck / s_VisNormtime) * visFrac );
-		actor = NULL;
-		goto Quit;
+		return NULL;
 	}
 
 	// set AI_VISALERT and the vector for last sighted position
@@ -6563,7 +6563,7 @@ idActor *idAI::VisualScan( float timecheck )
 		AI_VISALERT = true;
 		m_LastSight = actor->GetPhysics()->GetOrigin();
 
-		incAlert = getPlayerVisualStimulusAmount(actor);
+		float incAlert = getPlayerVisualStimulusAmount(actor);
 
 		if( incAlert > m_AlertNumThisFrame )
 		{
@@ -6572,14 +6572,13 @@ idActor *idAI::VisualScan( float timecheck )
 		}
 	}
 
-	if ( actor )
+	if (actor != NULL)
 	{
 		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s SAW actor %s\r", name.c_str(), actor->name.c_str() );
 		if( cv_ai_debug.GetBool() )
 			gameLocal.Printf( "[DM AI] AI %s SAW actor %s\n", name.c_str(), actor->name.c_str() );
 	}
 
-Quit:
 	return actor;
 }
 
