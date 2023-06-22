@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1961 $
- * $Date: 2008-01-06 03:11:05 -0500 (Sun, 06 Jan 2008) $
+ * $Revision: 1973 $
+ * $Date: 2008-01-10 14:53:58 -0500 (Thu, 10 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1961 2008-01-06 08:11:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1973 2008-01-10 19:53:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -778,6 +778,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 	}
 
 	m_EscapePointManager->Save(&savegame);
+
+	// greebo: Save the maximum frob distance
+	savegame.WriteFloat(g_Global.m_MaxFrobDistance);
 
 	// spawnSpots
 	// initialSpots
@@ -1728,6 +1731,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	}
 
 	m_EscapePointManager->Restore(&savegame);
+
+	// greebo: Restore the maximum frob distance
+	savegame.ReadFloat(g_Global.m_MaxFrobDistance);
 
 	// spawnSpots
 	// initialSpots
