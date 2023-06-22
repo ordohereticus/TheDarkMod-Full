@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2001 $
+ * $Date: 2008-01-20 13:57:39 -0500 (Sun, 20 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2001 2008-01-20 18:57:39Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3057,12 +3057,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 {
 	idStr cmd(menuCommand);
 
-	if (cmd == "objective_close_request")
-	{
-		// Objectives GUI requests closure, shut it down
-		gui->HandleNamedEvent("CloseObjectives");
-	}
-	else if (cmd == "mainmenu_heartbeat")
+	if (cmd == "mainmenu_heartbeat")
 	{
 		if (GetMissionResult() == MISSION_COMPLETE)
 		{
@@ -3103,6 +3098,13 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Only update the objectives during map runtime and if not already triggered
 		if (GameState() == GAMESTATE_ACTIVE)
 		{
+			// greebo: Invoke the initialisation routine (only once)
+			if (!gui->GetStateBool("ObjectiveScreenInitialised"))
+			{
+				gui->HandleNamedEvent("InitObjectiveScreen");
+				gui->SetStateBool("ObjectiveScreenInitialised", true);
+			}
+
 			if (!m_MissionDataLoadedIntoGUI)
 			{
 				// Load the objectives into the GUI
@@ -3134,7 +3136,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		}
 
 		gui->HandleNamedEvent("ShowObjectiveScreen");
-		gui->HandleNamedEvent("InitObjectives");
 		
 		if (!m_MissionDataLoadedIntoGUI)
 		{
@@ -3144,11 +3145,30 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 		m_MissionDataLoadedIntoGUI = true;
 	}
+	else if (cmd == "objective_close_request")
+	{
+		// Objectives GUI requests closure, shut it down
+		gui->HandleNamedEvent("CloseObjectives");
+	}
 	else if (cmd == "showMods") // Called by "New Mission"
 	{
 		// User requested a map start
 		gui->HandleNamedEvent("ShowBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 1);
+	}
+	else if (cmd == "objective_scroll_down_request") 
+	{
+		// Increment the start index
+		int curIdx = gui->GetStateInt("ObjStartIdx");
+		gui->SetStateInt("ObjStartIdx", curIdx + 1);
+		m_MissionDataLoadedIntoGUI = false; // trigger an update next frame
+	}
+	else if (cmd == "objective_scroll_up_request") 
+	{
+		// Increment the start index
+		int curIdx = gui->GetStateInt("ObjStartIdx");
+		gui->SetStateInt("ObjStartIdx", curIdx - 1);
+		m_MissionDataLoadedIntoGUI = false; // trigger an update next frame
 	}
 	else if (cmd == "close") 
 	{

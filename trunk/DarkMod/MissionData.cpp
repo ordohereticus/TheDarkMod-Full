@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2001 $
+ * $Date: 2008-01-20 13:57:39 -0500 (Sun, 20 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2001 2008-01-20 18:57:39Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2112,6 +2112,7 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 	ui->SetStateInt("NumVisibleObjectives", objIndices.Num());
 
 	int numObjectivesPerPage = 5;
+	numObjectivesPerPage = ui->GetStateInt("NumObjectivesPerPage");
 
 	int startIdx = ui->GetStateInt("ObjStartIdx", "0");
 
