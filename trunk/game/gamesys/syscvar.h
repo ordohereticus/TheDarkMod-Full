@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1898 $
- * $Date: 2007-12-26 13:10:35 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1915 $
+ * $Date: 2007-12-27 15:10:16 -0500 (Thu, 27 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -121,8 +121,6 @@ extern idCVar cv_tdm_rope_pull_force_factor;
 
 extern idCVar cv_tdm_hud_opacity;
 extern idCVar cv_tdm_underwater_blur;
-
-extern idCVar cv_tdm_objectives_gui;
 
 extern idCVar cv_tdm_inv_loot_group;
 extern idCVar cv_tdm_inv_grouping;
