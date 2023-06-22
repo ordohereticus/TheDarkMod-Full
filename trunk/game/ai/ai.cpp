@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2053 $
- * $Date: 2008-02-08 00:58:06 -0500 (Fri, 08 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2056 $
+ * $Date: 2008-02-08 13:15:21 -0500 (Fri, 08 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,11 +13,10 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2053 2008-02-08 05:58:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2056 2008-02-08 18:15:21Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
-#include "../../DarkMod/AI/BasicMind.h"
 #include "../../DarkMod/AI/Subsystem.h"
 #include "../../DarkMod/AI/Memory.h"
 #include "../../DarkMod/AI/States/KnockedOutState.h"
@@ -1063,8 +1062,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat(atime3_fuzzyness);
 	savefile->ReadFloat(atime4_fuzzyness);
 
-
-	mind = ai::MindPtr(new ai::BasicMind(this));
+	mind = ai::MindPtr(new ai::Mind(this));
 	mind->Restore(savefile);
 
 	// Allocate and install the subsystems
@@ -1108,7 +1106,7 @@ void idAI::Spawn( void )
 	bool				talks;
 
 	// Allocate a new default mind
-	mind = ai::MindPtr(new ai::BasicMind(this));
+	mind = ai::MindPtr(new ai::Mind(this));
 
 	// Allocate and install the subsystems
 	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(ai::SubsysMovement, this)));
