@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1365 $
- * $Date: 2007-08-30 12:30:29 -0400 (Thu, 30 Aug 2007) $
+ * $Revision: 1367 $
+ * $Date: 2007-08-30 17:43:44 -0400 (Thu, 30 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1365 2007-08-30 16:30:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1367 2007-08-30 21:43:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -71,7 +71,7 @@ const idEventDef AI_MoveToEnemy( "moveToEnemy" );
 const idEventDef AI_MoveToEnemyHeight( "moveToEnemyHeight" );
 const idEventDef AI_MoveOutOfRange( "moveOutOfRange", "ef" );
 // greebo: Flee from an entity
-const idEventDef AI_Flee( "flee", "edd" );
+const idEventDef AI_Flee( "flee", "edd", 'd' );
 const idEventDef AI_MoveToAttackPosition( "moveToAttackPosition", "es" );
 const idEventDef AI_Wander( "wander" );
 const idEventDef AI_MoveToEntity( "moveToEntity", "e" );
@@ -1496,7 +1496,7 @@ idAI::Event_Flee
 */
 void idAI::Event_Flee(idEntity *entityToFleeFrom, int algorithm, int distanceOption) {
 	StopMove(MOVE_STATUS_DEST_NOT_FOUND);
-	Flee(entityToFleeFrom, algorithm, distanceOption);
+	idThread::ReturnInt(Flee(entityToFleeFrom, algorithm, distanceOption));
 }
 
 /*
