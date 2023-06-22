@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2256 $
-#* $Date: 2008-05-01 08:55:17 -0400 (Thu, 01 May 2008) $
-#* $Author: greebo $
+#* $Revision: 2262 $
+#* $Date: 2008-05-06 13:27:38 -0400 (Tue, 06 May 2008) $
+#* $Author: angua $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -209,6 +209,7 @@ AI/Tasks/MoveToPositionTask.cpp \
 AI/Tasks/PathAnimTask.cpp \
 AI/Tasks/PathCornerTask.cpp \
 AI/Tasks/PathHideTask.cpp \
+AI/Tasks/PathInteractTask.cpp \
 AI/Tasks/PathLookatTask.cpp \
 AI/Tasks/PathShowTask.cpp \
 AI/Tasks/PathTurnTask.cpp \
