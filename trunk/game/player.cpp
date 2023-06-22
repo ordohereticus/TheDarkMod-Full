@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1149 $
- * $Date: 2007-07-19 05:28:38 -0400 (Thu, 19 Jul 2007) $
+ * $Revision: 1153 $
+ * $Date: 2007-07-19 09:47:05 -0400 (Thu, 19 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1149 2007-07-19 09:28:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1153 2007-07-19 13:47:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1066,6 +1066,7 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( weapon_fists );
 
 	savefile->WriteInt( heartRate );
+	savefile->WriteBool(m_HeartBeatAllow);
 
 	savefile->WriteFloat( heartInfo.GetStartTime() );
 	savefile->WriteFloat( heartInfo.GetDuration() );
@@ -1084,6 +1085,10 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( healthPulse );
 	savefile->WriteInt( nextHealthTake );
 	savefile->WriteBool( healthTake );
+
+	savefile->WriteInt(healthPoolStepAmount);
+	savefile->WriteInt(healthPoolTimeInterval);
+	savefile->WriteInt(healthPoolTimeIntervalFactor);
 
 	savefile->WriteBool( hiddenWeapon );
 	soulCubeProjectile.Save( savefile );
@@ -1245,10 +1250,6 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( m_bDraggingBody );
 	savefile->WriteBool( m_bShoulderingBody );
 
-	savefile->WriteInt(healthPoolStepAmount);
-	savefile->WriteInt(healthPoolTimeInterval);
-	savefile->WriteInt(healthPoolTimeIntervalFactor);
-
 	savefile->WriteInt(mInventoryOverlay);
 
 	savefile->WriteBool(m_WeaponCursor != NULL);
@@ -1320,6 +1321,7 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( weapon_fists );
 
 	savefile->ReadInt( heartRate );
+	savefile->ReadBool(m_HeartBeatAllow);
 
 	savefile->ReadFloat( set );
 	heartInfo.SetStartTime( set );
@@ -1342,6 +1344,10 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( healthPulse );
 	savefile->ReadInt( nextHealthTake );
 	savefile->ReadBool( healthTake );
+
+	savefile->ReadInt(healthPoolStepAmount);
+	savefile->ReadInt(healthPoolTimeInterval);
+	savefile->ReadInt(healthPoolTimeIntervalFactor);
 
 	savefile->ReadBool( hiddenWeapon );
 	soulCubeProjectile.Restore( savefile );
@@ -1524,10 +1530,6 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( m_bGrabberActive );
 	savefile->ReadBool( m_bDraggingBody );
 	savefile->ReadBool( m_bShoulderingBody );
-
-	savefile->ReadInt(healthPoolStepAmount);
-	savefile->ReadInt(healthPoolTimeInterval);
-	savefile->ReadInt(healthPoolTimeIntervalFactor);
 
 	savefile->ReadInt(mInventoryOverlay);
 
