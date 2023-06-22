@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1748 $
- * $Date: 2007-11-10 18:43:37 -0500 (Sat, 10 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 1836 $
+ * $Date: 2007-11-22 15:18:35 -0500 (Thu, 22 Nov 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1748 2007-11-10 23:43:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1836 2007-11-22 20:18:35Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -650,6 +650,9 @@ void CMissionData::UpdateObjectives( void )
 			idVec3 delta;
 			int dist(0);
 
+			if( pComp->m_Args.Num() < 3 )
+				continue;
+
 			ent1 = gameLocal.FindEntity( pComp->m_Args[0].c_str() );
 			ent2 = gameLocal.FindEntity( pComp->m_Args[1].c_str() );
 
@@ -662,7 +665,7 @@ void CMissionData::UpdateObjectives( void )
 			delta = ent1->GetPhysics()->GetOrigin();
 			delta = delta - ent2->GetPhysics()->GetOrigin();
 
-			dist = atof(pComp->m_Args[0]);
+			dist = atof(pComp->m_Args[2]);
 			dist *= dist;
 
 			SetComponentState( pComp, ( delta.LengthSqr() < dist ) );
@@ -1487,6 +1490,8 @@ void CMissionData::InventoryCallback(idEntity *ent, idStr ItemName, int value, i
 	Parms.valueSuperGroup = OverallVal;
 
 	MissionEvent( COMP_ITEM, &Parms, bPickedUp );
+
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Inventory Callback: Overall loot value %d\r", OverallVal );
 	
 	// Also call the pickocket event if stolen from living AI
 	if( bPickedUp && ent != NULL && ent->GetBindMaster() )
