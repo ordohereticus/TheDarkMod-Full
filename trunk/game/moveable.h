@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2036 $
+ * $Date: 2008-02-02 20:31:50 -0500 (Sat, 02 Feb 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -29,7 +29,7 @@ public:
 	CLASS_PROTOTYPE( idMoveable );
 
 							idMoveable( void );
-							~idMoveable( void );
+							virtual ~idMoveable( void );
 
 	void					Spawn( void );
 
@@ -131,7 +131,7 @@ public:
 	CLASS_PROTOTYPE( idExplodingBarrel );
 
 							idExplodingBarrel();
-							~idExplodingBarrel();
+							virtual ~idExplodingBarrel();
 
 	void					Spawn( void );
 
