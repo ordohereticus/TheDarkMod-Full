@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1020 $
- * $Date: 2007-06-10 20:57:20 -0400 (Sun, 10 Jun 2007) $
+ * $Revision: 1289 $
+ * $Date: 2007-08-14 03:09:17 -0400 (Tue, 14 Aug 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -131,6 +131,19 @@ idAFEntity_Base
 ===============================================================================
 */
 
+/**
+* TDM: Used for dynamically adding ents with clipmodels to the AF
+**/
+typedef struct SAddedEnt_s
+{
+	idEntityPtr<idEntity> ent; // associated entity
+
+	// Must store string name because body ID's get reassigned when any are deleted
+	idStr bodyName;
+	// don't need to store constraint since they are deleted along with body
+} SAddedEnt;
+
+
 class idAFEntity_Base : public idAnimatedEntity 
 {
 public:
@@ -173,6 +186,20 @@ public:
 	void					AddBindConstraints( void );
 	void					RemoveBindConstraints( void );
 
+	/**
+	* Called when the given ent is about to be unbound/detached
+	* Updates m_AddedEnts if this ent's clipmodel was added to the AF
+	**/
+	virtual void			UnbindNotify( idEntity *ent );
+
+	/**
+	* TDM: Adds the clipmodel of the given entity to the AF structure
+	* Called during the binding process
+	* AddEntByBody is called by BindToBody, AddEntByJoint called by BindToJoint
+	**/
+	void					AddEntByBody( idEntity *ent, int bodyID );
+	void					AddEntByJoint( idEntity *ent, jointHandle_t jointNum );
+
 	virtual void			ShowEditingDialog( void );
 
 	static void				DropAFs( idEntity *ent, const char *type, idList<idEntity *> *list );
@@ -212,6 +239,11 @@ protected:
 	idVec3					spawnOrigin;	// spawn origin
 	idMat3					spawnAxis;		// rotation axis used when spawned
 	int						nextSoundTime;	// next time this can make a sound
+
+	/**
+	* List of ents that have been dynamically added to the AF via binding
+	**/
+	idList<SAddedEnt>		m_AddedEnts;
 
 	/**
 	* Set to true if this entity should collide with team members when bound to them

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1215 $
- * $Date: 2007-07-25 10:47:36 -0400 (Wed, 25 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1289 $
+ * $Date: 2007-08-14 03:09:17 -0400 (Tue, 14 Aug 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -213,7 +213,7 @@ public:
 	/**
 	* Called when the given ent is about to be unbound/detached from this actor.
 	**/
-	void					UnbindNotify( idEntity *ent );
+	virtual void			UnbindNotify( idEntity *ent );
 
 	/**
 	* Attach an entity.  Entity spawnArgs checked for attachments are:
