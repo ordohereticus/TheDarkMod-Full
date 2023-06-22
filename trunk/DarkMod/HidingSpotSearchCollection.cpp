@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1242 $
- * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1244 $
+ * $Date: 2007-07-29 12:02:09 -0400 (Sun, 29 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1242 2007-07-29 15:43:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1244 2007-07-29 16:02:09Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -67,7 +67,7 @@ void CHidingSpotSearchCollection::clear()
 
 void CHidingSpotSearchCollection::Save( idSaveGame *savefile ) const
 {
-	savefile->WriteFloat(static_cast<float>(numSearchesInUse));
+	savefile->WriteUnsignedInt(numSearchesInUse);
 
 	int searchesSaved = 0;
 	TDarkmodHidingSpotSearchNode* p_cursor = p_firstSearch;
@@ -92,9 +92,7 @@ void CHidingSpotSearchCollection::Restore( idRestoreGame *savefile )
 {
 	clear();
 
-	float tempFloat;
-	savefile->ReadFloat(tempFloat);
-	numSearchesInUse = static_cast<unsigned int>(tempFloat);
+	savefile->ReadUnsignedInt(numSearchesInUse);
 
 	p_firstSearch = NULL;
 
