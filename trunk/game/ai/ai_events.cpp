@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
+ * $Revision: 2154 $
+ * $Date: 2008-03-29 09:41:11 -0400 (Sat, 29 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2154 2008-03-29 13:41:11Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -25,8 +25,12 @@ static bool init_version = FileVersionList("$Id: ai_events.cpp 2138 2008-03-21 2
 #include "../../DarkMod/AI/Memory.h"
 #include "../../DarkMod/AI/States/State.h"
 
-class CRelations;
+#include <vector>
+#include <string>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
+class CRelations;
 
 /***********************************************************************
 
@@ -361,6 +365,7 @@ const idEventDef AI_Knockout( "knockout" );
 *
 */
 CLASS_DECLARATION( idActor, idAI )
+	EVENT( EV_PostSpawn,						idAI::Event_PostSpawn )
 	EVENT( EV_Activate,							idAI::Event_Activate )
 	EVENT( EV_Touch,							idAI::Event_Touch )
 	EVENT( AI_FindEnemy,						idAI::Event_FindEnemy )
@@ -544,6 +549,29 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT ( AI_IssueCommunication,				idAI::Event_IssueCommunication)
 
 END_CLASS
+
+void idAI::Event_PostSpawn() 
+{
+	// Parse the list of doors that can be unlocked by this AI
+	std::string doorStringList(spawnArgs.GetString("can_unlock", ""));
+
+	std::vector<std::string> doors; // will hold the separated strings
+	boost::algorithm::split(doors, doorStringList, boost::algorithm::is_any_of(" ;"));
+
+	// Copy the strings into the set
+	for (std::size_t i = 0; i < doors.size(); i++)
+	{
+		idEntity* door = gameLocal.FindEntity(doors[i].c_str());
+		if (door != NULL && door->IsType(CBinaryFrobMover::Type))
+		{
+			unlockableDoors.insert(static_cast<CBinaryFrobMover*>(door));
+		}
+		else
+		{
+			gameLocal.Warning("Invalid door name %s on AI %s", doors[i].c_str(), name.c_str());
+		}
+	}
+}
 
 /*
 =====================
