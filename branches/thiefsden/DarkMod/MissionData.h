@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1922 $
- * $Date: 2007-12-28 05:53:41 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1931 $
+ * $Date: 2007-12-29 14:18:38 -0500 (Sat, 29 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -626,7 +626,15 @@ public:
 	 * @entity: The entity whose GUI should be updated (usually the player).
 	 * @overlayHandle: the handle of the GUI to be updated.
 	 */
-	void UpdateGUIState(idEntity* entity, int overlayHandle);
+	void UpdateGUIState(idEntity* entity, int overlayHandle); // deprecated, do not call anymore
+
+	/**
+	 * greebo: This updates the given GUI with the current
+	 *         missiondata (objectives state). Called by gameLocal on demand of the main menu.
+	 *
+	 * @ui: the GUI to be updated.
+	 */
+	void UpdateGUIState(idUserInterface* ui);
 
 	/**
 	 * greebo: Updates the statistics in the given GUI.

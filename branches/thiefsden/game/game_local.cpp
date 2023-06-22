@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1930 $
- * $Date: 2007-12-29 11:56:53 -0500 (Sat, 29 Dec 2007) $
- * $Author: angua $
+ * $Revision: 1931 $
+ * $Date: 2007-12-29 14:18:38 -0500 (Sat, 29 Dec 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1930 2007-12-29 16:56:53Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1931 2007-12-29 19:18:38Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3036,6 +3036,23 @@ handles main menu commands.
 */
 void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui )
 {
+	if (idStr(menuCommand) == "mainmenu_heartbeat")
+	{
+		// The main menu is visible, check if we should switch to the objectives screen
+		bool alreadyTriggered = gui->GetStateBool("ObjectivesTriggered", "0");
+
+		// Only switch during map runtime and if not already triggered
+		if (GameState() == GAMESTATE_ACTIVE && !alreadyTriggered)
+		{
+			// Objectives not yet shown, trigger them now
+			gui->HandleNamedEvent("ShowObjectiveScreen");
+			gui->HandleNamedEvent("InitObjectives");
+
+			// Load the objectives into the GUI
+			m_MissionData->UpdateGUIState(gui); 
+		}
+	}
+
 	g_Diff.HandleCommands(menuCommand, gui);
 	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());
 	g_Mods.HandleCommands(menuCommand, gui);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1926 $
- * $Date: 2007-12-28 17:00:04 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1931 $
+ * $Date: 2007-12-29 14:18:38 -0500 (Sat, 29 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1926 2007-12-28 22:00:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1931 2007-12-29 19:18:38Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2037,17 +2037,8 @@ Quit:
 	return bReturnVal;
 }
 
-void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle) 
+void CMissionData::UpdateGUIState(idUserInterface* ui) 
 {
-	assert(entity != NULL); // don't accept NULL entities.
-
-	idUserInterface* ui = entity->GetOverlay(overlayHandle);
-
-	if (ui == NULL) {
-		gameLocal.Warning("Can't update objectives GUI, invalid handle.\n");
-		return; // invalid handle, do nothing
-	}
-
 	// The list of indices of visible, applicable objectives
 	idList<int> objIndices;
 
@@ -2096,6 +2087,20 @@ void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle)
 
 	// Force a redraw
 	ui->StateChanged(gameLocal.time, true);
+}
+
+void CMissionData::UpdateGUIState(idEntity* entity, int overlayHandle) 
+{
+	assert(entity != NULL); // don't accept NULL entities.
+
+	idUserInterface* ui = entity->GetOverlay(overlayHandle);
+
+	if (ui == NULL) {
+		gameLocal.Warning("Can't update objectives GUI, invalid handle.\n");
+		return; // invalid handle, do nothing
+	}
+
+	UpdateGUIState(ui);
 }
 
 void CMissionData::UpdateStatisticsGUI(idEntity* entity, int overlayHandle, const idStr& listDefName)
