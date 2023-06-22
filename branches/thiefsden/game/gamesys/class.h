@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1936 $
+ * $Date: 2007-12-31 05:44:43 -0500 (Mon, 31 Dec 2007) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -18,6 +18,10 @@ instancing of objects.
 
 #ifndef __SYS_CLASS_H__
 #define __SYS_CLASS_H__
+
+#ifdef __linux__
+#include <cassert>
+#endif
 
 class idClass;
 class idTypeInfo;
