@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1749 $
- * $Date: 2007-11-10 20:12:43 -0500 (Sat, 10 Nov 2007) $
+ * $Revision: 1969 $
+ * $Date: 2008-01-10 00:18:42 -0500 (Thu, 10 Jan 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 1749 2007-11-11 01:12:43Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 1969 2008-01-10 05:18:42Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -777,8 +777,10 @@ void CGrabber::AddToClipList( idEntity *ent )
 	// collides with the world
 	phys->SetClipMask( clipMask & (~MASK_PLAYERSOLID) );
 	phys->SetClipMask( phys->GetClipMask() | CONTENTS_SOLID );
-
-	phys->SetContents( CONTENTS_CORPSE | CONTENTS_MONSTERCLIP );
+	
+	// Clear the solid flag to avoid player collision, 
+	// but enable monsterclip for AI and CONTENTS_RENDERMODEL for projectiles
+	phys->SetContents( (contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP | CONTENTS_RENDERMODEL );
 
 	if( HasClippedEntity() ) 
 	{
