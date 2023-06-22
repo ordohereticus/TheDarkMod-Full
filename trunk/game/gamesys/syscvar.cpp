@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1608 $
- * $Date: 2007-10-30 16:14:49 -0400 (Tue, 30 Oct 2007) $
+ * $Revision: 1617 $
+ * $Date: 2007-10-31 12:44:46 -0400 (Wed, 31 Oct 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1608 2007-10-30 20:14:49Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1617 2007-10-31 16:44:46Z sparhawk $", init_version);
 
 #include "../game_local.h"
 
@@ -189,7 +189,7 @@ idCVar cv_lg_renderpasses("tdm_lg_renderpasses",		"2",	CVAR_GAME | CVAR_INTEGER,
 idCVar cv_lg_debug("tdm_lg_debug",		"0",		CVAR_GAME | CVAR_BOOL,	"switch on debug prints." );
 idCVar cv_lg_model("tdm_lg_model",		"models/darkmod/misc/system/lightgem.lwo",	CVAR_GAME | CVAR_ARCHIVE,	"Set the lightgem model file. Map has to be restarted to take effect." );
 idCVar cv_lg_adjust("tdm_lg_adjust",		"0",		CVAR_GAME | CVAR_FLOAT,	"Adds a constant value to the lightgem." );
-idCVar cv_lg_split("tdm_lg_split",		"1",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves)." );
+idCVar cv_lg_split("tdm_lg_split",		"0",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves). Warning! This can cause particle flickering if set to 1." );
 idCVar cv_lg_path("tdm_lg_path",		"",	CVAR_GAME,	"Dump the rendersnapshot to the filepath specified here." );
 idCVar cv_lg_crouch_modifier("tdm_lg_crouch_modifier",	"-5",	CVAR_GAME | CVAR_INTEGER,	"The value the lightgem is adjusted by when the player is crouching." );
 idCVar cv_lg_image_width("tdm_lg_image_width",	"50",	CVAR_GAME | CVAR_INTEGER,		"Defines the pixel width of the lightem rendering. WARNING!!! Increasing this severly affects performance!" );
