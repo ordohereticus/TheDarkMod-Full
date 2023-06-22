@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2040 $
+ * $Date: 2008-02-03 03:43:22 -0500 (Sun, 03 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -39,7 +39,7 @@
 	Entities update their visual position and orientation from the physics
 	using GetOrigin() and GetAxis(). Direct origin and axis changes of
 	entities should go through the physics. In other words the physics origin
-	and axis are updated first and the entity updates it's visual position
+	and axis are updated first and the entity updates its visual position
 	from the physics.
 
 ===============================================================================

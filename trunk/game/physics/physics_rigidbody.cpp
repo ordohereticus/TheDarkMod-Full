@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2031 $
- * $Date: 2008-01-29 12:22:20 -0500 (Tue, 29 Jan 2008) $
- * $Author: angua $
+ * $Revision: 2040 $
+ * $Date: 2008-02-03 03:43:22 -0500 (Sun, 03 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2031 2008-01-29 17:22:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2040 2008-02-03 08:43:22Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -276,7 +276,7 @@ bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& im
 	// Save the current state
 	rigidBodyPState_t savedState = current;
 
-	// Apply the impulse the current state, as if the object was resting
+	// Apply the impulse to the current state, as if the object was resting
 	current.i.linearMomentum.Zero();
 	current.i.angularMomentum.Zero();
 	ApplyImpulse(0, point, impulse);
@@ -356,7 +356,7 @@ bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& im
 
 	// Revert the state to as it was before
 	current = savedState;
-	
+
 	// Apply the remaining impulse to this object
 	ApplyImpulse(0, point, remainingImpulse);
 

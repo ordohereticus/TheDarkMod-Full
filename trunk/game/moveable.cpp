@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2030 $
- * $Date: 2008-01-29 11:38:24 -0500 (Tue, 29 Jan 2008) $
- * $Author: angua $
+ * $Revision: 2040 $
+ * $Date: 2008-02-03 03:43:22 -0500 (Sun, 03 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2030 2008-01-29 16:38:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2040 2008-02-03 08:43:22Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -105,7 +105,7 @@ void idMoveable::Spawn( void ) {
 		gameLocal.Error( "idMoveable '%s': invalid collision model %s", name.c_str(), clipModelName.c_str() );
 	}
 
-	// if the model should be shrinked
+	// if the model should be shrunk
 	clipShrink = spawnArgs.GetInt( "clipshrink" );
 	if ( clipShrink != 0 ) {
 		trm.Shrink( clipShrink * CM_CLIP_EPSILON );
