@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1338 $
- * $Date: 2007-08-28 15:25:58 -0400 (Tue, 28 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1399 $
+ * $Date: 2007-09-30 17:27:08 -0400 (Sun, 30 Sep 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1338 2007-08-28 19:25:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 1399 2007-09-30 21:27:08Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -2130,7 +2130,7 @@ idLocationEntity::idLocationEntity( void )
 {
 	m_SndLossMult = 1.0;
 	m_SndVolMod = 0.0;
-	m_ObjectiveGroup = 0;
+	m_ObjectiveGroup.Clear();
 }
 
 /*

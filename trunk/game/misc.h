@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1336 $
- * $Date: 2007-08-28 09:31:29 -0400 (Tue, 28 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1399 $
+ * $Date: 2007-09-30 17:27:08 -0400 (Sun, 30 Sep 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -467,9 +467,9 @@ public:
 	**/
 	float				m_SndVolMod;
 	/**
-	* Objective system: Location's objective index int for objective checks
+	* Objective system: Location's objective group name for objective checks
 	**/
-	int					m_ObjectiveGroup;
+	idStr				m_ObjectiveGroup;
 
 private:
 };
