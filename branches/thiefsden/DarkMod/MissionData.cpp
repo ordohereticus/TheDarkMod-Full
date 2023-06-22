@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1950 $
- * $Date: 2008-01-03 16:10:14 -0500 (Thu, 03 Jan 2008) $
- * $Author: orbweaver $
+ * $Revision: 1978 $
+ * $Date: 2008-01-12 11:10:09 -0500 (Sat, 12 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1950 2008-01-03 21:10:14Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1978 2008-01-12 16:10:09Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -240,8 +240,8 @@ void CMissionData::Clear( void )
 	m_Stats.PocketsPicked = 0;
 	m_Stats.LootOverall = 0;
 
-	m_SuccessLogicStr.Clear();
-	m_FailureLogicStr.Clear();
+	m_SuccessLogicStr = "";
+	m_FailureLogicStr = "";
 
 	m_SuccessLogic.Clear();
 	m_FailureLogic.Clear();
@@ -301,6 +301,7 @@ void CMissionData::Restore( idRestoreGame *savefile )
 		m_Objectives[i].Restore( savefile );
 
 	// Rebuild list of clocked components now that we've loaded objectives
+	m_ClockedComponents.Clear();
 	for( int ind = 0; ind < m_Objectives.Num(); ind++ )
 	{
 		for( int ind2 = 0; ind2 < m_Objectives[ind].m_Components.Num(); ind2++ )
