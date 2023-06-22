@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2257 $
- * $Date: 2008-05-01 09:15:35 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2261 $
+ * $Date: 2008-05-06 13:22:06 -0400 (Tue, 06 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -501,7 +501,7 @@ public:
 	void	setAirTicks(int airTicks);
 
 	// greebo: Accessor methods for the array of subsystems
-	ID_INLINE ai::SubsystemPtr& GetSubsystem(ai::SubsystemId id)
+	ID_INLINE const ai::SubsystemPtr& GetSubsystem(ai::SubsystemId id)
 	{
 		return subsystems[id];
 	}
