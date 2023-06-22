@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1490 $
- * $Date: 2007-10-20 05:25:19 -0400 (Sat, 20 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1491 $
+ * $Date: 2007-10-20 09:41:12 -0400 (Sat, 20 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -962,7 +962,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					PlayChatter( void );
 	virtual void			Hide( void );
 	virtual void			Show( void );
-	virtual bool			CanBecomeSolid(void);
+	virtual bool			CanBecomeSolid();
 	idVec3					FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags ) const;
 	void					CalculateAttackOffsets( void );
 	void					PlayCinematic( void );
@@ -1021,7 +1021,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					MoveDone( void ) const;
 	
 	/**
-	* This is a virtual override of the idActor method.  It takes lighting levels into consideration.
+	* This is a virtual override of the idActor method.  It takes lighting levels into consideration
+	* additional to the ordinary FOV/trace check in idActor.
 	*/
 	virtual bool			CanSee( idEntity *ent, bool useFOV ) const;
 

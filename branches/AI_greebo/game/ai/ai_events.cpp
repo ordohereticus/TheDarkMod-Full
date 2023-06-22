@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1490 $
- * $Date: 2007-10-20 05:25:19 -0400 (Sat, 20 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1491 $
+ * $Date: 2007-10-20 09:41:12 -0400 (Sat, 20 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1490 2007-10-20 09:25:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1491 2007-10-20 13:41:12Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1232,7 +1232,7 @@ idAI::Event_CanBecomeSolid
 =====================
 */
 void idAI::Event_CanBecomeSolid( void ) {
-	idThread::ReturnFloat( CanBecomeSolid );
+	idThread::ReturnFloat( CanBecomeSolid() );
 }
 
 /*
@@ -3567,6 +3567,11 @@ void idAI::Event_SetAudThresh( float val )
 
 void idAI::Event_SetAlertLevel( float newAlertLevel)
 {
+	if (newAlertLevel > thresh_3 + 10)
+	{
+		newAlertLevel = thresh_3 + 10;
+	}
+
 	bool bool_alertRising = false;
 	
 	if (AI_DEAD || AI_KNOCKEDOUT) return;
