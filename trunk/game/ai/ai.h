@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1772 $
- * $Date: 2007-11-13 04:17:40 -0500 (Tue, 13 Nov 2007) $
+ * $Revision: 1783 $
+ * $Date: 2007-11-14 04:15:48 -0500 (Wed, 14 Nov 2007) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -424,13 +424,9 @@ public:
 	* Checks enemies in the AI's FOV and calls Alert( "vis", amount )
 	* The amount is calculated based on distance and the lightgem
 	*
-	* It also returns the most visible entity in case the AI script
-	* goes into a combat state and needs to get the enemy to attack.
-	*
-	* For now the check is only done on the player, and only the player
-	* may be returned.
+	* For now the check is only done on the player
 	**/
-	idActor *VisualScan( float time = 1.0f/60.0f );
+	void PerformVisualScan( float time = 1.0f/60.0f );
 
 	/**
 	* Checks to see if the AI is being blocked by an actor when it tries to move,
