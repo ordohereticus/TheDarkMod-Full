@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1012 $
- * $Date: 2007-06-10 01:43:04 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1241 $
+ * $Date: 2007-07-29 11:00:26 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1012 2007-06-10 05:43:04Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 1241 2007-07-29 15:00:26Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -63,6 +63,16 @@ void CHidingSpotSearchCollection::clear()
 
 	// Done
 
+}
+
+void CHidingSpotSearchCollection::Save( idSaveGame *savefile ) const
+{
+	// TODO
+}
+
+void CHidingSpotSearchCollection::Restore( idRestoreGame *savefile )
+{
+	// TODO
 }
 
 //--------------------------------------------------------------------
