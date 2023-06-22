@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2049 $
- * $Date: 2008-02-06 11:49:16 -0500 (Wed, 06 Feb 2008) $
+ * $Revision: 2050 $
+ * $Date: 2008-02-06 15:28:39 -0500 (Wed, 06 Feb 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2049 2008-02-06 16:49:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2050 2008-02-06 20:28:39Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3201,7 +3201,7 @@ void idActor::Event_PlayAnim( int channel, const char *animname ) {
 		if ( ( channel == ANIMCHANNEL_HEAD ) && head.GetEntity() ) {
 			gameLocal.Printf( "missing '%s' animation on '%s' (%s)\n", animname, name.c_str(), spawnArgs.GetString( "def_head", "" ) );
 		} else {
-			gameLocal.Printf( "missing '%s' animation on '%s' (%s)\n", animname, name.c_str(), GetEntityDefName() );
+			//gameLocal.Printf( "missing '%s' animation on '%s' (%s)\n", animname, name.c_str(), GetEntityDefName() );
 		}
 #endif
 
