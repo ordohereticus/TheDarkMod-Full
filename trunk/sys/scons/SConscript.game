@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1789 $
-#* $Date: 2007-11-14 09:37:01 -0500 (Wed, 14 Nov 2007) $
+#* $Revision: 1837 $
+#* $Date: 2007-11-22 15:44:55 -0500 (Thu, 22 Nov 2007) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -205,17 +205,21 @@ AI/Tasks/SingleBarkTask.cpp \
 AI/Tasks/ThrowObjectTask.cpp \
 AI/Tasks/WaitTask.cpp \
 AI/Tasks/WanderInLocationTask.cpp \
+DarkRadiantRCFServer.cpp \
 sourcehook/sourcehook.cpp'
 
 darkModList = scons_utils.BuildList('../../DarkMod', darkModSrc)
 
+RCFLibSrc = 'RCF/RCF.cpp'
+RCFLibList = scons_utils.BuildList('../../include', RCFLibSrc);
+
 local_env = g_game_env.Copy()
 
-local_env.Append( CPPDEFINES = [ 'GAME_DLL' ] )
-local_env.Append(LIBS = ['IL'])
-local_env.Append(LIBS = ['boost_filesystem'])
+local_env.Append( CPPDEFINES = [ 'GAME_DLL', 'RCF_USE_BOOST_ASIO', 'RCF_USE_BOOST_THREADS', 'RCF_MULTI_THREADED' ] )
+local_env.Append( CPPFLAGS = [ '-Wno-unused' ] )
+local_env.Append(LIBS = ['IL', 'boost_filesystem', 'boost_thread'])
 
-ret = local_env.SharedLibrary('game', game_list + darkModList + idlib_objects )
+ret = local_env.SharedLibrary('game', game_list + darkModList + idlib_objects + RCFLibList )
 Return( 'ret' )
 
 

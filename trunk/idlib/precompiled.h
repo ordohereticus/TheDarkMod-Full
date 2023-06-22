@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 1837 $
+ * $Date: 2007-11-22 15:44:55 -0500 (Thu, 22 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -54,6 +54,8 @@
 #pragma warning(disable : 4714)				// function marked as __forceinline not inlined
 
 #include <malloc.h>							// no malloc.h on mac or unix
+
+#define _WINSOCKAPI_   /* Prevent inclusion of winsock.h in windows.h */
 #include <windows.h>						// for qgl.h
 #undef FindText								// stupid namespace poluting Microsoft monkeys
 

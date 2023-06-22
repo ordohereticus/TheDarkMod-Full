@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1761 $
- * $Date: 2007-11-12 04:46:03 -0500 (Mon, 12 Nov 2007) $
+ * $Revision: 1837 $
+ * $Date: 2007-11-22 15:44:55 -0500 (Thu, 22 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -175,6 +175,12 @@ void gameError( const char *fmt, ... );
 
 #include "pvs.h"
 #include "multiplayergame.h"
+
+#include <boost/shared_ptr.hpp>
+
+// Forward decl.
+class DarkRadiantRCFServer;
+typedef boost::shared_ptr<DarkRadiantRCFServer> DarkRadiantRCFServerPtr;
 
 #ifdef __linux__
 #include "renderer/renderworld.h"
@@ -448,6 +454,12 @@ public:
 	 *         of all the tdmPathFlee entities.
 	 */
 	CEscapePointManager*	m_EscapePointManager;
+
+	/**
+	 * This is the server providing methods for use in DarkRadiant.
+	 * It basically listens for incoming requests on localhost:50001.
+	 */
+	DarkRadiantRCFServerPtr m_DarkRadiantRCFServer;
 	
 /**
 * Temporary storage of the walkspeed.  This is a workaround
