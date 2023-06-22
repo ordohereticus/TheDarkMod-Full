@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1446 $
- * $Date: 2007-10-18 03:28:33 -0400 (Thu, 18 Oct 2007) $
+ * $Revision: 1447 $
+ * $Date: 2007-10-18 06:55:21 -0400 (Thu, 18 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1446 2007-10-18 07:28:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1447 2007-10-18 10:55:21Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -594,12 +594,6 @@ idAI::idAI()
 	m_KoOffset = vec3_zero;
 
 	m_lipSyncActive		= false;
-
-	// Allocate and install the subsystems
-	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysSenses,		ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr(new ai::Subsystem(this)));
-	InstallSubsystem(ai::SubsysAction,		ai::SubsystemPtr(new ai::Subsystem(this)));
 }
 
 /*
@@ -1085,6 +1079,12 @@ void idAI::Spawn( void )
 
 	// Allocate a new default mind
 	mind = ai::MindPtr(new ai::BasicMind(this));
+
+	// Allocate and install the subsystems
+	InstallSubsystem(ai::SubsysMovement,	ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysSenses,		ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysCommunication, ai::SubsystemPtr(new ai::Subsystem(this)));
+	InstallSubsystem(ai::SubsysAction,		ai::SubsystemPtr(new ai::Subsystem(this)));
 
 	if ( !g_monsters.GetBool() ) {
 		PostEventMS( &EV_Remove, 0 );
