@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1019 $
- * $Date: 2007-06-10 20:55:48 -0400 (Sun, 10 Jun 2007) $
- * $Author: ishtvan $
+ * $Revision: 1166 $
+ * $Date: 2007-07-21 12:25:30 -0400 (Sat, 21 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1019 2007-06-11 00:55:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1166 2007-07-21 16:25:30Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -147,6 +147,15 @@ CsndProp::~CsndProp ( void )
 	Clear();
 }
 
+void CsndProp::Save(idSaveGame *savefile) const
+{
+	// TODO
+}
+
+void CsndProp::Restore(idRestoreGame *savefile)
+{
+	// TODO
+}
 
 void CsndProp::SetupFromLoader( const CsndPropLoader *in )
 {

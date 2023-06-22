@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1164 $
- * $Date: 2007-07-21 05:26:47 -0400 (Sat, 21 Jul 2007) $
+ * $Revision: 1166 $
+ * $Date: 2007-07-21 12:25:30 -0400 (Sat, 21 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1164 2007-07-21 09:26:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1166 2007-07-21 16:25:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -711,6 +711,8 @@ void idGameLocal::SaveGame( idFile *f ) {
 	{
 		savegame.WriteFloat(m_LightgemShotValue[i]);
 	}
+
+	m_sndProp->Save(&savegame);
 
 	// spawnSpots
 	// initialSpots
@@ -1609,6 +1611,8 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noShadow = true;
 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noSelfShadow = true;
 	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface.GetEntity());
+
+	m_sndProp->Restore(&savegame);
 
 	// spawnSpots
 	// initialSpots

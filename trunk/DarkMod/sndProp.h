@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1166 $
+ * $Date: 2007-07-21 12:25:30 -0400 (Sat, 21 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -130,6 +130,9 @@ public:
 	~CsndProp( void );
 
 	void Clear( void );
+
+	void	Save(idSaveGame *savefile) const;
+	void	Restore(idRestoreGame *savefile);
 
 	void Propagate 
 		( float volMod, float durMod, idStr soundName,
