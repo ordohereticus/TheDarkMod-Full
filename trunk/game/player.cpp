@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1903 $
- * $Date: 2007-12-26 14:53:20 -0500 (Wed, 26 Dec 2007) $
+ * $Revision: 1904 $
+ * $Date: 2007-12-26 15:27:04 -0500 (Wed, 26 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1903 2007-12-26 19:53:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1904 2007-12-26 20:27:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6147,6 +6147,26 @@ void idPlayer::Think( void )
 
 	// determine if portal sky is in pvs
 	gameLocal.portalSkyActive = gameLocal.pvs.CheckAreasForPortalSky( gameLocal.GetPlayerPVS(), GetPhysics()->GetOrigin() );
+
+	// greebo: Check if the objectives GUI requires attention
+	if (objectiveGUIHandle > 0)
+	{
+		idStr state(m_overlays.getGui(objectiveGUIHandle)->GetStateString("cmd"));
+
+		if (state == "close")
+		{
+			ToggleObjectivesGUI();
+		}
+
+		// greebo: This doesn't work for some obscure reason (the "togglemenu" command is not executable).
+		/*else if (state == "togglemenu")
+		{
+			// Execute the main menu command
+			cmdSystem->BufferCommandText(CMD_EXEC_NOW, "togglemenu\n");
+			cmdSystem->ExecuteCommandBuffer();
+			Event_SetGuiString(objectiveGUIHandle, "cmd", "");
+		}*/
+	}
 }
 
 /*
