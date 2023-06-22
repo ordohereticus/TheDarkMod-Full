@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2209 $
- * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2218 $
+ * $Date: 2008-04-26 09:04:03 -0400 (Sat, 26 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2209 2008-04-24 20:18:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2218 2008-04-26 13:04:03Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -335,7 +335,6 @@ void CBinaryFrobMover::Open(bool bMaster)
 
 	m_StoppedDueToBlock = false;
 
-	idAngles tempAng;
 
 	// If the door is already open, we don't have anything to do. :)
 	if(m_Open == true && !m_bInterrupted)
@@ -366,14 +365,16 @@ void CBinaryFrobMover::Open(bool bMaster)
 			}
 		}
 
-		physicsObj.GetLocalAngles( tempAng );
 
 		m_Open = true;
 		m_Rotating = true;
 		m_Translating = true;
+		
+		idAngles tempAng;
+		physicsObj.GetLocalAngles( tempAng );
 		idAngles t = (m_OpenAngles - tempAng).Normalize180();
-		idAngles null;
 
+		idAngles null;
 		if (!t.Compare(null))
 		{
 			Event_RotateOnce((m_OpenAngles - tempAng).Normalize180());
@@ -388,8 +389,7 @@ void CBinaryFrobMover::Open(bool bMaster)
 			Event_SetMoveSpeed( m_TransSpeed );
 		}
 
-		idVec3 tv3 = (m_StartPos +  m_Translation);
-		Event_MoveToPos( tv3 );
+		MoveToLocalPos( m_OpenOrigin );
 	}
 }
 
@@ -420,7 +420,7 @@ void CBinaryFrobMover::Close(bool bMaster)
 	if( m_TransSpeed )
 			Event_SetMoveSpeed( m_TransSpeed );
 
-	Event_MoveToPos(m_StartPos);
+	MoveToLocalPos(m_ClosedOrigin);
 }
 
 void CBinaryFrobMover::ToggleOpen(void)
