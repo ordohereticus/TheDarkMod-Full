@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1402 $
- * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1405 $
+ * $Date: 2007-10-04 03:54:39 -0400 (Thu, 04 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1402 2007-10-02 21:44:14Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1405 2007-10-04 07:54:39Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -8697,6 +8697,34 @@ void idPlayer::inventoryDropItem()
 			// Always update the HUD, the drop script might have changed the inventory count itself.
 			inventoryChangeSelection(hud, true, item);
 		}
+	}
+}
+
+void idPlayer::inventoryChangeSelection(const idStr& name)
+{
+	CInventoryItem* prev = InventoryCursor()->GetCurrentItem();
+	idStr itemName(name);
+
+	if (itemName.IsEmpty())
+	{
+		// Empty name specified, clear the inventory cursor
+		itemName = TDM_DUMMY_ITEM;
+	}
+	
+	// Try to lookup the item in the inventory
+	CInventoryItem* item = Inventory()->GetItem(itemName);
+
+	if (item != NULL)
+	{
+		// Item found, set the cursor to it
+		InventoryCursor()->SetCurrentItem(item);
+
+		// Trigger an update, passing the previous item along
+		inventoryChangeSelection(hud, true, prev);
+	}
+	else
+	{
+		gameLocal.Printf("Could not find item in player inventory: %s\n", itemName.c_str());
 	}
 }
 

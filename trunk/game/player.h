@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1402 $
- * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1405 $
+ * $Date: 2007-10-04 03:54:39 -0400 (Thu, 04 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -612,6 +612,9 @@ public:
 
 	// Uses a specific item, if it's in the same inventory.
 	void inventoryUseItem(IMPULSE_STATE nState, idEntity* useEnt, int holdTime);
+
+	// Changes the inventory selection to the item with the given name
+	void inventoryChangeSelection(const idStr& name);
 
 	// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
 	void inventoryChangeSelection(idUserInterface *_hud, bool bUpdate = false, CInventoryItem *Prev = NULL);

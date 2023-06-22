@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1402 $
- * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1405 $
+ * $Date: 2007-10-04 03:54:39 -0400 (Thu, 04 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1402 2007-10-02 21:44:14Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1405 2007-10-04 07:54:39Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7795,7 +7795,7 @@ void idEntity::InitInventory(void)
 	// Check if this object should be put into the inventory of some entity
 	// when the object spawns. Default is no.
 	if (spawnArgs.GetBool("inv_map_start", "0")) {
-		idStr target = spawnArgs.GetString("inv_target", "");
+		idStr target = spawnArgs.GetString("inv_target", "player1");
 
 		idPlayer *p = gameLocal.GetLocalPlayer();
 		if(p)

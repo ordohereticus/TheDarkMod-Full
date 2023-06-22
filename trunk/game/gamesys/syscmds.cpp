@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1402 $
- * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
- * $Author: sparhawk $
+ * $Revision: 1405 $
+ * $Date: 2007-10-04 03:54:39 -0400 (Thu, 04 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1402 2007-10-02 21:44:14Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1405 2007-10-04 07:54:39Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
@@ -301,18 +301,12 @@ void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 	{
 		idStr itemName = args.Argv(1);
 
-		// Try to lookup the item in the inventory
-		CInventoryItem* item = inventory->GetItem(itemName);
-
-		if (item != NULL)
-		{
-			// Item found, set the cursor to it
-			cursor->SetCurrentItem(item);
-		}
-		else
-		{
-			gameLocal.Printf( "%s: Could not find item in player inventory: %s\n", args.Argv(0), args.Argv(1) );
-		}
+		player->inventoryChangeSelection(itemName);
+	}
+	else if (args.Argc() == 1)
+	{
+		// greebo: Clear the item if no argument is set
+		player->inventoryChangeSelection("");
 	}
 }
 
