@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1129 $
- * $Date: 2007-07-16 08:55:04 -0400 (Mon, 16 Jul 2007) $
+ * $Revision: 1406 $
+ * $Date: 2007-10-06 10:53:06 -0400 (Sat, 06 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: overlaysys.cpp 1129 2007-07-16 12:55:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: overlaysys.cpp 1406 2007-10-06 14:53:06Z greebo $", init_version);
 
 #include "../game/game_local.h"
 
@@ -579,6 +579,50 @@ void COverlaySys::broadcastNamedEvent(const char* eventName)
 	while(oNode)
 	{
 		oNode->Owner()->m_gui->HandleNamedEvent(eventName);
+		oNode = oNode->NextNode();
+	}
+}
+
+void COverlaySys::setGlobalStateString(const char* varName, const char *value) 
+{
+	// Cycle through the nodes
+	idLinkList<SOverlay>* oNode = m_overlays.NextNode();
+	while(oNode)
+	{
+		oNode->Owner()->m_gui->SetStateString(varName, value);
+		oNode = oNode->NextNode();
+	}
+}
+
+void COverlaySys::setGlobalStateBool(const char* varName, const bool value)
+{
+	// Cycle through the nodes
+	idLinkList<SOverlay>* oNode = m_overlays.NextNode();
+	while(oNode)
+	{
+		oNode->Owner()->m_gui->SetStateBool(varName, value);
+		oNode = oNode->NextNode();
+	}
+}
+
+void COverlaySys::setGlobalStateInt(const char* varName, const int value) 
+{
+	// Cycle through the nodes
+	idLinkList<SOverlay>* oNode = m_overlays.NextNode();
+	while(oNode)
+	{
+		oNode->Owner()->m_gui->SetStateInt(varName, value);
+		oNode = oNode->NextNode();
+	}
+}
+
+void COverlaySys::setGlobalStateFloat(const char* varName, const float value) 
+{
+	// Cycle through the nodes
+	idLinkList<SOverlay>* oNode = m_overlays.NextNode();
+	while(oNode)
+	{
+		oNode->Owner()->m_gui->SetStateFloat(varName, value);
 		oNode = oNode->NextNode();
 	}
 }

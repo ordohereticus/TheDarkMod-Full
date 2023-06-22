@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1395 $
- * $Date: 2007-09-29 06:17:43 -0400 (Sat, 29 Sep 2007) $
- * $Author: crispy $
+ * $Revision: 1406 $
+ * $Date: 2007-10-06 10:53:06 -0400 (Sat, 06 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1395 2007-09-29 10:17:43Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1406 2007-10-06 14:53:06Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -143,14 +143,14 @@ idCVar cv_tdm_inv_hud_file(	"tdm_inv_hud_file", "guis/inv.gui",	CVAR_GAME | CVAR
 idCVar cv_tdm_inv_loot_hud(	"tdm_inv_loot_hud", "guis/loot.gui",	CVAR_GAME | CVAR_ARCHIVE, "The name of the gui file that represents the hud for the loot display.");
 idCVar cv_tdm_inv_loot_group("tdm_inv_loot_group", "Loot",	CVAR_GAME | CVAR_ARCHIVE, "The name of the group that contains the loot item.");
 
-idCVar cv_tdm_inv_grouping(	"tdm_inv_group_mode",	"0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER,	"The opacity of the inventory GUI.\n"
+idCVar cv_tdm_inv_grouping(	"tdm_inv_group_mode",	"0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER,	"The group mode of the inventory GUI.\n"
 																									   "0 = ungrouped inventory (T1/T2 style)\n"
 																										"1 = grouped inventory\n", 0, 2 );
 idCVar cv_tdm_inv_groupvis(	"tdm_inv_visibility", "1", CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER,	"Controls inventory visibility.\n"
 																							        "0 = never visible\n"
 																									"1 = always visible\n"
 																									"2 = temporary (not yet implemented.", 0, 2 );
-idCVar cv_tdm_inv_opacity(	"tdm_inv_opacity", "1",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"The opacity of the inventory GUI. [0..1]", 0, 1 );
+idCVar cv_tdm_hud_opacity(	"tdm_hud_opacity", "1",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"The opacity of the HUD GUIs. [0..1]", 0, 1 );
 idCVar cv_tdm_inv_fadein(	"tdm_inv_fade_in", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"Time it takes to fade in the inventory. 0 = immediately");
 idCVar cv_tdm_inv_fadeout(	"tdm_inv_fade_out", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"Time it takes to fade out the inventory. 0 = immediately");
 idCVar cv_tdm_inv_loot_sound("tdm_inv_loot_sound", "frob_loot",	CVAR_GAME | CVAR_ARCHIVE, "The name of the sound that is to be played when loot has been aquired.");

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1129 $
- * $Date: 2007-07-16 08:55:04 -0400 (Mon, 16 Jul 2007) $
+ * $Revision: 1406 $
+ * $Date: 2007-10-06 10:53:06 -0400 (Sat, 06 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -113,6 +113,16 @@ class COverlaySys
 	 *		   on each visible GUI.
 	 */
 	void					broadcastNamedEvent(const char* eventName);
+
+	/**
+	 * greebo: Use these methods to set the state variables of ALL active overlays.
+	 *         This is similar to the broadcastNamedEvent, but these routines only set
+	 *         a GUI state variable (e.g. "gui::HUD_Opacity").
+	 */
+	void					setGlobalStateString(const char* varName, const char *value);
+	void					setGlobalStateBool(const char* varName, const bool value);
+	void					setGlobalStateInt(const char* varName, const int value);
+	void					setGlobalStateFloat(const char* varName, const float value);
 
   private:
 
