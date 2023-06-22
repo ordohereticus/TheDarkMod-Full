@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1257 $
- * $Date: 2007-07-31 18:58:21 -0400 (Tue, 31 Jul 2007) $
- * $Author: nyarlathotep $
+ * $Revision: 1270 $
+ * $Date: 2007-08-03 09:58:23 -0400 (Fri, 03 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -208,6 +208,8 @@ extern idCVar	g_showEnemies;
 
 extern idCVar	g_frametime;
 extern idCVar	g_timeentities;
+
+extern idCVar	g_timeModifier;
 
 extern idCVar	ai_debugScript;
 extern idCVar	ai_debugMove;

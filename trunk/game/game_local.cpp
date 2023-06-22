@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1242 $
- * $Date: 2007-07-29 11:43:55 -0400 (Sun, 29 Jul 2007) $
+ * $Revision: 1270 $
+ * $Date: 2007-08-03 09:58:23 -0400 (Fri, 03 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1242 2007-07-29 15:43:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1270 2007-08-03 13:58:23Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2606,7 +2606,7 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 		// update the game time
 		framenum++;
 		previousTime = time;
-		time += msec;
+		time += msec * g_timeModifier.GetFloat();
 		realClientTime = time;
 
 #ifdef GAME_DLL

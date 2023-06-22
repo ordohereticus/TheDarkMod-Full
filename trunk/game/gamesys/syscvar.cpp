@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1257 $
- * $Date: 2007-07-31 18:58:21 -0400 (Tue, 31 Jul 2007) $
- * $Author: nyarlathotep $
+ * $Revision: 1270 $
+ * $Date: 2007-08-03 09:58:23 -0400 (Fri, 03 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 1257 2007-07-31 22:58:21Z nyarlathotep $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 1270 2007-08-03 13:58:23Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -285,6 +285,9 @@ idCVar g_showActiveEntities(		"g_showActiveEntities",		"0",			CVAR_GAME | CVAR_B
 idCVar g_showEnemies(				"g_showEnemies",			"0",			CVAR_GAME | CVAR_BOOL, "draws boxes around monsters that have targeted the the player" );
 
 idCVar g_frametime(					"g_frametime",				"0",			CVAR_GAME | CVAR_BOOL, "displays timing information for each game frame" );
+
+// TDM: greebo: Use this to stretch the hardcoded 16 msec each frame takes. This can be used to let the game run ultra-slow.
+idCVar g_timeModifier(				"g_timeModifier",			"1",			CVAR_GAME | CVAR_FLOAT, "Use this to stretch the hardcoded 16 msec each frame takes. This can be used to let the game run ultra-slow." );
 idCVar g_timeentities(				"g_timeEntities",			"0",			CVAR_GAME | CVAR_FLOAT, "when non-zero, shows entities whose think functions exceeded the # of milliseconds specified" );
 
 
