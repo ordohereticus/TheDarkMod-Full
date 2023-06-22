@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2130 $
- * $Date: 2008-03-10 19:04:29 -0400 (Mon, 10 Mar 2008) $
- * $Author: joebarnin $
+ * $Revision: 2155 $
+ * $Date: 2008-03-29 13:35:06 -0400 (Sat, 29 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2130 2008-03-10 23:04:29Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2155 2008-03-29 17:35:06Z angua $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -258,6 +258,8 @@ void idGameLocal::Clear( void )
 	m_MissionData->ClearGUIState();
 
 	m_DifficultyManager.Clear();
+
+	m_AreaManager.Clear();
 
 	m_EscapePointManager = CEscapePointManager::Instance();
 	m_Interleave = 0;
@@ -619,6 +621,8 @@ void idGameLocal::SaveGame( idFile *f ) {
 	CHidingSpotSearchCollection::Instance().Save(&savegame);
 
 	m_DifficultyManager.Save(&savegame);
+
+	m_AreaManager.Save(&savegame);
 
 	savegame.WriteInt( g_skill.GetInteger() );
 
@@ -1518,6 +1522,8 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	CHidingSpotSearchCollection::Instance().Restore(&savegame);
 
 	m_DifficultyManager.Restore(&savegame);
+
+	m_AreaManager.Restore(&savegame);
 
 	savegame.ReadInt( i );
 	g_skill.SetInteger( i );
