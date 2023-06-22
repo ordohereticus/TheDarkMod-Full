@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2130 $
- * $Date: 2008-03-10 19:04:29 -0400 (Mon, 10 Mar 2008) $
- * $Author: joebarnin $
+ * $Revision: 2210 $
+ * $Date: 2008-04-25 11:23:13 -0400 (Fri, 25 Apr 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2130 2008-03-10 23:04:29Z joebarnin $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2210 2008-04-25 15:23:13Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1628,6 +1628,11 @@ void CMissionData::AlertCallback(idEntity *Alerted, idEntity *Alerter, int Alert
 	}
 
 	MissionEvent( COMP_ALERT, &Parms1, &Parms2, bPlayerResponsible );
+}
+
+void CMissionData::KOCallback(idActor* target, idActor* inflictor)
+{
+
 }
 
 int CMissionData::GetTotalLoot( void )
