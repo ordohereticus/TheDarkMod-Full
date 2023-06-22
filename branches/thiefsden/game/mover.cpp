@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1877 $
- * $Date: 2007-12-16 20:37:01 -0500 (Sun, 16 Dec 2007) $
- * $Author: ishtvan $
+ * $Revision: 1962 $
+ * $Date: 2008-01-07 11:46:33 -0500 (Mon, 07 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 1877 2007-12-17 01:37:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 1962 2008-01-07 16:46:33Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1574,6 +1574,18 @@ void idMover::SetPortalState( bool open ) {
 	assert( areaPortal );
 	gameLocal.SetPortalState( areaPortal, open ? PS_BLOCK_NONE : PS_BLOCK_ALL );
 }
+
+/*
+================
+idMover::IsBlocked
+================
+*/
+bool idMover::IsBlocked( void )
+{
+	const trace_t* trace = physicsObj.GetBlockingInfo();
+	return (trace != NULL);
+}
+
 
 /*
 ===============================================================================

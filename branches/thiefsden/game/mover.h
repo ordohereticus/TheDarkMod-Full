@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1962 $
+ * $Date: 2008-01-07 11:46:33 -0500 (Mon, 07 Jan 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -46,6 +46,9 @@ public:
 	virtual void			Show( void );
 
 	void					SetPortalState( bool open );
+
+	bool					IsBlocked( void );
+
 
 protected:
 	typedef enum {
