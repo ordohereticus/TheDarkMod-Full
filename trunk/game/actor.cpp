@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1295 $
- * $Date: 2007-08-16 06:09:27 -0400 (Thu, 16 Aug 2007) $
- * $Author: ishtvan $
+ * $Revision: 1301 $
+ * $Date: 2007-08-19 03:46:17 -0400 (Sun, 19 Aug 2007) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1295 2007-08-16 10:09:27Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1301 2007-08-19 07:46:17Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2418,6 +2418,8 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	int bodID(0);
 	idEntity *reroute = NULL;
 	idAFBody *StruckBody = NULL;
+	const idDict *damageDef = NULL;
+	int damage;
 
 	if( collision )
 	{
@@ -2449,12 +2451,12 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		return;
 	}
 
-	const idDict *damageDef = gameLocal.FindEntityDefDict( damageDefName );
+	damageDef = gameLocal.FindEntityDefDict( damageDefName );
 	if ( !damageDef ) {
 		gameLocal.Error( "Unknown damageDef '%s'", damageDefName );
 	}
 
-	int	damage = damageDef->GetInt( "damage" ) * damageScale;
+	damage = damageDef->GetInt( "damage" ) * damageScale;
 
 	damage = GetDamageForLocation( damage, location );
 
@@ -3997,7 +3999,7 @@ void idActor::Event_AttachTaskQueue(int queueID)
 	}
 	else 
 	{
-		scriptThread->Error("attachTaskQueue: Priority queue #%d does not exist");
+		scriptThread->Error("attachTaskQueue: Priority queue #%d does not exist", queueID);
 	}
 }
 
