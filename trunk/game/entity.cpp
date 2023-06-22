@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1405 $
- * $Date: 2007-10-04 03:54:39 -0400 (Thu, 04 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1408 $
+ * $Date: 2007-10-07 05:40:48 -0400 (Sun, 07 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1405 2007-10-04 07:54:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1408 2007-10-07 09:40:48Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8232,6 +8232,7 @@ void idEntity::ProcCollisionStims( idEntity *other, int body )
 
 		idAFEntity_Base *otherAF = static_cast<idAFEntity_Base *>(other);
 		int bodID = otherAF->BodyForClipModelId( body );
+		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("ProcCollisionStims called GetBody on id %d\r", bodID);
 		StruckBody = otherAF->GetAFPhysics()->GetBody( bodID );
 		reroute = StruckBody->GetRerouteEnt();
 		if( reroute )

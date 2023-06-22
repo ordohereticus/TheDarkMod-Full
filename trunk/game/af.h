@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 918 $
- * $Date: 2007-04-21 04:42:18 -0400 (Sat, 21 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1408 $
+ * $Date: 2007-10-07 05:40:48 -0400 (Sun, 07 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -78,6 +78,17 @@ public:
 
 	void					AddBindConstraints( void );
 	void					RemoveBindConstraints( void );
+
+	/**
+	* TDM: Allows adding a body not in the AF file, bodyNew.  Must be referenced to an existing body in the AF file, bodyExist.
+	* Also needs the entity for which we are doing this.
+	**/
+	void AddBodyExtern( idAFEntity_Base *ent, idAFBody *bodyNew, idAFBody *bodyExist, AFJointModType_t mod );
+
+	/**
+	* TDM: Delete an externally added body
+	**/
+	void DeleteBodyExtern( idAFEntity_Base *ent, const char *bodyName );
 
 protected:
 	idStr					name;				// name of the loaded .af file

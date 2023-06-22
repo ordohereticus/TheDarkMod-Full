@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1399 $
- * $Date: 2007-09-30 17:27:08 -0400 (Sun, 30 Sep 2007) $
+ * $Revision: 1408 $
+ * $Date: 2007-10-07 05:40:48 -0400 (Sun, 07 Oct 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 1399 2007-09-30 21:27:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 1408 2007-10-07 09:40:48Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1077,7 +1077,7 @@ bool idAnimated::LoadAF( void )
 	bReturnVal = af.Load( this, fileName );
 	SetUpGroundingVars();
 
-	if( m_bAFPosedByAnim )
+	if( m_bAFPushMoveables )
 	{
 		af.SetupPose( this, gameLocal.time );
 		af.GetPhysics()->EnableClip();

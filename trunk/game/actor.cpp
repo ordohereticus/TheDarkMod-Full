@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1404 $
- * $Date: 2007-10-03 22:04:10 -0400 (Wed, 03 Oct 2007) $
- * $Author: crispy $
+ * $Revision: 1408 $
+ * $Date: 2007-10-07 05:40:48 -0400 (Sun, 07 Oct 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1404 2007-10-04 02:04:10Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1408 2007-10-07 09:40:48Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -582,7 +582,6 @@ void idActor::Spawn( void )
 
 	SetupDamageGroups();
 	SetupHead();
-	ParseAttachmentsAF();
 
 	// clear the bind anim
 	animator.ClearAllAnims( gameLocal.time, 0 );
@@ -669,6 +668,8 @@ void idActor::Spawn( void )
 	finalBoss = spawnArgs.GetBool( "finalBoss" );
 
 	FinishSetup();
+
+	ParseAttachmentsAF();
 }
 
 /*
@@ -1171,6 +1172,12 @@ bool idActor::LoadAF( void )
 	af.SetAnimator( GetAnimator() );
 	bReturnVal =  af.Load( this, fileName );
 	SetUpGroundingVars();
+
+	if( m_bAFPushMoveables )
+	{
+		af.SetupPose( this, gameLocal.time );
+		af.GetPhysics()->EnableClip();
+	}
 
 Quit:
 	return bReturnVal;
@@ -2454,6 +2461,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	if( collision )
 	{
 		bodID = BodyForClipModelId( collision->c.id );
+		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Fun is trying to call getBody with bodyID %d\r", bodID );
 		StruckBody = GetAFPhysics()->GetBody( bodID );
 		
 		if( StruckBody != NULL )
@@ -2956,6 +2964,7 @@ void idActor::DropAttachment( int ind )
 {
 	idEntity *ent = NULL;
 
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Dropattachment called for index %d\r", ind);
 	if( ind < 0 || ind >= m_attachments.Num() )
 	{
 		// TODO: log invalid index error
@@ -2970,8 +2979,11 @@ void idActor::DropAttachment( int ind )
 		goto Quit;
 	}
 
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Dropattachment: Ent %s unbound\r", ent->name.c_str());
 	ent->Unbind();
-	m_attachments[ind].ent = NULL;
+	// We don't want to remove it from the list, otherwise other attachment indices get screwed up
+	//	if a script was keeping track of them.
+	m_attachments[ind].ent = NULL; 
 
 Quit:
 	return;
