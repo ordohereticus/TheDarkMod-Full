@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1397 $
- * $Date: 2007-09-30 06:31:36 -0400 (Sun, 30 Sep 2007) $
- * $Author: orbweaver $
+ * $Revision: 1402 $
+ * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1397 2007-09-30 10:31:36Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1402 2007-10-02 21:44:14Z sparhawk $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6694,7 +6694,7 @@ void idEntity::ParseUsedByList(idList<idStr> &list, idStr &s)
 	}
 }
 
-bool idEntity::UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *ent)
+bool idEntity::UsedBy(IMPULSE_STATE nState, idEntity *ent)
 {
 	return false;
 }

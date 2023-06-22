@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1394 $
- * $Date: 2007-09-28 15:43:38 -0400 (Fri, 28 Sep 2007) $
+ * $Revision: 1402 $
+ * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1394 2007-09-28 19:43:38Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 1402 2007-10-02 21:44:14Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -552,7 +552,7 @@ void CFrobDoor::Close(bool bMaster)
 	}
 }
 
-bool CFrobDoor::UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *ent)
+bool CFrobDoor::UsedBy(IMPULSE_STATE nState, idEntity *ent)
 {
 	bool bRc = false;
 	int i, n;
@@ -582,7 +582,7 @@ bool CFrobDoor::UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *ent)
 	{
 		ELockpickSoundsample v;
 
-		if(bInit == true)
+		if(nState == IS_PRESSED)
 			v = LPSOUND_INIT;
 		else if(nState == IS_RELEASED)
 			v = LPSOUND_RELEASED;
@@ -611,7 +611,7 @@ bool CFrobDoor::UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *ent)
 		if((e = gameLocal.FindEntity(m_MasterLock.c_str())) != NULL)
 		{
 			if((master = dynamic_cast<CFrobDoor *>(e)) != NULL)
-				bRc = master->UsedBy(bInit, nState, ent);
+				bRc = master->UsedBy(nState, ent);
 			else
 				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("[%s] Master entity [%s] is not of class CFrobDoor\r", name.c_str(), e->name.c_str());
 		}

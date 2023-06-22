@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1393 $
- * $Date: 2007-09-27 17:34:30 -0400 (Thu, 27 Sep 2007) $
+ * $Revision: 1402 $
+ * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -534,7 +534,7 @@ public:
 	 * like using the lockpíck), the feirst call when the USE button is pressed, this
 	 * would be set to true and in subsequent calls it would be set to false.
 	 */
-	virtual bool UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *);
+	virtual bool UsedBy(IMPULSE_STATE nState, idEntity *);
 
 	/**
 	 * Parses a used_by string. For a detailed information on how to use this feature

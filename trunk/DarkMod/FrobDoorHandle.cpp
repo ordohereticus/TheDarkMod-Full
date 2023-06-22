@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1393 $
- * $Date: 2007-09-27 17:34:30 -0400 (Thu, 27 Sep 2007) $
+ * $Revision: 1402 $
+ * $Date: 2007-10-02 17:44:14 -0400 (Tue, 02 Oct 2007) $
  * $Author: sparhawk $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 1393 2007-09-27 21:34:30Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 1402 2007-10-02 21:44:14Z sparhawk $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -111,10 +111,10 @@ bool CFrobDoorHandle::IsFrobbed(void)
 
 // A handle itself can not be used by other objects, so we only
 // forward it in case of a door.
-bool CFrobDoorHandle::UsedBy(bool bInit, IMPULSE_STATE nState, idEntity *e)
+bool CFrobDoorHandle::UsedBy(IMPULSE_STATE nState, idEntity *e)
 {
 	if(m_Door)
-		return m_Door->UsedBy(bInit, nState, e);
+		return m_Door->UsedBy(nState, e);
 
 	return false;
 }
