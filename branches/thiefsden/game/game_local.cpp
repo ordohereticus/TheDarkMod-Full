@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1942 $
- * $Date: 2008-01-02 13:06:19 -0500 (Wed, 02 Jan 2008) $
+ * $Revision: 1943 $
+ * $Date: 2008-01-02 14:17:40 -0500 (Wed, 02 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1942 2008-01-02 18:06:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1943 2008-01-02 19:17:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3066,6 +3066,24 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}
 	else if (cmd == "objective_open_request")
 	{
+		if (gui->GetStateInt("BriefingIsVisible") == 1)
+		{
+			// We're coming from the briefing screen
+			// Clear the objectives data and load them from the map
+			m_MissionData->Clear();
+
+			idStr mapName = gui->GetStateString("map");
+
+			// Load the mission data directly from the given map
+			m_MissionData->LoadDirectlyFromMapFile(mapName);
+
+			// Clear the flag so that the objectives get updated
+			objectivesUpdated = false;
+
+			// Hide the briefing screen
+			gui->HandleNamedEvent("HideBriefingScreen");
+		}
+
 		gui->HandleNamedEvent("ShowObjectiveScreen");
 		gui->HandleNamedEvent("InitObjectives");
 
@@ -3081,6 +3099,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		// User requested a map start
 		gui->HandleNamedEvent("ShowBriefingScreen");
+		gui->SetStateInt("BriefingIsVisible", 1);
 	}
 	else if (cmd == "close") 
 	{

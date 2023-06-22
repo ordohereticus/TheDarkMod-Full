@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1931 $
- * $Date: 2007-12-29 14:18:38 -0500 (Sat, 29 Dec 2007) $
+ * $Revision: 1943 $
+ * $Date: 2008-01-02 14:17:40 -0500 (Wed, 02 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -618,6 +618,13 @@ public:
 	* Returns the index of the LAST objective added, for later addressing
 	**/
 	int AddObjsFromEnt( idEntity *ent );
+	int AddObjsFromDict(const idDict& dict);
+
+	/**
+	 * greebo: Load the objectives directly from the given map file.
+	 *         This is called by the main menu SDK code.
+	 **/
+	void LoadDirectlyFromMapFile(const idStr& mapName);
 
 	/**
 	 * greebo: This updates the given GUI overlay with the current
