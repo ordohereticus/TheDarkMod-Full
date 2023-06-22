@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1270 $
- * $Date: 2007-08-03 09:58:23 -0400 (Fri, 03 Aug 2007) $
- * $Author: greebo $
+ * $Revision: 1294 $
+ * $Date: 2007-08-16 00:04:01 -0400 (Thu, 16 Aug 2007) $
+ * $Author: joebarnin $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1270 2007-08-03 13:58:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1294 2007-08-16 04:04:01Z joebarnin $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3013,7 +3013,7 @@ handles main menu commands.
 void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui )
 {
 	g_Diff.HandleCommands(menuCommand, gui);
-	g_Shop.HandleCommands(menuCommand, gui);
+	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());
 }
 
 /*
