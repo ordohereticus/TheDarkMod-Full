@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1925 $
- * $Date: 2007-12-28 13:54:19 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1926 $
+ * $Date: 2007-12-28 17:00:04 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1925 2007-12-28 18:54:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1926 2007-12-28 22:00:04Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -577,14 +577,17 @@ bool	CMissionData::EvaluateObjective
 		{
 			// overall loot
 			case SPEC_OVERALL:
-				value = EntDat1->valueSuperGroup;
+				// greebo: Take the stored Total Loot Value, not the supergroup stuff, 
+				//         as non-loot items always have supergroup set to 1.
+				value = GetTotalLoot();
+				//value = EntDat1->valueSuperGroup;
 				break;
 			case SPEC_GROUP:
 				value = EntDat1->value;
 
 				// special case for overall loot
 				if( pComp->m_SpecVal[1] == "loot_total" )
-					value = EntDat1->valueSuperGroup;
+					value = GetTotalLoot();
 				break;
 			default:
 				break;
