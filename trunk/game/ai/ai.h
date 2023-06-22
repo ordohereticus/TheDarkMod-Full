@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2053 $
- * $Date: 2008-02-08 00:58:06 -0500 (Fri, 08 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2059 $
+ * $Date: 2008-02-08 14:04:28 -0500 (Fri, 08 Feb 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1108,6 +1108,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// greebo: Overrides idActor::PlayFootStepSound()
 	virtual void			PlayFootStepSound();
+
+	// greebo: Plays the given bark sound (will override any sounds currently playing)
+	virtual void			Bark(const idStr& soundName);
 
 	// damage
 	virtual bool			Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
