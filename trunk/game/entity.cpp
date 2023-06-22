@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2131 $
- * $Date: 2008-03-14 17:29:14 -0400 (Fri, 14 Mar 2008) $
+ * $Revision: 2142 $
+ * $Date: 2008-03-24 11:07:59 -0400 (Mon, 24 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2131 2008-03-14 21:29:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2142 2008-03-24 15:07:59Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3564,7 +3564,17 @@ bool idEntity::RunPhysics( void ) {
 		return false;
 	}
 
-	startTime = gameLocal.previousTime;
+	// angua: since the AI are not thinking every frame, we need to rescale 
+	// their velocities with the corrected time length to prevent them from dying.
+	idAI* ai = dynamic_cast<idAI*>(this);
+	if (ai)
+	{
+		startTime = ai->m_lastThinkTime;
+	}
+	else
+	{
+		startTime = gameLocal.previousTime;
+	}
 	endTime = gameLocal.time;
 
 	gameLocal.push.InitSavingPushedEntityPositions();
