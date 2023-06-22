@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1423 $
- * $Date: 2007-10-11 05:36:55 -0400 (Thu, 11 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1431 $
+ * $Date: 2007-10-15 15:46:43 -0400 (Mon, 15 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -146,9 +146,6 @@ class idProgram;
 class idThread;
 class idEditEntities;
 class idLocationEntity;
-
-//class CMouseHook; // Added by Rich
-class CKeyboard;// Added by Rich
 
 #define	MAX_CLIENTS				32
 #define	GENTITYNUM_BITS			12
@@ -507,19 +504,6 @@ public:
 
 	idEntityPtr<idEntity>	portalSkyEnt;
 	bool					portalSkyActive;
-
-	/**
-	* Darkmod: Os agnostic Keyboard handler. Loads OS specific class internally
-	* Added by Rich
-	**/
-	CKeyboard*             m_Keyboard;
-
-	/**
-	* Darkmod: Os agnostic mouse handler. Loads OS specific class internally
-	* Added by Rich
-	No longer using this due to context thrashing.
-	**/
-//	CMouseHook*             m_Mouse;
 
 	void					SetPortalSkyEnt( idEntity *ent );
 	bool					IsPortalSkyAcive();

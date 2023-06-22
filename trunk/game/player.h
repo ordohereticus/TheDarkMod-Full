@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1405 $
- * $Date: 2007-10-04 03:54:39 -0400 (Thu, 04 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1431 $
+ * $Date: 2007-10-15 15:46:43 -0400 (Mon, 15 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -844,12 +844,6 @@ private:
 	void					ExtractEmailInfo( const idStr &email, const char *scan, idStr &out );
 
 	void					UseVehicle( void );
-
-	/**
-	* TDM: Check if our "button" keys have been released this frame ( called by idPlayer::Think() )
-	* If they have been updated and have been released, perform the release action.
-	**/
-	void					CheckHeldKeys( void );
 
 	void					Event_GetButtons( void );
 	void					Event_GetMove( void );

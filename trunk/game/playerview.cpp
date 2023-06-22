@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1103 $
- * $Date: 2007-07-13 06:57:12 -0400 (Fri, 13 Jul 2007) $
- * $Author: greebo $
+ * $Revision: 1431 $
+ * $Date: 2007-10-15 15:46:43 -0400 (Mon, 15 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -12,9 +12,8 @@
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
-#include "../DarkMod/KeyboardHook.h"
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 1103 2007-07-13 10:57:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 1431 2007-10-15 19:46:43Z sparhawk $", init_version);
 
 #include "game_local.h"
 

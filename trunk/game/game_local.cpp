@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1423 $
- * $Date: 2007-10-11 05:36:55 -0400 (Thu, 11 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1431 $
+ * $Date: 2007-10-15 15:46:43 -0400 (Mon, 15 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 #pragma warning(disable : 4127 4996 4805 4800)
 
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 1423 2007-10-11 09:36:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 1431 2007-10-15 19:46:43Z sparhawk $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -38,7 +38,6 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 1423 2007-10-11 
 #include "il/config.h"
 #include "il/il.h"
 #include "../DarkMod/randomizer/randomc.h"
-#include "../DarkMod/KeyboardHook.h" // Added By Rich for keyboard support encapsulation
 
 #include <iostream>
 
@@ -218,8 +217,6 @@ idGameLocal::idGameLocal
 idGameLocal::idGameLocal() 
 {
 	m_HighestSRId = 0;
-	m_Keyboard = CKeyboard::getInstance();
-	assert( NULL != m_Keyboard );
 	Clear();
 }
 
@@ -230,8 +227,6 @@ idGameLocal::~idGameLocal
 */
 idGameLocal::~idGameLocal() 
 {
-	assert( NULL != m_Keyboard );
-	delete m_Keyboard;
 }
 
 /*

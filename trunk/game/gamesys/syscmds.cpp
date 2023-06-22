@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1418 $
- * $Date: 2007-10-10 04:23:46 -0400 (Wed, 10 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1431 $
+ * $Date: 2007-10-15 15:46:43 -0400 (Mon, 15 Oct 2007) $
+ * $Author: sparhawk $
  *
  ***************************************************************************/
 
@@ -13,12 +13,11 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 1418 2007-10-10 08:23:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 1431 2007-10-15 19:46:43Z sparhawk $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/sndPropLoader.h"
 #include "../../DarkMod/Relations.h"
-#include "../../DarkMod/KeyboardHook.h"
 #include "../../DarkMod/Inventory/Inventory.h"
 
 #include "typeinfo.h"
@@ -248,25 +247,6 @@ void Cmd_AttachmentPrint_f( const idCmdArgs &args )
 	gameLocal.Printf("======= End Attachment Info =======\n \n" );
 
 Quit:
-	return;
-}
-
-/*
-==================
-Cmd_KeyCapture_f
-==================
-*/
-void Cmd_KeyCapture_f( const idCmdArgs &args )
-{
-	ImpulseFunction_t action(IR_COUNT);
-
-	if( args.Argc() != 2 )
-	{
-		gameLocal.Printf( "usage: tdm_keycapture <action index>\n" );	
-	} else {
-		action = (ImpulseFunction_t) atoi( args.Argv(1) );
-		gameLocal.m_Keyboard->KeyCaptureStart( action );
-	}
 	return;
 }
 
@@ -2711,8 +2691,6 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 	cmdSystem->AddCommand( "inventory_hotkey",		Cmd_InventoryHotkey_f,		CMD_FL_GAME,				"Usage: inventory_hotkey [item]\nSelects an item from the currently available inventory. If 'item' is omitted, it will return the current item's hotkey name, if any." );
 	cmdSystem->AddCommand( "inventory_use",			Cmd_InventoryUse_f,			CMD_FL_GAME,				"Usage: inventory_use [item]\nUses an item in the currently available inventory without selectign it. If 'item' is omitted, it will use the currently selected item." );
-
-	cmdSystem->AddCommand( "tdm_keycapture",		Cmd_KeyCapture_f,			CMD_FL_GAME,				"Used internally.  Usage: tdm_keycapture <TDM action ID>.  Waits for the next keypress and assigns it to the desired action ID.  Action ID corresponds to a given action (e.g., lean left), and must be within the range specified by the enum in gameLocal.h" );
 
 #ifndef	ID_DEMO_BUILD
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );
