@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2081 $
+ * $Date: 2008-02-10 06:34:58 -0500 (Sun, 10 Feb 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ik.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ik.cpp 2081 2008-02-10 11:34:58Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -547,7 +547,8 @@ idIK_Walk::Evaluate
 ================
 */
 void idIK_Walk::Evaluate( void ) {
-	int i, newPivotFoot;
+	int i;
+	int newPivotFoot = 0;
 	float modelHeight, jointHeight, lowestHeight, floorHeights[MAX_LEGS];
 	float shift, smallestShift, newHeight, step, newPivotYaw, height, largestAnkleHeight;
 	idVec3 modelOrigin, normal, hipDir, kneeDir, start, end, jointOrigins[MAX_LEGS];
