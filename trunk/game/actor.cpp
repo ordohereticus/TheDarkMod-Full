@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2036 $
- * $Date: 2008-02-02 20:31:50 -0500 (Sat, 02 Feb 2008) $
+ * $Revision: 2039 $
+ * $Date: 2008-02-03 03:39:12 -0500 (Sun, 03 Feb 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2036 2008-02-03 01:31:50Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2039 2008-02-03 08:39:12Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1898,7 +1898,7 @@ void idActor::RemoveAttachments( void )
 idActor::Attach
 ================
 */
-void idActor::Attach( idEntity *ent ) 
+void idActor::Attach( idEntity *ent, const char *PosName ) 
 {
 	idVec3			origin;
 	idMat3			axis, rotate, newAxis;
@@ -1908,21 +1908,38 @@ void idActor::Attach( idEntity *ent )
 	idVec3			originOffset;
 	idStr			nm;
 	idStr			ClassName;
+	SAttachPosition *pos;
 
-	jointName = ent->spawnArgs.GetString( "joint" );
-	joint = animator.GetJointHandle( jointName );
-	if ( joint == INVALID_JOINT ) {
-		gameLocal.Error( "Joint '%s' not found for attaching '%s' on '%s'", jointName.c_str(), ent->GetClassname(), name.c_str() );
+// New position system:
+	if( PosName && ((pos = GetAttachPosition(PosName)) != NULL) )
+	{
+		joint = pos->joint;
+
+		originOffset = pos->originOffset;
+		angleOffset = pos->angleOffset;
+
+		// etity-specific offsets to a given position
+		originOffset += ent->spawnArgs.GetVector( va("origin_%s", PosName ) );
+		angleOffset += ent->spawnArgs.GetAngles( va("angles_%s", PosName ) );
 	}
+// Old system, will be phased out
+	else
+	{
+		jointName = ent->spawnArgs.GetString( "joint" );
+		joint = animator.GetJointHandle( jointName );
+		if ( joint == INVALID_JOINT ) {
+			gameLocal.Error( "Joint '%s' not found for attaching '%s' on '%s'", jointName.c_str(), ent->GetClassname(), name.c_str() );
+		}
 
-	spawnArgs.GetString("classname", "", ClassName);
-	sprintf(nm, "angles_%s", ClassName.c_str());
-	if(ent->spawnArgs.GetAngles(nm.c_str(), "0 0 0", angleOffset) == false)
-		angleOffset = ent->spawnArgs.GetAngles( "angles" );
+		spawnArgs.GetString("classname", "", ClassName);
+		sprintf(nm, "angles_%s", ClassName.c_str());
+		if(ent->spawnArgs.GetAngles(nm.c_str(), "0 0 0", angleOffset) == false)
+			angleOffset = ent->spawnArgs.GetAngles( "angles" );
 
-	sprintf(nm, "origin_%s", ClassName.c_str());
-	if(ent->spawnArgs.GetVector(nm.c_str(), "0 0 0", originOffset) == false)
-		originOffset = ent->spawnArgs.GetVector( "origin" );
+		sprintf(nm, "origin_%s", ClassName.c_str());
+		if(ent->spawnArgs.GetVector(nm.c_str(), "0 0 0", originOffset) == false)
+			originOffset = ent->spawnArgs.GetVector( "origin" );
+	}
 
 	idAttachInfo	&attach = m_attachments.Alloc();
 

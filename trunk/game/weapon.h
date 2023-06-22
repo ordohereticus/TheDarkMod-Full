@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2039 $
+ * $Date: 2008-02-03 03:39:12 -0500 (Sun, 03 Feb 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -128,9 +128,10 @@ public:
 	virtual void			ReadFromSnapshot( const idBitMsgDelta &msg );
 
 	/**
-	* TDM: Add ability to put AF attachments on weapon AFs
+	* TDM: Attach an entity to the weapon's AF.  Different than plain entity attachment
+	* Does not use position name for now
 	**/
-	void					Attach( idEntity *ent );
+	virtual void			Attach( idEntity *ent, const char *PosName = NULL );
 
 	enum {
 		EVENT_RELOAD = idEntity::EVENT_MAXEVENTS,

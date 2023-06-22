@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1878 $
- * $Date: 2007-12-18 13:45:14 -0500 (Tue, 18 Dec 2007) $
- * $Author: angua $
+ * $Revision: 2039 $
+ * $Date: 2008-02-03 03:39:12 -0500 (Sun, 03 Feb 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -228,7 +228,7 @@ public:
 	* Attach an entity.  Entity spawnArgs checked for attachments are:
 	* "origin", "angles", and "joint".
 	**/
-	void					Attach( idEntity *ent );
+	virtual void			Attach( idEntity *ent, const char *PosName = NULL );
 
 	/**
 	* Reattach an existing attachment

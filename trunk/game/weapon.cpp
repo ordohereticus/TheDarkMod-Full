@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2039 $
+ * $Date: 2008-02-03 03:39:12 -0500 (Sun, 03 Feb 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 2039 2008-02-03 08:39:12Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3344,7 +3344,7 @@ void idWeapon::ClientPredictionThink( void ) {
 idWeapon::Attach
 ================
 */
-void idWeapon::Attach( idEntity *ent ) 
+void idWeapon::Attach( idEntity *ent, const char *PosName ) 
 {
 	jointHandle_t		joint;
 	idStr				jointName;

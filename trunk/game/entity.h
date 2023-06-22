@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2037 $
- * $Date: 2008-02-02 20:32:56 -0500 (Sat, 02 Feb 2008) $
+ * $Revision: 2039 $
+ * $Date: 2008-02-03 03:39:12 -0500 (Sun, 03 Feb 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -681,8 +681,9 @@ public:
 	* Attach another entity to this entity.  The base version assumes single-clipmodel
 	* rigid body physics and simply calls idEntity::Bind.  
 	* Will be overloaded in derived classes with joints to call BindToJoint.
+	* The position argument is an optional named attachment position
 	**/
-	virtual void Attach( idEntity *ent );
+	virtual void Attach( idEntity *ent, const char *PosName = NULL );
 
 	/**
 	* Returns a pointer to the attachment position with this name. 
@@ -1221,7 +1222,7 @@ public:
 	/**
 	* Overloads idEntity::Attach to bind to a joint
 	**/
-	virtual void			Attach( idEntity *ent );
+	virtual void			Attach( idEntity *ent, const char *PosName = NULL );
 
 	enum {
 		EVENT_ADD_DAMAGE_EFFECT = idEntity::EVENT_MAXEVENTS,
