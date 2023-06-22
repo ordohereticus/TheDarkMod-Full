@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1738 $
- * $Date: 2007-11-08 12:45:24 -0500 (Thu, 08 Nov 2007) $
+ * $Revision: 1758 $
+ * $Date: 2007-11-12 02:08:40 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 1738 2007-11-08 17:45:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 1758 2007-11-12 07:08:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2279,6 +2279,27 @@ const char* idActor::LookupReplacementAnim( const char *animname )
 	return replacement;
 }
 
+void idActor::StopAnim(int channel, int frames) 
+{
+	switch( channel ) {
+	case ANIMCHANNEL_HEAD :
+		headAnim.StopAnim( frames );
+		break;
+
+	case ANIMCHANNEL_TORSO :
+		torsoAnim.StopAnim( frames );
+		break;
+
+	case ANIMCHANNEL_LEGS :
+		legsAnim.StopAnim( frames );
+		break;
+
+	default:
+		gameLocal.Error( "Unknown anim group" );
+		break;
+	}
+}
+
 /*
 ===============
 idActor::SyncAnimChannels
@@ -2997,23 +3018,7 @@ idActor::Event_StopAnim
 ===============
 */
 void idActor::Event_StopAnim( int channel, int frames ) {
-	switch( channel ) {
-	case ANIMCHANNEL_HEAD :
-		headAnim.StopAnim( frames );
-		break;
-
-	case ANIMCHANNEL_TORSO :
-		torsoAnim.StopAnim( frames );
-		break;
-
-	case ANIMCHANNEL_LEGS :
-		legsAnim.StopAnim( frames );
-		break;
-
-	default:
-		gameLocal.Error( "Unknown anim group" );
-		break;
-	}
+	StopAnim(channel, frames);
 }
 
 /*

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1736 $
- * $Date: 2007-11-08 10:30:44 -0500 (Thu, 08 Nov 2007) $
+ * $Revision: 1758 $
+ * $Date: 2007-11-12 02:08:40 -0500 (Mon, 12 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1096,6 +1096,13 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* also can be called by itself and is called by scriptevent Event_Knockout.
 	**/
 	void					Knockout( void );
+
+	/**
+	 * greebo: Does a few things after the knockout animation has finished.
+	 *         This includes setting the model, dropping attachments and starting ragdoll mode.
+	 *         Note: Gets called by the Mind's KnockOutState.
+	 */
+	void					PostKnockOut();
 
 	/**
 	* Drop certain attachments and def_drop items when transitioning into a ragdoll state
