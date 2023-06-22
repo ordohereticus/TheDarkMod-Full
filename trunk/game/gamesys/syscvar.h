@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2151 $
- * $Date: 2008-03-29 05:19:17 -0400 (Sat, 29 Mar 2008) $
+ * $Revision: 2163 $
+ * $Date: 2008-03-30 04:50:56 -0400 (Sun, 30 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -125,6 +125,7 @@ extern idCVar cv_drag_encumber_minmass;
 extern idCVar cv_drag_encumber_minmass;
 extern idCVar cv_drag_encumber_maxmass;
 extern idCVar cv_drag_encumber_max;
+extern idCVar cv_dragged_item_highlight;
 
 extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;

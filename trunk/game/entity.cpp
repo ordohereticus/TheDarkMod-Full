@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2142 $
- * $Date: 2008-03-24 11:07:59 -0400 (Mon, 24 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2163 $
+ * $Date: 2008-03-30 04:50:56 -0400 (Sun, 30 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2142 2008-03-24 15:07:59Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2163 2008-03-30 08:50:56Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6759,13 +6759,20 @@ void idEntity::LoadTDMSettings(void)
 
 void idEntity::UpdateFrob(void)
 {
-	CDarkModPlayer *pDM;
-
-	pDM = g_Global.m_DarkModPlayer;
+	CDarkModPlayer* pDM = g_Global.m_DarkModPlayer;
 
 	// hidden objects are skipped
-	if(pDM == NULL || IsHidden() )
-		goto Quit;
+	if (pDM == NULL || IsHidden() ) 
+	{
+		return;
+	}
+
+	// greebo: Allow the grabbed entity to stay highlighted
+	if (cv_dragged_item_highlight.GetBool() && pDM->grabber->GetSelected() == this)
+	{
+		FrobHighlight(true);
+		return;
+	}
 
 	if( !m_bFrobbed )	
 	{
@@ -6795,7 +6802,7 @@ void idEntity::UpdateFrob(void)
 			FrobHighlight(false );
 		}
 
-		goto Quit;
+		return;
 	}
 
 	// We are frobbed this frame
@@ -6814,9 +6821,6 @@ void idEntity::UpdateFrob(void)
 		if( pDM->m_FrobEntityPrevious.GetEntity() == NULL )
 			pDM->m_FrobEntityPrevious = this;
 	}
-
-Quit:
-	return;
 }
 
 void idEntity::FrobHighlight( bool bVal )
