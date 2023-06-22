@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1918 $
- * $Date: 2007-12-28 02:27:48 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1919 $
+ * $Date: 2007-12-28 03:04:28 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1918 2007-12-28 07:27:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1919 2007-12-28 08:04:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -110,6 +110,9 @@ const idEventDef EV_Player_SetObjectiveEnabling( "setObjectiveEnabling", "ds" );
 const idEventDef EV_Player_GiveHealthPool("giveHealthPool", "f");
 
 const idEventDef EV_Mission_Success("missionSuccess", NULL);
+const idEventDef EV_PrepareMapForMissionEnd("prepareMapForMissionEnd", NULL);
+// returns the handle of the success GUI
+const idEventDef EV_DisplaySuccessGUI("displaySuccessGUI", "s", 'd');
 
 // greebo: These events are handling the FOV.
 const idEventDef EV_Player_StartZoom("startZoom", "fff");
@@ -188,6 +191,8 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_UpdateObjectivesGUI,	idPlayer::Event_UpdateObjectivesGUI)
 
 	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
+	EVENT( EV_PrepareMapForMissionEnd,		idPlayer::Event_PrepareMapForMissionEnd )
+	EVENT( EV_DisplaySuccessGUI,			idPlayer::Event_DisplaySuccessGUI )
 
 END_CLASS
 
@@ -9780,5 +9785,21 @@ void idPlayer::Event_MissionSuccess()
 		return;
 	}
 
-	playerView.Fade( colorBlack, 3000 );
+	CallScriptFunctionArgs("onMissionSuccess", true, 0, "e", this);
+}
+
+void idPlayer::Event_PrepareMapForMissionEnd() 
+{
+	gameLocal.Printf("Map shutdown for mission success.\n");
+}
+
+void idPlayer::Event_DisplaySuccessGUI(const char* guiFile) 
+{
+	gameLocal.Printf("Showing success GUI.\n");
+
+	int handle = CreateOverlay(guiFile, 20);
+
+	// Set up the success GUI here
+
+	idThread::ReturnInt(handle);
 }

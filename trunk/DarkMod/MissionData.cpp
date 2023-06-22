@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1918 $
- * $Date: 2007-12-28 02:27:48 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1919 $
+ * $Date: 2007-12-28 03:04:28 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1918 2007-12-28 07:27:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1919 2007-12-28 08:04:28Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -877,9 +877,10 @@ void CMissionData::Event_MissionComplete( void )
 	idPlayer *player = gameLocal.GetLocalPlayer();
 	if(player)
 	{
-		player->StartSoundShader( declManager->FindSound( "mission_complete" ), SND_CHANNEL_ANY, 0, false, NULL );
+		// This sound is played by the success.gui
+		//player->StartSoundShader( declManager->FindSound( "mission_complete" ), SND_CHANNEL_ANY, 0, false, NULL );
 		player->SendHUDMessage("Mission Complete");
-		player->PostEventMS(&EV_Mission_Success, 1000);
+		player->PostEventMS(&EV_Mission_Success, 100);
 	}
 }
 

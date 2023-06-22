@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1918 $
- * $Date: 2007-12-28 02:27:48 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 1919 $
+ * $Date: 2007-12-28 03:04:28 -0500 (Fri, 28 Dec 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -964,6 +964,15 @@ private:
 
 	// Ends the game (fade out, success.gui, etc.)
 	void					Event_MissionSuccess();
+
+	// greebo: This event prepares the running map for mission success.
+	// Basically, this removes all AI, puts physics to rest and 
+	// immobilises the player, so that nothing bad happens during the display
+	// of the end game GUI.
+	void					Event_PrepareMapForMissionEnd();
+
+	// Sets up and starts the success GUI, returns the handle
+	void					Event_DisplaySuccessGUI(const char* guiFile);
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
