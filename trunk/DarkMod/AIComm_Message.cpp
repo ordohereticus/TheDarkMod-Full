@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 866 $
- * $Date: 2007-03-23 17:25:02 -0400 (Fri, 23 Mar 2007) $
- * $Author: sparhawk $
+ * $Revision: 1207 $
+ * $Date: 2007-07-23 13:31:05 -0400 (Mon, 23 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 866 2007-03-23 21:25:02Z sparhawk $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 1207 2007-07-23 17:31:05Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_Message.h"
@@ -83,3 +83,12 @@ CAIComm_Message::~CAIComm_Message()
 	// Nothing to do here 
 }
 
+void CAIComm_Message::Save(idSaveGame *savefile) const
+{
+	// TODO
+}
+
+void CAIComm_Message::Restore(idRestoreGame *savefile)
+{
+	// TODO
+}

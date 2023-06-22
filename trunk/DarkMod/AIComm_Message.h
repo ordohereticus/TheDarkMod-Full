@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 914 $
- * $Date: 2007-04-19 13:45:20 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1207 $
+ * $Date: 2007-07-23 13:31:05 -0400 (Mon, 23 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -45,6 +45,9 @@
 class CAIComm_Message
 {
 public:
+
+	void Save(idSaveGame *savefile) const;
+	void Restore(idRestoreGame *savefile);
 
 	/*!
 	* This enumeration defines the meaning of the communication.
