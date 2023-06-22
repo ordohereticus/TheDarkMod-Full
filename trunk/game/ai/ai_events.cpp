@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2154 $
- * $Date: 2008-03-29 09:41:11 -0400 (Sat, 29 Mar 2008) $
+ * $Revision: 2219 $
+ * $Date: 2008-04-26 09:39:01 -0400 (Sat, 26 Apr 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2154 2008-03-29 13:41:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2219 2008-04-26 13:39:01Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -562,13 +562,16 @@ void idAI::Event_PostSpawn()
 	for (std::size_t i = 0; i < doors.size(); i++)
 	{
 		idEntity* door = gameLocal.FindEntity(doors[i].c_str());
-		if (door != NULL && door->IsType(CBinaryFrobMover::Type))
+		if (door != NULL)
 		{
-			unlockableDoors.insert(static_cast<CBinaryFrobMover*>(door));
-		}
-		else
-		{
-			gameLocal.Warning("Invalid door name %s on AI %s", doors[i].c_str(), name.c_str());
+			if (door->IsType(CBinaryFrobMover::Type))
+			{
+				unlockableDoors.insert(static_cast<CBinaryFrobMover*>(door));
+			}
+			else
+			{
+				gameLocal.Warning("Invalid door name %s on AI %s", doors[i].c_str(), name.c_str());
+			}
 		}
 	}
 }
