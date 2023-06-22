@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1010 $
- * $Date: 2007-06-10 01:38:52 -0400 (Sun, 10 Jun 2007) $
- * $Author: sophisticatedzombie $
+ * $Revision: 1218 $
+ * $Date: 2007-07-25 16:09:42 -0400 (Wed, 25 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1010 2007-06-10 05:38:52Z sophisticatedzombie $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 1218 2007-07-25 20:09:42Z greebo $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -53,7 +53,7 @@ darkModLAS::~darkModLAS(void)
 __inline bool darkModLAS::moveLightBetweenAreas (darkModLightRecord_t* p_LASLight, int oldAreaNum, int newAreaNum )
 {
 	assert ((oldAreaNum >= 0) && (oldAreaNum < m_numAreas));
-	assert ((newAreaNum >= 0) && (newAreaNum < m_numAreas));
+	assert (((newAreaNum >= 0) && (newAreaNum < m_numAreas)) || newAreaNum == -1);
 
 	// Remove from old area
 	idLinkList<darkModLightRecord_t>* p_cursor = m_pp_areaLightLists[oldAreaNum];
@@ -79,6 +79,12 @@ __inline bool darkModLAS::moveLightBetweenAreas (darkModLightRecord_t* p_LASLigh
 		DM_LOG(LC_LIGHT, LT_ERROR).LogString("Failed to remove LAS light record from list for area %d", oldAreaNum);
 
 		// Failed
+		return false;
+	}
+
+	if (newAreaNum == -1)
+	{
+		// Light is now in the void, return without doing anything
 		return false;
 	}
 
