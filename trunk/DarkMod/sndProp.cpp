@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1701 $
- * $Date: 2007-11-05 16:58:32 -0500 (Mon, 05 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 1754 $
+ * $Date: 2007-11-11 10:05:33 -0500 (Sun, 11 Nov 2007) $
+ * $Author: tels $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 1701 2007-11-05 21:58:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 1754 2007-11-11 15:05:33Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -719,7 +719,7 @@ void CsndProp::SetupParms( const idDict *parms, SSprParms *propParms, USprFlags 
 
 	// setup other parms
 	propParms->duration = parms->GetFloat("dur","200");
-	propParms->frequency = parms->GetFloat("freq","-1");
+	propParms->frequency = parms->GetInt("freq","-1");
 	propParms->bandwidth = parms->GetFloat("width", "-1");
 	
 	if( cv_spr_debug.GetBool() )
@@ -1247,10 +1247,10 @@ idVec3 CsndProp::OptSurfPoint( idVec3 p1, idVec3 p2, const idWinding *wind, idVe
 
 	// If point is within the rectangular surface boundaries, we're done
 	// Use the v axes (going to edge midpoints) to check if point is within rectangle
-	if( abs(lineSect * v1/lenV1) <= lenV1 && abs( lineSect * v2/lenV2) <= lenV2 )
+	if( fabs(lineSect * v1/lenV1) <= lenV1 && fabs( lineSect * v2/lenV2) <= lenV2 )
 	{
 //		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("MinSurf: Line itersects inside portal surface\r" );
-//		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("v1/lenV1 = %f, v2/lenV2 = %f\r", abs(lineSect * v1/lenV1)/lenV1, abs( lineSect * v2/lenV2)/lenV2 );
+//		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("v1/lenV1 = %f, v2/lenV2 = %f\r", fabs(lineSect * v1/lenV1)/lenV1, fabs( lineSect * v2/lenV2)/lenV2 );
 		returnVec = isect;
 		goto Quit;
 	}
