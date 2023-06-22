@@ -1,22 +1,23 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1897 $
- * $Date: 2007-12-26 05:58:44 -0500 (Wed, 26 Dec 2007) $
- * $Author: tels $
+ * $Revision: 2139 $
+ * $Date: 2008-03-22 13:47:13 -0400 (Sat, 22 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 1897 2007-12-26 10:58:44Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 2139 2008-03-22 17:47:13Z angua $", init_version);
 
 #include "PVSToAASMapping.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../game/pvs.h"
 #include "../renderer/renderworld.h"
 #include "../DarkMod/Intersection.h"
+#include "../game/pvs.h"
 
 //----------------------------------------------------------------------------
 
@@ -273,10 +274,13 @@ void PVSToAASMapping::DebugShowMappings(int lifetime)
 		{
 			int aasArea = node->AASAreaIndex;
 			idBounds areaBounds = aas->GetAreaBounds(aasArea);
-			idVec3 areaCenter = areaBounds.GetCenter();
-
-			gameRenderWorld->DrawText(va("%d", aasArea), areaCenter, 0.2f, color, playerViewMatrix, 1, lifetime);
-			gameRenderWorld->DebugBox(color, idBox(areaBounds), lifetime);
+			idVec3 areaCenter = aas->AreaCenter(aasArea);
+			// angua: only draw areas near the player, no need to see them at the other end of the map
+			if ((areaCenter - gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin()).LengthFast() < 1000)
+			{
+				gameRenderWorld->DrawText(va("%d", aasArea), areaCenter, 0.2f, color, playerViewMatrix, 1, lifetime);
+				gameRenderWorld->DebugBox(color, idBox(areaBounds), lifetime);
+			}
 
 			node = node->p_next;
 		}
