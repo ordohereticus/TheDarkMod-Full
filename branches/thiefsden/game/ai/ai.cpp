@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1955 $
- * $Date: 2008-01-04 11:39:35 -0500 (Fri, 04 Jan 2008) $
- * $Author: angua $
+ * $Revision: 1959 $
+ * $Date: 2008-01-05 08:47:54 -0500 (Sat, 05 Jan 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1955 2008-01-04 16:39:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1959 2008-01-05 13:47:54Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -8731,14 +8731,15 @@ void idAI::DropOnRagdoll( void )
 			continue;
 
 		bDrop = ent->spawnArgs.GetBool( "drop_when_ragdoll" );
+		
+		if( !bDrop ) {
+			continue;
+		}
+
 		bDropWhenDrawn = ent->spawnArgs.GetBool( "drop_when_drawn" );
 		bSetSolid = ent->spawnArgs.GetBool( "drop_add_contents_solid" );
 		bSetCorpse = ent->spawnArgs.GetBool( "drop_add_contents_corpse" );
 		bSetFrob = ent->spawnArgs.GetBool( "drop_set_frobable" );
-
-
-		if( !bDrop )
-			continue;
 
 		if( bDropWhenDrawn )
 		{

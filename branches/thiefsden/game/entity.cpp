@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1913 $
- * $Date: 2007-12-27 12:37:50 -0500 (Thu, 27 Dec 2007) $
+ * $Revision: 1959 $
+ * $Date: 2008-01-05 08:47:54 -0500 (Sat, 05 Jan 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1913 2007-12-27 17:37:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1959 2008-01-05 13:47:54Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -109,6 +109,9 @@ const idEventDef EV_StartFx( "startFx", "s" );
 const idEventDef EV_HasFunction( "hasFunction", "s", 'd' );
 const idEventDef EV_CallFunction( "callFunction", "s" );
 const idEventDef EV_SetNeverDormant( "setNeverDormant", "d" );
+
+// greebo: Extinguishes all lights (i.e. the <self> entity plus all bound lights)
+const idEventDef EV_ExtinguishLights("extinguishLights", NULL);
 
 const idEventDef EV_InPVS( "inPVS", NULL, 'd' );
 // greebo: Script event definition for dealing damage
@@ -287,6 +290,8 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_HasFunction,			idEntity::Event_HasFunction )
 	EVENT( EV_CallFunction,			idEntity::Event_CallFunction )
 	EVENT( EV_SetNeverDormant,		idEntity::Event_SetNeverDormant )
+
+	EVENT( EV_ExtinguishLights,		idEntity::Event_ExtinguishLights )
 
 	EVENT( EV_InPVS,				idEntity::Event_InPVS )
 	EVENT( EV_Damage,				idEntity::Event_Damage )
@@ -8313,4 +8318,23 @@ void idEntity::Event_SetClipMask(const int clipMask)
 void idEntity::Event_GetClipMask()
 {
 	idThread::ReturnInt(GetPhysics()->GetClipMask());
+}
+
+void idEntity::Event_ExtinguishLights()
+{
+	// greebo: First, check if we ourselves are a light
+	if (IsType(idLight::Type)) 
+	{
+		// Call the script function to extinguish this light
+		CallScriptFunctionArgs("frob_extinguish", true, 0, "e", this);
+	}
+
+	// Now go through the teamChain and check for lights
+	for (idEntity* ent = teamChain; ent != NULL; ent = ent->teamChain)
+	{
+		if (ent->IsType(idLight::Type))
+		{
+			ent->CallScriptFunctionArgs("frob_extinguish", true, 0, "e", ent);
+		}
+	}
 }
