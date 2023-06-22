@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1249 $
- * $Date: 2007-07-29 21:23:12 -0400 (Sun, 29 Jul 2007) $
- * $Author: ishtvan $
+ * $Revision: 1259 $
+ * $Date: 2007-08-01 04:19:37 -0400 (Wed, 01 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1249 2007-07-30 01:23:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1259 2007-08-01 08:19:37Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3350,7 +3350,6 @@ bool idEntity::RunPhysics( void ) {
 		for ( part = this; part != blockedPart; part = part->teamChain ) {
 
 			if ( part->physics ) {
-
 				// restore the physics state
 				part->physics->RestoreState();
 
@@ -3363,6 +3362,13 @@ bool idEntity::RunPhysics( void ) {
 				// update the physics time without moving
 				part->physics->UpdateTime( endTime );
 			}
+		}
+
+		// greebo: Apply the "reactio" to the team master
+		idPhysics_RigidBody* rigidBodyPhysics = dynamic_cast<idPhysics_RigidBody*>(physics);
+		if (rigidBodyPhysics != NULL)
+		{
+			rigidBodyPhysics->CollisionImpulse(*blockedPart->GetPhysics()->GetBlockingInfo(), -physics->GetLinearVelocity()*physics->GetMass());
 		}
 
 		// restore the positions of any pushed entities
