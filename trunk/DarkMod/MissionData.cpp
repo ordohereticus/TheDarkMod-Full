@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1341 $
- * $Date: 2007-08-28 16:37:03 -0400 (Tue, 28 Aug 2007) $
+ * $Revision: 1342 $
+ * $Date: 2007-08-28 17:03:57 -0400 (Tue, 28 Aug 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 1341 2007-08-28 20:37:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 1342 2007-08-28 21:03:57Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1518,7 +1518,7 @@ void CMissionData::InventoryCallback(idEntity *ent, idStr ItemName, int value, i
 	MissionEvent( COMP_ITEM, &Parms, bPickedUp );
 	
 	// Also call the pickocket event if stolen from living AI
-	if( bPickedUp && ent->GetBindMaster() )
+	if( bPickedUp && ent != NULL && ent->GetBindMaster() )
 	{
 		idEntity *bm = ent->GetBindMaster();
 		if( bm->IsType( idActor::Type )
