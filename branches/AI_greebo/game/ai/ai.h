@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1571 $
- * $Date: 2007-10-27 14:47:28 -0400 (Sat, 27 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1586 $
+ * $Date: 2007-10-29 04:55:17 -0400 (Mon, 29 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1533,6 +1533,14 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void 					Event_CanReachEntity( idEntity *ent );
 	void					Event_CanReachEnemy( void );
 	void					Event_GetReachableEntityPosition( idEntity *ent );
+
+	// Script interface for state manipulation
+	void					Event_PushState(const char* state);
+	void					Event_QueueState(const char* state);
+	void					Event_SwitchState(const char* state);
+	void					Event_EndState();
+	void					Event_PushStateIfHigherPriority(const char* state, int priority);
+	void					Event_SwitchStateIfHigherPriority(const char* state, int priority);
 
 	void					Event_PlayAndLipSync( const char *soundName, const char *animName );
 	void					Event_RegisterKilledTask( const char* taskName, int priority );

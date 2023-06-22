@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1563 $
- * $Date: 2007-10-25 15:05:06 -0400 (Thu, 25 Oct 2007) $
+ * $Revision: 1586 $
+ * $Date: 2007-10-29 04:55:17 -0400 (Mon, 29 Oct 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 1563 2007-10-25 19:05:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 1586 2007-10-29 08:55:17Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -169,6 +169,13 @@ const idEventDef AI_GetReachableEntityPosition( "getReachableEntityPosition", "e
 const idEventDef AI_PlayAndLipSync( "playAndLipSync", "ss", 'd' );
 const idEventDef AI_RegisterKilledTask( "registerKilledTask", "sd" );
 const idEventDef AI_RegisterKnockedOutTask( "registerKnockedOutTask", "sd" );
+
+const idEventDef AI_PushState("pushState", "s");
+const idEventDef AI_QueueState("queueState", "s");
+const idEventDef AI_SwitchState("switchState", "s");
+const idEventDef AI_EndState("endState", NULL, 'd');
+const idEventDef AI_PushStateIfHigherPriority("pushStateIfHigherPriority", "sd", 'd');
+const idEventDef AI_SwitchStateIfHigherPriority("switchStateIfHigherPriority", "sd", 'd');
 
 // DarkMod AI Relations Events
 const idEventDef AI_GetRelationEnt( "getRelationEnt", "E", 'd' );
@@ -505,6 +512,14 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_CanReachEnemy,					idAI::Event_CanReachEnemy )
 	EVENT( AI_GetReachableEntityPosition,		idAI::Event_GetReachableEntityPosition )
 	
+	// greebo: State manipulation interface
+	EVENT(  AI_PushState,						idAI::Event_PushState )
+	EVENT(  AI_QueueState,						idAI::Event_QueueState )
+	EVENT(  AI_SwitchState,						idAI::Event_SwitchState )
+	EVENT(  AI_EndState,						idAI::Event_EndState )
+	EVENT(  AI_PushStateIfHigherPriority,		idAI::Event_PushStateIfHigherPriority )
+	EVENT(  AI_SwitchStateIfHigherPriority,		idAI::Event_SwitchStateIfHigherPriority )
+
 	EVENT( AI_PlayAndLipSync,					idAI::Event_PlayAndLipSync )
 	EVENT( AI_RegisterKilledTask,				idAI::Event_RegisterKilledTask )
 	EVENT( AI_RegisterKnockedOutTask,			idAI::Event_RegisterKnockedOutTask )
@@ -4013,4 +4028,34 @@ void idAI::Event_SetAlertGracePeriod( float frac, float duration, int count )
 void idAI::Event_FoundBody( idEntity *body )
 {
 	FoundBody( body );
+}
+
+void idAI::Event_PushState(const char* state)
+{
+	mind->PushState(state);
+}
+
+void idAI::Event_QueueState(const char* state)
+{
+	mind->QueueState(state);
+}
+
+void idAI::Event_SwitchState(const char* state)
+{
+	mind->SwitchState(state);
+}
+
+void idAI::Event_EndState()
+{
+	idThread::ReturnInt(static_cast<int>(mind->EndState()));
+}
+
+void idAI::Event_PushStateIfHigherPriority(const char* state, int priority)
+{
+	idThread::ReturnInt(static_cast<int>(mind->PushStateIfHigherPriority(state, priority)));
+}
+
+void idAI::Event_SwitchStateIfHigherPriority(const char* state, int priority)
+{
+	idThread::ReturnInt(static_cast<int>(mind->SwitchStateIfHigherPriority(state, priority)));
 }
