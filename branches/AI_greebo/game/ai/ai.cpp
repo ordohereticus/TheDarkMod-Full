@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1525 $
- * $Date: 2007-10-22 13:35:07 -0400 (Mon, 22 Oct 2007) $
- * $Author: angua $
+ * $Revision: 1529 $
+ * $Date: 2007-10-22 14:46:29 -0400 (Mon, 22 Oct 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 1525 2007-10-22 17:35:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 1529 2007-10-22 18:46:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/BasicMind.h"
@@ -2889,8 +2889,8 @@ idAI::MoveAlongVector
 */
 bool idAI::MoveAlongVector( float yaw ) 
 {
-	/*StopMove( MOVE_STATUS_DONE );
-	/*move.moveDir = idAngles( 0, dir, 0 ).ToForward();
+	StopMove( MOVE_STATUS_DONE );
+	move.moveDir = idAngles( 0, yaw, 0 ).ToForward();
 	move.moveDest = physicsObj.GetOrigin() + move.moveDir * 256.0f;
 
 	move.moveCommand	= MOVE_VECTOR;
@@ -2898,10 +2898,9 @@ bool idAI::MoveAlongVector( float yaw )
 	move.startTime		= gameLocal.time;
 	move.speed			= fly_speed;
 	AI_MOVE_DONE		= false;
-	AI_FORWARD			= true;*/
-*/
+	AI_FORWARD			= true;
+
 	return true;
-	
 }
 /*
 ================
