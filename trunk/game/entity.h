@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1120 $
- * $Date: 2007-07-14 05:51:04 -0400 (Sat, 14 Jul 2007) $
+ * $Revision: 1201 $
+ * $Date: 2007-07-23 06:58:05 -0400 (Mon, 23 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -696,6 +696,11 @@ public:
 	 * Script event: Changes the inventory count of the given item <name> in <category> by <amount>
 	 */
 	void ChangeInventoryItemCount(const char* invName, const char* invCategory, int amount);
+
+	/**
+	 * Script event: Chagnes the amount of the given loot type in the inventory of this entity.
+	 */
+	void ChangeLootAmount(int lootType, int amount);
 
 	/**
 	 * Return true if this entity can be mantled, false otherwise.
