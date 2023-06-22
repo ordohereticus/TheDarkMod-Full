@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2156 $
- * $Date: 2008-03-29 13:40:53 -0400 (Sat, 29 Mar 2008) $
+ * $Revision: 2157 $
+ * $Date: 2008-03-29 13:49:46 -0400 (Sat, 29 Mar 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2156 2008-03-29 17:40:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2157 2008-03-29 17:49:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3950,7 +3950,15 @@ void idPlayer::BobCycle( const idVec3 &pushVelocity ) {
 		bobCycle = 0;
 		bobFoot = 0;
 		bobfracsin = 0;
-	} else if ( ( !usercmd.forwardmove && !usercmd.rightmove ) || ( xyspeed <= MIN_BOB_SPEED ) ) {
+	} 
+	else if (physicsObj.GetWaterLevel() >= WATERLEVEL_HEAD || noclip)
+	{
+		// No viewbob when fully underwater or in noclip mode, start at beginning of cycle again
+		bobCycle = 0;
+		bobFoot = 0;
+		bobfracsin = 0;
+	}
+	else if ( ( !usercmd.forwardmove && !usercmd.rightmove ) || ( xyspeed <= MIN_BOB_SPEED ) ) {
 		// Play a footstep sound when we stop walking (the foot is lowered to the ground;
 		// also this prevents exploits)
 		if (bobCycle != 0) {
@@ -3960,7 +3968,8 @@ void idPlayer::BobCycle( const idVec3 &pushVelocity ) {
 		bobCycle = 0;
 		bobFoot = 0;
 		bobfracsin = 0;
-	} else {
+	} 
+	else {
 		if ( physicsObj.IsCrouching() ) {
 			bobmove = pm_crouchbob.GetFloat();
 			// ducked characters never play footsteps
