@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2123 $
- * $Date: 2008-03-02 03:42:19 -0500 (Sun, 02 Mar 2008) $
- * $Author: greebo $
+ * $Revision: 2126 $
+ * $Date: 2008-03-07 12:02:53 -0500 (Fri, 07 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -218,6 +218,10 @@ protected:
 	* Door angles when completely open
 	**/
 	idAngles					m_OpenAngles;
+
+	// angua: Position of the origin when the door is completely closed or open
+	idVec3						m_ClosedOrigin;
+	idVec3						m_OpenOrigin;
 
 	// angua: the positions of the far edge measured from the origin 
 	// when the door is closed or open.
