@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 916 $
- * $Date: 2007-04-20 16:48:14 -0400 (Fri, 20 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1243 $
+ * $Date: 2007-07-29 11:53:09 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -52,6 +52,7 @@ public:
 
 	void					Write( const void *buffer, int len );
 	void					WriteInt( const int value );
+	void					WriteUnsignedInt( const unsigned int value );
 	void					WriteJoint( const jointHandle_t value );
 	void					WriteShort( const short value );
 	void					WriteByte( const byte value );
@@ -112,6 +113,7 @@ public:
 
 	void					Read( void *buffer, int len );
 	void					ReadInt( int &value );
+	void					ReadUnsignedInt( unsigned int &value );
 	void					ReadJoint( jointHandle_t &value );
 	void					ReadShort( short &value );
 	void					ReadByte( byte &value );

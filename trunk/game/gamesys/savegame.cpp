@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1243 $
+ * $Date: 2007-07-29 11:53:09 -0400 (Sun, 29 Jul 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: savegame.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: savegame.cpp 1243 2007-07-29 15:53:09Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -153,6 +153,15 @@ idSaveGame::WriteInt
 */
 void idSaveGame::WriteInt( const int value ) {
 	file->WriteInt( value );
+}
+
+/*
+================
+idSaveGame::WriteUnsignedInt
+================
+*/
+void idSaveGame::WriteUnsignedInt( const unsigned int value ) {
+	file->WriteUnsignedInt( value );
 }
 
 /*
@@ -902,6 +911,15 @@ idRestoreGame::ReadInt
 */
 void idRestoreGame::ReadInt( int &value ) {
 	file->ReadInt( value );
+}
+
+/*
+================
+idRestoreGame::ReadUnsignedInt
+================
+*/
+void idRestoreGame::ReadUnsignedInt( unsigned int &value ) {
+	file->ReadUnsignedInt( value );
 }
 
 /*
