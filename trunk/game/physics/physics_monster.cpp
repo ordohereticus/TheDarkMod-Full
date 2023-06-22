@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 915 $
- * $Date: 2007-04-19 16:10:27 -0400 (Thu, 19 Apr 2007) $
- * $Author: orbweaver $
+ * $Revision: 1274 $
+ * $Date: 2007-08-04 14:43:47 -0400 (Sat, 04 Aug 2007) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_monster.cpp 915 2007-04-19 20:10:27Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: physics_monster.cpp 1274 2007-08-04 18:43:47Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -58,12 +58,22 @@ void idPhysics_Monster::CheckGround( monsterPState_t &state ) {
 	// let the entity know about the collision
 	self->Collide( groundTrace, state.velocity );
 
-	// apply impact to a non world floor entity
-	if ( groundTrace.c.entityNum != ENTITYNUM_WORLD && groundEntityPtr.GetEntity() ) {
+	idEntity* groundEnt = groundEntityPtr.GetEntity();
+
+	// greebo: Apply force/impulse to entities below the clipmodel
+	if ( groundTrace.c.entityNum != ENTITYNUM_WORLD && groundEnt != NULL )
+	{
+		idPhysics* groundPhysics = groundEnt->GetPhysics();
+
 		impactInfo_t info;
-		groundEntityPtr.GetEntity()->GetImpactInfo( self, groundTrace.c.id, groundTrace.c.point, &info );
-		if ( info.invMass != 0.0f ) {
-			groundEntityPtr.GetEntity()->ApplyImpulse( self, 0, groundTrace.c.point, state.velocity  / ( info.invMass * 10.0f ) );
+		groundEnt->GetImpactInfo( self, groundTrace.c.id, groundTrace.c.point, &info );
+
+		// greebo: Don't push entities that already have a velocity towards the ground.
+		if ( groundPhysics && info.invMass != 0.0f ) {
+			// greebo: Apply a force to the entity below the player
+			//gameRenderWorld->DebugArrow(colorCyan, current.origin, current.origin + gravityNormal*20, 1, 16);
+			groundPhysics->AddForce(0, current.origin, gravityNormal);
+			groundPhysics->Activate();
 		}
 	}
 }

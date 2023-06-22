@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 1273 $
- * $Date: 2007-08-04 14:00:36 -0400 (Sat, 04 Aug 2007) $
+ * $Revision: 1274 $
+ * $Date: 2007-08-04 14:43:47 -0400 (Sat, 04 Aug 2007) $
  * $Author: greebo $
  *
  * $Log$
@@ -185,7 +185,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 1273 $   $Date: 2007-08-04 14:00:36 -0400 (Sat, 04 Aug 2007) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 1274 $   $Date: 2007-08-04 14:43:47 -0400 (Sat, 04 Aug 2007) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1853,13 +1853,10 @@ void idPhysics_Player::CheckGround( void ) {
 		groundEnt->GetImpactInfo( self, groundTrace.c.id, groundTrace.c.point, &info );
 
 		// greebo: Don't push entities that already have a velocity towards the ground.
-		if ( groundPhysics && info.invMass != 0.0f /*&& info.velocity*gravityNormal <= 0.0f*/ ) {
-			//gameLocal.Printf("Applying force %f to %s\n", mass, groundEnt->name.c_str());
+		if ( groundPhysics && info.invMass != 0.0f ) {
 			// greebo: Apply a force to the entity below the player
-			gameRenderWorld->DebugArrow(colorCyan, current.origin, current.origin + gravityNormal*20, 1, 16);
+			//gameRenderWorld->DebugArrow(colorCyan, current.origin, current.origin + gravityNormal*20, 1, 16);
 			groundPhysics->AddForce(0, current.origin, gravityNormal*mass);
-			
-			//groundEnt->ApplyImpulse( self, groundTrace.c.id, groundTrace.c.point, gravityNormal / ( info.invMass * 10.0f ) );
 			groundPhysics->Activate();
 		}
 	}
