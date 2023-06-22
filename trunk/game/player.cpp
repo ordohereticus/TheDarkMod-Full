@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1648 $
- * $Date: 2007-11-02 05:06:03 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 1658 $
+ * $Date: 2007-11-03 04:00:24 -0400 (Sat, 03 Nov 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 1648 2007-11-02 09:06:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 1658 2007-11-03 08:00:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5932,14 +5932,14 @@ void idPlayer::Think( void )
 		centerView.Init( gameLocal.time, 200, viewAngles.pitch, 0 );
 	}
 
-	// zooming
-	if ( ( usercmd.buttons ^ oldCmd.buttons ) & BUTTON_ZOOM ) {
+	// zooming (greebo: Disabled this due to interference with the spyglass, isn't needed anymore)
+	/*if ( ( usercmd.buttons ^ oldCmd.buttons ) & BUTTON_ZOOM ) {
 		if ( ( usercmd.buttons & BUTTON_ZOOM ) && weapon.GetEntity() ) {
 			zoomFov.Init( gameLocal.time, 200.0f, CalcFov( false ), weapon.GetEntity()->GetZoomFov() );
 		} else {
 			zoomFov.Init( gameLocal.time, 200.0f, zoomFov.GetCurrentValue( gameLocal.time ), DefaultFov() );
 		}
-	}
+	}*/
 
 	// if we have an active gui, we will unrotate the view angles as
 	// we turn the mouse movements into gui events
