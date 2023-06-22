@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1476 $
+ * $Date: 2007-10-19 13:02:25 -0400 (Fri, 19 Oct 2007) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -28,7 +28,6 @@
 #include "../game/game_local.h"
 
 // AI constants; please keep these in sync with ai_darkmod_base.script
-#define MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS 15.0f
 #define IDLE_RANDOM_HEAD_TURN_CHANCE_PER_SECOND 0.10f
 #define SLIGHTLY_AGITATED_HEAD_TURN_CHANCE_MULTIPLIER 2.0f
 
