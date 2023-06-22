@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2090 $
- * $Date: 2008-02-12 03:19:14 -0500 (Tue, 12 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2129 $
+ * $Date: 2008-03-10 13:21:24 -0400 (Mon, 10 Mar 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2090 2008-02-12 08:19:14Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2129 2008-03-10 17:21:24Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -4945,6 +4945,11 @@ void idEntity::Event_SpawnBind( void )
 		bindOrientated = spawnArgs.GetBool( "bindOrientated", "1" );
 		if ( parent ) 
 		{
+			if (spawnArgs.GetBool("is_attachment"))
+			{
+				parent->Attach(this);
+			}
+
 			// bind to a joint of the skeletal model of the parent
 			if ( spawnArgs.GetString( "bindToJoint", "", &joint ) && *joint ) 
 			{

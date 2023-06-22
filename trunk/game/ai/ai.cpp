@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2125 $
- * $Date: 2008-03-05 12:51:23 -0500 (Wed, 05 Mar 2008) $
+ * $Revision: 2129 $
+ * $Date: 2008-03-10 13:21:24 -0400 (Mon, 10 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2125 2008-03-05 17:51:23Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2129 2008-03-10 17:21:24Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9167,7 +9167,26 @@ float idAI::GetArmReachLength()
 
 bool idAI::CanUnlock(CBinaryFrobMover *frobMover)
 {
-	return true;
+	int n = frobMover->m_UsedBy.Num();
+	for (int i = 0; i < m_attachments.Num(); i++)
+	{
+		idEntity* ent = m_attachments[i].ent.GetEntity();
+
+		if (ent == NULL || !m_attachments[i].ent.IsValid())
+		{
+			continue;
+		}
+		
+		for (int j = 0; j < n; j++)
+		{
+			if (ent->name == frobMover->m_UsedBy[j])
+			{
+				return true;
+			}
+		}
+		
+	}
+	return false;
 }
 
 bool idAI::ShouldCloseDoor(CBinaryFrobMover *frobMover)
