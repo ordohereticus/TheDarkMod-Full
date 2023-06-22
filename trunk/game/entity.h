@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 1515 $
- * $Date: 2007-10-22 01:50:51 -0400 (Mon, 22 Oct 2007) $
+ * $Revision: 1683 $
+ * $Date: 2007-11-04 19:46:10 -0500 (Sun, 04 Nov 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -557,6 +557,11 @@ public:
 	* Toggle whether the entity has been frobbed.  Should ONLY be called by idPlayer::CheckFrob
 	**/
 	virtual void SetFrobbed( bool val );
+
+	/**
+	* Set whether this entity is frobable or not
+	**/
+	virtual void SetFrobable( bool val );
 
 	/**
 	* Return whether the entity is currently frobbed.

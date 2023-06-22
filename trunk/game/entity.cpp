@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1515 $
- * $Date: 2007-10-22 01:50:51 -0400 (Mon, 22 Oct 2007) $
+ * $Revision: 1683 $
+ * $Date: 2007-11-04 19:46:10 -0500 (Sun, 04 Nov 2007) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1515 2007-10-22 05:50:51Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1683 2007-11-05 00:46:10Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6546,6 +6546,15 @@ void idEntity::UpdateFrobDisplay( void )
 {
 	float param = renderEntity.shaderParms[ 11 ];
 	int TimePassed = 0;
+
+	// FIX: If we have just been set not frobable, go instantly to un-frobbed hilight state
+	if( !m_bFrobable )
+	{
+		param = 0.0f;
+		m_FrobChangeTime = gameLocal.time;
+		SetShaderParm(11, param);
+		goto Quit;
+	}
 	
 	if( (!param && !m_bFrobHighlightState) || ((param == 1.0) && m_bFrobHighlightState)  )
 		goto Quit;
@@ -6718,6 +6727,24 @@ void idEntity::SetFrobbed( bool val )
 bool idEntity::IsFrobbed( void )
 {
 	return m_bFrobbed;
+}
+
+void idEntity::SetFrobable( bool bVal )
+{
+	m_bFrobable = bVal;
+
+	// If this entity is currently being hilighted, make sure to un-frob it
+	if( !bVal )
+	{
+		SetFrobbed(false);
+		FrobHighlight(false);
+	}
+
+	UpdateFrob();
+	UpdateFrobDisplay();
+
+	// Make sure Present gets called when we make something frobable
+	BecomeActive( TH_UPDATEVISUALS );
 }
 
 void idEntity::StimAdd(int Type, float Radius)
@@ -7539,10 +7566,7 @@ Quit:
 
 void idEntity::Event_SetFrobable( bool bVal )
 {
-	m_bFrobable = bVal;
-
-	if( m_bFrobable )
-		BecomeActive( TH_UPDATEVISUALS );
+	SetFrobable( bVal );
 }
 
 void idEntity::Event_IsFrobable( void )

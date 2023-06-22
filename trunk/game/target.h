@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 1683 $
+ * $Date: 2007-11-04 19:46:10 -0500 (Sun, 04 Nov 2007) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -562,6 +562,30 @@ public:
 private:
 	void				Event_Activate( idEntity *activator );
 	virtual void		Spawn( void );
+};
+
+/**
+* CTarget_SetFrobable
+* Sets all items inside frobable or not when triggered
+**/
+class CTarget_SetFrobable : public idTarget 
+{
+public:
+	CLASS_PROTOTYPE( CTarget_SetFrobable );
+
+						CTarget_SetFrobable( void );
+	
+	void				Save( idSaveGame *savefile ) const;
+	void				Restore( idRestoreGame *savefile );
+
+private:
+	void				Event_Activate( idEntity *activator );
+	virtual void		Spawn( void );
+private:
+	/**
+	* Current frob state, whether stuff inside has been set frobable or not
+	**/
+	bool				m_bCurFrobState;
 };
 
 
