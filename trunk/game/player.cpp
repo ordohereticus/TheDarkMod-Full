@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2212 $
- * $Date: 2008-04-26 02:31:41 -0400 (Sat, 26 Apr 2008) $
+ * $Revision: 2216 $
+ * $Date: 2008-04-26 03:52:05 -0400 (Sat, 26 Apr 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2212 2008-04-26 06:31:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2216 2008-04-26 07:52:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6470,6 +6470,9 @@ void idPlayer::DamageFeedback( idEntity *victim, idEntity *inflictor, int &damag
 	if ( damage && ( victim != this ) && victim->IsType( idActor::Type ) ) {
 		SetLastHitTime( gameLocal.time );
 	}
+
+	// greebo: Update the mission statistics, we've damaged another actor
+	gameLocal.m_MissionData->AIDamagedByPlayer(damage);
 }
 
 /*
@@ -6710,6 +6713,9 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 
 //		int oldHealth = health;
 		health -= damage;
+
+		// greebo: Update mission statistics, we've taken damage
+		gameLocal.m_MissionData->PlayerDamaged(damage);
 
 		if ( health <= 0 ) {
 
