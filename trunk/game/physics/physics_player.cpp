@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2100 $
- * $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2148 $
+ * $Date: 2008-03-28 17:56:12 -0400 (Fri, 28 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2100 $   $Date: 2008-02-23 04:32:58 -0500 (Sat, 23 Feb 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2148 $   $Date: 2008-03-28 17:56:12 -0400 (Fri, 28 Mar 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -644,7 +644,8 @@ void idPhysics_Player::WaterMove( void ) {
 
 	// user intentions
 	if ( !scale ) {
-		wishvel = gravityNormal * 60; // sink towards bottom
+		// greebo: Standard downwards velocity is configurable via this CVAR
+		wishvel = gravityNormal * cv_pm_water_downwards_velocity.GetFloat(); // sink towards bottom
 	} else {
 		wishvel = scale * (viewForward * command.forwardmove + viewRight * command.rightmove);
 		wishvel -= scale * gravityNormal * command.upmove;

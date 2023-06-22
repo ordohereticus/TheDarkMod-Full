@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2140 $
- * $Date: 2008-03-23 04:48:37 -0400 (Sun, 23 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2148 $
+ * $Date: 2008-03-28 17:56:12 -0400 (Fri, 28 Mar 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -75,6 +75,7 @@ extern idCVar cv_pm_mantle_reach;
 extern idCVar cv_pm_mantle_minflatness;
 extern idCVar cv_pm_rope_snd_rep_dist;
 extern idCVar cv_pm_rope_velocity_letgo;
+extern idCVar cv_pm_water_downwards_velocity;
 
 /**
 * This cvar controls if ai hiding spot search debug graphics are drawn
