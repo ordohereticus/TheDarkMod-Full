@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1139 $
- * $Date: 2007-07-18 12:17:04 -0400 (Wed, 18 Jul 2007) $
+ * $Revision: 1148 $
+ * $Date: 2007-07-19 05:23:01 -0400 (Thu, 19 Jul 2007) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 1139 2007-07-18 16:17:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 1148 2007-07-19 09:23:01Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -980,6 +980,12 @@ void idEntity::Save( idSaveGame *savefile ) const
 	if (m_Inventory != NULL) {
 		m_Inventory->Save(savefile);
 	}
+
+	savefile->WriteBool(m_InventoryCursor != NULL);
+	if (m_InventoryCursor != NULL) {
+		// Save the ID of the cursor
+		savefile->WriteInt(m_InventoryCursor->GetId());
+	}
 }
 
 /*
@@ -1085,6 +1091,15 @@ void idEntity::Restore( idRestoreGame *savefile )
 	savefile->ReadBool(hasInventory);
 	if (hasInventory) {
 		Inventory()->Restore(savefile);
+	}
+
+	bool hasInventoryCursor;
+	savefile->ReadBool(hasInventoryCursor);
+	if (hasInventoryCursor) {
+		// Get the ID of the cursor
+		int cursorId;
+		savefile->ReadInt(cursorId);
+		m_InventoryCursor = Inventory()->GetCursor(cursorId);
 	}
 
 	// restore must retrieve modelDefHandle from the renderer
