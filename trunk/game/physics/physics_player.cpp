@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2166 $
- * $Date: 2008-04-04 07:36:44 -0400 (Fri, 04 Apr 2008) $
- * $Author: crispy $
+ * $Revision: 2251 $
+ * $Date: 2008-05-01 02:54:55 -0400 (Thu, 01 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2166 $   $Date: 2008-04-04 07:36:44 -0400 (Fri, 04 Apr 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2251 $   $Date: 2008-05-01 02:54:55 -0400 (Thu, 01 May 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4567,7 +4567,8 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 	float fLeanTestDelta = 6.0f;
 	vDelta *= fLeanTestDelta;
 
-	gameLocal.clip.TraceBounds( trTest, origPoint, newPoint + vDelta, m_LeanViewBounds, MASK_SOLID | CONTENTS_BODY, self );
+	// Perform the trace (greebo: use PLAYERSOLID to include player_clip collisions)
+	gameLocal.clip.TraceBounds( trTest, origPoint, newPoint + vDelta, m_LeanViewBounds, MASK_PLAYERSOLID, self );
 	bWouldClip = trTest.fraction < 1.0f;
 	//DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("Collision trace between old view point ( %d, %d, %d ) and newPoint: ( %d, %d, %d )\r", origPoint.x, origPoint.y, origPoint.z, newPoint.x, newPoint.y, newPoint.z );
 
