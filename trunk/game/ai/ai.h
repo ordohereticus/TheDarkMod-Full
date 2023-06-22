@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2122 $
- * $Date: 2008-03-01 14:59:57 -0500 (Sat, 01 Mar 2008) $
+ * $Revision: 2124 $
+ * $Date: 2008-03-05 01:30:30 -0500 (Wed, 05 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1014,6 +1014,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// returns thinking frequency frame number depending on distance
 	int						GetThinkInterleave();
+
+	// angua: stores the last time when the AI was thinking
+	int						m_lastThinkTime;
 
 	/**
 	 * greebo: Sets the chatter sound depending on having an enemy or not. The chat_time

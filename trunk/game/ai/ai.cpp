@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2122 $
- * $Date: 2008-03-01 14:59:57 -0500 (Sat, 01 Mar 2008) $
+ * $Revision: 2124 $
+ * $Date: 2008-03-05 01:30:30 -0500 (Wed, 05 Mar 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2122 2008-03-01 19:59:57Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2124 2008-03-05 06:30:30Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -527,6 +527,8 @@ idAI::idAI()
 	m_maxInterleaveThinkFrames = 0;
 	m_minInterleaveThinkDist = 1000;
 	m_maxInterleaveThinkDist = 3000;
+
+	m_lastThinkTime = 0;
 }
 
 /*
@@ -754,6 +756,8 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt(m_maxInterleaveThinkFrames);
 	savefile->WriteFloat(m_minInterleaveThinkDist);
 	savefile->WriteFloat(m_maxInterleaveThinkDist);
+
+	savefile->WriteInt(m_lastThinkTime);
 
 	mind->Save(savefile);
 
@@ -993,6 +997,8 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat(m_minInterleaveThinkDist);
 	savefile->ReadFloat(m_maxInterleaveThinkDist);
 
+	savefile->ReadInt(m_lastThinkTime);
+
 	mind = ai::MindPtr(new ai::Mind(this));
 	mind->Restore(savefile);
 
@@ -1105,6 +1111,8 @@ void idAI::Spawn( void )
 	spawnArgs.GetInt( "max_interleave_think_frames",		"120",		m_maxInterleaveThinkFrames );
 	spawnArgs.GetFloat( "min_interleave_think_dist",		"1000",		m_minInterleaveThinkDist);
 	spawnArgs.GetFloat( "max_interleave_think_dist",		"3000",		m_maxInterleaveThinkDist);
+
+	m_lastThinkTime = 0;
 
 	spawnArgs.GetBool( "ignore_alerts",			"0",		m_bIgnoreAlerts );
 
@@ -1503,7 +1511,11 @@ void idAI::Think( void )
 		int frameNum = gameLocal.framenum;
 		if (frameNum > 10 && frameNum % thinkFrame != 0)
 		{
-			return;
+			bool inPVS = gameLocal.InPlayerPVS(this);
+			if (!inPVS)
+			{
+				return;
+			}
 		}
 	}
 
@@ -1766,6 +1778,8 @@ void idAI::Think( void )
 		}
 		gameRenderWorld->DrawText( debugText, (GetEyePosition() - physicsObj.GetGravityNormal()*-25), 0.20f, colorMagenta, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
+
+	m_lastThinkTime = gameLocal.time;
 }
 
 /*
