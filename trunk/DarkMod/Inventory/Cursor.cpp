@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2996 $
- * $Date: 2008-11-08 03:59:35 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3022 $
+ * $Date: 2008-11-13 12:02:18 -0500 (Thu, 13 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Cursor.cpp 2996 2008-11-08 08:59:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Cursor.cpp 3022 2008-11-13 17:02:18Z greebo $", init_version);
 
 #include "Cursor.h"
 
@@ -227,6 +227,9 @@ CInventoryCategoryPtr CInventoryCursor::GetNextCategory()
 		}
 	}
 
+	// Finally, ensure that the item index is reset to 0
+	m_CurrentItem = 0;
+
 	return rc;
 }
 
@@ -276,6 +279,9 @@ CInventoryCategoryPtr CInventoryCursor::GetPrevCategory()
 			break; // We found a suitable category (not ignored and not empty)
 		}
 	}
+
+	// Finally, ensure that the item index is reset to 0
+	m_CurrentItem = 0;
 
 	return rc;
 }
