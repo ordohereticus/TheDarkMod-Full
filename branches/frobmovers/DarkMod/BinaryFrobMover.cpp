@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2538 $
- * $Date: 2008-06-20 02:25:38 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2539 $
+ * $Date: 2008-06-20 02:35:14 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2538 2008-06-20 06:25:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2539 2008-06-20 06:35:14Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -308,6 +308,27 @@ void CBinaryFrobMover::PostSpawn()
 	}
 
 	UpdateVisuals();
+
+	// Check if we should auto-open, which could also happen right at the map start
+	if (IsAtClosedPosition())
+	{
+		float autoOpenTime = -1;
+		if (spawnArgs.GetFloat("auto_open_time", "-1", autoOpenTime) && autoOpenTime >= 0)
+		{
+			// Convert the time to msec and post the event
+			PostEventMS(&EV_TDM_FrobMover_Open, static_cast<int>(SEC2MS(autoOpenTime)));
+		}
+	}
+	else if (IsAtOpenPosition())
+	{
+		// Check if we should move back to the closedpos
+		float autoCloseTime = -1;
+		if (spawnArgs.GetFloat("auto_close_time", "-1", autoCloseTime) && autoCloseTime >= 0)
+		{
+			// Convert the time to msec and post the event
+			PostEventMS(&EV_TDM_FrobMover_Close, static_cast<int>(SEC2MS(autoCloseTime)));
+		}
+	}
 }
 
 void CBinaryFrobMover::Event_PostSpawn() 
@@ -948,6 +969,14 @@ void CBinaryFrobMover::OnClosedPositionReached()
 	if (spawnArgs.GetBool("trigger_on_close", "0"))
 	{
 		ActivateTargets(this);
+	}
+
+	// Check if we should move back to the openpos
+	float autoOpenTime = -1;
+	if (spawnArgs.GetFloat("auto_open_time", "-1", autoOpenTime) && autoOpenTime >= 0)
+	{
+		// Convert the time to msec and post the event
+		PostEventMS(&EV_TDM_FrobMover_Open, static_cast<int>(SEC2MS(autoOpenTime)));
 	}
 }
 
