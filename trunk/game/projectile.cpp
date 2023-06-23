@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3029 $
- * $Date: 2008-11-15 00:25:12 -0500 (Sat, 15 Nov 2008) $
+ * $Revision: 3030 $
+ * $Date: 2008-11-15 01:41:47 -0500 (Sat, 15 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 3029 2008-11-15 05:25:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 3030 2008-11-15 06:41:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -382,7 +382,7 @@ void idProjectile::Launch( const idVec3 &start, const idVec3 &dir, const idVec3 
 		contents |= CONTENTS_TRIGGER;
 	}
 	if ( !spawnArgs.GetBool( "no_contents" ) ) {
-		contents |= CONTENTS_PROJECTILE;
+		contents |= CONTENTS_PROJECTILE|CONTENTS_PLAYERCLIP|CONTENTS_MONSTERCLIP;
 		clipMask |= CONTENTS_PROJECTILE;
 	}
 
@@ -487,6 +487,19 @@ void idProjectile::Think( void ) {
 			thruster.Evaluate( gameLocal.time );
 		}
 	}
+
+	/*idStr stateStr;
+	switch (state)
+	{
+	case SPAWNED: stateStr = "SPAWNED"; break;
+	case CREATED: stateStr = "CREATED"; break;
+	case LAUNCHED: stateStr = "LAUNCHED"; break;
+	case FIZZLED: stateStr = "FIZZLED"; break;
+	case EXPLODED: stateStr = "EXPLODED"; break;
+	case INACTIVE: stateStr = "INACTIVE"; break;
+	};
+
+	gameRenderWorld->DrawText(stateStr, physicsObj.GetOrigin(), 0.2f, colorRed, gameLocal.GetLocalPlayer()->viewAxis);*/
 
 	// run physics
 	RunPhysics();
@@ -1161,7 +1174,12 @@ void idProjectile::Event_Fizzle( void ) {
 idProjectile::Event_Touch
 ================
 */
-void idProjectile::Event_Touch( idEntity *other, trace_t *trace ) {
+void idProjectile::Event_Touch( idEntity *other, trace_t *trace )
+{
+	if ( state == INACTIVE ) {
+		// greebo: projectile not active yet, return FALSE
+		return;
+	}
 
 	if ( IsHidden() ) {
 		return;
