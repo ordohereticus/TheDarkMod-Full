@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3206 $
- * $Date: 2009-02-07 13:36:37 -0500 (Sat, 07 Feb 2009) $
+ * $Revision: 3209 $
+ * $Date: 2009-02-11 18:49:56 -0500 (Wed, 11 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3206 2009-02-07 18:36:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3209 2009-02-11 23:49:56Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -537,14 +537,17 @@ void CMeleeWeapon::CheckAttack( idVec3 OldOrigin, idMat3 OldAxis )
 					&& OthBindMaster->IsType(idActor::Type) )
 			AttachOwner = OthBindMaster;
 
-		// Hit a melee parry or held object 
-		// (for some reason tr.c.contents erroneously returns CONTENTS_MELEEWEAP for everything)
-// test:
-/*
-		if( other->IsType(CMeleeWeapon::Type) 
-			|| (other->GetPhysics() && ( other->GetPhysics()->GetContents(tr.c.id) & CONTENTS_MELEEWEAP) ) )
-*/
-		if( other->GetPhysics() && ( other->GetPhysics()->GetContents(tr.c.id) & CONTENTS_MELEEWEAP) )
+		// Check if we hit a melee parry or held object 
+		// (for some reason tr.c.contents erroneously returns CONTENTS_MELEEWEAP for everything except the world)
+		// if( (tr.c.contents & CONTENTS_MELEEWEAP) != 0 )
+		// this doesn't always work either, it misses linked clipmodels on melee weapons
+		// if( other->GetPhysics() && ( other->GetPhysics()->GetContents(tr.c.id) & CONTENTS_MELEEWEAP) )
+		// have to do this to catch all cases:
+		if
+			( 
+				(other->GetPhysics() && ( other->GetPhysics()->GetContents(tr.c.id) & CONTENTS_MELEEWEAP))
+				|| ( other->IsType(CMeleeWeapon::Type) && static_cast<CMeleeWeapon *>(other)->GetOwner() )
+			)
 		{
 			DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("MeleeWeapon: Hit someting with CONTENTS_MELEEWEAP\r");
 			// hit a parry (make sure we don't hit our own other melee weapons)

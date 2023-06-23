@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3206 $
- * $Date: 2009-02-07 13:36:37 -0500 (Sat, 07 Feb 2009) $
+ * $Revision: 3209 $
+ * $Date: 2009-02-11 18:49:56 -0500 (Wed, 11 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3206 2009-02-07 18:36:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3209 2009-02-11 23:49:56Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9272,6 +9272,7 @@ void idAI::DropOnRagdoll( void )
 			CMeleeWeapon *pWeap = static_cast<CMeleeWeapon *>(ent);
 			pWeap->DeactivateAttack();
 			pWeap->DeactivateParry();
+			pWeap->ClearOwner();
 		}
 
 		bDrop = ent->spawnArgs.GetBool( "drop_when_ragdoll" );
