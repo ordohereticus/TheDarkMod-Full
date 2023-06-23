@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2768 $
- * $Date: 2008-08-30 09:16:11 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2769 $
+ * $Date: 2008-08-30 10:08:29 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2768 2008-08-30 13:16:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2769 2008-08-30 14:08:29Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -60,7 +60,13 @@ void CForcePush::Evaluate( int time )
 	float mass = physics->GetMass();
 	float ownerMass = owner->GetPhysics()->GetMass();
 
-	if (ownerMass * cv_pm_push_heavy_threshold.GetFloat() > mass)
+	// This is the maximum mass an object can have to be kickable
+	float massThresholdHeavy = ownerMass * cv_pm_push_heavy_threshold.GetFloat();
+
+	// This is the maximum mass an object can have to be pushable at all
+	float maxPushMass = 200;
+
+	if (mass < massThresholdHeavy)
 	{
 		// The pushed entity is not a heavy one, kick it 
 
@@ -76,26 +82,32 @@ void CForcePush::Evaluate( int time )
 
 		physics->PropagateImpulse(id, contactInfo.c.point, pushImpulse);
 	}
-	else
+	// The pushed entity is considered heavy
+	else if (pushEnt == lastPushEnt)
 	{
-		// The pushed entity is considered heavy
-		if (pushEnt == lastPushEnt)
+		int pushTime = gameLocal.time - startPushTime;
+		//gameRenderWorld->DrawText( idStr(pushTime), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+
+		int pushStartDelay = cv_pm_push_start_delay.GetInteger();
+
+		// If we've been pushing long enough, start moving the obstacle
+		if (pushTime > pushStartDelay)
 		{
-			int pushTime = gameLocal.time - startPushTime;
-			//gameRenderWorld->DrawText( idStr(pushTime), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+			// greebo: Scale the velocity during the acceleration phase
+			float accelScale = idMath::ClampFloat(0, 1, (pushTime - pushStartDelay)/cv_pm_push_accel_time.GetFloat());
 
-			int pushStartDelay = cv_pm_push_start_delay.GetInteger();
+			// Scale the movement velocity according to the object's mass
+			// At maxPushMass, the velocity is zero, at the minimum push mass threshold below it's about 0.75
+			float massScale = idMath::ClampFloat(0.0f, 1.0f, 1.0f - (mass / maxPushMass));
 
-			// If we've been pushing long enough, start moving the obstacle
-			if (pushTime > pushStartDelay)
-			{
-				// Scale the velocity during the acceleration phase
-				float scale = idMath::ClampFloat(0, 1, (pushTime - pushStartDelay)/cv_pm_push_accel_time.GetFloat());
-				pushEnt->GetPhysics()->SetLinearVelocity(impactVelocity * scale);
-			}
+			// Finally, apply a maximum cap, based on the player's normal walkspeed
+			float velocity = idMath::ClampFloat(0, pm_walkspeed.GetFloat()*0.8f, impactVelocity.NormalizeFast());
+
+			gameRenderWorld->DrawText( idStr(velocity * accelScale * massScale), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+
+			// Apply the mass scale and the acceleration scale to the capped velocity
+			pushEnt->GetPhysics()->SetLinearVelocity(impactVelocity * velocity * accelScale * massScale);
 		}
-	
-		//gameRenderWorld->DebugArrow( colorWhite, physics->GetAbsBounds().GetCenter(), physics->GetAbsBounds().GetCenter() + pushImpulse, 1, gameLocal.msec );
 	}
 
 	// Remember the last push entity
