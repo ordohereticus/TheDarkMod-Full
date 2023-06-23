@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3064 $
- * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
+ * $Revision: 3065 $
+ * $Date: 2008-11-27 04:57:48 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3064 2008-11-27 09:39:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3065 2008-11-27 09:57:48Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -876,7 +876,7 @@ void CBinaryFrobMover::OnLock(bool bMaster)
 
 void CBinaryFrobMover::OnUnlock(bool bMaster)
 {
-	FrobMoverStartSound("snd_unlock");
+	int soundLength = FrobMoverStartSound("snd_unlock");
 
 	// angua: only open the master
 	// only if the other part is an openpeer it will be opened by ToggleOpen
@@ -889,8 +889,8 @@ void CBinaryFrobMover::OnUnlock(bool bMaster)
 
 		if (!spawnArgSet || openOnUnlock)
 		{
-			// No spawnarg set or opening is allowed, just open the mover
-			ToggleOpen();
+			// No spawnarg set or opening is allowed, just open the mover after a short delay
+			PostEventMS(&EV_TDM_FrobMover_ToggleOpen, soundLength);
 		}
 	}
 }

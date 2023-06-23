@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2608 $
- * $Date: 2008-07-04 01:22:47 -0400 (Fri, 04 Jul 2008) $
+ * $Revision: 3065 $
+ * $Date: 2008-11-27 04:57:48 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -321,7 +321,7 @@ protected:
 	 * relay the sound playing to another entity (like doorhandles) to avoid sounds being
 	 * played from the door's origin, barely audible to the player.
 	 *
-	 * @returns: The length of the sound.
+	 * @returns: The length of the sound in msec.
 	 */
 	virtual int			FrobMoverStartSound(const char* soundName);
 
