@@ -6,8 +6,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3166 $
-#* $Date: 2009-01-18 02:22:17 -0500 (Sun, 18 Jan 2009) $
+#* $Revision: 3167 $
+#* $Date: 2009-01-18 02:32:21 -0500 (Sun, 18 Jan 2009) $
 #* $Author: greebo $
 #*
 #***************************************************************************
@@ -26,7 +26,7 @@ def BuildList( s_prefix, s_string ):
 # Master list of source files to compile
 tdmlauncher_list = BuildList('./', 'Launcher.cpp dmlauncher.cpp')
 
-local_env = g_game_env.Copy()
+local_env = g_env.Copy()
 local_env.Append( CPPFLAGS = [ '-Wno-unused', '-Wno-deprecated' ] )
 
 # Use local Boost
