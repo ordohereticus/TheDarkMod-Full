@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2779 $
- * $Date: 2008-08-31 04:06:12 -0400 (Sun, 31 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2804 $
+ * $Date: 2008-09-07 19:51:59 -0400 (Sun, 07 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -59,10 +59,16 @@ protected:
 	idStr					damage;					// if > 0 apply damage to hit entities
 	idStr					fxCollide;				// fx system to start when collides with something
 	int						nextCollideFxTime;		// next time it is ok to spawn collision fx
-	idStr					scriptCollide;			// script function to call when collides with something
-	int						nextCollideScriptTime;	// next time it is ok to call collision script
-	int						collideScriptCounter;	// how often to call the collision script
+
+	/**
+	* TDM Collision scripts
+	**/
+	idStr					m_scriptCollide;		// script function to call when collides with something
+	int						m_nextCollideScriptTime;// next time it is ok to call collision script
+	int						m_collideScriptCounter;	// how often to call the collision script
 													// 0 => never, -1 => always, +X => X times
+	float					m_minScriptVelocity;	// minimum velocity before calling collide script
+
 	float					minDamageVelocity;		// minimum velocity before moveable applies damage
 	float					maxDamageVelocity;		// velocity at which the maximum damage is applied
 	idCurve_Spline<idVec3> *initialSpline;			// initial spline path the moveable follows
