@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2461 $
+ * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -861,7 +861,7 @@ idTarget_SetInfluence::Event_Flash
 */
 void idTarget_SetInfluence::Event_Flash( float flash, int out ) {
 	idPlayer *player = gameLocal.GetLocalPlayer();
-	player->playerView.Fade( idVec4( 1, 1, 1, 1 ), flash );
+	player->playerView.Fade( idVec4( 1, 1, 1, 1 ), static_cast<int>(flash) );
 	const idSoundShader *shader = NULL;
 	if ( !out && flashInSound.Length() ){
 		shader = declManager->FindSound( flashInSound );
@@ -881,7 +881,7 @@ idTarget_SetInfluence::Event_ClearFlash
 */
 void idTarget_SetInfluence::Event_ClearFlash( float flash ) {
 	idPlayer *player = gameLocal.GetLocalPlayer();
-	player->playerView.Fade( vec4_zero , flash );		
+	player->playerView.Fade( vec4_zero , static_cast<int>(flash) );
 }
 /*
 ================
@@ -1319,7 +1319,7 @@ void idTarget_SetFov::Event_Activate( idEntity *activator ) {
 	cinematic = true;
 
 	idPlayer *player = gameLocal.GetLocalPlayer();
-	fovSetting.Init( gameLocal.time, SEC2MS( spawnArgs.GetFloat( "time" ) ), player ? player->DefaultFov() : g_fov.GetFloat(), spawnArgs.GetFloat( "fov" ) );
+	fovSetting.Init( gameLocal.time, SEC2MS( spawnArgs.GetFloat( "time" ) ), static_cast<int>(player ? player->DefaultFov() : g_fov.GetFloat()), static_cast<int>(spawnArgs.GetFloat( "fov" )) );
 	BecomeActive( TH_THINK );
 }
 

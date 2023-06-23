@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2461 $
+ * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: matrix.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: matrix.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
 #pragma warning( push )
 #pragma warning( disable: 4127 )
 //===============================================================
@@ -7079,7 +7079,7 @@ void idMatX::Eigen_SortIncreasing( idVecX &eigenValues ) {
 	int i, j, k;
 	float min;
 
-	for ( i = 0, j; i <= numRows - 2; i++ ) {
+	for ( i = 0; i <= numRows - 2; i++ ) {
 		j = i;
 		min = eigenValues[j];
 		for ( k = i + 1; k < numRows; k++ ) {
@@ -7104,7 +7104,7 @@ void idMatX::Eigen_SortDecreasing( idVecX &eigenValues ) {
 	int i, j, k;
 	float max;
 
-	for ( i = 0, j; i <= numRows - 2; i++ ) {
+	for ( i = 0; i <= numRows - 2; i++ ) {
 		j = i;
 		max = eigenValues[j];
 		for ( k = i + 1; k < numRows; k++ ) {

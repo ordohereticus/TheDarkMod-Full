@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2461 $
+ * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
@@ -123,7 +123,7 @@ const idEventDef EV_Thread_DebugTDM_MatInfo( "debug_tdm_material", "s" );
 const idEventDef EV_LogString("logString", "dds");
 
 // Propagates the string to the sessioncommand variable in gameLocal
-const idEventDef EV_SessionCommand("sessionCommand", "s", NULL);
+const idEventDef EV_SessionCommand("sessionCommand", "s");
 
 CLASS_DECLARATION( idClass, idThread )
 	EVENT( EV_Thread_Execute,				idThread::Event_Execute )

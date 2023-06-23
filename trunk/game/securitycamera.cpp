@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2461 $
+ * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: securitycamera.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: securitycamera.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
@@ -454,7 +454,7 @@ void idSecurityCamera::Event_ContinueSweep( void ) {
 	sweepStart = f;
 	speed = static_cast<int>(MS2SEC( SweepSpeed() ));
 	sweepEnd = sweepStart + speed;
-   	PostEventMS( &EV_SecurityCam_Pause, speed * (1.0f - pct));
+   	PostEventMS( &EV_SecurityCam_Pause, static_cast<int>(speed * (1.0f - pct)));
 	StartSound( "snd_moving", SND_CHANNEL_BODY, 0, false, NULL );
 	SetAlertMode(SCANNING);
 	sweeping = true;

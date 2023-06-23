@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2461 $
+ * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mapfile.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mapfile.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
 
 #pragma warning( push )
 #pragma warning( disable : 4127 )
@@ -124,8 +124,8 @@ idMapPatch *idMapPatch::Parse( idLexer &src, const idVec3 &origin, bool patchDef
 		}
 	}
 
-	idMapPatch *patch = new idMapPatch( info[0], info[1] );
-	patch->SetSize( info[0], info[1] );
+	idMapPatch *patch = new idMapPatch( static_cast<int>(info[0]), static_cast<int>(info[1]) );
+	patch->SetSize( static_cast<int>(info[0]), static_cast<int>(info[1]) );
 	if ( version < 2.0f ) {
 		patch->SetMaterial( "textures/" + token );
 	} else {
@@ -133,8 +133,8 @@ idMapPatch *idMapPatch::Parse( idLexer &src, const idVec3 &origin, bool patchDef
 	}
 
 	if ( patchDef3 ) {
-		patch->SetHorzSubdivisions( info[2] );
-		patch->SetVertSubdivisions( info[3] );
+		patch->SetHorzSubdivisions( static_cast<int>(info[2]) );
+		patch->SetVertSubdivisions( static_cast<int>(info[3]) );
 		patch->SetExplicitlySubdivided( true );
 	}
 

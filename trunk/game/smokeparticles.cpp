@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2461 $
+ * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: smokeparticles.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: smokeparticles.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -169,7 +169,7 @@ bool idSmokeParticles::EmitSmoke( const idDeclParticle *smoke, const int systemS
 		return false;
 	}
 
-	idRandom steppingRandom( 0xffff * diversity );
+	idRandom steppingRandom( static_cast<int>(0xffff * diversity) );
 
 	// for each stage in the smoke that is still emitting particles, emit a new singleSmoke_t
 	for ( int stageNum = 0; stageNum < smoke->stages.Num(); stageNum++ ) {
@@ -189,7 +189,7 @@ bool idSmokeParticles::EmitSmoke( const idDeclParticle *smoke, const int systemS
 
 		// see how many particles we should emit this tic
 		// FIXME: 			smoke.privateStartTime += stage->timeOffset;
-		int		finalParticleTime = stage->cycleMsec * stage->spawnBunching;
+		int		finalParticleTime = static_cast<int>(stage->spawnBunching * stage->cycleMsec);
 		int		deltaMsec = gameLocal.time - systemStartTime;
 
 		int		nowCount = 0, prevCount;
@@ -202,7 +202,7 @@ bool idSmokeParticles::EmitSmoke( const idDeclParticle *smoke, const int systemS
 				prevCount = stage->totalParticles;
 			}
 		} else {
-			nowCount = floor( ( (float)deltaMsec / finalParticleTime ) * stage->totalParticles );
+			nowCount = static_cast<int>(floor( ( (float)deltaMsec / finalParticleTime ) * stage->totalParticles ));
 			if ( nowCount >= stage->totalParticles ) {
 				nowCount = stage->totalParticles-1;
 			}
