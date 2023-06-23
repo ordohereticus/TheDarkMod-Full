@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3115 $
+ * $Date: 2009-01-05 23:31:02 -0500 (Mon, 05 Jan 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3115 2009-01-06 04:31:02Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -74,20 +74,26 @@ bool MeleeCombatTask::Perform(Subsystem& subsystem)
 
 void MeleeCombatTask::StartAttack(idAI* owner)
 {
-	if (gameLocal.random.RandomFloat() < 0.5f)
-	{
-		// Quick melee
-		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_QuickMelee", 5);
-	}
-	else
-	{
-		// Long melee
-		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_LongMelee", 5);
-	}
+	CMeleeStatus *pStatus = &owner->m_MeleeStatus;
+
+	// choose a random attack from our possible attacks
+	int i = gameLocal.random.RandomInt( pStatus->m_attacks.Num() );
+	i = pStatus->m_attacks[i];
+	const char *suffix = idActor::MeleeTypeNames[i];
+
+	pStatus->m_bAttacking = true;
+	pStatus->m_AttackType = (EMeleeType) i;
+
+	// TODO: Why did we have 5 blend frames here?
+	owner->SetAnimState(ANIMCHANNEL_TORSO, va("Torso_Melee_%s",suffix), 5);
 }
 
 void MeleeCombatTask::OnFinish(idAI* owner)
 {
+	// ishtvan TODO: Will need different code for when attack is finish vs. parry?
+	CMeleeStatus *pStatus = &owner->m_MeleeStatus;
+	pStatus->m_bAttacking = false;
+
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
 	owner->SetWaitState("");
 }
