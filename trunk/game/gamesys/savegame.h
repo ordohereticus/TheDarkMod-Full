@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 3014 $
+ * $Date: 2008-11-11 13:12:59 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -92,6 +92,9 @@ public:
 
 	void					WriteBuildNumber( const int value );
 
+	// Write the code revision to the file
+	void					WriteCodeRevision();
+
 private:
 	idFile *				file;
 
@@ -153,11 +156,19 @@ public:
 
 	void					ReadBuildNumber( void );
 
+	void					ReadCodeRevision();
+
 	//						Used to retrieve the saved game buildNumber from within class Restore methods
 	int						GetBuildNumber( void );
 
+	// Retrieve the code revision number this savefile was written with
+	int						GetCodeRevision();
+
 private:
 	int						buildNumber;
+
+	// TDM SVN code revision
+	int						codeRevision;
 
 	idFile *				file;
 

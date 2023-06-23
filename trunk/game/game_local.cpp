@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3013 $
- * $Date: 2008-11-11 13:02:07 -0500 (Tue, 11 Nov 2008) $
+ * $Revision: 3014 $
+ * $Date: 2008-11-11 13:12:59 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3013 2008-11-11 18:02:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3014 2008-11-11 18:12:59Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -586,6 +586,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 	}
 
 	savegame.WriteBuildNumber( BUILD_NUMBER );
+	savegame.WriteCodeRevision();
 
 	// go through all entities and threads and add them to the object list
 	for( i = 0; i < MAX_GENTITIES; i++ ) {
@@ -1553,6 +1554,13 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	idRestoreGame savegame( saveGameFile );
 
 	savegame.ReadBuildNumber();
+	savegame.ReadCodeRevision();
+
+	if (savegame.GetCodeRevision() != RevisionTracker::Instance().GetHighestRevision())
+	{
+		gameLocal.Printf("Can't load this savegame, was saved with an old revision %d.", savegame.GetCodeRevision());
+		return false;
+	}
 
 	// Create the list of all objects in the game
 	savegame.CreateObjects();

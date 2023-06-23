@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2810 $
- * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Revision: 3014 $
+ * $Date: 2008-11-11 13:12:59 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,9 +13,10 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: savegame.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: savegame.cpp 3014 2008-11-11 18:12:59Z greebo $", init_version);
 
 #include "../game_local.h"
+#include "../../DarkMod/RevisionTracker.h"
 
 #include "typeinfo.h"
 
@@ -754,8 +755,15 @@ void idSaveGame::WriteSoundCommands( void ) {
 idSaveGame::WriteBuildNumber
 ======================
 */
-void idSaveGame::WriteBuildNumber( const int value ) {
+void idSaveGame::WriteBuildNumber( const int value )
+{
 	file->WriteInt( BUILD_NUMBER );
+}
+
+void idSaveGame::WriteCodeRevision()
+{
+	// greebo: Write the TDM code revision number
+	file->WriteInt(RevisionTracker::Instance().GetHighestRevision());
 }
 
 /***********************************************************************
@@ -1541,6 +1549,11 @@ void idRestoreGame::ReadBuildNumber( void ) {
 	file->ReadInt( buildNumber );
 }
 
+void idRestoreGame::ReadCodeRevision()
+{
+	file->ReadInt( codeRevision );
+}
+
 /*
 =====================
 idRestoreGame::GetBuildNumber
@@ -1548,4 +1561,9 @@ idRestoreGame::GetBuildNumber
 */
 int idRestoreGame::GetBuildNumber( void ) {
 	return buildNumber;
+}
+
+int idRestoreGame::GetCodeRevision()
+{
+	return codeRevision;
 }
