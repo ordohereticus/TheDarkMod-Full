@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3132 $
- * $Date: 2009-01-10 07:23:50 -0500 (Sat, 10 Jan 2009) $
+ * $Revision: 3137 $
+ * $Date: 2009-01-13 13:34:32 -0500 (Tue, 13 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3132 2009-01-10 12:23:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3137 2009-01-13 18:34:32Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -28,6 +28,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 3132 2009-01-10 12:23:50
 #include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../../DarkMod/AbsenceMarker.h"
+#include "../../DarkMod/BloodMarker.h"
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/MultiStateMover.h"
 #include "../../DarkMod/MeleeWeapon.h"
@@ -5302,7 +5303,64 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 	// greebo: Set the lipsync flag to FALSE, we're dead
 	m_lipSyncActive = false;
+
+	DropBlood(inflictor);
 }
+
+void idAI::DropBlood(idEntity *inflictor)
+{
+	if (inflictor)
+	{
+		idStr damageDefName = inflictor->spawnArgs.GetString( "def_damage" );
+
+		const idDeclEntityDef *def = gameLocal.FindEntityDef( damageDefName, false );
+		if ( def == NULL ) 
+		{
+			return;
+		}
+
+		// blood splats are thrown onto nearby surfaces
+		idStr splat = def->dict.RandomPrefix( "mtr_killed_splat", gameLocal.random );
+		if (!splat.IsEmpty()) 
+		{
+			SpawnBloodMarker(splat, 40);
+		}
+	}
+}
+
+
+void idAI::SpawnBloodMarker(idStr splat, float size)
+{
+	trace_t result;
+	gameLocal.clip.TracePoint(result, GetPhysics()->GetOrigin(), GetPhysics()->GetOrigin() + 60 * idVec3(0, 0, -1), MASK_OPAQUE, this);
+
+	idVec3 markerOrigin = result.endpos + idVec3(0, 0, 2);
+
+	const idDict* markerDef = gameLocal.FindEntityDefDict("atdm:blood_marker", false);
+
+	if (markerDef == NULL)
+	{
+		gameLocal.Error( "Failed to find definition of blood marker entity " );
+		return;
+	}
+
+	idEntity* ent;
+	gameLocal.SpawnEntityDef(*markerDef, &ent, false);
+
+	if (!ent || !ent->IsType(CBloodMarker::Type)) 
+	{
+		gameLocal.Error( "Failed to spawn blood marker entity" );
+		return;
+	}
+
+	CBloodMarker* bloodMarker = static_cast<CBloodMarker*>(ent);
+	bloodMarker->SetOrigin(markerOrigin);
+	bloodMarker->Init(splat, size);
+	bloodMarker->Event_GenerateBloodSplat();
+}
+
+
+
 
 
 /*

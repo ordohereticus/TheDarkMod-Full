@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3092 $
- * $Date: 2008-12-28 16:26:07 -0500 (Sun, 28 Dec 2008) $
+ * $Revision: 3137 $
+ * $Date: 2009-01-13 13:34:32 -0500 (Tue, 13 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1167,6 +1167,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	// damage
 	virtual bool			Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
 	virtual void			Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
+
+	void					DropBlood(idEntity *inflictor);
+	void					SpawnBloodMarker(idStr splat, float size);
 
 	void					PostDeath();
 

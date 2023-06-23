@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3137 $
+ * $Date: 2009-01-13 13:34:32 -0500 (Tue, 13 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3137 2009-01-13 18:34:32Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -896,6 +896,7 @@ void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)
 	}
 				
 	// Do new reaction to stimulus
+	memory.investigateStimulusLocationClosely = true; // deep investigation
 	memory.stimulusLocationItselfShouldBeSearched = true;
 	memory.alertedDueToCommunication = false;
 }
