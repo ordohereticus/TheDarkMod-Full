@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2705 $
- * $Date: 2008-07-19 09:01:58 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2707 $
+ * $Date: 2008-07-19 11:27:59 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2705 2008-07-19 13:01:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2707 2008-07-19 15:27:59Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -331,7 +331,7 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 	}
 
 	// Parse "global" conversation settings 
-	_talkDistance = dict.GetFloat(prefix + "talk_distance");
+	_talkDistance = dict.GetFloat(prefix + "talk_distance", "60");
 
 	// Parse participant actors
 	// Check if this entity can be used by others.
