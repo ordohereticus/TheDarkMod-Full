@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2837 $
- * $Date: 2008-09-14 03:05:52 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2844 $
+ * $Date: 2008-09-14 14:52:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Cursor.cpp 2837 2008-09-14 07:05:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Cursor.cpp 2844 2008-09-14 18:52:20Z greebo $", init_version);
 
 #include "Cursor.h"
 
@@ -282,6 +282,18 @@ void CInventoryCursor::SetCurrentCategory(int index)
 	index = idMath::ClampInt(0, m_Inventory->GetNumCategories() - 1, index);
 
 	m_CurrentCategory = index;
+	m_CurrentItem = 0;
+}
+
+void CInventoryCursor::SetCurrentCategory(const idStr& categoryName)
+{
+	int index = m_Inventory->GetCategoryIndex(categoryName);
+
+	if (index != -1)
+	{
+		m_CurrentCategory = index;
+		m_CurrentItem = 0;
+	}
 }
 
 void CInventoryCursor::AddCategoryIgnored(const CInventoryCategoryPtr& category)

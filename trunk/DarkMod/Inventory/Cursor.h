@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2836 $
- * $Date: 2008-09-14 02:37:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2844 $
+ * $Date: 2008-09-14 14:52:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -50,6 +50,7 @@ public:
 	 * Set the current group index.
 	 */
 	void					SetCurrentCategory(int index);
+	void					SetCurrentCategory(const idStr& categoryName);
 
 	/**
 	 * greebo: Returns the category of the focused item or NULL if no inventory is attached.
