@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3189 $
- * $Date: 2009-01-19 14:44:23 -0500 (Mon, 19 Jan 2009) $
+ * $Revision: 3201 $
+ * $Date: 2009-01-20 09:22:18 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -33,7 +33,7 @@ CRenderPipe::CRenderPipe() : m_fd(INVALID_HANDLE_VALUE)
 	// the appropriate number of "../"s to the filename.
 	
 	// The first parameter here is arbitrary. We're not interested in that filename, we just want fs_savepath.
-	/*const char* ospath = fileSystem->RelativePathToOSPath("somerandomfilename", "fs_savepath");
+	const char* ospath = fileSystem->RelativePathToOSPath("somerandomfilename", "fs_savepath");
 	
 	// Scan until we get a null terminator
 	const char* ospath_ptr = ospath;
@@ -55,13 +55,13 @@ CRenderPipe::CRenderPipe() : m_fd(INVALID_HANDLE_VALUE)
 	}
 	
 	// Finally, append the pathname we want (this includes the null terminator)
-	strcpy(filename_ptr, "dev/shm/tdm_lg_render.tga");*/
+	strcpy(filename_ptr, "dev/shm/tdm_lg_render.tga");
 	
 	// m_filename now contains the required path, so open m_fd to point to it
 	// O_CREAT: If the file doesn't exist, create it instead of failing.
 	// O_RDONLY: Read-only (we don't need to write using this file descriptor).
 	// O_NOATIME: Don't update the access time of the file. Supposedly faster.
-	m_fd = open("/dev/shm/tdm_lg_render.tga", O_CREAT|O_RDONLY|O_NOATIME, 0666);
+	m_fd = open(m_filename, O_CREAT|O_RDONLY|O_NOATIME, 0666);
 
 	// If an error occurs, save the error code in m_fd, but negative so we can
 	// tell it apart from a successfully opened descriptor.
@@ -71,7 +71,8 @@ CRenderPipe::CRenderPipe() : m_fd(INVALID_HANDLE_VALUE)
 		m_fd = -errno;
 	}
 
-	gameLocal.Printf("Renderpipe: Opened file: /dev/shm/tdm_lg_render.tga\n");
+	gameLocal.Printf("Renderpipe: OS Path is: %s\n", ospath);
+	gameLocal.Printf("Renderpipe: Opened file: %s\n", m_filename);
 }
 
 CRenderPipe::~CRenderPipe()
