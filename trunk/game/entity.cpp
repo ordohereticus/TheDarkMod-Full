@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2375 $
- * $Date: 2008-05-19 02:13:50 -0400 (Mon, 19 May 2008) $
- * $Author: ishtvan $
+ * $Revision: 2389 $
+ * $Date: 2008-05-26 15:06:42 -0400 (Mon, 26 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2375 2008-05-19 06:13:50Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2389 2008-05-26 19:06:42Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -43,6 +43,8 @@ const idEventDef EV_SetName( "setName", "s" );
 const idEventDef EV_IsType ( "isType", "s" , 'd' );
 const idEventDef EV_Activate( "activate", "e" );
 const idEventDef EV_ActivateTargets( "activateTargets", "e" );
+const idEventDef EV_AddTarget( "addTarget", "e" );
+const idEventDef EV_RemoveTarget( "removeTarget", "e" );
 const idEventDef EV_NumTargets( "numTargets", NULL, 'f' );
 const idEventDef EV_GetTarget( "getTarget", "f", 'e' );
 const idEventDef EV_RandomTarget( "randomTarget", "s", 'e' );
@@ -223,6 +225,8 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT (EV_IsType,				idEntity::Event_IsType )
 	EVENT( EV_FindTargets,			idEntity::Event_FindTargets )
 	EVENT( EV_ActivateTargets,		idEntity::Event_ActivateTargets )
+	EVENT( EV_AddTarget,			idEntity::Event_AddTarget)
+	EVENT( EV_RemoveTarget,			idEntity::Event_RemoveTarget)
 	EVENT( EV_NumTargets,			idEntity::Event_NumTargets )
 	EVENT( EV_GetTarget,			idEntity::Event_GetTarget )
 	EVENT( EV_RandomTarget,			idEntity::Event_RandomTarget )
@@ -4657,6 +4661,14 @@ void idEntity::RemoveTarget(idEntity* target)
 	}
 }
 
+
+void idEntity::AddTarget(idEntity* target)
+{
+	idEntityPtr<idEntity> ptr;
+	ptr = target;
+	targets.AddUnique(ptr);
+}
+
 /***********************************************************************
 
   Misc.
@@ -4855,6 +4867,21 @@ event to delay activating targets.
 void idEntity::Event_ActivateTargets( idEntity *activator ) {
 	ActivateTargets( activator );
 }
+
+
+void idEntity::Event_AddTarget(idEntity* target)
+{
+	AddTarget(target);
+}
+
+
+void idEntity::Event_RemoveTarget(idEntity* target)
+{
+	RemoveTarget(target);
+}
+
+
+
 
 /*
 ================
