@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2418 $
- * $Date: 2008-06-01 15:56:36 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2439 $
+ * $Date: 2008-06-05 16:24:43 -0400 (Thu, 05 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2418 2008-06-01 19:56:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2439 2008-06-05 20:24:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3989,10 +3989,19 @@ void idPlayer::BobCycle( const idVec3 &pushVelocity ) {
 	} 
 	else {
 		if ( physicsObj.IsCrouching() ) {
-			bobmove = pm_crouchbob.GetFloat();
-		} else {
+			// greebo: Double the crouchbob speed when fully running
+			bobmove = pm_crouchbob.GetFloat() * (1 + bobFrac);
+		} 
+		else 
+		{
 			// vary the bobbing based on the speed of the player
 			bobmove = pm_walkbob.GetFloat() * ( 1.0f - bobFrac ) + pm_runbob.GetFloat() * bobFrac;
+		}
+
+		// greebo: is the player creeping?
+		if (usercmd.buttons & BUTTON_5) 
+		{
+			bobmove *= 0.5f * (1 - bobFrac);
 		}
 		
 		// additional explanatory comments added by Crispy
