@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2679 $
- * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2680 $
+ * $Date: 2008-07-17 13:11:03 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2679 2008-07-17 16:21:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2680 2008-07-17 17:11:03Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
@@ -76,6 +76,11 @@ int ConversationCommand::GetNumArguments()
 idStr ConversationCommand::GetArgument(int index)
 {
 	return (index >= 0 && index < _arguments.Num()) ? _arguments[index] : "";
+}
+
+idEntity* ConversationCommand::GetEntityArgument(int index)
+{
+	return gameLocal.FindEntity(GetArgument(index));
 }
 
 bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)

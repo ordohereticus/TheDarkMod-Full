@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2679 $
- * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2680 $
+ * $Date: 2008-07-17 13:11:03 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2679 2008-07-17 16:21:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2680 2008-07-17 17:11:03Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -140,14 +140,10 @@ bool Conversation::Process()
 		case ConversationCommand::ENotStartedYet:
 			// Start a new execution
 			convState->StartCommand(*command);
-			// Update the state in the command
-			command->SetState(convState->GetExecutionState());
 			break;
 		case ConversationCommand::EExecuting:
 			// Continue execution
 			convState->Execute(*command);
-			// Update the state in the command
-			command->SetState(convState->GetExecutionState());
 			break;
 		case ConversationCommand::EFinished:
 			// Increase the iterator, we continue next frame
@@ -158,6 +154,9 @@ bool Conversation::Process()
 		default:
 			return false;
 	};
+
+	// Sync the command state with the AI conversation execution state
+	command->SetState(convState->GetExecutionState());
 
 	return (state != ConversationCommand::EAborted);
 }

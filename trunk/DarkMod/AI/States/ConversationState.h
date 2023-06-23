@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2679 $
- * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2680 $
+ * $Date: 2008-07-17 13:11:03 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,8 +24,11 @@ class ConversationState :
 	// The conversation index
 	int _conversation;
 
-	// The state we're in
+	// The execution state
 	ConversationCommand::State _state;
+
+	// The conversation command type
+	ConversationCommand::Type _commandType;
 
 	int _finishTime;
 
@@ -38,6 +41,9 @@ public:
 
 	// Gets called each time the mind is thinking
 	virtual void Think(idAI* owner);
+
+	// Incoming events issued by the Subsystems
+	virtual void OnSubsystemTaskFinished(idAI* owner, SubsystemId subSystem);
 
 	// Sets the conversation this state should handle
 	void SetConversation(int index);

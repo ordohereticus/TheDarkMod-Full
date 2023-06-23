@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2679 $
- * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2680 $
+ * $Date: 2008-07-17 13:11:03 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -92,6 +92,9 @@ public:
 
 	// Returns the given argument (starting with index 0) or "" if the argument doesn't exist
 	idStr GetArgument(int index);
+
+	// Tries to name in the given convert the argument to an entity pointer
+	idEntity* GetEntityArgument(int index);
 
 	/**
 	 * greebo: Parses the command parameters from the given idDict.
