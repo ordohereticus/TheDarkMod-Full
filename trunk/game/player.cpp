@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3051 $
- * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3056 $
+ * $Date: 2008-11-22 01:29:14 -0500 (Sat, 22 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3051 2008-11-21 16:13:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3056 2008-11-22 06:29:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5162,9 +5162,11 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_14:		// Next weapon
 		{
-			// If the grabber is active, next weapon increments the distance
-			if(m_bGrabberActive)
-				gameLocal.m_Grabber->IncrementDistance( false );
+			// If the grabber is active, next weapon modifies the distance based on the CVAR setting
+			if (m_bGrabberActive)
+			{
+				gameLocal.m_Grabber->IncrementDistance( cv_reverse_grab_control.GetBool() );
+			}
 
 			// Pass the "next weapon" event to the GUIs
 			m_overlays.broadcastNamedEvent("nextWeapon");
@@ -5180,9 +5182,11 @@ void idPlayer::PerformImpulse( int impulse ) {
 		}
 		case IMPULSE_15:		// Previous Weapon
 		{
-			// If the grabber is active, previous weapon increments the distance
-			if(m_bGrabberActive)
-				gameLocal.m_Grabber->IncrementDistance( true );
+			// If the grabber is active, previous weapon  modifies the distance based on the CVAR setting
+			if (m_bGrabberActive)
+			{
+				gameLocal.m_Grabber->IncrementDistance( !cv_reverse_grab_control.GetBool() );
+			}
 
 			// Pass the "previous weapon" event to the GUIs
 			m_overlays.broadcastNamedEvent("prevWeapon");
