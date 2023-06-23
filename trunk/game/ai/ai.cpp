@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2632 $
- * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2650 $
+ * $Date: 2008-07-13 09:19:08 -0400 (Sun, 13 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2632 2008-07-12 07:48:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2650 2008-07-13 13:19:08Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4207,12 +4207,10 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos )
 		{
 			// Try to open doors
 			CFrobDoor* p_door = static_cast<CFrobDoor*>(obstacle);
-
-			if (m_bCanOperateDoors) 
-			{	
-				// We have a frobmover in our way, raise a signal to the current state
-				mind->GetState()->OnFrobDoorEncounter(p_door);
-			}
+		
+			// We have a frobmover in our way, raise a signal to the current state
+			mind->GetState()->OnFrobDoorEncounter(p_door);
+			
 		}
 		else
 		{
