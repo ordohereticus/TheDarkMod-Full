@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2881 $
- * $Date: 2008-09-23 15:09:27 -0400 (Tue, 23 Sep 2008) $
+ * $Revision: 2887 $
+ * $Date: 2008-09-24 12:54:20 -0400 (Wed, 24 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2881 2008-09-23 19:09:27Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2887 2008-09-24 16:54:20Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -217,13 +217,21 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				}
 				if (owner->AI_MOVE_DONE)
 				{
-					// reached position
-					owner->StopMove(MOVE_STATUS_DONE);
 					if (masterUser == owner)
 					{
-						owner->TurnToward(closedPos);
-						_waitEndTime = gameLocal.time + 750;
-						_doorHandlingState = EStateWaitBeforeOpen;
+						float dist = (owner->GetPhysics()->GetOrigin() - closedPos).LengthFast();
+						if (dist < 2 * owner->GetArmReachLength())
+						{
+							// reached front position
+							owner->StopMove(MOVE_STATUS_DONE);
+							owner->TurnToward(closedPos);
+							_waitEndTime = gameLocal.time + 750;
+							_doorHandlingState = EStateWaitBeforeOpen;
+						}
+						else
+						{
+							owner->MoveToPosition(_frontPos);
+						}
 					}
 				}
 				break;
@@ -455,11 +463,19 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 						// need to open the door further when we reach the position for opening
 						if (owner->AI_MOVE_DONE && masterUser == owner)
 						{
-							// reached front position
-							owner->StopMove(MOVE_STATUS_DONE);
-							owner->TurnToward(closedPos);
-							_waitEndTime = gameLocal.time + 650;
-							_doorHandlingState = EStateWaitBeforeOpen;
+							float dist = (owner->GetPhysics()->GetOrigin() - closedPos).LengthFast();
+							if (dist < 2 * owner->GetArmReachLength())
+							{
+								// reached front position
+								owner->StopMove(MOVE_STATUS_DONE);
+								owner->TurnToward(closedPos);
+								_waitEndTime = gameLocal.time + 650;
+								_doorHandlingState = EStateWaitBeforeOpen;
+							}
+							else
+							{
+								owner->MoveToPosition(_frontPos);
+							}
 						}
 					}
 				}

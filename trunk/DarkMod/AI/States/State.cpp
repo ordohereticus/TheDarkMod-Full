@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2881 $
- * $Date: 2008-09-23 15:09:27 -0400 (Tue, 23 Sep 2008) $
+ * $Revision: 2887 $
+ * $Date: 2008-09-24 12:54:20 -0400 (Wed, 24 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2881 2008-09-23 19:09:27Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2887 2008-09-24 16:54:20Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -83,12 +83,12 @@ void State::UpdateAlertLevel()
 {
 	idAI* owner = _owner.GetEntity();
 	int currentTime = gameLocal.time;
-	int frameDuration = currentTime - gameLocal.previousTime;
+	int thinkDuration = currentTime - owner->m_lastThinkTime;
 	
 	// angua: alert level stays for a short time before starting to decrease
 	if (currentTime >= owner->GetMemory().lastAlertRiseTime + 300 && owner->AI_AlertLevel > 0)
 	{
-		float decrease = _alertLevelDecreaseRate * MS2SEC(frameDuration);
+		float decrease = _alertLevelDecreaseRate * MS2SEC(thinkDuration);
 		float newAlertLevel = owner->AI_AlertLevel - decrease;
 		owner->SetAlertLevel(newAlertLevel);
 	}
