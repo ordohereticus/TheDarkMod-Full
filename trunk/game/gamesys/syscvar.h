@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2490 $
- * $Date: 2008-06-15 01:08:13 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2563 $
+ * $Date: 2008-06-24 11:19:54 -0400 (Tue, 24 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -197,6 +197,8 @@ extern idCVar cv_lp_pick_attempts;
 extern idCVar cv_lp_auto_pick;
 extern idCVar cv_lp_randomize;
 extern idCVar cv_lp_pawlow;
+
+extern idCVar cv_door_auto_open_on_unlock;
 
 extern idCVar cv_dm_distance;
 
