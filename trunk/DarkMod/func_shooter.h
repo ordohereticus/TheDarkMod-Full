@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2734 $
+ * $Date: 2008-08-15 01:50:27 -0400 (Fri, 15 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,17 +20,17 @@ class tdmFuncShooter :
 	public idStaticEntity
 {
 public:
-	CLASS_PROTOTYPE( tdmFuncShooter );
+	CLASS_PROTOTYPE(tdmFuncShooter);
 
 	// Constructor
-	tdmFuncShooter( void );
+	tdmFuncShooter();
 
 	// Needed on game save/load
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
 
 	// Gets called when this entity is actually being spawned
-	void				Spawn( void );
+	void				Spawn();
 
 	// Event interface
 	void				Event_Activate( idEntity *activator );
@@ -39,10 +39,6 @@ public:
 	void				Event_ShooterSetAmmo( int newAmmo );
 	void				Event_ShooterGetAmmo();
 	void				Event_ShooterFireProjectile();
-
-	// Snapshot interface
-	virtual void		WriteToSnapshot( idBitMsgDelta &msg ) const;
-	virtual void		ReadFromSnapshot( const idBitMsgDelta &msg );
 
 	// Overload the derived idEntity::Think method so that this object gets called each frame
 	virtual void		Think();
@@ -74,6 +70,9 @@ private:
 
 	// Start delay in ms
 	int					_startDelay;
+
+	// If positive, this is the game time beyond which we're becoming automatically inactive.
+	int					_endTime;
 
 	// The last time the shooter fired a projectile
 	int					_lastFireTime;
