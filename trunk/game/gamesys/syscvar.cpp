@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2968 $
- * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
+ * $Revision: 2981 $
+ * $Date: 2008-10-26 13:41:52 -0400 (Sun, 26 Oct 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2968 2008-10-22 19:19:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2981 2008-10-26 17:41:52Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -59,7 +59,7 @@ idCVar cv_ai_fov_show (				"tdm_ai_showfov",			"0",			CVAR_GAME | CVAR_ARCHIVE |
 idCVar cv_ai_ko_show (				"tdm_ai_showko",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, a debug graphic showing the knockout region of the AI will be drawn.  The green cone shows the vertical admittance angle, the red cone shows the horizontal angle.");
 idCVar cv_ai_animstate_show (		"tdm_ai_showanimstate",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the name of the AI's current animation state will be shown.");
 idCVar cv_ai_task_show (			"tdm_ai_showtasks",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the name of the AI's current tasks will be shown.");
-idCVar cv_ai_alertlevel_show (		"tdm_ai_showalert",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the AI's current total alert units is shown (Note: This is not the alert state, use tdm_ai_showstate for that).");
+idCVar cv_ai_alertlevel_show (		"tdm_ai_showalert",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the AI's current total alert units is shown (Note: This is not the alert state, use tdm_ai_showtasks for that).");
 idCVar cv_ai_dest_show (			"tdm_ai_showdest",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, an arrow is drawn from every AI to its intended pathing destination.");
 idCVar cv_ai_goalpos_show (			"tdm_ai_showgoalpos",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, the current goalpos (seekpos) is drawn in the world (!= move destination).");
 idCVar cv_ai_aasarea_show (			"tdm_ai_showAASarea",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, the current AAS area of the AI is drawn in the world.");
