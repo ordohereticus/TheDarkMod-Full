@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2996 $
- * $Date: 2008-11-08 03:59:35 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 2997 $
+ * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -136,6 +136,9 @@ public:
 protected:
 	// Reads the values from the given spawnargs into the member variables
 	void					ParseSpawnargs(const idDict& spawnArgs);
+
+	// Calls the owner's OnInventoryItemChanged() method
+	void					NotifyItemChanged();
 
 protected:
 	idEntityPtr<idEntity>	m_Owner;

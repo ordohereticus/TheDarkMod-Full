@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2991 $
- * $Date: 2008-11-07 11:12:13 -0500 (Fri, 07 Nov 2008) $
+ * $Revision: 2997 $
+ * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2991 2008-11-07 16:12:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2997 2008-11-08 13:35:28Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8983,65 +8983,127 @@ void idEntity::ChangeInventoryIcon(const char* invName, const char* invCategory,
 	}
 }
 
+void idEntity::inventoryNextItem()
+{
+	const CInventoryCursorPtr& cursor = InventoryCursor();
+	
+	assert(cursor != NULL); // all entities have a cursor after calling InventoryCursor()
+
+	CInventoryItemPtr prev = cursor->GetCurrentItem();
+	cursor->GetNextItem();
+
+	// Call the selection changed event
+	OnInventorySelectionChanged(prev);
+}
+
+void idEntity::inventoryPrevItem()
+{
+	const CInventoryCursorPtr& cursor = InventoryCursor();
+	assert(cursor != NULL); // all entities have a cursor after calling InventoryCursor()
+
+	CInventoryItemPtr prev = cursor->GetCurrentItem();
+	cursor->GetPrevItem();
+
+	// Call the selection changed event
+	OnInventorySelectionChanged(prev);
+}
+
+void idEntity::inventoryNextGroup()
+{
+	const CInventoryCursorPtr& cursor = InventoryCursor();
+	
+	assert(cursor != NULL); // all entities have a cursor after calling InventoryCursor()
+
+	CInventoryItemPtr prev = cursor->GetCurrentItem();
+	cursor->GetNextCategory();
+	
+	OnInventorySelectionChanged(prev);
+}
+
+void idEntity::inventoryPrevGroup()
+{
+	const CInventoryCursorPtr& cursor = InventoryCursor();
+	
+	assert(cursor != NULL); // all entities have a cursor after calling InventoryCursor()
+
+	CInventoryItemPtr prev = cursor->GetCurrentItem();
+	cursor->GetPrevCategory();
+	
+	OnInventorySelectionChanged(prev);
+}
+
+void idEntity::OnInventoryItemChanged()
+{
+	// Nothing here, can be overriden by subclasses
+}
+
+void idEntity::OnInventorySelectionChanged(const CInventoryItemPtr& prevItem)
+{
+	// Nothing here, can be overriden by subclasses
+}
+
 void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCategory, int amount) 
 {
 	const CInventoryPtr& inventory = Inventory();
-	bool bDropped( false ), bIsLoot( false );
+	bool bIsLoot( false );
 
 	CInventoryCategoryPtr category = inventory->GetCategory(invCategory);
-	if (category != NULL) 
-	{
-		CInventoryItemPtr item = category->GetItem(invName);
-		if (item != NULL) 
-		{
-			// Change the counter by amount
-			item->SetCount(item->GetCount() + amount);
-
-			bDropped = amount < 0;
-
-			// Assume item does not have an overall value since it's not loot
-			gameLocal.m_MissionData->InventoryCallback
-			( 
-				item->GetItemEntity(), 
-				item->GetName(), 
-				item->GetValue(), 
-				1, 
-				!bDropped 
-			);
-
-			if (item->GetCount() <= 0) 
-			{
-				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty item from category.\r");
-				// Stackable item count reached zero, remove item from category
-				category->RemoveItem(item);
-				// Advance the cursor (after removal, otherwise we stick to an invalid id)
-				InventoryCursor()->GetNextItem();
-			}
-			
-			// Check for empty categories after the item has been removed
-			if (category->IsEmpty()) 
-			{
-				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty inventory category.\r");
-				// Remove category from inventory
-				InventoryCursor()->Inventory()->RemoveCategory(category);
-				// Switch the cursor to the next category (after removal)
-				category = InventoryCursor()->GetNextCategory();
-
-				if (category != NULL && category->IsEmpty()) 
-				{
-					// We have an empty category, set the cursor to the dummy item
-					InventoryCursor()->SetCurrentItem(TDM_DUMMY_ITEM);
-				}
-			}
-		}
-		else
-		{
-			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Could not change item count, item name %s not found\r", invName);
-		}
-	}
-	else
+	if (category == NULL) 
 	{
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Could not change item count, inventory category %s not found\r", invCategory);
+		return;
+	}
+
+	CInventoryItemPtr item = category->GetItem(invName);
+	if (item == NULL) 
+	{
+		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Could not change item count, item name %s not found\r", invName);
+		return;
+	}
+
+	// Change the counter by amount (explicitly allow negative values)
+	item->SetCount(item->GetCount() + amount);
+
+	// We consider items "dropped" if the amount is negative
+	bool dropped = (amount < 0);
+
+	// Assume item does not have an overall value since it's not loot
+	gameLocal.m_MissionData->InventoryCallback
+	( 
+		item->GetItemEntity(), 
+		item->GetName(), 
+		item->GetValue(), 
+		1, 
+		!dropped 
+	);
+
+	if (item->GetCount() <= 0) 
+	{
+		// Stackable item count reached zero, remove item from category
+		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty item from category.\r");
+		
+		category->RemoveItem(item);
+
+		// Advance the cursor (after removal, otherwise we stick to an invalid id)
+		InventoryCursor()->GetNextItem();
+
+		// Call the selection changed event, passing the removed item as previously selected item
+		OnInventorySelectionChanged(item);
+	}
+	
+	// Check for empty categories after the item has been removed
+	if (category->IsEmpty()) 
+	{
+		// Remove empty category from inventory
+		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty inventory category.\r");
+		
+		inventory->RemoveCategory(category);
+		
+		// Switch the cursor to the next category (after removal)
+		InventoryCursor()->GetNextCategory();
+
+		// There shouldn't be a need to call OnInventorySelectionChanged(), as this
+		// has already been done by the code above.
 	}
 }
 

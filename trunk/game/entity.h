@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2985 $
- * $Date: 2008-11-01 04:05:48 -0400 (Sat, 01 Nov 2008) $
- * $Author: tels $
+ * $Revision: 2997 $
+ * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -897,6 +897,20 @@ public:
 	 * If the hud parameter is not null, then it will also call the updatefunction.
 	 */
 	virtual CInventoryItemPtr AddToInventory(idEntity *ent, idUserInterface *_hud = NULL);
+
+	virtual void inventoryNextItem();	// Cycles to the next item in the inventory.
+	virtual void inventoryPrevItem();	// Cycles to the previous item in the inventory.
+	virtual void inventoryNextGroup();	// Cycles to the next group in the inventory.
+	virtual void inventoryPrevGroup();	// Cycles to the previous group in the inventory.
+
+	// Gets called when the inventory cursor has changed its selection focus
+	virtual void OnInventorySelectionChanged(const CInventoryItemPtr& prevItem = CInventoryItemPtr());
+
+	/**
+	 * greebo: Gets called when anything within the inventory has been altered (item count, item icon)
+	 * This does NOT get called when the selection changes, only the inventory's contents.
+	 */
+	virtual void OnInventoryItemChanged();
 
 	/**
 	 * Changes the inventory count of the given item <name> in <category> by <amount>
