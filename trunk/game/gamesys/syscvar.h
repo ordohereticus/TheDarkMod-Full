@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3060 $
- * $Date: 2008-11-22 08:54:15 -0500 (Sat, 22 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3102 $
+ * $Date: 2009-01-01 16:07:15 -0500 (Thu, 01 Jan 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -81,6 +81,7 @@ extern idCVar cv_ai_animstate_show;
 extern idCVar cv_debug_mainmenu;
 
 extern idCVar cv_pm_runmod;
+extern idCVar cv_pm_run_backmod;
 extern idCVar cv_pm_crouchmod;
 extern idCVar cv_pm_creepmod;
 extern idCVar cv_pm_pushmod;

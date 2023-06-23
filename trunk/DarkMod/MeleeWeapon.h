@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2848 $
- * $Date: 2008-09-15 02:44:08 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 3102 $
+ * $Date: 2009-01-01 16:07:15 -0500 (Thu, 01 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -11,6 +11,7 @@
 #define __MELEEWEAPON_H__
 
 #include "../game/entity.h"
+#include "../game/actor.h"
 
 class idPlayer;
 
@@ -22,15 +23,6 @@ class idPlayer;
 * between weapons and world, and between weapons and the item that
 * the player is currently holding in the Grabber.
 **/
-
-typedef enum
-{
-	MELEETYPE_OVERHEAD = BIT(0),
-	MELEETYPE_SLASH_LR = BIT(1), // slashing (attacker's) left to right
-	MELEETYPE_SLASH_RL = BIT(2), // slashing (attacker's) right to left
-	MELEETYPE_THRUST = BIT(3),
-	MELEETYPE_UNBLOCKABLE = BIT(4) // e.g., animal claws
-} EMeleeType;
 
 class CMeleeWeapon : public idMoveable 
 {
