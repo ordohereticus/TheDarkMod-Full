@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2481 $
- * $Date: 2008-06-14 04:54:23 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2482 $
+ * $Date: 2008-06-14 05:00:29 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -17,6 +17,8 @@
   #define START_SCOPED_TIMING(id, varname) debugtools::ScopedTimer varname(id);
   #define CREATE_TIMER(outId, entityname, name) outId = debugtools::TimerManager::Instance().CreateTimer(entityname, name);
   #define INIT_TIMER_HANDLE(outId) outId = 0;
+  #define SAVE_TIMER_HANDLE(id, savefilePtr) savefilePtr->WriteInt(id);
+  #define RESTORE_TIMER_HANDLE(id, savefilePtr) savefilePtr->ReadInt(id);
   #define PRINT_TIMERS debugtools::TimerManager::Instance().PrintTimerResults();
 #else
   #define START_TIMING(id)
@@ -24,6 +26,8 @@
   #define START_SCOPED_TIMING(id, varname)
   #define CREATE_TIMER(outId, entityname, name)
   #define INIT_TIMER_HANDLE(outId)
+  #define SAVE_TIMER_HANDLE(id, savefilePtr)
+  #define RESTORE_TIMER_HANDLE(id, savefilePtr)
   #define PRINT_TIMERS
 #endif
 

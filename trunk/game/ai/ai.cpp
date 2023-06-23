@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2481 $
- * $Date: 2008-06-14 04:54:23 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2482 $
+ * $Date: 2008-06-14 05:00:29 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2481 2008-06-14 08:54:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2482 2008-06-14 09:00:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -800,10 +800,9 @@ void idAI::Save( idSaveGame *savefile ) const {
 	{
 		subsystems[i]->Save(savefile);
 	}
-#ifdef TIMING_BUILD
-	savefile->WriteInt(aiThinkTimer);
-	savefile->WriteInt(aiMindTimer);
-#endif
+
+	SAVE_TIMER_HANDLE(aiThinkTimer, savefile);
+	SAVE_TIMER_HANDLE(aiMindTimer, savefile);
 }
 
 /*
@@ -1096,10 +1095,9 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	if ( restorePhysics ) {
 		RestorePhysics( &physicsObj );
 	}
-#ifdef TIMING_BUILD
-	savefile->ReadInt(aiThinkTimer);
-	savefile->ReadInt(aiMindTimer);
-#endif
+
+	RESTORE_TIMER_HANDLE(aiThinkTimer, savefile);
+	RESTORE_TIMER_HANDLE(aiMindTimer, savefile);
 }
 
 /*
