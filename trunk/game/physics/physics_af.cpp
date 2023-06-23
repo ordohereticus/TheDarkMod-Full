@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2859 $
- * $Date: 2008-09-18 05:23:57 -0400 (Thu, 18 Sep 2008) $
+ * $Revision: 3210 $
+ * $Date: 2009-02-12 16:04:27 -0500 (Thu, 12 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 2859 2008-09-18 09:23:57Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 3210 2009-02-12 21:04:27Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -31,7 +31,9 @@ const float CONTACT_LCP_EPSILON				= 1e-6f;
 const float CENTER_OF_MASS_EPSILON			= 1e-4f;
 #ifdef MOD_WATERPHYSICS
 const float NO_MOVE_TIME					= 2.0f;
-const float IMPULSE_THRESHOLD				= 1500.0f;
+// ishtvan test: move impulse threshold back to D3 default or below
+// const float IMPULSE_THRESHOLD				= 1500.0f;
+const float IMPULSE_THRESHOLD				= 250.0f;
 const float WATER_FRICTION                  = 0.0f;     // we need AF friction to be a little bigger than RB water friction, we add this value
 const float DEFAULT_LIQUID_SCALAR           = -0.28f;
 const float DEFAULT_LIQUID_DENSITY          = 0.005f;
@@ -7828,6 +7830,7 @@ void idPhysics_AF::ApplyImpulse( const int id, const idVec3 &point, const idVec3
 	if( this->water != NULL )
 		bodies[id]->current->spatialVelocity.SubVec3(0) += bodies[id]->invLiquidMass * impulse;
 	else
+		bodies[id]->current->spatialVelocity.SubVec3(0) += bodies[id]->invMass * impulse;
 #else
 	bodies[id]->current->spatialVelocity.SubVec3(0) += bodies[id]->invMass * impulse;
 #endif
