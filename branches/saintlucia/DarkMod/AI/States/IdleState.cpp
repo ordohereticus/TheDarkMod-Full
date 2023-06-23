@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2924 $
- * $Date: 2008-10-06 00:08:37 -0400 (Mon, 06 Oct 2008) $
+ * $Revision: 2925 $
+ * $Date: 2008-10-06 00:13:26 -0400 (Mon, 06 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 2924 2008-10-06 04:08:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 2925 2008-10-06 04:13:26Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -236,8 +236,8 @@ StatePtr IdleState::CreateInstance()
 
 void IdleState::OnChangeTarget(idAI* owner)
 {
-	// re-initialize to catch new path_corners
-	Init( owner );
+	// re-initialize movement subsystem to catch new path_corners
+	InitialiseMovement(owner);
 }
 
 // Register this state with the StateLibrary
