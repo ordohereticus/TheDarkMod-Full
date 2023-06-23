@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2349 $
+ * $Date: 2008-05-16 11:24:43 -0400 (Fri, 16 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -26,6 +26,14 @@ private:
 
 	idEntityPtr<idLight> _light;
 
+	// time to wait after starting anim before the light is switched on
+	int _waitEndTime;
+
+	// is set to true when the AI reached the position and has started the anim
+	bool _switchingOn;
+
+	bool _lightOn;
+
 public:
 	// Constructor using light source as input parameter
 	SwitchOnLightState(idLight* light);
@@ -38,6 +46,9 @@ public:
 
 	// Gets called each time the mind is thinking
 	virtual void Think(idAI* owner);
+
+	// Start switching on (stop move, start anim)
+	void StartSwitchOn(idAI* owner, idLight* light);
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
