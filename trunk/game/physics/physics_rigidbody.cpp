@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2742 $
+ * $Date: 2008-08-18 01:29:48 -0400 (Mon, 18 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2742 2008-08-18 05:29:48Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1337,7 +1337,7 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 		// TODO: Use advanced AF binding code to add AF body for entity in this case, as if it were bound directly to AF
 		if ( 
 				(clipModel->GetContents() & (CONTENTS_SOLID|CONTENTS_CORPSE)) 
-				&& !self->GetBindMaster()->GetPhysics()->IsType(idPhysics_AF::Type)
+				&& !self->GetBindMaster()->IsType(idAnimatedEntity::Type)
 				&& !(
 						self->GetBindMaster()->IsType(idAFAttachment::Type) 
 						&& static_cast<idAFAttachment *>(self->GetBindMaster())->GetBody()
