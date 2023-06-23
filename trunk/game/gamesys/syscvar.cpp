@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2274 $
- * $Date: 2008-05-08 14:40:11 -0400 (Thu, 08 May 2008) $
- * $Author: greebo $
+ * $Revision: 2298 $
+ * $Date: 2008-05-11 10:01:49 -0400 (Sun, 11 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2274 2008-05-08 18:40:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2298 2008-05-11 14:01:49Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -63,6 +63,7 @@ idCVar cv_ai_task_show (			"tdm_ai_showtasks",			"0",			CVAR_GAME | CVAR_ARCHIVE
 idCVar cv_ai_alertlevel_show (		"tdm_ai_showalert",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the AI's current total alert units is shown (Note: This is not the alert state, use tdm_ai_showstate for that).");
 idCVar cv_ai_dest_show (			"tdm_ai_showdest",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, an arrow is drawn from every AI to its intended pathing destination.");
 idCVar cv_ai_goalpos_show (			"tdm_ai_showgoalpos",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, the current goalpos (seekpos) is drawn in the world (!= move destination).");
+idCVar cv_ai_aasarea_show (			"tdm_ai_showAASarea",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, the current AAS area of the AI is drawn in the world.");
 idCVar cv_ai_door_show(				"tdm_ai_showdoor",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, the desired positions for opening and closing the door are shown.");
 
 idCVar cv_ai_sight_thresh	(		"tdm_ai_sight_thresh",		"1.0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "This is the minimum light per-AI-frame gem generated visual stimulus amount required for an AI to be able to see the player or another entity directly when searching.");

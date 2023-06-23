@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2291 $
- * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
- * $Author: greebo $
+ * $Revision: 2298 $
+ * $Date: 2008-05-11 10:01:49 -0400 (Sun, 11 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2298 2008-05-11 14:01:49Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1843,6 +1843,23 @@ void idAI::Think( void )
 		gameRenderWorld->DrawText( debugText, (GetEyePosition() - physicsObj.GetGravityNormal()*-25), 0.20f, colorMagenta, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
 
+	if (cv_ai_aasarea_show.GetBool())
+	{
+		if (aas != NULL)
+		{
+			idVec3 org = GetPhysics()->GetOrigin();
+			int areaNum = PointReachableAreaNum(org);
+
+			idBounds areaBounds = aas->GetAreaBounds(areaNum);
+			idVec3 areaCenter = aas->AreaCenter(areaNum);
+
+			idMat3 playerViewMatrix(gameLocal.GetLocalPlayer()->viewAngles.ToMat3());
+
+			gameRenderWorld->DrawText(va("%d", areaNum), areaCenter, 0.2f, colorGreen, playerViewMatrix, 1, gameLocal.msec);
+			gameRenderWorld->DebugBox(colorGreen, idBox(areaBounds), gameLocal.msec);
+		}
+	}
+
 	m_lastThinkTime = gameLocal.time;
 }
 
@@ -2212,8 +2229,11 @@ bool idAI::ReachedPos( const idVec3 &pos, const moveCommand_t moveCommand ) cons
 			}
 		} else {
 			// angua: use the actual bounds size instead of a box with size 48.
-			idBounds bnds(physicsObj.GetBounds());
-			bnds.TranslateSelf( physicsObj.GetOrigin() );
+			idBounds bnds(physicsObj.GetAbsBounds());
+
+			// angua: expand the bounds a bit downwards, so that they can reach target positions 
+			// that are a little bit below the gound (e.g. below a patch)
+			bnds[0].z -= 10;
 
 			/*
 			// SZ: Padding height so that we reached it if we are underneath it and can't fly
