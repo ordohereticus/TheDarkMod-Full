@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2676 $
- * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2678 $
+ * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2676 2008-07-16 19:04:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2678 2008-07-17 15:11:36Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
@@ -41,9 +41,19 @@ const char* const ConversationCommand::TypeNames[ConversationCommand::ENumComman
 	"AttackEntity"
 };
 
+ConversationCommand::ConversationCommand() :
+	_state(ENotStartedYet),
+	_type(ENumCommands) // invalid type
+{}
+
 ConversationCommand::Type ConversationCommand::GetType()
 {
 	return _type;
+}
+
+ConversationCommand::State ConversationCommand::GetState()
+{
+	return _state;
 }
 
 int ConversationCommand::GetActor()
@@ -62,14 +72,14 @@ idStr ConversationCommand::GetArgument(int index)
 	return (index >= 0 && index < _arguments.Num()) ? _arguments[index] : "";
 }
 
-bool ConversationCommand::Execute(Conversation& conversation)
+ConversationCommand::State ConversationCommand::Execute(Conversation& conversation)
 {
 	idActor* actor = conversation.GetActor(_actor);
 
 	if (actor == NULL)
 	{
 		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Command on conversation %s could not find actor %d.\r", conversation.GetName().c_str(), _actor);
-		return false;
+		return EAborted;
 	}
 
 	if (actor->IsType(idAI::Type))
@@ -83,7 +93,7 @@ bool ConversationCommand::Execute(Conversation& conversation)
 		return state->Execute(*this);
 	}
 
-	return true;
+	return EFinished;
 }
 
 bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
@@ -130,6 +140,7 @@ bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 void ConversationCommand::Save(idSaveGame* savefile) const
 {
 	savefile->WriteInt(static_cast<int>(_type));
+	savefile->WriteInt(static_cast<int>(_state));
 	savefile->WriteInt(_actor);
 
 	savefile->WriteInt(_arguments.Num());
@@ -141,10 +152,14 @@ void ConversationCommand::Save(idSaveGame* savefile) const
 
 void ConversationCommand::Restore(idRestoreGame* savefile)
 {
-	int typeInt;
-	savefile->ReadInt(typeInt);
-	assert(typeInt >= 0 && typeInt <= ENumCommands); // sanity check
-	_type = static_cast<Type>(typeInt);
+	int temp;
+	savefile->ReadInt(temp);
+	assert(temp >= 0 && temp <= ENumCommands); // sanity check
+	_type = static_cast<Type>(temp);
+
+	savefile->ReadInt(temp);
+	assert(temp >= 0 && temp <= ENumStates); // sanity check
+	_state = static_cast<State>(temp);
 
 	savefile->ReadInt(_actor);
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2677 $
- * $Date: 2008-07-16 15:21:26 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2678 $
+ * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,21 +21,11 @@ namespace ai
 class ConversationState :
 	public State
 {
-public:
-	enum Status
-	{
-		EDoingNothing = 0,
-		EExecuting,
-		EDone,
-		ENumConversationStati, // invalid index
-	};
-
-private:
 	// The conversation index
 	int _conversation;
 
-	// The current execution status (e.g. talking or waiting for something)
-	Status _status;
+	// The state we're in
+	ConversationCommand::State _state;
 
 public:
 	// Get the name of this state
@@ -51,10 +41,7 @@ public:
 	void SetConversation(int index);
 
 	// Handles the given command, returns FALSE on failure
-	bool Execute(ConversationCommand& command);
-
-	// Returns the conversation status to let outsiders know if the current action is finished
-	Status GetStatus();
+	ConversationCommand::State Execute(ConversationCommand& command);
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
@@ -71,6 +58,9 @@ private:
 
 	// Returns true if the conversation can be started
 	bool CheckConversationPrerequisites();
+
+	// Private helper for debug output
+	void DrawDebugOutput(idAI* owner);
 };
 typedef boost::shared_ptr<ConversationState> ConversationStatePtr;
 

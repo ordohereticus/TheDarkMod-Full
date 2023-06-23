@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2676 $
- * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2678 $
+ * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2676 2008-07-16 19:04:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2678 2008-07-17 15:11:36Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -113,14 +113,27 @@ bool Conversation::Process()
 	// Get the command as specified by the pointer
 	const ConversationCommandPtr& command = _commands[_currentCommand];
 
-	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Executing command %s in conversation %s.\r", 
-		ConversationCommand::TypeNames[command->GetType()], _name.c_str());
+	// Get the state of the current command
+	ConversationCommand::State state = command->GetState();
 
-	// Increase the iterator
-	_currentCommand++;
+	// If the command is not finished yet, execute it
+	if (state < ConversationCommand::EFinished)
+	{
+		DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Executing command %s in conversation %s.\r", 
+			ConversationCommand::TypeNames[command->GetType()], _name.c_str());
 
-	// Pass the call and return the result
-	return command->Execute(*this);
+		// Execute and get the new state
+		state = command->Execute(*this);
+	}
+
+	// If the command has returned "finished" by now, increase the iterator
+	if (state >= ConversationCommand::EFinished)
+	{
+		_currentCommand++;
+	}
+
+	// Pass the call and return a positive result if not aborted
+	return (state != ConversationCommand::EAborted);
 }
 
 idActor* Conversation::GetActor(int index)
