@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 873 $
- * $Date: 2007-03-27 20:53:32 +0200 (Di, 27 Mrz 2007) $
+ * $Revision: 2338 $
+ * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: liquid.cpp 873 2007-03-27 18:53:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
 
 #include "StimResponse/StimResponseCollection.h"
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2126 $
- * $Date: 2008-04-19 18:02:53 +0100 (Fr, 07 Mrz 2008) $
+ * $Revision: 2338 $
+ * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLever.cpp 2126 2008-03-07 17:02:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLever.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"

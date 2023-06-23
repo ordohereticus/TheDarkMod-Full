@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-30 18:53:28 +0200 (Di, 30 Okt 2007) $
+ * $Revision: 2338 $
+ * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 987 $
- * $Date: 2007-05-12 15:36:09 +0200 (Sa, 12 Mai 2007) $
+ * $Revision: 2338 $
+ * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 987 2007-05-12 13:36:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
