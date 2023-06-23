@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2352 $
- * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2358 $
+ * $Date: 2008-05-17 04:30:36 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Subsystem.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Subsystem.cpp 2358 2008-05-17 08:30:36Z greebo $", init_version);
 
 #include "Subsystem.h"
 #include "Library.h"
@@ -187,16 +187,17 @@ void Subsystem::ClearTasks()
 {
 	if (!_taskQueue.empty())
 	{
-		// Move all TaskPtrs from the queue into the bin (front to back)
-		for (TaskQueue::iterator i = _taskQueue.begin(); i != _taskQueue.end(); i++)
-		{
-			// Call the OnFinish event of the task after adding it to the bin
-			_recycleBin.push_back(*i);
-			_recycleBin.back()->OnFinish(_owner.GetEntity());
-		}
-		
+		// Call the OnFinish event of the task after adding it to the bin
+		_recycleBin.insert(_recycleBin.end(), _taskQueue.begin(), _taskQueue.end());
+
 		// Remove ALL tasks from the main queue
 		_taskQueue.clear();
+
+		// Now call the OnFinish method. This might alter the original _taskQueue
+		for (TaskQueue::iterator i = _recycleBin.begin(); i != _recycleBin.end(); i++)
+		{
+			(*i)->OnFinish(_owner.GetEntity());
+		}
 	}
 
 	// Disable this subsystem
