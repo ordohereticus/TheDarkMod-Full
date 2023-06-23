@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2656 $
- * $Date: 2008-07-13 13:28:41 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2657 $
+ * $Date: 2008-07-13 13:35:13 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,9 @@ namespace ai {
 class ConversationCommand
 {
 public:
-	void Clear();
+	// Save/Restore routines
+	void Save(idSaveGame* savefile) const;
+	void Restore(idRestoreGame* savefile);
 };
 typedef boost::shared_ptr<ConversationCommand> ConversationCommandPtr;
 

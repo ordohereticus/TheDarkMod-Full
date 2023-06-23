@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2655 $
- * $Date: 2008-07-13 13:22:51 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2657 $
+ * $Date: 2008-07-13 13:35:13 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../../../idlib/precompiled.h"
 
-#include <boost/shared_ptr.hpp>
+#include "ConversationCommand.h"
 
 namespace ai {
 
@@ -32,6 +32,9 @@ class Conversation
 
 	// All actors participating in this conversation
 	idStringList _actors;
+
+	// The list of commands this conversation consists of (this is the actual "script")
+	idList<ConversationCommandPtr> _commands;
 
 public:
 	Conversation();
