@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2899 $
- * $Date: 2008-09-27 05:06:51 -0400 (Sat, 27 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2910 $
+ * $Date: 2008-10-03 15:04:20 -0400 (Fri, 03 Oct 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2899 2008-09-27 09:06:51Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2910 2008-10-03 19:04:20Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1295,6 +1295,7 @@ void idAI::Spawn( void )
 	alertTypeWeight[ai::EAlertTypeBlood] = 30;
 	alertTypeWeight[ai::EAlertTypeLightSource] = 10;
 	alertTypeWeight[ai::EAlertTypeMissingItem] = 25;
+	alertTypeWeight[ai::EAlertTypeBrokenItem] = 26;
 	alertTypeWeight[ai::EAlertTypeDoor] = 20;
 	alertTypeWeight[ai::EAlertTypeDamage] = 45;
 
@@ -8526,6 +8527,7 @@ bool idAI::HasSeenEvidence()
 
 	return memory.enemiesHaveBeenSeen
 		|| memory.itemsHaveBeenStolen
+		|| memory.itemsHaveBeenBroken
 		|| memory.unconsciousPeopleHaveBeenFound
 		|| memory.deadPeopleHaveBeenFound;
 

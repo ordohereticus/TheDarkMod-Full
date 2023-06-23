@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2887 $
- * $Date: 2008-09-24 12:54:20 -0400 (Wed, 24 Sep 2008) $
+ * $Revision: 2910 $
+ * $Date: 2008-10-03 15:04:20 -0400 (Fri, 03 Oct 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2887 2008-09-24 16:54:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2910 2008-10-03 19:04:20Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -327,7 +327,7 @@ void State::OnVisualStim(idEntity* stimSource)
 	idStr aiUse = stimSource->spawnArgs.GetString("AIUse");
 
 	// Only respond if we can actually see it
-	if (aiUse == AIUSE_LIGHTSOURCE)
+	if (aiUse == AIUSE_LIGHTSOURCE || aiUse == AIUSE_BROKEN_ITEM)
 	{
 		// Special case for lights, we know it is off if there is no light. Also we can notice it
 		// if we are not looking right at it.
@@ -386,6 +386,15 @@ void State::OnVisualStim(idEntity* stimSource)
 			OnVisualStimMissingItem(stimSource, owner);
 		}
 	}
+	else if (aiUse == AIUSE_BROKEN_ITEM)
+	{
+		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeBrokenItem");
+		if (chance < chanceToNotice && ShouldProcessAlert(EAlertTypeBrokenItem))
+		{
+			OnVisualStimBrokenItem(stimSource, owner);
+		}
+	}
+
 	else if (aiUse == AIUSE_DOOR)
 	{
 		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeDoor");
@@ -1034,6 +1043,48 @@ void State::OnVisualStimMissingItem(idEntity* stimSource, idAI* owner)
 		owner->SetAlertLevel(owner->thresh_5 - 0.1);
 	}
 }
+
+
+void State::OnVisualStimBrokenItem(idEntity* stimSource, idAI* owner)
+{
+	assert(stimSource != NULL && owner != NULL); // must be fulfilled
+
+	Memory& memory = owner->GetMemory();
+
+	// We've seen this object, don't respond to it again
+	stimSource->ResponseIgnore(ST_VISUAL, owner);
+
+	gameLocal.Printf("Something is broken over there!\n");
+
+	// Speak a reaction
+	memory.lastTimeVisualStimBark = gameLocal.time;
+	owner->GetSubsystem(SubsysCommunication)->PushTask(
+		TaskPtr(new SingleBarkTask("snd_foundBrokenItem"))
+	);
+
+	// One more piece of evidence of something out of place
+	memory.itemsHaveBeenBroken = true;
+	memory.countEvidenceOfIntruders++;
+
+	// Raise alert level
+	if (owner->AI_AlertLevel < owner->thresh_4 - 0.1f)
+	{
+		memory.alertPos = stimSource->GetPhysics()->GetOrigin();
+		memory.alertClass = EAlertVisual;
+		memory.alertType = EAlertTypeBrokenItem;
+
+		
+		// Prepare search as if there is an enemy that has escaped
+		memory.alertRadius = LOST_ENEMY_ALERT_RADIUS;
+		memory.alertSearchVolume = LOST_ENEMY_SEARCH_VOLUME; 
+		memory.alertSearchExclusionVolume.Zero();
+		
+		owner->AI_VISALERT = false;
+		
+		owner->SetAlertLevel(owner->thresh_5 - 0.1);
+	}
+}
+
 
 void State::OnVisualStimDoor(idEntity* stimSource, idAI* owner)
 {

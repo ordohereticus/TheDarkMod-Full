@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2632 $
- * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2910 $
+ * $Date: 2008-10-03 15:04:20 -0400 (Fri, 03 Oct 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -93,6 +93,7 @@ public:
 	virtual void OnVisualStimBlood(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimLightSource(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimMissingItem(idEntity* stimSource, idAI* owner);
+	virtual void OnVisualStimBrokenItem(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimDoor(idEntity* stimSource, idAI* owner);
 
 	// greebo: Gets called by OnVisualStimPerson on finding a dead body
