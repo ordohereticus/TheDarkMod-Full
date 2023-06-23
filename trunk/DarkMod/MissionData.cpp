@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3122 $
- * $Date: 2009-01-06 12:59:54 -0500 (Tue, 06 Jan 2009) $
+ * $Revision: 3155 $
+ * $Date: 2009-01-17 03:25:20 -0500 (Sat, 17 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3122 2009-01-06 17:59:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3155 2009-01-17 08:25:20Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2440,7 +2440,6 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 	{
 		// Set the objectives state flag back to dirty
 		ClearGUIState();
-		gui->HandleNamedEvent("HideObjectiveScreen");
 	}
 	else if (cmd == "diffSelect")
 	{

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3141 $
- * $Date: 2009-01-15 00:34:42 -0500 (Thu, 15 Jan 2009) $
+ * $Revision: 3155 $
+ * $Date: 2009-01-17 03:25:20 -0500 (Sat, 17 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3141 2009-01-15 05:34:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3155 2009-01-17 08:25:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3392,8 +3392,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}	
 	else if (cmd == "close") 
 	{
-		gui->HandleNamedEvent("HideSuccessScreen");
-
 		// Start the timer again, we're closing the menu
 		m_GamePlayTimer.Start();
 	}
