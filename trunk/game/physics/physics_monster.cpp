@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2156 $
- * $Date: 2008-03-29 13:40:53 -0400 (Sat, 29 Mar 2008) $
+ * $Revision: 2583 $
+ * $Date: 2008-06-28 10:42:40 -0400 (Sat, 28 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_monster.cpp 2156 2008-03-29 17:40:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_monster.cpp 2583 2008-06-28 14:42:40Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -195,7 +195,8 @@ monsterMoveResult_t idPhysics_Monster::StepMove( idVec3 &start, idVec3 &velocity
 	gameLocal.clip.Translation( tr, stepPos, down, clipModel, clipModel->GetAxis(), clipMask, self );
 	//gameRenderWorld->DebugArrow(colorGreen, stepPos, down, 2, 5000);
 	//gameRenderWorld->DebugArrow(colorBlue, tr.c.point, tr.c.point + 5 * tr.c.normal, 2, 5000);
-	stepPos = tr.endpos;
+	// greebo: Set the endposition a bit more upwards than necessary to prevent gravity from pulling us down immediately again
+	stepPos = tr.endpos - gravityNormal * 10;
 
 	// if the move is further without stepping up, or the slope is too steep, don't step up
 	nostepdist = ( noStepPos - start ).LengthSqr();

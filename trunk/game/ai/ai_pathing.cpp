@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2569 $
- * $Date: 2008-06-25 14:01:20 -0400 (Wed, 25 Jun 2008) $
- * $Author: tels $
+ * $Revision: 2583 $
+ * $Date: 2008-06-28 10:42:40 -0400 (Sat, 28 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2569 2008-06-25 18:01:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2583 2008-06-28 14:42:40Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -334,7 +334,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	clipBounds[1][0] += MAX_OBSTACLE_RADIUS;
 	clipBounds[1][1] += MAX_OBSTACLE_RADIUS;
 
-	clipBounds[0][2] -= bounds[0][2] - OBSTACLE_HEIGHT_EXPANSION;
+	clipBounds[0][2] -= bounds[0][2] + OBSTACLE_HEIGHT_EXPANSION;
 	clipBounds[1][2] += bounds[1][2] + OBSTACLE_HEIGHT_EXPANSION;
 
 	// clipBounds.ExpandSelf( MAX_OBSTACLE_RADIUS );
@@ -354,6 +354,9 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	{
 		idClipModel* clipModel = clipModelList[i];
 		idEntity* obEnt = clipModel->GetEntity();
+
+		// greebo: Immediately ignore self
+		if (obEnt == self) continue;
 
 		/*
 		* SZ: Oct 9, 2006: Not all binary frob movers have trace models as clip models
@@ -397,7 +400,11 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		{
 			// moveables are considered obstacles
 		} 
-		else 
+		else if (obEnt->IsType(idStaticEntity::Type))
+		{
+			// func_statics should be considered
+		}
+		else
 		{
 			// ignore everything else
 
