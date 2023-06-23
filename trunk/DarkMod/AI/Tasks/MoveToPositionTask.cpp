@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2705 $
- * $Date: 2008-07-19 09:01:58 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2706 $
+ * $Date: 2008-07-19 09:34:43 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MoveToPositionTask.cpp 2705 2008-07-19 13:01:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MoveToPositionTask.cpp 2706 2008-07-19 13:34:43Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "MoveToPositionTask.h"
@@ -116,14 +116,26 @@ void MoveToPositionTask::UpdateTargetPosition(idAI* owner)
 	{
 		_targetPosition = _targetEntity->GetPhysics()->GetOrigin();
 
-		// Let's see if we're close to the target already
 		const idVec3& curPos = owner->GetPhysics()->GetOrigin();
+
+		// Let's see if we're close enough to the target already
 		float distance = (curPos - _targetPosition).LengthFast();
 
 		if (distance < _entityReachDistance)
 		{
 			// Terminate this task
 			_targetPosition = curPos;
+		}
+		else
+		{
+			// Fix for AIs walking away from the target position
+			idVec3 delta = _targetEntity->GetPhysics()->GetOrigin() - curPos;
+			
+			// greebo: Move the target position just at the edge of the other AI's bbox
+			float scale;
+			_targetEntity->GetPhysics()->GetAbsBounds().RayIntersection(curPos, delta, scale);
+
+			_targetPosition = curPos + delta*scale;
 		}
 	}
 }
