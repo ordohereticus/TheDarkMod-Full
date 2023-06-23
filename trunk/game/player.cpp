@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2417 $
- * $Date: 2008-06-01 15:44:17 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2418 $
+ * $Date: 2008-06-01 15:56:36 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2417 2008-06-01 19:44:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2418 2008-06-01 19:56:36Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -8770,8 +8770,11 @@ void idPlayer::inventoryUseItem()
 
 void idPlayer::inventoryUseItem(IMPULSE_STATE nState, CInventoryItem* item, int holdTime)
 {
-	// Pass the "inventoryUseItem" event to the GUIs
-	m_overlays.broadcastNamedEvent("inventoryUseItem");
+	if (nState == IS_PRESSED)
+	{
+		// Pass the "inventoryUseItem" event to the GUIs
+		m_overlays.broadcastNamedEvent("inventoryUseItem");
+	}
 
 	// Check if we're allowed to use items at all
 	if (GetImmobilization() & EIM_ITEM_USE) return;
