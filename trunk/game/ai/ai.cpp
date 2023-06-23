@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2363 $
- * $Date: 2008-05-17 10:15:19 -0400 (Sat, 17 May 2008) $
- * $Author: angua $
+ * $Revision: 2369 $
+ * $Date: 2008-05-18 12:30:22 -0400 (Sun, 18 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2363 2008-05-17 14:15:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2369 2008-05-18 16:30:22Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3140,22 +3140,21 @@ idAI::MoveToPosition
 =====================
 */
 bool idAI::MoveToPosition( const idVec3 &pos ) {
-	idVec3		org;
-	int			areaNum;
-	aasPath_t	path;
-
+	// Check if we already reached the position
 	if ( ReachedPos( pos, move.moveCommand ) ) {
 		StopMove( MOVE_STATUS_DONE );
 		return true;
 	}
 
-	org = pos;
+	idVec3 org = pos;
 	move.toAreaNum = 0;
+	aasPath_t path;
 	if ( aas ) {
 		move.toAreaNum = PointReachableAreaNum( org );
 		aas->PushPointIntoAreaNum( move.toAreaNum, org );
 
-		areaNum	= PointReachableAreaNum( physicsObj.GetOrigin() );
+		int areaNum	= PointReachableAreaNum( physicsObj.GetOrigin() );
+
 		if ( !PathToGoal( path, areaNum, physicsObj.GetOrigin(), move.toAreaNum, org, this ) ) {
 			StopMove( MOVE_STATUS_DEST_UNREACHABLE );
 			AI_DEST_UNREACHABLE = true;
@@ -3167,6 +3166,12 @@ bool idAI::MoveToPosition( const idVec3 &pos ) {
 		StopMove( MOVE_STATUS_DEST_UNREACHABLE );
 		AI_DEST_UNREACHABLE = true;
 		return false;
+	}
+
+	// Valid path to goal, check if we need to use an elevator
+	if (path.type & PATHTYPE_ELEVATOR)
+	{
+		NeedToUseElevator(path.elevatorRoute);
 	}
 
 	move.moveDest		= org;

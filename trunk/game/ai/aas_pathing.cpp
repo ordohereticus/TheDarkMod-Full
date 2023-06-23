@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2322 $
- * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
- * $Author: angua $
+ * $Revision: 2369 $
+ * $Date: 2008-05-18 12:30:22 -0400 (Sun, 18 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2322 $   $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2369 $   $Date: 2008-05-18 12:30:22 -0400 (Sun, 18 May 2008) $", init_version);
 
 #include "aas_local.h"
 
@@ -277,6 +277,7 @@ bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &ori
 	path.moveAreaNum = areaNum;
 	path.secondaryGoal = origin;
 	path.reachability = NULL;
+	path.elevatorRoute = eas::RouteInfoPtr();
 
 	if ( file == NULL || areaNum == goalAreaNum ) {
 		path.moveGoal = goalOrigin;
@@ -462,6 +463,7 @@ bool idAASLocal::FlyPathToGoal( aasPath_t &path, int areaNum, const idVec3 &orig
 	path.moveAreaNum = areaNum;
 	path.secondaryGoal = origin;
 	path.reachability = NULL;
+	path.elevatorRoute = eas::RouteInfoPtr();
 
 	if ( file == NULL || areaNum == goalAreaNum ) {
 		path.moveGoal = goalOrigin;

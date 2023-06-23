@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2331 $
- * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
+ * $Revision: 2369 $
+ * $Date: 2008-05-18 12:30:22 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -191,8 +191,6 @@ public:
 	****************************************************************************************/
 	virtual float		    CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &oldOrigin, const idVec3 &oldVelocity );
 
-	virtual void			NeedToUseElevator(const eas::RouteInfoPtr& routeInfo);
-	
 	int						GetDamageForLocation( int damage, int location );
 	const char *			GetDamageGroup( int location );
 	void					ClearPain( void );
