@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2414 $
- * $Date: 2008-06-01 10:34:57 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2422 $
+ * $Date: 2008-06-02 01:32:10 -0400 (Mon, 02 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 2414 2008-06-01 14:34:57Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 2422 2008-06-02 05:32:10Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -319,6 +319,16 @@ bool CRelations::SetFromArgs( idDict *args )
 		goto Quit;
 	}
 
+	// angua: Fill matrix with defaults
+	m_RelMat->Fill(s_DefaultRelation);
+
+	for (int counter = 1; counter <= maxrow; counter++)
+	{
+		m_RelMat->Set(EntryList[counter].row, EntryList[counter].col, s_DefaultSameTeamRel);
+	}
+
+
+	// angua: Set values from list
 	for( int i=0; i<EntryList.Num(); i++ )
 	{
 		if ( !m_RelMat->Set(EntryList[i].row, EntryList[i].col, EntryList[i].val ) )
