@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2313 $
-#* $Date: 2008-05-12 14:14:43 -0400 (Mon, 12 May 2008) $
+#* $Revision: 2319 $
+#* $Date: 2008-05-13 01:02:28 -0400 (Tue, 13 May 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -205,6 +205,7 @@ AI/Tasks/ChaseEnemyRangedTask.cpp \
 AI/Tasks/ChaseEnemyTask.cpp \
 AI/Tasks/FleeTask.cpp \
 AI/Tasks/HandleDoorTask.cpp \
+AI/Tasks/HandleElevatorTask.cpp \
 AI/Tasks/IdleAnimationTask.cpp \
 AI/Tasks/InvestigateSpotTask.cpp \
 AI/Tasks/MeleeCombatTask.cpp \
