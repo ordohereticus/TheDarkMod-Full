@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3137 $
- * $Date: 2009-01-13 13:34:32 -0500 (Tue, 13 Jan 2009) $
+ * $Revision: 3170 $
+ * $Date: 2009-01-18 04:40:41 -0500 (Sun, 18 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3137 2009-01-13 18:34:32Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3170 2009-01-18 09:40:41Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5311,16 +5311,16 @@ void idAI::DropBlood(idEntity *inflictor)
 {
 	if (inflictor)
 	{
-		idStr damageDefName = inflictor->spawnArgs.GetString( "def_damage" );
+		idStr damageDefName = inflictor->spawnArgs.RandomPrefix("def_damage", gameLocal.random);
 
-		const idDeclEntityDef *def = gameLocal.FindEntityDef( damageDefName, false );
+		const idDeclEntityDef *def = gameLocal.FindEntityDef(damageDefName, false);
 		if ( def == NULL ) 
 		{
 			return;
 		}
 
 		// blood splats are thrown onto nearby surfaces
-		idStr splat = def->dict.RandomPrefix( "mtr_killed_splat", gameLocal.random );
+		idStr splat = def->dict.RandomPrefix("mtr_killed_splat", gameLocal.random);
 		if (!splat.IsEmpty()) 
 		{
 			SpawnBloodMarker(splat, 40);

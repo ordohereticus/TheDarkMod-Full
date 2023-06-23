@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3135 $
- * $Date: 2009-01-11 03:12:16 -0500 (Sun, 11 Jan 2009) $
- * $Author: ishtvan $
+ * $Revision: 3170 $
+ * $Date: 2009-01-18 04:40:41 -0500 (Sun, 18 Jan 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3135 2009-01-11 08:12:16Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3170 2009-01-18 09:40:41Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -676,7 +676,7 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 		// TODO: Damage scaling - on the weapon * melee proficiency on the actor
 		other->Damage
 		(
-			m_Owner.GetEntity(), m_Owner.GetEntity(), 
+			this, m_Owner.GetEntity(), 
 			dir, DamageDefName,
 			DmgScale, location, tr 
 		);
