@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2635 $
- * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2731 $
+ * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -215,8 +215,8 @@ public:
 	// Set this to TRUE if stimulus location itself should be closely investigated (kneel down)
 	bool investigateStimulusLocationClosely;
 
-	// This flag indicates if the search is due to a communication
-	bool searchingDueToCommunication;
+	// This flag indicates if the last alert is due to a communication message
+	bool alertedDueToCommunication;
 
 	// Position of the last alert causing stimulus which was searched.
     // This is used to compare new stimuli to the previous stimuli searched

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2729 $
- * $Date: 2008-08-09 15:30:37 -0400 (Sat, 09 Aug 2008) $
+ * $Revision: 2731 $
+ * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2729 2008-08-09 19:30:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2731 2008-08-13 19:03:59Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1514,7 +1514,7 @@ int CMissionData::AddObjsFromDict(const idDict& dict)
 	if( dict.FindKey( StrTemp + DiffStr ) )
 		StrTemp = StrTemp + DiffStr;
 	// Only one of these per mission, so empty args on this object should not overwrite existing args
-	StrTemp = dict.GetString(StrTemp.c_str(), "");
+	StrTemp = dict.GetString(StrTemp, "");
 	if( StrTemp != "" )
 	{
 		bLogicMod = true;
@@ -1524,7 +1524,7 @@ int CMissionData::AddObjsFromDict(const idDict& dict)
 	StrTemp = "mission_logic_failure";
 	if( dict.FindKey( StrTemp + DiffStr ) )
 		StrTemp = StrTemp + DiffStr;
-	StrTemp = dict.GetString(StrTemp.c_str(), "");
+	StrTemp = dict.GetString(StrTemp, "");
 	if( StrTemp != "" )
 	{
 		bLogicMod = true;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2634 $
- * $Date: 2008-07-12 04:20:10 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2731 $
+ * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2634 2008-07-12 08:20:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2731 2008-08-13 19:03:59Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -152,7 +152,7 @@ void State::OnVisualAlert(idActor* enemy)
 			memory.countEvidenceOfIntruders++;
 		
 			// Do new reaction to stimulus
-			memory.searchingDueToCommunication = false;
+			memory.alertedDueToCommunication = false;
 
 			// Restart the search, in case we're already searching
 			memory.restartSearchForHidingSpots = true;
@@ -469,7 +469,7 @@ void State::OnVisualStimWeapon(idEntity* stimSource, idAI* owner)
 	// Do new reaction to stimulus
 	memory.stimulusLocationItselfShouldBeSearched = true;
 	memory.investigateStimulusLocationClosely = true; // deep investigation
-	memory.searchingDueToCommunication = false;
+	memory.alertedDueToCommunication = false;
 }
 
 void State::OnVisualStimPerson(idEntity* stimSource, idAI* owner)
@@ -735,7 +735,7 @@ bool State::OnVisualStimDeadPerson(idActor* person, idAI* owner)
 		// Do new reaction to stimulus
 		memory.investigateStimulusLocationClosely = true; // deep investigation
 		memory.stimulusLocationItselfShouldBeSearched = true;
-		memory.searchingDueToCommunication = false;
+		memory.alertedDueToCommunication = false;
 		
 		// Callback for objectives
 		owner->FoundBody(person);
@@ -810,7 +810,7 @@ bool State::OnVisualStimUnconsciousPerson(idActor* person, idAI* owner)
 		// Do new reaction to stimulus
 		memory.investigateStimulusLocationClosely = true; // deep investigation
 		memory.stimulusLocationItselfShouldBeSearched = true;
-		memory.searchingDueToCommunication = false;
+		memory.alertedDueToCommunication = false;
 		
 		// Callback for objectives
 		owner->FoundBody(person);
@@ -859,7 +859,7 @@ void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)
 				
 	// Do new reaction to stimulus
 	memory.stimulusLocationItselfShouldBeSearched = true;
-	memory.searchingDueToCommunication = false;
+	memory.alertedDueToCommunication = false;
 }
 
 void State::OnVisualStimLightSource(idEntity* stimSource, idAI* owner)
@@ -941,7 +941,7 @@ void State::OnVisualStimLightSource(idEntity* stimSource, idAI* owner)
 
 		// Do new reaction to stimulus after relighting
 		memory.stimulusLocationItselfShouldBeSearched = true;
-		memory.searchingDueToCommunication = false;
+		memory.alertedDueToCommunication = false;
 	
 		// We will be turning the light on
 		turnLightOn = true;
@@ -1105,17 +1105,14 @@ void State::OnVisualStimDoor(idEntity* stimSource, idAI* owner)
 				
 	// Do new reaction to stimulus
 	memory.stimulusLocationItselfShouldBeSearched = true;
-	memory.searchingDueToCommunication = false;
+	memory.alertedDueToCommunication = false;
 }
 
 void State::OnAICommMessage(CommMessage& message)
 {
 	idAI* owner = _owner.GetEntity();
-	if (owner == NULL)
-	{
-		// State not yet initialised
-		return;
-	}
+	// greebo: changed the IF back to an assertion, the owner should never be NULL
+	assert(owner != NULL); 
 
 	// Get the message parameters
 	CommMessage::TCommType commType = message.m_commType;
@@ -1289,12 +1286,23 @@ void State::OnAICommMessage(CommMessage& message)
 				return;
 			}
 
-			if (owner->IsFriend(issuingEntity) && owner->IsEnemy(directObjectEntity))
 			{
-				owner->SetAlertLevel(owner->thresh_5*2);
-				
-				//gameLocal.Printf("They're my friend, I'll attack it too!\n");
-				memory.alertPos = directObjectLocation;
+				float newAlertLevel = (owner->thresh_4 + owner->thresh_5) * 0.5f;
+
+				// greebo: Only set the alert level if it is greater than our own
+				if (owner->AI_AlertLevel < newAlertLevel && 
+					owner->IsFriend(issuingEntity) && 
+					owner->IsEnemy(directObjectEntity))
+				{
+					// Set the alert level between 4 and 5.
+					owner->SetAlertLevel((owner->thresh_4 + owner->thresh_5)*0.5f);
+					
+					// We got alerted by a communication message
+					memory.alertedDueToCommunication = true;
+						
+					//gameLocal.Printf("They're my friend, I'll attack it too!\n");
+					memory.alertPos = directObjectLocation;
+				}
 			}
 			break;
 		case CommMessage::FollowOrder_CommType:
@@ -1462,16 +1470,17 @@ void State::OnMessageDetectedSomethingSuspicious(CommMessage& message)
 			
 			if (issuingEntity->IsType(idAI::Type))
 			{
-				otherAlertLevel = static_cast<idAI*>(issuingEntity)->AI_AlertLevel;
+				// Inherit the alert level of the other AI, but attenuate it a bit
+				otherAlertLevel = static_cast<idAI*>(issuingEntity)->AI_AlertLevel * 0.7f;
 			}
 
 			//gameLocal.Printf("The AI who noticed something has an alert num of %f\n", otherAlertLevel);
 			if (otherAlertLevel > owner->AI_AlertLevel)
 			{
 				owner->SetAlertLevel(otherAlertLevel);
+				memory.alertedDueToCommunication = true;
 			}
 			
-			memory.searchingDueToCommunication = true;
 			return;
 		}
 		else

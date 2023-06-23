@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2557 $
- * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2731 $
+ * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 2557 2008-06-21 19:42:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 2731 2008-08-13 19:03:59Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -42,7 +42,7 @@ Memory::Memory(idAI* owningAI) :
 	alertRadius(-1),
 	stimulusLocationItselfShouldBeSearched(false),
 	investigateStimulusLocationClosely(false),
-	searchingDueToCommunication(false),
+	alertedDueToCommunication(false),
 	lastAlertPosSearched(0,0,0),
 	alertSearchCenter(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY),
 	alertSearchVolume(0,0,0),
@@ -90,7 +90,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteFloat(alertRadius);
 	savefile->WriteBool(stimulusLocationItselfShouldBeSearched);
 	savefile->WriteBool(investigateStimulusLocationClosely);
-	savefile->WriteBool(searchingDueToCommunication);
+	savefile->WriteBool(alertedDueToCommunication);
 	savefile->WriteVec3(lastAlertPosSearched);
 	savefile->WriteVec3(alertSearchCenter);
 	savefile->WriteVec3(alertSearchVolume);
@@ -158,7 +158,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadFloat(alertRadius);
 	savefile->ReadBool(stimulusLocationItselfShouldBeSearched);
 	savefile->ReadBool(investigateStimulusLocationClosely);
-	savefile->ReadBool(searchingDueToCommunication);
+	savefile->ReadBool(alertedDueToCommunication);
 	savefile->ReadVec3(lastAlertPosSearched);
 	savefile->ReadVec3(alertSearchCenter);
 	savefile->ReadVec3(alertSearchVolume);

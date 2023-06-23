@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2731 $
+ * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: LostTrackOfEnemyState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: LostTrackOfEnemyState.cpp 2731 2008-08-13 19:03:59Z greebo $", init_version);
 
 #include "LostTrackOfEnemyState.h"
 #include "../Memory.h"
@@ -49,7 +49,7 @@ void LostTrackOfEnemyState::Init(idAI* owner)
 	memory.alertSearchVolume = LOST_ENEMY_SEARCH_VOLUME;
 	memory.alertSearchExclusionVolume.Zero();
 
-	memory.searchingDueToCommunication = false;
+	memory.alertedDueToCommunication = false;
 	memory.stimulusLocationItselfShouldBeSearched = true;
 
 	// Forget about the enemy, prevent UpdateEnemyPosition from "cheating".
