@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2912 $
- * $Date: 2008-10-04 13:44:04 -0400 (Sat, 04 Oct 2008) $
- * $Author: angua $
+ * $Revision: 2924 $
+ * $Date: 2008-10-06 00:08:37 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2912 2008-10-04 17:44:04Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2924 2008-10-06 04:08:37Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9687,4 +9687,16 @@ bool idAI::SwitchToConversationState(const idStr& conversationName)
 	GetMind()->PushState(state);
 
 	return true;
+}
+
+void idAI::RemoveTarget(idEntity* target)
+{
+	idEntity::RemoveTarget( target );
+	GetMind()->GetState()->OnChangeTarget( this );
+}
+
+void idAI::AddTarget(idEntity* target)
+{
+	idEntity::AddTarget( target );
+	GetMind()->GetState()->OnChangeTarget( this );
 }

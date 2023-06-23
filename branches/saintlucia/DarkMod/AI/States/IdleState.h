@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2475 $
- * $Date: 2008-06-14 02:37:18 -0400 (Sat, 14 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2924 $
+ * $Date: 2008-10-06 00:08:37 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -35,6 +35,12 @@ public:
 	virtual void Restore(idRestoreGame* savefile);
 
 	static StatePtr CreateInstance();
+
+	/**
+	* ishtvan: Called when targets are changed
+	* Re-initializes to catch new path corners
+	**/
+	virtual void OnChangeTarget(idAI *owner);
 
 protected:
 

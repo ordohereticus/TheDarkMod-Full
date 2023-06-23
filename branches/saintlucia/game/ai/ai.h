@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2884 $
- * $Date: 2008-09-24 11:23:00 -0400 (Wed, 24 Sep 2008) $
+ * $Revision: 2924 $
+ * $Date: 2008-10-06 00:08:37 -0400 (Mon, 06 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -449,6 +449,12 @@ public:
 	* Returns true if AI is knocked out
 	**/
 	bool  IsKnockedOut( void ) { return (AI_KNOCKEDOUT!=0); };
+
+	/**
+	* Ishtvan: Overload AI target changing to re-initialize movement tasks
+	**/
+	virtual void			RemoveTarget(idEntity* target);
+	virtual void			AddTarget(idEntity* target);
 
 public:
 	/**
