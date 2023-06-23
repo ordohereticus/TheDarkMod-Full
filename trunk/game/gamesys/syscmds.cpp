@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2445 $
- * $Date: 2008-06-07 10:07:39 -0400 (Sat, 07 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2465 $
+ * $Date: 2008-06-08 16:15:10 -0400 (Sun, 08 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,13 +13,14 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2445 2008-06-07 14:07:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2465 2008-06-08 20:15:10Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
 #include "../../DarkMod/sndPropLoader.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/Inventory/Inventory.h"
+#include "../../DarkMod/TimerManager.h"
 
 #include "typeinfo.h"
 
@@ -2685,6 +2686,17 @@ void Cmd_ShowEASRoute_f(const idCmdArgs& args)
 	}
 }
 
+
+/*
+==================
+Cmd_PrintAIRelations_f
+==================
+*/
+void Cmd_ListTimers_f(const idCmdArgs& args) 
+{
+	PRINT_TIMERS;
+}
+
 /*
 =================
 idGameLocal::InitConsoleCommands
@@ -2816,6 +2828,9 @@ void idGameLocal::InitConsoleCommands( void ) {
 	// localization help commands
 	cmdSystem->AddCommand( "nextGUI",				Cmd_NextGUI_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"teleport the player to the next func_static with a gui" );
 	cmdSystem->AddCommand( "testid",				Cmd_TestId_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"output the string for the specified id." );
+#ifdef TIMING_BUILD
+	cmdSystem->AddCommand( "listTimers",			Cmd_ListTimers_f,			CMD_FL_GAME,				"Shows total run time and max time of timers (TIMING_BUILD only)." );
+#endif
 }
 
 /*

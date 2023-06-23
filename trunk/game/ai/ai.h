@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2463 $
- * $Date: 2008-06-08 11:56:15 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2465 $
+ * $Date: 2008-06-08 16:15:10 -0400 (Sun, 08 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -1779,6 +1779,10 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	**/
 	void Event_ClosestReachableEnemy( void );
 
+#ifdef TIMING_BUILD
+private:
+	int aiThinkTimer;
+#endif
 };
 
 class idCombatNode : public idEntity {

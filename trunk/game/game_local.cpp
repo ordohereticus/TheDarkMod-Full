@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2456 $
- * $Date: 2008-06-08 04:48:43 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2465 $
+ * $Date: 2008-06-08 16:15:10 -0400 (Sun, 08 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2456 2008-06-08 08:48:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2465 2008-06-08 20:15:10Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -36,6 +36,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 2456 2008-06-08 
 #include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/ModMenu.h"
 #include "../DarkMod/renderpipe.h"
+#include "../DarkMod/TimerManager.h"
 
 #include "IL/config.h"
 #include "IL/il.h"
@@ -257,6 +258,10 @@ void idGameLocal::Clear( void )
 	m_DifficultyManager.Clear();
 
 	m_AreaManager.Clear();
+
+#ifdef TIMING_BUILD
+	debugtools::TimerManager::Instance().Clear();
+#endif
 
 	m_EscapePointManager = CEscapePointManager::Instance();
 	m_Interleave = 0;
@@ -614,6 +619,10 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	m_GamePlayTimer.Save(&savegame);
 	m_AreaManager.Save(&savegame);
+
+#ifdef TIMING_BUILD
+	debugtools::TimerManager::Instance().Save(&savegame);
+#endif
 
 	savegame.WriteInt( g_skill.GetInteger() );
 
@@ -1529,6 +1538,10 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_GamePlayTimer.Restore(&savegame);
 	m_GamePlayTimer.SetEnabled(false);
 	m_AreaManager.Restore(&savegame);
+
+#ifdef TIMING_BUILD
+	debugtools::TimerManager::Instance().Restore(&savegame);
+#endif
 
 	savegame.ReadInt( i );
 	g_skill.SetInteger( i );
