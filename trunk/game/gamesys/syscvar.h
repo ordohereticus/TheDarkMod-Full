@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2397 $
- * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
- * $Author: angua $
+ * $Revision: 2399 $
+ * $Date: 2008-05-29 12:56:33 -0400 (Thu, 29 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -122,7 +122,6 @@ extern idCVar cv_frob_ammo_selects_weapon;
 // physics
 extern idCVar cv_collision_damage_scale_vert;
 extern idCVar cv_collision_damage_scale_horiz;
-extern idCVar cv_collision_damage_min;
 extern idCVar cv_drag_limit_force;
 extern idCVar cv_drag_force_max;
 extern idCVar cv_drag_stuck_dist;

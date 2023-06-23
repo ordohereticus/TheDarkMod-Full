@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2397 $
- * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
- * $Author: angua $
+ * $Revision: 2399 $
+ * $Date: 2008-05-29 12:56:33 -0400 (Thu, 29 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2397 2008-05-28 20:31:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2399 2008-05-29 16:56:33Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3897,29 +3897,29 @@ void idPlayer::CrashLand( const idVec3 &savedOrigin, const idVec3 &savedVelocity
 	
 	AI_SOFTLANDING = false;
 	AI_HARDLANDING = false;
-	float delta = idActor::CrashLand( physicsObj, savedOrigin, savedVelocity );
+	int damageDealt = idActor::CrashLand( physicsObj, savedOrigin, savedVelocity );
 	
-
-	if ( delta > m_delta_fatal )
+	if (health < 0)
 	{
+		// This was a deadly fall
 		AI_HARDLANDING = true;
 		landChange = -32;
 		landTime = gameLocal.time;
 	}
-	else if ( delta > m_delta_min )
+	else if (damageDealt >= m_damage_thresh_hard)
 	{
 		AI_HARDLANDING = true;
 		landChange = -24;
 		landTime = gameLocal.time;
 	}
-	else if ( delta > (m_delta_min / 4.0f) )
+	else if (damageDealt >= m_damage_thresh_min)
 	{
 		AI_SOFTLANDING = true;
 		landChange	= -8;
 		landTime = gameLocal.time;
 	}
+
 	// otherwise, just walk on
-	
 }
 
 /*
