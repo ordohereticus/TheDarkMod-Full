@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2476 $
- * $Date: 2008-06-14 03:21:32 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2611 $
+ * $Date: 2008-07-05 01:51:29 -0400 (Sat, 05 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,11 +13,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2476 2008-06-14 07:21:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2611 2008-07-05 05:51:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
-
+#include "../DarkMod/StimResponse/StimResponseCollection.h"
 
 /*
 ===============================================================================
@@ -509,6 +509,12 @@ void idAFAttachment::SetCombatModel( void ) {
 	} else {
 		combatModel = new idClipModel( modelDefHandle );
 	}
+
+	if (m_StimResponseColl->HasResponse())
+	{
+		combatModel->SetContents( combatModel->GetContents() | CONTENTS_RESPONSE );
+	}
+
 	combatModel->SetOwner( body );
 }
 
