@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2909 $
- * $Date: 2008-10-02 14:01:45 -0400 (Thu, 02 Oct 2008) $
+ * $Revision: 2951 $
+ * $Date: 2008-10-15 11:48:10 -0400 (Wed, 15 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2909 2008-10-02 18:01:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2951 2008-10-15 15:48:10Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2312,6 +2312,9 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 	{
 		gui->HandleNamedEvent("GetObjectivesInfo");
 
+		// Holds the X start position for the objectives
+		int objStartXPos = -1;
+
 		if (gui->GetStateInt("BriefingIsVisible") == 1)
 		{
 			// We're coming from the briefing screen
@@ -2380,7 +2383,8 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 				gui->SetStateInt("ObjectiveBoxIsVisible", 0);
 
 				// Set the positioning according to the Difficulty screen
-				gui->SetStateInt("ObjXPos", gui->GetStateInt("DifficultyStartXPos"));
+				objStartXPos = gui->GetStateInt("DifficultyStartXPos");
+
 				gui->SetStateInt("ParchmentXPos", gui->GetStateInt("DifficultyParchmentXPos"));
 				gui->SetStateString("ObjTitle", gui->GetStateString("DifficultyTitle"));
 				gui->SetStateInt("TitleXPos", gui->GetStateInt("DifficultyTitleXPos"));
@@ -2400,11 +2404,15 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 			gui->SetStateInt("ObjectiveBoxIsVisible", 1);
 
 			// Set the positioning according to the Objectives screen
-			gui->SetStateInt("ObjXPos", gui->GetStateInt("ObjectiveStartXPos"));
+			objStartXPos = gui->GetStateInt("ObjectiveStartXPos");
+
 			gui->SetStateInt("ParchmentXPos", gui->GetStateInt("ObjectiveParchmentXPos"));
 			gui->SetStateString("ObjTitle", gui->GetStateString("ObjectiveTitle"));
 			gui->SetStateInt("TitleXPos", gui->GetStateInt("ObjectiveTitleXPos"));
 		}
+
+		// greebo: Sanity-check the objectives start position
+		gui->SetStateInt("ObjXPos", (objStartXPos == 0) ? 110 : objStartXPos);
 
 		gui->HandleNamedEvent("ShowObjectiveScreen");
 		
