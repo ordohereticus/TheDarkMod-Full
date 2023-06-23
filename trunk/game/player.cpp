@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3009 $
- * $Date: 2008-11-10 15:40:09 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3011 $
+ * $Date: 2008-11-11 12:16:56 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3009 2008-11-10 20:40:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3011 2008-11-11 17:16:56Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9492,6 +9492,16 @@ void idPlayer::OnInventorySelectionChanged(const CInventoryItemPtr& prevItem)
 
 		// Update the player's encumbrance based on the new item
 		SetHinderance("inventory_item", curItem->GetMovementModifier(), 1.0f);
+	}
+
+	// Lastly, let's see if the category has changed
+	if (curItem != NULL && prevItem != NULL && curItem->Category() != prevItem->Category())
+	{
+		idUserInterface* invGUI = m_overlays.getGui(m_InventoryOverlay);
+		if (invGUI != NULL)
+		{
+			invGUI->HandleNamedEvent("onInventoryCategoryChanged");
+		}
 	}
 }
 
