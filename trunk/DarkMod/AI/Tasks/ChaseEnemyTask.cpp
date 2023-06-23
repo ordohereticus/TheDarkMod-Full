@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2386 $
- * $Date: 2008-05-26 13:07:23 -0400 (Mon, 26 May 2008) $
+ * $Revision: 2387 $
+ * $Date: 2008-05-26 14:27:56 -0400 (Mon, 26 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2386 2008-05-26 17:07:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2387 2008-05-26 18:27:56Z greebo $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "InteractionTask.h"
@@ -172,7 +172,7 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 
 CMultiStateMoverPosition* ChaseEnemyTask::CanFetchElevator(CMultiStateMover* mover, idAI* owner)
 {
-	if (!owner->CanUseElevators()) 
+	if (!owner->CanUseElevators() || owner->GetAAS() == NULL) 
 	{
 		// Can't use elevators at all, skip this check
 		return NULL;
