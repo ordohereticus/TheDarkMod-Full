@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2750 $
- * $Date: 2008-08-23 12:53:40 -0400 (Sat, 23 Aug 2008) $
- * $Author: tels $
+ * $Revision: 2772 $
+ * $Date: 2008-08-30 11:38:55 -0400 (Sat, 30 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2750 2008-08-23 16:53:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2772 2008-08-30 15:38:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -69,6 +69,8 @@ idMoveable::idMoveable( void ) {
 	// greebo: A fraction of -1 is considered to be an invalid trace here
 	memset(&lastCollision, 0, sizeof(lastCollision));
 	lastCollision.fraction = -1;
+
+	isPushed = false;
 }
 
 /*
@@ -250,6 +252,7 @@ void idMoveable::Save( idSaveGame *savefile ) const {
 	savefile->WriteStaticObject( physicsObj );
 
 	savefile->WriteTrace(lastCollision);
+	savefile->WriteBool(isPushed);
 }
 
 /*
@@ -288,6 +291,7 @@ void idMoveable::Restore( idRestoreGame *savefile ) {
 	RestorePhysics( &physicsObj );
 
 	savefile->ReadTrace(lastCollision);
+	savefile->ReadBool(isPushed);
 }
 
 /*
@@ -605,6 +609,41 @@ void idMoveable::ReadFromSnapshot( const idBitMsgDelta &msg ) {
 	if ( msg.HasChanged() ) {
 		UpdateVisuals();
 	}
+}
+
+void idMoveable::SetIsPushed(bool isNowPushed)
+{
+	bool wasPushed = isPushed;
+
+	if (wasPushed && !isNowPushed)
+	{
+		// We have just changed states from "pushed" to "not pushed anymore"
+		StopSound(SND_CHANNEL_BODY3, false);
+
+		isPushed = false;
+	}
+	// Only update the "is pushed" variable if the velocity is not zero
+	else if (!wasPushed && isNowPushed) 
+	{
+		const idVec3& curVelocity = GetPhysics()->GetLinearVelocity();
+		const idVec3& gravityNorm = GetPhysics()->GetGravityNormal();
+
+		idVec3 xyVelocity = curVelocity - (curVelocity * gravityNorm) * gravityNorm;
+		float xySpeed = xyVelocity.NormalizeFast();
+
+		if (xySpeed > VECTOR_EPSILON)
+		{
+			// We have just changed states from "not pushed yet" to "pushed"
+			StartSound("snd_sliding", SND_CHANNEL_BODY3, 0, false, NULL);
+		}
+
+		isPushed = true;
+	}
+}
+
+bool idMoveable::IsPushed()
+{
+	return isPushed;
 }
 
 /*

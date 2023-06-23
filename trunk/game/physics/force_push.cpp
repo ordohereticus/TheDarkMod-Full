@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2771 $
- * $Date: 2008-08-30 10:46:45 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2772 $
+ * $Date: 2008-08-30 11:38:55 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2771 2008-08-30 14:46:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2772 2008-08-30 15:38:55Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -40,10 +40,21 @@ void CForcePush::SetPushEntity(idEntity* pushEnt, int id)
 		startPushTime = gameLocal.time;
 	}
 
-	// Update the owning actor's push state
-	if (pushEnt == NULL && owner != NULL && owner->IsType(idActor::Type))
+	// Check if we are pushing anything
+	if (pushEnt == NULL)
 	{
-		static_cast<idActor*>(owner)->SetIsPushing(false);
+		// No, update the owning actor's push state
+		if (owner != NULL && owner->IsType(idActor::Type))
+		{
+			static_cast<idActor*>(owner)->SetIsPushing(false);
+		}
+
+		// Did we push anything the frame before?
+		if (lastPushEnt != NULL && lastPushEnt->IsType(idMoveable::Type))
+		{
+			// Let the pushed entity know that it is not being pushed anymore
+			static_cast<idMoveable*>(lastPushEnt)->SetIsPushed(false);
+		}
 	}
 
 	this->pushEnt = pushEnt;
@@ -60,9 +71,9 @@ void CForcePush::Evaluate( int time )
 {
 	if (pushEnt == NULL || owner == NULL) return; // nothing to do
 
-	if (pushEnt->spawnArgs.GetBool("notPushable", "0"))
+	// Do not push static entity or non-pushable ones
+	if (pushEnt->IsType(idStaticEntity::Type) || pushEnt->spawnArgs.GetBool("notPushable", "0"))
 	{
-		// the entity is not pushable
 		return;
 	}
 
@@ -105,9 +116,13 @@ void CForcePush::Evaluate( int time )
 			// greebo: Scale the velocity during the acceleration phase
 			float accelScale = idMath::ClampFloat(0, 1, (pushTime - pushStartDelay)/cv_pm_push_accel_time.GetFloat());
 
+			// Let the entity itself modify its pushing behaviour
+			float entityScale = pushEnt->spawnArgs.GetFloat("push_mod");
+
 			// Scale the movement velocity according to the object's mass
 			// At maxPushMass, the velocity is zero, at the minimum push mass threshold below it's about 0.75
-			float massScale = idMath::ClampFloat(0.0f, 1.0f, 1.0f - (mass / cv_pm_push_max_mass.GetFloat()));
+			float maxPushableMass = entityScale*cv_pm_push_max_mass.GetFloat();
+			float massScale = idMath::ClampFloat(0.0f, 1.0f, 1.0f - (mass / maxPushableMass));
 
 			// Finally, apply a maximum cap, based on the player's normal walkspeed
 			float velocity = idMath::ClampFloat(0, pm_walkspeed.GetFloat()*0.8f, impactVelocity.NormalizeFast());
@@ -115,7 +130,7 @@ void CForcePush::Evaluate( int time )
 			//gameRenderWorld->DrawText( idStr(velocity * accelScale * massScale), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 
 			// Apply the mass scale and the acceleration scale to the capped velocity
-			pushEnt->GetPhysics()->SetLinearVelocity(impactVelocity * velocity * accelScale * massScale);
+			pushEnt->GetPhysics()->SetLinearVelocity(impactVelocity * velocity * accelScale * massScale * entityScale);
 
 			// Update the owning actor's push state
 			if (owner->IsType(idActor::Type))
@@ -126,6 +141,12 @@ void CForcePush::Evaluate( int time )
 				{
 					owningActor->SetIsPushing(true);
 				}
+			}
+
+			// Update the pushed status if this entity is a moveable
+			if (pushEnt->IsType(idMoveable::Type))
+			{
+				static_cast<idMoveable*>(pushEnt)->SetIsPushed(true);
 			}
 		}
 	}
