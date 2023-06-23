@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2541 $
- * $Date: 2008-06-20 02:48:02 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2542 $
+ * $Date: 2008-06-20 03:34:47 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2541 2008-06-20 06:48:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2542 2008-06-20 07:34:47Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -339,7 +339,7 @@ void CBinaryFrobMover::Event_PostSpawn()
 
 void CBinaryFrobMover::Lock(bool bMaster)
 {
-	if (!PreLock()) {
+	if (!PreLock(bMaster)) {
 		// PreLock returned FALSE, cancel the operation
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("[%s] FrobMover prevented from being locked\r", name.c_str());
 		return;
@@ -351,12 +351,12 @@ void CBinaryFrobMover::Lock(bool bMaster)
 	CallStateScript();
 
 	// Fire the event for the subclasses
-	OnLock();
+	OnLock(bMaster);
 }
 
 void CBinaryFrobMover::Unlock(bool bMaster)
 {
-	if (!PreUnlock()) {
+	if (!PreUnlock(bMaster)) {
 		// PreUnlock returned FALSE, cancel the operation
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("[%s] FrobMover prevented from being unlocked\r", name.c_str());
 		return;
@@ -368,7 +368,7 @@ void CBinaryFrobMover::Unlock(bool bMaster)
 	CallStateScript();
 
 	// Fire the event for the subclasses
-	OnUnlock();
+	OnUnlock(bMaster);
 }
 
 void CBinaryFrobMover::ToggleLock()
@@ -798,12 +798,12 @@ bool CBinaryFrobMover::PreInterrupt()
 	return true; // default: mover is allowed to be interrupted
 }
 
-bool CBinaryFrobMover::PreLock()
+bool CBinaryFrobMover::PreLock(bool bMaster)
 {
 	return true; // default: mover is allowed to be locked
 }
 
-bool CBinaryFrobMover::PreUnlock()
+bool CBinaryFrobMover::PreUnlock(bool bMaster)
 {
 	return true; // default: mover is allowed to be unlocked
 }
@@ -870,12 +870,12 @@ void CBinaryFrobMover::OnInterrupt()
 	// To be implemented by the subclasses
 }
 
-void CBinaryFrobMover::OnLock()
+void CBinaryFrobMover::OnLock(bool bMaster)
 {
 	StartSound("snd_lock", SND_CHANNEL_ANY, 0, false, NULL);
 }
 
-void CBinaryFrobMover::OnUnlock()
+void CBinaryFrobMover::OnUnlock(bool bMaster)
 {
 	StartSound("snd_unlock", SND_CHANNEL_ANY, 0, false, NULL);
 

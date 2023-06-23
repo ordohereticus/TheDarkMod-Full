@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2530 $
- * $Date: 2008-06-19 15:01:17 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2542 $
+ * $Date: 2008-06-20 03:34:47 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -124,8 +124,8 @@ protected:
 	void					FindDoubleDoor();
 
 	// Specialise the CBinaryFrobMover::OnLock() and OnUnlock() methods to update the peers
-	virtual void			OnLock();
-	virtual void			OnUnlock();
+	virtual void			OnLock(bool bMaster);
+	virtual void			OnUnlock(bool bMaster);
 
 	// Specialise the OnStartOpen/OnStartClose event to send the call to the open peers
 	virtual void			OnStartOpen(bool wasClosed);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2538 $
- * $Date: 2008-06-20 02:25:38 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2542 $
+ * $Date: 2008-06-20 03:34:47 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -192,14 +192,14 @@ protected:
 	 * returns TRUE, the mover is allowed to be locked, returning FALSE will
 	 * let the mover stay unlocked.
 	 */
-	virtual bool PreLock();
+	virtual bool PreLock(bool bMaster);
 
 	/**
 	 * greebo: This is called before the frobmover is unlocked. When this function
 	 * returns TRUE, the mover is allowed to be unlocked, returning FALSE will
 	 * let the mover stay locked.
 	 */
-	virtual bool PreUnlock();
+	virtual bool PreUnlock(bool bMaster);
 
 	/**
 	 * greebo: Gets called when the mover opens. The boolean tells the function 
@@ -240,12 +240,12 @@ protected:
 	/**
 	 * greebo: Is called when the mover has just been locked.
 	 */
-	virtual void OnLock();
+	virtual void OnLock(bool bMaster);
 
 	/**
 	 * greebo: Is called when the mover has just been unlocked.
 	 */
-	virtual void OnUnlock();
+	virtual void OnUnlock(bool bMaster);
 
 	// =========================================================
 

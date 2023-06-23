@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2538 $
- * $Date: 2008-06-20 02:25:38 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2542 $
+ * $Date: 2008-06-20 03:34:47 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2538 2008-06-20 06:25:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2542 2008-06-20 07:34:47Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -435,26 +435,29 @@ void CFrobDoor::Lock(bool bMaster)
 	}
 }
 
-void CFrobDoor::OnLock()
+void CFrobDoor::OnLock(bool bMaster)
 {
 	// Call the base class first
-	CBinaryFrobMover::OnLock();
+	CBinaryFrobMover::OnLock(bMaster);
 
-	// When this door locks, lock all the "peers" in the list too
-	for (int i = 0; i < m_LockList.Num(); i++)
+	if (bMaster)
 	{
-		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Trying linked entity [%s]\r", m_LockList[i].c_str());
-
-		idEntity* ent = gameLocal.FindEntity(m_LockList[i]);
-
-		if (ent != NULL && ent->IsType(CFrobDoor::Type))
+		// When this door locks, lock all the "peers" in the list too
+		for (int i = 0; i < m_LockList.Num(); i++)
 		{
-			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Calling linked entity [%s] for lock\r", m_LockList[i].c_str());
-			static_cast<CFrobDoor*>(ent)->Lock(false);
-		}
-		else
-		{
-			DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found or of wrong type\r", m_LockList[i].c_str());
+			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Trying linked entity [%s]\r", m_LockList[i].c_str());
+
+			idEntity* ent = gameLocal.FindEntity(m_LockList[i]);
+
+			if (ent != NULL && ent->IsType(CFrobDoor::Type))
+			{
+				DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Calling linked entity [%s] for lock\r", m_LockList[i].c_str());
+				static_cast<CFrobDoor*>(ent)->Lock(false);
+			}
+			else
+			{
+				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found or of wrong type\r", m_LockList[i].c_str());
+			}
 		}
 	}
 }
@@ -484,26 +487,29 @@ void CFrobDoor::Unlock(bool bMaster)
 	}
 }
 
-void CFrobDoor::OnUnlock()
+void CFrobDoor::OnUnlock(bool bMaster)
 {
 	// Call the base class first
-	CBinaryFrobMover::OnUnlock();
+	CBinaryFrobMover::OnUnlock(bMaster);
 
-	// When this door unlocks, unlock all the "peers" in the list too
-	for (int i = 0; i < m_LockList.Num(); i++)
+	if (bMaster) 
 	{
-		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Trying linked entity [%s]\r", m_LockList[i].c_str());
-
-		idEntity* ent = gameLocal.FindEntity(m_LockList[i]);
-
-		if (ent != NULL && ent->IsType(CFrobDoor::Type))
+		// When this door unlocks, unlock all the "peers" in the list too
+		for (int i = 0; i < m_LockList.Num(); i++)
 		{
-			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Calling linked entity [%s] for lock\r", m_LockList[i].c_str());
-			static_cast<CFrobDoor*>(ent)->Unlock(false);
-		}
-		else
-		{
-			DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found or of wrong type\r", m_LockList[i].c_str());
+			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Trying linked entity [%s]\r", m_LockList[i].c_str());
+
+			idEntity* ent = gameLocal.FindEntity(m_LockList[i]);
+
+			if (ent != NULL && ent->IsType(CFrobDoor::Type))
+			{
+				DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Calling linked entity [%s] for lock\r", m_LockList[i].c_str());
+				static_cast<CFrobDoor*>(ent)->Unlock(false);
+			}
+			else
+			{
+				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found or of wrong type\r", m_LockList[i].c_str());
+			}
 		}
 	}
 }
