@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2936 $
- * $Date: 2008-10-09 00:07:27 -0400 (Thu, 09 Oct 2008) $
- * $Author: angua $
+ * $Revision: 2943 $
+ * $Date: 2008-10-12 11:52:00 -0400 (Sun, 12 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2936 2008-10-09 04:07:27Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2943 2008-10-12 15:52:00Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -595,7 +595,7 @@ void State::OnVisualStimPerson(idEntity* stimSource, idAI* owner)
 					soundName = "snd_warnSawEvidence";
 				}
 			}
-			else if (gameLocal.random.RandomFloat() < 0.025)
+			else if (owner->AI_AlertIndex < EObservant && gameLocal.random.RandomFloat() < 0.025f)
 			{
 				// Chance check passed, greetings!
 				// gameLocal.Printf("I see a friend, I'm going to say hello.\n");
