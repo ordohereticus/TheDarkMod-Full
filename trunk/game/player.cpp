@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3021 $
- * $Date: 2008-11-13 11:40:57 -0500 (Thu, 13 Nov 2008) $
+ * $Revision: 3026 $
+ * $Date: 2008-11-14 14:57:55 -0500 (Fri, 14 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3021 2008-11-13 16:40:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3026 2008-11-14 19:57:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9194,12 +9194,6 @@ void idPlayer::InventoryUseKeyRelease(int holdTime)
 
 void idPlayer::UseInventoryItem()
 {
-	// Check for a held grabber entity, which should be put back into the inventory
-	if (AddGrabberEntityToInventory())
-	{
-		return;
-	}
-
 	// If the grabber item can be equipped/dequipped, use item does this
 	if ( gameLocal.m_Grabber->GetSelected() || gameLocal.m_Grabber->GetEquipped() )
 	{
@@ -9227,6 +9221,15 @@ void idPlayer::UseInventoryItem(EImpulseState nState, const CInventoryItemPtr& i
 	{
 		// Pass the "inventoryUseItem" event to the GUIs
 		m_overlays.broadcastNamedEvent("inventoryUseItem");
+	}
+	else if (nState == EReleased)
+	{
+		// Check for a held grabber entity, which should be put back into the inventory
+		if (AddGrabberEntityToInventory())
+		{
+			// Item added to inventory, we're done here.
+			return;
+		}
 	}
 
 	// Check if we're allowed to use items at all
