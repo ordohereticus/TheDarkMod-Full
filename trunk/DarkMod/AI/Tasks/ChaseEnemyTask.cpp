@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2574 $
+ * $Date: 2008-06-26 13:51:40 -0400 (Thu, 26 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2574 2008-06-26 17:51:40Z angua $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "InteractionTask.h"
@@ -165,6 +165,14 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 			owner->GetMind()->SwitchState(STATE_UNREACHABLE_TARGET);
 			return true;
 		}
+	}
+	else
+	{
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination unreachable!\r");
+		gameLocal.Printf("Destination unreachable... \n");
+		owner->GetMind()->SwitchState(STATE_UNREACHABLE_TARGET);
+		return true;
+
 	}
 
 	return false; // not finished yet
