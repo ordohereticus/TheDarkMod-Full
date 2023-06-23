@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2789 $
- * $Date: 2008-09-01 14:46:09 -0400 (Mon, 01 Sep 2008) $
+ * $Revision: 2790 $
+ * $Date: 2008-09-01 14:52:29 -0400 (Mon, 01 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2789 2008-09-01 18:46:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2790 2008-09-01 18:52:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -831,15 +831,24 @@ void idActor::SetupHead()
 		idDict args;
 
 		const idDeclEntityDef* def = gameLocal.FindEntityDef(headModelDefName, false);
+
+		if (def == NULL)
+		{
+			gameLocal.Warning("Could not find head entityDef %s!", headModelDefName);
+
+			// Try to fallback on the default head entityDef
+			def = gameLocal.FindEntityDef(TDM_HEAD_ENTITYDEF, false);
+		}
+
 		if (def != NULL)
 		{
 			// Make a copy of the default spawnargs
 			args = def->dict;
 		}
-		else 
+		else
 		{
-			gameLocal.Warning("Could not find head entityDef %s!", TDM_HEAD_ENTITYDEF);
-		}
+			gameLocal.Warning("Could not find head entityDef %s or %s!", headModelDefName, TDM_HEAD_ENTITYDEF);
+		}		
 		
 		// Copy any sounds in case we have frame commands on the head
 		for (const idKeyValue* kv = spawnArgs.MatchPrefix("snd_", NULL); kv != NULL; kv = spawnArgs.MatchPrefix("snd_", kv)) 
