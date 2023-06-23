@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2854 $
- * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2891 $
+ * $Date: 2008-09-25 00:42:09 -0400 (Thu, 25 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2891 2008-09-25 04:42:09Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -222,6 +222,9 @@ void idMoveable::Spawn( void ) {
 	{
 		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
 	}
+
+	m_preHideContents = physicsObj.GetContents();
+	m_preHideClipMask = physicsObj.GetClipMask();
 
 	allowStep = spawnArgs.GetBool( "allowStep", "1" );
 

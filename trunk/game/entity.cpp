@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2882 $
- * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2891 $
+ * $Date: 2008-09-25 00:42:09 -0400 (Thu, 25 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2882 2008-09-24 08:53:09Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2891 2008-09-25 04:42:09Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -624,8 +624,8 @@ idEntity::idEntity()
 	health			= 0;
 	maxHealth		= 0;
 
-	m_preHideContents		= 0;
-	m_preHideClipMask		= 0;
+	m_preHideContents		= -1; // greebo: initialise this to invalid values
+	m_preHideClipMask		= -1; 
 
 	physics			= NULL;
 	bindMaster		= NULL;
@@ -1929,6 +1929,18 @@ idEntity::Show
 */
 void idEntity::Show( void ) 
 {
+	// greebo: If the pre-hide clipmask is still uninitialised on Show(), the entity 
+	// has not been hidden before. Set this to something valid (i.e. the current clipmask)
+	if ( m_preHideClipMask == -1)
+	{
+		m_preHideClipMask = GetPhysics()->GetClipMask();
+	}
+
+	if ( m_preHideContents == -1)
+	{
+		m_preHideContents = GetPhysics()->GetContents();
+	}
+
 	if ( IsHidden() ) 
 	{
 		fl.hidden = false;
