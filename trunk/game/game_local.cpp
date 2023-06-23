@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3015 $
- * $Date: 2008-11-11 13:26:02 -0500 (Tue, 11 Nov 2008) $
+ * $Revision: 3100 $
+ * $Date: 2009-01-01 04:45:11 -0500 (Thu, 01 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3015 2008-11-11 18:26:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3100 2009-01-01 09:45:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3198,12 +3198,23 @@ idGameLocal::HandleMainMenuCommands
 */
 void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui )
 {
+	// When this is set to TRUE, the next command will be dumped to the console
+	static bool logNextCommand = false;
+
 	idStr cmd(menuCommand);
 
 	// Watch out for objectives GUI-related commands
 	m_MissionData->HandleMainMenuCommands(cmd, gui);
 
-	if (cmd == "mainmenu_heartbeat")
+	if (logNextCommand)
+	{
+		// We should log that command
+		Printf("MainMenu: %s\n", cmd.c_str());
+		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("%s\r", cmd.c_str());
+
+		logNextCommand = false;
+	}
+	else if (cmd == "mainmenu_heartbeat")
 	{
 		// greebo: Stop the timer, this is already done in HandleESC, but just to make sure...
 		m_GamePlayTimer.Stop();
@@ -3244,6 +3255,12 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 				gui->SetStateBool("ObjectivesMusicPlaying", false);
 			}
 		}
+	}
+	// greebo: the "log" command is used to write stuff to the console
+	else if (cmd == "log")
+	{
+		// The next string will be logged
+		logNextCommand = true;
 	}
 	// greebo: This is used for Saint Lucia only (comment this out after release)
 	else if (cmd == "showMods" || cmd == "briefing_start_request") // Called by "Start Mission"

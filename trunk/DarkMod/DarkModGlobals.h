@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2882 $
- * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 3100 $
+ * $Date: 2009-01-01 04:45:11 -0500 (Thu, 01 Jan 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -56,7 +56,7 @@ typedef enum {
 // Frobbing which contains all loginfo concerning frobbing an item
 // independent of it's class (like AI, item, doors, switche, etc.).
 
-// greebo: NOTE: Keep these in accordance to the ones in scripts/darkmod_defs.script!
+// greebo: NOTE: Keep these in accordance to the ones in scripts/tdm_defs.script!
 typedef enum {
 	LC_INIT,
 	LC_FORCE,			// Never use this
@@ -78,6 +78,7 @@ typedef enum {
 	LC_OBJECTIVES,
 	LC_DIFFICULTY,		// anything difficulty-related
 	LC_CONVERSATION,	// conversation/dialogue stuff
+	LC_MAINMENU,		// main menu logging
 	LC_COUNT
 } LC_LogClass;
 
