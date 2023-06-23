@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2772 $
- * $Date: 2008-08-30 11:38:55 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2773 $
+ * $Date: 2008-08-30 14:17:23 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2772 2008-08-30 15:38:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2773 2008-08-30 18:17:23Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -22,10 +22,12 @@ CForcePush::CForcePush() :
 	pushEnt(NULL),
 	lastPushEnt(NULL),
 	id(0),
-	startPushTime(-1),
 	impactVelocity(vec3_zero),
+	startPushTime(-1),
 	owner(NULL)
-{}
+{
+	memset(&contactInfo, 0, sizeof(contactInfo));
+}
 
 void CForcePush::SetOwner(idEntity* ownerEnt)
 {
