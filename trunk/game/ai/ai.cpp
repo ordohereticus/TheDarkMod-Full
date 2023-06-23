@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2478 $
- * $Date: 2008-06-14 04:40:23 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2479 $
+ * $Date: 2008-06-14 04:46:57 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2478 2008-06-14 08:40:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2479 2008-06-14 08:46:57Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2089,8 +2089,20 @@ idAI::UpdateAIScript
 */
 void idAI::UpdateScript()
 {
-	idActor::UpdateScript();
+	// greebo: This is overriding idActor::UpdateScript(), where all the state change stuff 
+	// is executed, which is not needed for TDM AI
 
+	if ( ai_debugScript.GetInteger() == entityNumber ) {
+		scriptThread->EnableDebugInfo();
+	} else {
+		scriptThread->DisableDebugInfo();
+	}
+
+	// don't call script until it's done waiting
+	if (!scriptThread->IsWaiting()) {
+		scriptThread->Execute();
+	}
+    
 	// clear the hit enemy flag so we catch the next time we hit someone
 	AI_HIT_ENEMY = false;
 
