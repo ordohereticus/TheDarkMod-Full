@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2771 $
- * $Date: 2008-08-30 10:46:45 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2791 $
+ * $Date: 2008-09-01 15:11:12 -0400 (Mon, 01 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -102,6 +102,8 @@ struct CrashLandResult
 	int damageDealt;	// contains the damage done to the actor
 	bool hasLanded;		// true if the actor hit the ground after a fall this frame
 };
+
+#define TDM_HEAD_ENTITYDEF "atdm:ai_head_base"
 
 class idActor : public idAFEntity_Gibbable {
 public:

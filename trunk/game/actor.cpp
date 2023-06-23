@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2790 $
- * $Date: 2008-09-01 14:52:29 -0400 (Mon, 01 Sep 2008) $
+ * $Revision: 2791 $
+ * $Date: 2008-09-01 15:11:12 -0400 (Mon, 01 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,15 +15,13 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2790 2008-09-01 18:52:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2791 2008-09-01 19:11:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/TimerManager.h"
-
-#define TDM_HEAD_ENTITYDEF "atdm:ai_head_base"
 
 // #include "logmgr.h"
 /***********************************************************************
