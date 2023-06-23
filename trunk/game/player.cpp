@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2399 $
- * $Date: 2008-05-29 12:56:33 -0400 (Thu, 29 May 2008) $
+ * $Revision: 2402 $
+ * $Date: 2008-05-31 07:14:02 -0400 (Sat, 31 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2399 2008-05-29 16:56:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2402 2008-05-31 11:14:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6721,12 +6721,12 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 
 		if ( !gameLocal.isMultiplayer ) {
 			float scale = g_damageScale.GetFloat();
-			if ( g_useDynamicProtection.GetBool() && g_skill.GetInteger() < 2 ) {
+			/*if ( g_useDynamicProtection.GetBool() && g_skill.GetInteger() < 2 ) {
 				if ( gameLocal.time > lastDmgTime + 500 && scale > 0.25f ) {
 					scale -= 0.05f;
 					g_damageScale.SetFloat( scale );
 				}
-			}
+			}*/
 
 			if ( scale > 0.0f ) {
 				damage *= scale;
