@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2421 $
+ * $Date: 2008-06-02 01:15:47 -0400 (Mon, 02 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -43,6 +43,12 @@ public:
 		bool Init(int dim);
 
 		void Clear( void );
+
+		/** 
+		 * greebo: Fills the whole matrix with the given value.
+		 * Does not change matrix dimensions.
+		 */
+		void Fill(type& src);
 
 		/**
 		* Set the appropriate entry to the provided type
@@ -240,6 +246,17 @@ inline CMatrixSq<type> &CMatrixSq<type>::operator=(const CMatrixSq<type> &in)
 		m_mat[i] = in.m_mat[i];
 Quit:
 	return *this;
+}
+
+template <class type>
+inline void CMatrixSq<type>::Fill(type& src)
+{
+	int num = NumFromDim( m_dim );
+	for (int i = 0; i < num; i++)
+	{
+		m_mat[i] = src;
+	}
+	m_filled = num;
 }
 
 template <class type>
