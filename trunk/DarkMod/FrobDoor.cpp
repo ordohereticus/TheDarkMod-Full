@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2601 $
- * $Date: 2008-07-03 12:06:32 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2603 $
+ * $Date: 2008-07-03 13:02:07 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2601 2008-07-03 16:06:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2603 2008-07-03 17:02:07Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -942,7 +942,7 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 			}
 			else
 			{
-				if(!(nSampleType == LPSOUND_INIT || nSampleType == LPSOUND_REPEAT))
+				if (!(nSampleType == LPSOUND_INIT || nSampleType == LPSOUND_REPEAT))
 					m_SoundTimerStarted--;
 			}
 
@@ -1084,7 +1084,10 @@ void CFrobDoor::PropPickSound(idStr &oPickSound, int cType, ELockpickSoundsample
 		SetHandlePosition(nHandlePos, length, PinIndex, SampleIndex);
 	}
 
-	PostEventMS(&EV_TDM_LockpickTimer, length+time, cType, nSampleType);
+	if (nSampleType != LPSOUND_WRONG_LOCKPICK)
+	{
+		PostEventMS(&EV_TDM_LockpickTimer, length+time, cType, nSampleType);
+	}
 }
 
 void CFrobDoor::OpenPeers()
