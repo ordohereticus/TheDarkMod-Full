@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2475 $
- * $Date: 2008-06-14 02:37:18 -0400 (Sat, 14 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2886 $
+ * $Date: 2008-09-24 11:37:24 -0400 (Wed, 24 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 2475 2008-06-14 06:37:18Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 2886 2008-09-24 15:37:24Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -51,7 +51,6 @@ void AlertIdleState::Init(idAI* owner)
 	_startSitting = owner->spawnArgs.GetBool("sitting", "0");
 
 	InitialiseMovement(owner);
-
 	InitialiseCommunication(owner);
 
 	// Initialise the animation state
@@ -61,6 +60,9 @@ void AlertIdleState::Init(idAI* owner)
 	// The sensory system does its Idle tasks
 	owner->GetSubsystem(SubsysSenses)->ClearTasks();
 	owner->GetSubsystem(SubsysSenses)->PushTask(RandomHeadturnTask::CreateInstance());
+
+	// Let the AI update their weapons (make them nonsolid)
+	owner->UpdateAttachmentContents(false);
 }
 
 idStr AlertIdleState::GetInitialIdleBark(idAI* owner)
