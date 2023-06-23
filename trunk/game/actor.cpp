@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2813 $
- * $Date: 2008-09-10 14:01:21 -0400 (Wed, 10 Sep 2008) $
+ * $Revision: 2814 $
+ * $Date: 2008-09-10 14:08:33 -0400 (Wed, 10 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2813 2008-09-10 18:01:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2814 2008-09-10 18:08:33Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2956,7 +2956,7 @@ bool idActor::ReEvaluateArea(int areaNum)
 void idActor::LoadVocalSet()
 {
 	// Try to look up the entityDef
-	idStr vocalSet = spawnArgs.GetString("vocal_set");
+	idStr vocalSet = spawnArgs.GetString("def_vocal_set");
 
 	if (vocalSet.IsEmpty()) return; // nothing to do
 
@@ -2964,8 +2964,8 @@ void idActor::LoadVocalSet()
 
 	if (def == NULL)
 	{
-		gameLocal.Warning("Could not find vocal_set %s!", vocalSet.c_str());
-		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Could not find vocal_set %s!", vocalSet.c_str());
+		gameLocal.Warning("Could not find def_vocal_set %s!", vocalSet.c_str());
+		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Could not find def_vocal_set %s!", vocalSet.c_str());
 		return;
 	}
 
