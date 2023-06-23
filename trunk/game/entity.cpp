@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2997 $
- * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3001 $
+ * $Date: 2008-11-08 13:20:23 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2997 2008-11-08 13:35:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3001 2008-11-08 18:20:23Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8896,7 +8896,12 @@ CInventoryItemPtr idEntity::AddToInventory(idEntity *ent, idUserInterface* _hud)
 
 bool idEntity::ReplaceInventoryItem(idEntity* oldItem, idEntity* newItem)
 {
-	return Inventory()->ReplaceItem(oldItem, newItem);
+	bool result = Inventory()->ReplaceItem(oldItem, newItem);
+
+	// Fire the general "item changed" event
+	OnInventoryItemChanged();
+
+	return result;
 }
 
 void idEntity::Event_ReplaceInvItem(idEntity* oldItem, idEntity* newItem)
