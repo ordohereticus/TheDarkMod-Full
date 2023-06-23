@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2793 $
- * $Date: 2008-09-01 18:51:06 -0400 (Mon, 01 Sep 2008) $
+ * $Revision: 2806 $
+ * $Date: 2008-09-08 03:40:21 -0400 (Mon, 08 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -103,6 +103,14 @@ public:
 		* Returns true if the current item was equipped or dequipped
 		**/
 		bool					ToggleEquip( void );
+
+		/**
+		* Preliminary body shouldering code (move to idPlayer?)
+		* Shoulderbody: Returns true if body was shouldered
+		* UnShoulderBody: Returns true if there was room to unshoulder the body
+		**/
+		bool					ShoulderBody( idAFEntity_Base *body );
+		bool					UnShoulderBody( void );
 
 public:
 		/**
@@ -283,6 +291,12 @@ protected:
 		* and dragging the AI.
 		**/
 		bool					m_bObjEquipped;
+
+		/**
+		* Shouldered body.  
+		* TODO: Would this make more sense being on idPlayer instead?
+		**/
+		idEntityPtr<idAFEntity_Base>	m_ShoulderedBody;
 };
 
 
