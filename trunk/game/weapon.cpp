@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3035 $
- * $Date: 2008-11-18 13:17:47 -0500 (Tue, 18 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3078 $
+ * $Date: 2008-12-06 03:23:40 -0500 (Sat, 06 Dec 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 3035 2008-11-18 18:17:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 3078 2008-12-06 08:23:40Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -730,6 +730,8 @@ void idWeapon::Clear( void ) {
 	}
 
 	m_Attachments.Clear();
+
+	m_animRates.Clear();
 }
 
 /*
@@ -884,6 +886,24 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	ejectJointView = animator.GetJointHandle( "eject" );
 	guiLightJointView = animator.GetJointHandle( "guiLight" );
 	ventLightJointView = animator.GetJointHandle( "ventLight" );
+
+	// ishtvan: Cache the anim rates here to adjust weapon anim speeds
+	int anims = animator.NumAnims();
+	m_animRates.Clear();
+	m_animRates.AssureSize(anims);
+	for (int i=0; i<anims; i++) 
+	{
+		const idAnim *anim = animator.GetAnim(i);
+		if (anim != NULL) 
+		{
+			idStr spawnargname = "anim_rate_";
+			spawnargname += anim->Name();
+			m_animRates[i] = weaponDef->dict.GetFloat(spawnargname, "1");
+		} else 
+		{
+			m_animRates[i] = 1.0f;
+		}
+	}
 
 	// get the projectile
 	// greebo: Disabled, the projectile def is loaded on demand
@@ -2828,7 +2848,9 @@ void idWeapon::Event_AnimDone( int channel, int blendFrames )
 idWeapon::Event_SetBlendFrames
 ===============
 */
-void idWeapon::Event_SetBlendFrames( int channel, int blendFrames ) {
+void idWeapon::Event_SetBlendFrames( int channel, int blendFrames ) 
+{
+	// ishtvan: this is a problem with animrate??
 	animBlendFrames = blendFrames;
 }
 
