@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2552 $
- * $Date: 2008-06-21 10:32:35 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2553 $
+ * $Date: 2008-06-21 11:12:22 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2552 2008-06-21 14:32:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2553 2008-06-21 15:12:22Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -391,6 +391,12 @@ void CFrobDoor::PostSpawn()
 	if (spawnArgs.GetBool("auto_setup_door_handles", "1"))
 	{
 		AutoSetupDoorHandles();
+	}
+
+	// greebo: Should we auto-setup the double door behaviour?
+	if (spawnArgs.GetBool("auto_setup_double_door", "1"))
+	{
+		AutoSetupDoubleDoor();
 	}
 }
 
@@ -1198,6 +1204,8 @@ void CFrobDoor::AutoSetupDoorHandles()
 		// Found the handle, set it up
 		AddDoorhandle(static_cast<CFrobDoorHandle*>(part));
 
+		DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%s: Auto-added door handle %s to local list.\r", name.c_str(), part->name.c_str());
+
 		// Get the next handle
 		part = FindMatchingTeamEntity(CFrobDoorHandle::Type, part);
 	}
@@ -1209,6 +1217,24 @@ void CFrobDoor::AutoSetupDoorHandles()
 
 		// The first handle is the master, all others get their master flag set to FALSE
 		handle->SetMaster(i == 0);
+	}
+}
+
+void CFrobDoor::AutoSetupDoubleDoor()
+{
+	CFrobDoor* doubleDoor = m_DoubleDoor.GetEntity();
+
+	if (doubleDoor != NULL)
+	{
+		DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%s: Auto-setting up %s as double door.\r", name.c_str(), doubleDoor->name.c_str());
+
+		// Add "self" to the peers of the other door
+		doubleDoor->AddOpenPeer(name);
+		doubleDoor->AddLockPeer(name);
+
+		// Now add the name of the other door to our own peer list
+		AddOpenPeer(doubleDoor->name);
+		AddLockPeer(doubleDoor->name);
 	}
 }
 

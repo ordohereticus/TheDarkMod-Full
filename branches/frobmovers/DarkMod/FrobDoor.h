@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2552 $
- * $Date: 2008-06-21 10:32:35 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2553 $
+ * $Date: 2008-06-21 11:12:22 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -133,6 +133,11 @@ protected:
 	 * sets up the frob_peer, door_handle relationship for mapper's convenience.
 	 */
 	void					AutoSetupDoorHandles();
+
+	/**
+	 * greebo: This is the algorithm for linking the double door via open_peer and lock_peer.
+	 */
+	void					AutoSetupDoubleDoor();
 
 	// Specialise the CBinaryFrobMover::OnLock() and OnUnlock() methods to update the peers
 	virtual void			OnLock(bool bMaster);
