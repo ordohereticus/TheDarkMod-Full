@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2683 $
- * $Date: 2008-07-17 14:02:39 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2798 $
+ * $Date: 2008-09-03 13:31:17 -0400 (Wed, 03 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -31,6 +31,8 @@ class ConversationState :
 	ConversationCommand::Type _commandType;
 
 	int _finishTime;
+
+	ConversationState();
 
 public:
 	// Get the name of this state

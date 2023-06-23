@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2711 $
- * $Date: 2008-07-19 12:08:20 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2798 $
+ * $Date: 2008-09-03 13:31:17 -0400 (Wed, 03 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2711 2008-07-19 16:08:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2798 2008-09-03 17:31:17Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -33,6 +33,13 @@ static bool init_version = FileVersionList("$Id: ConversationState.cpp 2711 2008
 
 namespace ai
 {
+
+ConversationState::ConversationState() :
+	_conversation(-1),
+	_state(ConversationCommand::EReady),
+	_commandType(ConversationCommand::ENumCommands),
+	_finishTime(-1)
+{}
 
 // Get the name of this state
 const idStr& ConversationState::GetName() const
@@ -88,11 +95,6 @@ void ConversationState::Init(idAI* owner)
 		owner->GetMind()->EndState();
 		return;
 	}
-
-	// We haven't started doing our stuff yet
-	_finishTime = -1;
-	_commandType = ConversationCommand::ENumCommands;
-	_state = ConversationCommand::EReady;
 
 	owner->GetSubsystem(SubsysAction)->ClearTasks();
 	owner->GetSubsystem(SubsysSenses)->ClearTasks();
@@ -184,7 +186,9 @@ void ConversationState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSyst
 		}
 
 		// In case of active "walk" commands, set the state to "finished"
-		if (_commandType == ConversationCommand::EWalkToEntity || _commandType == ConversationCommand::EWalkToPosition)
+		if (_commandType == ConversationCommand::EWalkToEntity || 
+			_commandType == ConversationCommand::EWalkToPosition || 
+			_commandType == ConversationCommand::EWalkToActor)
 		{
 			_state = ConversationCommand::EFinished;
 			return;
