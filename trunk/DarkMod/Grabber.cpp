@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2806 $
- * $Date: 2008-09-08 03:40:21 -0400 (Mon, 08 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2806 2008-09-08 07:40:21Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -122,8 +122,6 @@ void CGrabber::Clear( void )
 
 void CGrabber::Save( idSaveGame *savefile ) const
 {
-	idEntity::Save(savefile);
-	
 	m_dragEnt.Save(savefile);
 	savefile->WriteJoint(m_joint);
 	savefile->WriteInt(m_id);
@@ -178,8 +176,6 @@ void CGrabber::Save( idSaveGame *savefile ) const
 
 void CGrabber::Restore( idRestoreGame *savefile )
 {
-	idEntity::Restore(savefile);
-
 	m_dragEnt.Restore(savefile);
 	savefile->ReadJoint(m_joint);
 	savefile->ReadInt(m_id);

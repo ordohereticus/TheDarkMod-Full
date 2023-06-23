@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2802 $
- * $Date: 2008-09-06 09:40:40 -0400 (Sat, 06 Sep 2008) $
- * $Author: tels $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2802 2008-09-06 13:40:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7070,7 +7070,7 @@ void idEntity::UpdateFrob(void)
 	}
 
 	// greebo: Allow the grabbed entity to stay highlighted
-	if (cv_dragged_item_highlight.GetBool() && pDM->grabber->GetSelected() == this)
+	if (cv_dragged_item_highlight.GetBool() && gameLocal.m_Grabber->GetSelected() == this)
 	{
 		FrobHighlight(true);
 		return;
@@ -7235,7 +7235,7 @@ void idEntity::FrobAction(bool bMaster, bool bPeer)
 					goto Quit;
 			}
 
-			g_Global.m_DarkModPlayer->grabber->Update( gameLocal.GetLocalPlayer() );
+			gameLocal.m_Grabber->Update( gameLocal.GetLocalPlayer() );
 		}
 
 		goto Quit;

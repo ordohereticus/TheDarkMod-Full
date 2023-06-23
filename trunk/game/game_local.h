@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2647 $
- * $Date: 2008-07-13 08:01:10 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -61,6 +61,7 @@ bool FileVersionList(const char *str, bool state);
 
 class CStim;
 class CStimResponseTimer;
+class CGrabber;
 
 // enables water physics
 #define MOD_WATERPHYSICS
@@ -442,6 +443,9 @@ public:
 
 	idSmokeParticles *		smokeParticles;			// global smoke trails
 	idEditEntities *		editEntities;			// in game editing
+
+	// Darkmod's grabber to help with object manipulation
+	CGrabber*				m_Grabber;
 
 	// The object handling the difficulty settings
 	difficulty::DifficultyManager	m_DifficultyManager;

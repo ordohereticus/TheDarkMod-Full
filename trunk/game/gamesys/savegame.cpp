@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: savegame.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: savegame.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -326,7 +326,7 @@ void idSaveGame::WriteObject( const idClass *obj ) {
 
 	index = objects.FindIndex( obj );
 	if ( index < 0 ) {
-		gameLocal.DPrintf( "idSaveGame::WriteObject - WriteObject FindIndex failed\n" );
+		gameLocal.Warning( "idSaveGame::WriteObject - WriteObject FindIndex failed\n" );
 
 		// Use the NULL index
 		index = 0;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2793 $
- * $Date: 2008-09-01 18:51:06 -0400 (Mon, 01 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2793 2008-09-01 22:51:06Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -383,14 +383,14 @@ bool idPhysics_RigidBody::CollisionImpulse( const trace_t &collision, idVec3 &im
 	ent->GetImpactInfo( self, collision.c.id, collision.c.point, &info );
 
 	// Check if we are grabbed by the grabber, and set collision var if so
-	if ( self == g_Global.m_DarkModPlayer->grabber->GetSelected() )
+	if ( self == gameLocal.m_Grabber->GetSelected() )
 	{
 		// greebo: Don't collide grabbed entities with its own bindslaves
 		if ( (ent->GetBindMaster() == NULL || self != ent->GetBindMaster())
 			&& ent != gameLocal.GetLocalPlayer() )
 		{
-			g_Global.m_DarkModPlayer->grabber->m_bIsColliding = true;
-			g_Global.m_DarkModPlayer->grabber->m_CollNorms.AddUnique( collision.c.normal );
+			gameLocal.m_Grabber->m_bIsColliding = true;
+			gameLocal.m_Grabber->m_CollNorms.AddUnique( collision.c.normal );
 		}
 	}
 

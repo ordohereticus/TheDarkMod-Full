@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1643 $
- * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -33,14 +33,10 @@
  */
 class CDarkModPlayer {
 public:
-	CDarkModPlayer(void);
-	~CDarkModPlayer(void);
+	CDarkModPlayer();
 
 	void Save( idSaveGame *savefile ) const;
 	void Restore( idRestoreGame *savefile );
-
-	// grabber to help with object manipulation
-	CGrabber		*grabber;
 
 	/**
 	 * FrobEntity is NULL when no entity is highlighted. Otherwise it will point 
@@ -69,8 +65,8 @@ public:
 	**/
 	idEntityPtr<idEntity>	m_FrobEntityPrevious;
 
-	unsigned long			AddLight(idLight *);
-	unsigned long			RemoveLight(idLight *);
+	int						AddLight(idLight *);
+	int						RemoveLight(idLight *);
 
 public:
 	/**

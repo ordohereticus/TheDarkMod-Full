@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2805 $
- * $Date: 2008-09-07 21:23:30 -0400 (Sun, 07 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2805 2008-09-08 01:23:30Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -458,7 +458,7 @@ void CMeleeWeapon::CheckAttack( idVec3 OldOrigin, idMat3 OldAxis )
 				TestParry( static_cast<CMeleeWeapon *>(other), dir, &tr );
 			}
 			// hit a held object
-			else if( other == g_Global.m_DarkModPlayer->grabber->GetSelected() )
+			else if( other == gameLocal.m_Grabber->GetSelected() )
 			{
 				DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("MeleeWeapon: Hit an object held by the player\r");
 				

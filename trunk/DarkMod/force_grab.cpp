@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2793 $
- * $Date: 2008-09-01 18:51:06 -0400 (Mon, 01 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2810 $
+ * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_grab.cpp 2793 2008-09-01 22:51:06Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: force_grab.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "force_grab.h"
@@ -197,7 +197,7 @@ void CForce_Grab::Evaluate( int time )
 		return;
 	}
 
-	CGrabber *grabber = g_Global.m_DarkModPlayer->grabber;
+	CGrabber *grabber = gameLocal.m_Grabber;
 
 // ======================== LINEAR =========================
 
