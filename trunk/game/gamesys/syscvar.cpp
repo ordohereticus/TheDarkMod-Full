@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2762 $
- * $Date: 2008-08-29 13:49:35 -0400 (Fri, 29 Aug 2008) $
+ * $Revision: 2763 $
+ * $Date: 2008-08-30 01:14:30 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2762 2008-08-29 17:49:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2763 2008-08-30 05:14:30Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -215,7 +215,7 @@ idCVar cv_pm_stepvol_creep(		"pm_stepvol_creep",	"-5",					CVAR_GAME | CVAR_ARCH
 idCVar cv_pm_stepvol_crouch_walk(	"pm_stepvol_crouch_walk",	"-2",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Audible volume modifier for crouch walking footsteps" );
 idCVar cv_pm_stepvol_crouch_run(	"pm_stepvol_crouch_run",	"4",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Audible volume modifier for crouch running footsteps" );
 idCVar cv_pm_stepvol_crouch_creep(	"pm_stepvol_crouch_creep",	"-7",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Audible volume modifier for crouch creeping footsteps" );
-idCVar cv_pm_min_stepsound_interval("pm_min_stepsound_interval",	"500",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The minimum time in msec which has to pass before the next player footstep sound is allowed to be played." );
+idCVar cv_pm_min_stepsound_interval("pm_min_stepsound_interval",	"200",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The minimum time in msec which has to pass before the next player footstep sound is allowed to be played." );
 idCVar cv_pm_rope_snd_rep_dist(		"pm_rope_snd_rep_dist",		"32",		CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "When climbing a rope, this sets the vertical distance in doomunits between repeats of the rope climbing sound (default 32 [du])." );
 idCVar cv_pm_rope_velocity_letgo(	"pm_rope_velocity_letgo",	"100",		CVAR_GAME | CVAR_FLOAT, "Maximum allowed velocity of the rope before the player lets go." );
 idCVar cv_pm_water_downwards_velocity(	"pm_water_downwards_velocity",	"-4",		CVAR_GAME | CVAR_FLOAT, "The factor which the gravity vector gets scaled with to calculate the standard downwards velocity in water volumes. Negative values will let the player float upwards." );
