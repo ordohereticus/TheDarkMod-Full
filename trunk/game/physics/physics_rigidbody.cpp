@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2044 $
- * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2391 $
+ * $Date: 2008-05-26 15:41:30 -0400 (Mon, 26 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2044 2008-02-04 18:47:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2391 2008-05-26 19:41:30Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1547,6 +1547,11 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 		timer_collision.Clear();
 	}
 #endif
+
+	if (cv_phys_show_momentum.GetBool()) 
+	{
+		gameRenderWorld->DrawText( idStr(current.i.linearMomentum.LengthFast()), GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+	}
 
 	return true;
 }
