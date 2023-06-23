@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2780 $
- * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2792 $
+ * $Date: 2008-09-01 15:19:24 -0400 (Mon, 01 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2780 2008-08-31 09:50:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2792 2008-09-01 19:19:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1881,44 +1881,78 @@ void idAFEntity_WithAttachedHead::Restore( idRestoreGame *savefile ) {
 idAFEntity_WithAttachedHead::SetupHead
 ================
 */
-void idAFEntity_WithAttachedHead::SetupHead( void ) {
-	idAFAttachment		*headEnt;
-	idStr				jointName;
-	const char			*headModel;
-	jointHandle_t		joint;
-	idVec3				origin;
-	idMat3				axis;
-	idVec3				vHeadOffset(vec3_origin), HeadModelOffset, modelOffset;
+void idAFEntity_WithAttachedHead::SetupHead()
+{
+	idStr headModelDefName = spawnArgs.GetString( "def_head", "" );
 
-	headModel = spawnArgs.GetString( "def_head", "" );
-	spawnArgs.GetVector("offsetModel", "0 0 0", modelOffset);
-	spawnArgs.GetVector("offsetHeadModel", "0 0 0", HeadModelOffset);
-	if ( headModel[ 0 ] ) 
+	idVec3 modelOffset = spawnArgs.GetVector("offsetModel", "0 0 0");
+	idVec3 HeadModelOffset = spawnArgs.GetVector("offsetHeadModel", "0 0 0");
+
+	if ( !headModelDefName.IsEmpty() ) 
 	{
 		// We look if the head model is defined as a key to have a specific offset.
 		// If that is not the case, then we use the default value, if it exists, 
 		// otherwise there is no offset at all.
-		if(spawnArgs.GetVector(headModel, "0 0 0", vHeadOffset) == true)
-			 HeadModelOffset = vHeadOffset;
-
-		jointName = spawnArgs.GetString( "head_joint" );
-		joint = animator.GetJointHandle( jointName );
-		if ( joint == INVALID_JOINT ) 
+		if (spawnArgs.FindKey(headModelDefName) != NULL)
 		{
+			HeadModelOffset = spawnArgs.GetVector(headModelDefName, "0 0 0");
+		}
+
+		idStr jointName = spawnArgs.GetString( "head_joint" );
+		jointHandle_t joint = animator.GetJointHandle( jointName );
+		if ( joint == INVALID_JOINT ) {
 			gameLocal.Error( "Joint '%s' not found for 'head_joint' on '%s'", jointName.c_str(), name.c_str() );
 		}
 
-		headEnt = static_cast<idAFAttachment *>( gameLocal.SpawnEntityType( idAFAttachment::Type, NULL ) );
+		// Setup the default spawnargs for all heads
+		idDict args;
+
+		const idDeclEntityDef* def = gameLocal.FindEntityDef(headModelDefName, false);
+
+		if (def == NULL)
+		{
+			gameLocal.Warning("Could not find head entityDef %s!", headModelDefName);
+
+			// Try to fallback on the default head entityDef
+			def = gameLocal.FindEntityDef(TDM_HEAD_ENTITYDEF, false);
+		}
+
+		if (def != NULL)
+		{
+			// Make a copy of the default spawnargs
+			args = def->dict;
+		}
+		else
+		{
+			gameLocal.Warning("Could not find head entityDef %s or %s!", headModelDefName, TDM_HEAD_ENTITYDEF);
+		}
+
+		// Spawn the head entity
+		idEntity* ent = gameLocal.SpawnEntityType(idAFAttachment::Type, &args);
+		idAFAttachment* headEnt = static_cast<idAFAttachment*>(ent);
+
+		// Retrieve the actual model from the head entityDef
+		idStr headModel = args.GetString("model");
+		if (headModel.IsEmpty())
+		{
+			gameLocal.Warning("No 'model' spawnarg on head entityDef: %s", headModelDefName.c_str());
+		}
+
 		headEnt->SetName( va( "%s_head", name.c_str() ) );
 		headEnt->SetBody( this, headModel, joint );
 		headEnt->SetCombatModel();
 		head = headEnt;
 
+		idVec3				origin;
+		idMat3				axis;
 		animator.GetJointTransform( joint, gameLocal.time, origin, axis );
 		origin = renderEntity.origin + ( origin + modelOffset + HeadModelOffset ) * renderEntity.axis;
 		headEnt->SetOrigin( origin );
 		headEnt->SetAxis( renderEntity.axis );
 		headEnt->BindToJoint( this, joint, true );
+
+		// greebo: Setup the frob-peer relationship between head and body
+		m_FrobPeers.AddUnique(headEnt->name);
 	}
 }
 
