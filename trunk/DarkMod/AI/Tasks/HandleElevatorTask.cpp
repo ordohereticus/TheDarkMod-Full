@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2356 $
- * $Date: 2008-05-17 03:08:04 -0400 (Sat, 17 May 2008) $
+ * $Revision: 2365 $
+ * $Date: 2008-05-18 04:45:59 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2356 2008-05-17 07:08:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2365 2008-05-18 08:45:59Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -123,11 +123,14 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 	{
 		case EMovingTowardsStation:
 			dist = (owner->GetPhysics()->GetOrigin() - pos->GetPhysics()->GetOrigin()).LengthFast();
-			if (dist < 500
-				&&	(owner->CanSeeExt(pos, true, false) 
-					|| owner->CanSeeExt(elevator, true, false)))
+			if (owner->AI_MOVE_DONE)
 			{
-
+				// Move is done, this means that we might be close enough, but it's not guaranteed
+				_state = EStateMovingToFetchButton;
+			}
+			else if (dist < 500 &&	
+				      (owner->CanSeeExt(pos, true, false) || owner->CanSeeExt(elevator, true, false)))
+			{
 				if (elevator->IsAtPosition(pos))
 				{
 					// TODO: elevator is at the desired position, get onto it

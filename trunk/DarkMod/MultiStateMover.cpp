@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2342 $
- * $Date: 2008-05-15 14:43:06 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2365 $
+ * $Date: 2008-05-18 04:45:59 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2342 2008-05-15 18:43:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2365 2008-05-18 08:45:59Z greebo $", init_version);
 
 #include "MultiStateMover.h"
 
@@ -187,6 +187,18 @@ void CMultiStateMover::Save(idSaveGame *savefile) const
 	}
 
 	savefile->WriteVec3(forwardDirection);
+
+	savefile->WriteInt(fetchButtons.Num());
+	for (int i = 0; i < fetchButtons.Num(); i++)
+	{
+		fetchButtons[i].Save(savefile);
+	}
+
+	savefile->WriteInt(rideButtons.Num());
+	for (int i = 0; i < rideButtons.Num(); i++)
+	{
+		rideButtons[i].Save(savefile);
+	}
 }
 
 void CMultiStateMover::Restore(idRestoreGame *savefile)
@@ -201,6 +213,20 @@ void CMultiStateMover::Restore(idRestoreGame *savefile)
 	}
 
 	savefile->ReadVec3(forwardDirection);
+
+	savefile->ReadInt(num);
+	fetchButtons.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		fetchButtons[i].Restore(savefile);
+	}
+
+	savefile->ReadInt(num);
+	rideButtons.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		rideButtons[i].Restore(savefile);
+	}
 }
 
 void CMultiStateMover::Activate(idEntity* activator)
