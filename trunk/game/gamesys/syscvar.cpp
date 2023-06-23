@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3060 $
- * $Date: 2008-11-22 08:54:15 -0500 (Sat, 22 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3094 $
+ * $Date: 2008-12-29 12:40:55 -0500 (Mon, 29 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3060 2008-11-22 13:54:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3094 2008-12-29 17:40:55Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -153,7 +153,7 @@ idCVar cv_pm_lean_to_valid_increments( "pm_lean_to_valid_increments", "25",		CVA
 idCVar cv_pm_lean_door_increments(	"pm_lean_door_increments", "10",			CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "Integer number of increments used for testing when extending a lean through a door acoustically." );
 idCVar cv_pm_lean_door_max(			"pm_lean_door_max",		"40",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Max distance of door that may be listened through at normal incidence, in doom units." );
 idCVar cv_pm_lean_door_bounds_exp(	"pm_lean_door_bounds_exp", "8.0",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Amount to expand the camera view bounds by when testing if the player is still pressed against a door for listening purposes (default 8.0)."); 
-idCVar cv_pm_lean_toggle(			"pm_lean_togggle",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to make leaning toggleable." );
+idCVar cv_pm_lean_toggle(			"pm_lean_toggle",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to make leaning toggleable." );
 
 /**
 * Dark Mod Frobbing
