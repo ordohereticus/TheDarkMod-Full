@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2524 $
- * $Date: 2008-06-19 01:18:08 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2525 $
+ * $Date: 2008-06-19 11:48:16 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2524 2008-06-19 05:18:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2525 2008-06-19 15:48:16Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -289,7 +289,10 @@ void CFrobDoor::PostSpawn()
 	// Let the base class do its stuff first
 	CBinaryFrobMover::PostSpawn();
 
-	if (!m_Open) 
+	// Locate the double door entity befor closing our portal
+	FindDoubleDoor();
+
+	if (!m_Open)
 	{
 		// Door starts _completely_ closed, shut the portal
 		ClosePortal();
@@ -402,8 +405,6 @@ void CFrobDoor::PostSpawn()
 	// Check if the translation is empty and set the flag.
 	// Set the pin translation flag to FALSE if the translation fraction is zero
 	m_PinTranslationFractionFlag = (m_PinTranslationFraction.Compare(idVec3(0,0,0), VECTOR_EPSILON) == false);
-	
-	FindDoubleDoor();
 }
 
 void CFrobDoor::Lock(bool bMaster)
@@ -692,7 +693,6 @@ void CFrobDoor::Close(bool bMaster)
 
 bool CFrobDoor::UsedBy(IMPULSE_STATE nState, CInventoryItem* item)
 {
-/*
 	bool bRc = false;
 
 	if (item == NULL || item->GetItemEntity() == NULL)
@@ -775,8 +775,6 @@ bool CFrobDoor::UsedBy(IMPULSE_STATE nState, CInventoryItem* item)
 	}
 
 	return bRc;
-*/
-	return false;
 }
 
 void CFrobDoor::UpdateSoundLoss(void)
@@ -816,36 +814,30 @@ Quit:
 
 void CFrobDoor::FindDoubleDoor(void)
 {
-/*
-	int i, numListedClipModels, testPortal;
-	idBounds clipBounds;
-	idEntity *obEnt;
-	idClipModel *clipModel;
-	idClipModel *clipModelList[ MAX_GENTITIES ];
+	idClipModel* clipModelList[MAX_GENTITIES];
 
-	clipBounds = physicsObj.GetAbsBounds();
+	idBounds clipBounds = physicsObj.GetAbsBounds();
 	clipBounds.ExpandSelf( 10.0f );
 
-	numListedClipModels = gameLocal.clip.ClipModelsTouchingBounds( clipBounds, CONTENTS_SOLID, clipModelList, MAX_GENTITIES );
+	int numListedClipModels = gameLocal.clip.ClipModelsTouchingBounds( clipBounds, CONTENTS_SOLID, clipModelList, MAX_GENTITIES );
 
-	for ( i = 0; i < numListedClipModels; i++ ) 
+	for (int i = 0; i < numListedClipModels; i++) 
 	{
-		clipModel = clipModelList[i];
-		obEnt = clipModel->GetEntity();
+		idClipModel* clipModel = clipModelList[i];
+		idEntity* obEnt = clipModel->GetEntity();
 
 		// Ignore self
-		if( obEnt == this )
-			continue;
+		if (obEnt == this) continue;
 
-		if ( obEnt->IsType( CFrobDoor::Type ) ) 
+		if (obEnt->IsType(CFrobDoor::Type))
 		{
-			// check the visportal inside the other door, if it's the same as this one, double door
-			testPortal = gameRenderWorld->FindPortal( obEnt->GetPhysics()->GetAbsBounds() );
+			// check the visportal inside the other door, if it's the same as this one => double door
+			int testPortal = gameRenderWorld->FindPortal(obEnt->GetPhysics()->GetAbsBounds());
 
-			if( testPortal == areaPortal && testPortal != 0 )
+			if (testPortal == areaPortal && testPortal != 0)
 			{
-				DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor %s found double door %s\r", name.c_str(), obEnt->name.c_str() );
-				m_DoubleDoor = static_cast<CFrobDoor *>( obEnt );
+				DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor %s found double door %s\r", name.c_str(), obEnt->name.c_str());
+				m_DoubleDoor = static_cast<CFrobDoor*>(obEnt);
 			}
 		}
 	}
@@ -854,38 +846,39 @@ void CFrobDoor::FindDoubleDoor(void)
 	UpdateSoundLoss();
 
 	// Open the portal if either of the doors is open
-	if( m_Open || (m_DoubleDoor.GetEntity() && m_DoubleDoor.GetEntity()->m_Open) )
-		Event_OpenPortal();
-*/
+	if (m_Open || (m_DoubleDoor.GetEntity() != NULL && m_DoubleDoor.GetEntity()->IsOpen()))
+	{
+		OpenPortal();
+	}
 }
 
-void CFrobDoor::GetPickable(void)
+void CFrobDoor::GetPickable()
 {
-	//idThread::ReturnInt(m_Pickable);
+	idThread::ReturnInt(m_Pickable);
 }
 
-void CFrobDoor::GetDoorhandle(void)
+void CFrobDoor::GetDoorhandle()
 {
-	//idThread::ReturnEntity(m_Doorhandle.GetEntity());
+	idThread::ReturnEntity(m_Doorhandle.GetEntity());
 }
 
-CFrobDoor* CFrobDoor::GetDoubleDoor( void )
+CFrobDoor* CFrobDoor::GetDoubleDoor()
 {
-	//return m_DoubleDoor.GetEntity();
-	return NULL;
+	return m_DoubleDoor.GetEntity();
 }
 
 void CFrobDoor::ClosePortal()
 {
-	/*
-	if( !m_DoubleDoor.GetEntity() || !m_DoubleDoor.GetEntity()->m_Open )
+	CFrobDoor* doubleDoor = m_DoubleDoor.GetEntity();
+
+	if (doubleDoor == NULL || !doubleDoor->IsOpen())
 	{
-		if ( areaPortal ) 
+		// No double door or double door is closed too
+		if (areaPortal) 
 		{
-			SetPortalState( false );
+			SetPortalState(false);
 		}
 	}
-	*/
 }
 
 void CFrobDoor::SetFrobbed(bool val)
