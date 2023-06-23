@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2604 $
- * $Date: 2008-07-03 13:48:26 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2605 $
+ * $Date: 2008-07-03 13:54:50 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2604 2008-07-03 17:48:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2605 2008-07-03 17:54:50Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9734,10 +9734,16 @@ void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 			// Check the item entity for the right spawnargs
 			bool couldBeUsed = highlightedEntity->UseBy(impulseState, item);
 
-			if (impulseState == EPressed)
+			if (impulseState == EPressed && cv_tdm_inv_use_on_frob_visual_feedback.GetBool())
 			{
 				// Give optional visual feedback on the KeyDown event
 				m_overlays.broadcastNamedEvent(couldBeUsed ? "onInvPositiveFeedback" : "onInvNegativeFeedback");
+				return;
+			}
+			
+			if (couldBeUsed)
+			{
+				// Exit if the item could be used, the rest of this routine can be skipped
 				return;
 			}
 		}
