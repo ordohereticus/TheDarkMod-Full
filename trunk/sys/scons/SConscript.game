@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2664 $
-#* $Date: 2008-07-14 15:46:07 -0400 (Mon, 14 Jul 2008) $
+#* $Revision: 2691 $
+#* $Date: 2008-07-18 10:35:43 -0400 (Fri, 18 Jul 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -227,6 +227,7 @@ AI/Tasks/PathTurnTask.cpp \
 AI/Tasks/PathWaitForTriggerTask.cpp \
 AI/Tasks/PathWaitTask.cpp \
 AI/Tasks/PatrolTask.cpp \
+AI/Tasks/PlayAnimationTask.cpp \
 AI/Tasks/AnimalPatrolTask.cpp \
 AI/Tasks/RandomHeadturnTask.cpp \
 AI/Tasks/RandomTurningTask.cpp \

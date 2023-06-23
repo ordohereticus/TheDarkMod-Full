@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2690 $
- * $Date: 2008-07-18 00:47:03 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2691 $
+ * $Date: 2008-07-18 10:35:43 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,12 +10,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2690 2008-07-18 04:47:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2691 2008-07-18 14:35:43Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
-#include "../Tasks/IdleAnimationTask.h"
 #include "../Tasks/MoveToPositionTask.h"
+#include "../Tasks/PlayAnimationTask.h"
 #include "ObservantState.h"
 #include "../Library.h"
 #include "../Conversation/Conversation.h"
@@ -208,6 +208,24 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 	break;
 
 	case ConversationCommand::EPlayAnimOnce:
+	{
+		owner->GetSubsystem(SubsysAction)->PushTask(
+			TaskPtr(new PlayAnimationTask(command.GetArgument(0)))
+		);
+
+		// Set the finish conditions for the current action
+		if (command.WaitUntilFinished())
+		{
+			_state = ConversationCommand::EExecuting;
+			_finishTime = gameLocal.time + 5000;
+		}
+		else
+		{
+			// We need not to wait until we're done, so just set the flag to "finished"
+			_state = ConversationCommand::EFinished;
+		}
+	}
+	break;
 	case ConversationCommand::EPlayAnimCycle:
 		break;
 
