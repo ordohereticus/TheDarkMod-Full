@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2799 $
+ * $Date: 2008-09-03 14:21:19 -0400 (Wed, 03 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -20,6 +20,9 @@ namespace ai
 class AreaManager
 {
 private:
+	// angua: Forbidden areas (e.g. areas with locked doors) are excluded from path finding 
+	// for specific AI
+	// ForbiddenAreasMap: multi´map of area number and the AI for which this area should be excluded
 	typedef std::multimap<int, const idActor*> ForbiddenAreasMap;
 	ForbiddenAreasMap _forbiddenAreas;
 

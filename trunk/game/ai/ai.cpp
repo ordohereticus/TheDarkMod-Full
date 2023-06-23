@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2797 $
- * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2799 $
+ * $Date: 2008-09-03 14:21:19 -0400 (Wed, 03 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2797 2008-09-03 05:15:28Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2799 2008-09-03 18:21:19Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1324,6 +1324,8 @@ void idAI::Spawn( void )
 	{
 		float tempFloat;
 		tempFloat = spawnArgs.GetFloat( va("acuity_%s", g_Global.m_AcuityNames[ind].c_str()), "100" );
+		// angua: divide by 100 to transform percent into fractions
+		tempFloat *= 0.01;
 		m_Acuities.Append( tempFloat );
 		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Acuities Array: index %d, name %s, value %f\r", ind, g_Global.m_AcuityNames[ind].c_str(), m_Acuities[ind]);
 	}
@@ -7871,7 +7873,7 @@ float idAI::GetCalibratedLightgemValue() const
 					- 0.0000114f * idMath::Pow16(lgem, 4)	
 					+ 0.000000193f * idMath::Pow16(lgem, 5);
 
-	clampVal *= GetAcuity("vis") * 0.01f;
+	clampVal *= GetAcuity("vis");
 
 	if (clampVal > 1)
 	{
@@ -8083,7 +8085,7 @@ float idAI::GetMaximumObservationDistance(idVec3 bottomPoint, idVec3 topPoint, i
 {
 	float lightQuotient = LAS.queryLightingAlongLine(bottomPoint, topPoint, p_ignoreEntity, true);
 
-	float visualAcuityZeroToOne = GetAcuity("vis") * 0.01f;
+	float visualAcuityZeroToOne = GetAcuity("vis");
 	float maxDistanceToObserve = lightQuotient * cv_ai_sight_scale.GetFloat() * visualAcuityZeroToOne;
 
 	return maxDistanceToObserve;
