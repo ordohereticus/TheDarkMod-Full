@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2469 $
- * $Date: 2008-06-11 12:53:28 -0400 (Wed, 11 Jun 2008) $
+ * $Revision: 2471 $
+ * $Date: 2008-06-13 01:10:11 -0400 (Fri, 13 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2469 2008-06-11 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2471 2008-06-13 05:10:11Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -402,13 +402,6 @@ void CMissionData::MissionEvent
 	{
 		CObjective *pObj = &m_Objectives[i];
 
-		// greebo: Check for irreversible objectives that have already "snapped" into their final state
-		if (!pObj->m_bReversible && pObj->m_bLatched)
-		{
-			// don't re-evaluate latched irreversible objectives
-			continue;
-		}
-
 		for( int j=0; j < pObj->m_Components.Num(); j++ )
 		{
 			CObjectiveComponent *pComp;
@@ -438,6 +431,13 @@ void CMissionData::MissionEvent
 			// this will return true and we must mark this objective for update.
 			if( pComp->SetState( bCompState ) )
 			{
+				// greebo: Check for irreversible objectives that have already "snapped" into their final state
+				if (!pObj->m_bReversible && pObj->m_bLatched)
+				{
+					// don't re-evaluate latched irreversible objectives
+					continue;
+				}
+
 				DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objective %d, Component %d state changed, needs updating", i+1, j+1 );
 				pObj->m_bNeedsUpdate = true;
 				m_bObjsNeedUpdate = true;
