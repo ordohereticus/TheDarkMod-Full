@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2709 $
- * $Date: 2008-07-19 11:56:06 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2818 $
+ * $Date: 2008-09-12 12:16:55 -0400 (Fri, 12 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -52,11 +52,10 @@ public:
 	// Each command can have several states
 	enum State
 	{
-		ENotReady = 0,		// not ready yet
-		EReady,				// ready for starting
-		EExecuting,			// execution in progress
-		EFinished,			// done executing
-		EAborted,			// abnormal termination
+		EReadyForExecution,	// not processed yet
+		EExecuting,			// executing
+		EFinished,			// done processing
+		EAborted,			// cancelled
 		ENumStates,			// invalid index
 	};
 

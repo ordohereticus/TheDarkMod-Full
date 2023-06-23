@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2800 $
- * $Date: 2008-09-05 00:47:33 -0400 (Fri, 05 Sep 2008) $
+ * $Revision: 2818 $
+ * $Date: 2008-09-12 12:16:55 -0400 (Fri, 12 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2800 2008-09-05 04:47:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2818 2008-09-12 16:16:55Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -193,44 +193,31 @@ bool Conversation::Process()
 		return false;
 	}
 
-	// Get the state of this command
+	// greebo: Pass the command to the conversation state for processing
+	convState->ProcessCommand(*command);
+
+	// Get the state of this command to decide on further actions
 	ConversationCommand::State state = command->GetState();
 	
 	switch (state)
 	{
-		case ConversationCommand::ENotReady:
-			// not ready yet, state is still preparing for takeoff
-			break;
-		case ConversationCommand::EReady:
-			// Start a new execution
-			convState->StartCommand(*command, *this);
+		case ConversationCommand::EReadyForExecution:
+			// not been processed yet, state is still preparing for takeoff
 			break;
 		case ConversationCommand::EExecuting:
-			// Continue execution
-			convState->Execute(*command, *this);
+			// Is being processed, do nothing
 			break;
 		case ConversationCommand::EFinished:
-			// Increase the iterator, we continue next frame
-			_currentCommand++;
-
-			// Do we have more commands?
-			if (_currentCommand >= 0 && _currentCommand < _commands.Num())
-			{
-				// Set the next command to "Ready" state, they are NotReady by default, 
-				// which is screwing our algorithm
-				_commands[_currentCommand]->SetState(ConversationCommand::EReady);
-			}
-			break;
 		case ConversationCommand::EAborted:
-			return false;
+			// Command is done processing, increase the iterator, we continue next frame
+			_currentCommand++;
+			break;
 		default:
 			return false;
 	};
 
-	// Sync the command state with the AI conversation execution state
-	command->SetState(convState->GetExecutionState());
-
-	return (state != ConversationCommand::EAborted);
+	// Return TRUE if the command iterator is still in the valid range (i.e. we have commands left)
+	return (_currentCommand >= 0 && _currentCommand < _commands.Num());
 }
 
 idAI* Conversation::GetActor(int index)

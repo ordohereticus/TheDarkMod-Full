@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2801 $
- * $Date: 2008-09-06 06:32:37 -0400 (Sat, 06 Sep 2008) $
- * $Author: tels $
+ * $Revision: 2818 $
+ * $Date: 2008-09-12 12:16:55 -0400 (Fri, 12 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2801 2008-09-06 10:32:37Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2818 2008-09-12 16:16:55Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
@@ -44,7 +44,7 @@ const char* const ConversationCommand::TypeNames[ConversationCommand::ENumComman
 
 ConversationCommand::ConversationCommand() :
 	_type(ENumCommands), // invalid type
-	_state(ENotReady)
+	_state(EReadyForExecution)
 {}
 
 ConversationCommand::Type ConversationCommand::GetType()

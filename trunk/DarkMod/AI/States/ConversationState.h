@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2798 $
- * $Date: 2008-09-03 13:31:17 -0400 (Wed, 03 Sep 2008) $
+ * $Revision: 2818 $
+ * $Date: 2008-09-12 12:16:55 -0400 (Fri, 12 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,8 +24,17 @@ class ConversationState :
 	// The conversation index
 	int _conversation;
 
+	enum ExecutionState
+	{
+		ENotReady = 0,		// not ready yet (try next frame)
+		EReady,				// ready for starting
+		EExecuting,			// executing, but ready for new commands
+		EBusy,				// execution in progress, can't handle new commands
+		ENumExecutionStates,// invalid index
+	};
+
 	// The execution state
-	ConversationCommand::State _state;
+	ExecutionState _state;
 
 	// The conversation command type
 	ConversationCommand::Type _commandType;
@@ -50,6 +59,13 @@ public:
 	// Sets the conversation this state should handle
 	void SetConversation(int index);
 
+	/**
+	 * greebo: Processes the given command belonging to the given conversation.
+	 * The command's state variable is updated after this call and corresponds 
+	 * to the execution state of this AI.
+	 */
+	void ProcessCommand(ConversationCommand& command);
+
 	// Starts execution of the given command, returns FALSE on failure
 	void StartCommand(ConversationCommand& command, Conversation& conversation);
 
@@ -57,7 +73,7 @@ public:
 	void Execute(ConversationCommand& command, Conversation& conversation);
 
 	// Returns the current conversation command execution state
-	ConversationCommand::State GetExecutionState();
+	ConversationState::ExecutionState GetExecutionState();
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
