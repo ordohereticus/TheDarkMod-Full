@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2606 $
+ * $Date: 2008-07-03 13:57:15 -0400 (Thu, 03 Jul 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 2606 2008-07-03 17:57:15Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -244,7 +244,8 @@ void CombatState::Think(idAI* owner)
 			// Cheat a bit and take the last reachable position as "visible & reachable"
 			owner->lastVisibleReachableEnemyPos = owner->lastReachableEnemyPos;
 		}
-		else
+		else if (owner->ReachedPos(owner->lastVisibleReachableEnemyPos, MOVE_TO_POSITION)  
+			|| gameLocal.time - memory.lastTimeEnemySeen > 2 * MAX_BLIND_CHASE_TIME)
 		{
 			// BLIND_CHASE_TIME has expired, we have lost the enemy!
 			owner->GetMind()->SwitchState(STATE_LOST_TRACK_OF_ENEMY);
