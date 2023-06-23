@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2380 $
- * $Date: 2008-05-20 16:19:07 -0400 (Tue, 20 May 2008) $
+ * $Revision: 2390 $
+ * $Date: 2008-05-26 15:24:59 -0400 (Mon, 26 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2380 2008-05-20 20:19:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2390 2008-05-26 19:24:59Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2321,13 +2321,15 @@ int idAI::PointReachableAreaNum( const idVec3 &pos, const float boundsScale, con
 		
 		if (areaNum != 0)
 		{
-			// Sanity check the returned area. If the position isn't within the AI's vertical melee
+			// Sanity check the returned area. If the position isn't within the AI's height + vertical melee
 			// reach, then report it as unreachable.
 			const idVec3& grav = physicsObj.GetGravityNormal();
 
 			float height = fabs((newPos - aas->AreaCenter(areaNum)) * grav);
 
-			if (height > melee_range) {
+			idBounds bounds = GetPhysics()->GetBounds();
+
+			if (height > bounds[1][2] + melee_range) {
 				areaNum = 0;
 			}
 		}
