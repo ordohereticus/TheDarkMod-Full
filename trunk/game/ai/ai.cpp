@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2840 $
- * $Date: 2008-09-14 04:02:30 -0400 (Sun, 14 Sep 2008) $
- * $Author: angua $
+ * $Revision: 2849 $
+ * $Date: 2008-09-15 04:54:14 -0400 (Mon, 15 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2840 2008-09-14 08:02:30Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2849 2008-09-15 08:54:14Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5275,6 +5275,9 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 	// Update TDM objective system
 	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, attacker, bPlayerResponsible );
+	// Mark the body as last moved by the player
+	if( bPlayerResponsible )
+		m_MovedByActor = gameLocal.GetLocalPlayer();
 }
 
 
@@ -8693,8 +8696,11 @@ void idAI::Knockout( idEntity* inflictor )
 	mind->PushState(STATE_KNOCKED_OUT);
 
 	// Update TDM objective system
-	bool playerResponsible = (inflictor != NULL && inflictor->IsType(idPlayer::Type));
-	gameLocal.m_MissionData->MissionEvent(COMP_KO, this, inflictor, playerResponsible);
+	bool bPlayerResponsible = (inflictor != NULL && inflictor == gameLocal.GetLocalPlayer() );
+	gameLocal.m_MissionData->MissionEvent(COMP_KO, this, inflictor, bPlayerResponsible);
+	// Mark the body as last moved by the player
+	if( bPlayerResponsible )
+		m_MovedByActor = gameLocal.GetLocalPlayer();
 }
 
 void idAI::PostKnockOut()
@@ -8746,8 +8752,11 @@ idAI::FoundBody
 */
 void idAI::FoundBody( idEntity *body )
 {
-	// TODO: Check if the player is responsible for the body
-	gameLocal.m_MissionData->MissionEvent( COMP_AI_FIND_BODY, body, true );
+	bool bPlayerResp = false;
+	if( m_MovedByActor.GetEntity() && m_MovedByActor.GetEntity() == gameLocal.GetLocalPlayer() )
+		bPlayerResp = true;
+
+	gameLocal.m_MissionData->MissionEvent( COMP_AI_FIND_BODY, body, bPlayerResp );
 }
 
 void idAI::AddMessage(const ai::CommMessagePtr& message)
