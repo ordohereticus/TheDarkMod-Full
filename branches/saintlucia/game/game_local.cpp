@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2945 $
- * $Date: 2008-10-13 00:19:55 -0400 (Mon, 13 Oct 2008) $
+ * $Revision: 2953 $
+ * $Date: 2008-10-16 00:39:17 -0400 (Thu, 16 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2945 2008-10-13 04:19:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2953 2008-10-16 04:39:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1493,7 +1493,7 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	MapPopulate();
 
 	// ishtvan: Set the player variable on the grabber
-	m_Grabber->SetPlayer( GetLocalPlayer() );
+	//m_Grabber->SetPlayer( GetLocalPlayer() ); // greebo: GetLocalPlayer() returns NULL, moved to idPlayer::Spawn()
 
 	// greebo: Add the elevator reachabilities to the AAS
 	SetupEAS();

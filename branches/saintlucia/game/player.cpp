@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2949 $
- * $Date: 2008-10-14 02:36:47 -0400 (Tue, 14 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 2953 $
+ * $Date: 2008-10-16 00:39:17 -0400 (Thu, 16 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2949 2008-10-14 06:36:47Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2953 2008-10-16 04:39:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -956,6 +956,9 @@ void idPlayer::Spawn( void )
 	//FIX: Set the walkspeed back to the stored value.
 	pm_walkspeed.SetFloat( gameLocal.m_walkSpeed );
 	SetupInventory();
+
+	// greebo: Set the player variable on the grabber
+	gameLocal.m_Grabber->SetPlayer(this);
 
 	// greebo: Initialise the default fov.
 	zoomFov.Init(gameLocal.time, 0, g_fov.GetFloat(), g_fov.GetFloat());
