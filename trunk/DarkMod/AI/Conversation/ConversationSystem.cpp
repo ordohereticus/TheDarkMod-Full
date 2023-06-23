@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2699 $
- * $Date: 2008-07-18 14:08:32 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2702 $
+ * $Date: 2008-07-19 03:08:41 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2699 2008-07-18 18:08:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2702 2008-07-19 07:08:41Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -86,6 +86,13 @@ void ConversationSystem::StartConversation(int index)
 	}
 
 	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Trying to start conversation %s.\r", conv->GetName().c_str());
+
+	// Check if the conversation is already playing
+	if (_activeConversations.FindIndex(index) != -1)
+	{
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Cannot start conversation %s, it's already playing!\r", conv->GetName().c_str());
+		return;
+	}
 
 	// Check if the conditions to start the conversations is met
 	if (!conv->CheckConditions())
