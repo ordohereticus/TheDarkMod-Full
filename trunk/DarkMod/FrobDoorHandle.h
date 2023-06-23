@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2600 $
- * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2602 $
+ * $Date: 2008-07-03 13:01:37 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -44,7 +44,11 @@ public:
 	 */
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed();
-	bool					UsedBy(EImpulseState nState, CInventoryItem* item);
+
+	// 
+	virtual bool			CanBeUsedBy(CInventoryItem* item);					// Overrides idEntity::CanBeUsedBy
+	virtual bool			UseBy(EImpulseState impulseState, CInventoryItem* item);	// Overrides idEntity::UseBy
+
 	void					FrobAction(bool bMaster);
 
 	// These functions need to be disabled on the handle. Therefore
