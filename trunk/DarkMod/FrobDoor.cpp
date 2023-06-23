@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2571 $
- * $Date: 2008-06-25 16:23:18 -0400 (Wed, 25 Jun 2008) $
+ * $Revision: 2573 $
+ * $Date: 2008-06-26 00:52:58 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2571 2008-06-25 20:23:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2573 2008-06-26 04:52:58Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -833,18 +833,15 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 			if(m_SoundTimerStarted <= 0)
 			{
 				oPickSound = "snd_lockpick_pick_wrong";
-				PropPickSound(oPickSound, cType, LPSOUND_LOCK_PICKED, 0, HANDLE_POS_ORIGINAL, -1, -1);
+				PropPickSound(oPickSound, cType, LPSOUND_WRONG_LOCKPICK, 0, HANDLE_POS_ORIGINAL, -1, -1);
 				DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] already picked\r", name.c_str());
 			}
 		}
-		else
+		else if (nSampleType == LPSOUND_PIN_SAMPLE || nSampleType == LPSOUND_WRONG_LOCKPICK)
 		{
-			if(nSampleType == LPSOUND_PIN_SAMPLE)
-			{
-				m_SoundTimerStarted--;
-				if(m_SoundTimerStarted <= 0)
-					m_SoundTimerStarted = 0;
-			}
+			m_SoundTimerStarted--;
+			if(m_SoundTimerStarted <= 0)
+				m_SoundTimerStarted = 0;
 		}
 
 		goto Quit;
