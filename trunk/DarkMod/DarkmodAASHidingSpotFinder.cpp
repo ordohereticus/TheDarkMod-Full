@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1802 $
- * $Date: 2007-11-16 08:35:40 -0500 (Fri, 16 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 2296 $
+ * $Date: 2008-05-11 08:01:36 -0400 (Sun, 11 May 2008) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 1802 2007-11-16 13:35:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 2296 2008-05-11 12:01:36Z crispy $", init_version);
 
 #include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
@@ -1057,7 +1057,7 @@ void CDarkmodAASHidingSpotFinder::debugDrawHidingSpots(int viewLifetime)
 			markerColor,
 			DebugDrawList[spotIndex].goal.origin + markerArrowLength * DebugDrawList[spotIndex].quality,
 			DebugDrawList[spotIndex].goal.origin,
-			2.0f,
+			2,
 			viewLifetime
 		);
 	}
