@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2922 $
- * $Date: 2008-10-05 17:12:26 -0400 (Sun, 05 Oct 2008) $
+ * $Revision: 2923 $
+ * $Date: 2008-10-05 17:24:40 -0400 (Sun, 05 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -37,12 +37,6 @@ public:
 	// Think is inherited from IdleState::Think
 
 	static StatePtr CreateInstance();
-
-	/**
-	* ishtvan: Called when targets are changed
-	* Re-initializes to catch new path corners
-	**/
-	virtual void OnChangeTarget(idAI *owner);
 
 protected:
 	// Returns the initial idle bark sound, depending on the alert level 
