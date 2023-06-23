@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2557 $
- * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2560 $
+ * $Date: 2008-06-22 15:06:30 -0400 (Sun, 22 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -304,6 +304,14 @@ protected:
 	 * greebo: "Override" the TeamBlocked event to detect collisions with the player.
 	 */
 	virtual void			OnTeamBlocked(idEntity* blockedEntity, idEntity* blockingEntity);
+
+	/**
+	 * greebo: Within the FrobMover class hierarchy, this function should be used to play sounds 
+	 * instead of the standard StartSound() method. Some frobmovers like doors might want to 
+	 * relay the sound playing to another entity (like doorhandles) to avoid sounds being
+	 * played from the door's origin, barely audible to the player.
+	 */
+	virtual void			FrobMoverStartSound(const char* soundName);
 
 protected:
 	/**

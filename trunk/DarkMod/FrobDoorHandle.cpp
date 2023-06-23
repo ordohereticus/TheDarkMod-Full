@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2557 $
- * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2560 $
+ * $Date: 2008-06-22 15:06:30 -0400 (Sun, 22 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2557 2008-06-21 19:42:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2560 2008-06-22 19:06:30Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -159,8 +159,7 @@ void CFrobDoorHandle::Tap()
 	if (m_Master && m_Door != NULL)
 	{
 		// Start the appropriate sound
-		idStr snd = m_Door->IsLocked() ? "snd_tap_locked" : "snd_tap_default";
-		StartSound(snd, SND_CHANNEL_ANY, 0, false, NULL);
+		FrobMoverStartSound(m_Door->IsLocked() ? "snd_tap_locked" : "snd_tap_default");
 	}
 }
 
