@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2511 $
+ * $Date: 2008-06-16 00:58:35 -0400 (Mon, 16 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -111,6 +111,7 @@ protected:
 	virtual void			OpenPortal();
 	virtual void			ClosePortal();
 	void					Event_PartBlocked( idEntity *blockingEntity );
+	virtual void			OnTeamBlocked(idEntity* blockedEntity, idEntity* blockingEntity);
 
 	void					MoveToPos( const idVec3 &pos);
 	void					MoveToLocalPos( const idVec3 &pos );

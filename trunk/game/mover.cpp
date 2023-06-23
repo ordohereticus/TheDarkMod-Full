@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2461 $
- * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2511 $
+ * $Date: 2008-06-16 00:58:35 -0400 (Mon, 16 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 2511 2008-06-16 04:58:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -996,6 +996,10 @@ void idMover::BeginRotation( idThread *thread, bool stopwhendone ) {
 	ProcessEvent( &EV_ReachedAng );
 }
 
+void idMover::OnTeamBlocked(idEntity* blockedEntity, idEntity* blockingEntity)
+{
+	// empty default implementation, overridden by subclasses
+}
 
 /***********************************************************************
 
@@ -1012,6 +1016,9 @@ void idMover::Event_TeamBlocked( idEntity *blockedEntity, idEntity *blockingEnti
 	if ( g_debugMover.GetBool() ) {
 		gameLocal.Printf( "%d: '%s' stopped due to team member '%s' blocked by '%s'\n", gameLocal.time, name.c_str(), blockedEntity->name.c_str(), blockingEntity->name.c_str() );
 	}
+
+	// greebo: Pass the call to the virtual function
+	OnTeamBlocked(blockedEntity, blockingEntity);
 }
 
 /*

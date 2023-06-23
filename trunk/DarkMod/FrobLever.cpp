@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2509 $
- * $Date: 2008-06-15 14:51:15 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2511 $
+ * $Date: 2008-06-16 00:58:35 -0400 (Mon, 16 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLever.cpp 2509 2008-06-15 18:51:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLever.cpp 2511 2008-06-16 04:58:35Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -58,6 +58,8 @@ void CFrobLever::Operate()
 		{
 			// Aha, seems like we're flagged as open, but we are at the closed position => open
 			m_Open = false;
+			m_bIntentOpen = true;
+			m_bInterrupted = false;
 			Open(false);
 		}
 		else
