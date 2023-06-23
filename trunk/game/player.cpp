@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3041 $
- * $Date: 2008-11-19 12:39:58 -0500 (Wed, 19 Nov 2008) $
- * $Author: angua $
+ * $Revision: 3050 $
+ * $Date: 2008-11-21 09:59:53 -0500 (Fri, 21 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3041 2008-11-19 17:39:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3050 2008-11-21 14:59:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9289,6 +9289,11 @@ void idPlayer::InventoryUseKeyRelease(int holdTime)
 	{
 		UseInventoryItem(EReleased, it, holdTime);
 	}
+	else 
+	{
+		// Check for a held grabber entity, which should be put back into the inventory
+		AddGrabberEntityToInventory();
+	}
 }
 
 void idPlayer::UseInventoryItem()
@@ -9320,15 +9325,6 @@ void idPlayer::UseInventoryItem(EImpulseState nState, const CInventoryItemPtr& i
 	{
 		// Pass the "inventoryUseItem" event to the GUIs
 		m_overlays.broadcastNamedEvent("inventoryUseItem");
-	}
-	else if (nState == EReleased)
-	{
-		// Check for a held grabber entity, which should be put back into the inventory
-		if (AddGrabberEntityToInventory())
-		{
-			// Item added to inventory, we're done here.
-			return;
-		}
 	}
 
 	// Check if we're allowed to use items at all
