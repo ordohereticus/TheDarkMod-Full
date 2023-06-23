@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2573 $
- * $Date: 2008-06-26 00:52:58 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2575 $
+ * $Date: 2008-06-26 13:58:38 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2573 2008-06-26 04:52:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2575 2008-06-26 17:58:38Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -213,7 +213,7 @@ void CFrobDoor::Spawn( void )
 	// In that case we can ignore the pins, otherwise we must create the patterns.
 	if (!lockPins.IsEmpty())
 	{
-		idStr head = "lockpick_pin_";
+		idStr head = "snd_lockpick_pin_";
 		int b = cv_lp_pin_base_count.GetInteger();
 
 		if (b < MIN_CLICK_NUM)
@@ -849,7 +849,7 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 
 	// Now check if the pick is of the correct type. If no picktype is given, or
 	// the mapper doesn't care, we ignore it.
-	spawnArgs.GetString("snd_lock_picktype", "", pick);
+	spawnArgs.GetString("lock_picktype", "", pick);
 	if(m_FirstLockedPinIndex < pick.Length())
 	{
 		if(!(pick[m_FirstLockedPinIndex] == '*' || pick[m_FirstLockedPinIndex] == type))
