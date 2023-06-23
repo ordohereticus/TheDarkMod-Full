@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2461 $
- * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2485 $
+ * $Date: 2008-06-14 06:52:09 -0400 (Sat, 14 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lexer.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: lexer.cpp 2485 2008-06-14 10:52:09Z tels $", init_version);
 
 #pragma warning( push )
 #pragma warning( disable : 4127 )
@@ -764,7 +764,7 @@ idLexer::ReadPunctuation
 */
 int idLexer::ReadPunctuation( idToken *token ) {
 	int l, n, i;
-	char *p;
+	const char *p;
 	const punctuation_t *punc;
 
 #ifdef PUNCTABLE

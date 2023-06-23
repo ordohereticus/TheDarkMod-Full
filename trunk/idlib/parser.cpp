@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1869 $
- * $Date: 2007-12-13 06:45:27 -0500 (Thu, 13 Dec 2007) $
- * $Author: crispy $
+ * $Revision: 2485 $
+ * $Date: 2008-06-14 06:52:09 -0400 (Sat, 14 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: parser.cpp 1869 2007-12-13 11:45:27Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: parser.cpp 2485 2008-06-14 10:52:09Z tels $", init_version);
 
 #pragma warning( push )
 #pragma warning( disable : 4127 )
@@ -614,7 +614,7 @@ void idParser::AddBuiltinDefines( void ) {
 	define_t *define;
 	struct builtin
 	{
-		char *string;
+		const char *string;
 		int id;
 	} builtin[] = {
 		{ "__LINE__",	BUILTIN_LINE }, 

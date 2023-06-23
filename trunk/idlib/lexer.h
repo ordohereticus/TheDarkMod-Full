@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2485 $
+ * $Date: 2008-06-14 06:52:09 -0400 (Sat, 14 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -113,7 +113,7 @@ typedef enum {
 // punctuation
 typedef struct punctuation_s
 {
-	char *p;						// punctuation character(s)
+	const char *p;						// punctuation character(s)
 	int n;							// punctuation id
 } punctuation_t;
 
