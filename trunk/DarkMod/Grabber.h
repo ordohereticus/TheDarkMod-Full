@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2974 $
- * $Date: 2008-10-23 16:59:06 -0400 (Thu, 23 Oct 2008) $
+ * $Revision: 2980 $
+ * $Date: 2008-10-26 07:41:35 -0400 (Sun, 26 Oct 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -150,6 +150,12 @@ public:
 		* Stop dragging and drop the current item if there is one
 		**/
 		void					StopDrag( void );
+
+		/**
+		* Forget the currently dragged/equipped entity (in case it is to be removed
+		* from the world.
+		**/
+		void					Forget( idEntity* ent );
 
 		/**
 		* Used to switch between dropping a body face up and face down on each drop

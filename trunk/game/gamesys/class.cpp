@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2977 $
- * $Date: 2008-10-24 00:56:11 -0400 (Fri, 24 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 2980 $
+ * $Date: 2008-10-26 07:41:35 -0400 (Sun, 26 Oct 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ instancing of objects.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: class.cpp 2977 2008-10-24 04:56:11Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: class.cpp 2980 2008-10-26 11:41:35Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/PlayerData.h"
@@ -1046,16 +1046,12 @@ void idClass::Event_Remove( void )
 	if (grabber)
 	{
 		// tels: If we remove a currently grabbed entity,
-		// force the grabber to drop it
+		// force the grabber to forget it
 		idEntity *ent = grabber->GetSelected();
 		if (ent == this)
 		{
-			grabber->StopDrag();
+			grabber->Forget( ent );
 		}
-
-		// try to remove from grabber clip list
-		if( IsType(idEntity::Type) )
-			grabber->RemoveFromClipList( static_cast<idEntity *>(this) );
 	}
 
 	delete this;
