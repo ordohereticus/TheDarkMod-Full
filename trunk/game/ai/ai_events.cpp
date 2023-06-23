@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2617 $
- * $Date: 2008-07-07 11:46:25 -0400 (Mon, 07 Jul 2008) $
+ * $Revision: 2618 $
+ * $Date: 2008-07-07 12:06:16 -0400 (Mon, 07 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2617 2008-07-07 15:46:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2618 2008-07-07 16:06:16Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -836,7 +836,7 @@ idAI::Event_IssueCommunication
 */
 void idAI::Event_IssueCommunication(float messageType, float maxRadius, idEntity* intendedRecipientEntity, idEntity* directObjectEntity, const idVec3& directObjectLocation)
 {
-	IssueCommunication_Internal (messageType, maxRadius, intendedRecipientEntity, directObjectEntity, directObjectLocation);
+	IssueCommunication_Internal(messageType, maxRadius, intendedRecipientEntity, directObjectEntity, directObjectLocation);
 }
 
 /*---------------------------------------------------------------------------------------------------*/
@@ -851,11 +851,12 @@ void idAI::IssueCommunication_Internal(
 {
 	// Get the communication stim (outbound messgaes)
 	CStim* p_stim = m_StimResponseColl->AddStim(this, ST_COMMUNICATION, g_Global.m_AICommStimRadius, true, false);
-	p_stim->EnableSR(true);
-	
+		
 	if (p_stim != NULL)
 	{
-		CAIComm_Stim* p_commStim = (CAIComm_Stim*) p_stim;
+		p_stim->EnableSR(true);
+
+		CAIComm_Stim* p_commStim = static_cast<CAIComm_Stim*>(p_stim);
 		CAIComm_Message::TCommType messageTypeEnumVal = (CAIComm_Message::TCommType) (unsigned long) messageType;
 
 		if (!p_commStim->addMessage ( messageTypeEnumVal, maxRadius, this, intendedRecipientEntity, directObjectEntity, directObjectLocation ))
@@ -867,8 +868,6 @@ void idAI::IssueCommunication_Internal(
 	{
 		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("Failed to make or get communication stim");
 	}
-
-
 }
 
 /*
@@ -3078,53 +3077,36 @@ idAI::Event_GetReachableEntityPosition
 */
 void idAI::Event_GetReachableEntityPosition( idEntity *ent ) {
 	int		toAreaNum;
-
 	idVec3	pos;
 
-
-
-	if ( move.moveType != MOVETYPE_FLY ) {
-
-		if ( !ent->GetFloorPos( 64.0f, pos ) ) {
-
+	if ( move.moveType != MOVETYPE_FLY )
+	{
+		if ( !ent->GetFloorPos( 64.0f, pos ) )
+		{
 			// NOTE: not a good way to return 'false'
-
 			idThread::ReturnVector( vec3_zero );
-
 			return;
-
 		}
 
-		if ( ent->IsType( idActor::Type ) && static_cast<idActor *>( ent )->OnLadder() ) {
-
+		if ( ent->IsType( idActor::Type ) && static_cast<idActor *>( ent )->OnLadder() )
+		{
 			// NOTE: not a good way to return 'false'
-
 			idThread::ReturnVector( vec3_zero );
-
 			return;
-
 		}
-
-	} else {
-
+	}
+	else
+	{
 		pos = ent->GetPhysics()->GetOrigin();
-
 	}
 
-
-
-	if ( aas ) {
-
+	if ( aas )
+	{
 		toAreaNum = PointReachableAreaNum( pos );
-
 		aas->PushPointIntoAreaNum( toAreaNum, pos );
-
 	}
-
-
 
 	idThread::ReturnVector( pos );
-
 }
 
 /**
