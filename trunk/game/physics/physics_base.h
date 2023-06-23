@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2404 $
- * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2764 $
+ * $Date: 2008-08-30 04:56:32 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,7 +36,7 @@ public:
 
 public:	// common physics interface
 
-	void					SetSelf( idEntity *e );
+	virtual void			SetSelf( idEntity *e );
 #ifdef MOD_WATERPHYSICS
 	idEntity				*GetSelf() { return self; } // MOD_WATERPHYSICS
 #endif		// MOD_WATERPHYSICS

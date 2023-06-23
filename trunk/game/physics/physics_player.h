@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1500 $
- * $Date: 2007-10-20 23:59:22 -0400 (Sat, 20 Oct 2007) $
- * $Author: ishtvan $
+ * $Revision: 2764 $
+ * $Date: 2008-08-30 04:56:32 -0400 (Sat, 30 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,6 +12,8 @@
 
 #ifndef __PHYSICS_PLAYER_H__
 #define __PHYSICS_PLAYER_H__
+
+#include "force_push.h"
 
 /*
 ===================================================================================
@@ -78,12 +80,13 @@ typedef enum
 
 
 // The class itself
-class idPhysics_Player : public idPhysics_Actor {
-
+class idPhysics_Player : 
+	public idPhysics_Actor
+{
 public:
 	CLASS_PROTOTYPE( idPhysics_Player );
 
-							idPhysics_Player( void );
+							idPhysics_Player();
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
@@ -156,6 +159,10 @@ public:
 	float					GetDeltaViewPitch( void );
 
 public:	// common physics interface
+
+	// virtual override of base class method SetSelf() to set the push force owner
+	virtual void			SetSelf( idEntity *e );
+
 	bool					Evaluate( int timeStepMSec, int endTimeMSec );
 	void					UpdateTime( int endTimeMSec );
 	int						GetTime( void ) const;
@@ -337,6 +344,9 @@ private:
 	**/
 	idVec3					m_LeanDoorListenPos;
 
+	// greebo: The push force as applied to blocking objects
+	CForcePush				m_PushForce;
+
 	// results of last evaluate
 #ifndef MOD_WATERPHYSICS
 
@@ -413,7 +423,6 @@ public:
 
 protected:
 
-
 	/*!
 	* The current mantling phase
 	*/
@@ -468,10 +477,7 @@ protected:
 	* tiredness, length of lift....
 	* @param[in] mantlePhase The mantle phase for which the duration is to be retrieved
 	*/
-	float getMantleTimeForPhase 
-	(
-		EDarkMod_MantlePhase mantlePhase
-	);
+	float getMantleTimeForPhase(EDarkMod_MantlePhase mantlePhase);
 
 	/*!
 	*
@@ -486,11 +492,7 @@ protected:
 	* @param[in] mantlePos The position relative tot he world where
 	* the mantle will start. (Not relative to the mantle target)
 	*/
-	int CalculateMantleCollisionDamage
-	(
-		idEntity* p_mantledEntityRef,
-		idVec3 mantlePos
-	);
+	int CalculateMantleCollisionDamage(idEntity* p_mantledEntityRef, idVec3 mantlePos);
 
 	/*!
 	*
