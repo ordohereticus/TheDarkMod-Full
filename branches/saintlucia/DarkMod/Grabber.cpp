@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2897 $
- * $Date: 2008-09-27 04:05:44 -0400 (Sat, 27 Sep 2008) $
+ * $Revision: 2915 $
+ * $Date: 2008-10-04 19:56:29 -0400 (Sat, 04 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2897 2008-09-27 08:05:44Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2915 2008-10-04 23:56:29Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1089,7 +1089,6 @@ bool CGrabber::PutInHandsAtPoint(idEntity *ent, idVec3 point, idMat3 axis, int b
 	if( !bReturnVal )
 		return false;
 	
-	ent->Show();
 	ent->SetAxis( axis );
 
 	// teleport in the object, put its center of mass at the target point
@@ -1113,6 +1112,7 @@ bool CGrabber::PutInHandsAtPoint(idEntity *ent, idVec3 point, idMat3 axis, int b
 		orig -= phys->GetOrigin( bodyID ) - phys->GetOrigin( 0 );
 
 	ent->SetOrigin( orig );
+	ent->Show();
 
 	StartDrag( m_player.GetEntity(), ent, bodyID );
 
