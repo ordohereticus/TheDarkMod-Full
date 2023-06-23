@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2348 $
- * $Date: 2008-05-16 11:21:34 -0400 (Fri, 16 May 2008) $
- * $Author: angua $
+ * $Revision: 2370 $
+ * $Date: 2008-05-18 14:00:12 -0400 (Sun, 18 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -34,9 +34,10 @@ private:
 		EStatePressFetchButton,
 		EStateWaitForElevator,
 		EStateMoveOntoElevator,
+		EStateInitiateMoveToRideButton,
 		EStateMovingToRideButton,
 		EStatePressRideButton,
-		EStateWaitOnElevator,
+		EStateRideOnElevator,
 		ENumStates,
 	} _state;
 
