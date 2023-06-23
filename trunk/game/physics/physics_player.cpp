@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2810 $
- * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Revision: 2811 $
+ * $Date: 2008-09-10 12:21:41 -0400 (Wed, 10 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2810 $   $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2811 $   $Date: 2008-09-10 12:21:41 -0400 (Wed, 10 Sep 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1737,11 +1737,10 @@ void idPhysics_Player::CheckGround( void ) {
 		groundEnt->GetImpactInfo( self, groundTrace.c.id, groundTrace.c.point, &info );
 
 		// greebo: Don't push entities that already have a velocity towards the ground.
-		if ( groundPhysics && info.invMass != 0.0f && groundPhysics->GetLinearVelocity()*gravityNormal <= 0) {
+		if ( groundPhysics && info.invMass != 0.0f && idMath::Fabs(groundPhysics->GetLinearVelocity().z) < VECTOR_EPSILON) {
 			// greebo: Apply a force to the entity below the player
 			//gameRenderWorld->DebugArrow(colorCyan, current.origin, current.origin + gravityNormal*20, 1, 16);
 			groundPhysics->AddForce(0, current.origin, gravityNormal*mass);
-			groundPhysics->Activate();
 		}
 	}
 }
