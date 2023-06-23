@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2419 $
- * $Date: 2008-06-01 16:13:39 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2434 $
+ * $Date: 2008-06-04 13:40:44 -0400 (Wed, 04 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2419 2008-06-01 20:13:39Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2434 2008-06-04 17:40:44Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -238,6 +238,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				break;
 
 			case EStateOpeningDoor:
+				// we have already started opening the door, but it is closed,
 				if (doubleDoor != NULL && doubleDoor->IsOpen())
 				{
 					// the other part of the double door is already open
@@ -245,7 +246,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					ResetDoor(owner, doubleDoor);
 					break;
 				}
-				// we have already started opening the door, but it is closed, try again
+				// try again
 				owner->StopMove(MOVE_STATUS_DONE);
 				owner->TurnToward(closedPos);
 				if (!OpenDoor())
@@ -447,16 +448,21 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				{
 					if (!FitsThrough())
 					{
-						if (gameLocal.time >= _waitEndTime && !OpenDoor())
+						if (gameLocal.time >= _waitEndTime)
 						{
-							return true;
+							if (!OpenDoor())
+							{
+								return true;
+							}
 						}
 					}
 				}
-
-				// no need for waiting, door already is open, let's move
-				owner->MoveToPosition(_backPos);
-				_doorHandlingState = EStateMovingToBackPos;
+				else
+				{
+					// no need for waiting, door is already open, let's move
+					owner->MoveToPosition(_backPos);
+					_doorHandlingState = EStateMovingToBackPos;
+				}
 				break;
 
 			case EStateStartOpen:
@@ -475,7 +481,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 						}
 					}
 				}
-				// no need for waiting, door already is open, let's move
+				// no need for waiting, door is already open, let's move
 				owner->MoveToPosition(_backPos);
 				_doorHandlingState = EStateMovingToBackPos;
 				break;
@@ -509,9 +515,11 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 						{
 							// something else is blocking the door
 							// possibly the player, another AI or an object
+							// try closing the door and opening it again
 							frobDoor->Close(false);
 							_waitEndTime = gameLocal.time + 300;
 							_doorHandlingState = EStateWaitBeforeOpen;
+							// TODO: need to stop after a few tries
 						}
 					}
 				}
@@ -559,37 +567,13 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 							return true;
 						}
 					}
-					else
-					{
-						if (!FitsThrough())
-						{
-							// TODO: something else is blocking the door
-							// possibly the player, another AI or an object
-							frobDoor->Close(false);
-							_waitEndTime = gameLocal.time + 300;
-							_doorHandlingState = EStateWaitBeforeOpen;
-						}
-					}
 				}
-				//check interrupted
-				else if (frobDoor->WasInterrupted())
+				else if (frobDoor->WasInterrupted() && !FitsThrough())
 				{
-					if (FitsThrough())
-					{
-						// gap is large enough, move to back position
-						owner->MoveToPosition(_backPos);
-						_doorHandlingState = EStateMovingToBackPos;
-					}
-					else
-					{
-						// can't move through already, need to open further
-						if (!OpenDoor())
-						{
-							return true;
-						}
-					}
+					// end this, task, it will be reinitialized wehn needed
+					return true;
 				}
-
+				
 				// reached back position
 				else if (owner->AI_MOVE_DONE)
 				{
