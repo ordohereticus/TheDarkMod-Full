@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2331 $
- * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
+ * $Revision: 2366 $
+ * $Date: 2008-05-18 10:14:01 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2331 2008-05-14 17:04:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2366 2008-05-18 14:14:01Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -933,6 +933,8 @@ void idActor::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteInt( painTime );
 
+	savefile->WriteBool(canUseElevators);
+
 	savefile->WriteInt( m_Attachments.Num() );
 	for ( i = 0; i < m_Attachments.Num(); i++ ) 
 	{
@@ -1071,6 +1073,7 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( allowEyeFocus );
 
 	savefile->ReadInt( painTime );
+	savefile->ReadBool(canUseElevators);
 
 	savefile->ReadInt( num );
 	for ( i = 0; i < num; i++ ) 
