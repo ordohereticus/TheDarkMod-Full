@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2371 $
- * $Date: 2008-05-18 14:06:55 -0400 (Sun, 18 May 2008) $
+ * $Revision: 2376 $
+ * $Date: 2008-05-19 12:13:33 -0400 (Mon, 19 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -46,6 +46,9 @@ private:
 
 	// The actual route info structure
 	eas::RouteInfo _routeInfo;
+
+	// Is TRUE if this task has finished successfully
+	bool _success;
 	
 	// Private constructor
 	HandleElevatorTask();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2373 $
- * $Date: 2008-05-18 14:46:34 -0400 (Sun, 18 May 2008) $
+ * $Revision: 2376 $
+ * $Date: 2008-05-19 12:13:33 -0400 (Mon, 19 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2373 2008-05-18 18:46:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2376 2008-05-19 16:13:33Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -20,11 +20,15 @@ static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2373 200
 namespace ai
 {
 
-HandleElevatorTask::HandleElevatorTask()
+HandleElevatorTask::HandleElevatorTask() :
+	_success(false),
+	_waitEndTime(0)
 {}
 
 HandleElevatorTask::HandleElevatorTask(const eas::RouteInfoPtr& routeInfo) :
-	_routeInfo(*routeInfo) // copy-construct the RouteInfo, creates a clean duplicate
+	_waitEndTime(0),
+	_routeInfo(*routeInfo), // copy-construct the RouteInfo, creates a clean duplicate
+	_success(false)
 {}
 
 // Get the name of this task
@@ -226,6 +230,11 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 				owner->MoveToPosition(pos->GetPhysics()->GetOrigin());
 				_state = EMoveOntoElevator;
 			}
+			else if (elevator->IsAtRest())
+			{
+				// Elevator has stopped moving and is not at our station, press the fetch button!
+				_state = EInitiateMoveToFetchButton;
+			}
 			// TODO: check if the elevator is moving towards our station
 			break;
 
@@ -331,6 +340,7 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 			if (elevator->IsAtPosition(targetPos))
 			{
 				// reached target station, get off the elevator
+				_success = true;
 				return true;
 
 			}
@@ -338,6 +348,7 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 			{
 				// elevator stopped at a different position
 				// restart our pathing from here
+				_success = true;
 				return true;
 			}
 			break;
@@ -370,6 +381,12 @@ void HandleElevatorTask::OnFinish(idAI* owner)
 
 	// Restore the movestate we had before starting this task
 	owner->PopMove();
+
+	if (!_success)
+	{
+		// This task could not finish successfully, stop the move
+		owner->StopMove(MOVE_STATUS_DEST_UNREACHABLE);
+	}
 }
 
 bool HandleElevatorTask::MoveToPositionEntity(idAI* owner, CMultiStateMoverPosition* pos)
