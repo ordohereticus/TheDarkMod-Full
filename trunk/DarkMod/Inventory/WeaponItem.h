@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3038 $
- * $Date: 2008-11-19 00:21:40 -0500 (Wed, 19 Nov 2008) $
+ * $Revision: 3126 $
+ * $Date: 2009-01-08 00:22:17 -0500 (Thu, 08 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -44,6 +44,9 @@ protected:
 	// TRUE if toggling this weapon is allowed (i.e. selecting it when it is already selected)
 	bool	m_IsToggleable;
 
+	// TRUE if this weapon can be selected.
+	bool	m_Enabled;
+
 public:
 	// Default constructor, should only be used during restoring from savegames
 	CInventoryWeaponItem();
@@ -52,6 +55,10 @@ public:
 
 	virtual void	Save( idSaveGame *savefile ) const;
 	virtual void	Restore(idRestoreGame *savefile);
+
+	// TRUE if this weapon is enabled
+	bool IsEnabled() const;
+	void SetEnabled(bool enabled);
 
 	// Retrieves the maximum amount of ammo this weapon can hold
 	int GetMaxAmmo();

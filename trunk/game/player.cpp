@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3125 $
- * $Date: 2009-01-07 12:30:24 -0500 (Wed, 07 Jan 2009) $
+ * $Revision: 3126 $
+ * $Date: 2009-01-08 00:22:17 -0500 (Thu, 08 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3125 2009-01-07 17:30:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3126 2009-01-08 05:22:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1118,6 +1118,20 @@ void idPlayer::SetupInventory()
 	// greebo: Parse the spawnargs and add the weapon items to the inventory.
 	AddWeaponsToInventory();
 
+	// Disable all non-ammo weapons except unarmed, the items will be given by the shop
+	CInventoryCategoryPtr category = m_WeaponCursor->GetCurrentCategory();
+	for (int i = 0; i < category->GetNumItems(); i++)
+	{
+		CInventoryWeaponItemPtr item = 
+			boost::dynamic_pointer_cast<CInventoryWeaponItem>(category->GetItem(i));
+
+		if (item->GetWeaponIndex() != 0 && item->IsAllowedEmpty())
+		{
+			// Doesn't need ammo, disable this weapon for now
+			item->SetEnabled(false);
+		}
+	}
+
 	// greebo: Create the cursor for map/floorplan inventory items.
 	m_MapCursor = inv->CreateCursor();
 	inv->CreateCategory(TDM_PLAYER_MAPS_CATEGORY, &idx);
@@ -1127,7 +1141,7 @@ void idPlayer::SetupInventory()
 	m_MapCursor->ClearItem(); // invalidate the cursor
 
 	// give the player weapon ammo based on shop purchases
-	CInventoryCategoryPtr category = m_WeaponCursor->GetCurrentCategory();
+	category = m_WeaponCursor->GetCurrentCategory();
 	idList<CShopItemPtr> startingItems = gameLocal.m_Shop->GetPlayerItems();
 
 	for (int si = 0; si < startingItems.Num(); si++)
@@ -1146,8 +1160,16 @@ void idPlayer::SetupInventory()
 
 				if (item->GetWeaponName() == weaponName)
 				{
+					// Enable non-ammo weapons, if the count is > 0
+					if (item->IsAllowedEmpty())
+					{
+						item->SetEnabled(shopItem->GetCount() > 0);
+					}
+
+					// Set the persistent flag and the ammo
 					item->SetPersistent(shopItem->GetPersistent());
 					item->SetAmmo(shopItem->GetCount());
+					break;
 				}
 			}
 		}
@@ -3136,9 +3158,8 @@ void idPlayer::PrevWeapon( void ) {
 idPlayer::SelectWeapon
 ===============
 */
-bool idPlayer::SelectWeapon( int num, bool force ) {
-	//const char *weap;
-
+bool idPlayer::SelectWeapon( int num, bool force )
+{
 	if ( !weaponEnabled || spectating || gameLocal.inCinematic || health < 0 ) {
 		return false;
 	}
@@ -3175,7 +3196,8 @@ bool idPlayer::SelectWeapon( int num, bool force ) {
 	}
 
 	// Cycle through the weapons and find the one with the given weaponIndex
-	for (int i = 0; i < category->GetNumItems(); i++) {
+	for (int i = 0; i < category->GetNumItems(); i++)
+	{
 		// Try to retrieve a weapon item from the given category
 		CInventoryWeaponItemPtr item = 
 			boost::dynamic_pointer_cast<CInventoryWeaponItem>(category->GetItem(i));
@@ -3185,6 +3207,12 @@ bool idPlayer::SelectWeapon( int num, bool force ) {
 			if (item->GetAmmo() <= 0 && !item->IsAllowedEmpty())
 			{
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Weapon requires ammo. Cannot select: %d\r", num);
+				break;
+			}
+
+			if (!item->IsEnabled())
+			{
+				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Weapon not enabled, cannot select: %d\r", num);
 				break;
 			}
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3038 $
- * $Date: 2008-11-19 00:21:40 -0500 (Wed, 19 Nov 2008) $
+ * $Revision: 3126 $
+ * $Date: 2009-01-08 00:22:17 -0500 (Thu, 08 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3038 2008-11-19 05:21:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3126 2009-01-08 05:22:17Z greebo $", init_version);
 
 #include "WeaponItem.h"
 
@@ -27,7 +27,8 @@ CInventoryWeaponItem::CInventoryWeaponItem() :
 	m_MaxAmmo(0),
 	m_Ammo(0),
 	m_WeaponIndex(-1),
-	m_AllowedEmpty(false)
+	m_AllowedEmpty(false),
+	m_Enabled(true)
 {
 	SetType(IT_WEAPON);
 }
@@ -37,7 +38,8 @@ CInventoryWeaponItem::CInventoryWeaponItem(const idStr& weaponDefName, idEntity*
 	m_WeaponDefName(weaponDefName),
 	m_WeaponIndex(-1),
 	m_AllowedEmpty(false),
-	m_IsToggleable(false)
+	m_IsToggleable(false),
+	m_Enabled(true)
 {
 	SetType(IT_WEAPON);
 
@@ -70,6 +72,7 @@ void CInventoryWeaponItem::Save( idSaveGame *savefile ) const
 	savefile->WriteInt(m_WeaponIndex);
 	savefile->WriteBool(m_AllowedEmpty);
 	savefile->WriteBool(m_IsToggleable);
+	savefile->WriteBool(m_Enabled);
 }
 
 void CInventoryWeaponItem::Restore( idRestoreGame *savefile )
@@ -85,6 +88,17 @@ void CInventoryWeaponItem::Restore( idRestoreGame *savefile )
 	savefile->ReadInt(m_WeaponIndex);
 	savefile->ReadBool(m_AllowedEmpty);
 	savefile->ReadBool(m_IsToggleable);
+	savefile->ReadBool(m_Enabled);
+}
+
+bool CInventoryWeaponItem::IsEnabled() const
+{
+	return m_Enabled;
+}
+
+void CInventoryWeaponItem::SetEnabled(bool enabled)
+{
+	m_Enabled = enabled;
 }
 
 int CInventoryWeaponItem::GetMaxAmmo()
