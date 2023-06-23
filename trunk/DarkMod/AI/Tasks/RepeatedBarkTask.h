@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2569 $
+ * $Date: 2008-06-25 14:01:20 -0400 (Wed, 25 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -27,6 +27,7 @@ class RepeatedBarkTask :
 private:
 	// Corresponds to AI spawnarg "bark_repeat_patrol"
 	idStr _soundName;
+	// times in milliseconds:
 	int _barkRepeatIntervalMin;
 	int _barkRepeatIntervalMax;
 	int _nextBarkTime;

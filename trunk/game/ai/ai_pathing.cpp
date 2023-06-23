@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2565 $
- * $Date: 2008-06-24 14:59:09 -0400 (Tue, 24 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2569 $
+ * $Date: 2008-06-25 14:01:20 -0400 (Wed, 25 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2565 2008-06-24 18:59:09Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2569 2008-06-25 18:01:20Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -40,6 +40,7 @@ static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2565 2008-06-24 
 */
 
 const float MAX_OBSTACLE_RADIUS			= 128.0f;
+const float OBSTACLE_HEIGHT_EXPANSION		= 20.0f;
 const float PUSH_OUTSIDE_OBSTACLES		= 0.5f;
 const float CLIP_BOUNDS_EPSILON			= 10.0f;
 const int 	MAX_AAS_WALL_EDGES			= 256;
@@ -333,8 +334,8 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	clipBounds[1][0] += MAX_OBSTACLE_RADIUS;
 	clipBounds[1][1] += MAX_OBSTACLE_RADIUS;
 
-	clipBounds[0][2] -= bounds[0][2] - 20;
-	clipBounds[1][2] += bounds[1][2] + 20;
+	clipBounds[0][2] -= bounds[0][2] - OBSTACLE_HEIGHT_EXPANSION;
+	clipBounds[1][2] += bounds[1][2] + OBSTACLE_HEIGHT_EXPANSION;
 
 	// clipBounds.ExpandSelf( MAX_OBSTACLE_RADIUS );
 	clipMask = physics->GetClipMask();
