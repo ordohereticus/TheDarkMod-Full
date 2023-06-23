@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2623 $
- * $Date: 2008-07-10 14:04:58 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2629 $
+ * $Date: 2008-07-12 01:41:17 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -175,9 +175,7 @@ protected:
 	* Returns true if the expansion died out naturally rather than being stopped
 	*	by a computation limit.
 	**/
-	bool ExpandWave
-		( float volInit, idVec3 origin, 
-		  SSprParms *propParms );
+	bool ExpandWave(float volInit, idVec3 origin);
 
 	/**
 	* Faster and less accurate wavefront expansion algorithm.
@@ -191,7 +189,7 @@ protected:
 	* If MaxFloods is set to -1, the global maximum flood limit is used.
 	**/
 	bool ExpandWaveFast( float volInit, idVec3 origin, 
-						SSprParms *propParms, float MaxDist = -1, int MaxFloods = -1 );
+						 float MaxDist = -1, int MaxFloods = -1 );
 	
 	/**
 	* Process the populated areas after a sound propagation event.
