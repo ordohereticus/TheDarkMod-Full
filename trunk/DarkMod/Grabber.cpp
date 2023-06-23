@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2974 $
- * $Date: 2008-10-23 16:59:06 -0400 (Thu, 23 Oct 2008) $
+ * $Revision: 2979 $
+ * $Date: 2008-10-24 11:00:55 -0400 (Fri, 24 Oct 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2974 2008-10-23 20:59:06Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2979 2008-10-24 15:00:55Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -264,7 +264,6 @@ void CGrabber::StopDrag( void )
 
 	m_DistanceCount = 0;
 	m_dragEnt = NULL;
-	m_EquippedEnt = NULL;
 
 	m_drag.SetRefEnt( NULL );
 
