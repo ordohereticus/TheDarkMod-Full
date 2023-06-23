@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2997 $
- * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 2998 $
+ * $Date: 2008-11-08 10:51:12 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2997 2008-11-08 13:35:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2998 2008-11-08 15:51:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5274,9 +5274,6 @@ void idPlayer::PerformImpulse( int impulse ) {
 				return;
 
 			inventoryPrevItem();
-
-			// Notify the GUIs about the change event
-			m_overlays.broadcastNamedEvent("inventorySelectionChange");
 		}
 		break;
 
@@ -5293,9 +5290,6 @@ void idPlayer::PerformImpulse( int impulse ) {
 				return;
 
 			inventoryNextItem();
-
-			// Notify the GUIs about the change event
-			m_overlays.broadcastNamedEvent("inventorySelectionChange");
 		}
 		break;
 
@@ -5312,9 +5306,6 @@ void idPlayer::PerformImpulse( int impulse ) {
 				return;
 
 			inventoryPrevGroup();
-
-			// Notify the GUIs about the change event
-			m_overlays.broadcastNamedEvent("inventorySelectionChange");
 		}
 		break;
 
@@ -5331,9 +5322,6 @@ void idPlayer::PerformImpulse( int impulse ) {
 				return;
 
 			inventoryNextGroup();
-
-			// Notify the GUIs about the change event
-			m_overlays.broadcastNamedEvent("inventorySelectionChange");
 		}
 		break;
 
@@ -9390,9 +9378,6 @@ void idPlayer::inventoryChangeSelection(const idStr& name)
 
 	if (item != NULL)
 	{
-		// Notify the GUIs about the change event
-		m_overlays.broadcastNamedEvent("inventorySelectionChange");
-
 		// Item found, set the cursor to it
 		InventoryCursor()->SetCurrentItem(item);
 
@@ -9420,6 +9405,9 @@ void idPlayer::OnInventorySelectionChanged(const CInventoryItemPtr& prevItem)
 
 	// Set the "dirty" flag, the HUD needs a redraw
 	inventoryHUDNeedsUpdate = true;
+
+	// Notify the GUIs about the change event
+	m_overlays.broadcastNamedEvent("inventorySelectionChange");
 
 	// Get the current item
 	const CInventoryCursorPtr& cursor = InventoryCursor();
