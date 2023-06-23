@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3026 $
- * $Date: 2008-11-14 14:57:55 -0500 (Fri, 14 Nov 2008) $
+ * $Revision: 3031 $
+ * $Date: 2008-11-15 03:59:45 -0500 (Sat, 15 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3026 2008-11-14 19:57:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3031 2008-11-15 08:59:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6389,13 +6389,17 @@ void idPlayer::UpdateInventoryPickedUpMessages()
 		return; // no overlay?
 	}
 
+	/* 
+	greebo: Commented this out to let new pickup messages overwrite the old ones.
+	Put this back in to let the GUI display one message after the other.
+
 	int hasMessage = invGUI->GetStateInt("HasInventoryPickUpMessage");
 
 	if (hasMessage == 1)
 	{
 		// The HUD is still busy, leave it for the moment being
 		return; 
-	}
+	}*/
 
 	// greebo: We have a message and the HUD is ready, shove it into the GUI.
 	invGUI->SetStateString("InventoryPickUpMessageText", inventoryPickedUpMessages[0]);
