@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3089 $
- * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
+ * $Revision: 3101 $
+ * $Date: 2009-01-01 09:47:45 -0500 (Thu, 01 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3101 2009-01-01 14:47:45Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9535,15 +9535,28 @@ bool idAI::CanUnlock(CBinaryFrobMover *frobMover)
 
 bool idAI::ShouldCloseDoor(CBinaryFrobMover *frobMover)
 {
-	if (AI_AlertLevel >= thresh_4)
+	if (frobMover->spawnArgs.GetBool("ai_should_not_close", "0"))
 	{
+		// this door should not be closed
 		return false;
 	}
-	else if (frobMover->spawnArgs.GetBool("shouldBeClosed", "0"))
+	if (AI_AlertLevel >= thresh_5)
 	{
+		// don't close doors during combat
+		return false;
+	}
+	if (frobMover->spawnArgs.GetBool("shouldBeClosed", "0"))
+	{
+		// this door should really be closed
 		return true;
 	}
+	if (AI_AlertLevel >= thresh_4)
+	{
+		// don't close other doors while agitated searching
+		return false;
+	}
 
+	// in all other cases, close the door
 	return true;
 }
 

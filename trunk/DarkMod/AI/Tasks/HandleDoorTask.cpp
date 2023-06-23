@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3097 $
- * $Date: 2008-12-30 11:27:46 -0500 (Tue, 30 Dec 2008) $
+ * $Revision: 3101 $
+ * $Date: 2009-01-01 09:47:45 -0500 (Thu, 01 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3097 2008-12-30 16:27:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3101 2009-01-01 14:47:45Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -56,6 +56,23 @@ void HandleDoorTask::Init(idAI* owner, Subsystem& subsystem)
 		subsystem.FinishTask();
 		return;
 	}
+
+	if (frobDoor->spawnArgs.GetBool("ai_should_not_handle"))
+	{
+		// AI will ignore this door (not try to handle it)
+		if (!frobDoor->IsOpen() || !FitsThrough())
+		{
+			// if it is closed, add to forbidden areas so AI will not try to path find through
+			idAAS*	aas = owner->GetAAS();
+			if (aas != NULL)
+			{
+				int areaNum = frobDoor->GetAASArea(aas);
+				gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
+				owner->PostEventMS(&AI_ReEvaluateArea, owner->doorRetryTime, areaNum);
+			}
+				}
+		subsystem.FinishTask();
+		return;	}
 
 	// Let the owner save its move
 	owner->PushMove();
