@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2459 $
- * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2538 $
+ * $Date: 2008-06-20 02:25:38 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobButton.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobButton.cpp 2538 2008-06-20 06:25:38Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -18,17 +18,12 @@ static bool init_version = FileVersionList("$Id: FrobButton.cpp 2459 2008-06-08 
 #include "sndProp.h"
 
 //===============================================================================
-//CFrobButton
+// CFrobButton
 //===============================================================================
 
-
-const idEventDef EV_TDM_Button_Open( "Open", "f" );
-const idEventDef EV_TDM_Button_Close( "Close", "f" );
 const idEventDef EV_TDM_Button_Operate("Operate", NULL);
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobButton )
-	EVENT( EV_TDM_Button_Open,				CFrobButton::Open)
-	EVENT( EV_TDM_Button_Close,				CFrobButton::Close)
 	EVENT( EV_TDM_Button_Operate,			CFrobButton::Operate)
 END_CLASS
 

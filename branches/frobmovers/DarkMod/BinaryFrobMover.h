@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2529 $
- * $Date: 2008-06-19 13:28:29 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2538 $
+ * $Date: 2008-06-20 02:25:38 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -53,8 +53,7 @@ public:
 
 	virtual void			ToggleOpen();
 	virtual void			ToggleLock();
-	virtual void			GetOpen();
-	
+		
 	/**
 	* This is the non-script version of GetOpen 
 	*/
@@ -289,6 +288,17 @@ protected:
 
 	// Script event to return the locked status
 	void					Event_IsLocked();
+
+	// Script events for opening and closing
+	void					Event_Open();
+	void					Event_Close();
+	void					Event_ToggleOpen();
+	void					Event_IsOpen();
+
+	// Script events for locking and unlocking
+	void					Event_Lock();
+	void					Event_Unlock();
+	void					Event_ToggleLock();
 
 	/**
 	 * greebo: "Override" the TeamBlocked event to detect collisions with the player.
