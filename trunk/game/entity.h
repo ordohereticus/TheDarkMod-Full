@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2266 $
- * $Date: 2008-05-06 15:28:57 -0400 (Tue, 06 May 2008) $
- * $Author: greebo $
+ * $Revision: 2364 $
+ * $Date: 2008-05-17 20:47:49 -0400 (Sat, 17 May 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -1301,7 +1301,13 @@ protected:
 	/**
 	* List storing attachment data for each attachment
 	**/
-	idList<CAttachInfo>		m_Attachments;
+	idList<CAttachInfo>			m_Attachments;
+
+	/**
+	* Maps string name of an attachment to an index in m_Attachments
+	**/
+	typedef std::map<std::string, int>	AttNameMap;
+	AttNameMap							m_AttNameMap;
 
 private:
 	void					Event_GetJointHandle( const char *jointname );

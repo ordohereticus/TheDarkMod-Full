@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2271 $
- * $Date: 2008-05-07 12:49:23 -0400 (Wed, 07 May 2008) $
- * $Author: greebo $
+ * $Revision: 2364 $
+ * $Date: 2008-05-17 20:47:49 -0400 (Sat, 17 May 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2271 2008-05-07 16:49:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2364 2008-05-18 00:47:49Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1137,7 +1137,7 @@ void idEntity::Save( idSaveGame *savefile ) const
 	for ( i = 0; i < m_AttachPositions.Num(); i++ ) 
 	{
 		m_AttachPositions[i].Save( savefile );
-	}	
+	}
 }
 
 /*
@@ -6127,6 +6127,14 @@ void idAnimatedEntity::Save( idSaveGame *savefile ) const
 	savefile->WriteInt( m_Attachments.Num() );
 	for( int i=0; i < m_Attachments.Num(); i++ )
 		m_Attachments[i].Save( savefile );
+
+	savefile->WriteInt( m_AttNameMap.size() );
+	for ( AttNameMap::const_iterator k = m_AttNameMap.begin();
+         k != m_AttNameMap.end(); k++ )
+    {
+        savefile->WriteString( k->first.c_str() );
+        savefile->WriteInt( k->second );
+    }
 }
 
 /*
@@ -6136,7 +6144,10 @@ idAnimatedEntity::Restore
 unarchives object from save game file
 ================
 */
-void idAnimatedEntity::Restore( idRestoreGame *savefile ) {
+void idAnimatedEntity::Restore( idRestoreGame *savefile ) 
+{
+	int num;
+
 	animator.Restore( savefile );
 
 	// check if the entity has an MD5 model
@@ -6153,12 +6164,22 @@ void idAnimatedEntity::Restore( idRestoreGame *savefile ) {
 	}
 
 	m_Attachments.Clear();
-	int num;
 	savefile->ReadInt( num );
 	m_Attachments.SetNum( num );
-
 	for( int i=0; i < num; i++ )
 		m_Attachments[i].Restore( savefile );
+
+	savefile->ReadInt( num );
+    for ( int i = 0; i < num; i++ )
+    {
+        idStr tempStr;
+        savefile->ReadString(tempStr);
+
+        int tempIndex;
+        savefile->ReadInt(tempIndex);
+
+        m_AttNameMap.insert(AttNameMap::value_type(tempStr.c_str(), tempIndex));
+    }
 }
 
 /*
@@ -6602,7 +6623,9 @@ void idAnimatedEntity::Attach( idEntity *ent, const char *PosName, const char *A
 	attach.ent = ent;
 	attach.name = AttName;
 
-	// TODO: Update name->m_Attachment index mapping
+	// Update name->m_Attachment index mapping
+	// int index = m_Attachments.Num();
+	// m_AttNameMap.insert(AttNameMap::value_type(AttName, index));
 }
 
 /*
