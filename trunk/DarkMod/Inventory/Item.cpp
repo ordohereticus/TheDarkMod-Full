@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2871 $
- * $Date: 2008-09-21 20:43:00 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2913 $
+ * $Date: 2008-10-04 15:36:01 -0400 (Sat, 04 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 2871 2008-09-22 00:43:00Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 2913 2008-10-04 19:36:01Z ishtvan $", init_version);
 
 #include "Item.h"
 #include <algorithm>
@@ -116,6 +116,11 @@ CInventoryItem::CInventoryItem(idEntity* itemEntity, idEntity* owner) {
 	{
 		m_bDropPointOverride = true;
 		m_vDropPoint = itemEntity->spawnArgs.GetVector("inv_drop_point");
+	}
+	else
+	{
+		m_bDropPointOverride = false;
+		m_vDropPoint = vec3_zero; // don't leave uninitialized
 	}
 
 	// Parse a few common spawnargs
