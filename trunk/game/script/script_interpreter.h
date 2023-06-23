@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2424 $
- * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
+ * $Revision: 2425 $
+ * $Date: 2008-06-02 14:51:29 -0400 (Mon, 02 Jun 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -87,7 +87,7 @@ public:
 	const char			*CurrentFile( void ) const;
 
 	void				Error( const char *fmt, ... ) const id_attribute((format(printf,2,3)));
-	void				Warning( char *fmt, ... ) const id_attribute((format(printf,2,3)));
+	void				Warning( const char *fmt, ... ) const id_attribute((format(printf,2,3)));
 	void				DisplayInfo( void ) const;
 
 	bool				BeginMultiFrameEvent( idEntity *ent, const idEventDef *event );
