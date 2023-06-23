@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2989 $
- * $Date: 2008-11-03 19:54:49 -0500 (Mon, 03 Nov 2008) $
- * $Author: dram $
+ * $Revision: 2992 $
+ * $Date: 2008-11-07 12:41:52 -0500 (Fri, 07 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2989 2008-11-04 00:54:49Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2992 2008-11-07 17:41:52Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2720,6 +2720,8 @@ idPlayer::GiveItem
 Returns false if the item shouldn't be picked up
 
 greebo: This routine can probably be removed completely
+tels: This routine is the only mention of inv_weapon spawnarg, so if
+      it gets deleted, the spawnarg can be removed as well.
 ===============
 */
 bool idPlayer::GiveItem( idItem *item ) {
