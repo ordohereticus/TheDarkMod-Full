@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2384 $
- * $Date: 2008-05-26 12:02:00 -0400 (Mon, 26 May 2008) $
+ * $Revision: 2395 $
+ * $Date: 2008-05-27 14:40:03 -0400 (Tue, 27 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -93,8 +93,6 @@ public:
 
 private:
 	void SetupClusterInfoStructures();
-	void SetupElevatorStationStructures();
-
 	void AssignElevatorsToClusters();
 
 	void SetupClusterRouting();
