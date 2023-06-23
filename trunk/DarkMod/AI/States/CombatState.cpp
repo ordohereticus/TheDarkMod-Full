@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2361 $
- * $Date: 2008-05-17 08:13:37 -0400 (Sat, 17 May 2008) $
- * $Author: angua $
+ * $Revision: 2384 $
+ * $Date: 2008-05-26 12:02:00 -0400 (Mon, 26 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2361 2008-05-17 12:13:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 2384 2008-05-26 16:02:00Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -225,9 +225,8 @@ void CombatState::Think(idAI* owner)
 		owner->GetSubsystem(SubsysMovement)->ClearTasks();
 		owner->GetSubsystem(SubsysAction)->ClearTasks();
 
-		ChaseEnemyTaskPtr chaseEnemy = ChaseEnemyTask::CreateInstance();
-		chaseEnemy->SetEnemy(enemy);
-		owner->GetSubsystem(SubsysMovement)->PushTask(chaseEnemy);
+		// Allocate a ChaseEnemyTask
+		owner->GetSubsystem(SubsysMovement)->PushTask(TaskPtr(new ChaseEnemyTask(enemy)));
 
 		owner->GetSubsystem(SubsysAction)->PushTask(MeleeCombatTask::CreateInstance());
 		_combatType = COMBAT_MELEE;

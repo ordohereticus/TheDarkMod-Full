@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2383 $
- * $Date: 2008-05-25 14:53:33 -0400 (Sun, 25 May 2008) $
+ * $Revision: 2384 $
+ * $Date: 2008-05-26 12:02:00 -0400 (Mon, 26 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -28,7 +28,11 @@ class ChaseEnemyTask :
 	idEntityPtr<idActor> _enemy;
 	int _reachEnemyCheck;
 
+	// Private default constructor
+	ChaseEnemyTask();
 public:
+	ChaseEnemyTask(idActor* enemy);
+
 	// Get the name of this task
 	virtual const idStr& GetName() const;
 

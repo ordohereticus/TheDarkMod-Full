@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2384 $
+ * $Date: 2008-05-26 12:02:00 -0400 (Mon, 26 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -81,6 +81,10 @@ public:
 	 */
 	ElevatorStationInfoPtr GetElevatorStationInfo(int index);
 
+	// Gets the index of the given elevator station
+	int GetElevatorStationIndex(ElevatorStationInfoPtr info);
+	int GetElevatorStationIndex(CMultiStateMoverPosition* positionEnt);
+
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;
 	void Restore(idRestoreGame* savefile);
@@ -106,10 +110,6 @@ private:
 
 	// Retrieves the internal index of the given mover (or -1 if the mover is not registered)
 	int GetElevatorIndex(CMultiStateMover* mover);
-
-	// Gets the index of the given elevator station
-	int GetElevatorStationIndex(ElevatorStationInfoPtr info);
-	int GetElevatorStationIndex(CMultiStateMoverPosition* positionEnt);
 
 	// Calculates all possible routes from the startCluster/startArea to goalCluster/goalArea 
 	RouteInfoList FindRoutesToCluster(int startCluster, int startArea, int goalCluster, int goalArea);

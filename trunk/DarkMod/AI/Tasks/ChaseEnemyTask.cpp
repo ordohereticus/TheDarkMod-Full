@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2383 $
- * $Date: 2008-05-25 14:53:33 -0400 (Sun, 25 May 2008) $
+ * $Revision: 2384 $
+ * $Date: 2008-05-26 12:02:00 -0400 (Mon, 26 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,16 +10,25 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2383 2008-05-25 18:53:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2384 2008-05-26 16:02:00Z greebo $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "../Memory.h"
 #include "../Library.h"
 #include "../../MultiStateMover.h"
+#include "../EAS/EAS.h"
 #include "../States/UnreachableTargetState.h"
 
 namespace ai
 {
+
+ChaseEnemyTask::ChaseEnemyTask()
+{}
+
+ChaseEnemyTask::ChaseEnemyTask(idActor* enemy)
+{
+	_enemy = enemy;
+}
 
 // Get the name of this task
 const idStr& ChaseEnemyTask::GetName() const
@@ -155,7 +164,40 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 
 bool ChaseEnemyTask::CanFetchElevator(CMultiStateMover* mover, idAI* owner)
 {
+	if (!owner->CanUseElevators()) 
+	{
+		// Can't use elevators at all, skip this check
+		return false;
+	}
+
+	// Check all elevator stations
+	const idList<MoverPositionInfo> positionList = mover->GetPositionInfoList();
+	eas::tdmEAS* elevatorSystem = owner->GetAAS()->GetEAS();
+
+	if (elevatorSystem == NULL) return false;
+
+	idVec3 ownerOrigin;
+	int areaNum;
+	owner->GetAASLocation(owner->GetAAS(), ownerOrigin, areaNum);
 	
+	for (int i = 0; i < positionList.Num(); i++)
+	{
+		CMultiStateMoverPosition* positionEnt = positionList[i].positionEnt.GetEntity();
+
+		int stationIndex = elevatorSystem->GetElevatorStationIndex(positionEnt);
+		if (stationIndex < 0) continue;
+
+		eas::ElevatorStationInfoPtr stationInfo = elevatorSystem->GetElevatorStationInfo(stationIndex);
+
+		aasPath_t path;
+		bool pathFound = owner->PathToGoal(path, areaNum, ownerOrigin, stationInfo->areaNum, owner->GetAAS()->AreaCenter(stationInfo->areaNum), NULL);
+
+		if (pathFound)
+		{
+			// We can reach the elevator position from here, go there
+			return true;
+		}
+	}
 
 	return false;
 }
