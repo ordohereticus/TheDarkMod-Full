@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2568 $
- * $Date: 2008-06-25 13:29:27 -0400 (Wed, 25 Jun 2008) $
+ * $Revision: 2596 $
+ * $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2568 $   $Date: 2008-06-25 13:29:27 -0400 (Wed, 25 Jun 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2596 $   $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $", init_version);
 
 #include "aas_local.h"
 #include "../../DarkMod/TimerManager.h"
@@ -125,6 +125,9 @@ idAASLocal::WalkPathValid
 ============
 */
 bool idAASLocal::WalkPathValid( int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags, idVec3 &endPos, int &endAreaNum, idActor* actor ) const {
+	
+	START_SCOPED_TIMING(actor->actorWalkPathValidTimer, scopedWalkPathValidTimer);
+
 	int curAreaNum, lastAreaNum, lastAreas[4], lastAreaIndex;
 	idPlane pathPlane, frontPlane, farPlane;
 	idReachability *reach;
@@ -244,6 +247,9 @@ idAASLocal::SubSampleWalkPath
 ============
 */
 idVec3 idAASLocal::SubSampleWalkPath( int areaNum, const idVec3 &origin, const idVec3 &start, const idVec3 &end, int travelFlags, int &endAreaNum, idActor* actor ) {
+	
+	START_SCOPED_TIMING(actor->actorSubSampleWalkPathTimer, scopedSubSampleWalkPathTimer);
+
 	int i, numSamples, curAreaNum;
 	idVec3 dir, point, nextPoint, endPos;
 
@@ -558,16 +564,6 @@ idAASLocal::SortWallEdges
 */
 void idAASLocal::SortWallEdges( int *edges, int numEdges ) const 
 {
-#ifdef TIMING_BUILD
-	static int sortWallEdgesTimer = -1;
-	if (sortWallEdgesTimer == -1)
-	{
-		CREATE_TIMER(sortWallEdgesTimer, name, "SortWallEdges");
-	}
-#endif
-
-	START_TIMING(sortWallEdgesTimer);
-
 	int i, j, k, numSequences;
 	wallEdge_t **sequenceFirst, **sequenceLast, *wallEdges, *wallEdge;
 
@@ -612,8 +608,6 @@ void idAASLocal::SortWallEdges( int *edges, int numEdges ) const
 			edges[k++] = wallEdge->edgeNum;
 		}
 	}
-	STOP_TIMING(sortWallEdgesTimer);
-
 }
 
 /*
@@ -623,15 +617,6 @@ idAASLocal::GetWallEdges
 */
 int idAASLocal::GetWallEdges( int areaNum, const idBounds &bounds, int travelFlags, int *edges, int maxEdges ) const 
 {
-#ifdef TIMING_BUILD
-	static int getWallEdgesTimer = -1;
-	if (getWallEdgesTimer == -1)
-	{
-		CREATE_TIMER(getWallEdgesTimer, name, "GetWallEdges");
-	}
-#endif
-	START_SCOPED_TIMING(getWallEdgesTimer, scopedWallEdgesTimer);
-
 	if ( !file ) 
 	{
 		return 0;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2596 $
+ * $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 2596 2008-07-02 18:58:33Z angua $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -21,6 +21,7 @@ static bool init_version = FileVersionList("$Id: aas_routing.cpp 2458 2008-06-08
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/MultiStateMover.h"
 #include "../../DarkMod/MultiStateMoverPosition.h"
+#include "../../DarkMod/TimerManager.h"
 
 #define CACHETYPE_AREA				1
 #define CACHETYPE_PORTAL			2
@@ -1037,6 +1038,15 @@ idAASLocal::RouteToGoalArea
 ============
 */
 bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalAreaNum, int travelFlags, int &travelTime, idReachability **reach, idActor* actor ) const {
+
+#ifdef TIMING_BUILD
+	if (actor != NULL)
+	{
+		START_SCOPED_TIMING(actor->actorRouteToGoalTimer, scopedRouteToGoalTimer);
+	}
+#endif
+
+	
 	// Set the default return values
 	travelTime = 0;
 	*reach = NULL;

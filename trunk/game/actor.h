@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2586 $
- * $Date: 2008-06-29 01:47:17 -0400 (Sun, 29 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2596 $
+ * $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -516,9 +516,14 @@ public:
 public:
 	int actorGetObstaclesTimer;
 	int actorGetPointOutsideObstaclesTimer;
+	int actorGetWallEdgesTimer;
+	int actorSortWallEdgesTimer;
 	int actorBuildPathTreeTimer;
 	int actorPrunePathTreeTimer;
 	int actorFindOptimalPathTimer;
+	int actorRouteToGoalTimer;
+	int actorSubSampleWalkPathTimer;
+	int actorWalkPathValidTimer;
 #endif
 };
 

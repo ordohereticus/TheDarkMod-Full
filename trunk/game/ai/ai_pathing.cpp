@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2584 $
- * $Date: 2008-06-28 11:10:38 -0400 (Sat, 28 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2596 $
+ * $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2584 2008-06-28 15:10:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2596 2008-07-02 18:58:33Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -521,8 +521,13 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		float halfBoundsSize = ( expBounds[ 1 ].x - expBounds[ 0 ].x ) * 0.5f;
 
 		int wallEdges[MAX_AAS_WALL_EDGES];
+		START_TIMING(self->actorGetWallEdgesTimer);
 		int numWallEdges = aas->GetWallEdges( areaNum, clipBounds, TFL_WALK, wallEdges, MAX_AAS_WALL_EDGES );
+		STOP_TIMING(self->actorGetWallEdgesTimer);
+
+		START_TIMING(self->actorSortWallEdgesTimer);
 		aas->SortWallEdges( wallEdges, numWallEdges );
+		STOP_TIMING(self->actorSortWallEdgesTimer);
 
 		int lastVerts[2] = {0,0};
 		int nextVerts[2] = {0,0};
