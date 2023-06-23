@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2913 $
- * $Date: 2008-10-04 15:36:01 -0400 (Sat, 04 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 2996 $
+ * $Date: 2008-11-08 03:59:35 -0500 (Sat, 08 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 2913 2008-10-04 19:36:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 2996 2008-11-08 08:59:35Z greebo $", init_version);
 
 #include "Item.h"
 #include <algorithm>
@@ -326,7 +326,7 @@ void CInventoryItem::SetMovementModifier(float newValue)
 	}
 }
 
-void CInventoryItem::SetDropOrientation(idMat3 newAxis)
+void CInventoryItem::SetDropOrientation(const idMat3& newAxis)
 {
 	m_DropOrientation = newAxis;
 }
@@ -336,7 +336,7 @@ void CInventoryItem::SetDropPointOverriden(bool bval)
 	m_bDropPointOverride = bval;
 }
 
-void CInventoryItem::SetDropPoint(idVec3 newPoint)
+void CInventoryItem::SetDropPoint(const idVec3& newPoint)
 {
 	m_vDropPoint = newPoint;
 }

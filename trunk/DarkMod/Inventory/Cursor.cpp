@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2844 $
- * $Date: 2008-09-14 14:52:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2996 $
+ * $Date: 2008-11-08 03:59:35 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Cursor.cpp 2844 2008-09-14 18:52:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Cursor.cpp 2996 2008-11-08 08:59:35Z greebo $", init_version);
 
 #include "Cursor.h"
 
@@ -221,8 +221,10 @@ CInventoryCategoryPtr CInventoryCursor::GetNextCategory()
 
 		rc = m_Inventory->GetCategory(m_CurrentCategory);
 
-		if (!IsCategoryIgnored(rc))
-			break; // We found a suitable category (not ignored)
+		if (rc != NULL && !IsCategoryIgnored(rc) && !rc->IsEmpty())
+		{
+			break; // We found a suitable category (not ignored and not empty)
+		}
 	}
 
 	return rc;
@@ -269,8 +271,10 @@ CInventoryCategoryPtr CInventoryCursor::GetPrevCategory()
 
 		rc = m_Inventory->GetCategory(m_CurrentCategory);
 
-		if (!IsCategoryIgnored(rc))
-			break; // We found a suitable category (not ignored)
+		if (rc != NULL && !IsCategoryIgnored(rc) && !rc->IsEmpty())
+		{
+			break; // We found a suitable category (not ignored and not empty)
+		}
 	}
 
 	return rc;

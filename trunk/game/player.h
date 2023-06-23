@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2873 $
- * $Date: 2008-09-21 22:39:54 -0400 (Sun, 21 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2996 $
+ * $Date: 2008-11-08 03:59:35 -0500 (Sat, 08 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -331,6 +331,10 @@ public:
 
 	idEntityPtr<idWeapon>	weapon;
 	idUserInterface *		hud;				// MP: is NULL if not local player
+
+	// greebo: This is true if the inventory HUD needs a refresh
+	bool					inventoryHUDNeedsUpdate;
+
 	idUserInterface *		objectiveSystem;	 // not used by TDM (only for PDA)
 	bool					objectiveSystemOpen; // not used by TDM (only for PDA)
 
@@ -666,10 +670,13 @@ public:
 	void					ToggleScoreboard( void );
 
 	void					RouteGuiMouse( idUserInterface *gui );
-	void					UpdateHud( void );
+	void					UpdateHUD();
 
 	// greebo: Checks if any messages are still pending.
 	void					UpdateHUDMessages();
+
+	// Updates the HUD for the inventory items
+	void					UpdateInventoryHUD();
 
 	const idDeclPDA *		GetPDA( void ) const;
 	void					SetInfluenceFov( float fov );
@@ -813,6 +820,9 @@ public:
 
 	// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
 	void inventoryChangeSelection(idUserInterface *_hud, bool bUpdate = false, const CInventoryItemPtr& Prev = CInventoryItemPtr());
+
+	// The "selection changed" event is called after the inventory cursor has changed its position
+	void OnInventorySelectionChanged(const CInventoryItemPtr& prevItem = CInventoryItemPtr());
 
 	/**
 	 * Overload the idEntity::AddToInventory method to catch weapon items.

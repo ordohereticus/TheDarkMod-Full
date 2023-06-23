@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2871 $
- * $Date: 2008-09-21 20:43:00 -0400 (Sun, 21 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2996 $
+ * $Date: 2008-11-08 03:59:35 -0500 (Sat, 08 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 #ifndef __DARKMOD_INVENTORYITEM_H__
@@ -119,15 +119,16 @@ public:
 	/**
 	* Get/set the drop orientation
 	**/
-	idMat3					GetDropOrientation() { return m_DropOrientation; }
-	void					SetDropOrientation(idMat3 newAxis);
+	const idMat3&			GetDropOrientation() { return m_DropOrientation; }
+	void					SetDropOrientation(const idMat3& newAxis);
+
 	/**
 	* Check/set if this overrides the default drop point
 	**/
 	bool					IsDropPointOverriden() { return m_bDropPointOverride; }
 	void					SetDropPointOverriden(bool bval);
-	idVec3					GetDropPoint() { return m_vDropPoint; }
-	void					SetDropPoint(idVec3 newPoint);
+	const idVec3&			GetDropPoint() { return m_vDropPoint; }
+	void					SetDropPoint(const idVec3& newPoint);
 
 	// Returns true when this item should be used by the 'frob' impulse
 	bool					UseOnFrob() const { return m_UseOnFrob; }
