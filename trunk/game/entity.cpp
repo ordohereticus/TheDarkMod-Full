@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3001 $
- * $Date: 2008-11-08 13:20:23 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3002 $
+ * $Date: 2008-11-08 15:50:01 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3001 2008-11-08 18:20:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3002 2008-11-08 20:50:01Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8988,7 +8988,7 @@ void idEntity::ChangeInventoryIcon(const char* invName, const char* invCategory,
 	}
 }
 
-void idEntity::inventoryNextItem()
+void idEntity::InventoryNextItem()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	
@@ -9001,7 +9001,7 @@ void idEntity::inventoryNextItem()
 	OnInventorySelectionChanged(prev);
 }
 
-void idEntity::inventoryPrevItem()
+void idEntity::InventoryPrevItem()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	assert(cursor != NULL); // all entities have a cursor after calling InventoryCursor()
@@ -9013,7 +9013,7 @@ void idEntity::inventoryPrevItem()
 	OnInventorySelectionChanged(prev);
 }
 
-void idEntity::inventoryNextGroup()
+void idEntity::InventoryNextGroup()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	
@@ -9025,7 +9025,7 @@ void idEntity::inventoryNextGroup()
 	OnInventorySelectionChanged(prev);
 }
 
-void idEntity::inventoryPrevGroup()
+void idEntity::InventoryPrevGroup()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	

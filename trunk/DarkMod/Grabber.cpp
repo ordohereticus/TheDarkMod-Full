@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2987 $
- * $Date: 2008-11-03 11:13:59 -0500 (Mon, 03 Nov 2008) $
- * $Author: tels $
+ * $Revision: 3002 $
+ * $Date: 2008-11-08 15:50:01 -0500 (Sat, 08 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2987 2008-11-03 16:13:59Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3002 2008-11-08 20:50:01Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1566,7 +1566,7 @@ bool CGrabber::Dequip( void )
 	// In this case, body is an inventory item, so drop it
 	if( ent->IsType(idAFEntity_Base::Type) )
 	{
-		player->inventoryDropItem();
+		player->InventoryDropItem();
 		// hack: invenoryDropItem doesn't return back whether it succeeded,
 		// but we want to return back whether we successfully dequipped
 		// so check if we successfully dequipped by seeing

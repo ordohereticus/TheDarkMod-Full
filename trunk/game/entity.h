@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2997 $
- * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3002 $
+ * $Date: 2008-11-08 15:50:01 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -898,10 +898,10 @@ public:
 	 */
 	virtual CInventoryItemPtr AddToInventory(idEntity *ent, idUserInterface *_hud = NULL);
 
-	virtual void inventoryNextItem();	// Cycles to the next item in the inventory.
-	virtual void inventoryPrevItem();	// Cycles to the previous item in the inventory.
-	virtual void inventoryNextGroup();	// Cycles to the next group in the inventory.
-	virtual void inventoryPrevGroup();	// Cycles to the previous group in the inventory.
+	virtual void InventoryNextItem();	// Cycles to the next item in the inventory.
+	virtual void InventoryPrevItem();	// Cycles to the previous item in the inventory.
+	virtual void InventoryNextGroup();	// Cycles to the next group in the inventory.
+	virtual void InventoryPrevGroup();	// Cycles to the previous group in the inventory.
 
 	// Gets called when the inventory cursor has changed its selection focus
 	virtual void OnInventorySelectionChanged(const CInventoryItemPtr& prevItem = CInventoryItemPtr());
