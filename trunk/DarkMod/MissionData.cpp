@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2745 $
- * $Date: 2008-08-19 14:02:03 -0400 (Tue, 19 Aug 2008) $
+ * $Revision: 2746 $
+ * $Date: 2008-08-19 14:05:25 -0400 (Tue, 19 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2745 2008-08-19 18:02:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2746 2008-08-19 18:05:25Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1415,6 +1415,8 @@ int CMissionData::AddObjsFromDict(const idDict& dict)
 		ObjTemp.m_bOngoing = dict.GetBool( StrTemp + "ongoing", "0");
 		ObjTemp.m_CompletionScript = dict.GetString( StrTemp + "script_complete" );
 		ObjTemp.m_FailureScript = dict.GetString( StrTemp + "script_failed" );
+		ObjTemp.m_CompletionTarget = dict.GetString( StrTemp + "target_complete" );
+		ObjTemp.m_FailureTarget = dict.GetString( StrTemp + "target_failed" );
 		ObjTemp.m_SuccessLogicStr = dict.GetString( StrTemp + "logic_success", "" );
 		ObjTemp.m_FailureLogicStr = dict.GetString( StrTemp + "logic_failure", "" );
 
