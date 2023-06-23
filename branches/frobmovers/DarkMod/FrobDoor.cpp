@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2533 $
- * $Date: 2008-06-19 15:37:42 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2534 $
+ * $Date: 2008-06-19 15:51:21 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2533 2008-06-19 19:37:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2534 2008-06-19 19:51:21Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -360,7 +360,7 @@ void CFrobDoor::PostSpawn()
 			m_Doorhandle = handle;
 			m_OriginalPosition = handle->GetPhysics()->GetOrigin();
 			m_OriginalAngle = handle->GetPhysics()->GetAxis().ToAngles();
-			handle->m_Door = this;
+			handle->SetDoor(this);
 
 			// Check if we should bind the handle to ourselves
 			if (spawnArgs.GetBool("door_handle_bind_flag", "1"))
