@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2557 $
- * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2558 $
+ * $Date: 2008-06-22 06:32:10 -0400 (Sun, 22 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2557 2008-06-21 19:42:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2558 2008-06-22 10:32:10Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -153,8 +153,6 @@ void CBinaryFrobMover::Spawn()
 {
 	m_stopWhenBlocked = spawnArgs.GetBool("stop_when_blocked", "1");
 
-	m_Rotate = spawnArgs.GetAngles("rotate", "0 90 0");
-
 	m_Open = spawnArgs.GetBool("open");
 	DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("[%s] open (%u)\r", name.c_str(), m_Open);
 
@@ -178,8 +176,9 @@ void CBinaryFrobMover::Spawn()
 void CBinaryFrobMover::PostSpawn()
 {
 	// m_Translation is the vector between start position and end position
-	spawnArgs.GetVector("translate", "0 0 0", m_Translation);
-	spawnArgs.GetFloat( "translate_speed", "0", m_TransSpeed );
+	m_Rotate = spawnArgs.GetAngles("rotate", "0 90 0");
+	m_Translation = spawnArgs.GetVector("translate", "0 0 0");
+	m_TransSpeed = spawnArgs.GetFloat( "translate_speed", "0");
 
 	// angua: the origin of the door in opened and closed state
 	m_ClosedOrigin = physicsObj.GetLocalOrigin();
