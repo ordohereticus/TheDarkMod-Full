@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2649 $
- * $Date: 2008-07-13 09:16:43 -0400 (Sun, 13 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2882 $
+ * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -232,11 +232,6 @@ public:
 	/*!
 	* Global game settings, default values
 	*/
-
-	/*!
-	* Default distance of reach for frobbing
-	*/
-	float m_DefaultFrobDistance;
 
 	/**
 	* Maximum distance of reach for frobbing (updated based on map objects)

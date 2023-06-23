@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2862 $
- * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
- * $Author: angua $
+ * $Revision: 2882 $
+ * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -123,6 +123,7 @@ extern idCVar cv_pm_lean_door_max;
 extern idCVar cv_pm_lean_door_bounds_exp;
 extern idCVar cv_pm_lean_toggle;
 
+extern idCVar cv_frob_distance_default;
 extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
 extern idCVar cv_frob_fadetime;

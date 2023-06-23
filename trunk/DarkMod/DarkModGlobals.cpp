@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2649 $
- * $Date: 2008-07-13 09:16:43 -0400 (Sun, 13 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2882 $
+ * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2649 2008-07-13 13:16:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2882 2008-09-24 08:53:09Z ishtvan $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -201,7 +201,6 @@ CGlobal::CGlobal(void)
 	m_ClassArray[LC_CONVERSATION] = false;
 
 	m_Frame = 0;
-	m_DefaultFrobDistance = 100.0f;
 	m_MaxFrobDistance = 0;
 	m_LogClass = LC_SYSTEM;
 	m_LogType = LT_DEBUG;
@@ -707,10 +706,6 @@ void CGlobal::LoadINISettings(void *p)
 	{
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("Found GlobalParams section \r");
 
-
-		if(FindMap(ps, "DefaultFrobDistance", TRUE, &pm) != static_cast<ULONG>(-1))
-			m_DefaultFrobDistance = fabs(atof(pm->Value));
-
 		if(FindMap(ps, "Mantle_JumpHoldMilliseconds", TRUE, &pm) != static_cast<ULONG>(-1))
 		{
 			m_jumpHoldMantleTrigger_Milliseconds = atof(pm->Value);
@@ -791,9 +786,6 @@ void CGlobal::LoadINISettings(void *p)
 			m_hidingSpotMaxLightQuotient = atof(pm->Value);
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("m_hidingSpotMaxLightQuotient set to %f", m_hidingSpotMaxLightQuotient);
 		}
-
-
-		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("FrobDistance: %f\r", m_DefaultFrobDistance);
 
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("Jump hold mantle milliseconds: %f\r", m_jumpHoldMantleTrigger_Milliseconds);
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("Mantle hang milliseconds: %f\r", m_mantleHang_Milliseconds);
