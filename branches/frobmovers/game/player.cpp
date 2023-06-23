@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2554 $
+ * $Date: 2008-06-21 12:04:01 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2554 2008-06-21 16:04:01Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -8785,10 +8785,12 @@ void idPlayer::inventoryUseItem(IMPULSE_STATE nState, CInventoryItem* item, int 
 
 	DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Inventory selection %s  KeyState: %u\r", ent->name.c_str(), nState);
 
+	bool itemIsUsable = ent->spawnArgs.GetBool("usable");
+
 	if(nState == IS_PRESSED)
 	{
 		// greebo: Directly use the frobbed entity, if the spawnarg is set on the inventory item
-		if (frob != NULL && ent->spawnArgs.GetBool("usable") == true)
+		if (frob != NULL && itemIsUsable)
 		{
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Item is usable\r");
 			frob->UsedBy(nState, item);
@@ -8801,7 +8803,21 @@ void idPlayer::inventoryUseItem(IMPULSE_STATE nState, CInventoryItem* item, int 
 	}
 	else if(nState == IS_RELEASED)
 	{
+		if (frob != NULL && itemIsUsable)
+		{
+			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Item is usable\r");
+			frob->UsedBy(nState, item);
+		}
+
 		thread = ent->CallScriptFunctionArgs("inventoryUseKeyRelease", true, 0, "eeef", ent, this, frob, static_cast<float>(holdTime));
+	}
+	else
+	{
+		if (frob != NULL && itemIsUsable)
+		{
+			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Item is usable\r");
+			frob->UsedBy(nState, item);
+		}
 	}
 
 	if (thread)
