@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3084 $
- * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
+ * $Revision: 3086 $
+ * $Date: 2008-12-14 02:30:30 -0500 (Sun, 14 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3084 2008-12-13 18:13:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3086 2008-12-14 07:30:30Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PathAnimTask.h"
@@ -56,14 +56,13 @@ void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 
 	int blendIn = path->spawnArgs.GetInt("blend_in");
 	
-	// Synchronise the leg channel
-	owner->Event_OverrideAnim(ANIMCHANNEL_LEGS);
-
 	// Play the anim on the TORSO channel (will override the LEGS channel)
 	owner->Event_PlayAnim(ANIMCHANNEL_TORSO, animName);
+	owner->Event_PlayAnim(ANIMCHANNEL_LEGS, animName);
 	
 	// Set the name of the state script
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_CustomAnim", blendIn);
+	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_CustomAnim", blendIn);
 	
 	// greebo: Set the waitstate, this gets cleared by 
 	// the script function when the animation is done.
@@ -81,6 +80,8 @@ void PathAnimTask::OnFinish(idAI* owner)
 	owner->GetMind()->GetMemory().currentPath = next;
 
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
+	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 5);
+
 	owner->SetWaitState("");
 
 	owner->GetMind()->GetMemory().playIdleAnimations = true;
