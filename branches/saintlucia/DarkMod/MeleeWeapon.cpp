@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2944 $
- * $Date: 2008-10-12 16:41:56 -0400 (Sun, 12 Oct 2008) $
+ * $Revision: 2948 $
+ * $Date: 2008-10-14 01:36:15 -0400 (Tue, 14 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2944 2008-10-12 20:41:56Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2948 2008-10-14 05:36:15Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -160,6 +160,11 @@ void CMeleeWeapon::ActivateAttack( idActor *ActOwner, const char *AttName )
 
 		// the point is also inaccruate sometimes, set to origin of the weapon object
 		tr.c.point = m_OldOrigin;
+		// set the normal to the owner's view forward
+		idMat3 viewAxis;
+		idVec3 dummy;
+		m_Owner.GetEntity()->GetViewPos( dummy, viewAxis );
+		tr.c.normal = -viewAxis[0];
 
 		MeleeCollision( gameLocal.entities[tr.c.entityNum], idVec3(1,0,0), &tr, -1 );
 		DeactivateAttack();

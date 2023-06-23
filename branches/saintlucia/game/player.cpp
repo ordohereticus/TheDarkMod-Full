@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2928 $
- * $Date: 2008-10-06 11:32:25 -0400 (Mon, 06 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2948 $
+ * $Date: 2008-10-14 01:36:15 -0400 (Tue, 14 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2928 2008-10-06 15:32:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2948 2008-10-14 05:36:15Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2576,7 +2576,8 @@ void idPlayer::FireWeapon( void )
 			}
 		} else 
 		{
-			NextBestWeapon();
+			// ishtvan: Removed auto-switching weapons when ammo runs out
+			// NextBestWeapon();
 		}
 	}
 
@@ -3326,7 +3327,8 @@ void idPlayer::Weapon_Combat( void ) {
 		if ( weapon.GetEntity()->IsHolstered() ) {
 			if ( !weapon.GetEntity()->AmmoAvailable() ) {
 				// weapons can switch automatically if they have no more ammo
-				NextBestWeapon();
+				// Ishtvan: not in TDM they can't!
+				// NextBestWeapon();
 			} else {
 				weapon.GetEntity()->Raise();
 				state = GetScriptFunction( "RaiseWeapon" );
