@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2990 $
- * $Date: 2008-11-07 10:56:38 -0500 (Fri, 07 Nov 2008) $
+ * $Revision: 3205 $
+ * $Date: 2009-02-03 07:16:42 -0500 (Tue, 03 Feb 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2990 2008-11-07 15:56:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 3205 2009-02-03 12:16:42Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -83,7 +83,7 @@ void CForcePush::Evaluate( int time )
 	}
 
 	// Do not push static entity or non-pushable ones
-	if (pushEnt->IsType(idStaticEntity::Type) || pushEnt->spawnArgs.GetBool("notPushable", "0"))
+	if (pushEnt->IsType(idStaticEntity::Type) || pushEnt->spawnArgs.GetBool("notpushable", "0"))
 	{
 		return;
 	}

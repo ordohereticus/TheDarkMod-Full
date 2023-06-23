@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3123 $
- * $Date: 2009-01-07 08:30:07 -0500 (Wed, 07 Jan 2009) $
- * $Author: angua $
+ * $Revision: 3205 $
+ * $Date: 2009-02-03 07:16:42 -0500 (Tue, 03 Feb 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 3123 2009-01-07 13:30:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3205 2009-02-03 12:16:42Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -213,7 +213,7 @@ void idMoveable::Spawn( void ) {
 		physicsObj.DropToFloor();
 	}
 
-	if ( spawnArgs.GetBool( "noimpact" ) || spawnArgs.GetBool( "notPushable" ) ) {
+	if ( spawnArgs.GetBool( "noimpact" ) || spawnArgs.GetBool( "notpushable" ) ) {
 		physicsObj.DisableImpact();
 	}
 
@@ -723,7 +723,7 @@ void idMoveable::Event_Activate( idEntity *activator ) {
 
 	Show();
 
-	if ( !spawnArgs.GetInt( "notPushable" ) ) {
+	if ( !spawnArgs.GetInt( "notpushable" ) ) {
         physicsObj.EnableImpact();
 	}
 
