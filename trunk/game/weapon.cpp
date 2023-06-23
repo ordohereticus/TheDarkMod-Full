@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3008 $
- * $Date: 2008-11-10 14:11:32 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3009 $
+ * $Date: 2008-11-10 15:40:09 -0500 (Mon, 10 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 3008 2008-11-10 19:11:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 3009 2008-11-10 20:40:09Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3011,29 +3011,11 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 			return;
 		}
 
-		// if this is a power ammo weapon ( currently only the bfg ) then make sure 
-		// we only fire as much power as available in each clip
-		if ( powerAmmo ) {
-			// power comes in as a float from zero to max
-			// if we use this on more than the bfg will need to define the max
-			// in the .def as opposed to just in the script so proper calcs
-			// can be done here. 
-			dmgPower = ( int )dmgPower + 1;
-			if ( dmgPower > ammoClip ) {
-				dmgPower = ammoClip;
-			}
-		}
+		weaponItem->UseAmmo(ammoRequired);
 
-		weaponItem->UseAmmo(( powerAmmo ) ? (int) dmgPower : ammoRequired);
 		if ( clipSize && ammoRequired ) {
 			ammoClip -= powerAmmo ? (int) dmgPower : 1;
 		}
-
-	}
-
-	if ( !silent_fire ) {
-		// wake up nearby monsters
-		gameLocal.AlertAI( owner );
 	}
 
 	// set the shader parm to the time of last projectile firing,

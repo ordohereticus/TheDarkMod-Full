@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3008 $
- * $Date: 2008-11-10 14:11:32 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3009 $
+ * $Date: 2008-11-10 15:40:09 -0500 (Mon, 10 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -31,7 +31,7 @@ protected:
 	// The current amount of ammonition (set to getStartAmmo() in constructor)
 	int		m_Ammo;
 
-	// The index of this weapon (between 0 and MAX_WEAPONS)
+	// The index of this weapon [0..INF)
 	int		m_WeaponIndex;
 
 	// TRUE, if this weapon doesn't need ammo (like shortsword, blackjack)

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3006 $
- * $Date: 2008-11-09 05:14:38 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3009 $
+ * $Date: 2008-11-10 15:40:09 -0500 (Mon, 10 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -59,7 +59,6 @@ const int	FOCUS_GUI_TIME = 500;
 
 #define TDM_PLAYER_WEAPON_CATEGORY			"Weapons"
 #define TDM_PLAYER_MAPS_CATEGORY			"Maps"
-const int MAX_WEAPONS = 16;
 
 const int DEAD_HEARTRATE = 0;			// fall to as you die
 const int LOWHEALTH_HEARTRATE_ADJ = 20; // 
@@ -670,7 +669,7 @@ public:
 	void					StartFxFov( float duration  );
 	void					UpdateHudWeapon( bool flashWeapon = true );
 	void					UpdateHudStats( idUserInterface *hud );
-	void					UpdateHudAmmo( idUserInterface *hud );
+	void					UpdateHudAmmo();
 
 	void					Event_StopAudioLog( void );
 	void					StartAudioLog( void );
