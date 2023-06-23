@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3071 $
- * $Date: 2008-11-30 12:33:20 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3077 $
+ * $Date: 2008-12-06 02:33:06 -0500 (Sat, 06 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3071 2008-11-30 17:33:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3077 2008-12-06 07:33:06Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -835,6 +835,8 @@ void idAI::Save( idSaveGame *savefile ) const {
 	{
 		savefile->WriteObject(*i);
 	}
+
+	savefile->WriteInt(tactileIgnoreEntities.size());
 
 	for (TactileIgnoreList::const_iterator i = tactileIgnoreEntities.begin(); i != tactileIgnoreEntities.end(); ++i)
 	{
