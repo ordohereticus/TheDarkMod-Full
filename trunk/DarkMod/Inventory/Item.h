@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2834 $
- * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2835 $
+ * $Date: 2008-09-14 02:08:58 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,6 @@
 #define __DARKMOD_INVENTORYITEM_H__
 
 /* FORWARD DECLS */
-class CInventory;
 class CInventoryCategory;
 
 /**
@@ -18,10 +17,6 @@ class CInventoryCategory;
  */
 class CInventoryItem
 {
-	friend class CInventory;
-	friend class CInventoryCursor;
-	friend class CInventoryCategory;
-
 public:
 	typedef enum {
 		IT_ITEM,			// Normal item, which is associated to an entity
@@ -50,8 +45,10 @@ public:
 	virtual void			Restore( idRestoreGame *savefile );
 
 	CInventoryCategory*		Category() const { return m_Category; }
+	void					SetCategory(CInventoryCategory* newCategory) { m_Category = newCategory; };
 	
 	idEntity*				GetOwner() { return m_Owner.GetEntity(); };
+	void					SetOwner(idEntity* newOwner) { m_Owner = newOwner; };
 
 	void					SetItemEntity(idEntity *ent) { m_Item = ent; };
 	idEntity*				GetItemEntity() { return m_Item.GetEntity(); }

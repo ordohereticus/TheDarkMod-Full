@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2835 $
+ * $Date: 2008-09-14 02:08:58 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 2835 2008-09-14 06:08:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -998,7 +998,7 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 		ammoClip = clipSize;
 		CInventoryWeaponItemPtr weaponItem = owner->GetCurrentWeaponItem();
 		if (weaponItem != NULL) {
-			ammoAvail = weaponItem->hasAmmo();
+			ammoAvail = weaponItem->HasAmmo();
 		}
 		if ( ammoClip > ammoAvail ) {
 			ammoClip = ammoAvail;
@@ -2331,7 +2331,7 @@ idWeapon::AmmoAvailable
 */
 int idWeapon::AmmoAvailable( void ) const {
 	if (owner && owner->GetCurrentWeaponItem()) {
-		return owner->GetCurrentWeaponItem()->hasAmmo();
+		return owner->GetCurrentWeaponItem()->HasAmmo();
 	} else {
 		return 0;
 	}
@@ -2618,7 +2618,7 @@ void idWeapon::Event_UseAmmo( int amount ) {
 		return;
 	}
 
-	owner->GetCurrentWeaponItem()->useAmmo(( powerAmmo ) ? amount : ( amount * ammoRequired ) );
+	owner->GetCurrentWeaponItem()->UseAmmo(( powerAmmo ) ? amount : ( amount * ammoRequired ) );
 	if ( clipSize && ammoRequired ) {
 		ammoClip -= powerAmmo ? amount : ( amount * ammoRequired );
 		if ( ammoClip < 0 ) {
@@ -2644,7 +2644,7 @@ void idWeapon::Event_AddToClip( int amount ) {
 		ammoClip = clipSize;
 	}
 
-	ammoAvail = owner->GetCurrentWeaponItem()->hasAmmo();
+	ammoAvail = owner->GetCurrentWeaponItem()->HasAmmo();
 	if ( ammoClip > ammoAvail ) {
 		ammoClip = ammoAvail;
 	}
@@ -2667,7 +2667,7 @@ idWeapon::Event_AmmoAvailable
 */
 void idWeapon::Event_AmmoAvailable( void ) {
 	CInventoryWeaponItemPtr currentWeapon = owner->GetCurrentWeaponItem();
-	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->hasAmmo() : 0;
+	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->HasAmmo() : 0;
 	idThread::ReturnFloat( ammoAvail );
 }
 
@@ -2678,7 +2678,7 @@ idWeapon::Event_TotalAmmoCount
 */
 void idWeapon::Event_TotalAmmoCount( void ) {
 	CInventoryWeaponItemPtr currentWeapon = owner->GetCurrentWeaponItem();
-	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->hasAmmo() : 0;
+	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->HasAmmo() : 0;
 	idThread::ReturnFloat( ammoAvail );
 }
 
@@ -3014,7 +3014,7 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 		CInventoryWeaponItemPtr weaponItem = owner->GetCurrentWeaponItem();
 
 		// check if we're out of ammo or the clip is empty
-		int ammoAvail = weaponItem->hasAmmo();
+		int ammoAvail = weaponItem->HasAmmo();
 		if ( !ammoAvail || ( ( clipSize != 0 ) && ( ammoClip <= 0 ) ) ) {
 			return;
 		}
@@ -3032,7 +3032,7 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 			}
 		}
 
-		weaponItem->useAmmo(( powerAmmo ) ? (int) dmgPower : ammoRequired);
+		weaponItem->UseAmmo(( powerAmmo ) ? (int) dmgPower : ammoRequired);
 		if ( clipSize && ammoRequired ) {
 			ammoClip -= powerAmmo ? (int) dmgPower : 1;
 		}

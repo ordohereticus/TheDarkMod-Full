@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2834 $
- * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2835 $
+ * $Date: 2008-09-14 02:08:58 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 2834 2008-09-14 05:18:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 2835 2008-09-14 06:08:58Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -646,11 +646,11 @@ CInventoryItemPtr CInventory::ValidateAmmo(idEntity* ent)
 				boost::dynamic_pointer_cast<CInventoryWeaponItem>(weaponCategory->GetItem(i));
 
 			// Is this the right weapon?
-			if (weaponItem != NULL && weaponItem->getWeaponName() == weaponName)
+			if (weaponItem != NULL && weaponItem->GetWeaponName() == weaponName)
 			{
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Adding %d ammo to weapon %s.\r", amount, weaponName.c_str());
 				// Add the ammo to this weapon
-				weaponItem->setAmmo(weaponItem->getAmmo() + amount);
+				weaponItem->SetAmmo(weaponItem->GetAmmo() + amount);
 
 				// We're done
 				return weaponItem;
