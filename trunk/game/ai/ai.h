@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2478 $
- * $Date: 2008-06-14 04:40:23 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2481 $
+ * $Date: 2008-06-14 04:54:23 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1789,6 +1789,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 #ifdef TIMING_BUILD
 private:
 	int aiThinkTimer;
+	int aiMindTimer;
 #endif
 };
 

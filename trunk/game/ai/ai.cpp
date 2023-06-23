@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2479 $
- * $Date: 2008-06-14 04:46:57 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2481 $
+ * $Date: 2008-06-14 04:54:23 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2479 2008-06-14 08:46:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2481 2008-06-14 08:54:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -534,6 +534,7 @@ idAI::idAI()
 	m_nextThinkFrame = 0;
 
 	INIT_TIMER_HANDLE(aiThinkTimer);
+	INIT_TIMER_HANDLE(aiMindTimer);
 }
 
 /*
@@ -801,6 +802,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	}
 #ifdef TIMING_BUILD
 	savefile->WriteInt(aiThinkTimer);
+	savefile->WriteInt(aiMindTimer);
 #endif
 }
 
@@ -1096,6 +1098,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	}
 #ifdef TIMING_BUILD
 	savefile->ReadInt(aiThinkTimer);
+	savefile->ReadInt(aiMindTimer);
 #endif
 }
 
@@ -1491,6 +1494,7 @@ void idAI::Spawn( void )
 	m_lastThinkTime = gameLocal.time;
 
 	CREATE_TIMER(aiThinkTimer, name, "aiThinkTimer");
+	CREATE_TIMER(aiMindTimer, name, "aiMindTimer");
 }
 
 /*
@@ -1754,16 +1758,10 @@ void idAI::Think( void )
 		{
 			// greebo: We always rely on having a mind
 			assert(mind);
-
-			idTimer thinkTimer;
-			thinkTimer.Clear();
-			thinkTimer.Start();
+			START_SCOPED_TIMING(aiMindTimer, scopedMindTimer);
 
 			// Let the mind do the thinking (after the move updates)
 			mind->Think();
-
-			thinkTimer.Stop();
-			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Mind's thinking timer says: %lf msecs.\r", thinkTimer.Milliseconds());
 		}
 
 		// Clear DarkMod per frame vars now that the mind had time to think
