@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2698 $
- * $Date: 2008-07-18 13:54:05 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2699 $
+ * $Date: 2008-07-18 14:08:32 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2698 2008-07-18 17:54:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2699 2008-07-18 18:08:32Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -103,6 +103,17 @@ void ConversationSystem::StartConversation(int index)
 
 void ConversationSystem::EndConversation(int index)
 {
+	ConversationPtr conv = GetConversation(index);
+
+	if (conv == NULL)
+	{
+		gameLocal.Warning("StartConversation: Can't find conversation with index %d\n", index);
+		return;
+	}
+
+	// Let the conversation end in a controlled fashion
+	conv->End();
+
 	_dyingConversations.AddUnique(index);
 }
 

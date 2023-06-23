@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2679 $
- * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2699 $
+ * $Date: 2008-07-18 14:08:32 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -72,6 +72,12 @@ public:
 	 * CheckConditions() beforehand (with a positive result, of course).
 	 */
 	void Start();
+
+	/** 
+	 * greebo: Ends this conversation and notifies the AI about this.
+	 * Normally, the AI are put back into their previous state.
+	 */
+	void End();
 
 	/**
 	 * greebo: This is the "think" routine for conversations.

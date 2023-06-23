@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2683 $
- * $Date: 2008-07-17 14:02:39 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2699 $
+ * $Date: 2008-07-18 14:08:32 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2683 2008-07-17 18:02:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2699 2008-07-18 18:08:32Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -87,18 +87,38 @@ void Conversation::Start()
 	// Switch all participating AI to conversation state
 	for (int i = 0; i < _actors.Num(); i++)
 	{
-		idActor* actor = GetActor(i);
+		idAI* ai = GetActor(i);
 
-		if (actor->IsType(idAI::Type))
-		{
-			static_cast<idAI*>(actor)->SwitchToConversationState(_name);
-		}
+		if (ai == NULL) continue;
+		
+		ai->SwitchToConversationState(_name);
 	}
 
 	_playCount++;
 
 	// Set the index to the first command
 	_currentCommand = 0;
+}
+
+void Conversation::End()
+{
+	// Switch all participating AI to conversation state
+	for (int i = 0; i < _actors.Num(); i++)
+	{
+		idAI* ai = GetActor(i);
+
+		if (ai == NULL) continue;
+
+		// Let's see if the AI can handle this conversation command
+		ConversationStatePtr convState = 
+			boost::dynamic_pointer_cast<ConversationState>(ai->GetMind()->GetState());
+
+		if (convState != NULL)
+		{
+			// End the conversation state
+			ai->GetMind()->EndState();
+		}
+	}
 }
 
 bool Conversation::IsDone()
