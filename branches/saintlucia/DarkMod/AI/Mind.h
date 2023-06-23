@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2930 $
+ * $Date: 2008-10-07 07:06:15 -0400 (Tue, 07 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -75,6 +75,13 @@ public:
 	 * greebo: Removes all States from the Queue and falls back to the default State (Idle).
 	 */
 	virtual void ClearStates();
+
+	/**
+	 * greebo: Returns TRUE if no states are in the StateQueue
+	 */
+	virtual bool IsEmpty() {
+		return _stateQueue.empty();
+	}
 
 	/**
 	 * Returns the reference to the current state (can be NULL).

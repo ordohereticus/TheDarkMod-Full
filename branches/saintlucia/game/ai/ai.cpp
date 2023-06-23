@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2924 $
- * $Date: 2008-10-06 00:08:37 -0400 (Mon, 06 Oct 2008) $
+ * $Revision: 2930 $
+ * $Date: 2008-10-07 07:06:15 -0400 (Tue, 07 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2924 2008-10-06 04:08:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2930 2008-10-07 11:06:15Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9692,11 +9692,19 @@ bool idAI::SwitchToConversationState(const idStr& conversationName)
 void idAI::RemoveTarget(idEntity* target)
 {
 	idEntity::RemoveTarget( target );
-	GetMind()->GetState()->OnChangeTarget( this );
+
+	if (!GetMind()->IsEmpty())
+	{
+		GetMind()->GetState()->OnChangeTarget(this);
+	}
 }
 
 void idAI::AddTarget(idEntity* target)
 {
 	idEntity::AddTarget( target );
-	GetMind()->GetState()->OnChangeTarget( this );
+
+	if (!GetMind()->IsEmpty())
+	{
+		GetMind()->GetState()->OnChangeTarget(this);
+	}
 }
