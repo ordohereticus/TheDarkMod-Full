@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2827 $
- * $Date: 2008-09-13 12:38:21 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2828 $
+ * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -63,11 +63,11 @@ public:
 	 */
 	int						GetNumItems() const;
 
-protected:
-	void					SetOwner(idEntity *Owner);
-
 	void					Save(idSaveGame *savefile) const;
 	void					Restore(idRestoreGame *savefile);
+
+protected:
+	void					SetOwner(idEntity *Owner);
 
 protected:
 	CInventory*				m_Inventory;			// The inventory this group belongs to.

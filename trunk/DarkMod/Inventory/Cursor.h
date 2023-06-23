@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2826 $
- * $Date: 2008-09-13 09:53:52 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2828 $
+ * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -135,5 +135,6 @@ protected:
 	// The unique ID of this cursor
 	int m_CursorId;
 };
+typedef boost::shared_ptr<CInventoryCursor> CInventoryCursorPtr;
 
 #endif /* __DARKMOD_INVENTORYCURSOR_H__ */

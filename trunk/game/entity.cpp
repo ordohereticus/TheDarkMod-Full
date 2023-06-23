@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2827 $
- * $Date: 2008-09-13 12:38:21 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2828 $
+ * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2827 2008-09-13 16:38:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2828 2008-09-13 17:20:59Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -679,7 +679,7 @@ idEntity::idEntity()
 	// absolutely necessary to create these.
 	m_Inventory			= NULL;
 	m_InventoryItem		= NULL;
-	m_InventoryCursor	= NULL;
+	m_InventoryCursor	= CInventoryCursorPtr();
 }
 
 /*
@@ -7567,10 +7567,12 @@ The cursor is intended for arbitrary use, and need not point to this
 entity's inventory.
 ================
 */
-CInventoryCursor* idEntity::InventoryCursor()
+const CInventoryCursorPtr& idEntity::InventoryCursor()
 {
-	if(m_InventoryCursor == NULL)
+	if (m_InventoryCursor == NULL)
+	{
 		m_InventoryCursor = Inventory()->CreateCursor();
+	}
 
 	return m_InventoryCursor;
 }
@@ -8732,7 +8734,7 @@ void idEntity::Event_InitInventory(int callCount)
 CInventoryItem *idEntity::AddToInventory(idEntity *ent, idUserInterface *_hud)
 {
 	// Get (create) the InventoryCursor of this Entity.
-	CInventoryCursor *crsr = InventoryCursor();
+	const CInventoryCursorPtr& crsr = InventoryCursor();
 	CInventoryItem *rc = NULL;
 	idStr s;
 	int v = 0;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2825 $
- * $Date: 2008-09-13 09:04:08 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2828 $
+ * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -70,11 +70,12 @@ public:
 
 	void					Clear();
 
-	CInventoryCursor*		CreateCursor();
+	CInventoryCursorPtr		CreateCursor();
+
 	/**
 	 * Retrieves the cursor with the given Id or NULL if the Id doesn't exist
 	 */
-	CInventoryCursor*		GetCursor(int id);
+	CInventoryCursorPtr		GetCursor(int id);
 
 	int						GetLoot(int& gold, int& jewelry, int& goods);
 	void					SetLoot(int gold, int jewelry, int goods);
@@ -189,7 +190,7 @@ private:
 private:
 	idEntityPtr<idEntity>				m_Owner;
 
-	idList<CInventoryCursor*>			m_Cursor;
+	idList<CInventoryCursorPtr>			m_Cursor;
 	int									m_HighestCursorId;
 
 	/**

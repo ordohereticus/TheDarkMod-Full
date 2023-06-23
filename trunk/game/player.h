@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2788 $
- * $Date: 2008-08-31 20:42:31 -0400 (Sun, 31 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2828 $
+ * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -400,9 +400,9 @@ public:
 	idDragEntity			dragEntity;
 
 	// A pointer to our weaponslot.
-	CInventoryCursor*		m_WeaponCursor;
+	CInventoryCursorPtr		m_WeaponCursor;
 	// A pointer to the current map/floorplan.
-	CInventoryCursor*		m_MapCursor;
+	CInventoryCursorPtr		m_MapCursor;
 
 public:
 	CLASS_PROTOTYPE( idPlayer );

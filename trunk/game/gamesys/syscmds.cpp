@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2823 $
- * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2828 $
+ * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2823 2008-09-13 05:10:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2828 2008-09-13 17:20:59Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -277,7 +277,7 @@ void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 		return;
 	}
 
-	CInventoryCursor* cursor = player->InventoryCursor();
+	CInventoryCursorPtr cursor = player->InventoryCursor();
 	CInventory* inventory = cursor->Inventory();
 	
 	if (inventory == NULL)
@@ -317,7 +317,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		return;
 	}
 
-	CInventoryCursor* cursor = player->InventoryCursor();
+	CInventoryCursorPtr cursor = player->InventoryCursor();
 	CInventory* inventory = cursor->Inventory();
 	
 	if (inventory == NULL)
