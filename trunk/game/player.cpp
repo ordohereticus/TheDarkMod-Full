@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3198 $
- * $Date: 2009-01-20 04:45:52 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3199 $
+ * $Date: 2009-01-20 06:02:49 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3198 2009-01-20 09:45:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3199 2009-01-20 11:02:49Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2437,6 +2437,9 @@ void idPlayer::DrawHUD(idUserInterface *_hud)
 {
 //	if(cv_lg_debug.GetInteger() != 0)
 //		PrintDebugHUD();
+
+	/*renderSystem->DrawSmallStringExt(1, 30, 
+		va("Player velocity: %f", physicsObj.GetLinearVelocity().Length()), idVec4( 1, 1, 1, 1 ), false, declManager->FindMaterial( "textures/bigchars" ));*/
 
 	const char *name;
 	if((name = cv_dm_distance.GetString()) != NULL)
@@ -5992,6 +5995,12 @@ void idPlayer::AdjustSpeed( void )
 			speed = MaxSpeed;
 		if( crouchspeed > MaxSpeed )
 			crouchspeed = MaxSpeed;
+	}
+
+	// greebo: Clamp speed if swimming to 1.3 x walkspeed
+	if (physicsObj.GetWaterLevel() >= WATERLEVEL_WAIST)
+	{
+		speed = idMath::ClampFloat(0, pm_walkspeed.GetFloat() * cv_pm_max_swimspeed_mod.GetFloat(), speed);
 	}
 
 	// TDM: leave this in for speed potions or something

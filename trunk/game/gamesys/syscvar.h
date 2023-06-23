@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3156 $
- * $Date: 2009-01-17 03:43:16 -0500 (Sat, 17 Jan 2009) $
+ * $Revision: 3199 $
+ * $Date: 2009-01-20 06:02:49 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -94,6 +94,7 @@ extern idCVar cv_mainmenu_confirmquit;
 extern idCVar cv_pm_runmod;
 extern idCVar cv_pm_run_backmod;
 extern idCVar cv_pm_crouchmod;
+extern idCVar cv_pm_max_swimspeed_mod;
 extern idCVar cv_pm_creepmod;
 extern idCVar cv_pm_pushmod;
 extern idCVar cv_pm_push_maximpulse;

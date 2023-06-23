@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3098 $
- * $Date: 2008-12-31 02:31:40 -0500 (Wed, 31 Dec 2008) $
+ * $Revision: 3199 $
+ * $Date: 2009-01-20 06:02:49 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3098 $   $Date: 2008-12-31 02:31:40 -0500 (Wed, 31 Dec 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3199 $   $Date: 2009-01-20 06:02:49 -0500 (Tue, 20 Jan 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -28,7 +28,7 @@ END_CLASS
 
 // movement parameters
 const float PM_STOPSPEED		= 100.0f;
-const float PM_SWIMSCALE		= 0.5f;
+const float PM_SWIMSCALE		= 1.0f;
 const float PM_ROPESPEED		= 100.0f;
 const float PM_LADDERSPEED		= 100.0f;
 const float PM_STEPSCALE		= 1.0f;
@@ -1914,6 +1914,9 @@ void idPhysics_Player::CheckDuck( void ) {
 		{
 			// greebo: We're underwater, set the clipmodel to the crouched size
 			maxZ = pm_crouchheight.GetFloat();
+
+			// greebo: But still let the player swim as fast as if he was uncrouched
+			playerSpeed = walkSpeed;
 		}
 
 		// greebo: Check if we've submersed in a liquid. If yes: set the clipmodel to crouchheight
