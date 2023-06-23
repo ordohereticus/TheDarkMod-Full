@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2780 $
- * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2927 $
+ * $Date: 2008-10-06 10:33:33 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -89,7 +89,10 @@ public:
 	* TDM: Allows adding a body not in the AF file, bodyNew.  Must be referenced to an existing body in the AF file, bodyExist.
 	* Also needs the entity for which we are doing this.
 	**/
-	void AddBodyExtern( idAFEntity_Base *ent, idAFBody *bodyNew, idAFBody *bodyExist, AFJointModType_t mod );
+	void AddBodyExtern
+		( idAFEntity_Base *ent, idAFBody *bodyNew, 
+		  idAFBody *bodyExist, AFJointModType_t mod,
+		  jointHandle_t joint = INVALID_JOINT );
 
 	/**
 	* TDM: Delete an externally added body

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2883 $
- * $Date: 2008-09-24 04:55:15 -0400 (Wed, 24 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2927 $
+ * $Date: 2008-10-06 10:33:33 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -231,9 +231,11 @@ public:
 	* TDM: Adds the clipmodel of the given entity to the AF structure
 	* Called during the binding process
 	* AddEntByBody is called by BindToBody, AddEntByJoint called by BindToJoint
+	* AddEntByBody takes an option joint argument to control the positin of the body with a joint
+	* If this is not specified, joint information is copied from the AF body we bind to
 	**/
-	void					AddEntByBody( idEntity *ent, int bodyID );
-	void					AddEntByJoint( idEntity *ent, jointHandle_t jointNum );
+	void					AddEntByBody( idEntity *ent, int bodyID, jointHandle_t joint = INVALID_JOINT );
+	void					AddEntByJoint( idEntity *ent, jointHandle_t joint );
 
 	/**
 	* TDM: Remove a dynamically added ent from the AF of this AFEntity

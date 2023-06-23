@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2907 $
- * $Date: 2008-10-01 16:43:36 -0400 (Wed, 01 Oct 2008) $
- * $Author: tels $
+ * $Revision: 2927 $
+ * $Date: 2008-10-06 10:33:33 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2907 2008-10-01 20:43:36Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2927 2008-10-06 14:33:33Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8675,12 +8675,15 @@ float idEntity::RangedThreatTo(idEntity* target)
 
 void idEntity::GetTeamChildren( idList<idEntity *> *list )
 {
+// ishtvan: TODO: I think this is WRONG and can go up and across the team hierarchy when called on bind children
+// It only works as advertised when called on bindmasters
 	idEntity *NextEnt = NULL;
 	
 	list->Clear();
 	for( NextEnt = GetNextTeamEntity(); NextEnt != NULL; NextEnt = NextEnt->GetNextTeamEntity() )
 	{
-		list->Append( NextEnt );
+		if( NextEnt != this )
+			list->Append( NextEnt );
 	}
 }
 

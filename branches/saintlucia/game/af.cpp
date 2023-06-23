@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2877 $
- * $Date: 2008-09-22 04:48:12 -0400 (Mon, 22 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2927 $
+ * $Date: 2008-10-06 10:33:33 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 2877 2008-09-22 08:48:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 2927 2008-10-06 14:33:33Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -498,42 +498,53 @@ void idAF::AddBody( idAFBody *body, const idJointMat *joints, const char *jointN
 	jointMods[index].jointBodyAxis = body->GetWorldAxis() * axis.Transpose();
 }
 
-void idAF::AddBodyExtern( idAFEntity_Base *ent, idAFBody *bodyNew, idAFBody *bodyExist, AFJointModType_t mod )
+void idAF::AddBodyExtern
+( 
+	idAFEntity_Base *ent, idAFBody *bodyNew, 
+	idAFBody *bodyExist, AFJointModType_t mod, 
+	jointHandle_t joint 
+)
 {
 	int indexNew(0), indexExist(-1), matchID(0);
-	jointHandle_t joint = INVALID_JOINT;
+	jointHandle_t tempJoint = INVALID_JOINT;
 
 	idVec3 origin;
 	idMat3 axis;
 
-	matchID = physicsObj.GetBodyId( bodyExist );
-	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idAF::AddBodyExtern: Existing body name is %s, id is %d\r", bodyExist->GetName().c_str(), matchID);
-	for( int i = 0; i < jointMods.Num(); i++ )
+	// if we are not given a joint, copy it from the existing body
+	if( joint != INVALID_JOINT )
 	{
-		if( jointMods[i].bodyId == matchID )
+		tempJoint = joint;
+		assert( tempJoint < animator->NumJoints() );
+	}
+	else
+	{
+		matchID = physicsObj.GetBodyId( bodyExist );
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idAF::AddBodyExtern: Existing body name is %s, id is %d\r", bodyExist->GetName().c_str(), matchID);
+		for( int i = 0; i < jointMods.Num(); i++ )
 		{
-			indexExist = i;
-			break;
+			if( jointMods[i].bodyId == matchID )
+			{
+				tempJoint = jointMods[i].jointHandle;
+				if ( tempJoint == INVALID_JOINT ) 
+				{
+					gameLocal.Error( "idAF for entity '%s' at (%s) modifies unknown joint %d", self->name.c_str(), self->GetPhysics()->GetOrigin().ToString(0), (int) tempJoint );
+				}
+				assert( tempJoint < animator->NumJoints() );
+				break;
+			}
 		}
 	}
 
-	if( indexExist >= 0 )
+	if( tempJoint != INVALID_JOINT )
 	{
-		joint = jointMods[indexExist].jointHandle;
-
-		if ( joint == INVALID_JOINT ) 
-		{
-			gameLocal.Error( "idAF for entity '%s' at (%s) modifies unknown joint %d", self->name.c_str(), self->GetPhysics()->GetOrigin().ToString(0), (int) joint );
-		}
-		assert( joint < animator->NumJoints() );
-
-		ent->GetJointWorldTransform( joint, gameLocal.time, origin, axis );
+		ent->GetJointWorldTransform( tempJoint, gameLocal.time, origin, axis );
 
 		indexNew = jointMods.Num();
 		jointMods.SetNum( indexNew + 1, false );
 		jointMods[indexNew].bodyId = physicsObj.GetBodyId( bodyNew );
 		jointMods[indexNew].bodyName = bodyNew->GetName();
-		jointMods[indexNew].jointHandle = joint;
+		jointMods[indexNew].jointHandle = tempJoint;
 		jointMods[indexNew].jointMod = mod;
 		jointMods[indexNew].jointBodyOrigin = ( bodyNew->GetWorldOrigin() - origin ) * axis.Transpose();
 		jointMods[indexNew].jointBodyAxis = bodyNew->GetWorldAxis() * axis.Transpose();
