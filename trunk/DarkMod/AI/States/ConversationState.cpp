@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2681 $
- * $Date: 2008-07-17 13:37:25 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2682 $
+ * $Date: 2008-07-17 13:41:27 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2681 2008-07-17 17:37:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2682 2008-07-17 17:41:27Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -159,11 +159,13 @@ void ConversationState::StartCommand(ConversationCommand& command)
 		if (ent != NULL)
 		{
 			// Start moving
-			idVec3 distance = ent->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin();
-			idVec3 distanceNorm(distance);
-			distanceNorm.NormalizeFast();
+			idVec3 delta = ent->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin();
+			idVec3 deltaNorm(delta);
+			deltaNorm.NormalizeFast();
 
-			idVec3 goal = owner->GetPhysics()->GetOrigin() + distance - distanceNorm*100.0f;
+			float distance = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : 50.0f;
+			
+			idVec3 goal = owner->GetPhysics()->GetOrigin() + delta - deltaNorm*distance;
 
 			owner->GetSubsystem(SubsysMovement)->PushTask(
 				TaskPtr(new MoveToPositionTask(goal))

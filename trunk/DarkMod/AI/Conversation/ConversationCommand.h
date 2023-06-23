@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2680 $
- * $Date: 2008-07-17 13:11:03 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2682 $
+ * $Date: 2008-07-17 13:41:27 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -95,6 +95,9 @@ public:
 
 	// Tries to name in the given convert the argument to an entity pointer
 	idEntity* GetEntityArgument(int index);
+
+	// Casts the argument to a float (returns 0.0f if not existing)
+	float GetFloatArgument(int index);
 
 	/**
 	 * greebo: Parses the command parameters from the given idDict.
