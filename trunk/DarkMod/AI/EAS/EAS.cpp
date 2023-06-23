@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2352 $
- * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2354 $
+ * $Date: 2008-05-16 15:46:08 -0400 (Fri, 16 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 2354 2008-05-16 19:46:08Z greebo $", init_version);
 
 #include "EAS.h"
 
@@ -582,7 +582,7 @@ int tdmEAS::GetElevatorStationIndex(CMultiStateMoverPosition* positionEnt)
 {
 	for (std::size_t i = 0; i < _elevatorStations.size(); i++)
 	{
-		if (_elevatorStations[i]->elevatorPosition.GetEntity() == positionEnt)
+		if (_elevatorStations[i] != NULL && _elevatorStations[i]->elevatorPosition.GetEntity() == positionEnt)
 		{
 			return static_cast<int>(i); // found!
 		}
