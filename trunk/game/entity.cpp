@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2713 $
- * $Date: 2008-08-01 12:19:50 -0400 (Fri, 01 Aug 2008) $
- * $Author: tels $
+ * $Revision: 2714 $
+ * $Date: 2008-08-02 23:09:13 -0400 (Sat, 02 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2713 2008-08-01 16:19:50Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2714 2008-08-03 03:09:13Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8034,7 +8034,7 @@ void idEntity::Attach( idEntity *ent, const char *PosName, const char *AttName )
 void idEntity::Detach( const char *AttName )
 {
 	int ind = GetAttachmentIndex( AttName );
-	if (ind >= 0 )
+	if (ind >= 0 && ind < m_Attachments.Num() )
 		DetachInd( ind );
 	else
 	{

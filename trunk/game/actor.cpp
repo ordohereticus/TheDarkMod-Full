@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2712 $
- * $Date: 2008-08-01 03:13:52 -0400 (Fri, 01 Aug 2008) $
+ * $Revision: 2714 $
+ * $Date: 2008-08-02 23:09:13 -0400 (Sat, 02 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2712 2008-08-01 07:13:52Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2714 2008-08-03 03:09:13Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -992,13 +992,6 @@ void idActor::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteBool(canUseElevators);
 
-	savefile->WriteInt( m_Attachments.Num() );
-	for ( i = 0; i < m_Attachments.Num(); i++ ) 
-	{
-		m_Attachments[i].ent.Save( savefile );
-		savefile->WriteInt( m_Attachments[i].channel );
-	}
-
 	savefile->WriteBool( finalBoss );
 	savefile->WriteFloat( m_damage_thresh_hard );
 	savefile->WriteFloat( m_delta_scale );
@@ -1142,14 +1135,6 @@ void idActor::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadInt( painTime );
 	savefile->ReadBool(canUseElevators);
-
-	savefile->ReadInt( num );
-	for ( i = 0; i < num; i++ ) 
-	{
-		CAttachInfo &attach = m_Attachments.Alloc();
-		attach.ent.Restore( savefile );
-		savefile->ReadInt( attach.channel );
-	}
 
 	savefile->ReadBool( finalBoss );
 	savefile->ReadFloat( m_damage_thresh_hard );
