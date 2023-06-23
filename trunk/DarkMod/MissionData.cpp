@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2736 $
- * $Date: 2008-08-15 03:40:21 -0400 (Fri, 15 Aug 2008) $
+ * $Revision: 2737 $
+ * $Date: 2008-08-15 04:00:05 -0400 (Fri, 15 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2736 2008-08-15 07:40:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2737 2008-08-15 08:00:05Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2169,7 +2169,11 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 
 	for (int i = 0; i < m_Objectives.Num(); i++) 
 	{
-		if (m_Objectives[i].m_bVisible && m_Objectives[i].m_bApplies) {
+		CObjective& obj = m_Objectives[i];
+
+		// Don't consider invisible, inapplicable or invalid objectives
+		if (obj.m_bVisible && obj.m_bApplies && obj.m_state != STATE_INVALID)
+		{
 			objIndices.Append(i);
 		}
 	}
