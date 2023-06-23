@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2538 $
- * $Date: 2008-06-20 02:25:38 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2540 $
+ * $Date: 2008-06-20 02:45:43 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobButton.cpp 2538 2008-06-20 06:25:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobButton.cpp 2540 2008-06-20 06:45:43Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -24,7 +24,7 @@ static bool init_version = FileVersionList("$Id: FrobButton.cpp 2538 2008-06-20 
 const idEventDef EV_TDM_Button_Operate("Operate", NULL);
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobButton )
-	EVENT( EV_TDM_Button_Operate,			CFrobButton::Operate)
+	EVENT( EV_TDM_Button_Operate,	CFrobButton::Operate)
 END_CLASS
 
 void CFrobButton::Save(idSaveGame *savefile) const
@@ -43,17 +43,7 @@ void CFrobButton::Spawn()
 
 void CFrobButton::Operate()
 {
-	Open(false);
-}
-
-void CFrobButton::Open(bool bMaster)
-{
-	CBinaryFrobMover::Open(false);
-}
-
-void CFrobButton::Close(bool bMaster)
-{
-	CBinaryFrobMover::Close(false);
+	ToggleOpen();
 }
 
 void CFrobButton::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse )
@@ -63,14 +53,4 @@ void CFrobButton::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, cons
 	{
 		Operate();
 	}
-}
-
-
-// A button can't close or open a portal, so we block it.
-void CFrobButton::ClosePortal()
-{
-}
-
-void CFrobButton::OpenPortal()
-{
 }

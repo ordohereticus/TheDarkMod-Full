@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2540 $
+ * $Date: 2008-06-20 02:45:43 -0400 (Fri, 20 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -31,15 +31,8 @@ public:
 	// a more complex operation algorithm when the button is pressed in the future
 	virtual void			Operate();
 
-	virtual void			Open(bool Master);
-	virtual void			Close(bool Master);
-
 	// Override the base class's ApplyImpulse method
-	virtual void			ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse );
-
-	virtual void			ClosePortal();
-	virtual void			OpenPortal();
-
+	virtual void			ApplyImpulse(idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse);
 };
 
 #endif /* FROBBUTTON_H */
