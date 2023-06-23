@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2342 $
+ * $Date: 2008-05-15 14:43:06 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,9 +10,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMoverPosition.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMoverPosition.cpp 2342 2008-05-15 18:43:06Z greebo $", init_version);
 
 #include "MultiStateMoverPosition.h"
+#include "MultiStateMoverButton.h"
 #include "MultiStateMover.h"
 
 CLASS_DECLARATION( idEntity, CMultiStateMoverPosition )
@@ -45,6 +46,27 @@ void CMultiStateMoverPosition::Event_PostSpawn()
 	}
 }
 
+void CMultiStateMoverPosition::SetMover(CMultiStateMover* newMover)
+{
+	mover = newMover;
+}
+
+CMultiStateMoverButton*	CMultiStateMoverPosition::GetFetchButton()
+{
+	CMultiStateMover* m = mover.GetEntity();
+	if (m == NULL) return NULL;
+
+	return m->GetButton(this, NULL, BUTTON_TYPE_FETCH);
+}
+
+CMultiStateMoverButton*	CMultiStateMoverPosition::GetRideButton(CMultiStateMoverPosition* toPosition)
+{
+	CMultiStateMover* m = mover.GetEntity();
+	if (m == NULL) return NULL;
+
+	return m->GetButton(toPosition, this, BUTTON_TYPE_RIDE);
+}
+
 void CMultiStateMoverPosition::Save(idSaveGame *savefile) const
 {
 	savefile->WriteInt(aasObstacleEntities.Num());
@@ -52,6 +74,8 @@ void CMultiStateMoverPosition::Save(idSaveGame *savefile) const
 	{
 		aasObstacleEntities[i].Save(savefile);
 	}
+
+	mover.Save(savefile);
 }
 
 void CMultiStateMoverPosition::Restore(idRestoreGame *savefile)
@@ -63,6 +87,8 @@ void CMultiStateMoverPosition::Restore(idRestoreGame *savefile)
 	{
 		aasObstacleEntities[i].Restore(savefile);
 	}
+
+	mover.Restore(savefile);
 }
 
 void CMultiStateMoverPosition::OnMultistateMoverArrive(CMultiStateMover* mover)

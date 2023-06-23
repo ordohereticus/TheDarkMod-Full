@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2341 $
- * $Date: 2008-05-15 13:50:20 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2342 $
+ * $Date: 2008-05-15 14:43:06 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2341 2008-05-15 17:50:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2342 2008-05-15 18:43:06Z greebo $", init_version);
 
 #include "MultiStateMover.h"
 
@@ -44,12 +44,14 @@ void CMultiStateMover::FindPositionEntities()
 			continue;
 		}
 
-		DM_LOG(LC_ENTITY, LT_INFO).LogString("Parsing multistate position entity %s.\r", target->name.c_str());
+		CMultiStateMoverPosition* moverPos = static_cast<CMultiStateMoverPosition*>(target);
+
+		DM_LOG(LC_ENTITY, LT_INFO).LogString("Parsing multistate position entity %s.\r", moverPos->name.c_str());
 		
 		idStr positionName;
-		if (!target->spawnArgs.GetString("position", "", positionName) || positionName.IsEmpty())
+		if (!moverPos->spawnArgs.GetString("position", "", positionName) || positionName.IsEmpty())
 		{
-			gameLocal.Warning("'position' spawnarg on %s is missing.\n", target->name.c_str());
+			gameLocal.Warning("'position' spawnarg on %s is missing.\n", moverPos->name.c_str());
 			continue;
 		}
 
@@ -62,10 +64,13 @@ void CMultiStateMover::FindPositionEntities()
 		// greebo: Seems like the position entity is valid, let's build an info structure
 		MoverPositionInfo info;
 
-		info.positionEnt = static_cast<CMultiStateMoverPosition*>(target);
+		info.positionEnt = moverPos;
 		info.name = positionName;
 
 		positionInfo.Append(info);		
+
+		// Associate the mover position with this entity
+		moverPos->SetMover(this);
 	}
 
 	// Now remove all the MultiStatePositionInfo entities from the elevator targets 
