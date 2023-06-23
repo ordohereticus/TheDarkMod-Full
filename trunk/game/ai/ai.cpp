@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2620 $
- * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2627 $
+ * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2620 2008-07-09 19:39:45Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2627 2008-07-11 16:54:35Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -390,6 +390,8 @@ idAI::idAI
 */
 idAI::idAI()
 {
+	aiNode.SetOwner(this);
+
 	aas					= NULL;
 	travelFlags			= TFL_WALK|TFL_AIR|TFL_DOOR;
 	lastAreaReevaluationTime = -1;
@@ -566,6 +568,7 @@ idAI::~idAI() {
 	*/
 	destroyCurrentHidingSpotSearch();
 
+	aiNode.Remove();
 }
 
 /*
@@ -1142,6 +1145,8 @@ void idAI::Spawn( void )
 	jointHandle_t		joint;
 	idVec3				local_dir;
 	bool				talks;
+
+	aiNode.AddToEnd(gameLocal.spawnedAI);
 
 	// Allocate a new default mind
 	mind = ai::MindPtr(new ai::Mind(this));

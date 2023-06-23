@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2614 $
- * $Date: 2008-07-06 01:56:10 -0400 (Sun, 06 Jul 2008) $
+ * $Revision: 2627 $
+ * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2614 2008-07-06 05:56:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2627 2008-07-11 16:54:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -285,6 +285,7 @@ void idGameLocal::Clear( void )
 	num_entities = 0;
 	spawnedEntities.Clear();
 	activeEntities.Clear();
+	spawnedAI.Clear();
 	numEntitiesToDeactivate = 0;
 	sortPushers = false;
 	sortTeamMasters = false;
@@ -656,6 +657,11 @@ void idGameLocal::SaveGame( idFile *f ) {
 	savegame.WriteInt( activeEntities.Num() );
 	for( ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next() ) {
 		savegame.WriteObject( ent );
+	}
+
+	savegame.WriteInt(spawnedAI.Num());
+	for (idAI* ai = spawnedAI.Next(); ai != NULL; ai = ai->aiNode.Next()) {
+		savegame.WriteObject(ai);
 	}
 
 	savegame.WriteInt( numEntitiesToDeactivate );
@@ -1105,6 +1111,7 @@ void idGameLocal::LoadMap( const char *mapName, int randseed ) {
 	
 	spawnedEntities.Clear();
 	activeEntities.Clear();
+	spawnedAI.Clear();
 	numEntitiesToDeactivate = 0;
 	sortTeamMasters = false;
 	sortPushers = false;
@@ -1617,6 +1624,19 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 		assert( ent );
 		if ( ent ) {
 			ent->activeNode.AddToEnd( activeEntities );
+		}
+	}
+
+	savegame.ReadInt( num );
+	for( i = 0; i < num; i++ )
+	{
+		idAI* ai(NULL);
+		savegame.ReadObject(reinterpret_cast<idClass *&>(ai));
+		assert(ai != NULL);
+
+		if (ai != NULL)
+		{
+			ai->aiNode.AddToEnd(spawnedAI);
 		}
 	}
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2624 $
- * $Date: 2008-07-10 14:15:31 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2627 $
+ * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2624 2008-07-10 18:15:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2627 2008-07-11 16:54:35Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -490,15 +490,16 @@ void CsndProp::Propagate
 
 	// get a list of all ents with type idAI's or Listeners
 	
-	for (idEntity* testEnt = gameLocal.spawnedEntities.Next(); testEnt != NULL; testEnt = testEnt->spawnNode.Next()) 
+	int count = 0;
+
+	for (idAI* ai = gameLocal.spawnedAI.Next(); ai != NULL; ai = ai->aiNode.Next())
 	{
 		// TODO: Put in Listeners later
-
-		if ( testEnt->IsType( idAI::Type ) )
-		{
-			validTypeEnts.Append( testEnt );
-		}
+		validTypeEnts.Append(ai);
+		count++;
 	}
+
+	
 	
 	if( cv_spr_debug.GetBool() )
 		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Found %d ents with valid type for propagation\r", validTypeEnts.Num() );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2487 $
- * $Date: 2008-06-14 12:06:49 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2627 $
+ * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -405,6 +405,7 @@ public:
 	idWorldspawn *			world;					// world entity
 	idLinkList<idEntity>	spawnedEntities;		// all spawned entities
 	idLinkList<idEntity>	activeEntities;			// all thinking entities (idEntity::thinkFlags != 0)
+	idLinkList<idAI>		spawnedAI;				// greebo: all spawned AI
 	int						numEntitiesToDeactivate;// number of entities that became inactive in current frame
 	bool					sortPushers;			// true if active lists needs to be reordered to place pushers at the front
 	bool					sortTeamMasters;		// true if active lists needs to be reordered to place physics team masters before their slaves

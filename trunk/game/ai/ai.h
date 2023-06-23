@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2620 $
- * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2627 $
+ * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -246,7 +246,7 @@ public:
 	CLASS_PROTOTYPE( idAI );
 
 							idAI();
-							~idAI();
+	virtual				~idAI();
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
@@ -541,6 +541,9 @@ public:
 	// Virtual override of idActor method, routes the call into the current Mind State
 	virtual void NeedToUseElevator(const eas::RouteInfoPtr& routeInfo);
 
+
+public:
+	idLinkList<idAI>		aiNode;				// for being linked into gameLocal.spawnedAI list
 
 protected:
 	// navigation
