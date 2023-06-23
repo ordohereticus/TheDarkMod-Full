@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2561 $
- * $Date: 2008-06-22 15:55:24 -0400 (Sun, 22 Jun 2008) $
+ * $Revision: 2566 $
+ * $Date: 2008-06-25 12:45:27 -0400 (Wed, 25 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2561 2008-06-22 19:55:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2566 2008-06-25 16:45:27Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1236,13 +1236,31 @@ void CFrobDoor::AutoSetupDoubleDoor()
 	{
 		DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%s: Auto-setting up %s as double door.\r", name.c_str(), doubleDoor->name.c_str());
 
-		// Add "self" to the peers of the other door
-		doubleDoor->AddOpenPeer(name);
-		doubleDoor->AddLockPeer(name);
+		if (spawnArgs.GetBool("auto_setup_double_door_frob_peer", "0"))
+		{
+			// Add the door to our frob_peer set
+			m_FrobPeers.AddUnique(doubleDoor->name);
 
-		// Now add the name of the other door to our own peer list
-		AddOpenPeer(doubleDoor->name);
-		AddLockPeer(doubleDoor->name);
+			// Add ourselves to the double door as frob peer
+			doubleDoor->GetFrobPeers().AddUnique(name);
+			doubleDoor->m_bFrobable = m_bFrobable;
+		}
+
+		if (spawnArgs.GetBool("auto_setup_double_door_open_peer", "0"))
+		{
+			// Add "self" to the peers of the other door
+			doubleDoor->AddOpenPeer(name);
+			// Now add the name of the other door to our own peer list
+			AddOpenPeer(doubleDoor->name);
+		}
+
+		if (spawnArgs.GetBool("auto_setup_double_door_lock_peer", "0"))
+		{
+			// Add "self" to the peers of the other door
+			doubleDoor->AddLockPeer(name);
+			// Now add the name of the other door to our own peer list
+			AddLockPeer(doubleDoor->name);
+		}
 	}
 }
 
