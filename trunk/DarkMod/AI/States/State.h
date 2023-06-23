@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2504 $
+ * $Date: 2008-06-15 07:54:27 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -75,7 +75,7 @@ public:
 	virtual void OnAICommMessage(CAIComm_Message* message);
 
 	// greebo: An event called by the obstacle avoidance code to indicate that we have a frobmover ahead
-	virtual void OnFrobMoverEncounter(CBinaryFrobMover* frobMover);
+	virtual void OnFrobDoorEncounter(CFrobDoor* frobDoor);
 
 	virtual void NeedToUseElevator(const eas::RouteInfoPtr& routeInfo);
 

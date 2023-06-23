@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2499 $
- * $Date: 2008-06-15 04:12:47 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2504 $
+ * $Date: 2008-06-15 07:54:27 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -76,7 +76,7 @@ typedef struct obstaclePath_s {
 	idEntity *			startPosObstacle;			// if != NULL the obstacle containing the start position 
 	idVec3				seekPosOutsideObstacles;	// seek position outside obstacles
 	idEntity *			seekPosObstacle;			// if != NULL the obstacle containing the seek position 
-	CBinaryFrobMover*	frobMoverObstacle;			// greebo: if != NULL, this is the door in our way
+	CFrobDoor*			doorObstacle;				// greebo: if != NULL, this is the door in our way
 } obstaclePath_t;
 
 // path prediction

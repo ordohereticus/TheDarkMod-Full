@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2502 $
- * $Date: 2008-06-15 07:36:16 -0400 (Sun, 15 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2504 $
+ * $Date: 2008-06-15 07:54:27 -0400 (Sun, 15 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2502 2008-06-15 11:36:16Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2504 2008-06-15 11:54:27Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4074,10 +4074,10 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos )
 	{
 		// couldn't get around obstacles
 
-		if (path.frobMoverObstacle != NULL) 
+		if (path.doorObstacle != NULL) 
 		{
 			// We have a frobmover in our way, raise a signal to the current state
-			mind->GetState()->OnFrobMoverEncounter(path.frobMoverObstacle);
+			mind->GetState()->OnFrobDoorEncounter(path.doorObstacle);
 		}
 
 		if (path.firstObstacle)
@@ -4123,11 +4123,11 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos )
 												  path.seekPosObstacle->GetPhysics()->GetOrigin(), 
 												  path.seekPosObstacle->GetPhysics()->GetAxis()), 16);*/
 
-		// greebo: Check if we have a frobmover entity at our seek position
-		if (path.seekPosObstacle->IsType(CBinaryFrobMover::Type)) 
+		// greebo: Check if we have a frobdoor entity at our seek position
+		if (path.seekPosObstacle->IsType(CFrobDoor::Type)) 
 		{
 			// We have a frobmover in our way, raise a signal to the current state
-			mind->GetState()->OnFrobMoverEncounter(static_cast<CBinaryFrobMover*>(path.seekPosObstacle));
+			mind->GetState()->OnFrobDoorEncounter(static_cast<CFrobDoor*>(path.seekPosObstacle));
 		}
 
 		// if the AI is very close to the path.seekPos already and path.seekPosObstacle != NULL
@@ -4178,7 +4178,7 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos )
 			if (m_bCanOperateDoors) 
 			{	
 				// We have a frobmover in our way, raise a signal to the current state
-				mind->GetState()->OnFrobMoverEncounter(p_door);
+				mind->GetState()->OnFrobDoorEncounter(p_door);
 			}
 
 			idVec3 obstacleDelta = obstacle->GetPhysics()->GetOrigin() - GetPhysics()->GetOrigin();

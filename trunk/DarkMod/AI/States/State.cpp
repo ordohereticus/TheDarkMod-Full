@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2504 $
+ * $Date: 2008-06-15 07:54:27 -0400 (Sun, 15 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2504 2008-06-15 11:54:27Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1491,20 +1491,14 @@ void State::OnMessageDetectedSomethingSuspicious(CAIComm_Message* message)
 	}
 }
 
-void State::OnFrobMoverEncounter(CBinaryFrobMover* frobMover)
+void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 {
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	if (!frobMover->IsType(CFrobDoor::Type))
-	{
-		return;
-	}
-	CFrobDoor* newDoor = static_cast<CFrobDoor*>(frobMover);
-
 	if (cv_ai_door_show.GetBool()) 
 	{
-		gameRenderWorld->DebugArrow(colorRed, owner->GetEyePosition(), frobMover->GetPhysics()->GetOrigin(), 1, 16);
+		gameRenderWorld->DebugArrow(colorRed, owner->GetEyePosition(), frobDoor->GetPhysics()->GetOrigin(), 1, 16);
 	}
 
 	Memory& memory = owner->GetMemory();
@@ -1512,9 +1506,9 @@ void State::OnFrobMoverEncounter(CBinaryFrobMover* frobMover)
 	// check if we already have a door to handle
 	// don't start a DoorHandleTask if it is the same door or the other part of a double door
 	CFrobDoor* currentDoor = memory.doorRelated.currentDoor.GetEntity();
-	if (currentDoor == NULL || (currentDoor != newDoor && newDoor != currentDoor->GetDoubleDoor()))
+	if (currentDoor == NULL || (currentDoor != frobDoor && frobDoor != currentDoor->GetDoubleDoor()))
 	{
-		memory.doorRelated.currentDoor = static_cast<CFrobDoor*>(frobMover);
+		memory.doorRelated.currentDoor = frobDoor;
 		owner->GetSubsystem(SubsysMovement)->PushTask(HandleDoorTask::CreateInstance());
 	}
 }
