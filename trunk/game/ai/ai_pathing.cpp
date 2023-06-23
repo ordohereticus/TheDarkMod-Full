@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2506 $
- * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2507 $
+ * $Date: 2008-06-15 13:49:35 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2506 2008-06-15 16:54:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2507 2008-06-15 17:49:35Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -541,8 +541,10 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 				nextEdgeNormal.y = -nextEdgeDir.x;
 			}
 
-			// greebo: TODO: Check if caching the AAS obstacle representations can save some CPU time.
+			// greebo: Check if caching the AAS obstacle representations can save some CPU time.
 			// AAS areas never change during map runtime, so why calculate them each time?
+			// 15/06/2008: Did some profiling, the section below is harmless, it's the 
+			// aas->GetWallEdges and aas->SortWallEdges() calls above which are expensive.
 
 			// Start to fill the values in the new obstacle structure
 			obstacle_t& obstacle = obstacles[numObstacles++];
