@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2433 $
+ * $Date: 2008-06-04 13:06:26 -0400 (Wed, 04 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -92,6 +92,12 @@ void Setting::ParseFromDict(const idDict& dict, int level, int index)
 		{
 			appType = EIgnore;
 			argument.Empty(); // clear the argument
+		}
+		else if (argument.Find(' ') != -1)
+		{
+			// greebo: We have a space in the argument, hence it cannot be 
+			// a mathematical operation. This usually applies to vector arguments
+			// like '-205 10 20', which can contain a leading minus sign.
 		}
 		// Check for special modifiers
 		else if (argument[0] == '+')
