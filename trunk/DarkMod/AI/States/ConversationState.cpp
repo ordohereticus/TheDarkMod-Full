@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2710 $
- * $Date: 2008-07-19 12:02:27 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2711 $
+ * $Date: 2008-07-19 12:08:20 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2710 2008-07-19 16:02:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2711 2008-07-19 16:08:20Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -596,6 +596,9 @@ void ConversationState::DrawDebugOutput(idAI* owner)
 		default:break;
 	};
 
+	gameRenderWorld->DrawText(str, owner->GetEyePosition() - idVec3(0,0,20), 0.25f, colorCyan, gameLocal.GetLocalPlayer()->viewAxis, 1, 48);
+
+	str = (_commandType < ConversationCommand::ENumCommands) ? ConversationCommand::TypeNames[_commandType] : "";
 	gameRenderWorld->DrawText(str, owner->GetEyePosition() - idVec3(0,0,10), 0.3f, colorCyan, gameLocal.GetLocalPlayer()->viewAxis, 1, 48);
 }
 
