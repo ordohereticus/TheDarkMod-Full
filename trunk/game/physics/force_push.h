@@ -1,15 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2781 $
- * $Date: 2008-08-31 09:13:12 -0400 (Sun, 31 Aug 2008) $
- * $Author: orbweaver $
+ * $Revision: 2782 $
+ * $Date: 2008-08-31 09:26:49 -0400 (Sun, 31 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 #ifndef __FORCE_PUSH_H__
 #define __FORCE_PUSH_H__
 
 #include "force.h"
+#include <boost/shared_ptr.hpp>
 
 /**
  * greebo: This class should represent the push force as applied by the player
@@ -48,5 +49,6 @@ private:
 
 	idEntity*			owner;			// the owning entity
 };
+typedef boost::shared_ptr<CForcePush> CForcePushPtr;
 
 #endif /* __FORCE_PUSH_H__ */
