@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3134 $
- * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
+ * $Revision: 3136 $
+ * $Date: 2009-01-12 11:21:52 -0500 (Mon, 12 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3134 2009-01-11 07:46:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3136 2009-01-12 16:21:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6375,6 +6375,9 @@ void idPlayer::UpdateHUD()
 
 	// Broadcast the HUD opacity value
 	m_overlays.setGlobalStateFloat("HUD_Opacity", cv_tdm_hud_opacity.GetFloat());
+
+	// Propagate the CVAR to the HUD
+	hud->SetStateBool("HUD_LightgemVisible", !cv_tdm_hud_hide_lightgem.GetBool());
 
 	// Update the inventory HUD
 	UpdateInventoryHUD();

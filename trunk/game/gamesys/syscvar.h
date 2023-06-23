@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3134 $
- * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
+ * $Revision: 3136 $
+ * $Date: 2009-01-12 11:21:52 -0500 (Mon, 12 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -185,6 +185,7 @@ extern idCVar cv_reverse_grab_control;
 extern idCVar cv_tdm_rope_pull_force_factor;
 
 extern idCVar cv_tdm_hud_opacity;
+extern idCVar cv_tdm_hud_hide_lightgem;
 extern idCVar cv_tdm_underwater_blur;
 
 extern idCVar cv_tdm_inv_loot_item_def;
