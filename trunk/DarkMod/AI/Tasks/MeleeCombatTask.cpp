@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3135 $
- * $Date: 2009-01-11 03:12:16 -0500 (Sun, 11 Jan 2009) $
- * $Author: ishtvan $
+ * $Revision: 3157 $
+ * $Date: 2009-01-17 12:13:29 -0500 (Sat, 17 Jan 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3135 2009-01-11 08:12:16Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3157 2009-01-17 17:13:29Z angua $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -94,16 +94,25 @@ void MeleeCombatTask::StartAttack(idAI* owner)
 		// Either attack the shield to destroy it or wait until it's dropped or flank the parry with footwork
 	}
 
-	// choose a random attack from our possible attacks
-	int i = gameLocal.random.RandomInt( attacks.Num() );
-	i = attacks[i];
-	const char *suffix = idActor::MeleeTypeNames[i];
+	if (attacks.Num() > 0)
+	{
+		// choose a random attack from our possible attacks
+		int i = gameLocal.random.RandomInt( attacks.Num() );
+		i = attacks[i];
+		const char *suffix = idActor::MeleeTypeNames[i];
 
-	pStatus->m_bAttacking = true;
-	pStatus->m_AttackType = (EMeleeType) i;
+		pStatus->m_bAttacking = true;
+		pStatus->m_AttackType = (EMeleeType) i;
 
-	// TODO: Why did we have 5 blend frames here?
-	owner->SetAnimState(ANIMCHANNEL_TORSO, va("Torso_Melee_%s",suffix), 5);
+		// TODO: Why did we have 5 blend frames here?
+		owner->SetAnimState(ANIMCHANNEL_TORSO, va("Torso_Melee_%s",suffix), 5);
+	}
+	else
+	{
+		// angua: unarmed melee, attacks list is empty
+		// TODO: Why did we have 5 blend frames here?
+		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Melee_General", 5);
+	}
 }
 
 void MeleeCombatTask::OnFinish(idAI* owner)
