@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2287 $
- * $Date: 2008-05-10 14:26:00 -0400 (Sat, 10 May 2008) $
- * $Author: angua $
+ * $Revision: 2290 $
+ * $Date: 2008-05-11 03:05:07 -0400 (Sun, 11 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2287 2008-05-10 18:26:00Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2290 2008-05-11 07:05:07Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -747,6 +747,8 @@ float CBinaryFrobMover::GetMoveTimeFraction()
 
 int CBinaryFrobMover::GetFrobMoverAasArea(idAAS* aas)
 {
+	if (aas == NULL) return -1;
+
 	idClipModel *clipModel = GetPhysics()->GetClipModel();
 	if (clipModel == NULL)
 	{

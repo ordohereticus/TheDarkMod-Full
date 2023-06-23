@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2287 $
- * $Date: 2008-05-10 14:26:00 -0400 (Sat, 10 May 2008) $
- * $Author: angua $
+ * $Revision: 2290 $
+ * $Date: 2008-05-11 03:05:07 -0400 (Sun, 11 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -158,7 +158,7 @@ public:
 		idAngles& out_deltaAngles
 	);
 
-	// angua: returns the AAS area the center of the door is located in
+	// angua: returns the AAS area the center of the door is located in (or -1 if AAS is invalid)
 	int GetFrobMoverAasArea(idAAS* aas);
 
 protected:
