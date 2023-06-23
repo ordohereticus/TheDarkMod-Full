@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2407 $
- * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2410 $
+ * $Date: 2008-06-01 07:52:27 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2407 2008-06-01 08:43:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2410 2008-06-01 11:52:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3897,7 +3897,8 @@ void idPlayer::CrashLand( const idVec3 &savedOrigin, const idVec3 &savedVelocity
 	
 	AI_SOFTLANDING = false;
 	AI_HARDLANDING = false;
-	int damageDealt = idActor::CrashLand( physicsObj, savedOrigin, savedVelocity );
+
+	CrashLandResult result = idActor::CrashLand( physicsObj, savedOrigin, savedVelocity );
 	
 	if (health < 0)
 	{
@@ -3906,13 +3907,13 @@ void idPlayer::CrashLand( const idVec3 &savedOrigin, const idVec3 &savedVelocity
 		landChange = -32;
 		landTime = gameLocal.time;
 	}
-	else if (damageDealt >= m_damage_thresh_hard)
+	else if (result.damageDealt >= m_damage_thresh_hard)
 	{
 		AI_HARDLANDING = true;
 		landChange = -24;
 		landTime = gameLocal.time;
 	}
-	else if (damageDealt >= m_damage_thresh_min)
+	else if (result.hasLanded || result.damageDealt >= m_damage_thresh_min)
 	{
 		AI_SOFTLANDING = true;
 		landChange	= -8;
