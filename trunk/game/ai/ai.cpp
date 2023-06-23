@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2885 $
- * $Date: 2008-09-24 11:34:48 -0400 (Wed, 24 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2899 $
+ * $Date: 2008-09-27 05:06:51 -0400 (Sat, 27 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2885 2008-09-24 15:34:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2899 2008-09-27 09:06:51Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -6680,6 +6680,10 @@ void idAI::PushWithAF( void ) {
 				// skip player when noclip is on
 				continue;
 			}
+
+			// ishtvan: don't push our own bind children (fix AI floating away when stuff is bound to them)
+			if( ent->GetBindMaster() == this )
+				continue;
 
 			if( ent->IsType(idActor::Type) )
 			{
