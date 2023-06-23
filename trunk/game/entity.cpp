@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2604 $
- * $Date: 2008-07-03 13:48:26 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2612 $
+ * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2604 2008-07-03 17:48:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -179,6 +179,7 @@ const idEventDef EV_ResponseIgnore( "ResponseIgnore", "de" );
 const idEventDef EV_ResponseAllow( "ResponseAllow", "de" );
 const idEventDef EV_ResponseSetAction( "ResponseSetAction", "ds" );
 const idEventDef EV_ResponseTrigger( "ResponseTrigger", "ed" );
+const idEventDef EV_GetResponseEntity( "GetResponseEntity", NULL, 'e' );
 
 // StimType, Hours, minutes, seconds, miliseconds(?)
 const idEventDef EV_TimerCreate( "CreateTimer", "ddddd" );
@@ -346,6 +347,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_ResponseAllow,		idEntity::ResponseAllow)
 	EVENT( EV_ResponseSetAction,	idEntity::ResponseSetAction)
 	EVENT( EV_ResponseTrigger,		idEntity::ResponseTrigger)
+	EVENT( EV_GetResponseEntity,	idEntity::Event_GetResponseEntity)
 
 	EVENT( EV_TimerCreate,			idEntity::Event_TimerCreate )
 	EVENT( EV_TimerStop,			idEntity::Event_TimerStop )
@@ -9004,4 +9006,9 @@ void idEntity::Event_ExtinguishLights()
 			ent->CallScriptFunctionArgs("frob_extinguish", true, 0, "e", ent);
 		}
 	}
+}
+
+void idEntity::Event_GetResponseEntity()
+{
+	idThread::ReturnEntity(GetResponseEntity());
 }

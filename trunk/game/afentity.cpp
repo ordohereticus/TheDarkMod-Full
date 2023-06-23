@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2611 $
- * $Date: 2008-07-05 01:51:29 -0400 (Sat, 05 Jul 2008) $
+ * $Revision: 2612 $
+ * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2611 2008-07-05 05:51:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -553,6 +553,10 @@ void idAFAttachment::UnlinkCombat( void ) {
 	}
 }
 
+idEntity* idAFAttachment::GetResponseEntity()
+{
+	return body;
+}
 
 /*
 ===============================================================================

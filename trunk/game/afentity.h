@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2198 $
- * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
+ * $Revision: 2612 $
+ * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -127,6 +127,12 @@ public:
 	idClipModel *			GetCombatModel( void ) const;
 	virtual void			LinkCombat( void );
 	virtual void			UnlinkCombat( void );
+
+	/**
+	 * greebo: Virtual override of idEntity::GetResponseEntity(). This is used
+	 * to relay stims to the "body" entity.
+	 */
+	virtual idEntity* GetResponseEntity();
 
 protected:
 	idEntity *				body;

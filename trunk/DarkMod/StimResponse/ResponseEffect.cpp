@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2612 $
+ * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResponseEffect.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ResponseEffect.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
 
 #include "ResponseEffect.h"
 
@@ -40,7 +40,7 @@ void CResponseEffect::runScript(idEntity* owner, idEntity* stimEntity, float mag
 
 		_scriptFunctionValid = true;
 
-		if (_localScript)	{
+		if (_localScript) {
 			// Local scriptfunction
 			_scriptFunction = owner->scriptObject.GetFunction(_scriptName.c_str());
 		}
@@ -53,6 +53,7 @@ void CResponseEffect::runScript(idEntity* owner, idEntity* stimEntity, float mag
 	if (_scriptFunction == NULL) return;
 
 	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Running ResponseEffect Script, effectPostfix = %s...\r", _effectPostfix.c_str());
+
 	idThread *pThread = new idThread(_scriptFunction);
 	int n = pThread->GetThreadNum();
 	pThread->CallFunctionArgs(_scriptFunction, true, "eesff", owner, stimEntity, _effectPostfix.c_str(), magnitude, n);

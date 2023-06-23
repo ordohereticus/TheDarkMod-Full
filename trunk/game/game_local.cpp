@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2580 $
- * $Date: 2008-06-27 00:01:19 -0400 (Fri, 27 Jun 2008) $
+ * $Revision: 2612 $
+ * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2580 2008-06-27 04:01:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5681,7 +5681,7 @@ int idGameLocal::DoResponseAction(CStim* stim, int numEntities, idEntity* origin
 	{
 		// ignore the original entity because an entity shouldn't respond 
 		// to it's own stims.
-		if (srEntities[i] == originator)
+		if (srEntities[i] == originator || srEntities[i]->GetResponseEntity() == originator)
 			continue;
 
 		// Check for a shooter entity, these don't need to have a response

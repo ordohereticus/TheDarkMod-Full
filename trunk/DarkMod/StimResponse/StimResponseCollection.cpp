@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2577 $
- * $Date: 2008-06-26 15:58:46 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2612 $
+ * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponseCollection.cpp 2577 2008-06-26 19:58:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponseCollection.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
 
 #include "StimResponseCollection.h"
 #include "../AIComm_StimResponse.h"
@@ -132,7 +132,7 @@ CStim *CStimResponseCollection::AddStim(idEntity *Owner, int Type, float fRadius
 	{
 		if(m_Stim[i]->m_StimTypeId == Type)
 		{
-			DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Stim of that type is already in collection, returning it");
+			DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Stim of that type is already in collection, returning it.\r");
 			pRet = m_Stim[i];
 			break;
 		}
