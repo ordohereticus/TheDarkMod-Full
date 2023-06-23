@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2689 $
- * $Date: 2008-07-18 00:41:29 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2695 $
+ * $Date: 2008-07-18 12:33:48 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,8 +25,6 @@ public:
 	enum Type
 	{
 		EWaitSeconds = 0,
-		EWaitForTrigger,
-		EWaitForActor,
 		EWalkToPosition,
 		EWalkToEntity,
 		EStopMove,

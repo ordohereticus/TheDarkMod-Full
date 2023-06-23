@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2694 $
- * $Date: 2008-07-18 12:32:35 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2695 $
+ * $Date: 2008-07-18 12:33:48 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2694 2008-07-18 16:32:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2695 2008-07-18 16:33:48Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -154,8 +154,6 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		_finishTime = gameLocal.time + SEC2MS(atof(command.GetArgument(0)));
 		_state = ConversationCommand::EExecuting;
 	break;
-	case ConversationCommand::EWaitForTrigger:
-	case ConversationCommand::EWaitForActor:
 	case ConversationCommand::EWalkToPosition:
 	{
 		idVec3 goal = command.GetVectorArgument(0);
