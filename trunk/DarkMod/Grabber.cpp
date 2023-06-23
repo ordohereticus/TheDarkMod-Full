@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2793 $
- * $Date: 2008-09-01 18:51:06 -0400 (Mon, 01 Sep 2008) $
+ * $Revision: 2794 $
+ * $Date: 2008-09-02 18:28:18 -0400 (Tue, 02 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2793 2008-09-01 22:51:06Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2794 2008-09-02 22:28:18Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -802,8 +802,13 @@ void CGrabber::AddToClipList( idEntity *ent )
 	
 	// Clear the solid flag to avoid player collision, 
 	// but enable monsterclip for AI and CONTENTS_RENDERMODEL for projectiles
-	phys->SetContents( (contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP | CONTENTS_RENDERMODEL );
-
+	// Ishtvan test: Add CONTENTS_CORPSE, to make sure moveables don't clip into it
+	// phys->SetContents( (contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP | CONTENTS_RENDERMODEL );
+	phys->SetContents
+	( 
+		(contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP 
+		| CONTENTS_RENDERMODEL | CONTENTS_CORPSE 
+	); 
 	if( HasClippedEntity() ) 
 	{
 		PostEventMS( &EV_Grabber_CheckClipList, CHECK_CLIP_LIST_INTERVAL );
