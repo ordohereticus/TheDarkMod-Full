@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2797 $
- * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2812 $
+ * $Date: 2008-09-10 13:23:36 -0400 (Wed, 10 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2797 2008-09-03 05:15:28Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2812 2008-09-10 17:23:36Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -751,6 +751,8 @@ void idActor::Spawn( void )
 	finalBoss = spawnArgs.GetBool( "finalBoss" );
 
 	canUseElevators = spawnArgs.GetBool("canOperateElevators", "0");
+
+	LoadVocalSet();
 
 	FinishSetup();
 
@@ -2949,6 +2951,32 @@ bool idActor::ReEvaluateArea(int areaNum)
 {
 	// Default implementation for actors: return positive
 	return true;
+}
+
+void idActor::LoadVocalSet()
+{
+	// Try to look up the entityDef
+	const char* vocalSet = spawnArgs.GetString("vocal_set");
+	const idDeclEntityDef* def = gameLocal.FindEntityDef(vocalSet, false);
+
+	if (def == NULL)
+	{
+		gameLocal.Warning("Could not find vocal_set %s!", vocalSet);
+		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Could not find vocal_set %s!", vocalSet);
+		return;
+	}
+
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Copying vocal set %s to actor %s", vocalSet, name.c_str());
+
+	int i = 0;
+
+	// Copy all snd_* spawnargs over to this entity
+	for (const idKeyValue* kv = def->dict.MatchPrefix("snd_"); kv != NULL; kv = def->dict.MatchPrefix("snd_", kv), i++)
+	{
+		spawnArgs.Set(kv->GetKey(), kv->GetValue());
+	}
+
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Copied %d vocal set spawnargs to actor %s", i, name.c_str());
 }
 
 /***********************************************************************

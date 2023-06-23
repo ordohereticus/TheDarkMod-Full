@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2797 $
- * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2812 $
+ * $Date: 2008-09-10 13:23:36 -0400 (Wed, 10 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -424,6 +424,12 @@ protected:
 private:
 	void					SyncAnimChannels( int channel, int syncToChannel, int blendFrames );
 	void					FinishSetup( void );
+
+	/**
+	 * greebo: This loads the vocal set (the snd_* spawnargs) into this entity's spawnargs.
+	 */
+	void					LoadVocalSet();
+
 	void					SetupHead( void );
 
 public:
