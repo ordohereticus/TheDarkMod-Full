@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2994 $
- * $Date: 2008-11-07 15:11:53 -0500 (Fri, 07 Nov 2008) $
+ * $Revision: 2995 $
+ * $Date: 2008-11-07 15:18:38 -0500 (Fri, 07 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2994 2008-11-07 20:11:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2995 2008-11-07 20:18:38Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -1101,7 +1101,7 @@ unsigned char *CImage::GetImage(void)
 	if(m_Loaded == true && m_Image != NULL)
 	{
 		ilBindImage(m_ImageId);
-		ilLoadL(IL_TYPE_UNKNOWN, m_Image, m_BufferLength);
+		ilLoadL(IL_TGA, m_Image, m_BufferLength);
 		rc = (unsigned char *)ilGetData();
 	}
 
