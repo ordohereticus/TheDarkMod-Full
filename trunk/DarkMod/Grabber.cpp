@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3061 $
- * $Date: 2008-11-22 17:59:17 -0500 (Sat, 22 Nov 2008) $
+ * $Revision: 3105 $
+ * $Date: 2009-01-02 18:13:25 -0500 (Fri, 02 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3061 2008-11-22 22:59:17Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3105 2009-01-02 23:13:25Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -983,12 +983,15 @@ void CGrabber::Event_CheckClipList( void )
 			{
 				DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Testing entity %s for player clipping\r", ListEnt->name.c_str() );
 				PlayerClip = m_player.GetEntity()->GetPhysics()->GetClipModel();
+				idVec3 PlayerOrigin = PlayerClip->GetOrigin();
+				
+				// test if player model clips into ent model
 				gameLocal.clip.TranslationModel
 				( 
-					tr, EntClip->GetOrigin(), EntClip->GetOrigin(),
-					EntClip, EntClip->GetAxis(), CONTENTS_BODY,
-					PlayerClip->Handle(), PlayerClip->GetOrigin(), 
-					PlayerClip->GetAxis() 
+					tr, PlayerOrigin, PlayerOrigin,
+					PlayerClip, PlayerClip->GetAxis(), CONTENTS_RENDERMODEL,
+					EntClip->Handle(), EntClip->GetOrigin(), 
+					EntClip->GetAxis() 
 				);
 
 				if( tr.fraction < 1.0 )
