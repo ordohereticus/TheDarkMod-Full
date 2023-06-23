@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3102 $
- * $Date: 2009-01-01 16:07:15 -0500 (Thu, 01 Jan 2009) $
- * $Author: ishtvan $
+ * $Revision: 3111 $
+ * $Date: 2009-01-05 00:43:44 -0500 (Mon, 05 Jan 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -61,6 +61,8 @@ extern idCVar cv_ai_opt_nopresent;
 extern idCVar cv_ai_opt_noobstacleavoidance;
 
 extern idCVar cv_ai_show_aasfuncobstacle_state;
+
+extern idCVar cv_interaction_vfp_type;
 
 extern idCVar cv_debug_aastype;
 
