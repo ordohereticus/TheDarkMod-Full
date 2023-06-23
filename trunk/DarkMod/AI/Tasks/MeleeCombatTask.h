@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3213 $
+ * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -48,6 +48,10 @@ public:
 	virtual void Restore(idRestoreGame* savefile);
 
 private:
+	void PerformReady(idAI* owner);
+	void PerformAttack(idAI* owner);
+	void PerformParry(idAI* owner);
+
 	// Starts the attack animation (either long or quick melee)
 	void StartAttack(idAI* owner);
 };

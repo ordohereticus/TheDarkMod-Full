@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3209 $
- * $Date: 2009-02-11 18:49:56 -0500 (Wed, 11 Feb 2009) $
+ * $Revision: 3213 $
+ * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3209 2009-02-11 23:49:56Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3213 2009-02-16 11:34:30Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -223,13 +223,6 @@ void CMeleeWeapon::ActivateParry( idActor *ActOwner, const char *ParryName )
 		m_ActionName = ParryName;
 		m_bParrying = true;
 
-		// TODO: Set owner's melee status earlier, at the beginning of the animation instead of when the parry becomes active?
-		// For now, set it here for testing purposes
-		CMeleeStatus *pOwnerStatus = &m_Owner.GetEntity()->m_MeleeStatus;
-		pOwnerStatus->m_bParrying = true;
-		pOwnerStatus->m_ParryType = m_MeleeType;
-
-
 		// set up the clipmodel
 		m_WeapClip = NULL;
 		idClipModel *pClip;
@@ -256,10 +249,6 @@ void CMeleeWeapon::DeactivateParry( void )
 	{
 		m_bParrying = false;
 		ClearClipModel();
-
-		// clear the parry status from the owner
-		CMeleeStatus *pOwnerStatus = &m_Owner.GetEntity()->m_MeleeStatus;
-		pOwnerStatus->m_bParrying = false;
 	}
 }
 
@@ -662,7 +651,7 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 		g_Global.GetSurfName( tr->c.material, surfType );
 
 	// scale the damage by owner's ability and surface type hit
-	DmgScale *= m_Owner.GetEntity()->spawnArgs.GetFloat("melee_damage_mod", "1.0");
+	DmgScale *= m_Owner.GetEntity()->m_MeleeDamageMult;
 	DmgScale *= DmgDef->GetFloat( va("damage_mult_%s",surfType.c_str()), "1.0" );
 
 	// Damage

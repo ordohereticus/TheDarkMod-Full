@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3095 $
- * $Date: 2008-12-30 01:12:54 -0500 (Tue, 30 Dec 2008) $
+ * $Revision: 3213 $
+ * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3095 2008-12-30 06:12:54Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3213 2009-02-16 11:34:30Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -631,6 +631,11 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		fc.type = FC_PAUSE;
 	}
 	// Melee Combat Frame commands
+	else if ( token == "melee_hold" )
+	{
+		// like FC_PAUSE but also sets melee vars on actor
+		fc.type = FC_MELEE_HOLD;
+	}
 	else if ( token == "melee_attack_start" )
 	{
 		// first argument: name of the weapon attachment
@@ -1073,6 +1078,16 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 				case FC_PAUSE:
 				{
 					caller->Pause( true );
+					break;
+				}
+				case FC_MELEE_HOLD:
+				{
+					caller->Pause( true );
+
+					// Update entity's melee status
+					if( ent->IsType(idActor::Type) )
+						static_cast<idActor*>(ent)->Event_MeleeActionHeld();
+
 					break;
 				}
 				case FC_MELEE_ATTACK_START:

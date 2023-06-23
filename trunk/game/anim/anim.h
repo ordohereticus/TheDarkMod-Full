@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3085 $
- * $Date: 2008-12-14 01:46:48 -0500 (Sun, 14 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3213 $
+ * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -149,6 +149,12 @@ typedef enum {
 * Pause the animation at its current frame, wait for unpause from somewhere else
 **/
 	FC_PAUSE,
+/**
+* Holds a melee attack at a given point in the animation
+* (e.g., at the back swing in attacks, at the parry position in parries)
+* Similar to pause but also updates actor's melee status
+**/
+	FC_MELEE_HOLD,
 	FC_MELEE_ATTACK_START,
 	FC_MELEE_ATTACK_STOP,
 	FC_MELEE_PARRY_START,
