@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2459 $
- * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2829 $
+ * $Date: 2008-09-13 14:08:37 -0400 (Sat, 13 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 2829 2008-09-13 18:08:37Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PathAnimTask.h"
@@ -72,6 +72,12 @@ void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 
 void PathAnimTask::OnFinish(idAI* owner)
 {
+	idPathCorner* path = _path.GetEntity();
+
+	// Store the new path entity into the AI's mind
+	idPathCorner* next = idPathCorner::RandomPath(path, NULL);
+	owner->GetMind()->GetMemory().currentPath = next;
+
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
 	owner->SetWaitState("");
 }

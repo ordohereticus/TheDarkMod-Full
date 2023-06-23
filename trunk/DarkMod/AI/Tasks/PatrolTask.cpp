@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2829 $
+ * $Date: 2008-09-13 14:08:37 -0400 (Sat, 13 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PatrolTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PatrolTask.cpp 2829 2008-09-13 18:08:37Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -145,7 +145,6 @@ bool PatrolTask::Perform(Subsystem& subsystem)
 		return true;
 	}
 	
-	// Advance to the next path entity pointer
 	idPathCorner* next = idPathCorner::RandomPath(path, NULL);
 
 	if (next == NULL)
@@ -156,8 +155,6 @@ bool PatrolTask::Perform(Subsystem& subsystem)
 	}
 	else
 	{
-		// Store the new path entity into the AI's mind
-		_owner.GetEntity()->GetMind()->GetMemory().currentPath = next;
 		subsystem.PushTask(task);
 	}
 
