@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2344 $
- * $Date: 2008-05-15 14:57:07 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2348 $
+ * $Date: 2008-05-16 11:21:34 -0400 (Fri, 16 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -74,6 +74,10 @@ private:
 
 	// Lets the AI move towards the position entity (is slightly more complicated than just idAI::MoveToPos)
 	bool MoveToPositionEntity(idAI* owner, CMultiStateMoverPosition* pos);
+
+	// Lets the Ai move to the button
+	bool MoveToButton(idAI* owner, CMultiStateMoverButton* button);
+
 };
 
 } // namespace ai
