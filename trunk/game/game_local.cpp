@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2867 $
- * $Date: 2008-09-20 18:22:26 -0400 (Sat, 20 Sep 2008) $
- * $Author: tels $
+ * $Revision: 2892 $
+ * $Date: 2008-09-25 15:11:22 -0400 (Thu, 25 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2867 2008-09-20 22:22:26Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2892 2008-09-25 19:11:22Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3205,13 +3205,16 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			}
 		}
 	}
-	// greebo: This was used for Thief's Den only
-	/*else if (cmd == "showMods") // Called by "New Mission"
+	// greebo: This is used for Saint Lucia only (comment this out after release)
+	else if (cmd == "showMods" || cmd == "briefing_start_request") // Called by "Start Mission"
 	{
 		// User requested a map start
 		gui->HandleNamedEvent("ShowBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 1);
-	}*/
+
+		// greebo: During briefing, we play the in-game background music
+		gui->HandleNamedEvent("StartObjectivesMusic");
+	}
 	else if (cmd == "close") 
 	{
 		gui->HandleNamedEvent("HideBriefingScreen");
