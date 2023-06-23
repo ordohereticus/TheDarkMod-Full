@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2572 $
- * $Date: 2008-06-26 00:30:11 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2587 $
+ * $Date: 2008-06-29 14:00:34 -0400 (Sun, 29 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -809,7 +809,11 @@ public:
 	 */
 	virtual bool			IsMantleable();
 
-	inline idStrList		GetFrobPeers(void) { return m_FrobPeers; }
+	// Accessors for the frob peer list
+	virtual void			AddFrobPeer(const idStr& frobPeerName);
+	virtual void			AddFrobPeer(idEntity* peer);
+	virtual void			RemoveFrobPeer(const idStr& frobPeerName);
+	virtual void			RemoveFrobPeer(idEntity* peer);
 
 protected:
 	/**

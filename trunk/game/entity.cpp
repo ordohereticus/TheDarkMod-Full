@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2572 $
- * $Date: 2008-06-26 00:30:11 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2587 $
+ * $Date: 2008-06-29 14:00:34 -0400 (Sun, 29 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2572 2008-06-26 04:30:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2587 2008-06-29 18:00:34Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8536,6 +8536,32 @@ void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCate
 	else
 	{
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Could not change item count, inventory category %s not found\r", invCategory);
+	}
+}
+
+void idEntity::AddFrobPeer(const idStr& frobPeerName)
+{
+	m_FrobPeers.AddUnique(frobPeerName);
+}
+
+void idEntity::AddFrobPeer(idEntity* peer)
+{
+	if (peer != NULL)
+	{
+		AddFrobPeer(peer->name);
+	}
+}
+
+void idEntity::RemoveFrobPeer(const idStr& frobPeerName)
+{
+	m_FrobPeers.Remove(frobPeerName);
+}
+
+void idEntity::RemoveFrobPeer(idEntity* peer)
+{
+	if (peer != NULL)
+	{
+		RemoveFrobPeer(peer->name);
 	}
 }
 
