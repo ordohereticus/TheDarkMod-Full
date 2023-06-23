@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2355 $
- * $Date: 2008-05-17 02:59:13 -0400 (Sat, 17 May 2008) $
+ * $Revision: 2357 $
+ * $Date: 2008-05-17 03:23:14 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 2355 2008-05-17 06:59:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 2357 2008-05-17 07:23:14Z greebo $", init_version);
 
 #include "EAS.h"
 
@@ -598,10 +598,16 @@ bool tdmEAS::FindRouteToGoal(aasPath_t &path, int areaNum, const idVec3 &origin,
 	int startCluster = _aas->file->GetArea(areaNum).cluster;
 	int goalCluster = _aas->file->GetArea(goalAreaNum).cluster;
 
-	if (startCluster < 0 || goalCluster < 0)
+	// Check if we are starting from a portal
+	if (startCluster < 0)
 	{
-		// Cannot route to portals
-		return false;
+		startCluster = _aas->file->GetPortal(-startCluster).clusters[0];
+	}
+
+	// Check if we are going to a portal
+	if (goalCluster < 0)
+	{
+		goalCluster = _aas->file->GetPortal(-goalCluster).clusters[0];
 	}
 
 	const RouteInfoList& routes = _clusterInfo[startCluster]->routeToCluster[goalCluster];
