@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2459 $
- * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2645 $
+ * $Date: 2008-07-13 04:57:40 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 2645 2008-07-13 08:57:40Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -219,12 +219,12 @@ void CsndPropBase::GlobalsFromDef( void )
 {
 	const idDict *def;
 
-	def = gameLocal.FindEntityDefDict( "soundprop_globals", false );
+	def = gameLocal.FindEntityDefDict( "atdm:soundprop_globals", false );
 
 	if(!def)
 	{
-		gameLocal.Warning("[DarkMod Sound Prop] : Did not find def for soundprop_globals.  Bad or missing soundprop.def file.  Using default values.");
-		DM_LOG(LC_SOUND, LT_ERROR)LOGSTRING("Did not find def for soundprop_globals.  Using default values.\r");
+		gameLocal.Warning("[DarkMod Sound Prop] : Did not find def for atdm:soundprop_globals.  Bad or missing tdm_soundprop.def file.  Using default values.");
+		DM_LOG(LC_SOUND, LT_ERROR)LOGSTRING("Did not find def for atdm:soundprop_globals.  Using default values.\r");
 		DefaultGlobals();
 		goto Quit;
 	}
