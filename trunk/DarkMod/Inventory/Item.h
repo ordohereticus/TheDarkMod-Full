@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2997 $
- * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3039 $
+ * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 #ifndef __DARKMOD_INVENTORYITEM_H__
@@ -122,14 +122,6 @@ public:
 	const idMat3&			GetDropOrientation() { return m_DropOrientation; }
 	void					SetDropOrientation(const idMat3& newAxis);
 
-	/**
-	* Check/set if this overrides the default drop point
-	**/
-	bool					IsDropPointOverriden() { return m_bDropPointOverride; }
-	void					SetDropPointOverriden(bool bval);
-	const idVec3&			GetDropPoint() { return m_vDropPoint; }
-	void					SetDropPoint(const idVec3& newPoint);
-
 	// Returns true when this item should be used by the 'frob' impulse
 	bool					UseOnFrob() const { return m_UseOnFrob; }
 
@@ -183,16 +175,6 @@ protected:
 	* Except for pitch, which is the same as its original pitch
 	**/
 	idMat3					m_DropOrientation;
-
-	/**
-	* Drop to a point in space other than the default grabber-specified point.
-	**/
-	bool					m_bDropPointOverride;
-	/**
-	* Point is relative to the player camera point and player view axes (forward, left, up)
-	* Only player yaw is applied to specified point, not pitch & roll
-	**/
-	idVec3					m_vDropPoint;
 };
 typedef boost::shared_ptr<CInventoryItem> CInventoryItemPtr;
 

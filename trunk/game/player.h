@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3038 $
- * $Date: 2008-11-19 00:21:40 -0500 (Wed, 19 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3039 $
+ * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -792,11 +792,23 @@ public:
 	**/
 	bool TestDropItemRotations( idEntity *ent, idVec3 viewPoint, idVec3 DropPoint, idMat3 &DropAxis );
 
-	// Uses the currently held/selected item.
+	/**
+	* Uses the currently held/selected item.
+	**/
 	void UseInventoryItem();
 
-	// Drops the currently held/selected item.
+	/**
+	* Tries to drop the currently held/selected item.
+	**/
 	void DropInventoryItem();
+
+	/**
+	* Physically put the item in the hands, returns true if it fits
+	* Called by DropInventoryItem, also called from Grabber::Dequip
+	* When dropping an item from the inventory, item argument should be supplied
+	* When dropping other objects (e.g., equipped junk item), it need not be
+	**/
+	bool DropToHands( idEntity *ent, CInventoryItemPtr item = CInventoryItemPtr() );
 
 	// Performs the inventory action for onButtonRelease
 	void InventoryUseKeyRelease(int holdTime);

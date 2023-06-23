@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3004 $
- * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3039 $
+ * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -142,14 +142,12 @@ public:
 		void					UseEquipped( void );
 
 		/**
-		* Preliminary body shouldering code
-		* Shoulderbody: Returns true if body was shouldered
-		* UnShoulderBody: Returns true if there was room to unshoulder the body
-		* NOTE: In the current implementation, UnShoulderBody
-		* is called by idPlayer::DropInventoryItem (if they are holding a body)
+		* Updates immobilizations, etc when we shoulder or unshoulder a body
+		* ShoulderBody is only called after body is found to be shoulderable
+		* UnShoulderBody is only called after we check if there's room
 		**/
-		bool					ShoulderBody( idAFEntity_Base *body );
-		bool					UnShoulderBody( void );
+		void					ShoulderBody( idAFEntity_Base *body );
+		void					UnShoulderBody( void );
 
 		/**
 		* Stop dragging and drop the current item if there is one
