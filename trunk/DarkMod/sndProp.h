@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2629 $
- * $Date: 2008-07-12 01:41:17 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2630 $
+ * $Date: 2008-07-12 01:50:31 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -233,7 +233,7 @@ protected:
 	/**
 	* Draws debug lines between a list of points.  Used for soundprop debugging
 	**/
-	void DrawLines( idList<idVec3> *pointlist );
+	void DrawLines(idList<idVec3>& pointlist);
 
 
 protected:
