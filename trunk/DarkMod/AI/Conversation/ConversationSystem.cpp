@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2676 $
- * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2681 $
+ * $Date: 2008-07-17 13:37:25 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2676 2008-07-16 19:04:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2681 2008-07-17 17:37:25Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -21,6 +21,8 @@ namespace ai {
 void ConversationSystem::Clear()
 {
 	_conversations.Clear();
+	_activeConversations.Clear();
+	_dyingConversations.Clear();
 }
 
 void ConversationSystem::Init(idMapFile* mapFile)
