@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2995 $
- * $Date: 2008-11-07 15:18:38 -0500 (Fri, 07 Nov 2008) $
+ * $Revision: 3013 $
+ * $Date: 2008-11-11 13:02:07 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2995 2008-11-07 20:18:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3013 2008-11-11 18:02:07Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -42,6 +42,7 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2995 2008-11
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
 #include "renderpipe.h"
+#include "RevisionTracker.h"
 
 // Default length of time for holding down jump key to start
 // mantling.
@@ -151,11 +152,18 @@ static idList<const char *> *s_FileVersion = NULL;
 
 bool FileVersionList(const char *str, bool state)
 {
-	if(s_FileVersion == NULL)
+	if (s_FileVersion == NULL)
+	{
 		s_FileVersion = new idList<const char *>;
+	}
 
-	if(state == false)
+	if (state == false)
+	{
 		s_FileVersion->AddUnique(str);
+
+		// greebo: Add the revision to the RevisionTracker class
+		RevisionTracker::ParseSVNIdString(str);
+	}
 
 	return true;
 }

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2968 $
- * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
- * $Author: tels $
+ * $Revision: 3013 $
+ * $Date: 2008-11-11 13:02:07 -0500 (Tue, 11 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2968 2008-10-22 19:19:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3013 2008-11-11 18:02:07Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -38,6 +38,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 2968 2008-10-22 
 #include "../DarkMod/renderpipe.h"
 #include "../DarkMod/TimerManager.h"
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
+#include "../DarkMod/RevisionTracker.h"
 
 #include "IL/il.h"
 #include "../DarkMod/randomizer/randomc.h"
@@ -403,6 +404,7 @@ void idGameLocal::Init( void ) {
 	Printf( "--------- Initializing Game ----------\n" );
 	Printf( "gamename: %s\n", GAME_VERSION );
 	Printf( "gamedate: %s\n", __DATE__ );
+	Printf( "Code Revision: %d\n", RevisionTracker::Instance().GetHighestRevision() );
 
 	// register game specific decl types
 	declManager->RegisterDeclType( "model",				DECL_MODELDEF,		idDeclAllocator<idDeclModelDef> );
