@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2870 $
- * $Date: 2008-09-21 13:55:36 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2874 $
+ * $Date: 2008-09-22 00:39:56 -0400 (Mon, 22 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2870 2008-09-21 17:55:36Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2874 2008-09-22 04:39:56Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7930,7 +7930,7 @@ float idAI::GetCalibratedLightgemValue() const
 	float term2 = 0.001f * idMath::Pow16(lgem, 2);
 	float term3 = 0.00013f * idMath::Pow16(lgem, 3);
 	float term4 = - 0.000011f * idMath::Pow16(lgem, 4);
-	float term5 = 0.00000001892f * idMath::Pow16(lgem, 5);
+	float term5 = 0.0000001892f * idMath::Pow16(lgem, 5);
 
 	float clampVal = term0 + term1 + term2 + term3 + term4 + term5;
 
