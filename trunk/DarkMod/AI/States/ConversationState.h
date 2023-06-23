@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2676 $
- * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2677 $
+ * $Date: 2008-07-16 15:21:26 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -66,6 +66,9 @@ public:
 	static StatePtr CreateInstance();
 
 private:
+	// Plays the given sound (shader) and returns the length in msecs
+	int Talk(idAI* owner, const idStr& soundName);
+
 	// Returns true if the conversation can be started
 	bool CheckConversationPrerequisites();
 };
