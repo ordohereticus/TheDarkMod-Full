@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2410 $
- * $Date: 2008-06-01 07:52:27 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2413 $
+ * $Date: 2008-06-01 10:19:35 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2410 2008-06-01 11:52:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2413 2008-06-01 14:19:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4079,8 +4079,13 @@ CrashLandResult idActor::CrashLand( const idPhysics_Actor& physicsObj, const idV
 
 	const idVec3& vGravNorm = GetPhysics()->GetGravityNormal();
 
+	const idVec3& curVelocity = physicsObj.GetLinearVelocity();
+
+	// The current speed parallel to gravity
+	idVec3 curGravVelocity = (curVelocity*vGravNorm) * vGravNorm;
+
 	// Get the vdelta (how much the velocity has changed in this frame)
-	idVec3 deltaVec = (savedVelocity - GetPhysics()->GetLinearVelocity());
+	idVec3 deltaVec = (savedVelocity - curVelocity);
 
 	// greebo: Get the vertical portion of the velocity 
 	idVec3 deltaVecVert = (deltaVec * vGravNorm) * vGravNorm;
@@ -4115,7 +4120,7 @@ CrashLandResult idActor::CrashLand( const idPhysics_Actor& physicsObj, const idV
 	};
 
 	// We've been moving downwards with a certain velocity, set the flag 
-	if (deltaVecVert*vGravNorm > 100)
+	if (curGravVelocity.LengthFast() < 1 && deltaVecVert*vGravNorm > 100)
 	{
 		result.hasLanded = true;
 	}
