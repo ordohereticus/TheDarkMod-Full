@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2384 $
- * $Date: 2008-05-26 12:02:00 -0400 (Mon, 26 May 2008) $
+ * $Revision: 2386 $
+ * $Date: 2008-05-26 13:07:23 -0400 (Mon, 26 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -52,7 +52,7 @@ public:
 	virtual void SetEnemy(idActor* enemy);
 
 private:
-	bool CanFetchElevator(CMultiStateMover* mover, idAI* owner);
+	CMultiStateMoverPosition* CanFetchElevator(CMultiStateMover* mover, idAI* owner);
 };
 
 } // namespace ai
