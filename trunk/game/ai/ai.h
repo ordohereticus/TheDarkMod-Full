@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2470 $
- * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2478 $
+ * $Date: 2008-06-14 04:40:23 -0400 (Sat, 14 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1434,7 +1434,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// AI script state management
 	void					LinkScriptVariables( void );
-	void					UpdateAIScript( void );
+	virtual void			UpdateScript(); // overrides idActor::UpdateScript
 
 	// Returns true if the current enemy can be reached
 	bool					CanReachEnemy();

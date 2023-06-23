@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2410 $
- * $Date: 2008-06-01 07:52:27 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2478 $
+ * $Date: 2008-06-14 04:40:23 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -145,7 +145,7 @@ public:
 	void					ShutdownThreads( void );
 	virtual bool			ShouldConstructScriptObjectAtSpawn( void ) const;
 	virtual idThread *		ConstructScriptObject( void );
-	void					UpdateScript( void );
+	virtual void			UpdateScript();
 	const function_t		*GetScriptFunction( const char *funcname );
 	void					SetState( const function_t *newState );
 	void					SetState( const char *statename );
