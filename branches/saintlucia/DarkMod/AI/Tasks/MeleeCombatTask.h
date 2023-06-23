@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2955 $
+ * $Date: 2008-10-16 11:49:44 -0400 (Thu, 16 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,6 +25,9 @@ class MeleeCombatTask :
 	public Task
 {
 	idEntityPtr<idActor> _enemy;
+
+	// The time the attack animation was started
+	int _attackAnimStartTime;
 
 public:
 	// Get the name of this task
