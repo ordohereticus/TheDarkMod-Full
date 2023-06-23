@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2855 $
- * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2916 $
+ * $Date: 2008-10-04 21:00:20 -0400 (Sat, 04 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2855 2008-09-17 07:23:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2916 2008-10-05 01:00:20Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -665,6 +665,7 @@ void idActor::Spawn( void )
 
 	SetupDamageGroups();
 	SetupHead();
+	ParseAttachmentsAF();
 
 	// clear the bind anim
 	animator.ClearAllAnims( gameLocal.time, 0 );
@@ -755,8 +756,6 @@ void idActor::Spawn( void )
 	LoadVocalSet();
 
 	FinishSetup();
-
-	ParseAttachmentsAF();
 
 	CREATE_TIMER(actorGetObstaclesTimer, name, "GetObstacles");
 	CREATE_TIMER(actorGetPointOutsideObstaclesTimer, name, "GetPointOutsideObstacles");
