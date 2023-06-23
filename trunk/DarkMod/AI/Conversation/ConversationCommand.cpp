@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2659 $
- * $Date: 2008-07-13 14:32:50 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2660 $
+ * $Date: 2008-07-13 14:39:13 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2659 2008-07-13 18:32:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2660 2008-07-13 18:39:13Z greebo $", init_version);
 
 #include "ConversationCommand.h"
 
@@ -42,18 +42,30 @@ const char* const ConversationCommand::TypeNames[ConversationCommand::ENumComman
 bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 {
 	// Get the type
+	_type = GetType(dict.GetString(prefix + "type", idStr(ENumCommands)));
 
-	return false;
+	if (_type == ENumCommands)
+	{
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Could not find type for command prefix %s.\r", prefix.c_str());
+		return false; // invalid command type
+	}
+
+	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Found command type %s for prefix %s.\r", TypeNames[_type], prefix.c_str());
+
+	return true;
 }
 
 void ConversationCommand::Save(idSaveGame* savefile) const
 {
-	// TODO
+	savefile->WriteInt(static_cast<int>(_type));
 }
 
 void ConversationCommand::Restore(idRestoreGame* savefile)
 {
-	// TODO
+	int typeInt;
+	savefile->ReadInt(typeInt);
+	assert(typeInt >= 0 && typeInt <= ENumCommands); // sanity check
+	_type = static_cast<Type>(typeInt);
 }
 
 ConversationCommand::Type ConversationCommand::GetType(const idStr& cmdString)

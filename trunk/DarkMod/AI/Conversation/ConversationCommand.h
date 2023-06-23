@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2659 $
- * $Date: 2008-07-13 14:32:50 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2660 $
+ * $Date: 2008-07-13 14:39:13 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -46,6 +46,11 @@ public:
 	// The string representations of the above (keep in sync please)
 	static const char* const TypeNames[ENumCommands];
 
+private:
+	// The type of this command
+	Type _type;
+
+public:
 	/**
 	 * greebo: Parses the command parameters from the given idDict.
 	 * The prefix is something along the lines "conv_2_cmd_3_" and is
