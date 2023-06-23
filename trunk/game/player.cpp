@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2988 $
- * $Date: 2008-11-03 11:31:38 -0500 (Mon, 03 Nov 2008) $
- * $Author: tels $
+ * $Revision: 2989 $
+ * $Date: 2008-11-03 19:54:49 -0500 (Mon, 03 Nov 2008) $
+ * $Author: dram $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2988 2008-11-03 16:31:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2989 2008-11-04 00:54:49Z dram $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6394,8 +6394,21 @@ void idPlayer::UpdateUnderWaterEffects() {
 	if ( physicsObj.GetWaterLevel() >= WATERLEVEL_HEAD ) {
 		if (!underWaterEffectsActive) {
 			StartSound( "snd_airless", SND_CHANNEL_DEMONIC, 0, false, NULL );
-			idStr overlay = spawnArgs.GetString("gui_airless");
-			if (!overlay.IsEmpty()) {
+
+			// Underwater GUI section, allows custom water guis for each water entity etc - Dram
+			idStr overlay;
+			idPhysics_Liquid* CurWaterEnt = GetPlayerPhysics()->GetWater();
+			if (CurWaterEnt != NULL) { // Get the GUI from the current water entity
+				idEntity* CurEnt = CurWaterEnt->GetSelf();
+				if (CurEnt != NULL) {
+					overlay = CurEnt->spawnArgs.GetString("underwater_gui");
+				}
+				gameLocal.Printf( "UNDERWATER: After water check overlay is %s\n", overlay.c_str() );
+			}
+			if (overlay.IsEmpty()) { // If the overlay string is empty it has failed to find the GUI on the entity, so give warning
+				gameLocal.Warning( "UNDERWATER: water check overlay failed, check key/val pairs\n" );
+			}
+			else if (!overlay.IsEmpty()) {
 				underWaterGUIHandle = CreateOverlay(overlay.c_str(), LAYER_UNDERWATER);
 			}
 			underWaterEffectsActive = true;

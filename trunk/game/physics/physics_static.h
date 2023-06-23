@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2404 $
- * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2989 $
+ * $Date: 2008-11-03 19:54:49 -0500 (Mon, 03 Nov 2008) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -41,6 +41,7 @@ public:
 
 public:	// common physics interface
 	void					SetSelf( idEntity *e );
+	idEntity *				GetSelf( void ) { return self; } // Get the original entity - Dram
 
 	void					SetClipModel( idClipModel *model, float density, int id = 0, bool freeOld = true );
 	idClipModel *			GetClipModel( int id = 0 ) const;
