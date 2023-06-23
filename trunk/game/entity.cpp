@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3082 $
+ * $Date: 2008-12-10 12:40:50 -0500 (Wed, 10 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3082 2008-12-10 17:40:50Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8723,11 +8723,11 @@ void idEntity::Event_CheckAbsence()
 
 		currentBounds.ExpandSelf(tolerance);
 
-		const char* locationstring = spawnArgs.GetString("absence_location_1");
-		idEntity* location;
-		bool isAbsent;
+		idStr locationstring = spawnArgs.GetString("absence_location_1");
+		idEntity* location(NULL);
+		bool isAbsent(false);
 
-		if (locationstring != "")
+		if (!locationstring.IsEmpty())
 		{
 			location = gameLocal.FindEntity(locationstring);
 		}
