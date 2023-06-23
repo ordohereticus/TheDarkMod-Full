@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3194 $
- * $Date: 2009-01-20 02:10:09 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3197 $
+ * $Date: 2009-01-20 03:58:09 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3194 2009-01-20 07:10:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3197 2009-01-20 08:58:09Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1067,8 +1067,6 @@ void idPlayer::AddWeaponsToInventory()
 
 void idPlayer::NextInventoryMap()
 {
-	gameLocal.Printf("Cycling maps.\n");
-
 	if (GetImmobilization() & EIM_ITEM_SELECT) return;
 
 	if (m_MapCursor == NULL)
@@ -1076,21 +1074,29 @@ void idPlayer::NextInventoryMap()
 		return; // We have no cursor!
 	}
 
-	CInventoryItemPtr mapItem = m_MapCursor->GetCurrentItem();
+	CInventoryItemPtr prevMapItem = m_MapCursor->GetCurrentItem();
 
-	if (mapItem != NULL)
+	if (prevMapItem != NULL)
 	{
 		// We already have a map selected, toggle it off
-		UseInventoryItem(EPressed, mapItem, 0, false); 
+		UseInventoryItem(EPressed, prevMapItem, 0, false); 
+	}
+
+	if (m_MapCursor->IsLastItemInCategory())
+	{
+		// Reached last map, return without cycling to the next map
+		// Clear the item, so that we start afresh next time
+		m_MapCursor->ClearItem();
+		return;
 	}
 
 	// Advance the cursor to the next item
 	CInventoryItemPtr nextMapItem = m_MapCursor->GetNextItem();
 
-	if (mapItem != NULL && nextMapItem != mapItem)
+	if (nextMapItem != NULL && nextMapItem != prevMapItem)
 	{
 		// Use this new item
-		UseInventoryItem(EPressed, mapItem, 0, false);
+		UseInventoryItem(EPressed, nextMapItem, 0, false);
 	}
 }
 
@@ -1141,7 +1147,7 @@ void idPlayer::SetupInventory()
 	inv->CreateCategory(TDM_PLAYER_MAPS_CATEGORY, &idx);
 	m_MapCursor->SetCurrentCategory(idx);
 	m_MapCursor->SetCategoryLock(true);
-	m_MapCursor->SetWrapAround(false); // no wrap around, makes coding easier
+	m_MapCursor->SetWrapAround(true);
 	m_MapCursor->ClearItem(); // invalidate the cursor
 
 	// give the player weapon ammo based on shop purchases

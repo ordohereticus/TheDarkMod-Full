@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3022 $
- * $Date: 2008-11-13 12:02:18 -0500 (Thu, 13 Nov 2008) $
+ * $Revision: 3197 $
+ * $Date: 2009-01-20 03:58:09 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Cursor.cpp 3022 2008-11-13 17:02:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Cursor.cpp 3197 2009-01-20 08:58:09Z greebo $", init_version);
 
 #include "Cursor.h"
 
@@ -346,4 +346,13 @@ bool CInventoryCursor::IsCategoryIgnored(const CInventoryCategoryPtr& category) 
 CInventoryCategoryPtr CInventoryCursor::GetCurrentCategory()
 {
 	return (m_Inventory != NULL) ? m_Inventory->GetCategory(m_CurrentCategory) : CInventoryCategoryPtr();
+}
+
+bool CInventoryCursor::IsLastItemInCategory()
+{
+	if (m_Inventory == NULL) return true; // no inventory => last item
+
+	CInventoryCategoryPtr curCat = m_Inventory->GetCategory(m_CurrentCategory);
+
+	return (curCat != NULL) ? m_CurrentItem + 1 >= curCat->GetNumItems() : true;
 }

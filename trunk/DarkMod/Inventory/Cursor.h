@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2844 $
- * $Date: 2008-09-14 14:52:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 3197 $
+ * $Date: 2009-01-20 03:58:09 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -68,6 +68,12 @@ public:
 	 * Returns the current index within the category of the item pointed at.
 	 */
 	int							GetCurrentItemIndex() { return m_CurrentItem; }
+
+	/**
+	 * greebo: Returns TRUE if the item pointed at is the the last item in this category.
+	 * Note that the "wraparund" setting doesn't affect this method.
+	 */
+	bool						IsLastItemInCategory();
 
 	void						SetCategoryLock(bool bLock) { m_CategoryLock = bLock; }
 	void						SetWrapAround(bool bWrap) { m_WrapAround = bWrap; }
