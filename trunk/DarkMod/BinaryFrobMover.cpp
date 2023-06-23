@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2290 $
- * $Date: 2008-05-11 03:05:07 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2393 $
+ * $Date: 2008-05-27 00:01:12 -0400 (Tue, 27 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2290 2008-05-11 07:05:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2393 2008-05-27 04:01:12Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -188,6 +188,10 @@ void CBinaryFrobMover::Spawn( void )
 
 void CBinaryFrobMover::Event_PostSpawn() 
 {
+	// m_Translation is the vector between start position and end position
+	spawnArgs.GetVector("translate", "0 0 0", m_Translation);
+	spawnArgs.GetFloat( "translate_speed", "0", m_TransSpeed );
+
 	// angua: the origin of the door in opened and closed state
 	m_ClosedOrigin = physicsObj.GetLocalOrigin();
 	m_OpenOrigin = m_ClosedOrigin + m_Translation;
@@ -200,10 +204,6 @@ void CBinaryFrobMover::Event_PostSpawn()
 	{
 		gameLocal.Warning("FrobMover %s will not move, translation and rotation not set.", name.c_str());
 	}
-
-	// m_Translation is the vector between start position and end position
-	spawnArgs.GetVector("translate", "0 0 0", m_Translation);
-	spawnArgs.GetFloat( "translate_speed", "0", m_TransSpeed );
 
 	// set up physics impulse behavior
 	spawnArgs.GetFloat("impulse_thresh_open", "0", m_ImpulseThreshOpenSq );
