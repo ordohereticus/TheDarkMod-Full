@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3035 $
- * $Date: 2008-11-18 13:17:47 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3036 $
+ * $Date: 2008-11-18 13:31:24 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3035 2008-11-18 18:17:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3036 2008-11-18 18:31:24Z greebo $", init_version);
 
 #include "WeaponItem.h"
 
@@ -180,4 +180,17 @@ const idStr& CInventoryWeaponItem::GetWeaponName() const
 const idStr& CInventoryWeaponItem::GetProjectileDefName() const
 {
 	return m_ProjectileDefName;
+}
+
+void CInventoryWeaponItem::SetProjectileDefName(const idStr& weaponDefName)
+{
+	m_ProjectileDefName = weaponDefName;
+}
+
+void CInventoryWeaponItem::ResetProjectileDefName()
+{
+	const idDict* weaponDict = gameLocal.FindEntityDefDict(m_WeaponDefName);
+	if (weaponDict == NULL) return;
+
+	m_ProjectileDefName = weaponDict->GetString("def_projectile");
 }
