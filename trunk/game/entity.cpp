@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3188 $
- * $Date: 2009-01-19 13:23:25 -0500 (Mon, 19 Jan 2009) $
- * $Author: ishtvan $
+ * $Revision: 3193 $
+ * $Date: 2009-01-20 01:44:36 -0500 (Tue, 20 Jan 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3188 2009-01-19 18:23:25Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3193 2009-01-20 06:44:36Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9274,6 +9274,37 @@ void idEntity::PrevInventoryGroup()
 	CInventoryItemPtr prev = cursor->GetCurrentItem();
 	cursor->GetPrevCategory();
 	
+	OnInventorySelectionChanged(prev);
+}
+
+void idEntity::CycleInventoryGroup(const idStr& groupName)
+{
+	const CInventoryCursorPtr& cursor = InventoryCursor();
+	
+	assert(cursor != NULL); // all entities have a cursor after calling InventoryCursor()
+
+	assert(cursor->GetCurrentCategory() != NULL);
+
+	CInventoryItemPtr prev = cursor->GetCurrentItem();
+
+	if (cursor->GetCurrentCategory()->GetName() == groupName)
+	{
+		// We are already in the specified group
+		CInventoryItemPtr next = cursor->GetNextItem();
+
+		if (next->Category()->GetName() != groupName)
+		{
+			// We've changed groups, this means that the cursor has wrapAround set to false
+			// Set the cursor back to the first item
+			cursor->SetCurrentCategory(groupName);
+		}
+	}
+	else
+	{
+		// Not in the desired group yet, set the cursor to the first item in that group
+		cursor->SetCurrentCategory(groupName);
+	}
+
 	OnInventorySelectionChanged(prev);
 }
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3064 $
- * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
+ * $Revision: 3193 $
+ * $Date: 2009-01-20 01:44:36 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 3064 2008-11-27 09:39:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 3193 2009-01-20 06:44:36Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -267,6 +267,40 @@ void Cmd_InventoryCycleMaps_f( const idCmdArgs &args )
 
 	// Pass the call to the specialised method
 	player->NextInventoryMap();
+}
+
+/*
+==================
+Cmd_InventoryCycleGroup_f
+==================
+*/
+void Cmd_InventoryCycleGroup_f( const idCmdArgs &args )
+{
+	if ( 0 > args.Argc() || args.Argc() > 2 )
+	{
+		gameLocal.Printf( "Usage: %s [item]\n", args.Argv(0) );
+		return;
+	}
+
+	idPlayer *player = gameLocal.GetLocalPlayer();
+	if ( player == NULL )
+	{
+		gameLocal.Printf( "%s: No player exists.\n", args.Argv(0) );
+		return;
+	}
+
+	if( (player->GetImmobilization() & EIM_ITEM_SELECT) || (player->GetImmobilization() & EIM_ITEM_USE) )
+	{
+		return;
+	}
+
+	if( args.Argc() == 2)
+	{
+		idStr categoryName = args.Argv(1);
+
+		// Pass the call to the specialised method
+		player->CycleInventoryGroup(categoryName);
+	}
 }
 
 /*
@@ -2837,6 +2871,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "inventory_hotkey",		Cmd_InventoryHotkey_f,		CMD_FL_GAME,				"Usage: inventory_hotkey [item]\nSelects an item from the currently available inventory. If 'item' is omitted, it will return the current item's hotkey name, if any." );
 	cmdSystem->AddCommand( "inventory_use",			Cmd_InventoryUse_f,			CMD_FL_GAME,				"Usage: inventory_use [item]\nUses an item in the currently available inventory without selectign it. If 'item' is omitted, it will use the currently selected item." );
 	cmdSystem->AddCommand( "inventory_cycle_maps",	Cmd_InventoryCycleMaps_f,	CMD_FL_GAME,				"Usage: Bind a key to this command to cycle through the inventory maps." );
+	cmdSystem->AddCommand( "inventory_cycle_group",	Cmd_InventoryCycleGroup_f,	CMD_FL_GAME,				"Usage: Bind a key to this command to cycle through the specified inventory group." );
 
 	cmdSystem->AddCommand( "reloadXData",			Cmd_ReloadXData_f,			CMD_FL_GAME,				"Reloads the xdata declarations and refreshes all readables." );
 

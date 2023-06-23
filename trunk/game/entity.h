@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3193 $
+ * $Date: 2009-01-20 01:44:36 -0500 (Tue, 20 Jan 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -911,6 +911,15 @@ public:
 	virtual void PrevInventoryItem();	// Cycles to the previous item in the inventory.
 	virtual void NextInventoryGroup();	// Cycles to the next group in the inventory.
 	virtual void PrevInventoryGroup();	// Cycles to the previous group in the inventory.
+
+	/**
+	 * greebo: This cycles through a specific inventory group (=category). 
+	 * If the cursor is already pointing to an item in the given group, it is advanced to the next item. 
+	 * If the cursor has reached the "end" of the group, it is set back to the first item. 
+	 * If the cursor is currently not pointing to an item of the given group, it is set to the
+	 * first item in that group.
+	 */
+	virtual void CycleInventoryGroup(const idStr& groupName);
 
 	// Gets called when the inventory cursor has changed its selection focus
 	virtual void OnInventorySelectionChanged(const CInventoryItemPtr& prevItem = CInventoryItemPtr());
