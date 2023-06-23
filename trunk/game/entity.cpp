@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2591 $
- * $Date: 2008-07-02 00:44:32 -0400 (Wed, 02 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2593 $
+ * $Date: 2008-07-02 14:48:39 -0400 (Wed, 02 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2591 2008-07-02 04:44:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2593 2008-07-02 18:48:39Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1142,6 +1142,8 @@ void idEntity::Save( idSaveGame *savefile ) const
 	{
 		m_AttachPositions[i].Save( savefile );
 	}
+
+	m_userManager.Save(savefile);
 }
 
 /*
@@ -1323,6 +1325,9 @@ void idEntity::Restore( idRestoreGame *savefile )
 	if ( m_renderTriggerHandle != -1 ) {
 		m_renderTriggerHandle = gameRenderWorld->AddEntityDef( &m_renderTrigger );
 	}
+
+	m_userManager.Restore(savefile);
+
 }
 
 /*
