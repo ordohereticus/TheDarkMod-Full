@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2526 $
- * $Date: 2008-06-19 12:06:20 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2527 $
+ * $Date: 2008-06-19 12:13:22 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -115,8 +115,9 @@ protected:
 	 **/
 	void					FindDoubleDoor();
 
-	// Specialise the CBinaryFrobMover::OnLock() method to lock the peers
+	// Specialise the CBinaryFrobMover::OnLock() and OnUnlock() methods to update the peers
 	virtual void			OnLock();
+	virtual void			OnUnlock();
 
 	/**
 	 * Create a random pin pattern for a given pin. Clicks defines the required 
