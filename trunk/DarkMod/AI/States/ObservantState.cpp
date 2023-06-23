@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2721 $
- * $Date: 2008-08-05 11:24:50 -0400 (Tue, 05 Aug 2008) $
- * $Author: angua $
+ * $Revision: 2863 $
+ * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 2721 2008-08-05 15:24:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -103,11 +103,13 @@ void ObservantState::Init(idAI* owner)
 
 	owner->GetSubsystem(SubsysCommunication)->QueueTask(
 			TaskPtr(new SingleBarkTask(soundName))
-		);
+	);
 	owner->GetSubsystem(SubsysCommunication)->QueueTask(
 		TaskPtr(new WaitTask(2000))
-		);
+	);
 
+	// Let the AI update their weapons (make them nonsolid)
+	owner->UpdateAttachmentContents(false);
 }
 
 // Gets called each time the mind is thinking

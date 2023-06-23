@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2863 $
+ * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -55,7 +55,7 @@ bool AgitatedSearchingState::CheckAlertLevel(idAI* owner)
 
 void AgitatedSearchingState::Init(idAI* owner)
 {
-	// Init base class first
+	// Init base class first (note: we're not calling SearchingState::Init() on purpose here)
 	State::Init(owner);
 
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("AgitatedSearchingState initialised.\r");
@@ -106,6 +106,9 @@ void AgitatedSearchingState::Init(idAI* owner)
 	}
 	
 	owner->DrawWeapon();
+
+	// Let the AI update their weapons (make them solid)
+	owner->UpdateAttachmentContents(true);
 }
 
 // Gets called each time the mind is thinking

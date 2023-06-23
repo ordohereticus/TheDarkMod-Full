@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2732 $
- * $Date: 2008-08-13 15:07:19 -0400 (Wed, 13 Aug 2008) $
+ * $Revision: 2863 $
+ * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2732 2008-08-13 19:07:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -177,6 +177,9 @@ void CombatState::Init(idAI* owner)
 		owner->GetSubsystem(SubsysAction)->PushTask(MeleeCombatTask::CreateInstance());
 		_combatType = COMBAT_MELEE;
 	}
+
+	// Let the AI update their weapons (make them nonsolid)
+	owner->UpdateAttachmentContents(false);
 }
 
 // Gets called each time the mind is thinking

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2862 $
- * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
- * $Author: angua $
+ * $Revision: 2863 $
+ * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2862 2008-09-18 19:46:51Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -30,6 +30,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 2862 2008-09-18 19:46:51
 #include "../../DarkMod/idAbsenceMarkerEntity.h"
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/MultiStateMover.h"
+#include "../../DarkMod/MeleeWeapon.h"
 #include "../../DarkMod/PlayerData.h"
 #include "../../DarkMod/sndProp.h"
 #include "../../DarkMod/EscapePointManager.h"
@@ -5748,6 +5749,35 @@ bool idAI::CanHitEntity(idActor* entity, ECombatType combatType)
 	}
 
 	return false;
+}
+
+void idAI::UpdateAttachmentContents(bool makeSolid)
+{
+	for (int i = 0; i < m_Attachments.Num(); i++)
+	{
+		idEntity* ent = m_Attachments[i].ent.GetEntity();
+
+		if (ent == NULL || !m_Attachments[i].ent.IsValid()) continue;
+
+		if (!ent->IsType(CMeleeWeapon::Type)) continue;
+		
+		// Found a melee weapon attachment
+		if (makeSolid)
+		{
+			//ent->GetPhysics()->SetContents( CONTENTS_SOLID | CONTENTS_BODY | CONTENTS_CORPSE | CONTENTS_RENDERMODEL );
+			ent->GetPhysics()->SetClipMask( MASK_SOLID | CONTENTS_CORPSE | CONTENTS_MOVEABLECLIP );
+		}
+		else
+		{
+			ent->GetPhysics()->SetClipMask( 0 );
+		}
+
+		// SR CONTENTS_RESPONSE FIX:
+		if( ent->GetStimResponseCollection()->HasResponse() )
+		{
+			ent->GetPhysics()->SetContents( ent->GetPhysics()->GetContents() | CONTENTS_RESPONSE );
+		}
+	}
 }
 
 /*

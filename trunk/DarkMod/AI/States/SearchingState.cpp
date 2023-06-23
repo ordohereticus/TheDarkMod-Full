@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2728 $
- * $Date: 2008-08-07 01:22:14 -0400 (Thu, 07 Aug 2008) $
- * $Author: angua $
+ * $Revision: 2863 $
+ * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 2728 2008-08-07 05:22:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -129,12 +129,14 @@ void SearchingState::Init(idAI* owner)
 		// clear the alert type, so we can react to other alert types (such as a dead person)
 		memory.alertType = EAlertTypeSuspicious;
 	}
-
 	
 	if (!owner->HasSeenEvidence())
 	{
 		owner->SheathWeapon();
 	}
+
+	// Let the AI update their weapons (make them solid)
+	owner->UpdateAttachmentContents(true);
 }
 
 void SearchingState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSystem)

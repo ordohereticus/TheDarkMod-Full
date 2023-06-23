@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2475 $
- * $Date: 2008-06-14 02:37:18 -0400 (Sat, 14 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2863 $
+ * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 2475 2008-06-14 06:37:18Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -108,6 +108,9 @@ void IdleState::Init(idAI* owner)
 	owner->GetSubsystem(SubsysCommunication)->QueueTask(
 		TaskPtr(new RepeatedBarkTask("snd_relaxed", idleBarkIntervalMin, idleBarkIntervalMax))
 	);
+
+	// Let the AI update their weapons (make them nonsolid)
+	owner->UpdateAttachmentContents(false);
 }
 
 // Gets called each time the mind is thinking

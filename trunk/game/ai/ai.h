@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2855 $
- * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
+ * $Revision: 2863 $
+ * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1257,6 +1257,12 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * ranged AI implement a visual test incl. lighting.
 	 */
 	bool CanHitEntity(idActor* entity, ECombatType combatType = COMBAT_NONE);
+
+	/**
+	 * greebo: This updates the weapon attachment's "solid" status.
+	 * By design, AI have solid weapons only when in searching states.
+	 */
+	void UpdateAttachmentContents(bool makeSolid);
 
 
 	// movement control
