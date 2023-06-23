@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2716 $
- * $Date: 2008-08-03 03:38:39 -0400 (Sun, 03 Aug 2008) $
+ * $Revision: 2717 $
+ * $Date: 2008-08-03 05:16:33 -0400 (Sun, 03 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 2716 2008-08-03 07:38:39Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 2717 2008-08-03 09:16:33Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1004,7 +1004,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 				{
 					const char *AttName, *AttPos;
 					int spcind = command.string->Find(" ");
-					AttName = command.string->Left( spcind-1 ).c_str();
+					AttName = command.string->Left( spcind ).c_str();
 					AttPos = command.string->Mid( spcind+1, command.string->Length() );
 
 					ent->ReAttachToPos( AttName, AttPos );

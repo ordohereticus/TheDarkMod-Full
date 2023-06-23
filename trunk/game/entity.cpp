@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2714 $
- * $Date: 2008-08-02 23:09:13 -0400 (Sat, 02 Aug 2008) $
+ * $Revision: 2717 $
+ * $Date: 2008-08-03 05:16:33 -0400 (Sun, 03 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2714 2008-08-03 03:09:13Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2717 2008-08-03 09:16:33Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6687,7 +6687,7 @@ void idAnimatedEntity::Attach( idEntity *ent, const char *PosName, const char *A
 	attach.name = AttName;
 
 	// Update name->m_Attachment index mapping
-	int index = m_Attachments.Num();
+	int index = m_Attachments.Num() - 1;
 	if( AttName != NULL )
 		m_AttNameMap.insert(AttNameMap::value_type(AttName, index));
 }
@@ -8122,6 +8122,7 @@ void idEntity::ReAttachToPos
 {
 	int ind, indEnd;
 	CAttachInfo AttCopy;
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("ReAttachToPos called with attachment name %s, positiong %s, on entity %s\r", AttName, PosName, name.c_str());
 
 	ind = GetAttachmentIndex( AttName );
 	if (ind == -1 )
@@ -8134,7 +8135,7 @@ void idEntity::ReAttachToPos
 
 	if( !ent )
 	{
-		// TODO: log bad attachment entity error
+		DM_LOG(LC_AI,LT_WARNING)LOGSTRING("ReAttachToPos called with invalid attached entity on entity %s\r", AttName, name.c_str());
 		goto Quit;
 	}
 
@@ -8143,9 +8144,11 @@ void idEntity::ReAttachToPos
 	// into this place in the array.
 
 	DetachInd( ind );
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("ReAttaching...\r");
 	Attach( ent, AttName, PosName );
 
 	indEnd = m_Attachments.Num();
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("End index is %d\r", indEnd);
 	AttCopy.channel = m_Attachments[indEnd].channel;
 	AttCopy.ent = ent;
 	AttCopy.name = AttName;
