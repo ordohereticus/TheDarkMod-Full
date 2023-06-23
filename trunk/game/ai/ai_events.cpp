@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2618 $
- * $Date: 2008-07-07 12:06:16 -0400 (Mon, 07 Jul 2008) $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2618 2008-07-07 16:06:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -857,7 +857,7 @@ void idAI::IssueCommunication_Internal(
 		p_stim->EnableSR(true);
 
 		CAIComm_Stim* p_commStim = static_cast<CAIComm_Stim*>(p_stim);
-		CAIComm_Message::TCommType messageTypeEnumVal = (CAIComm_Message::TCommType) (unsigned long) messageType;
+		ai::CommMessage::TCommType messageTypeEnumVal = (ai::CommMessage::TCommType) (unsigned long) messageType;
 
 		if (!p_commStim->addMessage ( messageTypeEnumVal, maxRadius, this, intendedRecipientEntity, directObjectEntity, directObjectLocation ))
 		{

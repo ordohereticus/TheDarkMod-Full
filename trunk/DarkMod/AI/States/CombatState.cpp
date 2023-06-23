@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2606 $
- * $Date: 2008-07-03 13:57:15 -0400 (Thu, 03 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2606 2008-07-03 17:57:15Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -120,7 +120,7 @@ void CombatState::Init(idAI* owner)
 
 	// Issue a communication stim
 	owner->IssueCommunication_Internal(
-		static_cast<float>(CAIComm_Message::DetectedEnemy_CommType), 
+		static_cast<float>(ai::CommMessage::DetectedEnemy_CommType), 
 		YELL_STIM_RADIUS, 
 		NULL,
 		enemy,

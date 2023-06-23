@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2612 $
- * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2608,8 +2608,7 @@ void idEntity::PropSoundDirect( const char *sndName, bool bForceLocal, bool bAss
 	idStr sprName, sprNameSG, sprNameEG;
 	bool bIsSusp(false), bIsEnv(false);
 
-	// uncomment for debugging (spams the logfile since it plays for every sound that happens)
-	// DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("PropSoundDirect: Attempting to propagate sound \"%s\" Forcelocal = %d\r", sndName, (int) bForceLocal );
+	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("PropSoundDirect: Attempting to propagate sound \"%s\" Forcelocal = %d\r", sndName, (int) bForceLocal );
 	
 	sprName = sndName;
 
@@ -2621,8 +2620,7 @@ void idEntity::PropSoundDirect( const char *sndName, bool bForceLocal, bool bAss
 	if ( bForceLocal && ( !(idStr::Icmpn( sndName, "snd_", 4 ) == 0)
 		 || ( !bIsSusp && !bIsEnv ) ) )  
 	{
-		// uncomment for debugging
-		// DM_LOG(LC_SOUND, LT_WARNING)LOGSTRING("Attempted to propagate nonexistant local sound \"%s\" (forceLocal = true)\r", sndName );
+		DM_LOG(LC_SOUND, LT_WARNING)LOGSTRING("Attempted to propagate nonexistant local sound \"%s\" (forceLocal = true)\r", sndName );
 		// gameLocal.Warning("[PropSound] Attempted to propagate nonexistant local sound \"%s\" (forceLocal = true)", sndName );
 		goto Quit;
 	}

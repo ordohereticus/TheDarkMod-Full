@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,11 +22,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_Message.h"
 
+namespace ai {
 
 /*
 *--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 1435 2007-10
 *--------------------------------------------------------------------------
 */
 
-CAIComm_Message::CAIComm_Message
+CommMessage::CommMessage
 (
 	TCommType in_commType,
 	float in_maximumRadiusInWorldCoords,
@@ -76,14 +77,7 @@ CAIComm_Message::CAIComm_Message
 	// Done
 }
 
-/*--------------------------------------------------------------------------*/
-
-CAIComm_Message::~CAIComm_Message()
-{
-	// Nothing to do here 
-}
-
-void CAIComm_Message::Save(idSaveGame *savefile) const
+void CommMessage::Save(idSaveGame *savefile) const
 {
 	savefile->WriteInt(static_cast<int>(m_commType));
 	m_p_issuingEntity.Save(savefile);
@@ -94,7 +88,7 @@ void CAIComm_Message::Save(idSaveGame *savefile) const
 	savefile->WriteFloat(m_maximumRadiusInWorldCoords);
 }
 
-void CAIComm_Message::Restore(idRestoreGame *savefile)
+void CommMessage::Restore(idRestoreGame *savefile)
 {
 	int tempInt;
 	savefile->ReadInt(tempInt);
@@ -106,3 +100,5 @@ void CAIComm_Message::Restore(idRestoreGame *savefile)
 	savefile->ReadVec3(m_positionOfIssuance);
 	savefile->ReadFloat(m_maximumRadiusInWorldCoords);
 }
+
+} // namespace ai

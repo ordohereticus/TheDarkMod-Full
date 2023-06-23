@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
 
 #include "UnreachableTargetState.h"
 #include "../Memory.h"
@@ -55,7 +55,7 @@ void UnreachableTargetState::Init(idAI* owner)
 
 	// Issue a communication stim
 	owner->IssueCommunication_Internal(
-		static_cast<float>(CAIComm_Message::RequestForMissileHelp_CommType), 
+		static_cast<float>(ai::CommMessage::RequestForMissileHelp_CommType), 
 		YELL_STIM_RADIUS, 
 		NULL,
 		enemy,

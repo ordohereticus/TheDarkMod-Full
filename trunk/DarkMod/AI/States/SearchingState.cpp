@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -337,7 +337,7 @@ void SearchingState::PerformHidingSpotSearch(idAI* owner)
 		if (!memory.searchingDueToCommunication)
 		{
 			owner->IssueCommunication_Internal(
-				CAIComm_Message::DetectedSomethingSuspicious_CommType, 
+				ai::CommMessage::DetectedSomethingSuspicious_CommType, 
 				YELL_STIM_RADIUS, 
 				NULL,
 				NULL,

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -89,7 +89,7 @@ void FleeDoneState::Think(idAI* owner)
 			// Placeholder, replace with "snd_help" when available
 			owner->GetSubsystem(SubsysCommunication)->PushTask(TaskPtr(new SingleBarkTask("snd_somethingSuspicious")));
 			owner->IssueCommunication_Internal(
-				static_cast<float>(CAIComm_Message::DetectedEnemy_CommType), 
+				static_cast<float>(ai::CommMessage::DetectedEnemy_CommType), 
 				distanceToFriend*1.2, 
 				friendlyAI,
 				owner->GetEnemy(),

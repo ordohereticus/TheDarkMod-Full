@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1643 $
- * $Date: 2007-11-02 03:00:36 -0400 (Fri, 02 Nov 2007) $
+ * $Revision: 2621 $
+ * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -37,7 +37,7 @@ public:
 typedef struct tagTAICommMessageNode
 {
 	// The message
-	CAIComm_Message* p_message;
+	ai::CommMessage* p_message;
 
 	// Node links
 	tagTAICommMessageNode* p_prev;
@@ -102,7 +102,7 @@ public:
 	*/
 	bool addMessage
 	(
-		CAIComm_Message::TCommType in_commType,
+		ai::CommMessage::TCommType in_commType,
 		float in_maximumRadiusOfResponse,
 		idEntity* in_p_issuingEntity,
 		idEntity* in_p_recipientEntity,
@@ -121,7 +121,7 @@ public:
 	* @return pointer to the message
 	* @return NULL if no messages
 	*/
-	CAIComm_Message* getFirstMessage (unsigned long& out_iterationHandle);
+	ai::CommMessage* getFirstMessage (unsigned long& out_iterationHandle);
 
 	/**
 	* Gets the next message in the stim.
@@ -129,7 +129,7 @@ public:
 	* @return pointer to the message
 	* @return NULL if no more messages
 	*/
-	CAIComm_Message* getNextMessage (unsigned long& inout_iterationHandle);
+	ai::CommMessage* getNextMessage (unsigned long& inout_iterationHandle);
 
 	/**
 	* BASE CLASS VIRTUAL OVERRIDE
