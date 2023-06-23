@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2882 $
- * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2993 $
+ * $Date: 2008-11-07 15:02:15 -0500 (Fri, 07 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2882 2008-09-24 08:53:09Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2993 2008-11-07 20:02:15Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -990,10 +990,12 @@ bool CImage::LoadImage(CRenderPipe* pipe)
 			static char pipe_buf[DARKMOD_LG_RENDERPIPE_BUFSIZE];
 			unsigned int BufLen = DARKMOD_LG_RENDERPIPE_BUFSIZE;
 			
+#ifdef _DEBUG
 			// For debugging
 			for (int i=0; i<DARKMOD_LG_RENDERPIPE_BUFSIZE; i++) {
 				pipe_buf[i] = 42;
 			}
+#endif
 			
 			pipe->Read(pipe_buf, &BufLen);
 
@@ -1105,23 +1107,6 @@ unsigned char *CImage::GetImage(void)
 
 	return rc;
 }
-
-/*
-const char *DM_OSPathToRelativePath(const char *OSPath)
-{
-	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("DM_OSPathToRelativePath: [%s]\r", (OSPath) ? OSPath: "NULL");
-	RETURN_META_VALUE(MRES_HANDLED, NULL);
-}
-
-const char *DM_RelativePathToOSPath(const char *relativePath, const char *basePath)
-{
-	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("DM_RelativePathToOSPath: RelativePath [%s]   basePath: [%s]\r", 
-		(relativePath) ? relativePath : "NULL",
-		(basePath) ? basePath : "NULL"
-		);
-	RETURN_META_VALUE(MRES_HANDLED, NULL);
-}
-*/
 
 void DM_Printf(const char* fmt, ...)
 {
