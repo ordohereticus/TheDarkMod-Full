@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2876 $
- * $Date: 2008-09-22 02:46:22 -0400 (Mon, 22 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2928 $
+ * $Date: 2008-10-06 11:32:25 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2876 2008-09-22 06:46:22Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2928 2008-10-06 15:32:25Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1016,6 +1016,8 @@ void idPlayer::NextInventoryMap()
 {
 	gameLocal.Printf("Cycling maps.\n");
 
+	if (GetImmobilization() & EIM_ITEM_SELECT) return;
+
 	if (m_MapCursor == NULL)
 	{
 		return; // We have no cursor!
@@ -1030,15 +1032,13 @@ void idPlayer::NextInventoryMap()
 	}
 
 	// Advance the cursor to the next item
-	mapItem = m_MapCursor->GetNextItem();
+	CInventoryItemPtr nextMapItem = m_MapCursor->GetNextItem();
 
-	if (mapItem == NULL)
+	if (mapItem != NULL && nextMapItem != mapItem)
 	{
-		return; // No item available
+		// Use this new item
+		inventoryUseItem(EPressed, mapItem, 0);
 	}
-	
-	// Use this item
-	inventoryUseItem(EPressed, mapItem, 0); 
 }
 
 void idPlayer::SetupInventory()
