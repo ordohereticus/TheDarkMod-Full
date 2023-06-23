@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2666 $
- * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2668 $
+ * $Date: 2008-07-15 14:38:14 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,6 +36,9 @@ class Conversation
 	// The list of commands this conversation consists of (this is the actual "script")
 	idList<ConversationCommandPtr> _commands;
 
+	// Counter to tell how often this conversation has been played
+	int _playCount;
+
 public:
 	Conversation();
 
@@ -51,6 +54,21 @@ public:
 
 	// Returns the name of this conversation
 	const idStr& GetName() const;
+
+	// Returns the number of times this conversation has been (partially) played 
+	int GetPlayCount();
+
+	/**
+	 * greebo: Returns TRUE if this conversation can be played. This basically means
+	 * that all actors participating in this conversation are conscious.
+	 */
+	bool CheckConditions();
+
+	/**
+	 * greebo: Starts this conversation. Note that you should have called
+	 * CheckConditions() beforehand (with a positive result, of course).
+	 */
+	void Start();
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2667 $
- * $Date: 2008-07-15 14:04:06 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2668 $
+ * $Date: 2008-07-15 14:38:14 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2667 2008-07-15 18:04:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2668 2008-07-15 18:38:14Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -85,7 +85,14 @@ void ConversationSystem::StartConversation(int index)
 
 	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Trying to start conversation %s.\r", conv->GetName().c_str());
 
+	// Check if the conditions to start the conversations is met
+	if (!conv->CheckConditions())
+	{
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Cannot start conversation %s, conditions are not met.\r", conv->GetName().c_str());
+	}
 
+	// Start the conversation
+	conv->Start();
 }
 
 void ConversationSystem::Save(idSaveGame* savefile) const

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2666 $
- * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2668 $
+ * $Date: 2008-07-15 14:38:14 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2666 2008-07-15 17:53:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2668 2008-07-15 18:38:14Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -18,12 +18,14 @@ namespace ai {
 
 Conversation::Conversation() :
 	_isValid(false),
-	_talkDistance(0.0f)
+	_talkDistance(0.0f),
+	_playCount(0)
 {}
 
 Conversation::Conversation(const idDict& spawnArgs, int index) :
 	_isValid(false),
-	_talkDistance(0.0f)
+	_talkDistance(0.0f),
+	_playCount(0)
 {
 	// Pass the call to the parser
 	InitFromSpawnArgs(spawnArgs, index);
@@ -37,6 +39,22 @@ bool Conversation::IsValid()
 const idStr& Conversation::GetName() const
 {
 	return _name;
+}
+
+int Conversation::GetPlayCount()
+{
+	return _playCount;
+}
+
+bool Conversation::CheckConditions()
+{
+	// TODO
+	return true;
+}
+
+void Conversation::Start()
+{
+
 }
 
 void Conversation::Save(idSaveGame* savefile) const
@@ -56,6 +74,8 @@ void Conversation::Save(idSaveGame* savefile) const
 	{
 		_commands[i]->Save(savefile);
 	}
+
+	savefile->WriteInt(_playCount);
 }
 
 void Conversation::Restore(idRestoreGame* savefile)
@@ -79,6 +99,8 @@ void Conversation::Restore(idRestoreGame* savefile)
 		_commands[i] = ConversationCommandPtr(new ConversationCommand);
 		_commands[i]->Restore(savefile);
 	}
+
+	savefile->ReadInt(_playCount);
 }
 
 void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
