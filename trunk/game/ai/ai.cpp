@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2496 $
- * $Date: 2008-06-15 02:06:33 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2497 $
+ * $Date: 2008-06-15 02:15:59 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2496 2008-06-15 06:06:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2497 2008-06-15 06:15:59Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -541,6 +541,7 @@ idAI::idAI()
 	INIT_TIMER_HANDLE(aiScriptTimer);
 	INIT_TIMER_HANDLE(aiAnimMoveTimer);
 	INIT_TIMER_HANDLE(aiObstacleAvoidanceTimer);
+	INIT_TIMER_HANDLE(aiPhysicsTimer);
 }
 
 /*
@@ -815,6 +816,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	SAVE_TIMER_HANDLE(aiScriptTimer, savefile);
 	SAVE_TIMER_HANDLE(aiAnimMoveTimer, savefile);
 	SAVE_TIMER_HANDLE(aiObstacleAvoidanceTimer, savefile);
+	SAVE_TIMER_HANDLE(aiPhysicsTimer, savefile);
 }
 
 /*
@@ -1116,6 +1118,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	RESTORE_TIMER_HANDLE(aiScriptTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiAnimMoveTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiObstacleAvoidanceTimer, savefile);
+	RESTORE_TIMER_HANDLE(aiPhysicsTimer, savefile);
 }
 
 /*
@@ -1517,6 +1520,7 @@ void idAI::Spawn( void )
 	CREATE_TIMER(aiScriptTimer, name, "UpdateScript");
 	CREATE_TIMER(aiAnimMoveTimer, name, "AnimMove");
 	CREATE_TIMER(aiObstacleAvoidanceTimer, name, "ObstacleAvoidance");
+	CREATE_TIMER(aiPhysicsTimer, name, "RunPhysics");
 }
 
 /*
@@ -4313,7 +4317,10 @@ void idAI::AnimMove()
 	physicsObj.SetDelta( delta );
 	physicsObj.ForceDeltaMove( disableGravity );
 
-	RunPhysics();
+	{
+		START_SCOPED_TIMING(aiPhysicsTimer, scopedPhysicsTimer);
+		RunPhysics();
+	}
 
 	if ( ai_debugMove.GetBool() ) {
 		gameRenderWorld->DebugLine( colorCyan, oldorigin, physicsObj.GetOrigin(), 5000 );

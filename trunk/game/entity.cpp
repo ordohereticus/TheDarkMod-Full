@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2477 $
- * $Date: 2008-06-14 03:24:11 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2497 $
+ * $Date: 2008-06-15 02:15:59 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2477 2008-06-14 07:24:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2497 2008-06-15 06:15:59Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3588,10 +3588,9 @@ bool idEntity::RunPhysics( void ) {
 
 	// angua: since the AI are not thinking every frame, we need to rescale 
 	// their velocities with the corrected time length to prevent them from dying.
-	idAI* ai = dynamic_cast<idAI*>(this);
-	if (ai)
+	if (IsType(idAI::Type))
 	{
-		startTime = ai->m_lastThinkTime;
+		startTime = static_cast<idAI*>(this)->m_lastThinkTime;
 	}
 	else
 	{
