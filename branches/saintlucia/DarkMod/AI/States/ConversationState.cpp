@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2822 $
- * $Date: 2008-09-13 00:50:55 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2931 $
+ * $Date: 2008-10-07 07:06:52 -0400 (Tue, 07 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2822 2008-09-13 04:50:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2931 2008-10-07 11:06:52Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -51,15 +51,8 @@ const idStr& ConversationState::GetName() const
 
 bool ConversationState::CheckAlertLevel(idAI* owner)
 {
-	if (owner->AI_AlertIndex > 0)
-	{
-		// Alert index is too high, switch to the higher State
-		owner->GetMind()->PushState(STATE_OBSERVANT);
-		return false;
-	}
-
-	// Alert Index is matching, return OK
-	return true;
+	// Alert index is too high for index > 0
+	return (owner->AI_AlertIndex <= 0);
 }
 
 void ConversationState::SetConversation(int index)
@@ -151,7 +144,11 @@ void ConversationState::Think(idAI* owner)
 	UpdateAlertLevel();
 
 	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
+	if (!CheckAlertLevel(owner)) 
+	{
+		owner->GetMind()->SwitchState(STATE_OBSERVANT);
+		return;
+	}
 
 	// Let the AI check its senses
 	owner->PerformVisualScan();
