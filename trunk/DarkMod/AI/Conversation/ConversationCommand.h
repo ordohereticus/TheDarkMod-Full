@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2818 $
- * $Date: 2008-09-12 12:16:55 -0400 (Fri, 12 Sep 2008) $
+ * $Revision: 2819 $
+ * $Date: 2008-09-12 13:12:45 -0400 (Fri, 12 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -43,6 +43,7 @@ public:
 		EAttackEntity,
 		EInteractWithEntity,
 		ERunScript,
+		EWaitForActor,
 		ENumCommands,
 	};
 

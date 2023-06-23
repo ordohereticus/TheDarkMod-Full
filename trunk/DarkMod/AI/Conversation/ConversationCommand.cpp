@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2818 $
- * $Date: 2008-09-12 12:16:55 -0400 (Fri, 12 Sep 2008) $
+ * $Revision: 2819 $
+ * $Date: 2008-09-12 13:12:45 -0400 (Fri, 12 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2818 2008-09-12 16:16:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2819 2008-09-12 17:12:45Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
@@ -39,7 +39,8 @@ const char* const ConversationCommand::TypeNames[ConversationCommand::ENumComman
 	"AttackActor",
 	"AttackEntity",
 	"InteractWithEntity",
-	"RunScript"
+	"RunScript",
+	"WaitForActor"
 };
 
 ConversationCommand::ConversationCommand() :
@@ -153,6 +154,7 @@ void ConversationCommand::Save(idSaveGame* savefile) const
 	savefile->WriteInt(static_cast<int>(_type));
 	savefile->WriteInt(static_cast<int>(_state));
 	savefile->WriteInt(_actor);
+	savefile->WriteBool(_waitUntilFinished);
 
 	savefile->WriteInt(_arguments.Num());
 	for (int i = 0; i < _arguments.Num(); i++)
@@ -173,6 +175,7 @@ void ConversationCommand::Restore(idRestoreGame* savefile)
 	_state = static_cast<State>(temp);
 
 	savefile->ReadInt(_actor);
+	savefile->ReadBool(_waitUntilFinished);
 
 	int num;
 	savefile->ReadInt(num);

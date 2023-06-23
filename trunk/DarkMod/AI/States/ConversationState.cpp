@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2818 $
- * $Date: 2008-09-12 12:16:55 -0400 (Fri, 12 Sep 2008) $
+ * $Revision: 2819 $
+ * $Date: 2008-09-12 13:12:45 -0400 (Fri, 12 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2818 2008-09-12 16:16:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2819 2008-09-12 17:12:45Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -550,6 +550,26 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 	}
 	break;
 
+	case ConversationCommand::EWaitForActor:
+	{
+		// Reduce the actor index by 1 before passing them to the conversation
+		idAI* ai = conversation.GetActor(atoi(command.GetArgument(0)) - 1);
+
+		ExecutionState otherState = GetConversationStateOfActor(ai); // it's safe to pass NULL pointers
+
+		if (otherState == EExecuting || otherState == EBusy)
+		{
+			// The other actor is executing, set ourselves to "busy"
+			_state = EBusy;
+		}
+		else
+		{
+			// The other actor is not executing or busy, we've got nothing to do
+			_state = EReady;
+		}
+	}
+	break;
+
 	default:
 		gameLocal.Warning("Unknown command type found %d", command.GetType());
 		DM_LOG(LC_CONVERSATION, LT_ERROR)LOGSTRING("Unknown command type found %d", command.GetType());
@@ -619,9 +639,42 @@ void ConversationState::ProcessCommand(ConversationCommand& command)
 	};
 }
 
+ConversationState::ExecutionState ConversationState::GetConversationStateOfActor(idAI* ai)
+{
+	if (ai != NULL)
+	{
+		// Get the actor's conversationstate
+		ConversationStatePtr convState = boost::dynamic_pointer_cast<ConversationState>(ai->GetMind()->GetState());
+
+		// Get the state and exit
+		return (convState != NULL) ? convState->GetExecutionState() : ENumExecutionStates;
+	}
+	
+	return ENumExecutionStates;
+}
+
 void ConversationState::Execute(ConversationCommand& command, Conversation& conversation)
 {
-	// Nothing to do so far.
+	switch (command.GetType())
+	{
+		case ConversationCommand::EWaitForActor:
+		{
+			// Reduce the actor index by 1 before passing them to the conversation
+			idAI* ai = conversation.GetActor(atoi(command.GetArgument(0)) - 1);
+
+			ExecutionState otherState = GetConversationStateOfActor(ai);
+
+			if (otherState != EExecuting && otherState != EBusy)
+			{
+				// The other actor is not executing or busy anymore, we're done waiting
+				_state = EReady;
+			}
+		}
+
+		// All other cases are not relevant right now
+		default:
+			break;
+	};
 }
 
 int ConversationState::Talk(idAI* owner, const idStr& soundName)
