@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2625 $
- * $Date: 2008-07-10 15:16:51 -0400 (Thu, 10 Jul 2008) $
- * $Author: tels $
+ * $Revision: 2724 $
+ * $Date: 2008-08-06 01:09:35 -0400 (Wed, 06 Aug 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 2625 2008-07-10 19:16:51Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 2724 2008-08-06 05:09:35Z angua $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -92,8 +92,8 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 
 	if (gameLocal.time > _nextAnimationTime)
 	{
-		// Check if the AI is moving, this determines which channel we can play on
-		if (!owner->AI_FORWARD)
+		// Check if the AI is moving or sitting, this determines which channel we can play on
+		if (!owner->AI_FORWARD && !owner->spawnArgs.GetBool("sitting", "0"))
 		{
 			// AI is not walking, play animations affecting all channels
 			int animIdx = gameLocal.random.RandomInt(_idleAnimations.Num());
