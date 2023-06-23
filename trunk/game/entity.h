@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3004 $
- * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3010 $
+ * $Date: 2008-11-11 11:52:05 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1324,6 +1324,7 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_GetCurInvCategory();
 	void					Event_GetCurInvItemEntity();
 	void					Event_GetCurInvItemName();
+	void					Event_GetCurInvIcon();
 
 	void					StimAdd(int Type, float Radius);
 	void					StimRemove(int Type);

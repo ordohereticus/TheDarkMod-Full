@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3003 $
- * $Date: 2008-11-09 03:15:11 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3010 $
+ * $Date: 2008-11-11 11:52:05 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 3003 2008-11-09 08:15:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 3010 2008-11-11 16:52:05Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -160,6 +160,14 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent)
 			GetLoot( dummy1, dummy2, dummy3 ), 
 			true 
 		);
+
+		// Take the loot icon of the picked up item and use it for the loot stats item
+
+		idStr lootIcon = ent->spawnArgs.GetString("inv_icon");
+		if (rc != NULL && !lootIcon.IsEmpty())
+		{
+			rc->SetIcon(lootIcon);
+		}
 		
 		NotifyOwnerAboutPickup(pickedUpMsg, rc);
 	}

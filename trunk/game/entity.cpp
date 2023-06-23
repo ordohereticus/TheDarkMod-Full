@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3005 $
- * $Date: 2008-11-09 05:12:33 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3010 $
+ * $Date: 2008-11-11 11:52:05 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3005 2008-11-09 10:12:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3010 2008-11-11 16:52:05Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -161,6 +161,7 @@ const idEventDef EV_SetCurInvItem("setCurInvItem", "s", 'e');				// itemname -> 
 const idEventDef EV_GetCurInvCategory("getCurInvCategory", NULL, 's');
 const idEventDef EV_GetCurInvItemEntity("getCurInvItemEntity", NULL, 'e');
 const idEventDef EV_GetCurInvItemName("getCurInvItemName", NULL, 's');
+const idEventDef EV_GetCurInvIcon("getCurInvIcon", NULL, 's');
 
 // greebo: "Private" event which runs right after spawn time to check the inventory-related spawnargs.
 const idEventDef EV_InitInventory("initInventory", "d");
@@ -331,6 +332,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_GetCurInvCategory,	idEntity::Event_GetCurInvCategory )
 	EVENT( EV_GetCurInvItemEntity,	idEntity::Event_GetCurInvItemEntity )
 	EVENT( EV_GetCurInvItemName,	idEntity::Event_GetCurInvItemName )
+	EVENT( EV_GetCurInvIcon,		idEntity::Event_GetCurInvIcon )
 	EVENT( EV_ChangeInvItemCount,	idEntity::ChangeInventoryItemCount )
 	EVENT( EV_ChangeInvLightgemModifier, idEntity::ChangeInventoryLightgemModifier )
 	EVENT( EV_ChangeInvIcon,		idEntity::ChangeInventoryIcon )
@@ -8784,6 +8786,11 @@ void idEntity::Event_GetCurInvItemEntity()
 void idEntity::Event_GetCurInvItemName()
 {
 	idThread::ReturnString( InventoryCursor()->GetCurrentItem()->GetName() );
+}
+
+void idEntity::Event_GetCurInvIcon()
+{
+	idThread::ReturnString( InventoryCursor()->GetCurrentItem()->GetIcon() );
 }
 
 void idEntity::Event_InitInventory(int callCount)
