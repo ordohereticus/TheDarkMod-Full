@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2600 $
- * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2601 $
+ * $Date: 2008-07-03 12:06:32 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2600 2008-07-03 15:49:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2601 2008-07-03 16:06:32Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -71,7 +71,6 @@ CFrobDoor::CFrobDoor()
 	m_SoundTimerStarted = 0;
 	m_PinTranslationFractionFlag = false;
 	m_PinRotationFractionFlag = false;
-	m_KeyReleased = false;
 }
 
 void CFrobDoor::Save(idSaveGame *savefile) const
@@ -903,11 +902,6 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 	idVec3 pos;
 	idAngles angle;
 
-	/*if (common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51)) == false)
-	{
-		m_KeyReleased = true;
-	}*/
-
 	// If a key has been pressed and the lock is already picked, we play a sample
 	// to indicate that the lock doesn't need picking anymore. This we do only
 	// if there is not currently a sound sample still playing, in which case we 
@@ -967,7 +961,6 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 			// didn't release the key at all while playing the lockpick samples.
 			if(m_SoundTimerStarted > 0)
 			{
-				m_KeyReleased = false;
 				goto Quit;
 			}
 

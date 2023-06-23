@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2600 $
- * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2601 $
+ * $Date: 2008-07-03 12:06:32 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -265,15 +265,13 @@ protected:
 	/**
 	 * These fractions define the stepping for a pin. These are recalculated
 	 * whenever a new pin is used, because they only make sense within a given
-	 * pin and each pin can have it's individual number of samples.
+	 * pin and each pin can have its individual number of samples.
 	 */
 	idVec3						m_SampleTranslationFraction;
 	idAngles					m_SampleRotationFraction;
 
 	idVec3						m_OriginalPosition;
 	idAngles					m_OriginalAngle;
-
-	bool						m_KeyReleased;
 };
 
 #endif /* FROBDOOR_H */
