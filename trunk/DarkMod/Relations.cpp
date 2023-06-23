@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 2414 $
+ * $Date: 2008-06-01 10:34:57 -0400 (Sun, 01 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 2414 2008-06-01 14:34:57Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -307,7 +307,7 @@ bool CRelations::SetFromArgs( idDict *args )
 	EntryList.Condense();
 
 	maxrow++;
-	if (EntryList.Num() != (maxrow*maxrow))
+	if (EntryList.Num() > (maxrow*maxrow))
 	{
 		hadLogicError = true;
 		goto Quit;
