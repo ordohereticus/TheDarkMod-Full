@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2637 $
- * $Date: 2008-07-12 05:15:10 -0400 (Sat, 12 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2670 $
+ * $Date: 2008-07-15 15:39:42 -0400 (Tue, 15 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2637 2008-07-12 09:15:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2670 2008-07-15 19:39:42Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -8823,8 +8823,6 @@ void idPlayer::inventoryUseItem(EImpulseState nState, CInventoryItem* item, int 
 
 	if (frob != NULL && itemIsUsable && frob->CanBeUsedBy(item))
 	{
-		gameRenderWorld->DebugArrow(colorGreen, frob->GetPhysics()->GetOrigin(), frob->GetPhysics()->GetOrigin() + idVec3(0,0,50), 0, 16);
-
 		// Pass the use call
 		frob->UseBy(nState, item);
 	}
