@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2978 $
- * $Date: 2008-10-24 04:19:53 -0400 (Fri, 24 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 3085 $
+ * $Date: 2008-12-14 01:46:48 -0500 (Sun, 14 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 2978 2008-10-24 08:19:53Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3085 2008-12-14 06:46:48Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -2828,6 +2828,8 @@ bool idDeclModelDef::ParseAnim( idLexer &src, int numDefaultAnims ) {
 				flags.ai_no_turn = true;
 			} else if ( token == "anim_turn" ) {
 				flags.anim_turn = true;
+			} else if ( token == "no_random_headturning" ) {
+				flags.no_random_headturning = true;
 			} else if ( token == "frame" ) {
 				// create a frame command
 				int			framenum;

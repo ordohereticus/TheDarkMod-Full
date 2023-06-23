@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2978 $
- * $Date: 2008-10-24 04:19:53 -0400 (Fri, 24 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 3085 $
+ * $Date: 2008-12-14 01:46:48 -0500 (Sun, 14 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -180,6 +180,7 @@ typedef struct {
 	bool					random_cycle_start			: 1;
 	bool					ai_no_turn					: 1;
 	bool					anim_turn					: 1;
+	bool					no_random_headturning		: 1;
 } animFlags_t;
 
 

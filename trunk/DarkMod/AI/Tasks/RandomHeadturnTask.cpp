@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 3085 $
+ * $Date: 2008-12-14 01:46:48 -0500 (Sun, 14 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RandomHeadturnTask.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RandomHeadturnTask.cpp 3085 2008-12-14 06:46:48Z angua $", init_version);
 
 #include "RandomHeadturnTask.h"
 #include "../Memory.h"
@@ -86,25 +86,33 @@ void RandomHeadturnTask::PerformHeadTurnCheck()
 		return;
 	}
 
-	// Yep, set the angles and start head turning
-	memory.currentlyHeadTurning = true;
+	idAnimator* animator = owner->GetAnimatorForChannel(ANIMCHANNEL_TORSO);
+	int animnum = animator->CurrentAnim(ANIMCHANNEL_TORSO)->AnimNum();
+	animFlags_t animflags = animator->GetAnimFlags(animnum);
 
-	// Generate yaw angle in degrees
-	float range = 2 * owner->m_headTurnMaxYaw;
-	float headYawAngle = gameLocal.random.RandomFloat()*range - owner->m_headTurnMaxYaw;
-	
-	// Generate pitch angle in degrees
-	range = 2 * owner->m_headTurnMaxPitch;
-	float headPitchAngle = gameLocal.random.RandomFloat()*range - owner->m_headTurnMaxPitch;
+	// angua: check if the current animation allows random headturning
+	if (!animflags.no_random_headturning)
+	{
+		// Yep, set the angles and start head turning
+		memory.currentlyHeadTurning = true;
 
-	// Generate duration in seconds
-	range = owner->m_headTurnMaxDuration - owner->m_headTurnMinDuration;
-	int duration = static_cast<int>(gameLocal.random.RandomFloat()*range + owner->m_headTurnMinDuration);
+		// Generate yaw angle in degrees
+		float range = 2 * owner->m_headTurnMaxYaw;
+		float headYawAngle = gameLocal.random.RandomFloat()*range - owner->m_headTurnMaxYaw;
+		
+		// Generate pitch angle in degrees
+		range = 2 * owner->m_headTurnMaxPitch;
+		float headPitchAngle = gameLocal.random.RandomFloat()*range - owner->m_headTurnMaxPitch;
 
-	memory.headTurnEndTime = gameLocal.time + duration;
-	
-	// Call event
-	owner->Event_LookAtAngles(headYawAngle, headPitchAngle, 0.0, MS2SEC(duration));
+		// Generate duration in seconds
+		range = owner->m_headTurnMaxDuration - owner->m_headTurnMinDuration;
+		int duration = static_cast<int>(gameLocal.random.RandomFloat()*range + owner->m_headTurnMinDuration);
+
+		memory.headTurnEndTime = gameLocal.time + duration;
+		
+		// Call event
+		owner->Event_LookAtAngles(headYawAngle, headPitchAngle, 0.0, MS2SEC(duration));
+	}
 }
 
 void RandomHeadturnTask::SetNextHeadTurnCheckTime()
