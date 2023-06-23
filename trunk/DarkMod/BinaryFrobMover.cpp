@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2560 $
- * $Date: 2008-06-22 15:06:30 -0400 (Sun, 22 Jun 2008) $
+ * $Revision: 2562 $
+ * $Date: 2008-06-24 11:19:21 -0400 (Tue, 24 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2560 2008-06-22 19:06:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2562 2008-06-24 15:19:21Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -879,10 +879,17 @@ void CBinaryFrobMover::OnUnlock(bool bMaster)
 {
 	FrobMoverStartSound("snd_unlock");
 
-	if (spawnArgs.GetBool("open_on_unlock", "1"))
+	if (cv_door_auto_open_on_unlock.GetBool())
 	{
-		// The configuration says: open the mover when it's unlocked
-		ToggleOpen();
+		// The configuration says: open the mover when it's unlocked, but let's check the mapper's settings
+		bool openOnUnlock = true;
+		bool spawnArgSet = spawnArgs.GetBool("open_on_unlock", "1", openOnUnlock);
+
+		if (!spawnArgSet || openOnUnlock)
+		{
+			// No spawnarg set or opening is allowed, just open the mover
+			ToggleOpen();
+		}
 	}
 }
 
