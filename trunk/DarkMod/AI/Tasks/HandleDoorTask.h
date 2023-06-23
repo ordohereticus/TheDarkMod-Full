@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2598 $
- * $Date: 2008-07-02 15:37:17 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 2881 $
+ * $Date: 2008-09-23 15:09:27 -0400 (Tue, 23 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -58,6 +58,8 @@ public:
 
 	idVec3 GetAwayPos(idAI* owner, CFrobDoor* frobDoor);
 	idVec3 GetTowardPos(idAI* owner, CFrobDoor* frobDoor);
+
+	void DoorInTheWay(idAI* owner, CFrobDoor* frobDoor);
 
 	// this checks if the gap is large enough to fit through 
 	// partially openend doors (blocked, interrupted)

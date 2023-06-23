@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2731 $
- * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2881 $
+ * $Date: 2008-09-23 15:09:27 -0400 (Tue, 23 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2731 2008-08-13 19:03:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2881 2008-09-23 19:09:27Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1510,10 +1510,16 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 	// check if we already have a door to handle
 	// don't start a DoorHandleTask if it is the same door or the other part of a double door
 	CFrobDoor* currentDoor = memory.doorRelated.currentDoor.GetEntity();
-	if (currentDoor == NULL || (currentDoor != frobDoor && frobDoor != currentDoor->GetDoubleDoor()))
+	if (currentDoor == NULL)
 	{
 		memory.doorRelated.currentDoor = frobDoor;
 		owner->GetSubsystem(SubsysMovement)->PushTask(HandleDoorTask::CreateInstance());
+	}
+	else if (frobDoor != currentDoor && frobDoor != currentDoor->GetDoubleDoor())
+	{
+		// if there is already a door handling task active, 
+		// terminate that one so we can start a new one next time
+		owner->GetSubsystem(SubsysMovement)->FinishTask();
 	}
 }
 
