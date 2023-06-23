@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3056 $
- * $Date: 2008-11-22 01:29:14 -0500 (Sat, 22 Nov 2008) $
+ * $Revision: 3057 $
+ * $Date: 2008-11-22 01:38:40 -0500 (Sat, 22 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3056 2008-11-22 06:29:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3057 2008-11-22 06:38:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5383,9 +5383,11 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_47:	// Inventory previous item
 		{
-			// If the grabber is active, prev weapon increments the distance
-			if(m_bGrabberActive)
-				gameLocal.m_Grabber->IncrementDistance( true );
+			// If the grabber is active, prev item modifies the distance based on the CVAR setting
+			if (m_bGrabberActive)
+			{
+				gameLocal.m_Grabber->IncrementDistance( !cv_reverse_grab_control.GetBool() );
+			}
 
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryPrevItem");
@@ -5399,9 +5401,11 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_48:	// Inventory next item
 		{
-			// If the grabber is active, next weapon increments the distance
-			if(m_bGrabberActive)
-				gameLocal.m_Grabber->IncrementDistance( false );
+			// If the grabber is active, next item modifies the distance based on the CVAR setting
+			if (m_bGrabberActive)
+			{
+				gameLocal.m_Grabber->IncrementDistance( cv_reverse_grab_control.GetBool() );
+			}
 
 			// Notify the GUIs about the button event
 			m_overlays.broadcastNamedEvent("inventoryNextItem");
@@ -5480,7 +5484,7 @@ void idPlayer::PerformKeyRepeat(int impulse, int holdTime)
 		}
 		break;
 
-		case IMPULSE_51:
+		case IMPULSE_51:		// Inventory Use Item
 		{
 			const CInventoryCursorPtr& crsr = InventoryCursor();
 			CInventoryItemPtr it = crsr->GetCurrentItem();
@@ -5521,8 +5525,10 @@ void idPlayer::PerformKeyRelease(int impulse, int holdTime)
 				physicsObj.ToggleLean(0.0);
 		break;
 
-		case IMPULSE_51:
+		case IMPULSE_51:		// Inventory Use item
+		{
 			InventoryUseKeyRelease(holdTime);
+		}
 		break;
 	}
 }
