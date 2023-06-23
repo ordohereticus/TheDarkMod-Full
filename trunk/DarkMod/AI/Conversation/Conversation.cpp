@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2699 $
- * $Date: 2008-07-18 14:08:32 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2701 $
+ * $Date: 2008-07-19 03:07:10 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2699 2008-07-18 18:08:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2701 2008-07-19 07:07:10Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -49,29 +49,37 @@ int Conversation::GetPlayCount()
 	return _playCount;
 }
 
+int Conversation::GetMaxPlayCount()
+{
+	return _maxPlayCount;
+}
+
 bool Conversation::CheckConditions()
 {
+	// Check if the max play count has been exhausted already
+	if (_maxPlayCount != -1 && _playCount >= _maxPlayCount)
+	{
+		// play count exhausted
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation has exceeded the maximum playcount (current playcount = %d)!.\r", _name.c_str(), _playCount);
+		return false;
+	}
+
 	// greebo: Check if all actors are available
 	for (int i = 0; i < _actors.Num(); i++)
 	{
 		// Get the actor
-		idActor* actor = GetActor(i);
+		idAI* ai = GetActor(i);
 
-		if (actor != NULL && (actor->IsKnockedOut() || actor->health <= 0))
+		if (ai != NULL && (ai->IsKnockedOut() || ai->health <= 0))
 		{
 			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Actor %s in conversation %s is KO or dead!.\r", _actors[i].c_str(), _name.c_str());
 			return false;
 		}
 
-		if (actor->IsType(idAI::Type))
+		if (ai->AI_AlertIndex > MAX_ALERT_LEVEL_TO_START_CONVERSATION)
 		{
-			idAI* ai = static_cast<idAI*>(actor);
-
-			if (ai->AI_AlertIndex > MAX_ALERT_LEVEL_TO_START_CONVERSATION)
-			{
-				// AI is too alerted to start this conversation
-				return false;
-			}
+			// AI is too alerted to start this conversation
+			return false;
 		}
 	}
 
@@ -236,6 +244,7 @@ void Conversation::Save(idSaveGame* savefile) const
 
 	savefile->WriteInt(_currentCommand);
 	savefile->WriteInt(_playCount);
+	savefile->WriteInt(_maxPlayCount);
 }
 
 void Conversation::Restore(idRestoreGame* savefile)
@@ -262,6 +271,7 @@ void Conversation::Restore(idRestoreGame* savefile)
 
 	savefile->ReadInt(_currentCommand);
 	savefile->ReadInt(_playCount);
+	savefile->ReadInt(_maxPlayCount);
 }
 
 void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
@@ -342,6 +352,9 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 		gameLocal.Warning("Ignoring conversation %s as it has a talk distance <= 0.\n", _name.c_str());
 		return;
 	}
+
+	// get max play count, default is -1, which means infinitely often
+	_maxPlayCount = dict.GetInt(prefix + "max_play_count", "-1"); 
 
 	// Seems like we have everything we need
 	_isValid = true;
