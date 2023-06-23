@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2489 $
- * $Date: 2008-06-14 13:13:04 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2490 $
+ * $Date: 2008-06-15 01:08:13 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -28,7 +28,6 @@ extern idCVar cv_ai_sight_mag;
 extern idCVar cv_ai_sightmaxdist;
 extern idCVar cv_ai_sightmindist;
 extern idCVar cv_ai_tactalert;
-extern idCVar cv_ai_state_show;
 extern idCVar cv_ai_task_show;
 extern idCVar cv_ai_alertlevel_show;
 extern idCVar cv_ai_dest_show;

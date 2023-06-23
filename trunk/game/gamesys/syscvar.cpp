@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2489 $
- * $Date: 2008-06-14 13:13:04 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2490 $
+ * $Date: 2008-06-15 01:08:13 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2489 2008-06-14 17:13:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2490 2008-06-15 05:08:13Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -57,7 +57,6 @@ idCVar cv_ai_bumpobject_impulse(	"tdm_ai_bumpobject_impulse", "1500",		CVAR_GAME
 idCVar cv_ai_debug(					"tdm_ai_debug",				"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL,  "If set to true, AI alert events will be sent to the console for debugging purposes." );
 idCVar cv_ai_fov_show (				"tdm_ai_showfov",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, a debug graphic showing the field of vision of the AI will be drawn.");
 idCVar cv_ai_ko_show (				"tdm_ai_showko",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, a debug graphic showing the knockout region of the AI will be drawn.");
-idCVar cv_ai_state_show (			"tdm_ai_showstate",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the name of the AI's current state will be shown.");
 idCVar cv_ai_animstate_show (		"tdm_ai_showanimstate",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the name of the AI's current animation state will be shown.");
 idCVar cv_ai_task_show (			"tdm_ai_showtasks",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the name of the AI's current tasks will be shown.");
 idCVar cv_ai_alertlevel_show (		"tdm_ai_showalert",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to true, debug text showing the AI's current total alert units is shown (Note: This is not the alert state, use tdm_ai_showstate for that).");

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2483 $
- * $Date: 2008-06-14 05:28:25 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2490 $
+ * $Date: 2008-06-15 01:08:13 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1483,6 +1483,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	// angua: this checks whether the AI should close the door after passing through
 	bool					ShouldCloseDoor(CBinaryFrobMover *frobMover);
 
+	// greebo: Contains all the checks for CVAR-dependent debug info
+	void					ShowDebugInfo();
 	
 	//
 	// ai/ai_events.cpp
