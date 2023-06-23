@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3216 $
- * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3217 $
+ * $Date: 2009-02-17 23:35:51 -0500 (Tue, 17 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3216 2009-02-16 23:55:53Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3217 2009-02-18 04:35:51Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4508,8 +4508,9 @@ void CMeleeStatus::Restore( idRestoreGame *savefile )
 	savefile->ReadBool( m_bCanParry );
 	savefile->ReadBool( m_bCanParryAll );
 
-	int num = m_attacks.Num();
+	int num;
 	savefile->ReadInt( num );
+	m_attacks.SetNum( num );
 	for( int j =0; j < num; j++ )
 	{
 		savefile->ReadInt( i );
