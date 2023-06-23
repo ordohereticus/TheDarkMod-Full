@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2293 $
- * $Date: 2008-05-11 06:47:25 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2294 $
+ * $Date: 2008-05-11 07:06:13 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -68,6 +68,7 @@ private:
 
 
 class CMultiStateMover;
+class tdmEAS;
 
 class idAASLocal : 
 	public idAAS
