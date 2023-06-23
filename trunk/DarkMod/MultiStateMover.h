@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2168 $
- * $Date: 2008-04-08 21:53:58 +0200 (Di, 08 Apr 2008) $
+ * $Revision: 2337 $
+ * $Date: 2008-05-15 12:20:41 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -42,6 +42,12 @@ public:
 
 	// Returns the list of position infos, populates the list if none are assigned yet.
 	const idList<MoverPositionInfo>& GetPositionInfoList();
+
+	/** 
+	 * greebo: Returns TRUE if this mover is at the given position.
+	 * Note: NULL arguments always return false.
+	 */
+	bool IsAtPosition(CMultiStateMoverPosition* position);
 
 protected:
 	// override idMover's DoneMoving() to trigger targets
