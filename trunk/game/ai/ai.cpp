@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3089 $
+ * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3271,6 +3271,11 @@ bool idAI::MoveToPosition( const idVec3 &pos ) {
 	AI_DEST_UNREACHABLE = false;
 	AI_FORWARD			= true;
 
+	if (GetMoveType() == MOVETYPE_SIT)
+	{
+		GetUp();
+	}
+
 	return true;
 }
 
@@ -4469,11 +4474,6 @@ void idAI::SittingMove()
 	idMat3 oldaxis = viewAxis;
 
 	AI_BLOCKED = false;
-
-	if ( move.moveCommand != MOVE_NONE )
-	{
-		move.moveType = MOVETYPE_ANIM;
-	}
 
 	RunPhysics();
 
@@ -9768,4 +9768,28 @@ void idAI::AddTarget(idEntity* target)
 	{
 		GetMind()->GetState()->OnChangeTarget(this);
 	}
+}
+
+void idAI::SitDown()
+{
+	idStr waitState(WaitState());
+	if (waitState == "sit_down")
+	{
+		return;
+	}
+	CallScriptFunctionArgs("Sit_Down", true, 0, "e", this);
+	SetWaitState("sit_down");
+
+}
+
+void idAI::GetUp()
+{
+	idStr waitState(WaitState());
+	if (waitState == "get_up")
+	{
+		return;
+	}
+
+	CallScriptFunctionArgs("Get_Up", true, 0, "e", this);
+	SetWaitState("get_up");
 }

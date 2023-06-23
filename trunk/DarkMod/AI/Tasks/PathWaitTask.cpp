@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2829 $
- * $Date: 2008-09-13 14:08:37 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 3089 $
+ * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathWaitTask.cpp 2829 2008-09-13 18:08:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathWaitTask.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -47,7 +47,7 @@ void PathWaitTask::Init(idAI* owner, Subsystem& subsystem)
 	}
 
 	float waittime = path->spawnArgs.GetFloat("wait","0");
-	float waitmax = path->spawnArgs.GetFloat("waitmax", "0");
+	float waitmax = path->spawnArgs.GetFloat("wait_max", "0");
 
 	if (waitmax > 0)
 	{

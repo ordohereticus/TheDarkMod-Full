@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3087 $
- * $Date: 2008-12-15 13:57:19 -0500 (Mon, 15 Dec 2008) $
+ * $Revision: 3089 $
+ * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3087 2008-12-15 18:57:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -19,6 +19,7 @@ static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3087 2008-12-15 
 #include "PathWaitTask.h"
 #include "PathAnimTask.h"
 #include "PathCycleAnimTask.h"
+#include "PathSitTask.h"
 #include "PathWaitForTriggerTask.h"
 #include "PathHideTask.h"
 #include "PathShowTask.h"
@@ -124,6 +125,21 @@ bool PatrolTask::Perform(Subsystem& subsystem)
 		{
 			// No "angle" key set, just schedule the animation task
 			task = PathCycleAnimTaskPtr(new PathCycleAnimTask(path));
+		}
+	}
+	else if (classname == "path_sit")
+	{
+		if (path->spawnArgs.FindKey("angle") != NULL)
+		{
+			// We have an angle key set, push a PathTurnTask on top of the anim task
+			subsystem.PushTask(TaskPtr(new PathSitTask(path)));
+			// The "task" variable will be pushed later on in this code
+			task = PathTurnTaskPtr(new PathTurnTask(path));
+		}
+		else 
+		{
+			// No "angle" key set, just schedule the animation task
+			task = PathSitTaskPtr(new PathSitTask(path));
 		}
 	}
 

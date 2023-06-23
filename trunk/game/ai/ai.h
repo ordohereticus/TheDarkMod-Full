@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3062 $
- * $Date: 2008-11-23 02:45:44 -0500 (Sun, 23 Nov 2008) $
+ * $Revision: 3089 $
+ * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -462,6 +462,10 @@ public:
 	**/
 	virtual void			RemoveTarget(idEntity* target);
 	virtual void			AddTarget(idEntity* target);
+
+	// angua: calls the script functions for sitting down and getting up
+	void SitDown();
+	void GetUp();
 
 public:
 	/**

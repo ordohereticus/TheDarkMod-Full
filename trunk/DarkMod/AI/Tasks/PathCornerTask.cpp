@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2829 $
- * $Date: 2008-09-13 14:08:37 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 3089 $
+ * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 2829 2008-09-13 18:08:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -65,27 +65,25 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 
 	if (_moveInitiated)
 	{
-		if (owner->AI_MOVE_DONE || owner->AI_DEST_UNREACHABLE)
+		if (owner->AI_MOVE_DONE && owner->ReachedPos(path->GetPhysics()->GetOrigin(), MOVE_TO_POSITION))
 		{
-			if (owner->AI_MOVE_DONE)
-			{
-				// Trigger path targets, now that we've reached the corner
-				owner->ActivateTargets(owner);
+			// Trigger path targets, now that we've reached the corner
+			owner->ActivateTargets(owner);
 
-				// Store the new path entity into the AI's mind
-				idPathCorner* next = idPathCorner::RandomPath(path, NULL);
-				owner->GetMind()->GetMemory().currentPath = next;
+			// Store the new path entity into the AI's mind
+			idPathCorner* next = idPathCorner::RandomPath(path, NULL);
+			owner->GetMind()->GetMemory().currentPath = next;
 
-				// Move is done, fall back to PatrolTask
-				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
-			}
-			
-			if (owner->AI_DEST_UNREACHABLE)
-			{
-				// Unreachable, fall back to PatrolTask
-				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination is unreachable, skipping.\r");
-			}
+			// Move is done, fall back to PatrolTask
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
+
+			return true; // finish this task
+		}
 		
+		if (owner->AI_DEST_UNREACHABLE)
+		{
+			// Unreachable, fall back to PatrolTask
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination is unreachable, skipping.\r");
 			return true; // finish this task
 		}
 

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3089 $
+ * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -84,6 +84,11 @@ void IdleState::Init(idAI* owner)
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle_Sit", 0);
 		owner->Event_SetMoveType(MOVETYPE_SIT);
 	}
+	else if (owner->GetMoveType() == MOVETYPE_SIT)
+	{
+		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle_Sit", 0);
+		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle_Sit", 0);
+	}
 	else
 	{
 		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 0);
@@ -123,11 +128,10 @@ void IdleState::Think(idAI* owner)
 		if (owner->ReachedPos(memory.idlePosition, MOVE_TO_POSITION) 
 			&& owner->GetCurrentYaw() == memory.idleYaw)
 		{
-			owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle_Sit", 0);
-			owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle_Sit", 0);
-			owner->Event_SetMoveType(MOVETYPE_SIT);
+			owner->SitDown();
 		}
 	}
+
 	UpdateAlertLevel();
 
 	// Ensure we are in the correct alert level

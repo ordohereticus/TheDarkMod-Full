@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3089 $
+ * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -62,7 +62,7 @@ void SearchingState::Init(idAI* owner)
 
 	if (owner->GetMoveType() == MOVETYPE_SIT)
 	{
-		owner->SetMoveType(MOVETYPE_ANIM);
+		owner->GetUp();
 	}
 
 	// Ensure we are in the correct alert level
@@ -172,9 +172,10 @@ void SearchingState::Think(idAI* owner)
 
 		// Let the AI check its senses
 		owner->PerformVisualScan();
-
+/*
+		// angua: commented this out, problems with getting up from sitting
 		idStr waitState(owner->WaitState());
-		if (waitState != "look_around")
+		if (waitState.IsEmpty())
 		{
 			// Waitstate is not matching, this means that the animation 
 			// can be started.
@@ -185,6 +186,8 @@ void SearchingState::Think(idAI* owner)
 			// the script function when the animation is done.
 			owner->SetWaitState("look_around");
 		}
+*/
+
 	}
 	// Is a hiding spot search in progress?
 	else if (!memory.hidingSpotInvestigationInProgress)

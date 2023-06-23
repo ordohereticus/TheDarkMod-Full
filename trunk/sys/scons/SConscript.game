@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3087 $
-#* $Date: 2008-12-15 13:57:19 -0500 (Mon, 15 Dec 2008) $
+#* $Revision: 3089 $
+#* $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
 #* $Author: angua $
 #*
 #* $Log$
@@ -226,6 +226,7 @@ AI/Tasks/PathHideTask.cpp \
 AI/Tasks/PathInteractTask.cpp \
 AI/Tasks/PathLookatTask.cpp \
 AI/Tasks/PathShowTask.cpp \
+AI/Tasks/PathSitTask.cpp \
 AI/Tasks/PathTurnTask.cpp \
 AI/Tasks/PathWaitForTriggerTask.cpp \
 AI/Tasks/PathWaitTask.cpp \
