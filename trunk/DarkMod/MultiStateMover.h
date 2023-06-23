@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2340 $
- * $Date: 2008-05-15 13:28:07 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2341 $
+ * $Date: 2008-05-15 13:50:20 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -66,6 +66,17 @@ public:
 	 * @type: The "use type" of the entity, e.g. "fetch" or "ride"
 	 */
 	void RegisterButton(CMultiStateMoverButton* button, EMMButtonType type);
+
+	/** 
+	 * greebo: Returns the button entity for the given position and the given "use type".
+	 *
+	 * @toPosition: the position the elevator needs to go to (to be "fetched" to, to "ride" to).
+	 * @fromPosition: the position the button needs to be accessed from (can be NULL for type == RIDE).
+	 * @type: the desired type of button (fetch or ride)
+	 * 
+	 * @returns: NULL if nothing found.
+	 */
+	CMultiStateMoverButton* GetButton(CMultiStateMoverPosition* toPosition, CMultiStateMoverPosition* fromPosition, EMMButtonType type);
 
 protected:
 	// override idMover's DoneMoving() to trigger targets

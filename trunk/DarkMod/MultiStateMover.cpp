@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2340 $
- * $Date: 2008-05-15 13:28:07 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2341 $
+ * $Date: 2008-05-15 13:50:20 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2340 2008-05-15 17:28:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2341 2008-05-15 17:50:20Z greebo $", init_version);
 
 #include "MultiStateMover.h"
 
@@ -109,6 +109,67 @@ void CMultiStateMover::RegisterButton(CMultiStateMoverButton* button, EMMButtonT
 		gameLocal.Warning("Unknown button state type registered: %s", button->name.c_str());
 		break;
 	};
+}
+
+CMultiStateMoverButton* CMultiStateMover::GetButton(
+	CMultiStateMoverPosition* toPosition, CMultiStateMoverPosition* fromPosition, EMMButtonType type)
+{
+	// Sanity checks
+	if (toPosition == NULL) return NULL;
+	if (type == BUTTON_TYPE_RIDE && fromPosition == NULL) return NULL;
+
+	switch (type)
+	{
+	case BUTTON_TYPE_RIDE:
+		{
+			const idVec3& fromOrigin = fromPosition->GetPhysics()->GetOrigin();
+			for (int i = 0; i < rideButtons.Num(); i++)
+			{
+				CMultiStateMoverButton* rideButton = rideButtons[i].GetEntity();
+				if (rideButton == NULL) continue;
+
+				if (rideButton->spawnArgs.GetString("position") != toPosition->spawnArgs.GetString("position")) 
+				{
+					// Wrong position
+					continue;
+				}
+
+				// Check if the position of the buttons is appropriate for the given fromPosition
+				if (idMath::Fabs(fromOrigin.z - rideButton->GetPhysics()->GetOrigin().z) < 100)
+				{
+					return rideButton;
+				}
+			}
+		}
+		break;
+	case BUTTON_TYPE_FETCH:
+		{
+			const idVec3& toOrigin = toPosition->GetPhysics()->GetOrigin();
+			for (int i = 0; i < fetchButtons.Num(); i++)
+			{
+				CMultiStateMoverButton* fetchButton = fetchButtons[i].GetEntity();
+				if (fetchButton == NULL) continue;
+
+				if (fetchButton->spawnArgs.GetString("position") != toPosition->spawnArgs.GetString("position")) 
+				{
+					// Wrong position
+					continue;
+				}
+
+				// Check if the position of the buttons is appropriate for the given toPosition
+				if (idMath::Fabs(toOrigin.z - fetchButton->GetPhysics()->GetOrigin().z) < 100)
+				{
+					return fetchButton;
+				}
+			}
+		}
+		break;
+	default:
+		gameLocal.Warning("Unknown button state type passed to MultiStateMover::GetButton(): %s", name.c_str());
+		break;
+	};
+
+	return NULL;
 }
 
 void CMultiStateMover::Save(idSaveGame *savefile) const
