@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2605 $
- * $Date: 2008-07-03 13:54:50 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2613 $
+ * $Date: 2008-07-06 00:44:54 -0400 (Sun, 06 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2605 2008-07-03 17:54:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2613 2008-07-06 04:44:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5201,6 +5201,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_51:	// Inventory use item
 		{
+			// Use key has "hold down" functions
+			m_ButtonStateTracker.startTracking(impulse);
+			// Pass the call
 			inventoryUseItem();
 		}
 		break;
