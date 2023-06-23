@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2745 $
- * $Date: 2008-08-19 14:02:03 -0400 (Tue, 19 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2751 $
+ * $Date: 2008-08-23 13:40:44 -0400 (Sat, 23 Aug 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2745 2008-08-19 18:02:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2751 2008-08-23 17:40:44Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2809,7 +2809,7 @@ void idEntity::FinishBind( void )
 	// make sure the team master is active so that physics get run
 	teamMaster->BecomeActive( TH_PHYSICS );
 	
-	// Notify bind master of this binding
+	// Notify bindmaster of this binding
 	bindMaster->BindNotify( this );
 }
 
@@ -2985,7 +2985,7 @@ void idEntity::Unbind( void ) {
 		return;
 	}
 
-	// TDM: Notify bind master of unbinding
+	// TDM: Notify bindmaster of unbinding
 	bindMaster->UnbindNotify( this );
 
 	if ( !teamMaster ) {

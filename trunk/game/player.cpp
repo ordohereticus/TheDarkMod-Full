@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2670 $
- * $Date: 2008-07-15 15:39:42 -0400 (Tue, 15 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2751 $
+ * $Date: 2008-08-23 13:40:44 -0400 (Sat, 23 Aug 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2670 2008-07-15 19:39:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2751 2008-08-23 17:40:44Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9431,7 +9431,7 @@ void idPlayer::FrobCheck( void )
 		
 		idPhysics_Player* playerPhysics = static_cast<idPhysics_Player*>(GetPhysics());
 
-		// greebo: Check if the frobbed entity is the bind master of the currently climbed rope
+		// greebo: Check if the frobbed entity is the bindmaster of the currently climbed rope
 		bool isRopeMaster = playerPhysics->OnRope() && playerPhysics->GetRopeEntity()->GetBindMaster() == ent;
 
 		// ishtvan: Check if the frobbed entity is a dynamically added AF body linked to another entity
