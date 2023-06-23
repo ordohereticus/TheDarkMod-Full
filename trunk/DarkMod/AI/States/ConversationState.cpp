@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2683 $
- * $Date: 2008-07-17 14:02:39 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2684 $
+ * $Date: 2008-07-17 14:11:49 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2683 2008-07-17 18:02:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2684 2008-07-17 18:11:49Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -18,6 +18,7 @@ static bool init_version = FileVersionList("$Id: ConversationState.cpp 2683 2008
 #include "../Tasks/MoveToPositionTask.h"
 #include "ObservantState.h"
 #include "../Library.h"
+#include "../Conversation/Conversation.h"
 #include "../Conversation/ConversationCommand.h"
 
 // greebo: This spawnarg holds the currently played conversation sound
@@ -203,7 +204,22 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		}
 	}
 	break;
-	/*EActivateTarget,
+	case ConversationCommand::ELookAtActor:
+	{
+		// Reduce the actor index by 1 before passing them to the conversation
+		idAI* ai = conversation.GetActor(atoi(command.GetArgument(0)) - 1);
+
+		if (ai != NULL)
+		{
+			owner->TurnToward(ai->GetEyePosition());
+			_state = ConversationCommand::EFinished;
+		}
+		else
+		{
+			gameLocal.Warning("Conversation Command: 'LookAtActor' could not find actor: %s", command.GetArgument(0).c_str());
+		}
+	}
+	/*,
 	ELookAtActor,
 	ELookAtPosition,
 	ELookAtEntity,
