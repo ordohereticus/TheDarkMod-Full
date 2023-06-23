@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2572 $
- * $Date: 2008-06-26 00:30:11 -0400 (Thu, 26 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2589 $
+ * $Date: 2008-06-30 01:09:36 -0400 (Mon, 30 Jun 2008) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -364,9 +364,10 @@ extern idCVar	pm_spectatebbox;
 extern idCVar	pm_usecylinder;
 extern idCVar	pm_minviewpitch;
 extern idCVar	pm_maxviewpitch;
-extern idCVar	pm_stamina;
-extern idCVar	pm_staminathreshold;
-extern idCVar	pm_staminarate;
+// Commented out by Dram. Not needed as TDM does not use stamina
+//extern idCVar	pm_stamina;
+//extern idCVar	pm_staminathreshold;
+//extern idCVar	pm_staminarate;
 extern idCVar	pm_crouchheight;
 extern idCVar	pm_crouchviewheight;
 extern idCVar	pm_normalheight;

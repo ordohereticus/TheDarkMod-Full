@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2589 $
+ * $Date: 2008-06-30 01:09:36 -0400 (Mon, 30 Jun 2008) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ Worldspawn class.  Each map has one worldspawn which handles global spawnargs.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: worldspawn.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: worldspawn.cpp 2589 2008-06-30 05:09:36Z dram $", init_version);
 
 #include "game_local.h"
 
@@ -51,10 +51,12 @@ void idWorldspawn::Spawn( void ) {
 
 	g_gravity.SetFloat( spawnArgs.GetFloat( "gravity", va( "%f", DEFAULT_GRAVITY ) ) );
 
+	// Commented out by Dram. TDM does not use stamina
+	/*
 	// disable stamina on hell levels
 	if ( spawnArgs.GetBool( "no_stamina" ) ) {
 		pm_stamina.SetFloat( 0.0f );
-	}
+	}*/
 
 	// load script
 	scriptname = gameLocal.GetMapName();
@@ -105,10 +107,11 @@ void idWorldspawn::Restore( idRestoreGame *savefile ) {
 
 	g_gravity.SetFloat( spawnArgs.GetFloat( "gravity", va( "%f", DEFAULT_GRAVITY ) ) );
 
-	// disable stamina on hell levels
+	// Commented out by Dram. TDM does not use stamina
+	/*// disable stamina on hell levels
 	if ( spawnArgs.GetBool( "no_stamina" ) ) {
 		pm_stamina.SetFloat( 0.0f );
-	}
+	}*/
 }
 
 /*

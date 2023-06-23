@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2557 $
- * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2589 $
+ * $Date: 2008-06-30 01:09:36 -0400 (Mon, 30 Jun 2008) $
+ * $Author: dram $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2557 2008-06-21 19:42:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2589 2008-06-30 05:09:36Z dram $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -579,6 +579,8 @@ void idPlayer::Init( void ) {
 		}
 	}
 
+	// Commented out by Dram. TDM does not use stamina
+/*
 	// disable stamina on hell levels
 	if ( gameLocal.world && gameLocal.world->spawnArgs.GetBool( "no_stamina" ) ) {
 		pm_stamina.SetFloat( 0.0f );
@@ -586,6 +588,8 @@ void idPlayer::Init( void ) {
 
 	// stamina always initialized to maximum
 	stamina = pm_stamina.GetFloat();
+*/
+	stamina = 0.0f; // Set stamina to 0 - Dram
 
 	// air always initialized to maximum too
 	airTics = pm_airTics.GetInteger();
@@ -1356,7 +1360,8 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( lastSpectateChange );
 	savefile->WriteInt( lastTeleFX );
 
-	savefile->WriteFloat( pm_stamina.GetFloat() );
+	// Commented out by Dram. TDM does not use stamina
+	//savefile->WriteFloat( pm_stamina.GetFloat() );
 
 	savefile->WriteBool( m_bGrabberActive );
 	savefile->WriteBool( m_bDraggingBody );
@@ -1659,7 +1664,8 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	}
 
 	savefile->ReadFloat( set );
-	pm_stamina.SetFloat( set );
+	// Commented out by Dram. TDM does not use stamina
+	//pm_stamina.SetFloat( set );
 
 	savefile->ReadBool( m_bGrabberActive );
 	savefile->ReadBool( m_bDraggingBody );
@@ -2131,25 +2137,29 @@ idPlayer::UpdateHudStats
 */
 void idPlayer::UpdateHudStats( idUserInterface *_hud )
 {
-	int staminapercentage;
-	float max_stamina;
+	// Commented out by Dram. TDM does not use stamina
+	//int staminapercentage;
+	//float max_stamina;
 
 	assert( _hud );
 
-	max_stamina = pm_stamina.GetFloat();
+	// Commented out by Dram. TDM does not use stamina
+	/*max_stamina = pm_stamina.GetFloat();
 	if ( !max_stamina ) {
 		// stamina disabled, so show full stamina bar
 		staminapercentage = 100;
 	} else {
 		staminapercentage = idMath::FtoiFast( 100.0f * stamina / max_stamina );
-	}
+	}*/
 
 	_hud->SetStateInt( "player_health", health );
-	_hud->SetStateInt( "player_stamina", staminapercentage );
+	// Commented out by Dram. TDM does not use stamina
+	//_hud->SetStateInt( "player_stamina", staminapercentage );
 	_hud->SetStateInt( "player_shadow", 1 );
 
 	_hud->SetStateInt( "player_hr", heartRate );
-	_hud->SetStateInt( "player_nostamina", ( max_stamina == 0 ) ? 1 : 0 );
+	// Commented out by Dram. TDM does not use stamina
+	//_hud->SetStateInt( "player_nostamina", ( max_stamina == 0 ) ? 1 : 0 );
 
 	_hud->HandleNamedEvent( "updateArmorHealthAir" );
 
@@ -5397,7 +5407,8 @@ void idPlayer::AdjustSpeed( void )
 	// DarkMod: removed check for not crouching..
 	else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) ) 
 	{
-		if ( !gameLocal.isMultiplayer ) {
+		// Commented out by Dram. TDM does not use stamina
+		/*if ( !gameLocal.isMultiplayer ) {
 			stamina -= MS2SEC( gameLocal.msec );
 		}
 		if ( stamina < 0 ) {
@@ -5409,7 +5420,8 @@ void idPlayer::AdjustSpeed( void )
 			bobFrac = 0.0f;
 		} else {
 			bobFrac = stamina / pm_staminathreshold.GetFloat();
-		}
+		}*/
+		bobFrac = 1.0f;
 
 		/**
 		*  DarkMod : Removed the effect of stamina on speed
@@ -5426,7 +5438,8 @@ void idPlayer::AdjustSpeed( void )
 	// standing still, walking, or creeping case
 	else 
 	{
-		rate = pm_staminarate.GetFloat();
+		// Commented out by Dram. TDM does not use stamina
+		/*rate = pm_staminarate.GetFloat();
 		
 		// increase 25% faster when not moving
 		if ( ( usercmd.forwardmove == 0 ) && ( usercmd.rightmove == 0 ) && ( !physicsObj.OnLadder() || ( usercmd.upmove == 0 ) ) ) 
@@ -5438,7 +5451,7 @@ void idPlayer::AdjustSpeed( void )
 		if ( stamina > pm_stamina.GetFloat() ) 
 		{
 			stamina = pm_stamina.GetFloat();
-		}
+		}*/
 
 		speed = pm_walkspeed.GetFloat();
 		bobFrac = 0.0f;
