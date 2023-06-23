@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2871 $
- * $Date: 2008-09-21 20:43:00 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2872 $
+ * $Date: 2008-09-21 21:55:49 -0400 (Sun, 21 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -82,6 +82,14 @@ public:
 		* before calling this.
 		**/
 		bool					PutInHands( idEntity *ent, idMat3 axis = mat3_identity, int bodyID = 0 );
+		/**
+		* We can specify a different point to start the item at other than the default hold point
+		**/
+		bool					PutInHands( idEntity *ent, idVec3 point, idMat3 axis = mat3_identity, int bodyID = 0 );
+		/**
+		* And this is the internal function called by both versions of PutInHands
+		**/
+		bool					PutInHandsAtPoint( idEntity *ent, idVec3 point, idMat3 axis = mat3_identity, int bodyID = 0 );
 
 		/**
 		* Returns true if there is space to put an item in the player's hands at the minimum hold distance
@@ -137,6 +145,12 @@ public:
 		**/
 		bool					ShoulderBody( idAFEntity_Base *body );
 		bool					UnShoulderBody( void );
+
+		/**
+		* Used to switch between dropping a body face up and face down on each drop
+		* (Toggled by idPlayer)
+		**/
+		bool					m_bDropBodyFaceUp;
 
 		/**
 		* Set the player associated with this grabber

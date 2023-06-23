@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2871 $
- * $Date: 2008-09-21 20:43:00 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2872 $
+ * $Date: 2008-09-21 21:55:49 -0400 (Sun, 21 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2871 2008-09-22 00:43:00Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2872 2008-09-22 01:55:49Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -114,6 +114,7 @@ void CGrabber::Clear( void )
 	m_bObjStuck = false;
 	m_EquippedEnt = NULL;
 	m_MaxForce = 0;
+	m_bDropBodyFaceUp = false;
 
 	while( this->HasClippedEntity() )
 		this->RemoveFromClipList( 0 );
@@ -170,6 +171,7 @@ void CGrabber::Save( idSaveGame *savefile ) const
 	{
 		savefile->WriteVec3( m_CollNorms[i] );
 	}
+	savefile->WriteBool( m_bDropBodyFaceUp );
 }
 
 void CGrabber::Restore( idRestoreGame *savefile )
@@ -228,6 +230,7 @@ void CGrabber::Restore( idRestoreGame *savefile )
 	{
 		savefile->ReadVec3(m_CollNorms[i]);
 	}
+	savefile->ReadBool( m_bDropBodyFaceUp );
 }
 
 /*
@@ -1060,6 +1063,17 @@ Quit:
 
 bool CGrabber::PutInHands(idEntity *ent, idMat3 axis, int bodyID)
 {
+	idVec3 COMpoint = GetHoldPoint(ent, axis, bodyID);
+	return PutInHandsAtPoint(ent, COMpoint, axis, bodyID);
+}
+
+bool CGrabber::PutInHands(idEntity *ent, idVec3 point, idMat3 axis, int bodyID)
+{
+	return PutInHandsAtPoint(ent, point, axis, bodyID);
+}
+
+bool CGrabber::PutInHandsAtPoint(idEntity *ent, idVec3 point, idMat3 axis, int bodyID)
+{
 	if( !ent || !m_player.GetEntity() )
 		return false;
 
@@ -1068,7 +1082,7 @@ bool CGrabber::PutInHands(idEntity *ent, idMat3 axis, int bodyID)
 	idMat3	viewAxis;
 
 	m_player.GetEntity()->GetViewPos( viewPoint, viewAxis );
-	targetCOM = GetHoldPoint(ent, axis, bodyID);
+	targetCOM = point;
 
 	bReturnVal = FitsInWorld( ent, viewPoint, targetCOM, axis, bodyID );
 	
@@ -1413,7 +1427,6 @@ bool CGrabber::ShoulderBody( idAFEntity_Base *body )
 		player->SetJumpHinderance( "ShoulderedBody", 1.0f, SHOULDER_JUMP_HINDERANCE );
 
 		m_EquippedEnt = body;
-
 		rc = true;
 	}
 
