@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2577 $
- * $Date: 2008-06-26 15:58:46 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2614 $
+ * $Date: 2008-07-06 01:56:10 -0400 (Sun, 06 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -37,6 +37,13 @@ public:
 	void AddResponseIgnore(idEntity *);
 	void RemoveResponseIgnore(idEntity *);
 	bool CheckResponseIgnore(idEntity *);
+
+	/**
+	 * greebo: Returns the current radius value. Note that stims can have
+	 * their radius changing over time. This calculates the current value
+	 * based on the timestamps and returns it.
+	 */
+	float GetRadius();
 
 	/**
 	* greebo: This adds/removes the stim timer to/from the list 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2612 $
- * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
+ * $Revision: 2614 $
+ * $Date: 2008-07-06 01:56:10 -0400 (Sun, 06 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2614 2008-07-06 05:56:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5684,6 +5684,20 @@ int idGameLocal::DoResponseAction(CStim* stim, int numEntities, idEntity* origin
 		if (srEntities[i] == originator || srEntities[i]->GetResponseEntity() == originator)
 			continue;
 
+		// Check if the radius is really fitting. EntitiesTouchingBounds is using a rectangular volume
+		if (!stim->m_bCollisionBased)
+		{
+			// take the square radius, is faster
+			float radiusSqr = stim->GetRadius();
+			radiusSqr *= radiusSqr; 
+
+			if ((srEntities[i]->GetPhysics()->GetOrigin() - originator->GetPhysics()->GetOrigin()).LengthSqr() > radiusSqr)
+			{
+				// Too far away
+				continue;
+			}
+		}
+
 		// Check for a shooter entity, these don't need to have a response
 		if (srEntities[i]->IsType(tdmFuncShooter::Type))
 		{
@@ -5863,18 +5877,7 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 			if (stim->m_State == SS_DISABLED)
 				continue;
 
-			float radius = stim->m_Radius;
-
-			// greebo: Check for a time-dependent radius
-			if (stim->m_RadiusFinal > 0 && stim->m_Duration != 0)
-			{
-				// Calculate how much of the stim duration has passed already
-				float timeFraction = static_cast<float>(gameLocal.time - stim->m_EnabledTimeStamp) / stim->m_Duration;
-				timeFraction = idMath::ClampFloat(0, 1, timeFraction);
-
-				// Linearly interpolate the radius
-				radius += (stim->m_RadiusFinal - stim->m_Radius) * timeFraction;
-			}
+			float radius = stim->GetRadius();
 
 			if (radius != 0.0 || stim->m_bCollisionBased ||
 				stim->m_bUseEntBounds || stim->m_Bounds.GetVolume() > 0)

@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2577 $
- * $Date: 2008-06-26 15:58:46 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2614 $
+ * $Date: 2008-07-06 01:56:10 -0400 (Sun, 06 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Stim.cpp 2577 2008-06-26 19:58:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Stim.cpp 2614 2008-07-06 05:56:10Z greebo $", init_version);
 
 #include "Stim.h"
 
@@ -153,6 +153,23 @@ bool CStim::CheckResponseIgnore(idEntity *e)
 	return rc;
 }
 
+float CStim::GetRadius()
+{
+	// greebo: Check for a time-dependent radius
+	if (m_RadiusFinal > 0 && m_Duration != 0)
+	{
+		// Calculate how much of the stim duration has passed already
+		float timeFraction = static_cast<float>(gameLocal.time - m_EnabledTimeStamp) / m_Duration;
+		timeFraction = idMath::ClampFloat(0, 1, timeFraction);
+
+		// Linearly interpolate the radius
+		return m_Radius + (m_RadiusFinal - m_Radius) * timeFraction;
+	}
+	else // constant radius
+	{
+		return m_Radius;
+	}
+}
 
 CStimResponseTimer* CStim::AddTimerToGame(void)
 {
