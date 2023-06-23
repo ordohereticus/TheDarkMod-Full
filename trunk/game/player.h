@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3039 $
- * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 3041 $
+ * $Date: 2008-11-19 12:39:58 -0500 (Wed, 19 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -254,6 +254,10 @@ public:
 	int						lastHitTime;			// last time projectile fired by player hit target
 	int						lastSndHitTime;			// MP hit sound - != lastHitTime because we throttle
 	int						lastSavingThrowTime;	// for the "free miss" effect
+
+	// angua: this is true when the player lands after jumping or a fall
+	// to play the jumping footstep sounds
+	bool					hasLanded;
 
 	idScriptBool			AI_FORWARD;
 	idScriptBool			AI_BACKWARD;
