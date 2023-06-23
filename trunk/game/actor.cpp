@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2918 $
- * $Date: 2008-10-05 02:35:37 -0400 (Sun, 05 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 3042 $
+ * $Date: 2008-11-19 23:56:00 -0500 (Wed, 19 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2918 2008-10-05 06:35:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3042 2008-11-20 04:56:00Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -752,6 +752,17 @@ void idActor::Spawn( void )
 	finalBoss = spawnArgs.GetBool( "finalBoss" );
 
 	canUseElevators = spawnArgs.GetBool("canOperateElevators", "0");
+
+	// greebo: Set up the melee flags for AI without weapons
+	if (spawnArgs.GetBool("unarmed_melee"))
+	{
+		SetAttackFlag(COMBAT_MELEE, true);
+	}
+
+	if (spawnArgs.GetBool("unarmed_ranged"))
+	{
+		SetAttackFlag(COMBAT_RANGED, true);
+	}	
 
 	LoadVocalSet();
 
