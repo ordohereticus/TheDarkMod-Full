@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2288 $
- * $Date: 2008-05-10 14:29:23 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2297 $
+ * $Date: 2008-05-11 09:11:39 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 2288 2008-05-10 18:29:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_debug.cpp 2297 2008-05-11 13:11:39Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing
@@ -502,5 +502,36 @@ void idAASLocal::Test( const idVec3 &origin ) {
 	}
 	if ( aas_showPushIntoArea.GetBool() ) {
 		ShowPushIntoArea( origin );
+	}
+}
+
+void idAASLocal::DrawAreas(const idVec3& playerOrigin)
+{
+	if (file == NULL) return;
+
+	// Get a colour for each cluster
+	idList<idVec4> colours;
+	for (int c = 0; c < file->GetNumClusters(); c++)
+	{
+		colours.Alloc() = idVec4(gameLocal.random.RandomFloat() + 0.1f, gameLocal.random.RandomFloat() + 0.1f, gameLocal.random.RandomFloat() + 0.1f, 1);
+	}
+
+	idMat3 playerViewMatrix(gameLocal.GetLocalPlayer()->viewAngles.ToMat3());
+	
+	for (int i = 0; i < file->GetNumAreas(); i++)
+	{
+		idBounds areaBounds = GetAreaBounds(i);
+		idVec3 areaCenter = AreaCenter(i);
+
+		int clusterNum = file->GetArea(i).cluster;
+
+		idVec4 colour = (clusterNum == -1) ? colorWhite : colours[clusterNum];
+
+		// angua: only draw areas near the player, no need to see them at the other end of the map
+		if ((areaCenter - playerOrigin).LengthFast() < 1000)
+		{
+			gameRenderWorld->DrawText(va("%d", i), areaCenter, 0.2f, colour, playerViewMatrix, 1, 10000);
+			gameRenderWorld->DebugBox(colour, idBox(areaBounds), 10000);
+		}
 	}
 }

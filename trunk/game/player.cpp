@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2250 $
- * $Date: 2008-05-01 02:41:48 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2297 $
+ * $Date: 2008-05-11 09:11:39 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,9 +14,10 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2250 2008-05-01 06:41:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2297 2008-05-11 13:11:39Z greebo $", init_version);
 
 #include "game_local.h"
+#include "ai/aas_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/Intersection.h"
@@ -5005,7 +5006,15 @@ void idPlayer::PerformImpulse( int impulse ) {
 		break;
 
 		case IMPULSE_27:
-			LAS.pvsToAASMappingTable.DebugShowMappings(10000);
+			{
+				//LAS.pvsToAASMappingTable.DebugShowMappings(10000);
+				idAASLocal* aas = dynamic_cast<idAASLocal*>(gameLocal.GetAAS("aas32"));
+					
+				if (aas != NULL)
+				{
+					aas->DrawAreas(GetEyePosition());
+				}
+			}
 			break;
 
 		case IMPULSE_28:

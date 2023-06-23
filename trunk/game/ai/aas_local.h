@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2296 $
- * $Date: 2008-05-11 08:01:36 -0400 (Sun, 11 May 2008) $
- * $Author: crispy $
+ * $Revision: 2297 $
+ * $Date: 2008-05-11 09:11:39 -0400 (Sun, 11 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -222,6 +222,7 @@ public:	// debug
 	bool						PullPlayer( const idVec3 &origin, int toAreaNum ) const;
 	void						RandomPullPlayer( const idVec3 &origin ) const;
 	void						ShowPushIntoArea( const idVec3 &origin ) const;
+	void						DrawAreas( const idVec3& playerOrigin );
 };
 
 #endif /* !__AAS_LOCAL_H__ */

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2293 $
- * $Date: 2008-05-11 06:47:25 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2297 $
+ * $Date: 2008-05-11 09:11:39 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 2293 2008-05-11 10:47:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas.cpp 2297 2008-05-11 13:11:39Z greebo $", init_version);
 
 #include "aas_local.h"
 
@@ -81,6 +81,7 @@ bool idAASLocal::Init( const idStr &mapName, unsigned int mapFileCRC ) {
 			common->DWarning( "Couldn't load AAS file: '%s'", mapName.c_str() );
 			return false;
 		}
+		mapName.ExtractFileExtension(name);
 
 		SetupRouting();
 	}
