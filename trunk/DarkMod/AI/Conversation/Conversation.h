@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2668 $
- * $Date: 2008-07-15 14:38:14 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2671 $
+ * $Date: 2008-07-16 00:56:09 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -69,6 +69,10 @@ public:
 	 * CheckConditions() beforehand (with a positive result, of course).
 	 */
 	void Start();
+
+	// Gets the actor with the given index/name
+	idActor* GetActor(int index);
+	idActor* GetActor(const idStr& name);
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;

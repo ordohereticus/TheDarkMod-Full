@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2668 $
- * $Date: 2008-07-15 14:38:14 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2671 $
+ * $Date: 2008-07-16 00:56:09 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2668 2008-07-15 18:38:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2671 2008-07-16 04:56:09Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -48,13 +48,64 @@ int Conversation::GetPlayCount()
 
 bool Conversation::CheckConditions()
 {
-	// TODO
+	// greebo: Check if all actors are available
+	for (int i = 0; i < _actors.Num(); i++)
+	{
+		// Get the actor
+		idActor* actor = GetActor(i);
+
+		if (actor != NULL && (actor->IsKnockedOut() || actor->health <= 0))
+		{
+			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Actor %s in conversation %s is KO or dead!.\r", _actors[i].c_str(), _name.c_str());
+			return false;
+		}
+	}
+
+	// All actors alive and kicking
+
+	// TODO: Other checks to perform?
+
 	return true;
 }
 
 void Conversation::Start()
 {
+	
+}
 
+idActor* Conversation::GetActor(int index)
+{
+	if (index < 0 || index >= _actors.Num()) 
+	{
+		return NULL; // index out of bounds
+	}
+
+	// Resolve the entity name and get the pointer
+	idEntity* ent = gameLocal.FindEntity(_actors[index]);
+
+	if (ent == NULL || !ent->IsType(idActor::Type)) 
+	{
+		// not an actor!
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Actor %s in conversation %s is not existing or of wrong type.\r", _actors[index].c_str(), _name.c_str());
+		return NULL; 
+	}
+
+	return static_cast<idActor*>(ent);
+}
+
+idActor* Conversation::GetActor(const idStr& name)
+{
+	// greebo: Check if all actors are available
+	for (int i = 0; i < _actors.Num(); i++)
+	{
+		if (_actors[i] == name) 
+		{
+			// index found, get the actor
+			return GetActor(i);
+		}
+	}
+
+	return NULL;
 }
 
 void Conversation::Save(idSaveGame* savefile) const
