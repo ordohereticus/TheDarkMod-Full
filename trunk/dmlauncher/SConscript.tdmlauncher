@@ -6,8 +6,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3167 $
-#* $Date: 2009-01-18 02:32:21 -0500 (Sun, 18 Jan 2009) $
+#* $Revision: 3178 $
+#* $Date: 2009-01-18 07:50:46 -0500 (Sun, 18 Jan 2009) $
 #* $Author: greebo $
 #*
 #***************************************************************************
@@ -36,6 +36,6 @@ local_env.Append(LIBS = ['boost_filesystem'])
 #    File('#/linux/boost/lib/libboost_filesystem-gcc42-mt-1_36.a')
 #])
 
-ret = local_env.Program('tdmlauncher', tdmlauncher_list )
+ret = local_env.Program('tdmlauncher.linux', tdmlauncher_list )
 Return( 'ret' )
 

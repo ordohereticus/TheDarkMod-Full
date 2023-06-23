@@ -6,8 +6,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3168 $
-#* $Date: 2009-01-18 02:35:16 -0500 (Sun, 18 Jan 2009) $
+#* $Revision: 3178 $
+#* $Date: 2009-01-18 07:50:46 -0500 (Sun, 18 Jan 2009) $
 #* $Author: greebo $
 #*
 #***************************************************************************
@@ -136,6 +136,12 @@ BASECPPFLAGS.append( '-fmessage-length=0' )
 if ( g_os == 'Linux' ):
 	# Add the __linux__ define
 	BASECPPFLAGS.append('-D__linux__')
+	# get the 64 bit machines on the distcc array to produce 32 bit binaries :)
+	BASECPPFLAGS.append( '-m32' )
+	BASELINKFLAGS.append( '-m32' )
+	# help 64 bit machines to find the compatibility 32bit libraries
+	BASELINKFLAGS.append( '-L/lib32' )
+	BASELINKFLAGS.append( '-L/usr/lib32' )
 
 if ( BUILD == 'debug' ):
 	OPTCPPFLAGS = [ '-g', '-O1', '-D_DEBUG' ]
