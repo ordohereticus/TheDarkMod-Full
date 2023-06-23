@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2369 $
- * $Date: 2008-05-18 12:30:22 -0400 (Sun, 18 May 2008) $
+ * $Revision: 2372 $
+ * $Date: 2008-05-18 14:38:14 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2369 2008-05-18 16:30:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2372 2008-05-18 18:38:14Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2446,7 +2446,7 @@ void idAI::StopMove( moveStatus_t status ) {
 	move.toAreaNum		= 0;
 	move.goalEntity		= NULL;
 	move.moveDest		= physicsObj.GetOrigin();
-	AI_DEST_UNREACHABLE	= false;
+	AI_DEST_UNREACHABLE	= (status == MOVE_STATUS_DEST_UNREACHABLE);
 	AI_OBSTACLE_IN_PATH = false;
 	AI_BLOCKED			= false;
 	move.startTime		= gameLocal.time;
@@ -3169,7 +3169,7 @@ bool idAI::MoveToPosition( const idVec3 &pos ) {
 	}
 
 	// Valid path to goal, check if we need to use an elevator
-	if (path.type & PATHTYPE_ELEVATOR)
+	if (path.type == PATHTYPE_ELEVATOR)
 	{
 		NeedToUseElevator(path.elevatorRoute);
 	}
