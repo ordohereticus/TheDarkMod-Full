@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2358 $
- * $Date: 2008-05-17 04:30:36 -0400 (Sat, 17 May 2008) $
+ * $Revision: 2367 $
+ * $Date: 2008-05-18 10:27:19 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Subsystem.cpp 2358 2008-05-17 08:30:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Subsystem.cpp 2367 2008-05-18 14:27:19Z greebo $", init_version);
 
 #include "Subsystem.h"
 #include "Library.h"
@@ -200,8 +200,12 @@ void Subsystem::ClearTasks()
 		}
 	}
 
-	// Disable this subsystem
-	_enabled = false;
+	// Disable this subsystem, but only if the task queue is actually empty
+	// the Task::OnFinish() routines might have posted new tasks to the queue
+	if (_taskQueue.empty())
+	{
+		_enabled = false;
+	}
 }
 
 // Save/Restore methods
