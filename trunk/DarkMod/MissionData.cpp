@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Revision: 3120 $
+ * $Date: 2009-01-06 06:00:20 -0500 (Tue, 06 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3120 2009-01-06 11:00:20Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2275,19 +2275,12 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 	if (cmd == "mainmenu_heartbeat")
 	{
 		// The main menu is visible, check if we should display the "Objectives" option
-		
-		// greebo: Invoke the initialisation routine (only once)
-		if (!gui->GetStateBool("ObjectiveScreenInitialised"))
-		{
-			gui->HandleNamedEvent("InitObjectiveScreen");
-			gui->SetStateBool("ObjectiveScreenInitialised", true);
-		}
-
 		if (!m_MissionDataLoadedIntoGUI)
 		{
 			// Load the objectives into the GUI
 			UpdateGUIState(gui);
 		}
+
 		m_MissionDataLoadedIntoGUI = true;
 	}
 	else if (cmd == "objective_open_request")
@@ -2405,11 +2398,6 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 		}
 
 		m_MissionDataLoadedIntoGUI = true;
-	}
-	else if (cmd == "objective_close_request")
-	{
-		// Objectives GUI requests closure, shut it down
-		gui->HandleNamedEvent("CloseObjectives");
 	}
 	else if (cmd == "objective_scroll_down_request") 
 	{

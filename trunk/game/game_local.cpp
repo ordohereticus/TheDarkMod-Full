@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3111 $
- * $Date: 2009-01-05 00:43:44 -0500 (Mon, 05 Jan 2009) $
+ * $Revision: 3120 $
+ * $Date: 2009-01-06 06:00:20 -0500 (Tue, 06 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3111 2009-01-05 05:43:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3120 2009-01-06 11:00:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3278,24 +3278,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			}
 			return;
 		}
-
-		// greebo: Check for the right ambient music
-		if (GameState() == GAMESTATE_ACTIVE)
-		{
-			if (!gui->GetStateBool("ObjectivesMusicPlaying")) 
-			{
-				gui->HandleNamedEvent("StartObjectivesMusic");
-				gui->SetStateBool("ObjectivesMusicPlaying", true);
-			}
-		}
-		else // GameState != ACTIVE
-		{
-			if (gui->GetStateBool("ObjectivesMusicPlaying"))
-			{
-				gui->HandleNamedEvent("StopObjectivesMusic");
-				gui->SetStateBool("ObjectivesMusicPlaying", false);
-			}
-		}
 	}
 	// greebo: the "log" command is used to write stuff to the console
 	else if (cmd == "log")
@@ -3303,20 +3285,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// The next string will be logged
 		logNextCommand = true;
 	}	
-	// greebo: This is used for Saint Lucia only (comment this out after release)
-	else if (cmd == "briefing_start_request") // Called by "Start Mission"
-	{	
-		// User requested a map start
-		gui->HandleNamedEvent("ShowBriefingScreen");
-		gui->SetStateInt("BriefingIsVisible", 1);
-
-		// greebo: During briefing, we play the in-game background music
-		gui->HandleNamedEvent("StartObjectivesMusic");
-	}
 	else if (cmd == "close") 
 	{
-		gui->HandleNamedEvent("HideBriefingScreen");
-		gui->SetStateInt("BriefingIsVisible", 0);
 		gui->HandleNamedEvent("HideSuccessScreen");
 
 		// Start the timer again, we're closing the menu
