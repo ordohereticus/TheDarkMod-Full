@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2745 $
- * $Date: 2008-08-19 14:02:03 -0400 (Tue, 19 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2757 $
+ * $Date: 2008-08-25 15:08:09 -0400 (Mon, 25 Aug 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -1229,6 +1229,7 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_Wait( float time );
 	void					Event_HasFunction( const char *name );
 	void					Event_CallFunction( const char *name );
+    void					Event_CallGlobalFunction( const char *funcname, idEntity *ent );
 	void					Event_SetNeverDormant( int enable );
 
 	/**

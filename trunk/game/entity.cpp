@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2757 $
+ * $Date: 2008-08-25 15:08:09 -0400 (Mon, 25 Aug 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2756 2008-08-25 08:08:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2757 2008-08-25 19:08:09Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -110,6 +110,7 @@ const idEventDef EV_DistanceToPoint( "distanceToPoint", "v", 'f' );
 const idEventDef EV_StartFx( "startFx", "s" );
 const idEventDef EV_HasFunction( "hasFunction", "s", 'd' );
 const idEventDef EV_CallFunction( "callFunction", "s" );
+const idEventDef EV_CallGlobalFunction( "callGlobalFunction", "sE" );
 const idEventDef EV_SetNeverDormant( "setNeverDormant", "d" );
 
 // greebo: Extinguishes all lights (i.e. the <self> entity plus all bound lights)
@@ -294,6 +295,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_Thread_Wait,			idEntity::Event_Wait )
 	EVENT( EV_HasFunction,			idEntity::Event_HasFunction )
 	EVENT( EV_CallFunction,			idEntity::Event_CallFunction )
+	EVENT( EV_CallGlobalFunction,	idEntity::Event_CallGlobalFunction )
 	EVENT( EV_SetNeverDormant,		idEntity::Event_SetNeverDormant )
 
 	EVENT( EV_ExtinguishLights,		idEntity::Event_ExtinguishLights )
@@ -5750,6 +5752,37 @@ void idEntity::Event_CallFunction( const char *funcname ) {
 
 	// function args will be invalid after this call
 	thread->CallFunction( this, func, false );
+}
+
+/*
+=====================
+idEntity::Event_CallGlobalFunction
+=====================
+*/
+void idEntity::Event_CallGlobalFunction( const char *funcname, idEntity *ent ) {
+	const function_t *func;
+	idThread *thread;
+
+	thread = idThread::CurrentThread();
+	if ( !thread ) {
+		gameLocal.Error( "Event 'callGlobalFunction' called from outside thread" );
+	}
+
+    func = gameLocal.program.FindFunction( funcname );
+	if ( !func ) {
+		gameLocal.Error( "Unknown global function '%s'", funcname );
+	}
+
+	if ( func->type->NumParameters() != 1 ) {
+		gameLocal.Error( "Function '%s' has the wrong number of parameters for 'callGlobalFunction'", funcname );
+	}
+    /*
+	if ( !scriptObject.GetTypeDef()->Inherits( func->type->GetParmType( 0 ) ) ) {
+		gameLocal.Error( "Function '%s' is the wrong type for 'callGlobalFunction'", funcname );
+	} */
+
+	// function args will be invalid after this call
+	thread->CallFunction( ent, func, false );
 }
 
 /*
