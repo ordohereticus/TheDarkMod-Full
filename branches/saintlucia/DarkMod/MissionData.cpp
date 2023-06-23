@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2749 $
- * $Date: 2008-08-23 12:49:39 -0400 (Sat, 23 Aug 2008) $
- * $Author: tels $
+ * $Revision: 2906 $
+ * $Date: 2008-09-30 12:11:30 -0400 (Tue, 30 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2749 2008-08-23 16:49:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2906 2008-09-30 16:11:30Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2312,9 +2312,9 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 
 			// Read the startingMap.txt to determine which map we are loading
 			char * mapName = NULL;
-			idLib::fileSystem->ReadFile("startingMap.txt", (void**) &mapName);		
+			idLib::fileSystem->ReadFile("startingmap.txt", (void**) &mapName);		
 			if (mapName == NULL) {
-				gameLocal.Warning( "Couldn't open startingMap.txt file. No map installed" );
+				gameLocal.Warning( "Couldn't open startingmap.txt file. No map installed" );
 				return;
 			}
 			const char * filename = va("maps/%s", mapName);
