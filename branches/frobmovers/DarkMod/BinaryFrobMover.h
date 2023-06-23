@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2542 $
- * $Date: 2008-06-20 03:34:47 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2543 $
+ * $Date: 2008-06-20 10:31:12 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -209,7 +209,7 @@ protected:
 	 * when the "fully closed" => "opening" transition is happening, like opening 
 	 * visportals or playing open sounds.
 	 */
-	virtual void OnStartOpen(bool wasClosed);
+	virtual void OnStartOpen(bool wasClosed, bool bMaster);
 
 	/**
 	 * greebo: Gets called when the mover is closing. The boolean tells the function 
@@ -218,7 +218,7 @@ protected:
 	 * This can be implemented by subclasses to do stuff that should be done
 	 * when the "fully open" => "opening" transition is happening.
 	 */
-	virtual void OnStartClose(bool wasOpen);
+	virtual void OnStartClose(bool wasOpen, bool bMaster);
 
 	/**
 	 * greebo: Gets called when the mover stops its opening move and has

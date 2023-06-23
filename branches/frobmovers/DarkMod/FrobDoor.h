@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2542 $
- * $Date: 2008-06-20 03:34:47 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2543 $
+ * $Date: 2008-06-20 10:31:12 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -128,8 +128,8 @@ protected:
 	virtual void			OnUnlock(bool bMaster);
 
 	// Specialise the OnStartOpen/OnStartClose event to send the call to the open peers
-	virtual void			OnStartOpen(bool wasClosed);
-	virtual void			OnStartClose(bool wasOpen);
+	virtual void			OnStartOpen(bool wasClosed, bool bMaster);
+	virtual void			OnStartClose(bool wasOpen, bool bMaster);
 
 	// Gets called when the mover finishes its closing move and is fully closed (virtual override)
 	virtual void			OnClosedPositionReached();
