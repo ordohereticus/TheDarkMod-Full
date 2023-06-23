@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3133 $
- * $Date: 2009-01-11 02:24:48 -0500 (Sun, 11 Jan 2009) $
- * $Author: ishtvan $
+ * $Revision: 3134 $
+ * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -145,7 +145,7 @@ extern idCVar cv_frob_distance_default;
 extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
 extern idCVar cv_frob_fadetime;
-extern idCVar cv_frob_ammo_selects_weapon;
+extern idCVar cv_frob_weapon_selects_weapon;
 
 extern idCVar cv_weapon_next_on_empty;
 

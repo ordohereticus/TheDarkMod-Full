@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3133 $
- * $Date: 2009-01-11 02:24:48 -0500 (Sun, 11 Jan 2009) $
- * $Author: ishtvan $
+ * $Revision: 3134 $
+ * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3133 2009-01-11 07:24:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3134 2009-01-11 07:46:40Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -172,7 +172,7 @@ idCVar cv_frob_distance_default(	"tdm_frob_distance_default",	"63",	CVAR_GAME | 
 idCVar cv_frob_width(				"tdm_frob_width",		"10.0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "When frobbing, a cube of this dimension is created at the point the frob hit, and things within are frob candidates.  Makes frobbing easier but can go thru solid objects if set too high.  Default is 10.");
 idCVar cv_frob_fadetime(			"tdm_frob_fadetime",	"100",		CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "Time it takes for frob highlight effect to fade in and out." );
 idCVar cv_frob_debug_bounds(		"tdm_frob_debug_bounds", "0",		CVAR_GAME | CVAR_BOOL,					"Set to 1 to see a visualization of the bounds that are used to check for frobable items within them." );
-idCVar cv_frob_ammo_selects_weapon(	"tdm_frob_ammo_selects_weapon", "0",		CVAR_GAME | CVAR_BOOL,	"Set to 1 to have weapons automatically selected when the respective ammo is picked up." );
+idCVar cv_frob_weapon_selects_weapon(	"tdm_frob_weapon_selects_weapon", "0",		CVAR_GAME | CVAR_BOOL,	"Set to 1 to have weapons automatically selected when the respective item is picked up." );
 
 /**
 * Dark Mod Misc. Control Options

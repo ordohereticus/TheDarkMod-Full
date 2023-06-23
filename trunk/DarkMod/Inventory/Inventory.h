@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3051 $
- * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3134 $
+ * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -209,6 +209,14 @@ private:
 	 * @returns: The weaponItem the ammo has been added to or NULL, if <ent> isn't a valid ammo item.
 	 */
 	CInventoryItemPtr		ValidateAmmo(idEntity* ent);
+
+	/**
+	 * greebo: Checks the given entity for weapon definitions. Does not remove the entity.
+	 *
+	 * @returns: The weaponItem which has been added or enabled in the inventory or NULL, 
+	 * if <ent> isn't a valid ammo item.
+	 */
+	CInventoryItemPtr		ValidateWeapon(idEntity* ent);
 
 private:
 	idEntityPtr<idEntity>				m_Owner;

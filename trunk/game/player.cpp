@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3126 $
- * $Date: 2009-01-08 00:22:17 -0500 (Thu, 08 Jan 2009) $
+ * $Revision: 3134 $
+ * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3126 2009-01-08 05:22:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3134 2009-01-11 07:46:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10492,7 +10492,7 @@ CInventoryItemPtr idPlayer::AddToInventory(idEntity *ent)
 	{
 		// greebo: This is a weapon-related inventory item, use the weapon inventory cursor
 		// Do it only if the respective CVAR is set
-		if (cv_frob_ammo_selects_weapon.GetBool())
+		if (cv_frob_weapon_selects_weapon.GetBool())
 		{
 			m_WeaponCursor->SetCurrentItem(returnValue);
 			SelectWeapon(weaponItem->GetWeaponIndex(), false);
