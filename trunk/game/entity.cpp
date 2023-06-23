@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3004 $
- * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3005 $
+ * $Date: 2008-11-09 05:12:33 -0500 (Sun, 09 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3004 2008-11-09 09:33:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3005 2008-11-09 10:12:33Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8733,28 +8733,40 @@ void idEntity::Event_GetBindChild( int ind )
 
 void idEntity::Event_GetNextInvItem()
 {
-	CInventoryItemPtr item = InventoryCursor()->GetNextItem();
+	NextInventoryItem();
+	
+	CInventoryItemPtr item = InventoryCursor()->GetCurrentItem();
 
 	idThread::ReturnEntity( (item != NULL) ? item->GetItemEntity() : NULL );
 }
 
 void idEntity::Event_GetPrevInvItem()
 {
-	CInventoryItemPtr item = InventoryCursor()->GetPrevItem();
+	PrevInventoryItem();
+	
+	CInventoryItemPtr item = InventoryCursor()->GetCurrentItem();
 
 	idThread::ReturnEntity( (item != NULL) ? item->GetItemEntity() : NULL );
 }
 
 void idEntity::Event_SetCurInvCategory(const char* categoryName)
 {
+	CInventoryItemPtr prev = InventoryCursor()->GetCurrentItem();
+
 	InventoryCursor()->SetCurrentCategory(categoryName);
+
+	OnInventorySelectionChanged(prev);
 
 	idThread::ReturnInt( InventoryCursor()->GetCurrentCategory()->GetName() == categoryName );
 }
 
 void idEntity::Event_SetCurInvItem(const char* itemName)
 {
+	CInventoryItemPtr prev = InventoryCursor()->GetCurrentItem();
+
 	InventoryCursor()->SetCurrentItem(itemName);
+
+	OnInventorySelectionChanged(prev);
 
 	idThread::ReturnInt( InventoryCursor()->GetCurrentItem()->GetName() == itemName );
 }
