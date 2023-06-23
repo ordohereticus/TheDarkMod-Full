@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2916 $
- * $Date: 2008-10-04 21:00:20 -0400 (Sat, 04 Oct 2008) $
+ * $Revision: 2918 $
+ * $Date: 2008-10-05 02:35:37 -0400 (Sun, 05 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2916 2008-10-05 01:00:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2918 2008-10-05 06:35:37Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -664,8 +664,8 @@ void idActor::Spawn( void )
 	animator.SetFrame( ANIMCHANNEL_ALL, animator.GetAnim( IK_ANIM ), 0, 0, 0 );
 
 	SetupDamageGroups();
-	SetupHead();
 	ParseAttachmentsAF();
+	SetupHead();
 
 	// clear the bind anim
 	animator.ClearAllAnims( gameLocal.time, 0 );

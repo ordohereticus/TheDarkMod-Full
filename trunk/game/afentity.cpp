@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2883 $
- * $Date: 2008-09-24 04:55:15 -0400 (Wed, 24 Sep 2008) $
+ * $Revision: 2918 $
+ * $Date: 2008-10-05 02:35:37 -0400 (Sun, 05 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2883 2008-09-24 08:55:15Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2918 2008-10-05 06:35:37Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1255,11 +1255,13 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 
 	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("AddEntByBody: Called, ent %s, body %d\r", ent->name.c_str(), bodID );
 
-	axis = ent->GetPhysics()->GetAxis();
-	orig = ent->GetPhysics()->GetOrigin();
+
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Entity origin: %s \r", orig.ToString() );
 	
 	EntClip = ent->GetPhysics()->GetClipModel();
+	axis = EntClip->GetAxis();
+	orig = EntClip->GetOrigin();
+
 	NewClip = new idClipModel(EntClip);
 
 	// Propagate CONTENTS_CORPSE from AF to new clipmodel
@@ -1292,6 +1294,7 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 //	DM_LOG(LC_WEAPON, LT_DEBUG)LOGSTRING("AF Bind: Modified origin: %s \r", orig.ToString() );
 
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Linking clipmodel copy... \r" );
+	// FIXME: Do we really want to set id 0 here?  Won't this conflict?
 	NewClip->Link( gameLocal.clip, this, 0, orig, axis );
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Clipmodel linked.\r");
 
@@ -1306,6 +1309,8 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 	body->SetClipMask( bodyExist->GetClipMask() );
 	body->SetSelfCollision( false );
 	body->SetRerouteEnt( ent );
+	body->SetWorldOrigin( orig );
+	body->SetWorldAxis( axis );
 	newBodID = GetAFPhysics()->AddBody( body );
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AddEntByBody: Body added to physics_AF with id %d.\r", newBodID);
 	
@@ -1485,7 +1490,19 @@ idAFEntity_Base::ParseAttachmentsAF
 */
 void idAFEntity_Base::ParseAttachmentsAF( void )
 {
+	// FIX: Preserve initial frame facing when posing the AF prior to attaching
+	// otherwise relationships between new AF bodies and AF bodies they're attached to
+	// get screwed up (since attached entities are attached when the AFEntity is still facing 0,0,0)
+	idMat3 tempAxis = renderEntity.axis;
+	idMat3 tempAxis2 = GetPhysics()->GetAxis();
+	renderEntity.axis = mat3_identity;
+	SetAxis(mat3_identity);
+
+	af.SetupPose(this, gameLocal.time);
 	idEntity::ParseAttachments();
+
+	renderEntity.axis = tempAxis;
+	SetAxis(tempAxis2);
 }
 
 void idAFEntity_Base::ReAttachToPos
