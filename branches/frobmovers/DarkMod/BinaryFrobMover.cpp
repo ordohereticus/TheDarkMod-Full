@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2543 $
- * $Date: 2008-06-20 10:31:12 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2549 $
+ * $Date: 2008-06-21 03:52:01 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2543 2008-06-20 14:31:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2549 2008-06-21 07:52:01Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -171,7 +171,8 @@ void CBinaryFrobMover::Spawn()
 	}
 	
 	// Schedule a post-spawn event to parse the rest of the spawnargs
-	PostEventMS( &EV_PostSpawn, 1 );
+	// greebo: Be sure to use 16 ms as delay to allow the SpawnBind event to execute before this one.
+	PostEventMS( &EV_PostSpawn, 16 );
 }
 
 void CBinaryFrobMover::PostSpawn()
