@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2365 $
- * $Date: 2008-05-18 04:45:59 -0400 (Sun, 18 May 2008) $
+ * $Revision: 2368 $
+ * $Date: 2008-05-18 10:27:53 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2365 2008-05-18 08:45:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2368 2008-05-18 14:27:53Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -126,6 +126,15 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 			if (owner->AI_MOVE_DONE)
 			{
 				// Move is done, this means that we might be close enough, but it's not guaranteed
+				CMultiStateMoverButton* fetchButton = pos->GetFetchButton();
+				if (fetchButton == NULL)
+				{
+					owner->AI_DEST_UNREACHABLE = true;
+					return true;
+				}
+				// it's not occupied, get to the button
+				MoveToButton(owner, fetchButton);
+
 				_state = EStateMovingToFetchButton;
 			}
 			else if (dist < 500 &&	
