@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2274 $
- * $Date: 2008-05-08 14:40:11 -0400 (Thu, 08 May 2008) $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 2274 2008-05-08 18:40:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -2617,7 +2617,7 @@ void idShaking::BeginShaking( void ) {
 	active = true;
 	phase = gameLocal.random.RandomInt( 1000 );
 	shake = spawnArgs.GetAngles( "shake", "0.5 0.5 0.5" );
-	period = spawnArgs.GetFloat( "period", "0.05" ) * 1000;
+	period = static_cast<int>(spawnArgs.GetFloat( "period", "0.05" ) * 1000);
 	physicsObj.SetAngularExtrapolation( extrapolation_t(EXTRAPOLATION_DECELSINE|EXTRAPOLATION_NOSTOP), phase, period * 0.25f, GetPhysics()->GetAxis().ToAngles(), shake, ang_zero );
 }
 
@@ -3337,7 +3337,7 @@ void idPhantomObjects::Event_Activate( idEntity *activator ) {
 	// scale up the times to fit within throw_time
 	scale = throw_time / time;
 	for( i = 0; i < targetTime.Num(); i++ ) {
-		targetTime[ i ] = gameLocal.time + SEC2MS( shake_time )+ targetTime[ i ] * scale;
+		targetTime[ i ] = static_cast<int>(gameLocal.time + SEC2MS( shake_time )+ targetTime[ i ] * scale);
 	}
 
 	BecomeActive( TH_THINK );

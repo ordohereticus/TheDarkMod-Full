@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponseTimer.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponseTimer.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "StimResponseTimer.h"
 
@@ -228,18 +228,18 @@ bool CStimResponseTimer::Tick(unsigned long sysTicks)
 	m_Ticker %= m_TicksPerMilliSecond;
 
 	// Increase the hours/minutes/seconds/milliseconds
-	m_Timer.Time.Millisecond += msPassed;
+	m_Timer.Time.Millisecond += static_cast<short int>(msPassed);
 
 	if (m_Timer.Time.Millisecond > 999)
 	{
 		// Increase the seconds
-		m_Timer.Time.Second += floor(static_cast<double>(m_Timer.Time.Millisecond) / 1000);
+		m_Timer.Time.Second += static_cast<signed char>(floor(m_Timer.Time.Millisecond / 1000.0));
 		m_Timer.Time.Millisecond %= 1000;
 
-		m_Timer.Time.Minute += floor(static_cast<double>(m_Timer.Time.Second) / 60);
+		m_Timer.Time.Minute += static_cast<signed char>(floor(m_Timer.Time.Second / 60.0));
 		m_Timer.Time.Second %= 60;
 
-		m_Timer.Time.Hour += floor(static_cast<double>(m_Timer.Time.Minute) / 60);
+		m_Timer.Time.Hour += static_cast<signed char>(floor(m_Timer.Time.Minute / 60.0));
 		m_Timer.Time.Minute %= 60;
 	}
 
@@ -266,15 +266,15 @@ void CStimResponseTimer::MakeTime(TimerValue &t, unsigned long Ticks)
 	double msPassed = floor(static_cast<double>(Ticks) / m_TicksPerMilliSecond);
 
 	memset(&t, 0, sizeof(TimerValue));
-	t.Time.Millisecond = msPassed;
+	t.Time.Millisecond = static_cast<short int>(msPassed);
 
-	t.Time.Second += floor(static_cast<double>(t.Time.Millisecond) / 1000);
+	t.Time.Second += static_cast<signed char>(floor(t.Time.Millisecond / 1000.0));
 	t.Time.Millisecond %= 1000;
 
-	t.Time.Minute += floor(static_cast<double>(t.Time.Second) / 60);
+	t.Time.Minute += static_cast<signed char>(floor(t.Time.Second / 60.0));
 	t.Time.Second %= 60;
 
-	t.Time.Hour += floor(static_cast<double>(t.Time.Minute) / 60);
+	t.Time.Hour += static_cast<signed char>(floor(t.Time.Minute / 60.0));
 	t.Time.Minute %= 60;
 }
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: game_network.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_network.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -925,7 +925,7 @@ void idGameLocal::UpdateLagometer( int aheadOfServer, int dupeUsercmds ) {
 		for ( i = 0; i < LAGO_HEIGHT; i++ ) {
 			lagometer[i][j][0] = lagometer[i][j][1] = lagometer[i][j][2] = lagometer[i][j][3] = 0;
 		}
-		ahead = idMath::Rint( (float)aheadOfServer / 16.0f );
+		ahead = static_cast<int>(idMath::Rint( (float)aheadOfServer / 16.0f ));
 		if ( ahead >= 0 ) {
 			for ( i = 2 * Max( 0, 5 - ahead ); i < 2 * 5; i++ ) {
 				lagometer[i][j][1] = 255;

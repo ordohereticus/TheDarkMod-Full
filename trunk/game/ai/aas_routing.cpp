@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2322 $
- * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
- * $Author: angua $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 2322 2008-05-13 16:39:26Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -1333,7 +1333,7 @@ bool idAASLocal::FindNearestGoal( aasGoal_t &goal, int areaNum, const idVec3 ori
 
 			// avoid moving closer to the target
 			if ( dist < targetDist ) {
-				t += ( targetDist - dist ) * 10;
+				t += static_cast<short unsigned int>(( targetDist - dist ) * 10);
 			}
 
 			// if we already found a closer location
@@ -1460,7 +1460,7 @@ bool idAASLocal::FindGoalClosestToTarget( aasGoal_t &goal, int areaNum, const id
 	int numAreas = file->GetNumAreas();
 	for (int ai = 0; ai < numAreas; ai ++)
 	{
-		areaUpdate[ai].tmpTravelTime = 0.0;
+		areaUpdate[ai].tmpTravelTime = 0;
 	}
 
 
@@ -1504,7 +1504,7 @@ bool idAASLocal::FindGoalClosestToTarget( aasGoal_t &goal, int areaNum, const id
 		else
 		{
 			// We are checking it
-			curUpdate->tmpTravelTime = 2.0;
+			curUpdate->tmpTravelTime = 2;
 		}
 
 

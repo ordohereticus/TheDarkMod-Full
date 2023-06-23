@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1627 $
- * $Date: 2007-11-01 08:46:34 -0400 (Thu, 01 Nov 2007) $
- * $Author: tels $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: multiplayergame.cpp 1627 2007-11-01 12:46:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: multiplayergame.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -1226,6 +1226,8 @@ void idMultiplayerGame::ExecuteVote( void ) {
 		case VOTE_NEXTMAP:
 			cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "serverNextMap\n" );
 			break;
+		default: 
+			break;
 	}
 }
 
@@ -1265,16 +1267,16 @@ void idMultiplayerGame::CheckVote( void ) {
 	if ( !numVoters ) {
 		// abort
 		vote = VOTE_NONE;
-		ClientUpdateVote( VOTE_ABORTED, yesVotes, noVotes );
+		ClientUpdateVote( VOTE_ABORTED, yesVotes, static_cast<int>(noVotes) );
 		return;
 	}
 	if ( yesVotes / numVoters > 0.5f ) {
-		ClientUpdateVote( VOTE_PASSED, yesVotes, noVotes );
+		ClientUpdateVote( VOTE_PASSED, yesVotes, static_cast<int>(noVotes) );
 		voteExecTime = gameLocal.time + 2000;
 		return;
 	}
 	if ( gameLocal.time > voteTimeOut || noVotes / numVoters >= 0.5f ) {
-		ClientUpdateVote( VOTE_FAILED, yesVotes, noVotes );
+		ClientUpdateVote( VOTE_FAILED, yesVotes, static_cast<int>(noVotes) );
 		vote = VOTE_NONE;
 		return;
 	}
@@ -1435,6 +1437,7 @@ void idMultiplayerGame::Run() {
 			}
 			break;
 		}
+		default: break;
 	}
 }
 
@@ -2680,7 +2683,7 @@ void idMultiplayerGame::CastVote( int clientNum, bool castVote ) {
 		noVotes++;
 	}
 
-	ClientUpdateVote( VOTE_UPDATE, yesVotes, noVotes );
+	ClientUpdateVote( VOTE_UPDATE, yesVotes, static_cast<int>(noVotes) );
 }
 
 /*

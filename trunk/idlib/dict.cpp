@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: dict.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: dict.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 
 idStrPool		idDict::globalKeys;
@@ -462,7 +462,7 @@ int idDict::FindKeyIndex( const char *key ) const {
 
 	if ( key == NULL || key[0] == '\0' ) {
 		idLib::common->DWarning( "idDict::FindKeyIndex: empty key" );
-		return NULL;
+		return 0;
 	}
 
 	int hash = argHash.GenerateKey( key, false );

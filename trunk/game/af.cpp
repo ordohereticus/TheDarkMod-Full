@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1755 $
- * $Date: 2007-11-11 20:44:20 -0500 (Sun, 11 Nov 2007) $
- * $Author: ishtvan $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 1755 2007-11-12 01:44:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -822,6 +822,7 @@ bool idAF::LoadConstraint( const idDeclAF_Constraint *fc ) {
 			c->SetLimit( fc->minLength, fc->maxLength );
 			break;
 		}
+		default: break;
 	}
 	return true;
 }

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2236 $
- * $Date: 2008-04-27 10:02:29 -0400 (Sun, 27 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2236 2008-04-27 14:02:29Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: physics_parametric.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -414,7 +414,7 @@ idPhysics_Parametric::GetSplineAcceleration
 ================
 */
 int idPhysics_Parametric::GetSplineAcceleration( void ) const {
-	return current.splineInterpolate.GetAcceleration();
+	return static_cast<int>(current.splineInterpolate.GetAcceleration());
 }
 
 /*
@@ -423,7 +423,7 @@ idPhysics_Parametric::GetSplineDeceleration
 ================
 */
 int idPhysics_Parametric::GetSplineDeceleration( void ) const {
-	return current.splineInterpolate.GetDeceleration();
+	return static_cast<int>(current.splineInterpolate.GetDeceleration());
 }
 
 /*
@@ -1023,14 +1023,14 @@ idPhysics_Parametric::GetLinearEndTime
 int idPhysics_Parametric::GetLinearEndTime( void ) const {
 	if ( current.spline != NULL ) {
 		if ( current.spline->GetBoundaryType() != idCurve_Spline<idVec3>::BT_CLOSED ) {
-			return current.spline->GetTime( current.spline->GetNumValues() - 1 );
+			return static_cast<int>(current.spline->GetTime( current.spline->GetNumValues() - 1 ));
 		} else {
 			return 0;
 		}
 	} else if ( current.linearInterpolation.GetDuration() != 0 ) {
-		return current.linearInterpolation.GetEndTime();
+		return static_cast<int>(current.linearInterpolation.GetEndTime());
 	} else {
-		return current.linearExtrapolation.GetEndTime();
+		return static_cast<int>(current.linearExtrapolation.GetEndTime());
 	}
 }
 
@@ -1041,9 +1041,9 @@ idPhysics_Parametric::GetAngularEndTime
 */
 int idPhysics_Parametric::GetAngularEndTime( void ) const {
 	if ( current.angularInterpolation.GetDuration() != 0 ) {
-		return current.angularInterpolation.GetEndTime();
+		return static_cast<int>(current.angularInterpolation.GetEndTime());
 	} else {
-		return current.angularExtrapolation.GetEndTime();
+		return static_cast<int>(current.angularExtrapolation.GetEndTime());
 	}
 }
 

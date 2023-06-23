@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -21,8 +21,8 @@ namespace ai
 {
 
 HandleElevatorTask::HandleElevatorTask() :
-	_success(false),
-	_waitEndTime(0)
+	_waitEndTime(0),
+	_success(false)
 {}
 
 HandleElevatorTask::HandleElevatorTask(const eas::RouteInfoPtr& routeInfo) :

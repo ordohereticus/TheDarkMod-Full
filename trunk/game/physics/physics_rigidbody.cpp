@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -23,7 +23,7 @@ CLASS_DECLARATION( idPhysics_Base, idPhysics_RigidBody )
 END_CLASS
 
 #ifdef MOD_WATERPHYSICS
-const int STOP_SPEED            = 10.0f;
+const int STOP_SPEED            = 10;
 // if linearVelocity < WATER_STOP_LINEAR && angularVelocity < WATER_STOP_ANGULAR then set the RB to rest
 // and we need  this->noMoveTime + NO_MOVE_TIME < gameLocal.getTime()
 const idVec3 WATER_STOP_LINEAR(10.0f,10.0f,10.0f);
@@ -884,7 +884,7 @@ idPhysics_RigidBody::idPhysics_RigidBody( void ) {
 	isOrientated = false;
 
 #ifdef MOD_WATERPHYSICS
-	this->noMoveTime = 0.0f;
+	this->noMoveTime = 0;
 #endif
 #ifdef RB_TIMINGS
 	lastTimerReset = 0;

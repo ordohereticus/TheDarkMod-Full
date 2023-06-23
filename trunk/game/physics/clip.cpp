@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: clip.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: clip.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -1565,6 +1565,7 @@ bool idClip::GetModelContactFeature( const contactInfo_t &contact, const idClipM
 				collisionModelManager->GetModelPolygon( handle, contact.modelFeature, winding );
 				break;
 			}
+			default: break;
 		}
 	}
 

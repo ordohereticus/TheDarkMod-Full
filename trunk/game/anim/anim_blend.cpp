@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2062 $
- * $Date: 2008-02-08 14:54:14 -0500 (Fri, 08 Feb 2008) $
- * $Author: angua $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 2062 2008-02-08 19:54:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -4015,6 +4015,7 @@ void idAnimator::FinishAFPose( int animNum, const idBounds &bounds, const int ti
 				joints[0].SetTranslation( AFPoseJointMods[0].origin );
 				break;
 			}
+			default: break;
 		}
 		j = 1;
 	} else {
@@ -4050,6 +4051,7 @@ void idAnimator::FinishAFPose( int animNum, const idBounds &bounds, const int ti
 				joints[i].SetTranslation( AFPoseJointMods[jointMod].origin );
 				break;
 			}
+			default: break;
 		}
 	}
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2382 $
- * $Date: 2008-05-25 14:50:31 -0400 (Sun, 25 May 2008) $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2382 2008-05-25 18:50:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -322,7 +322,7 @@ void idTarget_SetShaderParm::Event_Activate( idEntity *activator ) {
 				}
 			}
 			if (spawnArgs.GetBool("toggle") && (value == 0 || value == 1)) {
-				int val = value;
+				int val = static_cast<int>(value);
 				val ^= 1;
 				value = val;
 				spawnArgs.SetFloat(va("shaderParm%d", parmnum), value);
@@ -1143,7 +1143,7 @@ void idTarget_SetInfluence::Event_RestoreInfluence() {
 	}
 
 	if ( switchToCamera ) {
-		switchToCamera->PostEventMS( &EV_Activate, 0.0f, this );
+		switchToCamera->PostEventMS( &EV_Activate, 0, this );
 	}
 
 	for ( i = 0; i < genericList.Num(); i++ ) {
@@ -1302,9 +1302,9 @@ void idTarget_SetFov::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( setting );
 	fovSetting.SetDuration( setting );
 	savefile->ReadFloat( setting );
-	fovSetting.SetStartValue( setting );
+	fovSetting.SetStartValue( static_cast<int>(setting) );
 	savefile->ReadFloat( setting );
-	fovSetting.SetEndValue( setting );
+	fovSetting.SetEndValue( static_cast<int>(setting) );
 
 	fovSetting.GetCurrentValue( gameLocal.time );
 }

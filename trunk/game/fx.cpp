@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2458 $
+ * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: fx.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: fx.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -268,7 +268,7 @@ const int idEntityFx::Duration( void ) {
 	}
 	for( int i = 0; i < fxEffect->events.Num(); i++ ) {
 		const idFXSingleAction& fxaction = fxEffect->events[i];
-		int d = ( fxaction.delay + fxaction.duration ) * 1000.0f;
+		int d = static_cast<int>(( fxaction.delay + fxaction.duration ) * 1000.0f);
 		if ( d > max ) {
 			max = d;
 		}
