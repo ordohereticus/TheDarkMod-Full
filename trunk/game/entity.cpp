@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2832 $
- * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2833 $
+ * $Date: 2008-09-13 14:49:54 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2832 2008-09-13 18:41:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2833 2008-09-13 18:49:54Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -677,7 +677,7 @@ idEntity::idEntity()
 	// Since we have a function to return inventories/etc, and many entities won't
 	// have anything to do with inventories, I figure I'd better wait until
 	// absolutely necessary to create these.
-	m_Inventory			= NULL;
+	m_Inventory			= CInventoryPtr();
 	m_InventoryCursor	= CInventoryCursorPtr();
 }
 
@@ -992,10 +992,6 @@ idEntity::~idEntity( void )
 	gameLocal.RemoveStim(this);
 	gameLocal.RemoveResponse(this);
 	delete m_StimResponseColl;
-
-	// Delete our inventory/item/cursor, if necessary.
-	if ( m_Inventory != NULL )
-		delete m_Inventory;
 
 	m_FrobPeers.Clear();
 }
@@ -7544,11 +7540,11 @@ This returns the inventory object of this entity. If this entity doesn't
 have one, it creates the inventory.
 ================
 */
-CInventory* idEntity::Inventory()
+const CInventoryPtr& idEntity::Inventory()
 {
-	if(m_Inventory == NULL )
+	if (m_Inventory == NULL )
 	{
-		m_Inventory = new CInventory();
+		m_Inventory = CInventoryPtr(new CInventory());
 		m_Inventory->SetOwner(this);
 	}
 
@@ -8648,11 +8644,10 @@ void idEntity::Event_GetCursorItem(void)
 
 void idEntity::Event_AddItem(idEntity *item)
 {
-	if(item == NULL || name == NULL)
+	if (item == NULL || name == NULL)
 		return;
 
-	m_Inventory->PutItem(item, this);
-
+	Inventory()->PutItem(item, this);
 }
 
 void idEntity::Event_GetGroupItem(const char *name, const char *group)
@@ -8839,7 +8834,7 @@ void idEntity::ChangeInventoryIcon(const char* invName, const char* invCategory,
 
 void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCategory, int amount) 
 {
-	CInventory* inventory = Inventory();
+	const CInventoryPtr& inventory = Inventory();
 	bool bDropped( false ), bIsLoot( false );
 
 	CInventoryCategoryPtr category = inventory->GetCategory(invCategory);

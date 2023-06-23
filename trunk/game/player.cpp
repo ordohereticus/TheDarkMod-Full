@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2832 $
- * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2833 $
+ * $Date: 2008-09-13 14:49:54 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2832 2008-09-13 18:41:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2833 2008-09-13 18:49:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1043,7 +1043,7 @@ void idPlayer::NextInventoryMap()
 void idPlayer::SetupInventory()
 {
 	mInventoryOverlay = CreateOverlay(cv_tdm_inv_hud_file.GetString(), LAYER_INVENTORY);
-	CInventory *inv = Inventory();
+	const CInventoryPtr& inv = Inventory();
 	int idx = 0;
 
 	// We create a cursor and a category for the weapons, which is then locked

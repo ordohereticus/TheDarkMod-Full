@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2833 $
+ * $Date: 2008-09-13 14:49:54 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -140,8 +140,8 @@ protected:
 											// to create a fake health potion which shows up in the inventory
 											// as a regular health potion, but actually deals damage. Needs
 											// custom scripting to actually do this though.
-	CInventory				*m_Inventory;
-	CInventoryCategory		*m_Category;
+	CInventory*				m_Inventory;
+	CInventoryCategory*		m_Category;
 	ItemType				m_Type;
 	LootType				m_LootType;
 	int						m_Value;

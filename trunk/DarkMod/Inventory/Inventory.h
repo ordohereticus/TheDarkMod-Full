@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2832 $
- * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2833 $
+ * $Date: 2008-09-13 14:49:54 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -209,5 +209,6 @@ private:
 	int		m_Jewelry;
 	int		m_Goods;
 };
+typedef boost::shared_ptr<CInventory> CInventoryPtr;
 
 #endif /* __DARKMOD_INVENTORY_H__ */
