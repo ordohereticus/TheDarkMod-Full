@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2481 $
- * $Date: 2008-06-14 04:54:23 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2483 $
+ * $Date: 2008-06-14 05:28:25 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1179,6 +1179,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	{
 		return move.moveType;
 	}
+
+	void					SetMoveType( int moveType );
 
 	
 	/**

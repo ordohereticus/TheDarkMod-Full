@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2483 $
+ * $Date: 2008-06-14 05:28:25 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2483 2008-06-14 09:28:25Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2410,16 +2410,7 @@ idAI::Event_SetMoveTypes
 =====================
 */
 void idAI::Event_SetMoveType( int moveType ) {
-	if ( ( moveType < 0 ) || ( moveType >= NUM_MOVETYPES ) ) {
-		gameLocal.Error( "Invalid movetype %d", moveType );
-	}
-
-	move.moveType = static_cast<moveType_t>( moveType );
-	if ( move.moveType == MOVETYPE_FLY ) {
-		travelFlags = TFL_WALK|TFL_AIR|TFL_FLY|TFL_DOOR;
-	} else {
-		travelFlags = TFL_WALK|TFL_AIR|TFL_DOOR;
-	}
+	SetMoveType(moveType);
 }
 
 /*
