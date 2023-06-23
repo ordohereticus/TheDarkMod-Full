@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2397 $
- * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
- * $Author: angua $
+ * $Revision: 2438 $
+ * $Date: 2008-06-05 13:57:46 -0400 (Thu, 05 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2397 2008-05-28 20:31:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2438 2008-06-05 17:57:46Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -405,7 +405,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		if ( max < stepHeight || min > headHeight ) {
 			// can step over this one
 			// angua: do not step over other actors
-			if (obEnt->IsType(idActor::Type))
+			if (!obEnt->IsType(idActor::Type))
 			{
 				continue;
 			}
@@ -1050,7 +1050,7 @@ bool idAI::FindPathAroundObstacles( const idPhysics *physics, const idAAS *aas, 
 	aas->PushPointIntoAreaNum( areaNum, path.startPosOutsideObstacles );
 
 	// get all the nearby obstacles
-	obstacle_t obstacles[MAX_OBSTACLES];
+	static obstacle_t obstacles[MAX_OBSTACLES];
 	idBounds clipBounds;
 	int numObstacles = GetObstacles( physics, aas, ignore, areaNum, path.startPosOutsideObstacles, path.seekPosOutsideObstacles, obstacles, MAX_OBSTACLES, clipBounds, path );
 
