@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2529 $
- * $Date: 2008-06-19 13:28:29 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2536 $
+ * $Date: 2008-06-20 01:26:51 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2529 2008-06-19 17:28:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2536 2008-06-20 05:26:51Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -459,10 +459,10 @@ void CBinaryFrobMover::Open(bool bMaster)
 	{
 		// We're moving, fire the event and pass the starting state
 		OnStartOpen(wasClosed);
-
-		// Set the "intention" flag so that we're closing next time
-		m_bIntentOpen = false;
 	}
+
+	// Set the "intention" flag so that we're closing next time, even if we didn't move
+	m_bIntentOpen = false;
 
 	/*if (IsLocked() == true)
 	{
@@ -525,10 +525,10 @@ void CBinaryFrobMover::Close(bool bMaster)
 	{
 		// We're moving, fire the event and pass the starting state
 		OnStartClose(wasOpen);
-
-		// Set the "intention" flag so that we're opening next time
-		m_bIntentOpen = true;
 	}
+
+	// Set the "intention" flag so that we're opening next time, even if we didn't move
+	m_bIntentOpen = true;
 }
 
 void CBinaryFrobMover::ToggleOpen()
@@ -934,7 +934,11 @@ void CBinaryFrobMover::OnStartClose(bool wasOpen)
 
 void CBinaryFrobMover::OnOpenPositionReached()
 {
-	// To be implemented by the subclasses
+	// trigger our targets when completely opened, if set to do so
+	if (spawnArgs.GetBool("trigger_when_opened", "0"))
+	{
+		ActivateTargets(this);
+	}
 }
 
 void CBinaryFrobMover::OnClosedPositionReached()
