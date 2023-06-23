@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2872 $
- * $Date: 2008-09-21 21:55:49 -0400 (Sun, 21 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2974 $
+ * $Date: 2008-10-23 16:59:06 -0400 (Thu, 23 Oct 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -147,6 +147,11 @@ public:
 		bool					UnShoulderBody( void );
 
 		/**
+		* Stop dragging and drop the current item if there is one
+		**/
+		void					StopDrag( void );
+
+		/**
 		* Used to switch between dropping a body face up and face down on each drop
 		* (Toggled by idPlayer)
 		**/
@@ -193,11 +198,6 @@ protected:
 		* Pauli Exclusion issues.
 		**/
 		void					StartDrag( idPlayer *player, idEntity *newEnt = NULL, int bodyID = 0 );
-
-		/**
-		* Stop dragging and drop the current item if there is one
-		**/
-		void					StopDrag( void );
 
 		/**
 		* Set encumbrance on the player as a function of the dragged object's mass
