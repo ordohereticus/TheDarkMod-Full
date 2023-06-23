@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2765 $
- * $Date: 2008-08-30 08:22:01 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2767 $
+ * $Date: 2008-08-30 09:05:05 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -23,9 +23,6 @@ public:
 
 						CForcePush();
 
-						// initialize the drag force
-	void				Init( float damping );
-
 	void				SetOwner(idEntity* ownerEnt);
 
 	// Set physics object which is about to be pushed
@@ -34,13 +31,6 @@ public:
 	// Set the push parameters for the next evaluation frame
 	void				SetContactInfo(const trace_t& contactInfo, const idVec3& impactVelocity);
 
-						// set position to drag towards
-	/*void				SetDragPosition( const idVec3 &pos );
-						// get the position dragged towards
-	const idVec3 &		GetDragPosition( void ) const;
-						// get the position on the dragged physics object
-	const idVec3		GetDraggedPosition( void ) const;*/
-
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
 
@@ -48,10 +38,6 @@ public: // common force interface
 	virtual void		Evaluate( int time );
 
 private:
-
-	// properties
-	//float				damping;
-
 	idEntity*			pushEnt;		// entity being pushed
 	idEntity*			lastPushEnt;	// the entity we pushed last frame
 
