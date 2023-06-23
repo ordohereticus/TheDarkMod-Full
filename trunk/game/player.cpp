@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3197 $
- * $Date: 2009-01-20 03:58:09 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3198 $
+ * $Date: 2009-01-20 04:45:52 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3197 2009-01-20 08:58:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3198 2009-01-20 09:45:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9337,15 +9337,14 @@ void idPlayer::InventoryUseKeyRelease(int holdTime)
 	const CInventoryCursorPtr& crsr = InventoryCursor();
 	CInventoryItemPtr it = crsr->GetCurrentItem();
 
-	// Check if there is a valid item selected
-	if (it != NULL && it->GetType() != CInventoryItem::IT_DUMMY)
+	// Check for a held grabber entity, which should be put back into the inventory
+	if (!AddGrabberEntityToInventory())
 	{
-		UseInventoryItem(EReleased, it, holdTime, false);
-	}
-	else 
-	{
-		// Check for a held grabber entity, which should be put back into the inventory
-		AddGrabberEntityToInventory();
+		// Check if there is a valid item selected
+		if (it != NULL && it->GetType() != CInventoryItem::IT_DUMMY)
+		{
+			UseInventoryItem(EReleased, it, holdTime, false);
+		}
 	}
 }
 
