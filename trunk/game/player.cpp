@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3012 $
- * $Date: 2008-11-11 12:22:56 -0500 (Tue, 11 Nov 2008) $
+ * $Revision: 3018 $
+ * $Date: 2008-11-12 11:15:45 -0500 (Wed, 12 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3012 2008-11-11 17:22:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3018 2008-11-12 16:15:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2050,7 +2050,7 @@ void idPlayer::RestorePersistantInfo( void ) {
 
 	health = spawnArgs.GetInt( "health", "100" );
 	if ( !gameLocal.isClient ) {
-		idealWeapon = spawnArgs.GetInt( "current_weapon", "1" );
+		idealWeapon = spawnArgs.GetInt( "current_weapon", "0" );
 	}
 }
 
