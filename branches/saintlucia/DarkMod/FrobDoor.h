@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2940 $
+ * $Date: 2008-10-11 06:53:23 -0400 (Sat, 11 Oct 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -141,6 +141,9 @@ protected:
 	 * greebo: This is the algorithm for linking the double door via open_peer and lock_peer.
 	 */
 	void					AutoSetupDoubleDoor();
+
+	// angua: Specialise the CBinaryFrobMover::PreLock method to check whether lock peers are closed
+	virtual bool			PreLock(bool bMaster);
 
 	// Specialise the CBinaryFrobMover::OnLock() and OnUnlock() methods to update the peers
 	virtual void			OnLock(bool bMaster);
