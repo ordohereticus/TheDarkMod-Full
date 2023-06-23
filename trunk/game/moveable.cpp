@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2804 $
- * $Date: 2008-09-07 19:51:59 -0400 (Sun, 07 Sep 2008) $
+ * $Revision: 2854 $
+ * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2804 2008-09-07 23:51:59Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -321,15 +321,10 @@ void idMoveable::Hide( void ) {
 idMoveable::Show
 ================
 */
-void idMoveable::Show( void ) {
+void idMoveable::Show( void ) 
+{
 	idEntity::Show();
-	if ( !spawnArgs.GetBool( "nonsolid" ) ) 
-	{
-		physicsObj.SetContents( CONTENTS_SOLID | CONTENTS_OPAQUE );
-	}
-	// SR CONTENTS_RESPONSE FIX:
-	if( m_StimResponseColl->HasResponse() )
-		physicsObj.SetContents( CONTENTS_SOLID | CONTENTS_OPAQUE | CONTENTS_RESPONSE );
+	physicsObj.SetContents( m_preHideContents );
 }
 
 /*

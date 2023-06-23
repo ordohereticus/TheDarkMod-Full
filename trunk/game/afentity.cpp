@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2803 $
- * $Date: 2008-09-07 18:56:38 -0400 (Sun, 07 Sep 2008) $
+ * $Revision: 2854 $
+ * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2803 2008-09-07 22:56:38Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -377,8 +377,23 @@ void idAFAttachment::Restore( idRestoreGame *savefile ) {
 idAFAttachment::Hide
 ================
 */
-void idAFAttachment::Hide( void ) {
+void idAFAttachment::Hide( void ) 
+{
 	idEntity::Hide();
+
+	// ishtvan: Should hide any bind children of the head (copied from idActor)
+	idEntity *ent;
+	idEntity *next;
+	for( ent = GetNextTeamEntity(); ent != NULL; ent = next ) {
+		next = ent->GetNextTeamEntity();
+		if ( ent->GetBindMaster() == this ) {
+			ent->Hide();
+			if ( ent->IsType( idLight::Type ) ) {
+				static_cast<idLight *>( ent )->Off();
+			}
+		}
+	}
+
 	UnlinkCombat();
 }
 
@@ -387,8 +402,23 @@ void idAFAttachment::Hide( void ) {
 idAFAttachment::Show
 ================
 */
-void idAFAttachment::Show( void ) {
+void idAFAttachment::Show( void ) 
+{
 	idEntity::Show();
+
+	// ishtvan: Should show any bind children of the head (copied from idActor)
+	idEntity *ent;
+	idEntity *next;
+
+	for( ent = GetNextTeamEntity(); ent != NULL; ent = next ) {
+		next = ent->GetNextTeamEntity();
+		if ( ent->GetBindMaster() == this ) {
+			ent->Show();
+			if ( ent->IsType( idLight::Type ) ) {
+				static_cast<idLight *>( ent )->On();
+			}
+		}
+	}
 	LinkCombat();
 }
 

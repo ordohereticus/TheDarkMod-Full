@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2459 $
- * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2854 $
+ * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1640,12 +1640,7 @@ idStaticEntity::Show
 */
 void idStaticEntity::Show( void ) {
 	idEntity::Show();
-	if ( spawnArgs.GetBool( "solid" ) ) {
-		GetPhysics()->SetContents( CONTENTS_SOLID | CONTENTS_OPAQUE );
-	}
-	// SR CONTENTS_RESONSE FIX
-	if( m_StimResponseColl->HasResponse() )
-		GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
+	GetPhysics()->SetContents( m_preHideContents );
 }
 
 /*

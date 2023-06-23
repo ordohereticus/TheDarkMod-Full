@@ -1,19 +1,24 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2854 $
+ * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 // Copyright (C) 2004 Id Software, Inc.
 //
 
+/**
+* TDM: There is absolutely no reason to use this class any more!!!
+* All inventory and frob functionality has been moved to idEntity
+**/
+
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1415,18 +1420,7 @@ void idMoveableItem::Hide( void )
 void idMoveableItem::Show( void )
 {
 	idEntity::Show();
-	physicsObj.SetContents( CONTENTS_RENDERMODEL );
-
-	// greebo: Allow the entityDef to override the clipmodel contents
-	if( spawnArgs.FindKey( "clipmodel_contents" ) )
-	{
-		DM_LOG(LC_ENTITY,LT_INFO)LOGSTRING("Setting clipmask of %s to %d in show\r", name.c_str(), spawnArgs.GetInt("clipmodel_contents"));
-		GetPhysics()->SetContents( spawnArgs.GetInt("clipmodel_contents") );
-	}
-
-// SR CONTENTS_RESPONSE FIX:
-	if( m_StimResponseColl->HasResponse() )
-		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
+	physicsObj.SetContents( m_preHideContents );
 
 	trigger->SetContents( CONTENTS_FROBABLE );
 }

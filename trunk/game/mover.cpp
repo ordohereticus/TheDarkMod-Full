@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2511 $
- * $Date: 2008-06-16 00:58:35 -0400 (Mon, 16 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2854 $
+ * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2511 2008-06-16 04:58:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -393,13 +393,7 @@ idMover::Show
 */
 void idMover::Show( void ) {
 	idEntity::Show();
-	if ( spawnArgs.GetBool( "solid", "1" ) ) 
-	{
-		physicsObj.SetContents( CONTENTS_SOLID );
-	}
-	// SR CONTENTS_RESPONSE FIX
-	if( m_StimResponseColl->HasResponse() )
-		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
+	physicsObj.SetContents( m_preHideContents );
 	SetPhysics( &physicsObj );
 }
 

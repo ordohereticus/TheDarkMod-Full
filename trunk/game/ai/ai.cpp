@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2849 $
- * $Date: 2008-09-15 04:54:14 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2854 $
+ * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2849 2008-09-15 08:54:14Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -6791,19 +6791,10 @@ void idAI::Hide( void ) {
 idAI::Show
 ================
 */
-void idAI::Show( void ) {
+void idAI::Show( void ) 
+{
 	idActor::Show();
-	if ( spawnArgs.GetBool( "big_monster" ) ) {
-		physicsObj.SetContents( 0 );
-	} else if ( use_combat_bbox ) {
-		physicsObj.SetContents( CONTENTS_BODY|CONTENTS_SOLID );
-	} else {
-		physicsObj.SetContents( CONTENTS_BODY );
-	}
-	// SR CONTENTS_RESONSE FIX
-	if( m_StimResponseColl->HasResponse() )
-		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
-
+	physicsObj.SetContents( m_preHideContents );
 
 	physicsObj.GetClipModel()->Link( gameLocal.clip );
 	fl.takedamage = !spawnArgs.GetBool( "noDamage" );

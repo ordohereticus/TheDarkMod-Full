@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2847 $
- * $Date: 2008-09-14 15:21:11 -0400 (Sun, 14 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2854 $
+ * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -252,6 +252,14 @@ public:
 		bool				hasAwakened			:1;	// before a monster has been awakened the first time, use full PVS for dormant instead of area-connected
 		bool				networkSync			:1; // if true the entity is synchronized over the network
 	} fl;
+
+	/**
+	* When an entity is hidden, these store the following information just before the hide:
+	* These store the clipmodel contents, clipmask and whether the clipmodel was enabled
+	* These variables are reset to this data when the entity is un-hidden
+	**/
+	int					m_preHideContents;
+	int					m_preHideClipMask;
 
 	/**
 	 * UsedBy ist the list of entity names that this entity can be used by.
@@ -1126,6 +1134,10 @@ protected:
 private:
 	idPhysics_Static	defaultPhysicsObj;		// default physics object
 	idPhysics *			physics;				// physics used for this entity
+	/**
+	* TDM: Clipmodel for frobbing only (used to make frobbing easier without effecting physics)
+	**/
+	idClipModel *		m_FrobBox;
 	idEntity *			bindMaster;				// entity bound to if unequal NULL
 	jointHandle_t		bindJoint;				// joint bound to if unequal INVALID_JOINT
 	int					bindBody;				// body bound to if unequal -1
