@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2765 $
- * $Date: 2008-08-30 08:22:01 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2766 $
+ * $Date: 2008-08-30 08:51:38 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2765 2008-08-30 12:22:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2766 2008-08-30 12:51:38Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -101,6 +101,13 @@ void CForcePush::Evaluate( int time )
 		{
 			int pushTime = gameLocal.time - startPushTime;
 			gameRenderWorld->DrawText( idStr(pushTime), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+
+			static int PUSH_DELAY = 1000; // msecs
+			if (pushTime > PUSH_DELAY)
+			{
+				// We've been pushing long enough, start moving the obstacle
+				pushEnt->GetPhysics()->SetLinearVelocity(impactVelocity);
+			}
 		}
 	
 		// TODO
