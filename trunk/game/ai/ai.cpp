@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2800 $
- * $Date: 2008-09-05 00:47:33 -0400 (Fri, 05 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2809 $
+ * $Date: 2008-09-09 14:21:33 -0400 (Tue, 09 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2800 2008-09-05 04:47:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2809 2008-09-09 18:21:33Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7581,7 +7581,10 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	AI_currentAlertLevelStartTime = gameLocal.realClientTime;
 
 	// Begin the grace period
-	Event_SetAlertGracePeriod( grace_frac, grace_time, grace_count );
+	if (alertRising)
+	{
+		Event_SetAlertGracePeriod( grace_frac, grace_time, grace_count );
+	}
 /*
 	// Only bark if we haven't barked too recently
 	if (( MS2SEC(gameLocal.time) - AI_timeOfLastStimulusBark) > MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
@@ -9542,6 +9545,13 @@ void idAI::ShowDebugInfo()
 	if( cv_ai_alertlevel_show.GetBool() )
 	{
 		gameRenderWorld->DrawText( va("Alert: %f; Index: %d", (float) AI_AlertLevel, (int)AI_AlertIndex), (GetEyePosition() - physicsObj.GetGravityNormal()*45.0f), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		if (m_AlertGraceStart + m_AlertGraceTime - gameLocal.time > 0)
+		{
+			gameRenderWorld->DrawText( va("Grace time: %d; Alert count: %d / %d", 
+				m_AlertGraceStart + m_AlertGraceTime - gameLocal.time, 
+				m_AlertGraceCount, m_AlertGraceCountLimit), 
+				GetEyePosition(), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		}
 	}
 
 	if (cv_ai_animstate_show.GetBool())
