@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2762 $
+ * $Date: 2008-08-29 13:49:35 -0400 (Fri, 29 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -723,6 +723,7 @@ private:
 	idVec3					viewBob;
 	int						landChange;
 	int						landTime;
+	int						lastFootstepPlaytime;
 
 	int						currentWeapon;
 	int						idealWeapon;

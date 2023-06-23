@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2747 $
- * $Date: 2008-08-21 06:25:53 -0400 (Thu, 21 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2762 $
+ * $Date: 2008-08-29 13:49:35 -0400 (Fri, 29 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -166,6 +166,7 @@ extern idCVar cv_pm_stepvol_creep;
 extern idCVar cv_pm_stepvol_crouch_walk;
 extern idCVar cv_pm_stepvol_crouch_creep;
 extern idCVar cv_pm_stepvol_crouch_run;
+extern idCVar cv_pm_min_stepsound_interval;
 
 // Lightgem
 extern idCVar cv_lg_distance;

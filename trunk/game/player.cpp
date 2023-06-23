@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2762 $
+ * $Date: 2008-08-29 13:49:35 -0400 (Fri, 29 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2756 2008-08-25 08:08:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2762 2008-08-29 17:49:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -296,6 +296,7 @@ idPlayer::idPlayer() :
 	viewBob					= vec3_zero;
 	landChange				= 0;
 	landTime				= 0;
+	lastFootstepPlaytime	= -1;
 
 	currentWeapon			= -1;
 	idealWeapon				= -1;
@@ -1268,6 +1269,7 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteVec3( viewBob );
 	savefile->WriteInt( landChange );
 	savefile->WriteInt( landTime );
+	savefile->WriteInt( lastFootstepPlaytime );
 
 	savefile->WriteInt( currentWeapon );
 	savefile->WriteInt( idealWeapon );
@@ -1554,6 +1556,7 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadVec3( viewBob );
 	savefile->ReadInt( landChange );
 	savefile->ReadInt( landTime );
+	savefile->ReadInt( lastFootstepPlaytime );
 
 	savefile->ReadInt( currentWeapon );
 	savefile->ReadInt( idealWeapon );
@@ -9596,6 +9599,12 @@ void idPlayer::PlayFootStepSound()
 		return;
 	}
 
+	// This implements a certain dead time before the next footstep is allowed to be played
+	if (gameLocal.time <= lastFootstepPlaytime + cv_pm_min_stepsound_interval.GetInteger())
+	{
+		return;
+	}
+
 	idStr localSound, sound;
 	
 	// DarkMod: make the string to identify the movement speed (crouch_run, creep, etc)
@@ -9681,6 +9690,8 @@ void idPlayer::PlayFootStepSound()
 
 		// propagate the suspicious sound to other AI
 		PropSoundDirect( localSound, true, false );
+
+		lastFootstepPlaytime = gameLocal.time;
 	}
 }
 
