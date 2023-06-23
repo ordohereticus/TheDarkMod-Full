@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Revision: 3121 $
+ * $Date: 2009-01-06 12:36:40 -0500 (Tue, 06 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -696,9 +696,17 @@ public:
 
 	/**
 	 * greebo: Load the objectives directly from the given map file.
-	 *         This is called by the main menu SDK code.
+	 * This is called by the main menu SDK code.
 	 **/
-	idMapFile* LoadDirectlyFromMapFile(idMapFile* mapFile);
+	void LoadDirectlyFromMapFile(idMapFile* mapFile);
+
+	/**
+	 * greebo: Loads the named map file. After this call, it's ensured
+	 * that the m_mapFile member holds the named map. No action is taken
+	 * when the member already held the map with that name to avoid
+	 * loading the same data twice.
+	 */
+	idMapFile* LoadMap(const idStr& mapFileName);
 
 	/**
 	 * greebo: This updates the given GUI with the current
@@ -854,7 +862,7 @@ protected:
 	bool m_MissionDataLoadedIntoGUI; 
 
 	// parsed map for use by Difficulty screen
-	idMapFile* m_mapFile;
+	idMapFile*	m_mapFile;
 
 	// The team number of the player, needed for the statistics GUI
 	int			m_PlayerTeam;
