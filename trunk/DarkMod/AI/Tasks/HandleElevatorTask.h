@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2343 $
+ * $Date: 2008-05-15 14:51:52 -0400 (Thu, 15 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -30,10 +30,13 @@ private:
 	enum State
 	{
 		EMovingTowardsStation,
-		EStateMovingToButton,
-		EStatePressButton,
+		EStateMovingToFetchButton,
+		EStatePressFetchButton,
 		EStateWaitForElevator,
 		EStateMoveOntoElevator,
+		EStateMovingToRideButton,
+		EStatePressRideButton,
+		EStateWaitOnElevator,
 		ENumStates,
 	} _state;
 
