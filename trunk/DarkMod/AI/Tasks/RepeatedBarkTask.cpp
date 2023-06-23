@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2435 $
+ * $Date: 2008-06-04 16:20:32 -0400 (Wed, 04 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2435 2008-06-04 20:20:32Z greebo $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -48,7 +48,7 @@ void RepeatedBarkTask::Init(idAI* owner, Subsystem& subsystem)
 	_nextBarkTime = gameLocal.time;
 	// greebo: Add some random offset of up to <intervalMax> seconds before barking the first time
 	// This prevents guards barking in choirs.
-	_nextBarkTime += SEC2MS(gameLocal.random.RandomFloat()*_barkRepeatIntervalMax);
+	_nextBarkTime += gameLocal.random.RandomFloat()*_barkRepeatIntervalMax;
 }
 
 bool RepeatedBarkTask::Perform(Subsystem& subsystem)
