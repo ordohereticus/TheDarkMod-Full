@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2404 $
+ * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -64,6 +64,7 @@ public:	// common physics interface
 
 	void					GetImpactInfo( const int id, const idVec3 &point, impactInfo_t *info ) const;
 	void					ApplyImpulse( const int id, const idVec3 &point, const idVec3 &impulse );
+	bool					PropagateImpulse( const int id, const idVec3 &point, const idVec3 &impulse );
 	void					AddForce( const int id, const idVec3 &point, const idVec3 &force );
 	void					Activate( void );
 	void					PutToRest( void );
@@ -105,6 +106,7 @@ public:	// common physics interface
 
 	bool					EvaluateContacts( void );
 	int						GetNumContacts( void ) const;
+	bool					HasNonStaticContacts();
 	const contactInfo_t &	GetContact( int num ) const;
 	void					ClearContacts( void );
 	void					AddContactEntity( idEntity *e );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2404 $
+ * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_static.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_static.cpp 2404 2008-06-01 06:05:14Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -281,6 +281,10 @@ idPhysics_Static::ApplyImpulse
 ================
 */
 void idPhysics_Static::ApplyImpulse( const int id, const idVec3 &point, const idVec3 &impulse ) {
+}
+
+bool idPhysics_Static::PropagateImpulse( const int id, const idVec3 &point, const idVec3 &impulse ) {
+	return false;
 }
 
 /*
@@ -622,6 +626,10 @@ idPhysics_Static::GetNumContacts
 */
 int idPhysics_Static::GetNumContacts( void ) const {
 	return 0;
+}
+
+bool idPhysics_Static::HasNonStaticContacts() {
+	return false;
 }
 
 /*

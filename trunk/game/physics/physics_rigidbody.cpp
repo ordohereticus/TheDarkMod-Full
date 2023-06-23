@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2391 $
- * $Date: 2008-05-26 15:41:30 -0400 (Mon, 26 May 2008) $
+ * $Revision: 2404 $
+ * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2391 2008-05-26 19:41:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2404 2008-06-01 06:05:14Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -252,7 +252,7 @@ void idPhysics_RigidBody::Integrate( float deltaTime, rigidBodyPState_t &next ) 
 	next.atRest = current.atRest;
 }
 
-bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& impulse)
+bool idPhysics_RigidBody::PropagateImpulse(const int id, const idVec3& point, const idVec3& impulse)
 {
 	DM_LOG(LC_ENTITY, LT_INFO).LogString("Contacts with this entity %s = %d\r", self->name.c_str(), contacts.Num());
 
@@ -336,15 +336,10 @@ bool idPhysics_RigidBody::PropagateImpulse(const idVec3& point, const idVec3& im
 			if (pushed == NULL)
 				continue;
 
-			idPhysics_RigidBody* rigidBodyPhysics = dynamic_cast<idPhysics_RigidBody*>(pushed->GetPhysics());
-
-			if (rigidBodyPhysics == NULL)
-				continue;
-
 			DM_LOG(LC_ENTITY, LT_INFO).LogString("Propagating impulse to entity %s\r", pushed->name.c_str());
 			//gameRenderWorld->DebugArrow(colorRed, touching[i].point, touching[i].point - touching[i].normal*10, 1, 1000);
 
-			rigidBodyPhysics->PropagateImpulse(touching[i].point, -touching[i].normal * impulseFractionLen);
+			pushed->GetPhysics()->PropagateImpulse(id, touching[i].point, -touching[i].normal * impulseFractionLen);
 
 			// Substract this propagated impulse from the remaining one
 			current.i.linearMomentum -= impulseFraction;
@@ -1471,12 +1466,11 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 			idVec3 arm1(current.externalForcePoint - massCenter);
 			idVec3 arm2(current.externalForcePoint - collision.c.point);
 			idVec3 arm1N(arm1);
-			arm1N.NormalizeFast();
 
 			//gameRenderWorld->DebugArrow(colorCyan, massCenter, massCenter + arm1, 1, 20);
 			//gameRenderWorld->DebugArrow(colorMagenta, collision.c.point, collision.c.point + arm2, 1, 20);
 
-			float l1 = arm1.LengthFast();
+			float l1 = arm1N.NormalizeFast();
 			float l2 = arm1N * arm2;
 			//DM_LOG(LC_ENTITY, LT_INFO).LogString("Arm 1: %f, Arm2: %f\r", l1, l2);
 

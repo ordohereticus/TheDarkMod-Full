@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2044 $
- * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
- * $Author: tels $
+ * $Revision: 2404 $
+ * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -86,6 +86,14 @@ public:	// common physics interface
 
 	void					GetImpactInfo( const int id, const idVec3 &point, impactInfo_t *info ) const;
 	void					ApplyImpulse( const int id, const idVec3 &point, const idVec3 &impulse );
+	
+	/**
+	 * greebo: This is similar to ApplyImpulse, although this distributes the impulse
+	 *         on all entities in contact with this one in *this* very frame. If 
+	 *         no entities are in contact, all the impulse gets applied to this one.
+	 */
+	bool					PropagateImpulse(const int id, const idVec3& point, const idVec3& impulse);
+
 	void					AddForce( const int id, const idVec3 &point, const idVec3 &force );
 	void					Activate( void );
 	void					PutToRest( void );
@@ -146,13 +154,6 @@ public:	// common physics interface
 	void					ReadFromSnapshot( const idBitMsgDelta &msg );
 
 public:
-	/**
-	 * greebo: This is similar to ApplyImpulse, although this distributes the impulse
-	 *         on all entities in contact with this one in *this* very frame. If 
-	 *         no entities are in contact, all the impulse gets applied to this one.
-	 */
-	bool					PropagateImpulse(const idVec3& point, const idVec3& impulse);
-
 	/**
 	 * greebo: "Accessor" method to the internal state. This is a bit hacky, I admit.
 	 */
