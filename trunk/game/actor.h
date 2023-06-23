@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3215 $
- * $Date: 2009-02-16 16:22:54 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3216 $
+ * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -256,6 +256,12 @@ public:
 	int						m_MeleeParryRecoveryMin;
 	int						m_MeleeParryRecoveryMax;
 	int						m_MeleeCurrentParryRecovery;
+	/**
+	* Melee timing: Time after a successful (or aborted) parry that we can attack
+	**/
+	int						m_MeleeRiposteRecoveryMin;
+	int						m_MeleeRiposteRecoveryMax;
+	int						m_MeleeCurrentRiposteRecovery;
 
 	/**
 	* Correspondence between melee type and string name suffix of the action

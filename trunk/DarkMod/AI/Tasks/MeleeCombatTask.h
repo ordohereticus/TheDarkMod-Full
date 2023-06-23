@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3215 $
- * $Date: 2009-02-16 16:22:54 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3216 $
+ * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -25,6 +25,13 @@ class MeleeCombatTask :
 	public Task
 {
 	idEntityPtr<idActor> _enemy;
+	/** 
+	* Set to true if we want to force an attack or parry at the next opportunity
+	* I.e., we wait until we can do this action even if we could do the other first
+	* These are cleared once the forced action is started
+	**/
+	bool				_bForceAttack;
+	bool				_bForceParry;
 
 public:
 	// Get the name of this task

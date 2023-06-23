@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3213 $
- * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3216 $
+ * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3213 2009-02-16 11:34:30Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3216 2009-02-16 23:55:53Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1084,9 +1084,17 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 				{
 					caller->Pause( true );
 
-					// Update entity's melee status
-					if( ent->IsType(idActor::Type) )
-						static_cast<idActor*>(ent)->Event_MeleeActionHeld();
+					idActor *ActOwner;
+					if( ent->IsType(idWeapon::Type) )
+						ActOwner = static_cast<idWeapon *>(ent)->GetOwner();
+					else if( ent->IsType(idActor::Type) )
+						ActOwner = static_cast<idActor *>(ent);
+					else
+						ActOwner = NULL;
+
+					// Update the associated actor's melee status
+					if( ActOwner )
+						ActOwner->Event_MeleeActionHeld();
 
 					break;
 				}
