@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2709 $
- * $Date: 2008-07-19 11:56:06 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2710 $
+ * $Date: 2008-07-19 12:02:27 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2709 2008-07-19 15:56:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2710 2008-07-19 16:02:27Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -361,7 +361,16 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		{
 			float duration = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_LOOKAT_DURATION;
 			owner->Event_LookAtEntity(ai, duration);
-			_state = ConversationCommand::EFinished;
+
+			if (command.WaitUntilFinished()) 
+			{
+				_state = ConversationCommand::EExecuting;
+				_finishTime = gameLocal.time + SEC2MS(duration);
+			}
+			else 
+			{
+				_state = ConversationCommand::EFinished;
+			}
 		}
 		else
 		{
@@ -376,7 +385,16 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		float duration = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_LOOKAT_DURATION;
 
 		owner->Event_LookAtPosition(pos, duration);
-		_state = ConversationCommand::EFinished;
+
+		if (command.WaitUntilFinished()) 
+		{
+			_state = ConversationCommand::EExecuting;
+			_finishTime = gameLocal.time + SEC2MS(duration);
+		}
+		else 
+		{
+			_state = ConversationCommand::EFinished;
+		}
 	}
 	break;
 
@@ -388,7 +406,16 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		{
 			float duration = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_LOOKAT_DURATION;
 			owner->Event_LookAtEntity(ent, duration);
-			_state = ConversationCommand::EFinished;
+			
+			if (command.WaitUntilFinished()) 
+			{
+				_state = ConversationCommand::EExecuting;
+				_finishTime = gameLocal.time + SEC2MS(duration);
+			}
+			else 
+			{
+				_state = ConversationCommand::EFinished;
+			}
 		}
 		else
 		{
