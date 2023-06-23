@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2407 $
- * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2408 $
+ * $Date: 2008-06-01 05:55:08 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -54,10 +54,12 @@ public:
 	// These functions need to be disabled on the handle. Therefore
 	// they are provided but empty.
 	void					ToggleOpen();
+	void					ToggleLock();
 	void					ClosePortal(void);
 	void					DoneStateChange(void);
 
-	bool					isLocked(void);
+	// greebo: Returns TRUE if the associated door is locked (not to confuse with CBinaryFrobMover::IsLocked())
+	bool					DoorIsLocked();
 
 	/**
 	 * greebo: This method is invoked directly or it gets called by the attached door.

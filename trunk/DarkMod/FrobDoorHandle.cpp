@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2407 $
- * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2408 $
+ * $Date: 2008-06-01 05:55:08 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2407 2008-06-01 08:43:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2408 2008-06-01 09:55:08Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -53,6 +53,9 @@ void CFrobDoorHandle::Spawn(void)
 {
 	// Dorhandles are always non-interruptable
 	m_bInterruptable = false;
+
+	// greebo: The handle itself must never locked, otherwise it can't move in Tap()
+	m_Locked = false;
 }
 
 CFrobDoor *CFrobDoorHandle::GetDoor(void)
@@ -124,6 +127,9 @@ void CFrobDoorHandle::ToggleOpen(void)
 	}
 }
 
+void CFrobDoorHandle::ToggleLock() 
+{}
+
 void CFrobDoorHandle::DoneStateChange(void)
 {
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("doorhandle [%s] finished state_change.\r", name.c_str());
@@ -154,12 +160,7 @@ void CFrobDoorHandle::Tap()
 	}
 }
 
-bool CFrobDoorHandle::isLocked(void)
+bool CFrobDoorHandle::DoorIsLocked()
 {
-	bool bLocked = m_Locked;
-
-	if(m_Door)
-		bLocked = m_Door->IsLocked();
-
-	return bLocked;
+	return m_Door ? m_Door->IsLocked() : m_Locked;
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2400 $
- * $Date: 2008-05-29 14:45:11 -0400 (Thu, 29 May 2008) $
+ * $Revision: 2408 $
+ * $Date: 2008-06-01 05:55:08 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2400 2008-05-29 18:45:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2408 2008-06-01 09:55:08Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -488,7 +488,7 @@ void CBinaryFrobMover::ToggleOpen(void)
 	{
 //		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Was stationary on frobbing\r" );
 
-		if(m_bIntentOpen == true)
+		if (m_bIntentOpen)
 		{
 			Open(true);
 		}
