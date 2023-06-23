@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2293 $
- * $Date: 2008-05-11 06:47:25 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2299 $
+ * $Date: 2008-05-11 12:18:17 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 2293 2008-05-11 10:47:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 2299 2008-05-11 16:18:17Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -1638,4 +1638,21 @@ void idAASLocal::AddElevator(CMultiStateMover* mover)
 void idAASLocal::CompileEAS()
 {
 	elevatorSystem->Compile();
+}
+
+int	idAASLocal::GetAreaInCluster(int clusterNum)
+{
+	if (!file) return -1;
+
+	// Find an area within that cluster
+	for (int i = 0; i < file->GetNumAreas(); i++)
+	{
+		const aasArea_t& area = file->GetArea(i);
+		if (area.cluster == clusterNum && (area.flags & AREA_REACHABLE_WALK) != 0)
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }

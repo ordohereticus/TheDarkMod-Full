@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2297 $
- * $Date: 2008-05-11 09:11:39 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2299 $
+ * $Date: 2008-05-11 12:18:17 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -202,6 +202,9 @@ private:	// routing
 	bool						SetAreaState_r( int nodeNum, const idBounds &bounds, const int areaContents, bool disabled );
 	void						GetBoundsAreas_r( int nodeNum, const idBounds &bounds, idList<int> &areas ) const;
 	void						SetObstacleState( const idRoutingObstacle *obstacle, bool enable );
+
+	// returns an area within that cluster (SLOW!), returns -1 if none found
+	int							GetAreaInCluster(int clusterNum);
 
 private:	// pathing
 	bool						EdgeSplitPoint( idVec3 &split, int edgeNum, const idPlane &plane ) const;
