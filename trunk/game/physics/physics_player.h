@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2960 $
- * $Date: 2008-10-21 00:22:37 -0400 (Tue, 21 Oct 2008) $
+ * $Revision: 2970 $
+ * $Date: 2008-10-23 00:27:41 -0400 (Thu, 23 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -74,7 +74,8 @@ typedef enum
 	hang_DarkModMantlePhase			= 0x01,
 	pull_DarkModMantlePhase			= 0x02,
 	shiftHands_DarkModMantlePhase	= 0x03,
-	push_DarkModMantlePhase			= 0x04
+	push_DarkModMantlePhase			= 0x04,
+	fixClipping_DarkModMantlePhase	= 0x05
 
 } EDarkMod_MantlePhase;
 
