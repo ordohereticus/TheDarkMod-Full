@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2890 $
+ * $Date: 2008-09-25 00:37:56 -0400 (Thu, 25 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2890 2008-09-25 04:37:56Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -277,6 +277,9 @@ void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 		return;
 	}
 
+	if( player->GetImmobilization() & EIM_ITEM_SELECT )
+		return;
+
 	CInventoryCursorPtr cursor = player->InventoryCursor();
 	CInventory* inventory = cursor->Inventory();
 	
@@ -316,6 +319,9 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		gameLocal.Printf( "%s: No player exists.\n", args.Argv(0) );
 		return;
 	}
+
+	if( player->GetImmobilization() & EIM_ITEM_USE )
+		return;
 
 	CInventoryCursorPtr cursor = player->InventoryCursor();
 	CInventory* inventory = cursor->Inventory();
@@ -357,6 +363,9 @@ void Cmd_InventoryCycleMaps_f( const idCmdArgs &args )
 		gameLocal.Printf( "%s: No player exists.\n", args.Argv(0) );
 		return;
 	}
+
+	if( (player->GetImmobilization() & EIM_ITEM_SELECT) || (player->GetImmobilization() & EIM_ITEM_USE) )
+		return;
 
 	// Pass the call to the specialised method
 	player->NextInventoryMap();
