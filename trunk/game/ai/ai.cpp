@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2394 $
- * $Date: 2008-05-27 13:49:25 -0400 (Tue, 27 May 2008) $
- * $Author: angua $
+ * $Revision: 2437 $
+ * $Date: 2008-06-05 01:35:10 -0400 (Thu, 05 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2394 2008-05-27 17:49:25Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2437 2008-06-05 05:35:10Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -404,6 +404,7 @@ idAI::idAI()
 	anim_turn_yaw		= 0.0f;
 	anim_turn_amount	= 0.0f;
 	anim_turn_angles	= 0.0f;
+	reachedpos_bbox_expansion = 0.0f;
 	fly_offset			= 0;
 	fly_seek_scale		= 1.0f;
 	fly_roll_scale		= 0.0f;
@@ -588,6 +589,8 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat( anim_turn_yaw );
 	savefile->WriteFloat( anim_turn_amount );
 	savefile->WriteFloat( anim_turn_angles );
+
+	savefile->WriteFloat(reachedpos_bbox_expansion);
 
 	savefile->WriteStaticObject( physicsObj );
 
@@ -835,6 +838,8 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( anim_turn_yaw );
 	savefile->ReadFloat( anim_turn_amount );
 	savefile->ReadFloat( anim_turn_angles );
+
+	savefile->ReadFloat(reachedpos_bbox_expansion);
 
 	savefile->ReadStaticObject( physicsObj );
 
@@ -1135,6 +1140,8 @@ void idAI::Spawn( void )
 	spawnArgs.GetFloat( "projectile_height_to_distance_ratio",	"1", projectile_height_to_distance_ratio );
 
 	spawnArgs.GetFloat( "turn_rate",			"360",		turnRate );
+
+	reachedpos_bbox_expansion = spawnArgs.GetFloat("reachedpos_bbox_expansion", "0");
 
 	spawnArgs.GetBool( "talks",					"0",		talks );
 
@@ -2260,7 +2267,7 @@ bool idAI::ReachedPos( const idVec3 &pos, const moveCommand_t moveCommand ) cons
 			}
 		} else {
 			// angua: use the actual bounds size instead of a box with size 48.
-			idBounds bnds(physicsObj.GetAbsBounds());
+			idBounds bnds(physicsObj.GetAbsBounds().Expand(reachedpos_bbox_expansion));
 
 			// angua: expand the bounds a bit downwards, so that they can reach target positions 
 			// that are a little bit below the gound (e.g. below a patch)
@@ -4300,8 +4307,20 @@ void idAI::AnimMove()
 		}
 	}
 
+	// greebo: This should take care of rats running around in circles around their goal
+	// due to not turning fast enough to their goalPos, sending them into a stable orbit.
+	float oldTurnRate = turnRate;
+
+	if ((goalPos - physicsObj.GetOrigin()).LengthSqr() < Square(50))
+	{
+		turnRate *= gameLocal.random.RandomFloat() + 1;
+	}
+
 	// greebo: Now actually turn towards the "ideal" yaw.
 	Turn();
+
+	// Revert the turnRate changes
+	turnRate = oldTurnRate;
 
 	// Determine the delta depending on the move type
 	idVec3 delta(0,0,0);

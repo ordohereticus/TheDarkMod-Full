@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2352 $
- * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2437 $
+ * $Date: 2008-06-05 01:35:10 -0400 (Thu, 05 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -574,6 +574,9 @@ protected:
 	float					anim_turn_yaw;
 	float					anim_turn_amount;
 	float					anim_turn_angles;
+
+	// This expands the AABB a bit when the AI is checking for reached positions.
+	float					reachedpos_bbox_expansion;
 
 	// physics
 	idPhysics_Monster		physicsObj;
