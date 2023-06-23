@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2740 $
+ * $Date: 2008-08-16 04:19:15 -0400 (Sat, 16 Aug 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: liquid.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 2740 2008-08-16 08:19:15Z angua $", init_version);
 
 #include "StimResponse/StimResponseCollection.h"
 
@@ -113,7 +113,7 @@ void idLiquid::Spawn() {
 	this->soundName = "snd_";
 	this->soundName.Append(temp);
 
-	splashName = spawnArgs.GetString("smoke_small","water_splash_tiny");
+	splashName = spawnArgs.GetString("smoke_small","water_splash_small");
 	this->splash[0] = static_cast<const idDeclParticle *>(declManager->FindType(DECL_PARTICLE,splashName));
 
 	splashName = spawnArgs.GetString("smoke_medium","water_splash");
