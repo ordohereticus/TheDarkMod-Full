@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2835 $
- * $Date: 2008-09-14 02:08:58 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2838 $
+ * $Date: 2008-09-14 03:19:30 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2835 2008-09-14 06:08:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2838 2008-09-14 07:19:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10117,7 +10117,8 @@ idVec3 idPlayer::GetDoorListenLoc( void )
 	return m_DoorListenLoc;
 }
 
-CInventoryItemPtr idPlayer::AddToInventory(idEntity *ent, idUserInterface *_hud) {
+CInventoryItemPtr idPlayer::AddToInventory(idEntity *ent, idUserInterface* _hud)
+{
 	// Pass the call to the base class first
 	CInventoryItemPtr returnValue = idEntity::AddToInventory(ent, _hud);
 
