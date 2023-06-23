@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2445 $
+ * $Date: 2008-06-07 10:07:39 -0400 (Sat, 07 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2445 2008-06-07 14:07:39Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -41,7 +41,6 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2443 2008-06
 #include "../game/ai/ai.h"
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
-#include "DarkRadiantRCFServer.h"
 #include "renderpipe.h"
 
 // Default length of time for holding down jump key to start
@@ -343,9 +342,6 @@ void CGlobal::Init()
 {
 	PROFILE_HANDLE *pfh = NULL;
 
-	// greebo: Intercept the periodic Frame call to run the RCF Server cycle
-	SH_ADD_HOOK_STATICFUNC(idCommon, Frame, common, DarkRadiantRCFServer::Frame, 0);
-	
 #ifdef _WINDOWS_
 
 	SH_ADD_HOOK_STATICFUNC(idFileSystem, BuildOSPath, fileSystem, DM_BuildOSPath, 0);

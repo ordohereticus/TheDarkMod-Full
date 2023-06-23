@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2445 $
+ * $Date: 2008-06-07 10:07:39 -0400 (Sat, 07 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,10 +15,9 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2445 2008-06-07 14:07:39Z greebo $", init_version);
 
 #include "game_local.h"
-#include <DarkRadiantRCFServer.h>
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/darkModLAS.h"
 #include "../DarkMod/decltdm_matinfo.h"
@@ -462,30 +461,6 @@ void idGameLocal::Init( void ) {
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "bank" ), font_bank );
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "micro" ), font_micro );
 
-	// Start the DarkRadiant RCF Server instance
-	if (cvarSystem->GetCVarBool("darkradiant_rcfserver_enable"))
-	{
-#ifdef __linux__
-	// Linux is using the boost::asio library, this may throw an exception
-	try {
-		m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr(new DarkRadiantRCFServer);
-		Printf( "------------ DarkRadiant RCF Server started -----------\n" );
-	}
-	catch (const boost::asio::error& e) {
-		m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr();
-		Warning("Could not start RCF Server: %s", e.what());
-	}
-#else
-	// Win32 builds just instantiate the server, shouldn't throw
-	m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr(new DarkRadiantRCFServer);
-	Printf( "------------ DarkRadiant RCF Server started -----------\n" );
-#endif
-	}
-	else
-	{
-		Printf( "Info: DarkRadiant RCF Server disabled.\n" );
-	}
-	
 	// Create render pipe
 	m_RenderPipe = new CRenderPipe();
 	if (m_RenderPipe == NULL) {
@@ -505,9 +480,6 @@ void idGameLocal::Shutdown( void ) {
 	if ( !common ) {
 		return;
 	}
-
-	// Destruct RCF server to avoid memory deallocation issues
-	m_DarkRadiantRCFServer = DarkRadiantRCFServerPtr();
 
 	Printf( "------------ Game Shutdown -----------\n" );
 	

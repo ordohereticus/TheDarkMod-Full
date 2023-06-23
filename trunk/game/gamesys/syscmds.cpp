@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2431 $
- * $Date: 2008-06-03 14:41:38 -0400 (Tue, 03 Jun 2008) $
- * $Author: tels $
+ * $Revision: 2445 $
+ * $Date: 2008-06-07 10:07:39 -0400 (Sat, 07 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,14 +13,13 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2431 2008-06-03 18:41:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2445 2008-06-07 14:07:39Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
 #include "../../DarkMod/sndPropLoader.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/Inventory/Inventory.h"
-#include <DarkRadiantRCFServer.h>
 
 #include "typeinfo.h"
 
@@ -2686,14 +2685,6 @@ void Cmd_ShowEASRoute_f(const idCmdArgs& args)
 	}
 }
 
-void Cmd_SignalCMDDone_f(const idCmdArgs& args)
-{
-	if (gameLocal.m_DarkRadiantRCFServer != NULL)
-	{
-		gameLocal.m_DarkRadiantRCFServer->SignalCommandDone();
-	}
-}
-
 /*
 =================
 idGameLocal::InitConsoleCommands
@@ -2795,8 +2786,6 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "aas_showReachabilities",Cmd_ShowReachabilities_f,			CMD_FL_GAME,				"Shows the reachabilities for the given area number (AAS32)." );
 	cmdSystem->AddCommand( "aas_showStats",			Cmd_ShowAASStats_f,			CMD_FL_GAME,				"Shows the AAS statistics." );
 	cmdSystem->AddCommand( "eas_showRoute",			Cmd_ShowEASRoute_f,			CMD_FL_GAME,				"Shows the EAS route to the goal area." );
-	
-	cmdSystem->AddCommand( "darkradiant_signal_cmd_done",	Cmd_SignalCMDDone_f,		CMD_FL_GAME,				"Called by DarkRadiant to receive the DONE signal after issuing commands." );
 
 #ifndef	ID_DEMO_BUILD
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );
