@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2767 $
- * $Date: 2008-08-30 09:05:05 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2768 $
+ * $Date: 2008-08-30 09:16:11 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2767 2008-08-30 13:05:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2768 2008-08-30 13:16:11Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -119,6 +119,7 @@ idCVar cv_pm_creepmod(				"pm_creepmod",			"0.44",			CVAR_GAME | CVAR_ARCHIVE | 
 idCVar cv_pm_crouchmod(				"pm_crouchmod",			"0.54",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The multiplier used to obtain crouch speed from walk speed." );
 idCVar cv_pm_pushmod(				"pm_pushmod",			"0.15",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Alters the impulse applied when the player runs into an object.  Fractional modifier that multiplies the default D3 impulse.  Default is 0.15" );
 idCVar cv_pm_push_start_delay(		"pm_push_start_delay",	"1000",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the delay in msecs before heavy things get pushed by the player. Default is 1000 msecs." );
+idCVar cv_pm_push_accel_time(		"pm_push_accel_time",	"1000",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the acceleration time in msecs when the player is starting to push things. After this time has passed, the pushed object has reached its maximum possible velocity. Default is 1000 msecs." );
 idCVar cv_pm_push_heavy_threshold(	"pm_push_heavy_threshold",	"0.75",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the fraction of the player mass, above which pushable things are considered as 'heavy'. Default is 0.75." );
 idCVar cv_pm_mantle_reach(			"pm_mantle_reach",		"0.5",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Horizontal reach of mantle ability, as fraction of player height.  Default is 0.5" );
 idCVar cv_pm_mantle_height(			"pm_mantle_height",		"0.2",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Vertical reach of mantle ability, as fraction of player height.  Default is 0.2" );
