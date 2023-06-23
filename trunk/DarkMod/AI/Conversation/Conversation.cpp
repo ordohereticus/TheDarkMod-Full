@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2823 $
- * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2824 $
+ * $Date: 2008-09-13 02:53:52 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2823 2008-09-13 05:10:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2824 2008-09-13 06:53:52Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -462,6 +462,13 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 	_actorsMustBeWithinTalkDistance = dict.GetBool(prefix + "actors_must_be_within_talkdistance", "1");
 
 	_actorsAlwaysFaceEachOtherWhileTalking = dict.GetBool(prefix + "actors_always_face_each_other_while_talking", "1");
+
+	// greebo: For conversations with one actor some flags don't make sense
+	if (_actors.Num() == 1)
+	{
+		_actorsMustBeWithinTalkDistance = false;
+		_actorsAlwaysFaceEachOtherWhileTalking = false;
+	}
 
 	// Seems like we have everything we need
 	_isValid = true;
