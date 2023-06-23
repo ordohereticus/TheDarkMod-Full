@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2398 $
- * $Date: 2008-05-29 12:55:56 -0400 (Thu, 29 May 2008) $
+ * $Revision: 2400 $
+ * $Date: 2008-05-29 14:45:11 -0400 (Thu, 29 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2398 2008-05-29 16:55:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2400 2008-05-29 18:45:11Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -24,8 +24,6 @@ static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2398 2008-05
 //===============================================================================
 //CFrobDoorHandle
 //===============================================================================
-extern E_SDK_SIGNAL_STATE SigOpen(idEntity *oEntity, void *pData);
-
 const idEventDef EV_TDM_Handle_GetDoor( "GetDoor", NULL, 'e' );
 const idEventDef EV_TDM_Handle_Tap( "Tap", NULL );
 
@@ -33,8 +31,6 @@ CLASS_DECLARATION( CBinaryFrobMover, CFrobDoorHandle )
 	EVENT( EV_TDM_Handle_GetDoor,		CFrobDoorHandle::Event_GetDoor )
 	EVENT( EV_TDM_Handle_Tap,			CFrobDoorHandle::Event_Tap )
 END_CLASS
-
-
 
 CFrobDoorHandle::CFrobDoorHandle() :
 	m_Door(NULL),
@@ -122,33 +118,40 @@ void CFrobDoorHandle::ClosePortal(void)
 
 void CFrobDoorHandle::ToggleOpen(void)
 {
+	if( !m_Rotating && !m_Translating )
+	{
+		Open(true);
+	}
 }
 
 void CFrobDoorHandle::DoneStateChange(void)
 {
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("doorhandle [%s] finished state_change.\r", name.c_str());
-}
+	CBinaryFrobMover::DoneStateChange();
 
-void CFrobDoorHandle::DoneRotating(void)
-{
-	CBinaryFrobMover::DoneRotating();
-}
+	if (m_Open)
+	{
+		// The handle is "opened", trigger the door
+		if (m_Door != NULL && !m_Door->IsOpen())
+		{
+			m_Door->OpenDoor(false);
+		}
 
-void CFrobDoorHandle::DoneMoving(void)
-{
-	CBinaryFrobMover::DoneMoving();
+		Close(true);
+	}
 }
 
 void CFrobDoorHandle::Tap()
 {
-	idStr script = spawnArgs.GetString("door_handle_script", "");
+	// Trigger the handle movement
+	ToggleOpen();
 
-	if (script.IsEmpty() || m_Door == NULL)
+	if (m_Door != NULL)
 	{
-		return;
+		// Start the appropriate sound
+		idStr snd = m_Door->IsLocked() ? "snd_tap_locked" : "snd_tap_default";
+		StartSound(snd, SND_CHANNEL_ANY, 0, false, NULL);
 	}
-
-	CallScriptFunctionArgs(script, true, 0, "ee", this, m_Door);
 }
 
 bool CFrobDoorHandle::isLocked(void)
@@ -160,4 +163,3 @@ bool CFrobDoorHandle::isLocked(void)
 
 	return bLocked;
 }
-

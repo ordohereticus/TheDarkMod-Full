@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2398 $
- * $Date: 2008-05-29 12:55:56 -0400 (Thu, 29 May 2008) $
+ * $Revision: 2400 $
+ * $Date: 2008-05-29 14:45:11 -0400 (Thu, 29 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -56,8 +56,6 @@ public:
 	void					ToggleOpen();
 	void					ClosePortal(void);
 	void					DoneStateChange(void);
-	void					DoneRotating(void);
-	void					DoneMoving(void);
 
 	bool					isLocked(void);
 
