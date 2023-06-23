@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2253 $
- * $Date: 2008-05-01 07:15:58 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2301 $
+ * $Date: 2008-05-11 13:56:43 -0400 (Sun, 11 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2253 2008-05-01 11:15:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2301 2008-05-11 17:56:43Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -643,6 +643,12 @@ bool CFrobDoor::UsedBy(IMPULSE_STATE nState, idEntity *ent)
 			else
 				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("[%s] Master entity [%s] is not of class CFrobDoor\r", name.c_str(), e->name.c_str());
 		}
+	}
+
+	// angua: we can't unlock the door with this key
+	if (bRc == false && IsLocked())
+	{
+		StartSound( "snd_wrong_key", SND_CHANNEL_ANY, 0, false, NULL );
 	}
 
 Quit:
