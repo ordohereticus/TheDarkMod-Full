@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2660 $
- * $Date: 2008-07-13 14:39:13 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2661 $
+ * $Date: 2008-07-14 00:46:02 -0400 (Mon, 14 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -49,6 +49,9 @@ public:
 private:
 	// The type of this command
 	Type _type;
+
+	// Argument list
+	idStringList _arguments;
 
 public:
 	/**

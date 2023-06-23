@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2658 $
- * $Date: 2008-07-13 14:16:35 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2661 $
+ * $Date: 2008-07-14 00:46:02 -0400 (Mon, 14 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2658 2008-07-13 18:16:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2661 2008-07-14 04:46:02Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -110,8 +110,8 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 		return;
 	}
 
-	// Start parsing the conversation scripts (i.e. the commands)
-	for (int i = 0; i < INT_MAX; i++)
+	// Start parsing the conversation scripts (i.e. the commands), start with index 1
+	for (int i = 1; i < INT_MAX; i++)
 	{
 		idStr cmdPrefix = va(prefix + "cmd_%d_", i);
 

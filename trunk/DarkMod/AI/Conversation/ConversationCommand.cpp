@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2660 $
- * $Date: 2008-07-13 14:39:13 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2661 $
+ * $Date: 2008-07-14 00:46:02 -0400 (Mon, 14 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2660 2008-07-13 18:39:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2661 2008-07-14 04:46:02Z greebo $", init_version);
 
 #include "ConversationCommand.h"
 
@@ -51,6 +51,19 @@ bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 	}
 
 	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Found command type %s for prefix %s.\r", TypeNames[_type], prefix.c_str());
+
+	// Parse the arguments
+	_arguments.Clear();
+
+	idStr argPrefix = prefix + "arg_";
+	for (const idKeyValue* kv = dict.MatchPrefix(argPrefix); kv != NULL; kv = dict.MatchPrefix(argPrefix, kv))
+	{
+		// Add each actor name to the list
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Adding argument %s to conversation command %s.\r", kv->GetValue().c_str(), TypeNames[_type]);
+		_arguments.Append(kv->GetValue());
+	}
+
+	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Command type %s has %d arguments.\r", TypeNames[_type], _arguments.Num());
 
 	return true;
 }
