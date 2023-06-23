@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2597 $
- * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 2600 $
+ * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2597 2008-07-02 19:00:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2600 2008-07-03 15:49:19Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -545,7 +545,7 @@ bool CFrobDoor::CanBeUsedBy(CInventoryItem* item)
 	return idEntity::CanBeUsedBy(item);
 }
 
-bool CFrobDoor::UseBy(IMPULSE_STATE impulseState, CInventoryItem* item)
+bool CFrobDoor::UseBy(EImpulseState impulseState, CInventoryItem* item)
 {
 	if (item == NULL) return false;
 
@@ -558,7 +558,7 @@ bool CFrobDoor::UseBy(IMPULSE_STATE impulseState, CInventoryItem* item)
 	// Get the name of this inventory category
 	const idStr& name = item->Category()->GetName();
 	
-	if (name == "Keys" && impulseState == IS_PRESSED) 
+	if (name == "Keys" && impulseState == EPressed) 
 	{
 		// Keys can be used on button PRESS event, let's see if the key matches
 		if (idEntity::CanBeUsedBy(itemEntity))
@@ -589,9 +589,9 @@ bool CFrobDoor::UseBy(IMPULSE_STATE impulseState, CInventoryItem* item)
 
 			switch (impulseState)
 			{
-			case IS_PRESSED:	sample = LPSOUND_INIT; 
+			case EPressed:	sample = LPSOUND_INIT; 
 				break;
-			case IS_RELEASED:	sample = LPSOUND_RELEASED;
+			case EReleased:	sample = LPSOUND_RELEASED;
 				break;
 			default:			sample = LPSOUND_REPEAT;
 			};
@@ -609,7 +609,7 @@ bool CFrobDoor::UseBy(IMPULSE_STATE impulseState, CInventoryItem* item)
 	return idEntity::UseBy(impulseState, item);
 }
 
-bool CFrobDoor::UsedBy(IMPULSE_STATE nState, CInventoryItem* item)
+bool CFrobDoor::UsedBy(EImpulseState nState, CInventoryItem* item)
 {
 	/*bool bRc = false;
 
@@ -903,10 +903,10 @@ void CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 	idVec3 pos;
 	idAngles angle;
 
-	if (common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51)) == false)
+	/*if (common->ButtonState(KEY_FROM_IMPULSE(IMPULSE_51)) == false)
 	{
 		m_KeyReleased = true;
-	}
+	}*/
 
 	// If a key has been pressed and the lock is already picked, we play a sample
 	// to indicate that the lock doesn't need picking anymore. This we do only

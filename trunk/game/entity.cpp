@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2597 $
- * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 2600 $
+ * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2597 2008-07-02 19:00:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2600 2008-07-03 15:49:19Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7194,12 +7194,12 @@ bool idEntity::CanBeUsedBy(idEntity* entity)
 	return (idx != -1);
 }
 
-bool idEntity::UseBy(IMPULSE_STATE impulseState, CInventoryItem* item)
+bool idEntity::UseBy(EImpulseState impulseState, CInventoryItem* item)
 {
 	return false;
 }
 
-bool idEntity::UsedBy(IMPULSE_STATE nState, CInventoryItem* item)
+bool idEntity::UsedBy(EImpulseState nState, CInventoryItem* item)
 {
 	return false;
 }
@@ -8065,7 +8065,7 @@ void idEntity::Event_Frob()
 	if (player != NULL)
 	{
 		// Let the player frob this entity.
-		player->PerformFrob(this);
+		player->PerformFrob(EPressed, this);
 	}
 }
 

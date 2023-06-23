@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2597 $
- * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 2600 $
+ * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -83,9 +83,9 @@ public:
 	void					AddDoorhandle(CFrobDoorHandle* handle);
 
 	virtual bool			CanBeUsedBy(CInventoryItem* item);					// Overrides idEntity::CanBeUsedBy
-	virtual bool			UseBy(IMPULSE_STATE impulseState, CInventoryItem* item);	// Overrides idEntity::UseBy
+	virtual bool			UseBy(EImpulseState impulseState, CInventoryItem* item);	// Overrides idEntity::UseBy
 
-	bool					UsedBy(IMPULSE_STATE nState, CInventoryItem* item);
+	bool					UsedBy(EImpulseState nState, CInventoryItem* item);
 
 	/**
 	 * Write the proper sound loss value to the soundprop portal data

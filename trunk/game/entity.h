@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2597 $
- * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 2600 $
+ * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -126,11 +126,13 @@ enum {
 	TH_UPDATEPARTICLES		= 16
 };
 
-typedef enum {
-	IS_PRESSED,
-	IS_RELEASED,
-	IS_REPEAT
-} IMPULSE_STATE;
+// The impulse states a button can have
+enum EImpulseState {
+	EPressed,			// just pressed
+	EReleased,			// held down
+	ERepeat,			// just released
+	ENumImpulseStates,
+};
 
 //
 // Signals
@@ -617,7 +619,7 @@ public:
 	 *
 	 * @returns: TRUE if the item could be used, FALSE otherwise.
 	 */
-	virtual bool UseBy(IMPULSE_STATE nState, CInventoryItem* item);
+	virtual bool UseBy(EImpulseState nState, CInventoryItem* item);
 
 	/**
 	 * UsedBy determines the behaviour when an entity is used against another one.
@@ -630,7 +632,7 @@ public:
 	 *
 	 * greebo: This function is DEPRECATED.
 	 */
-	virtual bool UsedBy(IMPULSE_STATE impulseState, CInventoryItem* item);
+	virtual bool UsedBy(EImpulseState impulseState, CInventoryItem* item);
 
 	/**
 	* Toggle whether the entity has been frobbed.  Should ONLY be called by idPlayer::CheckFrob

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2564 $
- * $Date: 2008-06-24 11:59:18 -0400 (Tue, 24 Jun 2008) $
+ * $Revision: 2600 $
+ * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2564 2008-06-24 15:59:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2600 2008-07-03 15:49:19Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -329,7 +329,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		if (item != NULL)
 		{
 			// Item found, set the cursor to it
-			player->inventoryUseItem(IS_PRESSED, item, 0);
+			player->inventoryUseItem(EPressed, item, 0);
 		}
 		else
 		{
