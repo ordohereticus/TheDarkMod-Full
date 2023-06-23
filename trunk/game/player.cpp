@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2853 $
- * $Date: 2008-09-15 15:01:16 -0400 (Mon, 15 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2856 $
+ * $Date: 2008-09-17 22:46:46 -0400 (Wed, 17 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2853 2008-09-15 19:01:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2856 2008-09-18 02:46:46Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5197,7 +5197,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			{
 				idEntity *frob = g_Global.m_DarkModPlayer->m_FrobEntity.GetEntity();
 				if(frob != NULL)
-					grabber->PutInHands(frob, this);
+					grabber->PutInHands(frob, frob->GetPhysics()->GetAxis() );
 			}
 		}
 		break;
@@ -9262,7 +9262,7 @@ void idPlayer::inventoryDropItem()
 			// greebo: Only place the entity in the world, if there is no custom dropscript
 			// The flashbomb for example is spawning projectiles on its own.
 			// Test that the item fits in grabber with dummy item first, before spawning the drop item
-			else if (grabber->FitsInHands(ent, this)) 
+			else if (grabber->FitsInHands(ent)) 
 			{
 				// Drop the item into the grabber hands 
 				DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Item fits in hands.\r");
@@ -9282,7 +9282,7 @@ void idPlayer::inventoryDropItem()
 					ent = spawnedEntity;
 				}
 
-				if( grabber->PutInHands(ent, this) )
+				if( grabber->PutInHands(ent) )
 				{
 					DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Item was successfully put in hands: %s\r", ent->name.c_str());
 					bDropped = true;
@@ -9291,6 +9291,8 @@ void idPlayer::inventoryDropItem()
 					if( ent->IsType(idAFEntity_Base::Type) && ent->spawnArgs.GetBool("shoulderable") )
 					{
 						gameLocal.m_Grabber->UnShoulderBody();
+						// don't keep dragging the body, let it go
+						gameLocal.m_Grabber->Update( this, false );
 					}
 				}
 			}
@@ -9673,7 +9675,7 @@ void idPlayer::Event_HoldEntity( idEntity *ent )
 {
 	if ( ent )
 	{
-		bool successful = gameLocal.m_Grabber->PutInHands( ent, this, 0 );
+		bool successful = gameLocal.m_Grabber->PutInHands( ent, mat3_identity, 0 );
 		idThread::ReturnInt( successful );
 	}
 	else
