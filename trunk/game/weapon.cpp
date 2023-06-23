@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2835 $
- * $Date: 2008-09-14 02:08:58 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 3008 $
+ * $Date: 2008-11-10 14:11:32 -0500 (Mon, 10 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 2835 2008-09-14 06:08:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 3008 2008-11-10 19:11:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -315,7 +315,6 @@ void idWeapon::Save( idSaveGame *savefile ) const {
 	savefile->WriteAngles( muzzle_kick_angles );
 	savefile->WriteVec3( muzzle_kick_offset );
 
-	savefile->WriteInt( ammoType );
 	savefile->WriteInt( ammoRequired );
 	savefile->WriteInt( clipSize );
 	savefile->WriteInt( ammoClip );
@@ -474,7 +473,6 @@ void idWeapon::Restore( idRestoreGame *savefile ) {
 	savefile->ReadAngles( muzzle_kick_angles );
 	savefile->ReadVec3( muzzle_kick_offset );
 
-	savefile->ReadInt( (int &)ammoType );
 	savefile->ReadInt( ammoRequired );
 	savefile->ReadInt( clipSize );
 	savefile->ReadInt( ammoClip );
@@ -676,7 +674,6 @@ void idWeapon::Clear( void ) {
 	lightOn			= false;
 	silent_fire		= false;
 
-	ammoType		= 0;
 	ammoRequired	= 0;
 	ammoClip		= 0;
 	clipSize		= 0;
@@ -810,8 +807,16 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 
 	weaponDef			= gameLocal.FindEntityDef( objectname );
 
-	ammoType			= GetAmmoNumForName( weaponDef->dict.GetString( "ammoType" ) );
-	ammoRequired		= weaponDef->dict.GetInt( "ammoRequired" );
+	ammoRequired		= weaponDef->dict.GetInt( "ammo_required" );
+	
+	idStr ammoDefName = weaponDef->dict.GetString("ammo");
+
+	if (ammoDefName.IsEmpty() && weaponDef->dict.GetBool("ammo_required"))
+	{
+		gameLocal.Error("No 'ammo' spawnarg defined for weapon %s", objectname);
+	}
+
+	
 	clipSize			= weaponDef->dict.GetInt( "clipSize" );
 	lowAmmo				= weaponDef->dict.GetInt( "lowAmmo" );
 
@@ -986,10 +991,6 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 		} else {
 			brassDict = brassDef->dict;
 		}
-	}
-
-	if ( ( ammoType < 0 ) || ( ammoType >= AMMO_NUMTYPES ) ) {
-		gameLocal.Warning( "Unknown ammotype in object '%s'", objectname );
 	}
 
 	ammoClip = ammoinclip;
@@ -2236,7 +2237,7 @@ void idWeapon::GetWeaponTimeOffsets( float *time, float *scale ) {
 ================
 idWeapon::GetAmmoNumForName
 ================
-*/
+
 ammo_t idWeapon::GetAmmoNumForName( const char *ammoname ) {
 	int num;
 	const idDict *ammoDict;
@@ -2261,14 +2262,14 @@ ammo_t idWeapon::GetAmmoNumForName( const char *ammoname ) {
 	}
 
 	return ( ammo_t )num;
-}
+}*/
 
 /*
 ================
 idWeapon::GetAmmoNameForNum
 ================
 */
-const char *idWeapon::GetAmmoNameForNum( ammo_t ammonum ) {
+const char *idWeapon::GetAmmoNameForNum( int ammonum ) {
 	int i;
 	int num;
 	const idDict *ammoDict;
@@ -2298,7 +2299,7 @@ const char *idWeapon::GetAmmoNameForNum( ammo_t ammonum ) {
 idWeapon::GetAmmoPickupNameForNum
 ================
 */
-const char *idWeapon::GetAmmoPickupNameForNum( ammo_t ammonum ) {
+const char *idWeapon::GetAmmoPickupNameForNum( int ammonum ) {
 	int i;
 	int num;
 	const idDict *ammoDict;
@@ -2353,15 +2354,6 @@ idWeapon::ResetAmmoClip
 */
 void idWeapon::ResetAmmoClip( void ) {
 	ammoClip = -1;
-}
-
-/*
-================
-idWeapon::GetAmmoType
-================
-*/
-ammo_t idWeapon::GetAmmoType( void ) const {
-	return ammoType;
 }
 
 /*

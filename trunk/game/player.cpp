@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3007 $
- * $Date: 2008-11-09 13:29:27 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3008 $
+ * $Date: 2008-11-10 14:11:32 -0500 (Mon, 10 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3007 2008-11-09 18:29:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3008 2008-11-10 19:11:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3155,9 +3155,9 @@ void idPlayer::DropWeapon( bool died ) {
 	inclip = weapon.GetEntity()->AmmoInClip();
 	
 	// don't drop a grenade if we have none left
-	if ( !idStr::Icmp( idWeapon::GetAmmoNameForNum( weapon.GetEntity()->GetAmmoType() ), "ammo_grenades" ) && ( ammoavailable - inclip <= 0 ) ) {
+	/*if ( !idStr::Icmp( idWeapon::GetAmmoNameForNum( weapon.GetEntity()->GetAmmoType() ), "ammo_grenades" ) && ( ammoavailable - inclip <= 0 ) ) {
 		return;
-	}
+	}*/
 
 	// expect an ammo setup that makes sense before doing any dropping
 	// ammoavailable is -1 for infinite ammo, and weapons like chainsaw

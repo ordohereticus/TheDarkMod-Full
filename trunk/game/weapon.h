@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 3008 $
+ * $Date: 2008-11-10 14:11:32 -0500 (Mon, 10 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -29,9 +29,6 @@ typedef enum {
 	WP_RISING,
 	WP_LOWERING
 } weaponStatus_t;
-
-typedef int ammo_t;
-static const int AMMO_NUMTYPES = 16;
 
 class idPlayer;
 
@@ -115,10 +112,8 @@ public:
 	bool					BloodSplat( float size );
 
 	// Ammo
-	static ammo_t			GetAmmoNumForName( const char *ammoname );
-	static const char		*GetAmmoNameForNum( ammo_t ammonum );
-	static const char		*GetAmmoPickupNameForNum( ammo_t ammonum );
-	ammo_t					GetAmmoType( void ) const;
+	static const char		*GetAmmoNameForNum( int ammonum );
+	static const char		*GetAmmoPickupNameForNum( int ammonum );
 	int						AmmoAvailable( void ) const;
 	int						AmmoInClip( void ) const;
 	void					ResetAmmoClip( void );
@@ -255,7 +250,6 @@ private:
 	idVec3					muzzle_kick_offset;
 
 	// ammo management
-	ammo_t					ammoType;
 	int						ammoRequired;		// amount of ammo to use each shot.  0 means weapon doesn't need ammo.
 	int						clipSize;			// 0 means no reload
 	int						ammoClip;
