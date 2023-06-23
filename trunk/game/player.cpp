@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2838 $
- * $Date: 2008-09-14 03:19:30 -0400 (Sun, 14 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2848 $
+ * $Date: 2008-09-15 02:44:08 -0400 (Mon, 15 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2838 2008-09-14 07:19:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2848 2008-09-15 06:44:08Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9150,7 +9150,7 @@ void idPlayer::inventoryUseItem()
 		return;
 
 	// If the grabber item can be equipped/dequipped, use item does this
-	if ( gameLocal.m_Grabber->GetSelected() )
+	if ( gameLocal.m_Grabber->GetSelected() || gameLocal.m_Grabber->GetEquipped() )
 	{
 		if( gameLocal.m_Grabber->ToggleEquip() )
 			return;
@@ -9280,13 +9280,19 @@ void idPlayer::inventoryDropItem()
 				{
 					DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Item was successfully put in hands: %s\r", ent->name.c_str());
 					bDropped = true;
+
+					// ishtvan: When item is a shouldered body, drop item unshoulders it
+					if( ent->IsType(idAFEntity_Base::Type) && ent->spawnArgs.GetBool("shoulderable") )
+					{
+						gameLocal.m_Grabber->UnShoulderBody();
+					}
 				}
 			}
 			else
 			{
 				// The grabber could not put the item into the player hands
-				// TODO: Emit a sound?
-				DM_LOG(LC_INVENTORY, LT_WARNING)LOGSTRING("Grabber could not put entity in hands: %s\r", ent->name.c_str());
+				StartSound( "snd_drop_item_failed", SND_CHANNEL_ITEM, 0, false, NULL );
+				DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Grabber did not find space in the world to fit entity in hands: %s\r", ent->name.c_str());
 			}
 
 			// Decrease the inventory count (this will also clear empty categories)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2797 $
- * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
+ * $Revision: 2848 $
+ * $Date: 2008-09-15 02:44:08 -0400 (Mon, 15 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -185,6 +185,12 @@ protected:
 	**/
 	idVec3					m_OldOrigin;
 	idMat3					m_OldAxis;
+
+	/**
+	* Whether the parry stops being effective after a successful parry
+	* (Applies to player weapon parries)
+	**/
+	bool					m_bParryStopOnSuccess;
 
 // Cosmetic stuff:
 
