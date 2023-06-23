@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2666 $
- * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2667 $
+ * $Date: 2008-07-15 14:04:06 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2666 2008-07-15 17:53:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2667 2008-07-15 18:04:06Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -57,7 +57,7 @@ ConversationPtr ConversationSystem::GetConversation(const idStr& name)
 
 ConversationPtr ConversationSystem::GetConversation(int index)
 {
-	return (index > 0 && index < _conversations.Num()) ? _conversations[index] : ConversationPtr();
+	return (index >= 0 && index < _conversations.Num()) ? _conversations[index] : ConversationPtr();
 }
 
 int ConversationSystem::GetConversationIndex(const idStr& name)
@@ -71,6 +71,21 @@ int ConversationSystem::GetConversationIndex(const idStr& name)
 	}
 
 	return -1;
+}
+
+void ConversationSystem::StartConversation(int index)
+{
+	ConversationPtr conv = GetConversation(index);
+
+	if (conv == NULL)
+	{
+		gameLocal.Warning("StartConversation: Can't find conversation with index %d\n", index);
+		return;
+	}
+
+	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Trying to start conversation %s.\r", conv->GetName().c_str());
+
+
 }
 
 void ConversationSystem::Save(idSaveGame* savefile) const

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2666 $
- * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2667 $
+ * $Date: 2008-07-15 14:04:06 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -41,6 +41,13 @@ public:
 	 * Returns the numeric index for the given conversation name or -1 if not found.
 	 */
 	int GetConversationIndex(const idStr& name);
+
+	/**
+	 * greebo: This starts the conversation, after checking whether all conditions are met.
+	 *
+	 * @index: The conversation index. Use GetConversationIndex() to convert a conversation name to an index.
+	 */
+	void StartConversation(int index);
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;
