@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2832 $
- * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2834 $
+ * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@ class CInventoryCategory
 {
 	friend class CInventory;
 
-protected:
+private:
 	CInventoryCategory(CInventory* inventory, const idStr& name = "");
 
 public:
@@ -66,10 +66,10 @@ public:
 	void					Save(idSaveGame *savefile) const;
 	void					Restore(idRestoreGame *savefile);
 
-protected:
+private:
 	void					SetOwner(idEntity *Owner);
 
-protected:
+private:
 	CInventory*				m_Inventory;			// The inventory this group belongs to.
 	idEntityPtr<idEntity>	m_Owner;
 

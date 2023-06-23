@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2834 $
+ * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 2834 2008-09-14 05:18:20Z greebo $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
@@ -84,7 +84,6 @@ void CInventoryCategory::Restore(idRestoreGame *savefile)
 
 			// Set the pointers of the item class directly
 			item->m_Category = this;
-			item->m_Inventory = m_Inventory;
 		}
 	}
 }
@@ -105,7 +104,6 @@ void CInventoryCategory::PutItem(CInventoryItemPtr item)
 
 	item->m_Owner = m_Owner;
 	item->m_Category = this;
-	item->m_Inventory = m_Inventory;
 
 	m_Item.AddUnique(item);
 }

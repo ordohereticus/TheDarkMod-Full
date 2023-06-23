@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2832 $
- * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2834 $
+ * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,14 +12,13 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Cursor.cpp 2832 2008-09-13 18:41:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Cursor.cpp 2834 2008-09-14 05:18:20Z greebo $", init_version);
 
 #include "Cursor.h"
 
 #include "Inventory.h"
 
 CInventoryCursor::CInventoryCursor(CInventory* inventory, int id) :
-	m_Inventory(inventory),
 	m_CategoryLock(false),	// Default behaviour ...
 	m_WrapAround(true),		// ... is like standard Thief inventory.
 	m_CurrentCategory(0),

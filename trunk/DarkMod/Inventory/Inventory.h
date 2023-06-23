@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2833 $
- * $Date: 2008-09-13 14:49:54 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2834 $
+ * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -80,7 +80,7 @@ public:
 	int						GetLoot(int& gold, int& jewelry, int& goods);
 	void					SetLoot(int gold, int jewelry, int goods);
 
-	inline idEntity	*		GetOwner() { return m_Owner.GetEntity(); };
+	idEntity*				GetOwner() { return m_Owner.GetEntity(); };
 	void					SetOwner(idEntity* owner);
 
 	/**

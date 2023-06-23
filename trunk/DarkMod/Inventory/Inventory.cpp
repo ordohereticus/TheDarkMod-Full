@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2832 $
- * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2834 $
+ * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 2832 2008-09-13 18:41:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 2834 2008-09-14 05:18:20Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -94,7 +94,7 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent)
 	int LGroupVal = 0;
 	int dummy1(0), dummy2(0), dummy3(0); // for calling GetLoot
 
-	CInventoryItem::LootType lootType = CInventoryItem::getLootTypeFromSpawnargs(ent->spawnArgs);
+	CInventoryItem::LootType lootType = CInventoryItem::GetLootTypeFromSpawnargs(ent->spawnArgs);
 	int value = ent->spawnArgs.GetInt("inv_loot_value", "-1");
 
 	if (lootType != CInventoryItem::LT_NONE && value > 0)
