@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2431 $
+ * $Date: 2008-06-03 14:41:38 -0400 (Tue, 03 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -15,8 +15,8 @@
 const char * const RESULT_STRING = "<RESULT>";
 
 typedef struct opcode_s {
-	char		*name;
-	char		*opname;
+	const char		*name;
+	const char		*opname;
 	int			priority;
 	bool		rightAssociative;
 	idVarDef	*type_a;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2405 $
- * $Date: 2008-06-01 03:35:11 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2431 $
+ * $Date: 2008-06-03 14:41:38 -0400 (Tue, 03 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2405 2008-06-01 07:35:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2431 2008-06-03 18:41:38Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -687,7 +687,6 @@ argv(0) god
 ==================
 */
 void Cmd_God_f( const idCmdArgs &args ) {
-	char		*msg;
 	idPlayer	*player;
 
 	player = gameLocal.GetLocalPlayer();
@@ -697,13 +696,12 @@ void Cmd_God_f( const idCmdArgs &args ) {
 
 	if ( player->godmode ) {
 		player->godmode = false;
-		msg = "godmode OFF\n";
+		gameLocal.Printf( "godmode OFF\n" );
 	} else {
 		player->godmode = true;
-		msg = "godmode ON\n";
+		gameLocal.Printf( "godmode ON\n" );
 	}
 
-	gameLocal.Printf( "%s", msg );
 }
 
 /*
@@ -716,7 +714,6 @@ argv(0) notarget
 ==================
 */
 void Cmd_Notarget_f( const idCmdArgs &args ) {
-	char		*msg;
 	idPlayer	*player;
 
 	player = gameLocal.GetLocalPlayer();
@@ -726,13 +723,12 @@ void Cmd_Notarget_f( const idCmdArgs &args ) {
 
 	if ( player->fl.notarget ) {
 		player->fl.notarget = false;
-		msg = "notarget OFF\n";
+		gameLocal.Printf( "notarget OFF\n" );
 	} else {
 		player->fl.notarget = true;
-		msg = "notarget ON\n";
+		gameLocal.Printf( "notarget ON\n" );
 	}
 
-	gameLocal.Printf( "%s", msg );
 }
 
 /*
@@ -743,7 +739,6 @@ argv(0) noclip
 ==================
 */
 void Cmd_Noclip_f( const idCmdArgs &args ) {
-	char		*msg;
 	idPlayer	*player;
 
 	player = gameLocal.GetLocalPlayer();
@@ -752,13 +747,12 @@ void Cmd_Noclip_f( const idCmdArgs &args ) {
 	}
 
 	if ( player->noclip ) {
-		msg = "noclip OFF\n";
+		player->noclip = false;
+		gameLocal.Printf( "notclip OFF\n" );
 	} else {
-		msg = "noclip ON\n";
+		player->noclip = true;
+		gameLocal.Printf( "notclip ON\n" );
 	}
-	player->noclip = !player->noclip;
-
-	gameLocal.Printf( "%s", msg );
 }
 
 /*
