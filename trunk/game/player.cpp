@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2832 $
+ * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2832 2008-09-13 18:41:00Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1065,7 +1065,7 @@ void idPlayer::SetupInventory()
 	m_MapCursor->ClearItem(); // invalidate the cursor
 
 	// give the player weapon ammo based on shop purchases
-	CInventoryCategory* category = m_WeaponCursor->GetCurrentCategory();
+	CInventoryCategoryPtr category = m_WeaponCursor->GetCurrentCategory();
 	idList<CShopItem*>* startingItems = g_Shop.GetPlayerItems();
 
 	for (int si = 0; si < startingItems->Num(); si++)
@@ -3092,7 +3092,7 @@ bool idPlayer::SelectWeapon( int num, bool force ) {
 		num = 0;
 	}
 
-	CInventoryCategory* category = m_WeaponCursor->GetCurrentCategory();
+	CInventoryCategoryPtr category = m_WeaponCursor->GetCurrentCategory();
 	if (category == NULL) {
 		return false;
 	}
@@ -9230,7 +9230,7 @@ void idPlayer::inventoryDropItem()
 		const CInventoryCursorPtr& cursor = InventoryCursor();
 
 		CInventoryItemPtr item = cursor->GetCurrentItem();
-		CInventoryCategory* category = cursor->GetCurrentCategory();
+		CInventoryCategoryPtr category = cursor->GetCurrentCategory();
 
 		// Do we have a droppable item in the first place?
 		if (item != NULL && item->IsDroppable() && item->GetCount() > 0)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2832 $
+ * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2832 2008-09-13 18:41:00Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8842,7 +8842,7 @@ void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCate
 	CInventory* inventory = Inventory();
 	bool bDropped( false ), bIsLoot( false );
 
-	CInventoryCategory* category = inventory->GetCategory(invCategory);
+	CInventoryCategoryPtr category = inventory->GetCategory(invCategory);
 	if (category != NULL) 
 	{
 		CInventoryItemPtr item = category->GetItem(invName);

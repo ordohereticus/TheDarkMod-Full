@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2832 $
+ * $Date: 2008-09-13 14:41:00 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -79,5 +79,6 @@ protected:
 	// A list of contained items (are deleted on destruction of this object).
 	idList<CInventoryItemPtr>	m_Item;
 };
+typedef boost::shared_ptr<CInventoryCategory> CInventoryCategoryPtr;
 
 #endif /* __DARKMOD_INVENTORYCATEGORY_H__ */
