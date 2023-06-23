@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2664 $
- * $Date: 2008-07-14 15:46:07 -0400 (Mon, 14 Jul 2008) $
+ * $Revision: 2665 $
+ * $Date: 2008-07-15 13:31:04 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,6 +20,9 @@ namespace ai
 class ConversationState :
 	public State
 {
+	// The conversation index
+	int _conversation;
+
 public:
 	// Get the name of this state
 	virtual const idStr& GetName() const;
@@ -30,6 +33,9 @@ public:
 	// Gets called each time the mind is thinking
 	virtual void Think(idAI* owner);
 
+	// Sets the conversation this state should handle
+	void SetConversation(int index);
+
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
 	virtual void Restore(idRestoreGame* savefile);
@@ -38,6 +44,10 @@ public:
 	virtual bool CheckAlertLevel(idAI* owner);
 
 	static StatePtr CreateInstance();
+
+private:
+	// Returns true if the conversation can be started
+	bool CheckConversationPrerequisites();
 };
 
 } // namespace ai

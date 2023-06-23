@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2664 $
- * $Date: 2008-07-14 15:46:07 -0400 (Mon, 14 Jul 2008) $
+ * $Revision: 2665 $
+ * $Date: 2008-07-15 13:31:04 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2664 2008-07-14 19:46:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2665 2008-07-15 17:31:04Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -41,6 +41,13 @@ bool ConversationState::CheckAlertLevel(idAI* owner)
 	return true;
 }
 
+void ConversationState::SetConversation(int index)
+{
+	// TODO: Sanity-Check
+
+	_conversation = index;
+}
+
 void ConversationState::Init(idAI* owner)
 {
 	// Init base class first
@@ -59,17 +66,15 @@ void ConversationState::Init(idAI* owner)
 	// Ensure we are in the correct alert level
 	if (!CheckAlertLevel(owner)) return;
 
-	// The action subsystem plays the idle anims (scratching, yawning...)
+	// Check dialogue prerequisites
+	if (!CheckConversationPrerequisites())
+	{
+		owner->mind->EndState();
+		return;
+	}
+
 	owner->GetSubsystem(SubsysAction)->ClearTasks();
-	//owner->GetSubsystem(SubsysAction)->PushTask(IdleAnimationTask::CreateInstance());
-
-	// The sensory system does its Idle tasks
 	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	//owner->GetSubsystem(SubsysSenses)->PushTask(RandomHeadturnTask::CreateInstance());
-
-	int idleBarkIntervalMin = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_min", "45"));
-	int idleBarkIntervalMax = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_max", "180"));
-	
 	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
 }
 
@@ -85,6 +90,12 @@ void ConversationState::Think(idAI* owner)
 
 	// Let the AI check its senses
 	owner->PerformVisualScan();
+}
+
+bool ConversationState::CheckConversationPrerequisites()
+{
+	// TODO
+	return true;
 }
 
 void ConversationState::Save(idSaveGame* savefile) const

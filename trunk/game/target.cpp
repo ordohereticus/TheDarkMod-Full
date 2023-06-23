@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2589 $
- * $Date: 2008-06-30 01:09:36 -0400 (Mon, 30 Jun 2008) $
- * $Author: dram $
+ * $Revision: 2665 $
+ * $Date: 2008-07-15 13:31:04 -0400 (Tue, 15 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2589 2008-06-30 05:09:36Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2665 2008-07-15 17:31:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1927,6 +1927,39 @@ void CTarget_SetObjectiveComponentState::Event_Activate( idEntity *activator )
 		// Lookup the next matching spawnarg
 		keyVal = spawnArgs.MatchPrefix("comp_id", keyVal);
 	}
+}
+
+/*
+===============================================================================
+
+CTarget_StartConversation
+
+===============================================================================
+*/
+CLASS_DECLARATION( idTarget, CTarget_StartConversation )
+	EVENT( EV_Activate,	CTarget_StartConversation::Event_Activate )
+END_CLASS
+
+void CTarget_StartConversation::Spawn( void )
+{
+	if (spawnArgs.FindKey("conversation") == NULL) 
+	{
+		gameLocal.Warning("Target %s has no 'conversation' spawnarg set!", name.c_str());
+		return;
+	}
+}
+
+void CTarget_StartConversation::Event_Activate( idEntity *activator )
+{
+	idStr conversationName = spawnArgs.GetString("conversation");
+
+	if (conversationName.IsEmpty()) 
+	{
+		gameLocal.Printf("Target %s has no 'conversation' spawnarg set!\n", name.c_str());
+		return;
+	}
+
+	// Try to start conversation
 }
 
 /*

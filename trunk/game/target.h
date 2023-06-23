@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2382 $
- * $Date: 2008-05-25 14:50:31 -0400 (Sun, 25 May 2008) $
+ * $Revision: 2665 $
+ * $Date: 2008-07-15 13:31:04 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -598,6 +598,19 @@ class CTarget_SetObjectiveComponentState :
 {
 public:
 	CLASS_PROTOTYPE( CTarget_SetObjectiveComponentState );
+private:
+	void				Event_Activate( idEntity *activator );
+	virtual void		Spawn( void );
+};
+
+/**
+ * greebo: Target for triggerig conversations.
+ */
+class CTarget_StartConversation : 
+	public idTarget 
+{
+public:
+	CLASS_PROTOTYPE( CTarget_StartConversation );
 private:
 	void				Event_Activate( idEntity *activator );
 	virtual void		Spawn( void );
