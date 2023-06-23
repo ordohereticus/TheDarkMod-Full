@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2681 $
- * $Date: 2008-07-17 13:37:25 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2686 $
+ * $Date: 2008-07-17 15:11:48 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2681 2008-07-17 17:37:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2686 2008-07-17 19:11:48Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -218,7 +218,7 @@ void ConversationSystem::LoadConversationEntity(idMapEntity* entity)
 		else
 		{
 			// This loop breaks on the first invalid conversation
-			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation entity %s: found %d valid conversations.\r", entity->epairs.GetString("name"), i);
+			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation entity %s: found %d valid conversations.\r", entity->epairs.GetString("name"), i-1);
 			break;
 		}
 	}

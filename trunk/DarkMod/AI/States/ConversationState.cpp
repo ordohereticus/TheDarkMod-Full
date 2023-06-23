@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2685 $
- * $Date: 2008-07-17 14:19:36 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2686 $
+ * $Date: 2008-07-17 15:11:48 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2685 2008-07-17 18:19:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2686 2008-07-17 19:11:48Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -274,9 +274,41 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 	/*,ELookAtPosition,
 	ETurnToPosition,*/
 	
-	/*EAttackActor,
-	EAttackEntity,
-	*/
+	case ConversationCommand::EAttackActor:
+	{
+		// Reduce the actor index by 1 before passing them to the conversation
+		idAI* ai = conversation.GetActor(atoi(command.GetArgument(0)) - 1);
+
+		if (ai != NULL)
+		{
+			owner->SetEnemy(ai);
+			owner->SetAlertLevel(owner->thresh_5 + 1);
+			_state = ConversationCommand::EFinished;
+		}
+		else
+		{
+			gameLocal.Warning("Conversation Command: 'AttackActor' could not find actor: %s", command.GetArgument(0).c_str());
+		}
+	}
+	break;
+
+	case ConversationCommand::EAttackEntity:
+	{
+		idEntity* ent = command.GetEntityArgument(0);
+
+		if (ent != NULL && ent->IsType(idActor::Type))
+		{
+			owner->SetEnemy(static_cast<idActor*>(ent));
+			owner->SetAlertLevel(owner->thresh_5 + 1);
+			_state = ConversationCommand::EFinished;
+		}
+		else
+		{
+			gameLocal.Warning("Conversation Command: 'AttackEntity' could not find entity or entity is of wrong type: %s", command.GetArgument(0).c_str());
+		}
+	}
+	break;
+
 	case ConversationCommand::ETalk:
 	{
 		int length = Talk(owner, command.GetArgument(0));
