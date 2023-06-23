@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3071 $
- * $Date: 2008-11-30 12:33:20 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3073 $
+ * $Date: 2008-11-30 13:34:44 -0500 (Sun, 30 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3071 2008-11-30 17:33:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3073 2008-11-30 18:34:44Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8693,6 +8693,9 @@ void idEntity::Event_CheckAbsence()
 	if (m_AbsenceNoticeability > 0)
 	{
 		idBounds currentBounds = GetPhysics()->GetAbsBounds();
+		float tolerance = spawnArgs.GetFloat("absence_bounds_tolerance", "0");
+
+		currentBounds.ExpandSelf(tolerance);
 
 		bool isAbsent = !currentBounds.IntersectsBounds(m_StartBounds);
 
@@ -8757,6 +8760,11 @@ bool idEntity::DestroyAbsenceMarker()
 		m_AbsenceMarker = NULL;
 	}
 	return true;
+}
+
+float idEntity::GetAbsenceNoticeability()
+{
+	return m_AbsenceNoticeability;
 }
 
 

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3071 $
- * $Date: 2008-11-30 12:33:20 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3073 $
+ * $Date: 2008-11-30 13:34:44 -0500 (Sun, 30 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -979,6 +979,9 @@ public:
 	void					Event_SetTeam(int newTeam);
 	int						team;
 
+	float					GetAbsenceNoticeability();
+
+
 protected:
 	/**
 	* Update frob highlighting and frob entity if frobbed.
@@ -1170,10 +1173,12 @@ protected:
 	void					Event_Frob();
 
 	// angua: this checks whether an entity has been removed or returned to the original position
-	// and spawns an absence marker
+	// and spawns or destroys an absence marker
 	void					Event_CheckAbsence();
 	bool					SpawnAbsenceMarker();
 	bool					DestroyAbsenceMarker();
+
+
 
 	// angua: List of actors that currently use this entity
 	UserManager m_userManager;
