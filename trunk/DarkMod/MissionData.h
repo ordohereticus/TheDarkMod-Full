@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3125 $
- * $Date: 2009-01-07 12:30:24 -0500 (Wed, 07 Jan 2009) $
+ * $Revision: 3228 $
+ * $Date: 2009-03-06 12:22:14 -0500 (Fri, 06 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -743,6 +743,9 @@ public:
 	**/
 	void Event_ObjectiveComplete( int ObjIndex );
 	void Event_ObjectiveFailed( int ObjIndex );
+
+	// A new objective has been added or a previously hidden one has been shown
+	void Event_NewObjective();
 
 	void Event_MissionComplete( void );
 	void Event_MissionFailed( void );

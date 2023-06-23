@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2869 $
- * $Date: 2008-09-21 06:52:57 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 3228 $
+ * $Date: 2009-03-06 12:22:14 -0500 (Fri, 06 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2869 2008-09-21 10:52:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3228 2009-03-06 17:22:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1780,6 +1780,12 @@ void CTarget_AddObjectives::Event_Activate( idEntity *activator )
 		SetVal = gameLocal.m_MissionData->AddObjsFromEnt( this );
 	}
 
+	// greebo: If the entity is not the world entity, notify the player
+	if (spawnArgs.GetBool("wait_for_trigger") && activator != gameLocal.world)
+	{
+		gameLocal.m_MissionData->Event_NewObjective();
+	}
+
 	spawnArgs.Set( "obj_num_offset", va("%d", SetVal) );
 }
 
@@ -1865,17 +1871,18 @@ void CTarget_SetObjectiveVisibility::Event_Activate( idEntity *activator )
 	const idKeyValue* keyVal = spawnArgs.MatchPrefix("obj_id");
 	
 	// Cycle through all matching spawnargs
-	while (keyVal != NULL) 
+	for (const idKeyValue* keyVal = spawnArgs.MatchPrefix("obj_id"); keyVal != NULL; 
+		 keyVal = spawnArgs.MatchPrefix("obj_id", keyVal)) 
 	{
 		int objId = atoi(keyVal->GetValue().c_str());
 
-		if (objId > 0)
-			gameLocal.m_MissionData->Event_SetObjVisible(objId-1, bVisible);
-		else
+		if (objId > 0) {
+			gameLocal.m_MissionData->Event_SetObjVisible(objId - 1, bVisible);
+		}
+		else {
 			gameLocal.Warning("Invalid objective ID %s on CTarget_SetObjectiveState %s\n", keyVal->GetValue().c_str(), name.c_str());
-
-		// Lookup the next matching spawnarg
-		keyVal = spawnArgs.MatchPrefix("obj_id", keyVal);
+			DM_LOG(LC_OBJECTIVES, LT_ERROR)LOGSTRING("Invalid objective ID %s on CTarget_SetObjectiveState %s\n", keyVal->GetValue().c_str(), name.c_str());
+		}
 	}
 }
 
