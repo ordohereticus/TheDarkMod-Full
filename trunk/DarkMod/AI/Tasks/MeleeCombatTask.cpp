@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3133 $
- * $Date: 2009-01-11 02:24:48 -0500 (Sun, 11 Jan 2009) $
+ * $Revision: 3135 $
+ * $Date: 2009-01-11 03:12:16 -0500 (Sun, 11 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3133 2009-01-11 07:24:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3135 2009-01-11 08:12:16Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -75,10 +75,28 @@ bool MeleeCombatTask::Perform(Subsystem& subsystem)
 void MeleeCombatTask::StartAttack(idAI* owner)
 {
 	CMeleeStatus *pStatus = &owner->m_MeleeStatus;
+	CMeleeStatus *pEnStatus = &_enemy.GetEntity()->m_MeleeStatus;
+
+	// create subset of possible attacks:
+	idList<EMeleeType> attacks = pStatus->m_attacks;
+	// if our enemy is parrying a direction, attack along a different direction
+	if( pEnStatus->m_bParrying )
+	{
+		gameLocal.Printf("Melee: Enemy is parrying\r");
+		if( pEnStatus->m_ParryType != MELEETYPE_BLOCKALL )
+		{
+			gameLocal.Printf("Melee: Attempting to remove parry from possible attack list\r");
+			if( attacks.Remove( pEnStatus->m_ParryType ) )
+				gameLocal.Printf("Melee: Parry found and removed\r");
+
+		}
+		// TODO: Shield parries need special handling
+		// Either attack the shield to destroy it or wait until it's dropped or flank the parry with footwork
+	}
 
 	// choose a random attack from our possible attacks
-	int i = gameLocal.random.RandomInt( pStatus->m_attacks.Num() );
-	i = pStatus->m_attacks[i];
+	int i = gameLocal.random.RandomInt( attacks.Num() );
+	i = attacks[i];
 	const char *suffix = idActor::MeleeTypeNames[i];
 
 	pStatus->m_bAttacking = true;

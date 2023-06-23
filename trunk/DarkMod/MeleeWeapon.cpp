@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3115 $
- * $Date: 2009-01-05 23:31:02 -0500 (Mon, 05 Jan 2009) $
+ * $Revision: 3135 $
+ * $Date: 2009-01-11 03:12:16 -0500 (Sun, 11 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3115 2009-01-06 04:31:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3135 2009-01-11 08:12:16Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -217,10 +217,18 @@ void CMeleeWeapon::ActivateParry( idActor *ActOwner, const char *ParryName )
 	{
 		m_MeleeType = (EMeleeType) atoi(key->GetValue().c_str());
 		DM_LOG(LC_WEAPON, LT_DEBUG)LOGSTRING("Parry type is %d\r", m_MeleeType);
-		m_ActionName = ParryName;
-		m_bParrying = true;
+
 		// TODO: We shouldn't set the owner every time, should only have to set once
 		m_Owner = ActOwner;
+		m_ActionName = ParryName;
+		m_bParrying = true;
+
+		// TODO: Set owner's melee status earlier, at the beginning of the animation instead of when the parry becomes active?
+		// For now, set it here for testing purposes
+		CMeleeStatus *pOwnerStatus = &m_Owner.GetEntity()->m_MeleeStatus;
+		pOwnerStatus->m_bParrying = true;
+		pOwnerStatus->m_ParryType = m_MeleeType;
+
 
 		// set up the clipmodel
 		m_WeapClip = NULL;
@@ -248,6 +256,10 @@ void CMeleeWeapon::DeactivateParry( void )
 	{
 		m_bParrying = false;
 		ClearClipModel();
+
+		// clear the parry status from the owner
+		CMeleeStatus *pOwnerStatus = &m_Owner.GetEntity()->m_MeleeStatus;
+		pOwnerStatus->m_bParrying = false;
 	}
 }
 
