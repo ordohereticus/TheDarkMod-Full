@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2364 $
- * $Date: 2008-05-17 20:47:49 -0400 (Sat, 17 May 2008) $
+ * $Revision: 2375 $
+ * $Date: 2008-05-19 02:13:50 -0400 (Mon, 19 May 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2364 2008-05-18 00:47:49Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2375 2008-05-19 06:13:50Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6624,8 +6624,9 @@ void idAnimatedEntity::Attach( idEntity *ent, const char *PosName, const char *A
 	attach.name = AttName;
 
 	// Update name->m_Attachment index mapping
-	// int index = m_Attachments.Num();
-	// m_AttNameMap.insert(AttNameMap::value_type(AttName, index));
+	int index = m_Attachments.Num();
+	if( AttName != NULL )
+		m_AttNameMap.insert(AttNameMap::value_type(AttName, index));
 }
 
 /*
@@ -8769,7 +8770,7 @@ void idEntity::ParseAttachments( void )
 				Suffix.StripLeading( "def_attach" );
 				idStr PosKey = "pos_attach" + Suffix;
 				// String name of the attachment for later accessing
-				idStr AttName = "attach_name" + Suffix;
+				idStr AttName = "name_attach" + Suffix;
 
 				if( spawnArgs.FindKey(PosKey.c_str()) )
 					Attach( ent, spawnArgs.GetString(PosKey.c_str()), 
