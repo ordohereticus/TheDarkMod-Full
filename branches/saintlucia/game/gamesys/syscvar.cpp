@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2948 $
- * $Date: 2008-10-14 01:36:15 -0400 (Tue, 14 Oct 2008) $
+ * $Revision: 2949 $
+ * $Date: 2008-10-14 02:36:47 -0400 (Tue, 14 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2948 2008-10-14 05:36:15Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2949 2008-10-14 06:36:47Z ishtvan $", init_version);
 
 #include "../game_local.h"
 
@@ -162,6 +162,12 @@ idCVar cv_frob_width(				"tdm_frob_width",		"10.0",			CVAR_GAME | CVAR_ARCHIVE |
 idCVar cv_frob_fadetime(			"tdm_frob_fadetime",	"100",		CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "Time it takes for frob highlight effect to fade in and out." );
 idCVar cv_frob_debug_bounds(		"tdm_frob_debug_bounds", "0",		CVAR_GAME | CVAR_BOOL,					"Set to 1 to see a visualization of the bounds that are used to check for frobable items within them." );
 idCVar cv_frob_ammo_selects_weapon(	"tdm_frob_ammo_selects_weapon", "0",		CVAR_GAME | CVAR_BOOL,	"Set to 1 to have weapons automatically selected when the respective ammo is picked up." );
+
+/**
+* Dark Mod Misc. Control Options
+**/
+idCVar cv_weapon_next_on_empty(		"tdm_weapon_next_on_empty",	"0",	CVAR_GAME | CVAR_BOOL, "If set to 1, when you run out of a particular type of arrows, you will auto-switch to the next available weapon.  (This can get you in trouble if it switches to a fire arrow)." );
+
 /**
 * Physics
 **/
