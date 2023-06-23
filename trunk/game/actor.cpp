@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2399 $
- * $Date: 2008-05-29 12:56:33 -0400 (Thu, 29 May 2008) $
+ * $Revision: 2401 $
+ * $Date: 2008-05-30 15:25:01 -0400 (Fri, 30 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2399 2008-05-29 16:56:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2401 2008-05-30 19:25:01Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4086,7 +4086,7 @@ int idActor::CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &savedOr
 
 	float deltaHoriz = deltaVecHoriz.LengthSqr();
 	float deltaVert = deltaVec.LengthSqr() - deltaHoriz;
-	
+
 	// conversion factor to 10s of MJ/kg, horizontal and vertical weighted differently
 	double delta = cv_collision_damage_scale_vert.GetFloat() * deltaVert;
 	delta += cv_collision_damage_scale_horiz.GetFloat() * deltaHoriz;
@@ -4111,16 +4111,24 @@ int idActor::CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &savedOr
 			break;
 	};
 
+	if (delta < 390000)
+	{
+		// Below this threshold, nothing happens
+		return damageDealt;
+	}
+
 	// greebo: Now calibrate the damage using the sixth power of the velocity (=square^3)
 	// The damage has a linear relationship to the sixth power of vdelta
 	delta = delta*delta*delta;
-	int damage = static_cast<int>(1.445E-16 * delta + 0.58);
+	int damage = static_cast<int>(1.4E-16 * delta - 3);
 
 	//gameRenderWorld->DrawText(idStr(damage), GetPhysics()->GetOrigin(), 0.15, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 16);
 
 	// Check if the damage is above our threshold, ignore otherwise
-	if (damage > m_damage_thresh_min)
+	if (damage >= m_damage_thresh_min)
 	{
+		//gameRenderWorld->DrawText(idStr(deltaVert), GetPhysics()->GetOrigin(), 0.15, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 50000);
+
 		//gameRenderWorld->DrawText(idStr(damage), GetPhysics()->GetOrigin(), 0.15, colorRed, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 5000);
 		gameLocal.Printf("Damage dealt: %d\n", damage);
 
