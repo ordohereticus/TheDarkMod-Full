@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3060 $
- * $Date: 2008-11-22 08:54:15 -0500 (Sat, 22 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3061 $
+ * $Date: 2008-11-22 17:59:17 -0500 (Sat, 22 Nov 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3060 2008-11-22 13:54:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3061 2008-11-22 22:59:17Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10517,6 +10517,15 @@ void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 	{
 		return;
 	}
+
+	// if we only allow "simple" frob actions and this isn't one, play forbidden sound
+	if( (GetImmobilization() & EIM_FROB_COMPLEX) && !target->m_bFrobSimple )
+	{
+		// TODO: Rename this "uh-uh" sound to something more general?
+		StartSound( "snd_drop_item_failed", SND_CHANNEL_ITEM, 0, false, NULL );	
+		return;
+	}
+
 
 	CDarkModPlayer* pDM = g_Global.m_DarkModPlayer;
 	assert(pDM != NULL); // must not be NULL

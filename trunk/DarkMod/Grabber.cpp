@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3040 $
- * $Date: 2008-11-19 05:09:00 -0500 (Wed, 19 Nov 2008) $
+ * $Revision: 3061 $
+ * $Date: 2008-11-22 17:59:17 -0500 (Sat, 22 Nov 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3040 2008-11-19 10:09:00Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3061 2008-11-22 22:59:17Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -50,7 +50,7 @@ const float MIN_HELD_DISTANCE  =		35.0f;
 const int	DIST_GRANULARITY	=		12;
 
 // shouldered body immobilizations
-const int SHOULDER_IMMOBILIZATIONS = EIM_CLIMB | EIM_ITEM_SELECT | EIM_WEAPON_SELECT | EIM_ATTACK | EIM_ITEM_USE | EIM_MANTLE;
+const int SHOULDER_IMMOBILIZATIONS = EIM_CLIMB | EIM_ITEM_SELECT | EIM_WEAPON_SELECT | EIM_ATTACK | EIM_ITEM_USE | EIM_MANTLE | EIM_FROB_COMPLEX;
 const float SHOULDER_JUMP_HINDERANCE = 0.25;
 
 const char *SHOULDER_ANIM = "drop_body";

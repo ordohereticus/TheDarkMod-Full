@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3028 $
- * $Date: 2008-11-14 16:38:52 -0500 (Fri, 14 Nov 2008) $
- * $Author: tels $
+ * $Revision: 3061 $
+ * $Date: 2008-11-22 17:59:17 -0500 (Sat, 22 Nov 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -295,6 +295,12 @@ public:
 	* Set to true if the entity is frobable.  May be dynamically changed.
 	**/
 	bool					m_bFrobable;
+
+	/**
+	* Set to true if the entity is a "simple" frobable like a door, lever, button
+	* These items can still be frobbed while doing things like shouldering bodies
+	**/
+	bool					m_bFrobSimple;
 
 	/**
 	* Frobdistance determines the distance in renderunits. If set to 0

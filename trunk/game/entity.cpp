@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3047 $
- * $Date: 2008-11-21 09:17:22 -0500 (Fri, 21 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3061 $
+ * $Date: 2008-11-22 17:59:17 -0500 (Sat, 22 Nov 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3047 2008-11-21 14:17:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3061 2008-11-22 22:59:17Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -662,6 +662,7 @@ idEntity::idEntity()
 	m_SetInMotionByActor = NULL;
 	m_MovedByActor = NULL;
 	m_bFrobable = false;
+	m_bFrobSimple = false;
 	m_FrobDistance = 0;
 	m_FrobBias = 1.0f;
 	m_FrobBox = NULL;
@@ -1090,6 +1091,7 @@ void idEntity::Save( idSaveGame *savefile ) const
 
 	savefile->WriteBool(m_bIsObjective);
 	savefile->WriteBool(m_bFrobable);
+	savefile->WriteBool(m_bFrobSimple);
 	savefile->WriteInt(m_FrobDistance);
 	savefile->WriteFloat(m_FrobBias);
 	savefile->WriteClipModel(m_FrobBox);
@@ -1259,6 +1261,7 @@ void idEntity::Restore( idRestoreGame *savefile )
 
 	savefile->ReadBool(m_bIsObjective);
 	savefile->ReadBool(m_bFrobable);
+	savefile->ReadBool(m_bFrobSimple);
 	savefile->ReadInt(m_FrobDistance);
 	savefile->ReadFloat(m_FrobBias);
 	savefile->ReadClipModel(m_FrobBox);
@@ -7211,6 +7214,7 @@ void idEntity::LoadTDMSettings(void)
 	if(m_FrobDistance == 0)
 	{
 		spawnArgs.GetBool("frobable", "0", m_bFrobable);
+		spawnArgs.GetBool("frob_simple", "0", m_bFrobSimple);
 		spawnArgs.GetInt("frob_distance", "0", m_FrobDistance);
 		spawnArgs.GetFloat("frob_bias", "1.0", m_FrobBias);
 
