@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2525 $
- * $Date: 2008-06-19 11:48:16 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2526 $
+ * $Date: 2008-06-19 12:06:20 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -114,6 +114,9 @@ protected:
 	 * This is posted as an event to be called on all doors after entities spawn
 	 **/
 	void					FindDoubleDoor();
+
+	// Specialise the CBinaryFrobMover::OnLock() method to lock the peers
+	virtual void			OnLock();
 
 	/**
 	 * Create a random pin pattern for a given pin. Clicks defines the required 

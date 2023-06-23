@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2521 $
- * $Date: 2008-06-18 12:16:14 -0400 (Wed, 18 Jun 2008) $
+ * $Revision: 2526 $
+ * $Date: 2008-06-19 12:06:20 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2521 2008-06-18 16:16:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2526 2008-06-19 16:06:20Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -329,6 +329,7 @@ void CBinaryFrobMover::Lock(bool bMaster)
 	m_Locked = true;
 	CallStateScript();
 
+	// Fire the event for the subclasses
 	OnLock();
 }
 
@@ -345,6 +346,7 @@ void CBinaryFrobMover::Unlock(bool bMaster)
 	m_Locked = false;
 	CallStateScript();
 
+	// Fire the event for the subclasses
 	OnUnlock();
 }
 

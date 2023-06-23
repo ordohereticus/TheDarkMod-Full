@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2521 $
- * $Date: 2008-06-18 12:16:14 -0400 (Wed, 18 Jun 2008) $
+ * $Revision: 2526 $
+ * $Date: 2008-06-19 12:06:20 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -228,12 +228,12 @@ protected:
 	virtual void OnInterrupt();
 
 	/**
-	 * greebo: Is called when the mover is about to be locked.
+	 * greebo: Is called when the mover has just been locked.
 	 */
 	virtual void OnLock();
 
 	/**
-	 * greebo: Is called when the mover is about to be unlocked.
+	 * greebo: Is called when the mover has just been unlocked.
 	 */
 	virtual void OnUnlock();
 
