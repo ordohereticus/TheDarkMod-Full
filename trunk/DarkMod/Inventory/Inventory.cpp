@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3017 $
- * $Date: 2008-11-12 10:50:06 -0500 (Wed, 12 Nov 2008) $
+ * $Revision: 3048 $
+ * $Date: 2008-11-21 09:28:58 -0500 (Fri, 21 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 3017 2008-11-12 15:50:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 3048 2008-11-21 14:28:58Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -372,15 +372,18 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 		);
 
 		// Notify the player, if appropriate
-		idStr msg = name;
-
-		if (count > 0) 
+		if (!ent->spawnArgs.GetBool("inv_map_start", "0"))
 		{
-			name += " x" + idStr(count);
+			idStr msg = name;
+
+			if (count > 0) 
+			{
+				name += " x" + idStr(count);
+			}
+
+			NotifyOwnerAboutPickup(msg, existing);
 		}
-
-		NotifyOwnerAboutPickup(msg, existing);
-
+		
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Added stackable item to inventory: %s\r", ent->name.c_str());
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("New inventory item stack count is: %d\r", existing->GetCount());
 
@@ -409,7 +412,10 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 				true
 			);
 
-			NotifyOwnerAboutPickup(name, item);
+			if (!ent->spawnArgs.GetBool("inv_map_start", "0"))
+			{
+				NotifyOwnerAboutPickup(name, item);
+			}
 
 			// Hide the entity from the map (don't delete the entity)
 			RemoveEntityFromMap(ent, false);
