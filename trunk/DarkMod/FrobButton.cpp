@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2459 $
- * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2557 $
+ * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobButton.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobButton.cpp 2557 2008-06-21 19:42:20Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -18,18 +18,13 @@ static bool init_version = FileVersionList("$Id: FrobButton.cpp 2459 2008-06-08 
 #include "sndProp.h"
 
 //===============================================================================
-//CFrobButton
+// CFrobButton
 //===============================================================================
 
-
-const idEventDef EV_TDM_Button_Open( "Open", "f" );
-const idEventDef EV_TDM_Button_Close( "Close", "f" );
 const idEventDef EV_TDM_Button_Operate("Operate", NULL);
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobButton )
-	EVENT( EV_TDM_Button_Open,				CFrobButton::Open)
-	EVENT( EV_TDM_Button_Close,				CFrobButton::Close)
-	EVENT( EV_TDM_Button_Operate,			CFrobButton::Operate)
+	EVENT( EV_TDM_Button_Operate,	CFrobButton::Operate)
 END_CLASS
 
 void CFrobButton::Save(idSaveGame *savefile) const
@@ -48,17 +43,7 @@ void CFrobButton::Spawn()
 
 void CFrobButton::Operate()
 {
-	Open(false);
-}
-
-void CFrobButton::Open(bool bMaster)
-{
-	CBinaryFrobMover::Open(false);
-}
-
-void CFrobButton::Close(bool bMaster)
-{
-	CBinaryFrobMover::Close(false);
+	ToggleOpen();
 }
 
 void CFrobButton::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse )
@@ -68,14 +53,4 @@ void CFrobButton::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, cons
 	{
 		Operate();
 	}
-}
-
-
-// A button can't close or open a portal, so we block it.
-void CFrobButton::ClosePortal()
-{
-}
-
-void CFrobButton::OpenPortal()
-{
 }
