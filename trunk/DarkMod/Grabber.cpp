@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3131 $
- * $Date: 2009-01-10 01:47:49 -0500 (Sat, 10 Jan 2009) $
+ * $Revision: 3162 $
+ * $Date: 2009-01-17 16:33:24 -0500 (Sat, 17 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3131 2009-01-10 06:47:49Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3162 2009-01-17 21:33:24Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -967,6 +967,12 @@ void CGrabber::Event_CheckClipList( void )
 	{
 		// Check clipEntites against entities touching player
 		ListEnt = m_clipList[i].m_ent.GetEntity();
+
+		if( !ListEnt )
+		{
+			// not sure how this is happening, but fix it
+			continue;
+		}
 
 		// We keep an entity if it is the one we're dragging 
 		if( GetSelected() == ListEnt || (ListEnt->GetBindMaster() && GetSelected() == ListEnt->GetBindMaster()) ) 
