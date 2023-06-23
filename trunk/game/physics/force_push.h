@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2764 $
- * $Date: 2008-08-30 04:56:32 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2765 $
+ * $Date: 2008-08-30 08:22:01 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,7 +29,7 @@ public:
 	void				SetOwner(idEntity* ownerEnt);
 
 	// Set physics object which is about to be pushed
-	void				SetPushEntity(idEntity* pushEnt, int id);
+	void				SetPushEntity(idEntity* pushEnt, int id = -1);
 
 	// Set the push parameters for the next evaluation frame
 	void				SetContactInfo(const trace_t& contactInfo, const idVec3& impactVelocity);
@@ -53,6 +53,8 @@ private:
 	//float				damping;
 
 	idEntity*			pushEnt;		// entity being pushed
+	idEntity*			lastPushEnt;	// the entity we pushed last frame
+
 	int					id;				// clip model id of physics object
 	trace_t				contactInfo;	// the contact info of the object we're pushing
 	idVec3				impactVelocity;	// the velocity the owner had at impact time

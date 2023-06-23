@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2764 $
- * $Date: 2008-08-30 04:56:32 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2765 $
+ * $Date: 2008-08-30 08:22:01 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2764 2008-08-30 08:56:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2765 2008-08-30 12:22:01Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -20,6 +20,7 @@ END_CLASS
 
 CForcePush::CForcePush() :
 	pushEnt(NULL),
+	lastPushEnt(NULL),
 	id(0),
 	startPushTime(-1),
 	impactVelocity(vec3_zero),
@@ -39,9 +40,9 @@ void CForcePush::SetOwner(idEntity* ownerEnt)
 
 void CForcePush::SetPushEntity(idEntity* pushEnt, int id)
 {
-	if (this->pushEnt != pushEnt)
+	if (pushEnt != lastPushEnt)
 	{
-		// Physics has changed, reset the timer
+		// entity has changed, reset the timer
 		startPushTime = gameLocal.time;
 	}
 
@@ -91,10 +92,26 @@ void CForcePush::Evaluate( int time )
 		gameRenderWorld->DebugArrow( colorWhite, physics->GetAbsBounds().GetCenter(), physics->GetAbsBounds().GetCenter() + pushImpulse, 1, gameLocal.msec );
 
 		physics->PropagateImpulse(id, contactInfo.c.point, pushImpulse);
-
-		// Clear the push entity again
-		SetPushEntity(NULL, -1);
 	}
+	else
+	{
+		// The pushed entity is heavier than the pushing entity
+
+		if (pushEnt == lastPushEnt)
+		{
+			int pushTime = gameLocal.time - startPushTime;
+			gameRenderWorld->DrawText( idStr(pushTime), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+		}
+	
+		// TODO
+		//gameRenderWorld->DebugArrow( colorWhite, physics->GetAbsBounds().GetCenter(), physics->GetAbsBounds().GetCenter() + pushImpulse, 1, gameLocal.msec );
+	}
+
+	// Remember the last push entity
+	lastPushEnt = pushEnt;
+
+	// Clear the push entity again
+	pushEnt = NULL;
 
 	/*float l1, l2, mass;
 	idVec3 dragOrigin, dir1, dir2, velocity, centerOfMass;
@@ -132,6 +149,7 @@ void CForcePush::Save( idSaveGame *savefile ) const
 {
 	// Store the entity pointer behind the physics object
 	savefile->WriteObject(pushEnt);
+	savefile->WriteObject(lastPushEnt);
 	savefile->WriteInt(id);
 	savefile->WriteTrace(contactInfo);
 	savefile->WriteVec3(impactVelocity);
@@ -142,6 +160,7 @@ void CForcePush::Save( idSaveGame *savefile ) const
 void CForcePush::Restore( idRestoreGame *savefile )
 {
 	savefile->ReadObject(reinterpret_cast<idClass*&>(pushEnt));
+	savefile->ReadObject(reinterpret_cast<idClass*&>(lastPushEnt));
 	savefile->ReadInt(id);
 	savefile->ReadTrace(contactInfo);
 	savefile->ReadVec3(impactVelocity);
