@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2399 $
- * $Date: 2008-05-29 12:56:33 -0400 (Thu, 29 May 2008) $
- * $Author: greebo $
+ * $Revision: 2472 $
+ * $Date: 2008-06-13 23:20:29 -0400 (Fri, 13 Jun 2008) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -200,6 +200,9 @@ extern idCVar cv_lp_randomize;
 extern idCVar cv_lp_pawlow;
 
 extern idCVar cv_dm_distance;
+
+// Ambient light method CVar
+extern idCVar cv_ambient_method;
 
 /**
 * CVars added for Darkmod knockout and field of vision changes

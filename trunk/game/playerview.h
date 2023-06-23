@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1745 $
- * $Date: 2007-11-10 07:24:04 -0500 (Sat, 10 Nov 2007) $
+ * $Revision: 2472 $
+ * $Date: 2008-06-13 23:20:29 -0400 (Fri, 13 Jun 2008) $
  * $Author: dram $
  *
  ***************************************************************************/
@@ -112,6 +112,9 @@ private:
 
 	idPlayer *			player;
 	renderView_t		view;
+
+	// TDM Related
+	bool				cur_amb_method;		// Current ambient method. Used for checking whether ambient method grpahics option has changed. By Dram
 };
 
 #endif /* !__GAME_PLAYERVIEW_H__ */
