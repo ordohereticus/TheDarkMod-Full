@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2407 $
- * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2546 $
+ * $Date: 2008-06-20 12:50:53 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -581,6 +581,7 @@ public:
 	/**
 	 * AddToMasterList adds a string entry to a list and checks if a) the new entry
 	 * is not the current entities name and b) if the name already exists in the list.
+	 * 
 	 * If both conditions are met, the name is added to the list and true is returned,
 	 * otherwise false is returned and the name is not added to the list.
 	 */

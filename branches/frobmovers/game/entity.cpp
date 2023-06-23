@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2528 $
- * $Date: 2008-06-19 13:16:37 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2546 $
+ * $Date: 2008-06-20 12:50:53 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2528 2008-06-19 17:16:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2546 2008-06-20 16:50:53Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6767,46 +6767,33 @@ void idAnimatedEntity::Event_GetJointAngle( jointHandle_t jointnum ) {
 
 bool idEntity::AddToMasterList(idList<idStr> &MasterList, idStr &str)
 {
-	bool bRc = false;
-	idEntity *ent;
-	int i, n;
-	bool bFound;
-
+	idEntity* ent = gameLocal.FindEntity(str);
+	
 	// The master may not be the same as this entity.
-	if(str == name)
-		goto Quit;
+	if (ent == this)
+	{
+		return false;
+	}
+
+	bool bRc = false;
 
 	DM_LOG(LC_FROBBING, LT_INFO)LOGSTRING("[%s] Master set to [%s]\r", name.c_str(), str.c_str());
-	if((ent = gameLocal.FindEntity(str.c_str())) != NULL)
+	if (ent != NULL)
 	{
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Master entity %08lX [%s] is updated.\r", ent, ent->name.c_str());
 
-		// greebo: TODO: Refactor this to use idList::AddUnique()
+		// Only add the name if it doesn't exist yet
+		int prevNum = MasterList.Num();
+		int inserted = MasterList.AddUnique(name);
 
-		i = 0;
-		n = MasterList.Num();
-		bFound = false;
-		for(i = 0; i < n; i++)
-		{
-			if(MasterList[i] == name)
-			{
-				bFound = true;
-				break;
-			}
-		}
-		if(bFound == false)
-			MasterList.Append(name);
+		// greebo: The item was inserted, if the returned index is equal to the number it had before the insertion
+		return (inserted == prevNum);
 	}
 	else
 	{
 		DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Master entity [%s] not found.\r", str.c_str());
-		goto Quit;
+		return false;
 	}
-
-	bRc = true;
-
-Quit:
-	return bRc;
 }
 
 void idEntity::Flinderize( void )
