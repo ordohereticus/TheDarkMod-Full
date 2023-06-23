@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2637 $
+ * $Date: 2008-07-12 05:15:10 -0400 (Sat, 12 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2637 2008-07-12 09:15:10Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1126,7 +1126,6 @@ void idEntity::Save( idSaveGame *savefile ) const
 	}
 
 	savefile->WriteInt( mpGUIState );
-	savefile->WriteObject(m_Inventory);
 
 	savefile->WriteBool(m_Inventory != NULL);
 	if (m_Inventory != NULL) {
@@ -1293,8 +1292,6 @@ void idEntity::Restore( idRestoreGame *savefile )
 	}
 
 	savefile->ReadInt( mpGUIState );
-
-	savefile->ReadObject( reinterpret_cast<idClass *&>( m_Inventory ) );
 
 	bool hasInventory;
 	savefile->ReadBool(hasInventory);

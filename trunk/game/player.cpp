@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2620 $
- * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
+ * $Revision: 2637 $
+ * $Date: 2008-07-12 05:15:10 -0400 (Sat, 12 Jul 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2620 2008-07-09 19:39:45Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2637 2008-07-12 09:15:10Z angua $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1663,7 +1663,7 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 		kv = spawnArgs.MatchPrefix( "pm_", kv );
 	}
 
-	savefile->ReadFloat( set );
+	// savefile->ReadFloat( set );
 	// Commented out by Dram. TDM does not use stamina
 	//pm_stamina.SetFloat( set );
 
