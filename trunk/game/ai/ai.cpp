@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2490 $
- * $Date: 2008-06-15 01:08:13 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2491 $
+ * $Date: 2008-06-15 01:09:49 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2490 2008-06-15 05:08:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2491 2008-06-15 05:09:49Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1617,12 +1617,6 @@ void idAI::Think( void )
 		return; // Thinking is disabled.
 	}
 
-	// if we are completely closed off from the player, don't do anything at all
-	bool outsidePVS = CheckDormant();
-	if (outsidePVS && cv_ai_opt_disable.GetBool()) {
-		return;
-	}
-	
 	// Interleaved thinking
 	if (!ThinkingIsAllowed())
 	{
@@ -1630,6 +1624,12 @@ void idAI::Think( void )
 	}
 
 	SetNextThinkFrame();
+
+	// if we are completely closed off from the player, don't do anything at all
+	bool outsidePVS = CheckDormant();
+	if (outsidePVS && cv_ai_opt_disable.GetBool()) {
+		return;
+	}
 			
 	// save old origin and velocity for crashlanding
 	idVec3 oldOrigin = physicsObj.GetOrigin();
