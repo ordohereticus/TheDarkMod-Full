@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2779 $
- * $Date: 2008-08-31 04:06:12 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2783 $
+ * $Date: 2008-08-31 09:59:13 -0400 (Sun, 31 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2779 2008-08-31 08:06:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2783 2008-08-31 13:59:13Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -88,6 +88,8 @@ void CForcePush::Evaluate( int time )
 	// This is the maximum mass an object can have to be kickable
 	float massThresholdHeavy = ownerMass * cv_pm_push_heavy_threshold.GetFloat();
 
+	bool isPushing = false;
+
 	if (mass < massThresholdHeavy)
 	{
 		// The pushed entity is not a heavy one, kick it 
@@ -139,16 +141,7 @@ void CForcePush::Evaluate( int time )
 			// Apply the mass scale and the acceleration scale to the capped velocity
 			pushEnt->GetPhysics()->SetLinearVelocity(pushVelocity * velocity * accelScale * massScale * entityScale);
 
-			// Update the owning actor's push state
-			if (owner->IsType(idActor::Type))
-			{
-				idActor* owningActor = static_cast<idActor*>(owner);
-
-				if (!owningActor->IsPushing()) 
-				{
-					owningActor->SetIsPushing(true);
-				}
-			}
+			isPushing = true;
 
 			// Update the pushed status if this entity is a moveable
 			if (pushEnt->IsType(idMoveable::Type))
@@ -156,6 +149,17 @@ void CForcePush::Evaluate( int time )
 				// Pass the pushDirection to the moveable
 				static_cast<idMoveable*>(pushEnt)->SetIsPushed(true, impactVelocity);
 			}
+		}
+	}
+
+	// Update the owning actor's push state if it has changed
+	if (owner->IsType(idActor::Type))
+	{
+		idActor* owningActor = static_cast<idActor*>(owner);
+
+		if (owningActor->IsPushing() != isPushing) 
+		{
+			owningActor->SetIsPushing(isPushing);
 		}
 	}
 
