@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3004 $
- * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3006 $
+ * $Date: 2008-11-09 05:14:38 -0500 (Sun, 09 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3004 2008-11-09 09:33:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3006 2008-11-09 10:14:38Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2742,42 +2742,6 @@ void idPlayer::GiveHealthPool( float amt ) {
 
 /*
 ===============
-idPlayer::GiveItem
-
-Returns false if the item shouldn't be picked up
-
-greebo: This routine can probably be removed completely
-tels: This routine is the only mention of inv_weapon spawnarg, so if
-      it gets deleted, the spawnarg can be removed as well.
-===============
-*/
-bool idPlayer::GiveItem( idItem *item ) {
-	const idKeyValue	*arg;
-	idDict				attr;
-	bool				gave;
-
-	if ( gameLocal.isMultiplayer && spectating ) {
-		return false;
-	}
-
-	item->GetAttributes( attr );
-	
-	gave = false;
-
-	arg = item->spawnArgs.MatchPrefix( "inv_weapon", NULL );
-	if ( arg && hud ) {
-		// We need to update the weapon hud manually, but not
-		// the armor/ammo/health because they are updated every
-		// frame no matter what
-		UpdateHudWeapon( false );
-		hud->HandleNamedEvent( "weaponPulse" );
-	}
-
-	return gave;
-}
-
-/*
-===============
 idPlayer::PowerUpModifier
 ===============
 */
@@ -3218,7 +3182,6 @@ void idPlayer::DropWeapon( bool died ) {
 	}
 	if ( !died ) {
 		// remove from our local inventory completely
-		//inventory.Drop( spawnArgs, item->spawnArgs.GetString( "inv_weapon" ), -1 );
 		weapon.GetEntity()->ResetAmmoClip();
 		NextWeapon();
 		weapon.GetEntity()->WeaponStolen();

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2854 $
- * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 3006 $
+ * $Date: 2008-11-09 05:14:38 -0500 (Sun, 09 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 3006 2008-11-09 10:14:38Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -404,7 +404,7 @@ bool idItem::GiveToPlayer( idPlayer *player )
 		return player->GiveInventoryItem( &spawnArgs );
 	}*/ 
 	
-	return player->GiveItem( this );
+	return false;//player->GiveItem( this );
 }
 
 
