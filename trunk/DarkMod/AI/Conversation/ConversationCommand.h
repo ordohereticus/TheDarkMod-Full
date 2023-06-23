@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2684 $
- * $Date: 2008-07-17 14:11:49 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2687 $
+ * $Date: 2008-07-17 15:23:25 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -98,6 +98,9 @@ public:
 
 	// Casts the argument to a float (returns 0.0f if not existing)
 	float GetFloatArgument(int index);
+
+	// Casts the argument to a 3D vector (returns <0,0,0> if argument is not existing)
+	idVec3 GetVectorArgument(int index);
 
 	/**
 	 * greebo: Parses the command parameters from the given idDict.

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2686 $
- * $Date: 2008-07-17 15:11:48 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2687 $
+ * $Date: 2008-07-17 15:23:25 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2686 2008-07-17 19:11:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2687 2008-07-17 19:23:25Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -152,10 +152,10 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		_finishTime = gameLocal.time + SEC2MS(atof(command.GetArgument(0)));
 		_state = ConversationCommand::EExecuting;
 	break;
-	/*
-	EWaitForTrigger,
-	EWaitForActor,
-	EWalkToPosition*/
+	case ConversationCommand::EWaitForTrigger:
+	case ConversationCommand::EWaitForActor:
+	case ConversationCommand::EWalkToPosition:
+		break;
 	case ConversationCommand::EWalkToEntity:
 	{
 		idEntity* ent = command.GetEntityArgument(0);
@@ -182,13 +182,25 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		}
 	}
 	break;
+
 	case ConversationCommand::EStopMove:
 		owner->StopMove(MOVE_STATUS_DONE);
 		_state = ConversationCommand::EFinished;
 		break;
-	/*,
-	EPlayAnimOnce,
-	EPlayAnimCycle,*/
+
+	case ConversationCommand::ETalk:
+	{
+		int length = Talk(owner, command.GetArgument(0));
+
+		// Set the finish conditions for the current action
+		_state = ConversationCommand::EExecuting;
+		_finishTime = gameLocal.time + length + 200;
+	}
+	break;
+
+	case ConversationCommand::EPlayAnimOnce:
+	case ConversationCommand::EPlayAnimCycle:
+		break;
 
 	case ConversationCommand::EActivateTarget:
 	{
@@ -223,6 +235,13 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		}
 	}
 	break;
+
+	case ConversationCommand::ELookAtPosition:
+	{
+		// TODO
+	}
+	break;
+
 	case ConversationCommand::ELookAtEntity:
 	{
 		idEntity* ent = command.GetEntityArgument(0);
@@ -255,6 +274,15 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		}
 	}
 	break;
+
+	case ConversationCommand::ETurnToPosition:
+	{
+		idVec3 pos = command.GetVectorArgument(0);
+		owner->TurnToward(pos);
+		_state = ConversationCommand::EFinished;
+	}
+	break;
+	
 	case ConversationCommand::ETurnToEntity:
 	{
 		idEntity* ent = command.GetEntityArgument(0);
@@ -270,9 +298,6 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		}
 	}
 	break;
-	
-	/*,ELookAtPosition,
-	ETurnToPosition,*/
 	
 	case ConversationCommand::EAttackActor:
 	{
@@ -309,15 +334,6 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 	}
 	break;
 
-	case ConversationCommand::ETalk:
-	{
-		int length = Talk(owner, command.GetArgument(0));
-
-		// Set the finish conditions for the current action
-		_state = ConversationCommand::EExecuting;
-		_finishTime = gameLocal.time + length + 200;
-	}
-	break;
 	default:
 		gameLocal.Warning("Unknown command type found %d", command.GetType());
 		DM_LOG(LC_CONVERSATION, LT_ERROR)LOGSTRING("Unknown command type found %d", command.GetType());
