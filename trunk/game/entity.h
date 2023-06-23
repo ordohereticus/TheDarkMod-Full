@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2841 $
- * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2843 $
+ * $Date: 2008-09-14 13:04:27 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1286,9 +1286,9 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_ChangeLootAmount(int lootType, int amount);
 	void					Event_AddToInventory(idEntity* ent);
 	void					Event_ReplaceInventoryItem(idEntity* oldItem, idEntity* newItem);
-	
-	void					Event_GetNextItem(int WrapAround);
-	void					Event_GetPrevItem(int WrapAround);
+	void					Event_GetNextInventoryItem();
+	void					Event_GetPrevInventoryItem();
+
 	void					Event_SetCursorGroup(const char *groupname);
 	void					Event_SetCursorGroupItem(const char *itemname, const char *groupname);
 	void					Event_SetCursorItem(const char *itemname);
