@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2339 $
+ * $Date: 2008-05-15 13:09:01 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,10 +29,10 @@ public:
 
 	// this does only call open for now, might be that we want 
 	// a more complex operation algorithm when the button is pressed in the future
-	void					Operate();
+	virtual void			Operate();
 
-	void					Open(bool Master);
-	void					Close(bool Master);
+	virtual void			Open(bool Master);
+	virtual void			Close(bool Master);
 };
 
 #endif /* FROBBUTTON_H */
