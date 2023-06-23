@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2840 $
- * $Date: 2008-09-14 04:02:30 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2862 $
+ * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -21,9 +21,6 @@
 * DarkMod cvars - See text description in syscvar.cpp for descriptions
 **/
 extern idCVar cv_ai_sndvol;
-extern idCVar cv_ai_sndalertfactor;
-extern idCVar cv_ai_sndalertmax;
-
 extern idCVar cv_ai_bark_show;
 extern idCVar cv_ai_bumpobject_impulse;
 extern idCVar cv_ai_sight_prob;

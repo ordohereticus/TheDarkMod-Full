@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2840 $
- * $Date: 2008-09-14 04:02:30 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2862 $
+ * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2840 2008-09-14 08:02:30Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2862 2008-09-18 19:46:51Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -458,6 +458,8 @@ void CsndProp::Propagate
 
 	SSprParms propParms;
 	propParms.name = sndName;
+	propParms.alertFactor = parms->GetFloat("alert_factor","1");
+	propParms.alertMax = parms->GetFloat("alert_max","30");
 
 	// set team alert and propagation flags from the parms
 	SetupParms( parms, &propParms, addFlags, &tmask );

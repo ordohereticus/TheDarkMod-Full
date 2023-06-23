@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2840 $
- * $Date: 2008-09-14 04:02:30 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2862 $
+ * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2840 2008-09-14 08:02:30Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2862 2008-09-18 19:46:51Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -47,9 +47,6 @@ idCVar g_version(					"g_version",				gameVersion.string,	CVAR_GAME | CVAR_ROM, 
 * DarkMod Cvars - see text description in declaration below for descriptions
 **/
 idCVar cv_ai_sndvol(				"tdm_ai_sndvol",			"0.0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Modifier to the volume of suspcious sounds that AI's hear.  Defaults to 0.0 dB" );
-idCVar cv_ai_sndalertfactor(		"tdm_ai_sndalertfactor",	"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,  "Sound alert increase is multiplied by this factor." );
-idCVar cv_ai_sndalertmax(			"tdm_ai_sndalertmax",		"9",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,  "A single alert increase produced by a sound can not be larger than this." );
-
 idCVar cv_ai_bark_show(				"tdm_ai_showbark",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Displays the current sound when the AI starts barking" );
 idCVar cv_ai_sight_prob(			"tdm_ai_sight_prob",		"0.7",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Modifies the AI's chance of seeing you.  Small changes may have a large effect." );
 idCVar cv_ai_sight_mag(				"tdm_ai_sight_mag",			"1.0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Modifies the amount of visual alert that gets added on when the sight probability check succeeds and the AI do see you (default 1.0)." );

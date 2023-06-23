@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2855 $
- * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2862 $
+ * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2855 2008-09-17 07:23:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2862 2008-09-18 19:46:51Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7347,11 +7347,14 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 	* as much, 20 is four times as much, etc.
 	**/
 
-	float psychLoud = 1 + (propParms->loudness - m_AudThreshold) * cv_ai_sndalertfactor.GetFloat();
+	// angua: alert increase is scaled by alertFactor (defined on prpagated sound). 
+	// This way, different sounds can result in different alert increase at the same volume
+	float psychLoud = 1 + (propParms->loudness - m_AudThreshold) * propParms->alertFactor;
 	
-	if (psychLoud > cv_ai_sndalertmax.GetFloat())
+	// angua: alert increase can not exceed alertMax (defined on propagated sound)
+	if (psychLoud > propParms->alertMax)
 	{
-		psychLoud = cv_ai_sndalertmax.GetFloat();
+		psychLoud = propParms->alertMax;
 	}
 
 	// don't alert the AI if they're deaf, or this is not a strong enough
