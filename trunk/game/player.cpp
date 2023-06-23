@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3006 $
- * $Date: 2008-11-09 05:14:38 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3007 $
+ * $Date: 2008-11-09 13:29:27 -0500 (Sun, 09 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3006 2008-11-09 10:14:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3007 2008-11-09 18:29:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -985,33 +985,39 @@ CInventoryWeaponItemPtr idPlayer::GetCurrentWeaponItem()
 	return boost::dynamic_pointer_cast<CInventoryWeaponItem>(m_WeaponCursor->GetCurrentItem());
 }
 
-void idPlayer::AddWeaponsToInventory() {
+void idPlayer::AddWeaponsToInventory()
+{
+	for (const idKeyValue* kv = spawnArgs.MatchPrefix("def_weapon"); kv != NULL; kv = spawnArgs.MatchPrefix("def_weapon", kv))
+	{
+		if (kv->GetValue().IsEmpty()) continue; // skip empty spawnargs
 
-	for (int i = 0; i < MAX_WEAPONS; i++) {
-		// Construct the spawnarg name
-		idStr key(va("def_weapon%d", i));
+		// Get the weapon index from the key by removing the prefix
+		idStr weaponNumStr = kv->GetKey();
+		weaponNumStr.StripLeading("def_weapon");
 
-		idStr weaponDef = spawnArgs.GetString(key);
-		if (!weaponDef.IsEmpty())
+		if (weaponNumStr.IsEmpty() || !weaponNumStr.IsNumeric()) continue; // not a numeric weapon
+
+		int weaponNum = atoi(weaponNumStr);
+
+		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Trying to add weapon as defined by key %s to inventory (index %d)\r", kv->GetKey().c_str(), weaponNum);
+
+		idStr weaponDef(kv->GetValue());
+
+		if (gameLocal.FindEntityDefDict(weaponDef) == NULL)
 		{
-			const idDict* entityDef = gameLocal.FindEntityDefDict(weaponDef);
-
-			if (entityDef != NULL)
-			{
-				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Adding weapon to inventory: %s\r", weaponDef.c_str());
-
-				// Allocate a new weapon item using the found entityDef
-				CInventoryWeaponItemPtr item(new CInventoryWeaponItem(weaponDef, this));
-				
-				item->SetWeaponIndex(i);
-
-				// Add it to the weapon category
-				m_WeaponCursor->GetCurrentCategory()->PutItem(item);
-			}
-			else {
-				DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Weapon entityDef not found: %s\r", weaponDef.c_str());
-			}
+			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Weapon entityDef not found: %s\r", weaponDef.c_str());
+			continue;
 		}
+
+		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Adding weapon to inventory: %s\r", weaponDef.c_str());
+
+		// Allocate a new weapon item using the found entityDef
+		CInventoryWeaponItemPtr item(new CInventoryWeaponItem(weaponDef, this));
+			
+		item->SetWeaponIndex(weaponNum);
+
+		// Add it to the weapon category
+		m_WeaponCursor->GetCurrentCategory()->PutItem(item);
 	}
 
 	DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Total number of weapons found: %d\r", m_WeaponCursor->GetCurrentCategory()->GetNumItems());
