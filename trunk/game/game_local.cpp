@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3100 $
- * $Date: 2009-01-01 04:45:11 -0500 (Thu, 01 Jan 2009) $
+ * $Revision: 3106 $
+ * $Date: 2009-01-04 02:09:56 -0500 (Sun, 04 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3100 2009-01-01 09:45:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3106 2009-01-04 07:09:56Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -54,7 +54,6 @@ extern CsndPropLoader	g_SoundPropLoader;
 extern CsndProp			g_SoundProp;
 extern CShop			g_Shop;
 extern CDifficultyMenu	g_Diff;
-extern CModMenu			g_Mods;
 
 #define BUFFER_LEN 4096
 
@@ -261,6 +260,8 @@ void idGameLocal::Clear( void )
 
 	m_Grabber = NULL;
 	m_DifficultyManager.Clear();
+
+	m_ModMenu = CModMenuPtr(new CModMenu);
 
 	m_AreaManager.Clear();
 	// Allocate a new ConversationSystem
@@ -481,6 +482,10 @@ void idGameLocal::Init( void ) {
 		// Out of memory
 		DM_LOG(LC_LIGHT, LT_ERROR)LOGSTRING("Out of memory when allocating render pipe\n");
 	}
+
+	// Initialise the mod menu class to load the FMs
+	assert(m_ModMenu != NULL);
+	m_ModMenu->Init();
 }
 
 /*
@@ -508,6 +513,9 @@ void idGameLocal::Shutdown( void ) {
 
 	// Destroy the conversation system
 	m_ConversationSystem = ai::ConversationSystemPtr();
+
+	// Clear the mod menu
+	m_ModMenu = CModMenuPtr();
 
 	aasList.DeleteContents( true );
 	aasNames.Clear();
@@ -640,6 +648,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 	m_GamePlayTimer.Save(&savegame);
 	m_AreaManager.Save(&savegame);
 	m_ConversationSystem->Save(&savegame);
+	m_ModMenu->Save(&savegame);
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Save(&savegame);
@@ -1600,6 +1609,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_GamePlayTimer.SetEnabled(false);
 	m_AreaManager.Restore(&savegame);
 	m_ConversationSystem->Restore(&savegame);
+	m_ModMenu->Restore(&savegame);
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Restore(&savegame);
@@ -3261,10 +3271,10 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		// The next string will be logged
 		logNextCommand = true;
-	}
+	}	
 	// greebo: This is used for Saint Lucia only (comment this out after release)
-	else if (cmd == "showMods" || cmd == "briefing_start_request") // Called by "Start Mission"
-	{
+	else if (cmd == "briefing_start_request") // Called by "Start Mission"
+	{	
 		// User requested a map start
 		gui->HandleNamedEvent("ShowBriefingScreen");
 		gui->SetStateInt("BriefingIsVisible", 1);
@@ -3292,7 +3302,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}
 
 	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());
-	g_Mods.HandleCommands(menuCommand, gui);
+	m_ModMenu->HandleCommands(menuCommand, gui);
 
 	if (cv_debug_mainmenu.GetBool())
 	{
