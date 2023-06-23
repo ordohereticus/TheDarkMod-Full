@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2828 $
- * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2828 2008-09-13 17:20:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -331,7 +331,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		idStr itemName = args.Argv(1);
 
 		// Try to lookup the item in the inventory
-		CInventoryItem* item = inventory->GetItem(itemName);
+		CInventoryItemPtr item = inventory->GetItem(itemName);
 
 		if (item != NULL)
 		{

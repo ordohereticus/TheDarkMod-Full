@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2608 $
- * $Date: 2008-07-04 01:22:47 -0400 (Fri, 04 Jul 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -82,8 +82,8 @@ public:
 	// Adds a door handle to this door. A door can have multiple handles
 	void					AddDoorhandle(CFrobDoorHandle* handle);
 
-	virtual bool			CanBeUsedBy(CInventoryItem* item);					// Overrides idEntity::CanBeUsedBy
-	virtual bool			UseBy(EImpulseState impulseState, CInventoryItem* item);	// Overrides idEntity::UseBy
+	virtual bool			CanBeUsedBy(const CInventoryItemPtr& item);					// Overrides idEntity::CanBeUsedBy
+	virtual bool			UseBy(EImpulseState impulseState, const CInventoryItemPtr& item);	// Overrides idEntity::UseBy
 
 	/**
 	 * Write the proper sound loss value to the soundprop portal data

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2786 $
- * $Date: 2008-08-31 13:43:18 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -45,8 +45,6 @@ public:
 
 	// Create an inventoryitem out of the given entity and the given owner
 	CInventoryItem(idEntity* itemEntity, idEntity* owner);
-
-	virtual ~CInventoryItem();
 
 	virtual void			Save( idSaveGame *savefile ) const;
 	virtual void			Restore( idRestoreGame *savefile );
@@ -166,5 +164,6 @@ protected:
 
 	bool					m_UseOnFrob;	// Whether this item can be used by the 'frob' button
 };
+typedef boost::shared_ptr<CInventoryItem> CInventoryItemPtr;
 
 #endif /* __DARKMOD_INVENTORYITEM_H__ */

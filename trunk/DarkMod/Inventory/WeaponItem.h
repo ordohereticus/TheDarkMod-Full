@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -86,5 +86,6 @@ public:
 	 */
 	idStr getWeaponName();
 };
+typedef boost::shared_ptr<CInventoryWeaponItem> CInventoryWeaponItemPtr;
 
 #endif /* __DARKMOD_INVENTORYWEAPONITEM_H__ */

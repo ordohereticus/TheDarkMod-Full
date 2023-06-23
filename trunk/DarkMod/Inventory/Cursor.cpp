@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2827 $
- * $Date: 2008-09-13 12:38:21 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Cursor.cpp 2827 2008-09-13 16:38:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Cursor.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
 
 #include "Cursor.h"
 
@@ -65,10 +65,10 @@ void CInventoryCursor::Restore(idRestoreGame *savefile)
 	}
 }
 
-CInventoryItem* CInventoryCursor::GetCurrentItem()
+CInventoryItemPtr CInventoryCursor::GetCurrentItem()
 {
 	// Return an item if the inventory has items
-	return (m_Inventory->GetNumCategories() > 0) ? m_Inventory->GetCategory(m_CurrentCategory)->GetItem(m_CurrentItem) : NULL;
+	return (m_Inventory->GetNumCategories() > 0) ? m_Inventory->GetCategory(m_CurrentCategory)->GetItem(m_CurrentItem) : CInventoryItemPtr();
 }
 
 void CInventoryCursor::ClearItem()
@@ -77,7 +77,7 @@ void CInventoryCursor::ClearItem()
 	m_CurrentItem = -1;
 }
 
-bool CInventoryCursor::SetCurrentItem(CInventoryItem* item)
+bool CInventoryCursor::SetCurrentItem(CInventoryItemPtr item)
 {
 	if (item == NULL)
 	{
@@ -116,14 +116,14 @@ bool CInventoryCursor::SetCurrentItem(const idStr& itemName)
 	return true;
 }
 
-CInventoryItem* CInventoryCursor::GetNextItem()
+CInventoryItemPtr CInventoryCursor::GetNextItem()
 {
 	CInventoryCategory* curCategory = m_Inventory->GetCategory(m_CurrentCategory);
 
 	if (curCategory == NULL)
 	{
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Current Category doesn't exist anymore!\r", m_CurrentCategory);
-		return NULL;
+		return CInventoryItemPtr();
 	}
 
 	// Advance our cursor
@@ -148,14 +148,14 @@ CInventoryItem* CInventoryCursor::GetNextItem()
 	return curCategory->GetItem(m_CurrentItem);
 }
 
-CInventoryItem *CInventoryCursor::GetPrevItem()
+CInventoryItemPtr CInventoryCursor::GetPrevItem()
 {
 	CInventoryCategory* curCategory = m_Inventory->GetCategory(m_CurrentCategory);
 
 	if (curCategory == NULL)
 	{
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Current Category doesn't exist anymore!\r", m_CurrentCategory);
-		return NULL;
+		return CInventoryItemPtr();
 	}
 
 	// Move our cursor backwards
@@ -173,7 +173,7 @@ CInventoryItem *CInventoryCursor::GetPrevItem()
 		{
 			// Not allowed to wrap around.
 			m_CurrentItem = 0;
-			return NULL;
+			return CInventoryItemPtr();
 		}
 	}
 

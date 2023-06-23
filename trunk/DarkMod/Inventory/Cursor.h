@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2828 $
- * $Date: 2008-09-13 13:20:59 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,8 +29,8 @@ public:
 	/**
 	 * Retrieve the currently selected item.
 	 */
-	CInventoryItem*			GetCurrentItem();
-	bool					SetCurrentItem(CInventoryItem* item);
+	CInventoryItemPtr		GetCurrentItem();
+	bool					SetCurrentItem(CInventoryItemPtr item);
 	bool					SetCurrentItem(const idStr& itemName);
 
 	/**
@@ -43,8 +43,8 @@ public:
 	 * Get the next/prev item in the inventory. Which item is actually returned, 
 	 * depends on the settings of CategoryLock and WrapAround.
 	 */
-	CInventoryItem*			GetNextItem();
-	CInventoryItem*			GetPrevItem();
+	CInventoryItemPtr		GetNextItem();
+	CInventoryItemPtr		GetPrevItem();
 
 	CInventoryCategory*		GetNextCategory();
 	CInventoryCategory*		GetPrevCategory();

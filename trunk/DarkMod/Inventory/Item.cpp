@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2786 $
- * $Date: 2008-08-31 13:43:18 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 2786 2008-08-31 17:43:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
 
 #include "Item.h"
 #include <algorithm>
@@ -90,16 +90,6 @@ CInventoryItem::CInventoryItem(idEntity* itemEntity, idEntity* owner) {
 
 	// Parse a few common spawnargs
 	ParseSpawnargs(itemEntity->spawnArgs);
-}
-
-CInventoryItem::~CInventoryItem()
-{
-	idEntity* ent = m_Item.GetEntity();
-
-	if (ent != NULL)
-	{
-		ent->SetInventoryItem(NULL);
-	}
 }
 
 void CInventoryItem::Save( idSaveGame *savefile ) const

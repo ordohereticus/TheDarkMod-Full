@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2827 $
- * $Date: 2008-09-13 12:38:21 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 2827 2008-09-13 16:38:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
@@ -28,7 +28,7 @@ CInventoryCategory::CInventoryCategory(CInventory* inventory, const idStr& name)
 // Destructor
 CInventoryCategory::~CInventoryCategory() 
 {
-	m_Item.DeleteContents(true);
+	m_Item.Clear();
 }
 
 bool CInventoryCategory::IsEmpty() const
@@ -63,17 +63,17 @@ void CInventoryCategory::Restore(idRestoreGame *savefile)
 		savefile->ReadInt(itemTypeInt);
 		CInventoryItem::ItemType itemType = static_cast<CInventoryItem::ItemType>(itemTypeInt);
 
-		CInventoryItem* item = NULL;
+		CInventoryItemPtr item;
 
 		switch (itemType)
 		{
 		case CInventoryItem::IT_WEAPON:
 			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Restoring item #%d (weapon item).\r", i);
-			item = new CInventoryWeaponItem();
+			item = CInventoryItemPtr(new CInventoryWeaponItem());
 			break;
 		default:
 			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Restoring item #%d (ordinary item).\r", i);
-			item = new CInventoryItem(NULL);
+			item = CInventoryItemPtr(new CInventoryItem(NULL));
 			break;
 		};
 
@@ -99,7 +99,7 @@ void CInventoryCategory::SetOwner(idEntity *owner)
 	}
 }
 
-void CInventoryCategory::PutItem(CInventoryItem *item)
+void CInventoryCategory::PutItem(CInventoryItemPtr item)
 {
 	if (item == NULL) return;
 
@@ -110,18 +110,18 @@ void CInventoryCategory::PutItem(CInventoryItem *item)
 	m_Item.AddUnique(item);
 }
 
-CInventoryItem* CInventoryCategory::GetItem(int index)
+CInventoryItemPtr CInventoryCategory::GetItem(int index)
 {
-	return (index >= 0 && index < m_Item.Num()) ? m_Item[index] : NULL;
+	return (index >= 0 && index < m_Item.Num()) ? m_Item[index] : CInventoryItemPtr();
 }
 
-CInventoryItem* CInventoryCategory::GetItem(const idStr& itemName)
+CInventoryItemPtr CInventoryCategory::GetItem(const idStr& itemName)
 {
-	if (itemName.IsEmpty()) return NULL;
+	if (itemName.IsEmpty()) return CInventoryItemPtr();
 
 	for (int i = 0; i < m_Item.Num(); i++)
 	{
-		CInventoryItem* item = m_Item[i];
+		const CInventoryItemPtr& item = m_Item[i];
 
 		if (itemName == item->m_Name)
 		{
@@ -129,16 +129,16 @@ CInventoryItem* CInventoryCategory::GetItem(const idStr& itemName)
 		}
 	}
 
-	return NULL;
+	return CInventoryItemPtr();
 }
 
-CInventoryItem* CInventoryCategory::GetItemById(const idStr& id)
+CInventoryItemPtr CInventoryCategory::GetItemById(const idStr& id)
 {
-	if (id.IsEmpty()) return NULL;
+	if (id.IsEmpty()) return CInventoryItemPtr();
 
 	for (int i = 0; i < m_Item.Num(); i++)
 	{
-		CInventoryItem* item = m_Item[i];
+		const CInventoryItemPtr& item = m_Item[i];
 
 		if (id == item->m_ItemId)
 		{
@@ -146,7 +146,7 @@ CInventoryItem* CInventoryCategory::GetItemById(const idStr& id)
 		}
 	}
 
-	return NULL;
+	return CInventoryItemPtr();
 }
 
 int CInventoryCategory::GetItemIndex(const idStr& itemName)
@@ -162,7 +162,7 @@ int CInventoryCategory::GetItemIndex(const idStr& itemName)
 	return -1;
 }
 
-int CInventoryCategory::GetItemIndex(CInventoryItem* item)
+int CInventoryCategory::GetItemIndex(const CInventoryItemPtr& item)
 {
 	return m_Item.FindIndex(item);
 }
@@ -171,7 +171,7 @@ int CInventoryCategory::GetLoot(int& gold, int& jewelry, int& goods)
 {
 	for (int i = 0; i < m_Item.Num(); i++)
 	{
-		CInventoryItem* item = m_Item[i];
+		const CInventoryItemPtr& item = m_Item[i];
 
 		switch (item->GetLootType())
 		{
@@ -194,13 +194,9 @@ int CInventoryCategory::GetLoot(int& gold, int& jewelry, int& goods)
 	return gold + jewelry + goods;
 }
 
-void CInventoryCategory::RemoveItem(CInventoryItem* item)
+void CInventoryCategory::RemoveItem(const CInventoryItemPtr& item)
 {
-	if (m_Item.Remove(item))
-	{
-		// Deletion successful, destroy the item
-		delete item;
-	}
+	m_Item.Remove(item);
 }
 
 int CInventoryCategory::GetNumItems() const

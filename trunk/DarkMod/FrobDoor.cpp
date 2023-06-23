@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2609 $
- * $Date: 2008-07-04 16:42:20 -0400 (Fri, 04 Jul 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2609 2008-07-04 20:42:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -559,7 +559,7 @@ void CFrobDoor::OnTeamBlocked(idEntity* blockedEntity, idEntity* blockingEntity)
 	CBinaryFrobMover::OnTeamBlocked(blockedEntity, blockingEntity);
 }
 
-bool CFrobDoor::CanBeUsedBy(CInventoryItem* item) 
+bool CFrobDoor::CanBeUsedBy(const CInventoryItemPtr& item) 
 {
 	if (item == NULL) return false;
 
@@ -581,7 +581,7 @@ bool CFrobDoor::CanBeUsedBy(CInventoryItem* item)
 	return idEntity::CanBeUsedBy(item);
 }
 
-bool CFrobDoor::UseBy(EImpulseState impulseState, CInventoryItem* item)
+bool CFrobDoor::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 {
 	if (item == NULL) return false;
 

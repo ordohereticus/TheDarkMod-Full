@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2786 $
- * $Date: 2008-08-31 13:43:18 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 2786 2008-08-31 17:43:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -996,7 +996,7 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	if ( ( ammoClip < 0 ) || ( ammoClip > clipSize ) ) {
 		// first time using this weapon so have it fully loaded to start
 		ammoClip = clipSize;
-		CInventoryWeaponItem* weaponItem = owner->GetCurrentWeaponItem();
+		CInventoryWeaponItemPtr weaponItem = owner->GetCurrentWeaponItem();
 		if (weaponItem != NULL) {
 			ammoAvail = weaponItem->hasAmmo();
 		}
@@ -2666,7 +2666,7 @@ idWeapon::Event_AmmoAvailable
 ===============
 */
 void idWeapon::Event_AmmoAvailable( void ) {
-	CInventoryWeaponItem* currentWeapon = owner->GetCurrentWeaponItem();
+	CInventoryWeaponItemPtr currentWeapon = owner->GetCurrentWeaponItem();
 	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->hasAmmo() : 0;
 	idThread::ReturnFloat( ammoAvail );
 }
@@ -2677,7 +2677,7 @@ idWeapon::Event_TotalAmmoCount
 ===============
 */
 void idWeapon::Event_TotalAmmoCount( void ) {
-	CInventoryWeaponItem* currentWeapon = owner->GetCurrentWeaponItem();
+	CInventoryWeaponItemPtr currentWeapon = owner->GetCurrentWeaponItem();
 	int ammoAvail = (currentWeapon != NULL) ? currentWeapon->hasAmmo() : 0;
 	idThread::ReturnFloat( ammoAvail );
 }
@@ -3011,7 +3011,7 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 	// avoid all ammo considerations on an MP client
 	if ( !gameLocal.isClient ) {
 
-		CInventoryWeaponItem* weaponItem = owner->GetCurrentWeaponItem();
+		CInventoryWeaponItemPtr weaponItem = owner->GetCurrentWeaponItem();
 
 		// check if we're out of ammo or the clip is empty
 		int ammoAvail = weaponItem->hasAmmo();

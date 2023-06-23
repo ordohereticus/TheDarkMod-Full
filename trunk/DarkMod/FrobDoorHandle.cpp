@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2602 $
- * $Date: 2008-07-03 13:01:37 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2830 $
+ * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2602 2008-07-03 17:01:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -109,13 +109,13 @@ bool CFrobDoorHandle::IsFrobbed(void)
 	return (m_Door != NULL) ? m_Door->IsFrobbed() : idEntity::IsFrobbed();
 }
 
-bool CFrobDoorHandle::CanBeUsedBy(CInventoryItem* item)
+bool CFrobDoorHandle::CanBeUsedBy(const CInventoryItemPtr& item)
 {
 	// Pass the call to the door, if we have one, otherwise let the base class handle it
 	return (m_Door != NULL) ? m_Door->CanBeUsedBy(item) : idEntity::CanBeUsedBy(item);
 }
 
-bool CFrobDoorHandle::UseBy(EImpulseState impulseState, CInventoryItem* item)
+bool CFrobDoorHandle::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 {
 	// Pass the call to the door, if we have one, otherwise let the base class handle it
 	return (m_Door != NULL) ? m_Door->UseBy(impulseState, item) : idEntity::CanBeUsedBy(item);
