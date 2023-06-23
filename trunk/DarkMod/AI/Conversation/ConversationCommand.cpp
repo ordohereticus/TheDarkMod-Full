@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2696 $
- * $Date: 2008-07-18 12:41:03 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2697 $
+ * $Date: 2008-07-18 13:01:32 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2696 2008-07-18 16:41:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2697 2008-07-18 17:01:32Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
@@ -37,7 +37,8 @@ const char* const ConversationCommand::TypeNames[ConversationCommand::ENumComman
 	"TurnToEntity",
 	"AttackActor",
 	"AttackEntity",
-	"InteractWithEntity"
+	"InteractWithEntity",
+	"RunScript"
 };
 
 ConversationCommand::ConversationCommand() :

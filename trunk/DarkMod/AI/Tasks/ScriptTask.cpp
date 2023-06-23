@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2697 $
+ * $Date: 2008-07-18 13:01:32 -0400 (Fri, 18 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ScriptTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ScriptTask.cpp 2697 2008-07-18 17:01:32Z greebo $", init_version);
 
 #include "ScriptTask.h"
 #include "../Memory.h"
@@ -67,7 +67,7 @@ bool ScriptTask::Perform(Subsystem& subsystem)
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("ScriptTask performing.\r");
 	assert(_thread != NULL);
 
-	if (_thread->IsDoneProcessing() || _thread->IsDying())
+	if (_thread->IsDying())
 	{
 		// thread is done, return TRUE to terminate this task
 		_thread = NULL;
