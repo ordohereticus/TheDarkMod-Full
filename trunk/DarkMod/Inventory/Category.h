@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2597 $
+ * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,7 +21,7 @@ class CInventoryCategory
 	friend class CInventory;
 
 public:
-	inline idStr		&GetName() { return m_Name; }
+	inline const idStr&	GetName() { return m_Name; }
 	inline void			SetInventory(CInventory *Inventory) { m_Inventory = Inventory; };
 
 	inline idEntity			*GetOwner(void) { return m_Owner.GetEntity(); };

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2593 $
- * $Date: 2008-07-02 14:48:39 -0400 (Wed, 02 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2597 $
+ * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2593 2008-07-02 18:48:39Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2597 2008-07-02 19:00:59Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7184,6 +7184,17 @@ bool idEntity::CanBeUsedBy(CInventoryItem* item)
 }
 
 bool idEntity::CanBeUsedBy(idEntity* entity) 
+{
+	if (entity == NULL) return false;
+
+	// Check if the entity's name is in the used_by list 
+	int idx = m_UsedBy.FindIndex(entity->name);
+
+	// FindIndex returns an index != -1 if found
+	return (idx != -1);
+}
+
+bool idEntity::UseBy(IMPULSE_STATE impulseState, CInventoryItem* item)
 {
 	return false;
 }

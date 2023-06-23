@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2593 $
- * $Date: 2008-07-02 14:48:39 -0400 (Wed, 02 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2597 $
+ * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -612,6 +612,14 @@ public:
 	virtual bool CanBeUsedBy(idEntity* entity);
 
 	/**
+	 * greebo: Uses this entity by the given inventory item. The button state
+	 * is needed to handle the exact user interaction, e.g. while lockpicking.
+	 *
+	 * @returns: TRUE if the item could be used, FALSE otherwise.
+	 */
+	virtual bool UseBy(IMPULSE_STATE nState, CInventoryItem* item);
+
+	/**
 	 * UsedBy determines the behaviour when an entity is used against another one.
 	 * The inventory item passed in as an argument is the one that uses this entity. If the 
 	 * argument is NULL, then the called entity is the one being used.
@@ -619,8 +627,10 @@ public:
 	 * The return value indicates if the item could be used. If false the item is not
 	 * appropriate for usage on that entity and the default frobaction will be executed
 	 * instead.
+	 *
+	 * greebo: This function is DEPRECATED.
 	 */
-	virtual bool UsedBy(IMPULSE_STATE nState, CInventoryItem* item);
+	virtual bool UsedBy(IMPULSE_STATE impulseState, CInventoryItem* item);
 
 	/**
 	* Toggle whether the entity has been frobbed.  Should ONLY be called by idPlayer::CheckFrob

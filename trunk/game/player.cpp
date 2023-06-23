@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2589 $
- * $Date: 2008-06-30 01:09:36 -0400 (Mon, 30 Jun 2008) $
- * $Author: dram $
+ * $Revision: 2597 $
+ * $Date: 2008-07-02 15:00:59 -0400 (Wed, 02 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2589 2008-06-30 05:09:36Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2597 2008-07-02 19:00:59Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -8799,6 +8799,14 @@ void idPlayer::inventoryUseItem(IMPULSE_STATE nState, CInventoryItem* item, int 
 	DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Inventory selection %s  KeyState: %u\r", ent->name.c_str(), nState);
 
 	bool itemIsUsable = ent->spawnArgs.GetBool("usable");
+
+	if (frob != NULL && itemIsUsable && frob->CanBeUsedBy(item))
+	{
+		gameRenderWorld->DebugArrow(colorGreen, frob->GetPhysics()->GetOrigin(), frob->GetPhysics()->GetOrigin() + idVec3(0,0,50), 0, 16);
+
+		// Pass the use call
+		frob->UseBy(nState, item);
+	}
 
 	if(nState == IS_PRESSED)
 	{
