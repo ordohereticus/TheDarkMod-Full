@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3041 $
- * $Date: 2008-11-19 12:39:58 -0500 (Wed, 19 Nov 2008) $
- * $Author: angua $
+ * $Revision: 3060 $
+ * $Date: 2008-11-22 08:54:15 -0500 (Sat, 22 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -818,7 +818,7 @@ public:
 	void InventoryUseKeyRelease(int holdTime);
 
 	// Uses a specific inventory item
-	void UseInventoryItem(EImpulseState nState, const CInventoryItemPtr& item, int holdTime);
+	bool UseInventoryItem(EImpulseState nState, const CInventoryItemPtr& item, int holdTime);
 
 	// Changes the inventory selection to the item with the given name
 	void SelectInventoryItem(const idStr& name);
