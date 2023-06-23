@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3212 $
- * $Date: 2009-02-15 22:46:32 -0500 (Sun, 15 Feb 2009) $
+ * $Revision: 3220 $
+ * $Date: 2009-03-01 23:00:08 -0500 (Sun, 01 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3212 2009-02-16 03:46:32Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3220 2009-03-02 04:00:08Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5263,13 +5263,15 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 	Unbind();
 
+	idStr DeathSound = "snd_death";
+
 	if ( StartRagdoll() )
 	{
 		if( MouthIsUnderwater() )
-			StartSound( "snd_death_liquid", SND_CHANNEL_VOICE, 0, false, NULL );
-		else
-			StartSound( "snd_death", SND_CHANNEL_VOICE, 0, false, NULL );
+			DeathSound = "snd_death_liquid";
 	}
+
+	StartSound( DeathSound.c_str(), SND_CHANNEL_VOICE, 0, false, NULL );
 
 	if ( spawnArgs.GetString( "model_death", "", &modelDeath ) ) {
 		// lost soul is only case that does not use a ragdoll and has a model_death so get the death sound in here

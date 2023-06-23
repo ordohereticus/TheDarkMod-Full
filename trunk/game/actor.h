@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3216 $
- * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3220 $
+ * $Date: 2009-03-01 23:00:08 -0500 (Sun, 01 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -62,8 +62,8 @@ enum EMeleeResult
 	MELEERESULT_AT_MISSED,
 	MELEERESULT_AT_PARRIED,
 	MELEERESULT_PAR_BLOCKED, // successfully parried the attack
+	MELEERESULT_PAR_FAILED, // got hit while parrying (TODO: Does not catch all cases, only catches parry type mismatch)
 	MELEERESULT_PAR_ABORTED, // gave up parrying
-	MELEERESULT_WAS_HIT, // not sure this works in here
 
 	NUM_MELEE_RESULTS
 };
@@ -97,10 +97,15 @@ public:
 	// Will be considered "in progress" until back in the "Ready" state
 	EMeleeResult	m_ActionResult;
 
+	// were we just hit by a melee attack?  may take longer to perform next action
+	// NYI
+	bool			m_bWasHit;
+
 	// melee capabilities of weapon
 	bool				m_bCanParry;
 	bool				m_bCanParryAll;
 	idList<EMeleeType>	m_attacks; // possible attacks with current weapon
+	float				m_range; // by default same as melee_range on AI
 
 }; // CMeleeStatus
 
@@ -136,6 +141,8 @@ extern const idEventDef AI_MeleeParryStarted;
 extern const idEventDef AI_MeleeActionHeld;
 extern const idEventDef AI_MeleeActionReleased;
 extern const idEventDef AI_MeleeActionFinished;
+extern const idEventDef AI_GetMeleeResult;
+extern const idEventDef AI_GetMeleeLastActTime;
 extern const idEventDef AI_MeleeBestParry;
 extern const idEventDef AI_MeleeNameForNum;
 
@@ -698,6 +705,10 @@ public:
 	void					Event_MeleeActionReleased( void );
 	/** Called when the animation for the melee action has finished **/
 	void					Event_MeleeActionFinished( void );
+	/** Called by script to get result of last melee action **/
+	void					Event_GetMeleeResult( void );
+	/** Get the time at which the previous melee action finished **/
+	void					Event_GetMeleeLastActTime( void );
 
 	/**
 	* Returns the melee type integer of the optimal melee parry given current attackers

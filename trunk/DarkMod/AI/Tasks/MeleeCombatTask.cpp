@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3216 $
- * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3220 $
+ * $Date: 2009-03-01 23:00:08 -0500 (Sun, 01 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3216 2009-02-16 23:55:53Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3220 2009-03-02 04:00:08Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -85,17 +85,22 @@ void MeleeCombatTask::PerformReady(idAI* owner)
 	// TODO: Different recovery time based on what just happened (was parried, got hit, etc)
 	// TODO: Cache these rather than calc. every frame?
 	int NextAttTime;
-	if( pStatus->m_ActionResult == MELEERESULT_PAR_ABORTED )
+	if( pStatus->m_ActionResult == MELEERESULT_PAR_BLOCKED 
+		|| pStatus->m_ActionResult == MELEERESULT_PAR_ABORTED )
 	{
 		// just parried, so use the riposte recovery time for the attack
 		NextAttTime = pStatus->m_LastActTime + owner->m_MeleeCurrentRiposteRecovery;
 	}
+	// longer recovery if we were parried
+	// TODO: Also do longer recovery if we get hit? not for now.
+	else if( pStatus->m_ActionResult == MELEERESULT_AT_PARRIED )
+		NextAttTime = pStatus->m_LastActTime + owner->m_MeleeCurrentAttackLongRecovery;
 	else
 		NextAttTime = pStatus->m_LastActTime + owner->m_MeleeCurrentAttackRecovery;
 
 	int NextParTime = pStatus->m_LastActTime + owner->m_MeleeCurrentParryRecovery;
 
-	// We attack if the timer allows us and if the enemy is in ange
+	// We attack if the timer allows us and if the enemy is in range
 	if (gameLocal.time > NextAttTime && owner->GetMemory().canHitEnemy && !_bForceParry )
 	{
 		StartAttack(owner);
@@ -165,9 +170,9 @@ void MeleeCombatTask::PerformAttack(idAI* owner)
 		idStr waitState( owner->WaitState() );
 		if( waitState != "melee_action" )
 		{
-			// TODO: This needs to get set differently if the attack was parried
-			// will be set in melee weapon, for now set it to 'missed' here for testing purposes
-			pStatus->m_ActionResult = MELEERESULT_AT_MISSED;
+			// if attack hasn't hit anything, switch to missed at this point
+			if( pStatus->m_ActionResult == MELEERESULT_IN_PROGRESS )
+				pStatus->m_ActionResult = MELEERESULT_AT_MISSED;
 			owner->Event_MeleeActionFinished();
 		}
 	}
@@ -246,9 +251,10 @@ void MeleeCombatTask::PerformParry(idAI* owner)
 		idStr waitState( owner->WaitState() );
 		if( waitState != "melee_action" )
 		{
-			// TODO: This should be set elsewhere (in CMeleeWeapon probably)
-			// for now, set it here
-			pStatus->m_ActionResult = MELEERESULT_PAR_ABORTED;
+			// if nothing happened with our parry, it was aborted
+			if( pStatus->m_ActionResult == MELEERESULT_IN_PROGRESS )
+				pStatus->m_ActionResult = MELEERESULT_PAR_ABORTED;
+
 			owner->Event_MeleeActionFinished();
 		}
 	}
