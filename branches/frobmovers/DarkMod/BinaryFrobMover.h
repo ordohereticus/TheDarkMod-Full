@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2526 $
- * $Date: 2008-06-19 12:06:20 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2529 $
+ * $Date: 2008-06-19 13:28:29 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -35,6 +35,17 @@ public:
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
 
+	/**
+	 * greebo: A set of convenience methods, which set the master bool to TRUE.
+	 * Don't use default argument initialisers on the virtual functions, 
+	 * as the default values are statically bound and lead to problems 
+	 * if subclasses want to override that default value.
+	 */
+	ID_INLINE void			Open()		{ Open(true);	}
+	ID_INLINE void			Close()		{ Close(true);	}
+	ID_INLINE void			Lock()		{ Lock(true);	}
+	ID_INLINE void			Unlock()	{ Unlock(true);	}
+	
 	virtual void			Open(bool Master);
 	virtual void			Close(bool Master);
 	virtual void			Lock(bool Master);

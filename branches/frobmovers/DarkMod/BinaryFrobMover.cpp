@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2528 $
- * $Date: 2008-06-19 13:16:37 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2529 $
+ * $Date: 2008-06-19 13:28:29 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2528 2008-06-19 17:16:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2529 2008-06-19 17:28:29Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -540,11 +540,11 @@ void CBinaryFrobMover::ToggleOpen()
 
 		if (m_bIntentOpen)
 		{
-			Open(true);
+			Open();
 		}
 		else
 		{
-			Close(true);
+			Close();
 		}
 
 		return;
