@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Revision: 2964 $
+ * $Date: 2008-10-21 14:27:19 -0400 (Tue, 21 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2964 2008-10-21 18:27:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -39,7 +39,6 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 2959 2008-10-20 
 #include "../DarkMod/TimerManager.h"
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
 
-#include "IL/config.h"
 #include "IL/il.h"
 #include "../DarkMod/randomizer/randomc.h"
 
