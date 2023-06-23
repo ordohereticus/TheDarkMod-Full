@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2872 $
- * $Date: 2008-09-21 21:55:49 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2875 $
+ * $Date: 2008-09-22 01:42:19 -0400 (Mon, 22 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2872 2008-09-22 01:55:49Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2875 2008-09-22 05:42:19Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -52,6 +52,8 @@ const int	DIST_GRANULARITY	=		12;
 // shouldered body immobilizations
 const int SHOULDER_IMMOBILIZATIONS = EIM_CLIMB | EIM_ITEM_SELECT | EIM_WEAPON_SELECT | EIM_ATTACK | EIM_ITEM_USE | EIM_MANTLE;
 const float SHOULDER_JUMP_HINDERANCE = 0.25;
+
+const char *SHOULDER_ANIM = "drop_body";
 
 CLASS_DECLARATION( idEntity, CGrabber )
 
@@ -1427,6 +1429,20 @@ bool CGrabber::ShoulderBody( idAFEntity_Base *body )
 		player->SetJumpHinderance( "ShoulderedBody", 1.0f, SHOULDER_JUMP_HINDERANCE );
 
 		m_EquippedEnt = body;
+
+		// Load the animation frame that will put the body in the shouldered pose
+		idAnimator *animator = body->GetAnimator();
+		int animNum;
+		if( (animNum = animator->GetAnim( SHOULDER_ANIM )) != 0 )
+		{
+			gameLocal.Printf("Found drop_body animation\n");
+			animator->ClearAFPose();
+			animator->ClearAllAnims(gameLocal.time,0);
+			animator->SetFrame(ANIMCHANNEL_ALL, animNum, 0, 0, 0);
+
+			// TODO: Call af.SetPose to move the bodies to match the anim?
+		}
+
 		rc = true;
 	}
 
