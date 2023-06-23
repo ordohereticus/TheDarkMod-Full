@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2767 $
- * $Date: 2008-08-30 09:05:05 -0400 (Sat, 30 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2781 $
+ * $Date: 2008-08-31 09:13:12 -0400 (Sun, 31 Aug 2008) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 #ifndef __FORCE_PUSH_H__
 #define __FORCE_PUSH_H__
 
-#include "Force.h"
+#include "force.h"
 
 /**
  * greebo: This class should represent the push force as applied by the player
