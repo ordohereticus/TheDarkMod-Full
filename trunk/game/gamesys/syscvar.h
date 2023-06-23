@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2678 $
- * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2738 $
+ * $Date: 2008-08-15 12:57:20 -0400 (Fri, 15 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -72,6 +72,7 @@ extern idCVar cv_sr_disable;
 extern idCVar cv_sndprop_disable;
 extern idCVar cv_spr_debug;
 extern idCVar cv_spr_show;
+extern idCVar cv_spr_radius_show;
 extern idCVar cv_ko_show;
 extern idCVar cv_ai_animstate_show;
 

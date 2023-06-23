@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2639 $
- * $Date: 2008-07-12 09:46:40 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2738 $
+ * $Date: 2008-08-15 12:57:20 -0400 (Fri, 15 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2639 2008-07-12 13:46:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2738 2008-08-15 16:57:20Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -479,6 +479,12 @@ void CsndProp::Propagate
 	// than they actually are.
 
 	range = pow(2.0f, ((vol0 - m_SndGlobals.MaxRangeCalVol) / 7.0f) ) * m_SndGlobals.MaxRange * s_METERS_TO_DOOM;
+
+	// Debug drawing of the range
+	if (cv_spr_radius_show.GetBool()) 
+	{
+		gameRenderWorld->DebugCircle(colorWhite, origin, idVec3(0,0,1), range, 100, 1000);
+	}
 
 	idBounds bounds(origin);
 	bounds.ExpandSelf(range);
