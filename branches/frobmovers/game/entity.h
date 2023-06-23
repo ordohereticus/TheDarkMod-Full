@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2546 $
- * $Date: 2008-06-20 12:50:53 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2550 $
+ * $Date: 2008-06-21 07:59:11 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -392,6 +392,16 @@ public:
 	virtual void			PreUnbind( void );
 	virtual void			PostUnbind( void );
 	void					JoinTeam( idEntity *teammember );
+	
+	/** 
+	 * greebo: Returns the first team entity matching the given type. If the second
+	 * argument is specified, it returns the next entity after that one.
+	 *
+	 * @returns: NULL if nothing found, the entity pointer otherwise. The entity pointer can be
+	 * safely static_cast<> onto the given type, as the type check has already been performed in this function.
+	 */
+	idEntity*				FindMatchingTeamEntity(const idTypeInfo& type, idEntity* lastMatch = NULL);
+
 	void					Bind( idEntity *master, bool orientated );
 	void					BindToJoint( idEntity *master, const char *jointname, bool orientated );
 	void					BindToJoint( idEntity *master, jointHandle_t jointnum, bool orientated );

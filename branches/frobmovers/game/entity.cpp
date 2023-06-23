@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2546 $
- * $Date: 2008-06-20 12:50:53 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2550 $
+ * $Date: 2008-06-21 07:59:11 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2546 2008-06-20 16:50:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2550 2008-06-21 11:59:11Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3377,6 +3377,40 @@ void idEntity::JoinTeam( idEntity *teammember ) {
 
 	// reorder the active entity list 
 	gameLocal.sortTeamMasters = true;
+}
+
+idEntity* idEntity::FindMatchingTeamEntity(const idTypeInfo& type, idEntity* lastMatch)
+{
+	idEntity* part;
+
+	if (lastMatch != NULL)
+	{
+		for (part = teamChain; part != NULL; part = part->teamChain)
+		{
+			if (part == lastMatch) 
+			{
+				// We've found our previous match, increase the pointer and break;
+				part = part->teamChain;
+				break;
+			}
+		}
+	}
+	else
+	{
+		// No last match specified, set the pointer to the start
+		part = teamChain;
+	}
+
+	for (/* no initialisation */; part != NULL; part = part->teamChain)
+	{
+		if (part->IsType(type))
+		{
+			// Found a suitable one, return it
+			return part;
+		}
+	}
+
+	return NULL;
 }
 
 /*
