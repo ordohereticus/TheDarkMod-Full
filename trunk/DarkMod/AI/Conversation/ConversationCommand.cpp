@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2678 $
- * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2679 $
+ * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2678 2008-07-17 15:11:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2679 2008-07-17 16:21:20Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
@@ -53,7 +53,13 @@ ConversationCommand::Type ConversationCommand::GetType()
 
 ConversationCommand::State ConversationCommand::GetState()
 {
+	
 	return _state;
+}
+
+void ConversationCommand::SetState(ConversationCommand::State newState)
+{
+	_state = newState;
 }
 
 int ConversationCommand::GetActor()
@@ -70,30 +76,6 @@ int ConversationCommand::GetNumArguments()
 idStr ConversationCommand::GetArgument(int index)
 {
 	return (index >= 0 && index < _arguments.Num()) ? _arguments[index] : "";
-}
-
-ConversationCommand::State ConversationCommand::Execute(Conversation& conversation)
-{
-	idActor* actor = conversation.GetActor(_actor);
-
-	if (actor == NULL)
-	{
-		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Command on conversation %s could not find actor %d.\r", conversation.GetName().c_str(), _actor);
-		return EAborted;
-	}
-
-	if (actor->IsType(idAI::Type))
-	{
-		idAI* ai = static_cast<idAI*>(actor);
-
-		// Let's see if the AI can handle this conversation command
-		ConversationStatePtr state = boost::dynamic_pointer_cast<ConversationState>(ai->GetMind()->GetState());
-
-		// Pass the call to the AI
-		return state->Execute(*this);
-	}
-
-	return EFinished;
 }
 
 bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)

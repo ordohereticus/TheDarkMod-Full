@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2678 $
- * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2679 $
+ * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -82,6 +82,7 @@ public:
 
 	// The execution state of this command
 	State GetState();
+	void SetState(State newState);
 
 	// Returns the actor index of this command
 	int GetActor();
@@ -91,15 +92,6 @@ public:
 
 	// Returns the given argument (starting with index 0) or "" if the argument doesn't exist
 	idStr GetArgument(int index);
-
-	/**
-	 * Execute this command (i.e. tell the actor what to do)
-	 *
-	 * @conversation: the "parent" conversation we're belonging to, needed to get the actors.
-	 *
-	 * @returns: the execution state of this command.
-	 */
-	State Execute(Conversation& conversation);
 
 	/**
 	 * greebo: Parses the command parameters from the given idDict.

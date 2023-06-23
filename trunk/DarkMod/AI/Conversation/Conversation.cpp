@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2678 $
- * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2679 $
+ * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,9 +10,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2678 2008-07-17 15:11:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2679 2008-07-17 16:21:20Z greebo $", init_version);
 
 #include "Conversation.h"
+#include "../States/ConversationState.h"
 
 const int MAX_ALERT_LEVEL_TO_START_CONVERSATION = 1;
 
@@ -113,30 +114,55 @@ bool Conversation::Process()
 	// Get the command as specified by the pointer
 	const ConversationCommandPtr& command = _commands[_currentCommand];
 
-	// Get the state of the current command
+	idAI* ai = GetActor(command->GetActor());
+
+	if (ai == NULL)
+	{
+		DM_LOG(LC_CONVERSATION, LT_ERROR)LOGSTRING("Conversation %s could not find actor.\r", _name.c_str());
+		return false;
+	}
+
+	// Let's see if the AI can handle this conversation command
+	ConversationStatePtr convState = boost::dynamic_pointer_cast<ConversationState>(ai->GetMind()->GetState());
+
+	if (convState == NULL)
+	{
+		// AI is not in ConversationState anymore
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation %s: ai %s is not in conversation mode anymore.\r", _name.c_str(), ai->name.c_str());
+		return false;
+	}
+
+	// Get the state of this command
 	ConversationCommand::State state = command->GetState();
-
-	// If the command is not finished yet, execute it
-	if (state < ConversationCommand::EFinished)
+	
+	switch (state)
 	{
-		DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Executing command %s in conversation %s.\r", 
-			ConversationCommand::TypeNames[command->GetType()], _name.c_str());
+		case ConversationCommand::ENotStartedYet:
+			// Start a new execution
+			convState->StartCommand(*command);
+			// Update the state in the command
+			command->SetState(convState->GetExecutionState());
+			break;
+		case ConversationCommand::EExecuting:
+			// Continue execution
+			convState->Execute(*command);
+			// Update the state in the command
+			command->SetState(convState->GetExecutionState());
+			break;
+		case ConversationCommand::EFinished:
+			// Increase the iterator, we continue next frame
+			_currentCommand++;
+			break;
+		case ConversationCommand::EAborted:
+			return false;
+		default:
+			return false;
+	};
 
-		// Execute and get the new state
-		state = command->Execute(*this);
-	}
-
-	// If the command has returned "finished" by now, increase the iterator
-	if (state >= ConversationCommand::EFinished)
-	{
-		_currentCommand++;
-	}
-
-	// Pass the call and return a positive result if not aborted
 	return (state != ConversationCommand::EAborted);
 }
 
-idActor* Conversation::GetActor(int index)
+idAI* Conversation::GetActor(int index)
 {
 	if (index < 0 || index >= _actors.Num()) 
 	{
@@ -146,17 +172,17 @@ idActor* Conversation::GetActor(int index)
 	// Resolve the entity name and get the pointer
 	idEntity* ent = gameLocal.FindEntity(_actors[index]);
 
-	if (ent == NULL || !ent->IsType(idActor::Type)) 
+	if (ent == NULL || !ent->IsType(idAI::Type)) 
 	{
-		// not an actor!
+		// not an AI!
 		DM_LOG(LC_CONVERSATION, LT_ERROR)LOGSTRING("Actor %s in conversation %s is not existing or of wrong type.\r", _actors[index].c_str(), _name.c_str());
 		return NULL; 
 	}
 
-	return static_cast<idActor*>(ent);
+	return static_cast<idAI*>(ent);
 }
 
-idActor* Conversation::GetActor(const idStr& name)
+idAI* Conversation::GetActor(const idStr& name)
 {
 	// greebo: Check if all actors are available
 	for (int i = 0; i < _actors.Num(); i++)

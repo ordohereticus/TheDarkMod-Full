@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2678 $
- * $Date: 2008-07-17 11:11:36 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2679 $
+ * $Date: 2008-07-17 12:21:20 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -27,6 +27,8 @@ class ConversationState :
 	// The state we're in
 	ConversationCommand::State _state;
 
+	int _finishTime;
+
 public:
 	// Get the name of this state
 	virtual const idStr& GetName() const;
@@ -40,8 +42,14 @@ public:
 	// Sets the conversation this state should handle
 	void SetConversation(int index);
 
+	// Starts execution of the given command, returns FALSE on failure
+	void StartCommand(ConversationCommand& command);
+
 	// Handles the given command, returns FALSE on failure
-	ConversationCommand::State Execute(ConversationCommand& command);
+	void Execute(ConversationCommand& command);
+
+	// Returns the current conversation command execution state
+	ConversationCommand::State GetExecutionState();
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
