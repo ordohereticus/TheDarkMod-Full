@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3085 $
- * $Date: 2008-12-14 01:46:48 -0500 (Sun, 14 Dec 2008) $
+ * $Revision: 3092 $
+ * $Date: 2008-12-28 16:26:07 -0500 (Sun, 28 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RandomHeadturnTask.cpp 3085 2008-12-14 06:46:48Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: RandomHeadturnTask.cpp 3092 2008-12-28 21:26:07Z angua $", init_version);
 
 #include "RandomHeadturnTask.h"
 #include "../Memory.h"
@@ -91,7 +91,9 @@ void RandomHeadturnTask::PerformHeadTurnCheck()
 	animFlags_t animflags = animator->GetAnimFlags(animnum);
 
 	// angua: check if the current animation allows random headturning
-	if (!animflags.no_random_headturning)
+	// if the focusTime > current time, the AI is currently looking at a specified direction or entity
+	// we don't want to interrupt that
+	if (!animflags.no_random_headturning && owner->GetFocusTime() < gameLocal.time)
 	{
 		// Yep, set the angles and start head turning
 		memory.currentlyHeadTurning = true;

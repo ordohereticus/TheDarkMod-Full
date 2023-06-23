@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3089 $
- * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
+ * $Revision: 3092 $
+ * $Date: 2008-12-28 16:26:07 -0500 (Sun, 28 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1261,6 +1261,13 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	virtual bool			CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting );
 
 	bool					EntityCanSeePos( idActor *actor, const idVec3 &actorOrigin, const idVec3 &pos );
+
+	// angua: if the focusTime > gameLocal.time, the AI is currently looking at a specified entity or location
+	ID_INLINE int			GetFocusTime()
+	{
+		return focusTime;
+	}
+
 	void					BlockedFailSafe( void );
 	/**
 	* Overloaded idActor::CheckFOV with FOV check that depends on head joint orientation

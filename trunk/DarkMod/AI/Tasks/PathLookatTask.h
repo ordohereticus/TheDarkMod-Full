@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 3092 $
+ * $Date: 2008-12-28 16:26:07 -0500 (Sun, 28 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -27,6 +27,9 @@ class PathLookatTask :
 	idEntityPtr<idPathCorner> _path;
 
 	PathLookatTask();
+
+	idEntity* _focusEnt;
+	float _duration;
 
 public:
 	PathLookatTask(idPathCorner* path);
