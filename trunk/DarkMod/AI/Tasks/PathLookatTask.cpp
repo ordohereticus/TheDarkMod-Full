@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3092 $
- * $Date: 2008-12-28 16:26:07 -0500 (Sun, 28 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3122 $
+ * $Date: 2009-01-06 12:59:54 -0500 (Tue, 06 Jan 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3092 2008-12-28 21:26:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3122 2009-01-06 17:59:54Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -86,7 +86,7 @@ bool PathLookatTask::Perform(Subsystem& subsystem)
 		// angua: waiting for trigger, no duration set
 		owner->Event_LookAtEntity(_focusEnt, 1);
 
-		if (owner->AI_ACTIVATED == true)
+		if (owner->AI_ACTIVATED)
 		{
 			owner->AI_ACTIVATED = false;
 

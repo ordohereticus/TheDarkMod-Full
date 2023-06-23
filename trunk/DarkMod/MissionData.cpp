@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3121 $
- * $Date: 2009-01-06 12:36:40 -0500 (Tue, 06 Jan 2009) $
+ * $Revision: 3122 $
+ * $Date: 2009-01-06 12:59:54 -0500 (Tue, 06 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3121 2009-01-06 17:36:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3122 2009-01-06 17:59:54Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2376,10 +2376,6 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 				// Clear the flag so that the objectives get updated
 				ClearGUIState();
 
-				// Hide the briefing screen
-				gui->HandleNamedEvent("HideBriefingScreen");
-				gui->SetStateInt("BriefingIsVisible", 0);
-
 				// Display the Difficulty choices
 				gui->SetStateInt("DifficultyIsVisible", 1);
 
@@ -2418,8 +2414,6 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 		// greebo: Sanity-check the objectives start position
 		gui->SetStateInt("ObjXPos", (objStartXPos == 0) ? 110 : objStartXPos);
 
-		gui->HandleNamedEvent("ShowObjectiveScreen");
-		
 		if (!m_MissionDataLoadedIntoGUI)
 		{
 			// Load the objectives into the GUI

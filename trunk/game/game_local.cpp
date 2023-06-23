@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3120 $
- * $Date: 2009-01-06 06:00:20 -0500 (Tue, 06 Jan 2009) $
+ * $Revision: 3122 $
+ * $Date: 2009-01-06 12:59:54 -0500 (Tue, 06 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3120 2009-01-06 11:00:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3122 2009-01-06 17:59:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -32,7 +32,6 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 3120 2009-01-06 
 #include "../DarkMod/MultiStateMover.h"
 #include "../DarkMod/func_shooter.h"
 #include "../DarkMod/shop.h"
-#include "../DarkMod/DifficultyMenu.h"
 #include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/ModMenu.h"
 #include "../DarkMod/renderpipe.h"
@@ -53,7 +52,6 @@ extern CMissionData		g_MissionData;
 extern CsndPropLoader	g_SoundPropLoader;
 extern CsndProp			g_SoundProp;
 extern CShop			g_Shop;
-extern CDifficultyMenu	g_Diff;
 
 #define BUFFER_LEN 4096
 
