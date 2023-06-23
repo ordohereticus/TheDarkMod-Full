@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3221 $
- * $Date: 2009-03-03 23:53:35 -0500 (Tue, 03 Mar 2009) $
+ * $Revision: 3222 $
+ * $Date: 2009-03-04 08:37:27 -0500 (Wed, 04 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3221 2009-03-04 04:53:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3222 2009-03-04 13:37:27Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -162,7 +162,7 @@ void IdleState::Think(idAI* owner)
 
 		}
 	}
-	else if (_startSitting && owner->GetMoveType() != MOVETYPE_SIT)
+	else if (_startSitting && owner->GetMoveType() != MOVETYPE_SIT && waitState != "sit_down")
 	{
 		if (owner->ReachedPos(memory.idlePosition, MOVE_TO_POSITION) 
 			&& owner->GetCurrentYaw() == memory.idleYaw)

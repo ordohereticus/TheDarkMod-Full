@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3221 $
- * $Date: 2009-03-03 23:53:35 -0500 (Tue, 03 Mar 2009) $
+ * $Revision: 3222 $
+ * $Date: 2009-03-04 08:37:27 -0500 (Wed, 04 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3221 2009-03-04 04:53:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3222 2009-03-04 13:37:27Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9900,25 +9900,34 @@ void idAI::GetUp()
 void idAI::LayDown()
 {
 	idStr waitState(WaitState());
-	if (waitState == "sit_down" || waitState == "lay_down")
+	if (waitState == "lay_down")
 	{
 		return;
 	}
 	CallScriptFunctionArgs("Lay_Down", true, 0, "e", this);
 	SetWaitState("lay_down");
 
+	// Reduce hearing and tactile acuity by 50%
+	// TODO: use spawn args
+	SetAcuity("aud", GetAcuity("aud") * 0.5);
+	SetAcuity("tact", GetAcuity("tact") * 0.5);
 }
 
 void idAI::GetUpFromLyingDown()
 {
 	idStr waitState(WaitState());
-	if (waitState == "get_up" || waitState == "get_up_from_lying_down")
+	if (waitState == "get_up_from_lying_down")
 	{
 		return;
 	}
 
 	CallScriptFunctionArgs("Get_Up_From_Lying", true, 0, "e", this);
 	SetWaitState("get_up_from_lying_down");
+
+	// Reset hearing and tactile acuity
+	SetAcuity("aud", GetAcuity("aud") * 2);
+	SetAcuity("tact", GetAcuity("tact") * 2);
+
 }
 
 
