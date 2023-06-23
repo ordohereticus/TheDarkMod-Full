@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2863 $
- * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2883 $
+ * $Date: 2008-09-24 04:55:15 -0400 (Wed, 24 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 2883 2008-09-24 08:55:15Z ishtvan $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -133,10 +133,13 @@ void SearchingState::Init(idAI* owner)
 	if (!owner->HasSeenEvidence())
 	{
 		owner->SheathWeapon();
+		owner->UpdateAttachmentContents(false);
 	}
-
-	// Let the AI update their weapons (make them solid)
-	owner->UpdateAttachmentContents(true);
+	else
+	{
+		// Let the AI update their weapons (make them solid)
+		owner->UpdateAttachmentContents(true);
+	}
 }
 
 void SearchingState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSystem)

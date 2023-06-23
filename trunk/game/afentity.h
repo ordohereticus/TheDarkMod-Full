@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2879 $
- * $Date: 2008-09-23 03:56:39 -0400 (Tue, 23 Sep 2008) $
+ * $Revision: 2883 $
+ * $Date: 2008-09-24 04:55:15 -0400 (Wed, 24 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -163,7 +163,10 @@ typedef struct SAddedEnt_s
 
 	idStr AddedToBody; // original body we added on to
 
-	int contents; // original clipmodel contents
+	int entContents; // original entity clipmodel contents
+	int entClipMask; // original entity clipmask
+	int bodyContents; // AF body contents (for saving/restoring)
+	int bodyClipMask; // AF body clipmask (for saving/restoring)
 } SAddedEnt;
 
 
