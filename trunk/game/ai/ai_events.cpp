@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2324 $
- * $Date: 2008-05-14 00:48:31 -0400 (Wed, 14 May 2008) $
+ * $Revision: 2359 $
+ * $Date: 2008-05-17 04:40:29 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2324 2008-05-14 04:48:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2359 2008-05-17 08:40:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3286,7 +3286,10 @@ void idAI::destroyCurrentHidingSpotSearch()
 	m_hidingSpots.clear();
 
 	// greebo: Clear the initial alert position
-	GetMemory().alertSearchCenter = idVec3(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY);
+	if (mind != NULL)
+	{
+		mind->GetMemory().alertSearchCenter = idVec3(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY);
+	}
 }
 
 //-----------------------------------------------------------------------------------------------------
