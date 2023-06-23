@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2476 $
- * $Date: 2008-06-14 03:21:32 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2477 $
+ * $Date: 2008-06-14 03:24:11 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2476 2008-06-14 07:21:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2477 2008-06-14 07:24:11Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6984,17 +6984,15 @@ void idEntity::UpdateFrob(void)
 
 void idEntity::FrobHighlight( bool bVal )
 {
-	idEntity *ent = NULL;
-
 	// Don't do anything if we are already in the desired state
-	if(bVal == m_bFrobHighlightState)
-		goto Quit;
+	if (bVal == m_bFrobHighlightState)
+		return;
 
 	// Stop flooding the frob peers if we've already been updated this frame
 	// NOTE: A bVal of true overrides a bVal of false in the same frame
 	// focus can shifts to one frob peer to another in one frame (one will flood a false and one will flood a true)
 	if( m_FrobPeerFloodFrame == gameLocal.framenum && !bVal )
-		goto Quit;
+		return;
 
 	m_bFrobHighlightState = bVal;
 
@@ -7009,16 +7007,13 @@ void idEntity::FrobHighlight( bool bVal )
 		if( m_FrobPeers[i].IsEmpty() )
 			continue;
 
-		ent = gameLocal.FindEntity( m_FrobPeers[i].c_str() );
+		idEntity* ent = gameLocal.FindEntity( m_FrobPeers[i].c_str() );
 		// don't call it on self, would get stuck in a loop
-		if (ent != NULL && ent != this && ent->m_bFrobHighlightState != bVal)
+		if (ent != NULL && ent != this)
 			ent->FrobHighlight( bVal );
 	}
 
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Entity [%s] is highlighted\r", name.c_str());
-
-Quit:
-	return;
 }
 
 void idEntity::UpdateFrobDisplay( void )
