@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3003 $
- * $Date: 2008-11-09 03:15:11 -0500 (Sun, 09 Nov 2008) $
+ * $Revision: 3017 $
+ * $Date: 2008-11-12 10:50:06 -0500 (Wed, 12 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,8 +16,6 @@
 #define TDM_LOOT_SCRIPTOBJECT			"loot_gui"
 #define TDM_DUMMY_ITEM					"dummy"
 #define TDM_INVENTORY_DROPSCRIPT		"inventoryDrop"
-#define TDM_CATEGORY_AMMO				"ammo"
-#define TDM_INVENTORY_AMMO_PREFIX		"inv_ammo_"
 
  /* DESCRIPTION: This file contains the inventory handling for TDM. The inventory 
  * has nothing in common with the original idInventory and is totally independent

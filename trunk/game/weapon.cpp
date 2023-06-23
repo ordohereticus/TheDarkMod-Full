@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3009 $
- * $Date: 2008-11-10 15:40:09 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3017 $
+ * $Date: 2008-11-12 10:50:06 -0500 (Wed, 12 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 3009 2008-11-10 20:40:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 3017 2008-11-12 15:50:06Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -809,7 +809,7 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 
 	ammoRequired		= weaponDef->dict.GetInt( "ammo_required" );
 	
-	idStr ammoDefName = weaponDef->dict.GetString("ammo");
+	idStr ammoDefName = weaponDef->dict.GetString("def_ammo");
 
 	if (ammoDefName.IsEmpty() && weaponDef->dict.GetBool("ammo_required"))
 	{
