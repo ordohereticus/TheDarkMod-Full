@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2791 $
- * $Date: 2008-09-01 15:11:12 -0400 (Mon, 01 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2797 $
+ * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -413,7 +413,7 @@ protected:
 	* TestKnockoutBlow, only defined in derived classes
 	* Returns true if going from conscious to unconscious
 	**/
-	virtual bool TestKnockoutBlow( idEntity* attacker, idVec3 dir, trace_t *tr, bool bIsPowerBlow ) {return false;} ;
+	virtual bool TestKnockoutBlow( idEntity* attacker, idVec3 dir, trace_t *tr, int location, bool bIsPowerBlow ) {return false;} ;
 
 	/**
 	 * greebo: Plays the footstep sound according to the current movement type.

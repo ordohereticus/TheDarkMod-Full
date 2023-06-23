@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2791 $
- * $Date: 2008-09-01 15:11:12 -0400 (Mon, 01 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2797 $
+ * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2791 2008-09-01 19:11:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2797 2008-09-03 05:15:28Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2649,9 +2649,12 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		
 		if( StruckBody != NULL )
 		{
+			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Struck body %s\r",StruckBody->GetName().c_str());
 			idEntity* reroute = StruckBody->GetRerouteEnt();
 			if (reroute != NULL) 
 			{
+				DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Rerouting damage from the AF of entity %s to bound entity %s\r",name.c_str(), reroute->name.c_str());
+				// TODO: Technically location is wrong here, it's a joint that's not on the reroute entity (not sure if it will matter)
 				reroute->Damage( inflictor, attacker, dir, damageDefName, damageScale, location, collision );
 				return;
 			}
@@ -2695,7 +2698,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	
 	if( (bKO || bKOPowerBlow) && collision )
 	{
-		if( TestKnockoutBlow( attacker, dir, collision, bKOPowerBlow ) )
+		if( TestKnockoutBlow( attacker, dir, collision, location, bKOPowerBlow ) )
 		{
 			// For now, first KO blow does no health damage
 			damage = 0;

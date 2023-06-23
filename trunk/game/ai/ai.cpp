@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2794 $
- * $Date: 2008-09-02 18:28:18 -0400 (Tue, 02 Sep 2008) $
+ * $Revision: 2797 $
+ * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2794 2008-09-02 22:28:18Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2797 2008-09-03 05:15:28Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8475,7 +8475,7 @@ idAI::TestKnockoutBlow
 =====================
 */
 
-bool idAI::TestKnockoutBlow( idEntity* attacker, idVec3 dir, trace_t *tr, bool bIsPowerBlow )
+bool idAI::TestKnockoutBlow( idEntity* attacker, idVec3 dir, trace_t *tr, int location, bool bIsPowerBlow )
 {
 	bool bReturnVal(false);
 	float MinDotVert, MinDotHoriz, lenDelta, lenDeltaH;
@@ -8494,9 +8494,9 @@ bool idAI::TestKnockoutBlow( idEntity* attacker, idVec3 dir, trace_t *tr, bool b
 		goto Quit;
 	}
 
-	LocationName = GetDamageGroup( CLIPMODEL_ID_TO_JOINT_HANDLE(tr->c.id) );
+	LocationName = GetDamageGroup( location );
 
-	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s hit with KO object in joint %d corresponding to damage group %s\r", name.c_str(), CLIPMODEL_ID_TO_JOINT_HANDLE(tr->c.id), LocationName.c_str());
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s hit with KO object in joint %d corresponding to damage group %s\r", name.c_str(), location, LocationName.c_str());
 
 	// check if we're hitting the right zone (usually the head)
 	if( strcmp(LocationName.c_str(), m_KoZone.c_str()) != 0 )
