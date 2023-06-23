@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2877 $
- * $Date: 2008-09-22 04:48:12 -0400 (Mon, 22 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2884 $
+ * $Date: 2008-09-24 11:23:00 -0400 (Wed, 24 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2877 2008-09-22 08:48:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2884 2008-09-24 15:23:00Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -412,6 +412,7 @@ idAI::idAI()
 	anim_turn_amount	= 0.0f;
 	anim_turn_angles	= 0.0f;
 	reachedpos_bbox_expansion = 0.0f;
+	aas_reachability_z_tolerance = 75;
 	fly_offset			= 0;
 	fly_seek_scale		= 1.0f;
 	fly_roll_scale		= 0.0f;
@@ -615,6 +616,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat( anim_turn_angles );
 
 	savefile->WriteFloat(reachedpos_bbox_expansion);
+	savefile->WriteFloat(aas_reachability_z_tolerance);
 
 	savefile->WriteStaticObject( physicsObj );
 
@@ -889,6 +891,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( anim_turn_angles );
 
 	savefile->ReadFloat(reachedpos_bbox_expansion);
+	savefile->ReadFloat(aas_reachability_z_tolerance);
 
 	savefile->ReadStaticObject( physicsObj );
 
@@ -1221,6 +1224,7 @@ void idAI::Spawn( void )
 	spawnArgs.GetFloat( "turn_rate",			"360",		turnRate );
 
 	reachedpos_bbox_expansion = spawnArgs.GetFloat("reachedpos_bbox_expansion", "0");
+	aas_reachability_z_tolerance = spawnArgs.GetFloat("aas_reachability_z_tolerance", "75");
 
 	spawnArgs.GetBool( "talks",					"0",		talks );
 
@@ -2403,7 +2407,7 @@ bool idAI::PathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int g
 
 	idBounds bounds = GetPhysics()->GetBounds();
 
-	if (height > bounds[1][2] + melee_range) {
+	if (height > bounds[1][2] + aas_reachability_z_tolerance) {
 		goalAreaNum = 0;
 		return false;
 	}

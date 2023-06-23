@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2863 $
- * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
+ * $Revision: 2884 $
+ * $Date: 2008-09-24 11:23:00 -0400 (Wed, 24 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -580,6 +580,10 @@ protected:
 
 	// This expands the AABB a bit when the AI is checking for reached positions.
 	float					reachedpos_bbox_expansion;
+
+	// greebo: Defines the maximum vertical tolerance within wich a point above an AAS area is still considered reachable.
+	// This is used by PathToGoal to judge whether an area is reachable or not.
+	float					aas_reachability_z_tolerance;
 
 	// physics
 	idPhysics_Monster		physicsObj;
