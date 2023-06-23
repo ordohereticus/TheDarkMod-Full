@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2715 $
- * $Date: 2008-08-02 23:09:43 -0400 (Sat, 02 Aug 2008) $
+ * $Revision: 2858 $
+ * $Date: 2008-09-18 04:02:41 -0400 (Thu, 18 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 2715 2008-08-03 03:09:43Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 2858 2008-09-18 08:02:41Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -7929,19 +7929,24 @@ void idPhysics_AF::SetOrigin( const idVec3 &newOrigin, int id ) {
 idPhysics_AF::SetAxis
 ================
 */
-void idPhysics_AF::SetAxis( const idMat3 &newAxis, int id ) {
+void idPhysics_AF::SetAxis( const idMat3 &newAxis, int id ) 
+{
 	idMat3 axis;
-	idRotation rotation;
 
-	if ( masterBody ) {
-		axis = bodies[0]->current->worldAxis.Transpose() * ( newAxis * masterBody->current->worldAxis );
-	} else {
-		axis = bodies[0]->current->worldAxis.Transpose() * newAxis;
+	if ( masterBody ) 
+		axis = newAxis * masterBody->current->worldAxis;
+	else
+		axis = newAxis;
+
+	// ishtvan: Floating point error when newAxis was same as current axis
+	// was causing matrices to become un-normalized and stretch the AF
+	if( !axis.Compare( bodies[0]->current->worldAxis, 0.00001f) )
+	{
+		axis = bodies[0]->current->worldAxis.Transpose() * axis;
+		idRotation rotation = axis.ToRotation();
+		rotation.SetOrigin( bodies[0]->current->worldOrigin );
+		Rotate( rotation );
 	}
-	rotation = axis.ToRotation();
-	rotation.SetOrigin( bodies[0]->current->worldOrigin );
-
-	Rotate( rotation );
 }
 
 /*
