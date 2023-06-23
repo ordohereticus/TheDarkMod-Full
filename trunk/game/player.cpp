@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2817 $
- * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Revision: 2826 $
+ * $Date: 2008-09-13 09:53:52 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2826 2008-09-13 13:53:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1084,7 +1084,7 @@ void idPlayer::SetupInventory()
 	// We set the filter to ignore the weapon category, since this will be
 	// handled by the weapon cursor. We don't want the weapons to show up
 	// in the weapon slot AND in the inventory at the same time.
-	crsr->SetCategoryIgnored(TDM_PLAYER_WEAPON_CATEGORY);
+	crsr->AddCategoryIgnored(TDM_PLAYER_WEAPON_CATEGORY);
 
 	// The player always gets a dumyyentry (so the player can have an empty space if he 
 	// chooses to not see the inventory all the time.
