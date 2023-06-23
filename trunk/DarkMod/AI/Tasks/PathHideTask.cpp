@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2829 $
- * $Date: 2008-09-13 14:08:37 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 3184 $
+ * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathHideTask.cpp 2829 2008-09-13 18:08:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathHideTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -67,7 +67,7 @@ bool PathHideTask::Perform(Subsystem& subsystem)
 		owner->ActivateTargets(owner);
 
 		// Store the new path entity into the AI's mind
-		idPathCorner* next = idPathCorner::RandomPath(path, NULL);
+		idPathCorner* next = idPathCorner::RandomPath(path, NULL, owner);
 		owner->GetMind()->GetMemory().currentPath = next;
 
 		// Move is done, fall back to PatrolTask

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3184 $
+ * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -1038,7 +1038,7 @@ idAI::Event_RandomPath
 void idAI::Event_RandomPath( void ) {
 	idPathCorner *path;
 
-	path = idPathCorner::RandomPath( this, NULL );
+	path = idPathCorner::RandomPath( this, NULL, NULL );
 	idThread::ReturnEntity( path );
 }
 

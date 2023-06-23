@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3122 $
- * $Date: 2009-01-06 12:59:54 -0500 (Tue, 06 Jan 2009) $
- * $Author: greebo $
+ * $Revision: 3184 $
+ * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3122 2009-01-06 17:59:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -94,7 +94,7 @@ bool PathLookatTask::Perform(Subsystem& subsystem)
 			owner->ActivateTargets(owner);
 
 			// Store the new path entity into the AI's mind
-			idPathCorner* next = idPathCorner::RandomPath(path, NULL);
+			idPathCorner* next = idPathCorner::RandomPath(path, NULL, owner);
 			owner->GetMind()->GetMemory().currentPath = next;
 			
 			return true; // finish this task
@@ -117,7 +117,7 @@ bool PathLookatTask::Perform(Subsystem& subsystem)
 	owner->ActivateTargets(owner);
 
 	// Store the new path entity into the AI's mind
-	idPathCorner* next = idPathCorner::RandomPath(path, NULL);
+	idPathCorner* next = idPathCorner::RandomPath(path, NULL, owner);
 	owner->GetMind()->GetMemory().currentPath = next;
 	
 	return true; // finish this task

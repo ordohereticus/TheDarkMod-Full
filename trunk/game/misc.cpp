@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3093 $
- * $Date: 2008-12-29 03:58:20 -0500 (Mon, 29 Dec 2008) $
+ * $Revision: 3184 $
+ * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3093 2008-12-29 08:58:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -369,7 +369,7 @@ void idPathCorner::DrawDebugInfo( void ) {
 idPathCorner::RandomPath
 ============
 */
-idPathCorner *idPathCorner::RandomPath( const idEntity *source, const idEntity *ignore ) {
+idPathCorner *idPathCorner::RandomPath( const idEntity *source, const idEntity *ignore, idAI* owner ) {
 	idPathCorner *path[ MAX_GENTITIES ];
 
 	int num(0);
@@ -379,9 +379,22 @@ idPathCorner *idPathCorner::RandomPath( const idEntity *source, const idEntity *
 
 	idEntity* candidate(NULL);
 
-	for(int i = 0; i < source->targets.Num(); i++ ) {
+	for (int i = 0; i < source->targets.Num(); i++ ) {
 		idEntity* ent = source->targets[ i ].GetEntity();
-		if ( ent && ( ent != ignore ) && ent->IsType( idPathCorner::Type ) ) {
+		if ( ent && ( ent != ignore ) && ent->IsType( idPathCorner::Type ) ) 
+		{
+
+			if (owner)
+			{
+				if (owner->HasSeenEvidence() && ent->spawnArgs.GetBool("idle_only", "0"))
+				{
+					continue;
+				}
+				else if (!owner->HasSeenEvidence() && ent->spawnArgs.GetBool("alert_idle_only", "0"))
+				{
+					continue;
+				}
+			}
 
 			float chance = ent->spawnArgs.GetFloat("chance", "0");
 			if (chance)
@@ -440,7 +453,7 @@ idPathCorner::Event_RandomPath
 void idPathCorner::Event_RandomPath( void ) {
 	idPathCorner *path;
 
-	path = RandomPath( this, NULL );
+	path = RandomPath( this, NULL, NULL );
 	idThread::ReturnEntity( path );
 }
 

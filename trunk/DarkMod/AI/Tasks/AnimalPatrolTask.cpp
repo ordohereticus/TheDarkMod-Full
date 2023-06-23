@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2459 $
- * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 3184 $
+ * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
 
 #include "AnimalPatrolTask.h"
 #include "../Memory.h"
@@ -53,7 +53,7 @@ void AnimalPatrolTask::Init(idAI* owner, Subsystem& subsystem)
 		{
 			// Path not yet initialised, get it afresh
 			// Find the next path associated with the owning AI
-			path = idPathCorner::RandomPath(owner, NULL);
+			path = idPathCorner::RandomPath(owner, NULL, owner);
 		}
 
 		// Store the path entity back into the mind, it might have changed
@@ -188,7 +188,7 @@ void AnimalPatrolTask::movingToNextPathCorner(idAI* owner)
 		idPathCorner* curCorner = owner->GetMemory().currentPath.GetEntity();
 		if (curCorner != NULL)
 		{
-			owner->GetMemory().currentPath = idPathCorner::RandomPath(curCorner, NULL);
+			owner->GetMemory().currentPath = idPathCorner::RandomPath(curCorner, NULL, owner);
 		}
 
 		if (owner->AI_DEST_UNREACHABLE) 

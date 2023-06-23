@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2274 $
- * $Date: 2008-05-08 14:40:11 -0400 (Thu, 08 May 2008) $
- * $Author: greebo $
+ * $Revision: 3184 $
+ * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -118,7 +118,7 @@ public:
 
 	static void			DrawDebugInfo( void );
 
-	static idPathCorner *RandomPath( const idEntity *source, const idEntity *ignore );
+	static idPathCorner *RandomPath( const idEntity *source, const idEntity *ignore, idAI* owner );
 
 private:
 	void				Event_RandomPath( void );

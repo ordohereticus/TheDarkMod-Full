@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3091 $
- * $Date: 2008-12-28 14:03:25 -0500 (Sun, 28 Dec 2008) $
+ * $Revision: 3184 $
+ * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3091 2008-12-28 19:03:25Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -54,7 +54,7 @@ void PatrolTask::Init(idAI* owner, Subsystem& subsystem)
 		{
 			// Path not yet initialised, get it afresh
 			// Find the next path associated with the owning AI
-			path = idPathCorner::RandomPath(owner, NULL);
+			path = idPathCorner::RandomPath(owner, NULL, owner);
 		}
 
 		// If the path is still NULL, there is nothing setup, quit this task
@@ -189,7 +189,7 @@ bool PatrolTask::Perform(Subsystem& subsystem)
 		return true;
 	}
 	
-	idPathCorner* next = idPathCorner::RandomPath(path, NULL);
+	idPathCorner* next = idPathCorner::RandomPath(path, NULL, _owner.GetEntity());
 
 	if (next == NULL)
 	{
