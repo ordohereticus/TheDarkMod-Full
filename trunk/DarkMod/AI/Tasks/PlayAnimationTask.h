@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2691 $
- * $Date: 2008-07-18 10:35:43 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2693 $
+ * $Date: 2008-07-18 12:28:56 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -26,12 +26,17 @@ class PlayAnimationTask :
 {
 	idStr _animName;
 
+	int _blendFrames;
+
+	bool _playCycle;
+
 	// Private constructor
 	PlayAnimationTask();
 
 public:
 	// Pass the animation name directly here (like "idle_armwipe")
-	PlayAnimationTask(const idStr& animName);
+	// Set playCycle to TRUE if this animation task should play continuously
+	PlayAnimationTask(const idStr& animName, int blendFrames, bool playCycle = false);
 
 	// Get the name of this task
 	virtual const idStr& GetName() const;
@@ -49,6 +54,10 @@ public:
 
 	// Creates a new Instance of this task
 	static PlayAnimationTaskPtr CreateInstance();
+
+private:
+	// Private helper
+	void StartAnim(idAI* owner);
 };
 
 } // namespace ai
