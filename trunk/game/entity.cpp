@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3211 $
- * $Date: 2009-02-13 12:49:34 -0500 (Fri, 13 Feb 2009) $
+ * $Revision: 3214 $
+ * $Date: 2009-02-16 09:07:38 -0500 (Mon, 16 Feb 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3211 2009-02-13 17:49:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3214 2009-02-16 14:07:38Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8349,7 +8349,7 @@ void idEntity::Attach( idEntity *ent, const char *PosName, const char *AttName )
 	attach.name = AttName;
 
 	// Update name->m_Attachment index mapping
-	int index = m_Attachments.Num();
+	int index = m_Attachments.Num() - 1;
 	if( AttName != NULL )
 		m_AttNameMap.insert(AttNameMap::value_type(AttName, index));
 }
@@ -9765,14 +9765,15 @@ void idEntity::ParseAttachments( void )
 
 			if ( ent != NULL)
 			{
-				gameLocal.Printf(" Attaching at pos %s\n", AttNameValue.c_str() );
 				if( spawnArgs.FindKey(PosKey.c_str()) )
 				{
 					Attach( ent, spawnArgs.GetString(PosKey.c_str()), AttNameValue.c_str() );
+					//gameLocal.Printf(" Attaching '%s' at pos '%s'\n", AttNameValue.c_str(), spawnArgs.GetString(PosKey.c_str()) );
 				}
 				else
 				{
 					Attach( ent, NULL, AttNameValue.c_str() );
+					//gameLocal.Printf(" Attaching '%s' at pos 'Unknown'\n", AttNameValue.c_str() );
 				}
 			}
 			else
