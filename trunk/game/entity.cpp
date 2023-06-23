@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2897 $
- * $Date: 2008-09-27 04:05:44 -0400 (Sat, 27 Sep 2008) $
+ * $Revision: 2898 $
+ * $Date: 2008-09-27 04:46:55 -0400 (Sat, 27 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2897 2008-09-27 08:05:44Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2898 2008-09-27 08:46:55Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -921,14 +921,18 @@ void idEntity::LoadModels( void ) {
         idClipModel::CheckModel( brokenModel );
 
 		// since we can be damaged, setup some physics
-
+/*
+* Ishtvan: Commented out, this is handled separately and this call can interfere with other places contents are set
+*
 		GetPhysics()->SetContents( spawnArgs.GetBool( "nonsolid" ) ? 0 : CONTENTS_SOLID );
 	    // SR CONTENTS_RESONSE FIX
 		if( m_StimResponseColl->HasResponse() ) {
 			GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
 		}
+**/
 
 	} // end of loading of broken model(s) and their CM
+
 
 }
 
@@ -1626,10 +1630,13 @@ void idEntity::BecomeBroken( idEntity *activator )
 				// tels: should not be nec.
 				//GetPhysics()->SetContents( CONTENTS_SOLID );
 				// SR CONTENTS_RESONSE FIX
+			/**
+			* Ishtvan: shouldn't have to do this again here
 				if( m_StimResponseColl->HasResponse() )
 				{
 					GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
 				}
+			**/
 			}
 		}
 	} 
