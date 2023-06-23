@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2627 $
- * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
+ * $Revision: 2647 $
+ * $Date: 2008-07-13 08:01:10 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2627 2008-07-11 16:54:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2647 2008-07-13 12:01:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -37,6 +37,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 2627 2008-07-11 
 #include "../DarkMod/ModMenu.h"
 #include "../DarkMod/renderpipe.h"
 #include "../DarkMod/TimerManager.h"
+#include "../DarkMod/AI/Conversation/ConversationSystem.h"
 
 #include "IL/config.h"
 #include "IL/il.h"
@@ -259,12 +260,16 @@ void idGameLocal::Clear( void )
 	m_DifficultyManager.Clear();
 
 	m_AreaManager.Clear();
+	// Allocate a new ConversationSystem
+	m_ConversationSystem = ai::ConversationSystemPtr(new ai::ConversationSystem);
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Clear();
 #endif
 
 	m_EscapePointManager = CEscapePointManager::Instance();
+	m_EscapePointManager->Clear();
+
 	m_Interleave = 0;
 	m_LightgemSurface = NULL;
 	m_LightgemShotSpot = 0;
@@ -495,6 +500,9 @@ void idGameLocal::Shutdown( void ) {
 	// cleared in MapShutdown() (needed for mission statistics)
 	m_MissionData->Clear();
 
+	// Destroy the conversation system
+	m_ConversationSystem = ai::ConversationSystemPtr();
+
 	aasList.DeleteContents( true );
 	aasNames.Clear();
 
@@ -621,6 +629,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	m_GamePlayTimer.Save(&savegame);
 	m_AreaManager.Save(&savegame);
+	m_ConversationSystem->Save(&savegame);
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Save(&savegame);
@@ -1553,6 +1562,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_GamePlayTimer.Restore(&savegame);
 	m_GamePlayTimer.SetEnabled(false);
 	m_AreaManager.Restore(&savegame);
+	m_ConversationSystem->Restore(&savegame);
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Restore(&savegame);
