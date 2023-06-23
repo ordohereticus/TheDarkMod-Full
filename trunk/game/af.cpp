@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2780 $
- * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2866 $
+ * $Date: 2008-09-20 18:21:58 -0400 (Sat, 20 Sep 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 2780 2008-08-31 09:50:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 2866 2008-09-20 22:21:58Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -394,7 +394,9 @@ idAF::JointForBody
 */
 jointHandle_t idAF::JointForBody( int body )
 {
-	jointHandle_t joint;
+	/* tels: if no jointBody[i] == body, this
+		 will return -1 */
+	jointHandle_t joint = (jointHandle_t)-1;
 	for( int i=0; i < jointBody.Num(); i++ )
 	{
 		if( jointBody[i] == body )
