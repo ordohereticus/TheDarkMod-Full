@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2577 $
+ * $Date: 2008-06-26 15:58:46 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -17,13 +17,14 @@
  * are declared protected so that only the collection can actually create
  * destroy them.
  */
-class CStim : public CStimResponse {
-	
+class CStim : 
+	public CStimResponse
+{
 	friend class CStimResponseCollection;
 
 protected:
 	CStim(idEntity *, int Type, int uniqueId);
-	virtual ~CStim(void);
+	virtual ~CStim();
 
 public:
 	virtual void Save(idSaveGame *savefile) const;
@@ -112,6 +113,12 @@ public:
 	 * Radius defines the radius the action can reach out
 	 */
 	float				m_Radius;
+
+	/** 
+	 * greebo: The final radius the stim is reaching after its duration time.
+	 * A negative value is considered invalid (i.e. final radius is not set).
+	 */
+	float				m_RadiusFinal;
 
 	/**
 	* greebo: The stim bounds of this stim (can be used as alternative to

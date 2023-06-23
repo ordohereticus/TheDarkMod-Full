@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2577 $
+ * $Date: 2008-06-26 15:58:46 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Stim.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Stim.cpp 2577 2008-06-26 19:58:46Z greebo $", init_version);
 
 #include "Stim.h"
 
@@ -27,9 +27,10 @@ CStim::CStim(idEntity *e, int Type, int uniqueId)
 	m_CollisionEnts.Clear();
 	m_TimeInterleave = 0;
 	m_TimeInterleaveStamp = 0;
-	m_Radius = 0.0;
+	m_Radius = 0.0f;
+	m_RadiusFinal = -1.0f;
 	m_FallOffExponent = 0;
-	m_Magnitude = 0.0;
+	m_Magnitude = 0.0f;
 	m_MaxResponses = 0;
 	m_CurResponses = 0;
 	m_ApplyTimer = 0;
@@ -66,6 +67,7 @@ void CStim::Save(idSaveGame *savefile) const
 	savefile->WriteInt(m_TimeInterleaveStamp);
 	savefile->WriteInt(m_MaxFireCount);
 	savefile->WriteFloat(m_Radius);
+	savefile->WriteFloat(m_RadiusFinal);
 	savefile->WriteBounds(m_Bounds);
 	savefile->WriteVec3(m_Velocity);
 	savefile->WriteFloat(m_Magnitude);
@@ -100,6 +102,7 @@ void CStim::Restore(idRestoreGame *savefile)
 	savefile->ReadInt(m_TimeInterleaveStamp);
 	savefile->ReadInt(m_MaxFireCount);
 	savefile->ReadFloat(m_Radius);
+	savefile->ReadFloat(m_RadiusFinal);
 	savefile->ReadBounds(m_Bounds);
 	savefile->ReadVec3(m_Velocity);
 	savefile->ReadFloat(m_Magnitude);

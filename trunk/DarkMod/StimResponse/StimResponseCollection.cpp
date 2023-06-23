@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2576 $
- * $Date: 2008-06-26 15:36:09 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2577 $
+ * $Date: 2008-06-26 15:58:46 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponseCollection.cpp 2576 2008-06-26 19:36:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponseCollection.cpp 2577 2008-06-26 19:58:46Z greebo $", init_version);
 
 #include "StimResponseCollection.h"
 #include "../AIComm_StimResponse.h"
@@ -467,7 +467,8 @@ bool CStimResponseCollection::ParseSpawnArg(const idDict *args, idEntity *Owner,
 	// A stim also may have a radius
 	if(sr_class == 'S')
 	{
-		stim->m_Radius = args->GetFloat(va("sr_radius_%u", index), "0.0");
+		stim->m_Radius = args->GetFloat(va("sr_radius_%u", index), "0");
+		stim->m_RadiusFinal = args->GetFloat(va("sr_radius_final_%u", index), "-1");
 
 		stim->m_FallOffExponent = args->GetInt(va("sr_falloffexponent_%u", index), "0");
 		stim->m_bUseEntBounds = args->GetBool(va("sr_use_bounds_%u", index), "0");
