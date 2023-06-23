@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2834 $
- * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2836 $
+ * $Date: 2008-09-14 02:37:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,9 +13,7 @@
 
 class CInventoryCursor
 {
-	friend class CInventory;
-
-protected:
+public:
 	/**
 	 * greebo: Construct this cursor with a pointer to the parent inventory and its ID.
 	 */
@@ -24,7 +22,6 @@ protected:
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
 
-public:
 	inline CInventory*		Inventory() { return m_Inventory; };
 	/**
 	 * Retrieve the currently selected item.

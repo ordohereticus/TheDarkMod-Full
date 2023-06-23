@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2835 $
- * $Date: 2008-09-14 02:08:58 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2836 $
+ * $Date: 2008-09-14 02:37:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 2835 2008-09-14 06:08:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 2836 2008-09-14 06:37:20Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -193,7 +193,7 @@ CInventoryCategoryPtr CInventory::GetCategory(const idStr& categoryName, int* in
 	// Traverse the categories and find the one matching <CategoryName>
 	for (int i = 0; i < m_Category.Num(); i++)
 	{
-		if (m_Category[i]->m_Name == categoryName)
+		if (m_Category[i]->GetName() == categoryName)
 		{
 			if (index != NULL)
 			{

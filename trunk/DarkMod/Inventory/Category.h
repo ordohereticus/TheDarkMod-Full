@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2834 $
- * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2836 $
+ * $Date: 2008-09-14 02:37:20 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,18 +18,16 @@
  */
 class CInventoryCategory
 {
-	friend class CInventory;
-
-private:
-	CInventoryCategory(CInventory* inventory, const idStr& name = "");
-
 public:
+	CInventoryCategory(CInventory* inventory, const idStr& name = "");
 	~CInventoryCategory();
 
-	inline const idStr&	GetName() { return m_Name; }
-	inline void			SetInventory(CInventory *Inventory) { m_Inventory = Inventory; };
+	const idStr&			GetName() { return m_Name; }
 
-	inline idEntity	*		GetOwner() { return m_Owner.GetEntity(); };
+	void					SetInventory(CInventory *Inventory) { m_Inventory = Inventory; };
+
+	idEntity*				GetOwner() { return m_Owner.GetEntity(); };
+	void					SetOwner(idEntity *Owner);
 
 	// Look up an InventoryItem by its ItemId (NOT equivalent to GetItem(const idStr& Name) btw).
 	CInventoryItemPtr		GetItemById(const idStr& id);
@@ -65,9 +63,6 @@ public:
 
 	void					Save(idSaveGame *savefile) const;
 	void					Restore(idRestoreGame *savefile);
-
-private:
-	void					SetOwner(idEntity *Owner);
 
 private:
 	CInventory*				m_Inventory;			// The inventory this group belongs to.
