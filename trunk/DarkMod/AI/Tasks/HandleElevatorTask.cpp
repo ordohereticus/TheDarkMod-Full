@@ -2,16 +2,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2344 $
- * $Date: 2008-05-15 14:57:07 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2345 $
+ * $Date: 2008-05-15 15:12:48 -0400 (Thu, 15 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2344 2008-05-15 18:57:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2345 2008-05-15 19:12:48Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -67,7 +67,7 @@ void HandleElevatorTask::Init(idAI* owner, Subsystem& subsystem)
 	}
 
 	// Start moving towards the elevator station
-	owner->MoveToPosition(pos->GetPhysics()->GetOrigin());
+	MoveToPositionEntity(owner, pos);
 	_state = EMovingTowardsStation;
 }
 
@@ -115,7 +115,7 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 				if (elevator->IsAtPosition(pos))
 				{
 					// TODO: elevator is at the desired position, get onto it
-					// owner->MoveToPosition();
+					MoveToPositionEntity(owner, pos);
 					_state = EStateMoveOntoElevator;
 					// TODO: set elevator user
 				}
@@ -180,7 +180,7 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 
 		case EStateMoveOntoElevator:
 			// TODO: we're done moving onto it
-			if (0)
+			if (owner->AI_MOVE_DONE)
 			{
 				owner->MoveToEntity(rideButton);
 				_state = EStateMovingToRideButton;

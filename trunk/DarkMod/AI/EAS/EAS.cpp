@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2345 $
+ * $Date: 2008-05-15 15:12:48 -0400 (Thu, 15 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 2345 2008-05-15 19:12:48Z angua $", init_version);
 
 #include "EAS.h"
 
@@ -610,27 +610,9 @@ bool tdmEAS::FindRouteToGoal(aasPath_t &path, int areaNum, const idVec3 &origin,
 	{
 		const RouteInfoPtr& route = *routes.begin();
 
-		assert(route->routeNodes.size() > 0);
-		const RouteNode& node = **route->routeNodes.begin();
+		// Notify the AI that it needs to use an elevator
+		actor->NeedToUseElevator(route);
 
-		switch (node.type)
-		{
-		case ACTION_WALK:
-			// Walking should already be covered by the AI's algorithm
-			break;
-		case ACTION_USE_ELEVATOR:
-			path.type = PATHTYPE_ELEVATOR;
-			path.moveAreaNum = node.toArea;
-			path.moveGoal = _aas->AreaCenter(node.toArea);
-			path.reachability = NULL;
-			path.secondaryGoal = _aas->AreaCenter(node.toArea);
-			// Notify the AI that it needs to use an elevator
-			actor->NeedToUseElevator(route);
-			return true;
-			break;
-		default:
-			break;
-		};
 	}
 
 	return false;
