@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3218 $
- * $Date: 2009-02-23 05:28:36 -0500 (Mon, 23 Feb 2009) $
+ * $Revision: 3219 $
+ * $Date: 2009-02-25 04:25:46 -0500 (Wed, 25 Feb 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -847,7 +847,7 @@ public:
 	* Returns NULL if no such named attachment exists on this entity,
 	* or on any entity attached to this entity.
 	**/
-	virtual idEntity *GetAttachmentRecursive( const char *AttName );
+	virtual idEntity *GetAttachmentFromTeam( const char *AttName );
 
 
 	/**
