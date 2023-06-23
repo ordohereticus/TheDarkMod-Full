@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2411 $
- * $Date: 2008-06-01 07:52:52 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2427 $
+ * $Date: 2008-06-02 15:09:41 -0400 (Mon, 02 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2411 2008-06-01 11:52:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2427 2008-06-02 19:09:41Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -61,7 +61,7 @@ CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_LockpickTimer,			CFrobDoor::LockpickTimerEvent)
 END_CLASS
 
-static char *sSampleTypeText[] = 
+static const char *sSampleTypeText[] = 
 {
 	"LPSOUND_INIT",					// Initial call (impulse has been triggered)
 	"LPSOUND_REPEAT",				// Call from the keyboardhandler for repeated presses
