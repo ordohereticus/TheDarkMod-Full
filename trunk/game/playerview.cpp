@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2489 $
- * $Date: 2008-06-14 13:13:04 -0400 (Sat, 14 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2503 $
+ * $Date: 2008-06-15 07:53:02 -0400 (Sun, 15 Jun 2008) $
+ * $Author: dram $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 2489 2008-06-14 17:13:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 2503 2008-06-15 11:53:02Z dram $", init_version);
 
 #include "game_local.h"
 
@@ -494,8 +494,8 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 			pot = MakePowerOfTwo( h );
 			shiftScale.y = (float)h / pot;
 
-			hackedView.shaderParms[4] = shiftScale.x;
-			hackedView.shaderParms[5] = shiftScale.y;
+			hackedView.shaderParms[6] = shiftScale.x;
+			hackedView.shaderParms[7] = shiftScale.y;
 		}
 
 		gameRenderWorld->RenderScene( &portalView );
