@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 3064 $
+ * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -46,7 +46,7 @@ public:
 	bool					IsFrobbed();
 
 	// 
-	virtual bool			CanBeUsedBy(const CInventoryItemPtr& item);					// Overrides idEntity::CanBeUsedBy
+	virtual bool			CanBeUsedBy(const CInventoryItemPtr& item, bool isFrobUse);					// Overrides idEntity::CanBeUsedBy
 	virtual bool			UseBy(EImpulseState impulseState, const CInventoryItemPtr& item);	// Overrides idEntity::UseBy
 
 	void					FrobAction(bool bMaster);

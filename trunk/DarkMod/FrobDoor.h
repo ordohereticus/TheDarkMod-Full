@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Revision: 3064 $
+ * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -82,7 +82,7 @@ public:
 	// Adds a door handle to this door. A door can have multiple handles
 	void					AddDoorhandle(CFrobDoorHandle* handle);
 
-	virtual bool			CanBeUsedBy(const CInventoryItemPtr& item);					// Overrides idEntity::CanBeUsedBy
+	virtual bool			CanBeUsedBy(const CInventoryItemPtr& item, bool isFrobUse);					// Overrides idEntity::CanBeUsedBy
 	virtual bool			UseBy(EImpulseState impulseState, const CInventoryItemPtr& item);	// Overrides idEntity::UseBy
 
 	/**

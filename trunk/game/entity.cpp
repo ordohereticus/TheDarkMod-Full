@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3061 $
- * $Date: 2008-11-22 17:59:17 -0500 (Sat, 22 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 3064 $
+ * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3061 2008-11-22 22:59:17Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3064 2008-11-27 09:39:07Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7499,12 +7499,12 @@ Quit:
 	return;
 }
 
-bool idEntity::CanBeUsedBy(const CInventoryItemPtr& item) 
+bool idEntity::CanBeUsedBy(const CInventoryItemPtr& item, bool isFrobUse) 
 {
-	return (item != NULL) ? CanBeUsedBy(item->GetItemEntity()) : false;
+	return (item != NULL) ? CanBeUsedBy(item->GetItemEntity(), isFrobUse) : false;
 }
 
-bool idEntity::CanBeUsedBy(idEntity* entity) 
+bool idEntity::CanBeUsedBy(idEntity* entity, bool isFrobUse) 
 {
 	if (entity == NULL) return false;
 

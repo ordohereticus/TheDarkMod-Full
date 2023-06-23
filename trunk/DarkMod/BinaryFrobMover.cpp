@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3055 $
- * $Date: 2008-11-21 15:12:27 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3064 $
+ * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3055 2008-11-21 20:12:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3064 2008-11-27 09:39:07Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -97,7 +97,7 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 	savefile->WriteVec3(m_OpenPos);
 	savefile->WriteVec3(m_OpenDir);
 
-	savefile->WriteString(m_CompletionScript.c_str());
+	savefile->WriteString(m_CompletionScript);
 
 	savefile->WriteBool(m_Rotating);
 	savefile->WriteBool(m_Translating);

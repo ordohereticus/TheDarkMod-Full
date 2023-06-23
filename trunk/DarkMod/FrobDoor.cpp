@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Revision: 3064 $
+ * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3064 2008-11-27 09:39:07Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -293,7 +293,7 @@ void CFrobDoor::PostSpawn()
 	// Let the base class do its stuff first
 	CBinaryFrobMover::PostSpawn();
 
-	// Locate the double door entity befor closing our portal
+	// Locate the double door entity before closing our portal
 	FindDoubleDoor();
 
 	// Wait until here for the first update of sound loss, in case a double door is open
@@ -559,7 +559,7 @@ void CFrobDoor::OnTeamBlocked(idEntity* blockedEntity, idEntity* blockingEntity)
 	CBinaryFrobMover::OnTeamBlocked(blockedEntity, blockingEntity);
 }
 
-bool CFrobDoor::CanBeUsedBy(const CInventoryItemPtr& item) 
+bool CFrobDoor::CanBeUsedBy(const CInventoryItemPtr& item, bool isFrobUse) 
 {
 	if (item == NULL) return false;
 
@@ -569,8 +569,16 @@ bool CFrobDoor::CanBeUsedBy(const CInventoryItemPtr& item)
 	const idStr& name = item->Category()->GetName();
 	if (name == "Keys")
 	{
-		// Keys can always be used on doors
-		return true;
+		// Keys can be used on doors
+		if (isFrobUse)
+		{
+			// For frob actions: only if the door is open and the keys are matching.
+			return IsLocked() && idEntity::CanBeUsedBy(item, isFrobUse);
+		}
+		else
+		{
+			return idEntity::CanBeUsedBy(item, isFrobUse);
+		}
 	}
 	else if (name == "Lockpicks")
 	{
@@ -578,7 +586,7 @@ bool CFrobDoor::CanBeUsedBy(const CInventoryItemPtr& item)
 		return IsLocked();
 	}
 
-	return idEntity::CanBeUsedBy(item);
+	return idEntity::CanBeUsedBy(item, isFrobUse);
 }
 
 bool CFrobDoor::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
@@ -597,7 +605,7 @@ bool CFrobDoor::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 	if (name == "Keys" && impulseState == EPressed) 
 	{
 		// Keys can be used on button PRESS event, let's see if the key matches
-		if (idEntity::CanBeUsedBy(itemEntity))
+		if (m_UsedBy.FindIndex(itemEntity->name) != -1)
 		{
 			// If we're locked or closed, just toggle the lock. 
 			if (IsLocked() || IsAtClosedPosition())
