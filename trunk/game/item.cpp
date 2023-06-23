@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3006 $
- * $Date: 2008-11-09 05:14:38 -0500 (Sun, 09 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3070 $
+ * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -18,14 +18,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 3006 2008-11-09 10:14:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/idAbsenceMarkerEntity.h"
+#include "../DarkMod/AbsenceMarker.h"
 
 /*
 ===============================================================================
@@ -412,7 +412,7 @@ bool idItem::GiveToPlayer( idPlayer *player )
 ================
 TDM: Darkmod spawns an absence marker entity
 ================
-*/
+
 bool idItem::spawnAbsenceMarkerEntity()
 {
 	const char* pstr_markerDefName = "atdm:absence_marker";
@@ -422,13 +422,13 @@ bool idItem::spawnAbsenceMarkerEntity()
 		idEntity *ent2;
 		gameLocal.SpawnEntityDef( *p_markerDef, &ent2, false );
 
-		if ( !ent2 || !ent2->IsType( idAbsenceMarkerEntity::Type ) ) 
+		if ( !ent2 || !ent2->IsType( AbsenceMarker::Type ) ) 
 		{
 			gameLocal.Error( "Failed to spawn absence marker entity" );
 			return false;
 		}
 
-		idAbsenceMarkerEntity* p_absenceMarker = static_cast<idAbsenceMarkerEntity*>( ent2 );
+		AbsenceMarker* p_absenceMarker = static_cast<AbsenceMarker*>( ent2 );
 
 		// The absence marker has been created
 		absenceEntityPtr = p_absenceMarker;
@@ -456,22 +456,22 @@ bool idItem::spawnAbsenceMarkerEntity()
 	return true;
 
 }
-
+*/
 /*
 ================
 TDM: Darkmod destroys an absence marker entity
 ================
-*/
+
 void idItem::destroyAbsenceMarkerEntity()
 {
 	if (absenceEntityPtr.IsValid())
 	{
-		idAbsenceMarkerEntity* p_absenceMarker = static_cast<idAbsenceMarkerEntity*>( absenceEntityPtr.GetEntity() );
+		AbsenceMarker* p_absenceMarker = static_cast<AbsenceMarker*>( absenceEntityPtr.GetEntity() );
 		delete p_absenceMarker;
 		absenceEntityPtr = NULL;
 	}
 }
-
+*/
 /*
 ================
 TDM: Darkmod checks if origin changed to create absence marker entity
@@ -497,7 +497,7 @@ void idItem::UpdateVisuals()
 		)
 	{
 		// Spawn an absence entity
-		spawnAbsenceMarkerEntity();
+		// spawnAbsenceMarkerEntity();
 
 	}
 	// End has been moved, should be noticed, no absence marker spawned yet
@@ -510,7 +510,7 @@ void idItem::UpdateVisuals()
 	) // End should be noticed, absence marker spawned, it was put back
 	{
 		// Destroy the absence marker entity
-		destroyAbsenceMarkerEntity();
+		// destroyAbsenceMarkerEntity();
 	}
 
 
@@ -553,7 +553,7 @@ bool idItem::Pickup( idPlayer *player )
 	}
 
 	// Spawn an absence marker entity
-	spawnAbsenceMarkerEntity();
+	// spawnAbsenceMarkerEntity();
 
 	float respawn = spawnArgs.GetFloat( "respawn" );
 	bool dropped = spawnArgs.GetBool( "dropped" );

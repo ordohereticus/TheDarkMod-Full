@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 3070 $
+ * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -57,14 +57,6 @@ public:
 	// TDM: SZ: UpdateVisuals is overridden to check if the object moved in case
 	// we have to spawn an absence entity
 	virtual void			UpdateVisuals( void );
-
-	// TDM: SZ: Spawns an absence marker entity that advertises, at the objects orgOrigin, 
-	// that the object is missing.
-	virtual bool spawnAbsenceMarkerEntity();
-
-	// TDM: SZ: Destroys the absence marker entity tied to this object. If there is none,
-	// nothing is done
-	virtual void destroyAbsenceMarkerEntity();
 
 	// This indicates which team owns the item (or thinks it does :P )
 	int ownerTeam;

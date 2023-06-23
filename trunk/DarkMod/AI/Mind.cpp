@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 3070 $
+ * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,14 +10,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Mind.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Mind.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
 
 #include "Mind.h"
 #include "States/IdleState.h"
 #include "Tasks/SingleBarkTask.h"
 #include "States/CombatState.h"
 #include "Library.h"
-#include "../idAbsenceMarkerEntity.h"
+#include "../AbsenceMarker.h"
 #include "../AIComm_Message.h"
 
 namespace ai

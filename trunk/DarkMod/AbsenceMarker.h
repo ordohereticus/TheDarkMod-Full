@@ -1,14 +1,14 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 3070 $
+ * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
-#ifndef ABSENCEMARKERENTITY_H
-#define ABSENCEMARKERENTITY_H
+#ifndef ABSENCEMARKER_H
+#define ABSENCEMARKER_H
 
 #pragma hdrstop
 
@@ -29,10 +29,10 @@
 * @copyright 2006 The Dark Mod team
 *
 */
-class idAbsenceMarkerEntity : public idEntity
+class CAbsenceMarker : public idEntity
 {
 public:
-	CLASS_PROTOTYPE( idAbsenceMarkerEntity );
+	CLASS_PROTOTYPE( CAbsenceMarker );
 
 	int ownerTeam;
 
@@ -51,8 +51,7 @@ protected:
 
 public:
 
-	idAbsenceMarkerEntity(void);
-	virtual ~idAbsenceMarkerEntity(void);
+	CAbsenceMarker(void);
 
 	// Save and restore
 	void					Save( idSaveGame *savefile ) const;
@@ -65,29 +64,7 @@ public:
 	* @param absetEntity idEntityPtr indicating the entity who's
 	*	absence we are marking.
 	*/
-	bool initAbsenceReference
-	(
-		const idEntityPtr<idEntity>& absentEntity,
-		idVec3 absentPosition,
-		idMat3 absentOrientation
-	);
-
-
-	/**
-	* These script events handle getting the spawnargs of the referenced object
-	*/
-	void Event_GetNextReferencedKey( const char *prefix, const char *lastMatch );
-	void Event_SetReferencedKey( const char *key, const char *value );
-	void Event_GetReferencedKey( const char *key );
-	void Event_GetReferencedIntKey( const char *key );
-	void Event_GetReferencedFloatKey( const char *key );
-	void Event_GetReferencedVectorKey( const char *key );
-	void Event_GetReferencedEntityKey( const char *key );
-
-
-
-	
-
+	bool CAbsenceMarker::initAbsenceReference(idEntity* owner, idBounds& startBounds);
 };
 
 

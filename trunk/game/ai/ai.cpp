@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3063 $
- * $Date: 2008-11-23 04:29:35 -0500 (Sun, 23 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3070 $
+ * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3063 2008-11-23 09:29:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -27,7 +27,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 3063 2008-11-23 09:29:35
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../../DarkMod/idAbsenceMarkerEntity.h"
+#include "../../DarkMod/AbsenceMarker.h"
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/MultiStateMover.h"
 #include "../../DarkMod/MeleeWeapon.h"
@@ -8432,9 +8432,9 @@ bool idAI::IsFriend(idEntity *other)
 	{
 		return false;
 	}
-	else if (other->IsType (idAbsenceMarkerEntity::Type))
+	else if (other->IsType (CAbsenceMarker::Type))
 	{
-		idAbsenceMarkerEntity* marker = static_cast<idAbsenceMarkerEntity*>(other);
+		CAbsenceMarker* marker = static_cast<CAbsenceMarker*>(other);
 		return gameLocal.m_RelationsManager->IsFriend(team, marker->ownerTeam);
 	}
 	else if (other->IsType(idActor::Type)) 
@@ -8452,9 +8452,9 @@ bool idAI::IsNeutral(idEntity *other)
 	{
 		return false;
 	}
-	else if (other->IsType(idAbsenceMarkerEntity::Type))
+	else if (other->IsType(CAbsenceMarker::Type))
 	{
-		idAbsenceMarkerEntity* marker = static_cast<idAbsenceMarkerEntity*>(other);
+		CAbsenceMarker* marker = static_cast<CAbsenceMarker*>(other);
 		return gameLocal.m_RelationsManager->IsNeutral(team, marker->ownerTeam);
 	}
 	else if (!other->IsType(idActor::Type)) 
@@ -8475,9 +8475,9 @@ bool idAI::IsEnemy( idEntity *other )
 		// The NULL pointer is not your enemy! As long as you remember to check for it to avoid crashes.
 		return false;
 	}
-	else if (other->IsType(idAbsenceMarkerEntity::Type))
+	else if (other->IsType(CAbsenceMarker::Type))
 	{
-		idAbsenceMarkerEntity* marker = static_cast<idAbsenceMarkerEntity*>(other);
+		CAbsenceMarker* marker = static_cast<CAbsenceMarker*>(other);
 		return gameLocal.m_RelationsManager->IsEnemy(team, marker->ownerTeam);
 	}
 	else if (other->IsType(idActor::Type) && !other->fl.notarget)

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2863 $
- * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 3070 $
+ * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -20,7 +20,7 @@ static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 2863
 #include "../Tasks/WaitTask.h"
 #include "CombatState.h"
 #include "../Library.h"
-#include "../../idAbsenceMarkerEntity.h"
+#include "../../AbsenceMarker.h"
 #include "../../AIComm_Message.h"
 
 namespace ai

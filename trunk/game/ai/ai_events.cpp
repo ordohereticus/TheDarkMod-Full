@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3053 $
- * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3070 $
+ * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,14 +13,14 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3053 2008-11-21 16:31:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/DarkmodAASHidingSpotFinder.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../../DarkMod/idAbsenceMarkerEntity.h"
+#include "../../DarkMod/AbsenceMarker.h"
 #include "../../DarkMod/AI/Memory.h"
 #include "../../DarkMod/AI/States/State.h"
 
