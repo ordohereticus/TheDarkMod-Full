@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2738 $
- * $Date: 2008-08-15 12:57:20 -0400 (Fri, 15 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2761 $
+ * $Date: 2008-08-29 04:42:24 -0400 (Fri, 29 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2738 2008-08-15 16:57:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2761 2008-08-29 08:42:24Z ishtvan $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -649,7 +649,7 @@ void CsndProp::Propagate
 	//TODO: If bExpandFinished == false, either fake propagation or
 	// delay further expansion until later frame
 	if(bExpandFinished == false)
-		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Expansion was stopped when max node number %d was exceeded\r", s_MAX_FLOODNODES );
+		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Expansion was stopped when max node number %d was exceeded, or propagation was aborted\r", s_MAX_FLOODNODES );
 
 	timer_Prop.Stop();
 	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Expansion done, processing AI\r" );
@@ -767,6 +767,12 @@ bool CsndProp::ExpandWave(float volInit, idVec3 origin)
 	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Processing initial area\r" );
 
 	int initArea = gameRenderWorld->PointInArea( origin );
+	DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Sound origin is in portal area: %d\r", initArea );
+	if( initArea == -1 )
+	{
+		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Sound origin is outside the map, aborting propagation.\r" );
+		return false;
+	}
 
 	m_EventAreas[ initArea ].bVisited = true;
 
