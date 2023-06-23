@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2800 $
- * $Date: 2008-09-05 00:47:33 -0400 (Fri, 05 Sep 2008) $
+ * $Revision: 2821 $
+ * $Date: 2008-09-12 14:24:25 -0400 (Fri, 12 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,6 +13,7 @@
 #include "../../../idlib/precompiled.h"
 
 #include "ConversationCommand.h"
+#include "../States/ConversationState.h"
 
 namespace ai {
 
@@ -122,6 +123,12 @@ public:
 	void Restore(idRestoreGame* savefile);
 
 private:
+	// Returns true if all actors are have execution state == "ready"
+	bool AllActorsReady();
+
+	// Returns the conversation state of the given actor (can be NULL)
+	ConversationStatePtr GetConversationState(int actor);
+
 	// Helper function to parse the properties from the spawnargs
 	void InitFromSpawnArgs(const idDict& dict, int index);
 };
