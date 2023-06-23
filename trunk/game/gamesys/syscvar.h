@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2968 $
- * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
- * $Author: tels $
+ * $Revision: 3000 $
+ * $Date: 2008-11-08 13:14:03 -0500 (Sat, 08 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -180,6 +180,7 @@ extern idCVar cv_tdm_inv_hud_file;
 extern idCVar cv_tdm_inv_loot_hud;
 extern idCVar cv_tdm_inv_fadein;
 extern idCVar cv_tdm_inv_fadeout;
+extern idCVar cv_tdm_inv_hud_pickupmessages;
 extern idCVar cv_tdm_inv_loot_sound;
 extern idCVar cv_tdm_inv_use_on_frob;
 extern idCVar cv_tdm_inv_use_on_frob_visual_feedback;

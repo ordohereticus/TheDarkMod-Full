@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2999 $
- * $Date: 2008-11-08 11:01:17 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3000 $
+ * $Date: 2008-11-08 13:14:03 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -340,6 +340,7 @@ public:
 
 	// greebo: A list of HUD messages which are displayed one after the other
 	idList<idStr>			hudMessages;
+	idList<idStr>			inventoryPickedUpMessages;
 
 	int						weapon_soulcube;
 	int						weapon_pda;
@@ -677,6 +678,7 @@ public:
 
 	// Updates the HUD for the inventory items
 	void					UpdateInventoryHUD();
+	void					UpdateInventoryPickedUpMessages();
 
 	const idDeclPDA *		GetPDA( void ) const;
 	void					SetInfluenceFov( float fov );
@@ -840,7 +842,10 @@ public:
 	float			RangedThreatTo(idEntity* target);
 	
 	// greebo: Sends a message to the HUD (used for "Game Saved" and such).
-	void SendHUDMessage(const idStr& text);
+	void			SendHUDMessage(const idStr& text);
+
+	// greebo: Sends a "picked up so and so" message to the inventory HUD
+	void			SendInventoryPickedUpMessage(const idStr& text);
 
 	void PrintDebugHUD(void);
 
@@ -905,7 +910,7 @@ private:
 	bool					gibDeath;
 	bool					gibsLaunched;
 	idVec3					gibsDir;
-	int						mInventoryOverlay;
+	int						m_InventoryOverlay;
 
 	idInterpolate<float>	zoomFov;
 	idInterpolate<float>	centerView;
