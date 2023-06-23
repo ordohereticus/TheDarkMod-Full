@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2288 $
- * $Date: 2008-05-10 14:29:23 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2291 $
+ * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2288 2008-05-10 18:29:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -2656,6 +2656,18 @@ void Cmd_ShowReachabilities_f(const idCmdArgs& args)
 	}
 }
 
+void Cmd_ShowAASStats_f(const idCmdArgs& args)
+{
+	for (int i = 0; i < gameLocal.NumAAS(); i++)
+	{
+		idAAS* aas = dynamic_cast<idAASLocal*>(gameLocal.GetAAS(i));
+		if (aas != NULL)
+		{
+			aas->Stats();
+		}
+	}
+}
+
 void Cmd_SignalCMDDone_f(const idCmdArgs& args)
 {
 	if (gameLocal.m_DarkRadiantRCFServer != NULL)
@@ -2763,6 +2775,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 	cmdSystem->AddCommand( "aas_showWalkPath",		Cmd_ShowWalkPath_f,			CMD_FL_GAME,				"Shows the walk path from the player to the given area number (AAS32)." );
 	cmdSystem->AddCommand( "aas_showReachabilities",Cmd_ShowReachabilities_f,			CMD_FL_GAME,				"Shows the reachabilities for the given area number (AAS32)." );
+	cmdSystem->AddCommand( "aas_showStats",			Cmd_ShowAASStats_f,			CMD_FL_GAME,				"Shows the AAS statistics." );
 	
 	cmdSystem->AddCommand( "darkradiant_signal_cmd_done",	Cmd_SignalCMDDone_f,		CMD_FL_GAME,				"Called by DarkRadiant to receive the DONE signal after issuing commands." );
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2279 $
- * $Date: 2008-05-09 14:18:27 -0400 (Fri, 09 May 2008) $
- * $Author: angua $
+ * $Revision: 2291 $
+ * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2279 2008-05-09 18:18:27Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1155,6 +1155,11 @@ void idAI::Spawn( void )
 
 	spawnArgs.GetBool( "ignore_alerts",						"0",		m_bIgnoreAlerts );
 
+	if (spawnArgs.GetBool("canOperateElevators", "0"))
+	{
+		travelFlags |= TFL_ELEVATOR;
+	}
+
 	float headTurnSec;
 	spawnArgs.GetFloat( "headturn_delay_min",				"3",		headTurnSec);
 	m_timeBetweenHeadTurnChecks = SEC2MS(headTurnSec);
@@ -2289,20 +2294,17 @@ idAI::PathToGoal
 =====================
 */
 bool idAI::PathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, idActor* actor ) const {
-	idVec3 org;
-	idVec3 goal;
-
 	if ( !aas ) {
 		return false;
 	}
 
-	org = origin;
+	idVec3 org = origin;
 	aas->PushPointIntoAreaNum( areaNum, org );
 	if ( !areaNum ) {
 		return false;
 	}
 
-	goal = goalOrigin;
+	idVec3 goal = goalOrigin;
 	aas->PushPointIntoAreaNum( goalAreaNum, goal );
 	if ( !goalAreaNum ) {
 		return false;

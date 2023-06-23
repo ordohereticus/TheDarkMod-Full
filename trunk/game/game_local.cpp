@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2289 $
- * $Date: 2008-05-10 14:37:44 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2291 $
+ * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2289 2008-05-10 18:37:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -27,6 +27,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 2289 2008-05-10 
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/Relations.h"
 #include "../DarkMod/sndProp.h"
+#include "ai/aas_local.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/MultiStateMover.h"
@@ -633,6 +634,15 @@ void idGameLocal::SaveGame( idFile *f ) {
 	CHidingSpotSearchCollection::Instance().Save(&savegame);
 
 	m_DifficultyManager.Save(&savegame);
+
+	for ( i = 0; i < NumAAS(); i++)
+	{
+		idAAS* aas = GetAAS(i);
+		if (aas != NULL)
+		{
+			aas->Save(&savegame);
+		}
+	}
 
 	m_GamePlayTimer.Save(&savegame);
 	m_AreaManager.Save(&savegame);
@@ -1471,7 +1481,7 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	MapPopulate();
 
 	// greebo: Add the elevator reachabilities to the AAS
-	SetupElevatorConnections();
+	SetupEAS();
 
 	// initialize the AI relationships based on worldspawn
 	m_RelationsManager->SetFromArgs( &world->spawnArgs );
@@ -1538,6 +1548,15 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	CHidingSpotSearchCollection::Instance().Restore(&savegame);
 
 	m_DifficultyManager.Restore(&savegame);
+
+	for ( i = 0; i < NumAAS(); i++)
+	{
+		idAAS* aas = GetAAS(i);
+		if (aas != NULL)
+		{
+			aas->Restore(&savegame);
+		}
+	}
 
 	m_GamePlayTimer.Restore(&savegame);
 	m_GamePlayTimer.SetEnabled(false);
@@ -3574,7 +3593,7 @@ void idGameLocal::RemoveAllAASObstacles( void ) {
 	}
 }
 
-void idGameLocal::SetupElevatorConnections()
+void idGameLocal::SetupEAS()
 {
 	// Cycle through the entities and find all elevators
 	for (idEntity* ent = spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next())
@@ -3586,32 +3605,13 @@ void idGameLocal::SetupElevatorConnections()
 
 		// Get all position entities of that mover
 		CMultiStateMover* mover = static_cast<CMultiStateMover*>(ent);
-		const idList<MoverPositionInfo>& infoEnts = mover->GetPositionInfoList();
 
 		for (int aasNum = 0; aasNum < NumAAS(); aasNum++)
 		{
-			idAAS* aas = GetAAS(aasNum);
+			idAASLocal* aas = dynamic_cast<idAASLocal*>(GetAAS(aasNum));
 			if (aas == NULL) continue;
 
-			for (int i = 0; i < infoEnts.Num(); i++)
-			{
-				idEntity* positionEnt = infoEnts[i].positionEnt.GetEntity();
-
-				int areaNum = aas->PointAreaNum(positionEnt->GetPhysics()->GetOrigin());
-
-				if (areaNum == 0) continue;
-
-				// Add a reachability connecting this floor to all other floors
-				for (int j = 0; j < infoEnts.Num(); j++)
-				{
-					if (i == j) continue; // don't add reachability to self
-
-					const idVec3& otherOrg = infoEnts[j].positionEnt.GetEntity()->GetPhysics()->GetOrigin();
-					int otherAreaNum = aas->PointAreaNum(otherOrg);
-					if (otherAreaNum == 0) continue;
-
-				}
-			}
+			aas->AddElevator(mover);
 		}
 	}
 }

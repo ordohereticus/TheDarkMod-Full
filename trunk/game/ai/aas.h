@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2281 $
- * $Date: 2008-05-10 03:55:15 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2291 $
+ * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -243,6 +243,9 @@ public:
 		idBounds barrierBounds
 	) const = 0;
 
+	// Save/Restore routines
+	virtual void Save(idSaveGame* savefile) const = 0;
+	virtual void Restore(idRestoreGame* savefile) = 0;
 };
 
 #endif /* !__AAS_H__ */

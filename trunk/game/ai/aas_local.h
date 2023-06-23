@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2289 $
- * $Date: 2008-05-10 14:37:44 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2291 $
+ * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #include "aas.h"
 #include "../pvs.h"
-
+#include "../../DarkMod/ai/EAS.h"
 
 class idRoutingCache {
 	friend class idAASLocal;
@@ -66,6 +66,8 @@ private:
 	idList<int>					areas;					// areas the bounds are in
 };
 
+
+class CMultiStateMover;
 
 class idAASLocal : public idAAS {
 public:
@@ -132,6 +134,15 @@ public:
 		idBounds barrierBounds
 	) const;
 
+	/**
+	 * greebo: Adds the given elevator to this AAS class. This will add
+	 * additional routing possibilities for AI between clusters.
+	 */
+	virtual void AddElevator(CMultiStateMover* mover);
+
+	// Save/Restore routines
+	void Save(idSaveGame* savefile) const;
+	void Restore(idRestoreGame* savefile);
 
 private:
 	idAASFile *					file;
@@ -151,6 +162,9 @@ private:	// routing data
 	mutable idRoutingCache *	cacheListEnd;			// end of list with cache sorted from oldest to newest
 	mutable int					totalCacheMemory;		// total cache memory used
 	idList<idRoutingObstacle *>	obstacleList;			// list with obstacles
+
+	// greebo: This is TDM's EAS "Elevator Awareness System" :)
+	tdmEAS						elevatorSystem;
 
 private:	// routing
 	bool						SetupRouting( void );

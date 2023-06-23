@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2138 $
- * $Date: 2008-03-21 17:44:42 -0400 (Fri, 21 Mar 2008) $
- * $Author: angua $
+ * $Revision: 2291 $
+ * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 2138 2008-03-21 21:44:42Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: aas.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
 
 #include "aas_local.h"
 
@@ -410,6 +410,15 @@ void idAASLocal::SetAreaTravelFlag( int index, int flag )
 	}
 }
 
+void idAASLocal::Save(idSaveGame* savefile) const
+{
+	elevatorSystem.Save(savefile);
+}
+
+void idAASLocal::Restore(idRestoreGame* savefile)
+{
+	elevatorSystem.Restore(savefile);
+}
 
 /*
 ============

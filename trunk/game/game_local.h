@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2289 $
- * $Date: 2008-05-10 14:37:44 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2291 $
+ * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -614,8 +614,8 @@ public:
 	void					RemoveAASObstacle( const aasHandle_t handle );
 	void					RemoveAllAASObstacles( void );
 
-	// greebo: Initialises the AAS cluster connections between elevator floors
-	void					SetupElevatorConnections();
+	// greebo: Initialises the EAS (routing system for elevators)
+	void					SetupEAS();
 
 	bool					CheatsOk( bool requirePlayer = true );
 	void					SetSkill( int value );
