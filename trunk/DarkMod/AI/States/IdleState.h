@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2922 $
- * $Date: 2008-10-05 17:12:26 -0400 (Sun, 05 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 3221 $
+ * $Date: 2009-03-03 23:53:35 -0500 (Tue, 03 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -45,6 +45,7 @@ public:
 protected:
 
 	bool _startSitting;
+	bool _startSleeping;
 
 	// Override base class method
 	virtual bool CheckAlertLevel(idAI* owner);

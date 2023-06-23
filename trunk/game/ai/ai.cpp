@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3220 $
- * $Date: 2009-03-01 23:00:08 -0500 (Sun, 01 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3221 $
+ * $Date: 2009-03-03 23:53:35 -0500 (Tue, 03 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3220 2009-03-02 04:00:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3221 2009-03-04 04:53:35Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1891,8 +1891,17 @@ void idAI::Think( void )
 				// static monsters
 				UpdateEnemyPosition();
 				UpdateScript();
+				// moving and turning not allowed
 				SittingMove();
 				CheckBlink();
+				break;
+
+			case MOVETYPE_SLEEP :
+				// static monsters
+				UpdateEnemyPosition();
+				UpdateScript();
+				// moving and turning not allowed
+				SittingMove();
 				break;
 
 			case MOVETYPE_SLIDE :
@@ -3283,6 +3292,10 @@ bool idAI::MoveToPosition( const idVec3 &pos ) {
 	if (GetMoveType() == MOVETYPE_SIT)
 	{
 		GetUp();
+	}
+	else if (GetMoveType() == MOVETYPE_SLEEP)
+	{
+		GetUpFromLyingDown();
 	}
 
 	return true;
@@ -9882,6 +9895,32 @@ void idAI::GetUp()
 	CallScriptFunctionArgs("Get_Up", true, 0, "e", this);
 	SetWaitState("get_up");
 }
+
+
+void idAI::LayDown()
+{
+	idStr waitState(WaitState());
+	if (waitState == "sit_down" || waitState == "lay_down")
+	{
+		return;
+	}
+	CallScriptFunctionArgs("Lay_Down", true, 0, "e", this);
+	SetWaitState("lay_down");
+
+}
+
+void idAI::GetUpFromLyingDown()
+{
+	idStr waitState(WaitState());
+	if (waitState == "get_up" || waitState == "get_up_from_lying_down")
+	{
+		return;
+	}
+
+	CallScriptFunctionArgs("Get_Up_From_Lying", true, 0, "e", this);
+	SetWaitState("get_up_from_lying_down");
+}
+
 
 float idAI::StealthDamageMult()
 {

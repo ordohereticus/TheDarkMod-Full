@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3221 $
+ * $Date: 2009-03-03 23:53:35 -0500 (Tue, 03 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 3221 2009-03-04 04:53:35Z angua $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -122,8 +122,11 @@ void ObservantState::Think(idAI* owner)
 	// Ensure we are in the correct alert level
 	if (!CheckAlertLevel(owner)) return;
 	
-	// Let the AI check its senses
-	owner->PerformVisualScan();
+	if (owner->GetMoveType() != MOVETYPE_SLEEP)
+	{
+		// Let the AI check its senses
+		owner->PerformVisualScan();
+	}
 }
 
 StatePtr ObservantState::CreateInstance()

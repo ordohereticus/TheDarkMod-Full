@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3212 $
- * $Date: 2009-02-15 22:46:32 -0500 (Sun, 15 Feb 2009) $
- * $Author: ishtvan $
+ * $Revision: 3221 $
+ * $Date: 2009-03-03 23:53:35 -0500 (Tue, 03 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -471,6 +471,9 @@ public:
 	// angua: calls the script functions for sitting down and getting up
 	void SitDown();
 	void GetUp();
+
+	void LayDown();
+	void GetUpFromLyingDown();
 
 public:
 	/**
