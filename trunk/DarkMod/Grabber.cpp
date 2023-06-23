@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3162 $
- * $Date: 2009-01-17 16:33:24 -0500 (Sat, 17 Jan 2009) $
+ * $Revision: 3163 $
+ * $Date: 2009-01-17 18:17:06 -0500 (Sat, 17 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3162 2009-01-17 21:33:24Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3163 2009-01-17 23:17:06Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -132,6 +132,8 @@ void CGrabber::Clear( void )
 
 	while( this->HasClippedEntity() )
 		this->RemoveFromClipList( 0 );
+
+	m_clipList.Clear();
 }
 
 void CGrabber::Save( idSaveGame *savefile ) const
@@ -639,7 +641,7 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	m_DistanceCount = idMath::ClampInt( 0, m_MaxDistCount, m_DistanceCount );
 
 	// prevent collision with player
-	AddToClipList( m_dragEnt.GetEntity() );
+	AddToClipList( newEnt );
 	if( HasClippedEntity() ) 
 	{
 		PostEventMS( &EV_Grabber_CheckClipList, CHECK_CLIP_LIST_INTERVAL );
@@ -852,6 +854,9 @@ CGrabber::AddToClipList
 */
 void CGrabber::AddToClipList( idEntity *ent ) 
 {
+	if( !ent )
+		return;
+
 	CGrabbedEnt obj;
 	idPhysics *phys = ent->GetPhysics();
 	int clipMask = phys->GetClipMask();
@@ -971,11 +976,11 @@ void CGrabber::Event_CheckClipList( void )
 		if( !ListEnt )
 		{
 			// not sure how this is happening, but fix it
-			continue;
+			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Removing NULL entity from cliplist\r" );
+			keep = false;
 		}
-
 		// We keep an entity if it is the one we're dragging 
-		if( GetSelected() == ListEnt || (ListEnt->GetBindMaster() && GetSelected() == ListEnt->GetBindMaster()) ) 
+		else if( GetSelected() == ListEnt || (ListEnt->GetBindMaster() && GetSelected() == ListEnt->GetBindMaster()) ) 
 		{
 			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Keeping entity %s in cliplist as it is currently selected\r", ListEnt->name.c_str() );
 			keep = true;
@@ -1017,7 +1022,6 @@ void CGrabber::Event_CheckClipList( void )
 		// Note we have to decrement i otherwise we skip entities
 		if( !keep ) 
 		{
-			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Removing entity %s from cliplist\r", ListEnt->name.c_str() );
 			this->RemoveFromClipList( i );
 			i -= 1;
 		}
