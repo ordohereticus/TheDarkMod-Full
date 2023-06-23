@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2754 $
- * $Date: 2008-08-24 21:10:15 -0400 (Sun, 24 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2755 $
+ * $Date: 2008-08-25 00:35:25 -0400 (Mon, 25 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 2754 2008-08-25 01:10:15Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 2755 2008-08-25 04:35:25Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1257,8 +1257,12 @@ void idAnimBlend::Restore( idRestoreGame *savefile, const idDeclModelDef *modelD
 	}
 	savefile->ReadBool( allowMove );
 	savefile->ReadBool( allowFrameCommands );
+
 	savefile->ReadBool( m_bPaused );
 	savefile->ReadShort( m_PausedFrame );
+	savefile->ReadInt( m_PausedTime );
+	savefile->ReadInt( m_PausedEndtime );
+	savefile->ReadShort( m_PausedCycle );
 }
 
 /*
