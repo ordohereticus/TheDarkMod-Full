@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3064 $
- * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
+ * $Revision: 3066 $
+ * $Date: 2008-11-27 07:57:54 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3064 2008-11-27 09:39:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3066 2008-11-27 12:57:54Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -648,7 +648,7 @@ bool CFrobDoor::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 				break;
 			case EReleased:	sample = LPSOUND_RELEASED;
 				break;
-			default:			sample = LPSOUND_REPEAT;
+			default:		sample = LPSOUND_REPEAT;
 			};
 			
 			// Pass the call to the lockpick routine
@@ -891,15 +891,12 @@ bool CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 
 	bool success = true;
 
-	// If a key has been pressed and the lock is already picked, we play a sample
-	// to indicate that the lock doesn't need picking anymore. This we do only
-	// if there is not currently a sound sample still playing, in which case we 
-	// can ignore that event and wait for all sample events to arrive.
+	// Has the lock already been picked?
 	if (m_FirstLockedPinIndex >= m_Pins.Num())
 	{
-		if (nSampleType == LPSOUND_INIT || nSampleType == LPSOUND_REPEAT)
+		if (nSampleType == LPSOUND_INIT)
 		{
-			if(m_SoundTimerStarted <= 0)
+			if (m_SoundTimerStarted <= 0)
 			{
 				oPickSound = "snd_lockpick_pick_wrong";
 				PropPickSound(oPickSound, cType, LPSOUND_WRONG_LOCKPICK, 0, HANDLE_POS_ORIGINAL, -1, -1);
@@ -1064,22 +1061,19 @@ Quit:
 	return success;
 }
 
-void CFrobDoor::PropPickSound(idStr &oPickSound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex)
+void CFrobDoor::PropPickSound(const idStr& pickSound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex)
 {
 	m_SoundTimerStarted++;
-	PropSoundDirect(oPickSound, true, false );
+	PropSoundDirect(pickSound, true, false );
 
-	int length = FrobMoverStartSound(oPickSound);
+	int length = FrobMoverStartSound(pickSound);
 
 	if(PinIndex != -1)
 	{
 		SetHandlePosition(nHandlePos, length, PinIndex, SampleIndex);
 	}
 
-	if (nSampleType != LPSOUND_WRONG_LOCKPICK)
-	{
-		PostEventMS(&EV_TDM_LockpickTimer, length+time, cType, nSampleType);
-	}
+	PostEventMS(&EV_TDM_LockpickTimer, length+time, cType, nSampleType);
 }
 
 void CFrobDoor::OpenPeers()

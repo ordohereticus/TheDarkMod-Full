@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3064 $
- * $Date: 2008-11-27 04:39:07 -0500 (Thu, 27 Nov 2008) $
+ * $Revision: 3066 $
+ * $Date: 2008-11-27 07:57:54 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,6 @@
 #ifndef FROBDOOR_H
 #define FROBDOOR_H
 
-class CStimResponseTimer;
 class CFrobDoorHandle;
 
 // Number of clicksounds available
@@ -112,7 +111,7 @@ public:
 
 	void					SetHandlePosition(EHandleReset, int msec, int pin_index = 0, int sample_index = 0);
 
-	void					PropPickSound(idStr &picksound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex);
+	void					PropPickSound(const idStr& picksound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex);
 
 protected:
 	/**
