@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2503 $
- * $Date: 2008-06-15 07:53:02 -0400 (Sun, 15 Jun 2008) $
- * $Author: dram $
+ * $Revision: 3027 $
+ * $Date: 2008-11-14 16:02:35 -0500 (Fri, 14 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 2503 2008-06-15 11:53:02Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 3027 2008-11-14 21:02:35Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -1008,7 +1008,7 @@ void idPlayerView::UpdateAmbientLight()
 	}
 	else // The ambient light does not exist
 	{
-		gameLocal.Printf( "Note: Ambient light by name of 'ambient_world' not found"); // Show in console of light not existing in map
+		gameLocal.Printf( "Note: Ambient light by name of 'ambient_world' not found\n"); // Show in console of light not existing in map
 	}
 
 	cur_amb_method = cv_ambient_method.GetBool(); // Set the current ambient method to the CVar value
