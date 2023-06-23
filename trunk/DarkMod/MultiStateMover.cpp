@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2337 $
- * $Date: 2008-05-15 12:20:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2340 $
+ * $Date: 2008-05-15 13:28:07 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2337 2008-05-15 16:20:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2340 2008-05-15 17:28:07Z greebo $", init_version);
 
 #include "MultiStateMover.h"
 
@@ -91,6 +91,24 @@ bool CMultiStateMover::IsAtPosition(CMultiStateMoverPosition* position)
 	
 	// Compare our current position with the given one, using a small tolerance
 	return (pos.Compare(curPos, VECTOR_EPSILON));
+}
+
+void CMultiStateMover::RegisterButton(CMultiStateMoverButton* button, EMMButtonType type)
+{
+	if (button == NULL) return;
+
+	switch (type)
+	{
+	case BUTTON_TYPE_RIDE:
+		rideButtons.Alloc() = button;
+		break;
+	case BUTTON_TYPE_FETCH:
+		fetchButtons.Alloc() = button;
+		break;
+	default:
+		gameLocal.Warning("Unknown button state type registered: %s", button->name.c_str());
+		break;
+	};
 }
 
 void CMultiStateMover::Save(idSaveGame *savefile) const

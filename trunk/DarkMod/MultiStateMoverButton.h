@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2339 $
- * $Date: 2008-05-15 13:09:01 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2340 $
+ * $Date: 2008-05-15 13:28:07 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,6 +11,13 @@
 #define __MULTISTATEMOVER_BUTTON_H_
 
 #include "FrobButton.h"
+
+enum EMMButtonType
+{
+	BUTTON_TYPE_RIDE = 0,
+	BUTTON_TYPE_FETCH,
+	NUM_BUTTON_TYPES,
+};
 
 /** 
  * greebo: A MultiStateMoverButton is a bit more intelligent
