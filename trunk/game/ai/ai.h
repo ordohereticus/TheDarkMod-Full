@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2490 $
- * $Date: 2008-06-15 01:08:13 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2492 $
+ * $Date: 2008-06-15 01:29:09 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1794,6 +1794,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 private:
 	int aiThinkTimer;
 	int aiMindTimer;
+	int aiAnimationTimer;
 #endif
 };
 
