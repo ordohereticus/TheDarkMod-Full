@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2733 $
- * $Date: 2008-08-13 15:18:10 -0400 (Wed, 13 Aug 2008) $
+ * $Revision: 2750 $
+ * $Date: 2008-08-23 12:53:40 -0400 (Sat, 23 Aug 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2733 2008-08-13 19:18:10Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2750 2008-08-23 16:53:40Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -99,21 +99,25 @@ void idMoveable::Spawn( void ) {
 		clipModelName = spawnArgs.GetString( "model" );		// use the visual model
 	}
 
-	if ( !collisionModelManager->TrmFromModel( clipModelName, trm ) ) {
-		gameLocal.Error( "idMoveable '%s': cannot load collision model %s", name.c_str(), clipModelName.c_str() );
-		return;
-	}
+	// tels: support "model" "" with "noclipmodel" "0" - do not attempt to load
+	// the clipmodel from the non-existing model name in this case:
+	if (clipModelName.Length()) {
+		if ( !collisionModelManager->TrmFromModel( clipModelName, trm ) ) {
+			gameLocal.Error( "idMoveable '%s': cannot load collision model %s", name.c_str(), clipModelName.c_str() );
+			return;
+		}
 
-	// angua: check if the cm is valid
-	if (idMath::Fabs(trm.bounds[0].x) == idMath::INFINITY)
-	{
-		gameLocal.Error( "idMoveable '%s': invalid collision model %s", name.c_str(), clipModelName.c_str() );
-	}
+		// angua: check if the cm is valid
+		if (idMath::Fabs(trm.bounds[0].x) == idMath::INFINITY)
+		{
+			gameLocal.Error( "idMoveable '%s': invalid collision model %s", name.c_str(), clipModelName.c_str() );
+		}
 
-	// if the model should be shrunk
-	clipShrink = spawnArgs.GetInt( "clipshrink" );
-	if ( clipShrink != 0 ) {
-		trm.Shrink( clipShrink * CM_CLIP_EPSILON );
+		// if the model should be shrunk
+		clipShrink = spawnArgs.GetInt( "clipshrink" );
+		if ( clipShrink != 0 ) {
+			trm.Shrink( clipShrink * CM_CLIP_EPSILON );
+		}
 	}
 
 	// get rigid body properties
