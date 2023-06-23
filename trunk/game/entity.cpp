@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2712 $
- * $Date: 2008-08-01 03:13:52 -0400 (Fri, 01 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2713 $
+ * $Date: 2008-08-01 12:19:50 -0400 (Fri, 01 Aug 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2712 2008-08-01 07:13:52Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2713 2008-08-01 16:19:50Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9214,7 +9214,8 @@ void idEntity::ParseAttachPositions( void )
 			pos.joint = INVALID_JOINT;
 
 		pos.originOffset = spawnArgs.GetVector( (prefix + "origin").c_str() );
-		pos.angleOffset = spawnArgs.GetAngles( (prefix + "angles").c_str() );
+		// tels: The angleOffset is now optional:
+		pos.angleOffset = spawnArgs.GetAngles( (prefix + "angles").c_str(), "0 0 0" );
 
 		m_AttachPositions.Append( pos );
 		Counter++;

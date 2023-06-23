@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2113 $
- * $Date: 2008-02-27 13:53:47 -0500 (Wed, 27 Feb 2008) $
+ * $Revision: 2713 $
+ * $Date: 2008-08-01 12:19:50 -0400 (Fri, 01 Aug 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 2113 2008-02-27 18:53:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 2713 2008-08-01 16:19:50Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -4297,7 +4297,9 @@ void idAFBody::SetDensity( float density, const idMat3 &inertiaScale ) {
 
 	// make sure the center of mass is at the body origin
 	if ( !centerOfMass.Compare( vec3_origin, CENTER_OF_MASS_EPSILON ) ) {
-		gameLocal.Warning( "idAFBody::SetDensity: center of mass not at origin for body '%s'", name.c_str() );
+		gameLocal.Warning( "idAFBody::SetDensity: center of mass (%f, %f, %f) not at origin (%f, %f, %f) for body '%s'",
+		 vec3_origin.x, vec3_origin.y, vec_origin.z, 
+		 centerOfMass.x, centerOfMass.y, centerOfMass.z, name.c_str() );
 	}
 	centerOfMass.Zero();
 
