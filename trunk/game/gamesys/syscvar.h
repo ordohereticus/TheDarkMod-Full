@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3015 $
- * $Date: 2008-11-11 13:26:02 -0500 (Tue, 11 Nov 2008) $
+ * $Revision: 3033 $
+ * $Date: 2008-11-15 05:32:06 -0500 (Sat, 15 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -176,12 +176,8 @@ extern idCVar cv_tdm_hud_opacity;
 extern idCVar cv_tdm_underwater_blur;
 
 extern idCVar cv_tdm_inv_loot_group;
-extern idCVar cv_tdm_inv_grouping;
-extern idCVar cv_tdm_inv_groupvis;
-extern idCVar cv_tdm_inv_hud_file;
-extern idCVar cv_tdm_inv_loot_hud;
-extern idCVar cv_tdm_inv_fadein;
-extern idCVar cv_tdm_inv_fadeout;
+extern idCVar cv_tdm_inv_gui_file;
+extern idCVar cv_tdm_inv_loot_gui_file;
 extern idCVar cv_tdm_inv_hud_pickupmessages;
 extern idCVar cv_tdm_inv_loot_sound;
 extern idCVar cv_tdm_inv_use_on_frob;
