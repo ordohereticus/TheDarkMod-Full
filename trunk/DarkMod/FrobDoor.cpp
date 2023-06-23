@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2581 $
- * $Date: 2008-06-28 04:19:29 -0400 (Sat, 28 Jun 2008) $
+ * $Revision: 2582 $
+ * $Date: 2008-06-28 04:37:02 -0400 (Sat, 28 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2581 2008-06-28 08:19:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2582 2008-06-28 08:37:02Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -416,6 +416,11 @@ void CFrobDoor::OnLock(bool bMaster)
 {
 	// Call the base class first
 	CBinaryFrobMover::OnLock(bMaster);
+
+	// greebo: Reset the lockpicking values
+	m_FirstLockedPinIndex = 0;
+	m_SoundTimerStarted = 0;
+	m_SoundPinSampleIndex = -1;
 
 	if (bMaster)
 	{
