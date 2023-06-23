@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2615 $
- * $Date: 2008-07-07 00:45:29 -0400 (Mon, 07 Jul 2008) $
+ * $Revision: 2617 $
+ * $Date: 2008-07-07 11:46:25 -0400 (Mon, 07 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2615 2008-07-07 04:45:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2617 2008-07-07 15:46:25Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -27,6 +27,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 2615 2008-07-07 04:45:29
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../../DarkMod/idAbsenceMarkerEntity.h"
 #include "../../DarkMod/DarkModGlobals.h"
+#include "../../DarkMod/MultiStateMover.h"
 #include "../../DarkMod/PlayerData.h"
 #include "../../DarkMod/sndProp.h"
 #include "../../DarkMod/EscapePointManager.h"
@@ -2697,6 +2698,17 @@ bool idAI::MoveToEntity( idEntity *ent ) {
 	AI_FORWARD				= true;
 
 	return true;
+}
+
+CMultiStateMover* idAI::OnElevator() const
+{
+	idEntity* ent = physicsObj.GetGroundEntity();
+
+	// Return false if ground entity is not a mover
+	if (ent == NULL || !ent->IsType(CMultiStateMover::Type)) return NULL;
+
+	CMultiStateMover* mover = static_cast<CMultiStateMover*>(ent);
+	return (!mover->IsAtRest()) ? mover : NULL;
 }
 
 bool idAI::Flee(idEntity* entityToFleeFrom, int algorithm, int distanceOption)
