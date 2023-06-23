@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2704 $
+ * $Date: 2008-07-19 08:54:16 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,15 +29,23 @@ private:
 	// The target position
 	idVec3 _targetPosition;
 
+	// The previous target position
+	idVec3 _prevTargetPosition;
+
 	// Target yaw (is not INFINITY if set)
 	float _targetYaw;
+
+	idEntity* _targetEntity;
 
 	// Default constructor
 	MoveToPositionTask();
 
 public:
 	// Constructor taking the target position (and optional target yaw) as input argument
-	MoveToPositionTask(const idVec3 targetPosition, float targetYaw = idMath::INFINITY);
+	MoveToPositionTask(const idVec3& targetPosition, float targetYaw = idMath::INFINITY);
+
+	// Constructor taking a target entity
+	MoveToPositionTask(idEntity* targetEntity);
 
 	// Get the name of this task
 	virtual const idStr& GetName() const;
@@ -55,6 +63,10 @@ public:
 
 	// Creates a new Instance of this task
 	static MoveToPositionTaskPtr CreateInstance();
+
+private:
+	// Refines the goal position, if appropriate
+	void UpdateTargetPosition(idAI* owner);
 };
 
 } // namespace ai

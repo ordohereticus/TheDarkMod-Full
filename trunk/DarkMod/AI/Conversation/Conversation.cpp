@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2703 $
- * $Date: 2008-07-19 05:33:25 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2704 $
+ * $Date: 2008-07-19 08:54:16 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2703 2008-07-19 09:33:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2704 2008-07-19 12:54:16Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -22,13 +22,17 @@ namespace ai {
 Conversation::Conversation() :
 	_isValid(false),
 	_talkDistance(0.0f),
-	_playCount(0)
+	_playCount(0),
+	_maxPlayCount(-1),
+	_actorsMustBeWithinTalkDistance(true)
 {}
 
 Conversation::Conversation(const idDict& spawnArgs, int index) :
 	_isValid(false),
 	_talkDistance(0.0f),
-	_playCount(0)
+	_playCount(0),
+	_maxPlayCount(-1),
+	_actorsMustBeWithinTalkDistance(true)
 {
 	// Pass the call to the parser
 	InitFromSpawnArgs(spawnArgs, index);
@@ -52,6 +56,11 @@ int Conversation::GetPlayCount()
 int Conversation::GetMaxPlayCount()
 {
 	return _maxPlayCount;
+}
+
+bool Conversation::ActorsMustBeWithinTalkdistance()
+{
+	return _actorsMustBeWithinTalkDistance;
 }
 
 bool Conversation::CheckConditions()
@@ -177,7 +186,10 @@ bool Conversation::Process()
 	
 	switch (state)
 	{
-		case ConversationCommand::ENotStartedYet:
+		case ConversationCommand::ENotReady:
+			// not ready yet, state is still preparing for takeoff
+			break;
+		case ConversationCommand::EReady:
 			// Start a new execution
 			convState->StartCommand(*command, *this);
 			break;
@@ -188,6 +200,14 @@ bool Conversation::Process()
 		case ConversationCommand::EFinished:
 			// Increase the iterator, we continue next frame
 			_currentCommand++;
+
+			// Do we have more commands?
+			if (_currentCommand >= 0 && _currentCommand < _commands.Num())
+			{
+				// Set the next command to "Ready" state, they are NotReady by default, 
+				// which is screwing our algorithm
+				_commands[_currentCommand]->SetState(ConversationCommand::EReady);
+			}
 			break;
 		case ConversationCommand::EAborted:
 			return false;
@@ -236,6 +256,11 @@ idAI* Conversation::GetActor(const idStr& name)
 	return NULL;
 }
 
+int Conversation::GetNumActors()
+{
+	return _actors.Num();
+}
+
 void Conversation::Save(idSaveGame* savefile) const
 {
 	savefile->WriteString(_name);
@@ -257,6 +282,7 @@ void Conversation::Save(idSaveGame* savefile) const
 	savefile->WriteInt(_currentCommand);
 	savefile->WriteInt(_playCount);
 	savefile->WriteInt(_maxPlayCount);
+	savefile->WriteBool(_actorsMustBeWithinTalkDistance);
 }
 
 void Conversation::Restore(idRestoreGame* savefile)
@@ -284,6 +310,7 @@ void Conversation::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(_currentCommand);
 	savefile->ReadInt(_playCount);
 	savefile->ReadInt(_maxPlayCount);
+	savefile->ReadBool(_actorsMustBeWithinTalkDistance);
 }
 
 void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
@@ -367,6 +394,9 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 
 	// get max play count, default is -1, which means infinitely often
 	_maxPlayCount = dict.GetInt(prefix + "max_play_count", "-1"); 
+
+	// per default, the actors should be within talk distance before they start talking
+	_actorsMustBeWithinTalkDistance = dict.GetBool(prefix + "actors_must_be_within_talkdistance", "1");
 
 	// Seems like we have everything we need
 	_isValid = true;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2701 $
- * $Date: 2008-07-19 03:07:10 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2704 $
+ * $Date: 2008-07-19 08:54:16 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -45,6 +45,9 @@ class Conversation
 	// Specifies how often this conversation can be played (-1 == infinitely often)
 	int _maxPlayCount;
 
+	// TRUE if the actors are supposed to walk towards each other before starting to talk
+	bool _actorsMustBeWithinTalkDistance;
+
 public:
 	Conversation();
 
@@ -66,6 +69,9 @@ public:
 
 	// Returns the maximum number of plays for this conversation
 	int GetMaxPlayCount();
+
+	// Returns true or false depending on the internal setting
+	bool ActorsMustBeWithinTalkdistance();
 
 	/**
 	 * greebo: Returns TRUE if this conversation can be played. This basically means
@@ -98,6 +104,9 @@ public:
 	// Gets the actor with the given index/name
 	idAI* GetActor(int index);
 	idAI* GetActor(const idStr& name);
+
+	// Returns the number of involved actors
+	int GetNumActors();
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;
