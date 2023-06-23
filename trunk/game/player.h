@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2381 $
- * $Date: 2008-05-21 00:57:27 -0400 (Wed, 21 May 2008) $
+ * $Revision: 2383 $
+ * $Date: 2008-05-25 14:53:33 -0400 (Sun, 25 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -577,7 +577,7 @@ public:
 
 	bool					OnLadder( void ) const;
 	// Virtal override of idActor::OnElevator()
-	virtual bool			OnElevator() const;
+	virtual CMultiStateMover* OnElevator() const;
 
 	virtual	void			UpdatePlayerIcons( void );
 	virtual	void			DrawPlayerIcons( void );

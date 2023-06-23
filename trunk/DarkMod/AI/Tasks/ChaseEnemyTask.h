@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2383 $
+ * $Date: 2008-05-25 14:53:33 -0400 (Sun, 25 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,6 +11,7 @@
 #define __AI_CHASE_ENEMY_TASK_H__
 
 #include "Task.h"
+#include "../../MultiStateMover.h"
 
 namespace ai
 {
@@ -45,6 +46,9 @@ public:
 
 	// Class-specific methods
 	virtual void SetEnemy(idActor* enemy);
+
+private:
+	bool CanFetchElevator(CMultiStateMover* mover, idAI* owner);
 };
 
 } // namespace ai
