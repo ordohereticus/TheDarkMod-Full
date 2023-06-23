@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2555 $
- * $Date: 2008-06-21 12:54:56 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2556 $
+ * $Date: 2008-06-21 13:57:17 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2555 2008-06-21 16:54:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2556 2008-06-21 17:57:17Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1180,7 +1180,15 @@ CFrobDoorHandle* CFrobDoor::GetDoorhandle()
 void CFrobDoor::AddDoorhandle(CFrobDoorHandle* handle)
 {
 	// Store the pointer and the original position
-	m_Doorhandles.Alloc() = handle;
+	idEntityPtr<CFrobDoorHandle> handlePtr;
+	handlePtr = handle;
+
+	if (m_Doorhandles.FindIndex(handlePtr) != -1)
+	{
+		return; // handle is already known
+	}
+
+	m_Doorhandles.Append(handlePtr);
 
 	m_OriginalPosition = handle->GetPhysics()->GetOrigin();
 	m_OriginalAngle = handle->GetPhysics()->GetAxis().ToAngles();
