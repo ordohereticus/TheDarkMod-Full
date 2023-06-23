@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2311 $
- * $Date: 2008-05-12 14:00:44 -0400 (Mon, 12 May 2008) $
+ * $Revision: 2314 $
+ * $Date: 2008-05-12 14:16:31 -0400 (Mon, 12 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #include "aas.h"
 #include "../pvs.h"
-#include "../../DarkMod/AI/EAS.h"
+#include "../../DarkMod/AI/EAS/EAS.h"
 
 class idRoutingCache {
 	friend class idAASLocal;
