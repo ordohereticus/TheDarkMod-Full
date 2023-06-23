@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3124 $
- * $Date: 2009-01-07 11:35:28 -0500 (Wed, 07 Jan 2009) $
+ * $Revision: 3129 $
+ * $Date: 2009-01-09 12:27:51 -0500 (Fri, 09 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -473,6 +473,13 @@ public:
 	 * greebo: The class handling the main menu's shop GUI.
 	 */
 	CShopPtr				m_Shop;
+
+	/**
+	 * This list is some sort of queue of error messages collected by 
+	 * gameLocal.Error(). The messages here will be sent 
+	 * to the main menu GUI once it is displayed again after the error.
+	 */
+	mutable idStr			m_guiError;
 
 	/**
 	* Pointer to global AI Relations object

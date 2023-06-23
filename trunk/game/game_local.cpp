@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3124 $
- * $Date: 2009-01-07 11:35:28 -0500 (Wed, 07 Jan 2009) $
+ * $Revision: 3129 $
+ * $Date: 2009-01-09 12:27:51 -0500 (Fri, 09 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3124 2009-01-07 16:35:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3129 2009-01-09 17:27:51Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -260,6 +260,8 @@ void idGameLocal::Clear( void )
 
 	m_ModMenu = CModMenuPtr(new CModMenu);
 	m_Shop = CShopPtr(new CShop);
+
+	m_guiError.Clear();
 
 	m_AreaManager.Clear();
 	// Allocate a new ConversationSystem
@@ -993,6 +995,9 @@ void idGameLocal::Error( const char *fmt, ... ) const {
 	va_start( argptr, fmt );
 	idStr::vsnPrintf( text, sizeof( text ), fmt, argptr );
 	va_end( argptr );
+
+	// Send this error message to the GUI queue
+	m_guiError = text;
 
 	thread = idThread::CurrentThread();
 	if ( thread ) {
@@ -3281,6 +3286,17 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 				successScreenActive = true;
 			}
 			return;
+		}
+
+		// Check if any errors are in the queue
+		if (!m_guiError.IsEmpty())
+		{
+			// Send the error to the GUI
+			gui->SetStateString("gameErrorMsg", m_guiError);
+			gui->HandleNamedEvent("OnGameError");
+
+			// Clear the string again
+			m_guiError.Empty();
 		}
 	}
 	// greebo: the "log" command is used to write stuff to the console
