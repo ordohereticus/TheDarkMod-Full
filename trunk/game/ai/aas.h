@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2322 $
- * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
- * $Author: angua $
+ * $Revision: 2329 $
+ * $Date: 2008-05-14 12:48:45 -0400 (Wed, 14 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -69,7 +69,7 @@ typedef int aasHandle_t;
 * This is the typedef for a reachability tracking list
 */
 typedef idList<idReachability*> TReachabilityTrackingList;
-
+namespace eas { class tdmEAS; }
 
 class idAAS {
 public:
@@ -243,6 +243,9 @@ public:
 		int areaIndex,
 		idBounds barrierBounds
 	) const = 0;
+
+	// Accessor function for the EAS
+	virtual eas::tdmEAS* GetEAS() = 0;
 
 	// Save/Restore routines
 	virtual void Save(idSaveGame* savefile) const = 0;

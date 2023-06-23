@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2322 $
- * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
- * $Author: angua $
+ * $Revision: 2329 $
+ * $Date: 2008-05-14 12:48:45 -0400 (Wed, 14 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -149,6 +149,9 @@ public:
 	 * greebo: Assembles the elevator routing information.
 	 */
 	virtual void CompileEAS();
+
+	// Accessor function for the EAS
+	virtual eas::tdmEAS* GetEAS() { return elevatorSystem; }
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;
