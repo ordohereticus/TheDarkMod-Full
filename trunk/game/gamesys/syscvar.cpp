@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3136 $
- * $Date: 2009-01-12 11:21:52 -0500 (Mon, 12 Jan 2009) $
+ * $Revision: 3140 $
+ * $Date: 2009-01-14 10:38:06 -0500 (Wed, 14 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3136 2009-01-12 16:21:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3140 2009-01-14 15:38:06Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -104,6 +104,7 @@ idCVar cv_ai_opt_noobstacleavoidance (			"tdm_ai_opt_noobstacleavoidace",	"0",		
 idCVar cv_ai_show_aasfuncobstacle_state("tdm_ai_show_aasfuncobstacle_state",	"0", CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), idFuncAASObstacles will show their state at spawn time and during changes." );
 
 idCVar cv_interaction_vfp_type("tdm_interaction_vfp_type",	"1", CVAR_ARCHIVE | CVAR_BOOL, "If 1, the enhanced interaction shaders are used. Set to 0 to use the default D3 one." );
+idCVar cv_tdm_widescreenmode("tdm_wideScreenMode",	"0", CVAR_ARCHIVE | CVAR_INTEGER, "The widescreen mode selected in the main menu (for internal use)." );
 
 idCVar cv_tdm_mapName( "tdm_mapName", "", CVAR_GUI, "(internal) The map which is about to be started by the GUI." );
 idCVar cv_tdm_fm_path( "tdm_fm_path", "fms/", CVAR_GUI, "(internal) The path where the fan mission packages are stored.");

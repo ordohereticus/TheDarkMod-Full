@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3136 $
- * $Date: 2009-01-12 11:21:52 -0500 (Mon, 12 Jan 2009) $
+ * $Revision: 3140 $
+ * $Date: 2009-01-14 10:38:06 -0500 (Wed, 14 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -63,6 +63,7 @@ extern idCVar cv_ai_opt_noobstacleavoidance;
 extern idCVar cv_ai_show_aasfuncobstacle_state;
 
 extern idCVar cv_interaction_vfp_type;
+extern idCVar cv_tdm_widescreenmode;
 
 extern idCVar cv_tdm_mapName;
 extern idCVar cv_tdm_fm_path;

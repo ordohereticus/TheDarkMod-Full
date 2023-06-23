@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3129 $
- * $Date: 2009-01-09 12:27:51 -0500 (Fri, 09 Jan 2009) $
+ * $Revision: 3140 $
+ * $Date: 2009-01-14 10:38:06 -0500 (Wed, 14 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -955,6 +955,9 @@ private:
 	void					UpdateLagometer( int aheadOfServer, int dupeUsercmds );
 
 	void					GetMapLoadingGUI( char gui[ MAX_STRING_CHARS ] );
+
+	// Sets the video CVARs according to the settings in the given GUI
+	void					UpdateScreenResolutionFromGUI(idUserInterface* gui);
 };
 
 //============================================================================
