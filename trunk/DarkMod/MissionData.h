@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2441 $
- * $Date: 2008-06-06 12:14:52 -0400 (Fri, 06 Jun 2008) $
+ * $Revision: 2736 $
+ * $Date: 2008-08-15 03:40:21 -0400 (Fri, 15 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -672,7 +672,7 @@ public:
 
 	/**
 	* Called when AI are alerted
-	* The alert value is the alert state, e.g. state 0 = no significant alert, 4 = combat
+	* The alert value is the alert state, e.g. state 0 = no significant alert, 5 = combat
 	**/
 	void AlertCallback(idEntity *Alerted, idEntity *Alerter, int AlertVal);
 
