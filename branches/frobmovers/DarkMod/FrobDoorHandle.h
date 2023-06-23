@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2524 $
+ * $Date: 2008-06-19 01:18:08 -0400 (Thu, 19 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -53,7 +53,6 @@ public:
 
 	// These functions need to be disabled on the handle. Therefore
 	// they are provided but empty.
-	void					ToggleOpen();
 	void					ToggleLock();
 	virtual void			ClosePortal();
 	virtual void			OpenPortal();
