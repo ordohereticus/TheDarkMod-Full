@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2588 $
+ * $Date: 2008-06-29 15:22:06 -0400 (Sun, 29 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -27,9 +27,9 @@
 */
 
 // default scripts
-#define SCRIPT_DEFAULTDEFS			"script/doom_defs.script"
-#define SCRIPT_DEFAULT				"script/doom_main.script"
-#define SCRIPT_DEFAULTFUNC			"doom_main"
+#define SCRIPT_DEFAULTDEFS			"script/tdm_defs.script"
+#define SCRIPT_DEFAULT				"script/tdm_main.script"
+#define SCRIPT_DEFAULTFUNC			"tdm_main"
 
 typedef struct {
 	char		sessionCommand[MAX_STRING_CHARS];	// "map", "disconnect", "victory", etc
