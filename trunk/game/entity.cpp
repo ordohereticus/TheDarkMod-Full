@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2717 $
- * $Date: 2008-08-03 05:16:33 -0400 (Sun, 03 Aug 2008) $
+ * $Revision: 2718 $
+ * $Date: 2008-08-03 05:32:13 -0400 (Sun, 03 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2717 2008-08-03 09:16:33Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2718 2008-08-03 09:32:13Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8145,7 +8145,7 @@ void idEntity::ReAttachToPos
 
 	DetachInd( ind );
 	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("ReAttaching...\r");
-	Attach( ent, AttName, PosName );
+	Attach( ent, PosName, AttName );
 
 	indEnd = m_Attachments.Num();
 	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("End index is %d\r", indEnd);
