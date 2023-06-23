@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3115 $
- * $Date: 2009-01-05 23:31:02 -0500 (Mon, 05 Jan 2009) $
+ * $Revision: 3133 $
+ * $Date: 2009-01-11 02:24:48 -0500 (Sun, 11 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3115 2009-01-06 04:31:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3133 2009-01-11 07:24:48Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -91,6 +91,7 @@ void MeleeCombatTask::StartAttack(idAI* owner)
 void MeleeCombatTask::OnFinish(idAI* owner)
 {
 	// ishtvan TODO: Will need different code for when attack is finish vs. parry?
+	// TODO: Also need to figure out if we hit or miss, etc.
 	CMeleeStatus *pStatus = &owner->m_MeleeStatus;
 	pStatus->m_bAttacking = false;
 

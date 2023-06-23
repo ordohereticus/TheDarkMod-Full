@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3119 $
- * $Date: 2009-01-06 05:00:58 -0500 (Tue, 06 Jan 2009) $
- * $Author: greebo $
+ * $Revision: 3133 $
+ * $Date: 2009-01-11 02:24:48 -0500 (Sun, 11 Jan 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -171,6 +171,7 @@ extern idCVar cv_melee_mouse_decision_time;
 extern idCVar cv_melee_mouse_slowview;
 extern idCVar cv_melee_invert_attack;
 extern idCVar cv_melee_invert_parry;
+extern idCVar cv_melee_auto_parry;
 extern idCVar cv_melee_max_particles;
 extern idCVar cv_phys_show_momentum;
 
