@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2674 $
- * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2675 $
+ * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,8 +10,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2674 2008-07-16 18:01:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2675 2008-07-16 18:45:26Z greebo $", init_version);
 
+#include "Conversation.h"
 #include "ConversationCommand.h"
 
 namespace ai {
@@ -60,6 +61,21 @@ idStr ConversationCommand::GetArgument(int index)
 	return (index > 0 && index < _arguments.Num()) ? _arguments[index] : "";
 }
 
+bool ConversationCommand::Execute(Conversation* conversation)
+{
+	idActor* actor = conversation->GetActor(_actor);
+
+	if (actor == NULL)
+	{
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Command on conversation %s could not find actor %d.\r", conversation->GetName().c_str(), _actor);
+		return false;
+	}
+
+	// TODO
+
+	return true;
+}
+
 bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 {
 	// Get the type
@@ -81,6 +97,9 @@ bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation command %s: Invalid actor index %d encountered.\r", TypeNames[_type], _actor);
 		return false;
 	}
+	
+	// Decrease the actor index, so that it can be used as index in the actors idList.
+	_actor--;
 
 	// Parse the arguments
 	_arguments.Clear();

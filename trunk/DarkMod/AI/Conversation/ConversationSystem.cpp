@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2673 $
- * $Date: 2008-07-16 13:11:54 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2675 $
+ * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2673 2008-07-16 17:11:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2675 2008-07-16 18:45:26Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -118,9 +118,15 @@ void ConversationSystem::ProcessConversations()
 	for (int i = 0; i < _activeConversations.Num(); i++)
 	{
 		ConversationPtr conv = GetConversation(_activeConversations[i]);
+		assert(conv != NULL);
 
 		// Let the conversation do its job
-		conv->Process();
+		if (!conv->Process())
+		{
+			// Job returned false, terminate this conversation
+			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Terminating conversation %s due to error.\r", conv->GetName().c_str());
+			EndConversation(_activeConversations[i]);
+		}
 	}
 }
 

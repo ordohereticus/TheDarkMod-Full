@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2674 $
- * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2675 $
+ * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2674 2008-07-16 18:01:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2675 2008-07-16 18:45:26Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -100,7 +100,7 @@ void Conversation::Start()
 	_currentCommand = 0;
 }
 
-void Conversation::Process()
+bool Conversation::Process()
 {
 	// Check for index out of bounds in debug builds
 	assert(_currentCommand >= 0 && _currentCommand < _commands.Num());
@@ -108,7 +108,14 @@ void Conversation::Process()
 	// Get the command as specified by the pointer
 	const ConversationCommandPtr& command = _commands[_currentCommand];
 
-	//command->GetActor();
+	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Executing command %s in conversation %s.\r", 
+		ConversationCommand::TypeNames[command->GetType()], _name.c_str());
+
+	// Increase the iterator
+	_currentCommand++;
+
+	// Pass the call and return the result
+	return command->Execute(this);
 }
 
 idActor* Conversation::GetActor(int index)

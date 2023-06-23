@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2674 $
- * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2675 $
+ * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -75,8 +75,10 @@ public:
 
 	/**
 	 * greebo: This is the "think" routine for conversations.
+	 *
+	 * @returns: TRUE if the process was successful, FALSE on error.
 	 */
-	void Process();
+	bool Process();
 
 	// Gets the actor with the given index/name
 	idActor* GetActor(int index);
