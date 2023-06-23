@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3157 $
- * $Date: 2009-01-17 12:13:29 -0500 (Sat, 17 Jan 2009) $
- * $Author: angua $
+ * $Revision: 3190 $
+ * $Date: 2009-01-19 14:58:09 -0500 (Mon, 19 Jan 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3157 2009-01-17 17:13:29Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3190 2009-01-19 19:58:09Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -109,9 +109,9 @@ void MeleeCombatTask::StartAttack(idAI* owner)
 	}
 	else
 	{
-		// angua: unarmed melee, attacks list is empty
-		// TODO: Why did we have 5 blend frames here?
-		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Melee_General", 5);
+		// all of our possible attacks are currently being parried
+		// TODO: Decide what to do in this case
+		// Wait forever?  Attack anyway?  Attack another opponent in our FOV?
 	}
 }
 

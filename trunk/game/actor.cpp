@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3133 $
- * $Date: 2009-01-11 02:24:48 -0500 (Sun, 11 Jan 2009) $
+ * $Revision: 3190 $
+ * $Date: 2009-01-19 14:58:09 -0500 (Mon, 19 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3133 2009-01-11 07:24:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3190 2009-01-19 19:58:09Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -742,6 +742,10 @@ void idActor::Spawn( void )
 	if (spawnArgs.GetBool("unarmed_melee"))
 	{
 		SetAttackFlag(COMBAT_MELEE, true);
+		// add the general unarmed attack to possible melee attacks list
+		// this will be overridden if they get a weapon attached
+		// TODO: Add this back in if the weapon is later detached?
+		m_MeleeStatus.m_attacks.Append(MELEETYPE_UNBLOCKABLE);
 	}
 
 	if (spawnArgs.GetBool("unarmed_ranged"))
