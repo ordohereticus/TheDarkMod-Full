@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2853 $
- * $Date: 2008-09-15 15:01:16 -0400 (Mon, 15 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2873 $
+ * $Date: 2008-09-21 22:39:54 -0400 (Sun, 21 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -792,6 +792,13 @@ public:
 	void inventoryPrevGroup( void );
 	// Drops the currently held/selected item.
 	void inventoryDropItem( void );
+	/**
+	* Physically test whether an item would fit in the world when
+	* dropped with its center of mass (not origin!) at the specified point
+	* Initially tries the supplied orientation, and tries all possible 90 degree
+	* rotations, overwriting the supplied orientation with the one that fits
+	**/
+	bool TestDropItemRotations( idEntity *ent, idVec3 viewPoint, idVec3 DropPoint, idMat3 &DropAxis );
 
 	// Uses the currently held/selected item.
 	void inventoryUseItem();
