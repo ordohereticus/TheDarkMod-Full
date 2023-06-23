@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2353 $
- * $Date: 2008-05-16 14:46:02 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2356 $
+ * $Date: 2008-05-17 03:08:04 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2353 2008-05-16 18:46:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2356 2008-05-17 07:08:04Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -185,6 +185,14 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 				owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Use_righthand", 4);
 				_state = EStatePressFetchButton;
 				_waitEndTime = gameLocal.time + 400;
+			}
+			else if (owner->AI_MOVE_DONE)
+			{
+				if (owner->AI_DEST_UNREACHABLE)
+				{
+					// Destination unreachable, help!
+					return true;
+				}
 			}
 			// TODO: set elevator user
 		}
@@ -382,7 +390,7 @@ bool HandleElevatorTask::MoveToPositionEntity(idAI* owner, CMultiStateMoverPosit
 bool HandleElevatorTask::MoveToButton(idAI* owner, CMultiStateMoverButton* button)
 {
 	idBounds bounds = owner->GetPhysics()->GetBounds();
-	float size = bounds[0][1];
+	float size = idMath::Fabs(bounds[0][1]);
 
 	idVec3 trans = button->spawnArgs.GetVector("translation", "0 2 0");
 	trans.z = 0;
