@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2445 $
- * $Date: 2008-06-07 10:07:39 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2451 $
+ * $Date: 2008-06-07 17:15:14 -0400 (Sat, 07 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2445 2008-06-07 14:07:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2451 2008-06-07 21:15:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -36,10 +36,6 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 2445 2008-06-07 
 #include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/ModMenu.h"
 #include "../DarkMod/renderpipe.h"
-
-#ifdef __linux__
-	#include <boost/asio.hpp>
-#endif
 
 #include "il/config.h"
 #include "il/il.h"
