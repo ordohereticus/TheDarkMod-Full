@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3107 $
- * $Date: 2009-01-04 02:18:34 -0500 (Sun, 04 Jan 2009) $
+ * $Revision: 3113 $
+ * $Date: 2009-01-05 06:29:35 -0500 (Mon, 05 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -35,6 +35,7 @@ private:
 
 	enum EDoorHandlingState {
 		EStateNone,
+		EStateApproachingDoor,
 		EStateMovingToFrontPos,
 		EStateWaitBeforeOpen,
 		EStateStartOpen,
