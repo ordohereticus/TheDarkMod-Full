@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3019 $
- * $Date: 2008-11-12 12:09:15 -0500 (Wed, 12 Nov 2008) $
+ * $Revision: 3035 $
+ * $Date: 2008-11-18 13:17:47 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -214,7 +214,9 @@ private:
 	// do not have to be copied across the DLL boundary when entities are spawned
 	const idDeclEntityDef *	weaponDef;
 	const idDeclEntityDef *	meleeDef;
-	idDict					projectileDict;
+
+	// greebo: This is not needed anymore - the projectile dictionary is requested when it's actually needed
+	//idDict					projectileDict;
 	float					meleeDistance;
 	idStr					meleeDefName;
 	idDict					brassDict;

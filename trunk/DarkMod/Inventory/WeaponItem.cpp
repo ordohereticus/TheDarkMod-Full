@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3008 $
- * $Date: 2008-11-10 14:11:32 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3035 $
+ * $Date: 2008-11-18 13:17:47 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3008 2008-11-10 19:11:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3035 2008-11-18 18:17:47Z greebo $", init_version);
 
 #include "WeaponItem.h"
 
@@ -64,6 +64,7 @@ void CInventoryWeaponItem::Save( idSaveGame *savefile ) const
 
 	savefile->WriteString(m_WeaponDefName);
 	savefile->WriteString(m_WeaponName);
+	savefile->WriteString(m_ProjectileDefName);
 	savefile->WriteInt(m_MaxAmmo);
 	savefile->WriteInt(m_Ammo);
 	savefile->WriteInt(m_WeaponIndex);
@@ -78,6 +79,7 @@ void CInventoryWeaponItem::Restore( idRestoreGame *savefile )
 
 	savefile->ReadString(m_WeaponDefName);
 	savefile->ReadString(m_WeaponName);
+	savefile->ReadString(m_ProjectileDefName);
 	savefile->ReadInt(m_MaxAmmo);
 	savefile->ReadInt(m_Ammo);
 	savefile->ReadInt(m_WeaponIndex);
@@ -155,12 +157,14 @@ void CInventoryWeaponItem::SetWeaponIndex(int index)
 
 	// Now that the weapon index is known, cache a few values from the owner spawnargs
 
-	// Construct the weapon name to retrieve the "max_ammo_mossarrow" string, for instance
 	const idDict* weaponDict = gameLocal.FindEntityDefDict(m_WeaponDefName);
 	if (weaponDict == NULL) return;
 
 	m_AllowedEmpty = !weaponDict->GetBool(WEAPON_AMMO_REQUIRED, "1");
 	m_IsToggleable = weaponDict->GetBool(WEAPON_IS_TOGGLEABLE, "0");
+
+	// Initialise the projectile def name from the weapon spawnargs
+	m_ProjectileDefName = weaponDict->GetString("def_projectile");
 }
 
 int CInventoryWeaponItem::GetWeaponIndex() const
@@ -171,4 +175,9 @@ int CInventoryWeaponItem::GetWeaponIndex() const
 const idStr& CInventoryWeaponItem::GetWeaponName() const
 {
 	return m_WeaponName;
+}
+
+const idStr& CInventoryWeaponItem::GetProjectileDefName() const
+{
+	return m_ProjectileDefName;
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3009 $
- * $Date: 2008-11-10 15:40:09 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3035 $
+ * $Date: 2008-11-18 13:17:47 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,6 +24,10 @@ protected:
 
 	// The unique name for this weapon, e.g. "broadhead" or "blackjack"
 	idStr	m_WeaponName;
+
+	// The name of the projectile def name for this weapon (can change during runtime). 
+	// Can be empty for melee weapons.
+	idStr	m_ProjectileDefName;
 
 	// The maximum amount of ammo for this weapon
 	int		m_MaxAmmo;
@@ -87,6 +91,12 @@ public:
 	 *         entityDef "weapon_broadhead" => weapon name: "broadhead"
 	 */
 	const idStr& GetWeaponName() const;
+
+	/**
+	 * greebo: Returns the name of the projectile entityDef, if this weapon fires projectiles in the first place.
+	 * Melee weapons will return an empty string.
+	 */
+	const idStr& GetProjectileDefName() const;
 };
 typedef boost::shared_ptr<CInventoryWeaponItem> CInventoryWeaponItemPtr;
 
