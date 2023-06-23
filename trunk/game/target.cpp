@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2727 $
- * $Date: 2008-08-06 14:09:52 -0400 (Wed, 06 Aug 2008) $
+ * $Revision: 2869 $
+ * $Date: 2008-09-21 06:52:57 -0400 (Sun, 21 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2727 2008-08-06 18:09:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2869 2008-09-21 10:52:57Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -2016,9 +2016,7 @@ void CTarget_SetFrobable::Spawn( void )
 
 void CTarget_SetFrobable::Event_Activate( idEntity *activator )
 {
-	int NumEnts(0);
 	idEntity *Ents[MAX_GENTITIES];
-	idEntity *ent( NULL );
 	bool bOnList(false);
 
 	// Contents mask:
@@ -2026,24 +2024,27 @@ void CTarget_SetFrobable::Event_Activate( idEntity *activator )
 
 	// bounding box test to get entities inside
 	GetPhysics()->EnableClip();
-	NumEnts = gameLocal.clip.EntitiesTouchingBounds(GetPhysics()->GetAbsBounds(), cm, Ents, MAX_GENTITIES);
+	int numEnts = gameLocal.clip.EntitiesTouchingBounds(GetPhysics()->GetAbsBounds(), cm, Ents, MAX_GENTITIES);
 	GetPhysics()->DisableClip();
 
 	// toggle frobability
 	m_bCurFrobState = !m_bCurFrobState;
 	
-	for( int i=0; i < NumEnts; i++ )
+	for (int i = 0; i < numEnts; i++)
 	{
+		idEntity* ent = Ents[i];
+
 		// Don't set self or the world, or the player frobable
-		if( Ents[i] == NULL
-			|| Ents[i] == this 
-			|| Ents[i] == gameLocal.world
-			|| Ents[i] == gameLocal.GetLocalPlayer() )
+		if (ent == NULL || ent == this || 
+			ent == gameLocal.world || ent == gameLocal.GetLocalPlayer())
 		{
 			continue;
 		}
 
-		ent = Ents[i];
+		if (ent->spawnArgs.GetBool("immune_to_target_setfrobable", "0")) 
+		{
+			continue; // greebo: per-entity exclusion
+		}
 
 		if( m_bCurFrobState )
 		{

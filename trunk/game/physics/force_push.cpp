@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2868 $
- * $Date: 2008-09-21 03:28:55 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2869 $
+ * $Date: 2008-09-21 06:52:57 -0400 (Sun, 21 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2868 2008-09-21 07:28:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2869 2008-09-21 10:52:57Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -59,10 +59,6 @@ void CForcePush::SetPushEntity(idEntity* pushEnt, int id)
 			// Let the pushed entity know that it is not being pushed anymore
 			static_cast<idMoveable*>(lastPushEntity)->SetIsPushed(false, vec3_zero);
 		}
-	}
-	else
-	{
-
 	}
 
 	this->pushEnt = pushEnt;
