@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3133 $
- * $Date: 2009-01-11 02:24:48 -0500 (Sun, 11 Jan 2009) $
+ * $Revision: 3212 $
+ * $Date: 2009-02-15 22:46:32 -0500 (Sun, 15 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -289,6 +289,12 @@ public:
 							);
 
 	/**
+	* Return the stealth damage multiplier
+	* Only used by derived class idAI
+	**/
+	virtual float	StealthDamageMult( void ) { return 1.0; };
+
+	/**
 	* Melee callbacks so the melee system can let the actor know what happened
 	* And to keep the melee status up to date
 	**/
@@ -452,7 +458,16 @@ protected:
 	int						pain_threshold;		// how much damage monster can take at any one time before playing pain animation
 
 	idStrList				damageGroups;		// body damage groups
-	idList<float>			damageScale;		// damage scale per damage gruop
+	idList<float>			damageScale;		// damage scale per damage group
+
+	/**
+	* Alertnum threshold above which sneak attacks won't work,
+	**/
+	float					m_SneakAttackThresh;
+	/**
+	* Damage multiplier applied for sneak attack damage
+	**/
+	float					m_SneakAttackMult;
 
 	bool						use_combat_bbox;	// whether to use the bounding box for combat collision
 	idEntityPtr<idAFAttachment>	head;
