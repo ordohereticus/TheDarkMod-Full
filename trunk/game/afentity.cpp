@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2801 $
- * $Date: 2008-09-06 06:32:37 -0400 (Sat, 06 Sep 2008) $
- * $Author: tels $
+ * $Revision: 2803 $
+ * $Date: 2008-09-07 18:56:38 -0400 (Sun, 07 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2801 2008-09-06 10:32:37Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2803 2008-09-07 22:56:38Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1899,7 +1899,7 @@ void idAFEntity_WithAttachedHead::SetupHead()
 		}
 
 		idStr jointName = spawnArgs.GetString( "head_joint" );
-		jointHandle_t joint = animator.GetJointHandle( jointName );
+		jointHandle_t joint = animator.GetJointHandle( jointName.c_str() );
 		if ( joint == INVALID_JOINT ) {
 			gameLocal.Error( "Joint '%s' not found for 'head_joint' on '%s'", jointName.c_str(), name.c_str() );
 		}
