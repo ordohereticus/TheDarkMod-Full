@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2887 $
- * $Date: 2008-09-24 12:54:20 -0400 (Wed, 24 Sep 2008) $
+ * $Revision: 2893 $
+ * $Date: 2008-09-26 00:32:37 -0400 (Fri, 26 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2887 2008-09-24 16:54:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2893 2008-09-26 04:32:37Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -219,7 +219,10 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				{
 					if (masterUser == owner)
 					{
-						float dist = (owner->GetPhysics()->GetOrigin() - closedPos).LengthFast();
+						// check if we are close enough already
+						idVec3 dir = (owner->GetPhysics()->GetOrigin() - _frontPos);
+						dir.z = 0;
+						float dist = dir.LengthFast();
 						if (dist < 2 * owner->GetArmReachLength())
 						{
 							// reached front position
