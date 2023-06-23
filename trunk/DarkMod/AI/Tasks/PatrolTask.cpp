@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3089 $
- * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
+ * $Revision: 3091 $
+ * $Date: 2008-12-28 14:03:25 -0500 (Sun, 28 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3091 2008-12-28 19:03:25Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -149,7 +149,18 @@ bool PatrolTask::Perform(Subsystem& subsystem)
 	}
 	else if (classname == "path_wait")
 	{
-		task = PathWaitTaskPtr(new PathWaitTask(path));
+		if (path->spawnArgs.FindKey("angle") != NULL)
+		{
+			// We have an angle key set, push a PathTurnTask on top of the anim task
+			subsystem.PushTask(TaskPtr(new PathWaitTask(path)));
+			// The "task" variable will be pushed later on in this code
+			task = PathTurnTaskPtr(new PathTurnTask(path));
+		}
+		else 
+		{
+			// No "angle" key set, just schedule the animation task
+			task = PathWaitTaskPtr(new PathWaitTask(path));
+		}
 	}
 	else if (classname == "path_waitfortrigger")
 	{
