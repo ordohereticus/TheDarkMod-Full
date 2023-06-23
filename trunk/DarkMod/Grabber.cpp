@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3105 $
- * $Date: 2009-01-02 18:13:25 -0500 (Fri, 02 Jan 2009) $
+ * $Revision: 3131 $
+ * $Date: 2009-01-10 01:47:49 -0500 (Sat, 10 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3105 2009-01-02 23:13:25Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3131 2009-01-10 06:47:49Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -875,12 +875,13 @@ void CGrabber::AddToClipList( idEntity *ent )
 	
 	// Clear the solid flag to avoid player collision, 
 	// but enable monsterclip for AI, rendermodel for projectiles and corpse for moveables
+	// clear the opaque flag so that AI can see through carried items
 	if( contents & (CONTENTS_SOLID|CONTENTS_CORPSE) )
 	{
 		phys->SetContents
 		( 
 			(contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP 
-			| CONTENTS_RENDERMODEL | CONTENTS_CORPSE 
+			| CONTENTS_RENDERMODEL | CONTENTS_CORPSE & (~CONTENTS_OPAQUE)
 		);
 		bAddToList = true;
 	}
