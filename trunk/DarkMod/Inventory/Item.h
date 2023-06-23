@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3039 $
- * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 3051 $
+ * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 #ifndef __DARKMOD_INVENTORYITEM_H__
@@ -21,6 +21,7 @@ public:
 	typedef enum {
 		IT_ITEM,			// Normal item, which is associated to an entity
 		IT_LOOT,			// this is a loot item
+		IT_LOOT_INFO,		// loot info item
 		IT_WEAPON,			// a weapon item
 		IT_DUMMY,			// This also doesn't have an entity, but provides a dummy so 
 							// we can have an empty space in the inventory.

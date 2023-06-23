@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2901 $
- * $Date: 2008-09-28 02:07:42 -0400 (Sun, 28 Sep 2008) $
+ * $Revision: 3051 $
+ * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 2901 2008-09-28 06:07:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 3051 2008-11-21 16:13:37Z greebo $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
@@ -162,6 +162,21 @@ CInventoryItemPtr CInventoryCategory::GetItemById(const idStr& id)
 		const CInventoryItemPtr& item = m_Item[i];
 
 		if (id == item->GetItemId())
+		{
+			return item;
+		}
+	}
+
+	return CInventoryItemPtr();
+}
+
+CInventoryItemPtr CInventoryCategory::GetItemByType(CInventoryItem::ItemType type)
+{
+	for (int i = 0; i < m_Item.Num(); i++)
+	{
+		const CInventoryItemPtr& item = m_Item[i];
+
+		if (item->GetType() == type)
 		{
 			return item;
 		}

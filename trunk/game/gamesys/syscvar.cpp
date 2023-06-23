@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3033 $
- * $Date: 2008-11-15 05:32:06 -0500 (Sat, 15 Nov 2008) $
+ * $Revision: 3051 $
+ * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3033 2008-11-15 10:32:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3051 2008-11-21 16:13:37Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -211,8 +211,7 @@ idCVar cv_throw_max_vel(			"tdm_throw_max_vel",	"900",			CVAR_GAME | CVAR_ARCHIV
 * DarkMod Inventory
 **/
 idCVar cv_tdm_inv_gui_file(	"tdm_inv_hud_file", "guis/tdm_inv.gui",	CVAR_GAME, "The name of the gui file that represents the hud for the inventory.");
-idCVar cv_tdm_inv_loot_gui_file(	"tdm_inv_loot_hud", "guis/tdm_loot.gui",	CVAR_GAME, "The name of the gui file that represents the hud for the loot display.");
-idCVar cv_tdm_inv_loot_group("tdm_inv_loot_group", "Loot",	CVAR_GAME | CVAR_ARCHIVE, "The name of the group that contains the loot item.");
+idCVar cv_tdm_inv_loot_item_def("tdm_inv_loot_item_def", "atdm:inv_loot_item", CVAR_GAME, "The name of the entityDef that defines the player's inventory loot item.");
 
 idCVar cv_tdm_hud_opacity(	"tdm_hud_opacity", "0.7",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"The opacity of the HUD GUIs. [0..1]", 0, 1 );
 idCVar cv_tdm_inv_hud_pickupmessages(	"tdm_inv_hud_pickupmessages", "1",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"If set to 1, the HUD is displaying the item the player has just picked up.");

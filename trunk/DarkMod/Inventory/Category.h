@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2841 $
- * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 3051 $
+ * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -31,6 +31,8 @@ public:
 
 	// Look up an InventoryItem by its ItemId (NOT equivalent to GetItem(const idStr& Name) btw).
 	CInventoryItemPtr		GetItemById(const idStr& id);
+
+	CInventoryItemPtr		GetItemByType(CInventoryItem::ItemType type);
 
 	// Look up an InventoryItem by <name> or <index>
 	CInventoryItemPtr		GetItem(const idStr& itemName);
