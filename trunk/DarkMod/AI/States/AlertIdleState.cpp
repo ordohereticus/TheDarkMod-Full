@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3183 $
- * $Date: 2009-01-19 03:49:19 -0500 (Mon, 19 Jan 2009) $
+ * $Revision: 3223 $
+ * $Date: 2009-03-05 07:47:52 -0500 (Thu, 05 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3183 2009-01-19 08:49:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3223 2009-03-05 12:47:52Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -47,8 +47,6 @@ void AlertIdleState::Init(idAI* owner)
 
 	// Ensure we are in the correct alert level
 	if (!CheckAlertLevel(owner)) return;
-
-	_startSitting = owner->spawnArgs.GetBool("sitting", "0");
 
 	InitialiseMovement(owner);
 	InitialiseCommunication(owner);
