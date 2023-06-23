@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2560 $
- * $Date: 2008-06-22 15:06:30 -0400 (Sun, 22 Jun 2008) $
+ * $Revision: 2561 $
+ * $Date: 2008-06-22 15:55:24 -0400 (Sun, 22 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2560 2008-06-22 19:06:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2561 2008-06-22 19:55:24Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1249,6 +1249,28 @@ void CFrobDoor::AutoSetupDoubleDoor()
 void CFrobDoor::RemoveLockPeer(const idStr& peerName)
 {
 	m_LockPeers.Remove(peerName);
+}
+
+void CFrobDoor::FrobMoverStartSound(const char* soundName)
+{
+	if (m_Doorhandles.Num() > 0)
+	{
+		CFrobDoorHandle* handle = m_Doorhandles[0].GetEntity();
+
+		if (handle != NULL)
+		{
+			// Let the sound play from the first handle, but use the soundshader
+			// as defined on this entity.
+			idStr sound = spawnArgs.GetString(soundName, "");
+			const idSoundShader* shader = declManager->FindSound(sound);
+
+			handle->StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, NULL);
+			return;
+		}
+	}
+
+	// No handle or NULL handle, just call the base class
+	CBinaryFrobMover::FrobMoverStartSound(soundName);
 }
 
 void CFrobDoor::Event_GetDoorhandle()
