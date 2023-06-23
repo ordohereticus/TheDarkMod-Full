@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2691 $
- * $Date: 2008-07-18 10:35:43 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2692 $
+ * $Date: 2008-07-18 11:53:26 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2691 2008-07-18 14:35:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2692 2008-07-18 15:53:26Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -25,6 +25,7 @@ static bool init_version = FileVersionList("$Id: ConversationState.cpp 2691 2008
 #define CONVERSATION_SPAWNARG "snd_TEMP_conv"
 #define DEFAULT_LOOKAT_DURATION 5.0f
 #define DEFAULT_WALKTOENTITY_DISTANCE 50.0f
+#define FALLBACK_ANIM_LENGTH 5000 // msecs
 
 namespace ai
 {
@@ -209,15 +210,19 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 
 	case ConversationCommand::EPlayAnimOnce:
 	{
-		owner->GetSubsystem(SubsysAction)->PushTask(
-			TaskPtr(new PlayAnimationTask(command.GetArgument(0)))
-		);
+		idStr animName = command.GetArgument(0);
+
+		// Tell the animation subsystem to play the anim
+		owner->GetSubsystem(SubsysAction)->PushTask(TaskPtr(new PlayAnimationTask(animName)));
+
+		int length = (owner->GetAnimator() != NULL) ? 
+			owner->GetAnimator()->AnimLength(owner->GetAnimator()->GetAnim(animName)) : FALLBACK_ANIM_LENGTH;
 
 		// Set the finish conditions for the current action
 		if (command.WaitUntilFinished())
 		{
 			_state = ConversationCommand::EExecuting;
-			_finishTime = gameLocal.time + 5000;
+			_finishTime = gameLocal.time + length;
 		}
 		else
 		{
