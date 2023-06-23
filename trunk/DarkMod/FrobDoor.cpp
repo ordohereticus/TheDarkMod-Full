@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2409 $
- * $Date: 2008-06-01 06:08:57 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2411 $
+ * $Date: 2008-06-01 07:52:52 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2409 2008-06-01 10:08:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2411 2008-06-01 11:52:52Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -768,20 +768,6 @@ bool CFrobDoor::IsFrobbed(void)
 	}
 
 	return idEntity::IsFrobbed();
-}
-
-void CFrobDoor::ToggleOpen(void)
-{
-	CBinaryFrobMover::ToggleOpen();
-	// if(m_Doorhandle.GetEntity())
-	//	m_Doorhandle.GetEntity()->ToggleOpen();
-}
-
-void CFrobDoor::ToggleLock(void)
-{
-	CBinaryFrobMover::ToggleLock();
-	if(m_Doorhandle.GetEntity())
-		m_Doorhandle.GetEntity()->ToggleLock();
 }
 
 idStringList *CFrobDoor::CreatePinPattern(int Clicks, int BaseCount, int MaxCount, int StrNumLen, idStr &str)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2407 $
- * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2411 $
+ * $Date: 2008-06-01 07:52:52 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -97,9 +97,6 @@ public:
 
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed(void);
-
-	void					ToggleOpen(void);
-	void					ToggleLock(void);
 
 	void					ProcessLockpick(int cType, ELockpickSoundsample nSampleType);
 	void					LockpickTimerEvent(int cType, ELockpickSoundsample nSoundSample);
