@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2388 $
+ * $Date: 2008-05-26 15:03:49 -0400 (Mon, 26 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobButton.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobButton.cpp 2388 2008-05-26 19:03:49Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -59,4 +59,13 @@ void CFrobButton::Open(bool bMaster)
 void CFrobButton::Close(bool bMaster)
 {
 	CBinaryFrobMover::Close(false);
+}
+
+void CFrobButton::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse )
+{
+	// Check if the impulse is applied in the right direction
+	if (impulse * m_Translation >= 0)
+	{
+		Operate();
+	}
 }

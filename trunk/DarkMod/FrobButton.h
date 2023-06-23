@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2339 $
- * $Date: 2008-05-15 13:09:01 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2388 $
+ * $Date: 2008-05-26 15:03:49 -0400 (Mon, 26 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -33,6 +33,9 @@ public:
 
 	virtual void			Open(bool Master);
 	virtual void			Close(bool Master);
+
+	// Override the base class's ApplyImpulse method
+	virtual void			ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse );
 };
 
 #endif /* FROBBUTTON_H */
