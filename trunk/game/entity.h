@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2844 $
- * $Date: 2008-09-14 14:52:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2845 $
+ * $Date: 2008-09-14 15:05:11 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1292,6 +1292,7 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_SetInvCursorItem(const char* itemName);
 	void					Event_GetInvCursorCategory();
 	void					Event_GetInvCursorItem();
+	void					Event_GetInvCursorItemName();
 
 	void					Event_AddItem(idEntity *item);
 	void					Event_GetGroupItem(const char *name, const char *group);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2844 $
- * $Date: 2008-09-14 14:52:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2845 $
+ * $Date: 2008-09-14 15:05:11 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2844 2008-09-14 18:52:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2845 2008-09-14 19:05:11Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -159,6 +159,7 @@ const idEventDef EV_SetInvCursorCategory("setInvCursorCategory", "s", 'd');	// c
 const idEventDef EV_SetInvCursorItem("setInvCursorItem", "s", 'e');				// itemname -> entity
 const idEventDef EV_GetInvCursorCategory("getInvCursorCategory", NULL, 's');
 const idEventDef EV_GetInvCursorItem("getInvCursorItem", NULL, 'e');
+const idEventDef EV_GetInvCursorItemName("getInvCursorItemName", NULL, 's');
 
 const idEventDef EV_AddItem("addItem", "e");								// entityitem
 const idEventDef EV_GetGroupItem("getGroupItem", "ss", 'e');				// itemname, groupname -> NULL not in group
@@ -331,6 +332,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_SetInvCursorItem,		idEntity::Event_SetInvCursorItem )
 	EVENT( EV_GetInvCursorCategory,	idEntity::Event_GetInvCursorCategory )
 	EVENT( EV_GetInvCursorItem,		idEntity::Event_GetInvCursorItem )
+	EVENT( EV_GetInvCursorItemName,	idEntity::Event_GetInvCursorItemName )
 
 	EVENT( EV_AddItem,				idEntity::Event_AddItem )
 	EVENT( EV_GetGroupItem,			idEntity::Event_GetGroupItem )
@@ -8640,6 +8642,11 @@ void idEntity::Event_GetInvCursorCategory()
 }
 
 void idEntity::Event_GetInvCursorItem()
+{
+	idThread::ReturnEntity( InventoryCursor()->GetCurrentItem()->GetItemEntity() );
+}
+
+void idEntity::Event_GetInvCursorItemName()
 {
 	idThread::ReturnString( InventoryCursor()->GetCurrentItem()->GetName() );
 }
