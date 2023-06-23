@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2712 $
- * $Date: 2008-08-01 03:13:52 -0400 (Fri, 01 Aug 2008) $
+ * $Revision: 2743 $
+ * $Date: 2008-08-18 02:18:02 -0400 (Mon, 18 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 2712 2008-08-01 07:13:52Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 2743 2008-08-18 06:18:02Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1031,11 +1031,25 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 		args2.Set( "dropToFloor", "0" );
 		
 		gameLocal.SpawnEntityDef( args2, &ent );
-		if ( !ent ) {
+		if ( !ent ) 
+		{
 			gameLocal.Error( "Couldn't spawn '%s' to attach to entity '%s'", KeyVal->GetValue().c_str(), name.c_str() );
-		} else {
-			DM_LOG(LC_ENTITY, LT_DEBUG)LOGSTRING("Def_Attaching entity %s to weapon entity %s.\r", ent->name.c_str(), name.c_str());
-			Attach( ent );
+		} else 
+		{
+			DM_LOG(LC_WEAPON, LT_DEBUG)LOGSTRING("Def_Attaching entity %s to weapon entity %s.\r", ent->name.c_str(), name.c_str());
+			
+			// check for attachment position spawnarg
+			idStr Suffix = KeyVal->GetKey();
+			Suffix.StripLeading( "def_attach" );
+			idStr PosKey = "pos_attach" + Suffix;
+			// String name of the attachment for later accessing
+			idStr AttName = "name_attach" + Suffix;
+
+			if( weaponDef->dict.FindKey(PosKey.c_str()) )
+				Attach( ent, weaponDef->dict.GetString(PosKey.c_str()), 
+						weaponDef->dict.GetString(AttName.c_str()) );
+			else
+				Attach( ent, NULL, weaponDef->dict.GetString(AttName.c_str()) );
 		}
 		KeyVal = weaponDef->dict.MatchPrefix( "def_attach", KeyVal );
 	}

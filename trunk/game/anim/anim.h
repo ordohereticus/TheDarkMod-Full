@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2716 $
- * $Date: 2008-08-03 03:38:39 -0400 (Sun, 03 Aug 2008) $
+ * $Revision: 2743 $
+ * $Date: 2008-08-18 02:18:02 -0400 (Mon, 18 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -142,10 +142,10 @@ typedef enum {
 **/
 	FC_SETRATE,
 	FC_REATTACH,
-	FC_MELEE_ACTIVATE_ATTACK,
-	FC_MELEE_DEACTIVATE_ATTACK,
-	FC_MELEE_ACTIVATE_PARRY,
-	FC_MELEE_DEACTIVATE_PARRY
+	FC_MELEE_ATTACK_START,
+	FC_MELEE_ATTACK_STOP,
+	FC_MELEE_PARRY_START,
+	FC_MELEE_PARRY_STOP
 
 } frameCommandType_t;
 
