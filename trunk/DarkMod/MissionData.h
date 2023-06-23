@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2241 $
- * $Date: 2008-04-28 16:21:37 -0400 (Mon, 28 Apr 2008) $
+ * $Revision: 2441 $
+ * $Date: 2008-06-06 12:14:52 -0400 (Fri, 06 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -890,7 +890,7 @@ protected:
 	/**
 	* List of entity names that intersected bounds in previous clock tick
 	**/
-	idStrList	m_EntsInBounds;
+	idList< idEntityPtr<idEntity> >	m_EntsInBounds;
 	/**
 	* Objective system: Location's objective group name for objective checks
 	**/
