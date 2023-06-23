@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2786 $
+ * $Date: 2008-08-31 13:43:18 -0400 (Sun, 31 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 2786 2008-08-31 17:43:18Z greebo $", init_version);
 
 #include "Item.h"
 #include <algorithm>
@@ -34,6 +34,7 @@ CInventoryItem::CInventoryItem(idEntity *owner)
 	m_Orientated = false;
 	m_Persistent = false;
 	m_LightgemModifier = 0;
+	m_MovementModifier = 1.0f;
 	m_UseOnFrob = false;
 }
 
@@ -77,9 +78,6 @@ CInventoryItem::CInventoryItem(idEntity* itemEntity, idEntity* owner) {
 
 	m_BindMaster = itemEntity->GetBindMaster();
 	m_Orientated = itemEntity->fl.bindOrientated;
-	m_Persistent = itemEntity->spawnArgs.GetBool("inv_persistent", "0");
-
-	m_LightgemModifier = itemEntity->spawnArgs.GetInt("inv_lgmodifier", "0");
 
 	idStr hudName;
 	// Item could be added to the inventory, check for custom HUD
@@ -89,6 +87,9 @@ CInventoryItem::CInventoryItem(idEntity* itemEntity, idEntity* owner) {
 		itemEntity->spawnArgs.GetInt("inv_hud_layer", "0", hudLayer);
 		SetHUD(hudName, hudLayer);
 	}
+
+	// Parse a few common spawnargs
+	ParseSpawnargs(itemEntity->spawnArgs);
 }
 
 CInventoryItem::~CInventoryItem()
@@ -128,6 +129,7 @@ void CInventoryItem::Save( idSaveGame *savefile ) const
 	savefile->WriteBool(m_Persistent);
 	
 	savefile->WriteInt(m_LightgemModifier);
+	savefile->WriteFloat(m_MovementModifier);
 	savefile->WriteBool(m_UseOnFrob);
 }
 
@@ -163,7 +165,15 @@ void CInventoryItem::Restore( idRestoreGame *savefile )
 	savefile->ReadBool(m_Persistent);
 
 	savefile->ReadInt(m_LightgemModifier);
+	savefile->ReadFloat(m_MovementModifier);
 	savefile->ReadBool(m_UseOnFrob);
+}
+
+void CInventoryItem::ParseSpawnargs(const idDict& spawnArgs)
+{
+	m_Persistent = spawnArgs.GetBool("inv_persistent", "0");
+	m_LightgemModifier = spawnArgs.GetInt("inv_lgmodifier", "0");
+	m_MovementModifier = spawnArgs.GetFloat("inv_movement_modifier", "1");
 }
 
 void CInventoryItem::SetLootType(CInventoryItem::LootType t)
@@ -273,12 +283,16 @@ void CInventoryItem::SetPersistent(bool newValue)
 
 void CInventoryItem::SetLightgemModifier(int newValue)
 {
-	m_LightgemModifier = newValue;
-
 	// greebo: Clamp the value to [0..1]
-	using std::min;
-	using std::max;
-	m_LightgemModifier = max(0, min(DARKMOD_LG_MAX, m_LightgemModifier));
+	m_LightgemModifier = idMath::ClampInt(0, DARKMOD_LG_MAX, newValue);
+}
+
+void CInventoryItem::SetMovementModifier(float newValue)
+{
+	if (newValue > 0)
+	{
+		m_MovementModifier = newValue;
+	}
 }
 
 void CInventoryItem::SetIcon(const idStr& newIcon)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2786 $
+ * $Date: 2008-08-31 13:43:18 -0400 (Sun, 31 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 2786 2008-08-31 17:43:18Z greebo $", init_version);
 
 #include "WeaponItem.h"
 
@@ -46,10 +46,11 @@ CInventoryWeaponItem::CInventoryWeaponItem(const idStr& weaponDefName, idEntity*
 	_maxAmmo = getMaxAmmo();
 	_ammo = getStartAmmo();
 
-	const idDict* weaponDict = gameLocal.FindEntityDefDict(weaponDefName.c_str());
+	const idDict* weaponDict = gameLocal.FindEntityDefDict(weaponDefName);
 	m_Name = weaponDict->GetString("inv_name", "Unknown weapon");
-	m_Persistent = weaponDict->GetBool("inv_persistent", "0");
-	m_LightgemModifier = weaponDict->GetInt("inv_lgmodifier", "0");
+
+	// Parse the common spawnargs which apply to both this and the base class
+	ParseSpawnargs(*weaponDict);
 }
 
 void CInventoryWeaponItem::Save( idSaveGame *savefile ) const
@@ -78,7 +79,8 @@ void CInventoryWeaponItem::Restore( idRestoreGame *savefile )
 	savefile->ReadBool(_allowedEmpty);
 }
 
-int CInventoryWeaponItem::getMaxAmmo() {
+int CInventoryWeaponItem::getMaxAmmo()
+{
 	// Sanity check
 	if (m_Owner.GetEntity() == NULL) {
 		return -1;
@@ -92,11 +94,13 @@ int CInventoryWeaponItem::getMaxAmmo() {
 	return m_Owner.GetEntity()->spawnArgs.GetInt(key, "0");
 }
 
-bool CInventoryWeaponItem::allowedEmpty() {
+bool CInventoryWeaponItem::allowedEmpty()
+{
 	return _allowedEmpty;
 }
 
-int CInventoryWeaponItem::getStartAmmo() {
+int CInventoryWeaponItem::getStartAmmo()
+{
 	// Sanity check
 	if (m_Owner.GetEntity() == NULL) {
 		return -1;
@@ -110,11 +114,13 @@ int CInventoryWeaponItem::getStartAmmo() {
 	return m_Owner.GetEntity()->spawnArgs.GetInt(key, "0");
 }
 
-int CInventoryWeaponItem::getAmmo() const {
+int CInventoryWeaponItem::getAmmo() const
+{
 	return _ammo;
 }
 
-void CInventoryWeaponItem::setAmmo(int newAmount) {
+void CInventoryWeaponItem::setAmmo(int newAmount)
+{
 	if (allowedEmpty()) {
 		// Don't set ammo of weapons that don't need any
 		return;
@@ -127,7 +133,8 @@ void CInventoryWeaponItem::setAmmo(int newAmount) {
 	}
 }
 
-int CInventoryWeaponItem::hasAmmo() {
+int CInventoryWeaponItem::hasAmmo()
+{
 	if (allowedEmpty()) {
 		// Always return 1 for non-ammo weapons
 		return 1;
@@ -135,11 +142,13 @@ int CInventoryWeaponItem::hasAmmo() {
 	return _ammo;
 }
 
-void CInventoryWeaponItem::useAmmo(int amount) {
+void CInventoryWeaponItem::useAmmo(int amount)
+{
 	setAmmo(_ammo - amount);
 }
 
-void CInventoryWeaponItem::setWeaponIndex(int index) {
+void CInventoryWeaponItem::setWeaponIndex(int index)
+{
 	_weaponIndex = index;
 
 	// Now that the weapon index is known, cache a few values from the owner spawnargs
@@ -154,15 +163,18 @@ void CInventoryWeaponItem::setWeaponIndex(int index) {
 	}
 }
 
-int CInventoryWeaponItem::getWeaponIndex() const {
+int CInventoryWeaponItem::getWeaponIndex() const
+{
 	return _weaponIndex;
 }
 
-bool CInventoryWeaponItem::isToggleable() const {
+bool CInventoryWeaponItem::isToggleable() const
+{
 	return _toggleable;
 }
 
-idStr CInventoryWeaponItem::getWeaponName() {
+idStr CInventoryWeaponItem::getWeaponName()
+{
 	idStr weaponName = _weaponDefName;
 	weaponName.Strip(WEAPON_PREFIX);
 	return weaponName;
