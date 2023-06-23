@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2509 $
+ * $Date: 2008-06-15 14:51:15 -0400 (Sun, 15 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2442 2008-06-06 16:22:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2509 2008-06-15 18:51:15Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -535,6 +535,28 @@ void CBinaryFrobMover::DoneRotating(void)
 	DoneStateChange();
 }
 
+bool CBinaryFrobMover::IsAtOpenPosition()
+{
+	const idVec3& localOrg = physicsObj.GetLocalOrigin();
+
+	idAngles localAngles = physicsObj.GetLocalAngles();
+	localAngles.Normalize180();
+
+	// greebo: Let the check be slightly inaccurate (use the standard epsilon).
+	return localAngles.Compare(m_OpenAngles, VECTOR_EPSILON) && localOrg.Compare(m_OpenOrigin, VECTOR_EPSILON);
+}
+
+bool CBinaryFrobMover::IsAtClosedPosition()
+{
+	const idVec3& localOrg = physicsObj.GetLocalOrigin();
+
+	idAngles localAngles = physicsObj.GetLocalAngles();
+	localAngles.Normalize180();
+
+	// greebo: Let the check be slightly inaccurate (use the standard epsilon).
+	return localAngles.Compare(m_ClosedAngles, VECTOR_EPSILON) && localOrg.Compare(m_ClosedOrigin, VECTOR_EPSILON);
+}
+
 void CBinaryFrobMover::DoneStateChange(void)
 {
 	bool CallScript = false;
@@ -565,13 +587,7 @@ void CBinaryFrobMover::DoneStateChange(void)
 	else
 	{
 		// in all other cases, use the angles and position of origin to check if the door is open or closed
-		// greebo: Let the check be slightly inaccurate (use the standard epsilon).
-		idVec3 localOrg = physicsObj.GetLocalOrigin();
-		idAngles localAngles = physicsObj.GetLocalAngles();
-		localAngles.Normalize180();
-
-		checkClose = localAngles.Compare(m_ClosedAngles, VECTOR_EPSILON) && 
-			localOrg.Compare(m_ClosedOrigin, VECTOR_EPSILON);
+		checkClose = IsAtClosedPosition();
 	}
 
 	if (checkClose)

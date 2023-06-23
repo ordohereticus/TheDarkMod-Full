@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2509 $
+ * $Date: 2008-06-15 14:51:15 -0400 (Sun, 15 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -157,6 +157,18 @@ public:
 	int GetFrobMoverAasArea(idAAS* aas);
 
 protected:
+
+	/** 
+	 * greebo: Returns TRUE if the mover is at the open position. Doesn't change
+	 * the state of the mover, just compares the local angles and origin.
+	 */
+	virtual bool IsAtOpenPosition();
+
+	/** 
+	 * greebo: Returns TRUE if the mover is at the closed position. Doesn't change
+	 * the state of the mover, just compares the local angles and origin.
+	 */
+	virtual bool IsAtClosedPosition();
 
 	/**
 	 * greebo: Overrides the base class method to calculate the move_time fraction

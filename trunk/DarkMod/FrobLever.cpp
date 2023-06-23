@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2459 $
- * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2509 $
+ * $Date: 2008-06-15 14:51:15 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLever.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLever.cpp 2509 2008-06-15 18:51:15Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -54,7 +54,16 @@ void CFrobLever::Operate()
 {
 	if (IsOpen())
 	{
-		Close(false);
+		if (IsAtClosedPosition())
+		{
+			// Aha, seems like we're flagged as open, but we are at the closed position => open
+			m_Open = false;
+			Open(false);
+		}
+		else
+		{
+			Close(false);
+		}		
 	}
 	else
 	{
@@ -81,8 +90,7 @@ void CFrobLever::Open(bool bMaster)
 		ActivateTargets( this );
 	}
 
-	idAngles tempAng;
-	physicsObj.GetLocalAngles( tempAng );
+	const idAngles& tempAng = physicsObj.GetLocalAngles();
 
 	m_Open = true;
 	m_Rotating = true;
@@ -103,8 +111,6 @@ void CFrobLever::Open(bool bMaster)
 		Event_SetMoveSpeed( m_TransSpeed );
 	}
 
-			
-
 	if (!physicsObj.GetLocalOrigin().Compare(m_OpenOrigin, VECTOR_EPSILON))
 	{
 		MoveToLocalPos( m_OpenOrigin );
@@ -118,7 +124,7 @@ void CFrobLever::Open(bool bMaster)
 void CFrobLever::Close(bool bMaster)
 {
 	// If the mover is already closed, we don't have anything to do. :)
-	if(m_Open == false)
+	if (m_Open == false)
 		return;
 
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobLever: Closing\r" );
