@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2960 $
- * $Date: 2008-10-21 00:22:37 -0400 (Tue, 21 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 2968 $
+ * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2960 2008-10-21 04:22:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2968 2008-10-22 19:19:08Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -303,6 +303,12 @@ idCVar cv_dm_distance("tdm_distance",		"",	CVAR_GAME,	"Shows the distance from t
  * Ambient light method variable
  */
 idCVar cv_ambient_method("tdm_ambient_method",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "Method used for ambient light rendering.\n\n0 = Ambient Light method (uses the ambient light for the ambient brightness) \n1 = Texture Brightness method (uses texture brightness instead of light. This is faster but looks worse)" );
+
+/**
+ * Volume of speakers with s_music set
+ */
+idCVar cv_music_volume("tdm_music_volume",	"1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Volume in dB for speakers with s_music set." );
+
 
 idCVar cv_darkradiant_rcfserver_enable("darkradiant_rcfserver_enable",	"0",	CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the DarkRadiant RCF Server will be enabled during the next startup." );
 

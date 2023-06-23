@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2960 $
- * $Date: 2008-10-21 00:22:37 -0400 (Tue, 21 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 2968 $
+ * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -236,6 +236,9 @@ extern idCVar cv_dm_distance;
 
 // Ambient light method CVar
 extern idCVar cv_ambient_method;
+
+// Volume of music speakers
+extern idCVar cv_music_volume;
 
 /**
 * CVars added for Darkmod knockout and field of vision changes

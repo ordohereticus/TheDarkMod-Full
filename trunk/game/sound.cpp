@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2968 $
+ * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: sound.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sound.cpp 2968 2008-10-22 19:19:08Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -114,6 +114,10 @@ void idSound::Spawn( void ) {
 	} else {
 		timerOn = false;
 	}
+	// add this speaker to the list of ambient music speakers affected by tdm_music_volume
+    if ( spawnArgs.GetBool( "s_music" ) ) {
+       gameLocal.musicSpeakers.Append( entityNumber );
+    }
 }
 
 /*

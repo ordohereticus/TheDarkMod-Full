@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2968 $
+ * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -546,6 +546,9 @@ public:
 
 	void					SetPortalSkyEnt( idEntity *ent );
 	bool					IsPortalSkyAcive();
+
+	// tels: a list of all speaker entities with s_music set, these are affected by s_vol_music:
+	idList<int>				musicSpeakers;
 
 	// ---------------------- Public idGame Interface -------------------
 

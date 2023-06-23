@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2964 $
- * $Date: 2008-10-21 14:27:19 -0400 (Tue, 21 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2968 $
+ * $Date: 2008-10-22 15:19:08 -0400 (Wed, 22 Oct 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2964 2008-10-21 18:27:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2968 2008-10-22 19:19:08Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -365,6 +365,8 @@ void idGameLocal::Clear( void )
 	m_EscapePointManager->Clear();
 
 	m_GamePlayTimer.Clear();
+
+	musicSpeakers.Clear();
 }
 
 /*
@@ -671,6 +673,12 @@ void idGameLocal::SaveGame( idFile *f ) {
 	savegame.WriteInt( activeEntities.Num() );
 	for( ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next() ) {
 		savegame.WriteObject( ent );
+	}
+
+	// tels: save the list of music speakers
+	savegame.WriteInt( musicSpeakers.Num() );
+	for( i = 0; i < musicSpeakers.Num(); i++ ) {
+		savegame.WriteInt( musicSpeakers[ i ] );
 	}
 
 	savegame.WriteInt(spawnedAI.Num());
@@ -1095,6 +1103,9 @@ void idGameLocal::LoadMap( const char *mapName, int randseed ) {
 
 	// clear the sound system
 	gameSoundWorld->ClearAllSoundEmitters();
+
+	musicSpeakers.Clear();			// Tels: Clear the list even on reload to account for dynamic changes
+	cv_music_volume.SetModified();	// SnoopJeDi: we want to fade on level start
 
 	InitAsyncNetwork();
 
@@ -1651,6 +1662,15 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 		if ( ent ) {
 			ent->activeNode.AddToEnd( activeEntities );
 		}
+	}
+
+	// tels: restore the list of music speakers
+	savegame.ReadInt( num );
+	musicSpeakers.Clear();
+	for( i = 0; i < num; i++ ) {
+		int id;
+		savegame.ReadInt( id );
+		musicSpeakers.Append( id );
 	}
 
 	savegame.ReadInt( num );
@@ -2876,6 +2896,17 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 		// do multiplayer related stuff
 		if ( isMultiplayer ) {
 			mpGame.Run();
+		}
+
+		if ( cv_music_volume.IsModified() ) {  //SnoopJeDi, fade that sound!
+			float music_vol = cv_music_volume.GetFloat();
+			for ( int i = 0; i < musicSpeakers.Num(); i++ ) {
+				idSound* ent = static_cast<idSound *>(entities[ musicSpeakers[ i ] ]);
+				// Printf( " Fading speaker %s (index %i) to %f\n", ent->name.c_str(), i, music_vol);
+				if (ent)
+					ent->Event_FadeSound( 0, music_vol, 0.5 );
+			}
+		cv_music_volume.ClearModified();
 		}
 
 		// display how long it took to calculate the current game frame
