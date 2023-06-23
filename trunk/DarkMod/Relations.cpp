@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2422 $
- * $Date: 2008-06-02 01:32:10 -0400 (Mon, 02 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2429 $
+ * $Date: 2008-06-03 14:13:38 -0400 (Tue, 03 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 2422 2008-06-02 05:32:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 2429 2008-06-03 18:13:38Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -306,10 +306,15 @@ bool CRelations::SetFromArgs( idDict *args )
 
 	EntryList.Condense();
 
-	maxrow++;
+	//maxrow++;
 	if (EntryList.Num() > (maxrow*maxrow))
 	{
 		hadLogicError = true;
+		goto Quit;
+	}
+
+	if (EntryList.Num() == 0)
+	{
 		goto Quit;
 	}
 
@@ -322,14 +327,14 @@ bool CRelations::SetFromArgs( idDict *args )
 	// angua: Fill matrix with defaults
 	m_RelMat->Fill(s_DefaultRelation);
 
-	for (int counter = 1; counter <= maxrow; counter++)
+	// Set the default relationship between teams
+	for (int i = 0; i < maxrow; i++)
 	{
-		m_RelMat->Set(EntryList[counter].row, EntryList[counter].col, s_DefaultSameTeamRel);
+		m_RelMat->Set(i, i, s_DefaultSameTeamRel);
 	}
 
-
 	// angua: Set values from list
-	for( int i=0; i<EntryList.Num(); i++ )
+	for( int i = 0; i < EntryList.Num(); i++ )
 	{
 		if ( !m_RelMat->Set(EntryList[i].row, EntryList[i].col, EntryList[i].val ) )
 		{
