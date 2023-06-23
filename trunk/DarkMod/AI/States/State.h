@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -89,17 +89,17 @@ public:
 	// greebo: These get called by the above OnVisualStim() method. 
 	// The passed <stimSource> pointer is guaranteed to be non-NULL.
 	virtual void OnVisualStimWeapon(idEntity* stimSource, idAI* owner);
-	virtual void OnVisualStimPerson(idEntity* stimSource, idAI* owner);
+	virtual void OnPersonEncounter(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimBlood(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimLightSource(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimMissingItem(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimBrokenItem(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimDoor(idEntity* stimSource, idAI* owner);
 
-	// greebo: Gets called by OnVisualStimPerson on finding a dead body
+	// greebo: Gets called by OnPersonEncounter on finding a dead body
 	// returns TRUE when the stim should be ignored from now on, FALSE otherwise
-	virtual bool OnVisualStimDeadPerson(idActor* person, idAI* owner);
-	virtual bool OnVisualStimUnconsciousPerson(idActor* person, idAI* owner);
+	virtual bool OnDeadPersonEncounter(idActor* person, idAI* owner);
+	virtual bool OnUnconsciousPersonEncounter(idActor* person, idAI* owner);
 
 	/**
 	* ishtvan: Called when targets are changed, does nothing on base class

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3074 $
- * $Date: 2008-11-30 13:45:53 -0500 (Sun, 30 Nov 2008) $
- * $Author: tels $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -52,6 +52,8 @@ protected:
 public:
 
 	CAbsenceMarker(void);
+
+	const idDict&			GetRefSpawnargs() const;
 
 	// Save and restore
 	void					Save( idSaveGame *savefile ) const;

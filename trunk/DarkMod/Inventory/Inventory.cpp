@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3051 $
- * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 3051 2008-11-21 16:13:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -311,6 +311,12 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 
 	// Check for loot items
 	CInventoryItemPtr returnValue = ValidateLoot(ent);
+
+	if (ent->GetAbsenceNoticeability() > 0)
+	{
+		ent->SpawnAbsenceMarker();
+	}
+
 
 	if (returnValue != NULL)
 	{

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3076 $
- * $Date: 2008-12-06 02:00:55 -0500 (Sat, 06 Dec 2008) $
- * $Author: ishtvan $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3076 2008-12-06 07:00:55Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8723,7 +8723,23 @@ void idEntity::Event_CheckAbsence()
 
 		currentBounds.ExpandSelf(tolerance);
 
-		bool isAbsent = !currentBounds.IntersectsBounds(m_StartBounds);
+		const char* locationstring = spawnArgs.GetString("absence_location_1");
+		idEntity* location;
+		bool isAbsent;
+
+		if (locationstring != "")
+		{
+			location = gameLocal.FindEntity(locationstring);
+		}
+
+		if (location != NULL)
+		{
+			isAbsent = !currentBounds.IntersectsBounds(location->GetPhysics()->GetAbsBounds());
+		}
+		else
+		{
+			isAbsent = !currentBounds.IntersectsBounds(m_StartBounds);
+		}
 
 		if (isAbsent && !m_AbsenceStatus)
 		{

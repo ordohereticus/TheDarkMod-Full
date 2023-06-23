@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -725,7 +725,7 @@ void ConversationState::DrawDebugOutput(idAI* owner)
 }
 
 // angua: override visual stim to avoid greetings during conversation
-void ConversationState::OnVisualStimPerson(idEntity* stimSource, idAI* owner)
+void ConversationState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 {
 	assert(stimSource != NULL && owner != NULL); // must be fulfilled
 
@@ -739,7 +739,7 @@ void ConversationState::OnVisualStimPerson(idEntity* stimSource, idAI* owner)
 	// Are they dead or unconscious?
 	if (other->health <= 0 || other->IsKnockedOut() || owner->IsEnemy(other))
 	{
-		State::OnVisualStimPerson(stimSource, owner);
+		State::OnPersonEncounter(stimSource, owner);
 	}
 }
 

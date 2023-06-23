@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2923 $
- * $Date: 2008-10-05 17:24:40 -0400 (Sun, 05 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 2923 2008-10-05 21:24:40Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -73,7 +73,7 @@ idStr AlertIdleState::GetInitialIdleBark(idAI* owner)
 	idStr soundName("");
 	if (owner->m_lastAlertLevel < owner->thresh_3)
 	{
-		if (memory.alertClass == EAlertVisual)
+		if (memory.alertClass == EAlertVisual && memory.alertType != EAlertTypeMissingItem)
 		{
 			soundName = "snd_alertdown0s";
 		}

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2863 $
- * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -73,7 +73,7 @@ void ObservantState::Init(idAI* owner)
 	// barking
 	idStr soundName("");
 
-	if (owner->AlertIndexIncreased())
+	if (owner->AlertIndexIncreased() && memory.alertType != EAlertTypeMissingItem)
 	{
 		if (memory.alertClass == EAlertVisual)
 		{
@@ -101,12 +101,15 @@ void ObservantState::Init(idAI* owner)
 		soundName = "snd_alertdown0SeenNoEvidence";
 	}
 
-	owner->GetSubsystem(SubsysCommunication)->QueueTask(
-			TaskPtr(new SingleBarkTask(soundName))
-	);
-	owner->GetSubsystem(SubsysCommunication)->QueueTask(
-		TaskPtr(new WaitTask(2000))
-	);
+	if (memory.alertType != EAlertTypeMissingItem)
+	{
+		owner->GetSubsystem(SubsysCommunication)->QueueTask(
+				TaskPtr(new SingleBarkTask(soundName))
+		);
+		owner->GetSubsystem(SubsysCommunication)->QueueTask(
+			TaskPtr(new WaitTask(2000))
+		);
+	}
 
 	// Let the AI update their weapons (make them nonsolid)
 	owner->UpdateAttachmentContents(false);

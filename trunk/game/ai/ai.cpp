@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3077 $
- * $Date: 2008-12-06 02:33:06 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3077 2008-12-06 07:33:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7988,12 +7988,13 @@ float idAI::GetCalibratedLightgemValue() const
 
 void idAI::TactileAlert(idEntity* tactEnt, float amount)
 {
-	if (tactEnt == NULL || m_bIgnoreAlerts)
+
+	if (AI_DEAD || AI_KNOCKEDOUT || m_bIgnoreAlerts)
 	{
 		return;
 	}
 
-	if (CheckTactileIgnore(tactEnt))
+	if (tactEnt == NULL || CheckTactileIgnore(tactEnt))
 	{
 		return;
 	}
@@ -8012,10 +8013,7 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 		if (responsibleActor->health <= 0 || responsibleActor->IsKnockedOut())
 		{
 			// angua: We've found a friend that is dead or unconscious
-			// Ignore tactile alerts from this entity from now on
-			TactileIgnore(tactEnt);
-			mind->GetState()->OnVisualStimPerson(tactEnt, this);
-
+			mind->GetState()->OnPersonEncounter(tactEnt, this);
 		}
 	}
 	if (!IsEnemy(responsibleActor)) 

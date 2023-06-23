@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3071 $
- * $Date: 2008-11-30 12:33:20 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -52,6 +52,13 @@ bool CAbsenceMarker::initAbsenceReference(idEntity* owner, idBounds& startBounds
 	// Done
 	return true;
 }
+
+
+const idDict& CAbsenceMarker::GetRefSpawnargs() const
+{
+	return referenced_spawnArgs;
+}
+
 
 //-----------------------------------------------------------------------------------
 

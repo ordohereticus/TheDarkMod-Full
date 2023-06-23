@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3076 $
- * $Date: 2008-12-06 02:00:55 -0500 (Sat, 06 Dec 2008) $
- * $Author: ishtvan $
+ * $Revision: 3079 $
+ * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -981,6 +981,12 @@ public:
 
 	float					GetAbsenceNoticeability();
 
+	// angua: this checks whether an entity has been removed or returned to the original position
+	// and spawns or destroys an absence marker
+	void					Event_CheckAbsence();
+	bool					SpawnAbsenceMarker();
+	bool					DestroyAbsenceMarker();
+
 
 protected:
 	/**
@@ -1171,14 +1177,6 @@ protected:
 
 	// Frobs this entity.
 	void					Event_Frob();
-
-	// angua: this checks whether an entity has been removed or returned to the original position
-	// and spawns or destroys an absence marker
-	void					Event_CheckAbsence();
-	bool					SpawnAbsenceMarker();
-	bool					DestroyAbsenceMarker();
-
-
 
 	// angua: List of actors that currently use this entity
 	UserManager m_userManager;
