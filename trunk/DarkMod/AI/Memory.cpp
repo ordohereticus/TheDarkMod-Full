@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3084 $
+ * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3084 2008-12-13 18:13:10Z angua $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -32,6 +32,7 @@ Memory::Memory(idAI* owningAI) :
 	headTurnEndTime(0),
 	idlePosition(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY),
 	idleYaw(0),
+	playIdleAnimations(true),
 	enemiesHaveBeenSeen(false),
 	itemsHaveBeenStolen(false),
 	itemsHaveBeenBroken(false),
@@ -81,6 +82,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteInt(headTurnEndTime);
 	savefile->WriteVec3(idlePosition);
 	savefile->WriteFloat(idleYaw);
+	savefile->WriteBool(playIdleAnimations);
 	savefile->WriteBool(enemiesHaveBeenSeen);
 	savefile->WriteBool(itemsHaveBeenStolen);
 	savefile->WriteBool(itemsHaveBeenBroken);
@@ -145,6 +147,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(headTurnEndTime);
 	savefile->ReadVec3(idlePosition);
 	savefile->ReadFloat(idleYaw);
+	savefile->ReadBool(playIdleAnimations);
 	savefile->ReadBool(enemiesHaveBeenSeen);
 	savefile->ReadBool(itemsHaveBeenStolen);
 	savefile->ReadBool(itemsHaveBeenBroken);

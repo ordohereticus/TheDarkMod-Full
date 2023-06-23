@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2829 $
- * $Date: 2008-09-13 14:08:37 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 3084 $
+ * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 2829 2008-09-13 18:08:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3084 2008-12-13 18:13:10Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PathAnimTask.h"
@@ -68,6 +68,8 @@ void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 	// greebo: Set the waitstate, this gets cleared by 
 	// the script function when the animation is done.
 	owner->SetWaitState("customAnim");
+
+	owner->GetMind()->GetMemory().playIdleAnimations = false;
 }
 
 void PathAnimTask::OnFinish(idAI* owner)
@@ -80,6 +82,8 @@ void PathAnimTask::OnFinish(idAI* owner)
 
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
 	owner->SetWaitState("");
+
+	owner->GetMind()->GetMemory().playIdleAnimations = true;
 }
 
 bool PathAnimTask::Perform(Subsystem& subsystem)

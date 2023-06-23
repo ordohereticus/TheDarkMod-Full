@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3084 $
+ * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -188,6 +188,9 @@ public:
 
 	idVec3 idlePosition;
 	float idleYaw;
+
+	// angua: whether the AI should play idle animations
+	bool playIdleAnimations;
 
 	// TRUE if enemies have been seen
 	bool enemiesHaveBeenSeen;

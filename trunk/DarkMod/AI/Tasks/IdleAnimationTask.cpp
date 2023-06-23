@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2728 $
- * $Date: 2008-08-07 01:22:14 -0400 (Thu, 07 Aug 2008) $
+ * $Revision: 3084 $
+ * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 2728 2008-08-07 05:22:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3084 2008-12-13 18:13:10Z angua $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -92,24 +92,27 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 
 	if (gameLocal.time > _nextAnimationTime)
 	{
-		// Check if the AI is moving or sitting, this determines which channel we can play on
-		if (!owner->AI_FORWARD && !owner->spawnArgs.GetBool("sitting", "0"))
+		if (memory.playIdleAnimations)
 		{
-			// AI is not walking, play animations affecting all channels
-			int animIdx = gameLocal.random.RandomInt(_idleAnimations.Num());
+			// Check if the AI is moving or sitting, this determines which channel we can play on
+			if (!owner->AI_FORWARD && !owner->spawnArgs.GetBool("sitting", "0"))
+			{
+				// AI is not walking, play animations affecting all channels
+				int animIdx = gameLocal.random.RandomInt(_idleAnimations.Num());
 
-			idStr animName(_idleAnimations[animIdx]);
+				idStr animName(_idleAnimations[animIdx]);
 
-			owner->SetAnimState(ANIMCHANNEL_TORSO, ("Torso_" + animName).c_str(), 4);
-			owner->SetAnimState(ANIMCHANNEL_LEGS, ("Legs_" + animName).c_str(), 4);
-		}
-		else 
-		{
-			// AI is walking, only use animations for the Torso channel
-			int animIdx = gameLocal.random.RandomInt(_idleAnimationsTorso.Num());
+				owner->SetAnimState(ANIMCHANNEL_TORSO, ("Torso_" + animName).c_str(), 4);
+				owner->SetAnimState(ANIMCHANNEL_LEGS, ("Legs_" + animName).c_str(), 4);
+			}
+			else 
+			{
+				// AI is walking, only use animations for the Torso channel
+				int animIdx = gameLocal.random.RandomInt(_idleAnimationsTorso.Num());
 
-			idStr animName(_idleAnimationsTorso[animIdx]);
-			owner->SetAnimState(ANIMCHANNEL_TORSO, ("Torso_" + animName).c_str(), 4);
+				idStr animName(_idleAnimationsTorso[animIdx]);
+				owner->SetAnimState(ANIMCHANNEL_TORSO, ("Torso_" + animName).c_str(), 4);
+			}
 		}
 		
 		// Reset the timer

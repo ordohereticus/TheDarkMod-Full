@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3080 $
- * $Date: 2008-12-08 09:04:07 -0500 (Mon, 08 Dec 2008) $
+ * $Revision: 3084 $
+ * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3080 2008-12-08 14:04:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3084 2008-12-13 18:13:10Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -944,7 +944,7 @@ void CBinaryFrobMover::Event_IsLocked()
 	idThread::ReturnInt(IsLocked());
 }
 
-const idVec3& CBinaryFrobMover::GetCurrentPos()
+idVec3 CBinaryFrobMover::GetCurrentPos()
 {
 	idVec3 closedDir = m_ClosedPos;
 	closedDir.z = 0;
