@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3139 $
-#* $Date: 2009-01-13 13:39:59 -0500 (Tue, 13 Jan 2009) $
-#* $Author: angua $
+#* $Revision: 3152 $
+#* $Date: 2009-01-17 00:39:29 -0500 (Sat, 17 Jan 2009) $
+#* $Author: greebo $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -171,6 +171,7 @@ randomizer/mother.cpp \
 randomizer/ranrotb.cpp \
 randomizer/ranrotw.cpp \
 randomizer/userintf.cpp \
+ZipLoader/ZipLoader.cpp \
 shop.cpp \
 StimResponse/Response.cpp \
 StimResponse/ResponseEffect.cpp \
@@ -247,6 +248,8 @@ sourcehook/sourcehook.cpp'
 
 darkModList = scons_utils.BuildList('../../DarkMod', darkModSrc)
 
+ziploader_list = SConscript( '../../sys/scons/SConscript.ziploader' )
+
 local_env = g_game_env.Copy()
 
 local_env.Append( CPPDEFINES = [ 'GAME_DLL' ] )
@@ -259,7 +262,7 @@ local_env.Append(LIBS = [
 #    File('#/linux/boost/lib/libboost_filesystem-gcc42-mt-1_36.a')
 ])
 
-ret = local_env.SharedLibrary('game', game_list + darkModList + idlib_objects )
+ret = local_env.SharedLibrary('game', game_list + darkModList + idlib_objects + ziploader_list )
 Return( 'ret' )
 
 
