@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2869 $
- * $Date: 2008-09-21 06:52:57 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2990 $
+ * $Date: 2008-11-07 10:56:38 -0500 (Fri, 07 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2869 2008-09-21 10:52:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2990 2008-11-07 15:56:38Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -90,6 +90,8 @@ void CForcePush::Evaluate( int time )
 
 	idPhysics* physics = pushEnt->GetPhysics();
 	//gameRenderWorld->DebugBox(colorRed, idBox(physics->GetBounds(), physics->GetOrigin(), physics->GetAxis()), 16);
+
+	if (physics == NULL) return; // fix crash for entites not having physics
 
 	float mass = physics->GetMass();
 	float ownerMass = owner->GetPhysics()->GetMass();
