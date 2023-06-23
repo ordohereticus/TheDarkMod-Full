@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2547 $
- * $Date: 2008-06-20 12:51:42 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2548 $
+ * $Date: 2008-06-21 02:11:26 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2547 2008-06-20 16:51:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2548 2008-06-21 06:11:26Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -299,8 +299,9 @@ void CFrobDoor::PostSpawn()
 		OpenPortal();
 	}
 
-	// Search for all spawnargs matching "slave_door_N" and add them to our open peer list
-	const idKeyValue* kv = spawnArgs.MatchPrefix("slave_door");
+	// Search for all spawnargs matching "open_peer_N" and add them to our open peer list
+	const idStr openPeerPrefix("open_peer");
+	const idKeyValue* kv = spawnArgs.MatchPrefix(openPeerPrefix);
 
 	while (kv != NULL)
 	{
@@ -312,18 +313,19 @@ void CFrobDoor::PostSpawn()
 		if (entity != NULL && entity->IsType(CFrobDoor::Type))
 		{
 			m_OpenPeers.AddUnique(slaveDoorName);
-			DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%s: slave_door %s added to local list (%u)\r", name.c_str(), slaveDoorName.c_str(), m_OpenPeers.Num());
+			DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%s: %s %s added to local list (%u)\r", name.c_str(), openPeerPrefix.c_str(), slaveDoorName.c_str(), m_OpenPeers.Num());
 		}
 		else
 		{
-			DM_LOG(LC_ENTITY, LT_ERROR)LOGSTRING("slave_door [%s] not spawned or of wrong type.\r", slaveDoorName.c_str());
+			DM_LOG(LC_ENTITY, LT_ERROR)LOGSTRING("%s [%s] not spawned or of wrong type.\r", openPeerPrefix.c_str(), slaveDoorName.c_str());
 		}
 
-		kv = spawnArgs.MatchPrefix("slave_door", kv);
+		kv = spawnArgs.MatchPrefix(openPeerPrefix, kv);
 	}
 
-	// Search for all spawnargs matching "slave_lock_N" and add them to our lock peer list
-	kv = spawnArgs.MatchPrefix("slave_lock");
+	// Search for all spawnargs matching "lock_peer_N" and add them to our lock peer list
+	const idStr lockPeerPrefix("lock_peer");
+	kv = spawnArgs.MatchPrefix(lockPeerPrefix);
 
 	while (kv != NULL)
 	{
@@ -335,14 +337,14 @@ void CFrobDoor::PostSpawn()
 		if (entity != NULL && entity->IsType(CFrobDoor::Type))
 		{
 			m_LockPeers.AddUnique(slaveLockName);
-			DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%s: slave_lock %s added to local list (%u)\r", name.c_str(), slaveLockName.c_str(), m_LockPeers.Num());
+			DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%s: %s %s added to local list (%u)\r", name.c_str(), lockPeerPrefix.c_str(), slaveLockName.c_str(), m_LockPeers.Num());
 		}
 		else
 		{
-			DM_LOG(LC_ENTITY, LT_ERROR)LOGSTRING("slave_lock [%s] not spawned or of wrong type.\r", slaveLockName.c_str());
+			DM_LOG(LC_ENTITY, LT_ERROR)LOGSTRING("%s [%s] not spawned or of wrong type.\r", lockPeerPrefix.c_str(), slaveLockName.c_str());
 		}
 
-		kv = spawnArgs.MatchPrefix("slave_lock", kv);
+		kv = spawnArgs.MatchPrefix(lockPeerPrefix, kv);
 	}
 
 	idStr doorHandleName = spawnArgs.GetString("door_handle", "");
