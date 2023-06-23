@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2261 $
- * $Date: 2008-05-06 13:22:06 -0400 (Tue, 06 May 2008) $
- * $Author: greebo $
+ * $Revision: 2321 $
+ * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -536,6 +536,9 @@ public:
 	}
 
 	float GetArmReachLength();
+
+	void NeedToUseElevator(CMultiStateMoverPosition* pos);
+
 
 protected:
 	// navigation

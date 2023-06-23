@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2318 $
- * $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $
- * $Author: greebo $
+ * $Revision: 2321 $
+ * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,6 +13,8 @@
 
 #ifndef __GAME_ACTOR_H__
 #define __GAME_ACTOR_H__
+
+#include "../DarkMod/MultiStateMoverPosition.h"
 
 /*
 ===============================================================================
@@ -73,6 +75,7 @@ public:
 	void					FinishAction(const idStr& actionname);
 	const char *			WaitState( void ) const;
 	void					SetWaitState( const char *_waitstate );
+
 
 private:
 	idStr					waitState;
@@ -186,6 +189,8 @@ public:
 	=====================
 	****************************************************************************************/
 	virtual float		    CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &oldOrigin, const idVec3 &oldVelocity );
+
+	virtual void			NeedToUseElevator(CMultiStateMoverPosition* pos);
 	
 	int						GetDamageForLocation( int damage, int location );
 	const char *			GetDamageGroup( int location );

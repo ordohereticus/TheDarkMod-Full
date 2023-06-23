@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2298 $
- * $Date: 2008-05-11 10:01:49 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2321 $
+ * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2298 2008-05-11 14:01:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2321 2008-05-13 05:52:36Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9215,6 +9215,12 @@ float idAI::GetArmReachLength()
 		return 41;
 	}
 }
+
+void idAI::NeedToUseElevator(CMultiStateMoverPosition* pos)
+{
+	mind->GetState()->NeedToUseElevator(pos);
+}
+
 
 bool idAI::CanUnlock(CBinaryFrobMover *frobMover)
 {

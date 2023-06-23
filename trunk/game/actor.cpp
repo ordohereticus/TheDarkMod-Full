@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2318 $
- * $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $
- * $Author: greebo $
+ * $Revision: 2321 $
+ * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2318 2008-05-12 19:46:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2321 2008-05-13 05:52:36Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -356,6 +356,10 @@ const char *idAnimState::WaitState( void ) const
 		return NULL;
 	}
 }
+
+
+	
+
 
 /***********************************************************************
 
@@ -4111,6 +4115,10 @@ float idActor::CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &saved
 	} // if( !noDamage )
 	return delta;
 }
+
+void idActor::NeedToUseElevator(CMultiStateMoverPosition* pos)
+{}
+
 
 void idActor::Event_GetTeam()
 {
