@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2791 $
- * $Date: 2008-09-01 15:11:12 -0400 (Mon, 01 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2801 $
+ * $Date: 2008-09-06 06:32:37 -0400 (Sat, 06 Sep 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -35,7 +35,7 @@ move around it to view it from different angles.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_testmodel.cpp 2791 2008-09-01 19:11:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_testmodel.cpp 2801 2008-09-06 10:32:37Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -137,7 +137,7 @@ void idTestModel::Spawn( void ) {
 
 			if (def == NULL)
 			{
-				gameLocal.Warning("Could not find head entityDef %s!", headModelDefName);
+				gameLocal.Warning("Could not find head entityDef %s!", headModelDefName.c_str());
 
 				// Try to fallback on the default head entityDef
 				def = gameLocal.FindEntityDef(TDM_HEAD_ENTITYDEF, false);
@@ -150,7 +150,7 @@ void idTestModel::Spawn( void ) {
 			}
 			else
 			{
-				gameLocal.Warning("Could not find head entityDef %s or %s!", headModelDefName, TDM_HEAD_ENTITYDEF);
+				gameLocal.Warning("Could not find head entityDef %s or %s!", headModelDefName.c_str(), TDM_HEAD_ENTITYDEF);
 			}
 			
 			// Copy any sounds in case we have frame commands on the head

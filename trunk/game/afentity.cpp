@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2792 $
- * $Date: 2008-09-01 15:19:24 -0400 (Mon, 01 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2801 $
+ * $Date: 2008-09-06 06:32:37 -0400 (Sat, 06 Sep 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2792 2008-09-01 19:19:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2801 2008-09-06 10:32:37Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1911,7 +1911,7 @@ void idAFEntity_WithAttachedHead::SetupHead()
 
 		if (def == NULL)
 		{
-			gameLocal.Warning("Could not find head entityDef %s!", headModelDefName);
+			gameLocal.Warning("Could not find head entityDef %s!", headModelDefName.c_str());
 
 			// Try to fallback on the default head entityDef
 			def = gameLocal.FindEntityDef(TDM_HEAD_ENTITYDEF, false);
@@ -1924,7 +1924,7 @@ void idAFEntity_WithAttachedHead::SetupHead()
 		}
 		else
 		{
-			gameLocal.Warning("Could not find head entityDef %s or %s!", headModelDefName, TDM_HEAD_ENTITYDEF);
+			gameLocal.Warning("Could not find head entityDef %s or %s!", headModelDefName.c_str(), TDM_HEAD_ENTITYDEF);
 		}
 
 		// Spawn the head entity
