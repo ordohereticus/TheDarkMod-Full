@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2855 $
- * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2978 $
+ * $Date: 2008-10-24 04:19:53 -0400 (Fri, 24 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 2855 2008-09-17 07:23:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 2978 2008-10-24 08:19:53Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1492,7 +1492,8 @@ idAnimBlend::UpdatePlaybackRate
 */
 void idAnimBlend::UpdatePlaybackRate(int _animNum, const idEntity* ent) {
 	if (ent != NULL && _animNum >= 0 && animNum < ent->m_animRates.Num()) {
-		this->rate = ent->m_animRates[_animNum];
+		// this->rate = ent->m_animRates[_animNum];
+		SetPlaybackRate( gameLocal.time, ent->m_animRates[_animNum] );
 	}
 }
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2972 $
- * $Date: 2008-10-23 03:27:17 -0400 (Thu, 23 Oct 2008) $
+ * $Revision: 2978 $
+ * $Date: 2008-10-24 04:19:53 -0400 (Fri, 24 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -291,17 +291,13 @@ bool CAIVehicle::UpdateSpeed( void )
 		{
 			float animFrac = (m_SpeedFrac - m_WalkToRunSpeedFrac)/(1.0f - m_WalkToRunSpeedFrac);
 			float animRate = m_MinRunAnimRate + animFrac * (m_MaxRunAnimRate - m_MinRunAnimRate);
+
 			// TODO: Read anim name from spawnarg
 			const char *animName = "run";
-			// argh, there is no way to get anim num from the name other than search??
-			for( int i =0; i < animator.NumAnims(); i++ )
-			{
-				if( animator.AnimName(i) == animName )
-				{
-					m_animRates[i] = animRate;
-					break;
-				}
-			}
+
+			int animNum = animator.GetAnim( animName );
+			m_animRates[animNum] = animRate;
+			animator.CurrentAnim( ANIMCHANNEL_LEGS )->UpdatePlaybackRate( animNum, this );
 
 			AI_RUN = true;
 		}
@@ -312,15 +308,9 @@ bool CAIVehicle::UpdateSpeed( void )
 			// TODO: Read anim name from spawnarg
 			const char *animName = "walk";
 
-			// argh, there is no way to get anim num from the name other than search??
-			for( int i =0; i < animator.NumAnims(); i++ )
-			{
-				if( animator.AnimName(i) == animName )
-				{
-					m_animRates[i] = animRate;
-					break;
-				}
-			}
+			int animNum = animator.GetAnim( animName );
+			m_animRates[animNum] = animRate;
+			animator.CurrentAnim( ANIMCHANNEL_LEGS )->UpdatePlaybackRate( animNum, this );
 
 			AI_RUN = false;
 		}
