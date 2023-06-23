@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2407 $
- * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2409 $
+ * $Date: 2008-06-01 06:08:57 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2407 2008-06-01 08:43:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2409 2008-06-01 10:08:57Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -414,11 +414,12 @@ void CFrobDoor::OpenDoor(bool bMaster)
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Opening\r" );
 
 	// Open door handle if there is one
-	if(m_Doorhandle.GetEntity() != NULL)
-		m_Doorhandle.GetEntity()->Open(false);
+	// greebo: This call is not necessary, the handle already moved
+	/*if(m_Doorhandle.GetEntity() != NULL)
+		m_Doorhandle.GetEntity()->Open(false);*/
 
 	// Handle master mode
-	if(bMaster == true && m_MasterLock.Length() != 0)
+	if (bMaster == true && !m_MasterLock.IsEmpty())
 	{
 		if((e = gameLocal.FindEntity(m_MasterLock.c_str())) != NULL)
 		{
