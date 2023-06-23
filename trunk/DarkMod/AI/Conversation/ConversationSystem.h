@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2652 $
- * $Date: 2008-07-13 10:33:31 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2666 $
+ * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -30,6 +30,17 @@ public:
 	 * containing all conversations for this map.
 	 */
 	void Init(idMapFile* mapFile);
+
+	/**
+	 * greebo: Returns the conversation for the given name/index or NULL if not found.
+	 */
+	ConversationPtr GetConversation(const idStr& name);
+	ConversationPtr GetConversation(int index);
+
+	/**
+	 * Returns the numeric index for the given conversation name or -1 if not found.
+	 */
+	int GetConversationIndex(const idStr& name);
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;

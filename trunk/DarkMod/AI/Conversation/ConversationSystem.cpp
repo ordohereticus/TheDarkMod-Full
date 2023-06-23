@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2654 $
- * $Date: 2008-07-13 11:01:47 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2666 $
+ * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2654 2008-07-13 15:01:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2666 2008-07-15 17:53:43Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -47,6 +47,30 @@ void ConversationSystem::Init(idMapFile* mapFile)
 
 	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("%d Conversations found in this map.\r", _conversations.Num());
 	gameLocal.Printf("ConversationManager: Found %d valid conversations.\n", _conversations.Num());
+}
+
+ConversationPtr ConversationSystem::GetConversation(const idStr& name)
+{
+	// Find the index and pass the call to the overload
+	return GetConversation(GetConversationIndex(name));
+}
+
+ConversationPtr ConversationSystem::GetConversation(int index)
+{
+	return (index > 0 && index < _conversations.Num()) ? _conversations[index] : ConversationPtr();
+}
+
+int ConversationSystem::GetConversationIndex(const idStr& name)
+{
+	for (int i = 0; i < _conversations.Num(); i++)
+	{
+		if (_conversations[i]->GetName() == name)
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }
 
 void ConversationSystem::Save(idSaveGame* savefile) const

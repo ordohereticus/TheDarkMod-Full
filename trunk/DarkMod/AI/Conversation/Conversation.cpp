@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2661 $
- * $Date: 2008-07-14 00:46:02 -0400 (Mon, 14 Jul 2008) $
+ * $Revision: 2666 $
+ * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2661 2008-07-14 04:46:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2666 2008-07-15 17:53:43Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -32,6 +32,11 @@ Conversation::Conversation(const idDict& spawnArgs, int index) :
 bool Conversation::IsValid()
 {
 	return _isValid;
+}
+
+const idStr& Conversation::GetName() const
+{
+	return _name;
 }
 
 void Conversation::Save(idSaveGame* savefile) const

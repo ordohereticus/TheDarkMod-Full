@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2665 $
- * $Date: 2008-07-15 13:31:04 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2666 $
+ * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,10 +18,11 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2665 2008-07-15 17:31:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2666 2008-07-15 17:53:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
+#include "../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 
 /*
@@ -1959,7 +1960,16 @@ void CTarget_StartConversation::Event_Activate( idEntity *activator )
 		return;
 	}
 
-	// Try to start conversation
+	// Try to find the conversation
+	ai::ConversationPtr conv = gameLocal.m_ConversationSystem->GetConversation(conversationName);
+
+	if (conv == NULL)
+	{
+		gameLocal.Printf("Target %s references non-existent conversation %s!\n", name.c_str(), conversationName.c_str());
+		return;
+	}
+
+
 }
 
 /*

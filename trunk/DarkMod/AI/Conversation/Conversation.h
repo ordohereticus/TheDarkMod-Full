@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2657 $
- * $Date: 2008-07-13 13:35:13 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2666 $
+ * $Date: 2008-07-15 13:53:43 -0400 (Tue, 15 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -48,6 +48,9 @@ public:
 	 * spawnargs has been successful.
 	 */
 	bool IsValid();
+
+	// Returns the name of this conversation
+	const idStr& GetName() const;
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;
