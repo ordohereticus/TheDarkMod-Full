@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3152 $
- * $Date: 2009-01-17 00:39:29 -0500 (Sat, 17 Jan 2009) $
+ * $Revision: 3156 $
+ * $Date: 2009-01-17 03:43:16 -0500 (Sat, 17 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3152 2009-01-17 05:39:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3156 2009-01-17 08:43:16Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -124,6 +124,7 @@ idCVar cv_tdm_difficulty(			"tdm_difficulty",	"-1",					CVAR_GAME | CVAR_INTEGER
 idCVar cv_sr_disable (				"tdm_sr_disable",           "0",           CVAR_GAME | CVAR_BOOL, "Set to 1 to disable all stim/response processing." );
 
 idCVar cv_debug_mainmenu(			"tdm_debug_mainmenu",      "0",            CVAR_BOOL, "Set to 1 to enable main menu GUI debugging in the console." );
+idCVar cv_mainmenu_confirmquit(		"tdm_mainmenu_confirmquit",      "1", CVAR_ARCHIVE | CVAR_BOOL, "Set to 0 to disable the 'Quit Game' confirmation dialog when exiting the game." );
 
 idCVar cv_force_savegame_load(		"tdm_force_savegame_load", "0",   CVAR_BOOL|CVAR_ARCHIVE, "Set to 1 to skip code revision check on savegame load." );
 

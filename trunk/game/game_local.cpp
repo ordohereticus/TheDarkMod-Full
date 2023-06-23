@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3155 $
- * $Date: 2009-01-17 03:25:20 -0500 (Sat, 17 Jan 2009) $
+ * $Revision: 3156 $
+ * $Date: 2009-01-17 03:43:16 -0500 (Sat, 17 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3155 2009-01-17 08:25:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3156 2009-01-17 08:43:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3355,6 +3355,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 		// Propagate the video CVARs to the GUI
 		gui->SetStateInt("video_aspectratio", cvarSystem->GetCVarInteger("r_aspectRatio"));
+		gui->SetStateBool("confirmQuit", cv_mainmenu_confirmquit.GetBool());
 	}
 	else if (cmd == "setVideoResWideScreen")
 	{
