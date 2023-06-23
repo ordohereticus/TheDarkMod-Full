@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2392 $
- * $Date: 2008-05-26 16:08:28 -0400 (Mon, 26 May 2008) $
+ * $Revision: 2396 $
+ * $Date: 2008-05-27 15:59:26 -0400 (Tue, 27 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2392 $   $Date: 2008-05-26 16:08:28 -0400 (Mon, 26 May 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2396 $   $Date: 2008-05-27 15:59:26 -0400 (Tue, 27 May 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1852,8 +1852,13 @@ void idPhysics_Player::CheckDuck( void ) {
 				// Clear the flag again, just to be sure
 				current.movementFlags &= ~PMF_DUCKED;
 
-				// greebo: check: Perform a trace to see how far we can move downwards?
-				SetOrigin(player->GetEyePosition() + gravityNormal * pm_normalviewheight.GetFloat());
+				// greebo: Perform a trace to see how far we can move downwards
+				trace_t	trace;
+				idVec3 end = player->GetEyePosition() + gravityNormal * pm_normalviewheight.GetFloat();
+				gameLocal.clip.Translation(trace, current.origin, end, clipModel, clipModel->GetAxis(), clipMask, self);
+
+				// Set the origin to the end position of the trace
+				SetOrigin(trace.endpos);
 
 				maxZ = pm_normalheight.GetFloat();
 
