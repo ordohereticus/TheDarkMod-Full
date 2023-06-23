@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2922 $
- * $Date: 2008-10-05 17:12:26 -0400 (Sun, 05 Oct 2008) $
+ * $Revision: 2969 $
+ * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -1197,6 +1197,7 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_Bind( idEntity *master );
 	void					Event_BindPosition( idEntity *master );
 	void					Event_BindToJoint( idEntity *master, const char *jointname, float orientated );
+	void					Event_BindToBody( idEntity *master, int bodyId, bool orientated );
 	void					Event_Unbind( void );
 	void					Event_RemoveBinds( void );
 	void					Event_SpawnBind( void );

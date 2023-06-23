@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2969 $
+ * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2969 2008-10-23 01:53:34Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -52,6 +52,7 @@ const idEventDef EV_RandomTarget( "randomTarget", "s", 'e' );
 const idEventDef EV_Bind( "bind", "e" );
 const idEventDef EV_BindPosition( "bindPosition", "e" );
 const idEventDef EV_BindToJoint( "bindToJoint", "esf" );
+const idEventDef EV_BindToBody( "bindToBody", "edd" );
 const idEventDef EV_GetBindMaster( "getBindMaster", NULL, 'e' );
 const idEventDef EV_NumBindChildren( "numBindChildren", NULL, 'd' );
 const idEventDef EV_GetBindChild( "getBindChild", "d", 'e' );
@@ -232,6 +233,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_GetTarget,			idEntity::Event_GetTarget )
 	EVENT( EV_RandomTarget,			idEntity::Event_RandomTarget )
 	EVENT( EV_BindToJoint,			idEntity::Event_BindToJoint )
+	EVENT( EV_BindToBody,			idEntity::Event_BindToBody )
 	EVENT( EV_RemoveBinds,			idEntity::Event_RemoveBinds )
 	EVENT( EV_Bind,					idEntity::Event_Bind )
 	EVENT( EV_BindPosition,			idEntity::Event_BindPosition )
@@ -5126,6 +5128,16 @@ idEntity::Event_BindToJoint
 void idEntity::Event_BindToJoint( idEntity *master, const char *jointname, float orientated ) {
 	BindToJoint( master, jointname, ( orientated != 0.0f ) );
 }
+
+/*
+================
+idEntity::Event_BindToBody
+================
+*/
+void idEntity::Event_BindToBody(idEntity *master, int bodyId, bool orientated) {
+	BindToBody( master, bodyId, orientated );
+}
+
 
 /*
 ================

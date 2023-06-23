@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2969 $
+ * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2969 2008-10-23 01:53:34Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -538,6 +538,8 @@ idAI::idAI()
 
 	m_lipSyncActive		= false;
 
+	m_bPushOffPlayer	= false;
+
 	m_maxInterleaveThinkFrames = 0;
 	m_minInterleaveThinkDist = 1000;
 	m_maxInterleaveThinkDist = 3000;
@@ -817,6 +819,8 @@ void idAI::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteInt(m_lastThinkTime);
 	savefile->WriteInt(m_nextThinkFrame);
+
+	savefile->WriteBool(m_bPushOffPlayer);
 
 	savefile->WriteBool(m_bCanOperateDoors);
 	savefile->WriteBool(m_HandlingDoor);
@@ -1115,6 +1119,8 @@ void idAI::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadInt(m_lastThinkTime);
 	savefile->ReadInt(m_nextThinkFrame);
+
+	savefile->ReadBool(m_bPushOffPlayer);
 
 	savefile->ReadBool(m_bCanOperateDoors);
 	savefile->ReadBool(m_HandlingDoor);
@@ -1539,6 +1545,8 @@ void idAI::Spawn( void )
 	m_AirTics = m_AirTicksMax;
 	m_AirCheckInterval = static_cast<int>(1000.0f * spawnArgs.GetFloat( "air_check_interval", "4.0" ));
 	// end drowning setup
+
+	m_bPushOffPlayer = spawnArgs.GetBool("push_off_player", "1");
 
 	m_bCanOperateDoors = spawnArgs.GetBool("canOperateDoors", "0");
 	m_HandlingDoor = false;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2969 $
+ * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2969 2008-10-23 01:53:34Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6130,7 +6130,13 @@ void idPlayer::Move( void )
 
 		// check if we're standing on top of a monster and give a push if we are
 		idEntity *groundEnt = physicsObj.GetGroundEntity();
-		if ( groundEnt && groundEnt->IsType( idAI::Type ) ) {
+		if 
+		(	
+			groundEnt && groundEnt->IsType( idAI::Type )
+			&& groundEnt->health > 0
+			&& static_cast<idAI *>(groundEnt)->m_bPushOffPlayer
+		)
+		{
 			idVec3 vel = physicsObj.GetLinearVelocity();
 			if ( vel.ToVec2().LengthSqr() < 0.1f ) {
 				vel.ToVec2() = physicsObj.GetOrigin().ToVec2() - groundEnt->GetPhysics()->GetAbsBounds().GetCenter().ToVec2();
