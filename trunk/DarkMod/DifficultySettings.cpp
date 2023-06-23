@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -222,7 +222,7 @@ void DifficultySettings::LoadFromMapEntity(idMapEntity* ent)
 			}
 			else
 			{
-				found++; // no match, step forward
+				++found; // no match, step forward
 			}
 		}
 	}
@@ -260,7 +260,7 @@ void DifficultySettings::ApplySettings(idDict& target)
 	InheritanceChain inheritanceChain = GetInheritanceChain(target);
 
 	// Go through the inheritance chain front to back and apply the settings
-	for (InheritanceChain::iterator c = inheritanceChain.begin(); c != inheritanceChain.end(); c++)
+	for (InheritanceChain::iterator c = inheritanceChain.begin(); c != inheritanceChain.end(); ++c)
 	{
 		std::string className = c->c_str();
 
@@ -268,7 +268,7 @@ void DifficultySettings::ApplySettings(idDict& target)
 		// but ignore all keys that have been addressed by the entity-specific settings.
 		for (SettingsMap::iterator i = _settings.find(className);
 			 i != _settings.upper_bound(className) && i != _settings.end();
-			 i++)
+			 ++i)
 		{
 			Setting& setting = i->second;
 			bool settingApplicable = true;
@@ -299,7 +299,7 @@ void DifficultySettings::ApplySettings(idDict& target)
 void DifficultySettings::Save(idSaveGame* savefile)
 {
 	savefile->WriteInt(static_cast<int>(_settings.size()));
-	for (SettingsMap::iterator i = _settings.begin(); i != _settings.end(); i++)
+	for (SettingsMap::iterator i = _settings.begin(); i != _settings.end(); ++i)
 	{
 		idStr className(i->second.className.c_str());
 		// Save the key and the value

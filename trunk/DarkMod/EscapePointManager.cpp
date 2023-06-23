@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EscapePointManager.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: EscapePointManager.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "EscapePointManager.h"
 
@@ -72,7 +72,7 @@ void CEscapePointManager::Save(idSaveGame *savefile) const
 		
 	for (AASEscapePointMap::const_iterator it = _aasEscapePoints.begin();
 		 it != _aasEscapePoints.end();
-		 it++)
+		 ++it)
 	{
 		idAAS* aasPtr = it->first;
 		const EscapePointList& escapePointList = *it->second;

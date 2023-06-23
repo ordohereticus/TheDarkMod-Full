@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2731 $
- * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 2731 2008-08-13 19:03:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -114,7 +114,7 @@ void Memory::Save(idSaveGame* savefile) const
 
 	savefile->WriteInt(doorRelated.doorInfo.size());
 	for (DoorInfoMap::const_iterator i = doorRelated.doorInfo.begin();
-		 i != doorRelated.doorInfo.end(); i++)
+		 i != doorRelated.doorInfo.end(); ++i)
 	{
 		savefile->WriteObject(i->first);
 		i->second->Save(savefile);
@@ -204,7 +204,7 @@ void Memory::Restore(idRestoreGame* savefile)
 
 	// greebo: Reconstruct the AAS areaNum => DoorInfo mapping
 	for (DoorInfoMap::iterator i = doorRelated.doorInfo.begin();
-		 i != doorRelated.doorInfo.end(); i++)
+		 i != doorRelated.doorInfo.end(); ++i)
 	{
 		// Use the areanumber as index and insert the pointer into the map
 		doorRelated.areaDoorInfoMap.insert(

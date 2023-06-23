@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RouteInfo.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RouteInfo.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "RouteInfo.h"
 
@@ -33,7 +33,7 @@ RouteInfo::RouteInfo(const RouteInfo& other) :
 {
 	// Copy the RouteNodes of the other list, one by one
 	for (RouteNodeList::const_iterator otherNode = other.routeNodes.begin();
-		otherNode != other.routeNodes.end(); otherNode++)
+		otherNode != other.routeNodes.end(); ++otherNode)
 	{
 		RouteNodePtr newNode(new RouteNode(**otherNode));
 		routeNodes.push_back(newNode);
@@ -44,7 +44,7 @@ bool RouteInfo::operator==(const RouteInfo& other) const
 {
 	if (routeType == other.routeType && target == other.target && routeNodes.size() == other.routeNodes.size())
 	{
-		for (RouteNodeList::const_iterator i = routeNodes.begin(), j = other.routeNodes.begin(); i != routeNodes.end(); i++, j++)
+		for (RouteNodeList::const_iterator i = routeNodes.begin(), j = other.routeNodes.begin(); i != routeNodes.end(); ++i, ++j)
 		{
 			if (*i != *j)
 			{
@@ -69,7 +69,7 @@ void RouteInfo::Save(idSaveGame* savefile) const
 	savefile->WriteInt(target);
 
 	savefile->WriteInt(static_cast<int>(routeNodes.size()));
-	for (RouteNodeList::const_iterator i = routeNodes.begin(); i != routeNodes.end(); i++)
+	for (RouteNodeList::const_iterator i = routeNodes.begin(); i != routeNodes.end(); ++i)
 	{
 		(*i)->Save(savefile);
 	}

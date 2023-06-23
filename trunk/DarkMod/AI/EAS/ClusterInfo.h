@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,7 +36,7 @@ struct ClusterInfo
 
 		savefile->WriteInt(static_cast<int>(reachableElevatorStations.size()));
 		for (ElevatorStationInfoList::const_iterator i = reachableElevatorStations.begin();
-			 i != reachableElevatorStations.end(); i++)
+			 i != reachableElevatorStations.end(); ++i)
 		{
 			(*i)->Save(savefile);
 		}
@@ -46,7 +46,7 @@ struct ClusterInfo
 		{
 			const RouteInfoList& list = routeToCluster[i];
 			savefile->WriteInt(static_cast<int>(list.size()));
-			for (RouteInfoList::const_iterator j = list.begin(); j != list.end(); j++)
+			for (RouteInfoList::const_iterator j = list.begin(); j != list.end(); ++j)
 			{
 				(*j)->Save(savefile);
 			}

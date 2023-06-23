@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2809 $
- * $Date: 2008-09-09 14:21:33 -0400 (Tue, 09 Sep 2008) $
- * $Author: angua $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2809 2008-09-09 18:21:33Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -594,7 +594,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 
 	// greebo: save the movestack
 	savefile->WriteInt(static_cast<int>(moveStack.size()));
-	for (std::list<idMoveState>::const_iterator m = moveStack.begin(); m != moveStack.end(); m++)
+	for (std::list<idMoveState>::const_iterator m = moveStack.begin(); m != moveStack.end(); ++m)
 	{
 		m->Save(savefile);
 	}
@@ -820,7 +820,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 
 	int size = unlockableDoors.size();
 	savefile->WriteInt(size);
-	for (FrobMoverList::const_iterator i = unlockableDoors.begin(); i != unlockableDoors.end(); i++)
+	for (FrobMoverList::const_iterator i = unlockableDoors.begin(); i != unlockableDoors.end(); ++i)
 	{
 		savefile->WriteObject(*i);
 	}

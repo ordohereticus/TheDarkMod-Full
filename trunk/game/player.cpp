@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2810 $
- * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1414,7 +1414,7 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt(m_LightgemModifier);
 
 	savefile->WriteInt(static_cast<int>(m_LightgemModifierList.size()));
-	for (std::map<std::string, int>::const_iterator i = m_LightgemModifierList.begin(); i != m_LightgemModifierList.end(); i++)
+	for (std::map<std::string, int>::const_iterator i = m_LightgemModifierList.begin(); i != m_LightgemModifierList.end(); ++i)
 	{
 		savefile->WriteString(i->first.c_str());
 		savefile->WriteInt(i->second);
@@ -10357,7 +10357,7 @@ void idPlayer::Event_SetLightgemModifier(const char* modifierName, int amount)
 
 	for (std::map<std::string, int>::const_iterator i = m_LightgemModifierList.begin(); 
 	     i != m_LightgemModifierList.end();
-		 i++)
+		 ++i)
 	{
 		// Add the value to the lightgem modifier
 		m_LightgemModifier += i->second;

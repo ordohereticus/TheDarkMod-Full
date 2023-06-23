@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -41,7 +41,7 @@ void CHidingSpotSearchCollection::clear()
 void CHidingSpotSearchCollection::Save(idSaveGame *savefile) const
 {
 	savefile->WriteInt(searches.size());
-	for (HidingSpotSearchMap::const_iterator i = searches.begin(); i != searches.end(); i++)
+	for (HidingSpotSearchMap::const_iterator i = searches.begin(); i != searches.end(); ++i)
 	{
 		const HidingSpotSearchNodePtr& node = i->second;
 
@@ -167,7 +167,7 @@ int CHidingSpotSearchCollection::findSearchByBounds
 	idBounds exclusionBounds
 )
 {
-	for (HidingSpotSearchMap::iterator i = searches.begin(); i != searches.end(); i++)
+	for (HidingSpotSearchMap::iterator i = searches.begin(); i != searches.end(); ++i)
 	{
 		const HidingSpotSearchNodePtr& node = i->second;
 

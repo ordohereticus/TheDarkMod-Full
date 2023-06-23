@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ButtonStateTracker.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ButtonStateTracker.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "ButtonStateTracker.h"
 
@@ -43,7 +43,7 @@ void ButtonStateTracker::update()
 			_owner->PerformKeyRepeat(impulse, i->second);
 
 			// Increase the iterator
-			i++;
+			++i;
 		}
 		else
 		{

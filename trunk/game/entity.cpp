@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2810 $
- * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1146,7 +1146,7 @@ void idEntity::Save( idSaveGame *savefile ) const
 
 	savefile->WriteInt( m_AttNameMap.size() );
 	for ( AttNameMap::const_iterator k = m_AttNameMap.begin();
-         k != m_AttNameMap.end(); k++ )
+         k != m_AttNameMap.end(); ++k )
     {
         savefile->WriteString( k->first.c_str() );
         savefile->WriteInt( k->second );

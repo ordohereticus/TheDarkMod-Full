@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2367 $
- * $Date: 2008-05-18 10:27:19 -0400 (Sun, 18 May 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Subsystem.cpp 2367 2008-05-18 14:27:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Subsystem.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "Subsystem.h"
 #include "Library.h"
@@ -194,7 +194,7 @@ void Subsystem::ClearTasks()
 		_taskQueue.clear();
 
 		// Now call the OnFinish method. This might alter the original _taskQueue
-		for (TaskQueue::iterator i = _recycleBin.begin(); i != _recycleBin.end(); i++)
+		for (TaskQueue::iterator i = _recycleBin.begin(); i != _recycleBin.end(); ++i)
 		{
 			(*i)->OnFinish(_owner.GetEntity());
 		}

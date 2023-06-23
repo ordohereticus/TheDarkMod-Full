@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2817 $
+ * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AreaManager.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AreaManager.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
 
 #include "AreaManager.h"
 
@@ -21,7 +21,7 @@ void AreaManager::Save(idSaveGame* savefile) const
 {
 	int size = _forbiddenAreas.size();
 	savefile->WriteInt(size);
-	for (ForbiddenAreasMap::const_iterator i = _forbiddenAreas.begin(); i != _forbiddenAreas.end(); i++)
+	for (ForbiddenAreasMap::const_iterator i = _forbiddenAreas.begin(); i != _forbiddenAreas.end(); ++i)
 	{
 		savefile->WriteInt(i->first);
 		savefile->WriteObject(i->second);
@@ -56,7 +56,7 @@ bool AreaManager::AreaIsForbidden(int areanum, const idActor* actor) const
 	typedef ForbiddenAreasMap::const_iterator Iterator;
 	std::pair<Iterator, Iterator> range = _forbiddenAreas.equal_range(areanum);
 
-	for (Iterator found = range.first; found != range.second; found++) 
+	for (Iterator found = range.first; found != range.second; ++found) 
 	{
 		if (found->second == actor)
 		{
@@ -71,7 +71,7 @@ void AreaManager::RemoveForbiddenArea(int areanum, const idActor* actor)
 	typedef ForbiddenAreasMap::iterator Iterator;
 	std::pair<Iterator, Iterator> range = _forbiddenAreas.equal_range(areanum);
 
-	for (Iterator found = range.first; found != range.second; found++) 
+	for (Iterator found = range.first; found != range.second; ++found) 
 	{
 		if (found->second == actor)
 		{
