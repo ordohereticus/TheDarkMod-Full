@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2817 $
- * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2831 $
+ * $Date: 2008-09-13 14:33:38 -0400 (Sat, 13 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2831 2008-09-13 18:33:38Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -638,6 +638,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( lastHitCheckTime );
 	savefile->WriteInt( lastAttackTime );
 	savefile->WriteFloat( melee_range );
+	savefile->WriteFloat( fire_range );
 	savefile->WriteFloat( projectile_height_to_distance_ratio );
 
 	savefile->WriteInt( missileLaunchOffset.Num() );
@@ -911,6 +912,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( lastHitCheckTime );
 	savefile->ReadInt( lastAttackTime );
 	savefile->ReadFloat( melee_range );
+	savefile->ReadFloat( fire_range );
 	savefile->ReadFloat( projectile_height_to_distance_ratio );
 
 	savefile->ReadInt( num );
