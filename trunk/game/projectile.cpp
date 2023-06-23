@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3030 $
- * $Date: 2008-11-15 01:41:47 -0500 (Sat, 15 Nov 2008) $
+ * $Revision: 3195 $
+ * $Date: 2009-01-20 02:41:47 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 3030 2008-11-15 06:41:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 3195 2009-01-20 07:41:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -342,7 +342,13 @@ void idProjectile::Launch( const idVec3 &start, const idVec3 &dir, const idVec3 
 	contact_friction	= spawnArgs.GetFloat( "contact_friction" );
 	bounce				= spawnArgs.GetFloat( "bounce" );
 	mass				= spawnArgs.GetFloat( "mass" );
-	gravity				= spawnArgs.GetFloat( "gravity" );
+					
+	// greebo: Fall back to default gravity if the spawnarg is missing completely (still allows "0" gravity being set)
+	if (!spawnArgs.GetFloat("gravity", "0", gravity))
+	{
+		gravity = gameLocal.GetGravity().Length();
+	}
+
 	fuse				= spawnArgs.GetFloat( "fuse" );
 	delay				= spawnArgs.GetFloat( "delay" );
 
