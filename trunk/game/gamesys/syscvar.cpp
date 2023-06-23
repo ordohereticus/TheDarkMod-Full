@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2486 $
- * $Date: 2008-06-14 10:39:04 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2488 $
+ * $Date: 2008-06-14 12:07:14 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2486 2008-06-14 14:39:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2488 2008-06-14 16:07:14Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -263,7 +263,7 @@ idCVar cv_dm_distance("tdm_distance",		"",	CVAR_GAME,	"Shows the distance from t
  * Ambient light method variable
  */
 idCVar cv_ambient_method("tdm_ambient_method",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "Method used for ambient light rendering.\n\n0 = Ambient Light method (uses the ambient light for the ambient brightness) \n1 = Texture Brightness method (uses texture brightness instead of light. This is faster but looks worse)" );
-idCVar cv_ambient_light_name("tdm_ambient_light_name",	"ambient_world",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "The light name which is updated by the ambient light simulation code." );
+idCVar cv_ambient_light_name("tdm_ambient_light_name",	"ambient_world",	CVAR_GAME | CVAR_ROM, "The light name which is updated by the ambient light simulation code (read only)." );
 
 idCVar cv_darkradiant_rcfserver_enable("darkradiant_rcfserver_enable",	"0",	CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the DarkRadiant RCF Server will be enabled during the next startup." );
 
