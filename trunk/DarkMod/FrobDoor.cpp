@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2604 $
- * $Date: 2008-07-03 13:48:26 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2607 $
+ * $Date: 2008-07-03 23:42:52 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2604 2008-07-03 17:48:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2607 2008-07-04 03:42:52Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -535,10 +535,15 @@ bool CFrobDoor::CanBeUsedBy(CInventoryItem* item)
 
 	// TODO: Move this to idEntity to some sort of "usable_by_inv_category" list?
 	const idStr& name = item->Category()->GetName();
-	if (name == "Keys" || name == "Lockpicks")
+	if (name == "Keys")
 	{
-		// Keys and lockpicks can be used on doors
+		// Keys can always be used on doors
 		return true;
+	}
+	else if (name == "Lockpicks")
+	{
+		// Lockpicks can be used on doors that are locked in the first place
+		return IsLocked();
 	}
 
 	return idEntity::CanBeUsedBy(item);
