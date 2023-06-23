@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2247 $
- * $Date: 2008-04-29 16:21:37 -0400 (Tue, 29 Apr 2008) $
- * $Author: angua $
+ * $Revision: 2318 $
+ * $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2247 2008-04-29 20:21:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2318 2008-05-12 19:46:43Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -702,6 +702,8 @@ void idActor::Spawn( void )
 	}
 	
 	finalBoss = spawnArgs.GetBool( "finalBoss" );
+
+	canUseElevators = spawnArgs.GetBool("canOperateElevators", "0");
 
 	FinishSetup();
 

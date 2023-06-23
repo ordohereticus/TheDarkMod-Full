@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2291 $
- * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2318 $
+ * $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -33,7 +33,8 @@ enum {
 	PATHTYPE_WALKOFFLEDGE,
 	PATHTYPE_BARRIERJUMP,
 	PATHTYPE_JUMP,
-	PATHTYPE_DOOR
+	PATHTYPE_DOOR,
+	PATHTYPE_ELEVATOR, // greebo: Added for TDM
 };
 
 typedef struct aasPath_s {

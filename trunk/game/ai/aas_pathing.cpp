@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2281 $
- * $Date: 2008-05-10 03:55:15 -0400 (Sat, 10 May 2008) $
+ * $Revision: 2318 $
+ * $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2281 $   $Date: 2008-05-10 03:55:15 -0400 (Sat, 10 May 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2318 $   $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $", init_version);
 
 #include "aas_local.h"
 
@@ -358,6 +358,12 @@ bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &ori
 	}
 
 	if ( !reach ) {
+		// No standard reachability, check if the actor can use elevators
+		if (actor->CanUseElevators())
+		{
+			return elevatorSystem->FindRouteToGoal(path, areaNum, origin, goalAreaNum, goalOrigin, travelFlags, actor);
+		}
+
 		return false;
 	}
 
