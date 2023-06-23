@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2632 $
- * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2634 $
+ * $Date: 2008-07-12 04:20:10 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -184,7 +184,6 @@ struct CommMessage
 	*/
 	CommMessage(
 		TCommType in_commType,
-		float in_maximumRadiusInWorldCoords,
 		idEntity* in_p_issuingEntity,
 		idEntity* in_p_recipientEntity,
 		idEntity* in_p_directObjectEntity,
@@ -228,11 +227,6 @@ struct CommMessage
 	* This is the position of the issuing entity at the time of issuance
 	*/
 	idVec3 m_positionOfIssuance;
-
-	/*!
-	* This field indicates the maximum radius of the message for responders
-	*/
-	float m_maximumRadiusInWorldCoords;
 };
 typedef boost::shared_ptr<CommMessage> CommMessagePtr;
 typedef idList<ai::CommMessagePtr> MessageList;

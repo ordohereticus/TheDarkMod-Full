@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2470 $
- * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2634 $
+ * $Date: 2008-07-12 04:20:10 -0400 (Sat, 12 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -86,7 +86,6 @@ namespace ai
 
 // Stim radii for various communication styles
 #define YELL_STIM_RADIUS 400
-#define TALK_STIM_RADIUS 200
 
 enum EAlertClass 
 {
