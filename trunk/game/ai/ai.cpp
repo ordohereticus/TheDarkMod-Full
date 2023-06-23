@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2672 $
- * $Date: 2008-07-16 01:15:55 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2700 $
+ * $Date: 2008-07-19 00:45:58 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2672 2008-07-16 05:15:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2700 2008-07-19 04:45:58Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5226,7 +5226,7 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	}
 
 	// Update TDM objective system
-	gameLocal.m_MissionData->MissionEvent( COMP_KILL, attacker, this, bPlayerResponsible );
+	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, attacker, bPlayerResponsible );
 }
 
 
