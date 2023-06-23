@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2725 $
- * $Date: 2008-08-06 01:13:28 -0400 (Wed, 06 Aug 2008) $
+ * $Revision: 2727 $
+ * $Date: 2008-08-06 14:09:52 -0400 (Wed, 06 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -674,5 +674,17 @@ private:
 	void				Event_Activate( idEntity *activator );
 };
 
+/**
+ * greebo: This target changes the targets of existing entities.
+ */
+class CTarget_ChangeTarget : 
+	public idTarget
+{
+public:
+	CLASS_PROTOTYPE( CTarget_ChangeTarget );
+
+private:
+	void				Event_Activate( idEntity *activator );
+};
 
 #endif /* !__GAME_TARGET_H__ */
