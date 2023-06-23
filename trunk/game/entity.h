@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2712 $
- * $Date: 2008-08-01 03:13:52 -0400 (Fri, 01 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2745 $
+ * $Date: 2008-08-19 14:02:03 -0400 (Tue, 19 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -343,6 +343,9 @@ public:
 							// clients generate views based on all the player specific options,
 							// cameras have custom code, and everything else just uses the axis orientation
 	virtual renderView_t *	GetRenderView();
+
+	// greebo: Call this to trigger this entity
+	virtual void			Activate();
 
 	// thinking
 	virtual void			Think( void );
