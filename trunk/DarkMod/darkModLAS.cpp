@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3059 $
- * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
+ * $Revision: 3097 $
+ * $Date: 2008-12-30 11:27:46 -0500 (Tue, 30 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 3059 2008-11-22 13:30:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 3097 2008-12-30 16:27:46Z angua $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -478,13 +478,13 @@ void darkModLAS::removeLight (idLight* p_idLight)
 		DM_LOG(LC_LIGHT, LT_ERROR)LOGSTRING("Attempted to remove the light '%s' with no assigned LAS area index", p_idLight->name.c_str());
 		return;
 	}
-	else if (p_idLight->LASAreaIndex >= m_numAreas)
+	// angua: lights in the void are at number m_numAreas
+	else if (p_idLight->LASAreaIndex > m_numAreas)
 	{
 		// Log error
 		DM_LOG(LC_LIGHT, LT_ERROR)LOGSTRING("Attempted to remove the light '%s' with out of bounds area index %d", p_idLight->name.c_str(), p_idLight->LASAreaIndex);
 		return;
 	}
-
 
 	if (m_pp_areaLightLists == NULL)
 	{

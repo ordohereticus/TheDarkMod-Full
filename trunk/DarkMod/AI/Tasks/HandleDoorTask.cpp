@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3081 $
- * $Date: 2008-12-08 09:43:42 -0500 (Mon, 08 Dec 2008) $
+ * $Revision: 3097 $
+ * $Date: 2008-12-30 11:27:46 -0500 (Tue, 30 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3081 2008-12-08 14:43:42Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3097 2008-12-30 16:27:46Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -508,11 +508,6 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				// door is already open, move to back position
 				else if (masterUser == owner)
 				{
-					if (owner->AI_AlertLevel >= owner->thresh_4)
-					{
-						return true;
-					}
-
 					owner->MoveToPosition(_backPos);
 					_doorHandlingState = EStateMovingToBackPos;
 				}
@@ -700,7 +695,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				}
 				
 				// reached back position
-				else if (owner->AI_MOVE_DONE)
+				if (owner->AI_MOVE_DONE)
 				{
 					if (_doorInTheWay || (owner->ShouldCloseDoor(frobDoor) && numUsers < 2))
 					{
@@ -719,7 +714,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 				
 			case EStateWaitBeforeClose:
-				if (owner->AI_AlertLevel >= owner->thresh_4)
+				if (!_doorInTheWay && owner->AI_AlertLevel >= owner->thresh_4)
 				{
 					return true;
 				}
@@ -741,7 +736,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				break;
 
 			case EStateStartClose:
-				if (owner->AI_AlertLevel >= owner->thresh_4)
+				if (!_doorInTheWay && owner->AI_AlertLevel >= owner->thresh_4)
 				{
 					return true;
 				}
