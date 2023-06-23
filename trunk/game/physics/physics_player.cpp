@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2850 $
- * $Date: 2008-09-15 12:01:56 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2852 $
+ * $Date: 2008-09-15 14:41:41 -0400 (Mon, 15 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2850 $   $Date: 2008-09-15 12:01:56 -0400 (Mon, 15 Sep 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2852 $   $Date: 2008-09-15 14:41:41 -0400 (Mon, 15 Sep 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4330,6 +4330,11 @@ void idPhysics_Player::PerformMantle()
 	if (m_mantlePhase != notMantling_DarkModMantlePhase || !m_mantleStartPossible)
 	{
 		return;
+	}
+
+	if (static_cast<idPlayer*>(self)->GetImmobilization() & EIM_MANTLE)
+	{
+		return; // greebo: Mantling disabled by immobilization system
 	}
 
 	// Clear mantled entity members to indicate nothing is
