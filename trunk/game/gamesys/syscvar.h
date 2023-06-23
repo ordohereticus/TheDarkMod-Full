@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2298 $
- * $Date: 2008-05-11 10:01:49 -0400 (Sun, 11 May 2008) $
- * $Author: angua $
+ * $Revision: 2326 $
+ * $Date: 2008-05-14 11:53:55 -0400 (Wed, 14 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -35,6 +35,7 @@ extern idCVar cv_ai_dest_show;
 extern idCVar cv_ai_goalpos_show;
 extern idCVar cv_ai_aasarea_show;
 extern idCVar cv_ai_door_show;
+extern idCVar cv_ai_elevator_show;
 extern idCVar cv_ai_debug;
 extern idCVar cv_ai_sight_thresh;
 extern idCVar cv_ai_sight_scale;
