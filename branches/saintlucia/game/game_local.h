@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2867 $
- * $Date: 2008-09-20 18:22:26 -0400 (Sat, 20 Sep 2008) $
- * $Author: tels $
+ * $Revision: 2929 $
+ * $Date: 2008-10-06 14:57:40 -0400 (Mon, 06 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -787,7 +787,7 @@ public:
 	* @return The number of responses triggered
 	*
 	*/
-	int						DoResponseAction(CStim* stim, int numEntities, idEntity* originator);
+	int						DoResponseAction(CStim* stim, int numEntities, idEntity* originator, const idVec3& stimOrigin);
 
 	/**
 	 * Process the timer ticks for all timers that are used for other purposes than stim/responses.
