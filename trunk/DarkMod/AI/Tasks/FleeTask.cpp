@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2502 $
+ * $Date: 2008-06-15 07:36:16 -0400 (Sun, 15 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeTask.cpp 2502 2008-06-15 11:36:16Z angua $", init_version);
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -97,7 +97,7 @@ bool FleeTask::Perform(Subsystem& subsystem)
 			// Flee to the nearest friendly guarded escape point
 			if (!owner->Flee(enemy, FIND_FRIENDLY_GUARDED, _distOpt))
 			{
-				owner->AI_DEST_UNREACHABLE = true;
+				_escapeSearchLevel = 2;
 			}
 			_fleeStartFrame = gameLocal.framenum;
 		}
@@ -108,7 +108,7 @@ bool FleeTask::Perform(Subsystem& subsystem)
 			// Find another escape route to ANY friendly escape point
 			if (!owner->Flee(enemy, FIND_FRIENDLY, _distOpt))
 			{
-				owner->AI_DEST_UNREACHABLE = true;
+				_escapeSearchLevel = 1;
 			}
 		}
 		else
@@ -126,22 +126,15 @@ bool FleeTask::Perform(Subsystem& subsystem)
 				if (!owner->Flee(enemy, FIND_AAS_AREA_FAR_FROM_THREAT, 500))
 				{
 					// No point could be found.
-					owner->AI_DEST_UNREACHABLE = true;
 					_failureCount++;
 				}
 			}
 			else
 			{
 				// Fleeing is done for now
-				owner->AI_MOVE_DONE = true;
-				owner->AI_DEST_UNREACHABLE = false;
+				owner->StopMove(MOVE_STATUS_DONE);
 			}
 		}
-	}
-
-	if (owner->AI_DEST_UNREACHABLE && _escapeSearchLevel > 1)
-	{
-		_escapeSearchLevel --;
 	}
 
 	return false; // not finished yet

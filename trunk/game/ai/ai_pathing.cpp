@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2438 $
- * $Date: 2008-06-05 13:57:46 -0400 (Thu, 05 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2502 $
+ * $Date: 2008-06-15 07:36:16 -0400 (Sun, 15 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2438 2008-06-05 17:57:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2502 2008-06-15 11:36:16Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -476,7 +476,8 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	int blockingEdgeNum; // will hold the edge number of the winding which intersects the path
 	float blockingScale;
 	// if the current path doesn't intersect any dynamic obstacles the path should be through valid AAS space
-	if ( PointInsideObstacle( obstacles, numObstacles, startPos.ToVec2() ) == -1 )
+	int startObstacleNum = PointInsideObstacle( obstacles, numObstacles, startPos.ToVec2());
+	if (startObstacleNum  == -1 )
 	{
 		if (!GetFirstBlockingObstacle(obstacles, numObstacles, -1, startPos.ToVec2(), seekDelta.ToVec2(), 
 									  blockingScale, blockingObstacle, blockingEdgeNum))
@@ -492,6 +493,11 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 			pathInfo.frobMoverObstacle = static_cast<CBinaryFrobMover*>(obstacles[blockingObstacle].entity);
 		}
 	}
+	else if (obstacles[startObstacleNum].entity->IsType(CBinaryFrobMover::Type))
+	{
+		pathInfo.frobMoverObstacle = static_cast<CBinaryFrobMover*>(obstacles[startObstacleNum].entity);
+	}
+
 
 	// create obstacles for AAS walls
 	if ( aas != NULL )
