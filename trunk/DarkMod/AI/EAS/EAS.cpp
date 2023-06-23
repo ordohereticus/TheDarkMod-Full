@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2354 $
- * $Date: 2008-05-16 15:46:08 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2355 $
+ * $Date: 2008-05-17 02:59:13 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 2354 2008-05-16 19:46:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 2355 2008-05-17 06:59:13Z greebo $", init_version);
 
 #include "EAS.h"
 
@@ -410,8 +410,9 @@ RouteInfoList tdmEAS::FindRoutesToCluster(int startCluster, int startArea, int g
 		// No routing information, check walk path to the goal cluster
 		idReachability* reach;
 		int travelTime = 0;
+		// Workaround: Include the TFL_INVALID flag to include deactivated AAS areas
 		bool routeFound = _aas->RouteToGoalArea(startArea, _aas->AreaCenter(startArea), 
-			goalArea, TFL_WALK|TFL_AIR, travelTime, &reach, NULL);
+			goalArea, TFL_WALK|TFL_AIR|TFL_INVALID, travelTime, &reach, NULL);
 
 		if (routeFound) 
 		{
