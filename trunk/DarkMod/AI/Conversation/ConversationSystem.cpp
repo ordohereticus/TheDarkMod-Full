@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2648 $
- * $Date: 2008-07-13 08:47:00 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2649 $
+ * $Date: 2008-07-13 09:16:43 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2648 2008-07-13 12:47:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2649 2008-07-13 13:16:43Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -24,7 +24,7 @@ void ConversationSystem::Clear()
 
 void ConversationSystem::Init(idMapFile* mapFile)
 {
-	DM_LOG(LC_DIFFICULTY, LT_INFO)LOGSTRING("Searching for difficulty setting on worldspawn.\r");
+	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Searching for difficulty setting on worldspawn.\r");
 
 	if (mapFile->GetNumEntities() <= 0) {
 		return; // no entities!
@@ -57,7 +57,9 @@ void ConversationSystem::Restore(idRestoreGame* savefile)
 
 void ConversationSystem::LoadConversationEntity(idMapEntity* entity)
 {
-	// TODO
+	assert(entity != NULL);
+
+	float talkDistance = entity->epairs.GetFloat("talk_distance", "100");
 }
 
 } // namespace ai

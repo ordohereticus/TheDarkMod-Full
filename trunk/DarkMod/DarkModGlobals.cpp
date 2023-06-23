@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2456 $
- * $Date: 2008-06-08 04:48:43 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2649 $
+ * $Date: 2008-07-13 09:16:43 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2456 2008-06-08 08:48:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2649 2008-07-13 13:16:43Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -198,6 +198,7 @@ CGlobal::CGlobal(void)
 	m_ClassArray[LC_OBJECTIVES] = false;
 	m_ClassArray[LC_DIFFICULTY] = false;
 	m_ClassArray[LC_STIM_RESPONSE] = false;
+	m_ClassArray[LC_CONVERSATION] = false;
 
 	m_Frame = 0;
 	m_DefaultFrobDistance = 100.0f;
@@ -676,6 +677,16 @@ void CGlobal::LoadINISettings(void *p)
 			}
 
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_DIFFICULTY: %c\r", pm->Value[0]);
+		}
+		if(FindMap(ps, "LogClass_CONVERSATION", TRUE, &pm) != static_cast<ULONG>(-1))
+		{
+			if(pm->Value[0] == '1')
+			{
+				m_ClassArray[LC_CONVERSATION] = true;
+				Frame = true;
+			}
+
+			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("LogClass_CONVERSATION: %c\r", pm->Value[0]);
 		}
 		if(FindMap(ps, "LogClass_LOCKPICK", TRUE, &pm) != static_cast<ULONG>(-1))
 		{

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2444 $
- * $Date: 2008-06-07 09:49:39 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2649 $
+ * $Date: 2008-07-13 09:16:43 -0400 (Sun, 13 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -77,6 +77,7 @@ typedef enum {
 	LC_STIM_RESPONSE,
 	LC_OBJECTIVES,
 	LC_DIFFICULTY,		// anything difficulty-related
+	LC_CONVERSATION,	// conversation/dialogue stuff
 	LC_COUNT
 } LC_LogClass;
 
