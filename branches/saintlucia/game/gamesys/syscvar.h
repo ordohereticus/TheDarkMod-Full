@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2882 $
- * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2911 $
+ * $Date: 2008-10-04 02:03:09 -0400 (Sat, 04 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -66,6 +66,8 @@ extern idCVar cv_debug_aastype;
 
 extern idCVar cv_las_showtraces;
 extern idCVar cv_show_gameplay_time;
+
+extern idCVar cv_tdm_difficulty;
 
 extern idCVar cv_sr_disable;
 
