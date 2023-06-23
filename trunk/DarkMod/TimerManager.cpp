@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2481 $
- * $Date: 2008-06-14 04:54:23 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2493 $
+ * $Date: 2008-06-15 01:34:49 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -110,7 +110,7 @@ void TimerManager::PrintTimerResults()
 		gameLocal.Printf("%s %s \n", info.entityName.c_str(), info.name.c_str());
 		gameLocal.Printf("Number of calls: %d\n", info.runCount);
 		gameLocal.Printf("Total run time: %lf ms\n", info.runTime);
-		gameLocal.Printf("Mean run time per call: %lf ms\n", info.runTime / info.runCount);
+		gameLocal.Printf("Mean run time per call: %lf ms\n", (info.runCount > 0 ? (info.runTime / info.runCount) : 0));
 		gameLocal.Printf("Max runtime: %lf ms at call number %d\n", info.maxTime, info.maxTimeCall);
 		gameLocal.Printf("---------------------------------\n");
 	}

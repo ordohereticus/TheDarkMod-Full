@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2492 $
- * $Date: 2008-06-15 01:29:09 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2493 $
+ * $Date: 2008-06-15 01:34:49 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2492 2008-06-15 05:29:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2493 2008-06-15 05:34:49Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -536,6 +536,7 @@ idAI::idAI()
 	INIT_TIMER_HANDLE(aiThinkTimer);
 	INIT_TIMER_HANDLE(aiMindTimer);
 	INIT_TIMER_HANDLE(aiAnimationTimer);
+	INIT_TIMER_HANDLE(aiPushWithAFTimer);
 }
 
 /*
@@ -805,6 +806,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	SAVE_TIMER_HANDLE(aiThinkTimer, savefile);
 	SAVE_TIMER_HANDLE(aiMindTimer, savefile);
 	SAVE_TIMER_HANDLE(aiAnimationTimer, savefile);
+	SAVE_TIMER_HANDLE(aiPushWithAFTimer, savefile);
 }
 
 /*
@@ -1101,6 +1103,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	RESTORE_TIMER_HANDLE(aiThinkTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiMindTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiAnimationTimer, savefile);
+	RESTORE_TIMER_HANDLE(aiPushWithAFTimer, savefile);
 }
 
 /*
@@ -1497,6 +1500,7 @@ void idAI::Spawn( void )
 	CREATE_TIMER(aiThinkTimer, name, "aiThinkTimer");
 	CREATE_TIMER(aiMindTimer, name, "aiMindTimer");
 	CREATE_TIMER(aiAnimationTimer, name, "aiAnimationTimer");
+	CREATE_TIMER(aiPushWithAFTimer, name, "aiPushWithAFTimer");
 }
 
 /*
@@ -1784,6 +1788,7 @@ void idAI::Think( void )
 
 	if (m_bAFPushMoveables)
 	{
+		START_SCOPED_TIMING(aiPushWithAFTimer, scopedPushWithAFTimer)
 		PushWithAF();
 	}
 

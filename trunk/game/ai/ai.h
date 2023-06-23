@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2492 $
- * $Date: 2008-06-15 01:29:09 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2493 $
+ * $Date: 2008-06-15 01:34:49 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1795,6 +1795,7 @@ private:
 	int aiThinkTimer;
 	int aiMindTimer;
 	int aiAnimationTimer;
+	int aiPushWithAFTimer;
 #endif
 };
 
