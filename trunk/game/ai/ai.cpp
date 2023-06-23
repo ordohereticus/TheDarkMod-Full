@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2331 $
- * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
+ * $Revision: 2352 $
+ * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2331 2008-05-14 17:04:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -778,6 +778,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteBool(m_bCanOperateDoors);
 	savefile->WriteBool(m_HandlingDoor);
+	savefile->WriteBool(m_HandlingElevator);
 
 	int size = unlockableDoors.size();
 	savefile->WriteInt(size);
@@ -1044,6 +1045,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadBool(m_bCanOperateDoors);
 	savefile->ReadBool(m_HandlingDoor);
+	savefile->ReadBool(m_HandlingElevator);
 
 	int size;
 	savefile->ReadInt(size);
@@ -1447,6 +1449,7 @@ void idAI::Spawn( void )
 
 	m_bCanOperateDoors = spawnArgs.GetBool("canOperateDoors", "0");
 	m_HandlingDoor = false;
+	m_HandlingElevator = false;
 
 	// Set up KOing and FOV
 	const char *HeadJointName = spawnArgs.GetString("head_jointname", "Head");
@@ -9371,6 +9374,6 @@ void idAI::RestoreMove(const idMoveState& saved)
 	}
 
 	if ( GetMovePos( goalPos ) ) {
-		CheckObstacleAvoidance( goalPos, dest );
+		//CheckObstacleAvoidance( goalPos, dest );
 	}
 }

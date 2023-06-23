@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2345 $
- * $Date: 2008-05-15 15:12:48 -0400 (Thu, 15 May 2008) $
- * $Author: angua $
+ * $Revision: 2352 $
+ * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 2345 2008-05-15 19:12:48Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
 
 #include "EAS.h"
 
@@ -612,7 +612,9 @@ bool tdmEAS::FindRouteToGoal(aasPath_t &path, int areaNum, const idVec3 &origin,
 
 		// Notify the AI that it needs to use an elevator
 		actor->NeedToUseElevator(route);
-
+		path.moveGoal = goalOrigin;
+		path.moveAreaNum = goalAreaNum;
+		return true;
 	}
 
 	return false;

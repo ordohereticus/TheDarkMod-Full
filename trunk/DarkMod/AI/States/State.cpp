@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2347 $
- * $Date: 2008-05-15 15:41:20 -0400 (Thu, 15 May 2008) $
- * $Author: angua $
+ * $Revision: 2352 $
+ * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2347 2008-05-15 19:41:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1524,8 +1524,10 @@ void State::NeedToUseElevator(const eas::RouteInfoPtr& routeInfo)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	if (owner->CanUseElevators())
+	if (!owner->m_HandlingElevator && owner->CanUseElevators())
 	{
+		// Prevent more ElevatorTasks from being pushed
+		owner->m_HandlingElevator = true;
 		owner->GetSubsystem(SubsysMovement)->PushTask(TaskPtr(new HandleElevatorTask(routeInfo)));
 	}
 }

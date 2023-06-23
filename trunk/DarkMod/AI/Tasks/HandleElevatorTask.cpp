@@ -1,9 +1,8 @@
-<<<<<<< .mine
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2351 $
- * $Date: 2008-05-16 13:01:07 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2352 $
+ * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2351 2008-05-16 17:01:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -65,6 +64,8 @@ void HandleElevatorTask::Init(idAI* owner, Subsystem& subsystem)
 		subsystem.FinishTask();
 		return;
 	}
+
+	owner->m_HandlingElevator = true;
 
 	// Start moving towards the elevator station
 	if (owner->MoveToPosition(pos->GetPhysics()->GetOrigin()))
@@ -330,6 +331,8 @@ bool HandleElevatorTask::IsElevatorStationReachable(CMultiStateMoverPosition* po
 void HandleElevatorTask::OnFinish(idAI* owner)
 {
 	Memory& memory = owner->GetMemory();
+
+	owner->m_HandlingElevator = false;
 
 	// Restore the movestate we had before starting this task
 	owner->PopMove();

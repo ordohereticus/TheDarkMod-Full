@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2352 $
+ * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Subsystem.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Subsystem.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
 
 #include "Subsystem.h"
 #include "Library.h"
@@ -120,15 +120,15 @@ bool Subsystem::FinishTask()
 
 		// Move the task pointer from the queue to the recyclebin
 		_recycleBin.push_back(_taskQueue.front());
+
+		// Now remove the State from the queue
+		_taskQueue.pop_front();
 		
 		// Call the OnFinish event of the task
 		_recycleBin.back()->OnFinish(owner);
 
 		// Issue the "TaskFinished" signal to the MindState
 		owner->GetMind()->GetState()->OnSubsystemTaskFinished(owner, _id);
-
-		// Now remove the State from the queue
-		_taskQueue.pop_front();
 	}
 
 	if (_taskQueue.empty())

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2331 $
- * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
+ * $Revision: 2352 $
+ * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -914,6 +914,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * angua: is set true while the AI is handling the door.
 	 */
 	bool					m_HandlingDoor;
+
+	/**
+	 * angua: is set true while the AI is handling an elevator.
+	 */
+	bool					m_HandlingElevator;
 
 	/**
 	* Head center offset in head joint coordinates, relative to head joint
