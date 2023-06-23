@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2768 $
- * $Date: 2008-08-30 09:16:11 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2770 $
+ * $Date: 2008-08-30 10:21:59 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -83,6 +83,7 @@ extern idCVar cv_pm_pushmod;
 extern idCVar cv_pm_push_start_delay;
 extern idCVar cv_pm_push_accel_time;
 extern idCVar cv_pm_push_heavy_threshold;
+extern idCVar cv_pm_push_max_mass;
 extern idCVar cv_pm_mantle_height;
 extern idCVar cv_pm_mantle_reach;
 extern idCVar cv_pm_mantle_minflatness;

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2765 $
- * $Date: 2008-08-30 08:22:01 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2770 $
+ * $Date: 2008-08-30 10:21:59 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2765 $   $Date: 2008-08-30 08:22:01 -0400 (Sat, 30 Aug 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2770 $   $Date: 2008-08-30 10:21:59 -0400 (Sat, 30 Aug 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -409,25 +409,10 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 			idEntity* pushedEnt = gameLocal.entities[trace.c.entityNum];
 			if (pushedEnt != NULL)
 			{
-				// Take the direction of the current velocity
-				idVec3 direction = current.velocity;
-				direction.NormalizeFast();
-
-				// Scale the impulse so that only the fraction pointing in the right direction is considered
-				float scale = -trace.c.normal * current.velocity;
-				idVec3 impulse = direction * scale * GetMass() * cv_pm_pushmod.GetFloat();
-
-				//pushedEnt->GetPhysics()->PropagateImpulse(0, trace.c.point, impulse);
-
 				// Register the blocking physics object with our push force
 				m_PushForce.SetPushEntity(pushedEnt, 0);
 				m_PushForce.SetContactInfo(trace, current.velocity);
 
-				//pushedEnt->GetPhysics()->AddForce(0, trace.c.point, impulse);
-
-				//gameRenderWorld->DrawText( idStr(impulse.LengthFast()), rigidBodyPhysics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
-				//gameRenderWorld->DebugArrow( colorWhite, rigidBodyPhysics->GetAbsBounds().GetCenter(), rigidBodyPhysics->GetAbsBounds().GetCenter() + impulse, 1, gameLocal.msec );
-				
 				totalMass = pushedEnt->GetPhysics()->GetMass();
 			}
 
