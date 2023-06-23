@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2693 $
- * $Date: 2008-07-18 12:28:56 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 2694 $
+ * $Date: 2008-07-18 12:32:35 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2693 2008-07-18 16:28:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2694 2008-07-18 16:32:35Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -157,7 +157,18 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 	case ConversationCommand::EWaitForTrigger:
 	case ConversationCommand::EWaitForActor:
 	case ConversationCommand::EWalkToPosition:
-		break;
+	{
+		idVec3 goal = command.GetVectorArgument(0);
+
+		// Start moving
+		owner->GetSubsystem(SubsysMovement)->PushTask(
+			TaskPtr(new MoveToPositionTask(goal))
+		);
+
+		// Check if we should wait until the command is finished and set the _state accordingly
+		_state = (command.WaitUntilFinished()) ? ConversationCommand::EExecuting : ConversationCommand::EFinished;
+	}
+	break;
 	case ConversationCommand::EWalkToEntity:
 	{
 		idEntity* ent = command.GetEntityArgument(0);
