@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3057 $
- * $Date: 2008-11-22 01:38:40 -0500 (Sat, 22 Nov 2008) $
+ * $Revision: 3058 $
+ * $Date: 2008-11-22 01:42:26 -0500 (Sat, 22 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3057 2008-11-22 06:38:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3058 2008-11-22 06:42:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5563,20 +5563,20 @@ bool idPlayer::SkipCinematic( void ) {
 idPlayer::GetImmobilization
 ==============
 */
-int idPlayer::GetImmobilization( void ) {
+int idPlayer::GetImmobilization()
+{
 	// Has something changed since the cache was last calculated?
-	if ( m_immobilizationCache & EIM_UPDATE ) {
-		const idKeyValue *kv;
-
+	if ( m_immobilizationCache & EIM_UPDATE )
+	{
 		// Recalculate the immobilization from scratch.
 		m_immobilizationCache = 0;
-		kv = m_immobilization.MatchPrefix( "", NULL );
-		while ( kv ) {
-			//m_immobilizationCache |= m_immobilization.GetInt(kv->GetKey());
+
+		for (const idKeyValue* kv = m_immobilization.MatchPrefix(""); kv != NULL; kv = m_immobilization.MatchPrefix("", kv))
+		{
 			m_immobilizationCache |= atoi(kv->GetValue());
-			kv = m_immobilization.MatchPrefix( "", kv );
 		}
 	}
+
 	return m_immobilizationCache;
 }
 
