@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2321 $
- * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
- * $Author: angua $
+ * $Revision: 2331 $
+ * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,6 +15,7 @@
 #define __GAME_ACTOR_H__
 
 #include "../DarkMod/MultiStateMoverPosition.h"
+#include "../DarkMod/AI/EAS/RouteInfo.h"
 
 /*
 ===============================================================================
@@ -190,7 +191,7 @@ public:
 	****************************************************************************************/
 	virtual float		    CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &oldOrigin, const idVec3 &oldVelocity );
 
-	virtual void			NeedToUseElevator(CMultiStateMoverPosition* pos);
+	virtual void			NeedToUseElevator(const eas::RouteInfoPtr& routeInfo);
 	
 	int						GetDamageForLocation( int damage, int location );
 	const char *			GetDamageGroup( int location );

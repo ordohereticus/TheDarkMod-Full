@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2321 $
- * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
- * $Author: angua $
+ * $Revision: 2331 $
+ * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2321 2008-05-13 05:52:36Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2331 2008-05-14 17:04:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4116,7 +4116,7 @@ float idActor::CrashLand( const idPhysics_Actor& physicsObj, const idVec3 &saved
 	return delta;
 }
 
-void idActor::NeedToUseElevator(CMultiStateMoverPosition* pos)
+void idActor::NeedToUseElevator(const eas::RouteInfoPtr& routeInfo)
 {}
 
 

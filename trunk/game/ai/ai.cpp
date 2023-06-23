@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2324 $
- * $Date: 2008-05-14 00:48:31 -0400 (Wed, 14 May 2008) $
+ * $Revision: 2331 $
+ * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2324 2008-05-14 04:48:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2331 2008-05-14 17:04:52Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9234,9 +9234,9 @@ float idAI::GetArmReachLength()
 	}
 }
 
-void idAI::NeedToUseElevator(CMultiStateMoverPosition* pos)
+void idAI::NeedToUseElevator(const eas::RouteInfoPtr& routeInfo)
 {
-	mind->GetState()->NeedToUseElevator(pos);
+	mind->GetState()->NeedToUseElevator(routeInfo);
 }
 
 

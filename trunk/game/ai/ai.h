@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2324 $
- * $Date: 2008-05-14 00:48:31 -0400 (Wed, 14 May 2008) $
+ * $Revision: 2331 $
+ * $Date: 2008-05-14 13:04:52 -0400 (Wed, 14 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -539,7 +539,7 @@ public:
 	float GetArmReachLength();
 
 	// Virtual override of idActor method, routes the call into the current Mind State
-	virtual void NeedToUseElevator(CMultiStateMoverPosition* pos);
+	virtual void NeedToUseElevator(const eas::RouteInfoPtr& routeInfo);
 
 
 protected:
