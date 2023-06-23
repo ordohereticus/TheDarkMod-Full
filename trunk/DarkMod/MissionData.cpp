@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2441 $
- * $Date: 2008-06-06 12:14:52 -0400 (Fri, 06 Jun 2008) $
+ * $Revision: 2459 $
+ * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2441 2008-06-06 16:14:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2444,7 +2444,7 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 		// Increase the stealth factor based on the number of alerted AI weighted with the seriousness
 		stealthScore += -i * m_Stats.MaxAlertIndices[i];
 	}
-	stealthScore = idMath::ClampInt(0, 10, stealthScore);
+	stealthScore = idMath::ClampInt(0, 10, static_cast<int>(stealthScore));
 	
 	key = "Stealth Score";
 	value = idStr(stealthScore);

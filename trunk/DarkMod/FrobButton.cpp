@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2459 $
+ * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobButton.cpp 2442 2008-06-06 16:22:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobButton.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"

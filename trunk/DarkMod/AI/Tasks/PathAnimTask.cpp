@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2459 $
+ * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PathAnimTask.h"
@@ -54,7 +54,7 @@ void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 		subsystem.FinishTask();
 	}
 
-	float blendIn = path->spawnArgs.GetInt("blend_in");
+	int blendIn = path->spawnArgs.GetInt("blend_in");
 	
 	// Synchronise the leg channel
 	owner->Event_OverrideAnim(ANIMCHANNEL_LEGS);

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2459 $
+ * $Date: 2008-06-08 09:09:53 -0400 (Sun, 08 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 2459 2008-06-08 13:09:53Z greebo $", init_version);
 
 #include "AnimalPatrolTask.h"
 #include "../Memory.h"
@@ -96,6 +96,8 @@ bool AnimalPatrolTask::Perform(Subsystem& subsystem)
 			//gameRenderWorld->DrawText("Waiting", owner->GetPhysics()->GetOrigin(), 0.6f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 32);
 			waiting(owner);
 			break;
+		default:
+			break;
 	};
 
 	return false; // not finished yet
@@ -132,6 +134,8 @@ void AnimalPatrolTask::switchToState(EState newState, idAI* owner)
 				owner->AI_RUN = path->spawnArgs.GetBool("run", "0");
 			}
 		}
+		break;
+	default:
 		break;
 	}
 
