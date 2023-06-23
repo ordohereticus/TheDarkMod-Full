@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2729 $
+ * $Date: 2008-08-09 15:30:37 -0400 (Sat, 09 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 2729 2008-08-09 19:30:37Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -22,8 +22,6 @@ static bool init_version = FileVersionList("$Id: Inventory.cpp 2338 2008-05-15 1
 #include "../MissionData.h"
 
 const idEventDef EV_PostRestore( "postRestore", NULL );
-
-static idLinkList<idClass>	tdmInventoryObjList;
 
 static idStr sLootTypeName[LT_COUNT] = 
 {
