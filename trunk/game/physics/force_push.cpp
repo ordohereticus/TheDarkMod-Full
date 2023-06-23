@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2861 $
- * $Date: 2008-09-18 13:36:28 -0400 (Thu, 18 Sep 2008) $
+ * $Revision: 2868 $
+ * $Date: 2008-09-21 03:28:55 -0400 (Sun, 21 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2861 2008-09-18 17:36:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2868 2008-09-21 07:28:55Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -20,12 +20,12 @@ END_CLASS
 
 CForcePush::CForcePush() :
 	pushEnt(NULL),
-	lastPushEnt(NULL),
 	id(0),
 	impactVelocity(vec3_zero),
 	startPushTime(-1),
 	owner(NULL)
 {
+	lastPushEnt = NULL;
 	memset(&contactInfo, 0, sizeof(contactInfo));
 }
 
@@ -36,7 +36,9 @@ void CForcePush::SetOwner(idEntity* ownerEnt)
 
 void CForcePush::SetPushEntity(idEntity* pushEnt, int id)
 {
-	if (pushEnt != lastPushEnt)
+	idEntity* lastPushEntity = lastPushEnt.GetEntity();
+
+	if (pushEnt != lastPushEntity)
 	{
 		// entity has changed, reset the timer
 		startPushTime = gameLocal.time;
@@ -52,10 +54,10 @@ void CForcePush::SetPushEntity(idEntity* pushEnt, int id)
 		}
 
 		// Did we push anything the frame before?
-		if (lastPushEnt != NULL && lastPushEnt->IsType(idMoveable::Type))
+		if (lastPushEntity != NULL && lastPushEntity->IsType(idMoveable::Type))
 		{
 			// Let the pushed entity know that it is not being pushed anymore
-			static_cast<idMoveable*>(lastPushEnt)->SetIsPushed(false, vec3_zero);
+			static_cast<idMoveable*>(lastPushEntity)->SetIsPushed(false, vec3_zero);
 		}
 	}
 	else
@@ -161,7 +163,7 @@ void CForcePush::Evaluate( int time )
 		}
 	}
 	// The pushed entity is considered heavy
-	else if (pushEnt == lastPushEnt)
+	else if (pushEnt == lastPushEnt.GetEntity())
 	{
 		int pushTime = gameLocal.time - startPushTime;
 		//gameRenderWorld->DrawText( idStr(pushTime), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
@@ -236,7 +238,7 @@ void CForcePush::Save( idSaveGame *savefile ) const
 {
 	// Store the entity pointer behind the physics object
 	savefile->WriteObject(pushEnt);
-	savefile->WriteObject(lastPushEnt);
+	lastPushEnt.Save(savefile);
 	savefile->WriteInt(id);
 	savefile->WriteTrace(contactInfo);
 	savefile->WriteVec3(impactVelocity);
@@ -247,7 +249,7 @@ void CForcePush::Save( idSaveGame *savefile ) const
 void CForcePush::Restore( idRestoreGame *savefile )
 {
 	savefile->ReadObject(reinterpret_cast<idClass*&>(pushEnt));
-	savefile->ReadObject(reinterpret_cast<idClass*&>(lastPushEnt));
+	lastPushEnt.Restore(savefile);
 	savefile->ReadInt(id);
 	savefile->ReadTrace(contactInfo);
 	savefile->ReadVec3(impactVelocity);
