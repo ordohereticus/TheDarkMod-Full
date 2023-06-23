@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2253 $
- * $Date: 2008-05-01 07:15:58 -0400 (Thu, 01 May 2008) $
- * $Author: angua $
+ * $Revision: 2398 $
+ * $Date: 2008-05-29 12:55:56 -0400 (Thu, 29 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2253 2008-05-01 11:15:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2398 2008-05-29 16:55:56Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -36,28 +36,21 @@ END_CLASS
 
 
 
-CFrobDoorHandle::CFrobDoorHandle(void)
-: CBinaryFrobMover()
-{
-	DM_LOG(LC_FUNCTION, LT_DEBUG)LOGSTRING("this: %08lX [%s]\r", this, __FUNCTION__);
-	m_Door = NULL;
-	m_FrobLock = false;
-}
+CFrobDoorHandle::CFrobDoorHandle() :
+	m_Door(NULL),
+	m_FrobLock(false)
+{}
 
 void CFrobDoorHandle::Save(idSaveGame *savefile) const
 {
+	savefile->WriteObject(m_Door);
+	savefile->WriteBool(m_FrobLock);
 }
 
 void CFrobDoorHandle::Restore( idRestoreGame *savefile )
 {
-}
-
-void CFrobDoorHandle::WriteToSnapshot( idBitMsgDelta &msg ) const
-{
-}
-
-void CFrobDoorHandle::ReadFromSnapshot( const idBitMsgDelta &msg )
-{
+	savefile->ReadObject(reinterpret_cast<idClass*&>(m_Door));
+	savefile->ReadBool(m_FrobLock);
 }
 
 void CFrobDoorHandle::Spawn(void)
@@ -146,18 +139,16 @@ void CFrobDoorHandle::DoneMoving(void)
 	CBinaryFrobMover::DoneMoving();
 }
 
-void CFrobDoorHandle::Tap(void)
+void CFrobDoorHandle::Tap()
 {
-	double signal = 0;
-	idStr s;
+	idStr script = spawnArgs.GetString("door_handle_script", "");
 
-//	spawnArgs.GetString("door_handle_script", "door_handle_rotate", s);
-	spawnArgs.GetString("door_handle_script", "", s);
-	if(s.Length() == 0 || m_Door == NULL)
+	if (script.IsEmpty() || m_Door == NULL)
+	{
 		return;
+	}
 
-//	signal = m_Door->AddSDKSignal(SigOpen, NULL);
-	CallScriptFunctionArgs(s.c_str(), true, 0, "ee", this, m_Door);
+	CallScriptFunctionArgs(script, true, 0, "ee", this, m_Door);
 }
 
 bool CFrobDoorHandle::isLocked(void)
