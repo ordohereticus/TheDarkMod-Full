@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2652 $
- * $Date: 2008-07-13 10:33:31 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2653 $
+ * $Date: 2008-07-13 10:46:03 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,6 +22,9 @@ namespace ai {
  */
 class Conversation
 {
+	// The name of this conversation
+	idStr _name;
+
 	// whether this conversation has errors or not
 	bool _isValid;
 

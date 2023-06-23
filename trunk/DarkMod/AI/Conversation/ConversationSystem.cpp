@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2652 $
- * $Date: 2008-07-13 10:33:31 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2653 $
+ * $Date: 2008-07-13 10:46:03 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2652 2008-07-13 14:33:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2653 2008-07-13 14:46:03Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -64,7 +64,8 @@ void ConversationSystem::LoadConversationEntity(idMapEntity* entity)
 
 	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Investigating conversation entity %s.\r", entity->epairs.GetString("name"));
 
-	for (int i = 0; i < INT_MAX; i++)
+	// The conversation index starts with 1, not zero
+	for (int i = 1; i < INT_MAX; i++)
 	{
 		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Attempting to parse using conversation index %d.\r", i);
 
