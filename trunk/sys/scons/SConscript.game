@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2262 $
-#* $Date: 2008-05-06 13:27:38 -0400 (Tue, 06 May 2008) $
-#* $Author: angua $
+#* $Revision: 2292 $
+#* $Date: 2008-05-11 04:12:39 -0400 (Sun, 11 May 2008) $
+#* $Author: greebo $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -174,6 +174,7 @@ StimResponse/StimResponse.cpp \
 StimResponse/StimResponseCollection.cpp \
 StimResponse/StimResponseTimer.cpp \
 AI/AreaManager.cpp \
+AI/EAS.cpp \
 AI/DoorInfo.cpp \
 AI/Mind.cpp \
 AI/Memory.cpp \
