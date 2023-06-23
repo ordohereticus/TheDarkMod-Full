@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2635 $
- * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2732 $
+ * $Date: 2008-08-13 15:07:19 -0400 (Wed, 13 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2635 2008-07-12 08:53:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 2732 2008-08-13 19:07:19Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -127,13 +127,19 @@ void CombatState::Init(idAI* owner)
 
 	// Fill the subsystems with their tasks
 
-	// Setup the message to be delivered each time
-	CommMessagePtr message(new CommMessage(
-		CommMessage::DetectedEnemy_CommType, 
-		owner, NULL, // from this AI to anyone 
-		enemy,
-		memory.lastEnemyPos
-	));
+	// This will hold the message to be delivered with the bark, if appropriate
+	CommMessagePtr message;
+	
+	// Only alert the bystanders if we didn't receive the alert by message ourselves
+	if (!memory.alertedDueToCommunication)
+	{
+		message = CommMessagePtr(new CommMessage(
+			CommMessage::DetectedEnemy_CommType, 
+			owner, NULL, // from this AI to anyone 
+			enemy,
+			memory.lastEnemyPos
+		));
+	}
 
 	// The communication system 
 	owner->GetSubsystem(SubsysCommunication)->PushTask(
