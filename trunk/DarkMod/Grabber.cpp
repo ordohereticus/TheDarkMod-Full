@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2986 $
- * $Date: 2008-11-02 18:45:48 -0500 (Sun, 02 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 2987 $
+ * $Date: 2008-11-03 11:13:59 -0500 (Mon, 03 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2986 2008-11-02 23:45:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2987 2008-11-03 16:13:59Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1514,8 +1514,9 @@ bool CGrabber::Dequip( void )
 	idStr str;
 	idEntity *ent = m_EquippedEnt.GetEntity();
 
+	// don't use goto Quit, it crosses an initialization, which gcc linux doesn't like:
 	if( !ent )
-	goto Quit;
+		return false;
 
 	gameLocal.Printf("Dequip called\n");
 
