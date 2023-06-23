@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3201 $
- * $Date: 2009-01-20 09:22:18 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3202 $
+ * $Date: 2009-01-20 12:51:46 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -57,6 +57,9 @@ CRenderPipe::CRenderPipe() : m_fd(INVALID_HANDLE_VALUE)
 	// Finally, append the pathname we want (this includes the null terminator)
 	strcpy(filename_ptr, "dev/shm/tdm_lg_render.tga");
 	
+	gameLocal.Printf("Renderpipe: OS Path is: %s\n", ospath);
+	gameLocal.Printf("Renderpipe: Trying to open file: %s\n", m_filename);
+
 	// m_filename now contains the required path, so open m_fd to point to it
 	// O_CREAT: If the file doesn't exist, create it instead of failing.
 	// O_RDONLY: Read-only (we don't need to write using this file descriptor).
@@ -71,8 +74,7 @@ CRenderPipe::CRenderPipe() : m_fd(INVALID_HANDLE_VALUE)
 		m_fd = -errno;
 	}
 
-	gameLocal.Printf("Renderpipe: OS Path is: %s\n", ospath);
-	gameLocal.Printf("Renderpipe: Opened file: %s\n", m_filename);
+	gameLocal.Printf("Renderpipe: File opened: %s\n", m_filename);
 }
 
 CRenderPipe::~CRenderPipe()
