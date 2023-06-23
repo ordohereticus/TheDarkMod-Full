@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2631 $
+ * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_Message.cpp 2631 2008-07-12 06:37:18Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_Message.h"
@@ -75,6 +75,17 @@ CommMessage::CommMessage
 	}
 
 	// Done
+}
+
+CommMessage::CommMessage()
+{
+	m_commType = NumCommTypes;
+	m_maximumRadiusInWorldCoords = 0;
+	m_p_issuingEntity = NULL;
+	m_p_recipientEntity = NULL;
+	m_p_directObjectEntity = NULL;
+	m_directObjectLocation.Zero();
+	m_positionOfIssuance.Zero();
 }
 
 void CommMessage::Save(idSaveGame *savefile) const

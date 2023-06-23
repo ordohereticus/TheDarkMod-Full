@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2627 $
- * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
+ * $Revision: 2631 $
+ * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -858,6 +858,15 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	int						m_AlertGraceCountLimit;
 
 	/**
+	 * greebo: This is the message "outbox" of an AI. During sound propagation
+	 * the messages are traversed and delivered to the "recipient" AI.
+	 * Once delivered, messages are automatically removed from this list.
+	 *
+	 * Use m_Messages.push_back() to store new messages here.
+	 */
+	ai::MessageList			m_Messages;
+
+	/**
 	* The current mod hiding spot search of this AI, usually -1
 	*/
 	int						m_HidingSpotSearchHandle;
@@ -958,11 +967,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// The array of subsystems of this AI
 	ai::SubsystemPtr subsystems[ai::SubsystemCount];
-
-	//
-	// ai/ai.cpp
-	//
-
 
 	/**
 	* This internal method destroys the current hiding spot search

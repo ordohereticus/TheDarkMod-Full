@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2631 $
+ * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -172,8 +172,12 @@ struct CommMessage
 		ConveyWarning_EvidenceOfIntruders_CommType,
 		ConveyWarning_ItemsHaveBeenStolen_CommType,
 		ConveyWarning_EnemiesHaveBeenSeen_CommType,
+
+		NumCommTypes, // invalid type
 	};
 
+	// Default constructor, only used for saving/restoring
+	CommMessage();
 
 	/*!
 	* public Constructor
@@ -231,6 +235,7 @@ struct CommMessage
 	float m_maximumRadiusInWorldCoords;
 };
 typedef boost::shared_ptr<CommMessage> CommMessagePtr;
+typedef std::list<ai::CommMessagePtr> MessageList;
 
 } // namespace ai
 

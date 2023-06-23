@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2630 $
- * $Date: 2008-07-12 01:50:31 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2631 $
+ * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -202,7 +202,7 @@ protected:
 	*
 	* Called by ProcessPopulated
 	**/
-	void ProcessAI( idAI* AI, idVec3 origin, SSprParms *propParms );
+	void ProcessAI( idAI* ai, idVec3 origin, SSprParms *propParms );
 
 	/**
 	* Copy parms from loader object, and also initialize several member vars

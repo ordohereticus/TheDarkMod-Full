@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2627 $
- * $Date: 2008-07-11 12:54:35 -0400 (Fri, 11 Jul 2008) $
+ * $Revision: 2631 $
+ * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2627 2008-07-11 16:54:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2631 2008-07-12 06:37:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -741,6 +741,12 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( m_AlertGraceCount );
 	savefile->WriteInt( m_AlertGraceCountLimit );
 
+	savefile->WriteInt(m_Messages.size());
+	for (ai::MessageList::const_iterator it = m_Messages.begin(); it != m_Messages.end(); it++)
+	{
+		(*it)->Save(savefile);
+	}
+
 	savefile->WriteBool( GetPhysics() == static_cast<const idPhysics *>(&physicsObj) );
 
 	savefile->WriteFloat(m_VisDistMax);
@@ -1014,6 +1020,15 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( m_AlertGraceThresh );
 	savefile->ReadInt( m_AlertGraceCount );
 	savefile->ReadInt( m_AlertGraceCountLimit );
+
+	savefile->ReadInt(num);
+	m_Messages.clear();
+	for (int i = 0; i < num; i++)
+	{
+		ai::CommMessagePtr message(new ai::CommMessage);
+		message->Restore(savefile);
+		m_Messages.push_back(message);
+	}
 
 	savefile->ReadBool( restorePhysics );
 
