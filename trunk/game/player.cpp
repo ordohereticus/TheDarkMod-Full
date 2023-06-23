@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2873 $
- * $Date: 2008-09-21 22:39:54 -0400 (Sun, 21 Sep 2008) $
+ * $Revision: 2876 $
+ * $Date: 2008-09-22 02:46:22 -0400 (Mon, 22 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2873 2008-09-22 02:39:54Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2876 2008-09-22 06:46:22Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9486,8 +9486,17 @@ bool idPlayer::TestDropItemRotations( idEntity *ent, idVec3 viewPoint, idVec3 Dr
 	Rotations.Append( idAngles(0.0f, 0.0f, 180.0f).ToMat3() );
 	Rotations.Append( idAngles(0.0f, 0.0f, 270.0f).ToMat3() );
 	// pitch up and down
-	Rotations.Append( idAngles(90.0f, 0.0f, 0.0f).ToMat3() );
-	Rotations.Append( idAngles(-90.0f, 0.0f, 0.0f).ToMat3() );
+	// Dropping upside-down should always be a last resort
+	if( !gameLocal.m_Grabber->m_bDropBodyFaceUp )
+	{
+		Rotations.Append( idAngles(-90.0f, 0.0f, 0.0f).ToMat3() );
+		Rotations.Append( idAngles(90.0f, 0.0f, 0.0f).ToMat3() );
+	}
+	else
+	{
+		Rotations.Append( idAngles(90.0f, 0.0f, 0.0f).ToMat3() );
+		Rotations.Append( idAngles(-90.0f, 0.0f, 0.0f).ToMat3() );
+	}
 
 	// test each orientation to see if it fits in the world
 	idMat3 InitAxis = DropAxis;
