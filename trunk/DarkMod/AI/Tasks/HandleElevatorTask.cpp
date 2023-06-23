@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2348 $
- * $Date: 2008-05-16 11:21:34 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2350 $
+ * $Date: 2008-05-16 11:56:04 -0400 (Fri, 16 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2348 2008-05-16 15:21:34Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2350 2008-05-16 15:56:04Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -183,7 +183,7 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 			if (elevator->IsAtPosition(pos))
 			{
 				// TODO elevator is at the desired position, get onto it
-				// owner->MoveToPosition();
+				owner->MoveToPosition(pos->GetPhysics()->GetOrigin());
 				_state = EStateMoveOntoElevator;
 			}
 			// TODO: check if the elevator is moving towards our station
