@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2518 $
- * $Date: 2008-06-17 15:54:44 -0400 (Tue, 17 Jun 2008) $
+ * $Revision: 2519 $
+ * $Date: 2008-06-18 00:28:16 -0400 (Wed, 18 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2518 2008-06-17 19:54:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2519 2008-06-18 04:28:16Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -582,6 +582,8 @@ void CBinaryFrobMover::DoneStateChange()
 
 	if (IsAtClosedPosition())
 	{
+		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Closed completely\r" );
+
 		m_Open = false;
 
 		// We have reached the final close position, fire the event
@@ -888,7 +890,14 @@ void CBinaryFrobMover::OnOpenPositionReached()
 
 void CBinaryFrobMover::OnClosedPositionReached()
 {
-	// To be implemented by the subclasses
+	// play the closing sound when the door closes completely
+	StartSound("snd_close", SND_CHANNEL_ANY, 0, false, NULL);
+
+	// trigger our targets on completely closing, if set to do so
+	if (spawnArgs.GetBool("trigger_on_close", "0"))
+	{
+		ActivateTargets(this);
+	}
 }
 
 void CBinaryFrobMover::OnInterrupt()
