@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2575 $
- * $Date: 2008-06-26 13:58:38 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2581 $
+ * $Date: 2008-06-28 04:19:29 -0400 (Sat, 28 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2575 2008-06-26 17:58:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2581 2008-06-28 08:19:29Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -232,11 +232,11 @@ void CFrobDoor::Spawn( void )
 				m_Pins.Append(pattern);
 				if (cv_lp_pawlow.GetBool() == false)
 				{
-					pattern->Insert("lockpick_pin_sweetspot");
+					pattern->Insert("snd_lockpick_pin_sweetspot");
 				}
 				else
 				{
-					pattern->Append("lockpick_pin_sweetspot");
+					pattern->Append("snd_lockpick_pin_sweetspot");
 				}
 			}
 			else
