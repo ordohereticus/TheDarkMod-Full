@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
+ * $Revision: 2759 $
+ * $Date: 2008-08-29 00:54:47 -0400 (Fri, 29 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 2756 2008-08-25 08:08:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 2759 2008-08-29 04:54:47Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1269,7 +1269,6 @@ idAnimBlend::Reset
 */
 void idAnimBlend::Reset( const idDeclModelDef *_modelDef ) 
 {
-	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("idAnimBlend::Reset called\r");
 
 	modelDef	= _modelDef;
 	cycle		= 1;
