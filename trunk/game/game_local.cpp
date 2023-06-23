@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2648 $
- * $Date: 2008-07-13 08:47:00 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2673 $
+ * $Date: 2008-07-16 13:11:54 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2648 2008-07-13 12:47:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2673 2008-07-16 17:11:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2843,6 +2843,9 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 		idEvent::ServiceEvents();
 
 		timer_events.Stop();
+
+		// Process the active AI conversations
+		m_ConversationSystem->ProcessConversations();
 
 		// free the player pvs
 		FreePlayerPVS();

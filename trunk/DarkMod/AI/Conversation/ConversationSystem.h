@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2667 $
- * $Date: 2008-07-15 14:04:06 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2673 $
+ * $Date: 2008-07-16 13:11:54 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,6 +20,12 @@ class ConversationSystem
 {
 	// The indexed list of conversations
 	idList<ConversationPtr> _conversations;
+
+	// The indices of all active conversations
+	idList<int> _activeConversations;
+
+	// The indices of all finished conversations, ready for removal
+	idList<int> _dyingConversations;
 
 public:
 	// Clears and removes all allocated data
@@ -48,6 +54,18 @@ public:
 	 * @index: The conversation index. Use GetConversationIndex() to convert a conversation name to an index.
 	 */
 	void StartConversation(int index);
+
+	/**
+	 * greebo: Stops the given conversation. This can be called during ProcessConversations() too,
+	 * as the index is only marked for removal next frame.
+	 */
+	void EndConversation(int index);
+
+	/**
+	 * greebo: This is the "thinking" routine for conversations which
+	 * remotely controls the participating actors.
+	 */
+	void ProcessConversations();
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;

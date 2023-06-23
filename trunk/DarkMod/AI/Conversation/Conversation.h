@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2671 $
- * $Date: 2008-07-16 00:56:09 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2673 $
+ * $Date: 2008-07-16 13:11:54 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -69,6 +69,11 @@ public:
 	 * CheckConditions() beforehand (with a positive result, of course).
 	 */
 	void Start();
+
+	/**
+	 * greebo: This is the "think" routine for conversations.
+	 */
+	void Process();
 
 	// Gets the actor with the given index/name
 	idActor* GetActor(int index);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2672 $
- * $Date: 2008-07-16 01:15:55 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2673 $
+ * $Date: 2008-07-16 13:11:54 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2672 2008-07-16 05:15:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2673 2008-07-16 17:11:54Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -93,6 +93,13 @@ void Conversation::Start()
 			static_cast<idAI*>(actor)->SwitchToConversationState(_name);
 		}
 	}
+
+	_playCount++;
+}
+
+void Conversation::Process()
+{
+
 }
 
 idActor* Conversation::GetActor(int index)
