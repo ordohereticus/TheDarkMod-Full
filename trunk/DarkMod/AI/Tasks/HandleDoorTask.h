@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2598 $
+ * $Date: 2008-07-02 15:37:17 -0400 (Wed, 02 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -44,6 +44,7 @@ private:
 
 	int _waitEndTime;
 	bool _wasLocked;
+	bool _doorInTheWay;
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;
