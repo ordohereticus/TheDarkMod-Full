@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2439 $
- * $Date: 2008-06-05 16:24:43 -0400 (Thu, 05 Jun 2008) $
+ * $Revision: 2440 $
+ * $Date: 2008-06-06 01:04:10 -0400 (Fri, 06 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2439 2008-06-05 20:24:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2440 2008-06-06 05:04:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -8660,42 +8660,28 @@ idPlayer::GetMovementVolMod
 float idPlayer::GetMovementVolMod( void )
 {
 	float returnval;
-	bool bCrouched(false);
-	
-	if( AI_CROUCH )
-		bCrouched = true;
+
+	bool isCrouched = AI_CROUCH != 0;
 
 	// figure out which of the 6 cases we have:
 	if( !AI_RUN && !AI_CREEP )
 	{
-		if( !bCrouched )
-			returnval = m_stepvol_walk;
-		else
-			returnval = m_stepvol_crouch_walk;
+		returnval = (isCrouched) ? m_stepvol_crouch_walk : m_stepvol_walk;
 	}
-
 	// NOTE: running always has priority over creeping
 	else if( AI_RUN )
 	{
-		if( !bCrouched )
-			returnval = m_stepvol_run;
-		else
-			returnval = m_stepvol_crouch_run;
+		returnval = (isCrouched) ? m_stepvol_crouch_run : m_stepvol_run;
 	}
-
 	else if( AI_CREEP )
 	{
-		if( !bCrouched )
-			returnval = m_stepvol_creep;
-		else
-			returnval = m_stepvol_crouch_creep;
+		returnval = (isCrouched) ? m_stepvol_crouch_creep : m_stepvol_creep;
 	}
-
-	else
+	else 
 	{
-		// something unexpected happened
-		returnval = 0;
+		gameLocal.Error("idPlayer::GetMovementVolMod: Logic Error.");
 	}
+	//gameRenderWorld->DrawText(idStr(returnval), GetEyePosition() + viewAngles.ToForward()*20, 0.15f, colorWhite, viewAngles.ToMat3(), 1, 500);
 
 	return returnval;
 }
