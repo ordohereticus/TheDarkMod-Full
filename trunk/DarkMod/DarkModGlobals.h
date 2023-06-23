@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2444 $
+ * $Date: 2008-06-07 09:49:39 -0400 (Sat, 07 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -344,7 +344,7 @@ public:
 extern CGlobal g_Global;
 extern const char *g_LCString[];
 
-//#define LOGBUILD
+#define LOGBUILD
 
 #ifdef LOGBUILD
 #define DM_LOG(lc, lt)				if(g_Global.m_ClassArray[lc] == true && g_Global.m_LogArray[lt] == true) g_Global.m_LogClass = lc, g_Global.m_LogType = lt, g_Global.m_Filename = __FILE__, g_Global.m_Linenumber = __LINE__, g_Global
