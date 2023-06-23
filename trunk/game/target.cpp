@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1999 $
- * $Date: 2008-01-19 04:47:59 -0500 (Sat, 19 Jan 2008) $
- * $Author: ishtvan $
+ * $Revision: 2382 $
+ * $Date: 2008-05-25 14:50:31 -0400 (Sun, 25 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 1999 2008-01-19 09:47:59Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2382 2008-05-25 18:50:31Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -2051,4 +2051,38 @@ void CTarget_SetFrobable::Restore( idRestoreGame *savefile )
 	m_EntsSetUnfrobable.SetNum( num );
 	for( int i=0;i < num; i++ )
 		savefile->ReadString( m_EntsSetUnfrobable[i] );
+}
+
+/*
+================
+CTarget_CallScriptFunction
+================
+*/
+CLASS_DECLARATION( idTarget, CTarget_CallScriptFunction )
+	EVENT( EV_Activate,	CTarget_CallScriptFunction::Event_Activate )
+END_CLASS
+
+void CTarget_CallScriptFunction::Event_Activate( idEntity *activator )
+{
+	// Get the function name
+	idStr funcName = spawnArgs.GetString("call");
+
+	if (funcName.IsEmpty())
+	{
+		gameLocal.Warning("Target %s has no script function to call!", name.c_str());
+		return;
+	}
+
+	const function_t* scriptFunction = gameLocal.program.FindFunction(funcName);
+	
+	if (scriptFunction != NULL)
+	{
+		idThread* thread = new idThread(scriptFunction);
+		thread->DelayedStart(0);
+	}
+	else
+	{
+		// script function not found!
+		gameLocal.Warning("Target %s specifies non-existent script function!", funcName.c_str());
+	}
 }

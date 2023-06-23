@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1999 $
- * $Date: 2008-01-19 04:47:59 -0500 (Sat, 19 Jan 2008) $
- * $Author: ishtvan $
+ * $Revision: 2382 $
+ * $Date: 2008-05-25 14:50:31 -0400 (Sun, 25 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -633,6 +633,19 @@ private:
 	* Only ents that get added to this list will become frobable.
 	**/
 	idStrList			m_EntsSetUnfrobable;
+};
+
+/**
+ * greebo: This target calls a specific script function (with no arguments).
+ */
+class CTarget_CallScriptFunction : 
+	public idTarget
+{
+public:
+	CLASS_PROTOTYPE( CTarget_CallScriptFunction );
+
+private:
+	void				Event_Activate( idEntity *activator );
 };
 
 
