@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3136 $
- * $Date: 2009-01-12 11:21:52 -0500 (Mon, 12 Jan 2009) $
- * $Author: greebo $
+ * $Revision: 3188 $
+ * $Date: 2009-01-19 13:23:25 -0500 (Mon, 19 Jan 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3136 2009-01-12 16:21:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3188 2009-01-19 18:23:25Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10584,16 +10584,29 @@ void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 		CInventoryItemPtr addedItem = AddToInventory(target);
 
 		// Check if the frobbed entity is the one currently highlighted by the player
-		if (addedItem != NULL && highlightedEntity == target) {
+		if (addedItem != NULL && highlightedEntity == target) 
+		{
 			// Item has been added to the inventory, clear the entity pointer
 			pDM->m_FrobEntity = NULL;
+		}
 
-			// greebo: Release any items from the grabber, this immobilized the player somehow before
-			gameLocal.m_Grabber->Update( this, false );
+		// Grab it if it's a grabable class
+		if( target->IsType( idMoveable::Type ) || target->IsType( idAFEntity_Base::Type )
+			|| target->IsType( idMoveableItem::Type ) )
+		{
+			// allow override of default grabbing behavior
+			if( !target->spawnArgs.GetBool("grabable","1") )
+				return;
 
-			// greebo: Prevent the grabber from checking the added entity (it may be 
-			// entirely removed from the game, which would cause crashes).
-			gameLocal.m_Grabber->RemoveFromClipList(target);
+			// Do not pick up live, conscious AI
+			if( target->IsType( idAI::Type ) )
+			{
+				idAI *AItarget = static_cast<idAI *>(target);
+				if( AItarget->health > 0 && !AItarget->IsKnockedOut() )
+					return;
+			}
+
+			gameLocal.m_Grabber->Update( gameLocal.GetLocalPlayer() );
 		}
 	}
 }
