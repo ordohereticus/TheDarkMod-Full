@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2623 $
+ * $Date: 2008-07-10 14:04:58 -0400 (Thu, 10 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -230,7 +230,7 @@ protected:
 	*
 	* Assumes a rectangular portal with 4 winding points.
 	**/
-	idVec3 OptSurfPoint( idVec3 p1, idVec3 p2, const idWinding *wind, idVec3 WCenter );
+	idVec3 OptSurfPoint( idVec3 p1, idVec3 p2, const idWinding& wind, idVec3 WCenter );
 
 	/**
 	* Draws debug lines between a list of points.  Used for soundprop debugging
