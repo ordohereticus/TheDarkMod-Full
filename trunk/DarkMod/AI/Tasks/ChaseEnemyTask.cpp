@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2360 $
+ * $Date: 2008-05-17 08:00:55 -0400 (Sat, 17 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2360 2008-05-17 12:00:55Z angua $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "../Memory.h"
@@ -71,7 +71,7 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 		owner->TurnToward(enemy->GetEyePosition());
 	}
 	// no, push the AI forward and try to get to the last visible reachable enemy position
-	else if (owner->MoveToPosition(owner->lastVisibleEnemyPos))
+	else if (owner->MoveToPosition(owner->lastVisibleReachableEnemyPos))
 	{
 		_reachEnemyCheck = 0;
 
