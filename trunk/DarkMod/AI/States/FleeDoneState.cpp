@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2634 $
- * $Date: 2008-07-12 04:20:10 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 2634 2008-07-12 08:20:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -50,6 +50,7 @@ void FleeDoneState::Init(idAI* owner)
 	_searchForFriendDone = false;
 
 	owner->GetSubsystem(SubsysSenses)->ClearTasks();
+	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
 	owner->GetSubsystem(SubsysAction)->ClearTasks();
 
 	// Slow turning for 5 seconds to look for friends
@@ -102,9 +103,7 @@ void FleeDoneState::Think(idAI* owner)
 			owner->SetAlertLevel(owner->thresh_3 + (owner->thresh_3 - owner->thresh_2) * 0.5);
 			owner->GetSubsystem(SubsysAction)->PushTask(TaskPtr(new WaitTask(10000)));
 			owner->GetSubsystem(SubsysSenses)->PushTask(RandomHeadturnTask::CreateInstance());
-			return;
 		}
-	
 		else if (gameLocal.time >= _turnEndTime)
 		{
 			// We didn't find a friend, stop looking for them after some time
@@ -121,18 +120,19 @@ void FleeDoneState::Think(idAI* owner)
 			owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Cower", 4);
 
 			owner->GetSubsystem(SubsysAction)->PushTask(TaskPtr(new WaitTask(60000)));
-			
-			return;
 		}
 	}
-	else
+	
+	// Let the AI check its senses
+	owner->PerformVisualScan();
+	if (owner->AI_ALERTED)
 	{
-		// Let the AI check its senses
-		owner->PerformVisualScan();
-		if (owner->AI_ALERTED)
-		{
-			owner->GetMind()->EndState();
-		}
+		owner->GetSubsystem(SubsysMovement)->ClearTasks();
+		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 4);
+		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 4);
+		owner->SetTurnRate(_oldTurnRate);
+
+		owner->GetMind()->EndState();
 	}
 }
 

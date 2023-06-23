@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2876 $
- * $Date: 2008-09-22 02:46:22 -0400 (Mon, 22 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2876 2008-09-22 06:46:22Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -957,6 +957,9 @@ void idPlayer::Spawn( void )
 	pm_walkspeed.SetFloat( gameLocal.m_walkSpeed );
 	SetupInventory();
 
+	// greebo: Set the player variable on the grabber
+	gameLocal.m_Grabber->SetPlayer(this);
+
 	// greebo: Initialise the default fov.
 	zoomFov.Init(gameLocal.time, 0, g_fov.GetFloat(), g_fov.GetFloat());
 
@@ -1016,6 +1019,8 @@ void idPlayer::NextInventoryMap()
 {
 	gameLocal.Printf("Cycling maps.\n");
 
+	if (GetImmobilization() & EIM_ITEM_SELECT) return;
+
 	if (m_MapCursor == NULL)
 	{
 		return; // We have no cursor!
@@ -1030,15 +1035,13 @@ void idPlayer::NextInventoryMap()
 	}
 
 	// Advance the cursor to the next item
-	mapItem = m_MapCursor->GetNextItem();
+	CInventoryItemPtr nextMapItem = m_MapCursor->GetNextItem();
 
-	if (mapItem == NULL)
+	if (mapItem != NULL && nextMapItem != mapItem)
 	{
-		return; // No item available
+		// Use this new item
+		inventoryUseItem(EPressed, mapItem, 0);
 	}
-	
-	// Use this item
-	inventoryUseItem(EPressed, mapItem, 0); 
 }
 
 void idPlayer::SetupInventory()
@@ -2574,7 +2577,7 @@ void idPlayer::FireWeapon( void )
 				}
 				SelectWeapon( previousWeapon, false );
 			}
-		} else 
+		} else if( cv_weapon_next_on_empty.GetBool() )
 		{
 			NextBestWeapon();
 		}
@@ -3326,7 +3329,9 @@ void idPlayer::Weapon_Combat( void ) {
 		if ( weapon.GetEntity()->IsHolstered() ) {
 			if ( !weapon.GetEntity()->AmmoAvailable() ) {
 				// weapons can switch automatically if they have no more ammo
-				NextBestWeapon();
+				// ishtvan: Only if the cvar is set
+				if( cv_weapon_next_on_empty.GetBool() )
+					NextBestWeapon();
 			} else {
 				weapon.GetEntity()->Raise();
 				state = GetScriptFunction( "RaiseWeapon" );

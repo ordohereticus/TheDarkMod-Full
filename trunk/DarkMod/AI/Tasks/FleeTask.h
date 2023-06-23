@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -28,8 +28,7 @@ class FleeTask :
 	idEntityPtr<idActor> _enemy;
 	int _escapeSearchLevel;
 	int _failureCount;
-	idVec3 _oldPosition;
-	int _fleeStartFrame;
+	int _fleeStartTime;
 	EscapeDistanceOption _distOpt;
 
 public:

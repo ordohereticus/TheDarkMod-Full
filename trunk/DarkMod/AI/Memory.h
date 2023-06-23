@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2731 $
- * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -35,6 +35,7 @@ namespace ai
 #define AIUSE_DOOR				"AIUSE_DOOR"
 #define AIUSE_ELEVATOR			"AIUSE_ELEVATOR"
 #define AIUSE_MISSING_ITEM_MARKER "AIUSE_MISSING_ITEM_MARKER"
+#define AIUSE_BROKEN_ITEM		"AIUSE_BROKEN_ITEM"
 
 //----------------------------------------------------------------------------------------
 // The following key and values are used for identifying types of lights
@@ -104,6 +105,7 @@ enum EAlertType
 	EAlertTypeBlood,
 	EAlertTypeLightSource,
 	EAlertTypeMissingItem,
+	EAlertTypeBrokenItem,
 	EAlertTypeDoor,
 	EAlertTypeDamage,
 	EAlertTypeCount
@@ -192,6 +194,9 @@ public:
 
 	// TRUE if the AI knows that items have been stolen
 	bool itemsHaveBeenStolen;
+
+	// TRUE if the AI has found something broken
+	bool itemsHaveBeenBroken;
 
 	// TRUE if the AI has found a dead or unconscious person
 	bool unconsciousPeopleHaveBeenFound;

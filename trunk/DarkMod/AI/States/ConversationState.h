@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2820 $
- * $Date: 2008-09-12 13:51:08 -0400 (Fri, 12 Sep 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -98,6 +98,8 @@ private:
 
 	// Private helper for debug output
 	void DrawDebugOutput(idAI* owner);
+
+	void OnVisualStimPerson(idEntity* stimSource, idAI* owner);
 };
 typedef boost::shared_ptr<ConversationState> ConversationStatePtr;
 

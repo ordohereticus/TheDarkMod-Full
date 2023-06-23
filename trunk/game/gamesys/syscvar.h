@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2882 $
- * $Date: 2008-09-24 04:53:09 -0400 (Wed, 24 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -67,6 +67,8 @@ extern idCVar cv_debug_aastype;
 extern idCVar cv_las_showtraces;
 extern idCVar cv_show_gameplay_time;
 
+extern idCVar cv_tdm_difficulty;
+
 extern idCVar cv_sr_disable;
 
 extern idCVar cv_sndprop_disable;
@@ -75,6 +77,8 @@ extern idCVar cv_spr_show;
 extern idCVar cv_spr_radius_show;
 extern idCVar cv_ko_show;
 extern idCVar cv_ai_animstate_show;
+
+extern idCVar cv_debug_mainmenu;
 
 extern idCVar cv_pm_runmod;
 extern idCVar cv_pm_crouchmod;
@@ -128,6 +132,8 @@ extern idCVar cv_frob_width;
 extern idCVar cv_frob_debug_bounds;
 extern idCVar cv_frob_fadetime;
 extern idCVar cv_frob_ammo_selects_weapon;
+
+extern idCVar cv_weapon_next_on_empty;
 
 // physics
 extern idCVar cv_collision_damage_scale_vert;

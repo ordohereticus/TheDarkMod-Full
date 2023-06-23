@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2578 $
- * $Date: 2008-06-26 16:02:42 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 2578 2008-06-26 20:02:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -156,7 +156,7 @@ void CProjectileResult::Init
 			if(StimType != ST_DEFAULT)
 			{
 				spawnArgs.GetFloat(va("sr_radius_%u", stimIdx), "10", StimRadius);
-				spawnArgs.GetFloat(va("sr_radius_final_%u", stimIdx), "10", StimRadiusFinal);
+				spawnArgs.GetFloat(va("sr_radius_final_%u", stimIdx), "-1", StimRadiusFinal);
 				spawnArgs.GetVector(va("sr_bounds_mins_%u", stimIdx), "0 0 0", stimBounds[0]);
 				spawnArgs.GetVector(va("sr_bounds_maxs_%u", stimIdx), "0 0 0", stimBounds[1]);
 				spawnArgs.GetInt(va("sr_falloffexponent_%u", stimIdx), "1", StimFalloffExponent);

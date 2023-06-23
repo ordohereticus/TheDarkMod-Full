@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2855 $
- * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -169,7 +169,7 @@ public:
 	void					SetEyeHeight( float height );
 	float					EyeHeight( void ) const;
 	idVec3					EyeOffset( void ) const;
-	idVec3					GetEyePosition( void ) const;
+	virtual idVec3			GetEyePosition( void ) const;
 	virtual void			GetViewPos( idVec3 &origin, idMat3 &axis ) const;
 	/**
 	* Sets the actor's field of view (doesn't apply to players)

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -46,6 +46,13 @@ void DifficultyManager::Init(idMapFile* mapFile)
 		// We have a difficulty spawnarg set on the map's worldspawn, take it as override value
 		DM_LOG(LC_DIFFICULTY, LT_DEBUG)LOGSTRING("Found overriding difficulty setting on worldspawn entity: %d.\r", mapDifficulty);
 		_difficulty = mapDifficulty;
+	}
+
+	// Check for the CVAR, which might override any setting
+	if (cv_tdm_difficulty.GetInteger() >= 0)
+	{
+		_difficulty = cv_tdm_difficulty.GetInteger();
+		DM_LOG(LC_DIFFICULTY, LT_DEBUG)LOGSTRING("Found overriding CVAR 'tdm_difficulty': %d.\r", _difficulty);
 	}
 
 	// Load the default difficulty settings from the entityDefs

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2890 $
- * $Date: 2008-09-25 00:37:56 -0400 (Thu, 25 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,13 +13,14 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2890 2008-09-25 04:37:56Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
 #include "../../DarkMod/sndPropLoader.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/Inventory/Inventory.h"
+#include "../../DarkMod/Inventory/Item.h"
 #include "../../DarkMod/TimerManager.h"
 #include "../../DarkMod/AI/Conversation/ConversationSystem.h"
 
@@ -2765,6 +2766,61 @@ void Cmd_ListConversations_f(const idCmdArgs& args)
 	}
 }
 
+void Cmd_ShowLoot_f(const idCmdArgs& args)
+{
+	if (gameLocal.GameState() != GAMESTATE_ACTIVE)
+	{
+		gameLocal.Printf("No map running\n");
+		return;
+	}
+
+	int items = 0;
+	int gold = 0;
+	int jewels = 0;
+	int goods = 0;
+
+	for (idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next())
+	{
+		if (ent == NULL) continue;
+
+		int value = ent->spawnArgs.GetInt("inv_loot_value", "-1");
+
+		if (value <= 0) continue; // no loot item
+
+		items++;
+
+		CInventoryItem::LootType lootType = CInventoryItem::GetLootTypeFromSpawnargs(ent->spawnArgs);
+		
+		idVec4 colour(colorWhite);
+
+		switch(lootType)
+		{
+			case CInventoryItem::LT_GOLD:
+				gold += value;
+				colour = idVec4(0.97f, 0.93f, 0.58f, 1);
+			break;
+
+			case CInventoryItem::LT_GOODS:
+				goods += value;
+				colour = idVec4(0.3f, 0.91f, 0.3f, 1);
+			break;
+
+			case CInventoryItem::LT_JEWELS:
+				jewels += value;
+				colour = idVec4(0.96f, 0.2f, 0.2f, 1);
+			break;
+			
+			default: break;
+		} 
+		
+		gameRenderWorld->DebugBox(colour, idBox(ent->GetPhysics()->GetAbsBounds()), 5000);
+	}
+
+	gameLocal.Printf("Highlighing loot items for 5 seconds...\n");
+	gameLocal.Printf("Loot items remaining: %d\n", items);
+	gameLocal.Printf("Gold: %d, Jewels: %d, Goods: %d\n", gold, jewels, goods);
+}
+
 #ifdef TIMING_BUILD
 void Cmd_ListTimers_f(const idCmdArgs& args) 
 {
@@ -2896,6 +2952,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 	cmdSystem->AddCommand( "tdm_start_conversation",	Cmd_StartConversation_f,	CMD_FL_GAME,			"Starts the conversation with the given name." );
 	cmdSystem->AddCommand( "tdm_list_conversations",	Cmd_ListConversations_f,	CMD_FL_GAME,			"List all available conversations by name." );
+
+	cmdSystem->AddCommand( "tdm_show_loot",			Cmd_ShowLoot_f,	CMD_FL_GAME|CMD_FL_CHEAT,			"Highlight all loot items in the map." );
 
 #ifndef	ID_DEMO_BUILD
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );

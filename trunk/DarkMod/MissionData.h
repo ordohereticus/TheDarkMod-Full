@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2745 $
- * $Date: 2008-08-19 14:02:03 -0400 (Tue, 19 Aug 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -444,9 +444,6 @@ struct SMissionStats
 	
 	SStat AIAlerts[ MAX_ALERTLEVELS ];
 
-	// greebo: The breakdown of the maximum alert indices the AI were in (e.g. 4 AI had a max alert level of "Suspicious")
-	int MaxAlertIndices[ai::EAlertStateNum];
-
 	int DamageDealt;
 	int DamageReceived;
 	int HealthReceived;
@@ -474,11 +471,6 @@ struct SMissionStats
 		for (int i = 0; i < MAX_ALERTLEVELS; i++)
 		{
 			AIAlerts[i].Clear();
-		}
-
-		for (int i = 0; i < ai::EAlertStateNum; i++)
-		{
-			MaxAlertIndices[i] = 0;
 		}
 
 		DamageDealt = 0;

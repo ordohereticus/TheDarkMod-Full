@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2830 $
- * $Date: 2008-09-13 14:26:12 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2959 $
+ * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2830 2008-09-13 18:26:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1235,6 +1235,11 @@ void CFrobDoor::AddLockPeer(const idStr& peerName)
 	}
 }
 
+void CFrobDoor::RemoveLockPeer(const idStr& peerName)
+{
+	m_LockPeers.Remove(peerName);
+}
+
 CFrobDoorHandle* CFrobDoor::GetDoorhandle()
 {
 	return (m_Doorhandles.Num() > 0) ? m_Doorhandles[0].GetEntity() : NULL;
@@ -1327,9 +1332,40 @@ void CFrobDoor::AutoSetupDoubleDoor()
 	}
 }
 
-void CFrobDoor::RemoveLockPeer(const idStr& peerName)
+bool CFrobDoor::PreLock(bool bMaster)
 {
-	m_LockPeers.Remove(peerName);
+	if (!CBinaryFrobMover::PreLock(bMaster))
+	{
+		return false;
+	}
+
+	// Go through the list and check whether the lock peers are closed
+	for (int i = 0; i < m_LockPeers.Num(); i++)
+	{
+		const idStr& lockPeer = m_LockPeers[i];
+
+		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Trying linked entity [%s]\r", lockPeer.c_str());
+
+		idEntity* ent = gameLocal.FindEntity(lockPeer);
+
+		if (ent != NULL && ent->IsType(CFrobDoor::Type))
+		{
+			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Calling linked entity [%s] for lock\r", lockPeer.c_str());
+
+			CFrobDoor* door = static_cast<CFrobDoor*>(ent);
+			
+			if (!door->IsAtClosedPosition())
+			{
+				return false;
+			}
+		}
+		else
+		{
+			DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found or of wrong type\r", lockPeer.c_str());
+		}
+	}
+
+	return true;
 }
 
 int CFrobDoor::FrobMoverStartSound(const char* soundName)
