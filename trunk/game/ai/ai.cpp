@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2390 $
- * $Date: 2008-05-26 15:24:59 -0400 (Mon, 26 May 2008) $
+ * $Revision: 2394 $
+ * $Date: 2008-05-27 13:49:25 -0400 (Tue, 27 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2390 2008-05-26 19:24:59Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2394 2008-05-27 17:49:25Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1471,6 +1471,9 @@ void idAI::Spawn( void )
 
 	// Schedule a post-spawn event to parse the rest of the spawnargs
 	PostEventMS( &EV_PostSpawn, 1 );
+
+	m_lastThinkTime = gameLocal.time;
+
 }
 
 /*
