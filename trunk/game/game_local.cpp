@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2680 $
- * $Date: 2008-07-17 13:11:03 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2722 $
+ * $Date: 2008-08-05 13:24:08 -0400 (Tue, 05 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2680 2008-07-17 17:11:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2722 2008-08-05 17:24:08Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5720,7 +5720,8 @@ int idGameLocal::DoResponseAction(CStim* stim, int numEntities, idEntity* origin
 			continue;
 
 		// Check if the radius is really fitting. EntitiesTouchingBounds is using a rectangular volume
-		if (!stim->m_bCollisionBased)
+		// greebo: Be sure to use this check only if "use bounds" is set to false
+		if (!stim->m_bCollisionBased && !stim->m_bUseEntBounds)
 		{
 			// take the square radius, is faster
 			float radiusSqr = stim->GetRadius();
