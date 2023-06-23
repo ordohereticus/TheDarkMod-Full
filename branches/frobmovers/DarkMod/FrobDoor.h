@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2515 $
- * $Date: 2008-06-17 13:53:20 -0400 (Tue, 17 Jun 2008) $
+ * $Revision: 2516 $
+ * $Date: 2008-06-17 14:59:25 -0400 (Tue, 17 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -97,8 +97,9 @@ public:
 	 **/
 	virtual void			ClosePortal();
 
-	void					SetFrobbed(bool val);
-	bool					IsFrobbed(void);
+	// Override the idEntity frob methods
+	virtual void			SetFrobbed(bool val);
+	virtual bool			IsFrobbed();
 
 	void					ProcessLockpick(int cType, ELockpickSoundsample nSampleType);
 	void					LockpickTimerEvent(int cType, ELockpickSoundsample nSoundSample);
