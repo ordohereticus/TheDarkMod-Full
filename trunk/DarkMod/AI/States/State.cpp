@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3062 $
+ * $Date: 2008-11-23 02:45:44 -0500 (Sun, 23 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3062 2008-11-23 07:45:44Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -501,6 +501,10 @@ void State::OnVisualStimPerson(idEntity* stimSource, idAI* owner)
 		{
 			// React to finding body
 			ignoreStimulusFromNowOn = OnVisualStimDeadPerson(other, owner);
+			if (ignoreStimulusFromNowOn)
+			{
+				owner->TactileIgnore(stimSource);
+			}
 		}
 		else
 		{
@@ -513,6 +517,10 @@ void State::OnVisualStimPerson(idEntity* stimSource, idAI* owner)
 		{
 			// React to finding unconscious person
 			ignoreStimulusFromNowOn = OnVisualStimUnconsciousPerson(other, owner);
+			if (ignoreStimulusFromNowOn)
+			{
+				owner->TactileIgnore(stimSource);
+			}
 		}
 		else
 		{

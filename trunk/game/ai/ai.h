@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3053 $
- * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3062 $
+ * $Date: 2008-11-23 02:45:44 -0500 (Sun, 23 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -389,6 +389,11 @@ public:
 	**/
 	void HadTactile( idActor *actor );
 
+	// angua: ignore tactile alerts from this entity from now on
+	void TactileIgnore(idEntity* tactEnt);
+
+	bool CheckTactileIgnore(idEntity* tactEnt);
+
 	/**
 	* Generalized alerts and acuities
 	**/
@@ -682,6 +687,9 @@ protected:
 
 	typedef std::set<CBinaryFrobMover*> FrobMoverList;
 	FrobMoverList			unlockableDoors;
+
+	typedef std::set<idEntity*> TactileIgnoreList;
+	TactileIgnoreList		tactileIgnoreEntities;
 
 public: // greebo: Made these public
 	// enemy variables
