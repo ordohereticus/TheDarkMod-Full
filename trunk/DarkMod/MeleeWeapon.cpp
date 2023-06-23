@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2748 $
- * $Date: 2008-08-21 21:26:26 -0400 (Thu, 21 Aug 2008) $
+ * $Revision: 2753 $
+ * $Date: 2008-08-24 01:57:13 -0400 (Sun, 24 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2748 2008-08-22 01:26:26Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2753 2008-08-24 05:57:13Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -537,13 +537,22 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr )
 				gameLocal.ProjectDecal( tr->c.point, -tr->c.normal, 8.0f, true, 6.0, decal );
 			}
 
-			// TODO: Strike smoke FX (sparks.. blood is handled above for now?)
+			// Strike particle FX (sparks.. blood is handled in AddDamageEffect)
+			const char *smokeName = DmgDef->GetString( va("smoke_strike_%s", materialType.c_str()) );
 
-			// strike smoke FX (how is this different from AddDamageEffect?
+			if ( *smokeName != '\0' )
+			{
+				const idDeclParticle *smoke = static_cast<const idDeclParticle *>( declManager->FindType( DECL_PARTICLE, smokeName ) );
+				float chance = DmgDef->GetFloat( va("smoke_chance_%s", materialType.c_str()), "1.0" );
+				if( gameLocal.random.RandomFloat() > chance )
+					smoke = NULL;
 
-			// strikeSmokeStartTime = gameLocal.time;
-			// strikePos = tr.c.point;
-			// strikeAxis = -tr.endAxis;
+				gameLocal.smokeParticles->EmitSmoke
+					( 
+						smoke, gameLocal.time, 
+						gameLocal.random.RandomFloat(), tr->c.point, -tr->endAxis
+					);
+			}
 		}
 	}
 

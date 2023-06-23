@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2751 $
- * $Date: 2008-08-23 13:40:44 -0400 (Sat, 23 Aug 2008) $
- * $Author: tels $
+ * $Revision: 2753 $
+ * $Date: 2008-08-24 01:57:13 -0400 (Sun, 24 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2751 2008-08-23 17:40:44Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2753 2008-08-24 05:57:13Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6468,7 +6468,7 @@ idAnimatedEntity::AddLocalDamageEffect
 ==============
 */
 void idAnimatedEntity::AddLocalDamageEffect( jointHandle_t jointNum, const idVec3 &localOrigin, const idVec3 &localNormal, const idVec3 &localDir, const idDeclEntityDef *def, const idMaterial *collisionMaterial ) {
-	const char *sound, *splat, *decal, *bleed, *key;
+	const char *sound, *splat, *decal, *bleed, *chance, *key;
 	damageEffect_t	*de;
 	idVec3 origin, dir;
 	idMat3 axis;
@@ -6538,6 +6538,11 @@ void idAnimatedEntity::AddLocalDamageEffect( jointHandle_t jointNum, const idVec
 		de->localOrigin = localOrigin;
 		de->localNormal = localNormal;
 		de->type = static_cast<const idDeclParticle *>( declManager->FindType( DECL_PARTICLE, bleed ) );
+		float chance;
+		key = va( "smoke_chance_%s", surfName.c_str() );
+		def->dict.GetFloat( va("smoke_chance_%s", surfName.c_str()), "1.0" );
+		if( gameLocal.random.RandomFloat() > chance )
+			de->type = NULL;
 		de->time = gameLocal.time;
 	}
 }
