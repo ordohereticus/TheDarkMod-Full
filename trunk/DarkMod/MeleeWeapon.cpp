@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3075 $
- * $Date: 2008-12-04 04:53:43 -0500 (Thu, 04 Dec 2008) $
+ * $Revision: 3104 $
+ * $Date: 2009-01-02 04:05:42 -0500 (Fri, 02 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3075 2008-12-04 09:53:43Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3104 2009-01-02 09:05:42Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -315,13 +315,11 @@ void CMeleeWeapon::Think( void )
 
 void CMeleeWeapon::TestParry( CMeleeWeapon *other, idVec3 dir, trace_t *trace )
 {
-	if( m_MeleeType & other->GetMeleeType() )
+	EMeleeType otherType = other->GetMeleeType();
+	if( !(m_MeleeType == MELEETYPE_UNBLOCKABLE)
+			&& (otherType == MELEETYPE_BLOCKALL || otherType == m_MeleeType ) )
 	{
 		// parry was succesful
-		// TODO: Play sound, FX
-		// could call melee collision on the weapon,
-		// but that's not going to hit the actual weapon material
-		// if the clipbox is much larger
 		// TODO: Play bounce animation or reverse attack animation?
 		DeactivateAttack();
 
