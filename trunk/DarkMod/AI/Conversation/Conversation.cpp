@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2671 $
- * $Date: 2008-07-16 00:56:09 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2672 $
+ * $Date: 2008-07-16 01:15:55 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,9 +10,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2671 2008-07-16 04:56:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2672 2008-07-16 05:15:55Z greebo $", init_version);
 
 #include "Conversation.h"
+
+const int MAX_ALERT_LEVEL_TO_START_CONVERSATION = 1;
 
 namespace ai {
 
@@ -59,6 +61,17 @@ bool Conversation::CheckConditions()
 			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Actor %s in conversation %s is KO or dead!.\r", _actors[i].c_str(), _name.c_str());
 			return false;
 		}
+
+		if (actor->IsType(idAI::Type))
+		{
+			idAI* ai = static_cast<idAI*>(actor);
+
+			if (ai->AI_AlertIndex > MAX_ALERT_LEVEL_TO_START_CONVERSATION)
+			{
+				// AI is too alerted to start this conversation
+				return false;
+			}
+		}
 	}
 
 	// All actors alive and kicking
@@ -70,7 +83,16 @@ bool Conversation::CheckConditions()
 
 void Conversation::Start()
 {
-	
+	// Switch all participating AI to conversation state
+	for (int i = 0; i < _actors.Num(); i++)
+	{
+		idActor* actor = GetActor(i);
+
+		if (actor->IsType(idAI::Type))
+		{
+			static_cast<idAI*>(actor)->SwitchToConversationState(_name);
+		}
+	}
 }
 
 idActor* Conversation::GetActor(int index)
@@ -86,7 +108,7 @@ idActor* Conversation::GetActor(int index)
 	if (ent == NULL || !ent->IsType(idActor::Type)) 
 	{
 		// not an actor!
-		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Actor %s in conversation %s is not existing or of wrong type.\r", _actors[index].c_str(), _name.c_str());
+		DM_LOG(LC_CONVERSATION, LT_ERROR)LOGSTRING("Actor %s in conversation %s is not existing or of wrong type.\r", _actors[index].c_str(), _name.c_str());
 		return NULL; 
 	}
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2650 $
- * $Date: 2008-07-13 09:19:08 -0400 (Sun, 13 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2672 $
+ * $Date: 2008-07-16 01:15:55 -0400 (Wed, 16 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2650 2008-07-13 13:19:08Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2672 2008-07-16 05:15:55Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -21,7 +21,9 @@ static bool init_version = FileVersionList("$Id: ai.cpp 2650 2008-07-13 13:19:08
 #include "../../DarkMod/AI/Memory.h"
 #include "../../DarkMod/AI/States/KnockedOutState.h"
 #include "../../DarkMod/AI/States/DeadState.h"
+#include "../../DarkMod/AI/States/ConversationState.h"
 #include "../../DarkMod/AI/Tasks/SingleBarkTask.h"
+#include "../../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/StimResponse/StimResponseCollection.h"
@@ -9504,4 +9506,27 @@ void idAI::ShowDebugInfo()
 
 		gameRenderWorld->DrawText(m_HandlingElevator ? "Elevator" : "---", physicsObj.GetOrigin(), 0.2f, m_HandlingElevator ? colorRed : colorGreen, playerViewMatrix, 1, gameLocal.msec);
 	}
+}
+
+bool idAI::SwitchToConversationState(const idStr& conversationName)
+{
+	ai::ConversationStatePtr state = 
+		boost::static_pointer_cast<ai::ConversationState>(ai::ConversationState::CreateInstance());
+
+	// Convert the name to an index
+	int convIndex = gameLocal.m_ConversationSystem->GetConversationIndex(conversationName);
+
+	if (convIndex == -1) 
+	{
+		DM_LOG(LC_CONVERSATION, LT_ERROR)LOGSTRING("Could not find conversation '%s'.\r", conversationName.c_str());
+		return false;
+	}
+
+	// Let the state know which conversation is about to be played
+	state->SetConversation(convIndex);
+
+	// Switch to this state
+	GetMind()->PushState(state);
+
+	return true;
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2638 $
- * $Date: 2008-07-12 09:34:39 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2672 $
+ * $Date: 2008-07-16 01:15:55 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -546,6 +546,9 @@ public:
 
 	// Virtual override of idActor method, routes the call into the current Mind State
 	virtual void NeedToUseElevator(const eas::RouteInfoPtr& routeInfo);
+
+	// Switches this AI into conversation mode
+	virtual bool SwitchToConversationState(const idStr& conversationName);
 
 
 public:
