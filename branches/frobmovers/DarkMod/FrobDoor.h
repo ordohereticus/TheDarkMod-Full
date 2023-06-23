@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2549 $
- * $Date: 2008-06-21 03:52:01 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2551 $
+ * $Date: 2008-06-21 07:59:44 -0400 (Sat, 21 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -77,7 +77,9 @@ public:
 	virtual void			Unlock(bool Master);
 
 	bool					IsPickable();
+
 	CFrobDoorHandle*		GetDoorhandle();
+	void					SetDoorhandle(CFrobDoorHandle* handle);
 
 	bool					UsedBy(IMPULSE_STATE nState, CInventoryItem* item);
 
@@ -124,6 +126,12 @@ protected:
 	 * This is posted as an event to be called on all doors after entities spawn
 	 **/
 	void					FindDoubleDoor();
+
+	/** 
+	 * greebo: This automatically searches for handles bound to this door and
+	 * sets up the frob_peer, door_handle relationship for mapper's convenience.
+	 */
+	void					AutoSetupDoorHandles();
 
 	// Specialise the CBinaryFrobMover::OnLock() and OnUnlock() methods to update the peers
 	virtual void			OnLock(bool bMaster);
