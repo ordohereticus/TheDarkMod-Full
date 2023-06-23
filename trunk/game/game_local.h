@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3106 $
- * $Date: 2009-01-04 02:09:56 -0500 (Sun, 04 Jan 2009) $
+ * $Revision: 3124 $
+ * $Date: 2009-01-07 11:35:28 -0500 (Wed, 07 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -205,6 +205,9 @@ namespace ai {
 
 class CModMenu;
 typedef boost::shared_ptr<CModMenu> CModMenuPtr;
+
+class CShop;
+typedef boost::shared_ptr<CShop> CShopPtr;
 
 const int MAX_GAME_MESSAGE_SIZE		= 8192;
 const int MAX_ENTITY_STATE_SIZE		= 512;
@@ -465,6 +468,11 @@ public:
 	 * greebo: The fan-mission-handling class. Also contains GUI handling code.
 	 */
 	CModMenuPtr				m_ModMenu;
+
+	/**
+	 * greebo: The class handling the main menu's shop GUI.
+	 */
+	CShopPtr				m_Shop;
 
 	/**
 	* Pointer to global AI Relations object

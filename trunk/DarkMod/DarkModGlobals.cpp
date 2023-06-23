@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3122 $
- * $Date: 2009-01-06 12:59:54 -0500 (Tue, 06 Jan 2009) $
+ * $Revision: 3124 $
+ * $Date: 2009-01-07 11:35:28 -0500 (Wed, 07 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3122 2009-01-06 17:59:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3124 2009-01-07 16:35:28Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -145,8 +145,6 @@ CsndPropLoader	g_SoundPropLoader;
 CsndProp		g_SoundProp;
 CRelations		g_globalRelations;
 CMissionData	g_MissionData;
-CShop			g_Shop;
-//CDifficultyMenu	g_Diff;
 
 static idList<const char *> *s_FileVersion = NULL;
 
