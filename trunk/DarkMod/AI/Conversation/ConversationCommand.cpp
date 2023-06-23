@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2662 $
- * $Date: 2008-07-14 00:53:10 -0400 (Mon, 14 Jul 2008) $
+ * $Revision: 2663 $
+ * $Date: 2008-07-14 00:59:39 -0400 (Mon, 14 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2662 2008-07-14 04:53:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2663 2008-07-14 04:59:39Z greebo $", init_version);
 
 #include "ConversationCommand.h"
 
@@ -87,6 +87,12 @@ bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 void ConversationCommand::Save(idSaveGame* savefile) const
 {
 	savefile->WriteInt(static_cast<int>(_type));
+
+	savefile->WriteInt(_arguments.Num());
+	for (int i = 0; i < _arguments.Num(); i++)
+	{
+		savefile->WriteString(_arguments[i]);
+	}
 }
 
 void ConversationCommand::Restore(idRestoreGame* savefile)
@@ -95,6 +101,14 @@ void ConversationCommand::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(typeInt);
 	assert(typeInt >= 0 && typeInt <= ENumCommands); // sanity check
 	_type = static_cast<Type>(typeInt);
+
+	int num;
+	savefile->ReadInt(num);
+	_arguments.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		savefile->ReadString(_arguments[i]);
+	}
 }
 
 ConversationCommand::Type ConversationCommand::GetType(const idStr& cmdString)
