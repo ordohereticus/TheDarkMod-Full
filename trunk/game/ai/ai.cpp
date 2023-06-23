@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2493 $
- * $Date: 2008-06-15 01:34:49 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2494 $
+ * $Date: 2008-06-15 01:41:31 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2493 2008-06-15 05:34:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2494 2008-06-15 05:41:31Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -537,6 +537,7 @@ idAI::idAI()
 	INIT_TIMER_HANDLE(aiMindTimer);
 	INIT_TIMER_HANDLE(aiAnimationTimer);
 	INIT_TIMER_HANDLE(aiPushWithAFTimer);
+	INIT_TIMER_HANDLE(aiUpdateEnemyPositionTimer);
 }
 
 /*
@@ -807,6 +808,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	SAVE_TIMER_HANDLE(aiMindTimer, savefile);
 	SAVE_TIMER_HANDLE(aiAnimationTimer, savefile);
 	SAVE_TIMER_HANDLE(aiPushWithAFTimer, savefile);
+	SAVE_TIMER_HANDLE(aiUpdateEnemyPositionTimer, savefile);
 }
 
 /*
@@ -1104,6 +1106,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	RESTORE_TIMER_HANDLE(aiMindTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiAnimationTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiPushWithAFTimer, savefile);
+	RESTORE_TIMER_HANDLE(aiUpdateEnemyPositionTimer, savefile);
 }
 
 /*
@@ -5664,6 +5667,8 @@ void idAI::UpdateEnemyPosition()
 	{
 		return;
 	}
+
+	START_SCOPED_TIMING(aiUpdateEnemyPositionTimer, scopedUpdateEnemyPositionTimer)
 
 	int				enemyAreaNum(-1);
 	idVec3			enemyPos;
