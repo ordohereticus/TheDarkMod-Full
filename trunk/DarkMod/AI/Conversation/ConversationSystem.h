@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2651 $
- * $Date: 2008-07-13 10:18:33 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2652 $
+ * $Date: 2008-07-13 10:33:31 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,6 +18,9 @@ namespace ai {
 
 class ConversationSystem
 {
+	// The indexed list of conversations
+	idList<ConversationPtr> _conversations;
+
 public:
 	// Clears and removes all allocated data
 	void Clear();

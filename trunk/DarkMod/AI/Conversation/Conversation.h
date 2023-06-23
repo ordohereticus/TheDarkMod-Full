@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2648 $
- * $Date: 2008-07-13 14:47:00 +0200 (So, 13 Jul 2008) $
+ * $Revision: 2652 $
+ * $Date: 2008-07-13 10:33:31 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,6 +24,8 @@ class Conversation
 {
 	// whether this conversation has errors or not
 	bool _isValid;
+
+	float _talkDistance;
 
 public:
 	Conversation();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2651 $
- * $Date: 2008-07-13 10:18:33 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2652 $
+ * $Date: 2008-07-13 10:33:31 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2651 2008-07-13 14:18:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2652 2008-07-13 14:33:31Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -44,7 +44,8 @@ void ConversationSystem::Init(idMapFile* mapFile)
 		}
 	}
 
-	// TODO: Log how many conversations have been found
+	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("%d Conversations found in this map.\r", _conversations.Num());
+	gameLocal.Printf("ConversationManager: Found %d valid conversations.\n", _conversations.Num());
 }
 
 void ConversationSystem::Save(idSaveGame* savefile) const
@@ -61,19 +62,23 @@ void ConversationSystem::LoadConversationEntity(idMapEntity* entity)
 {
 	assert(entity != NULL);
 
+	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Investigating conversation entity %s.\r", entity->epairs.GetString("name"));
+
 	for (int i = 0; i < INT_MAX; i++)
 	{
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Attempting to parse using conversation index %d.\r", i);
+
 		// Attempt to construct a new Conversation object
 		ConversationPtr conv(new Conversation(entity->epairs, i));
 
 		if (conv->IsValid())
 		{
-			// TODO: Store the conversation
+			// Add the conversation to the list
+			_conversations.Append(conv);
 		}
 		else
 		{
 			// This loop breaks on the first invalid conversation
-			gameLocal.Printf("ConversationManager: Found %d valid conversations.\n", i);
 			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation entity %s: found %d valid conversations.\r", entity->epairs.GetString("name"), i);
 			break;
 		}
