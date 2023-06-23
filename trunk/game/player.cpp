@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2986 $
- * $Date: 2008-11-02 18:45:48 -0500 (Sun, 02 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 2988 $
+ * $Date: 2008-11-03 11:31:38 -0500 (Mon, 03 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2986 2008-11-02 23:45:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2988 2008-11-03 16:31:38Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9770,7 +9770,7 @@ void idPlayer::Event_HoldEntity( idEntity *ent )
 {
 	if ( ent )
 	{
-		bool successful = gameLocal.m_Grabber->PutInHands( ent, mat3_identity, 0 );
+		bool successful = gameLocal.m_Grabber->PutInHands( ent, ent->GetPhysics()->GetAxis() );
 		idThread::ReturnInt( successful );
 	}
 	else
