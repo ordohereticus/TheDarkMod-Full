@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2587 $
- * $Date: 2008-06-29 14:00:34 -0400 (Sun, 29 Jun 2008) $
+ * $Revision: 2590 $
+ * $Date: 2008-06-30 11:42:24 -0400 (Mon, 30 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -604,12 +604,6 @@ public:
 	 * instead.
 	 */
 	virtual bool UsedBy(IMPULSE_STATE nState, CInventoryItem* item);
-
-	/**
-	 * Parses a used_by string. For a detailed information on how to use this feature
-	 * refer to the m_UsedBy description.
-	 */
-	void ParseUsedByList(idList<idStr> &, idStr &);
 
 	/**
 	* Toggle whether the entity has been frobbed.  Should ONLY be called by idPlayer::CheckFrob
