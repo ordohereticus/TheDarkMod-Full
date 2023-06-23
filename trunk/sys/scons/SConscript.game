@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3070 $
-#* $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+#* $Revision: 3087 $
+#* $Date: 2008-12-15 13:57:19 -0500 (Mon, 15 Dec 2008) $
 #* $Author: angua $
 #*
 #* $Log$
@@ -221,6 +221,7 @@ AI/Tasks/MoveToCoverTask.cpp \
 AI/Tasks/MoveToPositionTask.cpp \
 AI/Tasks/PathAnimTask.cpp \
 AI/Tasks/PathCornerTask.cpp \
+AI/Tasks/PathCycleAnimTask.cpp \
 AI/Tasks/PathHideTask.cpp \
 AI/Tasks/PathInteractTask.cpp \
 AI/Tasks/PathLookatTask.cpp \
