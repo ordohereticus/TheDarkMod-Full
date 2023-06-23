@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2835 $
- * $Date: 2008-09-14 02:08:58 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2841 $
+ * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 2835 2008-09-14 06:08:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 2841 2008-09-14 16:40:49Z greebo $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
@@ -107,6 +107,27 @@ void CInventoryCategory::PutItem(CInventoryItemPtr item)
 	item->SetCategory(this);
 
 	m_Item.AddUnique(item);
+}
+
+bool CInventoryCategory::SwapItemPosition(const CInventoryItemPtr& item1, const CInventoryItemPtr& item2)
+{
+	// Look up the positions of the two items
+	int idx1 = GetItemIndex(item1);
+	int idx2 = GetItemIndex(item2);
+
+	// Check the indices and check for equality
+	if (idx1 != -1 && idx2 != -1 && idx1 != idx2)
+	{
+		// Swap the items, but be sure to copy the shared_ptrs (references might be the same here)
+		CInventoryItemPtr temp = m_Item[idx2];
+		m_Item[idx2] = m_Item[idx1];
+		m_Item[idx1] = temp;
+
+		return true; // success
+	}
+
+	// invalid indices or item positions are the same
+	return false;
 }
 
 CInventoryItemPtr CInventoryCategory::GetItem(int index)

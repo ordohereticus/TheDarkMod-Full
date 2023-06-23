@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2836 $
- * $Date: 2008-09-14 02:37:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2841 $
+ * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -47,10 +47,16 @@ public:
 	 * greebo: Adds the given item to this category
 	 */
 	void					PutItem(CInventoryItemPtr Item);
+
 	/**
 	 * greebo: Removes the specified <item> from this category.
 	 */
 	void					RemoveItem(const CInventoryItemPtr& item);
+
+	/**
+	 * greebo: Swaps the position of the given two inventory items. Returns TRUE on success.
+	 */
+	bool					SwapItemPosition(const CInventoryItemPtr& item1, const CInventoryItemPtr& item2);
 
 	/** greebo: Returns true if the category contains no items.
 	 */

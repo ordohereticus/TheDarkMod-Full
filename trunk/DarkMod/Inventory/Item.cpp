@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2834 $
- * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2841 $
+ * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 2834 2008-09-14 05:18:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 2841 2008-09-14 16:40:49Z greebo $", init_version);
 
 #include "Item.h"
 #include <algorithm>
@@ -26,7 +26,7 @@ CInventoryItem::CInventoryItem(idEntity *owner)
 	m_LootType = LT_NONE;
 	m_Value = 0;
 	m_Stackable = false;
-	m_Count = 0;
+	m_Count = 1;
 	m_Droppable = false;
 	m_Overlay = OVERLAYS_INVALID_HANDLE;
 	m_Hud = false;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2834 $
- * $Date: 2008-09-14 01:18:20 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2841 $
+ * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -143,6 +143,25 @@ public:
 	 */
 	CInventoryItemPtr		PutItem(idEntity *Item, idEntity *Owner);
 	void					PutItem(const CInventoryItemPtr& item, const idStr& category);
+
+	/**
+	 * greebo: This replaces the inventory item (represented by oldItem) with the
+	 * given <newItem> entity. <newItem> needs to be a valid inventory item entity or NULL.
+	 *
+	 * <oldItem> is removed from the inventory and <newItem> will take its position, provided
+	 * both items share the same category name. If the categories are different, the position
+	 * can not be guaranteed to be the same after the operation.
+	 *
+	 * If <newItem> is NULL, <oldItem> will just be removed and no replacement takes place.
+	 *
+	 * @returns: TRUE on success, FALSE otherwise.
+	 */
+	bool					ReplaceItem(idEntity* oldItemEnt, idEntity* newItemEnt);
+
+	/**
+	 * greebo: Removes the given inventory item and updates all cursors pointing to it.
+	 */
+	void					RemoveItem(const CInventoryItemPtr& item);
 
 	/**
 	 * Retrieve an item from an inventory. If no group is specified, all of 
