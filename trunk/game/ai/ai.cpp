@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2700 $
- * $Date: 2008-07-19 00:45:58 -0400 (Sat, 19 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2712 $
+ * $Date: 2008-08-01 03:13:52 -0400 (Fri, 01 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2700 2008-07-19 04:45:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2712 2008-08-01 07:13:52Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8989,7 +8989,8 @@ void idAI::SheathWeapon()
 void idAI::DropOnRagdoll( void )
 {
 	idEntity *ent = NULL;
-	bool bDrop(false), bDropWhenDrawn(false), bSetSolid(false), bSetCorpse(false), bSetFrob(false);
+	bool bDrop(false), bDropWhenDrawn(false), bSetSolid(false);
+	bool bSetCorpse(false), bSetFrob(false), bExtinguish(false);
 	int mask(0);
 	// Id style def_drops
 	const idKeyValue *kv = spawnArgs.MatchPrefix( "def_drops", NULL );
@@ -9021,6 +9022,7 @@ void idAI::DropOnRagdoll( void )
 		bSetSolid = ent->spawnArgs.GetBool( "drop_add_contents_solid" );
 		bSetCorpse = ent->spawnArgs.GetBool( "drop_add_contents_corpse" );
 		bSetFrob = ent->spawnArgs.GetBool( "drop_set_frobable" );
+		bExtinguish = ent->spawnArgs.GetBool("extinguish_on_drop", "0");
 
 		if( bDropWhenDrawn )
 		{
@@ -9040,7 +9042,7 @@ void idAI::DropOnRagdoll( void )
 		}
 
 		// Proceed with droppage
-		DropAttachment( i );
+		DetachInd( i );
 
 		if( bSetSolid )
 			mask = CONTENTS_SOLID;
@@ -9053,7 +9055,20 @@ void idAI::DropOnRagdoll( void )
 		if( bSetFrob )
 			ent->m_bFrobable = true;
 
-		ent->GetPhysics()->Activate();
+		// greebo: Check if we should extinguish the attachment, like torches
+		if ( bExtinguish )
+		{
+			// Get the delay in milliseconds
+			int delay = SEC2MS(ent->spawnArgs.GetInt("extinguish_on_drop_delay", "3"));
+			if (delay < 0) {
+				delay = 0;
+			}
+
+			// Schedule the extinguish event
+			ent->PostEventMS(&EV_ExtinguishLights, delay);
+		}
+
+			ent->GetPhysics()->Activate();
 	}
 }
 

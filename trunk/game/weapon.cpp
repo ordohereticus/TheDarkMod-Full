@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2243 $
- * $Date: 2008-04-29 04:10:01 -0400 (Tue, 29 Apr 2008) $
+ * $Revision: 2712 $
+ * $Date: 2008-08-01 03:13:52 -0400 (Fri, 01 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 2243 2008-04-29 08:10:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 2712 2008-08-01 07:13:52Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -55,7 +55,8 @@ const idEventDef EV_Weapon_AutoReload( "autoReload", NULL, 'f' );
 const idEventDef EV_Weapon_NetReload( "netReload" );
 const idEventDef EV_Weapon_IsInvisible( "isInvisible", NULL, 'f' );
 const idEventDef EV_Weapon_NetEndReload( "netEndReload" );
-const idEventDef EV_Weapon_ShowAttachment( "showAttachment", "dd" );
+const idEventDef EV_Weapon_ShowAttachment( "showAttachment", "sd" );
+const idEventDef EV_Weapon_ShowAttachmentInd( "showAttachmentInd", "dd" );
 
 //
 // class def
@@ -83,7 +84,8 @@ CLASS_DECLARATION( idAnimatedEntity, idWeapon )
 	EVENT( AI_AnimDone,							idWeapon::Event_AnimDone )
 	EVENT( EV_Weapon_Next,						idWeapon::Event_Next )
 	EVENT( EV_SetSkin,							idWeapon::Event_SetSkin )
-	EVENT( EV_Weapon_ShowAttachment,			idWeapon::Event_ShowAttachment )
+	EVENT( EV_Weapon_ShowAttachment,			idWeapon::ShowAttachment )
+	EVENT( EV_Weapon_ShowAttachmentInd,			idWeapon::ShowAttachmentInd )
 	EVENT( EV_Weapon_Flashlight,				idWeapon::Event_Flashlight )
 	EVENT( EV_Light_GetLightParm,				idWeapon::Event_GetLightParm )
 	EVENT( EV_Light_SetLightParm,				idWeapon::Event_SetLightParm )
@@ -2802,28 +2804,6 @@ void idWeapon::Event_SetSkin( const char *skinname ) {
 		msg.WriteLong( ( skinDecl != NULL ) ? gameLocal.ServerRemapDecl( -1, DECL_SKIN, skinDecl->Index() ) : -1 );
 		ServerSendEvent( EVENT_CHANGESKIN, &msg, false, -1 );
 	}
-}
-
-void idWeapon::Event_ShowAttachment(int id, bool bShow)
-{
-	id--;
-
-	idEntity* ent;
-
-	if( id < 0 || id >= m_Attachments.Num() )
-		goto Quit;
-
-	ent = m_Attachments[id].ent.GetEntity();
-	if( ent )
-	{
-		if( bShow )
-			ent->Show();
-		else
-			ent->Hide();
-	}
-
-Quit:
-	return;
 }
 
 /*
