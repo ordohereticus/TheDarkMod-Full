@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2848 $
- * $Date: 2008-09-15 02:44:08 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2880 $
+ * $Date: 2008-09-23 04:23:52 -0400 (Tue, 23 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2848 2008-09-15 06:44:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2880 2008-09-23 08:23:52Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -152,7 +152,7 @@ void CMeleeWeapon::ActivateAttack( idActor *ActOwner, const char *AttName )
 	{
 		DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("Attack clipmodel started out inside something it hits.\r");
 
-		MeleeCollision( gameLocal.world, vec3_zero, &tr, -1 );
+		MeleeCollision( gameLocal.entities[tr.c.entityNum], vec3_zero, &tr, -1 );
 		DeactivateAttack();
 	}
 }
