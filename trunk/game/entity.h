@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2854 $
- * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2897 $
+ * $Date: 2008-09-27 04:05:44 -0400 (Sat, 27 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -260,6 +260,12 @@ public:
 	**/
 	int					m_preHideContents;
 	int					m_preHideClipMask;
+	/**
+	* Entity contents may be overwritten by a custom contents spawnarg
+	* Store it here to keep track of it, because derived classes can
+	* set the contents in their spawn method, and need to know to overwrite it
+	**/
+	int					m_CustomContents;
 
 	/**
 	 * UsedBy ist the list of entity names that this entity can be used by.

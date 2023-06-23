@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2888 $
- * $Date: 2008-09-25 00:05:46 -0400 (Thu, 25 Sep 2008) $
+ * $Revision: 2897 $
+ * $Date: 2008-09-27 04:05:44 -0400 (Sat, 27 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2888 2008-09-25 04:05:46Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2897 2008-09-27 08:05:44Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -808,9 +808,7 @@ void CGrabber::AddToClipList( idEntity *ent )
 	phys->SetClipMask( phys->GetClipMask() | CONTENTS_SOLID );
 	
 	// Clear the solid flag to avoid player collision, 
-	// but enable monsterclip for AI and CONTENTS_RENDERMODEL for projectiles
-	// Ishtvan test: Add CONTENTS_CORPSE, to make sure moveables don't clip into it
-	// phys->SetContents( (contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP | CONTENTS_RENDERMODEL );
+	// but enable monsterclip for AI, rendermodel for projectiles and corpse for moveables
 	phys->SetContents
 	( 
 		(contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP 

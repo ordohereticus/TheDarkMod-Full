@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2891 $
- * $Date: 2008-09-25 00:42:09 -0400 (Thu, 25 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2897 $
+ * $Date: 2008-09-27 04:05:44 -0400 (Sat, 27 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2891 2008-09-25 04:42:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 2897 2008-09-27 08:05:44Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -180,6 +180,10 @@ void idMoveable::Spawn( void ) {
 	physicsObj.SetGravity( gameLocal.GetGravity() );
 
 	int contents = CONTENTS_SOLID | CONTENTS_OPAQUE;
+	// ishtvan: overwrite with custom contents, if present
+	if( m_CustomContents != -1 )
+		contents = m_CustomContents;
+
 	// greebo: Set the frobable contents flag if the spawnarg says so
 	if (spawnArgs.GetBool("frobable", "0"))
 	{
@@ -1373,6 +1377,9 @@ void idExplodingBarrel::Event_Respawn() {
 	physicsObj.SetOrigin( spawnOrigin );
 	physicsObj.SetAxis( spawnAxis );
 	physicsObj.SetContents( CONTENTS_SOLID );
+	// override with custom contents if present
+	if( m_CustomContents != -1 )
+		physicsObj.SetContents( m_CustomContents );
 	// SR CONTENTS_RESPONSE FIX
 	if( m_StimResponseColl->HasResponse() )
 		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );

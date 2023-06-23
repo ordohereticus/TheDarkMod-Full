@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2891 $
- * $Date: 2008-09-25 00:42:09 -0400 (Thu, 25 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2897 $
+ * $Date: 2008-09-27 04:05:44 -0400 (Sat, 27 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2891 2008-09-25 04:42:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2897 2008-09-27 08:05:44Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -625,7 +625,8 @@ idEntity::idEntity()
 	maxHealth		= 0;
 
 	m_preHideContents		= -1; // greebo: initialise this to invalid values
-	m_preHideClipMask		= -1; 
+	m_preHideClipMask		= -1;
+	m_CustomContents		= -1;
 
 	physics			= NULL;
 	bindMaster		= NULL;
@@ -799,6 +800,11 @@ void idEntity::Spawn( void )
 
 	InitDefaultPhysics( origin, axis );
 
+	// TDM: Set custom contents, and store it so it doesn't get overwritten
+	m_CustomContents = spawnArgs.GetInt("clipmodel_contents","-1");
+	if( m_CustomContents != -1 )
+		GetPhysics()->SetContents( m_CustomContents );
+
 	SetOrigin( origin );
 	SetAxis( axis );
 
@@ -829,10 +835,6 @@ void idEntity::Spawn( void )
 
 		ConstructScriptObject();
 	}
-	
-	// TDM: Set contents based on new spawnArg
-	if( spawnArgs.FindKey( "clipmodel_contents" ) )
-		GetPhysics()->SetContents( spawnArgs.GetInt("clipmodel_contents") );
 
 	m_StimResponseColl->ParseSpawnArgsToStimResponse(&spawnArgs, this);
 
@@ -1031,6 +1033,7 @@ void idEntity::Save( idSaveGame *savefile ) const
 
 	savefile->WriteInt( m_preHideContents );
 	savefile->WriteInt( m_preHideClipMask );
+	savefile->WriteInt( m_CustomContents );
 
 	savefile->WriteInt( targets.Num() );
 	for( i = 0; i < targets.Num(); i++ ) {
@@ -1199,6 +1202,7 @@ void idEntity::Restore( idRestoreGame *savefile )
 
 	savefile->ReadInt( m_preHideContents );
 	savefile->ReadInt( m_preHideClipMask );
+	savefile->ReadInt( m_CustomContents );
 
 	targets.Clear();
 	savefile->ReadInt( num );
