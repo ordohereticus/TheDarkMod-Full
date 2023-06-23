@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2797 $
- * $Date: 2008-09-03 01:15:28 -0400 (Wed, 03 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2855 $
+ * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -48,15 +48,6 @@ static const int s_MAXACUITIES = 15;
 #define ATTACK_ON_DAMAGE		1
 #define ATTACK_ON_ACTIVATE		2
 #define ATTACK_ON_SIGHT			4
-
-
-enum ECombatType
-{
-	COMBAT_NONE,
-	COMBAT_MELEE, 
-	COMBAT_RANGED,
-	NUM_COMBAT_TYPES
-};
 
 typedef enum {
 	TALK_NEVER,

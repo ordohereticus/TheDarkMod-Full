@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2814 $
- * $Date: 2008-09-10 14:08:33 -0400 (Wed, 10 Sep 2008) $
+ * $Revision: 2855 $
+ * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2814 2008-09-10 18:08:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2855 2008-09-17 07:23:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1064,6 +1064,12 @@ void idActor::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteDict(&m_replacementAnims);
 
+	savefile->WriteInt(static_cast<int>(m_AttackFlags.size()));
+	for (std::set<int>::const_iterator i = 	m_AttackFlags.begin(); i != m_AttackFlags.end(); ++i)
+	{
+		savefile->WriteInt(static_cast<int>(*i));
+	}
+
 	SAVE_TIMER_HANDLE(actorGetObstaclesTimer, savefile);
 	SAVE_TIMER_HANDLE(actorGetPointOutsideObstaclesTimer, savefile);
 	SAVE_TIMER_HANDLE(actorGetWallEdgesTimer, savefile);
@@ -1192,6 +1198,16 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat(m_stepvol_crouch_run);
 
 	savefile->ReadDict(&m_replacementAnims);
+
+	m_AttackFlags.clear();
+	savefile->ReadInt(num);
+	for (int i = 0; i < num; i++)
+	{
+		int temp;
+		savefile->ReadInt(temp);
+		assert(static_cast<ECombatType>(temp) >= COMBAT_NONE && static_cast<ECombatType>(temp) <= COMBAT_RANGED);
+		m_AttackFlags.insert(temp);
+	}
 
 	RESTORE_TIMER_HANDLE(actorGetObstaclesTimer, savefile);
 	RESTORE_TIMER_HANDLE(actorGetPointOutsideObstaclesTimer, savefile);
@@ -4048,6 +4064,23 @@ int idActor::GetNumRangedWeapons()
 	}
 
 	return numRangedWeapons;
+}
+
+bool idActor::GetAttackFlag(ECombatType type) const
+{
+	return m_AttackFlags.find(static_cast<int>(type)) != m_AttackFlags.end();
+}
+
+void idActor::SetAttackFlag(ECombatType type, bool enabled)
+{
+	if (enabled)
+	{
+		m_AttackFlags.insert(type);
+	}
+	else
+	{
+		m_AttackFlags.erase(type);
+	}
 }
 
 /****************************************************************************************

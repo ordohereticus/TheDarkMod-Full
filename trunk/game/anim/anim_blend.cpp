@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2759 $
- * $Date: 2008-08-29 00:54:47 -0400 (Fri, 29 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2855 $
+ * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 2759 2008-08-29 04:54:47Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 2855 2008-09-17 07:23:21Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -678,6 +678,48 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		fc.type = FC_MELEE_PARRY_STOP;
 		fc.string = new idStr( token );
 	}
+	else if ( token == "set_combat_flag" ) 
+	{
+		fc.type = FC_SET_ATTACK_FLAG;
+
+		// greebo: Parse attack flag argument
+		if( !src.ReadTokenOnLine( &token ) )
+			return "Unexpected end of line";
+
+		if (token == "melee") 
+		{
+			fc.index = COMBAT_MELEE;
+		}
+		else if (token == "ranged") 
+		{
+			fc.index = COMBAT_RANGED;
+		}
+		else 
+		{
+			return "Unknown attack flag in framecommand.";
+		}
+	}
+	else if ( token == "clear_combat_flag" ) 
+	{
+		fc.type = FC_CLEAR_ATTACK_FLAG;
+
+		// greebo: Parse attack flag argument
+		if( !src.ReadTokenOnLine( &token ) )
+			return "Unexpected end of line";
+
+		if (token == "melee") 
+		{
+			fc.index = COMBAT_MELEE;
+		}
+		else if (token == "ranged") 
+		{
+			fc.index = COMBAT_RANGED;
+		}
+		else 
+		{
+			return "Unknown attack flag in framecommand.";
+		}
+	}
 	else 
 	{
 		return va( "Unknown command '%s'", token.c_str() );
@@ -1101,6 +1143,18 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 
 					break;
 				}
+				case FC_SET_ATTACK_FLAG:
+					if (ent->IsType(idActor::Type))
+					{
+						static_cast<idActor*>(ent)->SetAttackFlag(static_cast<ECombatType>(command.index), true);
+					}
+					break;
+				case FC_CLEAR_ATTACK_FLAG:
+					if (ent->IsType(idActor::Type))
+					{
+						static_cast<idActor*>(ent)->SetAttackFlag(static_cast<ECombatType>(command.index), false);
+					}
+					break;
 			}
 		}
 	}

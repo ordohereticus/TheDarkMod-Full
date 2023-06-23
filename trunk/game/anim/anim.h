@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2855 $
+ * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -152,7 +152,9 @@ typedef enum {
 	FC_MELEE_ATTACK_START,
 	FC_MELEE_ATTACK_STOP,
 	FC_MELEE_PARRY_START,
-	FC_MELEE_PARRY_STOP
+	FC_MELEE_PARRY_STOP,
+	FC_SET_ATTACK_FLAG,   // greebo: enables a certain attack type
+	FC_CLEAR_ATTACK_FLAG, // greebo: disables a certain attack type
 
 } frameCommandType_t;
 

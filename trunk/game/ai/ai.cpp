@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2854 $
- * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2855 $
+ * $Date: 2008-09-17 03:23:21 -0400 (Wed, 17 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2855 2008-09-17 07:23:21Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5725,26 +5725,25 @@ bool idAI::EntityInAttackCone(idEntity* ent)
 
 bool idAI::CanHitEntity(idActor* entity, ECombatType combatType)
 {
-	if (entity != NULL)
+	if (entity == NULL) return false;
+
+	if (combatType == COMBAT_MELEE)
 	{
-		if (combatType == COMBAT_MELEE)
-		{
-			return TestMelee();
-		}
-		else if (combatType == COMBAT_RANGED)
+		return TestMelee();
+	}
+	else if (combatType == COMBAT_RANGED)
+	{
+		return TestRanged();
+	}
+	else
+	{
+		if (GetNumRangedWeapons() > 0)
 		{
 			return TestRanged();
 		}
-		else
+		else if (GetNumMeleeWeapons() > 0)
 		{
-			if (GetNumRangedWeapons() > 0)
-			{
-				return TestRanged();
-			}
-			else if (GetNumMeleeWeapons() > 0)
-			{
-				return TestMelee();
-			}
+			return TestMelee();
 		}
 	}
 
@@ -6438,6 +6437,12 @@ bool idAI::TestMelee( void ) const {
 		return false;
 	}
 
+	if (!GetAttackFlag(COMBAT_MELEE))
+	{
+		// greebo: Cannot attack with melee weapons yet
+		return false;
+	}
+
 	//FIXME: make work with gravity vector
 	idVec3 org = physicsObj.GetOrigin();
 	const idBounds &myBounds = physicsObj.GetBounds();
@@ -6487,6 +6492,12 @@ bool idAI::TestRanged() const
 
 	if ( !enemyEnt) 
 	{
+		return false;
+	}
+
+	if (!GetAttackFlag(COMBAT_RANGED))
+	{
+		// greebo: Cannot attack with melee weapons yet
 		return false;
 	}
 
