@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3011 $
- * $Date: 2008-11-11 12:16:56 -0500 (Tue, 11 Nov 2008) $
+ * $Revision: 3012 $
+ * $Date: 2008-11-11 12:22:56 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3011 2008-11-11 17:16:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3012 2008-11-11 17:22:56Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10659,10 +10659,8 @@ void idPlayer::Event_CheckAAS()
 	{
 		idList<idStr> aasNames;
 
-		for (idEntity* ent = gameLocal.activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next() ) {
-			if (!ent->IsType(idAI::Type)) continue;
-
-			idAI* ai = static_cast<idAI*>(ent);
+		for (idAI* ai = gameLocal.spawnedAI.Next(); ai != NULL; ai = ai->aiNode.Next())
+		{
 			if (ai->GetAAS() == NULL)
 			{
 				idStr aasName = ai->spawnArgs.GetString("use_aas");
