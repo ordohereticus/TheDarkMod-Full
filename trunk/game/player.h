@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2233 $
- * $Date: 2008-04-27 08:36:47 -0400 (Sun, 27 Apr 2008) $
+ * $Revision: 2381 $
+ * $Date: 2008-05-21 00:57:27 -0400 (Wed, 21 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -576,6 +576,8 @@ public:
 	void					UpdateSkinSetup( bool restart );
 
 	bool					OnLadder( void ) const;
+	// Virtal override of idActor::OnElevator()
+	virtual bool			OnElevator() const;
 
 	virtual	void			UpdatePlayerIcons( void );
 	virtual	void			DrawPlayerIcons( void );

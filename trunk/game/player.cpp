@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2297 $
- * $Date: 2008-05-11 09:11:39 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2381 $
+ * $Date: 2008-05-21 00:57:27 -0400 (Wed, 21 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2297 2008-05-11 13:11:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2381 2008-05-21 04:57:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -7508,6 +7508,17 @@ idPlayer::OnLadder
 */
 bool idPlayer::OnLadder( void ) const {
 	return physicsObj.OnLadder();
+}
+
+bool idPlayer::OnElevator() const 
+{
+	idEntity* ent = physicsObj.GetGroundEntity();
+
+	// Return false if ground entity is not a mover
+	if (!ent->IsType(CMultiStateMover::Type)) return false;
+
+	CMultiStateMover* mover = static_cast<CMultiStateMover*>(ent);
+	return (!mover->IsAtRest());
 }
 
 /*

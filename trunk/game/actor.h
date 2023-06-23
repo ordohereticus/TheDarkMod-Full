@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2369 $
- * $Date: 2008-05-18 12:30:22 -0400 (Sun, 18 May 2008) $
+ * $Revision: 2381 $
+ * $Date: 2008-05-21 00:57:27 -0400 (Wed, 21 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -214,6 +214,8 @@ public:
 	idActor *				EnemyWithMostHealth();
 
 	virtual bool			OnLadder( void ) const;
+	// Returns TRUE if the actor is standing on a moving elevator
+	virtual bool			OnElevator() const;
 
 	virtual void			GetAASLocation( idAAS *aas, idVec3 &pos, int &areaNum ) const;
 
