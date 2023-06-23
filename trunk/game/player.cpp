@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2786 $
- * $Date: 2008-08-31 13:43:18 -0400 (Sun, 31 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2788 $
+ * $Date: 2008-08-31 20:42:31 -0400 (Sun, 31 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2786 2008-08-31 17:43:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2788 2008-09-01 00:42:31Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -64,7 +64,7 @@ const idEventDef EV_Player_GetMove( "getMove", NULL, 'v' );
 const idEventDef EV_Player_GetViewAngles( "getViewAngles", NULL, 'v' );
 const idEventDef EV_Player_GetMouseGesture( "getMouseGesture", NULL, 'd');
 const idEventDef EV_Player_MouseGestureFinished( "mouseGestureFinished", NULL, 'd' );
-const idEventDef EV_Player_StartMouseGesture( "startMouseGesture", "dddfd" );
+const idEventDef EV_Player_StartMouseGesture( "startMouseGesture", "ddddfd" );
 const idEventDef EV_Player_StopMouseGesture( "stopMouseGesture" );
 const idEventDef EV_Player_StopFxFov( "stopFxFov" );
 const idEventDef EV_Player_EnableWeapon( "enableWeapon" );
@@ -5534,10 +5534,11 @@ void idPlayer::EvaluateControls( void )
 /**
 * TDM Mouse Gestures
 **/
-void idPlayer::StartMouseGesture( int impulse, int thresh, EMouseTest test, float TurnHinderance, int DecideTime )
+void idPlayer::StartMouseGesture( int impulse, int thresh, EMouseTest test, bool bInverted, float TurnHinderance, int DecideTime )
 {
 	m_MouseGesture.bActive = true;
 	m_MouseGesture.test = test;
+	m_MouseGesture.bInverted = bInverted;
 	m_MouseGesture.key = impulse;
 	m_MouseGesture.thresh = thresh;
 	m_MouseGesture.DecideTime = DecideTime;
@@ -5560,6 +5561,9 @@ void idPlayer::UpdateMouseGesture( void )
 
 	m_MouseGesture.motion.x += usercmd.mx - m_MouseGesture.StartPos.x;
 	m_MouseGesture.motion.y += usercmd.my - m_MouseGesture.StartPos.y;
+	if( m_MouseGesture.bInverted )
+		m_MouseGesture.motion = -m_MouseGesture.motion;
+
 	EMouseTest test = m_MouseGesture.test;
 	idVec2 motion = m_MouseGesture.motion;
 
