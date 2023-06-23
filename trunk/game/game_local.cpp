@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2291 $
- * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2293 $
+ * $Date: 2008-05-11 06:47:25 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2293 2008-05-11 10:47:25Z greebo $", init_version);
 
 #include "game_local.h"
 #include <DarkRadiantRCFServer.h>
@@ -3613,6 +3613,15 @@ void idGameLocal::SetupEAS()
 
 			aas->AddElevator(mover);
 		}
+	}
+
+	// All elevators registered, compile the routing information
+	for (int aasNum = 0; aasNum < NumAAS(); aasNum++)
+	{
+		idAASLocal* aas = dynamic_cast<idAASLocal*>(GetAAS(aasNum));
+		if (aas == NULL) continue;
+
+		aas->CompileEAS();
 	}
 }
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2291 $
- * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2293 $
+ * $Date: 2008-05-11 06:47:25 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas.cpp 2293 2008-05-11 10:47:25Z greebo $", init_version);
 
 #include "aas_local.h"
 
@@ -40,7 +40,9 @@ idAAS::~idAAS( void ) {
 idAASLocal::idAASLocal
 ============
 */
-idAASLocal::idAASLocal( void ) {
+idAASLocal::idAASLocal( void )
+{
+	elevatorSystem = new tdmEAS(this);
 	file = NULL;
 }
 
@@ -51,6 +53,11 @@ idAASLocal::~idAASLocal
 */
 idAASLocal::~idAASLocal( void ) {
 	Shutdown();
+
+	if (elevatorSystem != NULL)
+	{
+		delete elevatorSystem;
+	}
 }
 
 /*
@@ -59,6 +66,9 @@ idAASLocal::Init
 ============
 */
 bool idAASLocal::Init( const idStr &mapName, unsigned int mapFileCRC ) {
+	// Clear the elevator system before reloading
+	elevatorSystem->Clear();
+
 	if ( file && mapName.Icmp( file->GetName() ) == 0 && mapFileCRC == file->GetCRC() ) {
 		common->Printf( "Keeping %s\n", file->GetName() );
 		RemoveAllObstacles();
@@ -84,6 +94,7 @@ idAASLocal::Shutdown
 */
 void idAASLocal::Shutdown( void ) {
 	if ( file ) {
+		elevatorSystem->Clear();
 		ShutdownRouting();
 		RemoveAllObstacles();
 		AASFileManager->FreeAAS( file );
@@ -412,12 +423,12 @@ void idAASLocal::SetAreaTravelFlag( int index, int flag )
 
 void idAASLocal::Save(idSaveGame* savefile) const
 {
-	elevatorSystem.Save(savefile);
+	elevatorSystem->Save(savefile);
 }
 
 void idAASLocal::Restore(idRestoreGame* savefile)
 {
-	elevatorSystem.Restore(savefile);
+	elevatorSystem->Restore(savefile);
 }
 
 /*

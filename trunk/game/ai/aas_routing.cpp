@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2291 $
- * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2293 $
+ * $Date: 2008-05-11 06:47:25 -0400 (Sun, 11 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 2293 2008-05-11 10:47:25Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -1632,25 +1632,10 @@ bool idAASLocal::FindGoalClosestToTarget( aasGoal_t &goal, int areaNum, const id
 
 void idAASLocal::AddElevator(CMultiStateMover* mover)
 {
-	const idList<MoverPositionInfo>& infoEnts = mover->GetPositionInfoList();
+	elevatorSystem->AddElevator(mover);
+}
 
-	for (int i = 0; i < infoEnts.Num(); i++)
-	{
-		idEntity* positionEnt = infoEnts[i].positionEnt.GetEntity();
-
-		int areaNum = PointAreaNum(positionEnt->GetPhysics()->GetOrigin());
-
-		if (areaNum == 0) continue;
-
-		// Add a reachability connecting this floor to all other floors
-		for (int j = 0; j < infoEnts.Num(); j++)
-		{
-			if (i == j) continue; // don't add reachability to self
-
-			const idVec3& otherOrg = infoEnts[j].positionEnt.GetEntity()->GetPhysics()->GetOrigin();
-			int otherAreaNum = PointAreaNum(otherOrg);
-			if (otherAreaNum == 0) continue;
-
-		}
-	}
+void idAASLocal::CompileEAS()
+{
+	elevatorSystem->Compile();
 }
