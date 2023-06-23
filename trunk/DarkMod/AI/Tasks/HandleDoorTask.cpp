@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2893 $
- * $Date: 2008-09-26 00:32:37 -0400 (Fri, 26 Sep 2008) $
+ * $Revision: 2894 $
+ * $Date: 2008-09-26 17:30:13 -0400 (Fri, 26 Sep 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2893 2008-09-26 04:32:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2894 2008-09-26 21:30:13Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -832,7 +832,9 @@ idVec3 HandleDoorTask::GetTowardPos(idAI* owner, CFrobDoor* frobDoor)
 	// check if we can stand at this position
 	int contents = gameLocal.clip.Contents(towardPos, &clip, mat3_identity, CONTENTS_SOLID, owner);
 
-	if (contents)
+	int areaNum = owner->GetAAS()->PointReachableAreaNum(towardPos, owner->GetPhysics()->GetBounds(), AREA_REACHABLE_WALK);
+
+	if (contents || areaNum == 0)
 	{
 		if (cv_ai_door_show.GetBool())
 		{
@@ -850,9 +852,11 @@ idVec3 HandleDoorTask::GetTowardPos(idAI* owner, CFrobDoor* frobDoor)
 		towardPos += frobDoorOrg;
 		towardPos.z = frobDoorBounds[0].z + 5;
 
-		int contents = gameLocal.clip.Contents(towardPos, &clip, mat3_identity, CONTENTS_SOLID, owner);
+		contents = gameLocal.clip.Contents(towardPos, &clip, mat3_identity, CONTENTS_SOLID, owner);
 
-		if (contents)
+		areaNum = owner->GetAAS()->PointReachableAreaNum(towardPos, owner->GetPhysics()->GetBounds(), AREA_REACHABLE_WALK);
+
+		if (contents || areaNum == 0)
 		{
 			if (cv_ai_door_show.GetBool())
 			{
@@ -868,9 +872,11 @@ idVec3 HandleDoorTask::GetTowardPos(idAI* owner, CFrobDoor* frobDoor)
 			towardPos = frobDoorOrg + parallelTowardOffset + normalTowardOffset;
 			towardPos.z = frobDoorBounds[0].z + 5;
 
-			int contents = gameLocal.clip.Contents(towardPos, &clip, mat3_identity, CONTENTS_SOLID, owner);
+			contents = gameLocal.clip.Contents(towardPos, &clip, mat3_identity, CONTENTS_SOLID, owner);
 
-			if (contents)
+			areaNum = owner->GetAAS()->PointReachableAreaNum(towardPos, owner->GetPhysics()->GetBounds(), AREA_REACHABLE_WALK);
+
+			if (contents || areaNum == 0)
 			{
 				// TODO: no suitable position found
 				if (cv_ai_door_show.GetBool())
