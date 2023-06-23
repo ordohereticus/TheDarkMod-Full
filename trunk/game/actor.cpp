@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2771 $
- * $Date: 2008-08-30 10:46:45 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2777 $
+ * $Date: 2008-08-31 02:02:10 -0400 (Sun, 31 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2771 2008-08-30 14:46:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2777 2008-08-31 06:02:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4016,13 +4016,17 @@ CrashLandResult idActor::CrashLand( const idPhysics_Actor& physicsObj, const idV
 	CrashLandResult result;
 	result.damageDealt = 0;
 	result.hasLanded = false;
+
+	if (GetPhysics() == NULL) return result;
+
+	idPhysics& physics = *GetPhysics(); // shortcut
 	
 	// no falling damage if touching a nodamage surface
 	// We do this here since the sound wont be played otherwise
 	// as we do no damage if this is true.
-	for( int i = 0; i < physicsObj.GetNumContacts(); i++ )
+	for( int i = 0; i < physics.GetNumContacts(); i++ )
 	{
-		const contactInfo_t &contact = physicsObj.GetContact( i );
+		const contactInfo_t &contact = physics.GetContact( i );
 		if ( contact.material->GetSurfaceFlags() & SURF_NODAMAGE )
 		{
 			StartSound( "snd_land_hard", SND_CHANNEL_ANY, 0, false, NULL );
@@ -4031,9 +4035,8 @@ CrashLandResult idActor::CrashLand( const idPhysics_Actor& physicsObj, const idV
 		}
 	}
 
-	const idVec3& vGravNorm = GetPhysics()->GetGravityNormal();
-
-	const idVec3& curVelocity = physicsObj.GetLinearVelocity();
+	const idVec3& vGravNorm = physics.GetGravityNormal();
+	const idVec3& curVelocity = physics.GetLinearVelocity();
 
 	// The current speed parallel to gravity
 	idVec3 curGravVelocity = (curVelocity*vGravNorm) * vGravNorm;
@@ -4056,22 +4059,26 @@ CrashLandResult idActor::CrashLand( const idPhysics_Actor& physicsObj, const idV
 	// damage scale per actor
 	delta *= m_delta_scale;
 
-	waterLevel_t waterLevel = physicsObj.GetWaterLevel();
-
-	// reduce falling damage if there is standing water
-	switch (waterLevel)
+	// greebo: Check if we are still using actor physics, we might already be in ragdoll mode
+	if (physics.IsType(idPhysics_Actor::Type))
 	{
-		case WATERLEVEL_NONE:
-			break;
-		case WATERLEVEL_FEET:	delta *= 0.8f;	// -20% for shallow water
-			break; 
-		case WATERLEVEL_WAIST:	delta *= 0.5f;	// -50% for medium water
-			break; 
-		case WATERLEVEL_HEAD:	delta *= 0.25f;	// -75% for deep water
-			break;
-		default: 
-			break;
-	};
+		waterLevel_t waterLevel = static_cast<idPhysics_Actor&>(physics).GetWaterLevel();
+
+		// reduce falling damage if there is standing water
+		switch (waterLevel)
+		{
+			case WATERLEVEL_NONE:
+				break;
+			case WATERLEVEL_FEET:	delta *= 0.8f;	// -20% for shallow water
+				break; 
+			case WATERLEVEL_WAIST:	delta *= 0.5f;	// -50% for medium water
+				break; 
+			case WATERLEVEL_HEAD:	delta *= 0.25f;	// -75% for deep water
+				break;
+			default: 
+				break;
+		};
+	}
 
 	// We've been moving downwards with a certain velocity, set the flag 
 	if (curGravVelocity.LengthFast() < 1 && deltaVecVert*vGravNorm > 100)
