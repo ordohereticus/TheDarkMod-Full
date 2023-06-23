@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2661 $
- * $Date: 2008-07-14 00:46:02 -0400 (Mon, 14 Jul 2008) $
+ * $Revision: 2662 $
+ * $Date: 2008-07-14 00:53:10 -0400 (Mon, 14 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2661 2008-07-14 04:46:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2662 2008-07-14 04:53:10Z greebo $", init_version);
 
 #include "ConversationCommand.h"
 
@@ -38,6 +38,22 @@ const char* const ConversationCommand::TypeNames[ConversationCommand::ENumComman
 	"AttackActor",
 	"AttackEntity"
 };
+
+ConversationCommand::Type ConversationCommand::GetType()
+{
+	return _type;
+}
+
+int ConversationCommand::GetNumArguments()
+{
+	return _arguments.Num();
+}
+
+// Returns the given argument (starting with index 0) or "" if the argument doesn't exist
+idStr ConversationCommand::GetArgument(int index)
+{
+	return (index > 0 && index < _arguments.Num()) ? _arguments[index] : "";
+}
 
 bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 {
