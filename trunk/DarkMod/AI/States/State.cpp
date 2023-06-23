@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2347 $
+ * $Date: 2008-05-15 15:41:20 -0400 (Thu, 15 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2347 2008-05-15 19:41:20Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1496,11 +1496,11 @@ void State::OnFrobMoverEncounter(CBinaryFrobMover* frobMover)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	CFrobDoor* newDoor = static_cast<CFrobDoor*>(frobMover);
-	if (newDoor == NULL)
+	if (!frobMover->IsType(CFrobDoor::Type))
 	{
 		return;
 	}
+	CFrobDoor* newDoor = static_cast<CFrobDoor*>(frobMover);
 
 	if (cv_ai_door_show.GetBool()) 
 	{
