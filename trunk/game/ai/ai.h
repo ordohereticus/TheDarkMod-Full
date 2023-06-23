@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2631 $
- * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2632 $
+ * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -440,6 +440,12 @@ public:
 	**/
 	void FoundBody( idEntity *body );
 
+	// Adds a message to the queue
+	void AddMessage(const ai::CommMessagePtr& message);
+
+	// Removes all messages
+	void ClearMessages();
+
 	/**
 	* Get the volume modifier for a given movement type
 	* Use the same function as idPlayer::GetMovementVolMod.
@@ -862,7 +868,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * the messages are traversed and delivered to the "recipient" AI.
 	 * Once delivered, messages are automatically removed from this list.
 	 *
-	 * Use m_Messages.push_back() to store new messages here.
+	 * Use AddMessage() to store new messages here.
 	 */
 	ai::MessageList			m_Messages;
 

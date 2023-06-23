@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2631 $
- * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2632 $
+ * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2631 2008-07-12 06:37:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2632 2008-07-12 07:48:12Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1111,7 +1111,13 @@ void CsndProp::ProcessPopulated( float volInit, idVec3 origin, SSprParms *propPa
 			// TODO: Keep track of these areas for delayed calculation?
 		}
 	}
-} // End function
+
+	// greebo: We're done propagating, clear the message list of the issuing AI, if appropriate
+	if (propParms->makerAI != NULL)
+	{
+		propParms->makerAI->ClearMessages();
+	}
+}
 
 void CsndProp::ProcessAI(idAI* ai, idVec3 origin, SSprParms *propParms)
 {

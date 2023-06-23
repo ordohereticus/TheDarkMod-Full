@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2632 $
+ * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AIComm_StimResponse.cpp 2632 2008-07-12 07:48:12Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "AIComm_StimResponse.h"
@@ -98,7 +98,7 @@ void CAIComm_Response::TriggerResponse(idEntity *StimEnt, CStim* stim)
 		if (distanceFromIssuance <= maxRadiusForResponse)
 		{
 			// Pass the AIComm_Message object to the AI's Mind
-			owner->GetMind()->GetState()->OnAICommMessage(p_message);
+			owner->GetMind()->GetState()->OnAICommMessage(*p_message);
 		}
 
 		// Get next message

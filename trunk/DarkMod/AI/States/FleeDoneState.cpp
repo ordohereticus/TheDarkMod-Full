@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2632 $
+ * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 2632 2008-07-12 07:48:12Z greebo $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -86,15 +86,21 @@ void FleeDoneState::Think(idAI* owner)
 
 			// Cry for help
 			owner->GetSubsystem(SubsysCommunication)->ClearTasks();
+			
+			// Create a new help message
+			CommMessagePtr message(new CommMessage(CommMessage::DetectedEnemy_CommType, 
+				distanceToFriend*1.2, owner, friendlyAI, owner->GetEnemy(), owner->lastVisibleEnemyPos)); 
+
 			// Placeholder, replace with "snd_help" when available
-			owner->GetSubsystem(SubsysCommunication)->PushTask(TaskPtr(new SingleBarkTask("snd_somethingSuspicious")));
-			owner->IssueCommunication_Internal(
+			TaskPtr barkTask(new SingleBarkTask("snd_somethingSuspicious", message));
+			owner->GetSubsystem(SubsysCommunication)->PushTask(barkTask);
+			/*owner->IssueCommunication_Internal(
 				static_cast<float>(ai::CommMessage::DetectedEnemy_CommType), 
 				distanceToFriend*1.2, 
 				friendlyAI,
 				owner->GetEnemy(),
 				owner->lastVisibleEnemyPos
-			);
+			);*/
 
 			// Go back to suspicious, 
 			// wait some time before going back to idle

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2631 $
- * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2632 $
+ * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -235,7 +235,7 @@ struct CommMessage
 	float m_maximumRadiusInWorldCoords;
 };
 typedef boost::shared_ptr<CommMessage> CommMessagePtr;
-typedef std::list<ai::CommMessagePtr> MessageList;
+typedef idList<ai::CommMessagePtr> MessageList;
 
 } // namespace ai
 

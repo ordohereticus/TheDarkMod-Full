@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2632 $
+ * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -72,7 +72,7 @@ public:
 	virtual void OnAudioAlert();
 
 	// Handles incoming messages from other AI
-	virtual void OnAICommMessage(CommMessage* message);
+	virtual void OnAICommMessage(CommMessage& message);
 
 	// greebo: An event called by the obstacle avoidance code to indicate that we have a frobmover ahead
 	virtual void OnFrobDoorEncounter(CFrobDoor* frobDoor);
@@ -119,7 +119,7 @@ protected:
 	virtual void UpdateAlertLevel();
 
 private:
-	void OnMessageDetectedSomethingSuspicious(CommMessage* message);
+	void OnMessageDetectedSomethingSuspicious(CommMessage& message);
 };
 typedef boost::shared_ptr<State> StatePtr;
 
