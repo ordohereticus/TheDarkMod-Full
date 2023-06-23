@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3002 $
- * $Date: 2008-11-08 15:50:01 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3004 $
+ * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3002 2008-11-08 20:50:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3004 2008-11-09 09:33:32Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8859,7 +8859,7 @@ void idEntity::Event_AddInvItem(idEntity* ent)
 	AddToInventory(ent);
 }
 
-CInventoryItemPtr idEntity::AddToInventory(idEntity *ent, idUserInterface* _hud)
+CInventoryItemPtr idEntity::AddToInventory(idEntity *ent)
 {
 	// Sanity check
 	if (ent == NULL) return CInventoryItemPtr();
@@ -8988,7 +8988,7 @@ void idEntity::ChangeInventoryIcon(const char* invName, const char* invCategory,
 	}
 }
 
-void idEntity::InventoryNextItem()
+void idEntity::NextInventoryItem()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	
@@ -9001,7 +9001,7 @@ void idEntity::InventoryNextItem()
 	OnInventorySelectionChanged(prev);
 }
 
-void idEntity::InventoryPrevItem()
+void idEntity::PrevInventoryItem()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	assert(cursor != NULL); // all entities have a cursor after calling InventoryCursor()
@@ -9013,7 +9013,7 @@ void idEntity::InventoryPrevItem()
 	OnInventorySelectionChanged(prev);
 }
 
-void idEntity::InventoryNextGroup()
+void idEntity::NextInventoryGroup()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	
@@ -9025,7 +9025,7 @@ void idEntity::InventoryNextGroup()
 	OnInventorySelectionChanged(prev);
 }
 
-void idEntity::InventoryPrevGroup()
+void idEntity::PrevInventoryGroup()
 {
 	const CInventoryCursorPtr& cursor = InventoryCursor();
 	
@@ -9203,10 +9203,6 @@ int idEntity::CreateOverlay(const char *guiFile, int layer)
 idUserInterface* idEntity::GetOverlay(int handle)
 {
 	return m_overlays.getGui(handle);
-}
-
-void idEntity::inventoryChangeSelection(idUserInterface *_hud, bool bUpdate, CInventoryItem *Prev)
-{
 }
 
 /**

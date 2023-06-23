@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2986 $
- * $Date: 2008-11-02 18:45:48 -0500 (Sun, 02 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 3004 $
+ * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -146,7 +146,7 @@ public:
 		* Shoulderbody: Returns true if body was shouldered
 		* UnShoulderBody: Returns true if there was room to unshoulder the body
 		* NOTE: In the current implementation, UnShoulderBody
-		* is called by idPlayer::inventoryDropItem (if they are holding a body)
+		* is called by idPlayer::DropInventoryItem (if they are holding a body)
 		**/
 		bool					ShoulderBody( idAFEntity_Base *body );
 		bool					UnShoulderBody( void );

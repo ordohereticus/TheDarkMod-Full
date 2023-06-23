@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3002 $
- * $Date: 2008-11-08 15:50:01 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3004 $
+ * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 3002 2008-11-08 20:50:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 3004 2008-11-09 09:33:32Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -294,12 +294,12 @@ void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 	{
 		idStr itemName = args.Argv(1);
 
-		player->InventoryChangeSelection(itemName);
+		player->SelectInventoryItem(itemName);
 	}
 	else if (args.Argc() == 1)
 	{
 		// greebo: Clear the item if no argument is set
-		player->InventoryChangeSelection("");
+		player->SelectInventoryItem("");
 	}
 }
 
@@ -343,7 +343,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		if (item != NULL)
 		{
 			// Item found, set the cursor to it
-			player->InventoryUseItem(EPressed, item, 0);
+			player->UseInventoryItem(EPressed, item, 0);
 		}
 		else
 		{
