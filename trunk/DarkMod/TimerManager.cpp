@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2493 $
- * $Date: 2008-06-15 01:34:49 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2501 $
+ * $Date: 2008-06-15 07:32:37 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -104,16 +104,45 @@ void TimerManager::StopTimer(int timerId)
 
 void TimerManager::PrintTimerResults()
 {
+	gameLocal.Printf("Timer Info at frame: %d\n", gameLocal.framenum);
+
 	for (TimerMap::iterator iterator = _timers.begin(); iterator != _timers.end(); iterator++)
 	{
 		TimerInfo& info = iterator->second;
+		float meanRunTime = info.runCount > 0 ? (info.runTime / info.runCount) : 0;
+		
 		gameLocal.Printf("%s %s \n", info.entityName.c_str(), info.name.c_str());
-		gameLocal.Printf("Number of calls: %d\n", info.runCount);
+		gameLocal.Printf("Number of calls: %d, ", info.runCount);
 		gameLocal.Printf("Total run time: %lf ms\n", info.runTime);
-		gameLocal.Printf("Mean run time per call: %lf ms\n", (info.runCount > 0 ? (info.runTime / info.runCount) : 0));
+		gameLocal.Printf("Mean run time per call: %lf ms\n", meanRunTime);
 		gameLocal.Printf("Max runtime: %lf ms at call number %d\n", info.maxTime, info.maxTimeCall);
 		gameLocal.Printf("---------------------------------\n");
 	}
+}
+
+void TimerManager::DumpTimerResults(const char* const separator, const char* const comma)
+{
+	idStr buffer = va("Entity%sTimer%sNumCalls%sTotalRunTime / ms%sMeanRunTime / ms%sMaxRunTime / ms%sAt Call\n", 
+		separator,separator,separator,separator,separator,separator);
+
+	for (TimerMap::iterator iterator = _timers.begin(); iterator != _timers.end(); iterator++)
+	{
+		TimerInfo& info = iterator->second;
+		float meanRunTime = info.runCount > 0 ? (info.runTime / info.runCount) : 0;
+		buffer += va("%s%s%s%s%d%s%lf%s%lf%s%lf%s%d\n", 
+			info.entityName.c_str(), separator,
+			info.name.c_str(), separator,
+			info.runCount, separator,
+			info.runTime, separator,
+			meanRunTime, separator,
+			info.maxTime, separator,
+			info.maxTimeCall);
+	}
+
+	buffer.Replace(".", comma);
+
+	fileSystem->WriteFile(va("/timerResult_%d.csv", gameLocal.framenum), buffer.c_str(), buffer.Length());
+	gameLocal.Printf("Wrote file: timerResult_%d.csv\n", gameLocal.framenum);
 }
 
 void TimerManager::Clear()

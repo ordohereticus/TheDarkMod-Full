@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2482 $
- * $Date: 2008-06-14 05:00:29 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2501 $
+ * $Date: 2008-06-15 07:32:37 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -56,6 +56,7 @@ public:
 	void	StartTimer(int timerId);
 	void	StopTimer(int timerId);
 	void	PrintTimerResults();
+	void	DumpTimerResults(const char* const separator = ";", const char* const comma = ".");
 	void	Clear();
 
 

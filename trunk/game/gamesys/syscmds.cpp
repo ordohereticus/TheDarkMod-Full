@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2465 $
- * $Date: 2008-06-08 16:15:10 -0400 (Sun, 08 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2501 $
+ * $Date: 2008-06-15 07:32:37 -0400 (Sun, 15 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2465 2008-06-08 20:15:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2501 2008-06-15 11:32:37Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -2686,7 +2686,7 @@ void Cmd_ShowEASRoute_f(const idCmdArgs& args)
 	}
 }
 
-
+#ifdef TIMING_BUILD
 /*
 ==================
 Cmd_PrintAIRelations_f
@@ -2696,6 +2696,25 @@ void Cmd_ListTimers_f(const idCmdArgs& args)
 {
 	PRINT_TIMERS;
 }
+
+void Cmd_WriteTimerCSV_f(const idCmdArgs& args) 
+{
+	if (args.Argc() == 2) // Only separator
+	{
+		debugtools::TimerManager::Instance().DumpTimerResults(args.Argv(1));
+		return;
+	}
+
+	if (args.Argc() == 3) // separator + comma
+	{
+		debugtools::TimerManager::Instance().DumpTimerResults(args.Argv(1), args.Argv(2));
+		return;
+	}
+
+	// No arguments, call default
+	debugtools::TimerManager::Instance().DumpTimerResults();
+}
+#endif // TIMING_BUILD 
 
 /*
 =================
@@ -2830,6 +2849,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "testid",				Cmd_TestId_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"output the string for the specified id." );
 #ifdef TIMING_BUILD
 	cmdSystem->AddCommand( "listTimers",			Cmd_ListTimers_f,			CMD_FL_GAME,				"Shows total run time and max time of timers (TIMING_BUILD only)." );
+	cmdSystem->AddCommand( "writeTimerCSV",			Cmd_WriteTimerCSV_f,		CMD_FL_GAME,				"Writes the timer data to a csv file (usage: writeTimerCSV <separator> <commaChar>). The default separator is ';', the default comma is '.'");
 #endif
 }
 
