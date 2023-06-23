@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2910 $
- * $Date: 2008-10-03 15:04:20 -0400 (Fri, 03 Oct 2008) $
+ * $Revision: 2936 $
+ * $Date: 2008-10-09 00:07:27 -0400 (Thu, 09 Oct 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 2910 2008-10-03 19:04:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 2936 2008-10-09 04:07:27Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1056,11 +1056,17 @@ void State::OnVisualStimBrokenItem(idEntity* stimSource, idAI* owner)
 
 	gameLocal.Printf("Something is broken over there!\n");
 
+	owner->StopMove(MOVE_STATUS_DONE);
+	owner->TurnToward(stimSource->GetPhysics()->GetOrigin());
+	owner->Event_LookAtEntity(stimSource, 1);
+
 	// Speak a reaction
 	memory.lastTimeVisualStimBark = gameLocal.time;
 	owner->GetSubsystem(SubsysCommunication)->PushTask(
 		TaskPtr(new SingleBarkTask("snd_foundBrokenItem"))
 	);
+
+	owner->AI_RUN = true;
 
 	// One more piece of evidence of something out of place
 	memory.itemsHaveBeenBroken = true;
