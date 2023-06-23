@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2291 $
- * $Date: 2008-05-11 04:09:46 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2304 $
+ * $Date: 2008-05-12 06:53:06 -0400 (Mon, 12 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2291 2008-05-11 08:09:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2304 2008-05-12 10:53:06Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -2668,6 +2668,30 @@ void Cmd_ShowAASStats_f(const idCmdArgs& args)
 	}
 }
 
+void Cmd_ShowEASRoute_f(const idCmdArgs& args)
+{
+	if (args.Argc() != 2)
+	{
+		common->Printf( "usage: eas_showRoute <targetAreaNum>\n" );
+		return;
+	}
+
+	idPlayer* player = gameLocal.GetLocalPlayer();
+	if (player == NULL) 
+	{
+		common->Printf( "no player found\n" );
+		return;
+	}
+
+	idAASLocal* aas = dynamic_cast<idAASLocal*>(gameLocal.GetAAS("aas32"));
+	if (aas != NULL)
+	{
+		int areaNum = atoi(args.Argv(1));
+
+		aas->DrawEASRoute(player->GetPhysics()->GetOrigin(), areaNum);
+	}
+}
+
 void Cmd_SignalCMDDone_f(const idCmdArgs& args)
 {
 	if (gameLocal.m_DarkRadiantRCFServer != NULL)
@@ -2776,6 +2800,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "aas_showWalkPath",		Cmd_ShowWalkPath_f,			CMD_FL_GAME,				"Shows the walk path from the player to the given area number (AAS32)." );
 	cmdSystem->AddCommand( "aas_showReachabilities",Cmd_ShowReachabilities_f,			CMD_FL_GAME,				"Shows the reachabilities for the given area number (AAS32)." );
 	cmdSystem->AddCommand( "aas_showStats",			Cmd_ShowAASStats_f,			CMD_FL_GAME,				"Shows the AAS statistics." );
+	cmdSystem->AddCommand( "eas_showRoute",			Cmd_ShowEASRoute_f,			CMD_FL_GAME,				"Shows the EAS route to the goal area." );
 	
 	cmdSystem->AddCommand( "darkradiant_signal_cmd_done",	Cmd_SignalCMDDone_f,		CMD_FL_GAME,				"Called by DarkRadiant to receive the DONE signal after issuing commands." );
 

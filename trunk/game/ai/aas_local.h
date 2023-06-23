@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2299 $
- * $Date: 2008-05-11 12:18:17 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2304 $
+ * $Date: 2008-05-12 06:53:06 -0400 (Mon, 12 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -226,6 +226,7 @@ public:	// debug
 	void						RandomPullPlayer( const idVec3 &origin ) const;
 	void						ShowPushIntoArea( const idVec3 &origin ) const;
 	void						DrawAreas( const idVec3& playerOrigin );
+	void						DrawEASRoute( const idVec3& playerOrigin, int goalArea );
 };
 
 #endif /* !__AAS_LOCAL_H__ */

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2297 $
- * $Date: 2008-05-11 09:11:39 -0400 (Sun, 11 May 2008) $
+ * $Revision: 2304 $
+ * $Date: 2008-05-12 06:53:06 -0400 (Mon, 12 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 2297 2008-05-11 13:11:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_debug.cpp 2304 2008-05-12 10:53:06Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing
@@ -534,4 +534,14 @@ void idAASLocal::DrawAreas(const idVec3& playerOrigin)
 			gameRenderWorld->DebugBox(colour, idBox(areaBounds), 10000);
 		}
 	}
+}
+
+void idAASLocal::DrawEASRoute( const idVec3& playerOrigin, int goalArea )
+{
+	idVec3 origin = playerOrigin;
+	int areaNum = PointReachableAreaNum( origin, DefaultSearchBounds(), (AREA_REACHABLE_WALK|AREA_REACHABLE_FLY) );
+
+	PushPointIntoAreaNum( areaNum, origin );
+
+	elevatorSystem->DrawRoute(areaNum, goalArea);
 }
