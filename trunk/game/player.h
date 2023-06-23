@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2997 $
- * $Date: 2008-11-08 08:35:28 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 2999 $
+ * $Date: 2008-11-08 11:01:17 -0500 (Sat, 08 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -810,9 +810,6 @@ public:
 
 	// Changes the inventory selection to the item with the given name
 	void inventoryChangeSelection(const idStr& name);
-
-	// Sends appropriate messages/updates varaiables/etc after the cursor has changed. Returns if shifting should occur.
-	void inventoryChangeSelection(idUserInterface *_hud, bool bUpdate = false, const CInventoryItemPtr& Prev = CInventoryItemPtr());
 
 	// Override idEntity method to get notified upon item changes
 	virtual void OnInventoryItemChanged();
