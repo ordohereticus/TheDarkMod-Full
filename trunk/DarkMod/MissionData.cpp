@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2471 $
- * $Date: 2008-06-13 01:10:11 -0400 (Fri, 13 Jun 2008) $
+ * $Revision: 2473 $
+ * $Date: 2008-06-14 01:45:28 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2471 2008-06-13 05:10:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2473 2008-06-14 05:45:28Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -793,16 +793,20 @@ void CMissionData::Event_ObjectiveComplete( int ind )
 	{
 		// default logic: check if all mandatory, valid objectives have been completed
 		// If so, the mission is complete
-		for( int i=0; i<m_Objectives.Num(); i++ )
+		for (int i = 0; i < m_Objectives.Num(); i++)
 		{
-			CObjective *pObj = &m_Objectives[i];
-			bTemp = ( pObj->m_state == STATE_COMPLETE || pObj->m_state == STATE_INVALID
-						 || !pObj->m_bMandatory );
-			bTest = bTest && bTemp;
+			CObjective& obj = m_Objectives[i];
+
+			// only check visible objectives
+			if (obj.m_bVisible)
+			{
+				bTemp = ( obj.m_state == STATE_COMPLETE || obj.m_state == STATE_INVALID || !obj.m_bMandatory );
+				bTest = bTest && bTemp;
+			}
 		}
 	}
 
-	idPlayer* player = gameLocal.localClientNum >= 0 ? static_cast<idPlayer *>( gameLocal.entities[ gameLocal.localClientNum ] ) : NULL;
+	idPlayer* player = gameLocal.GetLocalPlayer();
 
 	if (player == NULL) {
 		gameLocal.Error("No player at mission success!\n");
@@ -823,7 +827,7 @@ void CMissionData::Event_ObjectiveComplete( int ind )
 
 			// call completion script
 			function_t *pScriptFun = gameLocal.program.FindFunction( m_Objectives[ind].m_CompletionScript.c_str() );
-			if(pScriptFun)
+			if (pScriptFun != NULL)
 			{
 				idThread *pThread = new idThread( pScriptFun );
 				pThread->CallFunction( pScriptFun, true );
