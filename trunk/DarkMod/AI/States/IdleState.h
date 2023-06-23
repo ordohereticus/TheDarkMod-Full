@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2470 $
- * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
+ * $Revision: 2475 $
+ * $Date: 2008-06-14 02:37:18 -0400 (Sat, 14 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -20,7 +20,6 @@ namespace ai
 class IdleState :
 	public State
 {
-
 public:
 	// Get the name of this state
 	virtual const idStr& GetName() const;
@@ -38,6 +37,9 @@ public:
 	static StatePtr CreateInstance();
 
 protected:
+
+	bool _startSitting;
+
 	// Override base class method
 	virtual bool CheckAlertLevel(idAI* owner);
 

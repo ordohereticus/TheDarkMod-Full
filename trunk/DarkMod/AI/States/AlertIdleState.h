@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2475 $
+ * $Date: 2008-06-14 02:37:18 -0400 (Sat, 14 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -31,7 +31,10 @@ public:
 	virtual const idStr& GetName() const;
 
 	// This is called when the state is first attached to the AI's Mind.
+	// Note: we do not call IdleState::Init
 	virtual void Init(idAI* owner);
+
+	// Think is inherited from IdleState::Think
 
 	static StatePtr CreateInstance();
 
