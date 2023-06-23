@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2577 $
- * $Date: 2008-06-26 15:58:46 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2579 $
+ * $Date: 2008-06-26 16:12:28 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2577 2008-06-26 19:58:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2579 2008-06-26 20:12:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5869,7 +5869,7 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 			if (stim->m_RadiusFinal > 0 && stim->m_Duration != 0)
 			{
 				// Calculate how much of the stim duration has passed already
-				float timeFraction = (gameLocal.time - stim->m_EnabledTimeStamp) / stim->m_Duration;
+				float timeFraction = static_cast<float>(gameLocal.time - stim->m_EnabledTimeStamp) / stim->m_Duration;
 				timeFraction = idMath::ClampFloat(0, 1, timeFraction);
 
 				// Linearly interpolate the radius
@@ -5899,6 +5899,10 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 					}
 
 					bounds.ExpandSelf(radius);
+				}
+
+				if (stim->m_StimTypeId == ST_GAS) {
+					gameRenderWorld->DebugBox(colorGreen, idBox(bounds), 48);
 				}
 
 				// Collision-based stims
