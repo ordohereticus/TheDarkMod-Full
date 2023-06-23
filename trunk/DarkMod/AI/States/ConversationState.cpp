@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2807 $
- * $Date: 2008-09-08 11:38:21 -0400 (Mon, 08 Sep 2008) $
+ * $Revision: 2808 $
+ * $Date: 2008-09-09 13:36:50 -0400 (Tue, 09 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2807 2008-09-08 15:38:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2808 2008-09-09 17:36:50Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -305,6 +305,8 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 				}
 				else
 				{
+					// The talker should turn to any other listener
+
 					// Are there any other actors at all?
 					if (conversation.GetNumActors() > 1) 
 					{

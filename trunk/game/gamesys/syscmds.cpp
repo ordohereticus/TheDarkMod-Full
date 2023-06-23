@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2720 $
- * $Date: 2008-08-04 13:50:11 -0400 (Mon, 04 Aug 2008) $
- * $Author: orbweaver $
+ * $Revision: 2808 $
+ * $Date: 2008-09-09 13:36:50 -0400 (Tue, 09 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2720 2008-08-04 17:50:11Z orbweaver $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2808 2008-09-09 17:36:50Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -1735,6 +1735,26 @@ static void Cmd_ListAnims_f( const idCmdArgs &args ) {
 	}
 }
 
+// greebo: Reload the xdata declarations by forcing the declaration manager to perform a reload
+static void Cmd_ReloadXData_f( const idCmdArgs &args )
+{
+	// Reload the declarations, this triggers a re-parse of all xdata files (and all other files on that matter)
+	declManager->Reload(true);
+	// greebo: This is called twice on purpose. For some reason, the first reload doesn't reload the xdata files.
+	declManager->Reload(true);
+
+	// Now cycle through all active entities and call "refreshReadables" on them
+	for (idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next())
+	{
+		idThread* thread = ent->CallScriptFunctionArgs("reloadXData", true, 0, "e", ent);
+
+		if (thread != NULL)
+		{
+			thread->Execute();
+		}
+	}
+}
+
 /*
 ==================
 Cmd_AASStats_f
@@ -2693,11 +2713,6 @@ void Cmd_ShowEASRoute_f(const idCmdArgs& args)
 }
 
 #ifdef TIMING_BUILD
-/*
-==================
-Cmd_PrintAIRelations_f
-==================
-*/
 void Cmd_ListTimers_f(const idCmdArgs& args) 
 {
 	PRINT_TIMERS;
@@ -2818,6 +2833,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "inventory_hotkey",		Cmd_InventoryHotkey_f,		CMD_FL_GAME,				"Usage: inventory_hotkey [item]\nSelects an item from the currently available inventory. If 'item' is omitted, it will return the current item's hotkey name, if any." );
 	cmdSystem->AddCommand( "inventory_use",			Cmd_InventoryUse_f,			CMD_FL_GAME,				"Usage: inventory_use [item]\nUses an item in the currently available inventory without selectign it. If 'item' is omitted, it will use the currently selected item." );
 	cmdSystem->AddCommand( "inventory_cycle_maps",	Cmd_InventoryCycleMaps_f,	CMD_FL_GAME,				"Usage: Bind a key to this command to cycle through the inventory maps." );
+
+	cmdSystem->AddCommand( "reloadXData",			Cmd_ReloadXData_f,			CMD_FL_GAME,				"Reloads the xdata declarations and refreshes all readables." );
 
 	cmdSystem->AddCommand( "aas_showWalkPath",		Cmd_ShowWalkPath_f,			CMD_FL_GAME,				"Shows the walk path from the player to the given area number (AAS32)." );
 	cmdSystem->AddCommand( "aas_showReachabilities",Cmd_ShowReachabilities_f,			CMD_FL_GAME,				"Shows the reachabilities for the given area number (AAS32)." );
