@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3037 $
- * $Date: 2008-11-18 13:32:15 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3038 $
+ * $Date: 2008-11-19 00:21:40 -0500 (Wed, 19 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3037 2008-11-18 18:32:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3038 2008-11-19 05:21:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -139,6 +139,8 @@ const idEventDef EV_ReadLightgemModifierFromWorldspawn("readLightgemModifierFrom
 // greebo: Changes the projectile entityDef name of the given weapon (e.g. "broadhead").
 const idEventDef EV_ChangeWeaponProjectile("changeWeaponProjectile", "ss", NULL);
 const idEventDef EV_ResetWeaponProjectile("resetWeaponProjectile", "s", NULL);
+const idEventDef EV_ChangeWeaponName("changeWeaponName", "ss", NULL);
+const idEventDef EV_GetCurWeaponName("getCurWeaponName", NULL, 's');
 
 CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_GetButtons,			idPlayer::Event_GetButtons )
@@ -214,6 +216,8 @@ CLASS_DECLARATION( idActor, idPlayer )
 
 	EVENT( EV_ChangeWeaponProjectile,		idPlayer::Event_ChangeWeaponProjectile )
 	EVENT( EV_ResetWeaponProjectile,		idPlayer::Event_ResetWeaponProjectile )
+	EVENT( EV_ChangeWeaponName,				idPlayer::Event_ChangeWeaponName )
+	EVENT( EV_GetCurWeaponName,				idPlayer::Event_GetCurWeaponName )
 
 	EVENT( EV_CheckAAS,						idPlayer::Event_CheckAAS )
 
@@ -3625,6 +3629,29 @@ void idPlayer::ResetWeaponProjectile(const idStr& weaponName)
 	if (weaponItem == NULL) return;
 
 	weaponItem->ResetProjectileDefName();
+}
+
+void idPlayer::ChangeWeaponName(const idStr& weaponName, const idStr& displayName)
+{
+	CInventoryWeaponItemPtr weaponItem = GetWeaponItem(weaponName);
+	if (weaponItem == NULL) return;
+
+	if (!displayName.IsEmpty())
+	{
+		weaponItem->SetName(displayName);
+	}
+	else
+	{
+		const idDeclEntityDef* def = gameLocal.FindEntityDef(weaponItem->GetWeaponDefName());
+
+		if (def != NULL)
+		{
+			// Empty name passed, reset to definition
+			weaponItem->SetName(def->dict.GetString("inv_name"));
+		}
+	}
+
+	UpdateHudWeapon();
 }
 
 void idPlayer::SetIsPushing(bool isPushing)
@@ -10753,4 +10780,17 @@ void idPlayer::Event_ChangeWeaponProjectile(const char* weaponName, const char* 
 void idPlayer::Event_ResetWeaponProjectile(const char* weaponName)
 {
 	ResetWeaponProjectile(weaponName);
+}
+
+void idPlayer::Event_ChangeWeaponName(const char* weaponName, const char* newName)
+{
+	ChangeWeaponName(weaponName, newName);
+}
+
+void idPlayer::Event_GetCurWeaponName()
+{
+	CInventoryWeaponItemPtr weaponItem = GetCurrentWeaponItem();
+	if (weaponItem == NULL) return;
+
+	idThread::ReturnString( weaponItem->GetWeaponName().c_str() );
 }

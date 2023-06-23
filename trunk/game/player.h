@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3037 $
- * $Date: 2008-11-18 13:32:15 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3038 $
+ * $Date: 2008-11-19 00:21:40 -0500 (Wed, 19 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1057,6 +1057,12 @@ private:
 	// greebo: Resets the weapon projectile as originally defined in the weaponDef
 	void					ResetWeaponProjectile(const idStr& weaponName);
 
+	/**
+	 * greebo: Changes the name of the given weapon item to a new string. Pass an empty string "" to this
+	 * function to reset the name to the value defined in the weaponDef.
+	 */
+	void					ChangeWeaponName(const idStr& weaponName, const idStr& displayName);
+
 	void					UpdateSpectating( void );
 	void					SpectateFreeFly( bool force );	// ignore the timeout to force when followed spec is no longer valid
 	void					SpectateCycle( void );
@@ -1204,6 +1210,8 @@ private:
 	// Changes the projectile def name of the given weapon inventory item
 	void					Event_ChangeWeaponProjectile(const char* weaponName, const char* projectileDefName);
 	void					Event_ResetWeaponProjectile(const char* weaponName);
+	void					Event_ChangeWeaponName(const char* weaponName, const char* newName);
+	void					Event_GetCurWeaponName();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {

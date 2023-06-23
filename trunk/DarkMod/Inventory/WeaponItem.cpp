@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3036 $
- * $Date: 2008-11-18 13:31:24 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3038 $
+ * $Date: 2008-11-19 00:21:40 -0500 (Wed, 19 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3036 2008-11-18 18:31:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3038 2008-11-19 05:21:40Z greebo $", init_version);
 
 #include "WeaponItem.h"
 
@@ -193,4 +193,9 @@ void CInventoryWeaponItem::ResetProjectileDefName()
 	if (weaponDict == NULL) return;
 
 	m_ProjectileDefName = weaponDict->GetString("def_projectile");
+}
+
+const idStr& CInventoryWeaponItem::GetWeaponDefName() const
+{
+	return m_WeaponDefName;
 }

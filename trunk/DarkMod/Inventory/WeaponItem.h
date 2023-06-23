@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3037 $
- * $Date: 2008-11-18 13:32:15 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3038 $
+ * $Date: 2008-11-19 00:21:40 -0500 (Wed, 19 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -101,6 +101,9 @@ public:
 
 	// Restores the projectile def name as originally defined in the weapon def
 	void ResetProjectileDefName();
+
+	// Returns the name of the weapon entityDef
+	const idStr& GetWeaponDefName() const;
 };
 typedef boost::shared_ptr<CInventoryWeaponItem> CInventoryWeaponItemPtr;
 
