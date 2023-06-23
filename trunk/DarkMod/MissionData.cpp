@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2258 $
- * $Date: 2008-05-01 09:41:45 -0400 (Thu, 01 May 2008) $
+ * $Revision: 2432 $
+ * $Date: 2008-06-04 12:43:41 -0400 (Wed, 04 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2258 2008-05-01 13:41:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2432 2008-06-04 16:43:41Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2144,6 +2144,7 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 	}
 
 	ui->SetStateInt("NumVisibleObjectives", objIndices.Num());
+	ui->SetStateInt("ObjectiveBoxIsVisible", 1);
 
 	int numObjectivesPerPage = 5;
 	numObjectivesPerPage = ui->GetStateInt("NumObjectivesPerPage");
@@ -2157,16 +2158,30 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 	ui->SetStateInt("ScrollDownVisible", nextButtonVisible ? 1 : 0);
 	ui->SetStateInt("ScrollUpVisible", prevButtonVisible ? 1 : 0);
 
+	// First, hide all objectives, the number might have been changed, so some could stay visible
+	for (int i = 0; i < numObjectivesPerPage; i++)
+	{
+		// greebo: GUI objective numbers are starting with 1
+		idStr prefix = va("obj%d", i+1);
+		ui->SetStateInt(prefix + "_visible", 0);
+	}
+
 	for (int i = startIdx, objCount = 0; 
 		 i < objIndices.Num() && objCount < numObjectivesPerPage; 
 		 i++, objCount++)
 	{
 		int index = objIndices[i];
 
+		// greebo: GUI objective numbers are starting with 1
+		int guiObjNum = objCount + 1;
+
+		idStr prefix = va("obj%d", guiObjNum);
+
+		// Show this objective, invisible ones are not considered in this loop in the first place
+		ui->SetStateInt(prefix + "_visible", 1);
+
 		// Get a shortcut to the target objective
 		CObjective& obj = m_Objectives[index];
-
-		idStr prefix = va("obj%d", objCount+1);
 
 		// Set the text
 		ui->SetStateString(prefix + "_text", obj.m_text);
@@ -2183,10 +2198,8 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 		// Write the state to the GUI
 		ui->SetStateInt(prefix + "_state", static_cast<int>(state));
 
-		ui->SetStateInt(prefix + "_visible", obj.m_bVisible);
-
 		// Call UpdateObjectiveStateN to perform some GUI-specific updates
-		ui->HandleNamedEvent(va("UpdateObjective%d", index));
+		ui->HandleNamedEvent(va("UpdateObjective%d", guiObjNum));
 	}
 
 	// Force a redraw
