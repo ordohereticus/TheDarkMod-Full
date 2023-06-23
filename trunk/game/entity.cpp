@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2757 $
- * $Date: 2008-08-25 15:08:09 -0400 (Mon, 25 Aug 2008) $
+ * $Revision: 2802 $
+ * $Date: 2008-09-06 09:40:40 -0400 (Sat, 06 Sep 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2757 2008-08-25 19:08:09Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2802 2008-09-06 13:40:40Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8734,7 +8734,6 @@ CInventoryItem *idEntity::AddToInventory(idEntity *ent, idUserInterface *_hud)
 	// Get (create) the InventoryCursor of this Entity.
 	CInventoryCursor *crsr = InventoryCursor();
 	CInventoryItem *rc = NULL;
-	CInventoryItem *prev = NULL;
 	idStr s;
 	int v = 0;
 
