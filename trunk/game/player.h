@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3034 $
- * $Date: 2008-11-18 12:59:27 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3037 $
+ * $Date: 2008-11-18 13:32:15 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1047,6 +1047,16 @@ private:
 	void					Weapon_NPC( void );
 	void					Weapon_GUI( void );
 	void					UpdateWeapon( void );
+
+	/**
+	 * greebo: Changes the projectileDef name of the weapon inventory item with the given name.
+	 * The name is defined in the "inv_weapon_name" spawnarg in the weaponDef.
+	 */
+	void					ChangeWeaponProjectile(const idStr& weaponName, const idStr& projectileDefName);
+
+	// greebo: Resets the weapon projectile as originally defined in the weaponDef
+	void					ResetWeaponProjectile(const idStr& weaponName);
+
 	void					UpdateSpectating( void );
 	void					SpectateFreeFly( bool force );	// ignore the timeout to force when followed spec is no longer valid
 	void					SpectateCycle( void );
@@ -1190,6 +1200,10 @@ private:
 
 	// Checks the AAS status and displays the HUD warning
 	void					Event_CheckAAS();
+
+	// Changes the projectile def name of the given weapon inventory item
+	void					Event_ChangeWeaponProjectile(const char* weaponName, const char* projectileDefName);
+	void					Event_ResetWeaponProjectile(const char* weaponName);
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {

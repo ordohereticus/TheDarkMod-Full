@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3034 $
- * $Date: 2008-11-18 12:59:27 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3037 $
+ * $Date: 2008-11-18 13:32:15 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3034 2008-11-18 17:59:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3037 2008-11-18 18:32:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -136,6 +136,10 @@ const idEventDef EV_CheckAAS("checkAAS", NULL);
 const idEventDef EV_Player_SetLightgemModifier("setLightgemModifier", "sd");
 const idEventDef EV_ReadLightgemModifierFromWorldspawn("readLightgemModifierFromWorldspawn", NULL);
 
+// greebo: Changes the projectile entityDef name of the given weapon (e.g. "broadhead").
+const idEventDef EV_ChangeWeaponProjectile("changeWeaponProjectile", "ss", NULL);
+const idEventDef EV_ResetWeaponProjectile("resetWeaponProjectile", "s", NULL);
+
 CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_GetButtons,			idPlayer::Event_GetButtons )
 	EVENT( EV_Player_GetMove,				idPlayer::Event_GetMove )
@@ -207,6 +211,9 @@ CLASS_DECLARATION( idActor, idPlayer )
 
 	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
 	EVENT( EV_TriggerMissionEnd,			idPlayer::Event_TriggerMissionEnd )
+
+	EVENT( EV_ChangeWeaponProjectile,		idPlayer::Event_ChangeWeaponProjectile )
+	EVENT( EV_ResetWeaponProjectile,		idPlayer::Event_ResetWeaponProjectile )
 
 	EVENT( EV_CheckAAS,						idPlayer::Event_CheckAAS )
 
@@ -3602,6 +3609,22 @@ void idPlayer::UpdateWeapon( void ) {
 
 	// update weapon state, particles, dlights, etc
 	weapon.GetEntity()->PresentWeapon( showWeaponViewModel );
+}
+
+void idPlayer::ChangeWeaponProjectile(const idStr& weaponName, const idStr& projectileDefName)
+{
+	CInventoryWeaponItemPtr weaponItem = GetWeaponItem(weaponName);
+	if (weaponItem == NULL) return;
+
+	weaponItem->SetProjectileDefName(projectileDefName);
+}
+
+void idPlayer::ResetWeaponProjectile(const idStr& weaponName)
+{
+	CInventoryWeaponItemPtr weaponItem = GetWeaponItem(weaponName);
+	if (weaponItem == NULL) return;
+
+	weaponItem->ResetProjectileDefName();
 }
 
 void idPlayer::SetIsPushing(bool isPushing)
@@ -10719,4 +10742,15 @@ void idPlayer::Event_CheckAAS()
 			SendHUDMessage("Warning: " + aasNames[i] + " is out of date!");
 		}
 	}
+}
+
+void idPlayer::Event_ChangeWeaponProjectile(const char* weaponName, const char* projectileDefName)
+{
+	// Just wrap to the actual method
+	ChangeWeaponProjectile(weaponName, projectileDefName);
+}
+
+void idPlayer::Event_ResetWeaponProjectile(const char* weaponName)
+{
+	ResetWeaponProjectile(weaponName);
 }

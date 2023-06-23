@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3035 $
- * $Date: 2008-11-18 13:17:47 -0500 (Tue, 18 Nov 2008) $
+ * $Revision: 3037 $
+ * $Date: 2008-11-18 13:32:15 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -97,6 +97,10 @@ public:
 	 * Melee weapons will return an empty string.
 	 */
 	const idStr& GetProjectileDefName() const;
+	void SetProjectileDefName(const idStr& weaponDefName);
+
+	// Restores the projectile def name as originally defined in the weapon def
+	void ResetProjectileDefName();
 };
 typedef boost::shared_ptr<CInventoryWeaponItem> CInventoryWeaponItemPtr;
 
