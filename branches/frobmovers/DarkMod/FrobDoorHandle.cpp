@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2534 $
- * $Date: 2008-06-19 15:51:21 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2535 $
+ * $Date: 2008-06-20 00:52:00 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2534 2008-06-19 19:51:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2535 2008-06-20 04:52:00Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -22,7 +22,7 @@ static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2534 2008-06
 #include "FrobDoorHandle.h"
 
 //===============================================================================
-//CFrobDoorHandle
+// CFrobDoorHandle
 //===============================================================================
 const idEventDef EV_TDM_Handle_GetDoor( "GetDoor", NULL, 'e' );
 const idEventDef EV_TDM_Handle_Tap( "Tap", NULL );
@@ -68,12 +68,12 @@ void CFrobDoorHandle::SetDoor(CFrobDoor* door)
 	m_Door = door;
 }
 
-void CFrobDoorHandle::Event_GetDoor(void)
+void CFrobDoorHandle::Event_GetDoor()
 {
 	return idThread::ReturnEntity(m_Door);
 }
 
-void CFrobDoorHandle::Event_Tap(void)
+void CFrobDoorHandle::Event_Tap()
 {
 	Tap();
 }
