@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2674 $
- * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2676 $
+ * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -50,8 +50,8 @@ public:
 	// Sets the conversation this state should handle
 	void SetConversation(int index);
 
-	// Handles the given command
-	void Execute(const ConversationCommandPtr& command);
+	// Handles the given command, returns FALSE on failure
+	bool Execute(ConversationCommand& command);
 
 	// Returns the conversation status to let outsiders know if the current action is finished
 	Status GetStatus();

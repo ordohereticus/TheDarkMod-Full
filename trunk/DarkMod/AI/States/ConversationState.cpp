@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2674 $
- * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2676 $
+ * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2674 2008-07-16 18:01:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2676 2008-07-16 19:04:21Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -98,9 +98,25 @@ bool ConversationState::CheckConversationPrerequisites()
 	return true;
 }
 
-void ConversationState::Execute(const ConversationCommandPtr& command)
+bool ConversationState::Execute(ConversationCommand& command)
 {
+	bool success = true;
 
+	idAI* owner = _owner.GetEntity();
+	assert(owner != NULL);
+
+	switch (command.GetType())
+	{
+	case ConversationCommand::ETalk:
+		owner->PlayAndLipSync(command.GetArgument(0), "talk1");
+		break;
+	default:
+		gameLocal.Warning("Unknown command type found %d", command.GetType());
+		DM_LOG(LC_CONVERSATION, LT_ERROR)LOGSTRING("Unknown command type found %d", command.GetType());
+		success = false;
+	};
+
+	return success;
 }
 
 ConversationState::Status ConversationState::GetStatus()

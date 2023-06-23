@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2675 $
- * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2676 $
+ * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -80,7 +80,7 @@ public:
 	 *
 	 * @returns: TRUE if the execution was successful, FALSE on error.
 	 */
-	bool Execute(Conversation* conversation);
+	bool Execute(Conversation& conversation);
 
 	/**
 	 * greebo: Parses the command parameters from the given idDict.

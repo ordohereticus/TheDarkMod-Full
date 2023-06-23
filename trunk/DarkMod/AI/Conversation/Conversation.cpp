@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2675 $
- * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2676 $
+ * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2675 2008-07-16 18:45:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2676 2008-07-16 19:04:21Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -100,6 +100,11 @@ void Conversation::Start()
 	_currentCommand = 0;
 }
 
+bool Conversation::IsDone()
+{
+	return _currentCommand >= _commands.Num();
+}
+
 bool Conversation::Process()
 {
 	// Check for index out of bounds in debug builds
@@ -115,7 +120,7 @@ bool Conversation::Process()
 	_currentCommand++;
 
 	// Pass the call and return the result
-	return command->Execute(this);
+	return command->Execute(*this);
 }
 
 idActor* Conversation::GetActor(int index)

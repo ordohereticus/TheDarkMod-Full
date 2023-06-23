@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2675 $
- * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2676 $
+ * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,10 +10,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2675 2008-07-16 18:45:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2676 2008-07-16 19:04:21Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
+#include "../States/ConversationState.h"
 
 namespace ai {
 
@@ -58,20 +59,29 @@ int ConversationCommand::GetNumArguments()
 // Returns the given argument (starting with index 0) or "" if the argument doesn't exist
 idStr ConversationCommand::GetArgument(int index)
 {
-	return (index > 0 && index < _arguments.Num()) ? _arguments[index] : "";
+	return (index >= 0 && index < _arguments.Num()) ? _arguments[index] : "";
 }
 
-bool ConversationCommand::Execute(Conversation* conversation)
+bool ConversationCommand::Execute(Conversation& conversation)
 {
-	idActor* actor = conversation->GetActor(_actor);
+	idActor* actor = conversation.GetActor(_actor);
 
 	if (actor == NULL)
 	{
-		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Command on conversation %s could not find actor %d.\r", conversation->GetName().c_str(), _actor);
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Command on conversation %s could not find actor %d.\r", conversation.GetName().c_str(), _actor);
 		return false;
 	}
 
-	// TODO
+	if (actor->IsType(idAI::Type))
+	{
+		idAI* ai = static_cast<idAI*>(actor);
+
+		// Let's see if the AI can handle this conversation command
+		ConversationStatePtr state = boost::dynamic_pointer_cast<ConversationState>(ai->GetMind()->GetState());
+
+		// Pass the call to the AI
+		return state->Execute(*this);
+	}
 
 	return true;
 }

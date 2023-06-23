@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2675 $
- * $Date: 2008-07-16 14:45:26 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2676 $
+ * $Date: 2008-07-16 15:04:21 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2675 2008-07-16 18:45:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2676 2008-07-16 19:04:21Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -126,6 +126,16 @@ void ConversationSystem::ProcessConversations()
 			// Job returned false, terminate this conversation
 			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Terminating conversation %s due to error.\r", conv->GetName().c_str());
 			EndConversation(_activeConversations[i]);
+			continue;
+		}
+		
+		// Check if the conversation is done
+		if (conv->IsDone())
+		{
+			// Job returned false, terminate this conversation
+			DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Conversation %s finished normally.\r", conv->GetName().c_str());
+			EndConversation(_activeConversations[i]);
+			continue;
 		}
 	}
 }
