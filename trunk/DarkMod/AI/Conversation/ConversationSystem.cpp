@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2649 $
- * $Date: 2008-07-13 09:16:43 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2651 $
+ * $Date: 2008-07-13 10:18:33 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2649 2008-07-13 13:16:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2651 2008-07-13 14:18:33Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -43,6 +43,8 @@ void ConversationSystem::Init(idMapFile* mapFile)
 			LoadConversationEntity(mapEnt);
 		}
 	}
+
+	// TODO: Log how many conversations have been found
 }
 
 void ConversationSystem::Save(idSaveGame* savefile) const
@@ -59,7 +61,23 @@ void ConversationSystem::LoadConversationEntity(idMapEntity* entity)
 {
 	assert(entity != NULL);
 
-	float talkDistance = entity->epairs.GetFloat("talk_distance", "100");
+	for (int i = 0; i < INT_MAX; i++)
+	{
+		// Attempt to construct a new Conversation object
+		ConversationPtr conv(new Conversation(entity->epairs, i));
+
+		if (conv->IsValid())
+		{
+			// TODO: Store the conversation
+		}
+		else
+		{
+			// This loop breaks on the first invalid conversation
+			gameLocal.Printf("ConversationManager: Found %d valid conversations.\n", i);
+			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation entity %s: found %d valid conversations.\r", entity->epairs.GetString("name"), i);
+			break;
+		}
+	}
 }
 
 } // namespace ai

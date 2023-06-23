@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2648 $
- * $Date: 2008-07-13 08:47:00 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2651 $
+ * $Date: 2008-07-13 10:18:33 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../../../idlib/precompiled.h"
 
-#include <boost/shared_ptr.hpp>
+#include "Conversation.h"
 
 namespace ai {
 

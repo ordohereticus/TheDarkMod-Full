@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2646 $
-#* $Date: 2008-07-13 07:20:57 -0400 (Sun, 13 Jul 2008) $
+#* $Revision: 2651 $
+#* $Date: 2008-07-13 10:18:33 -0400 (Sun, 13 Jul 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -181,6 +181,7 @@ AI/Mind.cpp \
 AI/Memory.cpp \
 AI/Subsystem.cpp \
 AI/Conversation/ConversationSystem.cpp \
+AI/Conversation/Conversation.cpp \
 AI/EAS/EAS.cpp \
 AI/EAS/RouteInfo.cpp \
 AI/EAS/RouteNode.cpp \
