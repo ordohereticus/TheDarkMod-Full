@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3014 $
- * $Date: 2008-11-11 13:12:59 -0500 (Tue, 11 Nov 2008) $
+ * $Revision: 3015 $
+ * $Date: 2008-11-11 13:26:02 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3014 2008-11-11 18:12:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3015 2008-11-11 18:26:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1556,9 +1556,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	savegame.ReadBuildNumber();
 	savegame.ReadCodeRevision();
 
-	if (savegame.GetCodeRevision() != RevisionTracker::Instance().GetHighestRevision())
+	if (!cv_force_savegame_load.GetBool() && savegame.GetCodeRevision() != RevisionTracker::Instance().GetHighestRevision())
 	{
-		gameLocal.Printf("Can't load this savegame, was saved with an old revision %d.", savegame.GetCodeRevision());
+		gameLocal.Printf("Can't load this savegame, was saved with an old revision %d\n.", savegame.GetCodeRevision());
 		return false;
 	}
 

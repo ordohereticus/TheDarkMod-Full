@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3000 $
- * $Date: 2008-11-08 13:14:03 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3015 $
+ * $Date: 2008-11-11 13:26:02 -0500 (Tue, 11 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -112,6 +112,8 @@ extern idCVar cv_pm_climb_distance;
 * For example 3000.0 would mean 3 seconds
 */
 extern idCVar cv_ai_search_show;
+
+extern idCVar cv_force_savegame_load;
 
 /**
 * TDM Leaning vars:
