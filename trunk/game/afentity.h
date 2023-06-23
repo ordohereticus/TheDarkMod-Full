@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2612 $
- * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2780 $
+ * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -231,6 +231,12 @@ public:
 	* Called by UnBindNotify
 	**/
 	void					RemoveAddedEnt( idEntity *ent );
+
+	/**
+	* TDM: Get an AF body ID for a given joint, and vice versa
+	**/
+	jointHandle_t			JointForBody( int body );
+	int						BodyForJoint( jointHandle_t joint );
 
 	virtual void			ShowEditingDialog( void );
 

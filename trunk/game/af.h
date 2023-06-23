@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2198 $
- * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2780 $
+ * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -73,6 +73,11 @@ public:
 	void					ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse );
 	void					AddForce( idEntity *ent, int id, const idVec3 &point, const idVec3 &force );
 	int						BodyForClipModelId( int id ) const;
+	/**
+	* Find the joint associated with the given body
+	**/
+	jointHandle_t			JointForBody( int body );
+	int						BodyForJoint( jointHandle_t joint );
 
 	void					SaveState( idDict &args ) const;
 	void					LoadState( const idDict &args );

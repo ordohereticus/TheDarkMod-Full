@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2780 $
+ * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 2780 2008-08-31 09:50:12Z ishtvan $", init_version);
 
 #include "game_local.h"
 
@@ -385,6 +385,38 @@ int idAF::BodyForClipModelId( int id ) const {
 			return 0;
 		}
 	}
+}
+
+/*
+================
+idAF::JointForBody
+================
+*/
+jointHandle_t idAF::JointForBody( int body )
+{
+	jointHandle_t joint;
+	for( int i=0; i < jointBody.Num(); i++ )
+	{
+		if( jointBody[i] == body )
+		{
+			joint = (jointHandle_t) i;
+			break;
+		}
+	}
+	return joint;
+}
+		
+/*
+================
+idAF::BodyForJoint
+================
+*/
+int	idAF::BodyForJoint( jointHandle_t joint )
+{
+		if ( joint < jointBody.Num() ) 
+			return jointBody[ joint ];
+		else
+			return 0;
 }
 
 /*

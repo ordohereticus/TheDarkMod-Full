@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2761 $
- * $Date: 2008-08-29 04:42:24 -0400 (Fri, 29 Aug 2008) $
+ * $Revision: 2780 $
+ * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2761 2008-08-29 08:42:24Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2780 2008-08-31 09:50:12Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -340,8 +340,15 @@ void CMeleeWeapon::CheckAttack( idVec3 OldOrigin, idMat3 OldAxis )
 			}
 			else
 			{
+				// failed to connect with the rendermodel.  
+				// Last ditch effort to find the correct AF body
+				if( other->IsType(idAFEntity_Base::Type) )
+				{
+					idAFEntity_Base *otherAF = static_cast<idAFEntity_Base *>(other);
+					tr.c.id = JOINT_HANDLE_TO_CLIPMODEL_ID( otherAF->JointForBody(tr.c.id) );
+				}
+
 				// If we failed to find anything, draw the attempted trace in green
-				// TODO: Also see if we can at least set up damage groups correctly from the AF body hit
 				if( cv_melee_debug.GetBool() )
 					gameRenderWorld->DebugArrow( colorGreen, start, tr.c.point + 8.0f * PointVelDir, 3, 1000 );
 			}
