@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2612 $
- * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2760 $
+ * $Date: 2008-08-29 02:31:26 -0400 (Fri, 29 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2760 2008-08-29 06:31:26Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -641,6 +641,7 @@ void idAFEntity_Base::Save( idSaveGame *savefile ) const
 	savefile->WriteInt( m_GroundBodyMinNum );
 	savefile->WriteBool( m_bDragAFDamping );
 	savefile->WriteBool( m_bCollideWithTeam );
+	savefile->WriteBool( m_bAFPushMoveables );
 
 	savefile->WriteInt( m_AddedEnts.Num() );
 	for( int j = 0; j < m_AddedEnts.Num(); j++ )
@@ -679,6 +680,7 @@ void idAFEntity_Base::Restore( idRestoreGame *savefile )
 	savefile->ReadInt( m_GroundBodyMinNum );
 	savefile->ReadBool( m_bDragAFDamping );
 	savefile->ReadBool( m_bCollideWithTeam );
+	savefile->ReadBool( m_bAFPushMoveables );
 
 	int AddedEntsNum;
 	savefile->ReadInt( AddedEntsNum );
@@ -692,6 +694,11 @@ void idAFEntity_Base::Restore( idRestoreGame *savefile )
 	}
 
 	af.Restore( savefile );
+	if( m_bAFPushMoveables )
+	{
+		af.SetupPose( this, gameLocal.time );
+		af.GetPhysics()->EnableClip();
+	}
 
 	// Schedule any added entities for re-adding when they have spawned
 	PostEventMS( &EV_RestoreAddedEnts, 0 );

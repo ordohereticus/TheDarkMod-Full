@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2735 $
- * $Date: 2008-08-15 03:00:29 -0400 (Fri, 15 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2760 $
+ * $Date: 2008-08-29 02:31:26 -0400 (Fri, 29 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2735 2008-08-15 07:00:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2760 2008-08-29 06:31:26Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -629,7 +629,6 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( allowMove );
 	savefile->WriteBool( allowHiddenMovement );
 	savefile->WriteBool( disableGravity );
-	savefile->WriteBool( m_bAFPushMoveables );
 
 	savefile->WriteBool( lastHitCheckResult );
 	savefile->WriteInt( lastHitCheckTime );
@@ -896,7 +895,6 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( allowMove );
 	savefile->ReadBool( allowHiddenMovement );
 	savefile->ReadBool( disableGravity );
-	savefile->ReadBool( m_bAFPushMoveables );
 
 	savefile->ReadBool( lastHitCheckResult );
 	savefile->ReadInt( lastHitCheckTime );
