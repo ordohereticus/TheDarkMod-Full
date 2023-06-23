@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2642 $
- * $Date: 2008-07-12 09:57:05 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2919 $
+ * $Date: 2008-10-05 02:52:25 -0400 (Sun, 05 Oct 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2642 2008-07-12 13:57:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2919 2008-10-05 06:52:25Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -544,15 +544,9 @@ END_CLASS
 void idAI::Event_PostSpawn() 
 {
 	// Parse the list of doors that can be unlocked by this AI
-	std::string doorStringList(spawnArgs.GetString("can_unlock", ""));
-
-	std::vector<std::string> doors; // will hold the separated strings
-	boost::algorithm::split(doors, doorStringList, boost::algorithm::is_any_of(" ;"));
-
-	// Copy the strings into the set
-	for (std::size_t i = 0; i < doors.size(); i++)
+	for (const idKeyValue* kv = spawnArgs.MatchPrefix("can_unlock"); kv != NULL; kv = spawnArgs.MatchPrefix("can_unlock", kv))
 	{
-		idEntity* door = gameLocal.FindEntity(doors[i].c_str());
+		idEntity* door = gameLocal.FindEntity(kv->GetValue());
 		if (door != NULL)
 		{
 			if (door->IsType(CBinaryFrobMover::Type))
@@ -561,7 +555,7 @@ void idAI::Event_PostSpawn()
 			}
 			else
 			{
-				gameLocal.Warning("Invalid door name %s on AI %s", doors[i].c_str(), name.c_str());
+				gameLocal.Warning("Invalid door name %s on AI %s", kv->GetValue().c_str(), name.c_str());
 			}
 		}
 	}
