@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2719 $
- * $Date: 2008-08-03 19:16:14 -0400 (Sun, 03 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2720 $
+ * $Date: 2008-08-04 13:50:11 -0400 (Mon, 04 Aug 2008) $
+ * $Author: orbweaver $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2719 2008-08-03 23:16:14Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2720 2008-08-04 17:50:11Z orbweaver $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8123,7 +8123,9 @@ void idEntity::ReAttachToPos
 	( const char *AttName, const char *PosName  ) 
 {
 	int ind, indEnd;
+    idEntity* ent;
 	CAttachInfo AttCopy;
+
 	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("ReAttachToPos called with attachment name %s, positiong %s, on entity %s\r", AttName, PosName, name.c_str());
 
 	ind = GetAttachmentIndex( AttName );
@@ -8133,7 +8135,7 @@ void idEntity::ReAttachToPos
 		goto Quit;
 	}
 
-	idEntity *ent = GetAttachment( ind );
+	ent = GetAttachment( ind );
 
 	if( !ent )
 	{
