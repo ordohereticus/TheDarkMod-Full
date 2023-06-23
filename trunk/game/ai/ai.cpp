@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2574 $
- * $Date: 2008-06-26 13:51:40 -0400 (Thu, 26 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2584 $
+ * $Date: 2008-06-28 11:10:38 -0400 (Sat, 28 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2574 2008-06-26 17:51:40Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2584 2008-06-28 15:10:38Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1401,6 +1401,7 @@ void idAI::Spawn( void )
 	physicsObj.SetSelf( this );
 	physicsObj.SetClipModel( new idClipModel( GetPhysics()->GetClipModel() ), 1.0f );
 	physicsObj.SetMass( spawnArgs.GetFloat( "mass", "100" ) );
+	physicsObj.SetStepUpIncrease(spawnArgs.GetFloat("step_up_increase", "0"));
 
 	if ( spawnArgs.GetBool( "big_monster" ) ) {
 		physicsObj.SetContents( 0 );

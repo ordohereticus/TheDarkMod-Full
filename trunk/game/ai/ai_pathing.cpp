@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2583 $
- * $Date: 2008-06-28 10:42:40 -0400 (Sat, 28 Jun 2008) $
+ * $Revision: 2584 $
+ * $Date: 2008-06-28 11:10:38 -0400 (Sat, 28 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2583 2008-06-28 14:42:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2584 2008-06-28 15:10:38Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -400,10 +400,10 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		{
 			// moveables are considered obstacles
 		} 
-		else if (obEnt->IsType(idStaticEntity::Type))
+		/*else if (obEnt->IsType(idStaticEntity::Type))
 		{
-			// func_statics should be considered
-		}
+			// greebo: func_statics should be considered
+		}*/
 		else
 		{
 			// ignore everything else

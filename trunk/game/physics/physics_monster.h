@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2584 $
+ * $Date: 2008-06-28 11:10:38 -0400 (Sat, 28 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -54,6 +54,10 @@ public:
 							// maximum step up the monster can take, default 18 units
 	void					SetMaxStepHeight( const float newMaxStepHeight );
 	float					GetMaxStepHeight( void ) const;
+	
+	// Translates the entity upwards by this amount when stepping up to fight gravity during stepping
+	void					SetStepUpIncrease(float incr);
+
 							// minimum cosine of floor angle to be able to stand on the floor
 	void					SetMinFloorCosine( const float newMinFloorCosine );
 							// set delta for next move
@@ -114,6 +118,7 @@ private:
 
 	// properties
 	float					maxStepHeight;		// maximum step height
+	float					stepUpIncrease;		// translates origin upwards by this amount when stepping
 	float					minFloorCosine;		// minimum cosine of floor angle
 	idVec3					delta;				// delta for next move
 
