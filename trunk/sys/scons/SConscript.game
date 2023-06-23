@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 2312 $
-#* $Date: 2008-05-12 14:12:51 -0400 (Mon, 12 May 2008) $
+#* $Revision: 2313 $
+#* $Date: 2008-05-12 14:14:43 -0400 (Mon, 12 May 2008) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -179,6 +179,7 @@ AI/DoorInfo.cpp \
 AI/Mind.cpp \
 AI/Memory.cpp \
 AI/Subsystem.cpp \
+AI/EAS/EAS.cpp \
 AI/EAS/RouteInfo.cpp \
 AI/EAS/RouteNode.cpp \
 AI/States/AgitatedSearchingState.cpp \
