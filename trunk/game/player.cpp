@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3018 $
- * $Date: 2008-11-12 11:15:45 -0500 (Wed, 12 Nov 2008) $
+ * $Revision: 3021 $
+ * $Date: 2008-11-13 11:40:57 -0500 (Thu, 13 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3018 2008-11-12 16:15:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3021 2008-11-13 16:40:57Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6342,9 +6342,10 @@ void idPlayer::UpdateInventoryHUD()
 		default: break;
 	}
 
-	if (hud != NULL)
+	idUserInterface* invGUI = m_overlays.getGui(m_InventoryOverlay);
+	if (invGUI != NULL)
 	{
-		hud->StateChanged(gameLocal.time);
+		invGUI->StateChanged(gameLocal.time);
 	}
 }
 
@@ -9469,6 +9470,11 @@ void idPlayer::OnInventorySelectionChanged(const CInventoryItemPtr& prevItem)
 				true, 0, 
 				"eef", prevItemEnt, prevItem->GetOwner(), static_cast<float>(prevItem->GetOverlay())
 			);
+
+			if (thread != NULL) 
+			{
+				thread->Execute();
+			}
 		}
 
 		// Remove the hinderance of the previous item
@@ -9488,6 +9494,11 @@ void idPlayer::OnInventorySelectionChanged(const CInventoryItemPtr& prevItem)
 				true, 0, 
 				"eef", curItemEnt, curItem->GetOwner(), static_cast<float>(curItem->GetOverlay())
 			);
+
+			if (thread != NULL) 
+			{
+				thread->Execute();
+			}
 		}
 
 		// Update the player's encumbrance based on the new item
