@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2815 $
- * $Date: 2008-09-11 00:24:13 -0400 (Thu, 11 Sep 2008) $
+ * $Revision: 2850 $
+ * $Date: 2008-09-15 12:01:56 -0400 (Mon, 15 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2815 $   $Date: 2008-09-11 00:24:13 -0400 (Thu, 11 Sep 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2850 $   $Date: 2008-09-15 12:01:56 -0400 (Mon, 15 Sep 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -293,7 +293,8 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 		current.origin = trace.endpos;
 
 		// if moved the entire distance
-		if ( trace.fraction >= 1.0f ) {
+		if ( trace.fraction >= 1.0f )
+		{
 			break;
 		}
 
@@ -406,7 +407,7 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 			trace.fraction = 0.0f;
 			trace.endpos = current.origin;
 
-			// greebo: Tell the object to take the impulse and propagate it to any touching objects (if there are any)
+			// greebo: Check the entity in front of us
 			idEntity* pushedEnt = gameLocal.entities[trace.c.entityNum];
 			if (pushedEnt != NULL)
 			{

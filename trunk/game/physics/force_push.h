@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2782 $
- * $Date: 2008-08-31 09:26:49 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2850 $
+ * $Date: 2008-09-15 12:01:56 -0400 (Mon, 15 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -37,6 +37,9 @@ public:
 
 public: // common force interface
 	virtual void		Evaluate( int time );
+
+private:
+	void				SetOwnerIsPushing(bool isPushing);
 
 private:
 	idEntity*			pushEnt;		// entity being pushed
