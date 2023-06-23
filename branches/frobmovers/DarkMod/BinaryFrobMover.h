@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2520 $
- * $Date: 2008-06-18 11:41:23 -0400 (Wed, 18 Jun 2008) $
+ * $Revision: 2521 $
+ * $Date: 2008-06-18 12:16:14 -0400 (Wed, 18 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -238,6 +238,10 @@ protected:
 	virtual void OnUnlock();
 
 	// =========================================================
+
+	// An event for convenience. Gets called right after spawn time at time 0.
+	// Override this event to do your stuff in the subclass, but be sure to call the baseclass
+	virtual void PostSpawn();
 
 	/** 
 	 * greebo: Tells the frobmover to start moving. The boolean specifies whether

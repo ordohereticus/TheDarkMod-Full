@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2516 $
- * $Date: 2008-06-17 14:59:25 -0400 (Tue, 17 Jun 2008) $
+ * $Revision: 2521 $
+ * $Date: 2008-06-18 12:16:14 -0400 (Wed, 18 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -85,7 +85,7 @@ public:
 	 *
 	 * This is posted as an event to be called on all doors after entities spawn
 	 **/
-	void					FindDoubleDoor( void );
+	void					FindDoubleDoor();
 
 	/**
 	 * Return the double door.  Returns NULL if there is none.
@@ -106,17 +106,17 @@ public:
 
 	void					SetHandlePosition(EHandleReset, int msec, int pin_index = 0, int sample_index = 0);
 
+	void					PropPickSound(idStr &picksound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex);
+
+protected:
 	/**
-	 * Init will read the spawnargs lockpick_bar, lockpick_rotate and 
+	 * This will read the spawnargs lockpick_bar, lockpick_rotate and 
 	 * lockpick_translate, to setup the parameters how the bar or handle should behave
 	 * while it is picked. Also other intialization stuff, that can only be done after all
 	 * the entities are loaded, should be done here.
 	 */
-	void					Event_Init(void);
+	virtual void			PostSpawn();
 
-	void					PropPickSound(idStr &picksound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex);
-
-protected:
 	/**
 	 * Create a random pin pattern for a given pin. Clicks defines the required 
 	 * number of clicks for this pin, and BaseCount, defines the minimum number
