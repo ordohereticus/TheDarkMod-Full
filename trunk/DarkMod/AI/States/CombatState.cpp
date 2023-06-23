@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2635 $
+ * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 2635 2008-07-12 08:53:10Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -118,15 +118,6 @@ void CombatState::Init(idAI* owner)
 	_enemy = owner->GetEnemy();
 	idActor* enemy = _enemy.GetEntity();
 
-	// Issue a communication stim
-	owner->IssueCommunication_Internal(
-		static_cast<float>(ai::CommMessage::DetectedEnemy_CommType), 
-		YELL_STIM_RADIUS, 
-		NULL,
-		enemy,
-		memory.lastEnemyPos
-	);
-
 	owner->GetSubsystem(SubsysMovement)->ClearTasks();
 	owner->GetSubsystem(SubsysSenses)->ClearTasks();
 	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
@@ -136,9 +127,17 @@ void CombatState::Init(idAI* owner)
 
 	// Fill the subsystems with their tasks
 
+	// Setup the message to be delivered each time
+	CommMessagePtr message(new CommMessage(
+		CommMessage::DetectedEnemy_CommType, 
+		owner, NULL, // from this AI to anyone 
+		enemy,
+		memory.lastEnemyPos
+	));
+
 	// The communication system 
 	owner->GetSubsystem(SubsysCommunication)->PushTask(
-		TaskPtr(new SingleBarkTask("snd_combat"))
+		TaskPtr(new SingleBarkTask("snd_combat", message))
 	);
 
 	// Ranged combat

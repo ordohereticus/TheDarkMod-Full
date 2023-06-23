@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2621 $
- * $Date: 2008-07-10 00:32:36 -0400 (Thu, 10 Jul 2008) $
+ * $Revision: 2635 $
+ * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 2621 2008-07-10 04:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 2635 2008-07-12 08:53:10Z greebo $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -332,18 +332,6 @@ void SearchingState::PerformHidingSpotSearch(idAI* owner)
 		// For now, starts searching for the stimulus.  We probably want
 		// a way for different AIs to act differently
 		// TODO: Morale check etc...
-
-		// Yell that you noticed something if you are responding directly to a stimulus
-		if (!memory.searchingDueToCommunication)
-		{
-			owner->IssueCommunication_Internal(
-				ai::CommMessage::DetectedSomethingSuspicious_CommType, 
-				YELL_STIM_RADIUS, 
-				NULL,
-				NULL,
-				memory.alertPos
-			);
-		}
 
 		// Get location
 		memory.chosenHidingSpot = owner->GetNthHidingSpotLocation(memory.currentChosenHidingSpotIndex);

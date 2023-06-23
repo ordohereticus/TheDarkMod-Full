@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2634 $
- * $Date: 2008-07-12 04:20:10 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2635 $
+ * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -83,9 +83,6 @@ namespace ai
 // Area searched around last sighting after losing an enemy
 #define LOST_ENEMY_ALERT_RADIUS 200.0
 #define LOST_ENEMY_SEARCH_VOLUME idVec3(200, 200, 200.0)
-
-// Stim radii for various communication styles
-#define YELL_STIM_RADIUS 400
 
 enum EAlertClass 
 {

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2635 $
+ * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2635 2008-07-12 08:53:10Z greebo $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -26,10 +26,13 @@ RepeatedBarkTask::RepeatedBarkTask() :
 	_barkRepeatIntervalMax(0)
 {}
 
-RepeatedBarkTask::RepeatedBarkTask(const idStr& soundName, int barkRepeatIntervalMin, int barkRepeatIntervalMax) : 
+RepeatedBarkTask::RepeatedBarkTask(const idStr& soundName, 
+		int barkRepeatIntervalMin, int barkRepeatIntervalMax, 
+		const CommMessagePtr& message) : 
 	_soundName(soundName), 
 	_barkRepeatIntervalMin(barkRepeatIntervalMin), 
-	_barkRepeatIntervalMax(barkRepeatIntervalMax)
+	_barkRepeatIntervalMax(barkRepeatIntervalMax),
+	_message(message)
 {}
 
 // Get the name of this task
@@ -63,6 +66,13 @@ bool RepeatedBarkTask::Perform(Subsystem& subsystem)
 	if (gameLocal.time >= _nextBarkTime)
 	{
 		// The time has come, bark now
+
+		// Setup the message to be propagated, if we have one
+		if (_message != NULL)
+		{
+			owner->AddMessage(_message);
+		}
+
 		int duration = owner->PlayAndLipSync(_soundName, "talk1");
 
 		// Reset the timer
