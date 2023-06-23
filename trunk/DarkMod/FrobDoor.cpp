@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2607 $
- * $Date: 2008-07-03 23:42:52 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2608 $
+ * $Date: 2008-07-04 01:22:47 -0400 (Fri, 04 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2607 2008-07-04 03:42:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2608 2008-07-04 05:22:47Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -65,6 +65,7 @@ CFrobDoor::CFrobDoor()
 	DM_LOG(LC_FUNCTION, LT_DEBUG)LOGSTRING("this: %08lX [%s]\r", this, __FUNCTION__);
 	m_FrobActionScript = "frob_door";
 	m_Pickable = true;
+	m_CloseOnLock = false;
 	m_DoubleDoor = NULL;
 	m_FirstLockedPinIndex = 0;
 	m_SoundPinSampleIndex = 0;
@@ -119,6 +120,7 @@ void CFrobDoor::Save(idSaveGame *savefile) const
 	savefile->WriteAngles(m_OriginalAngle);
 
 	savefile->WriteBool(m_Pickable);
+	savefile->WriteBool(m_CloseOnLock);
 	savefile->WriteInt(m_FirstLockedPinIndex);
 	savefile->WriteInt(m_SoundPinSampleIndex);
 	savefile->WriteInt(m_SoundTimerStarted);
@@ -188,6 +190,7 @@ void CFrobDoor::Restore( idRestoreGame *savefile )
 	savefile->ReadAngles(m_OriginalAngle);
 
 	savefile->ReadBool(m_Pickable);
+	savefile->ReadBool(m_CloseOnLock);
 	savefile->ReadInt(m_FirstLockedPinIndex);
 	savefile->ReadInt(m_SoundPinSampleIndex);
 	savefile->ReadInt(m_SoundTimerStarted);
@@ -491,6 +494,9 @@ void CFrobDoor::OnStartOpen(bool wasClosed, bool bMaster)
 	// Update soundprop
 	UpdateSoundLoss();
 
+	// Clear the lock request flag in any case
+	m_CloseOnLock = false;
+
 	if (bMaster)
 	{
 		OpenPeers();
@@ -525,6 +531,32 @@ void CFrobDoor::OnClosedPositionReached()
 
 	// Update the sound propagation values
 	UpdateSoundLoss();
+
+	// Do we have a close request?
+	if (m_CloseOnLock)
+	{
+		// Clear the flag, regardless what happens
+		m_CloseOnLock = false;
+
+		// Post a lock event in 500 msecs
+		PostEventMS(&EV_TDM_FrobMover_Lock, 500);
+	}
+}
+
+void CFrobDoor::OnInterrupt()
+{
+	// Clear the close request flag
+	m_CloseOnLock = false;
+
+	CBinaryFrobMover::OnInterrupt();
+}
+
+void CFrobDoor::OnTeamBlocked(idEntity* blockedEntity, idEntity* blockingEntity)
+{
+	// Clear the close request flag
+	m_CloseOnLock = false;
+
+	CBinaryFrobMover::OnTeamBlocked(blockedEntity, blockingEntity);
 }
 
 bool CFrobDoor::CanBeUsedBy(CInventoryItem* item) 
@@ -567,8 +599,19 @@ bool CFrobDoor::UseBy(EImpulseState impulseState, CInventoryItem* item)
 		// Keys can be used on button PRESS event, let's see if the key matches
 		if (idEntity::CanBeUsedBy(itemEntity))
 		{
-			// Toggle the lock, if the button is PRESSED
-			ToggleLock();
+			// If we're locked or closed, just toggle the lock. 
+			if (IsLocked() || IsAtClosedPosition())
+			{
+				ToggleLock();
+			}
+			// If we're open, set a lock request and start closing.
+			else
+			{
+				// Close the door and set the lock request to true
+				m_CloseOnLock = true;
+				ToggleOpen();
+			}
+
 			return true;
 		}
 		else

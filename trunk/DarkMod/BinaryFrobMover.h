@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2571 $
- * $Date: 2008-06-25 16:23:18 -0400 (Wed, 25 Jun 2008) $
+ * $Revision: 2608 $
+ * $Date: 2008-07-04 01:22:47 -0400 (Fri, 04 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,6 +12,16 @@
 
 #ifndef BINARYFROBMOVER_H
 #define BINARYFROBMOVER_H
+
+// Forward declare the events
+extern const idEventDef EV_TDM_FrobMover_Open;
+extern const idEventDef EV_TDM_FrobMover_Close;
+extern const idEventDef EV_TDM_FrobMover_ToggleOpen;
+extern const idEventDef EV_TDM_FrobMover_Lock;
+extern const idEventDef EV_TDM_FrobMover_Unlock;
+extern const idEventDef EV_TDM_FrobMover_ToggleLock;
+extern const idEventDef EV_TDM_FrobMover_IsOpen;
+extern const idEventDef EV_TDM_FrobMover_IsLocked;
 
 /**
  * CBinaryFrobMover is a replacement for idDoor. The reason for this replacement is
