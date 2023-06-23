@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2920 $
- * $Date: 2008-10-05 07:28:44 -0400 (Sun, 05 Oct 2008) $
+ * $Revision: 2926 $
+ * $Date: 2008-10-06 01:12:54 -0400 (Mon, 06 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2920 2008-10-05 11:28:44Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2926 2008-10-06 05:12:54Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -803,28 +803,48 @@ void CGrabber::AddToClipList( idEntity *ent )
 	obj.m_clipMask = clipMask;
 	obj.m_contents = contents;
 
-	m_clipList.AddUnique( obj );
-
 	// set the clipMask so that the player won't colide with the object but it still
 	// collides with the world
-	phys->SetClipMask( clipMask & (~MASK_PLAYERSOLID) );
-	phys->SetClipMask( phys->GetClipMask() | CONTENTS_SOLID );
+	// Add can now be called on bind children that aren't solid
+	// so make sure it starts out with some form of solid before adding solid contents
+	bool bAddToList(false);
+	if( clipMask & (CONTENTS_SOLID|CONTENTS_CORPSE) )
+	{
+		phys->SetClipMask( clipMask & (~MASK_PLAYERSOLID) );
+		phys->SetClipMask( phys->GetClipMask() | CONTENTS_SOLID );
+		bAddToList = true;
+	}
 	
 	// Clear the solid flag to avoid player collision, 
 	// but enable monsterclip for AI, rendermodel for projectiles and corpse for moveables
-	phys->SetContents
-	( 
-		(contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP 
-		| CONTENTS_RENDERMODEL | CONTENTS_CORPSE 
-	);
+	if( contents & (CONTENTS_SOLID|CONTENTS_CORPSE) )
+	{
+		phys->SetContents
+		( 
+			(contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP 
+			| CONTENTS_RENDERMODEL | CONTENTS_CORPSE 
+		);
+		bAddToList = true;
+	}
+
+	if( bAddToList )
+	{
+		// gameLocal.Printf("AddToClipList: Added Entity %s\n", ent->name.c_str() );
+		m_clipList.AddUnique( obj );
+	}
 
 	// add the bind children of the entity to the clip list as well
-	// NOTE: We always grab the bindmaster
-	idList<idEntity *> BindChildren;
-	ent->GetTeamChildren( &BindChildren );
-	for( int i = 0; i < BindChildren.Num(); i++ )
+	// NOTE: We always grab the bindmaster first, avoid recursive loops
+	// TODO: What about case of a ragdoll bound to something?  Grabbing won't work at all?
+	if( ent->GetBindMaster() == NULL )
 	{
-		AddToClipList( BindChildren[i] );
+		idList<idEntity *> BindChildren;
+		ent->GetTeamChildren( &BindChildren );
+		for( int i = 0; i < BindChildren.Num(); i++ )
+		{
+			AddToClipList( BindChildren[i] );
+		}
+		// gameLocal.Printf("AddToClipList: Entity %s has %d team children\n", ent->name.c_str(), BindChildren.Num() );
 	}
 }
 

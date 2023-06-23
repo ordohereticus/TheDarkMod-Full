@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2918 $
- * $Date: 2008-10-05 02:35:37 -0400 (Sun, 05 Oct 2008) $
+ * $Revision: 2926 $
+ * $Date: 2008-10-06 01:12:54 -0400 (Mon, 06 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2918 2008-10-05 06:35:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2926 2008-10-06 05:12:54Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1230,18 +1230,18 @@ bool idAFEntity_Base::CollidesWithTeam( void )
 	return m_bCollideWithTeam;
 }
 
-void idAFEntity_Base::AddEntByJoint( idEntity *ent, jointHandle_t jointNum )
+void idAFEntity_Base::AddEntByJoint( idEntity *ent, jointHandle_t joint )
 {
 	int bodID(0);
 	
 	if( af.IsLoaded() )
 	{
-		bodID = BodyForClipModelId( JOINT_HANDLE_TO_CLIPMODEL_ID( jointNum ) );
-		AddEntByBody( ent, bodID );
+		bodID = BodyForClipModelId( JOINT_HANDLE_TO_CLIPMODEL_ID( joint ) );
+		AddEntByBody( ent, bodID, joint );
 	}
 }
 
-void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
+void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID, jointHandle_t joint )
 {
 	float EntMass(0.0), AFMass(0.0), MassOut(0.0), density(0.0);
 	idVec3 COM(vec3_zero), orig(vec3_zero);
@@ -1320,7 +1320,7 @@ void idAFEntity_Base::AddEntByBody( idEntity *ent, int bodID )
 
 	// Now add body to AF object, for updating with idAF::ChangePos and the like
 	// We use AF_JOINTMOD_NONE since this new AF shouldn't actually stretch joints on the model when it moves
-	af.AddBodyExtern( this, body, bodyExist, AF_JOINTMOD_NONE );
+	af.AddBodyExtern( this, body, bodyExist, AF_JOINTMOD_NONE, joint );
 
 	// Add to list
 	Entry.ent = ent;
