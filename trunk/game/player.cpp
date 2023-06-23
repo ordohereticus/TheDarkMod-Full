@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2856 $
- * $Date: 2008-09-17 22:46:46 -0400 (Wed, 17 Sep 2008) $
+ * $Revision: 2871 $
+ * $Date: 2008-09-21 20:43:00 -0400 (Sun, 21 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2856 2008-09-18 02:46:46Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2871 2008-09-22 00:43:00Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9248,6 +9248,29 @@ void idPlayer::inventoryDropItem()
 			// greebo: Try to locate a drop script function on the entity's scriptobject
 			const function_t* dropScript = ent->scriptObject.GetFunction(TDM_INVENTORY_DROPSCRIPT);
 			
+			// ishtvan: Set up the initial orientation and point at which we want to drop
+			idMat3 DropAxis = item->GetDropOrientation();
+			// Apply the player's view yaw and roll to the item's orientation
+			idVec3 playViewPos;
+			idMat3 playViewAxis;
+			GetViewPos( playViewPos, playViewAxis );
+			idAngles viewYaw = playViewAxis.ToAngles();
+			// ignore pitch and roll
+			viewYaw[0] = 0;
+			viewYaw[2] = 0;
+			idMat3 playViewYaw = viewYaw.ToMat3();
+			DropAxis *= playViewYaw;
+
+			idVec3 DropPoint;
+			if( item->IsDropPointOverriden() )
+			{
+				DropPoint = playViewYaw * item->GetDropPoint();
+				DropPoint += playViewPos;
+			}
+			else
+				DropPoint = gameLocal.m_Grabber->GetHoldPoint( ent );
+
+
 			if( dropScript != NULL )
 			{
 				// Call the custom drop script
@@ -9261,8 +9284,8 @@ void idPlayer::inventoryDropItem()
 			}
 			// greebo: Only place the entity in the world, if there is no custom dropscript
 			// The flashbomb for example is spawning projectiles on its own.
-			// Test that the item fits in grabber with dummy item first, before spawning the drop item
-			else if (grabber->FitsInHands(ent)) 
+			// Stackables: Test that the item fits in grabber with dummy item first, before spawning the drop item
+			else if (grabber->FitsInHands(ent, DropAxis)) 
 			{
 				// Drop the item into the grabber hands 
 				DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Item fits in hands.\r");
@@ -9282,7 +9305,7 @@ void idPlayer::inventoryDropItem()
 					ent = spawnedEntity;
 				}
 
-				if( grabber->PutInHands(ent) )
+				if( grabber->PutInHands(ent, DropAxis) )
 				{
 					DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Item was successfully put in hands: %s\r", ent->name.c_str());
 					bDropped = true;
@@ -9293,12 +9316,15 @@ void idPlayer::inventoryDropItem()
 						gameLocal.m_Grabber->UnShoulderBody();
 						// don't keep dragging the body, let it go
 						gameLocal.m_Grabber->Update( this, false );
+
+						// Shouldered bodies: each drop switches the next drop between face up/face down
+						item->SetDropOrientation( idAngles(0.0f, 0.0f, 180.0f).ToMat3() * item->GetDropOrientation() );
 					}
 				}
 			}
 			else
 			{
-				// The grabber could not put the item into the player hands
+				// There wasn't space to drop the item
 				StartSound( "snd_drop_item_failed", SND_CHANNEL_ITEM, 0, false, NULL );
 				DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Grabber did not find space in the world to fit entity in hands: %s\r", ent->name.c_str());
 			}

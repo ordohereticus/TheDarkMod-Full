@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2856 $
- * $Date: 2008-09-17 22:46:46 -0400 (Wed, 17 Sep 2008) $
+ * $Revision: 2871 $
+ * $Date: 2008-09-21 20:43:00 -0400 (Sun, 21 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -92,11 +92,20 @@ public:
 
 		/**
 		* Returns true if there is space to put an item at a particular point in space
-		* Also checks the space between the player's eyes and this point for obstructions,
-		* so the player can't teleport things to the other side of solid walls
+		* Also checks the space between the viewPoint (player's eyes) and this point for obstructions,
+		* so that the player cannot drop things to the other side of solid walls or tiny openings.
 		* Body ID may be optionally set to specify which body to hold for AF or multi-clipmodel entities
 		**/
 		bool					FitsInWorld( idEntity *ent, idVec3 viewPoint, idVec3 point, idMat3 axis = mat3_identity, int bodyID = 0 );
+
+		/**
+		* Returns the point in world coordinates to move the entity center of mass to
+		* when we are going to put this item into the player's hands.
+		* Axis specifies the orientation of the object
+		* bodyID optionally specifies which AF body should be held for AFs
+		* (e.g., the handle of a bucket)
+		**/
+		idVec3					GetHoldPoint( idEntity *ent, idMat3 axis = mat3_identity, int bodyID = 0 );
 
 		/**
 		 * Restores the physics object from the drag entity after loading.
