@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2620 $
- * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2669 $
+ * $Date: 2008-07-15 15:36:15 -0400 (Tue, 15 Jul 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2620 2008-07-09 19:39:45Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2669 2008-07-15 19:36:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2951,14 +2951,19 @@ void idActor::ReAttach( int ind, idStr jointName, idVec3 offset, idAngles angles
 	rotate = angles.ToMat3();
 	newAxis = rotate * axis;
 
-	ent->Unbind();
+	ent->Unbind(); 
+
+	// greebo: Note that Unbind() will invalidate the entity pointer in the attachment list
+	// Hence, re-assign the attachment entity pointer (the index itself is ok)
+	attachment->ent = ent;
+
 	ent->SetAxis( newAxis );
 	// Use the local joint axis instead of the overall AI axis
 	ent->SetOrigin( origin + offset * axis );
 
 	ent->BindToJoint( this, joint, true );
 	ent->cinematic = cinematic;
-	
+
 	// set the spawnargs for later retrieval as well
 	ent->spawnArgs.Set( "joint", jointName.c_str() );
 	ent->spawnArgs.SetVector( "origin", offset );
