@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2635 $
- * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2636 $
+ * $Date: 2008-07-12 05:04:26 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2635 2008-07-12 08:53:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2636 2008-07-12 09:04:26Z greebo $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -94,10 +94,13 @@ bool RepeatedBarkTask::Perform(Subsystem& subsystem)
 void RepeatedBarkTask::Save(idSaveGame* savefile) const
 {
 	Task::Save(savefile);
-	savefile->WriteString(_soundName.c_str());
+	savefile->WriteString(_soundName);
 	savefile->WriteInt(_barkRepeatIntervalMin);
 	savefile->WriteInt(_barkRepeatIntervalMax);
 	savefile->WriteInt(_nextBarkTime);
+
+	savefile->WriteBool(_message != NULL);
+	_message->Save(savefile);
 }
 
 void RepeatedBarkTask::Restore(idRestoreGame* savefile)
@@ -107,6 +110,18 @@ void RepeatedBarkTask::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(_barkRepeatIntervalMin);
 	savefile->ReadInt(_barkRepeatIntervalMax);
 	savefile->ReadInt(_nextBarkTime);
+
+	bool hasMessage;
+	savefile->ReadBool(hasMessage);
+	if (hasMessage)
+	{
+		_message = CommMessagePtr(new CommMessage);
+		_message->Restore(savefile);
+	}
+	else
+	{
+		_message = CommMessagePtr();
+	}
 }
 
 RepeatedBarkTaskPtr RepeatedBarkTask::CreateInstance()
