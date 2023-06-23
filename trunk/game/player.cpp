@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2851 $
- * $Date: 2008-09-15 14:32:35 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2853 $
+ * $Date: 2008-09-15 15:01:16 -0400 (Mon, 15 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2851 2008-09-15 18:32:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2853 2008-09-15 19:01:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -361,6 +361,7 @@ idPlayer::idPlayer() :
 	// m_hinderance.Clear();
 	m_hinderanceCache	= 1.0f;
 	m_TurnHinderanceCache = 1.0f;
+	m_JumpHinderanceCache = 1.0f;
 
 	memset( loggedViewAngles, 0, sizeof( loggedViewAngles ) );
 	memset( loggedAccel, 0, sizeof( loggedAccel ) );
@@ -6050,7 +6051,7 @@ void idPlayer::Move( void )
 
 	// set physics variables
 	physicsObj.SetMaxStepHeight( pm_stepsize.GetFloat() );
-	physicsObj.SetMaxJumpHeight( pm_jumpheight.GetFloat() );
+	physicsObj.SetMaxJumpHeight( pm_jumpheight.GetFloat()*GetJumpHinderance() );
 
 	if ( noclip ) {
 		physicsObj.SetContents( 0 );
@@ -9988,6 +9989,61 @@ void idPlayer::SetTurnHinderance( const char *source, float mCap, float aCap )
 	}
 }
 
+float idPlayer::GetJumpHinderance() 
+{
+	// Has something changed since the cache was last calculated?
+	if (m_JumpHinderanceCache < 0.0f) 
+	{
+		// Recalculate the hinderance from scratch.
+		float mCap = 1.0f, aCap = 1.0f;
+
+		for (const idKeyValue* kv = m_JumpHinderance.MatchPrefix( "", NULL ); kv != NULL; kv = m_JumpHinderance.MatchPrefix("", kv))
+		{
+			idVec3 vec = m_JumpHinderance.GetVector(kv->GetKey());
+			mCap *= vec[0];
+
+			if ( aCap > vec[1] ) 
+			{
+				aCap = vec[1];
+			}
+		}
+
+		if ( aCap > mCap ) 
+		{
+			aCap = mCap;
+		}
+
+		m_JumpHinderanceCache = aCap;
+	}
+
+	return m_JumpHinderanceCache;
+}
+
+void idPlayer::SetJumpHinderance( const char *source, float mCap, float aCap )
+{
+	if (idStr::Length(source))
+	{
+		// Clamp the values to [0,1]
+		mCap = idMath::ClampFloat(0, 1, mCap);
+		aCap = idMath::ClampFloat(0, 1, aCap);
+
+		if (mCap < 1.0f || aCap < 1.0f)
+		{
+			// Store the values into a vector and into the hinderance dictionary
+			m_JumpHinderance.SetVector( source, idVec3(mCap, aCap, 0.0f) );
+		}
+		else
+		{
+			m_JumpHinderance.Delete( source );
+		}
+
+		m_JumpHinderanceCache = -1;
+	}
+	else
+	{
+		gameLocal.Warning( "source was empty; no jump hinderance set\n" );
+	}
+}
 
 void idPlayer::PlayFootStepSound()
 {
