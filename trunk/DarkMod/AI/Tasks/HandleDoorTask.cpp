@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2419 $
+ * $Date: 2008-06-01 16:13:39 -0400 (Sun, 01 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2419 2008-06-01 20:13:39Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -33,15 +33,33 @@ void HandleDoorTask::Init(idAI* owner, Subsystem& subsystem)
 
 	Memory& memory = owner->GetMemory();
 
-	// Let the owner save its move
-	owner->PushMove();
-	owner->m_HandlingDoor = true;
-
 	CFrobDoor* frobDoor = memory.doorRelated.currentDoor.GetEntity();
 	if (frobDoor == NULL)
 	{
 		return;
 	}
+
+	if (!owner->m_bCanOperateDoors)
+	{
+		if (!frobDoor->IsOpen() || !FitsThrough())
+		{
+			owner->StopMove(MOVE_STATUS_DEST_UNREACHABLE);
+			// add AAS area number of the door to forbidden areas
+			idAAS*	aas = owner->GetAAS();
+			if (aas != NULL)
+			{
+				int areaNum = frobDoor->GetFrobMoverAasArea(aas);
+				gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
+			}
+			subsystem.FinishTask();
+			return;
+		}
+	}
+
+	// Let the owner save its move
+	owner->PushMove();
+	owner->m_HandlingDoor = true;
+
 
 	CFrobDoor* doubleDoor = frobDoor->GetDoubleDoor();
 
@@ -90,6 +108,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 	{
 		return true;
 	}
+
 	const idVec3& frobDoorOrg = frobDoor->GetPhysics()->GetOrigin();
 	const idVec3& openPos = frobDoorOrg + frobDoor->GetOpenPos();
 	const idVec3& closedPos = frobDoorOrg + frobDoor->GetClosedPos();
@@ -151,6 +170,11 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					// the other part of the double door is already open
 					// no need to open this one
 					ResetDoor(owner, doubleDoor);
+					if (!owner->MoveToPosition(_frontPos))
+					{
+						// TODO: position not reachable, need a better one
+					}
+					_doorHandlingState = EStateMovingToFrontPos;
 					break;
 				}
 
@@ -296,9 +320,23 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 						}
 					}
 				}
+				else if (frobDoor->WasInterrupted())
+				{
+					if (FitsThrough())
+					{
+						owner->MoveToPosition(_backPos);
+						_doorHandlingState = EStateMovingToBackPos;
+					}
+					else
+					{
+						owner->MoveToPosition(_frontPos);
+						_doorHandlingState = EStateMovingToFrontPos;
+					}
+				}
 
 				// door is open and possibly in the way, may need to close it
 				// check if there is a way around
+				else 
 				{
 					idTraceModel trm(bounds);
 					idClipModel clip(trm);
@@ -423,7 +461,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 			case EStateStartOpen:
 				if (frobDoor->IsBlocked() || 
-					(frobDoor->WasInterrupted() && 
+					(frobDoor->WasInterrupted() || 
 					frobDoor->WasStoppedDueToBlock()))
 				{
 					if (!FitsThrough())
@@ -808,7 +846,7 @@ bool HandleDoorTask::FitsThrough()
 	float delta = idMath::Fabs(2 * dist * sinAlpha);
 
 	idBounds bounds = owner->GetPhysics()->GetBounds();
-	float size = 2 * SQUARE_ROOT_OF_2 * bounds[1][0];
+	float size = 2 * SQUARE_ROOT_OF_2 * bounds[1][0] + 10;
 
 	return (delta >= size);
 }
@@ -852,8 +890,8 @@ bool HandleDoorTask::OpenDoor()
 		}
 	}
 
+	owner->StopMove(MOVE_STATUS_DONE);
 	frobDoor->Open(false);
-	// TODO: play anim
 	_doorHandlingState = EStateOpeningDoor;
 
 	return true;
@@ -863,8 +901,11 @@ void HandleDoorTask::OnFinish(idAI* owner)
 {
 	Memory& memory = owner->GetMemory();
 
-	owner->PopMove();
-	owner->m_HandlingDoor = false;
+	if (owner->m_HandlingDoor)
+	{
+		owner->PopMove();
+		owner->m_HandlingDoor = false;
+	}
 
 	CFrobDoor* frobDoor = memory.doorRelated.currentDoor.GetEntity();
 
