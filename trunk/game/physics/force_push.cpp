@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2783 $
- * $Date: 2008-08-31 09:59:13 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2816 $
+ * $Date: 2008-09-11 12:02:01 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2783 2008-08-31 13:59:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2816 2008-09-11 16:02:01Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -93,18 +93,30 @@ void CForcePush::Evaluate( int time )
 	if (mass < massThresholdHeavy)
 	{
 		// The pushed entity is not a heavy one, kick it 
+		float scale = (-contactInfo.c.normal * impactVelocity) * ownerMass * cv_pm_pushmod.GetFloat();
+
+		// Clamp the value to the maximum impulse we're allowed to give
+		if (scale > cv_pm_push_maximpulse.GetFloat()) 
+		{
+			//gameLocal.Printf("Unclamped push scale: %f, clamped to 300.\n", scale);
+			scale = cv_pm_push_maximpulse.GetFloat();
+		}
 
 		idVec3 pushDirection = impactVelocity;
 		pushDirection.NormalizeFast();
 
-		// No owner or mass of the pushed entity is lower than the owner's
-		float scale = -contactInfo.c.normal * impactVelocity;
-		idVec3 pushImpulse = pushDirection * scale * ownerMass * cv_pm_pushmod.GetFloat();
+		// Check if the moveable has already a large impulse in that direction
+		float currentDirectionalImpulse = (physics->GetLinearVelocity()*pushDirection) * physics->GetMass();
 
-		//gameRenderWorld->DrawText( idStr(pushImpulse.LengthFast()), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
-		//gameRenderWorld->DebugArrow( colorWhite, physics->GetAbsBounds().GetCenter(), physics->GetAbsBounds().GetCenter() + pushImpulse, 1, gameLocal.msec );
+		if (currentDirectionalImpulse < cv_pm_push_maximpulse.GetFloat() * 2)
+		{
+			idVec3 pushImpulse = pushDirection * scale;
 
-		physics->PropagateImpulse(id, contactInfo.c.point, pushImpulse);
+			//gameRenderWorld->DrawText( idStr(pushImpulse.LengthFast()), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec*10 );
+			//gameRenderWorld->DebugArrow( colorWhite, physics->GetAbsBounds().GetCenter(), physics->GetAbsBounds().GetCenter() - contactInfo.c.normal*100, 1, gameLocal.msec*10 );
+
+			physics->PropagateImpulse(id, contactInfo.c.point, pushImpulse);	
+		}
 	}
 	// The pushed entity is considered heavy
 	else if (pushEnt == lastPushEnt)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2815 $
- * $Date: 2008-09-11 00:24:13 -0400 (Thu, 11 Sep 2008) $
+ * $Revision: 2816 $
+ * $Date: 2008-09-11 12:02:01 -0400 (Thu, 11 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2815 2008-09-11 04:24:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2816 2008-09-11 16:02:01Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -118,9 +118,10 @@ idCVar cv_pm_runmod(				"pm_runmod",			"2.12",			CVAR_GAME | CVAR_ARCHIVE | CVAR
 idCVar cv_pm_creepmod(				"pm_creepmod",			"0.44",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The multiplier used to obtain creep speed from pm_walkspeed." );
 idCVar cv_pm_crouchmod(				"pm_crouchmod",			"0.54",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The multiplier used to obtain crouch speed from walk speed." );
 idCVar cv_pm_pushmod(				"pm_pushmod",			"0.15",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Alters the impulse applied when the player runs into an object. Fractional modifier that multiplies the default D3 impulse. ONLY APPLIES TO OBJECTS BEING KICKED. Default is 0.15" );
+idCVar cv_pm_push_maximpulse(		"pm_push_maximpulse",	"300",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "This is the maximum impulse that is allowed to be propagated by the player to moveables just by kicking them. Only applies for 'lightweight' moveables below playermass*pm_push_heavy_threshold. Default is 300 units*kg per second." );
 idCVar cv_pm_push_start_delay(		"pm_push_start_delay",	"1000",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the delay in msecs before heavy things get pushed by the player. Default is 1000 msecs." );
 idCVar cv_pm_push_accel_time(		"pm_push_accel_time",	"1000",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the acceleration time in msecs when the player is starting to push things. After this time has passed, the pushed object has reached its maximum possible velocity. Default is 1000 msecs." );
-idCVar cv_pm_push_heavy_threshold(	"pm_push_heavy_threshold",	"0.75",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the fraction of the player mass, above which pushable things are considered as 'heavy'. Default is 0.75." );
+idCVar cv_pm_push_heavy_threshold(	"pm_push_heavy_threshold",	"0.15",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the fraction of the player mass, above which pushable things are considered as 'heavy'. Default is 0.75." );
 idCVar cv_pm_push_max_mass(			"pm_push_max_mass",		"200",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Defines the maximum mass in kg a moveable can have to be pushable at all. Default is 200 kg.");
 
 idCVar cv_pm_weightmod(				"pm_weightmod",			"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Gets multiplied to the force applied to objects below the player model. Defaults to 1." );
