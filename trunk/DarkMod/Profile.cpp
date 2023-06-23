@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2424 $
+ * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -26,7 +26,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Profile.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Profile.cpp 2424 2008-06-02 18:50:52Z tels $", init_version);
 #pragma warning( push )
 #pragma warning( disable: 4245 )
 #include <malloc.h>
@@ -466,7 +466,7 @@ Quit:
 	return(rc);
 }
 
-ULONG FindSection(PROFILE_HANDLE *h, char *sn, PROFILE_SECTION **ps)
+ULONG FindSection(PROFILE_HANDLE *h, const char *sn, PROFILE_SECTION **ps)
 {
 	ULONG rc = -1;
 	ULONG i, n, v;
@@ -503,7 +503,7 @@ Quit:
 	return(rc);
 }
 
-ULONG FindMap(PROFILE_SECTION *s, char *k, BOOL CaseSensitive, PROFILE_MAP **m)
+ULONG FindMap(PROFILE_SECTION *s, const char *k, BOOL CaseSensitive, PROFILE_MAP **m)
 {
 	ULONG rc = -1;
 	ULONG i, n, v;

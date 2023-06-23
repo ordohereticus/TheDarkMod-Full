@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2424 $
+ * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -86,7 +86,7 @@ public:
 	int					CurrentLine( void ) const;
 	const char			*CurrentFile( void ) const;
 
-	void				Error( char *fmt, ... ) const id_attribute((format(printf,2,3)));
+	void				Error( const char *fmt, ... ) const id_attribute((format(printf,2,3)));
 	void				Warning( char *fmt, ... ) const id_attribute((format(printf,2,3)));
 	void				DisplayInfo( void ) const;
 

@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2171 $
- * $Date: 2008-04-11 10:42:29 -0400 (Fri, 11 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 2424 $
+ * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2171 2008-04-11 14:42:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2424 2008-06-02 18:50:52Z tels $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -86,7 +86,7 @@ const char* DARKMOD_LOGFILE = "/tmp/DarkMod.log";
 const char* DARKMOD_LOGFILE = "c:\\d3modlogger.log";
 #endif
 
-static char *LTString[LT_COUNT+1] = {
+static const char *LTString[LT_COUNT+1] = {
 	"INI",
 	"FRC",
 	"ERR",
@@ -98,7 +98,7 @@ static char *LTString[LT_COUNT+1] = {
 	"---"
 };
 
-static char *LCString[LC_COUNT+1] = {
+static const char *LCString[LC_COUNT+1] = {
 	"INIT",
 	"FORCE",
 	"MISC",
@@ -411,7 +411,7 @@ void CGlobal::LogMat3(idStr const &Name, idMat3 const &Mat)
 		);
 }
 
-void CGlobal::LogString(char *fmt, ...)
+void CGlobal::LogString(const char *fmt, ...)
 {
 	if(m_LogFile == NULL)
 		return;

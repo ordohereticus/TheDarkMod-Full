@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1792 $
- * $Date: 2007-11-14 12:49:55 -0500 (Wed, 14 Nov 2007) $
+ * $Revision: 2424 $
+ * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_interpreter.cpp 1792 2007-11-14 17:49:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: script_interpreter.cpp 2424 2008-06-02 18:50:52Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -431,7 +431,7 @@ idInterpreter::Error
 Aborts the currently executing function
 ============
 */
-void idInterpreter::Error( char *fmt, ... ) const {
+void idInterpreter::Error( const char *fmt, ... ) const {
 	va_list argptr;
 	char	text[ 1024 ];
 
