@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2321 $
- * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
+ * $Revision: 2322 $
+ * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2321 2008-05-13 05:52:36Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2322 2008-05-13 16:39:26Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2347,7 +2347,7 @@ This is feakin' slow, so it's not good to do it too many times per frame.  It al
 are from the goal, so try to break the goals up into shorter distances.
 =====================
 */
-float idAI::TravelDistance( const idVec3 &start, const idVec3 &end ) const {
+float idAI::TravelDistance( const idVec3 &start, const idVec3 &end )  {
 	int			fromArea;
 	int			toArea;
 	float		dist;
@@ -5865,7 +5865,7 @@ bool idAI::SetEnemy(idActor* newEnemy)
 idAI::FirstVisiblePointOnPath
 ============
 */
-idVec3 idAI::FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags ) const {
+idVec3 idAI::FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags ) {
 	int i, areaNum, targetAreaNum, curAreaNum, travelTime;
 	idVec3 curOrigin;
 	idReachability *reach;

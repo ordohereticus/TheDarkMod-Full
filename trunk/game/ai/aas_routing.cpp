@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2299 $
- * $Date: 2008-05-11 12:18:17 -0400 (Sun, 11 May 2008) $
- * $Author: greebo $
+ * $Revision: 2322 $
+ * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 2299 2008-05-11 16:18:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 2322 2008-05-13 16:39:26Z angua $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -1036,7 +1036,7 @@ idRoutingCache *idAASLocal::GetPortalRoutingCache( int clusterNum, int areaNum, 
 idAASLocal::RouteToGoalArea
 ============
 */
-bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalAreaNum, int travelFlags, int &travelTime, idReachability **reach, const idActor* actor ) const {
+bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalAreaNum, int travelFlags, int &travelTime, idReachability **reach, idActor* actor ) const {
 	// Set the default return values
 	travelTime = 0;
 	*reach = NULL;

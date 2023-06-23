@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2321 $
- * $Date: 2008-05-13 01:52:36 -0400 (Tue, 13 May 2008) $
+ * $Revision: 2322 $
+ * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1065,7 +1065,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	virtual void			Hide( void );
 	virtual void			Show( void );
 	virtual bool			CanBecomeSolid();
-	idVec3					FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags ) const;
+	idVec3					FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags );
 	void					CalculateAttackOffsets( void );
 	void					PlayCinematic( void );
 
@@ -1145,7 +1145,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 */
 	bool					ReachedPos( const idVec3 &pos, const moveCommand_t moveCommand ) const;
 
-	float					TravelDistance( const idVec3 &start, const idVec3 &end ) const;
+	float					TravelDistance( const idVec3 &start, const idVec3 &end );
 
 	/**
 	 * greebo: Returns the number of the nearest reachable area for the given point. 

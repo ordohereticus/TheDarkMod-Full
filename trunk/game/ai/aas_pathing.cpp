@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2318 $
- * $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $
- * $Author: greebo $
+ * $Revision: 2322 $
+ * $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2318 $   $Date: 2008-05-12 15:46:43 -0400 (Mon, 12 May 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2322 $   $Date: 2008-05-13 12:39:26 -0400 (Tue, 13 May 2008) $", init_version);
 
 #include "aas_local.h"
 
@@ -122,7 +122,7 @@ idAASLocal::WalkPathValid
   returns true if one can walk in a straight line between origin and goalOrigin
 ============
 */
-bool idAASLocal::WalkPathValid( int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags, idVec3 &endPos, int &endAreaNum, const idActor* actor ) const {
+bool idAASLocal::WalkPathValid( int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags, idVec3 &endPos, int &endAreaNum, idActor* actor ) const {
 	int curAreaNum, lastAreaNum, lastAreas[4], lastAreaIndex;
 	idPlane pathPlane, frontPlane, farPlane;
 	idReachability *reach;
@@ -241,7 +241,7 @@ bool idAASLocal::WalkPathValid( int areaNum, const idVec3 &origin, int goalAreaN
 idAASLocal::SubSampleWalkPath
 ============
 */
-idVec3 idAASLocal::SubSampleWalkPath( int areaNum, const idVec3 &origin, const idVec3 &start, const idVec3 &end, int travelFlags, int &endAreaNum, const idActor* actor ) const {
+idVec3 idAASLocal::SubSampleWalkPath( int areaNum, const idVec3 &origin, const idVec3 &start, const idVec3 &end, int travelFlags, int &endAreaNum, idActor* actor ) {
 	int i, numSamples, curAreaNum;
 	idVec3 dir, point, nextPoint, endPos;
 
@@ -270,7 +270,7 @@ idAASLocal::WalkPathToGoal
   FIXME: don't stop optimizing on first failure ?
 ============
 */
-bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags, const idActor* actor ) const {
+bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int goalAreaNum, const idVec3 &goalOrigin, int travelFlags, idActor* actor ) {
 	// Set the default values
 	path.type = PATHTYPE_WALK;
 	path.moveGoal = origin;
