@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2673 $
- * $Date: 2008-07-16 13:11:54 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2674 $
+ * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -35,6 +35,9 @@ class Conversation
 
 	// The list of commands this conversation consists of (this is the actual "script")
 	idList<ConversationCommandPtr> _commands;
+
+	// The current conversation command index
+	int _currentCommand;
 
 	// Counter to tell how often this conversation has been played
 	int _playCount;

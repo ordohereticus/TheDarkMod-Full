@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2663 $
- * $Date: 2008-07-14 00:59:39 -0400 (Mon, 14 Jul 2008) $
+ * $Revision: 2674 $
+ * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2663 2008-07-14 04:59:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2674 2008-07-16 18:01:10Z greebo $", init_version);
 
 #include "ConversationCommand.h"
 
@@ -44,6 +44,11 @@ ConversationCommand::Type ConversationCommand::GetType()
 	return _type;
 }
 
+int ConversationCommand::GetActor()
+{
+	return _actor;
+}
+
 int ConversationCommand::GetNumArguments()
 {
 	return _arguments.Num();
@@ -68,6 +73,15 @@ bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 
 	DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Found command type %s for prefix %s.\r", TypeNames[_type], prefix.c_str());
 
+	// Parse the executing actor
+	_actor = dict.GetInt(prefix + "actor", "0");
+
+	if (_actor <= 0)
+	{
+		DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Conversation command %s: Invalid actor index %d encountered.\r", TypeNames[_type], _actor);
+		return false;
+	}
+
 	// Parse the arguments
 	_arguments.Clear();
 
@@ -87,6 +101,7 @@ bool ConversationCommand::Parse(const idDict& dict, const idStr& prefix)
 void ConversationCommand::Save(idSaveGame* savefile) const
 {
 	savefile->WriteInt(static_cast<int>(_type));
+	savefile->WriteInt(_actor);
 
 	savefile->WriteInt(_arguments.Num());
 	for (int i = 0; i < _arguments.Num(); i++)
@@ -101,6 +116,8 @@ void ConversationCommand::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(typeInt);
 	assert(typeInt >= 0 && typeInt <= ENumCommands); // sanity check
 	_type = static_cast<Type>(typeInt);
+
+	savefile->ReadInt(_actor);
 
 	int num;
 	savefile->ReadInt(num);

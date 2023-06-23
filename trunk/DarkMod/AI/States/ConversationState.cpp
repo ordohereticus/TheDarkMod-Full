@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2665 $
- * $Date: 2008-07-15 13:31:04 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2674 $
+ * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2665 2008-07-15 17:31:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2674 2008-07-16 18:01:10Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -98,18 +98,33 @@ bool ConversationState::CheckConversationPrerequisites()
 	return true;
 }
 
+void ConversationState::Execute(const ConversationCommandPtr& command)
+{
+
+}
+
+ConversationState::Status ConversationState::GetStatus()
+{
+	return _status;
+}
+
 void ConversationState::Save(idSaveGame* savefile) const
 {
 	State::Save(savefile);
 
-	// TODO
+	savefile->WriteInt(_conversation);
+	savefile->WriteInt(static_cast<int>(_status));
 }
 
 void ConversationState::Restore(idRestoreGame* savefile)
 {
 	State::Restore(savefile);
 
-	// TODO
+	savefile->ReadInt(_conversation);
+	int temp;
+	savefile->ReadInt(temp);
+	assert(temp >= EDoingNothing && temp < ENumConversationStati);
+	_status = static_cast<Status>(temp);
 }
 
 StatePtr ConversationState::CreateInstance()

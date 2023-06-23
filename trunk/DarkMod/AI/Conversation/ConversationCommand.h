@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2662 $
- * $Date: 2008-07-14 00:53:10 -0400 (Mon, 14 Jul 2008) $
+ * $Revision: 2674 $
+ * $Date: 2008-07-16 14:01:10 -0400 (Wed, 16 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -50,12 +50,18 @@ private:
 	// The type of this command
 	Type _type;
 
+	// The index of the actor who is supposed to execute this command
+	int _actor;
+
 	// Argument list
 	idStringList _arguments;
 
 public:
 	// Returns the type of this conversation command
 	Type GetType();
+
+	// Returns the actor index of this command
+	int GetActor();
 
 	// Returns the number of arguments
 	int GetNumArguments();
