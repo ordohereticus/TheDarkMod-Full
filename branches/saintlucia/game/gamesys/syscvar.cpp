@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2921 $
- * $Date: 2008-10-05 12:09:42 -0400 (Sun, 05 Oct 2008) $
+ * $Revision: 2945 $
+ * $Date: 2008-10-13 00:19:55 -0400 (Mon, 13 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2921 2008-10-05 16:09:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2945 2008-10-13 04:19:55Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -112,6 +112,8 @@ idCVar cv_show_gameplay_time(		"tdm_show_gameplaytime",	"0",			CVAR_GAME | CVAR_
 idCVar cv_tdm_difficulty(			"tdm_difficulty",	"-1",					CVAR_GAME | CVAR_INTEGER, "Set this to 0, 1 or 2 to override the difficulty setting of any map (for testing purposes). Set this back to -1 to disable the setting (which is the default). This setting isn't saved between session." );
 
 idCVar cv_sr_disable (				"tdm_sr_disable",           "0",           CVAR_GAME | CVAR_BOOL, "Set to 1 to disable all stim/response processing." );
+
+idCVar cv_debug_mainmenu(			"tdm_debug_mainmenu",      "0",            CVAR_BOOL, "Set to 1 to enable main menu GUI debugging." );
 
 /**
 * Dark Mod player movement

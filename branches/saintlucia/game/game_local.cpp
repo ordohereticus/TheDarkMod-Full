@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2929 $
- * $Date: 2008-10-06 14:57:40 -0400 (Mon, 06 Oct 2008) $
+ * $Revision: 2945 $
+ * $Date: 2008-10-13 00:19:55 -0400 (Mon, 13 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2929 2008-10-06 18:57:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2945 2008-10-13 04:19:55Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3236,6 +3236,28 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 	g_Shop.HandleCommands(menuCommand, gui, GetLocalPlayer());
 	g_Mods.HandleCommands(menuCommand, gui);
+
+	if (cv_debug_mainmenu.GetBool())
+	{
+		const idDict& state = gui->State();
+		
+		for (int i = 0; i < state.GetNumKeyVals(); ++i)
+		{
+			const idKeyValue* kv = state.GetKeyVal(i);
+
+			const idStr key = kv->GetKey();
+			const idStr value = kv->GetValue();
+
+			// Force the log file to write its stuff
+			g_Global.m_ClassArray[LC_MISC] = true;
+			g_Global.m_LogArray[LT_INFO] = true;
+
+			DM_LOG(LC_MISC, LT_INFO)LOGSTRING("Mainmenu GUI State %s = %s\r", key.c_str(), value.c_str());
+		}
+
+		// Clear the cvar again
+		cv_debug_mainmenu.SetBool(false);
+	}
 }
 
 /*
