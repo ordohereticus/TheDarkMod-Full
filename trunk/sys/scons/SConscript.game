@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3089 $
-#* $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
+#* $Revision: 3139 $
+#* $Date: 2009-01-13 13:39:59 -0500 (Tue, 13 Jan 2009) $
 #* $Author: angua $
 #*
 #* $Log$
@@ -114,6 +114,7 @@ darkModSrc = '\
 AIComm_Message.cpp \
 AIVehicle.cpp \
 BinaryFrobMover.cpp \
+BloodMarker.cpp \
 ButtonStateTracker.cpp \
 DarkmodAASHidingSpotFinder.cpp \
 DarkModGlobals.cpp \
