@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3039 $
- * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
+ * $Revision: 3040 $
+ * $Date: 2008-11-19 05:09:00 -0500 (Wed, 19 Nov 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3039 2008-11-19 09:06:27Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3040 2008-11-19 10:09:00Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -304,8 +304,10 @@ void CGrabber::StopDrag( void )
 	}
 
 	// TODO: This assumes we can never equip an object and drag a second object
+	/*
 	if( m_EquippedEnt.GetEntity() && m_player.GetEntity() )
 		Dequip();
+	*/
 }
 
 /*
@@ -495,7 +497,7 @@ void CGrabber::Update( idPlayer *player, bool hold )
 	if( m_bObjStuck )
 	{
 		StopDrag();
-		m_EquippedEnt = NULL;
+		// m_EquippedEnt = NULL;
 	}
 
 	// evaluate physics
@@ -1426,7 +1428,10 @@ bool CGrabber::ToggleEquip( void )
 	bool rc(false);
 
 	if( m_EquippedEnt.GetEntity() )
+	{
 		rc = true; // always register action when trying to dequip
+		Dequip();
+	}
 	else
 		rc = Equip();
 

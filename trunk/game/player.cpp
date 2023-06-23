@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3039 $
- * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
+ * $Revision: 3040 $
+ * $Date: 2008-11-19 05:09:00 -0500 (Wed, 19 Nov 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3039 2008-11-19 09:06:27Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3040 2008-11-19 10:09:00Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9556,7 +9556,7 @@ bool idPlayer::DropToHands( idEntity *ent, CInventoryItemPtr item )
 
 	// Set up the initial orientation and point at which we want to drop
 	idMat3 dropAxis;
-	if( item )
+	if( item != NULL )
 		dropAxis = item->GetDropOrientation();
 	else if( ent->spawnArgs.FindKey("drop_angles") )
 	{
