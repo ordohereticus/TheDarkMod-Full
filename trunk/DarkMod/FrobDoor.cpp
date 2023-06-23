@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2608 $
- * $Date: 2008-07-04 01:22:47 -0400 (Fri, 04 Jul 2008) $
+ * $Revision: 2609 $
+ * $Date: 2008-07-04 16:42:20 -0400 (Fri, 04 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2608 2008-07-04 05:22:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2609 2008-07-04 20:42:20Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -538,8 +538,8 @@ void CFrobDoor::OnClosedPositionReached()
 		// Clear the flag, regardless what happens
 		m_CloseOnLock = false;
 
-		// Post a lock event in 500 msecs
-		PostEventMS(&EV_TDM_FrobMover_Lock, 500);
+		// Post a lock event in 250 msecs
+		PostEventMS(&EV_TDM_FrobMover_Lock, 250);
 	}
 }
 
