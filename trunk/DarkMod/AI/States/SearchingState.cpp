@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2635 $
- * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2728 $
+ * $Date: 2008-08-07 01:22:14 -0400 (Thu, 07 Aug 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 2635 2008-07-12 08:53:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 2728 2008-08-07 05:22:14Z angua $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -59,6 +59,11 @@ void SearchingState::Init(idAI* owner)
 
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("SearchingState initialised.\r");
 	assert(owner);
+
+	if (owner->GetMoveType() == MOVETYPE_SIT)
+	{
+		owner->SetMoveType(MOVETYPE_ANIM);
+	}
 
 	// Ensure we are in the correct alert level
 	if (!CheckAlertLevel(owner)) return;
