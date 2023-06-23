@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2391 $
- * $Date: 2008-05-26 15:41:30 -0400 (Mon, 26 May 2008) $
- * $Author: greebo $
+ * $Revision: 2397 $
+ * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2391 2008-05-26 19:41:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2397 2008-05-28 20:31:07Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -100,6 +100,8 @@ idCVar cv_ai_opt_nopresent (			"tdm_ai_opt_nopresent",	"0",			CVAR_GAME | CVAR_B
 idCVar cv_ai_opt_noobstacleavoidance (			"tdm_ai_opt_noobstacleavoidace",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not check for obstacles." );
 
 idCVar cv_ai_show_aasfuncobstacle_state("tdm_ai_show_aasfuncobstacle_state",	"0", CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), idFuncAASObstacles will show their state at spawn time and during changes." );
+
+idCVar cv_debug_aastype(			"tdm_debug_aastype",		"aas32",		CVAR_GAME | CVAR_ARCHIVE, "Sets the AAS type used for visualisation with impulse 27");
 
 idCVar cv_las_showtraces(			"tdm_las_showtraces",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), traces from light origin to testpoints used for visibility testiung are drawn." );
 

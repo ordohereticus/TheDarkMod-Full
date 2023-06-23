@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2386 $
- * $Date: 2008-05-26 13:07:23 -0400 (Mon, 26 May 2008) $
- * $Author: greebo $
+ * $Revision: 2397 $
+ * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2386 2008-05-26 17:07:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2397 2008-05-28 20:31:07Z angua $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5008,7 +5008,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_27:
 			{
 				//LAS.pvsToAASMappingTable.DebugShowMappings(10000);
-				idAASLocal* aas = dynamic_cast<idAASLocal*>(gameLocal.GetAAS("aas32"));
+				idAASLocal* aas = dynamic_cast<idAASLocal*>(gameLocal.GetAAS(cv_debug_aastype.GetString()));
 					
 				if (aas != NULL)
 				{

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2397 $
+ * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 2397 2008-05-28 20:31:07Z angua $", init_version);
 
 #include "AnimalPatrolTask.h"
 #include "../Memory.h"
@@ -151,14 +151,13 @@ void AnimalPatrolTask::movingToNextSpot(idAI* owner)
 {
 	if (owner->AI_MOVE_DONE) 
 	{
+		// We've reached the destination, wait a bit
+		switchToState(stateWaiting, owner);
 		if (owner->AI_DEST_UNREACHABLE) 
 		{
 			// Destination is unreachable, switch to new state
 			chooseNewState(owner);
 		}
-
-		// We've reached the destination, wait a bit
-		switchToState(stateWaiting, owner);
 	}
 	else if (gameLocal.random.RandomFloat() < 0.1f)
 	{

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2103 $
- * $Date: 2008-02-23 14:13:41 -0500 (Sat, 23 Feb 2008) $
- * $Author: greebo $
+ * $Revision: 2397 $
+ * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2103 2008-02-23 19:13:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2397 2008-05-28 20:31:07Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -404,7 +404,11 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		clipModel->GetAbsBounds().AxisProjection( -physics->GetGravityNormal(), min, max );
 		if ( max < stepHeight || min > headHeight ) {
 			// can step over this one
-			continue;
+			// angua: do not step over other actors
+			if (obEnt->IsType(idActor::Type))
+			{
+				continue;
+			}
 		}
 
 		// Get the box bounding the obstacle
