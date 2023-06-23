@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2571 $
- * $Date: 2008-06-25 16:23:18 -0400 (Wed, 25 Jun 2008) $
+ * $Revision: 2591 $
+ * $Date: 2008-07-02 00:44:32 -0400 (Wed, 02 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -81,6 +81,8 @@ public:
 	CFrobDoorHandle*		GetDoorhandle();
 	// Adds a door handle to this door. A door can have multiple handles
 	void					AddDoorhandle(CFrobDoorHandle* handle);
+
+	virtual bool			CanBeUsedBy(idEntity* entity); // Overrides idEntity::CanBeUsedBy
 
 	bool					UsedBy(IMPULSE_STATE nState, CInventoryItem* item);
 

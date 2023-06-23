@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2587 $
- * $Date: 2008-06-29 14:00:34 -0400 (Sun, 29 Jun 2008) $
+ * $Revision: 2591 $
+ * $Date: 2008-07-02 00:44:32 -0400 (Wed, 02 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2587 2008-06-29 18:00:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2591 2008-07-02 04:44:32Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -526,6 +526,25 @@ void CFrobDoor::OnClosedPositionReached()
 
 	// Update the sound propagation values
 	UpdateSoundLoss();
+}
+
+bool CFrobDoor::CanBeUsedBy(idEntity* entity)
+{
+	// Check if this item is a lockpick. It has to be of the toolclass lockpick
+	// and the type must be set.
+	/*char type = 0;
+
+	idStr str = ent->spawnArgs.GetString("toolclass", "");
+	if (str == "lockpick")
+	{
+		str = ent->spawnArgs.GetString("type", "");
+		if (str.Length() == 1)
+		{
+			type = str[0];
+		}
+	}*/
+
+	return idEntity::CanBeUsedBy(entity);
 }
 
 bool CFrobDoor::UsedBy(IMPULSE_STATE nState, CInventoryItem* item)

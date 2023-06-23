@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2590 $
- * $Date: 2008-06-30 11:42:24 -0400 (Mon, 30 Jun 2008) $
+ * $Revision: 2591 $
+ * $Date: 2008-07-02 00:44:32 -0400 (Wed, 02 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -593,6 +593,22 @@ public:
 	 * otherwise false is returned and the name is not added to the list.
 	 */
 	bool AddToMasterList(idList<idStr> &, idStr &name);
+
+	/**
+	 * greebo: Returns TRUE if the given inventory item matches this entity, i.e.
+	 * if the entity can be used by the given inventory item, FALSE otherwise.
+	 * Note: This just routes the call to the overloaded CanBeUsedBy(idEntity*);
+	 */
+	virtual bool CanBeUsedBy(CInventoryItem* item);
+
+	/**
+	 * greebo: Returns TRUE if the given entity matches this entity, i.e.
+	 * if the entity can be used by the given enitty, FALSE otherwise.
+	 *
+	 * The standard entity returns FALSE, this method needs to be overridden 
+	 * by the subclasses.
+	 */
+	virtual bool CanBeUsedBy(idEntity* entity);
 
 	/**
 	 * UsedBy determines the behaviour when an entity is used against another one.
