@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2933 $
- * $Date: 2008-10-07 13:10:28 -0400 (Tue, 07 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2934 $
+ * $Date: 2008-10-08 13:02:17 -0400 (Wed, 08 Oct 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 2933 2008-10-07 17:10:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 2934 2008-10-08 17:02:17Z angua $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -99,7 +99,7 @@ void SwitchOnLightState::Init(idAI* owner)
 					owner->GetSubsystem(SubsysAction)->ClearTasks();
 					owner->GetSubsystem(SubsysMovement)->ClearTasks();
 					owner->GetSubsystem(SubsysMovement)->PushTask(TaskPtr(new MoveToPositionTask(targetPoint)));
-
+					/*
 					if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 					{
 						memory.lastTimeVisualStimBark = gameLocal.time;
@@ -107,7 +107,7 @@ void SwitchOnLightState::Init(idAI* owner)
 							TaskPtr(new SingleBarkTask("snd_yesRelightTorch"))
 						);
 					}
-
+					*/
 					light->ResponseIgnore(ST_VISUAL, owner);
 				}
 				else
@@ -131,6 +131,7 @@ void SwitchOnLightState::Init(idAI* owner)
 			{
 				// Probably can't reach the light, too far above ground
 				light->ResponseIgnore(ST_VISUAL, owner);
+				/*
 				if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 				{
 					memory.lastTimeVisualStimBark = gameLocal.time;
@@ -138,6 +139,7 @@ void SwitchOnLightState::Init(idAI* owner)
 						TaskPtr(new SingleBarkTask("snd_foundTorchOut"))
 					);
 				}
+				*/
 				owner->GetMind()->EndState();
 				return;
 			}
