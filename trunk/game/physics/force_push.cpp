@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2850 $
- * $Date: 2008-09-15 12:01:56 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2860 $
+ * $Date: 2008-09-18 11:25:26 -0400 (Thu, 18 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2850 2008-09-15 16:01:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2860 2008-09-18 15:25:26Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -113,7 +113,8 @@ void CForcePush::Evaluate( int time )
 			scale = cv_pm_push_maximpulse.GetFloat();
 		}
 
-		idVec3 pushDirection = impactVelocity;
+		// greebo: Nullify the z-component of the impact impulse, we're always kicking horizontally
+		idVec3 pushDirection(impactVelocity.x, impactVelocity.y, 0);
 		pushDirection.NormalizeFast();
 
 		// Check if the moveable has already a large impulse in that direction
@@ -126,7 +127,15 @@ void CForcePush::Evaluate( int time )
 			//gameRenderWorld->DrawText( idStr(pushImpulse.LengthFast()), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec*10 );
 			//gameRenderWorld->DebugArrow( colorWhite, physics->GetAbsBounds().GetCenter(), physics->GetAbsBounds().GetCenter() - contactInfo.c.normal*100, 1, gameLocal.msec*10 );
 
+			DM_LOG(LC_MOVEMENT, LT_INFO)LOGSTRING("Kicking impulse = %f,%f,%f\r", pushImpulse.x, pushImpulse.y, pushImpulse.z);
+
+			DM_LOG(LC_MOVEMENT, LT_INFO)LOGSTRING("Kicking obstacle %s, velocity BEFORE is %f,%f,%f\r", pushEnt->name.c_str(), 
+				physics->GetLinearVelocity().x, physics->GetLinearVelocity().y, physics->GetLinearVelocity().z);
+
 			physics->PropagateImpulse(id, contactInfo.c.point, pushImpulse);	
+
+			DM_LOG(LC_MOVEMENT, LT_INFO)LOGSTRING("Kicking obstacle %s, velocity AFTER is %f,%f,%f\r", pushEnt->name.c_str(), 
+				physics->GetLinearVelocity().x, physics->GetLinearVelocity().y, physics->GetLinearVelocity().z);
 		}
 	}
 	// The pushed entity is considered heavy
@@ -162,7 +171,9 @@ void CForcePush::Evaluate( int time )
 			//gameRenderWorld->DrawText( idStr(velocity * accelScale * massScale), physics->GetAbsBounds().GetCenter(), 0.1f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 
 			// Apply the mass scale and the acceleration scale to the capped velocity
-			pushEnt->GetPhysics()->SetLinearVelocity(pushVelocity * velocity * accelScale * massScale * entityScale);
+			physics->SetLinearVelocity(pushVelocity * velocity * accelScale * massScale * entityScale);
+
+			DM_LOG(LC_MOVEMENT, LT_INFO)LOGSTRING("Pushing obstacle %s\r", pushEnt->name.c_str());
 
 			isPushing = true;
 

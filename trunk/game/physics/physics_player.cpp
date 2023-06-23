@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2852 $
- * $Date: 2008-09-15 14:41:41 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2860 $
+ * $Date: 2008-09-18 11:25:26 -0400 (Thu, 18 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2852 $   $Date: 2008-09-15 14:41:41 -0400 (Mon, 15 Sep 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2860 $   $Date: 2008-09-18 11:25:26 -0400 (Thu, 18 Sep 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -385,7 +385,7 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 				}
 
 
-				DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING ("performing step up, velocity now %.4f %.4f %.4f\n",  current.velocity.x, current.velocity.y, current.velocity.z);
+				DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING ("performing step up, velocity now %.4f %.4f %.4f\r",  current.velocity.x, current.velocity.y, current.velocity.z);
 			}
 		}
 
@@ -544,7 +544,7 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 			current.movementFlags |= PMF_STEPPED_DOWN;
 			current.velocity *= PM_STEPSCALE;
 
-			DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING ("performing step down, velocity now %.4f %.4f %.4f\n",  current.velocity.x, current.velocity.y, current.velocity.z);
+			DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING ("performing step down, velocity now %.4f %.4f %.4f\r",  current.velocity.x, current.velocity.y, current.velocity.z);
 		}
 	}
 
