@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2264 $
- * $Date: 2008-05-06 14:27:23 -0400 (Tue, 06 May 2008) $
+ * $Revision: 2324 $
+ * $Date: 2008-05-14 00:48:31 -0400 (Wed, 14 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2264 2008-05-06 18:27:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2324 2008-05-14 04:48:31Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2437,66 +2437,8 @@ idAI::Event_RestoreMove
 =====================
 */
 void idAI::Event_RestoreMove( void ) {
-	idVec3 goalPos;
-	idVec3 dest;
-
-	switch( savedMove.moveCommand ) {
-	case MOVE_NONE :
-		StopMove( savedMove.moveStatus );
-		break;
-
-	case MOVE_FACE_ENEMY :
-		FaceEnemy();
-		break;
-
-	case MOVE_FACE_ENTITY :
-		FaceEntity( savedMove.goalEntity.GetEntity() );
-		break;
-
-	case MOVE_TO_ENEMY :
-		MoveToEnemy();
-		break;
-
-	case MOVE_TO_ENEMYHEIGHT :
-		MoveToEnemyHeight();
-		break;
-
-	case MOVE_TO_ENTITY :
-		MoveToEntity( savedMove.goalEntity.GetEntity() );
-		break;
-
-	case MOVE_OUT_OF_RANGE :
-		MoveOutOfRange( savedMove.goalEntity.GetEntity(), savedMove.range );
-		break;
-
-	case MOVE_TO_ATTACK_POSITION :
-		MoveToAttackPosition( savedMove.goalEntity.GetEntity(), savedMove.anim );
-		break;
-
-	case MOVE_TO_COVER :
-		MoveToCover( savedMove.goalEntity.GetEntity(), lastVisibleEnemyPos );
-		break;
-
-	case MOVE_TO_POSITION :
-		MoveToPosition( savedMove.moveDest );
-		break;
-
-	case MOVE_TO_POSITION_DIRECT :
-		DirectMoveToPosition( savedMove.moveDest );
-		break;
-
-	case MOVE_SLIDE_TO_POSITION :
-		SlideToPosition( savedMove.moveDest, savedMove.duration );
-		break;
-
-	case MOVE_WANDER :
-		WanderAround();
-		break;
-	}
-
-	if ( GetMovePos( goalPos ) ) {
-		CheckObstacleAvoidance( goalPos, dest );
-	}
+	// greebo: Call the local helper function with the previously stored <savedMove> as argument
+	RestoreMove(savedMove);
 }
 
 /*
