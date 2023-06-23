@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2465 $
- * $Date: 2008-06-08 16:15:10 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2470 $
+ * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2465 2008-06-08 20:15:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2470 2008-06-12 19:37:49Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1737,6 +1737,14 @@ void idAI::Think( void )
 				{
 					AnimMove();
 				}
+				CheckBlink();
+				break;
+
+			case MOVETYPE_SIT :
+				// static monsters
+				UpdateEnemyPosition();
+				UpdateAIScript();
+				SittingMove();
 				CheckBlink();
 				break;
 
@@ -4400,6 +4408,52 @@ void idAI::AnimMove()
 		DrawRoute();
 	}
 }
+
+/*
+=====================
+idAI::SittingMove
+=====================
+*/
+void idAI::SittingMove()
+{
+	idVec3				goalPos;
+	idVec3				goalDelta;
+	monsterMoveResult_t	moveResult;
+	idVec3				newDest;
+
+	idVec3 oldorigin = physicsObj.GetOrigin();
+	idMat3 oldaxis = viewAxis;
+
+	AI_BLOCKED = false;
+
+	if ( move.moveCommand != MOVE_NONE )
+	{
+		move.moveType = MOVETYPE_ANIM;
+	}
+
+	RunPhysics();
+
+	if ( ai_debugMove.GetBool() ) {
+		gameRenderWorld->DebugLine( colorCyan, oldorigin, physicsObj.GetOrigin(), 5000 );
+	}
+
+	moveResult = physicsObj.GetMoveResult();
+
+	AI_ONGROUND = physicsObj.OnGround();
+
+	const idVec3& org = physicsObj.GetOrigin();
+	if (oldorigin != org) {
+		TouchTriggers();
+	}
+
+	if ( ai_debugMove.GetBool() ) {
+		gameRenderWorld->DebugBounds( colorMagenta, physicsObj.GetBounds(), org, gameLocal.msec );
+		gameRenderWorld->DebugBounds( colorMagenta, physicsObj.GetBounds(), move.moveDest, gameLocal.msec );
+		gameRenderWorld->DebugLine( colorYellow, org + EyeOffset(), org + EyeOffset() + viewAxis[ 0 ] * physicsObj.GetGravityAxis() * 16.0f, gameLocal.msec, true );
+		DrawRoute();
+	}
+}
+
 
 /*
 =====================

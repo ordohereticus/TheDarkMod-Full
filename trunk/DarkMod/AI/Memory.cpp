@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2470 $
+ * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 2470 2008-06-12 19:37:49Z angua $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -30,6 +30,8 @@ Memory::Memory(idAI* owningAI) :
 	nextHeadTurnCheckTime(0),
 	currentlyHeadTurning(false),
 	headTurnEndTime(0),
+	idlePosition(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY),
+	idleYaw(0),
 	enemiesHaveBeenSeen(false),
 	itemsHaveBeenStolen(false),
 	unconsciousPeopleHaveBeenFound(false),
@@ -76,6 +78,8 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteInt(nextHeadTurnCheckTime);
 	savefile->WriteBool(currentlyHeadTurning);
 	savefile->WriteInt(headTurnEndTime);
+	savefile->WriteVec3(idlePosition);
+	savefile->WriteFloat(idleYaw);
 	savefile->WriteBool(enemiesHaveBeenSeen);
 	savefile->WriteBool(itemsHaveBeenStolen);
 	savefile->WriteBool(unconsciousPeopleHaveBeenFound);
@@ -137,6 +141,8 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(nextHeadTurnCheckTime);
 	savefile->ReadBool(currentlyHeadTurning);
 	savefile->ReadInt(headTurnEndTime);
+	savefile->ReadVec3(idlePosition);
+	savefile->ReadFloat(idleYaw);
 	savefile->ReadBool(enemiesHaveBeenSeen);
 	savefile->ReadBool(itemsHaveBeenStolen);
 	savefile->ReadBool(unconsciousPeopleHaveBeenFound);

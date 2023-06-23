@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2470 $
+ * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -187,6 +187,9 @@ public:
 	int nextHeadTurnCheckTime;
 	bool currentlyHeadTurning;
 	int headTurnEndTime;
+
+	idVec3 idlePosition;
+	float idleYaw;
 
 	// TRUE if enemies have been seen
 	bool enemiesHaveBeenSeen;

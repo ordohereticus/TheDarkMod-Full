@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2470 $
+ * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -20,13 +20,6 @@ namespace ai
 class IdleState :
 	public State
 {
-protected:
-	// These are finite if the guard has no patrol route
-	idVec3 _idlePosition;
-	float _idleYaw;
-
-	// Protected constructor
-	IdleState();
 
 public:
 	// Get the name of this state
