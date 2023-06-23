@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3199 $
- * $Date: 2009-01-20 06:02:49 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3229 $
+ * $Date: 2009-03-08 03:24:27 -0400 (Sun, 08 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3199 2009-01-20 11:02:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3229 2009-03-08 07:24:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -96,6 +96,7 @@ const idEventDef EV_Player_GetInventoryOverlay( "getInventoryOverlay", NULL, 'd'
 
 const idEventDef EV_Player_PlayStartSound( "playStartSound", NULL );
 const idEventDef EV_Player_MissionFailed("missionFailed", NULL );
+const idEventDef EV_Player_CustomDeath("customDeath", NULL );
 const idEventDef EV_Player_DeathMenu("deathMenu", NULL );
 const idEventDef EV_Player_HoldEntity( "holdEntity", "E", 'f' );
 const idEventDef EV_Player_HeldEntity( "heldEntity", NULL, 'E' );
@@ -179,6 +180,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 
 	EVENT( EV_Player_PlayStartSound,		idPlayer::Event_PlayStartSound )
 	EVENT( EV_Player_MissionFailed,			idPlayer::Event_MissionFailed )
+	EVENT( EV_Player_CustomDeath,			idPlayer::Event_CustomDeath )
 	EVENT( EV_Player_DeathMenu,				idPlayer::Event_LoadDeathMenu )
 	EVENT( EV_Player_HoldEntity,			idPlayer::Event_HoldEntity )
 	EVENT( EV_Player_HeldEntity,			idPlayer::Event_HeldEntity )
@@ -7032,6 +7034,14 @@ void idPlayer::Killed( idEntity *inflictor, idEntity *attacker, int damage, cons
 
 	AI_DEAD = true;
 
+	// greebo: Before posting mission failed and going to ragdoll, check for custom death script
+	if (gameLocal.world != NULL && gameLocal.world->spawnArgs.GetInt("custom_death_delay") > 0)
+	{
+		// Run the death event in a few seconds
+		PostEventMS(&EV_Player_CustomDeath, SEC2MS(gameLocal.world->spawnArgs.GetInt("custom_death_delay")));
+		return; // stop death processing here
+	}
+
 	this->PostEventMS( &EV_Player_MissionFailed, spawnArgs.GetInt("death_transit_time", "2000") );
 
 	SetAnimState( ANIMCHANNEL_LEGS, "Legs_Death", 4 );
@@ -9977,6 +9987,17 @@ void idPlayer::Event_PlayStartSound( void )
 void idPlayer::Event_MissionFailed( void )
 {
 	gameLocal.m_MissionData->Event_MissionFailed();
+}
+
+void idPlayer::Event_CustomDeath()
+{
+	// Run the custom death script
+	idThread* thread = CallScriptFunctionArgs("custom_death", true, 0, "e", this);
+
+	if (thread != NULL) {
+		// Run immediately
+		thread->Execute();
+	}
 }
 
 void idPlayer::Event_LoadDeathMenu( void )

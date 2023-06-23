@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3194 $
- * $Date: 2009-01-20 02:10:09 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3229 $
+ * $Date: 2009-03-08 03:24:27 -0400 (Sun, 08 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1158,6 +1158,10 @@ private:
 	void					Event_GetInventoryOverlay(void);
 
 	void					Event_PlayStartSound( void );
+
+	// greebo: Gets posted when the player is dead and the "custom_death_delay" spawnarg is set to a positive value on worldspawn
+	void					Event_CustomDeath();
+
 	void					Event_MissionFailed( void );
 	void					Event_LoadDeathMenu( void );
 
