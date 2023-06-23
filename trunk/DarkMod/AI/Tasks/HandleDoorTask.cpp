@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3053 $
+ * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3053 2008-11-21 16:31:52Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -1025,6 +1025,8 @@ bool HandleDoorTask::OpenDoor()
 			{
 				int areaNum = frobDoor->GetAASArea(aas);
 				gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
+				owner->PostEventMS(&AI_ReEvaluateArea, owner->doorRetryTime, areaNum);
+
 			}
 
 			return false;

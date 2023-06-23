@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3045 $
- * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3053 $
+ * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3045 2008-11-21 14:00:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3053 2008-11-21 16:31:52Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2221,12 +2221,6 @@ void idAI::KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick )
 
 bool idAI::ReEvaluateArea(int areaNum)
 {
-	// Only re-evaluate every now and then, not each frame
-	if (gameLocal.time < lastAreaReevaluationTime + maxAreaReevaluationInterval) 
-	{
-		return false;
-	}
-
 	// Remember the time
 	lastAreaReevaluationTime = gameLocal.time;
 
@@ -2235,9 +2229,9 @@ bool idAI::ReEvaluateArea(int areaNum)
 
 	if (doorInfo != NULL)
 	{
-		if (doorInfo->lastTimeTriedToOpen + doorRetryTime < gameLocal.time)
+		//if (doorInfo->lastTimeTriedToOpen + doorRetryTime < gameLocal.time)
 		{
-			// Re-try the door after 60 seconds
+			// Re-try the door after some time
 			gameLocal.m_AreaManager.RemoveForbiddenArea(areaNum, this);
 			return true;
 		}

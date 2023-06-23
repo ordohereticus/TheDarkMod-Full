@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3053 $
+ * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3053 2008-11-21 16:31:52Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -170,6 +170,7 @@ const idEventDef AI_CanReachPosition( "canReachPosition", "v", 'd' );
 const idEventDef AI_CanReachEntity( "canReachEntity", "E", 'd' );
 const idEventDef AI_CanReachEnemy( "canReachEnemy", NULL, 'd' );
 const idEventDef AI_GetReachableEntityPosition( "getReachableEntityPosition", "e", 'v' );
+const idEventDef AI_ReEvaluateArea("reEvaluateArea", "d");
 
 // TDM
 const idEventDef AI_PlayAndLipSync( "playAndLipSync", "ss", 'd' );
@@ -496,6 +497,8 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_CanReachEntity,					idAI::Event_CanReachEntity )
 	EVENT( AI_CanReachEnemy,					idAI::Event_CanReachEnemy )
 	EVENT( AI_GetReachableEntityPosition,		idAI::Event_GetReachableEntityPosition )
+	EVENT( AI_ReEvaluateArea,					idAI::Event_ReEvaluateArea )
+
 	
 	// greebo: State manipulation interface
 	EVENT(  AI_PushState,						idAI::Event_PushState )
@@ -3056,6 +3059,12 @@ void idAI::Event_GetReachableEntityPosition( idEntity *ent ) {
 	}
 
 	idThread::ReturnVector( pos );
+}
+
+
+void idAI::Event_ReEvaluateArea(int areanum)
+{
+	ReEvaluateArea(areanum);
 }
 
 /**

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3045 $
- * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3053 $
+ * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -121,6 +121,8 @@ extern const idEventDef AI_GetAcuity;
 extern const idEventDef AI_SetAcuity;
 extern const idEventDef AI_SetAudThresh;
 extern const idEventDef AI_ClosestReachableEnemy;
+extern const idEventDef AI_ReEvaluateArea;
+
 
 // Darkmod: Glass Houses events
 extern const idEventDef AI_SpawnThrowableProjectile;
@@ -551,17 +553,17 @@ public:
 public:
 	idLinkList<idAI>		aiNode;				// for being linked into gameLocal.spawnedAI list
 
-protected:
-	// navigation
-	idAAS *					aas;
-	int						travelFlags;
-
 	// greebo: When this AI has last re-evaluated a forbidden area (game time)
 	int						lastAreaReevaluationTime;
 	// The minimum time that needs to pass by before the AI re-evaluates a forbidden area (msec)
 	int						maxAreaReevaluationInterval;
 	// The time that needs to pass before locked doors are enabled for another try (msec)
 	int						doorRetryTime;
+
+protected:
+	// navigation
+	idAAS *					aas;
+	int						travelFlags;
 
 	idMoveState				move;
 	idMoveState				savedMove;
@@ -1703,6 +1705,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void 					Event_CanReachEntity( idEntity *ent );
 	void					Event_CanReachEnemy( void );
 	void					Event_GetReachableEntityPosition( idEntity *ent );
+	void					Event_ReEvaluateArea(int areanum);
 
 	// Script interface for state manipulation
 	void					Event_PushState(const char* state);

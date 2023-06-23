@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3045 $
- * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3053 $
+ * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AreaManager.cpp 3045 2008-11-21 14:00:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AreaManager.cpp 3053 2008-11-21 16:31:52Z angua $", init_version);
 
 #include "AreaManager.h"
 
@@ -89,7 +89,7 @@ void AreaManager::RemoveForbiddenArea(int areanum, const idAI* ai)
 		if (found->second == ai)
 		{
 			_forbiddenAreas.erase(found);
-			return;
+			break;
 		}
 	}
 
