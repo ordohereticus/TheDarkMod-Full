@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2507 $
- * $Date: 2008-06-15 13:49:35 -0400 (Sun, 15 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2565 $
+ * $Date: 2008-06-24 14:59:09 -0400 (Tue, 24 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2507 2008-06-15 17:49:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2565 2008-06-24 18:59:09Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -39,7 +39,7 @@ static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2507 2008-06-15 
 ===============================================================================
 */
 
-const float MAX_OBSTACLE_RADIUS			= 256.0f;
+const float MAX_OBSTACLE_RADIUS			= 128.0f;
 const float PUSH_OUTSIDE_OBSTACLES		= 0.5f;
 const float CLIP_BOUNDS_EPSILON			= 10.0f;
 const int 	MAX_AAS_WALL_EDGES			= 256;
@@ -327,7 +327,16 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	// clip bounds for the obstacle search space
 	clipBounds[0] = clipBounds[1] = startPos;
 	clipBounds.AddPoint( seekPos );
-	clipBounds.ExpandSelf( MAX_OBSTACLE_RADIUS );
+	idBounds bounds(physics->GetBounds());
+	clipBounds[0][0] -= MAX_OBSTACLE_RADIUS;
+	clipBounds[0][1] -= MAX_OBSTACLE_RADIUS;
+	clipBounds[1][0] += MAX_OBSTACLE_RADIUS;
+	clipBounds[1][1] += MAX_OBSTACLE_RADIUS;
+
+	clipBounds[0][2] -= bounds[0][2] - 20;
+	clipBounds[1][2] += bounds[1][2] + 20;
+
+	// clipBounds.ExpandSelf( MAX_OBSTACLE_RADIUS );
 	clipMask = physics->GetClipMask();
 
 	if ( ai_showObstacleAvoidance.GetBool() ) {
