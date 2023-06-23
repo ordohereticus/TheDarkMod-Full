@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3059 $
+ * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeTask.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FleeTask.cpp 3059 2008-11-22 13:30:43Z angua $", init_version);
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -18,6 +18,13 @@ static bool init_version = FileVersionList("$Id: FleeTask.cpp 2959 2008-10-20 15
 
 namespace ai
 {
+
+FleeTask::FleeTask() :
+	_escapeSearchLevel(3), // 3 means FIND_FRIENDLY_GUARDED
+	_failureCount(0), // This is used for _escapeLevel 1 only
+	_fleeStartTime(gameLocal.time),
+	_distOpt(DIST_NEAREST)
+{}
 
 // Get the name of this task
 const idStr& FleeTask::GetName() const
@@ -30,22 +37,9 @@ void FleeTask::Init(idAI* owner, Subsystem& subsystem)
 {
 	// Init the base class
 	Task::Init(owner, subsystem);
-	_fleeStartTime = gameLocal.time;
 
 	_enemy = owner->GetEnemy();
-	idActor* enemy = _enemy.GetEntity();
 
-	Memory& memory = owner->GetMemory();
-	
-	// angua: only set flags when we are not already fleeing
-	if (memory.fleeingDone == true)
-	{
-		_escapeSearchLevel = 3; // 3 means FIND_FRIENDLY_GUARDED
-		_distOpt = DIST_NEAREST;
-		_failureCount = 0; // This is used for _escapeLevel 1 only
-	}
-
-	memory.fleeingDone = false;
 	owner->AI_MOVE_DONE = false;
 	owner->AI_RUN = true;
 }

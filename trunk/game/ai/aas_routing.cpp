@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3045 $
- * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3059 $
+ * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 3045 2008-11-21 14:00:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 3059 2008-11-22 13:30:43Z angua $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -1157,10 +1157,7 @@ bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalArea
 		// angua: area is forbidden (e.g. locked door)
 		if (actor != NULL && gameLocal.m_AreaManager.AreaIsForbidden(portalAreaNum, static_cast<idAI*>(actor)))
 		{
-			// Give the actor a chance to reconsider the forbidden status
-			if (!const_cast<idActor*>(actor)->ReEvaluateArea(portalAreaNum)) {
-				continue;
-			}
+			continue;
 		}
 
 		// get the cache of the portal area

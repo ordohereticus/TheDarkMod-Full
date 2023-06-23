@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3059 $
+ * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -31,6 +31,7 @@ class FleeTask :
 	int _fleeStartTime;
 	EscapeDistanceOption _distOpt;
 
+	FleeTask();
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;

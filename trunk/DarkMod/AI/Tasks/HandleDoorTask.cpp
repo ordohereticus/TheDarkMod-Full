@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3053 $
- * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3059 $
+ * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3053 2008-11-21 16:31:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3059 2008-11-22 13:30:43Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -50,10 +50,11 @@ void HandleDoorTask::Init(idAI* owner, Subsystem& subsystem)
 			{
 				int areaNum = frobDoor->GetAASArea(aas);
 				gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
+				owner->PostEventMS(&AI_ReEvaluateArea, owner->doorRetryTime, areaNum);
 			}
-			subsystem.FinishTask();
-			return;
 		}
+		subsystem.FinishTask();
+		return;
 	}
 
 	// Let the owner save its move

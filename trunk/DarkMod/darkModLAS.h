@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 3059 $
+ * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -196,6 +196,10 @@ public:
    */
    idStr getAASName();
 
+	#ifdef TIMING_BUILD
+private:
+	int queryLightingAlongLineTimer;
+#endif
 
 
 
