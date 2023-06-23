@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2754 $
- * $Date: 2008-08-24 21:10:15 -0400 (Sun, 24 Aug 2008) $
+ * $Revision: 2756 $
+ * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -412,10 +412,6 @@ private:
 	**/
 	bool						m_bPaused;
 	/**
-	* Frame at which we are paused:
-	**/
-	short						m_PausedFrame;
-	/**
 	* endtime and cycle before we paused
 	* The following are used for proper re-entry when unpausing
 	**/
@@ -475,6 +471,7 @@ public:
 	* Pause (true) or unpause (false) the animation at the current frame
 	**/
 	void						Pause( bool bPause );
+	bool						IsPaused( void );
 };
 
 /*

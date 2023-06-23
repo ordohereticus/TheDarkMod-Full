@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2755 $
- * $Date: 2008-08-25 00:35:25 -0400 (Mon, 25 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2756 $
+ * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2755 2008-08-25 04:35:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2756 2008-08-25 08:08:01Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6467,7 +6467,13 @@ int	idAnimatedEntity::GetDefaultSurfaceType( void ) const {
 idAnimatedEntity::AddLocalDamageEffect
 ==============
 */
-void idAnimatedEntity::AddLocalDamageEffect( jointHandle_t jointNum, const idVec3 &localOrigin, const idVec3 &localNormal, const idVec3 &localDir, const idDeclEntityDef *def, const idMaterial *collisionMaterial ) {
+void idAnimatedEntity::AddLocalDamageEffect
+	( 
+		jointHandle_t jointNum, const idVec3 &localOrigin, 
+		const idVec3 &localNormal, const idVec3 &localDir, 
+		const idDeclEntityDef *def, const idMaterial *collisionMaterial 
+	) 
+{
 	const char *sound, *splat, *decal, *bleed, *key;
 	damageEffect_t	*de;
 	idVec3 origin, dir;
@@ -6538,9 +6544,10 @@ void idAnimatedEntity::AddLocalDamageEffect( jointHandle_t jointNum, const idVec
 		de->localOrigin = localOrigin;
 		de->localNormal = localNormal;
 		de->type = static_cast<const idDeclParticle *>( declManager->FindType( DECL_PARTICLE, bleed ) );
-		
+
 		key = va( "smoke_chance_%s", surfName.c_str() );
-		float chance = def->dict.GetFloat( va("smoke_chance_%s", surfName.c_str()), "1.0" );
+		float chance;
+		chance = def->dict.GetFloat( va("smoke_chance_%s", surfName.c_str()), "1.0" );
 		if( gameLocal.random.RandomFloat() > chance )
 			de->type = NULL;
 		de->time = gameLocal.time;

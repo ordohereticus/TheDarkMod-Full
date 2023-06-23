@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2620 $
- * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
- * $Author: angua $
+ * $Revision: 2756 $
+ * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -162,7 +162,9 @@ public:
 	idScriptBool			AI_STRAFE_LEFT;
 	idScriptBool			AI_STRAFE_RIGHT;
 	idScriptBool			AI_ATTACK_HELD;
+	idScriptBool			AI_BLOCK_HELD;
 	idScriptBool			AI_WEAPON_FIRED;
+	idScriptBool			AI_WEAPON_BLOCKED;
 	idScriptBool			AI_JUMP;
 	idScriptBool			AI_CROUCH;
 	idScriptBool			AI_ONGROUND;
@@ -856,6 +858,7 @@ private:
 
 	void					StopFiring( void );
 	void					FireWeapon( void );
+	void					BlockWeapon( void );
 	void					Weapon_Combat( void );
 	void					Weapon_NPC( void );
 	void					Weapon_GUI( void );

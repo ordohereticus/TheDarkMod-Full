@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2754 $
- * $Date: 2008-08-24 21:10:15 -0400 (Sun, 24 Aug 2008) $
+ * $Revision: 2756 $
+ * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -37,6 +37,7 @@ extern const idEventDef EV_DisableLegIK;
 extern const idEventDef AI_SetAnimPrefix;
 extern const idEventDef AI_PlayAnim;
 extern const idEventDef AI_PauseAnim;
+extern const idEventDef AI_AnimIsPaused;
 extern const idEventDef AI_PlayCycle;
 extern const idEventDef AI_AnimDone;
 extern const idEventDef AI_SetBlendFrames;
@@ -65,6 +66,7 @@ public:
 	void					StopAnim( int frames );
 	void					PlayAnim( int anim );
 	void					PauseAnim( int channel, bool bPause );
+	bool					AnimIsPaused( int anim );
 	void					CycleAnim( int anim );
 	void					BecomeIdle( void );
 	bool					UpdateState( void );
@@ -434,6 +436,7 @@ public:
 	void					Event_StopAnim( int channel, int frames );
 	void					Event_PlayAnim( int channel, const char *name );
 	void					Event_PauseAnim( int channel, bool bPause );
+	void					Event_AnimIsPaused( int channel );
 	void					Event_PlayCycle( int channel, const char *name );
 	void					Event_IdleAnim( int channel, const char *name );
 	void					Event_SetSyncedAnimWeight( int channel, int anim, float weight );
