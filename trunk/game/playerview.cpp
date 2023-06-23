@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2472 $
- * $Date: 2008-06-13 23:20:29 -0400 (Fri, 13 Jun 2008) $
+ * $Revision: 2484 $
+ * $Date: 2008-06-14 06:04:40 -0400 (Sat, 14 Jun 2008) $
  * $Author: dram $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 2472 2008-06-14 03:20:29Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 2484 2008-06-14 10:04:40Z dram $", init_version);
 
 #include "game_local.h"
 
@@ -977,7 +977,7 @@ void idPlayerView::RenderPlayerView( idUserInterface *hud )
 	// TDM Ambient Method checking. By Dram
 	if ( cur_amb_method != cv_ambient_method.GetBool() ) // If the ambient method option has changed
 	{
-		idEntity *ambient_light = gameLocal.FindEntity( "world_ambient" ); // Looks for a light named "world_ambient"
+		idEntity *ambient_light = gameLocal.FindEntity( "ambient_world" ); // Looks for a light named "ambient_world"
 		idVec3 ambient_color;
 
 		if ( ambient_light ) // If the light exists
