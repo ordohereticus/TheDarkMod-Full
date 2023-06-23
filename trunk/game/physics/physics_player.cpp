@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2970 $
- * $Date: 2008-10-23 00:27:41 -0400 (Thu, 23 Oct 2008) $
+ * $Revision: 2971 $
+ * $Date: 2008-10-23 01:15:35 -0400 (Thu, 23 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2970 $   $Date: 2008-10-23 00:27:41 -0400 (Thu, 23 Oct 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2971 $   $Date: 2008-10-23 01:15:35 -0400 (Thu, 23 Oct 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2326,7 +2326,8 @@ void idPhysics_Player::MovePlayer( int msec ) {
 		// not holding jump
 		current.movementFlags &= ~PMF_JUMP_HELD;
 
-		if (m_mantlePhase == notMantling_DarkModMantlePhase)
+		if (m_mantlePhase == notMantling_DarkModMantlePhase
+			|| m_mantlePhase == fixClipping_DarkModMantlePhase)
 		{
 			// greebo: Jump button is released and no mantle phase is active, 
 			// we can allow the next mantling process.
@@ -2439,8 +2440,8 @@ void idPhysics_Player::MovePlayer( int msec ) {
 	}
 	// Mantle MOD
 	// SophisticatedZombie (DH)
-	else if ( m_mantlePhase != notMantling_DarkModMantlePhase
-				&& m_mantlePhase != fixClipping_DarkModMantlePhase ) 
+	else if ( !(m_mantlePhase == notMantling_DarkModMantlePhase
+				 || m_mantlePhase == fixClipping_DarkModMantlePhase) ) 
 	{
 		idPhysics_Player::MantleMove();
 	}
@@ -3538,8 +3539,8 @@ void idPhysics_Player::UpdateMantleTimers()
 	}
 
 	// Skip all this if done mantling
-	if (m_mantlePhase != notMantling_DarkModMantlePhase
-		&& m_mantlePhase != fixClipping_DarkModMantlePhase )
+	if ( !(m_mantlePhase == notMantling_DarkModMantlePhase
+			|| m_mantlePhase == fixClipping_DarkModMantlePhase) )
 	{
 
 		// Handle expiring mantle phases
@@ -3620,7 +3621,8 @@ void idPhysics_Player::UpdateMantleTimers()
 bool idPhysics_Player::IsMantling (void) const
 {
 	// Use state boolean
-	return m_mantlePhase != notMantling_DarkModMantlePhase;
+	return !( m_mantlePhase == notMantling_DarkModMantlePhase
+			|| m_mantlePhase == fixClipping_DarkModMantlePhase );
 }
 
 //----------------------------------------------------------------------
@@ -4393,7 +4395,8 @@ void idPhysics_Player::PerformMantle()
 	trace_t		trace;
 
 	// Can't start mantle if already mantling or not yet possible (jump button not yet released)
-	if (m_mantlePhase != notMantling_DarkModMantlePhase || !m_mantleStartPossible)
+	if ( !(m_mantlePhase == notMantling_DarkModMantlePhase || m_mantlePhase == fixClipping_DarkModMantlePhase)
+			|| !m_mantleStartPossible )
 	{
 		return;
 	}
