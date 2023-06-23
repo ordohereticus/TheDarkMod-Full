@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2544 $
- * $Date: 2008-06-20 10:58:58 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2545 $
+ * $Date: 2008-06-20 11:35:15 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -135,6 +135,18 @@ protected:
 
 	// Gets called when the mover finishes its closing move and is fully closed (virtual override)
 	virtual void			OnClosedPositionReached();
+
+	// Helper functions to cycle through the m_OpenList members
+	void					OpenSlaves();
+	void					CloseSlaves();
+	void					OpenCloseSlaves(bool open);
+
+	// Taps all slave doorhandles
+	void					TapSlaves();
+
+	void					LockSlaves();
+	void					UnlockSlaves();
+	void					LockUnlockSlaves(bool lock);
 
 	/**
 	 * Create a random pin pattern for a given pin. Clicks defines the required 
