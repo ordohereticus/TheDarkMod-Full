@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2773 $
- * $Date: 2008-08-30 14:17:23 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2774 $
+ * $Date: 2008-08-30 14:20:45 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2773 2008-08-30 18:17:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2774 2008-08-30 18:20:45Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -119,7 +119,7 @@ void CForcePush::Evaluate( int time )
 			float accelScale = idMath::ClampFloat(0, 1, (pushTime - pushStartDelay)/cv_pm_push_accel_time.GetFloat());
 
 			// Let the entity itself modify its pushing behaviour
-			float entityScale = pushEnt->spawnArgs.GetFloat("push_mod");
+			float entityScale = pushEnt->spawnArgs.GetFloat("push_mod", "1");
 
 			// Scale the movement velocity according to the object's mass
 			// At maxPushMass, the velocity is zero, at the minimum push mass threshold below it's about 0.75
