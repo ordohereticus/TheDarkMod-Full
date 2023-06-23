@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2705 $
- * $Date: 2008-07-19 09:01:58 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2708 $
+ * $Date: 2008-07-19 11:36:05 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2705 2008-07-19 13:01:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2708 2008-07-19 15:36:05Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -234,17 +234,10 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		idEntity* ent = command.GetEntityArgument(0);
 		if (ent != NULL)
 		{
-			// Start moving
-			idVec3 delta = ent->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin();
-			idVec3 deltaNorm(delta);
-			deltaNorm.NormalizeFast();
-
 			float distance = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_WALKTOENTITY_DISTANCE;
 			
-			idVec3 goal = owner->GetPhysics()->GetOrigin() + delta - deltaNorm*distance;
-
 			owner->GetSubsystem(SubsysMovement)->PushTask(
-				TaskPtr(new MoveToPositionTask(goal))
+				TaskPtr(new MoveToPositionTask(ent, distance))
 			);
 
 			// Check if we should wait until the command is finished and set the _state accordingly
