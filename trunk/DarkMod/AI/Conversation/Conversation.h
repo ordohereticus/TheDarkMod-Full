@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2705 $
- * $Date: 2008-07-19 09:01:58 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2800 $
+ * $Date: 2008-09-05 00:47:33 -0400 (Fri, 05 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -48,6 +48,9 @@ class Conversation
 	// TRUE if the actors are supposed to walk towards each other before starting to talk
 	bool _actorsMustBeWithinTalkDistance;
 
+	// TRUE if the actors always turn to each other while talking
+	bool _actorsAlwaysFaceEachOtherWhileTalking;
+
 public:
 	Conversation();
 
@@ -72,6 +75,9 @@ public:
 
 	// Returns true or false depending on the internal setting
 	bool ActorsMustBeWithinTalkdistance();
+
+	// Returns true or false depending on the internal setting
+	bool ActorsAlwaysFaceEachOtherWhileTalking();
 
 	// Returns the maximum distance actors can talk to each other from
 	float GetTalkDistance();

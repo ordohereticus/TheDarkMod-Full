@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2707 $
- * $Date: 2008-07-19 11:27:59 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2800 $
+ * $Date: 2008-09-05 00:47:33 -0400 (Fri, 05 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2707 2008-07-19 15:27:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2800 2008-09-05 04:47:33Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -24,7 +24,8 @@ Conversation::Conversation() :
 	_talkDistance(0.0f),
 	_playCount(0),
 	_maxPlayCount(-1),
-	_actorsMustBeWithinTalkDistance(true)
+	_actorsMustBeWithinTalkDistance(true),
+	_actorsAlwaysFaceEachOtherWhileTalking(true)
 {}
 
 Conversation::Conversation(const idDict& spawnArgs, int index) :
@@ -32,7 +33,8 @@ Conversation::Conversation(const idDict& spawnArgs, int index) :
 	_talkDistance(0.0f),
 	_playCount(0),
 	_maxPlayCount(-1),
-	_actorsMustBeWithinTalkDistance(true)
+	_actorsMustBeWithinTalkDistance(true),
+	_actorsAlwaysFaceEachOtherWhileTalking(true)
 {
 	// Pass the call to the parser
 	InitFromSpawnArgs(spawnArgs, index);
@@ -61,6 +63,11 @@ int Conversation::GetMaxPlayCount()
 bool Conversation::ActorsMustBeWithinTalkdistance()
 {
 	return _actorsMustBeWithinTalkDistance;
+}
+
+bool Conversation::ActorsAlwaysFaceEachOtherWhileTalking()
+{
+	return _actorsAlwaysFaceEachOtherWhileTalking;
 }
 
 float Conversation::GetTalkDistance()
@@ -288,6 +295,7 @@ void Conversation::Save(idSaveGame* savefile) const
 	savefile->WriteInt(_playCount);
 	savefile->WriteInt(_maxPlayCount);
 	savefile->WriteBool(_actorsMustBeWithinTalkDistance);
+	savefile->WriteBool(_actorsAlwaysFaceEachOtherWhileTalking);
 }
 
 void Conversation::Restore(idRestoreGame* savefile)
@@ -316,6 +324,7 @@ void Conversation::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(_playCount);
 	savefile->ReadInt(_maxPlayCount);
 	savefile->ReadBool(_actorsMustBeWithinTalkDistance);
+	savefile->ReadBool(_actorsAlwaysFaceEachOtherWhileTalking);
 }
 
 void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
@@ -402,6 +411,8 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 
 	// per default, the actors should be within talk distance before they start talking
 	_actorsMustBeWithinTalkDistance = dict.GetBool(prefix + "actors_must_be_within_talkdistance", "1");
+
+	_actorsAlwaysFaceEachOtherWhileTalking = dict.GetBool(prefix + "actors_always_face_each_other_while_talking", "1");
 
 	// Seems like we have everything we need
 	_isValid = true;

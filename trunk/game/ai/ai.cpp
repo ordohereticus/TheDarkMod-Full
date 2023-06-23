@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2799 $
- * $Date: 2008-09-03 14:21:19 -0400 (Wed, 03 Sep 2008) $
- * $Author: angua $
+ * $Revision: 2800 $
+ * $Date: 2008-09-05 00:47:33 -0400 (Fri, 05 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2799 2008-09-03 18:21:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2800 2008-09-05 04:47:33Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1322,10 +1322,9 @@ void idAI::Spawn( void )
 	m_Acuities.Clear();
 	for( int ind=0; ind < g_Global.m_AcuityNames.Num(); ind++)
 	{
-		float tempFloat;
-		tempFloat = spawnArgs.GetFloat( va("acuity_%s", g_Global.m_AcuityNames[ind].c_str()), "100" );
+		float tempFloat = spawnArgs.GetFloat( va("acuity_%s", g_Global.m_AcuityNames[ind].c_str()), "100" );
 		// angua: divide by 100 to transform percent into fractions
-		tempFloat *= 0.01;
+		tempFloat *= 0.01f;
 		m_Acuities.Append( tempFloat );
 		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Acuities Array: index %d, name %s, value %f\r", ind, g_Global.m_AcuityNames[ind].c_str(), m_Acuities[ind]);
 	}
