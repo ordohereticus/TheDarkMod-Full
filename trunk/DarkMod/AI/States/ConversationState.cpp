@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2800 $
- * $Date: 2008-09-05 00:47:33 -0400 (Fri, 05 Sep 2008) $
+ * $Revision: 2807 $
+ * $Date: 2008-09-08 11:38:21 -0400 (Mon, 08 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2800 2008-09-05 04:47:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2807 2008-09-08 15:38:21Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -305,8 +305,14 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 				}
 				else
 				{
-					// The talker should just face any of the other actors.
-					// TODO
+					// Are there any other actors at all?
+					if (conversation.GetNumActors() > 1) 
+					{
+						idAI* listener = (i == 0) ? conversation.GetActor(1) : conversation.GetActor(0);
+
+						talker->TurnToward(listener->GetEyePosition());
+						talker->Event_LookAtPosition(listener->GetEyePosition(), MS2SEC(length));
+					}
 				}
 			}
 		}
