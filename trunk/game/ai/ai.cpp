@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3183 $
- * $Date: 2009-01-19 03:49:19 -0500 (Mon, 19 Jan 2009) $
- * $Author: angua $
+ * $Revision: 3206 $
+ * $Date: 2009-02-07 13:36:37 -0500 (Sat, 07 Feb 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3183 2009-01-19 08:49:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3206 2009-02-07 18:36:37Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9265,6 +9265,14 @@ void idAI::DropOnRagdoll( void )
 		ent = m_Attachments[i].ent.GetEntity();
 		if( !ent || !m_Attachments[i].ent.IsValid() )
 			continue;
+
+		// deactivate any melee weapon actions at this point
+		if( ent->IsType(CMeleeWeapon::Type) )
+		{
+			CMeleeWeapon *pWeap = static_cast<CMeleeWeapon *>(ent);
+			pWeap->DeactivateAttack();
+			pWeap->DeactivateParry();
+		}
 
 		bDrop = ent->spawnArgs.GetBool( "drop_when_ragdoll" );
 		
