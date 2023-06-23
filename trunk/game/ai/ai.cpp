@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2712 $
- * $Date: 2008-08-01 03:13:52 -0400 (Fri, 01 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2735 $
+ * $Date: 2008-08-15 03:00:29 -0400 (Fri, 15 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2712 2008-08-01 07:13:52Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2735 2008-08-15 07:00:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8623,7 +8623,7 @@ void idAI::Knockout( idEntity* inflictor )
 
 	// Update TDM objective system
 	bool playerResponsible = (inflictor != NULL && inflictor->IsType(idPlayer::Type));
-	gameLocal.m_MissionData->MissionEvent(COMP_KO, inflictor, this, playerResponsible);
+	gameLocal.m_MissionData->MissionEvent(COMP_KO, this, inflictor, playerResponsible);
 }
 
 void idAI::PostKnockOut()
