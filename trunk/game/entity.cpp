@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2969 $
- * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 2991 $
+ * $Date: 2008-11-07 11:12:13 -0500 (Fri, 07 Nov 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2969 2008-10-23 01:53:34Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2991 2008-11-07 16:12:13Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3670,6 +3670,12 @@ void idEntity::InitDefaultPhysics( const idVec3 &origin, const idMat3 &axis )
 			FrobBounds.ExpandSelf( tsize );
 			bUseFrobBox = true;
 		}
+	}
+
+	// greebo: Allow the no_frob_box spawnarg to override the settings
+	if (spawnArgs.GetBool("no_frob_box", "0"))
+	{
+		bUseFrobBox = false;
 	}
 
 	if( bUseFrobBox )
