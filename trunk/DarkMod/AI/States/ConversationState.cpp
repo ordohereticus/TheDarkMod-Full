@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2687 $
- * $Date: 2008-07-17 15:23:25 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2688 $
+ * $Date: 2008-07-17 15:25:09 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2687 2008-07-17 19:23:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2688 2008-07-17 19:25:09Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -238,7 +238,11 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 
 	case ConversationCommand::ELookAtPosition:
 	{
-		// TODO
+		idVec3 pos = command.GetVectorArgument(0);
+		float duration = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_LOOKAT_DURATION;
+
+		owner->Event_LookAtPosition(pos, duration);
+		_state = ConversationCommand::EFinished;
 	}
 	break;
 
