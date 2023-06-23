@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2209 $
- * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -108,6 +108,8 @@ protected:
 
 	void					Event_OpenPortal( void );
 	void					Event_ClosePortal( void );
+	virtual void			OpenPortal();
+	virtual void			ClosePortal();
 	void					Event_PartBlocked( idEntity *blockingEntity );
 
 	void					MoveToPos( const idVec3 &pos);

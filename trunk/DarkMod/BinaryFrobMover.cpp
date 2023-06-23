@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2408 $
- * $Date: 2008-06-01 05:55:08 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2408 2008-06-01 09:55:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2442 2008-06-06 16:22:13Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -391,7 +391,7 @@ void CBinaryFrobMover::Open(bool bMaster)
 			StartSound( "snd_open", SND_CHANNEL_ANY, 0, false, NULL );
 			
 			// Open visportal
-			Event_OpenPortal();
+			OpenPortal();
 
 			// trigger our targets on opening, if set to do so
 			if( spawnArgs.GetBool("trigger_on_open","") )
@@ -624,10 +624,6 @@ void CBinaryFrobMover::GetOpen(void)
 void CBinaryFrobMover::GetLock(void)
 {
 	idThread::ReturnInt(IsLocked());
-}
-void CBinaryFrobMover::ClosePortal(void)
-{
-	Event_ClosePortal();
 }
 
 void CBinaryFrobMover::Event_Activate( idEntity *activator ) 

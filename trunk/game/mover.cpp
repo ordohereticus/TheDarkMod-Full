@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2209 $
- * $Date: 2008-04-24 16:18:49 -0400 (Thu, 24 Apr 2008) $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2209 2008-04-24 20:18:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 2442 2008-06-06 16:22:13Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1345,10 +1345,10 @@ idMover::Event_OpenPortal
 Sets the portal associtated with this mover to be open
 ================
 */
-void idMover::Event_OpenPortal( void ) {
-	if ( areaPortal ) {
-		SetPortalState( true );
-	}
+void idMover::Event_OpenPortal( void ) 
+{
+	// angua: call the virtual function
+	OpenPortal();
 }
 
 /*
@@ -1358,11 +1358,41 @@ idMover::Event_ClosePortal
 Sets the portal associtated with this mover to be closed
 ================
 */
-void idMover::Event_ClosePortal( void ) {
+void idMover::Event_ClosePortal( void ) 
+{
+	// angua: call the virtual function
+	ClosePortal();
+}
+
+
+/*
+================
+idMover::OpenPortal
+
+Sets the portal associtated with this mover to be open
+================
+*/
+void idMover::OpenPortal() {
+	if ( areaPortal ) {
+		SetPortalState( true );
+	}
+}
+
+/*
+================
+idMover::ClosePortal
+
+Sets the portal associtated with this mover to be closed
+================
+*/
+void idMover::ClosePortal() {
 	if ( areaPortal ) {
 		SetPortalState( false );
 	}
 }
+
+
+
 
 /*
 ================

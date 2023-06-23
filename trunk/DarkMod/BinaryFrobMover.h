@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2290 $
- * $Date: 2008-05-11 03:05:07 -0400 (Sun, 11 May 2008) $
- * $Author: greebo $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -105,11 +105,6 @@ public:
 	 */
 	virtual void			DoneStateChange(void);
 	virtual void			CallStateScript(void);
-
-	/**
-	* Close the portal.  Overloaded on CFrobDoor
-	**/
-	virtual void			ClosePortal(void);
 
 	/**
 	* This is used to test if the mover is moving

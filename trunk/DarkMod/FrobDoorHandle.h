@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2408 $
- * $Date: 2008-06-01 05:55:08 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -55,8 +55,9 @@ public:
 	// they are provided but empty.
 	void					ToggleOpen();
 	void					ToggleLock();
-	void					ClosePortal(void);
-	void					DoneStateChange(void);
+	virtual void			ClosePortal();
+	virtual void			OpenPortal();
+	void					DoneStateChange();
 
 	// greebo: Returns TRUE if the associated door is locked (not to confuse with CBinaryFrobMover::IsLocked())
 	bool					DoorIsLocked();

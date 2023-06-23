@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2388 $
- * $Date: 2008-05-26 15:03:49 -0400 (Mon, 26 May 2008) $
- * $Author: greebo $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobButton.cpp 2388 2008-05-26 19:03:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobButton.cpp 2442 2008-06-06 16:22:13Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -68,4 +68,14 @@ void CFrobButton::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, cons
 	{
 		Operate();
 	}
+}
+
+
+// A button can't close or open a portal, so we block it.
+void CFrobButton::ClosePortal()
+{
+}
+
+void CFrobButton::OpenPortal()
+{
 }

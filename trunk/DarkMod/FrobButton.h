@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2388 $
- * $Date: 2008-05-26 15:03:49 -0400 (Mon, 26 May 2008) $
- * $Author: greebo $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -36,6 +36,10 @@ public:
 
 	// Override the base class's ApplyImpulse method
 	virtual void			ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse );
+
+	virtual void			ClosePortal();
+	virtual void			OpenPortal();
+
 };
 
 #endif /* FROBBUTTON_H */

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2408 $
- * $Date: 2008-06-01 05:55:08 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2408 2008-06-01 09:55:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2442 2008-06-06 16:22:13Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -114,10 +114,15 @@ void CFrobDoorHandle::FrobAction(bool bMaster)
 		m_Door->FrobAction(bMaster);
 }
 
-// A handle can't close a portal, so we block it. The same is true for the Done* and statechanges
+// A handle can't close or open a portal, so we block it. The same is true for the Done* and statechanges
 void CFrobDoorHandle::ClosePortal(void)
 {
 }
+
+void CFrobDoorHandle::OpenPortal(void)
+{
+}
+
 
 void CFrobDoorHandle::ToggleOpen(void)
 {

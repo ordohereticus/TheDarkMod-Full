@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2411 $
- * $Date: 2008-06-01 07:52:52 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2442 $
+ * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -93,7 +93,7 @@ public:
 	/**
 	 * Close the visportal, but only if the double door is also closed.
 	 **/
-	void					ClosePortal( void );
+	virtual void			ClosePortal();
 
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed(void);
