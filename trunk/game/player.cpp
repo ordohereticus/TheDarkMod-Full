@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2969 $
- * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
+ * $Revision: 2986 $
+ * $Date: 2008-11-02 18:45:48 -0500 (Sun, 02 Nov 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2969 2008-10-23 01:53:34Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2986 2008-11-02 23:45:48Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9235,9 +9235,17 @@ void idPlayer::inventoryDropItem()
 	bool bDropped = false;
 	CGrabber *grabber = gameLocal.m_Grabber;
 	idEntity *heldEntity = grabber->GetSelected();
+	idEntity *equippedEntity = grabber->GetEquipped();
 
-	// Drop the item in the grabber hands first
-	if(heldEntity != NULL)
+	// Dequip or drop the item in the grabber hands first
+	// hack: body shouldering, temporary reverse compatibility
+	// eventually all body unshouldering should be handled in "dequip"
+	if( equippedEntity != NULL
+		&& ! (equippedEntity->IsType(idAFEntity_Base::Type) && equippedEntity->spawnArgs.GetBool("shoulderable")) )
+	{
+		grabber->Dequip();
+	}
+	else if(heldEntity != NULL)
 	{
 		grabber->Update( this, false );
 	}

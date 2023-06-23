@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2980 $
- * $Date: 2008-10-26 07:41:35 -0400 (Sun, 26 Oct 2008) $
- * $Author: tels $
+ * $Revision: 2986 $
+ * $Date: 2008-11-02 18:45:48 -0500 (Sun, 02 Nov 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -135,6 +135,11 @@ public:
 		**/
 		bool					Equip( void );
 		bool					Dequip( void );
+
+		/**
+		* Call a use script on the currently equipped item
+		**/
+		void					UseEquipped( void );
 
 		/**
 		* Preliminary body shouldering code
@@ -273,6 +278,16 @@ protected:
 		int						m_rotationAxis;		// 0 = none, 1 = x, 2 = y, 3 = z
 		idVec2					m_mousePosition;		// mouse position when user pressed BUTTON_ZOOM
 
+		/**
+		* Allow the player to rotate objects by pressing block/manipulate, and translate
+		**/
+		bool					m_bAllowPlayerRotation;
+		bool					m_bAllowPlayerTranslation;
+
+		/**
+		* List of entities that were grabbed and that
+		* we must keep nonsolid as long as they are clipping the player
+		**/
 		idList<CGrabbedEnt>		m_clipList;
 
 		/**
@@ -342,6 +357,23 @@ protected:
 		* and dragging the AI.
 		**/
 		idEntityPtr<idEntity>	m_EquippedEnt;
+
+		/**
+		* True if the equipped ent is still dragged around the world by the Grabber
+		**/
+		bool					m_bEquippedEntInWorld;
+
+		/**
+		* Position of the equipped item in player view coordinates
+		**/
+		idVec3					m_vEquippedPosition;
+
+		/**
+		* Stored contents and clipmask of the equipped entity
+		* In case we change it while equipped
+		**/
+		int						m_EquippedEntContents;
+		int						m_EquippedEntClipMask;
 };
 
 
