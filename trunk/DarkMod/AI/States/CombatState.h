@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2361 $
+ * $Date: 2008-05-17 08:13:37 -0400 (Sat, 17 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -43,7 +43,7 @@ public:
 	// Override the alert functions
 	virtual void OnTactileAlert(idEntity* tactEnt);
 	virtual void OnVisualAlert(idActor* enemy);
-	virtual void OnAudioAlert(idActor* enemy);
+	virtual void OnAudioAlert();
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;

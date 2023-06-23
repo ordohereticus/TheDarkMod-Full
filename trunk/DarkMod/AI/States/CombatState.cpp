@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2361 $
+ * $Date: 2008-05-17 08:13:37 -0400 (Sat, 17 May 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 2361 2008-05-17 12:13:37Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -57,11 +57,25 @@ void CombatState::OnTactileAlert(idEntity* tactEnt)
 void CombatState::OnVisualAlert(idActor* enemy)
 {
 	// do nothing as of now, we are already in combat mode
+
 }
 
-void CombatState::OnAudioAlert(idActor* enemy)
+void CombatState::OnAudioAlert()
 {
-	// do nothing as of now, we are already in combat mode
+	idAI* owner = _owner.GetEntity();
+	assert(owner != NULL);
+
+	Memory& memory = owner->GetMemory();
+
+	memory.alertClass = EAlertAudio;
+	memory.alertPos = owner->GetSndDir();
+
+	if (!owner->AI_ENEMY_VISIBLE)
+	{
+		memory.lastTimeEnemySeen = gameLocal.time;
+		owner->lastReachableEnemyPos = memory.alertPos;
+		// gameRenderWorld->DebugArrow(colorRed, owner->GetEyePosition(), memory.alertPos, 2, 1000);
+	}
 }
 
 void CombatState::Init(idAI* owner)
