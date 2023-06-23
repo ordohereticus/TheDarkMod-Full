@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2933 $
+ * $Date: 2008-10-07 13:10:28 -0400 (Tue, 07 Oct 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 2933 2008-10-07 17:10:28Z greebo $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -114,13 +114,15 @@ void SwitchOnLightState::Init(idAI* owner)
 				{
 					// Probably can't reach light, no path to goal found
 					light->ResponseIgnore(ST_VISUAL, owner);
+					
+					/* greebo: Disabled bark when light is unreachable					
 					if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 					{
 						memory.lastTimeVisualStimBark = gameLocal.time;
 						owner->GetSubsystem(SubsysCommunication)->PushTask(
 							TaskPtr(new SingleBarkTask("snd_foundTorchOut"))
 						);
-					}
+					}*/
 					owner->GetMind()->EndState();
 					return;
 				}
