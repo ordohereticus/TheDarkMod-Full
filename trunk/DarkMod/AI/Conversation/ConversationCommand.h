@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2687 $
- * $Date: 2008-07-17 15:23:25 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2689 $
+ * $Date: 2008-07-18 00:41:29 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -70,6 +70,9 @@ private:
 	// match the ones in the idList.
 	int _actor;
 
+	// TRUE if the actor should fully wait until the action ends
+	bool _waitUntilFinished;
+
 	// Argument list
 	idStringList _arguments;
 
@@ -83,6 +86,9 @@ public:
 	// The execution state of this command
 	State GetState();
 	void SetState(State newState);
+
+	// Returns TRUE if the actor should wait for the command to finish
+	bool WaitUntilFinished();
 
 	// Returns the actor index of this command
 	int GetActor();

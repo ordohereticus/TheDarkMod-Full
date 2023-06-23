@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2688 $
- * $Date: 2008-07-17 15:25:09 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2689 $
+ * $Date: 2008-07-18 00:41:29 -0400 (Fri, 18 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2688 2008-07-17 19:25:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2689 2008-07-18 04:41:29Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -173,8 +173,9 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 			owner->GetSubsystem(SubsysMovement)->PushTask(
 				TaskPtr(new MoveToPositionTask(goal))
 			);
-			//owner->MoveToPosition(ent->GetPhysics()->GetOrigin());
-			_state = ConversationCommand::EExecuting;
+
+			// Check if we should wait until the command is finished and set the _state accordingly
+			_state = (command.WaitUntilFinished()) ? ConversationCommand::EExecuting : ConversationCommand::EFinished;
 		}
 		else
 		{
