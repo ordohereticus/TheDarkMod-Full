@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3066 $
- * $Date: 2008-11-27 07:57:54 -0500 (Thu, 27 Nov 2008) $
+ * $Revision: 3067 $
+ * $Date: 2008-11-27 08:06:29 -0500 (Thu, 27 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3066 2008-11-27 12:57:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3067 2008-11-27 13:06:29Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -569,21 +569,14 @@ bool CFrobDoor::CanBeUsedBy(const CInventoryItemPtr& item, bool isFrobUse)
 	const idStr& name = item->Category()->GetName();
 	if (name == "Keys")
 	{
-		// Keys can be used on doors
-		if (isFrobUse)
-		{
-			// For frob actions: only if the door is open and the keys are matching.
-			return IsLocked() && idEntity::CanBeUsedBy(item, isFrobUse);
-		}
-		else
-		{
-			return idEntity::CanBeUsedBy(item, isFrobUse);
-		}
+		// Keys can always be used on doors
+		// Exception: for "frob use" this only applies when the door is locked
+		return (isFrobUse) ? IsLocked() : true;
 	}
 	else if (name == "Lockpicks")
 	{
-		// Lockpicks can be used on doors that are locked in the first place
-		return IsLocked();
+		// Lockpicks behave similar to keys
+		return (isFrobUse) ? IsLocked() : true;
 	}
 
 	return idEntity::CanBeUsedBy(item, isFrobUse);
