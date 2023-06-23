@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2633 $
- * $Date: 2008-07-12 03:54:06 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2639 $
+ * $Date: 2008-07-12 09:46:40 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2633 2008-07-12 07:54:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2639 2008-07-12 13:46:40Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1117,10 +1117,10 @@ void CsndProp::ProcessAI(idAI* ai, idVec3 origin, SSprParms *propParms)
 	if( cv_spr_debug.GetBool() )
 	{
 		gameLocal.Printf("Propagated sound %s to AI %s, from origin %s : Propagated volume %f, Apparent origin of sound: %s \r", 
-						  propParms->name, ai->name.c_str(), origin.ToString(), propParms->propVol, propParms->direction.ToString() );
+						  propParms->name.c_str(), ai->name.c_str(), origin.ToString(), propParms->propVol, propParms->direction.ToString() );
 
 		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Propagated sound %s to AI %s, from origin %s : Propagated volume %f, Apparent origin of sound: %s \r", 
-											  propParms->name, ai->name.c_str(), origin.ToString(), propParms->propVol, propParms->direction.ToString() );
+											  propParms->name.c_str(), ai->name.c_str(), origin.ToString(), propParms->propVol, propParms->direction.ToString() );
 	}
 
 	// convert the SPL to loudness and store it in parms
