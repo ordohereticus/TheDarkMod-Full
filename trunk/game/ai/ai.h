@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2504 $
- * $Date: 2008-06-15 07:54:27 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2506 $
+ * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -265,7 +265,7 @@ public:
 	static void				List_f( const idCmdArgs &args );
 
 							// Finds a path around dynamic obstacles.
-	static bool				FindPathAroundObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ignore, const idVec3 &startPos, const idVec3 &seekPos, obstaclePath_t &path );
+	static bool				FindPathAroundObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ignore, const idVec3 &startPos, const idVec3 &seekPos, obstaclePath_t &path, idActor* owner );
 							// Frees any nodes used for the dynamic obstacle avoidance.
 	static void				FreeObstacleAvoidanceNodes( void );
 							// Predicts movement, returns true if a stop event was triggered.

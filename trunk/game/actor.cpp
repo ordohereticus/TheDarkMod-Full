@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2476 $
- * $Date: 2008-06-14 03:21:32 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2506 $
+ * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,12 +15,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2476 2008-06-14 07:21:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2506 2008-06-15 16:54:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
 #include "../DarkMod/MissionData.h"
+#include "../DarkMod/TimerManager.h"
+
 // #include "logmgr.h"
 /***********************************************************************
 
@@ -536,6 +538,12 @@ idActor::idActor( void ) {
 
 	enemyNode.SetOwner( this );
 	enemyList.SetOwner( this );
+
+	INIT_TIMER_HANDLE(actorGetObstaclesTimer);
+	INIT_TIMER_HANDLE(actorGetPointOutsideObstaclesTimer);
+	INIT_TIMER_HANDLE(actorBuildPathTreeTimer);
+	INIT_TIMER_HANDLE(actorPrunePathTreeTimer);
+	INIT_TIMER_HANDLE(actorFindOptimalPathTimer);
 }
 
 /*
@@ -713,6 +721,12 @@ void idActor::Spawn( void )
 	FinishSetup();
 
 	ParseAttachmentsAF();
+
+	CREATE_TIMER(actorGetObstaclesTimer, name, "GetObstacles");
+	CREATE_TIMER(actorGetPointOutsideObstaclesTimer, name, "GetPointOutsideObstacles");
+	CREATE_TIMER(actorBuildPathTreeTimer, name, "BuildPathTree");
+	CREATE_TIMER(actorPrunePathTreeTimer, name, "PrunePathTree");
+	CREATE_TIMER(actorFindOptimalPathTimer, name, "FindOptimalPath");
 }
 
 /*
@@ -987,6 +1001,12 @@ void idActor::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat(m_stepvol_crouch_run);
 
 	savefile->WriteDict(&m_replacementAnims);
+
+	SAVE_TIMER_HANDLE(actorGetObstaclesTimer, savefile);
+	SAVE_TIMER_HANDLE(actorGetPointOutsideObstaclesTimer, savefile);
+	SAVE_TIMER_HANDLE(actorBuildPathTreeTimer, savefile);
+	SAVE_TIMER_HANDLE(actorPrunePathTreeTimer, savefile);
+	SAVE_TIMER_HANDLE(actorFindOptimalPathTimer, savefile);
 }
 
 /*
@@ -1113,6 +1133,12 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat(m_stepvol_crouch_run);
 
 	savefile->ReadDict(&m_replacementAnims);
+
+	RESTORE_TIMER_HANDLE(actorGetObstaclesTimer, savefile);
+	RESTORE_TIMER_HANDLE(actorGetPointOutsideObstaclesTimer, savefile);
+	RESTORE_TIMER_HANDLE(actorBuildPathTreeTimer, savefile);
+	RESTORE_TIMER_HANDLE(actorPrunePathTreeTimer, savefile);
+	RESTORE_TIMER_HANDLE(actorFindOptimalPathTimer, savefile);
 }
 
 /*

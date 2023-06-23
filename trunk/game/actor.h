@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2478 $
- * $Date: 2008-06-14 04:40:23 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2506 $
+ * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -510,6 +510,15 @@ public:
 	 */
 	void					Event_GetTeam();
 	void					Event_SetTeam(int newTeam);
+
+#ifdef TIMING_BUILD
+public:
+	int actorGetObstaclesTimer;
+	int actorGetPointOutsideObstaclesTimer;
+	int actorBuildPathTreeTimer;
+	int actorPrunePathTreeTimer;
+	int actorFindOptimalPathTimer;
+#endif
 };
 
 #endif /* !__GAME_ACTOR_H__ */

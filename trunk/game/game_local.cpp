@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2487 $
- * $Date: 2008-06-14 12:06:49 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2506 $
+ * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2487 2008-06-14 16:06:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2506 2008-06-15 16:54:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3440,7 +3440,7 @@ void idGameLocal::RunDebugInfo( void ) {
 			obstaclePath_t path;
 
 			seekPos = player->GetPhysics()->GetOrigin() + player->viewAxis[0] * 200.0f;
-			idAI::FindPathAroundObstacles( player->GetPhysics(), aas, NULL, player->GetPhysics()->GetOrigin(), seekPos, path );
+			idAI::FindPathAroundObstacles( player->GetPhysics(), aas, NULL, player->GetPhysics()->GetOrigin(), seekPos, path, player );
 		}
 	}
 

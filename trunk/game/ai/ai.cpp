@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2505 $
- * $Date: 2008-06-15 08:03:33 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2506 $
+ * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2505 2008-06-15 12:03:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2506 2008-06-15 16:54:11Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4059,7 +4059,7 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos )
 	obstaclePath_t	path;
 
 	AI_OBSTACLE_IN_PATH = false;
-	bool foundPath = FindPathAroundObstacles( &physicsObj, aas, enemy.GetEntity(), origin, goalPos, path );
+	bool foundPath = FindPathAroundObstacles( &physicsObj, aas, enemy.GetEntity(), origin, goalPos, path, this );
 
 	if ( ai_showObstacleAvoidance.GetBool())
 	{
