@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3032 $
- * $Date: 2008-11-15 05:29:17 -0500 (Sat, 15 Nov 2008) $
+ * $Revision: 3034 $
+ * $Date: 2008-11-18 12:59:27 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3032 2008-11-15 10:29:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3034 2008-11-18 17:59:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -982,6 +982,34 @@ CInventoryWeaponItemPtr idPlayer::GetCurrentWeaponItem()
 	}
 
 	return boost::dynamic_pointer_cast<CInventoryWeaponItem>(m_WeaponCursor->GetCurrentItem());
+}
+
+CInventoryWeaponItemPtr idPlayer::GetWeaponItem(const idStr& weaponName)
+{
+	if (m_WeaponCursor == NULL)
+	{
+		return CInventoryWeaponItemPtr();
+	}
+
+	CInventoryCategoryPtr weaponCategory = m_WeaponCursor->GetCurrentCategory();
+
+	if (weaponCategory == NULL)
+	{
+		return CInventoryWeaponItemPtr();
+	}
+
+	// Cycle through all available weapons and find the one with the given name
+	for (int i = 0; i < weaponCategory->GetNumItems(); ++i)
+	{
+		CInventoryWeaponItemPtr weapon = boost::dynamic_pointer_cast<CInventoryWeaponItem>(weaponCategory->GetItem(i));
+
+		if (weapon != NULL && weaponName == weapon->GetWeaponName())
+		{
+			return weapon; // Found!
+		}
+	}
+
+	return CInventoryWeaponItemPtr();
 }
 
 void idPlayer::AddWeaponsToInventory()

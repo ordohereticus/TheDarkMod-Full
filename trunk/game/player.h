@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3009 $
- * $Date: 2008-11-10 15:40:09 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3034 $
+ * $Date: 2008-11-18 12:59:27 -0500 (Tue, 18 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -566,6 +566,12 @@ public:
 	 * Can return NULL, but should not in 99% of the cases.
 	 */
 	CInventoryWeaponItemPtr	GetCurrentWeaponItem();
+
+	/** 
+	 * greebo: Returns the inventory weapon item with the given name (e.g. "shortsword" or "broadhead").
+	 * This can actually return NULL if no weapon item with the given name exists.
+	 */
+	CInventoryWeaponItemPtr GetWeaponItem(const idStr& weaponName);
 
 	void					DropWeapon( bool died ) ;
 	void					StealWeapon( idPlayer *player );
