@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3062 $
- * $Date: 2008-11-23 02:45:44 -0500 (Sun, 23 Nov 2008) $
+ * $Revision: 3071 $
+ * $Date: 2008-11-30 12:33:20 -0500 (Sun, 30 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3062 2008-11-23 07:45:44Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3071 2008-11-30 17:33:20Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1014,7 +1014,7 @@ void State::OnVisualStimMissingItem(idEntity* stimSource, idAI* owner)
 	}
 	
 	// Does it belong to a friendly team
-	if (!owner->IsFriend(stimSource))
+	if (stimSource->team != -1 && !owner->IsFriend(stimSource))
 	{
 		// Its not something we know about
 		gameLocal.Printf("The missing item wasn't on my team\n");

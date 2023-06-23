@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3071 $
+ * $Date: 2008-11-30 12:33:20 -0500 (Sun, 30 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -47,13 +47,8 @@ bool CAbsenceMarker::initAbsenceReference(idEntity* owner, idBounds& startBounds
 	idVec3 markerOrg = startBounds.GetCenter();
 	SetOrigin (markerOrg);
 
-	if (owner->IsType(idItem::Type))
-	{
-		idItem* item;
-		item = static_cast<idItem *>(owner);
-		ownerTeam = item->ownerTeam;
-	}
-
+	team = owner->team;
+	
 	// Done
 	return true;
 }
