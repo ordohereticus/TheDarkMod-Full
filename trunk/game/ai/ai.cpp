@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2497 $
- * $Date: 2008-06-15 02:15:59 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2498 $
+ * $Date: 2008-06-15 04:07:12 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2497 2008-06-15 06:15:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2498 2008-06-15 08:07:12Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -542,6 +542,7 @@ idAI::idAI()
 	INIT_TIMER_HANDLE(aiAnimMoveTimer);
 	INIT_TIMER_HANDLE(aiObstacleAvoidanceTimer);
 	INIT_TIMER_HANDLE(aiPhysicsTimer);
+	INIT_TIMER_HANDLE(aiGetMovePosTimer);
 }
 
 /*
@@ -817,6 +818,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	SAVE_TIMER_HANDLE(aiAnimMoveTimer, savefile);
 	SAVE_TIMER_HANDLE(aiObstacleAvoidanceTimer, savefile);
 	SAVE_TIMER_HANDLE(aiPhysicsTimer, savefile);
+	SAVE_TIMER_HANDLE(aiGetMovePosTimer, savefile);
 }
 
 /*
@@ -1119,6 +1121,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	RESTORE_TIMER_HANDLE(aiAnimMoveTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiObstacleAvoidanceTimer, savefile);
 	RESTORE_TIMER_HANDLE(aiPhysicsTimer, savefile);
+	RESTORE_TIMER_HANDLE(aiGetMovePosTimer, savefile);
 }
 
 /*
@@ -1521,6 +1524,7 @@ void idAI::Spawn( void )
 	CREATE_TIMER(aiAnimMoveTimer, name, "AnimMove");
 	CREATE_TIMER(aiObstacleAvoidanceTimer, name, "ObstacleAvoidance");
 	CREATE_TIMER(aiPhysicsTimer, name, "RunPhysics");
+	CREATE_TIMER(aiGetMovePosTimer, name, "GetMovePos");
 }
 
 /*
@@ -3498,6 +3502,8 @@ idAI::GetMovePos
 */
 bool idAI::GetMovePos(idVec3 &seekPos)
 {
+	START_SCOPED_TIMING(aiGetMovePosTimer, scopedGetMovePosTimer);
+
 	const idVec3& org = physicsObj.GetOrigin();
 	seekPos = org;
 

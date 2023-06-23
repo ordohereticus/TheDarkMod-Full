@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2497 $
- * $Date: 2008-06-15 02:15:59 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2498 $
+ * $Date: 2008-06-15 04:07:12 -0400 (Sun, 15 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1801,6 +1801,7 @@ private:
 	int aiAnimMoveTimer;
 	int aiObstacleAvoidanceTimer;
 	int aiPhysicsTimer;
+	int aiGetMovePosTimer;
 #endif
 };
 
