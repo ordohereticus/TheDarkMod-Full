@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2511 $
- * $Date: 2008-06-16 00:58:35 -0400 (Mon, 16 Jun 2008) $
+ * $Revision: 2513 $
+ * $Date: 2008-06-16 12:35:02 -0400 (Mon, 16 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,11 +20,14 @@
  * them but this doesn't work with normal idDoors. So CBinaryFrobMover is a mixture
  * of idDoor and idMover.
  */
-class CBinaryFrobMover : public idMover {
+class CBinaryFrobMover : 
+	public idMover
+{
 public:
 	CLASS_PROTOTYPE( CBinaryFrobMover );
 
-							CBinaryFrobMover();
+	// Constructor
+	CBinaryFrobMover();
 
 	void					Spawn();
 	void					Event_PostSpawn();
