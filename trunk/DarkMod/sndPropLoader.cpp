@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2645 $
- * $Date: 2008-07-13 04:57:40 -0400 (Sun, 13 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3207 $
+ * $Date: 2009-02-07 13:58:53 -0500 (Sat, 07 Feb 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 2645 2008-07-13 08:57:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 3207 2009-02-07 18:58:53Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -45,8 +45,6 @@ const float s_DBM_TO_M = 1.0/(10*log10( idMath::E )); // convert between dB/m an
 void SsndPGlobals::Save(idSaveGame *savefile) const
 {
 	savefile->WriteString(AreaPropName);
-	savefile->WriteString(doorName);
-	savefile->WriteString(d3DoorName);
 	savefile->WriteString(fileExt);
 	savefile->WriteInt(MaxPaths);
 	savefile->WriteFloat(DoorExpand);
@@ -65,8 +63,6 @@ void SsndPGlobals::Save(idSaveGame *savefile) const
 void SsndPGlobals::Restore(idRestoreGame *savefile)
 {
 	savefile->ReadString(AreaPropName);
-	savefile->ReadString(doorName);
-	savefile->ReadString(d3DoorName);
 	savefile->ReadString(fileExt);
 	savefile->ReadInt(MaxPaths);
 	savefile->ReadFloat(DoorExpand);
@@ -231,8 +227,6 @@ void CsndPropBase::GlobalsFromDef( void )
 
 	m_SndGlobals.bDebug = def->GetBool("debug", "0");
 	m_SndGlobals.AreaPropName = def->GetString("aprop_name", "");
-	m_SndGlobals.doorName = def->GetString("door_name", "");
-	m_SndGlobals.d3DoorName = def->GetString("d3door_name", "func_door");
 	m_SndGlobals.fileExt = def->GetString("file_ext", "spr");
 
 	m_SndGlobals.MaxPaths = def->GetInt("maxpaths", "3");
@@ -257,8 +251,6 @@ void CsndPropBase::DefaultGlobals( void )
 {
 	m_SndGlobals.bDebug = false;
 	m_SndGlobals.AreaPropName = "";
-	m_SndGlobals.doorName = "";
-	m_SndGlobals.d3DoorName = "func_door";
 	m_SndGlobals.fileExt = "spr";
 
 	m_SndGlobals.MaxPaths = 3;

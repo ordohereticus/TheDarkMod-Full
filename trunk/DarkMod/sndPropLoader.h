@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2645 $
- * $Date: 2008-07-13 04:57:40 -0400 (Sun, 13 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3207 $
+ * $Date: 2009-02-07 13:58:53 -0500 (Sat, 07 Feb 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -42,8 +42,6 @@ class SsndPGlobals
 public:
 	// names
 	idStr AreaPropName; // classname of area properties entity
-	idStr doorName; // classname of darkmod door entites
-	idStr d3DoorName; // classname of D3 doors ("func_door")
 	idStr fileExt; // soundprop file extension
 	
 	// Map compiling:
