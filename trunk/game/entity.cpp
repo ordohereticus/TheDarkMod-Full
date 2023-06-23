@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2898 $
- * $Date: 2008-09-27 04:46:55 -0400 (Sat, 27 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2901 $
+ * $Date: 2008-09-28 02:07:42 -0400 (Sun, 28 Sep 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2898 2008-09-27 08:46:55Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2901 2008-09-28 06:07:42Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8798,18 +8798,22 @@ void idEntity::Event_GetLootAmount(int lootType)
 	{
 		case CInventoryItem::LT_GOLD:
 			idThread::ReturnInt(gold);
+			return;
 		break;
 
 		case CInventoryItem::LT_GOODS:
 			idThread::ReturnInt(goods);
+			return;
 		break;
 
 		case CInventoryItem::LT_JEWELS:
 			idThread::ReturnInt(jewelry);
+			return;
 		break;
 
 		default:
 			idThread::ReturnInt(total);
+			return;
 		break;
 	}
 

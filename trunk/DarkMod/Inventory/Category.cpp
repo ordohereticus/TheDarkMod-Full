@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2841 $
- * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2901 $
+ * $Date: 2008-09-28 02:07:42 -0400 (Sun, 28 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 2841 2008-09-14 16:40:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 2901 2008-09-28 06:07:42Z greebo $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
@@ -20,6 +20,7 @@ static bool init_version = FileVersionList("$Id: Category.cpp 2841 2008-09-14 16
 
 // Constructor
 CInventoryCategory::CInventoryCategory(CInventory* inventory, const idStr& name) :
+	m_Inventory(inventory),
 	m_Name(name)
 {
 	m_Owner = (inventory != NULL) ? inventory->GetOwner() : NULL;
