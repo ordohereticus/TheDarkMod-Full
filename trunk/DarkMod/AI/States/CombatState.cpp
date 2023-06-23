@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3044 $
- * $Date: 2008-11-20 15:13:52 -0500 (Thu, 20 Nov 2008) $
+ * $Revision: 3130 $
+ * $Date: 2009-01-09 12:52:12 -0500 (Fri, 09 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3044 2008-11-20 20:13:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3130 2009-01-09 17:52:12Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -143,7 +143,7 @@ void CombatState::Init(idAI* owner)
 
 	// The communication system 
 	owner->GetSubsystem(SubsysCommunication)->PushTask(
-		TaskPtr(new SingleBarkTask("snd_combat", message))
+		TaskPtr(new SingleBarkTask("snd_charge", message))
 	);
 
 	// Ranged combat
