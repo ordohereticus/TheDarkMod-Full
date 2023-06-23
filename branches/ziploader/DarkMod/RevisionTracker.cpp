@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3013 $
- * $Date: 2008-11-11 13:02:07 -0500 (Tue, 11 Nov 2008) $
+ * $Revision: 3149 $
+ * $Date: 2009-01-16 15:35:36 -0500 (Fri, 16 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,10 +12,11 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: RevisionTracker.cpp 3013 2008-11-11 18:02:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RevisionTracker.cpp 3149 2009-01-16 20:35:36Z greebo $", init_version);
 
 #include "RevisionTracker.h"
 
+#include <climits>
 #include <vector>
 #include <string>
 #include <boost/algorithm/string/split.hpp>
