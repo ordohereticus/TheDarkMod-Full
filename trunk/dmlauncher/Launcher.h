@@ -1,6 +1,16 @@
 #ifndef _LAUNCHER_H_
 #define _LAUNCHER_H_
 
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Source$
+ * $Revision: 3171 $
+ * $Date: 2009-01-18 04:41:19 -0500 (Sun, 18 Jan 2009) $
+ * $Author: greebo $
+ *
+ *************************************************************************/
+
 #include <string>
 #include "boost/filesystem.hpp"
 
@@ -43,3 +53,4 @@ private:
 };
 
 #endif /* _LAUNCHER_H_ */
+
