@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2653 $
- * $Date: 2008-07-13 10:46:03 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2655 $
+ * $Date: 2008-07-13 13:22:51 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,6 +29,9 @@ class Conversation
 	bool _isValid;
 
 	float _talkDistance;
+
+	// All actors participating in this conversation
+	idStringList _actors;
 
 public:
 	Conversation();

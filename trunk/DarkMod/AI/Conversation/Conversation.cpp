@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2653 $
- * $Date: 2008-07-13 10:46:03 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2655 $
+ * $Date: 2008-07-13 13:22:51 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2653 2008-07-13 14:46:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2655 2008-07-13 17:22:51Z greebo $", init_version);
 
 #include "Conversation.h"
 
@@ -39,6 +39,12 @@ void Conversation::Save(idSaveGame* savefile) const
 	savefile->WriteString(_name);
 	savefile->WriteBool(_isValid);
 	savefile->WriteFloat(_talkDistance);
+
+	savefile->WriteInt(_actors.Num());
+	for (int i = 0; i < _actors.Num(); i++)
+	{
+		savefile->WriteString(_actors[i]);
+	}
 }
 
 void Conversation::Restore(idRestoreGame* savefile)
@@ -46,6 +52,14 @@ void Conversation::Restore(idRestoreGame* savefile)
 	savefile->ReadString(_name);
 	savefile->ReadBool(_isValid);
 	savefile->ReadFloat(_talkDistance);
+
+	int num;
+	savefile->ReadInt(num);
+	_actors.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		savefile->ReadString(_actors[i]);
+	}
 }
 
 void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
@@ -60,7 +74,17 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 		return;
 	}
 
+	// Parse "global" conversation settings 
 	_talkDistance = dict.GetFloat(prefix + "talk_distance");
+
+	// Parse participant actors
+	// Check if this entity can be used by others.
+	idStr actorPrefix = prefix + "actor_";
+	for (const idKeyValue* kv = dict.MatchPrefix(actorPrefix); kv != NULL; kv = dict.MatchPrefix(actorPrefix, kv))
+	{
+		// Add each actor name to the list
+		_actors.AddUnique(kv->GetValue());
+	}
 
 	// TODO: Add more sophisticated validity check here
 	_isValid = true;
