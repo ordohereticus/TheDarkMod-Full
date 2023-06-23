@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2854 $
- * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
+ * $Revision: 2857 $
+ * $Date: 2008-09-18 02:33:41 -0400 (Thu, 18 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2857 2008-09-18 06:33:41Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -796,10 +796,15 @@ bool idAFEntity_Base::LoadAF( void )
 idAFEntity_Base::Think
 ================
 */
-void idAFEntity_Base::Think( void ) {
-	RunPhysics();
-	UpdateAnimation();
-	if ( thinkFlags & TH_UPDATEVISUALS ) {
+void idAFEntity_Base::Think( void ) 
+{
+	if( !IsHidden() )
+	{
+		RunPhysics();
+		UpdateAnimation();
+	}
+	if ( thinkFlags & TH_UPDATEVISUALS ) 
+	{
 		Present();
 		LinkCombat();
 	}
@@ -807,9 +812,9 @@ void idAFEntity_Base::Think( void ) {
 // TDM: Anim/AF physics mods, generalized behavior that originally was just on AI
 
 	// Update the AF bodies for the anim if we are set to do that
-	if ( m_bAFPushMoveables && af.IsLoaded() 
-		&& animator.FrameHasChanged( gameLocal.time )
-		&& !IsType(idAI::Type) ) 
+	if ( m_bAFPushMoveables && af.IsLoaded()
+		&& !IsType(idAI::Type) && !IsHidden()
+		&& animator.FrameHasChanged( gameLocal.time ) ) 
 	{
 		af.ChangePose( this, gameLocal.time );
 
@@ -1756,7 +1761,8 @@ idAFEntity_Generic::Think
 void idAFEntity_Generic::Think( void ) {
 	idAFEntity_Base::Think();
 
-	if ( keepRunningPhysics ) {
+	if ( keepRunningPhysics && !IsHidden() ) 
+	{
 		BecomeActive( TH_PHYSICS );
 	}
 }
