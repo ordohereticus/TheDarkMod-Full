@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2704 $
- * $Date: 2008-07-19 08:54:16 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2705 $
+ * $Date: 2008-07-19 09:01:58 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2704 2008-07-19 12:54:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2705 2008-07-19 13:01:58Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -61,6 +61,11 @@ int Conversation::GetMaxPlayCount()
 bool Conversation::ActorsMustBeWithinTalkdistance()
 {
 	return _actorsMustBeWithinTalkDistance;
+}
+
+float Conversation::GetTalkDistance()
+{
+	return _talkDistance;
 }
 
 bool Conversation::CheckConditions()

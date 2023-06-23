@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2704 $
- * $Date: 2008-07-19 08:54:16 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2705 $
+ * $Date: 2008-07-19 09:01:58 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -72,6 +72,9 @@ public:
 
 	// Returns true or false depending on the internal setting
 	bool ActorsMustBeWithinTalkdistance();
+
+	// Returns the maximum distance actors can talk to each other from
+	float GetTalkDistance();
 
 	/**
 	 * greebo: Returns TRUE if this conversation can be played. This basically means
