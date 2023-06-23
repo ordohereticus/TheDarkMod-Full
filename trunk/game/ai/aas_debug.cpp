@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2306 $
- * $Date: 2008-05-12 08:18:46 -0400 (Mon, 12 May 2008) $
+ * $Revision: 2307 $
+ * $Date: 2008-05-12 11:18:09 -0400 (Mon, 12 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 2306 2008-05-12 12:18:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_debug.cpp 2307 2008-05-12 15:18:09Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing
@@ -518,12 +518,15 @@ void idAASLocal::DrawAreas(const idVec3& playerOrigin)
 
 	idMat3 playerViewMatrix(gameLocal.GetLocalPlayer()->viewAngles.ToMat3());
 	
+	idList<int> clusterNums;
+
 	for (int i = 0; i < file->GetNumAreas(); i++)
 	{
 		idBounds areaBounds = GetAreaBounds(i);
 		idVec3 areaCenter = AreaCenter(i);
 
 		int clusterNum = file->GetArea(i).cluster;
+		clusterNums.AddUnique(clusterNum);
 
 		idVec4 colour = (clusterNum <= 0) ? colorWhite : colours[clusterNum];
 
@@ -533,6 +536,15 @@ void idAASLocal::DrawAreas(const idVec3& playerOrigin)
 			gameRenderWorld->DrawText(va("%d", i), areaCenter, 0.2f, colour, playerViewMatrix, 1, 10000);
 			gameRenderWorld->DebugBox(colour, idBox(areaBounds), 10000);
 		}
+	}
+
+	for (int i = 0; i < clusterNums.Num(); i++)
+	{
+		int area = GetAreaInCluster(clusterNums[i]);
+		if (area <= 0) continue;
+
+		idVec3 origin = file->GetArea(area).center;
+		gameRenderWorld->DrawText(va("%d", clusterNums[i]), origin, 1, colorRed, playerViewMatrix, 1, 10000);
 	}
 }
 
