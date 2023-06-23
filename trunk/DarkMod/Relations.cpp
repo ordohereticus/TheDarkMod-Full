@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2436 $
- * $Date: 2008-06-05 01:03:21 -0400 (Thu, 05 Jun 2008) $
+ * $Revision: 2467 $
+ * $Date: 2008-06-09 00:56:23 -0400 (Mon, 09 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 2436 2008-06-05 05:03:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 2467 2008-06-09 04:56:23Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -109,8 +109,11 @@ int CRelations::GetRelNum(int i, int j)
 	{
 		// uncomment for reporting errors when doing relationship checks
 		// DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Bad indices used to query relationship matrix: %d, col: %d.\r", i, j);
-		
-		returnval = s_DefaultRelation;
+		if( i == j )
+			returnval = s_DefaultSameTeamRel;
+		else
+			returnval = s_DefaultRelation;
+
 		goto Quit;
 	}
 
