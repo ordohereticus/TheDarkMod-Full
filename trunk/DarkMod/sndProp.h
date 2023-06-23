@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2631 $
- * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2633 $
+ * $Date: 2008-07-12 03:54:06 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -134,8 +134,7 @@ public:
 	void	Save(idSaveGame *savefile) const;
 	void	Restore(idRestoreGame *savefile);
 
-	void Propagate 
-		( float volMod, float durMod, idStr soundName,
+	void Propagate( float volMod, float durMod, const idStr& soundName,
 		idVec3 origin, idEntity *maker, USprFlags *addFlags = NULL );
 
 	/**

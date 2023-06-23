@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2631 $
- * $Date: 2008-07-12 02:37:18 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2633 $
+ * $Date: 2008-07-12 03:54:06 -0400 (Sat, 12 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -305,7 +305,7 @@ struct SSprParms
 {
 	USprFlags flags;
 
-	const char	*name; // sound name
+	idStr		name; // sound name
 	float		propVol; // propagated volume
 
 	// Apparent direction of the sound, determined by the path point on the portal
