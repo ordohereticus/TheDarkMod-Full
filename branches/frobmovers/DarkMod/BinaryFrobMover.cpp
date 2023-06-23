@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2539 $
- * $Date: 2008-06-20 02:35:14 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2541 $
+ * $Date: 2008-06-20 02:48:02 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2539 2008-06-20 06:35:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2541 2008-06-20 06:48:02Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -450,20 +450,6 @@ bool CBinaryFrobMover::StartMoving(bool open)
 
 void CBinaryFrobMover::Open(bool bMaster)
 {
-	/*// Clear this door from the ignore list so AI can react to it again	
-	StimClearIgnoreList(ST_VISUAL);
-	StimEnable(ST_VISUAL, 1);
-
-	m_StoppedDueToBlock = false;
-	m_LastBlockingEnt = NULL;
-
-	// If the door is already open, we don't have anything to do. :)
-	if (m_Open == true && !m_bInterrupted && !IsBlocked())
-	{
-		m_bIntentOpen = false;
-		return;
-	}*/
-
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("BinaryFrobMover: Opening\r" );
 
 	if (!PreOpen()) 
@@ -484,52 +470,10 @@ void CBinaryFrobMover::Open(bool bMaster)
 
 	// Set the "intention" flag so that we're closing next time, even if we didn't move
 	m_bIntentOpen = false;
-
-	/*if (IsLocked() == true)
-	{
-		StartSound( "snd_locked", SND_CHANNEL_ANY, 0, false, NULL );
-	}
-	else
-	{
-		// don't play the sound if the door was not closed all the way
-		if( !m_bInterrupted )
-		{	
-			m_StateChange = true;
-			
-			StartSound( "snd_open", SND_CHANNEL_ANY, 0, false, NULL );
-			
-			// Open visportal
-			OpenPortal();
-
-			// trigger our targets on opening, if set to do so
-			if( spawnArgs.GetBool("trigger_on_open","") )
-			{
-				ActivateTargets( this );
-			}
-		}
-
-		StartMoving(true);
-	}*/
 }
 
 void CBinaryFrobMover::Close(bool bMaster)
 {
-	/*// Clear this door from the ignore list so AI can react to it again	
-	StimClearIgnoreList(ST_VISUAL);
-	StimEnable(ST_VISUAL, 1);
-
-	m_StoppedDueToBlock = false;
-	m_LastBlockingEnt = NULL;
-
-	// If the door is already closed, we don't have anything to do. :)
-	if (m_Open == false)
-		return;
-
-	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Closing\r" );
-
-	StartMoving(false);
-	*/
-
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("BinaryFrobMover: Closing\r" );
 
 	if (!PreClose()) 
@@ -637,65 +581,6 @@ void CBinaryFrobMover::DoneStateChange()
 
 	// Invoked the script object to notify it about the state change
 	CallStateScript();
-
-	/*bool CallScript = false;
-
-	// Ignore it if we already did it.
-	if(m_StateChange == false)
-		goto Quit;
-
-    if(m_Rotating == true || m_Translating == true)
-        goto Quit;
-
-	// if the door is not completely opened or closed, do nothing
-	if( m_bInterrupted )
-		goto Quit;
-
-	m_StateChange = false;
-	CallScript = true;
-
-	bool checkClose;
-	if (m_ClosedOrigin.Compare(m_OpenOrigin) && m_ClosedAngles.Compare(m_OpenAngles))
-	{
-		// angua: the intentopen flag is used when the door does not move at all 
-		// (so that triggers etc. are still working)
-		checkClose = !m_bIntentOpen;
-	}
-	else
-	{
-		// in all other cases, use the angles and position of origin to check if the door is open or closed
-		checkClose = IsAtClosedPosition();
-	}
-
-	if (checkClose)
-	{
-		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Closed completely\r" );
-
-		m_bIntentOpen = true;
-		m_Open = false;
-
-		// play the closing sound when the door closes completely
-		StartSound( "snd_close", SND_CHANNEL_ANY, 0, false, NULL );
-		
-		// close visportal
-		ClosePortal();
-
-		// trigger our targets on completely closing, if set to do so
-		if( spawnArgs.GetBool("trigger_on_close","") )
-			ActivateTargets( this );
-	}
-	else
-	{
-		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("FrobDoor: Opened completely\r" );
-		m_Open = true;
-		m_bIntentOpen = false;
-	}
-
-Quit:
-	if(CallScript == true)
-		CallStateScript();
-
-	return;*/
 }
 
 bool CBinaryFrobMover::IsAtOpenPosition()
