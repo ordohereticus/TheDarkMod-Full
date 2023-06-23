@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2514 $
- * $Date: 2008-06-17 00:29:29 -0400 (Tue, 17 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2515 $
+ * $Date: 2008-06-17 13:53:20 -0400 (Tue, 17 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2514 2008-06-17 04:29:29Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 2515 2008-06-17 17:53:20Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -341,7 +341,7 @@ void CFrobDoor::Lock(bool bMaster)
 				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found\r", m_LockList[i].c_str());
 		}
 
-		CBinaryFrobMover::Lock(bMaster);
+//		CBinaryFrobMover::Lock(bMaster);
 	}
 */
 }
@@ -384,7 +384,7 @@ void CFrobDoor::Unlock(bool bMaster)
 				DM_LOG(LC_FROBBING, LT_ERROR)LOGSTRING("Linked entity [%s] not found\r", m_LockList[i].c_str());
 		}
 
-		CBinaryFrobMover::Unlock(bMaster);
+//		CBinaryFrobMover::Unlock(bMaster);
 	}
 */
 }

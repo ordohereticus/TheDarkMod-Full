@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2515 $
+ * $Date: 2008-06-17 13:53:20 -0400 (Tue, 17 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2515 2008-06-17 17:53:20Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -48,7 +48,7 @@ void HandleDoorTask::Init(idAI* owner, Subsystem& subsystem)
 			idAAS*	aas = owner->GetAAS();
 			if (aas != NULL)
 			{
-				int areaNum = frobDoor->GetFrobMoverAasArea(aas);
+				int areaNum = frobDoor->GetAASArea(aas);
 				gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
 			}
 			subsystem.FinishTask();
@@ -861,7 +861,7 @@ bool HandleDoorTask::OpenDoor()
 			idAAS*	aas = owner->GetAAS();
 			if (aas != NULL)
 			{
-				int areaNum = frobDoor->GetFrobMoverAasArea(aas);
+				int areaNum = frobDoor->GetAASArea(aas);
 				gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
 			}
 

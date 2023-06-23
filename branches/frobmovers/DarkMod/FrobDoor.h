@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2515 $
+ * $Date: 2008-06-17 13:53:20 -0400 (Tue, 17 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -65,6 +65,8 @@ public:
 	void					Close(bool Master);
 	void					Lock(bool Master);
 	void					Unlock(bool Master);
+
+	bool					IsLocked() { return false; } // TODO
 
 	void					GetPickable(void);
 	void					GetDoorhandle(void);

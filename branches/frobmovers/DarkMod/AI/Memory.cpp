@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2470 $
- * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2515 $
+ * $Date: 2008-06-17 13:53:20 -0400 (Tue, 17 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 2470 2008-06-12 19:37:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 2515 2008-06-17 17:53:20Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -225,14 +225,15 @@ DoorInfo& Memory::GetDoorInfo(CFrobDoor* door)
 	{
 		DoorInfoPtr info(new DoorInfo);
 		// Set the area number
-		info->areaNum = door->GetFrobMoverAasArea(owner->GetAAS());
+		info->areaNum = door->GetAASArea(owner->GetAAS());
+
 		// Insert into the map
 		std::pair<DoorInfoMap::iterator, bool> result =
 			doorRelated.doorInfo.insert(DoorInfoMap::value_type(door, info));
 
 		// Add the areaNum => info mapping for faster lookup using area numbers
 		doorRelated.areaDoorInfoMap.insert(
-			AreaToDoorInfoMap::value_type(door->GetFrobMoverAasArea(owner->GetAAS()), info)
+			AreaToDoorInfoMap::value_type(info->areaNum, info)
 		);
 
 		return *(result.first->second);

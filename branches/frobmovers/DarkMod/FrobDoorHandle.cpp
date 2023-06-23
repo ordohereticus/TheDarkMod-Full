@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2442 $
- * $Date: 2008-06-06 12:22:13 -0400 (Fri, 06 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2515 $
+ * $Date: 2008-06-17 13:53:20 -0400 (Tue, 17 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2442 2008-06-06 16:22:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2515 2008-06-17 17:53:20Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -55,7 +55,7 @@ void CFrobDoorHandle::Spawn(void)
 	m_bInterruptable = false;
 
 	// greebo: The handle itself must never locked, otherwise it can't move in Tap()
-	m_Locked = false;
+	//m_Locked = false;
 }
 
 CFrobDoor *CFrobDoorHandle::GetDoor(void)
@@ -160,12 +160,12 @@ void CFrobDoorHandle::Tap()
 	if (m_Door != NULL)
 	{
 		// Start the appropriate sound
-		idStr snd = m_Door->IsLocked() ? "snd_tap_locked" : "snd_tap_default";
+		idStr snd = "snd_tap_default";//m_Door->IsLocked() ? "snd_tap_locked" : "snd_tap_default";
 		StartSound(snd, SND_CHANNEL_ANY, 0, false, NULL);
 	}
 }
 
 bool CFrobDoorHandle::DoorIsLocked()
 {
-	return m_Door ? m_Door->IsLocked() : m_Locked;
+	return false;//return m_Door ? m_Door->IsLocked() : m_Locked;
 }
