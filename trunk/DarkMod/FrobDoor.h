@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2106 $
- * $Date: 2008-02-23 15:31:31 -0500 (Sat, 23 Feb 2008) $
+ * $Revision: 2407 $
+ * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -54,15 +54,11 @@ public:
 	CLASS_PROTOTYPE( CFrobDoor );
 
 							CFrobDoor( void );
-							~CFrobDoor( void );
 
 	void					Spawn( void );
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
-
-	virtual void			WriteToSnapshot( idBitMsgDelta &msg ) const;
-	virtual void			ReadFromSnapshot( const idBitMsgDelta &msg );
 
 	void					Open(bool Master);
 	void					OpenDoor(bool Master);		// Needed for the handle to riger the open state
@@ -73,7 +69,7 @@ public:
 	void					GetPickable(void);
 	void					GetDoorhandle(void);
 
-	bool					UsedBy(IMPULSE_STATE nState, idEntity *);
+	bool					UsedBy(IMPULSE_STATE nState, CInventoryItem* item);
 
 	/**
 	 * Write the proper sound loss value to the soundprop portal data
@@ -227,8 +223,6 @@ protected:
 	idAngles					m_OriginalAngle;
 
 	bool						m_KeyReleased;
-
-private:
 };
 
-#endif /* !TDMDOOR_H */
+#endif /* FROBDOOR_H */

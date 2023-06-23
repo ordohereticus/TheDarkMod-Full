@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2405 $
- * $Date: 2008-06-01 03:35:11 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2407 $
+ * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2405 2008-06-01 07:35:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2407 2008-06-01 08:43:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -8785,7 +8785,7 @@ void idPlayer::inventoryUseItem(IMPULSE_STATE nState, CInventoryItem* item, int 
 		if (frob != NULL && ent->spawnArgs.GetBool("usable") == true)
 		{
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Item is usable\r");
-			frob->UsedBy(nState, ent);
+			frob->UsedBy(nState, item);
 		}
 
 		// greebo: Start tracking of this impulse when the button is pressed
@@ -9693,7 +9693,7 @@ void idPlayer::PerformFrob(idEntity* target)
 	if (item != NULL && item->UseOnFrob())
 	{
 		// Check the item entity for the right spawnargs
-		if (highlightedEntity->UsedBy(IS_PRESSED, item->GetItemEntity()))
+		if (highlightedEntity->UsedBy(IS_PRESSED, item))
 		{
 			// The highlighted entity could be used, we're done here
 			return;

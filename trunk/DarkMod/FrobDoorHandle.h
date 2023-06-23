@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2400 $
- * $Date: 2008-05-29 14:45:11 -0400 (Thu, 29 May 2008) $
+ * $Revision: 2407 $
+ * $Date: 2008-06-01 04:43:16 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -48,7 +48,7 @@ public:
 	 */
 	void					SetFrobbed(bool val);
 	bool					IsFrobbed(void);
-	bool					UsedBy(IMPULSE_STATE nState, idEntity *);
+	bool					UsedBy(IMPULSE_STATE nState, CInventoryItem* item);
 	void					FrobAction(bool bMaster);
 
 	// These functions need to be disabled on the handle. Therefore
