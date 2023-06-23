@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2557 $
- * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2572 $
+ * $Date: 2008-06-26 00:30:11 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2557 2008-06-21 19:42:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2572 2008-06-26 04:30:11Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7520,9 +7520,9 @@ void idEntity::Event_WaitForRender()
 	{
 		// Give the renderTrigger an invisible model to prevent a black cube from showing up.
 		if ( !m_renderTrigger.hModel )
-			m_renderTrigger.hModel = renderModelManager->FindModel( EMPTY_MODEL );
+			m_renderTrigger.hModel = renderModelManager->FindModel( cv_empty_model.GetString() );
 		if ( !m_renderTrigger.hModel )
-			gameLocal.Error( "Unable to load model: %s\n", EMPTY_MODEL );
+			gameLocal.Error( "Unable to load model: %s\n", cv_empty_model.GetString() );
 
 		m_renderTrigger.callback = idEntity::WaitForRenderTriggered;
 		m_renderWaitingThread = idThread::CurrentThreadNum();

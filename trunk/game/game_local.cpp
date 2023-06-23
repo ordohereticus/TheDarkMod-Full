@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2506 $
- * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2572 $
+ * $Date: 2008-06-26 00:30:11 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2506 2008-06-15 16:54:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2572 2008-06-26 04:30:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1558,7 +1558,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	FindEntityDef( "player_tdm_thief", false );
 
 	// precache the empty model (used by idEntity::m_renderTrigger)
-	renderModelManager->FindModel( EMPTY_MODEL );
+	renderModelManager->FindModel( cv_empty_model.GetString() );
 
 	SpawnLightgemEntity();
 

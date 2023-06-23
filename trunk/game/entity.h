@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2557 $
- * $Date: 2008-06-21 15:42:20 -0400 (Sat, 21 Jun 2008) $
+ * $Revision: 2572 $
+ * $Date: 2008-06-26 00:30:11 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -185,9 +185,6 @@ typedef struct SAttachPosition_s
 	void			Save( idSaveGame *savefile ) const;
 	void			Restore( idRestoreGame *savefile );
 } SAttachPosition;
-
-// Used by m_renderTrigger
-#define EMPTY_MODEL "models/darkmod/misc/system/empty.lwo"
 
 class idEntity : public idClass {
 public:

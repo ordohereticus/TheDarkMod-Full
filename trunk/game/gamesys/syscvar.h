@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2563 $
- * $Date: 2008-06-24 11:19:54 -0400 (Tue, 24 Jun 2008) $
+ * $Revision: 2572 $
+ * $Date: 2008-06-26 00:30:11 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -188,6 +188,8 @@ extern idCVar cv_lg_screen_height;
 extern idCVar cv_lg_velocity_mod_min_velocity;
 extern idCVar cv_lg_velocity_mod_max_velocity;
 extern idCVar cv_lg_velocity_mod_amount;
+
+extern idCVar cv_empty_model;
 
 // Lockpicking
 extern idCVar cv_lp_pin_base_count;
