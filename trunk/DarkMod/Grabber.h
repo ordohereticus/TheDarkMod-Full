@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1749 $
- * $Date: 2007-11-10 20:12:43 -0500 (Sat, 10 Nov 2007) $
+ * $Revision: 2793 $
+ * $Date: 2008-09-01 18:51:06 -0400 (Mon, 01 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -114,6 +114,12 @@ public:
 		* Set to true if the grabbed entity collided in the previous frame
 		**/
 		bool					m_bPrevFrameCollided;
+
+		/**
+		* List of collision normals (shouldn't need this, should be able to use
+		* GetContacts, but that is not working)
+		**/
+		idList<idVec3>			m_CollNorms;
 
 		/**
 		* Stores the max force the player can apply in [mass] * doomunits/sec^2

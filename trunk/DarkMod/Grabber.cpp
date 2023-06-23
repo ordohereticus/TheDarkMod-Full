@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2417 $
- * $Date: 2008-06-01 15:44:17 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2793 $
+ * $Date: 2008-09-01 18:51:06 -0400 (Mon, 01 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 2417 2008-06-01 19:44:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 2793 2008-09-01 22:51:06Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -99,6 +99,7 @@ void CGrabber::Clear( void )
 	m_ThrowTimer = 0;
 	m_bIsColliding = false;
 	m_bPrevFrameCollided = false;
+	m_CollNorms.Clear();
 	
 	m_bAFOffGround = false;
 	m_DragUpTimer = 0;
@@ -161,6 +162,14 @@ void CGrabber::Save( idSaveGame *savefile ) const
 	savefile->WriteBool(m_bObjStuck);
 	savefile->WriteBool(m_bObjEquipped);
 	savefile->WriteFloat(m_MaxForce);
+
+	savefile->WriteBool(m_bIsColliding);
+	savefile->WriteBool(m_bPrevFrameCollided);
+	savefile->WriteInt( m_CollNorms.Num() );
+	for (int i = 0; i < m_CollNorms.Num(); i++)
+	{
+		savefile->WriteVec3( m_CollNorms[i] );
+	}
 }
 
 void CGrabber::Restore( idRestoreGame *savefile )
@@ -212,6 +221,15 @@ void CGrabber::Restore( idRestoreGame *savefile )
 	savefile->ReadBool(m_bObjStuck);
 	savefile->ReadBool(m_bObjEquipped);
 	savefile->ReadFloat(m_MaxForce);
+
+	savefile->ReadBool(m_bIsColliding);
+	savefile->ReadBool(m_bPrevFrameCollided);
+	savefile->ReadInt(num);
+	m_CollNorms.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		savefile->ReadVec3(m_CollNorms[i]);
+	}
 }
 
 /*
@@ -234,6 +252,7 @@ void CGrabber::StopDrag( void )
 {
 	m_bIsColliding = false;
 	m_bPrevFrameCollided = false;
+	m_CollNorms.Clear();
 	m_bObjStuck = false;
 	
 	m_bAFOffGround = false;
