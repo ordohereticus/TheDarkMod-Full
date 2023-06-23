@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2741 $
- * $Date: 2008-08-17 17:47:27 -0400 (Sun, 17 Aug 2008) $
+ * $Revision: 2744 $
+ * $Date: 2008-08-18 04:43:27 -0400 (Mon, 18 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -25,10 +25,11 @@ class idPlayer;
 
 typedef enum
 {
-	MELEETYPE_SLASH			= BIT(0),
-	MELEETYPE_OVERHEAD		= BIT(1),
-	MELEETYPE_THRUST		= BIT(2),
-	MELEETYPE_UNBLOCKABLE	= BIT(3)
+	MELEETYPE_OVERHEAD		= BIT(0),
+	MELEETYPE_SLASH_LR		= BIT(1), // slashing (attacker's) left to right
+	MELEETYPE_SLASH_RL		= BIT(2), // slashing (attacker's) right to left
+	MELEETYPE_THRUST		= BIT(3),
+	MELEETYPE_UNBLOCKABLE	= BIT(4)
 } EMeleeTypes;
 
 class CMeleeWeapon : public idMoveable 
