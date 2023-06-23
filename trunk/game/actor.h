@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2506 $
- * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2586 $
+ * $Date: 2008-06-29 01:47:17 -0400 (Sun, 29 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -469,6 +469,7 @@ public:
 	void					Event_PlayCycle( int channel, const char *name );
 	void					Event_IdleAnim( int channel, const char *name );
 	void					Event_SetSyncedAnimWeight( int channel, int anim, float weight );
+	void					Event_SyncAnimChannels(int fromChannel, int toChannel, float blendFrames);
 	void					Event_OverrideAnim( int channel );
 	void					Event_EnableAnim( int channel, int blendFrames );
 	void					Event_DisableAnimchannel( int channel );

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2506 $
- * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2586 $
+ * $Date: 2008-06-29 01:47:17 -0400 (Sun, 29 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2506 2008-06-15 16:54:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2586 2008-06-29 05:47:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -383,6 +383,7 @@ const idEventDef AI_PlayAnim( "playAnim", "ds", 'd' );
 const idEventDef AI_PlayCycle( "playCycle", "ds", 'd' );
 const idEventDef AI_IdleAnim( "idleAnim", "ds", 'd' );
 const idEventDef AI_SetSyncedAnimWeight( "setSyncedAnimWeight", "ddf" );
+const idEventDef AI_SyncAnimChannels("syncAnimChannels", "ddf");
 const idEventDef AI_SetBlendFrames( "setBlendFrames", "dd" );
 const idEventDef AI_GetBlendFrames( "getBlendFrames", "d", 'd' );
 const idEventDef AI_AnimState( "animState", "dsd" );
@@ -448,6 +449,7 @@ CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT( AI_PlayCycle,				idActor::Event_PlayCycle )
 	EVENT( AI_IdleAnim,					idActor::Event_IdleAnim )
 	EVENT( AI_SetSyncedAnimWeight,		idActor::Event_SetSyncedAnimWeight )
+	EVENT( AI_SyncAnimChannels,			idActor::Event_SyncAnimChannels)
 	EVENT( AI_SetBlendFrames,			idActor::Event_SetBlendFrames )
 	EVENT( AI_GetBlendFrames,			idActor::Event_GetBlendFrames )
 	EVENT( AI_AnimState,				idActor::Event_AnimState )
@@ -3510,6 +3512,11 @@ void idActor::Event_SetSyncedAnimWeight( int channel, int anim, float weight ) {
 	default:
 		gameLocal.Error( "Unknown anim group" );
 	}
+}
+
+void idActor::Event_SyncAnimChannels(int fromChannel, int toChannel, float blendFrames)
+{
+	SyncAnimChannels(fromChannel, toChannel, static_cast<int>(blendFrames));
 }
 
 /*
