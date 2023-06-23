@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2562 $
- * $Date: 2008-06-24 11:19:21 -0400 (Tue, 24 Jun 2008) $
+ * $Revision: 2570 $
+ * $Date: 2008-06-25 15:51:33 -0400 (Wed, 25 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2562 2008-06-24 15:19:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2570 2008-06-25 19:51:33Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -373,20 +373,19 @@ void CBinaryFrobMover::Unlock(bool bMaster)
 
 void CBinaryFrobMover::ToggleLock()
 {
-	// A frobmover can only be un/locked when it is closed.
+	// greebo: When the mover is open, close and lock it.
 	if (m_Open == true)
 	{
-		ToggleOpen();
-		return;
+		Close();
 	}
 
 	if (m_Locked)
 	{
-		Unlock(true);
+		Unlock();
 	}
 	else
 	{
-		Lock(true);
+		Lock();
 	}
 }
 
