@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2772 $
- * $Date: 2008-08-30 11:38:55 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2779 $
+ * $Date: 2008-08-31 04:06:12 -0400 (Sun, 31 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -49,7 +49,7 @@ public:
 	virtual void			ReadFromSnapshot( const idBitMsgDelta &msg );
 
 	// Update the "pushed" state of this entity
-	virtual void			SetIsPushed(bool isPushed);
+	virtual void			SetIsPushed(bool isPushed, const idVec3& pushDirection);
 
 	// Returns true if the entity is pushed by something or someone
 	virtual bool			IsPushed();
@@ -78,11 +78,17 @@ protected:
 	trace_t					lastCollision;
 
 	bool					isPushed;				// true if the entity is pushed by something/someone
+	bool					wasPushedLastFrame;		// true if the entity was pushed the last frame
+	idVec3					pushDirection;			// the direction the moveable is pushed in
+	idVec3					lastPushOrigin;			// the old origin during pushing to compare whether we have actually moved somewhere
 
 	const idMaterial *		GetRenderModelMaterial( void ) const;
 	void					BecomeNonSolid( void );
 	void					InitInitialSpline( int startTime );
 	bool					FollowInitialSplinePath( void );
+
+	// greebo: Updates the sliding sounds according to the "pushed" state
+	void					UpdateSlidingSounds();
 
 	void					Event_Activate( idEntity *activator );
 	void					Event_BecomeNonSolid( void );
