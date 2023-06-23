@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2574 $
- * $Date: 2008-06-26 13:51:40 -0400 (Thu, 26 Jun 2008) $
+ * $Revision: 2620 $
+ * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2574 2008-06-26 17:51:40Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2620 2008-07-09 19:39:45Z angua $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "InteractionTask.h"
@@ -138,7 +138,7 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 		else
 		{
 			// Unreachable by walking, check if the opponent is on an elevator
-			CMultiStateMover* mover = enemy->OnElevator();
+			CMultiStateMover* mover = enemy->OnElevator(true);
 			if (mover != NULL)
 			{
 				//gameRenderWorld->DebugArrow(colorRed, owner->GetPhysics()->GetOrigin(), mover->GetPhysics()->GetOrigin(), 1, 48);

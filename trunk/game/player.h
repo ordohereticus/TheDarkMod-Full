@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2600 $
- * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2620 $
+ * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -577,7 +577,7 @@ public:
 
 	bool					OnLadder( void ) const;
 	// Virtal override of idActor::OnElevator()
-	virtual CMultiStateMover* OnElevator() const;
+	virtual CMultiStateMover* OnElevator(bool mustBeMoving) const;
 
 	virtual	void			UpdatePlayerIcons( void );
 	virtual	void			DrawPlayerIcons( void );

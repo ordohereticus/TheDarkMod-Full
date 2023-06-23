@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2610 $
- * $Date: 2008-07-04 16:42:56 -0400 (Fri, 04 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2620 $
+ * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2610 2008-07-04 20:42:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2620 2008-07-09 19:39:45Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2173,7 +2173,7 @@ bool idActor::OnLadder( void ) const {
 	return false;
 }
 
-CMultiStateMover* idActor::OnElevator() const
+CMultiStateMover* idActor::OnElevator(bool mustBeMoving) const
 {
 	return NULL;
 }

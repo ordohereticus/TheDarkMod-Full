@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2617 $
- * $Date: 2008-07-07 11:46:25 -0400 (Mon, 07 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 2620 $
+ * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -1249,7 +1249,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					MoveToEntity( idEntity *ent );
 
 	// Override idActor::OnElevator. See idActor class for documentation.
-	virtual CMultiStateMover* OnElevator() const;
+	virtual CMultiStateMover* OnElevator(bool mustBeMoving) const;
 
 	/**
 	 * greebo: This moves the entity to the given point.

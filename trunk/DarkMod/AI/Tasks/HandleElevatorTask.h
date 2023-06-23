@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2376 $
- * $Date: 2008-05-19 12:13:33 -0400 (Mon, 19 May 2008) $
- * $Author: greebo $
+ * $Revision: 2620 $
+ * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -39,6 +39,7 @@ private:
 		EMovingToRideButton,
 		EPressRideButton,
 		ERideOnElevator,
+		EGetOffElevator,
 		ENumStates,
 	} _state;
 

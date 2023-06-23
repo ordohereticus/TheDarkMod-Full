@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2596 $
- * $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 2620 $
+ * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -221,8 +221,9 @@ public:
 	idActor *				EnemyWithMostHealth();
 
 	virtual bool			OnLadder( void ) const;
-	// Returns the elevator entity if the actor is standing on a moving elevator
-	virtual CMultiStateMover* OnElevator() const;
+	// Returns the elevator entity if the actor is standing on an elevator
+	// angua: if mustBeMoving is true, the elevator is only returned when it is moving
+	virtual CMultiStateMover* OnElevator(bool mustBeMoving) const;
 
 	virtual void			GetAASLocation( idAAS *aas, idVec3 &pos, int &areaNum ) const;
 

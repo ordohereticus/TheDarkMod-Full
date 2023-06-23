@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2598 $
- * $Date: 2008-07-02 15:37:17 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 2620 $
+ * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2598 2008-07-02 19:37:17Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2620 2008-07-09 19:39:45Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -176,19 +176,31 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					// the other part of the double door is already open
 					// no need to open this one
 					ResetDoor(owner, doubleDoor);
+					if (masterUser == owner)
+					{
+
+						if (!owner->MoveToPosition(_frontPos))
+						{
+							// TODO: position not reachable, need a better one
+						}
+						_doorHandlingState = EStateMovingToFrontPos;
+					}
+					break;
+				}
+
+				else if (masterUser == owner)
+				{
 					if (!owner->MoveToPosition(_frontPos))
 					{
 						// TODO: position not reachable, need a better one
 					}
 					_doorHandlingState = EStateMovingToFrontPos;
-					break;
 				}
-
-				if (!owner->MoveToPosition(_frontPos))
+				
+				else
 				{
-					// TODO: position not reachable, need a better one
+					owner->StopMove(MOVE_STATUS_WAITING);
 				}
-				_doorHandlingState = EStateMovingToFrontPos;
 				break;
 
 			case EStateMovingToFrontPos:
@@ -350,17 +362,20 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 						owner->MoveToPosition(_backPos);
 						_doorHandlingState = EStateMovingToBackPos;
 					}
-					else
+					else if (masterUser == owner)
 					{
 						owner->MoveToPosition(_frontPos);
 						_doorHandlingState = EStateMovingToFrontPos;
 					}
 				}
-
-				// door is open and possibly in the way, may need to close it
-				// check if there is a way around
-				else 
+				else if (masterUser != owner && owner->GetMoveStatus() == MOVE_STATUS_WAITING)
 				{
+
+				}
+				else
+				{
+					// door is open and possibly in the way, may need to close it
+					// check if there is a way around
 					idTraceModel trm(bounds);
 					idClipModel clip(trm);
 	
