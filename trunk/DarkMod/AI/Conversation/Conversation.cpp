@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2680 $
- * $Date: 2008-07-17 13:11:03 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2683 $
+ * $Date: 2008-07-17 14:02:39 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2680 2008-07-17 17:11:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2683 2008-07-17 18:02:39Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -139,11 +139,11 @@ bool Conversation::Process()
 	{
 		case ConversationCommand::ENotStartedYet:
 			// Start a new execution
-			convState->StartCommand(*command);
+			convState->StartCommand(*command, *this);
 			break;
 		case ConversationCommand::EExecuting:
 			// Continue execution
-			convState->Execute(*command);
+			convState->Execute(*command, *this);
 			break;
 		case ConversationCommand::EFinished:
 			// Increase the iterator, we continue next frame

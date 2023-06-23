@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2682 $
- * $Date: 2008-07-17 13:41:27 -0400 (Thu, 17 Jul 2008) $
+ * $Revision: 2683 $
+ * $Date: 2008-07-17 14:02:39 -0400 (Thu, 17 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2682 2008-07-17 17:41:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2683 2008-07-17 18:02:39Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -134,7 +134,7 @@ void ConversationState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSyst
 	}
 }
 
-void ConversationState::StartCommand(ConversationCommand& command)
+void ConversationState::StartCommand(ConversationCommand& command, Conversation& conversation)
 {
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
@@ -179,12 +179,31 @@ void ConversationState::StartCommand(ConversationCommand& command)
 		}
 	}
 	break;
-	/*EWalkToEntity,
-	EStopMove,
-	ETalk,
+	case ConversationCommand::EStopMove:
+		owner->StopMove(MOVE_STATUS_DONE);
+		_state = ConversationCommand::EFinished;
+		break;
+	/*,
 	EPlayAnimOnce,
-	EPlayAnimCycle,
-	EActivateTarget,
+	EPlayAnimCycle,*/
+
+	case ConversationCommand::EActivateTarget:
+	{
+		idEntity* ent = command.GetEntityArgument(0);
+		if (ent != NULL)
+		{
+			// Post a trigger event
+			ent->PostEventMS(&EV_Activate, 0, owner);
+			// We're done
+			_state = ConversationCommand::EFinished;
+		}
+		else
+		{
+			gameLocal.Warning("Conversation Command: 'ActivateTarget' could not find entity: %s", command.GetArgument(0).c_str());
+		}
+	}
+	break;
+	/*EActivateTarget,
 	ELookAtActor,
 	ELookAtPosition,
 	ELookAtEntity,
@@ -213,7 +232,7 @@ void ConversationState::StartCommand(ConversationCommand& command)
 	_commandType = command.GetType();
 }
 
-void ConversationState::Execute(ConversationCommand& command)
+void ConversationState::Execute(ConversationCommand& command, Conversation& conversation)
 {
 
 }
