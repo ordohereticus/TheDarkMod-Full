@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2970 $
- * $Date: 2008-10-23 00:27:41 -0400 (Thu, 23 Oct 2008) $
+ * $Revision: 2972 $
+ * $Date: 2008-10-23 03:27:17 -0400 (Thu, 23 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -100,6 +100,11 @@ public:
 	float					GetMaxStepHeight( void ) const;
 	void					SetMaxJumpHeight( const float newMaxJumpHeight );
 	void					SetMovementType( const pmtype_t type );
+	/**
+	* Get/set the movement flags, used to force a crouch externally
+	**/
+	int						GetMovementFlags( void );
+	void					SetMovementFlags( int );
 	void					SetPlayerInput( const usercmd_t &cmd, const idAngles &newViewAngles );
 	void					SetKnockBack( const int knockBackTime );
 	void					SetDebugLevel( bool set );

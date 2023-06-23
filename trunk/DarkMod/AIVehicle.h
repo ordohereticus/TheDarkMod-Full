@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2969 $
- * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
+ * $Revision: 2972 $
+ * $Date: 2008-10-23 03:27:17 -0400 (Thu, 23 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -99,6 +99,17 @@ protected:
 	* Max reverse speed as a fraction of max forward speed
 	**/
 	float					m_MaxReverseSpeed;
+	/**
+	* Animation rate modifiers, ranging from min at the slowest speed to max
+	**/
+	float					m_MinWalkAnimRate;
+	float					m_MaxWalkAnimRate;
+	float					m_MinRunAnimRate;
+	float					m_MaxRunAnimRate;
+	/**
+	* Speed control fraction point at which we transition from walk to run animation
+	**/
+	float					m_WalkToRunSpeedFrac;
 };
 
 

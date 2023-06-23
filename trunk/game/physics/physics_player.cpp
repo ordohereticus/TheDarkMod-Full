@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2971 $
- * $Date: 2008-10-23 01:15:35 -0400 (Thu, 23 Oct 2008) $
+ * $Revision: 2972 $
+ * $Date: 2008-10-23 03:27:17 -0400 (Thu, 23 Oct 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2971 $   $Date: 2008-10-23 01:15:35 -0400 (Thu, 23 Oct 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 2972 $   $Date: 2008-10-23 03:27:17 -0400 (Thu, 23 Oct 2008) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5249,4 +5249,14 @@ void idPhysics_Player::SetRefEntVel( idEntity *ent, int bodID)
 idVec3 idPhysics_Player::GetRefEntVel( void ) const
 {
 	return m_RefEntVelocity;
+}
+
+int idPhysics_Player::GetMovementFlags( void )
+{
+	return current.movementFlags;
+}
+
+void idPhysics_Player::SetMovementFlags( int flags )
+{
+	current.movementFlags = flags;
 }
