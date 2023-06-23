@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2895 $
- * $Date: 2008-09-27 02:40:20 -0400 (Sat, 27 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 2905 $
+ * $Date: 2008-09-29 12:46:46 -0400 (Mon, 29 Sep 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: liquid.cpp 2895 2008-09-27 06:40:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 2905 2008-09-29 16:46:46Z tels $", init_version);
 
 #include "StimResponse/StimResponseCollection.h"
 
@@ -18,8 +18,8 @@ static bool init_version = FileVersionList("$Id: liquid.cpp 2895 2008-09-27 06:4
 
 // We do these splashes if the mass of the colliding object is less than these values.
 // Anything large than MEDIUM_SPLASH does a large splash. (get it?)
-const int SMALL_SPLASH		= 25;
-const int MEDIUM_SPLASH		= 1000;
+const int SMALL_SPLASH		= 5;
+const int MEDIUM_SPLASH		= 20;
 
 /*
 ===============================================================================
