@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2526 $
- * $Date: 2008-06-19 12:06:20 -0400 (Thu, 19 Jun 2008) $
+ * $Revision: 2528 $
+ * $Date: 2008-06-19 13:16:37 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2526 2008-06-19 16:06:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2528 2008-06-19 17:16:37Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -918,6 +918,12 @@ void CBinaryFrobMover::OnStartOpen(bool wasClosed)
 	{
 		// Only play the "open" sound when the door was completely closed
 		StartSound("snd_open", SND_CHANNEL_ANY, 0, false, NULL);
+
+		// trigger our targets on opening, if set to do so
+		if (spawnArgs.GetBool("trigger_on_open", "0"))
+		{
+			ActivateTargets(this);
+		}
 	}
 }
 

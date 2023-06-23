@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2497 $
- * $Date: 2008-06-15 02:15:59 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2528 $
+ * $Date: 2008-06-19 13:16:37 -0400 (Thu, 19 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2497 2008-06-15 06:15:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2528 2008-06-19 17:16:37Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6780,6 +6780,9 @@ bool idEntity::AddToMasterList(idList<idStr> &MasterList, idStr &str)
 	if((ent = gameLocal.FindEntity(str.c_str())) != NULL)
 	{
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Master entity %08lX [%s] is updated.\r", ent, ent->name.c_str());
+
+		// greebo: TODO: Refactor this to use idList::AddUnique()
+
 		i = 0;
 		n = MasterList.Num();
 		bFound = false;
