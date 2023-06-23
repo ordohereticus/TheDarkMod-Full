@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2780 $
- * $Date: 2008-08-31 05:50:12 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2877 $
+ * $Date: 2008-09-22 04:48:12 -0400 (Mon, 22 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -237,6 +237,12 @@ public:
 	**/
 	jointHandle_t			JointForBody( int body );
 	int						BodyForJoint( jointHandle_t joint );
+
+	/**
+	* TDM: Get AF body for the given added entity
+	* returns NULL if added ent could not be found
+	**/
+	idAFBody *				AFBodyForEnt( idEntity *ent );
 
 	virtual void			ShowEditingDialog( void );
 
