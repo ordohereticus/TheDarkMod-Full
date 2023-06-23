@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3193 $
- * $Date: 2009-01-20 01:44:36 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3196 $
+ * $Date: 2009-01-20 03:26:46 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -369,7 +369,7 @@ public:
 	virtual renderView_t *	GetRenderView();
 
 	// greebo: Call this to trigger this entity
-	virtual void			Activate();
+	virtual void			Activate(idEntity* activator);
 
 	// thinking
 	virtual void			Think( void );

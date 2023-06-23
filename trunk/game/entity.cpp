@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3193 $
- * $Date: 2009-01-20 01:44:36 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3196 $
+ * $Date: 2009-01-20 03:26:46 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3193 2009-01-20 06:44:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3196 2009-01-20 08:26:46Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2455,10 +2455,10 @@ renderView_t *idEntity::GetRenderView( void ) {
 	return renderView;
 }
 
-void idEntity::Activate()
+void idEntity::Activate(idEntity* activator)
 {
 	Signal( SIG_TRIGGER );
-	ProcessEvent( &EV_Activate );
+	ProcessEvent( &EV_Activate, activator );
 	TriggerGuis();
 }
 

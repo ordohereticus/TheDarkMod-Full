@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2745 $
- * $Date: 2008-08-19 14:02:03 -0400 (Tue, 19 Aug 2008) $
+ * $Revision: 3196 $
+ * $Date: 2009-01-20 03:26:46 -0500 (Tue, 20 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 2745 2008-08-19 18:02:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 3196 2009-01-20 08:26:46Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
@@ -1081,7 +1081,7 @@ idThread::Event_Trigger
 */
 void idThread::Event_Trigger( idEntity *ent ) {
 	if ( ent ) {
-		ent->Activate();
+		ent->Activate(NULL);
 	}
 }
 
