@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2536 $
- * $Date: 2008-06-20 01:26:51 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2537 $
+ * $Date: 2008-06-20 01:36:24 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,7 +29,7 @@ public:
 	void			Save(idSaveGame *savefile) const;
 	void			Restore(idRestoreGame *savefile);
 
-	// Switches the lever state to the given state (true = "on")
+	// Switches the lever state to the given state (true = "open")
 	void			SwitchState(bool newState);
 
 	// Calling Operate() toggles the current state

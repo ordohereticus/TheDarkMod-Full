@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2536 $
- * $Date: 2008-06-20 01:26:51 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2537 $
+ * $Date: 2008-06-20 01:36:24 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLever.cpp 2536 2008-06-20 05:26:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLever.cpp 2537 2008-06-20 05:36:24Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -73,6 +73,12 @@ void CFrobLever::OnOpenPositionReached()
 		m_Latch = false;
 
 		CBinaryFrobMover::OnOpenPositionReached();
+
+		// Check if we should move back to the closedpos after use
+		if (spawnArgs.GetBool("revert_when_opened", "0"))
+		{
+			SwitchState(false);
+		}
 	}
 }
 
