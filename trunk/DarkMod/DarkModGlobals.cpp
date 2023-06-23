@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2445 $
- * $Date: 2008-06-07 10:07:39 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2456 $
+ * $Date: 2008-06-08 04:48:43 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2445 2008-06-07 14:07:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2456 2008-06-08 08:48:43Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -31,7 +31,7 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2445 2008-06
 #include "Misc.h"
 #include "Profile.h"
 //#include "direct.h" [OrbWeaver] does not exist?
-#include "il/il.h"
+#include "IL/il.h"
 #include "sndPropLoader.h"
 #include "sndProp.h"
 #include "Relations.h"
