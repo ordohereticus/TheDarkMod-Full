@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2461 $
- * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2469 $
+ * $Date: 2008-06-11 12:53:28 -0400 (Wed, 11 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2469 2008-06-11 16:53:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1814,6 +1814,13 @@ void CTarget_SetObjectiveState::Event_Activate( idEntity *activator )
 		int objId = atoi(keyVal->GetValue().c_str());
 
 		if (objId > 0) {
+			// "Unlock" the objective first, if desired
+			if (spawnArgs.GetBool("unlatch_irreversible_objectives", "1"))
+			{
+				gameLocal.m_MissionData->UnlatchObjective(objId-1);
+			}
+
+			// Now set the completion state
 			gameLocal.m_MissionData->SetCompletionState(objId-1, state);
 		}
 		else {

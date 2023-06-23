@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2468 $
- * $Date: 2008-06-11 00:58:45 -0400 (Wed, 11 Jun 2008) $
+ * $Revision: 2469 $
+ * $Date: 2008-06-11 12:53:28 -0400 (Wed, 11 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2468 2008-06-11 04:58:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2469 2008-06-11 16:53:28Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -401,6 +401,13 @@ void CMissionData::MissionEvent
 	for( int i=0; i<m_Objectives.Num(); i++ )
 	{
 		CObjective *pObj = &m_Objectives[i];
+
+		// greebo: Check for irreversible objectives that have already "snapped" into their final state
+		if (!pObj->m_bReversible && pObj->m_bLatched)
+		{
+			// don't re-evaluate latched irreversible objectives
+			continue;
+		}
 
 		for( int j=0; j < pObj->m_Components.Num(); j++ )
 		{
@@ -1098,9 +1105,7 @@ Quit:
 
 void CMissionData::SetComponentState(int ObjIndex, int CompIndex, bool bState)
 {
-	CObjectiveComponent *pComp(NULL);
-
-	pComp = &m_Objectives[ObjIndex].m_Components[CompIndex];
+	CObjectiveComponent* pComp = &m_Objectives[ObjIndex].m_Components[CompIndex];
 
 	if( !pComp )
 	{
