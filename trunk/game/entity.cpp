@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3073 $
- * $Date: 2008-11-30 13:34:44 -0500 (Sun, 30 Nov 2008) $
- * $Author: angua $
+ * $Revision: 3076 $
+ * $Date: 2008-12-06 02:00:55 -0500 (Sat, 06 Dec 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3073 2008-11-30 18:34:44Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3076 2008-12-06 07:00:55Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6481,6 +6481,32 @@ idAnimatedEntity::~idAnimatedEntity() {
 	for ( de = damageEffects; de; de = damageEffects ) {
 		damageEffects = de->next;
 		delete de;
+	}
+}
+
+/*
+===============
+idAnimatedEntity::Spawn
+===============
+*/
+void idAnimatedEntity::Spawn( void )
+{
+	// Cache animation rates
+	int anims = animator.NumAnims();
+	m_animRates.Clear();
+	m_animRates.AssureSize(anims);
+	for (int i=0; i<anims; i++) 
+	{
+		const idAnim *anim = animator.GetAnim(i);
+		if (anim != NULL) 
+		{
+			idStr spawnargname = "anim_rate_";
+			spawnargname += anim->Name();
+			m_animRates[i] = spawnArgs.GetFloat(spawnargname, "1");
+		} else 
+		{
+			m_animRates[i] = 1.0f;
+		}
 	}
 }
 

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3073 $
- * $Date: 2008-11-30 13:34:44 -0500 (Sun, 30 Nov 2008) $
- * $Author: angua $
+ * $Revision: 3076 $
+ * $Date: 2008-12-06 02:00:55 -0500 (Sat, 06 Dec 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -1459,6 +1459,8 @@ public:
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
+
+	void					Spawn( void ); //TDM: added so that we can cache anim rates
 
 	virtual void			ClientPredictionThink( void );
 	virtual void			Think( void );
