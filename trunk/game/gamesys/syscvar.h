@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2788 $
- * $Date: 2008-08-31 20:42:31 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2795 $
+ * $Date: 2008-09-02 21:28:32 -0400 (Tue, 02 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -146,6 +146,7 @@ extern idCVar cv_melee_mouse_decision_time;
 extern idCVar cv_melee_mouse_slowview;
 extern idCVar cv_melee_invert_attack;
 extern idCVar cv_melee_invert_parry;
+extern idCVar cv_melee_max_particles;
 extern idCVar cv_phys_show_momentum;
 
 extern idCVar cv_throw_min;

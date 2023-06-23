@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2758 $
- * $Date: 2008-08-27 22:34:59 -0400 (Wed, 27 Aug 2008) $
+ * $Revision: 2795 $
+ * $Date: 2008-09-02 21:28:32 -0400 (Tue, 02 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -184,6 +184,18 @@ protected:
 	**/
 	idVec3					m_OldOrigin;
 	idMat3					m_OldAxis;
+
+// Cosmetic stuff:
+
+	/**
+	* Keep swinging when we hit moveables at or below this mass
+	**/
+	float					m_StopMass;
+
+	/**
+	* Number of particles we've generated in this attack
+	**/
+	int						m_ParticlesMade;
 
 };
 
