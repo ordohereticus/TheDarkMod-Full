@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2770 $
- * $Date: 2008-08-30 10:21:59 -0400 (Sat, 30 Aug 2008) $
+ * $Revision: 2771 $
+ * $Date: 2008-08-30 10:46:45 -0400 (Sat, 30 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_push.cpp 2770 2008-08-30 14:21:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_push.cpp 2771 2008-08-30 14:46:45Z greebo $", init_version);
 
 #include "force_push.h"
 #include "../game_local.h"
@@ -38,6 +38,12 @@ void CForcePush::SetPushEntity(idEntity* pushEnt, int id)
 	{
 		// entity has changed, reset the timer
 		startPushTime = gameLocal.time;
+	}
+
+	// Update the owning actor's push state
+	if (pushEnt == NULL && owner != NULL && owner->IsType(idActor::Type))
+	{
+		static_cast<idActor*>(owner)->SetIsPushing(false);
 	}
 
 	this->pushEnt = pushEnt;
@@ -110,6 +116,17 @@ void CForcePush::Evaluate( int time )
 
 			// Apply the mass scale and the acceleration scale to the capped velocity
 			pushEnt->GetPhysics()->SetLinearVelocity(impactVelocity * velocity * accelScale * massScale);
+
+			// Update the owning actor's push state
+			if (owner->IsType(idActor::Type))
+			{
+				idActor* owningActor = static_cast<idActor*>(owner);
+
+				if (!owningActor->IsPushing()) 
+				{
+					owningActor->SetIsPushing(true);
+				}
+			}
 		}
 	}
 

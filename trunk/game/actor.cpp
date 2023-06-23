@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2771 $
+ * $Date: 2008-08-30 10:46:45 -0400 (Sat, 30 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2756 2008-08-25 08:08:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2771 2008-08-30 14:46:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2821,6 +2821,16 @@ bool idActor::Pain( idEntity *inflictor, idEntity *attacker, int damage, const i
 	}
 
 	return true;
+}
+
+void idActor::SetIsPushing(bool isPushing)
+{
+	// do nothing, is handled by the subclasses
+}
+
+bool idActor::IsPushing()
+{
+	return false;
 }
 
 /*

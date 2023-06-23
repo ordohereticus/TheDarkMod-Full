@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2756 $
- * $Date: 2008-08-25 04:08:01 -0400 (Mon, 25 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2771 $
+ * $Date: 2008-08-30 10:46:45 -0400 (Sat, 30 Aug 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -206,6 +206,11 @@ public:
 	const char *			GetDamageGroup( int location );
 	void					ClearPain( void );
 	virtual bool			Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
+
+	// greebo: Sets the "player is pushing something heavy" state to the given bool.
+	virtual void			SetIsPushing(bool isPushing);
+	// Returns whether the player is currently pushing something heavy
+	virtual bool			IsPushing();
 
 							// model/combat model/ragdoll
 	void					SetCombatModel( void );
