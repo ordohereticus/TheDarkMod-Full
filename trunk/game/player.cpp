@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3031 $
- * $Date: 2008-11-15 03:59:45 -0500 (Sat, 15 Nov 2008) $
+ * $Revision: 3032 $
+ * $Date: 2008-11-15 05:29:17 -0500 (Sat, 15 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3031 2008-11-15 08:59:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3032 2008-11-15 10:29:17Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1053,13 +1053,13 @@ void idPlayer::NextInventoryMap()
 
 void idPlayer::SetupInventory()
 {
-	m_InventoryOverlay = CreateOverlay(cv_tdm_inv_hud_file.GetString(), LAYER_INVENTORY);
+	m_InventoryOverlay = CreateOverlay(cv_tdm_inv_gui_file.GetString(), LAYER_INVENTORY);
 	
 	idUserInterface* invGUI = m_overlays.getGui(m_InventoryOverlay);
 	
 	if (invGUI == NULL)
 	{
-		gameLocal.Error("Could not set up inventory GUI: %s", cv_tdm_inv_hud_file.GetString());
+		gameLocal.Error("Could not set up inventory GUI: %s", cv_tdm_inv_gui_file.GetString());
 		return;
 	}
 
@@ -1145,7 +1145,7 @@ void idPlayer::SetupInventory()
 	it->SetName(TDM_LOOT_INFO_ITEM);
 	it->SetItemEntity(ent);
 	it->SetType(CInventoryItem::IT_ITEM);
-	it->SetOverlay(cv_tdm_inv_loot_hud.GetString(), CreateOverlay(cv_tdm_inv_loot_hud.GetString(), LAYER_INVENTORY));
+	it->SetOverlay(cv_tdm_inv_loot_gui_file.GetString(), CreateOverlay(cv_tdm_inv_loot_gui_file.GetString(), LAYER_INVENTORY));
 	it->SetCount(0);
 	it->SetStackable(false);
 	crsr->Inventory()->PutItem(it, cv_tdm_inv_loot_group.GetString());
