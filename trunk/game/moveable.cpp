@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2897 $
- * $Date: 2008-09-27 04:05:44 -0400 (Sat, 27 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 3123 $
+ * $Date: 2009-01-07 08:30:07 -0500 (Wed, 07 Jan 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 2897 2008-09-27 08:05:44Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3123 2009-01-07 13:30:07Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -217,7 +217,7 @@ void idMoveable::Spawn( void ) {
 		physicsObj.DisableImpact();
 	}
 
-	if ( spawnArgs.GetBool( "nonsolid" ) ) {
+	if (!spawnArgs.GetBool( "solid" ) ) {
 		BecomeNonSolid();
 	}
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3083 $
- * $Date: 2008-12-13 08:32:20 -0500 (Sat, 13 Dec 2008) $
+ * $Revision: 3123 $
+ * $Date: 2009-01-07 08:30:07 -0500 (Wed, 07 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3083 2008-12-13 13:32:20Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3123 2009-01-07 13:30:07Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -980,7 +980,7 @@ void idEntity::LoadModels()
 /*
 * Ishtvan: Commented out, this is handled separately and this call can interfere with other places contents are set
 *
-		GetPhysics()->SetContents( spawnArgs.GetBool( "nonsolid" ) ? 0 : CONTENTS_SOLID );
+		GetPhysics()->SetContents( !spawnArgs.GetBool( "solid" ) ? 0 : CONTENTS_SOLID );
 	    // SR CONTENTS_RESONSE FIX
 		if( m_StimResponseColl->HasResponse() ) {
 			GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
@@ -1735,8 +1735,8 @@ void idEntity::BecomeBroken( idEntity *activator )
 	{
 		SetModel( brokenModel );
 
-		DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("Breaking entity %s (nonsolid: %i)\r", name.c_str(), spawnArgs.GetBool( "nonsolid" ) ); 
-		if ( !spawnArgs.GetBool( "nonsolid" ) )
+		DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("Breaking entity %s (solid: %i)\r", name.c_str(), spawnArgs.GetBool( "solid" ) ); 
+		if ( spawnArgs.GetBool( "solid" ) )
 		{
 			DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("Setting new clipmodel '%s'\r)", brokenModel.c_str() ); 
 
