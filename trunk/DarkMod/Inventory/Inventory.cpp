@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3000 $
- * $Date: 2008-11-08 13:14:03 -0500 (Sat, 08 Nov 2008) $
+ * $Revision: 3003 $
+ * $Date: 2008-11-09 03:15:11 -0500 (Sun, 09 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 3000 2008-11-08 18:14:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 3003 2008-11-09 08:15:11Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -97,7 +97,7 @@ void CInventory::NotifyOwnerAboutPickup(const idStr& pickedUpStr, const CInvento
 	idPlayer* player = static_cast<idPlayer*>(m_Owner.GetEntity());
 
 	// Prepend the "acquired" text
-	idStr pickedUpMsg = idStr(TDM_INVENTORY_PICKEDUP_MSG_PREFIX) + pickedUpStr;
+	idStr pickedUpMsg = idStr(common->GetLanguageDict()->GetString("#str_07215")) + pickedUpStr;
 
 	// Now actually send the message
 	player->SendInventoryPickedUpMessage(pickedUpMsg);
