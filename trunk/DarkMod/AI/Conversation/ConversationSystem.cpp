@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2725 $
- * $Date: 2008-08-06 01:13:28 -0400 (Wed, 06 Aug 2008) $
+ * $Revision: 2823 $
+ * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2725 2008-08-06 05:13:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2823 2008-09-13 05:10:49Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -73,6 +73,11 @@ int ConversationSystem::GetConversationIndex(const idStr& name)
 	}
 
 	return -1;
+}
+
+int ConversationSystem::GetNumConversations()
+{
+	return _conversations.Num();
 }
 
 void ConversationSystem::StartConversation(int index)

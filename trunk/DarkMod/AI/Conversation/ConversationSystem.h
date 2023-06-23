@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2673 $
- * $Date: 2008-07-16 13:11:54 -0400 (Wed, 16 Jul 2008) $
+ * $Revision: 2823 $
+ * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -47,6 +47,11 @@ public:
 	 * Returns the numeric index for the given conversation name or -1 if not found.
 	 */
 	int GetConversationIndex(const idStr& name);
+
+	/**
+	 * greebo: Returns the number of available conversations in this system.
+	 */
+	int GetNumConversations();
 
 	/**
 	 * greebo: This starts the conversation, after checking whether all conditions are met.

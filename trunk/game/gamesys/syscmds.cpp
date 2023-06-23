@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2808 $
- * $Date: 2008-09-09 13:36:50 -0400 (Tue, 09 Sep 2008) $
+ * $Revision: 2823 $
+ * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2808 2008-09-09 17:36:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2823 2008-09-13 05:10:49Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -21,6 +21,7 @@ static bool init_version = FileVersionList("$Id: syscmds.cpp 2808 2008-09-09 17:
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/Inventory/Inventory.h"
 #include "../../DarkMod/TimerManager.h"
+#include "../../DarkMod/AI/Conversation/ConversationSystem.h"
 
 #include "typeinfo.h"
 
@@ -2712,6 +2713,49 @@ void Cmd_ShowEASRoute_f(const idCmdArgs& args)
 	}
 }
 
+void Cmd_StartConversation_f(const idCmdArgs& args)
+{
+	if (args.Argc() != 2)
+	{
+		gameLocal.Printf("Usage: tdm_start_conversation <conversationName>. Use tdm_list_conversations to get a list of names.\n" );
+		return;
+	}
+
+	if (gameLocal.GameState() != GAMESTATE_ACTIVE)
+	{
+		gameLocal.Printf("No map running\n");
+		return;
+	}
+
+	int idx = gameLocal.m_ConversationSystem->GetConversationIndex(args.Argv(1));
+	if (idx != -1)
+	{
+		gameLocal.m_ConversationSystem->StartConversation(idx);
+	}
+	else
+	{
+		gameLocal.Printf("No conversation with name: %s\n", args.Argv(1));
+	}
+}
+
+void Cmd_ListConversations_f(const idCmdArgs& args)
+{
+	if (gameLocal.GameState() != GAMESTATE_ACTIVE)
+	{
+		gameLocal.Printf("No map running\n");
+		return;
+	}
+
+	for (int i = 0; i < gameLocal.m_ConversationSystem->GetNumConversations(); i++)
+	{
+		ai::ConversationPtr conversation = gameLocal.m_ConversationSystem->GetConversation(i);
+		
+		if (conversation == NULL) continue;
+
+		gameLocal.Printf("%d: %s (%d commands)\n", i, conversation->GetName().c_str(), conversation->GetNumCommands());
+	}
+}
+
 #ifdef TIMING_BUILD
 void Cmd_ListTimers_f(const idCmdArgs& args) 
 {
@@ -2840,6 +2884,9 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "aas_showReachabilities",Cmd_ShowReachabilities_f,			CMD_FL_GAME,				"Shows the reachabilities for the given area number (AAS32)." );
 	cmdSystem->AddCommand( "aas_showStats",			Cmd_ShowAASStats_f,			CMD_FL_GAME,				"Shows the AAS statistics." );
 	cmdSystem->AddCommand( "eas_showRoute",			Cmd_ShowEASRoute_f,			CMD_FL_GAME,				"Shows the EAS route to the goal area." );
+
+	cmdSystem->AddCommand( "tdm_start_conversation",	Cmd_StartConversation_f,	CMD_FL_GAME,			"Starts the conversation with the given name." );
+	cmdSystem->AddCommand( "tdm_list_conversations",	Cmd_ListConversations_f,	CMD_FL_GAME,			"List all available conversations by name." );
 
 #ifndef	ID_DEMO_BUILD
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );

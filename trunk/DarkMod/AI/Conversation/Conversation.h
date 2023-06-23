@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2821 $
- * $Date: 2008-09-12 14:24:25 -0400 (Fri, 12 Sep 2008) $
+ * $Revision: 2823 $
+ * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -117,6 +117,9 @@ public:
 
 	// Returns the number of involved actors
 	int GetNumActors();
+
+	// Returns the number of commands in this conversation
+	int GetNumCommands();
 
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;

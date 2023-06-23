@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2822 $
- * $Date: 2008-09-13 00:50:55 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2823 $
+ * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2822 2008-09-13 04:50:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2823 2008-09-13 05:10:49Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -315,6 +315,11 @@ idAI* Conversation::GetActor(const idStr& name)
 int Conversation::GetNumActors()
 {
 	return _actors.Num();
+}
+
+int Conversation::GetNumCommands()
+{
+	return _commands.Num();
 }
 
 void Conversation::Save(idSaveGame* savefile) const
