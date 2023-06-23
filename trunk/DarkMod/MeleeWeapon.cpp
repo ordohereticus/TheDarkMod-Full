@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3213 $
- * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3215 $
+ * $Date: 2009-02-16 16:22:54 -0500 (Mon, 16 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3213 2009-02-16 11:34:30Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3215 2009-02-16 21:22:54Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -34,7 +34,7 @@ CMeleeWeapon::CMeleeWeapon( void )
 	m_bWorldCollide = false;
 	m_bModCM = false;
 
-	m_MeleeType = MELEETYPE_OVERHEAD;
+	m_MeleeType = MELEETYPE_OVER;
 	m_StopMass = 0.0f;
 	m_ParticlesMade = 0;
 

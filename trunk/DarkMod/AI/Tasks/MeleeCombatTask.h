@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3213 $
- * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3215 $
+ * $Date: 2009-02-16 16:22:54 -0500 (Mon, 16 Feb 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -25,9 +25,6 @@ class MeleeCombatTask :
 	public Task
 {
 	idEntityPtr<idActor> _enemy;
-
-	// The time the attack animation was started
-	int _attackAnimStartTime;
 
 public:
 	// Get the name of this task
@@ -52,8 +49,11 @@ private:
 	void PerformAttack(idAI* owner);
 	void PerformParry(idAI* owner);
 
-	// Starts the attack animation (either long or quick melee)
+	/**
+	* Start up an attack or parry animation
+	**/
 	void StartAttack(idAI* owner);
+	void StartParry(idAI* owner);
 };
 
 } // namespace ai
