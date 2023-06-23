@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2401 $
- * $Date: 2008-05-30 15:25:01 -0400 (Fri, 30 May 2008) $
+ * $Revision: 2403 $
+ * $Date: 2008-06-01 01:46:11 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2401 2008-05-30 19:25:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2403 2008-06-01 05:46:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1799,7 +1799,7 @@ idActor::UnlinkCombat
 void idActor::UnlinkCombat( void ) {
 	idAFAttachment *headEnt;
 
-	if ( combatModel ) {
+	if ( combatModel != NULL ) {
 		combatModel->Unlink();
 	}
 	headEnt = head.GetEntity();

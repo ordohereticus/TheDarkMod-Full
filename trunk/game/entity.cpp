@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2389 $
- * $Date: 2008-05-26 15:06:42 -0400 (Mon, 26 May 2008) $
- * $Author: angua $
+ * $Revision: 2403 $
+ * $Date: 2008-06-01 01:46:11 -0400 (Sun, 01 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2389 2008-05-26 19:06:42Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2403 2008-06-01 05:46:11Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3672,9 +3672,10 @@ bool idEntity::RunPhysics( void ) {
 		}
 
 		// greebo: Apply the "reactio" to the team master
-		idPhysics_RigidBody* rigidBodyPhysics = dynamic_cast<idPhysics_RigidBody*>(physics);
-		if (rigidBodyPhysics != NULL)
+		if (physics->IsType(idPhysics_RigidBody::Type))
 		{
+			idPhysics_RigidBody* rigidBodyPhysics = static_cast<idPhysics_RigidBody*>(physics);
+
 			// Calculate the movement (proportional to kinetic energy)
 			float movement = rigidBodyPhysics->GetLinearVelocity().LengthSqr() + 
 				              rigidBodyPhysics->GetAngularVelocity().LengthSqr();
