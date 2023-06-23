@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2632 $
- * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2643 $
+ * $Date: 2008-07-13 02:24:10 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 2632 2008-07-12 07:48:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 2643 2008-07-13 06:24:10Z greebo $", init_version);
 
 #include "SingleBarkTask.h"
 #include "../Memory.h"
@@ -84,7 +84,10 @@ void SingleBarkTask::Save(idSaveGame* savefile) const
 	savefile->WriteInt(_endTime);
 
 	savefile->WriteBool(_message != NULL);
-	_message->Save(savefile);
+	if (_message != NULL)
+	{
+		_message->Save(savefile);
+	}
 }
 
 void SingleBarkTask::Restore(idRestoreGame* savefile)
