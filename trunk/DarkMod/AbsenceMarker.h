@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
- * $Author: angua $
+ * $Revision: 3074 $
+ * $Date: 2008-11-30 13:45:53 -0500 (Sun, 30 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -64,7 +64,7 @@ public:
 	* @param absetEntity idEntityPtr indicating the entity who's
 	*	absence we are marking.
 	*/
-	bool CAbsenceMarker::initAbsenceReference(idEntity* owner, idBounds& startBounds);
+	bool initAbsenceReference(idEntity* owner, idBounds& startBounds);
 };
 
 
