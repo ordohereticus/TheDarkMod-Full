@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2817 $
- * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Revision: 2822 $
+ * $Date: 2008-09-13 00:50:55 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Subsystem.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Subsystem.cpp 2822 2008-09-13 04:50:55Z greebo $", init_version);
 
 #include "Subsystem.h"
 #include "Library.h"
@@ -41,6 +41,11 @@ void Subsystem::Disable()
 bool Subsystem::IsEnabled() const
 {
 	return _enabled;
+}
+
+bool Subsystem::IsEmpty() const
+{
+	return _taskQueue.empty();
 }
 
 idStr Subsystem::GetDebugInfo()

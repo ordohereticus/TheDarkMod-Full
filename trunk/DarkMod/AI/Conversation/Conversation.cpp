@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2821 $
- * $Date: 2008-09-12 14:24:25 -0400 (Fri, 12 Sep 2008) $
+ * $Revision: 2822 $
+ * $Date: 2008-09-13 00:50:55 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 2821 2008-09-12 18:24:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 2822 2008-09-13 04:50:55Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "../States/ConversationState.h"
@@ -169,14 +169,16 @@ bool Conversation::IsDone()
 
 bool Conversation::AllActorsReady()
 {
+	// Cycle through all actors and return false as soon as a busy one is detected
 	for (int i = 0; i < GetNumActors(); i++)
 	{
 		ConversationStatePtr convState = GetConversationState(i);
 
 		if (convState == NULL)
 		{
-			// This is the pathological case, but still return true here, otherwise the conversation is blocked
-			return true;
+			// This is the pathological case, but still don't return false here, 
+			// otherwise the conversation is blocked
+			continue;
 		}
 
 		// Only continue the loop if this actor is in ready state

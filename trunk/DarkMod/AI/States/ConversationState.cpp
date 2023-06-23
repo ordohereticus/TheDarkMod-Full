@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2819 $
- * $Date: 2008-09-12 13:12:45 -0400 (Fri, 12 Sep 2008) $
+ * $Revision: 2822 $
+ * $Date: 2008-09-13 00:50:55 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2819 2008-09-12 17:12:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2822 2008-09-13 04:50:55Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -20,6 +20,7 @@ static bool init_version = FileVersionList("$Id: ConversationState.cpp 2819 2008
 #include "../Tasks/ScriptTask.h"
 #include "ObservantState.h"
 #include "../Library.h"
+#include "../Subsystem.h"
 #include "../Conversation/Conversation.h"
 #include "../Conversation/ConversationSystem.h"
 #include "../Conversation/ConversationCommand.h"
@@ -197,8 +198,12 @@ void ConversationState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSyst
 			_commandType == ConversationCommand::EWalkToPosition || 
 			_commandType == ConversationCommand::EWalkToActor)
 		{
-			_state = EReady; // ready for new commands
-			return;
+			// Check if the subsystem is actually empty
+			if (owner->GetSubsystem(subSystem)->IsEmpty())
+			{
+				_state = EReady; // ready for new commands
+				return;
+			}
 		}
 	}
 	else if (subSystem == SubsysAction)

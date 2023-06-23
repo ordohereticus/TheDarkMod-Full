@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2822 $
+ * $Date: 2008-09-13 00:50:55 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -99,6 +99,9 @@ public:
 
 	// Returns TRUE if this subsystem is performing.
 	virtual bool IsEnabled() const;
+
+	// Returns TRUE if there are no tasks left to perform 
+	virtual bool IsEmpty() const;
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
