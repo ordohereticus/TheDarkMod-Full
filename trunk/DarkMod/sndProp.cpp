@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2761 $
- * $Date: 2008-08-29 04:42:24 -0400 (Fri, 29 Aug 2008) $
- * $Author: ishtvan $
+ * $Revision: 2840 $
+ * $Date: 2008-09-14 04:02:30 -0400 (Sun, 14 Sep 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2761 2008-08-29 08:42:24Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 2840 2008-09-14 08:02:30Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1133,6 +1133,13 @@ void CsndProp::ProcessAI(idAI* ai, idVec3 origin, SSprParms *propParms)
 
 		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Propagated sound %s to AI %s, from origin %s : Propagated volume %f, Apparent origin of sound: %s \r", 
 											  propParms->name.c_str(), ai->name.c_str(), origin.ToString(), propParms->propVol, propParms->direction.ToString() );
+	}
+
+	if( cv_spr_show.GetBool() )
+	{
+		gameRenderWorld->DrawText( va("Volume: %.2f", propParms->propVol), 
+			(ai->GetEyePosition() - ai->GetPhysics()->GetGravityNormal() * 65.0f), 0.25f, 
+			colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec * 30);
 	}
 
 	// convert the SPL to loudness and store it in parms
