@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2841 $
- * $Date: 2008-09-14 12:40:49 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2842 $
+ * $Date: 2008-09-14 13:04:06 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2841 2008-09-14 16:40:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2842 2008-09-14 17:04:06Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -25,6 +25,7 @@ static bool init_version = FileVersionList("$Id: entity.cpp 2841 2008-09-14 16:4
 #include "../DarkMod/sndProp.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 #include "../DarkMod/Inventory/Inventory.h"
+#include "../DarkMod/Inventory/Cursor.h"
 
 /*
 ===============================================================================
@@ -148,9 +149,9 @@ const idEventDef EV_GetLootAmount("getLootAmount", "d", 'd');				// returns the 
 const idEventDef EV_ChangeLootAmount("changeLootAmount", "dd", 'd');		// Changes the loot amount of the given group by the given amount, returns the new amount of that type
 const idEventDef EV_AddToInventory("addToInventory", "e");					// Adds an entity to the inventory
 const idEventDef EV_ReplaceInventoryItem("replaceInventoryItem", "ee", 'd');	// olditem, newitem -> 1 if succeeded
+const idEventDef EV_GetNextInventoryItem("getNextInventoryItem", "", 'e');		// switches to the next inventory item
+const idEventDef EV_GetPrevInventoryItem("getPrevInventoryItem", "", 'e');		// switches to the previous inventory item
 
-const idEventDef EV_GetNextItem("getNextItem", "d", 'e');
-const idEventDef EV_GetPrevItem("getPrevItem", "d", 'e');
 const idEventDef EV_SetCursorGroup("setCursorGroup", "s", 'd');				// groupname -> 1 = success
 const idEventDef EV_SetCursorGroupItem("setCursorGroupItem", "ss", 'd');	// itemname, groupname -> 1 = success
 const idEventDef EV_SetCursorItem("setCursorItem", "s", 'd');				// itemname -> 1 = success
@@ -327,9 +328,9 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_ChangeLootAmount,		idEntity::Event_ChangeLootAmount )
 	EVENT( EV_AddToInventory,		idEntity::Event_AddToInventory )
 	EVENT( EV_ReplaceInventoryItem,	idEntity::Event_ReplaceInventoryItem )
-	
-	EVENT( EV_GetNextItem,			idEntity::Event_GetNextItem )
-	EVENT( EV_GetPrevItem,			idEntity::Event_GetPrevItem )
+	EVENT( EV_GetNextInventoryItem,	idEntity::Event_GetNextInventoryItem )
+	EVENT( EV_GetPrevInventoryItem,	idEntity::Event_GetPrevInventoryItem )
+
 	EVENT( EV_SetCursorGroup,		idEntity::Event_SetCursorGroup )
 	EVENT( EV_SetCursorGroupItem,	idEntity::Event_SetCursorGroupItem )
 	EVENT( EV_SetCursorItem,		idEntity::Event_SetCursorItem )
@@ -8609,12 +8610,18 @@ void idEntity::Event_GetBindChild( int ind )
 	idThread::ReturnEntity( pReturnVal );
 }
 
-void idEntity::Event_GetNextItem(int wrap)
+void idEntity::Event_GetNextInventoryItem()
 {
+	CInventoryItemPtr item = InventoryCursor()->GetNextItem();
+
+	idThread::ReturnEntity( (item != NULL) ? item->GetItemEntity() : NULL );
 }
 
-void idEntity::Event_GetPrevItem(int wrap)
+void idEntity::Event_GetPrevInventoryItem()
 {
+	CInventoryItemPtr item = InventoryCursor()->GetPrevItem();
+
+	idThread::ReturnEntity( (item != NULL) ? item->GetItemEntity() : NULL );
 }
 
 void idEntity::Event_SetCursorGroup(const char *groupname)
