@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2746 $
- * $Date: 2008-08-19 14:05:25 -0400 (Tue, 19 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2749 $
+ * $Date: 2008-08-23 12:49:39 -0400 (Sat, 23 Aug 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 2746 2008-08-19 18:05:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 2749 2008-08-23 16:49:39Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -494,7 +494,9 @@ bool	CMissionData::MatchSpec
 	
 	// objectives only have two specified ents at max
 	if( !pComp || !EntDat || ind > 1 )
-		goto Quit;
+	{
+		return false;
+	}
 
 	ESpecificationMethod SpecMethod = pComp->m_SpecMethod[ ind ];
 
@@ -536,7 +538,6 @@ bool	CMissionData::MatchSpec
 			break;
 	}
 
-Quit:
 	return bReturnVal;
 }
 
