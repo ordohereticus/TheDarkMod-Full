@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2969 $
- * $Date: 2008-10-22 21:53:34 -0400 (Wed, 22 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 2985 $
+ * $Date: 2008-11-01 04:05:48 -0400 (Sat, 01 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -703,7 +703,7 @@ public:
 	/**
 	* Propagate a sound directly, outside of StartSound
 	* Direct calling should be done in cases where the gamecode calls
-	* StartSoundShader directly, without going thru PlaySound.
+	* StartSoundShader directly, without going thru StartSound.
 	* 
 	* PropSoundDirect first looks for a local definition of the sound
 	* on the entity, to find volume/duration modifier, extra flags
