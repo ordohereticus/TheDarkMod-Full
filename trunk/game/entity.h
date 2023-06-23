@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 2846 $
- * $Date: 2008-09-14 15:14:06 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2847 $
+ * $Date: 2008-09-14 15:21:11 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1294,10 +1294,6 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_GetCurInvItemEntity();
 	void					Event_GetCurInvItemName();
 
-	void					Event_AddItem(idEntity *item);
-	void					Event_GetGroupItem(const char *name, const char *group);
-	void					Event_GetItem(const char *name);
-	
 	virtual void			inventoryChangeSelection(idUserInterface *_hud, bool bUpdate = false, CInventoryItem *Prev = NULL);
 
 	void					StimAdd(int Type, float Radius);
