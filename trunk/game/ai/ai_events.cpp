@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2483 $
- * $Date: 2008-06-14 05:28:25 -0400 (Sat, 14 Jun 2008) $
+ * $Revision: 2615 $
+ * $Date: 2008-07-07 00:45:29 -0400 (Mon, 07 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 2483 2008-06-14 09:28:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 2615 2008-07-07 04:45:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -879,10 +879,7 @@ void idAI::IssueCommunication_Internal
 )
 {
 	// Get the communication stim (outbound messgaes)
-	CStim* p_stim;
-	p_stim = NULL;
-    
-	p_stim = m_StimResponseColl->AddStim (this, ST_COMMUNICATION, g_Global.m_AICommStimRadius, true, false);
+	CStim* p_stim = m_StimResponseColl->AddStim(this, ST_COMMUNICATION, g_Global.m_AICommStimRadius, true, false);
 	p_stim->EnableSR(true);
 	
 	if (p_stim != NULL)
