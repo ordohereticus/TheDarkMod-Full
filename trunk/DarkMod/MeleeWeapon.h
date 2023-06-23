@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2752 $
- * $Date: 2008-08-23 22:53:54 -0400 (Sat, 23 Aug 2008) $
+ * $Revision: 2758 $
+ * $Date: 2008-08-27 22:34:59 -0400 (Wed, 27 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -25,11 +25,11 @@ class idPlayer;
 
 typedef enum
 {
-	MELEETYPE_OVERHEAD,
-	MELEETYPE_SLASH_LR, // slashing (attacker's) left to right
-	MELEETYPE_SLASH_RL, // slashing (attacker's) right to left
-	MELEETYPE_THRUST,
-	MELEETYPE_UNBLOCKABLE // e.g., animal claws
+	MELEETYPE_OVERHEAD = BIT(0),
+	MELEETYPE_SLASH_LR = BIT(1), // slashing (attacker's) left to right
+	MELEETYPE_SLASH_RL = BIT(2), // slashing (attacker's) right to left
+	MELEETYPE_THRUST = BIT(3),
+	MELEETYPE_UNBLOCKABLE = BIT(4) // e.g., animal claws
 } EMeleeType;
 
 class CMeleeWeapon : public idMoveable 
@@ -125,7 +125,13 @@ protected:
 	* Set up the clipmodel for the current parry/attack action
 	* Expects m_ActionName, m_bAttacking and m_bParrying to be already set.
 	**/
-	void SetupClipModel( void ); 
+	void SetupClipModel( void );
+
+	/**
+	* Return the type of attack or parry.  Used to test whether a parry will
+	* work against a given attack.
+	**/
+	EMeleeType GetMeleeType( void ) { return m_MeleeType; };
 
 protected:
 	/**

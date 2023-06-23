@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2753 $
- * $Date: 2008-08-24 01:57:13 -0400 (Sun, 24 Aug 2008) $
+ * $Revision: 2758 $
+ * $Date: 2008-08-27 22:34:59 -0400 (Wed, 27 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2753 2008-08-24 05:57:13Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2758 2008-08-28 02:34:59Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -195,7 +195,19 @@ void CMeleeWeapon::Think( void )
 		// the other clipmodel, which is also zero?
 		
 		if( m_bParrying )
+		{
 			m_WeapClip->Link( gameLocal.clip, this, 0, GetPhysics()->GetOrigin(), CMaxis );
+			
+			// Debug display of the parry clipmodel
+			if( m_bParrying && cv_melee_debug.GetBool())
+			{
+				collisionModelManager->DrawModel
+					(
+						m_WeapClip->Handle(), m_WeapClip->GetOrigin(), m_WeapClip->GetAxis(),
+						gameLocal.GetLocalPlayer()->GetEyePosition(), idMath::INFINITY 
+					);
+			}
+		}
 	}
 
 	// Run the checks for an attack, handle what happens when something is hit
@@ -207,8 +219,6 @@ void CMeleeWeapon::Think( void )
 		m_OldOrigin = GetPhysics()->GetOrigin();
 		m_OldAxis = GetPhysics()->GetAxis();
 	}
-
-	// TODO: Debug display of the parry clipmodel
 }
 
 void CMeleeWeapon::TestParry( CMeleeWeapon *other, idVec3 dir, trace_t *trace )
@@ -266,10 +276,6 @@ void CMeleeWeapon::CheckAttack( idVec3 OldOrigin, idMat3 OldAxis )
 		rotation, pClip, OldAxis, 
 		ClipMask, m_Owner.GetEntity()
 	);
-
-// APPROXIMATION: Translation by itself can hit rendermodels, but rotations can't...
-// This doesn't work well, and hits AI way too far away for some reason.
-//	gameLocal.clip.Translation( tr, OldOrigin, NewOrigin, pClip, NewAxis, ClipMask, m_Owner.GetEntity() );
 	
 	GetPhysics()->SetContents( contentsEnt );
 	
@@ -311,7 +317,7 @@ void CMeleeWeapon::CheckAttack( idVec3 OldOrigin, idMat3 OldAxis )
 			idVec3 trDir = ( PointVelDir - tr.c.normal ) / 2.0f;
 
 			idVec3 start = tr.c.point - 8.0f * PointVelDir;
-			int contentsEnt = GetPhysics()->GetContents();
+			contentsEnt = GetPhysics()->GetContents();
 			GetPhysics()->SetContents( CONTENTS_FLASHLIGHT_TRIGGER );
 			gameLocal.clip.TracePoint
 				( 
@@ -588,8 +594,7 @@ void CMeleeWeapon::SetupClipModel( )
 
 	AName = m_ActionName.c_str();
 
-	// TODO: Allow offset and rotation of CM relative to self origin and axis?
-	// Adds CPU cycles and shouldn't be needed with modeled clipmodels
+	// TODO: Allow offset and rotation of CM relative to self origin and axis
 
 	// Try loading a clipmodel directly from a file
 	spawnArgs.GetString( va("%s_clipmodel_%s", APrefix, AName), "", &cmName );
@@ -629,13 +634,11 @@ void CMeleeWeapon::SetupClipModel( )
 		trm.SetupBox( CMBounds );
 
 	m_WeapClip = new idClipModel( trm );
+
+	// Override the default CONTENTS_SOLID on moveables (we don't want the player to run into their own parries!)
+	m_WeapClip->SetContents( CONTENTS_MELEEWEAP );
 	
 	// Only parries need a linked and auto-upated clipmodel
 	if( m_bParrying )
 		m_WeapClip->Link( gameLocal.clip, this, 0, GetPhysics()->GetOrigin(), GetPhysics()->GetAxis() );
-
-	// TODO: Set default contents of what??  
-	// We don't need to set meleeweapon since that's done explicitly in the trace
-	// Temporary test:
-	// m_WeapClip->SetContents( CONTENTS_FLASHLIGHT_TRIGGER );
 }
