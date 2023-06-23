@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2576 $
+ * $Date: 2008-06-26 15:36:09 -0400 (Thu, 26 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -28,9 +28,6 @@
  */
 class CStimResponseCollection {
 public:
-	CStimResponseCollection(void);
-	~CStimResponseCollection(void);
-
 	void			Save(idSaveGame *savefile) const;
 	void			Restore(idRestoreGame *savefile);
 
