@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2708 $
- * $Date: 2008-07-19 11:36:05 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2709 $
+ * $Date: 2008-07-19 11:56:06 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 2708 2008-07-19 15:36:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 2709 2008-07-19 15:56:06Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -215,6 +215,28 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		}
 		_finishTime = gameLocal.time + SEC2MS(atof(command.GetArgument(0)));
 		_state = ConversationCommand::EExecuting;
+	break;
+	case ConversationCommand::EWalkToActor:
+	{
+		// Reduce the actor index by 1 before passing them to the conversation
+		idAI* ai = conversation.GetActor(atoi(command.GetArgument(0)) - 1);
+
+		if (ai != NULL)
+		{
+			float distance = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_WALKTOENTITY_DISTANCE;
+			
+			owner->GetSubsystem(SubsysMovement)->PushTask(
+				TaskPtr(new MoveToPositionTask(ai, distance))
+			);
+
+			// Check if we should wait until the command is finished and set the _state accordingly
+			_state = (command.WaitUntilFinished()) ? ConversationCommand::EExecuting : ConversationCommand::EFinished;
+		}
+		else
+		{
+			gameLocal.Warning("Conversation Command: 'WalkToActor' could not find actor: %s", command.GetArgument(0).c_str());
+		}
+	}
 	break;
 	case ConversationCommand::EWalkToPosition:
 	{

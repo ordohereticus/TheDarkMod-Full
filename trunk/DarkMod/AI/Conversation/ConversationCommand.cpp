@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2707 $
- * $Date: 2008-07-19 11:27:59 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2709 $
+ * $Date: 2008-07-19 11:56:06 -0400 (Sat, 19 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2707 2008-07-19 15:27:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 2709 2008-07-19 15:56:06Z greebo $", init_version);
 
 #include "Conversation.h"
 #include "ConversationCommand.h"
@@ -22,6 +22,7 @@ namespace ai {
 const char* const ConversationCommand::TypeNames[ConversationCommand::ENumCommands] =
 {
 	"WaitSeconds",
+	"WalkToActor",
 	"WalkToPosition",
 	"WalkToEntity",
 	"StopMove",
