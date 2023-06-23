@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2723 $
- * $Date: 2008-08-05 13:42:22 -0400 (Tue, 05 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2730 $
+ * $Date: 2008-08-09 16:50:29 -0400 (Sat, 09 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2723 2008-08-05 17:42:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2730 2008-08-09 20:50:29Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9186,24 +9186,26 @@ idEntity::ParseAttachPositions
 */
 void idEntity::ParseAttachPositions( void )
 {
-	SAttachPosition pos;
-	SAttachPosition *pPos;
-	int				Counter(1);
-	idStr			prefix, keyname, jointname;
+	SAttachPosition		pos;
+	SAttachPosition		*pPos;
+	idStr				prefix, keyname, jointname;
+	const idKeyValue	*kv(NULL);
 
 	m_AttachPositions.Clear();
 
 	// Read off basic attachment positions 
 	// (intended to be on base class for a skeleton type, e.g., humanoid)
-	while( spawnArgs.MatchPrefix( va("attach_pos_%d_", Counter) ) != NULL )
+	while( ( kv = spawnArgs.MatchPrefix("attach_pos_name_", kv) ) != NULL )
 	{
-		prefix = va("attach_pos_%d_", Counter);
-		pos.name = spawnArgs.GetString( (prefix + "name").c_str() );
+		keyname = kv->GetKey();
+		keyname.StripLeading("attach_pos_name_");
+
+		pos.name = kv->GetValue().c_str();
 		
 		// If entity has joints, find the joint handle for the joint name
 		if( GetAnimator() )
 		{
-			jointname = spawnArgs.GetString( (prefix + "joint").c_str() );
+			jointname = spawnArgs.GetString( ("attach_pos_joint_" + keyname).c_str() );
 			pos.joint = GetAnimator()->GetJointHandle( jointname );
 			if ( pos.joint == INVALID_JOINT ) 
 			{
@@ -9214,35 +9216,32 @@ void idEntity::ParseAttachPositions( void )
 		else
 			pos.joint = INVALID_JOINT;
 
-		pos.originOffset = spawnArgs.GetVector( (prefix + "origin").c_str() );
-		// tels: The angleOffset is now optional:
-		pos.angleOffset = spawnArgs.GetAngles( (prefix + "angles").c_str(), "0 0 0" );
+		pos.originOffset = spawnArgs.GetVector( ("attach_pos_origin_" + keyname).c_str() );
+		pos.angleOffset = spawnArgs.GetAngles( ("attach_pos_angles_" + keyname).c_str() );
 
 		m_AttachPositions.Append( pos );
-		Counter++;
 	}
 
+	kv = NULL;
 	// Read off actor-specific offsets to this position and apply them
-	Counter = 1;
-	while( spawnArgs.MatchPrefix( va("attach_posmod_%d_", Counter) ) != NULL )
+	while( (kv = spawnArgs.MatchPrefix("attach_posmod_name_", kv)) != NULL )
 	{
-		prefix = va("attach_posmod_%d_", Counter);
-		idStr posName = spawnArgs.GetString( (prefix + "name").c_str() );
+		keyname = kv->GetKey();
+		keyname.StripLeading("attach_posmod_name_");
+
 		// Try to find the position
-		pPos = GetAttachPosition( posName.c_str() );
+		pPos = GetAttachPosition( kv->GetValue().c_str() );
 		// If we find the position by name, apply the offsets
 		if( pPos != NULL )
 		{
-			idVec3 trans = spawnArgs.GetVector( (prefix + "origin").c_str() );
-			idAngles ang = spawnArgs.GetAngles( (prefix + "angles").c_str() );
+			idVec3 trans = spawnArgs.GetVector( ("attach_posmod_origin_" + keyname).c_str() );
+			idAngles ang = spawnArgs.GetAngles( ("attach_posmod_angles_" + keyname).c_str() );
 
 			pPos->originOffset += trans;
 			// TODO: Prove mathematically that adding the angles is the same as converting
 			// the angles to rotation matrices and multiplying them??
 			pPos->angleOffset += ang;
 		}
-
-		Counter++;
 	}
 }
 
