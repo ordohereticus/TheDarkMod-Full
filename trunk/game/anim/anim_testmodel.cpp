@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2644 $
+ * $Date: 2008-07-13 04:39:17 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -35,7 +35,7 @@ move around it to view it from different angles.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_testmodel.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_testmodel.cpp 2644 2008-07-13 08:39:17Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -123,7 +123,7 @@ void idTestModel::Spawn( void ) {
 	// add the head model if it has one
 	headModel = spawnArgs.GetString( "def_head", "" );
 	if ( headModel[ 0 ] ) {
-		jointName = spawnArgs.GetString( "head_joint" );
+		jointName = "Head";//spawnArgs.GetString( "head_joint" );
 		joint = animator.GetJointHandle( jointName );
 		if ( joint == INVALID_JOINT ) {
 			gameLocal.Warning( "Joint '%s' not found for 'head_joint'", jointName.c_str() );
@@ -772,6 +772,7 @@ void idTestModel::TestModel_f( const idCmdArgs &args ) {
 
 	dict.Set( "origin", offset.ToString() );
 	dict.Set( "angle", va( "%f", player->viewAngles.yaw + 180.0f ) );
+	dict.Set( "def_head", g_testModelHead.GetString());
 	gameLocal.testmodel = ( idTestModel * )gameLocal.SpawnEntityType( idTestModel::Type, &dict );
 	gameLocal.testmodel->renderEntity.shaderParms[SHADERPARM_TIMEOFFSET] = -MS2SEC( gameLocal.time );
 }

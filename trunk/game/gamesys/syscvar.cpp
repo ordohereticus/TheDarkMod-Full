@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2605 $
- * $Date: 2008-07-03 13:54:50 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2644 $
+ * $Date: 2008-07-13 04:39:17 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2605 2008-07-03 17:54:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2644 2008-07-13 08:39:17Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -525,6 +525,7 @@ idCVar g_mpWeaponAngleScale(		"g_mpWeaponAngleScale",		"0",			CVAR_GAME | CVAR_F
 
 idCVar g_testParticle(				"g_testParticle",			"0",			CVAR_GAME | CVAR_INTEGER, "test particle visualation, set by the particle editor" );
 idCVar g_testParticleName(			"g_testParticleName",		"",				CVAR_GAME, "name of the particle being tested by the particle editor" );
+idCVar g_testModelHead(				"g_testModelHead",			"head_citywatch",	CVAR_GAME | CVAR_ARCHIVE, "test model head entityDef" );
 idCVar g_testModelRotate(			"g_testModelRotate",		"0",			CVAR_GAME, "test model rotation speed" );
 idCVar g_testPostProcess(			"g_testPostProcess",		"",				CVAR_GAME, "name of material to draw over screen" );
 idCVar g_testModelAnimate(			"g_testModelAnimate",		"0",			CVAR_GAME | CVAR_INTEGER, "test model animation,\n"
