@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2470 $
- * $Date: 2008-06-12 15:37:49 -0400 (Thu, 12 Jun 2008) $
- * $Author: angua $
+ * $Revision: 2476 $
+ * $Date: 2008-06-14 03:21:32 -0400 (Sat, 14 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2470 2008-06-12 19:37:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2476 2008-06-14 07:21:32Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8668,7 +8668,7 @@ void idAI::PostKnockOut()
 	}
 
 	// AI becomes frobable on KO
-	Event_SetFrobable( true );
+	SetFrobable( true );
 
 	restartParticles = false;
 

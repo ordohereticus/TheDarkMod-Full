@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2413 $
- * $Date: 2008-06-01 10:19:35 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2476 $
+ * $Date: 2008-06-14 03:21:32 -0400 (Sat, 14 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 2413 2008-06-01 14:19:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 2476 2008-06-14 07:21:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -805,6 +805,9 @@ void idActor::SetupHead( void ) {
 		headEnt->SetOrigin( origin );
 		headEnt->SetAxis( renderEntity.axis );
 		headEnt->BindToJoint( this, joint, true );
+
+		// greebo: Setup the frob-peer relationship between head and body
+		m_FrobPeers.AddUnique(headEnt->name);
 	}
 }
 

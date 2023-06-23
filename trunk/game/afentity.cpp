@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1980 $
- * $Date: 2008-01-12 17:06:00 -0500 (Sat, 12 Jan 2008) $
- * $Author: ishtvan $
+ * $Revision: 2476 $
+ * $Date: 2008-06-14 03:21:32 -0400 (Sat, 14 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 1980 2008-01-12 22:06:00Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2476 2008-06-14 07:21:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -310,6 +310,9 @@ void idAFAttachment::SetBody( idEntity *bodyEnt, const char *model, jointHandle_
 
 	bleed = body->spawnArgs.GetBool( "bleed" );
 	spawnArgs.SetBool( "bleed", bleed );
+
+	// greebo: Add the body as frob peer
+	m_FrobPeers.AddUnique(bodyEnt->name);
 }
 
 /*
