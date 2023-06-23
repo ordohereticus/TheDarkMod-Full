@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2721 $
+ * $Date: 2008-08-05 11:24:50 -0400 (Tue, 05 Aug 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 2721 2008-08-05 15:24:50Z angua $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -66,6 +66,9 @@ void ObservantState::Init(idAI* owner)
 
 	// Shortcut reference
 	Memory& memory = owner->GetMemory();
+
+	// Stop playing idle animation
+	owner->GetSubsystem(SubsysAction)->ClearTasks();
 
 	// barking
 	idStr soundName("");
