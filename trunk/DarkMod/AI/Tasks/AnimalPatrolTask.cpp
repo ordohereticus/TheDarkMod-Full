@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2397 $
- * $Date: 2008-05-28 16:31:07 -0400 (Wed, 28 May 2008) $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 2397 2008-05-28 20:31:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AnimalPatrolTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "AnimalPatrolTask.h"
 #include "../Memory.h"
@@ -68,7 +68,7 @@ void AnimalPatrolTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool AnimalPatrolTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("AnimalPatrolTask performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("AnimalPatrolTask performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2139 $
- * $Date: 2008-03-22 13:47:13 -0400 (Sat, 22 Mar 2008) $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 2139 2008-03-22 17:47:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "PVSToAASMapping.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -98,7 +98,7 @@ bool PVSToAASMapping::buildMappings(idStr in_aasName)
 	idAAS* p_aas = gameLocal.GetAAS (in_aasName);
 	if (p_aas == NULL)
 	{
-		DM_LOG (LC_AI, LT_ERROR).LogString ("No aas with name '%s' exists for this map, AI will not be able to locate darkness...\r", in_aasName.c_str());
+		DM_LOG (LC_AI, LT_ERROR)LOGSTRING("No aas with name '%s' exists for this map, AI will not be able to locate darkness...\r", in_aasName.c_str());
 		return false;
 	}
 
@@ -111,7 +111,7 @@ bool PVSToAASMapping::buildMappings(idStr in_aasName)
 		if (m_p_AASAreaIndicesPerPVSArea == NULL)
 		{
 			numPVSAreas = 0;
-			DM_LOG (LC_AI, LT_ERROR).LogString ("Failed to alloate mapping table header pointers\r");
+			DM_LOG (LC_AI, LT_ERROR)LOGSTRING("Failed to alloate mapping table header pointers\r");
 			return false;
 		}
 	}
@@ -143,7 +143,7 @@ bool PVSToAASMapping::buildMappings(idStr in_aasName)
 	aasName = in_aasName;
 
 	// Log success
-	DM_LOG(LC_AI, LT_DEBUG).LogString 
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING
 	(
 		"Successfully set up mapping of %d PVS areas to %d AAS areas\r", 
 		numPVSAreas,
@@ -169,7 +169,7 @@ bool PVSToAASMapping::insertAASAreaIntoPVSAreaMapping (int aasAreaIndex, int pvs
 	if (pvsAreaIndex >= numPVSAreas)
 	{
 		// Log error
-		DM_LOG(LC_AI, LT_ERROR).LogString 
+		DM_LOG(LC_AI, LT_ERROR)LOGSTRING 
 		(
 			"AAS area %d falls in PVS area %d which is beyond supposed PVS area count of %d\r", 
 			aasAreaIndex, 
@@ -180,7 +180,7 @@ bool PVSToAASMapping::insertAASAreaIntoPVSAreaMapping (int aasAreaIndex, int pvs
 	}
 	else if (pvsAreaIndex < 0)
 	{
-		DM_LOG(LC_AI, LT_WARNING).LogString 
+		DM_LOG(LC_AI, LT_WARNING)LOGSTRING 
 		(
 			"AAS area %d falls in no PVS area, left out of mapping\r", 
 			aasAreaIndex
@@ -192,7 +192,7 @@ bool PVSToAASMapping::insertAASAreaIntoPVSAreaMapping (int aasAreaIndex, int pvs
 		PVSToAASMappingNode* p_node = new PVSToAASMappingNode;
 		if (p_node == NULL)
 		{
-			DM_LOG(LC_AI, LT_ERROR).LogString 
+			DM_LOG(LC_AI, LT_ERROR)LOGSTRING 
 			(
 				"Failed to allocate mapping node\r"
 			);

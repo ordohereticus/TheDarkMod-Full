@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeState.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FleeState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "FleeState.h"
 #include "../Memory.h"
@@ -35,7 +35,7 @@ void FleeState::Init(idAI* owner)
 {
 	State::Init(owner);
 
-	DM_LOG(LC_AI, LT_INFO).LogString("FleeState initialised.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("FleeState initialised.\r");
 	assert(owner);
 
 	// Shortcut reference

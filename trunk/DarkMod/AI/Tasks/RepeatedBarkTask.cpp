@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2435 $
- * $Date: 2008-06-04 16:20:32 -0400 (Wed, 04 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2435 2008-06-04 20:20:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -53,7 +53,7 @@ void RepeatedBarkTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool RepeatedBarkTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("RepeatedBarkTask performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("RepeatedBarkTask performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 

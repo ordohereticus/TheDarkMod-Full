@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2387 $
- * $Date: 2008-05-26 14:27:56 -0400 (Mon, 26 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2387 2008-05-26 18:27:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "InteractionTask.h"
@@ -56,7 +56,7 @@ void ChaseEnemyTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("Chase Enemy Task performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Chase Enemy Task performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
@@ -66,7 +66,7 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 	idActor* enemy = _enemy.GetEntity();
 	if (enemy == NULL)
 	{
-		DM_LOG(LC_AI, LT_ERROR).LogString("No enemy, terminating task!\r");
+		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("No enemy, terminating task!\r");
 		return true;
 	}
 
@@ -160,7 +160,7 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 			}
 
 			// Destination unreachable!
-			DM_LOG(LC_AI, LT_INFO).LogString("Destination unreachable!\r");
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination unreachable!\r");
 			gameLocal.Printf("Destination unreachable... \n");
 			owner->GetMind()->SwitchState(STATE_UNREACHABLE_TARGET);
 			return true;

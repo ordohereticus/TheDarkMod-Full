@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1627 $
- * $Date: 2007-11-01 08:46:34 -0400 (Thu, 01 Nov 2007) $
- * $Author: tels $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -246,7 +246,7 @@ void idAbsenceMarkerEntity::Restore( idRestoreGame *savefile )
 		}
 		else
 		{
-			DM_LOG(LC_AI, LT_ERROR).LogString ("Failed to get spawn args from entity def name on restore, name = '%s'\r", referenced_entityDefName.c_str());
+			DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Failed to get spawn args from entity def name on restore, name = '%s'\r", referenced_entityDefName.c_str());
 		}
 	}
 

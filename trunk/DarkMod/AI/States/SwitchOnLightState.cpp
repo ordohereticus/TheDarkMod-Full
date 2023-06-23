@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2349 $
- * $Date: 2008-05-16 11:24:43 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 2349 2008-05-16 15:24:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -40,7 +40,7 @@ void SwitchOnLightState::Init(idAI* owner)
 {
 	State::Init(owner);
 
-	DM_LOG(LC_AI, LT_INFO).LogString("SwitchOnLightState initialised.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("SwitchOnLightState initialised.\r");
 	assert(owner);
 
 	// Shortcut reference
@@ -152,7 +152,7 @@ void SwitchOnLightState::Think(idAI* owner)
 	idLight* light = _light.GetEntity();
 	if (light == NULL)
 	{
-		DM_LOG(LC_AI, LT_ERROR).LogString("No stim source, terminating state!\r");
+		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("No stim source, terminating state!\r");
 		owner->GetMind()->EndState();
 		return;
 	}

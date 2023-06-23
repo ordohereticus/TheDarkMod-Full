@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2424 $
- * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
- * $Author: tels $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2424 2008-06-02 18:50:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -1133,7 +1133,7 @@ void DM_Printf(const char* fmt, ...)
 	vsprintf( text, fmt, arg );
 	va_end( arg );
 
-	DM_LOG(LC_AI, LT_INFO).LogString("Console output %s!\r", text);
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Console output %s!\r", text);
 }
 
 const char *DM_BuildOSPath(const char *basePath, const char *game, const char *relativePath)

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MoveToCoverTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MoveToCoverTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "../Memory.h"
 #include "MoveToCoverTask.h"
@@ -41,7 +41,7 @@ void MoveToCoverTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool MoveToCoverTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("Move to Cover Task performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move to Cover Task performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 
@@ -51,14 +51,14 @@ bool MoveToCoverTask::Perform(Subsystem& subsystem)
 	if (owner->AI_DEST_UNREACHABLE)
 	{
 		//TODO
-		DM_LOG(LC_AI, LT_INFO).LogString("Destination unreachable.\r");
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination unreachable.\r");
 		return true;
 	}
 
 	if (owner->AI_MOVE_DONE)
 	{
 		// Move is done, 
-		DM_LOG(LC_AI, LT_INFO).LogString("Move is done.\r");
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
 		owner->TurnToward(owner->lastVisibleEnemyPos);
 
 		// finish this task

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2434 $
- * $Date: 2008-06-04 13:40:44 -0400 (Wed, 04 Jun 2008) $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2434 2008-06-04 17:40:44Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -98,7 +98,7 @@ void HandleDoorTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool HandleDoorTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("HandleDoorTask performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("HandleDoorTask performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 	Memory& memory = owner->GetMemory();

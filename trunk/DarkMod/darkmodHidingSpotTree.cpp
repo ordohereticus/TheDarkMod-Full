@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2362 $
- * $Date: 2008-05-17 10:12:49 -0400 (Sat, 17 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /*!
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 2362 2008-05-17 14:12:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "darkmodHidingSpotTree.h"
 
@@ -932,7 +932,7 @@ darkModHidingSpot* CDarkmodHidingSpotTree::getNthSpot(unsigned int index)
 	}
 
 	// Index requested is out of bounds
-	DM_LOG(LC_AI, LT_ERROR).LogString("Requested spot index is out of bounds: %d\r", index);
+	DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Requested spot index is out of bounds: %d\r", index);
 	return NULL;
 }
 
@@ -976,7 +976,7 @@ darkModHidingSpot* CDarkmodHidingSpotTree::getNthSpotWithAreaNodeBounds
 	}
 
 	// Index requested is out of bounds
-	DM_LOG(LC_AI, LT_ERROR).LogString("Requested spot index is out of bounds: %d\r", index);
+	DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Requested spot index is out of bounds: %d\r", index);
 	out_areaNodeBounds.Clear();
 	return NULL;
 }
@@ -1064,7 +1064,7 @@ bool CDarkmodHidingSpotTree::getOneNth(	unsigned int N, CDarkmodHidingSpotTree& 
 			if (p_areaCursor == NULL)
 			{
 				// Bad area count in data structure
-				DM_LOG(LC_AI, LT_ERROR).LogString("Bad area count in data structure\r");
+				DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Bad area count in data structure\r");
 				return false;
 			}
 		}
@@ -1106,7 +1106,7 @@ bool CDarkmodHidingSpotTree::getOneNth(	unsigned int N, CDarkmodHidingSpotTree& 
 		TDarkmodHidingSpotAreaNode* p_area = p_firstArea;
 		if (p_area == NULL)
 		{
-			DM_LOG(LC_AI, LT_ERROR).LogString("Serious: Area count != 0, but firstArea == NULL!\r");
+			DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Serious: Area count != 0, but firstArea == NULL!\r");
 			return false;
 		}
 
@@ -1114,7 +1114,7 @@ bool CDarkmodHidingSpotTree::getOneNth(	unsigned int N, CDarkmodHidingSpotTree& 
 		TDarkmodHidingSpotAreaNode* p_otherArea = out_otherTree.insertArea(p_area->aasAreaIndex);
 		if (p_otherArea == NULL)
 		{
-			DM_LOG(LC_AI, LT_ERROR).LogString("Could not create area in other tree for copying.\r");
+			DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Could not create area in other tree for copying.\r");
 			return false;
 		}
 

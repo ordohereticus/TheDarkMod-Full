@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RandomTurningTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RandomTurningTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -43,7 +43,7 @@ void RandomTurningTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool RandomTurningTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("Random Turning Task performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Random Turning Task performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 
@@ -60,7 +60,7 @@ bool RandomTurningTask::Perform(Subsystem& subsystem)
 		
 		// Wait a bit before turning again
 		_nextTurningTime = gameLocal.time + turnDelay;
-		DM_LOG(LC_AI, LT_INFO).LogString("Turn is done.\r");
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Turn is done.\r");
 		_turning = false;
 		_nextYaw = owner->GetCurrentYaw() + (gameLocal.random.RandomFloat() - 0.5) * 180;
 		

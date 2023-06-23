@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2386 $
- * $Date: 2008-05-26 13:07:23 -0400 (Mon, 26 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InteractionTask.cpp 2386 2008-05-26 17:07:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: InteractionTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "InteractionTask.h"
 #include "../Memory.h"
@@ -58,7 +58,7 @@ void InteractionTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool InteractionTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("InteractionTask performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("InteractionTask performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);

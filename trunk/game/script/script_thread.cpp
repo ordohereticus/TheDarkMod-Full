@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1921 $
- * $Date: 2007-12-28 05:08:24 -0500 (Fri, 28 Dec 2007) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 1921 2007-12-28 10:08:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
@@ -1920,7 +1920,7 @@ void	idThread::Event_GetPortSoundLoss( int handle )
 
 void idThread::Event_LogString(int logClass, int logType, const char* output) 
 {
-	DM_LOG(static_cast<LC_LogClass>(logClass), static_cast<LT_LogType>(logType)).LogString(const_cast<char*>(output));
+	DM_LOG(static_cast<LC_LogClass>(logClass), static_cast<LT_LogType>(logType))LOGSTRING(const_cast<char*>(output));
 }
 
 /*

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2377 $
- * $Date: 2008-05-20 01:20:22 -0400 (Tue, 20 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2377 2008-05-20 05:20:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -91,7 +91,7 @@ void HandleElevatorTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool HandleElevatorTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("HandleElevatorTask performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("HandleElevatorTask performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 	Memory& memory = owner->GetMemory();

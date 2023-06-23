@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -53,7 +53,7 @@ void PathCornerTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool PathCornerTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("Path Corner Task performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Path Corner Task performing.\r");
 
 	idPathCorner* path = _path.GetEntity();
 	idAI* owner = _owner.GetEntity();
@@ -73,13 +73,13 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 				owner->ActivateTargets(owner);
 
 				// Move is done, fall back to PatrolTask
-				DM_LOG(LC_AI, LT_INFO).LogString("Move is done.\r");
+				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
 			}
 			
 			if (owner->AI_DEST_UNREACHABLE)
 			{
 				// Unreachable, fall back to PatrolTask
-				DM_LOG(LC_AI, LT_INFO).LogString("Destination is unreachable, skipping.\r");
+				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination is unreachable, skipping.\r");
 			}
 		
 			return true; // finish this task

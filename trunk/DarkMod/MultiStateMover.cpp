@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2365 $
- * $Date: 2008-05-18 04:45:59 -0400 (Sun, 18 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2365 2008-05-18 08:45:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "MultiStateMover.h"
 
@@ -46,7 +46,7 @@ void CMultiStateMover::FindPositionEntities()
 
 		CMultiStateMoverPosition* moverPos = static_cast<CMultiStateMoverPosition*>(target);
 
-		DM_LOG(LC_ENTITY, LT_INFO).LogString("Parsing multistate position entity %s.\r", moverPos->name.c_str());
+		DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("Parsing multistate position entity %s.\r", moverPos->name.c_str());
 		
 		idStr positionName;
 		if (!moverPos->spawnArgs.GetString("position", "", positionName) || positionName.IsEmpty())
@@ -84,7 +84,7 @@ void CMultiStateMover::FindPositionEntities()
 void CMultiStateMover::Event_PostSpawn() 
 {
 	FindPositionEntities();
-	DM_LOG(LC_ENTITY, LT_INFO).LogString("Found %d multistate position entities.\r", positionInfo.Num());
+	DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("Found %d multistate position entities.\r", positionInfo.Num());
 }
 
 bool CMultiStateMover::IsAtPosition(CMultiStateMoverPosition* position)

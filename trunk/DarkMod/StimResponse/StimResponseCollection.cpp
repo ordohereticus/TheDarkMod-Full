@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponseCollection.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponseCollection.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "StimResponseCollection.h"
 #include "../AIComm_StimResponse.h"
@@ -88,16 +88,16 @@ CStim* CStimResponseCollection::createStim(idEntity* p_owner, StimType type)
 
 	// Increase the counter to the next ID
 	gameLocal.m_HighestSRId++;
-	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Creating Stim with ID: %d\r", gameLocal.m_HighestSRId);
+	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Creating Stim with ID: %d\r", gameLocal.m_HighestSRId);
 
 	if (type == ST_COMMUNICATION)
 	{
-		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Creating CAIComm_Stim\r");
+		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Creating CAIComm_Stim\r");
 		pRet = new CAIComm_Stim(p_owner, type, gameLocal.m_HighestSRId);
 	}
 	else
 	{
-		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Creating CStim\r");
+		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Creating CStim\r");
 		pRet = new CStim(p_owner, type, gameLocal.m_HighestSRId);
 	}
 
@@ -111,16 +111,16 @@ CResponse* CStimResponseCollection::createResponse(idEntity* p_owner, StimType t
 	// Increase the counter to the next ID
 	gameLocal.m_HighestSRId++;
 
-	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Creating Response with ID: %d\r", gameLocal.m_HighestSRId);
+	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Creating Response with ID: %d\r", gameLocal.m_HighestSRId);
 
 	if (type == ST_COMMUNICATION)
 	{
-		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Creating CAIComm_Response\r");
+		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Creating CAIComm_Response\r");
 		pRet = new CAIComm_Response (p_owner, type, gameLocal.m_HighestSRId);
 	}
 	else
 	{
-		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Creating CResponse\r");
+		//DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Creating CResponse\r");
 		pRet = new CResponse(p_owner, type, gameLocal.m_HighestSRId);
 	}
 
@@ -140,7 +140,7 @@ CStim *CStimResponseCollection::AddStim(idEntity *Owner, int Type, float fRadius
 	{
 		if(m_Stim[i]->m_StimTypeId == Type)
 		{
-			DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Stim of that type is already in collection, returning it");
+			DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Stim of that type is already in collection, returning it");
 			pRet = m_Stim[i];
 			break;
 		}
@@ -176,7 +176,7 @@ CResponse *CStimResponseCollection::AddResponse(idEntity *Owner, int Type, bool 
 	{
 		if(m_Response[i]->m_StimTypeId == Type)
 		{
-			DM_LOG(LC_STIM_RESPONSE, LT_DEBUG).LogString ("Response of that type is already in collection, returning it");
+			DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Response of that type is already in collection, returning it");
 			pRet = m_Response[i];
 			break;
 		}

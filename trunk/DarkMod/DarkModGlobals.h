@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2424 $
- * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
- * $Author: tels $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -344,17 +344,19 @@ public:
 extern CGlobal g_Global;
 extern const char *g_LCString[];
 
-#define LOGBUILD
+//#define LOGBUILD
 
 #ifdef LOGBUILD
 #define DM_LOG(lc, lt)				if(g_Global.m_ClassArray[lc] == true && g_Global.m_LogArray[lt] == true) g_Global.m_LogClass = lc, g_Global.m_LogType = lt, g_Global.m_Filename = __FILE__, g_Global.m_Linenumber = __LINE__, g_Global
 #define LOGSTRING					.LogString
+#define LOGVECTOR					.LogVector
 #define DM_LOGVECTOR3(lc, lt, s, v)	if(g_Global.m_ClassArray[lc] == true && g_Global.m_LogArray[lt] == true) g_Global.m_LogClass = lc, g_Global.m_LogType = lt, g_Global.m_Filename = __FILE__, g_Global.m_Linenumber = __LINE__, g_Global.LogVector(s, v)
 #define DM_LOGPLANE(lc, lt, s, p)	if(g_Global.m_ClassArray[lc] == true && g_Global.m_LogArray[lt] == true) g_Global.m_LogClass = lc, g_Global.m_LogType = lt, g_Global.m_Filename = __FILE__, g_Global.m_Linenumber = __LINE__, g_Global.LogPlane(s, p)
 #define DM_LOGMAT3(lc, lt, s, m)	if(g_Global.m_ClassArray[lc] == true && g_Global.m_LogArray[lt] == true) g_Global.m_LogClass = lc, g_Global.m_LogType = lt, g_Global.m_Filename = __FILE__, g_Global.m_Linenumber = __LINE__, g_Global.LogMat3(s, m)
 #else
 #define DM_LOG(lc, lt)
 #define LOGSTRING 
+#define LOGVECTOR
 #define DM_LOGVECTOR3(lc, lt, s, v)
 #define DM_LOGPLANE(lc, lt, s, p)
 #define DM_LOGMAT3(lc, lt, s, m)

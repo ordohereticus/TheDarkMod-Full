@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2440 $
- * $Date: 2008-06-06 01:04:10 -0400 (Fri, 06 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2440 2008-06-06 05:04:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -4981,7 +4981,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 	    // This tests the hiding spot search function relative to the player
 		case IMPULSE_25:		// Test hiding spots.
 		{
-			DM_LOG(LC_AI, LT_DEBUG).LogString("Attempting hiding spot test");
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Attempting hiding spot test");
 			idVec3 searchOrigin = GetEyePosition();
 			idBounds searchBounds (searchOrigin);
 			
@@ -5010,13 +5010,13 @@ void idPlayer::PerformImpulse( int impulse ) {
 						this, // Ignore self as a hiding screen
 						p_aas
 					);
-					DM_LOG(LC_AI, LT_DEBUG).LogString("Done hiding spot test");
+					DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Done hiding spot test");
 				}
 			}
 
 			if (p_aas == NULL)
 			{
-				DM_LOG(LC_AI, LT_WARNING).LogString("No default AAS is present for map, number of AAS: %d\n", gameLocal.NumAAS());
+				DM_LOG(LC_AI, LT_WARNING)LOGSTRING("No default AAS is present for map, number of AAS: %d\n", gameLocal.NumAAS());
 			}
 			
 		}
@@ -9845,12 +9845,12 @@ void idPlayer::Event_SetLightgemModifier(const char* modifierName, int amount)
 {
 	if (amount != 0)
 	{
-		DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Setting modifier %s to %d\r", modifierName, amount);
+		DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Setting modifier %s to %d\r", modifierName, amount);
 		m_LightgemModifierList[std::string(modifierName)] = amount;
 	}
 	else 
 	{
-		DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Removing modifier %s as %d was passed\r", modifierName, amount);
+		DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Removing modifier %s as %d was passed\r", modifierName, amount);
 		// Zero value passed, remove the named value
 		std::string modifierNameStr(modifierName);
 		std::map<std::string, int>::iterator i = m_LightgemModifierList.find(modifierNameStr);
@@ -9858,7 +9858,7 @@ void idPlayer::Event_SetLightgemModifier(const char* modifierName, int amount)
 		if (i != m_LightgemModifierList.end()) {
 			// Value found, remove it
 			m_LightgemModifierList.erase(i);
-			DM_LOG(LC_LIGHT, LT_DEBUG).LogString("Removed.\r");
+			DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Removed.\r");
 		}
 	}
 
@@ -9873,7 +9873,7 @@ void idPlayer::Event_SetLightgemModifier(const char* modifierName, int amount)
 		m_LightgemModifier += i->second;
 	}
 
-	DM_LOG(LC_LIGHT, LT_DEBUG).LogString("New lightgem modifier value: %d\r", m_LightgemModifier);
+	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("New lightgem modifier value: %d\r", m_LightgemModifier);
 }
 
 void idPlayer::Event_ReadLightgemModifierFromWorldspawn()

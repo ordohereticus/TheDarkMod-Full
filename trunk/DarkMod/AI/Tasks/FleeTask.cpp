@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FleeTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -48,7 +48,7 @@ void FleeTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool FleeTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("Flee Task performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Flee Task performing.\r");
 
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
@@ -93,7 +93,7 @@ bool FleeTask::Perform(Subsystem& subsystem)
 		owner->AI_RUN = true;
 		if (_escapeSearchLevel >= 3)
 		{
-			DM_LOG(LC_AI, LT_INFO).LogString("Trying to find escape route - FIND_FRIENDLY_GUARDED.");
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Trying to find escape route - FIND_FRIENDLY_GUARDED.");
 			// Flee to the nearest friendly guarded escape point
 			if (!owner->Flee(enemy, FIND_FRIENDLY_GUARDED, _distOpt))
 			{
@@ -104,7 +104,7 @@ bool FleeTask::Perform(Subsystem& subsystem)
 		else if (_escapeSearchLevel == 2)
 		{
 			// Try to find another escape route
-			DM_LOG(LC_AI, LT_INFO).LogString("Trying alternate escape route - FIND_FRIENDLY.");
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Trying alternate escape route - FIND_FRIENDLY.");
 			// Find another escape route to ANY friendly escape point
 			if (!owner->Flee(enemy, FIND_FRIENDLY, _distOpt))
 			{
@@ -113,12 +113,12 @@ bool FleeTask::Perform(Subsystem& subsystem)
 		}
 		else
 		{
-			DM_LOG(LC_AI, LT_INFO).LogString("Searchlevel = 1, ZOMG, Panic mode, gotta run now!\r");
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Searchlevel = 1, ZOMG, Panic mode, gotta run now!\r");
 
 			// Get the distance to the enemy
 			float enemyDistance = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), enemy->GetPhysics()->GetOrigin());
 
-			DM_LOG(LC_AI, LT_INFO).LogString("Enemy is as near as %d", enemyDistance);
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Enemy is as near as %d", enemyDistance);
 			if (enemyDistance < 500)
 			{
 				// Increase the fleeRadius (the nearer the enemy, the more)

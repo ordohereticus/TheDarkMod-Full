@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2443 $
+ * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathShowTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathShowTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -49,7 +49,7 @@ void PathShowTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool PathShowTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO).LogString("Path Show task performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Path Show task performing.\r");
 
 	idPathCorner* path = _path.GetEntity();
 	idAI* owner = _owner.GetEntity();
@@ -68,7 +68,7 @@ bool PathShowTask::Perform(Subsystem& subsystem)
 		owner->ActivateTargets(owner);
 
 		// Move is done, fall back to PatrolTask
-		DM_LOG(LC_AI, LT_INFO).LogString("entity is visible.\r");
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("entity is visible.\r");
 
 		return true; // finish this task
 	}
