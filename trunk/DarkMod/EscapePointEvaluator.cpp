@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 2559 $
+ * $Date: 2008-06-22 10:08:06 -0400 (Sun, 22 Jun 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EscapePointEvaluator.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: EscapePointEvaluator.cpp 2559 2008-06-22 14:08:06Z angua $", init_version);
 
 #include "EscapePointEvaluator.h"
 #include "EscapePointManager.h"
@@ -17,7 +17,7 @@ static bool init_version = FileVersionList("$Id: EscapePointEvaluator.cpp 2443 2
 EscapePointEvaluator::EscapePointEvaluator(const EscapeConditions& conditions) :
 	_conditions(conditions),
 	_bestId(-1), // Set the ID to invalid
-	_startAreaNum(conditions.aas->PointAreaNum(conditions.fromPosition)),
+	_startAreaNum(conditions.self.GetEntity()->PointReachableAreaNum(conditions.fromPosition, 2.0f)),
 	_bestTime(0),
 	_distanceMultiplier((conditions.distanceOption == DIST_FARTHEST) ? -1 : 1),
 	_threatPosition(conditions.fromEntity.GetEntity()->GetPhysics()->GetOrigin())

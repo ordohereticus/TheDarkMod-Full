@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2506 $
- * $Date: 2008-06-15 12:54:11 -0400 (Sun, 15 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2559 $
+ * $Date: 2008-06-22 10:08:06 -0400 (Sun, 22 Jun 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2506 2008-06-15 16:54:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2559 2008-06-22 14:08:06Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1638,6 +1638,7 @@ void idAI::DormantEnd( void ) {
 	}
 
 	idActor::DormantEnd();
+	m_lastThinkTime = gameLocal.time;
 }
 
 /*
@@ -2292,21 +2293,6 @@ int idAI::PointReachableAreaNum( const idVec3 &pos, const float boundsScale, con
 	{
 		// Non-flying monsters
 		areaNum = aas->PointReachableAreaNum( newPos, bounds, AREA_REACHABLE_WALK );
-		
-		if (areaNum != 0)
-		{
-			// Sanity check the returned area. If the position isn't within the AI's height + vertical melee
-			// reach, then report it as unreachable.
-			const idVec3& grav = physicsObj.GetGravityNormal();
-
-			float height = fabs((newPos - aas->AreaCenter(areaNum)) * grav);
-
-			idBounds bounds = GetPhysics()->GetBounds();
-
-			if (height > bounds[1][2] + melee_range) {
-				areaNum = 0;
-			}
-		}
 	}
 
 	return areaNum;
@@ -3130,6 +3116,22 @@ bool idAI::MoveToPosition( const idVec3 &pos ) {
 	if ( aas ) {
 		move.toAreaNum = PointReachableAreaNum( org );
 		aas->PushPointIntoAreaNum( move.toAreaNum, org );
+
+		if (move.toAreaNum != 0)
+		{
+			// Sanity check the returned area. If the position isn't within the AI's height + vertical melee
+			// reach, then report it as unreachable.
+			const idVec3& grav = physicsObj.GetGravityNormal();
+
+			float height = fabs((org - aas->AreaCenter(move.toAreaNum)) * grav);
+
+			idBounds bounds = GetPhysics()->GetBounds();
+
+			if (height > bounds[1][2] + melee_range) {
+				move.toAreaNum = 0;
+				return false;
+			}
+		}
 
 		int areaNum	= PointReachableAreaNum( physicsObj.GetOrigin() );
 
