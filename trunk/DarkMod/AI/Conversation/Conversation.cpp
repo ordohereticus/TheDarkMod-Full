@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3054 $
- * $Date: 2008-11-21 11:59:38 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3148 $
+ * $Date: 2009-01-16 13:59:23 -0500 (Fri, 16 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,8 +10,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 3054 2008-11-21 16:59:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 3148 2009-01-16 18:59:23Z greebo $", init_version);
 
+#include <climits>
 #include "Conversation.h"
 #include "../States/ConversationState.h"
 
