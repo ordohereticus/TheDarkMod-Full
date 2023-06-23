@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2501 $
- * $Date: 2008-06-15 07:32:37 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 2564 $
+ * $Date: 2008-06-24 11:59:18 -0400 (Tue, 24 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 2501 2008-06-15 11:32:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 2564 2008-06-24 15:59:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -748,10 +748,10 @@ void Cmd_Noclip_f( const idCmdArgs &args ) {
 
 	if ( player->noclip ) {
 		player->noclip = false;
-		gameLocal.Printf( "notclip OFF\n" );
+		gameLocal.Printf( "noclip OFF\n" );
 	} else {
 		player->noclip = true;
-		gameLocal.Printf( "notclip ON\n" );
+		gameLocal.Printf( "noclip ON\n" );
 	}
 }
 
