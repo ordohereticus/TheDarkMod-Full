@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3183 $
+ * $Date: 2009-01-19 03:49:19 -0500 (Mon, 19 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3183 2009-01-19 08:49:19Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -61,6 +61,11 @@ void AlertIdleState::Init(idAI* owner)
 	owner->GetSubsystem(SubsysSenses)->ClearTasks();
 	owner->GetSubsystem(SubsysSenses)->PushTask(RandomHeadturnTask::CreateInstance());
 
+	if (!owner->AI_bMeleeWeapDrawn)
+	{
+		owner->DrawWeapon();
+	}
+
 	// Let the AI update their weapons (make them nonsolid)
 	owner->UpdateAttachmentContents(false);
 }
@@ -71,7 +76,7 @@ idStr AlertIdleState::GetInitialIdleBark(idAI* owner)
 
 	// Decide what sound it is appropriate to play
 	idStr soundName("");
-	if (owner->m_lastAlertLevel < owner->thresh_3)
+	if (owner->m_lastAlertLevel >= owner->thresh_1 && owner->m_lastAlertLevel < owner->thresh_3)
 	{
 		if (memory.alertClass == EAlertVisual && memory.alertType != EAlertTypeMissingItem)
 		{

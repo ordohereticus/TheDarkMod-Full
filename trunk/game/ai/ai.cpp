@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3170 $
- * $Date: 2009-01-18 04:40:41 -0500 (Sun, 18 Jan 2009) $
+ * $Revision: 3183 $
+ * $Date: 2009-01-19 03:49:19 -0500 (Mon, 19 Jan 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3170 2009-01-18 09:40:41Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3183 2009-01-19 08:49:19Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8640,7 +8640,8 @@ bool idAI::HasSeenEvidence()
 		|| memory.itemsHaveBeenStolen
 		|| memory.itemsHaveBeenBroken
 		|| memory.unconsciousPeopleHaveBeenFound
-		|| memory.deadPeopleHaveBeenFound;
+		|| memory.deadPeopleHaveBeenFound
+		|| spawnArgs.GetBool("alert_idle", "0");
 
 }
 /**
