@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2665 $
- * $Date: 2008-07-15 13:31:04 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2725 $
+ * $Date: 2008-08-06 01:13:28 -0400 (Wed, 06 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -656,6 +656,19 @@ class CTarget_CallScriptFunction :
 {
 public:
 	CLASS_PROTOTYPE( CTarget_CallScriptFunction );
+
+private:
+	void				Event_Activate( idEntity *activator );
+};
+
+/**
+ * greebo: This target locks or unlocks a specific frobmover.
+ */
+class CTarget_ChangeLockState : 
+	public idTarget
+{
+public:
+	CLASS_PROTOTYPE( CTarget_ChangeLockState );
 
 private:
 	void				Event_Activate( idEntity *activator );

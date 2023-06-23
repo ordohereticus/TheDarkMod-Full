@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2667 $
- * $Date: 2008-07-15 14:04:06 -0400 (Tue, 15 Jul 2008) $
+ * $Revision: 2725 $
+ * $Date: 2008-08-06 01:13:28 -0400 (Wed, 06 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 2667 2008-07-15 18:04:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 2725 2008-08-06 05:13:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -2137,5 +2137,46 @@ void CTarget_CallScriptFunction::Event_Activate( idEntity *activator )
 	{
 		// script function not found!
 		gameLocal.Warning("Target %s specifies non-existent script function!", funcName.c_str());
+	}
+}
+
+/*
+================
+CTarget_ChangeLockState
+================
+*/
+CLASS_DECLARATION( idTarget, CTarget_ChangeLockState )
+	EVENT( EV_Activate,	CTarget_ChangeLockState::Event_Activate )
+END_CLASS
+
+void CTarget_ChangeLockState::Event_Activate(idEntity *activator)
+{
+	// Find all targetted frobmovers
+	for (int i = 0; i < targets.Num(); i++)
+	{
+		idEntity* ent = targets[i].GetEntity();
+
+		if (ent == NULL) continue;
+
+		if (ent->IsType(CBinaryFrobMover::Type))
+		{
+			CBinaryFrobMover* frobMover = static_cast<CBinaryFrobMover*>(ent);
+
+			if (spawnArgs.GetBool("toggle", "0"))
+			{
+				DM_LOG(LC_MISC,LT_DEBUG)LOGSTRING("Target_ChangeLockState: Toggling lock state of entity %s\r", ent->name.c_str());
+				frobMover->ToggleLock();
+			}
+			else if (spawnArgs.GetBool("unlock", "1"))
+			{
+				DM_LOG(LC_MISC,LT_DEBUG)LOGSTRING("Target_ChangeLockState: Unlocking entity %s\r", ent->name.c_str());
+				frobMover->Unlock();
+			}
+			else
+			{
+				DM_LOG(LC_MISC,LT_DEBUG)LOGSTRING("Target_ChangeLockState: Locking entity %s\r", ent->name.c_str());
+				frobMover->Lock();
+			}
+		}
 	}
 }

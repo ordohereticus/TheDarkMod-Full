@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2702 $
- * $Date: 2008-07-19 03:08:41 -0400 (Sat, 19 Jul 2008) $
+ * $Revision: 2725 $
+ * $Date: 2008-08-06 01:13:28 -0400 (Wed, 06 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2702 2008-07-19 07:08:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2725 2008-08-06 05:13:28Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -27,7 +27,7 @@ void ConversationSystem::Clear()
 
 void ConversationSystem::Init(idMapFile* mapFile)
 {
-	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Searching for difficulty setting on worldspawn.\r");
+	DM_LOG(LC_CONVERSATION, LT_INFO)LOGSTRING("Searching for conversation settings on worldspawn.\r");
 
 	if (mapFile->GetNumEntities() <= 0) {
 		return; // no entities!
