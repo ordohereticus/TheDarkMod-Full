@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2744 $
- * $Date: 2008-08-18 04:43:27 -0400 (Mon, 18 Aug 2008) $
+ * $Revision: 2747 $
+ * $Date: 2008-08-21 06:25:53 -0400 (Thu, 21 Aug 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -170,6 +170,12 @@ protected:
 	* Slash, overhand, thrust, or unblockable
 	**/
 	EMeleeTypes				m_MeleeType;
+
+	/**
+	* Origin and axis from the previous frame
+	**/
+	idVec3					m_OldOrigin;
+	idMat3					m_OldAxis;
 
 };
 

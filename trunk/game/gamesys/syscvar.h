@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2738 $
- * $Date: 2008-08-15 12:57:20 -0400 (Fri, 15 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2747 $
+ * $Date: 2008-08-21 06:25:53 -0400 (Thu, 21 Aug 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -136,6 +136,7 @@ extern idCVar cv_drag_encumber_minmass;
 extern idCVar cv_drag_encumber_maxmass;
 extern idCVar cv_drag_encumber_max;
 extern idCVar cv_dragged_item_highlight;
+extern idCVar cv_melee_debug;
 extern idCVar cv_phys_show_momentum;
 
 extern idCVar cv_throw_min;
