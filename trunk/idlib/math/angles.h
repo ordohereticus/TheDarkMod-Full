@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 2864 $
+ * $Date: 2008-09-20 02:57:56 -0400 (Sat, 20 Sep 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -17,6 +17,11 @@
 ===============================================================================
 
 	Euler angles
+
+TDM NOTE:
+idAngles uses the "yaw, pitch, roll" convention, in which the yaw rotation occurs
+first, then pitch occurs relative to the yawed axes, and finally roll
+occurs relative to the yawed and pitched axes.  Also known as the "zyx" convention.
 
 ===============================================================================
 */
