@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2374 $
+ * $Date: 2008-05-18 15:27:53 -0400 (Sun, 18 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -43,6 +43,9 @@ class InvestigateSpotTask :
 	// Set to TRUE, if the AI should investigate the spot very closely
 	// usually by playing the kneel_down animation.
 	bool _investigateClosely;
+
+	// Whether this task has told the AI to actually move to the searchspot
+	bool _moveInitiated;
 
 	// Private default constructor
 	InvestigateSpotTask();
