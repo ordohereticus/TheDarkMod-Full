@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2376 $
- * $Date: 2008-05-19 12:13:33 -0400 (Mon, 19 May 2008) $
+ * $Revision: 2377 $
+ * $Date: 2008-05-20 01:20:22 -0400 (Tue, 20 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2376 2008-05-19 16:13:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2377 2008-05-20 05:20:22Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -501,6 +501,8 @@ void HandleElevatorTask::Save(idSaveGame* savefile) const
 
 	savefile->WriteInt(static_cast<int>(_state));
 	savefile->WriteInt(_waitEndTime);
+
+	savefile->WriteBool(_success);
 }
 
 void HandleElevatorTask::Restore(idRestoreGame* savefile)
@@ -513,6 +515,7 @@ void HandleElevatorTask::Restore(idRestoreGame* savefile)
 	_state = static_cast<State>(temp);
 	savefile->ReadInt(_waitEndTime);
 
+	savefile->ReadBool(_success);
 }
 
 HandleElevatorTaskPtr HandleElevatorTask::CreateInstance()
