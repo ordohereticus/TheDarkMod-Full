@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2856 $
- * $Date: 2008-09-17 22:46:46 -0400 (Wed, 17 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 2867 $
+ * $Date: 2008-09-20 18:22:26 -0400 (Sat, 20 Sep 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 2856 2008-09-18 02:46:46Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 2867 2008-09-20 22:22:26Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -97,10 +97,12 @@ const char *idGameLocal::sufaceTypeNames[ MAX_SURFACE_TYPES ] = {
 	"ricochet", "surftype10", "surftype11", "surftype12", "surftype13", "surftype14", "surftype15"
 };
 
-const char *idGameLocal::m_NewSurfaceTypes[ MAX_SURFACE_TYPES * 2 ] = {
+/* This list isn't actually used by the code, it's here just for reference. The code
+   accepts any first word in the description as the surface type name: */
+const char *idGameLocal::m_NewSurfaceTypes[ MAX_SURFACE_TYPES * 2 + 1] = {
 	"tile", "carpet", "dirt", "gravel", "grass", "rock", "twigs", "foliage", "sand", "mud",
 	"brokeglass", "snow", "ice", "squeakboard", "puddle", "moss", "cloth", "ceramic", "slate",
-	"straw", "armor_leath", "armor_chain", "armor_plate", "climbable"
+	"straw", "armor_leath", "armor_chain", "armor_plate", "climbable", "paper"
 };
 
 fontInfoEx_t font_an;

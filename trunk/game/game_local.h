@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2862 $
- * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
- * $Author: angua $
+ * $Revision: 2867 $
+ * $Date: 2008-09-20 18:22:26 -0400 (Sat, 20 Sep 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -536,7 +536,7 @@ public:
 	/**
 	* DarkMod: text names for new surface types
 	**/
-	static const char *		m_NewSurfaceTypes[ MAX_SURFACE_TYPES*2 ];
+	static const char *		m_NewSurfaceTypes[ MAX_SURFACE_TYPES*2 + 1];
 
 	idEntityPtr<idEntity>	lastGUIEnt;				// last entity with a GUI, used by Cmd_NextGUI_f
 	int						lastGUI;				// last GUI on the lastGUIEnt
