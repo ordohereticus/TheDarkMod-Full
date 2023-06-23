@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2823 $
- * $Date: 2008-09-13 01:10:49 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 3054 $
+ * $Date: 2008-11-21 11:59:38 -0500 (Fri, 21 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -126,6 +126,9 @@ public:
 	void Restore(idRestoreGame* savefile);
 
 private:
+	// Returns FALSE if any of the actors have gone dead or knocked out
+	bool CheckActorAvailability();
+
 	// Returns true if all actors are have execution state == "ready"
 	bool AllActorsReady();
 
