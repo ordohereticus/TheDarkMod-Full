@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3065 $
- * $Date: 2008-11-27 04:57:48 -0500 (Thu, 27 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3080 $
+ * $Date: 2008-12-08 09:04:07 -0500 (Mon, 08 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -149,6 +149,8 @@ public:
 	{
 		return m_ClosedAngles;
 	}
+
+	const idVec3& GetCurrentPos();
 
 	/**
 	* This is used to get the remaining translation left on the clip model

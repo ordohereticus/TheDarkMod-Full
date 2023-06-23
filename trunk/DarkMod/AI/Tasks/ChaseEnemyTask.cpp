@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2620 $
- * $Date: 2008-07-09 15:39:45 -0400 (Wed, 09 Jul 2008) $
+ * $Revision: 3080 $
+ * $Date: 2008-12-08 09:04:07 -0500 (Mon, 08 Dec 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 2620 2008-07-09 19:39:45Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 3080 2008-12-08 14:04:07Z angua $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "InteractionTask.h"
@@ -151,7 +151,7 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 					// Get the button which will fetch the elevator
 					CMultiStateMoverButton* button = mover->GetButton(reachablePos, reachablePos, BUTTON_TYPE_FETCH);
 
-					gameRenderWorld->DebugArrow(colorBlue, owner->GetPhysics()->GetOrigin(), button->GetPhysics()->GetOrigin(), 1, 5000);
+					// gameRenderWorld->DebugArrow(colorBlue, owner->GetPhysics()->GetOrigin(), button->GetPhysics()->GetOrigin(), 1, 5000);
 
 					// Push to an InteractionTask
 					subsystem.PushTask(TaskPtr(new InteractionTask(button)));

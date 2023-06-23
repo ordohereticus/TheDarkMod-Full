@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3065 $
- * $Date: 2008-11-27 04:57:48 -0500 (Thu, 27 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3080 $
+ * $Date: 2008-12-08 09:04:07 -0500 (Mon, 08 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3065 2008-11-27 09:57:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3080 2008-12-08 14:04:07Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -942,4 +942,23 @@ void CBinaryFrobMover::Event_ToggleLock()
 void CBinaryFrobMover::Event_IsLocked()
 {
 	idThread::ReturnInt(IsLocked());
+}
+
+const idVec3& CBinaryFrobMover::GetCurrentPos()
+{
+	idVec3 closedDir = m_ClosedPos;
+	closedDir.z = 0;
+	float length = closedDir.LengthFast();
+
+	idAngles angles = physicsObj.GetLocalAngles();
+	idAngles deltaAngles = angles - GetClosedAngles();
+	idRotation rot = deltaAngles.ToRotation();
+
+	float alpha = idMath::Fabs(rot.GetAngle());
+	
+	idVec3 currentPos = GetPhysics()->GetOrigin() 
+		+ closedDir * idMath::Cos(alpha * idMath::PI / 180)
+		+ m_OpenDir * length * idMath::Sin(alpha* idMath::PI / 180);
+
+	return currentPos;
 }

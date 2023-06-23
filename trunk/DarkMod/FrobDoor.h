@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3069 $
- * $Date: 2008-11-27 13:55:01 -0500 (Thu, 27 Nov 2008) $
- * $Author: tels $
+ * $Revision: 3080 $
+ * $Date: 2008-12-08 09:04:07 -0500 (Mon, 08 Dec 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -112,6 +112,12 @@ public:
 	void					SetHandlePosition(EHandleReset, int msec, int pin_index = 0, int sample_index = 0);
 
 	void					PropPickSound(const idStr& picksound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex);
+
+	// angua: returns the number of open peers
+	ID_INLINE int			GetOpenPeersNum()
+	{
+		return m_OpenPeers.Num();
+	}
 
 protected:
 	/**
