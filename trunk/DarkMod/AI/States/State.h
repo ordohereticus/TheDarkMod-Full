@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2632 $
- * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
+ * $Revision: 2946 $
+ * $Date: 2008-10-13 14:52:37 -0400 (Mon, 13 Oct 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -99,6 +99,11 @@ public:
 	// returns TRUE when the stim should be ignored from now on, FALSE otherwise
 	virtual bool OnVisualStimDeadPerson(idActor* person, idAI* owner);
 	virtual bool OnVisualStimUnconsciousPerson(idActor* person, idAI* owner);
+
+	/**
+	* ishtvan: Called when targets are changed, does nothing on base class
+	**/
+	virtual void OnChangeTarget(idAI *owner) {};
 
 protected:
 	/**
