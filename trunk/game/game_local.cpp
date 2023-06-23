@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3140 $
- * $Date: 2009-01-14 10:38:06 -0500 (Wed, 14 Jan 2009) $
+ * $Revision: 3141 $
+ * $Date: 2009-01-15 00:34:42 -0500 (Thu, 15 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3140 2009-01-14 15:38:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3141 2009-01-15 05:34:42Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3309,7 +3309,11 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	if (logNextCommand)
 	{
 		// We should log that command
-		Printf("MainMenu: %s\n", cmd.c_str());
+		if (cv_debug_mainmenu.GetBool())
+		{
+			Printf("MainMenu: %s\n", cmd.c_str());
+		}
+
 		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("%s\r", cmd.c_str());
 
 		logNextCommand = false;
@@ -3406,7 +3410,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	m_Shop->HandleCommands(menuCommand, gui, GetLocalPlayer());
 	m_ModMenu->HandleCommands(menuCommand, gui);
 
-	if (cv_debug_mainmenu.GetBool())
+	/*if (cv_debug_mainmenu.GetBool())
 	{
 		const idDict& state = gui->State();
 		
@@ -3423,10 +3427,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 			DM_LOG(LC_MISC, LT_INFO)LOGSTRING("Mainmenu GUI State %s = %s\r", key.c_str(), value.c_str());
 		}
-
-		// Clear the cvar again
-		cv_debug_mainmenu.SetBool(false);
-	}
+	}*/
 }
 
 /*
