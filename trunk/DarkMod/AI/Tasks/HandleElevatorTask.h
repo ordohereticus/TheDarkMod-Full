@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2343 $
- * $Date: 2008-05-15 14:51:52 -0400 (Thu, 15 May 2008) $
- * $Author: angua $
+ * $Revision: 2344 $
+ * $Date: 2008-05-15 14:57:07 -0400 (Thu, 15 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -71,6 +71,9 @@ private:
 	bool IsElevatorStationReachable(CMultiStateMoverPosition* pos);
 
 	void DebugDraw(idAI* owner);
+
+	// Lets the AI move towards the position entity (is slightly more complicated than just idAI::MoveToPos)
+	bool MoveToPositionEntity(idAI* owner, CMultiStateMoverPosition* pos);
 };
 
 } // namespace ai
