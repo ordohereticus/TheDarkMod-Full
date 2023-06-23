@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2600 $
- * $Date: 2008-07-03 11:49:19 -0400 (Thu, 03 Jul 2008) $
+ * $Revision: 2604 $
+ * $Date: 2008-07-03 13:48:26 -0400 (Thu, 03 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2600 2008-07-03 15:49:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2604 2008-07-03 17:48:26Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7195,11 +7195,6 @@ bool idEntity::CanBeUsedBy(idEntity* entity)
 }
 
 bool idEntity::UseBy(EImpulseState impulseState, CInventoryItem* item)
-{
-	return false;
-}
-
-bool idEntity::UsedBy(EImpulseState nState, CInventoryItem* item)
 {
 	return false;
 }
