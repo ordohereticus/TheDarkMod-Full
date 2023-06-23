@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2877 $
- * $Date: 2008-09-22 04:48:12 -0400 (Mon, 22 Sep 2008) $
+ * $Revision: 2879 $
+ * $Date: 2008-09-23 03:56:39 -0400 (Tue, 23 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -217,6 +217,12 @@ public:
 	* Updates m_AddedEnts if this ent's clipmodel was added to the AF
 	**/
 	virtual void			UnbindNotify( idEntity *ent );
+
+	/**
+	* Overloaded idAnimatedEntity::ReAttach methods to take into account AF body clipmask and contents
+	**/
+	virtual void			ReAttachToCoords( const char *AttName, idStr jointName, idVec3 offset, idAngles angles );
+	virtual void			ReAttachToPos( const char *AttName, const char *PosName  );
 
 	/**
 	* TDM: Adds the clipmodel of the given entity to the AF structure

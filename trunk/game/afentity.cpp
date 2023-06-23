@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2877 $
- * $Date: 2008-09-22 04:48:12 -0400 (Mon, 22 Sep 2008) $
+ * $Revision: 2879 $
+ * $Date: 2008-09-23 03:56:39 -0400 (Tue, 23 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 2877 2008-09-22 08:48:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 2879 2008-09-23 07:56:39Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1458,6 +1458,88 @@ idAFEntity_Base::ParseAttachmentsAF
 void idAFEntity_Base::ParseAttachmentsAF( void )
 {
 	idEntity::ParseAttachments();
+}
+
+void idAFEntity_Base::ReAttachToPos
+	( const char *AttName, const char *PosName  )
+{
+	int ind = GetAttachmentIndex( AttName );
+	if (ind == -1 )
+	{
+		DM_LOG(LC_AI,LT_WARNING)LOGSTRING("ReAttachToPos called with invalid attachment name %s on entity %s\r", AttName, name.c_str());
+		return;
+	}
+
+	idEntity* ent = GetAttachment( ind );
+
+	if( !ent )
+	{
+		DM_LOG(LC_AI,LT_WARNING)LOGSTRING("ReAttachToPos called with invalid attached entity on entity %s\r", AttName, name.c_str());
+		return;
+	}
+ 
+	// retain the AF body contents (don't want to accidentally re-enable them if clip disabled)
+	idAFBody *body = NULL;
+	int bodyContents, bodyClipMask;
+	bool bStoredAFBodyInfo = false;
+	if( (body = static_cast<idAFEntity_Base *>(this)->AFBodyForEnt( ent )) != NULL )
+	{
+		bodyContents = body->GetClipModel()->GetContents();
+		bodyClipMask = body->GetClipMask();
+		bStoredAFBodyInfo = true;
+	}
+
+	idEntity::ReAttachToPos( AttName, PosName );
+
+	// copy over the old AF body contents
+	if( (body = static_cast<idAFEntity_Base *>(this)->AFBodyForEnt( ent )) != NULL
+		&& bStoredAFBodyInfo )
+	{
+		body->GetClipModel()->SetContents( bodyContents );
+		body->SetClipMask( bodyClipMask );
+	}
+}
+
+void idAFEntity_Base::ReAttachToCoords
+	( const char *AttName, idStr jointName, 
+		idVec3 offset, idAngles angles  )
+{
+	idEntity *ent(NULL);
+	CAttachInfo *attachment = GetAttachInfo( AttName );
+
+	if( !attachment )
+	{
+		DM_LOG(LC_AI,LT_WARNING)LOGSTRING("ReAttachToPos called with invalid attachment name %s on entity %s\r", AttName, name.c_str());
+		return;
+	}
+	
+	ent = attachment->ent.GetEntity();
+	if( !attachment->ent.IsValid() || !ent )
+	{
+		DM_LOG(LC_AI,LT_WARNING)LOGSTRING("ReAttachToPos called with invalid attached entity on entity %s\r", name.c_str());
+		return;
+	}
+
+	// retain the AF body contents (don't want to accidentally re-enable them if clip disabled)
+	idAFBody *body = NULL;
+	int bodyContents, bodyClipMask;
+	bool bStoredAFBodyInfo = false;
+	if( (body = static_cast<idAFEntity_Base *>(this)->AFBodyForEnt( ent )) != NULL )
+	{
+		bodyContents = body->GetClipModel()->GetContents();
+		bodyClipMask = body->GetClipMask();
+		bStoredAFBodyInfo = true;
+	}
+
+	idAnimatedEntity::ReAttachToCoords( AttName, jointName, offset, angles );
+
+	// copy over the old AF body contents
+	if( (body = static_cast<idAFEntity_Base *>(this)->AFBodyForEnt( ent )) != NULL
+		&& bStoredAFBodyInfo )
+	{
+		body->GetClipModel()->SetContents( bodyContents );
+		body->SetClipMask( bodyClipMask );
+	}
 }
 
 /*
