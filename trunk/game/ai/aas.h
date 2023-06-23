@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2369 $
- * $Date: 2008-05-18 12:30:22 -0400 (Sun, 18 May 2008) $
- * $Author: greebo $
+ * $Revision: 3045 $
+ * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -126,6 +126,11 @@ public:
 	virtual void				GetEdge( int edgeNum, idVec3 &start, idVec3 &end ) const = 0;
 								// Find all areas within or touching the bounds with the given contents and disable/enable them for routing.
 	virtual bool				SetAreaState( const idBounds &bounds, const int areaContents, bool disabled ) = 0;
+
+	// angua: disable / enable a specific area
+	virtual void				DisableArea( int areanum ) = 0;
+	virtual void				EnableArea( int areanum ) = 0;
+
 								// Add an obstacle to the routing system.
 	virtual aasHandle_t			AddObstacle( const idBounds &bounds ) = 0;
 								// Remove an obstacle from the routing system.

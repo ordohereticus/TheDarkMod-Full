@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2596 $
- * $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $
+ * $Revision: 3045 $
+ * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 2596 $   $Date: 2008-07-02 14:58:33 -0400 (Wed, 02 Jul 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3045 $   $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $", init_version);
 
 #include "aas_local.h"
 #include "../../DarkMod/TimerManager.h"
@@ -216,13 +216,13 @@ bool idAASLocal::WalkPathValid( int areaNum, const idVec3 &origin, int goalAreaN
 			if ( dir.LengthSqr() > Square( 0.2f ) ) {
 				continue;
 			}
-
+/*
 			// angua: area is forbidden (e.g. locked door)
 			if (actor != NULL && gameLocal.m_AreaManager.AreaIsForbidden(reach->toAreaNum, actor))
 			{
 				continue;
 			}
-
+*/
 			break;
 		}
 

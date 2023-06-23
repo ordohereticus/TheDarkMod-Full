@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2329 $
- * $Date: 2008-05-14 12:48:45 -0400 (Wed, 14 May 2008) $
- * $Author: greebo $
+ * $Revision: 3045 $
+ * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -200,8 +200,12 @@ private:	// routing
 	void						UpdatePortalRoutingCache( idRoutingCache *portalCache ) const;
 	idRoutingCache *			GetPortalRoutingCache( int clusterNum, int areaNum, int travelFlags ) const;
 	void						RemoveRoutingCacheUsingArea( int areaNum );
+
+public:
 	void						DisableArea( int areaNum );
 	void						EnableArea( int areaNum );
+
+private:
 	bool						SetAreaState_r( int nodeNum, const idBounds &bounds, const int areaContents, bool disabled );
 	void						GetBoundsAreas_r( int nodeNum, const idBounds &bounds, idList<int> &areas ) const;
 	void						SetObstacleState( const idRoutingObstacle *obstacle, bool enable );
