@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 3044 $
+ * $Date: 2008-11-20 15:13:52 -0500 (Thu, 20 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -35,11 +35,11 @@ public:
 	// Gets called each time the mind is thinking
 	virtual void Think(idAI* owner);
 
+	virtual bool CheckAlertLevel(idAI* owner);
+
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
 	virtual void Restore(idRestoreGame* savefile);
-
-	virtual void OnSubsystemTaskFinished(idAI* owner, SubsystemId subSystem);
 
 	static StatePtr CreateInstance();
 };

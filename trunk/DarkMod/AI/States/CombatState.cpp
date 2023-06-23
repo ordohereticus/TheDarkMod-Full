@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2863 $
- * $Date: 2008-09-19 02:04:05 -0400 (Fri, 19 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 3044 $
+ * $Date: 2008-11-20 15:13:52 -0500 (Thu, 20 Nov 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 2863 2008-09-19 06:04:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3044 2008-11-20 20:13:52Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -207,6 +207,9 @@ void CombatState::Think(idAI* owner)
 		owner->GetMind()->EndState();
 		return;
 	}
+
+	// angua: look at ememy
+	owner->Event_LookAtPosition(enemy->GetEyePosition(), gameLocal.msec);
 
 	if (owner->health < _criticalHealth)
 	{
