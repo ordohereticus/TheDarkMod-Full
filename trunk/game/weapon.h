@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3008 $
- * $Date: 2008-11-10 14:11:32 -0500 (Mon, 10 Nov 2008) $
+ * $Revision: 3019 $
+ * $Date: 2008-11-12 12:09:15 -0500 (Wed, 12 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -236,7 +236,6 @@ private:
 	int						muzzleFlashEnd;
 	int						flashTime;
 	bool					lightOn;
-	bool					silent_fire;
 	bool					allowDrop;
 
 	// effects

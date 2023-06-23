@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3017 $
- * $Date: 2008-11-12 10:50:06 -0500 (Wed, 12 Nov 2008) $
+ * $Revision: 3019 $
+ * $Date: 2008-11-12 12:09:15 -0500 (Wed, 12 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 3017 2008-11-12 15:50:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 3019 2008-11-12 17:09:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -307,7 +307,6 @@ void idWeapon::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( flashTime );
 
 	savefile->WriteBool( lightOn );
-	savefile->WriteBool( silent_fire );
 
 	savefile->WriteInt( kick_endtime );
 	savefile->WriteInt( muzzle_kick_time );
@@ -465,7 +464,6 @@ void idWeapon::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( flashTime );
 
 	savefile->ReadBool( lightOn );
-	savefile->ReadBool( silent_fire );
 
 	savefile->ReadInt( kick_endtime );
 	savefile->ReadInt( muzzle_kick_time );
@@ -672,7 +670,6 @@ void idWeapon::Clear( void ) {
 
 	flashTime		= 250;
 	lightOn			= false;
-	silent_fire		= false;
 
 	ammoRequired	= 0;
 	ammoClip		= 0;
@@ -821,7 +818,6 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	lowAmmo				= weaponDef->dict.GetInt( "lowAmmo" );
 
 	icon				= weaponDef->dict.GetString( "icon" );
-	silent_fire			= weaponDef->dict.GetBool( "silent_fire" );
 	powerAmmo			= weaponDef->dict.GetBool( "powerAmmo" );
 
 	muzzle_kick_time	= SEC2MS( weaponDef->dict.GetFloat( "muzzle_kick_time" ) );
