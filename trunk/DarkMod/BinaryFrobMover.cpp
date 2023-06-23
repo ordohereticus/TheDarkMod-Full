@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2570 $
- * $Date: 2008-06-25 15:51:33 -0400 (Wed, 25 Jun 2008) $
+ * $Revision: 2571 $
+ * $Date: 2008-06-25 16:23:18 -0400 (Wed, 25 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2570 2008-06-25 19:51:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2571 2008-06-25 20:23:18Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -892,10 +892,13 @@ void CBinaryFrobMover::OnUnlock(bool bMaster)
 	}
 }
 
-void CBinaryFrobMover::FrobMoverStartSound(const char* soundName)
+int CBinaryFrobMover::FrobMoverStartSound(const char* soundName)
 {
 	// Default implementation: Just play the sound on this entity.
-	StartSound(soundName, SND_CHANNEL_ANY, 0, false, NULL);
+	int length = 0;
+	StartSound(soundName, SND_CHANNEL_ANY, 0, false, &length);
+
+	return length;
 }
 
 void CBinaryFrobMover::Event_Open()

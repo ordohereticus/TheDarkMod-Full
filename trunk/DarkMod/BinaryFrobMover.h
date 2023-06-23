@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2560 $
- * $Date: 2008-06-22 15:06:30 -0400 (Sun, 22 Jun 2008) $
+ * $Revision: 2571 $
+ * $Date: 2008-06-25 16:23:18 -0400 (Wed, 25 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -310,8 +310,10 @@ protected:
 	 * instead of the standard StartSound() method. Some frobmovers like doors might want to 
 	 * relay the sound playing to another entity (like doorhandles) to avoid sounds being
 	 * played from the door's origin, barely audible to the player.
+	 *
+	 * @returns: The length of the sound.
 	 */
-	virtual void			FrobMoverStartSound(const char* soundName);
+	virtual int			FrobMoverStartSound(const char* soundName);
 
 protected:
 	/**

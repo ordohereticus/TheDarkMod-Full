@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2561 $
- * $Date: 2008-06-22 15:55:24 -0400 (Sun, 22 Jun 2008) $
+ * $Revision: 2571 $
+ * $Date: 2008-06-25 16:23:18 -0400 (Wed, 25 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -174,7 +174,7 @@ protected:
 	 * to the doorhandle. This avoids sounds being played from door origins,
 	 * which is barely audible to the player.
 	 */
-	virtual void			FrobMoverStartSound(const char* soundName);
+	virtual int			FrobMoverStartSound(const char* soundName);
 
 	/**
 	 * Create a random pin pattern for a given pin. Clicks defines the required 
