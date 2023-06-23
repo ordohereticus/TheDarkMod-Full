@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2782 $
- * $Date: 2008-08-31 09:26:49 -0400 (Sun, 31 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 2960 $
+ * $Date: 2008-10-21 00:22:37 -0400 (Tue, 21 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -270,6 +270,10 @@ private:
 	* toggled on in the frame that the player first attaches to the rope
 	**/
 	bool					m_bJustHitRope;
+	/**
+	* Timer used to enforce time between kicks while on rope
+	**/
+	int						m_RopeKickTime;
 
 	// ladder movement
 	/**

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2960 $
+ * $Date: 2008-10-21 00:22:37 -0400 (Tue, 21 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -97,6 +97,9 @@ extern idCVar cv_pm_mantle_reach;
 extern idCVar cv_pm_mantle_minflatness;
 extern idCVar cv_pm_rope_snd_rep_dist;
 extern idCVar cv_pm_rope_velocity_letgo;
+extern idCVar cv_pm_rope_swing_impulse;
+extern idCVar cv_pm_rope_swing_reptime;
+extern idCVar cv_pm_rope_swing_kickdist;
 extern idCVar cv_pm_water_downwards_velocity;
 extern idCVar cv_pm_water_z_friction;
 extern idCVar cv_pm_show_waterlevel;

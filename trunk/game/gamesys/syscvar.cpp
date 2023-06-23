@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 2960 $
+ * $Date: 2008-10-21 00:22:37 -0400 (Tue, 21 Oct 2008) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 2960 2008-10-21 04:22:37Z ishtvan $", init_version);
 
 #include "../game_local.h"
 
@@ -244,6 +244,9 @@ idCVar cv_pm_stepvol_crouch_creep(	"pm_stepvol_crouch_creep",	"-7",		CVAR_GAME |
 idCVar cv_pm_min_stepsound_interval("pm_min_stepsound_interval",	"200",		CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The minimum time in msec which has to pass before the next player footstep sound is allowed to be played." );
 idCVar cv_pm_rope_snd_rep_dist(		"pm_rope_snd_rep_dist",		"32",		CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "When climbing a rope, this sets the vertical distance in doomunits between repeats of the rope climbing sound (default 32 [du])." );
 idCVar cv_pm_rope_velocity_letgo(	"pm_rope_velocity_letgo",	"100",		CVAR_GAME | CVAR_FLOAT, "Maximum allowed velocity of the rope before the player lets go." );
+idCVar cv_pm_rope_swing_impulse(	"pm_rope_swing_impulse",	"360000",	CVAR_GAME | CVAR_FLOAT, "Impulse applied to rope when the player 'kicks their legs' to swing on the rope. (Warning: Setting too high can damage player)" );
+idCVar cv_pm_rope_swing_reptime(	"pm_rope_swing_reptime",	"500",		CVAR_GAME | CVAR_INTEGER, "How often you can kick to swing on the rope, in milliseconds." );
+idCVar cv_pm_rope_swing_kickdist(	"pm_rope_swing_kickdist",	"36",		CVAR_GAME | CVAR_FLOAT, "When kicking on a rope, check this far ahead of the player's anchor point in the kick direction, to see if they are kicking off of something." );
 idCVar cv_pm_water_downwards_velocity(	"pm_water_downwards_velocity",	"-4",		CVAR_GAME | CVAR_FLOAT, "The factor which the gravity vector gets scaled with to calculate the standard downwards velocity in water volumes. Negative values will let the player float upwards." );
 idCVar cv_pm_water_z_friction(	"pm_water_z_friction",	"0.995",		CVAR_GAME | CVAR_FLOAT , "When the player is underwater and has really small z-velocities, this factor gets applied each frame, so that the player stops floating upwards when reaching the surface." );
 idCVar cv_pm_show_waterlevel(	"pm_show_waterlevel",	"0",		CVAR_GAME | CVAR_BOOL , "Shows the waterlevel of the player." );
