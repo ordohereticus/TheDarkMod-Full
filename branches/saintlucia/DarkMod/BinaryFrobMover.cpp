@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2571 $
- * $Date: 2008-06-25 16:23:18 -0400 (Wed, 25 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 2939 $
+ * $Date: 2008-10-10 12:16:11 -0400 (Fri, 10 Oct 2008) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2571 2008-06-25 20:23:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 2939 2008-10-10 16:16:11Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -878,7 +878,10 @@ void CBinaryFrobMover::OnUnlock(bool bMaster)
 {
 	FrobMoverStartSound("snd_unlock");
 
-	if (cv_door_auto_open_on_unlock.GetBool())
+	// angua: only open the master
+	// only if the other part is an openpeer it will be opened by ToggleOpen
+	// otherwise it will stay closed
+	if (cv_door_auto_open_on_unlock.GetBool() && bMaster)
 	{
 		// The configuration says: open the mover when it's unlocked, but let's check the mapper's settings
 		bool openOnUnlock = true;
