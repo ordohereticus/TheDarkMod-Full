@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 2462 $
+ * $Date: 2008-06-08 09:39:42 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -103,7 +103,7 @@ ID_INLINE type idInterpolate<type>::GetCurrentValue( float time ) const {
 		} else if ( deltaTime >= duration ) {
 			currentValue = endValue;
 		} else {
-			currentValue = startValue + ( endValue - startValue ) * ( (float) deltaTime / duration );
+			currentValue = static_cast<type>(startValue + ( endValue - startValue ) * ( (float) deltaTime / duration ));
 		}
 	}
 	return currentValue;

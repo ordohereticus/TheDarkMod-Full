@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2461 $
- * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2462 $
+ * $Date: 2008-06-08 09:39:42 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: smokeparticles.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: smokeparticles.cpp 2462 2008-06-08 13:39:42Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -206,7 +206,7 @@ bool idSmokeParticles::EmitSmoke( const idDeclParticle *smoke, const int systemS
 			if ( nowCount >= stage->totalParticles ) {
 				nowCount = stage->totalParticles-1;
 			}
-			prevCount = floor( ((float)( deltaMsec - USERCMD_MSEC ) / finalParticleTime) * stage->totalParticles );
+			prevCount = static_cast<int>(floor( ((float)( deltaMsec - USERCMD_MSEC ) / finalParticleTime) * stage->totalParticles ));
 			if ( prevCount < -1 ) {
 				prevCount = -1;
 			}
