@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3004 $
- * $Date: 2008-11-09 04:33:32 -0500 (Sun, 09 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3028 $
+ * $Date: 2008-11-14 16:38:52 -0500 (Fri, 14 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3004 2008-11-09 09:33:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3028 2008-11-14 21:38:52Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1097,7 +1097,7 @@ void CGrabber::Throw( int HeldTime )
 		TumbleVec[1] += (gameLocal.random.RandomFloat() / 20) - 0.025; 
 		TumbleVec[2] += (gameLocal.random.RandomFloat() / 20) - 0.025;
 		// scale the offset by the mass, so lightweight objects don't spin too much
-		TumbleVec *= mass;
+		TumbleVec *= (mass / 2.0);
 		ent->ApplyImpulse( m_player.GetEntity(), m_id, ThrowPoint + TumbleVec, ImpulseVec );
 		ent->m_SetInMotionByActor = m_player.GetEntity();
 		ent->m_MovedByActor =  m_player.GetEntity();

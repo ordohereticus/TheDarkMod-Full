@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3023 $
- * $Date: 2008-11-14 00:04:08 -0500 (Fri, 14 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3028 $
+ * $Date: 2008-11-14 16:38:52 -0500 (Fri, 14 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -599,12 +599,12 @@ public:
 	 * @return: Count of entities that where spawned or -1 for error.
 	 *
 	*/
-	virtual int				SpawnFlinder(const FlinderSpawn& bs);
+	virtual int				SpawnFlinder(const FlinderSpawn& bs, idEntity *activator);
 
 	/**
 	 * Evaluate def_flinder spawnargs and call SpawnFlinder() for each found.
 	*/
-	virtual void			Flinderize (void);
+	virtual void			Flinderize (idEntity *activator);
 
 	/**
 	 * Frobaction will determine what a particular item should do when an entity is highlighted.
