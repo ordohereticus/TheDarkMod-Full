@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2658 $
- * $Date: 2008-07-13 14:16:35 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2659 $
+ * $Date: 2008-07-13 14:32:50 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,6 +19,33 @@ namespace ai {
 class ConversationCommand
 {
 public:
+	// These are the various command types
+	enum Type
+	{
+		EWaitSeconds = 0,
+		EWaitForTrigger,
+		EWaitForActor,
+		EWalkToPosition,
+		EWalkToEntity,
+		EStopMove,
+		ETalk,
+		EPlayAnimOnce,
+		EPlayAnimCycle,
+		EActivateTarget,
+		ELookAtActor,
+		ELookAtPosition,
+		ELookAtEntity,
+		ETurnToActor,
+		ETurnToPosition,
+		ETurnToEntity,
+		EAttackActor,
+		EAttackEntity,
+		ENumCommands,
+	};
+
+	// The string representations of the above (keep in sync please)
+	static const char* const TypeNames[ENumCommands];
+
 	/**
 	 * greebo: Parses the command parameters from the given idDict.
 	 * The prefix is something along the lines "conv_2_cmd_3_" and is
@@ -31,6 +58,10 @@ public:
 	// Save/Restore routines
 	void Save(idSaveGame* savefile) const;
 	void Restore(idRestoreGame* savefile);
+
+private:
+	// Tries to convert the string representation of the command into a Type enum value
+	static Type GetType(const idStr& cmdString);
 };
 typedef boost::shared_ptr<ConversationCommand> ConversationCommandPtr;
 
