@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2880 $
- * $Date: 2008-09-23 04:23:52 -0400 (Tue, 23 Sep 2008) $
+ * $Revision: 2889 $
+ * $Date: 2008-09-25 00:13:13 -0400 (Thu, 25 Sep 2008) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2880 2008-09-23 08:23:52Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 2889 2008-09-25 04:13:13Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -576,7 +576,9 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 	else
 		g_Global.GetSurfName( tr->c.material, surfType );
 
-	DmgScale *= DmgDef->GetFloat( va("damage_mult_%s",surfType.c_str()), "1.0" ); 
+	// scale the damage by owner's ability and surface type hit
+	DmgScale *= m_Owner.GetEntity()->spawnArgs.GetFloat("melee_damage_mod", "1.0");
+	DmgScale *= DmgDef->GetFloat( va("damage_mult_%s",surfType.c_str()), "1.0" );
 
 	// Damage
 	// Check for reroute entity (can happen with attachments to AI)
