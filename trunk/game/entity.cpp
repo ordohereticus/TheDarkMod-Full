@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3024 $
- * $Date: 2008-11-14 00:43:40 -0500 (Fri, 14 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3025 $
+ * $Date: 2008-11-14 10:34:40 -0500 (Fri, 14 Nov 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3024 2008-11-14 05:43:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3025 2008-11-14 15:34:40Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1675,6 +1675,19 @@ void idEntity::BecomeBroken( idEntity *activator )
 		DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("Hiding broken entity %s\r", name.c_str() ); 
 		SetModel( "" );
 		GetPhysics()->SetContents( 0 );
+	}
+
+	// tels: if a break_up_script is defined, run it:
+	idStr str;
+	if (this->spawnArgs.GetString("break_up_script", "", str))
+	{
+		// Call the script
+        idThread* thread = CallScriptFunctionArgs(str.c_str(), true, 0, "e", this);
+		if (thread != NULL)
+		{
+			// Run the thread at once, the script result might be needed below.
+			thread->Execute();
+		}
 	}
 
 	// tels: if we have flinders to spawn on break, do so now
