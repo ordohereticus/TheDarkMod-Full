@@ -5,8 +5,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3173 $
- * $Date: 2009-01-18 06:19:56 -0500 (Sun, 18 Jan 2009) $
+ * $Revision: 3176 $
+ * $Date: 2009-01-18 07:28:09 -0500 (Sun, 18 Jan 2009) $
  * $Author: greebo $
  *
  *************************************************************************/
@@ -25,11 +25,11 @@ class Launcher
 	// The path to the darkmod game base
 	fs::path _darkmodDir;
 
+	// The path to the engine executable (DOOM3.exe / doom.x86)
+	fs::path _engineExecutable;
+
 	// The name of the current FM
 	std::string _currentFM;
-
-	// The name of the engine (Win32: DOOM3.exe)
-	std::string _executable;
 
 	// The arguments to pass to the engine
 	std::string _arguments;
