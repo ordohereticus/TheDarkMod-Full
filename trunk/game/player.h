@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 2405 $
- * $Date: 2008-06-01 03:35:11 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 2412 $
+ * $Date: 2008-06-01 09:30:43 -0400 (Sun, 01 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -980,6 +980,9 @@ private:
 
 	// Gets called in the first few frames
 	void					Event_StartGamePlayTimer();
+
+	// Checks the AAS status and displays the HUD warning
+	void					Event_CheckAAS();
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
