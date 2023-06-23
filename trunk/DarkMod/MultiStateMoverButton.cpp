@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2340 $
- * $Date: 2008-05-15 13:28:07 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2346 $
+ * $Date: 2008-05-15 15:32:33 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMoverButton.cpp 2340 2008-05-15 17:28:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMoverButton.cpp 2346 2008-05-15 19:32:33Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "MultiStateMoverButton.h"
@@ -20,8 +20,10 @@ static bool init_version = FileVersionList("$Id: MultiStateMoverButton.cpp 2340 
 // CMultiStateMoverButton
 //===============================================================================
 
+const idEventDef EV_RegisterSelfWithElevator("MSMBRegisterSelfWithElevator", NULL);
+
 CLASS_DECLARATION( CFrobButton, CMultiStateMoverButton )
-	EVENT( EV_PostSpawn,				CMultiStateMoverButton::Event_PostSpawn)
+	EVENT( EV_RegisterSelfWithElevator,		CMultiStateMoverButton::Event_RegisterSelfWithElevator)
 END_CLASS
 
 void CMultiStateMoverButton::Spawn()
@@ -31,10 +33,10 @@ void CMultiStateMoverButton::Spawn()
 		gameLocal.Warning("Elevator button %s has neither 'fetch' nor 'ride' spawnargs set. AI will not be able to use this button!", name.c_str());
 	}
 
-	PostEventMS(&EV_PostSpawn, 10);
+	PostEventMS(&EV_RegisterSelfWithElevator, 10);
 }
 
-void CMultiStateMoverButton::Event_PostSpawn()
+void CMultiStateMoverButton::Event_RegisterSelfWithElevator()
 {
 	for (int i = 0; i < targets.Num(); i++)
 	{

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2340 $
- * $Date: 2008-05-15 13:28:07 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2346 $
+ * $Date: 2008-05-15 15:32:33 -0400 (Thu, 15 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -34,7 +34,7 @@ public:
 	void					Spawn();
 
 private:
-	void					Event_PostSpawn();
+	void					Event_RegisterSelfWithElevator();
 };
 
 #endif /* __MULTISTATEMOVER_BUTTON_H_ */

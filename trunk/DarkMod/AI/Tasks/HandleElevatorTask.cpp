@@ -2,16 +2,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2345 $
- * $Date: 2008-05-15 15:12:48 -0400 (Thu, 15 May 2008) $
- * $Author: angua $
+ * $Revision: 2346 $
+ * $Date: 2008-05-15 15:32:33 -0400 (Thu, 15 May 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2345 2008-05-15 19:12:48Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2346 2008-05-15 19:32:33Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -220,14 +220,14 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 			break;
 
 		case EStateMovingToRideButton:
-			dir = owner->GetPhysics()->GetOrigin() - fetchButton->GetPhysics()->GetOrigin();
+			dir = owner->GetPhysics()->GetOrigin() - rideButton->GetPhysics()->GetOrigin();
 			dir.z = 0;
 			dist = dir.LengthFast();
-			if (dist < owner->GetArmReachLength())
+			if (dist < owner->GetArmReachLength() + 20)
 			{
 				owner->StopMove(MOVE_STATUS_DONE);
-				owner->TurnToward(fetchButton->GetPhysics()->GetOrigin());
-				owner->Event_LookAtPosition(fetchButton->GetPhysics()->GetOrigin(), 1);
+				owner->TurnToward(rideButton->GetPhysics()->GetOrigin());
+				owner->Event_LookAtPosition(rideButton->GetPhysics()->GetOrigin(), 1);
 				owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Use_righthand", 4);
 				_state = EStatePressRideButton;
 				_waitEndTime = gameLocal.time + 400;
@@ -239,7 +239,7 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 			if (gameLocal.time >= _waitEndTime)
 			{
 				// Press button and wait for elevator
-				fetchButton->Operate();
+				rideButton->Operate();
 				_state = EStateWaitOnElevator;
 			}
 
