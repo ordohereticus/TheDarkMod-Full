@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2535 $
- * $Date: 2008-06-20 00:52:00 -0400 (Fri, 20 Jun 2008) $
+ * $Revision: 2544 $
+ * $Date: 2008-06-20 10:58:58 -0400 (Fri, 20 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2535 2008-06-20 04:52:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 2544 2008-06-20 14:58:58Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -130,7 +130,7 @@ void CFrobDoorHandle::OnOpenPositionReached()
 	// The handle is "opened", trigger the door
 	if (m_Door != NULL && !m_Door->IsOpen())
 	{
-		m_Door->OpenDoor(true);
+		m_Door->OpenDoor(false);
 	}
 
 	// Let the handle return to its initial position
