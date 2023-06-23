@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2838 $
- * $Date: 2008-09-14 03:19:30 -0400 (Sun, 14 Sep 2008) $
+ * $Revision: 2839 $
+ * $Date: 2008-09-14 03:48:23 -0400 (Sun, 14 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2838 2008-09-14 07:19:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2839 2008-09-14 07:48:23Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8737,6 +8737,12 @@ void idEntity::Event_ChangeLootAmount(int lootType, int amount)
 
 void idEntity::Event_AddToInventory(idEntity* ent)
 {
+	if (ent == NULL || ent->spawnArgs.FindKey("inv_name") == NULL)
+	{
+		gameLocal.Warning("Cannot add entity %s without 'inv_name' spawnarg to inventory of %s", ent->name.c_str(), name.c_str());
+		return;
+	}
+
 	AddToInventory(ent);
 }
 
@@ -8749,7 +8755,6 @@ CInventoryItemPtr idEntity::AddToInventory(idEntity *ent, idUserInterface* _hud)
 	idStr invName;
 	if (!ent->spawnArgs.GetString("inv_name", "", invName))
 	{
-		gameLocal.Warning("Cannot add entity %s without 'inv_name' spawnarg to inventory of %s", ent->name.c_str(), name.c_str());
 		return CInventoryItemPtr(); // not an inventory item
 	}
 
