@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2240 $
- * $Date: 2008-04-28 16:00:22 -0400 (Mon, 28 Apr 2008) $
+ * $Revision: 3029 $
+ * $Date: 2008-11-15 00:25:12 -0500 (Sat, 15 Nov 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 2240 2008-04-28 20:00:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 3029 2008-11-15 05:25:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -88,7 +88,27 @@ idProjectile::Spawn
 */
 void idProjectile::Spawn( void ) {
 	physicsObj.SetSelf( this );
-	physicsObj.SetClipModel( new idClipModel( GetPhysics()->GetClipModel() ), 1.0f );
+
+	if (!GetPhysics()->GetClipModel()->IsTraceModel())
+	{
+		// greebo: Clipmodel is not a trace model, try to construct it from the collision mesh
+		idTraceModel traceModel;
+
+		if ( !collisionModelManager->TrmFromModel( spawnArgs.GetString("model"), traceModel ) )
+		{
+			gameLocal.Error( "idProjectile '%s': cannot load tracemodel from %s", name.c_str(), spawnArgs.GetString("model") );
+			return;
+		}
+
+		// Construct a new clipmodel from that loaded tracemodel
+		physicsObj.SetClipModel(new idClipModel(traceModel), 1);
+	}
+	else
+	{
+		// Use the existing clipmodel, it's good enough
+		physicsObj.SetClipModel( new idClipModel( GetPhysics()->GetClipModel() ), 1.0f );
+	}
+	
 	physicsObj.SetContents( 0 );
 	physicsObj.SetClipMask( 0 );
 	physicsObj.PutToRest();
