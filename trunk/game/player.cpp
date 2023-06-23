@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3102 $
- * $Date: 2009-01-01 16:07:15 -0500 (Thu, 01 Jan 2009) $
+ * $Revision: 3103 $
+ * $Date: 2009-01-01 17:19:32 -0500 (Thu, 01 Jan 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3102 2009-01-01 21:07:15Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3103 2009-01-01 22:19:32Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5912,6 +5912,8 @@ void idPlayer::AdjustSpeed( void )
 		// Clamp to encumbrance limits:
 		if( speed > MaxSpeed )
 			speed = MaxSpeed;
+		if( crouchspeed > MaxSpeed )
+			crouchspeed = MaxSpeed;
 	}
 	// standing still, walking, or creeping case
 	else 
@@ -5931,6 +5933,8 @@ void idPlayer::AdjustSpeed( void )
 		// Clamp to encumbrance limits:
 		if( speed > MaxSpeed )
 			speed = MaxSpeed;
+		if( crouchspeed > MaxSpeed )
+			crouchspeed = MaxSpeed;
 	}
 
 	// TDM: leave this in for speed potions or something
