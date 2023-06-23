@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2784 $
- * $Date: 2008-08-31 11:56:41 -0400 (Sun, 31 Aug 2008) $
+ * $Revision: 2785 $
+ * $Date: 2008-08-31 12:54:29 -0400 (Sun, 31 Aug 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 2784 2008-08-31 15:56:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 2785 2008-08-31 16:54:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9840,17 +9840,8 @@ void idPlayer::FrobCheck( void )
 
 int idPlayer::GetImmobilization( const char *source )
 {
-	int returnVal = 0;
-
-	if (idStr::Length(source)) 
-	{
-		returnVal = m_immobilization.GetInt(source);
-	} else 
-	{
-		returnVal = GetImmobilization();
-	}
-
-	return returnVal;
+	// greebo: Return named immobilizations or return the sum of all immobilizations
+	return (idStr::Length(source) > 0) ? m_immobilization.GetInt(source) : GetImmobilization();
 }
 
 void idPlayer::SetImmobilization( const char *source, int type )
@@ -9860,7 +9851,7 @@ void idPlayer::SetImmobilization( const char *source, int type )
 		// The user cannot set the update bit directly.
 		type &= ~EIM_UPDATE;
 
-		if (type)
+		if (type != 0)
 		{
 			m_immobilization.SetInt( source, type );
 		}
@@ -9879,64 +9870,53 @@ void idPlayer::SetImmobilization( const char *source, int type )
 
 void idPlayer::SetHinderance( const char *source, float mCap, float aCap )
 {
-	if (idStr::Length(source)) {
-
-		if ( mCap < 0.0f ) {
-			mCap = 0.0f;
-			gameLocal.Warning( "mCap < 0; mCap set to 0\n" );
-		} else if ( mCap > 1.0f ) {
-			mCap = 1.0f;
-			gameLocal.Warning( "mCap > 1; mCap set to 1\n" );
+	if (idStr::Length(source))
+	{
+		// Clamp the values to [0,1]
+		mCap = idMath::ClampFloat(0, 1, mCap);
+		aCap = idMath::ClampFloat(0, 1, aCap);
+		
+		if (mCap < 1.0f || aCap < 1.0f)
+		{
+			// Store the values into a vector and into the hinderance dictionary
+			m_hinderance.SetVector( source, idVec3(mCap, aCap, 0.0f) );
 		}
-		if ( aCap < 0.0f ) {
-			aCap = 0.0f;
-			gameLocal.Warning( "aCap < 0; aCap set to 0\n" );
-		} else if ( aCap > 1.0f ) {
-			aCap = 1.0f;
-			gameLocal.Warning( "aCap > 1; aCap set to 1\n" );
-		}
-
-		if ( mCap < 1.0f || aCap < 1.0f ) {
-			idVec3 vec( mCap, aCap, 0.0f );
-			m_hinderance.SetVector( source, vec );
-		} else {
+		else
+		{
+			// greebo: Both values are 1 == no hinderance, delete the value
 			m_hinderance.Delete( source );
 		}
 
 		m_hinderanceCache = -1;
-	} else {
+	}
+	else
+	{
 		gameLocal.Warning( "source was empty; no hinderance set\n" );
 	}
 }
 
 void idPlayer::SetTurnHinderance( const char *source, float mCap, float aCap )
 {
-	if (idStr::Length(source)) {
+	if (idStr::Length(source))
+	{
+		// Clamp the values to [0,1]
+		mCap = idMath::ClampFloat(0, 1, mCap);
+		aCap = idMath::ClampFloat(0, 1, aCap);
 
-		if ( mCap < 0.0f ) {
-			mCap = 0.0f;
-			gameLocal.Warning( "mCap < 0; mCap set to 0\n" );
-		} else if ( mCap > 1.0f ) {
-			mCap = 1.0f;
-			gameLocal.Warning( "mCap > 1; mCap set to 1\n" );
+		if (mCap < 1.0f || aCap < 1.0f)
+		{
+			// Store the values into a vector and into the hinderance dictionary
+			m_TurnHinderance.SetVector( source, idVec3(mCap, aCap, 0.0f) );
 		}
-		if ( aCap < 0.0f ) {
-			aCap = 0.0f;
-			gameLocal.Warning( "aCap < 0; aCap set to 0\n" );
-		} else if ( aCap > 1.0f ) {
-			aCap = 1.0f;
-			gameLocal.Warning( "aCap > 1; aCap set to 1\n" );
-		}
-
-		if ( mCap < 1.0f || aCap < 1.0f ) {
-			idVec3 vec( mCap, aCap, 0.0f );
-			m_TurnHinderance.SetVector( source, vec );
-		} else {
+		else
+		{
 			m_TurnHinderance.Delete( source );
 		}
 
 		m_TurnHinderanceCache = -1;
-	} else {
+	}
+	else
+	{
 		gameLocal.Warning( "source was empty; no turn hinderance set\n" );
 	}
 }
