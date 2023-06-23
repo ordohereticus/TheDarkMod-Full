@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2352 $
- * $Date: 2008-05-16 14:22:18 -0400 (Fri, 16 May 2008) $
+ * $Revision: 2362 $
+ * $Date: 2008-05-17 10:12:49 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2352 2008-05-16 18:22:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2362 2008-05-17 14:12:49Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1879,6 +1879,13 @@ void idAI::Think( void )
 			gameRenderWorld->DrawText(va("%d", areaNum), areaCenter, 0.2f, colorGreen, playerViewMatrix, 1, gameLocal.msec);
 			gameRenderWorld->DebugBox(colorGreen, idBox(areaBounds), gameLocal.msec);
 		}
+	}
+
+	if (cv_ai_elevator_show.GetBool())
+	{
+		idMat3 playerViewMatrix(gameLocal.GetLocalPlayer()->viewAngles.ToMat3());
+
+		gameRenderWorld->DrawText(m_HandlingElevator ? "Elevator" : "---", physicsObj.GetOrigin(), 0.2f, m_HandlingElevator ? colorRed : colorGreen, playerViewMatrix, 1, gameLocal.msec);
 	}
 
 	m_lastThinkTime = gameLocal.time;

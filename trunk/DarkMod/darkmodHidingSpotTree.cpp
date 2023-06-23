@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1807 $
- * $Date: 2007-11-17 05:57:30 -0500 (Sat, 17 Nov 2007) $
+ * $Revision: 2362 $
+ * $Date: 2008-05-17 10:12:49 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 1807 2007-11-17 10:57:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkmodHidingSpotTree.cpp 2362 2008-05-17 14:12:49Z greebo $", init_version);
 
 #include "darkmodHidingSpotTree.h"
 
@@ -291,12 +291,14 @@ bool CDarkmodHidingSpotTree::determineSpotRedundancy
 		return false;
 	}
 
+	float redundancyDistSqr = redundancyDistance*redundancyDistance;
+
 	// Compare distance with other points in the area
 	for (int i = 0; i < p_areaNode->spots.Num(); i++)
 	{
 		// Compute distance
 		idVec3 distanceVec = goal.origin - p_areaNode->spots[i]->goal.origin;
-		if (distanceVec.LengthFast() <= redundancyDistance)
+		if (distanceVec.LengthSqr() <= redundancyDistance)
 		{
 			// This point is redundant, should combine.
 			p_areaNode->spots[i]->hidingSpotTypes |= hidingSpotTypes;
@@ -440,7 +442,10 @@ bool CDarkmodHidingSpotTree::insertHidingSpot
 		// and move the current occupier to the end.
 		int randomLocation = gameLocal.random.RandomInt(spotList.Num());
 
-		spotList.Append( spotList[randomLocation] );
+		// greebo: Important: Don't do this: spotList.Append( spotList[randomLocation] )!
+		// Copy the old pointer beforehand to avoid references to invalid memory
+		darkModHidingSpot* oldSpot = spotList[randomLocation];
+		spotList.Append( oldSpot );
 		spotList[randomLocation] = p_spot;
 	}
 	else

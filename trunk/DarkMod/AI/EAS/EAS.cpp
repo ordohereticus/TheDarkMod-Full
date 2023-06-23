@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2357 $
- * $Date: 2008-05-17 03:23:14 -0400 (Sat, 17 May 2008) $
+ * $Revision: 2362 $
+ * $Date: 2008-05-17 10:12:49 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 2357 2008-05-17 07:23:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 2362 2008-05-17 14:12:49Z greebo $", init_version);
 
 #include "EAS.h"
 
@@ -616,6 +616,11 @@ bool tdmEAS::FindRouteToGoal(aasPath_t &path, int areaNum, const idVec3 &origin,
 	if (!routes.empty())
 	{
 		const RouteInfoPtr& route = *routes.begin();
+
+		if (route->routeNodes.size() < 2) {
+			// Valid routes have at least two nodes
+			return false;
+		}
 
 		// Notify the AI that it needs to use an elevator
 		actor->NeedToUseElevator(route);

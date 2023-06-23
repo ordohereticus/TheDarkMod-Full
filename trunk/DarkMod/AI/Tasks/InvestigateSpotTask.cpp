@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 2362 $
+ * $Date: 2008-05-17 10:12:49 -0400 (Sat, 17 May 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 2362 2008-05-17 14:12:49Z greebo $", init_version);
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -80,7 +80,7 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 	
 	// No exit time set, continue with ordinary process
 
-	if (owner->AI_MOVE_DONE && !owner->m_HandlingDoor)
+	if (owner->AI_MOVE_DONE && !owner->m_HandlingDoor && !owner->m_HandlingElevator)
 	{
 		if (owner->AI_DEST_UNREACHABLE)
 		{
