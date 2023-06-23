@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2825 $
- * $Date: 2008-09-13 09:04:08 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2827 $
+ * $Date: 2008-09-13 12:38:21 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 2825 2008-09-13 13:04:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 2827 2008-09-13 16:38:21Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8866,20 +8866,21 @@ void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCate
 			{
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty item from category.\r");
 				// Stackable item count reached zero, remove item from category
-				category->removeItem(item);
+				category->RemoveItem(item);
 				// Advance the cursor (after removal, otherwise we stick to an invalid id)
 				InventoryCursor()->GetNextItem();
 			}
 			
 			// Check for empty categories after the item has been removed
-			if (category->isEmpty()) 
+			if (category->IsEmpty()) 
 			{
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Removing empty inventory category.\r");
 				// Remove category from inventory
 				InventoryCursor()->Inventory()->RemoveCategory(category);
 				// Switch the cursor to the next category (after removal)
 				category = InventoryCursor()->GetNextCategory();
-				if (category != NULL && category->isEmpty()) 
+
+				if (category != NULL && category->IsEmpty()) 
 				{
 					// We have an empty category, set the cursor to the dummy item
 					InventoryCursor()->SetCurrentItem(TDM_DUMMY_ITEM);

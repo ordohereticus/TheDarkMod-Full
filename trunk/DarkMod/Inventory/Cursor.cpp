@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2826 $
- * $Date: 2008-09-13 09:53:52 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 2827 $
+ * $Date: 2008-09-13 12:38:21 -0400 (Sat, 13 Sep 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Cursor.cpp 2826 2008-09-13 13:53:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Cursor.cpp 2827 2008-09-13 16:38:21Z greebo $", init_version);
 
 #include "Cursor.h"
 
@@ -130,7 +130,7 @@ CInventoryItem* CInventoryCursor::GetNextItem()
 	m_CurrentItem++;
 
 	// Have we reached the end of the current category?
-	if (m_CurrentItem >= curCategory->size())
+	if (m_CurrentItem >= curCategory->GetNumItems())
 	{
 		// Advance to the next allowed category
 		curCategory = GetNextCategory();
@@ -141,7 +141,7 @@ CInventoryItem* CInventoryCursor::GetNextItem()
 		}
 		else
 		{
-			m_CurrentItem = curCategory->size() - 1;
+			m_CurrentItem = curCategory->GetNumItems() - 1;
 		}
 	}
 
@@ -167,7 +167,7 @@ CInventoryItem *CInventoryCursor::GetPrevItem()
 
 		if (m_WrapAround)
 		{
-			m_CurrentItem = curCategory->size() - 1;
+			m_CurrentItem = curCategory->GetNumItems() - 1;
 		}
 		else 
 		{
