@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3124 $
- * $Date: 2009-01-07 11:35:28 -0500 (Wed, 07 Jan 2009) $
+ * $Revision: 3125 $
+ * $Date: 2009-01-07 12:30:24 -0500 (Wed, 07 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3124 2009-01-07 16:35:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3125 2009-01-07 17:30:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1128,11 +1128,11 @@ void idPlayer::SetupInventory()
 
 	// give the player weapon ammo based on shop purchases
 	CInventoryCategoryPtr category = m_WeaponCursor->GetCurrentCategory();
-	idList<CShopItem*>* startingItems = gameLocal.m_Shop->GetPlayerItems();
+	idList<CShopItemPtr> startingItems = gameLocal.m_Shop->GetPlayerItems();
 
-	for (int si = 0; si < startingItems->Num(); si++)
+	for (int si = 0; si < startingItems.Num(); si++)
 	{
-		CShopItem *shopItem = (*startingItems)[si];
+		const CShopItemPtr& shopItem = startingItems[si];
 		idStr weaponName = shopItem->GetID();
 
 		if (idStr::Cmpn(weaponName, "weapon_", 7) == 0)
@@ -1195,9 +1195,10 @@ void idPlayer::SetupInventory()
 	lootItem->SetType(CInventoryItem::IT_LOOT_INFO);
 	
 	// Give player non-weapon items obtained from the Shop
-	for (int si = 0; si < startingItems->Num(); si++)
+	for (int si = 0; si < startingItems.Num(); si++)
 	{
-		CShopItem * item = (*startingItems)[si];
+		const CShopItemPtr& item = startingItems[si];
+
 		const char * weaponName = item->GetID();
 		const idDict *itemDict = gameLocal.FindEntityDefDict(weaponName, true);
 		int count = item->GetCount();
@@ -1218,8 +1219,6 @@ void idPlayer::SetupInventory()
 			invItem->SetPersistent(item->GetPersistent());
 		}
 	}
-
-	delete startingItems;
 }
 
 

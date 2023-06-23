@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3121 $
- * $Date: 2009-01-06 12:36:40 -0500 (Tue, 06 Jan 2009) $
+ * $Revision: 3125 $
+ * $Date: 2009-01-07 12:30:24 -0500 (Wed, 07 Jan 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -705,6 +705,8 @@ public:
 	 * that the m_mapFile member holds the named map. No action is taken
 	 * when the member already held the map with that name to avoid
 	 * loading the same data twice.
+	 *
+	 * Note: the caller must not free the map using "delete".
 	 */
 	idMapFile* LoadMap(const idStr& mapFileName);
 
