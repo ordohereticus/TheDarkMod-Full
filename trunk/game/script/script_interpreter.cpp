@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2424 $
- * $Date: 2008-06-02 14:50:52 -0400 (Mon, 02 Jun 2008) $
- * $Author: tels $
+ * $Revision: 2428 $
+ * $Date: 2008-06-02 16:23:17 -0400 (Mon, 02 Jun 2008) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_interpreter.cpp 2424 2008-06-02 18:50:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: script_interpreter.cpp 2428 2008-06-02 20:23:17Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -456,7 +456,7 @@ idInterpreter::Warning
 Prints file and line number information with warning.
 ============
 */
-void idInterpreter::Warning( char *fmt, ... ) const {
+void idInterpreter::Warning( const char *fmt, ... ) const {
 	va_list argptr;
 	char	text[ 1024 ];
 
