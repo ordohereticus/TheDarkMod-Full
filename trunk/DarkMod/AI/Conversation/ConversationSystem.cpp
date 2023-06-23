@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2653 $
- * $Date: 2008-07-13 10:46:03 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 2654 $
+ * $Date: 2008-07-13 11:01:47 -0400 (Sun, 13 Jul 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2653 2008-07-13 14:46:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationSystem.cpp 2654 2008-07-13 15:01:47Z greebo $", init_version);
 
 #include "ConversationSystem.h"
 
@@ -20,6 +20,7 @@ namespace ai {
 
 void ConversationSystem::Clear()
 {
+	_conversations.Clear();
 }
 
 void ConversationSystem::Init(idMapFile* mapFile)
@@ -50,12 +51,26 @@ void ConversationSystem::Init(idMapFile* mapFile)
 
 void ConversationSystem::Save(idSaveGame* savefile) const
 {
-	// TODO
+	savefile->WriteInt(_conversations.Num());
+	for (int i = 0; i < _conversations.Num(); i++)
+	{
+		_conversations[i]->Save(savefile);
+	}
 }
 
 void ConversationSystem::Restore(idRestoreGame* savefile)
 {
-	// TODO
+	_conversations.Clear();
+
+	int num;
+	savefile->ReadInt(num);
+	_conversations.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		// Allocate a new conversation and restore it
+		_conversations[i] = ConversationPtr(new Conversation);
+		_conversations[i]->Restore(savefile);
+	}
 }
 
 void ConversationSystem::LoadConversationEntity(idMapEntity* entity)
