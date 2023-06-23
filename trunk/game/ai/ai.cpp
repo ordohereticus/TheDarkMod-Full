@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2463 $
- * $Date: 2008-06-08 11:56:15 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 2464 $
+ * $Date: 2008-06-08 15:06:42 -0400 (Sun, 08 Jun 2008) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 2463 2008-06-08 15:56:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 2464 2008-06-08 19:06:42Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3208,6 +3208,8 @@ idAI::LookForCover
 */
 bool idAI::LookForCover(aasGoal_t& hideGoal,idEntity *hideFromEnt, const idVec3 &hideFromPos) 
 {
+	if (aas == NULL) return false;
+
 	idBounds bounds;
 	aasObstacle_t obstacle;
 
