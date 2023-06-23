@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2452 $
+ * $Date: 2008-06-07 18:41:59 -0400 (Sat, 07 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponse.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponse.cpp 2452 2008-06-07 22:41:59Z tels $", init_version);
 
 #include "StimResponse.h"
 
@@ -18,7 +18,7 @@ static bool init_version = FileVersionList("$Id: StimResponse.cpp 2338 2008-05-1
 // they have special meanings. This array allows us to reuse
 // the name in the key in the entity definition for the 
 // predefined stim/responses instead of their numerical values.
-char *cStimType[] = {
+const char *cStimType[] = {
 	"STIM_FROB",
 	"STIM_FIRE",
 	"STIM_WATER",

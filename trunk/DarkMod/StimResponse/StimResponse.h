@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 2452 $
+ * $Date: 2008-06-07 18:41:59 -0400 (Sat, 07 Jun 2008) $
+ * $Author: tels $
  *
  ***************************************************************************/
 #ifndef SR_STIMRESPONSE__H
 #define SR_STIMRESPONSE__H
 
-extern char *cStimType[];
+extern const char *cStimType[];
 
 // If default stims are to be added here, the static array in the CPP file
 // also must be updated. USER and UNDEFINED are not to be added though, as
