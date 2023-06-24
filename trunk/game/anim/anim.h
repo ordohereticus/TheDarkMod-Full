@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3869 $
- * $Date: 2010-04-12 09:03:51 -0400 (Mon, 12 Apr 2010) $
+ * $Revision: 3870 $
+ * $Date: 2010-04-12 12:01:21 -0400 (Mon, 12 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -152,7 +152,7 @@ typedef enum {
 /**
 * Tels: Detach and destroy the named attachement
 **/
-	FC_DETACH,
+	FC_DESTROY,
 /**
 * Tels: Detach and drop the named attachement
 **/

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3869 $
- * $Date: 2010-04-12 09:03:51 -0400 (Mon, 12 Apr 2010) $
+ * $Revision: 3870 $
+ * $Date: 2010-04-12 12:01:21 -0400 (Mon, 12 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3869 2010-04-12 13:03:51Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3870 2010-04-12 16:01:21Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -648,13 +648,13 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		}
 	}
 	// tels:
-	else if ( token == "detach" ) 
+	else if ( token == "destroy" ) 
 	{
 		// first argument (attachment name)
 		if( !src.ReadTokenOnLine( &token ) )
 			return "Unexpected end of line";
 
-		fc.type = FC_DETACH;
+		fc.type = FC_DESTROY;
 		fc.string = new idStr( token );
 	}
 	// tels:
@@ -1123,7 +1123,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					break;
 				}
 				// tels: detach and destroy an attachment
-				case FC_DETACH:
+				case FC_DESTROY:
 				{
 					// get the attachment
 					idEntity* AttEntity = ent->GetAttachment( command.string->c_str() );
