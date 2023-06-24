@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3580 $
- * $Date: 2009-07-25 09:43:16 -0400 (Sat, 25 Jul 2009) $
+ * $Revision: 3581 $
+ * $Date: 2009-07-25 09:45:55 -0400 (Sat, 25 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3580 2009-07-25 13:43:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3581 2009-07-25 13:45:55Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -661,9 +661,9 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 					const idVec3& otherOrigin = otherAI->GetPhysics()->GetOrigin();
 					idVec3 dir = origin - otherOrigin;
 					dir.z = 0;
-					float dist = dir.LengthFast();
+					float distSqr = dir.LengthSqr();
 
-					if (dist <= 400)
+					if (distSqr <= Square(230))
 					{
 						if (owner->CheckFOV(otherAI->GetEyePosition()) && otherAI->CheckFOV(owner->GetEyePosition()))
 						{
