@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3248 $
- * $Date: 2009-03-14 21:38:57 -0400 (Sat, 14 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3287 $
+ * $Date: 2009-03-22 08:20:41 -0400 (Sun, 22 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3248 2009-03-15 01:38:57Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3287 2009-03-22 12:20:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -683,7 +683,6 @@ void idActor::Spawn( void )
 	spawnArgs.GetInt( "type", "0", m_AItype );
 	spawnArgs.GetBool( "innocent", "0", m_Innocent );
 	spawnArgs.GetVector("offsetModel", "0 0 0", modelOffset);
-	spawnArgs.GetVector("offsetHeadModel", "0 0 0", mHeadModelOffset);
 
 	spawnArgs.GetBool( "use_combat_bbox", "0", use_combat_bbox );	
 
@@ -870,6 +869,9 @@ void idActor::SetupHead()
 		// otherwise there is no offset at all.
 		mHeadModelOffset = spawnArgs.GetVector(headModelDefName, "0 0 0");
 
+		// greebo: Regardless what happens, the offsetHeadModel vector always gets added to the offset
+		mHeadModelOffset += spawnArgs.GetVector("offsetHeadModel", "0 0 0");
+
 		idStr jointName = spawnArgs.GetString( "head_joint" );
 		jointHandle_t joint = animator.GetJointHandle( jointName );
 		if ( joint == INVALID_JOINT ) {
@@ -1046,6 +1048,7 @@ void idActor::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat( m_fovDotVert );
 	savefile->WriteVec3( eyeOffset );
 	savefile->WriteVec3( modelOffset );
+	savefile->WriteVec3(mHeadModelOffset);
 	savefile->WriteAngles( deltaViewAngles );
 
 	savefile->WriteInt( pain_debounce_time );
@@ -1215,6 +1218,7 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( m_fovDotVert );
 	savefile->ReadVec3( eyeOffset );
 	savefile->ReadVec3( modelOffset );
+	savefile->ReadVec3(mHeadModelOffset);
 	savefile->ReadAngles( deltaViewAngles );
 
 	savefile->ReadInt( pain_debounce_time );
