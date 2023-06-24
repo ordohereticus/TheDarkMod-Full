@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3597 $
- * $Date: 2009-07-27 02:24:18 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3615 $
+ * $Date: 2009-07-30 01:41:47 -0400 (Thu, 30 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3597 2009-07-27 06:24:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3615 2009-07-30 05:41:47Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -169,6 +169,7 @@ idCVar cv_tdm_crouch_jump_vel(			"tdm_crouch_jump_vel",			"0.5",			CVAR_FLOAT, "
 idCVar cv_tdm_min_vel_jump(				"tdm_min_vel_jump",				"0.0",			CVAR_FLOAT, "The minimum speed before cv_tdm_run_jump_vel is used" );
 idCVar cv_tdm_fwd_jump_vel(				"tdm_fwd_jump_vel",				"50.0",			CVAR_FLOAT, "Forward vector multiple for jumping" );
 
+idCVar cv_tdm_footfalls_movetype_specific( "tdm_footfalls_movetype_specific", "0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to use move-type dependent foot fall sounds." );
 
 // Dark Mod crouching
 idCVar cv_tdm_crouch_toggle(			"tdm_toggle_crouch",			"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to make crouching toggleable." );
