@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3521 $
- * $Date: 2009-07-05 11:48:04 -0400 (Sun, 05 Jul 2009) $
- * $Author: tels $
+ * $Revision: 3588 $
+ * $Date: 2009-07-26 09:10:17 -0400 (Sun, 26 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3521 2009-07-05 15:48:04Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3588 2009-07-26 13:10:17Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1658,7 +1658,8 @@ void CMissionData::LoadDirectlyFromMapFile(idMapFile* mapFile)
 
 		idStr classname = mapDict.GetString("classname");
 
-		if (classname != "target_tdm_addobjectives") {
+		if (classname != "target_tdm_addobjectives" && classname != "atdm:target_addobjectives")
+		{
 			continue; // not the right entity
 		}
 
