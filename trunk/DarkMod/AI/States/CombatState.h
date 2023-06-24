@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3856 $
- * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3868 $
+ * $Date: 2010-03-26 02:18:04 -0400 (Fri, 26 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -30,6 +30,9 @@ protected:
 
 	ECombatType _combatType;
 
+	// When end time is set, the state is just waiting to be finished
+	// and is not performing any routines anymore
+	int _endTime;
 
 public:
 	// Get the name of this state
