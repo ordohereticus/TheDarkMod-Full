@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3710 $
- * $Date: 2009-09-24 07:26:36 -0400 (Thu, 24 Sep 2009) $
+ * $Revision: 3716 $
+ * $Date: 2009-10-03 23:57:04 -0400 (Sat, 03 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3710 2009-09-24 11:26:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3716 2009-10-04 03:57:04Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -335,6 +335,7 @@ idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo",
 idCVar cv_tdm_s_doorDistanceAdd("tdm_s_doorDistanceAdd", "450", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite s_doorDistanceAdd at game startup.");
 idCVar cv_tdm_gui_smallFontLimit("tdm_gui_smallFontLimit", "0.15", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite gui_smallFontLimit at game startup.");
 idCVar cv_tdm_gui_mediumFontLimit("tdm_gui_mediumFontLimit", "0.30", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite gui_mediumFontLimit at game startup.");
+idCVar cv_tdm_s_maxSoundsPerShader("tdm_s_maxSoundsPerShader", "0", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite s_maxSoundsPerShader at game startup (unless this set to -1).");
 
 /**
  * Variables needed for lockpicking.
