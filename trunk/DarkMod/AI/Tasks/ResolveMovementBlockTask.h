@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3639 $
- * $Date: 2009-08-03 10:31:08 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3641 $
+ * $Date: 2009-08-04 10:27:22 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,11 +25,23 @@ class ResolveMovementBlockTask :
 	public Task
 {
 private:
+	// The "masterAI" is the one who wants to pass
+	idAI* _masterAI;
+
+	// The angles we had when starting this task
+	idAngles _initialAngles;
+
+	int _preTaskContents;
+
+	int _endTime;
 
 	// Default constructor
 	ResolveMovementBlockTask();
 
 public:
+	// The "masterAI" is the one who wants to pass
+	ResolveMovementBlockTask(idAI* masterAI);
+
 	// Get the name of this task
 	virtual const idStr& GetName() const;
 
@@ -37,6 +49,8 @@ public:
 	virtual void Init(idAI* owner, Subsystem& subsystem);
 
 	virtual bool Perform(Subsystem& subsystem);
+
+	virtual void OnFinish(idAI* owner);
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;

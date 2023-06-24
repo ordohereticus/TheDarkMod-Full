@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3639 $
- * $Date: 2009-08-03 10:31:08 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3641 $
+ * $Date: 2009-08-04 10:27:22 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3639 2009-08-03 14:31:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3641 2009-08-04 14:27:22Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -18,6 +18,7 @@ static bool init_version = FileVersionList("$Id: State.cpp 3639 2009-08-03 14:31
 #include "../Tasks/GreetingBarkTask.h"
 #include "../Tasks/HandleDoorTask.h"
 #include "../Tasks/HandleElevatorTask.h"
+#include "../Tasks/ResolveMovementBlockTask.h"
 #include "../../AIComm_Message.h"
 #include "../../StimResponse/StimResponse.h"
 #include "SearchingState.h"
@@ -1224,6 +1225,11 @@ void State::OnMovementBlocked(idAI* owner)
 	}
 
 	// Do something against this blocking entity, depending on its type
+	if (ent->IsType(idAFAttachment::Type))
+	{
+		// This ought to be an AI's head, get its body
+		ent = static_cast<idAFAttachment*>(ent)->GetBody();
+	}
 
 	if (ent->IsType(idAI::Type))
 	{
@@ -1243,7 +1249,8 @@ void State::OnMovementBlocked(idAI* owner)
 			std::swap(master, slave);
 		}
 
-		
+		// Tell the slave to get out of the way
+		slave->movementSubsystem->PushTask(TaskPtr(new ResolveMovementBlockTask(master)));
 	}
 	else if (ent->IsType(idStaticEntity::Type))
 	{
