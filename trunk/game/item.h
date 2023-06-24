@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
- * $Author: angua $
+ * $Revision: 3907 $
+ * $Date: 2010-05-27 00:12:08 -0400 (Thu, 27 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -112,26 +112,6 @@ private:
 	int						type;
 };
 
-class idObjective : public idItem {
-public:
-	CLASS_PROTOTYPE( idObjective );
-
-							idObjective();
-
-	void					Save( idSaveGame *savefile ) const;
-	void					Restore( idRestoreGame *savefile );
-
-	void					Spawn();
-
-private:
-	idVec3					playerPos;
-
-	void					Event_Trigger( idEntity *activator );
-	void					Event_HideObjective( idEntity *e );
-	void					Event_GetPlayerPos();
-	void					Event_CamShot();
-};
-
 class idVideoCDItem : public idItem {
 public:
 	CLASS_PROTOTYPE( idVideoCDItem );
@@ -207,25 +187,6 @@ public:
 
 private:
 	void					Event_Trigger( idEntity *activator );
-};
-
-class idObjectiveComplete : public idItemRemover {
-public:
-	CLASS_PROTOTYPE( idObjectiveComplete );
-
-							idObjectiveComplete();
-
-	void					Save( idSaveGame *savefile ) const;
-	void					Restore( idRestoreGame *savefile );
-
-	void					Spawn();
-
-private:
-	idVec3					playerPos;
-
-	void					Event_Trigger( idEntity *activator );
-	void					Event_HideObjective( idEntity *e );
-	void					Event_GetPlayerPos();
 };
 
 #endif /* !__GAME_ITEM_H__ */
