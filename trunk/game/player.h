@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3436 $
- * $Date: 2009-05-09 03:35:38 -0400 (Sat, 09 May 2009) $
+ * $Revision: 3721 $
+ * $Date: 2009-10-23 18:58:43 -0400 (Fri, 23 Oct 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -321,6 +321,13 @@ public:
 	* Player's current/last mouse gesture:
 	**/
 	SMouseGesture			m_MouseGesture;
+
+	/** 
+	* Ishtvan: The target that we initially started pressing frob on
+	* keep track of this for things that react to frob held, so we don't
+	* move from one target to another without first letting go of frob
+	**/
+	idEntityPtr<idEntity>	m_FrobPressedTarget;
 
 	/**
 	* Set to true if the player is holding an item with the Grabber
@@ -777,15 +784,17 @@ public:
 	 * 
 	 * @impulseState: the button state of the frob key. Pass EPressed if you
 	 * want to simulate a one-time frob event.
+	 *
+	 * Hold time: The amount of time the button has been held, if applicable (0 by default)
 	 */
 	void					PerformFrob(EImpulseState impulseState, idEntity* frobbed);
 
 	// Gets called when the player hits the frob button.
 	void					PerformFrob();
 	// Gets repeatedly called when the player holds down the frob button
-	void					PerformFrobKeyRepeat();
+	void					PerformFrobKeyRepeat(int holdTime);
 	// Gets called when the player releases the frob button
-	void					PerformFrobKeyRelease();
+	void					PerformFrobKeyRelease(int holdTime);				
 
 
 	// angua: Set ideal crouch state

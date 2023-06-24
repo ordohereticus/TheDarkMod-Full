@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3707 $
- * $Date: 2009-09-19 11:03:36 -0400 (Sat, 19 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3721 $
+ * $Date: 2009-10-23 18:58:43 -0400 (Fri, 23 Oct 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3707 2009-09-19 15:03:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3721 2009-10-23 22:58:43Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -463,6 +463,7 @@ idPlayer::idPlayer() :
 	isChatting				= false;
 	selfSmooth				= false;
 
+	m_FrobPressedTarget		= NULL;
 	m_bGrabberActive		= false;
 	m_bDraggingBody			= false;
 	m_bShoulderingBody		= false;
@@ -1336,6 +1337,7 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 
 	// Mouse gesture
 	m_MouseGesture.Save( savefile );
+	m_FrobPressedTarget.Save( savefile );
 
 	savefile->WriteInt( buttonMask );
 	savefile->WriteInt( oldButtons );
@@ -1630,6 +1632,8 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	spawnAnglesSet = true;
 
 	m_MouseGesture.Restore( savefile );
+	
+	m_FrobPressedTarget.Restore( savefile );
 
 	savefile->ReadInt( buttonMask );
 	savefile->ReadInt( oldButtons );
@@ -5719,7 +5723,7 @@ void idPlayer::PerformKeyRepeat(int impulse, int holdTime)
 
 		case IMPULSE_41:		// TDM Use/Frob
 		{
-			PerformFrobKeyRepeat();
+			PerformFrobKeyRepeat(holdTime);
 		}
 		break;
 
@@ -5764,7 +5768,7 @@ void idPlayer::PerformKeyRelease(int impulse, int holdTime)
 
 		case IMPULSE_41:		// TDM Use/Frob
 		{
-			PerformFrobKeyRelease();
+			PerformFrobKeyRelease(holdTime);
 		}
 		break;
 
@@ -6902,6 +6906,13 @@ void idPlayer::Think( void )
 	if (usercmd.upmove < 0)
 	{
 		usercmd.upmove = 0;
+	}
+
+	// greebo: Check always run
+	if (cvarSystem->GetCVarBool("in_alwaysRun"))
+	{
+		// Always run active, invert the behaviour, user has to hold down button to walk
+		usercmd.buttons ^= BUTTON_RUN;
 	}
 
 	if( !AI_PAIN )
@@ -10957,6 +10968,9 @@ void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("USE: frob target: %s \r", target->name.c_str());
 
+		// note which target we started pressing frob on
+		m_FrobPressedTarget = target;
+
 		// First we have to check whether that entity is an inventory 
 		// item. In that case, we have to add it to the inventory and
 		// hide the entity.
@@ -11015,7 +11029,7 @@ void idPlayer::PerformFrob()
 	PerformFrob(EPressed, frob);
 }
 
-void idPlayer::PerformFrobKeyRepeat()
+void idPlayer::PerformFrobKeyRepeat(int holdTime)
 {
 	// Ignore frobs if player-frobbing is immobilized.
 	if ( GetImmobilization() & EIM_FROB ) return;
@@ -11023,12 +11037,16 @@ void idPlayer::PerformFrobKeyRepeat()
 	// Get the currently frobbed entity
 	CDarkModPlayer* pDM = g_Global.m_DarkModPlayer;
 	idEntity* frob = pDM->m_FrobEntity.GetEntity();
+
+	// use the original target until frob is released and pressed again
+	if( m_FrobPressedTarget.IsValid() && m_FrobPressedTarget.GetEntity() != NULL )
+		m_FrobPressedTarget.GetEntity()->FrobHeld( true, false, holdTime );
 
 	// Relay the function to the specialised method
 	PerformFrob(ERepeat, frob);
 }
 
-void idPlayer::PerformFrobKeyRelease()
+void idPlayer::PerformFrobKeyRelease(int holdTime)
 {
 	// Ignore frobs if player-frobbing is immobilized.
 	if ( GetImmobilization() & EIM_FROB ) return;
@@ -11036,6 +11054,10 @@ void idPlayer::PerformFrobKeyRelease()
 	// Get the currently frobbed entity
 	CDarkModPlayer* pDM = g_Global.m_DarkModPlayer;
 	idEntity* frob = pDM->m_FrobEntity.GetEntity();
+
+	// use the original target until frob is released and pressed again
+	if( m_FrobPressedTarget.IsValid() && m_FrobPressedTarget.GetEntity() != NULL )
+		m_FrobPressedTarget.GetEntity()->FrobReleased( true, false, holdTime );
 
 	// Relay the function to the specialised method
 	PerformFrob(EReleased, frob);

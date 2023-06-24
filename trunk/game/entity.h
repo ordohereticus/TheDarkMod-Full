@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3656 $
- * $Date: 2009-08-07 09:17:40 -0400 (Fri, 07 Aug 2009) $
- * $Author: tels $
+ * $Revision: 3721 $
+ * $Date: 2009-10-23 18:58:43 -0400 (Fri, 23 Oct 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -658,6 +658,18 @@ public:
 	 * @isFrobPeerAction: this is TRUE if this frob action was propagated from a peer.
 	 */
 	virtual void FrobAction(bool frobMaster, bool isFrobPeerAction = false);
+
+	/**
+	* Function that is called if the player holds down the frob button on this object
+	* By default, does nothing
+	**/
+	virtual void FrobHeld(bool frobMaster, bool isFrobPeerAction = false, int holdTime = 0) {};
+
+	/**
+	* Function that is called if the player holds down the frob button on this object
+	* By default, does nothing
+	**/
+	virtual void FrobReleased(bool frobMaster, bool isFrobPeerAction = false, int holdTime = 0) {};
 
 	/**
 	 * greebo: A frobbed entity might receive this signal if the player is hitting

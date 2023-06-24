@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2404 $
- * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
+ * $Revision: 3720 $
+ * $Date: 2009-10-18 11:00:24 -0400 (Sun, 18 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -200,6 +200,8 @@ private:
 	 */
 	trace_t					collisionTrace;
 	bool					isBlocked;
+
+	bool					propagateImpulseLock;
 
 #ifdef MOD_WATERPHYSICS
 	// buoyancy
