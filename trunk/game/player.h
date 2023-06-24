@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3743 $
- * $Date: 2009-11-04 00:03:45 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 3745 $
+ * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -352,14 +352,6 @@ public:
 	* Read off by idEntity::UpdateFrob when something has been newly frobbed
 	**/
 	trace_t			m_FrobTrace;
-
-	/**
-	* Frob entity in the previous frame
-	* We need this to detect when something was frobbed but now is not
-	* Cannot rely on m_FrobEntity for this, because it could change to a new
-	* entity before the old entity is updated.
-	**/
-	idEntityPtr<idEntity>	m_FrobEntityPrevious;
 
 	/**
 	* Set to true if the player is holding an item with the Grabber

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3745 $
+ * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3745 2009-11-05 04:26:05Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2116,11 +2116,6 @@ void idEntity::Hide( void )
 			if (player->m_FrobEntity.GetEntity() == this)
 			{
 				player->m_FrobEntity = NULL;
-			}
-
-			if (player->m_FrobEntityPrevious.GetEntity() == this)
-			{
-				player->m_FrobEntityPrevious = NULL;
 			}
 		}
 
@@ -7433,55 +7428,28 @@ void idEntity::UpdateFrob(void)
 		return;
 	}
 
-	idPlayer* player = gameLocal.GetLocalPlayer();
-	if (player == NULL) return;
-
 	if( !m_bFrobbed )	
 	{
-		// Check if we just stopped being highlighted
-		// Some tricks here due to the fact that we don't know which will
-		// update first: The entity that used to be frobbed and now is not, or 
-		// a new entity that is now frobbed.
-
-		// If this is true, this entity is updating before the newly frobbed entity
-		if(player->m_FrobEntity.GetEntity() == this)
+		// The m_bFrobbed variable is FALSE, hence the player is not looking at this entity
+		// Check if we need to change our state
+		if (m_bFrobHighlightState)
 		{
-			player->m_FrobEntity = NULL;
-			player->m_FrobEntityPrevious = NULL;
-
-			// stop highlight, tell peers
-			FrobHighlight(false);
-		}
-		// Otherwise, we are updating AFTER the newly frobbed entity
-		// and should not set m_FrobEntity to NULL.
-		else if( player->m_FrobEntityPrevious.GetEntity() == this )
-		{
-			// if this one updates last, set the previous frob entity to 
-			// the newly frobbed ent for the next frame.
-			player->m_FrobEntityPrevious = player->m_FrobEntity.GetEntity();
-
 			// stop highlight, tell peers
 			FrobHighlight(false);
 		}
 
+		// Done, we're not frobbed, frobhighlight state is cleared
 		return;
 	}
 
-	// We are frobbed this frame
-	// set m_bFrobbed back to false for next frame
+	// The player is looking at this entity, clear m_bFrobbed for the next frame
 	m_bFrobbed = false;
 
-	// Check if we are newly frobbed this frame
-	if( player->m_FrobEntity.GetEntity() != this )
+	// Check if we are newly frob-highlighting this frame
+	if (!m_bFrobHighlightState)
 	{
-		player->m_FrobEntity = this;
+		// Change the highlight state to TRUE
 		FrobHighlight(true);
-
-		// again there's a trick here for syncronicity
-		// we don't want to overwrite it if the old frob entity has not updated yet,
-		// so if it's NULL, we know that old frob ent already updated.
-		if( player->m_FrobEntityPrevious.GetEntity() == NULL )
-			player->m_FrobEntityPrevious = this;
 	}
 }
 

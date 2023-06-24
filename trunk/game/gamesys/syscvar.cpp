@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3724 $
- * $Date: 2009-10-23 23:44:18 -0400 (Fri, 23 Oct 2009) $
- * $Author: ishtvan $
+ * $Revision: 3745 $
+ * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3724 2009-10-24 03:44:18Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3745 2009-11-05 04:26:05Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -208,6 +208,7 @@ idCVar cv_frob_width(				"tdm_frob_width",		"10.0",			CVAR_GAME | CVAR_ARCHIVE |
 idCVar cv_frob_fadetime(			"tdm_frob_fadetime",	"100",		CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "Time it takes for frob highlight effect to fade in and out." );
 idCVar cv_frob_debug_bounds(		"tdm_frob_debug_bounds", "0",		CVAR_GAME | CVAR_BOOL,					"Set to 1 to see a visualization of the bounds that are used to check for frobable items within them." );
 idCVar cv_frob_weapon_selects_weapon(	"tdm_frob_weapon_selects_weapon", "0",		CVAR_GAME | CVAR_BOOL,	"Set to 1 to have weapons automatically selected when the respective item is picked up." );
+idCVar cv_frob_debug_hud(	"tdm_frob_debug_hud", "0",		CVAR_GAME | CVAR_BOOL,	"Set to 1 to show some frobbing info." );
 
 /**
 * Dark Mod Misc. Control Options

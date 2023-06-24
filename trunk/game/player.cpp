@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3744 $
- * $Date: 2009-11-04 00:14:12 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 3745 $
+ * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3744 2009-11-04 05:14:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3745 2009-11-05 04:26:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -468,7 +468,6 @@ idPlayer::idPlayer() :
 	m_FrobEntity = NULL;
 	m_FrobJoint = INVALID_JOINT;
 	m_FrobID = 0;
-	m_FrobEntityPrevious = NULL;
 	// greebo: Initialise the frob trace contact material to avoid 
 	// crashing during map save when nothing has been frobbed yet
 	memset(&m_FrobTrace, 0, sizeof(trace_t));
@@ -1355,7 +1354,6 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteJoint(m_FrobJoint);
 	savefile->WriteInt(m_FrobID);
 	savefile->WriteTrace(m_FrobTrace);
-	m_FrobEntityPrevious.Save(savefile);
 
 	savefile->WriteInt( buttonMask );
 	savefile->WriteInt( oldButtons );
@@ -1666,7 +1664,6 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadJoint(m_FrobJoint);
 	savefile->ReadInt(m_FrobID);
 	savefile->ReadTrace(m_FrobTrace);
-	m_FrobEntityPrevious.Restore(savefile);
 
 	savefile->ReadInt( buttonMask );
 	savefile->ReadInt( oldButtons );
@@ -2573,6 +2570,19 @@ void idPlayer::DrawHUD(idUserInterface *_hud)
 			y = 100;
 			sprintf(strText, "Entity [%s]   distance: %f", name, d);
 			renderSystem->DrawSmallStringExt(1, y, strText.c_str( ), idVec4( 1, 1, 1, 1 ), false, declManager->FindMaterial( "textures/bigchars" ));
+		}
+	}
+
+	if (cv_frob_debug_hud.GetBool())
+	{
+		idStr name = m_FrobEntity.GetEntity() != NULL ? m_FrobEntity.GetEntity()->name : "none";
+		renderSystem->DrawSmallStringExt(1, 120, "Frobbed entity: " + name, idVec4( 1, 1, 1, 1 ), false, declManager->FindMaterial( "textures/bigchars" ));
+
+		if (m_FrobEntity.GetEntity() != NULL)
+		{
+			float distance = (GetEyePosition() - m_FrobTrace.endpos).Length();
+			idStr distanceStr = "Distance: " + idStr(distance);
+			renderSystem->DrawSmallStringExt(1, 150, distanceStr, idVec4( 1, 1, 1, 1 ), false, declManager->FindMaterial( "textures/bigchars" ));
 		}
 	}
 
@@ -10593,6 +10603,8 @@ void idPlayer::PerformFrobCheck()
 
 			// Store the trace for later reference
 			m_FrobTrace = trace;
+			// Store the frob entity
+			m_FrobEntity = ent;
 
 			// we have found our frobbed entity, so exit
 			return;
@@ -10658,7 +10670,14 @@ void idPlayer::PerformFrobCheck()
 
 		// Mark the entity as frobbed this frame
 		bestEnt->SetFrobbed(true);
+		// Store the frob entity
+		m_FrobEntity = bestEnt;
+		// and the trace for reference
 		m_FrobTrace = trace;
+	}
+	else
+	{
+		m_FrobEntity = NULL;
 	}
 }
 

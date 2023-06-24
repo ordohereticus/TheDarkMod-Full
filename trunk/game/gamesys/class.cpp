@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3745 $
+ * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ instancing of objects.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: class.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: class.cpp 3745 2009-11-05 04:26:05Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/Grabber.h"
@@ -1042,11 +1042,6 @@ void idClass::Event_Remove( void )
 		if (player->m_FrobEntity.GetEntity() == this)
 		{
 			player->m_FrobEntity = NULL;
-		}
-
-		if (player->m_FrobEntityPrevious.GetEntity() == this)
-		{
-			player->m_FrobEntityPrevious = NULL;
 		}
 	}
 	
