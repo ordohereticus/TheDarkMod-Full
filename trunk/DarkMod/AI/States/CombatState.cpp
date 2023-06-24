@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3506 $
- * $Date: 2009-07-02 09:55:45 -0400 (Thu, 02 Jul 2009) $
+ * $Revision: 3531 $
+ * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3506 2009-07-02 13:55:45Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -101,6 +101,11 @@ void CombatState::Init(idAI* owner)
 	Memory& memory = owner->GetMemory();
 
 	if (!owner->GetMind()->PerformCombatCheck()) return;
+
+	if (owner->GetMoveType() == MOVETYPE_SIT || owner->GetMoveType() == MOVETYPE_SLEEP)
+	{
+		owner->GetUp();
+	}
 
 	// greebo: Check for weapons and flee if we are unarmed.
 	_criticalHealth = owner->spawnArgs.GetInt("health_critical", "0");

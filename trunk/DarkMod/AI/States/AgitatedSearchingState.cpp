@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3440 $
- * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
+ * $Revision: 3531 $
+ * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -69,6 +69,11 @@ void AgitatedSearchingState::Init(idAI* owner)
 
 	float alertTime = owner->atime4 + owner->atime4_fuzzyness * (gameLocal.random.RandomFloat() - 0.5);
 	_alertLevelDecreaseRate = (owner->thresh_5 - owner->thresh_4) / alertTime;
+
+	if (owner->GetMoveType() == MOVETYPE_SIT || owner->GetMoveType() == MOVETYPE_SLEEP)
+	{
+		owner->GetUp();
+	}
 
 	// Setup a new hiding spot search
 	StartNewHidingSpotSearch(owner);

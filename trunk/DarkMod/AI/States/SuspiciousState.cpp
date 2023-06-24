@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3531 $
+ * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -57,11 +57,11 @@ void SuspiciousState::Init(idAI* owner)
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("SuspiciousState initialised.\r");
 	assert(owner);
 
-	float alertTime = owner->atime2 + owner->atime2_fuzzyness * (gameLocal.random.RandomFloat() - 0.5);
-	_alertLevelDecreaseRate = (owner->thresh_3 - owner->thresh_2) / alertTime;
-
 	// Ensure we are in the correct alert level
 	if (!CheckAlertLevel(owner)) return;
+
+	float alertTime = owner->atime2 + owner->atime2_fuzzyness * (gameLocal.random.RandomFloat() - 0.5);
+	_alertLevelDecreaseRate = (owner->thresh_3 - owner->thresh_2) / alertTime;
 
 	// Shortcut reference
 	Memory& memory = owner->GetMemory();

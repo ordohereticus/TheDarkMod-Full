@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3440 $
- * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
+ * $Revision: 3531 $
+ * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -60,13 +60,13 @@ void SearchingState::Init(idAI* owner)
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("SearchingState initialised.\r");
 	assert(owner);
 
+	// Ensure we are in the correct alert level
+	if (!CheckAlertLevel(owner)) return;
+
 	if (owner->GetMoveType() == MOVETYPE_SIT || owner->GetMoveType() == MOVETYPE_SLEEP)
 	{
 		owner->GetUp();
 	}
-
-	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
 
 	// Shortcut reference
 	Memory& memory = owner->GetMemory();
