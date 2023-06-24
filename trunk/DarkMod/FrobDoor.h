@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3262 $
- * $Date: 2009-03-17 13:07:53 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3263 $
+ * $Date: 2009-03-17 13:14:54 -0400 (Tue, 17 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -125,14 +125,7 @@ public:
 	virtual void			SetFrobbed(bool val);
 	virtual bool			IsFrobbed();
 
-	// Returns TRUE if the correct lockpick is used, FALSE otherwise
-	bool					ProcessLockpick(int cType, ELockpickSoundsample nSampleType);
-
-	void					LockpickTimerEvent(int cType, ELockpickSoundsample nSoundSample);
-
 	void					SetHandlePosition(EHandleReset, int msec, int pin_index = 0, int sample_index = 0);
-
-	void					PropPickSound(const idStr& picksound, int cType, ELockpickSoundsample nSampleType, int time, EHandleReset nHandlePos, int PinIndex, int SampleIndex);
 
 	// angua: returns the number of open peers
 	ID_INLINE int			GetOpenPeersNum()
