@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3594 $
- * $Date: 2009-07-27 01:49:57 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3600 $
+ * $Date: 2009-07-27 23:39:20 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3594 2009-07-27 05:49:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3600 2009-07-28 03:39:20Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -973,14 +973,23 @@ idStr State::GetGreetingSound(idAI* owner, idAI* otherAI)
 
 idStr State::GetGreetingResponseSound(idAI* owner, idAI* otherAI)
 {
-	return "snd_response_positive";
+	// Check for rank spawnargs
+	int ownerRank = owner->spawnArgs.GetInt("rank", "0");
+	int otherRank = otherAI->spawnArgs.GetInt("rank", "0");
 
-	/*idStr soundName;
+	if (ownerRank != 0 && otherRank != 0)
+	{
+		// Rank spawnargs valid, compare
+		return (ownerRank < otherRank) ? "snd_response_positive_superior" : "snd_response_positive";
+	}
 
 	// Get the type of persons
 	idStr ownPersonType(owner->spawnArgs.GetString(PERSONTYPE_KEY));
 	idStr otherPersonType(otherAI->spawnArgs.GetString(PERSONTYPE_KEY));
 
+	return "snd_response_positive";
+
+	/*idStr soundName;
 
 	if (owner->spawnArgs.GetBool("is_civilian") == false &&
 		(owner->GetNumMeleeWeapons() > 0 || owner->GetNumRangedWeapons() > 0))
