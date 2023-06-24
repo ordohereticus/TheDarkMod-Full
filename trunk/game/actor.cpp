@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3464 $
- * $Date: 2009-05-24 01:59:12 -0400 (Sun, 24 May 2009) $
+ * $Revision: 3488 $
+ * $Date: 2009-06-13 01:33:57 -0400 (Sat, 13 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3464 2009-05-24 05:59:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3488 2009-06-13 05:33:57Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2214,6 +2214,17 @@ void idActor::Attach( idEntity *ent, const char *PosName, const char *AttName )
 		idStr modelName = ent->spawnArgs.GetString("model","");
 		static_cast<idAFAttachment *>(ent)->SetBody( this, modelName.c_str(), ent->GetBindJoint() );
 	}
+
+	// check various spawnargs for special behaviors on attaching (not frobable, contents corpse, etc)
+	if( ent->spawnArgs.GetBool("on_attach_contents_corpse") )
+	{
+		// clear solid contents, set corpse contents
+		int oldContents = ent->GetPhysics()->GetContents();
+		ent->GetPhysics()->SetContents( (oldContents & ~CONTENTS_SOLID) | CONTENTS_CORPSE );
+	}
+	if( ent->spawnArgs.GetBool("on_attach_not_frobable") )
+		ent->SetFrobable(false);
+
 
 	if( ent->IsType(CMeleeWeapon::Type) )
 	{
