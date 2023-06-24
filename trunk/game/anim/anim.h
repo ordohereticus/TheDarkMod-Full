@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3870 $
- * $Date: 2010-04-12 12:01:21 -0400 (Mon, 12 Apr 2010) $
+ * $Revision: 3871 $
+ * $Date: 2010-04-13 10:22:39 -0400 (Tue, 13 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -157,6 +157,10 @@ typedef enum {
 * Tels: Detach and drop the named attachement
 **/
 	FC_DROP,
+/**
+* Tels: Pickup an object (either the direct name, or the AIUSE class)
+**/
+	FC_PICKUP,
 /**
 * Pause the animation at its current frame, wait for unpause from somewhere else
 **/
