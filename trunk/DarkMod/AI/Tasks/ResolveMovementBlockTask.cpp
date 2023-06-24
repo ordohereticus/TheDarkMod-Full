@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3644 $
- * $Date: 2009-08-04 11:57:02 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3645 $
+ * $Date: 2009-08-04 13:09:28 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3644 2009-08-04 15:57:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3645 2009-08-04 17:09:28Z greebo $", init_version);
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -41,6 +41,12 @@ void ResolveMovementBlockTask::Init(idAI* owner, Subsystem& subsystem)
 	// Just init the base class
 	Task::Init(owner, subsystem);
 
+	if (_blockingEnt == NULL)
+	{
+		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s cannot resolve a NULL blocking entity.", owner->name.c_str());
+		subsystem.FinishTask();
+	}
+
 	// Get the direction we're pushing against
 	_initialAngles = owner->viewAxis.ToAngles();
 
@@ -52,11 +58,19 @@ void ResolveMovementBlockTask::Init(idAI* owner, Subsystem& subsystem)
 
 	if (_blockingEnt->IsType(idAI::Type))
 	{
+		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s starting to resolve blocking AI: %s", owner->name.c_str(), _blockingEnt->name.c_str());
 		InitBlockingAI(owner, subsystem);
 	}
 	else if (_blockingEnt->IsType(idStaticEntity::Type))
 	{
+		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s starting to resolve static blocking entity: %s", owner->name.c_str(), _blockingEnt->name.c_str());
 		InitBlockingStatic(owner, subsystem);
+	}
+	else
+	{
+		// Unknown entity type, exit task
+		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s cannot resolve blocking entity: %s", owner->name.c_str(), _blockingEnt->name.c_str());
+		subsystem.FinishTask(); 
 	}
 }
 
