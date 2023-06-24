@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3314 $
- * $Date: 2009-03-26 15:51:55 -0400 (Thu, 26 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3320 $
+ * $Date: 2009-03-27 14:22:19 -0400 (Fri, 27 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 3314 2009-03-26 19:51:55Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3320 2009-03-27 18:22:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -381,10 +381,10 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 			// At minimum velocity, the volume should be 10 db lower than the one specified in the def
 			// todo: define volume at min velocity in sndshd?
 			f = v > BOUNCE_SOUND_MAX_VELOCITY ? 0.0f : spawnArgs.GetFloat("min_velocity_volume_decrease", "0") * ( idMath::Sqrt(v - BOUNCE_SOUND_MIN_VELOCITY) * (1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY)) - 1 );
-			gameRenderWorld->DrawText( va("Velocity: %f", v), (physicsObj.GetOrigin() + idVec3(0, 0, 10)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
+			//gameRenderWorld->DrawText( va("Velocity: %f", v), (physicsObj.GetOrigin() + idVec3(0, 0, 10)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
 
 			float volume = sndShader->GetParms()->volume + f;
-			gameRenderWorld->DrawText( va("Volume: %f", volume), (physicsObj.GetOrigin()), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
+			//gameRenderWorld->DrawText( va("Volume: %f", volume), (physicsObj.GetOrigin()), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
 
 			SetSoundVolume(volume);
 
