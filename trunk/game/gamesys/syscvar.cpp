@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3843 $
- * $Date: 2010-03-01 11:10:58 -0500 (Mon, 01 Mar 2010) $
- * $Author: jcdenton $
+ * $Revision: 3872 $
+ * $Date: 2010-04-13 23:53:48 -0400 (Tue, 13 Apr 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3843 2010-03-01 16:10:58Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3872 2010-04-14 03:53:48Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -377,7 +377,7 @@ idCVar cv_music_volume("tdm_music_volume",	"1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_
 
 // Tels:
 idCVar cv_voice_player_volume("tdm_voice_player_volume",	 "1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Volume in dB for the player voice speaker. Goes from 0 .. 60." );
-idCVar cv_voice_from_off_volume("tdm_voice_from_off_volume", "1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Volume in dB for the voice-from-off speaker. Goes from 0 .. 60." );
+idCVar cv_voice_from_off_volume("tdm_voice_from_off_volume", "1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Volume in dB for the voice-over speaker. Goes from 0 .. 60." );
 
 idCVar cv_moveable_collision("tdm_show_moveable_collision",	"0",	CVAR_GAME | CVAR_BOOL, "If set to 1, shows the velocity at which the moveable collides and the volume of the resulting sound." );
 
