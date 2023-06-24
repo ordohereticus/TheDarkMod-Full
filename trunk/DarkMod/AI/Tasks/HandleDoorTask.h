@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3539 $
- * $Date: 2009-07-17 13:38:34 -0400 (Fri, 17 Jul 2009) $
+ * $Revision: 3764 $
+ * $Date: 2009-11-26 11:12:19 -0500 (Thu, 26 Nov 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -49,6 +49,7 @@ private:
 	int _waitEndTime;
 	bool _wasLocked;
 	bool _doorInTheWay;
+	int _retryCount;
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;
@@ -83,6 +84,8 @@ public:
 	bool OpenDoor();
 
 	void ResetDoor(idAI* owner, CFrobDoor* newDoor);
+
+	void DrawDebugOutput(idAI* owner);
 
 	void Save(idSaveGame* savefile) const;
 	void Restore(idRestoreGame* savefile);
