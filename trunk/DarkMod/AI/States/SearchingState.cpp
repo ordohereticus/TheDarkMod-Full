@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3555 $
- * $Date: 2009-07-19 12:53:13 -0400 (Sun, 19 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3635 $
+ * $Date: 2009-08-02 13:29:37 -0400 (Sun, 02 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3555 2009-07-19 16:53:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3635 2009-08-02 17:29:37Z angua $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -159,6 +159,13 @@ void SearchingState::Think(idAI* owner)
 
 	// Ensure we are in the correct alert level
 	if (!CheckAlertLevel(owner)) return;
+
+	if (owner->GetMoveType() != MOVETYPE_ANIM)
+	{
+		owner->GetUp();
+		return;
+	}
+
 
 	Memory& memory = owner->GetMemory();
 

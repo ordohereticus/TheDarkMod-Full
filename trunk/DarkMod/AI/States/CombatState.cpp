@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3625 $
- * $Date: 2009-07-31 12:18:18 -0400 (Fri, 31 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3635 $
+ * $Date: 2009-08-02 13:29:37 -0400 (Sun, 02 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3625 2009-07-31 16:18:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3635 2009-08-02 17:29:37Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -296,6 +296,12 @@ void CombatState::Think(idAI* owner)
 		owner->GetMind()->SwitchState(STATE_FLEE);
 		// ishtvan: swap the expanded head model back in when exiting state
 		owner->SwapHeadAFCM( true );
+		return;
+	}
+
+	if (owner->GetMoveType() != MOVETYPE_ANIM)
+	{
+		owner->GetUp();
 		return;
 	}
 

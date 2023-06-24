@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3531 $
- * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
+ * $Revision: 3635 $
+ * $Date: 2009-08-02 13:29:37 -0400 (Sun, 02 Aug 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3635 2009-08-02 17:29:37Z angua $", init_version);
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -78,9 +78,10 @@ void SuspiciousState::Init(idAI* owner)
 	{
 		owner->movementSubsystem->ClearTasks();
 		owner->StopMove(MOVE_STATUS_DONE);
-		if (!owner->CheckFOV(memory.alertPos))
+		if (!owner->CheckFOV(memory.alertPos) && owner->GetMoveType() == MOVETYPE_ANIM)
 		{
 			// Search spot is not within FOV, turn towards the position
+			// don't turn while sitting
 			owner->TurnToward(memory.alertPos);
 		}
 	}
