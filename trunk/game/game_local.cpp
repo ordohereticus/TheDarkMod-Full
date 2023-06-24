@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3234 $
- * $Date: 2009-03-11 16:23:16 -0400 (Wed, 11 Mar 2009) $
+ * $Revision: 3238 $
+ * $Date: 2009-03-12 11:39:44 -0400 (Thu, 12 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3234 2009-03-11 20:23:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3238 2009-03-12 15:39:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1535,6 +1535,16 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	
 	InitScriptForMap();
 
+	// Initialize the AI relationships
+	// greebo: Do this before spawning the rest of the map entities to give them a chance
+	// to override the default settings found on the entityDef
+	const idDict* defaultRelationsDict = FindEntityDefDict(cv_tdm_default_relations_def.GetString());
+
+	if (defaultRelationsDict != NULL)
+	{
+		m_RelationsManager->SetFromArgs(*defaultRelationsDict);
+	}
+
 	MapPopulate();
 
 	// ishtvan: Set the player variable on the grabber
@@ -1543,8 +1553,9 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	// greebo: Add the elevator reachabilities to the AAS
 	SetupEAS();
 
-	// initialize the AI relationships based on worldspawn
+	// Then, apply the worldspawn settings
 	m_RelationsManager->SetFromArgs( world->spawnArgs );
+
 	mpGame.Reset();
 
 	mpGame.Precache();
