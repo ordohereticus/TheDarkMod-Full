@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3505 $
- * $Date: 2009-07-02 09:11:33 -0400 (Thu, 02 Jul 2009) $
+ * $Revision: 3506 $
+ * $Date: 2009-07-02 09:55:45 -0400 (Thu, 02 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3505 2009-07-02 13:11:33Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3506 2009-07-02 13:55:45Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -230,6 +230,11 @@ void CombatState::Think(idAI* owner)
 		owner->SetAlertLevel(owner->thresh_2 + (owner->thresh_3 - owner->thresh_2) * 0.9);
 		owner->ClearEnemy();
 		owner->GetMind()->EndState();
+		
+		owner->movementSubsystem->ClearTasks();
+		owner->senseSubsystem->ClearTasks();
+		owner->actionSubsystem->ClearTasks();
+
 		// ishtvan: swap the expanded head model back in when exiting state
 		owner->SwapHeadAFCM( true );
 		return;
