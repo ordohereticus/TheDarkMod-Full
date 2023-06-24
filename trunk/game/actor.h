@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3463 $
- * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
+ * $Revision: 3464 $
+ * $Date: 2009-05-24 01:59:12 -0400 (Sun, 24 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -296,17 +296,18 @@ public:
 	int						m_MeleeCurrentRiposteRecovery;
 	/**
 	* Melee timing: Time delay between when we decide to parry and when the anim starts
+	* Acts as a human reaction time to an oncoming attack
 	**/
-	int						m_MeleeParryDelayMin;
-	int						m_MeleeParryDelayMax;
-	int						m_MeleeCurrentParryDelay;
+	int						m_MeleePreParryDelayMin;
+	int						m_MeleePreParryDelayMax;
+	int						m_MeleeCurrentPreParryDelay;
 	/**
 	* Same as above, but use a shorter delay when responding to repeated attacks
 	* along the same direction
 	**/
-	int						m_MeleeRepeatedParryDelayMin;
-	int						m_MeleeRepeatedParryDelayMax;
-	int						m_MeleeCurrentRepeatedParryDelay;
+	int						m_MeleeRepeatedPreParryDelayMin;
+	int						m_MeleeRepeatedPreParryDelayMax;
+	int						m_MeleeCurrentRepeatedPreParryDelay;
 	/**
 	* Controls how many times the attack has to be repeated in a row
 	* in order to use the faster response time
@@ -317,6 +318,20 @@ public:
 	* in order to be anticipated and use faster response
 	**/
 	int						m_MeleeRepAttackTime;
+	/**
+	* Melee timing: Time delay between when we decide to stop parrying and when the animation goes
+	* Acts as a human reaction time to the cessation of an attack
+	**/
+	int						m_MeleePostParryDelayMin;
+	int						m_MeleePostParryDelayMax;
+	int						m_MeleeCurrentPostParryDelay;
+	/**
+	* Same as above, but use a shorter delay when responding to repeated attacks
+	* along the same direction
+	**/
+	int						m_MeleeRepeatedPostParryDelayMin;
+	int						m_MeleeRepeatedPostParryDelayMax;
+	int						m_MeleeCurrentRepeatedPostParryDelay;
 
 	/**
 	* Correspondence between melee type and string name suffix of the action

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3463 $
- * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
+ * $Revision: 3464 $
+ * $Date: 2009-05-24 01:59:12 -0400 (Sun, 24 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3463 2009-05-24 02:35:45Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3464 2009-05-24 05:59:12Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1000,7 +1000,7 @@ void CMeleeWeapon::AttachedToActor(idActor *actor)
 		// overwrite AI's initial attack prediction time if we have this spawnarg
 		const idKeyValue *kv = spawnArgs.FindKey("predicted_attack_time");
 		if( kv )
-			actor->m_MeleePredictedAttTime = 0.001f * (float) atoi(kv->GetValue().c_str());
+			actor->m_MeleePredictedAttTime = 0.001f * atof(kv->GetValue().c_str());
 	}
 
 }
