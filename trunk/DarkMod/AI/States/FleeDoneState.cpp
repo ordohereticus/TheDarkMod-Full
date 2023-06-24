@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3431 $
+ * $Date: 2009-05-07 22:54:31 -0400 (Thu, 07 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3431 2009-05-08 02:54:31Z greebo $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -54,7 +54,7 @@ void FleeDoneState::Init(idAI* owner)
 	_alertLevelDecreaseRate = (owner->thresh_5 - owner->thresh_3) / alertTime;
 
 	owner->senseSubsystem->ClearTasks();
-// 	owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
+ 	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
 	owner->actionSubsystem->ClearTasks();
 
 	// Slow turning for 5 seconds to look for friends
@@ -108,8 +108,6 @@ void FleeDoneState::Think(idAI* owner)
 			float distanceToFriend = (friendlyAI->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin()).LengthFast();
 
 			// Cry for help
-	//		owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
-			
 			// Create a new help message
 			CommMessagePtr message(new CommMessage(
 				CommMessage::DetectedEnemy_CommType, 
@@ -118,7 +116,6 @@ void FleeDoneState::Think(idAI* owner)
 
 			CommunicationTaskPtr barkTask(new SingleBarkTask("snd_flee", message));
 			owner->commSubsystem->AddCommTask(barkTask);
-
 		}
 		else if (gameLocal.time >= _turnEndTime)
 		{
@@ -126,8 +123,6 @@ void FleeDoneState::Think(idAI* owner)
 			_searchForFriendDone = true;
 			owner->movementSubsystem->ClearTasks();
 			owner->SetTurnRate(_oldTurnRate);
-
-//			owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
 
 			// Play the cowering animation
 			owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Cower", 4);

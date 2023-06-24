@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3431 $
+ * $Date: 2009-05-07 22:54:31 -0400 (Thu, 07 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 3431 2009-05-08 02:54:31Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -92,7 +92,7 @@ void ConversationState::Init(idAI* owner)
 
 	owner->actionSubsystem->ClearTasks();
 	owner->senseSubsystem->ClearTasks();
-//		owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
+	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
 	owner->movementSubsystem->ClearTasks();
 	owner->StopMove(MOVE_STATUS_DONE);
 

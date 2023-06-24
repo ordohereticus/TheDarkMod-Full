@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3431 $
+ * $Date: 2009-05-07 22:54:31 -0400 (Thu, 07 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EmergeFromCoverState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: EmergeFromCoverState.cpp 3431 2009-05-08 02:54:31Z greebo $", init_version);
 
 #include "EmergeFromCoverState.h"
 #include "../Memory.h"
@@ -43,7 +43,7 @@ void EmergeFromCoverState::Init(idAI* owner)
 	Memory& memory = owner->GetMemory();
 	
 	// Fill the subsystems with their tasks
-//	owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
+	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
 	owner->actionSubsystem->ClearTasks();
 
 	owner->movementSubsystem->ClearTasks();
