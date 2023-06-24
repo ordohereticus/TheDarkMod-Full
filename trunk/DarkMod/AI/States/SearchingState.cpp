@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3856 $
- * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3862 $
+ * $Date: 2010-03-21 01:54:27 -0400 (Sun, 21 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3862 2010-03-21 05:54:27Z greebo $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -99,7 +99,7 @@ void SearchingState::Init(idAI* owner)
 			{
 				if ( (MS2SEC(gameLocal.time - memory.lastTimeFriendlyAISeen)) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
 				{
-					bark = "snd_alert3ch";
+					bark = "snd_alert3hc";
 				}
 				else
 				{
