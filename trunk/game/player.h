@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3813 $
- * $Date: 2010-01-24 01:32:36 -0500 (Sun, 24 Jan 2010) $
+ * $Revision: 3814 $
+ * $Date: 2010-01-24 01:40:33 -0500 (Sun, 24 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -942,6 +942,9 @@ public:
 	// greebo: Sends a "picked up so and so" message to the inventory HUD
 	void			SendInventoryPickedUpMessage(const idStr& text);
 
+	// Updates the in-game Objectives GUI, if visible (otherwise nothing happens)
+	void			UpdateObjectivesGUI();
+
 	void PrintDebugHUD(void);
 
 	/**
@@ -967,7 +970,6 @@ protected:
 	void SetupInventory();
 
 	// greebo: Methods used to manage the GUI layer for the in-game objectives
-	void UpdateObjectivesGUI();
 	void CreateObjectivesGUI();
 	void DestroyObjectivesGUI();
 

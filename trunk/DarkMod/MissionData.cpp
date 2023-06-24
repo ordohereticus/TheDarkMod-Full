@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3813 $
- * $Date: 2010-01-24 01:32:36 -0500 (Sun, 24 Jan 2010) $
+ * $Revision: 3814 $
+ * $Date: 2010-01-24 01:40:33 -0500 (Sun, 24 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3813 2010-01-24 06:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3814 2010-01-24 06:40:33Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -892,6 +892,8 @@ void CMissionData::Event_ObjectiveComplete( int ind )
 
 		// greebo: Notify the player
 		player->SendHUDMessage("Objective complete");
+
+		player->UpdateObjectivesGUI();
 	}
 }
 
@@ -934,6 +936,8 @@ void CMissionData::Event_ObjectiveFailed(int ind)
 	{
 		player->StartSound("snd_objective_failed", SND_CHANNEL_ANY, 0, false, NULL);
 		player->SendHUDMessage("Objective failed");
+
+		player->UpdateObjectivesGUI();
 	}
 
 	// Check for mission failure
@@ -967,6 +971,8 @@ void CMissionData::Event_NewObjective()
 
 	// greebo: notify the player
 	player->SendHUDMessage("New Objective");
+
+	player->UpdateObjectivesGUI();
 }
 
 void CMissionData::Event_MissionComplete( void )
@@ -992,6 +998,8 @@ void CMissionData::Event_MissionComplete( void )
 		//player->StartSoundShader( declManager->FindSound( "mission_complete" ), SND_CHANNEL_ANY, 0, false, NULL );
 		player->SendHUDMessage("Mission Complete");
 		player->PostEventMS(&EV_TriggerMissionEnd, 100);
+
+		player->UpdateObjectivesGUI();
 	}
 }
 
@@ -1011,6 +1019,8 @@ void CMissionData::Event_MissionFailed( void )
 	{
 		player->playerView.Fade( colorBlack, s_FAILURE_FADE_TIME );
 		player->PostEventMS( &EV_Player_DeathMenu, s_FAILURE_FADE_TIME + 1 );
+
+		player->UpdateObjectivesGUI();
 	}
 }
 
