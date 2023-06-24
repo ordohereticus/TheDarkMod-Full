@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3551 $
- * $Date: 2009-07-19 07:32:11 -0400 (Sun, 19 Jul 2009) $
+ * $Revision: 3553 $
+ * $Date: 2009-07-19 07:49:12 -0400 (Sun, 19 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3551 2009-07-19 11:32:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3553 2009-07-19 11:49:12Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -141,6 +141,8 @@ void CombatState::Init(idAI* owner)
 	// We have an enemy, store the enemy entity locally
 	_enemy = owner->GetEnemy();
 	idActor* enemy = _enemy.GetEntity();
+
+	owner->StopMove(MOVE_STATUS_DONE);
 
 	owner->movementSubsystem->ClearTasks();
 	owner->senseSubsystem->ClearTasks();
