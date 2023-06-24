@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3433 $
- * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
- * $Author: greebo $
+ * $Revision: 3631 $
+ * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3433 2009-05-08 15:36:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3631 2009-08-02 15:03:59Z angua $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -831,8 +831,25 @@ CLightMaterial::CLightMaterial(idStr const &MaterialName, idStr const &TextureNa
 	m_MapIndex = g_Global.AddImage(MapName, added);
 }
 
-CLightMaterial::~CLightMaterial()
+
+void CLightMaterial::Save( idSaveGame *savefile ) const
 {
+	savefile->WriteString(m_MaterialName);
+	savefile->WriteBool(m_AmbientLight);
+	savefile->WriteString(m_FallOffTexture);
+	savefile->WriteInt(m_FallOffIndex);
+	savefile->WriteString(m_Map);
+	savefile->WriteInt(m_MapIndex);
+}
+
+void CLightMaterial::Restore( idRestoreGame *savefile )
+{
+	savefile->ReadString(m_MaterialName);
+	savefile->ReadBool(m_AmbientLight);
+	savefile->ReadString(m_FallOffTexture);
+	savefile->ReadInt(m_FallOffIndex);
+	savefile->ReadString(m_Map);
+	savefile->ReadInt(m_MapIndex);
 }
 
 unsigned char *CLightMaterial::GetFallOffTexture(int &Width, int &Height, int &Bpp)

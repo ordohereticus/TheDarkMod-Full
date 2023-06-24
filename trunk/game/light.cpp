@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3559 $
- * $Date: 2009-07-21 04:06:09 -0400 (Tue, 21 Jul 2009) $
- * $Author: tels $
+ * $Revision: 3631 $
+ * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3559 2009-07-21 08:06:09Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3631 2009-08-02 15:03:59Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -280,6 +280,16 @@ void idLight::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( fadeStart );
 	savefile->WriteInt( fadeEnd );
 	savefile->WriteBool( soundWasPlaying );
+
+	savefile->WriteFloat(m_MaxLightRadius);
+	savefile->WriteInt(LASAreaIndex);
+
+	bool hasMaterial = (m_LightMaterial != NULL);
+	savefile->WriteBool(hasMaterial);
+	if (hasMaterial)
+	{
+		m_LightMaterial->Save(savefile);
+	}
 }
 
 /*
@@ -325,9 +335,22 @@ void idLight::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( fadeEnd );
 	savefile->ReadBool( soundWasPlaying );
 
+	savefile->ReadFloat(m_MaxLightRadius);
+	savefile->ReadInt(LASAreaIndex);
+
+	bool hasMaterial;
+	savefile->ReadBool(hasMaterial);
+	if (hasMaterial)
+	{
+		m_LightMaterial->Restore(savefile);
+	}
+
 	lightDefHandle = -1;
 
 	SetLightLevel();
+
+	m_MaterialName = NULL;
+	spawnArgs.GetString( "texture", "lights/squarelight1", &m_MaterialName);
 }
 
 /*

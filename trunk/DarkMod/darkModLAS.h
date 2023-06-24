@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3059 $
- * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
+ * $Revision: 3631 $
+ * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -80,7 +80,7 @@ protected:
    * @return false if failed
    * @return true if succeeded
    */ 
-   __inline bool moveLightBetweenAreas (darkModLightRecord_t* p_light, int oldAreaNum, int newAreaNum );
+   bool moveLightBetweenAreas (darkModLightRecord_t* p_light, int oldAreaNum, int newAreaNum );
 
 
    /*!
@@ -105,10 +105,10 @@ protected:
 		bool b_useShadows
 	);
 
-
-
-
 public:
+
+   	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
 
    /*!
    * This mapping is used by certain queries
@@ -119,12 +119,12 @@ public:
 	/*!
 	* Constructor
 	*/
-	darkModLAS(void);
+	darkModLAS();
 
 	/*!
 	* Destructor
 	*/
-	virtual ~darkModLAS(void);
+	~darkModLAS();
 
 	/*!
 	* Call this when the map is loaded to initialize the PVS tracking

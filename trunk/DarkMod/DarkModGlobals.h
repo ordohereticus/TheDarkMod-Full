@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3433 $
- * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
- * $Author: greebo $
+ * $Revision: 3631 $
+ * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -145,10 +145,13 @@ public:
 class CLightMaterial {
 public:
 	CLightMaterial(idStr const &MaterialName, idStr const &TextureName, idStr const &MapName);
-	~CLightMaterial(void);
 
 	unsigned char *GetFallOffTexture(int &Width, int &Height, int &Bpp);
 	unsigned char *GetImage(int &Width, int &Height, int &Bpp);
+
+   	void Save( idSaveGame *savefile ) const;
+	void Restore( idRestoreGame *savefile );
+
 
 public:
 	idStr		m_MaterialName;
