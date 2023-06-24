@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2926 $
- * $Date: 2008-10-06 01:12:54 -0400 (Mon, 06 Oct 2008) $
+ * $Revision: 3420 $
+ * $Date: 2009-05-04 23:44:50 -0400 (Mon, 04 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -134,11 +134,26 @@ public:
 	 */
 	virtual idEntity* GetResponseEntity();
 
+	/**
+	* Overload bind notify so that when another idAFAttachment is
+	* bound to us, we copy over our data on the actor we're bound to
+	**/
+	virtual void BindNotify( idEntity *ent );
+
+	/** Also overload PostUnBind to clear the body information **/
+	virtual void PostUnbind( void );
+
 protected:
 	idEntity *				body;
 	idClipModel *			combatModel;	// render model for hit detection of head
 	int						idleAnim;
 	jointHandle_t			attachJoint;
+
+protected:
+	/**
+	* Copy idActor bindmaster information to another idAFAttachment
+	**/
+	void	CopyBodyTo( idAFAttachment *other );
 };
 
 
