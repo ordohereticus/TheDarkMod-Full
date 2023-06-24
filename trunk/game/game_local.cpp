@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3415 $
- * $Date: 2009-04-29 11:15:40 -0400 (Wed, 29 Apr 2009) $
+ * $Revision: 3421 $
+ * $Date: 2009-05-05 08:37:48 -0400 (Tue, 05 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3415 2009-04-29 15:15:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3421 2009-05-05 12:37:48Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3436,6 +3436,68 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Set the boolean back to false for the next map start
 		gui->SetStateBool("SuccessScreenActive", false);
 		successScreenActive = false;
+	}
+	else if (cmd == "setLPDifficulty")
+	{
+		// Lockpicking difficulty setting changed, update CVARs
+		int setting = gui->GetStateInt("lp_difficulty", "-1");
+		
+		switch (setting)
+		{
+		case 0: // Trainer
+			cv_lp_auto_pick.SetBool(false);
+			cv_lp_pick_timeout.SetInteger(750);
+			break;
+		case 1: // Average
+			cv_lp_auto_pick.SetBool(false);
+			cv_lp_pick_timeout.SetInteger(500);
+			break;
+		case 2: // Hard
+			cv_lp_auto_pick.SetBool(false);
+			cv_lp_pick_timeout.SetInteger(400);
+			break;
+		case 3: // Expert
+			cv_lp_auto_pick.SetBool(false);
+			cv_lp_pick_timeout.SetInteger(300);
+			break;
+		case 4: // Automatic
+			cv_lp_auto_pick.SetBool(true);
+			cv_lp_pick_timeout.SetInteger(500); // auto-LP is using average timeout
+			break;
+		default:
+			gameLocal.Warning("Unknown value for lockpicking difficulty encountered!");
+		};
+	}
+	else if (cmd == "loadLPDifficulty")
+	{
+		// The GUI requests to update the lp_difficulty state string
+		int setting = 0;
+
+		if (cv_lp_auto_pick.GetBool())
+		{
+			setting = 4; // automatic
+		}
+		else // auto-pick is false
+		{
+			if (cv_lp_pick_timeout.GetInteger() >= 750)
+			{
+				setting = 0; // Trainer
+			}
+			else if (cv_lp_pick_timeout.GetInteger() >= 500)
+			{
+				setting = 1; // Average
+			}
+			else if (cv_lp_pick_timeout.GetInteger() >= 400)
+			{
+				setting = 2; // Hard
+			}
+			else // if (cv_lp_pick_timeout.GetInteger() >= 300)
+			{
+				setting = 3; // Expert
+			}
+		}
+
+		gui->SetStateInt("lp_difficulty", setting);
 	}
 
 	m_Shop->HandleCommands(menuCommand, gui, GetLocalPlayer());
