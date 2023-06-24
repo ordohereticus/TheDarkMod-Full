@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3250 $
- * $Date: 2009-03-15 01:47:06 -0400 (Sun, 15 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3252 $
+ * $Date: 2009-03-15 03:05:39 -0400 (Sun, 15 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -302,6 +302,9 @@ protected:
 
 	idVec3						m_OriginalPosition;
 	idAngles					m_OriginalAngle;
+
+	// Lockpick visualisation
+	static int					m_LockPickHUD;
 };
 
 #endif /* FROBDOOR_H */
