@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2346 $
- * $Date: 2008-05-15 15:32:33 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3731 $
+ * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMoverButton.cpp 2346 2008-05-15 19:32:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMoverButton.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "MultiStateMoverButton.h"

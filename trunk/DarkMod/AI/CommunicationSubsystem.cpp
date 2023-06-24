@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2822 $
- * $Date: 2008-09-13 06:50:55 +0200 (Sa, 13 Sep 2008) $
+ * $Revision: 3731 $
+ * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Subsystem.cpp 2822 2008-09-13 04:50:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CommunicationSubsystem.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
 
 #include "CommunicationSubsystem.h"
 #include "Library.h"

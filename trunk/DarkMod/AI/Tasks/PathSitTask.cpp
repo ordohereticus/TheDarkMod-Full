@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3086 $
- * $Date: 2008-12-14 08:30:30 +0100 (So, 14 Dez 2008) $
- * $Author: angua $
+ * $Revision: 3731 $
+ * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathSitTask.cpp 3086 2008-12-14 07:30:30Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathSitTask.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PathSitTask.h"

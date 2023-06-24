@@ -1,5 +1,19 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 3731 $
+ * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
+ * $Author: greebo $
+ *
+ ***************************************************************************/
+// Copyright (C) 2004 Id Software, Inc.
+//
+
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
+
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
 #include "../DarkMod/MissionData.h"

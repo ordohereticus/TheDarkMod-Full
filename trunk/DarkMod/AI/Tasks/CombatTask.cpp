@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3549 $
- * $Date: 2009-07-19 12:47:25 +0200 (So, 19 Jul 2009) $
+ * $Revision: 3731 $
+ * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatTask.cpp 3549 2009-07-19 10:47:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatTask.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
 
 #include "CombatTask.h"
 #include "SingleBarkTask.h"
