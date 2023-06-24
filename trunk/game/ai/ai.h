@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3366 $
+ * $Date: 2009-04-05 17:09:12 -0400 (Sun, 05 Apr 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -982,11 +982,19 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	/**
 	* Ishtvan: Flat-footedness, disallows movement while maitaining ability to turn
 	* Currently only implemented in melee
+	* The following are timers for being flat-footed in all situations
 	**/
 	bool					m_bCanBeFlatFooted;
 	bool					m_bFlatFooted;
 	int						m_FlatFootedTimer;
-	int						m_FlatFootedTime;					
+	int						m_FlatFootedTime;
+	/**
+	* The following apply to being flat-footed as a result of a parry only
+	**/
+	int						m_FlatFootParryNum; // runtime tracking
+	int						m_FlatFootParryMax; // spawnarg cap
+	int						m_FlatFootParryTimer; // runtime tracking
+	int						m_FlatFootParryTime; // spawnarg cap [ms]
 
 	// AI_AlertLevel thresholds for each alert level
 	// Alert levels are: 1=slightly suspicious, 2=aroused, 3=investigating, 4=agitated investigating, 5=hunting

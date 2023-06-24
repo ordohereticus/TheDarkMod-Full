@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3366 $
+ * $Date: 2009-04-05 17:09:12 -0400 (Sun, 05 Apr 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3366 2009-04-05 21:09:12Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -548,6 +548,11 @@ idAI::idAI()
 	m_FlatFootedTimer	= 0;
 	m_FlatFootedTime	= 0;
 
+	m_FlatFootParryNum	= 0;
+	m_FlatFootParryMax	= 0;
+	m_FlatFootParryTimer = 0;
+	m_FlatFootParryTime	= 0;
+
 	m_maxInterleaveThinkFrames = 0;
 	m_minInterleaveThinkDist = 1000;
 	m_maxInterleaveThinkDist = 3000;
@@ -848,6 +853,10 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool(m_bFlatFooted);
 	savefile->WriteInt(m_FlatFootedTimer);
 	savefile->WriteInt(m_FlatFootedTime);
+	savefile->WriteInt(m_FlatFootParryNum);
+	savefile->WriteInt(m_FlatFootParryMax);
+	savefile->WriteInt(m_FlatFootParryTimer);
+	savefile->WriteInt(m_FlatFootParryTime);
 
 	savefile->WriteBool(m_bCanOperateDoors);
 	savefile->WriteBool(m_HandlingDoor);
@@ -1182,6 +1191,10 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool(m_bFlatFooted);
 	savefile->ReadInt(m_FlatFootedTimer);
 	savefile->ReadInt(m_FlatFootedTime);
+	savefile->ReadInt(m_FlatFootParryNum);
+	savefile->ReadInt(m_FlatFootParryMax);
+	savefile->ReadInt(m_FlatFootParryTimer);
+	savefile->ReadInt(m_FlatFootParryTime);
 
 	savefile->ReadBool(m_bCanOperateDoors);
 	savefile->ReadBool(m_HandlingDoor);
@@ -1656,6 +1669,8 @@ void idAI::Spawn( void )
 
 	m_bCanBeFlatFooted	= spawnArgs.GetBool("can_be_flatfooted", "1");
 	m_FlatFootedTime	= spawnArgs.GetInt("flatfooted_time");
+	m_FlatFootParryMax = spawnArgs.GetInt("flatfoot_parry_num");
+	m_FlatFootParryTime = spawnArgs.GetInt("flatfoot_parry_time");
 
 	m_bCanOperateDoors = spawnArgs.GetBool("canOperateDoors", "0");
 	m_HandlingDoor = false;
