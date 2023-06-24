@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3691 $
- * $Date: 2009-09-05 04:13:07 -0400 (Sat, 05 Sep 2009) $
+ * $Revision: 3707 $
+ * $Date: 2009-09-19 11:03:36 -0400 (Sat, 19 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3691 2009-09-05 08:13:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3707 2009-09-19 15:03:36Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -7275,6 +7275,9 @@ void idPlayer::Killed( idEntity *inflictor, idEntity *attacker, int damage, cons
 	// greebo: Before posting mission failed and going to ragdoll, check for custom death script
 	if (gameLocal.world != NULL && gameLocal.world->spawnArgs.GetInt("custom_death_delay") > 0)
 	{
+		// greebo: Still call the ownerdied method to cleanup the weapon script state
+		weapon.GetEntity()->OwnerDied();
+
 		// Run the death event in a few seconds
 		PostEventMS(&EV_Player_CustomDeath, SEC2MS(gameLocal.world->spawnArgs.GetInt("custom_death_delay")));
 		return; // stop death processing here
