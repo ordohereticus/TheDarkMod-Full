@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 3537 $
+ * $Date: 2009-07-15 11:05:05 -0400 (Wed, 15 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InteractionTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: InteractionTask.cpp 3537 2009-07-15 15:05:05Z angua $", init_version);
 
 #include "InteractionTask.h"
 #include "../Memory.h"
@@ -48,12 +48,17 @@ void InteractionTask::Init(idAI* owner, Subsystem& subsystem)
 		subsystem.FinishTask();
 	}
 	
+	float moveToPositionTolerance = _interactEnt->spawnArgs.GetFloat("move_to_position_tolerance", "-1");
+
 	// Start moving towards that entity
-	if (!owner->MoveToPosition(_interactEnt->GetPhysics()->GetOrigin()))
+	if (!owner->MoveToPosition(_interactEnt->GetPhysics()->GetOrigin(), moveToPositionTolerance))
 	{
 		// No path to that entity!
 		subsystem.FinishTask();
 	}
+
+	_interactEnt->GetUserManager().AddUser(owner);
+
 }
 
 bool InteractionTask::Perform(Subsystem& subsystem)
@@ -98,6 +103,8 @@ bool InteractionTask::Perform(Subsystem& subsystem)
 
 void InteractionTask::OnFinish(idAI* owner)
 {
+	_interactEnt->GetUserManager().RemoveUser(owner);
+
 	owner->PopMove();
 }
 
