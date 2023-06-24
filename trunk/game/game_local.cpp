@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3631 $
- * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3632 $
+ * $Date: 2009-08-02 11:14:20 -0400 (Sun, 02 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3631 2009-08-02 15:03:59Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3632 2009-08-02 15:14:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -402,10 +402,13 @@ void idGameLocal::Init( void ) {
 #endif
 
 	Printf( "--------- Initializing Game ----------\n" );
-	Printf( "gamename: %s\n", GAME_VERSION );
-	Printf( "gamedate: %s\n", __DATE__ );
-	Printf( "Code Revision: %d\n", RevisionTracker::Instance().GetHighestRevision() );
-
+	Printf( "%s %d.%d, code revision %d\n", 
+		GAME_VERSION, 
+		TDM_VERSION_MAJOR, TDM_VERSION_MINOR, 
+		RevisionTracker::Instance().GetHighestRevision() 
+	);
+	Printf( "Build date: %s\n", __DATE__ );
+	
 	// register game specific decl types
 	declManager->RegisterDeclType( "model",				DECL_MODELDEF,		idDeclAllocator<idDeclModelDef> );
 	declManager->RegisterDeclType( "export",			DECL_MODELEXPORT,	idDeclAllocator<idDecl> );

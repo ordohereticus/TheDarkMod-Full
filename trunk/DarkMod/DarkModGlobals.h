@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3631 $
- * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3632 $
+ * $Date: 2009-08-02 11:14:20 -0400 (Sun, 02 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -26,6 +26,10 @@
 
 #include <stdio.h>
 #include "../game/game_local.h"
+
+// greebo: Defines the darkmod release version
+#define TDM_VERSION_MAJOR 1
+#define TDM_VERSION_MINOR 0
 
 /*!
 Darkmod LAS
