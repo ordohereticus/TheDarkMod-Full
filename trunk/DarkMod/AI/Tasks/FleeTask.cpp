@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3460 $
- * $Date: 2009-05-23 09:41:04 -0400 (Sat, 23 May 2009) $
+ * $Revision: 3472 $
+ * $Date: 2009-05-26 02:24:10 -0400 (Tue, 26 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeTask.cpp 3460 2009-05-23 13:41:04Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeTask.cpp 3472 2009-05-26 06:24:10Z angua $", init_version);
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -66,8 +66,8 @@ bool FleeTask::Perform(Subsystem& subsystem)
 		return true;
 	}
 
-	gameRenderWorld->DrawText( va("%d  %d",_escapeSearchLevel, _distOpt), owner->GetPhysics()->GetAbsBounds().GetCenter(), 
-		1.0f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+	//gameRenderWorld->DrawText( va("%d  %d",_escapeSearchLevel, _distOpt), owner->GetPhysics()->GetAbsBounds().GetCenter(), 
+	// 	1.0f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 
 	// angua: in any case stop fleeing after max time (1 min).
 	// Might stay in flee task forever if pathing to destination not possible otherwise
