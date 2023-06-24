@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3758 $
- * $Date: 2009-11-09 06:02:27 -0500 (Mon, 09 Nov 2009) $
+ * $Revision: 3759 $
+ * $Date: 2009-11-19 02:04:37 -0500 (Thu, 19 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3758 2009-11-09 11:02:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3759 2009-11-19 07:04:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10589,10 +10589,13 @@ void idPlayer::PerformFrobCheck()
 				ent = AFbod->GetRerouteEnt();
 			}
 		}
+
+		// If shouldering a body, we only allow "simple" frobs
+		bool frobAllowed = !m_bShoulderingBody || ent->m_bFrobSimple;
 	
 		// only frob frobable, non-hidden entities within their frobdistance
 		// also, do not frob the ent we are currently holding in our hands
-		if( ent->m_bFrobable && lockedItemCheck && !isRopeMaster && !ent->IsHidden() && 
+		if( ent->m_bFrobable && frobAllowed && lockedItemCheck && !isRopeMaster && !ent->IsHidden() && 
 			traceDist < ent->m_FrobDistance && ent != gameLocal.m_Grabber->GetSelected())
 		{
 			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Entity %s was within frobdistance\r", ent->name.c_str());
@@ -10635,6 +10638,9 @@ void idPlayer::PerformFrobCheck()
 		if (ent == NULL) continue;
 
 		if (!ent->m_FrobDistance || ent->IsHidden() || !ent->m_bFrobable) continue;
+
+		// If shouldering a body, we only allow "simple" frobs
+		if (m_bShoulderingBody && !ent->m_bFrobSimple) continue;
 
 		// Get the frob distance from the entity candidate
 		float frobDist = ent->m_FrobDistance;
