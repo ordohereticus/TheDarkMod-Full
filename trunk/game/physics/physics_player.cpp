@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3340 $
- * $Date: 2009-03-29 23:23:41 -0400 (Sun, 29 Mar 2009) $
+ * $Revision: 3341 $
+ * $Date: 2009-03-29 23:59:32 -0400 (Sun, 29 Mar 2009) $
  * $Author: douga $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3340 $   $Date: 2009-03-29 23:23:41 -0400 (Sun, 29 Mar 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3341 $   $Date: 2009-03-29 23:59:32 -0400 (Sun, 29 Mar 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2184,6 +2184,24 @@ bool idPhysics_Player::CheckJump( void ) {
 	idVec3 extraSpeedForward = viewForward - (gravityNormal * viewForward) * gravityNormal;
 	extraSpeedForward.Normalize();
 
+	// back paddling ?
+	if ( command.forwardmove < 0 )
+	{
+		extraSpeedForward = -extraSpeedForward;
+	}
+	// strafing right?
+	if ( command.rightmove )
+	{
+		extraSpeedForward = viewRight - (gravityNormal * viewRight) * gravityNormal;
+		extraSpeedForward.Normalize();
+	}
+	// strafing left?
+	if ( command.rightmove < 0 )
+	{
+		extraSpeedForward = viewRight - (gravityNormal * viewRight) * gravityNormal;
+		extraSpeedForward = -extraSpeedForward;
+		extraSpeedForward.Normalize();
+	}
 	// are we walking?
 	if ( current.velocity.Length() >= cv_tdm_min_vel_jump.GetFloat() 
 		&& current.velocity.Length() >= pm_walkspeed.GetFloat() && 
