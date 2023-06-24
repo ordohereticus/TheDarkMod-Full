@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3902 $
- * $Date: 2010-05-25 10:19:41 -0400 (Tue, 25 May 2010) $
+ * $Revision: 3914 $
+ * $Date: 2010-06-06 22:17:58 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 3902 2010-05-25 14:19:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 3914 2010-06-07 02:17:58Z greebo $", init_version);
 
 #include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
@@ -810,15 +810,18 @@ int CDarkmodAASHidingSpotFinder::TestHidingPoint
 
 		out_lightQuotient = LAS.queryLightingAlongLine(testPoint, testLineTop, p_ignoreEntity, true);
 
+		float maxLightQuotient = cv_ai_hiding_spot_max_light_quotient.GetFloat();
+
 		//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Done testing hiding-spot lighting at point %f,%f,%f\n", testPoint.x, testPoint.y, testPoint.z);
-		if (out_lightQuotient < g_Global.m_hidingSpotMaxLightQuotient && out_lightQuotient >= 0.0)
+		if (out_lightQuotient < maxLightQuotient && out_lightQuotient >= 0.0)
 		{
 			//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Found hidable darkness of %f at point %f,%f,%f\n", LightQuotient, testPoint.x, testPoint.y, testPoint.z);
 			out_hidingSpotTypesThatApply |= DARKNESS_HIDING_SPOT_TYPE;
 
 			float darknessQuality = 0.0;
-			darknessQuality = (g_Global.m_hidingSpotMaxLightQuotient - out_lightQuotient) / g_Global.m_hidingSpotMaxLightQuotient;
+			darknessQuality = (maxLightQuotient - out_lightQuotient) / maxLightQuotient;
 			darknessQuality *= 2.0; // Experimental tweak to make it really focus on dark spots
+
 			if (darknessQuality > out_quality)
 			{
 				out_quality = darknessQuality;

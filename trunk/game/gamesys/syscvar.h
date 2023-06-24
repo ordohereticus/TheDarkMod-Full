@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3912 $
- * $Date: 2010-06-06 21:52:02 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3914 $
+ * $Date: 2010-06-06 22:17:58 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -63,6 +63,7 @@ extern idCVar cv_ai_opt_novisualstim;
 extern idCVar cv_ai_opt_nolipsync;
 extern idCVar cv_ai_opt_nopresent;
 extern idCVar cv_ai_opt_noobstacleavoidance;
+extern idCVar cv_ai_hiding_spot_max_light_quotient;
 extern idCVar cv_ai_debug_anims;
 extern idCVar cv_show_health;
 

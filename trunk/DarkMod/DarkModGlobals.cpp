@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3913 $
- * $Date: 2010-06-06 22:02:51 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3914 $
+ * $Date: 2010-06-06 22:17:58 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3913 2010-06-07 02:02:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3914 2010-06-07 02:17:58Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -41,12 +41,6 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3913 2010-06
 #include "sourcehook/sourcehook_impl.h"
 #include "renderpipe.h"
 #include "RevisionTracker.h"
-
-// The default max light quotient for hiding spots
-#define MAX_HIDING_SPOT_MAX_LIGHT_QUOTIENT 2.0
-
-// Default readius of the AI COMMUNICATIONS STIM
-#define DEFAULT_DARKMOD_AI_COMMUNICATIONS_STIM_RADIUS 5000.0
 
 // Darkmod 
 #define DEFAULT_MAX_NUM_HIDING_SPOT_TESTS_PER_AI_FRAME 10.0
@@ -183,9 +177,7 @@ CGlobal::CGlobal()
 	m_Filename = "undefined";
 	m_Linenumber = 0;
 	m_WeakLightgem = false;
-	m_AICommStimRadius = DEFAULT_DARKMOD_AI_COMMUNICATIONS_STIM_RADIUS;
 	m_maxNumHidingSpotPointTestsPerAIFrame = int(DEFAULT_MAX_NUM_HIDING_SPOT_TESTS_PER_AI_FRAME);
-	m_hidingSpotMaxLightQuotient = MAX_HIDING_SPOT_MAX_LIGHT_QUOTIENT;
 	
 	m_LogFile = NULL;
 
@@ -448,11 +440,6 @@ void CGlobal::LoadINISettings(void *p)
 			m_WeakLightgem = atof(pm->Value);
 		}
 
-		if (FindMap(ps, "AICommStimRadius", TRUE, &pm) != static_cast<ULONG>(-1))
-		{
-			m_AICommStimRadius = atof(pm->Value);
-		}
-
 		if (FindMap (ps, "maxHidingSpotTestsPerAIFrame", TRUE, &pm) != static_cast<ULONG>(-1))
 		{
 			m_maxNumHidingSpotPointTestsPerAIFrame = atoi(pm->Value);
@@ -463,13 +450,6 @@ void CGlobal::LoadINISettings(void *p)
 			}
 		}
 
-		if (FindMap (ps, "hidingSpotMaxLightQuotient", TRUE, &pm) != static_cast<ULONG>(-1))
-		{
-			m_hidingSpotMaxLightQuotient = atof(pm->Value);
-			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("m_hidingSpotMaxLightQuotient set to %f", m_hidingSpotMaxLightQuotient);
-		}
-
-		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("AICommStimRadius: %f\r", m_AICommStimRadius);
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("maxHidingSpotTestsPerAIFrame: %d\r", m_maxNumHidingSpotPointTestsPerAIFrame);
 	}
 }
