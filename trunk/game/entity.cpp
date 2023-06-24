@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3495 $
- * $Date: 2009-06-27 00:22:54 -0400 (Sat, 27 Jun 2009) $
- * $Author: ishtvan $
+ * $Revision: 3532 $
+ * $Date: 2009-07-14 10:29:16 -0400 (Tue, 14 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3495 2009-06-27 04:22:54Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3532 2009-07-14 14:29:16Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2857,14 +2857,14 @@ void idEntity::PropSoundS( const char *localName, const char *globalName, float 
 
 	gName = gName.Mid(0, end);
 
-	// add the input volume modifier
-	volMod += VolModIn;
-
 	bFoundSnd = gameLocal.m_sndProp->CheckSound( gName.c_str(), false );
 
 Quit:
 	if( bFoundSnd )
 	{
+		// add the input volume modifier
+		volMod += VolModIn;
+
 		gameLocal.m_sndProp->Propagate( volMod, durMod, gName, 
 										GetPhysics()->GetOrigin(), 
 										this ); 

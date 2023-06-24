@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3522 $
- * $Date: 2009-07-06 02:49:01 -0400 (Mon, 06 Jul 2009) $
+ * $Revision: 3532 $
+ * $Date: 2009-07-14 10:29:16 -0400 (Tue, 14 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3522 2009-07-06 06:49:01Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3532 2009-07-14 14:29:16Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -118,8 +118,8 @@ void IdleState::Init(idAI* owner)
 
 	InitialiseCommunication(owner);
 
-	int idleBarkIntervalMin = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_min", "45"));
-	int idleBarkIntervalMax = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_max", "180"));
+	int idleBarkIntervalMin = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_min", "20"));
+	int idleBarkIntervalMax = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_max", "60"));
 	// Push the regular patrol barking to the list too
 	owner->commSubsystem->AddCommTask(
 		CommunicationTaskPtr(new RepeatedBarkTask("snd_relaxed", idleBarkIntervalMin, idleBarkIntervalMax))
