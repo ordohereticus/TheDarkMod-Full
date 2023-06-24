@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 3918 $
+ * $Date: 2010-06-07 23:04:15 -0400 (Mon, 07 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -66,6 +66,7 @@ typedef enum {
 	// TDM specific DECLs
 	DECL_XDATA, // External data, for scripts
 	DECL_TDM_MATINFO, // Material information local to TDM.
+	DECL_TDM_MISSIONINFO, // Mission information
 	// new decl types can be added here
 
 	DECL_MAX_TYPES			= 32

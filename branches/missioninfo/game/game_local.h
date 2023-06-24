@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3918 $
+ * $Date: 2010-06-07 23:04:15 -0400 (Mon, 07 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -199,6 +199,8 @@ typedef boost::shared_ptr<CStim> CStimPtr;
 class CStimResponseTimer;
 class CGrabber;
 class CEscapePointManager;
+class CMissionManager;
+typedef boost::shared_ptr<CMissionManager> CMissionManagerPtr;
 
 // Forward declare the Conversation System
 namespace ai { 
@@ -471,6 +473,11 @@ public:
 	 * greebo: The fan-mission-handling class. Also contains GUI handling code.
 	 */
 	CModMenuPtr				m_ModMenu;
+
+	/**
+	 * greebo: The mission manager instance, for manipulating mission PK4s and saving play info.
+	 */
+	CMissionManagerPtr		m_MissionManager;
 
 	/**
 	 * greebo: The class handling the main menu's shop GUI.
