@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3442 $
- * $Date: 2009-05-16 02:26:22 -0400 (Sat, 16 May 2009) $
- * $Author: greebo $
+ * $Revision: 3630 $
+ * $Date: 2009-08-02 01:27:39 -0400 (Sun, 02 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3442 2009-05-16 06:26:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3630 2009-08-02 05:27:39Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -356,6 +356,8 @@ const idEventDef AI_Knockout( "knockout", "e" );
 
 const idEventDef AI_GetNextIdleAnim( "getNextIdleAnim", NULL, 's' );
 
+const idEventDef AI_HasSeenEvidence( "hasSeenEvidence", NULL, 'd' );
+
 /*
 * This is the AI event table class for a generic NPC actor.
 *
@@ -538,6 +540,9 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT ( AI_SpawnThrowableProjectile,		idAI::Event_SpawnThrowableProjectile)
 
 	EVENT(AI_GetNextIdleAnim,					idAI::Event_GetNextIdleAnim)
+
+	EVENT(AI_HasSeenEvidence,					idAI::Event_HasSeenEvidence)
+
 
 END_CLASS
 
@@ -3400,4 +3405,10 @@ void idAI::Event_ProcessVisualStim(idEntity* stimSource)
 void idAI::Event_GetNextIdleAnim()
 {
 	idThread::ReturnString(GetNextIdleAnim());
+}
+
+
+void idAI::Event_HasSeenEvidence()
+{
+	idThread::ReturnInt(HasSeenEvidence());
 }

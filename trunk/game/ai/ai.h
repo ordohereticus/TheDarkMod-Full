@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3627 $
- * $Date: 2009-07-31 13:29:35 -0400 (Fri, 31 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3630 $
+ * $Date: 2009-08-02 01:27:39 -0400 (Sun, 02 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -1894,6 +1894,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// Scripts query this to retrieve the name of the next idle anim
 	void Event_GetNextIdleAnim();
+
+	void Event_HasSeenEvidence();
+
 
 #ifdef TIMING_BUILD
 private:
