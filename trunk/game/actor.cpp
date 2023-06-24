@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3709 $
- * $Date: 2009-09-23 23:37:37 -0400 (Wed, 23 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3735 $
+ * $Date: 2009-11-03 01:15:13 -0500 (Tue, 03 Nov 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3709 2009-09-24 03:37:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3735 2009-11-03 06:15:13Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2485,7 +2485,8 @@ EMeleeType idActor::GetBestParry( void )
 
 	if( m_MeleeStatus.m_bCanParryAll )
 		ParryType = MELEETYPE_BLOCKALL;
-	else if( (AttEnemy = ClosestAttackingEnemy( true )) != NULL )
+	else if( (AttEnemy = ClosestAttackingEnemy( true )) != NULL
+			&& AttEnemy->m_MeleeStatus.m_ActionType != MELEETYPE_UNBLOCKABLE )
 	{
 		ParryType = AttEnemy->m_MeleeStatus.m_ActionType;
 	}
