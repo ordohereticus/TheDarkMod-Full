@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3293 $
- * $Date: 2009-03-24 13:16:29 -0400 (Tue, 24 Mar 2009) $
+ * $Revision: 3294 $
+ * $Date: 2009-03-25 03:52:53 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,9 @@
 #ifndef _PICKABLE_LOCK_H_
 #define _PICKABLE_LOCK_H_
 
-extern const idEventDef EV_TDM_UpdateHandlePosition;
+// To be implemented by clients of this class
+extern const idEventDef EV_TDM_Lockpick_StatusUpdate; // update the position of handles or other things
+extern const idEventDef EV_TDM_Lockpick_OnLockPicked; // called when the lock is picked successfully
 
 /** 
  * greebo: This implements the Lock part of a door or chest.

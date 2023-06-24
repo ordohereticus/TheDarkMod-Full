@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3293 $
- * $Date: 2009-03-24 13:16:29 -0400 (Tue, 24 Mar 2009) $
+ * $Revision: 3294 $
+ * $Date: 2009-03-25 03:52:53 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -177,7 +177,10 @@ protected:
 
 	// Updates the position of the attached handles according to the current lockpick state
 	void					UpdateHandlePosition();
-	void					Event_UpdateHandlePosition();
+
+	// Required events which are called by the PickableLock class
+	void					Event_Lockpick_StatusUpdate();
+	void					Event_Lockpick_OnLockPicked();
 
 	// Script event interface
 	void					Event_GetDoorhandle();
