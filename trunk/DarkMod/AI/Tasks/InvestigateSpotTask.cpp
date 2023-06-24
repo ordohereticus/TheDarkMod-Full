@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 3426 $
+ * $Date: 2009-05-07 12:44:17 -0400 (Thu, 07 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 3426 2009-05-07 16:44:17Z greebo $", init_version);
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -90,8 +90,21 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 
 	if (!_moveInitiated)
 	{
+		idVec3 destPos = _searchSpot;
+
+		// greebo: For close investigation, don't step up to the very spot, to prevent the AI
+		// from kneeling into bloodspots or corpses
+		if (_investigateClosely)
+		{
+			idVec3 direction = owner->GetPhysics()->GetOrigin() - _searchSpot;
+			direction.NormalizeFast();
+
+			// 20 units before the actual spot
+			destPos += direction * 20;
+		}
+
 		// Let's move
-		owner->MoveToPosition(_searchSpot);
+		owner->MoveToPosition(destPos);
 		_moveInitiated = true;
 
 		if (owner->GetMoveStatus() == MOVE_STATUS_DEST_UNREACHABLE)
