@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3438 $
- * $Date: 2009-05-09 11:06:30 -0400 (Sat, 09 May 2009) $
+ * $Revision: 3456 $
+ * $Date: 2009-05-22 09:55:58 -0400 (Fri, 22 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3438 2009-05-09 15:06:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3456 2009-05-22 13:55:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6060,6 +6060,12 @@ int idGameLocal::DoResponseAction(CStim* stim, int numEntities, idEntity* origin
 					continue;
 				}
 
+				if (cv_sr_show.GetInteger() > 0)
+				{
+					// Show successful S/R
+					gameRenderWorld->DebugArrow(colorGreen, stimOrigin, srEntities[i]->GetPhysics()->GetOrigin(), 1, gameLocal.msec);
+				}
+
 				// Fire the response and pass the originating entity plus the stim object itself
 				// The stim object can be queried for values like magnitude, falloff and such.
 				response->TriggerResponse(originator, stim);
@@ -6272,6 +6278,15 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 				
 				if (n > 0)
 				{
+					if (cv_sr_show.GetInteger() > 1)
+					{
+						for (int n2 = 0; n2 < n; ++n2)
+						{
+							// Show failed S/R
+							gameRenderWorld->DebugArrow(colorRed, bounds.GetCenter(), srEntities[n2]->GetPhysics()->GetOrigin(), 1, gameLocal.msec);
+						}
+					}
+
 					// Do responses for entities within the radius of the stim
 					numResponses = DoResponseAction(stim, n, entity, origin);
 				}
