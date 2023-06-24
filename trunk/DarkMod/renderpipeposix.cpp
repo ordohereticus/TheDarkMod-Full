@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3203 $
- * $Date: 2009-01-28 10:52:27 -0500 (Wed, 28 Jan 2009) $
- * $Author: greebo $
+ * $Revision: 3769 $
+ * $Date: 2009-12-16 18:51:05 -0500 (Wed, 16 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -31,7 +31,7 @@ CRenderPipe::CRenderPipe() : m_fd(INVALID_HANDLE_VALUE)
 	// We want the filename of the render "pipe" to be "/dev/shm/tdm_lg_render.tga". To make a relative
 	// path to that location, we need to count the slashes (and hence directories) in fs_savepath, and prepend
 	// the appropriate number of "../"s to the filename.
-	// This is necessary because CaptureRenderToFile() only takes relative paths to /dev/shm/
+	// This is necessary because CaptureRenderToFile() assumes relative paths.
 	
 	// The first parameter here is arbitrary. We're not interested in that filename, we just want fs_savepath.
 	const char* ospath = fileSystem->RelativePathToOSPath("somerandomfilename", "fs_savepath");
@@ -45,7 +45,7 @@ CRenderPipe::CRenderPipe() : m_fd(INVALID_HANDLE_VALUE)
 		ospath_ptr++;
 	}
 	
-	// Append "../" to the path (slashes-1) times, and we'll be at the root of the filesystem.
+	// Prepend "../" to the path (slashes-1) times, and we'll be at the root of the filesystem.
 	char* filename_ptr = m_filename;
 	while (slashes>1)
 	{

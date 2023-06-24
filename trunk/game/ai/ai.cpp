@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3765 $
- * $Date: 2009-11-26 11:35:34 -0500 (Thu, 26 Nov 2009) $
- * $Author: tels $
+ * $Revision: 3769 $
+ * $Date: 2009-12-16 18:51:05 -0500 (Wed, 16 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3765 2009-11-26 16:35:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3769 2009-12-16 23:51:05Z crispy $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1716,7 +1716,7 @@ void idAI::Spawn( void )
 	const char *HeadJointName = spawnArgs.GetString("head_jointname", "Head");
 
 	m_HeadJointID = animator.GetJointHandle(HeadJointName);
-	m_HeadBodyID = BodyForJoint( m_HeadJointID );
+	m_HeadBodyID = (m_HeadJointID == -1 ? INVALID_JOINT :  BodyForJoint( m_HeadJointID ));
 	if( m_HeadJointID == INVALID_JOINT )
 	{
 		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Invalid head joint for joint %s on AI %s \r", HeadJointName, name.c_str());
