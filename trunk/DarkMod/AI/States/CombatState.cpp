@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3555 $
- * $Date: 2009-07-19 12:53:13 -0400 (Sun, 19 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3560 $
+ * $Date: 2009-07-22 08:43:43 -0400 (Wed, 22 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3555 2009-07-19 16:53:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3560 2009-07-22 12:43:43Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -168,7 +168,7 @@ void CombatState::Init(idAI* owner)
 
 
 	// The communication system plays starting bark
-	idPlayer* player;
+	idPlayer* player(NULL);
 	if (enemy->IsType(idPlayer::Type))
 	{
 		player = static_cast<idPlayer*>(enemy);
