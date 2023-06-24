@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3922 $
- * $Date: 2010-06-08 21:10:19 -0400 (Tue, 08 Jun 2010) $
- * $Author: angua $
+ * $Revision: 3925 $
+ * $Date: 2010-06-09 12:26:44 -0400 (Wed, 09 Jun 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3922 2010-06-09 01:10:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3925 2010-06-09 16:26:44Z greebo $", init_version);
 
 #include "MissionManager.h"
 #include "MissionDB.h"
@@ -51,6 +51,32 @@ CMissionInfoPtr CMissionManager::GetMissionInfo(int index)
 CMissionInfoPtr CMissionManager::GetMissionInfo(const idStr& name)
 {
 	return _missionDB->GetMissionInfo(name);
+}
+
+void CMissionManager::EraseModFolder(const idStr& name)
+{
+	CMissionInfoPtr info = GetMissionInfo(name);
+
+	if (info == NULL)
+	{
+		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Cannot erase mission folder for mod %s, mission info not found\r", name.c_str());
+		return;
+	}
+
+	// Delete folder contents
+	fs::path missionPath = info->GetMissionFolderPath().c_str();
+
+	if (fs::exists(missionPath))
+	{
+		fs::remove_all(missionPath);
+	}
+	else
+	{
+		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Cannot erase mission folder for mod %s, mission folder not found\r", missionPath.file_string().c_str());
+		return;
+	}
+
+	info->ClearMissionFolderSize();
 }
 
 void CMissionManager::SearchForNewMissions()

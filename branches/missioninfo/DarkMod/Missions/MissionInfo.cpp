@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3924 $
- * $Date: 2010-06-09 11:37:01 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3925 $
+ * $Date: 2010-06-09 12:26:44 -0400 (Wed, 09 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3924 2010-06-09 15:37:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3925 2010-06-09 16:26:44Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -46,6 +46,12 @@ std::size_t CMissionInfo::GetMissionFolderSize()
 	}
 
 	return _modFolderSize;
+}
+
+void CMissionInfo::ClearMissionFolderSize()
+{
+	_modFolderSize = 0;
+	_modFolderSizeComputed = false;
 }
 
 idStr CMissionInfo::GetMissionFolderSizeString()
@@ -100,6 +106,16 @@ void CMissionInfo::Save()
 	// Generate new declaration body text
 	_decl->Update(modName);
 	_decl->ReplaceSourceFileText();
+}
+
+idStr CMissionInfo::GetMissionFolderPath()
+{
+	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
+	parentPath = parentPath.remove_leaf().remove_leaf();
+
+	fs::path missionPath = parentPath / modName.c_str();
+
+	return missionPath.file_string().c_str();
 }
 
 bool CMissionInfo::HasMissionNotes()

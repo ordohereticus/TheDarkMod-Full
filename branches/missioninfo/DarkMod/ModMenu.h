@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3924 $
- * $Date: 2010-06-09 11:37:01 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3925 $
+ * $Date: 2010-06-09 12:26:44 -0400 (Wed, 09 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -64,6 +64,8 @@ public:
 	void DisplayBriefingPage(idUserInterface *gui);
 
 private:
+
+	void UpdateSelectedMod(idUserInterface* gui);
 
 	// Searches for new PK4 files in the fms/ root folder
 	void SearchForNewMods();

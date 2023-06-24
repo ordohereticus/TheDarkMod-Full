@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3924 $
- * $Date: 2010-06-09 11:37:01 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3925 $
+ * $Date: 2010-06-09 12:26:44 -0400 (Wed, 09 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -58,6 +58,11 @@ public:
 	// Returns the size requirements of the fs_game folder
 	// Returns 0 if the mod has not been installed yet
 	std::size_t GetMissionFolderSize();
+
+	// Returns the full OS path to the mod folder
+	idStr GetMissionFolderPath();
+
+	void ClearMissionFolderSize();
 
 	// Fast check whether the readme.txt file exists
 	bool HasMissionNotes();
