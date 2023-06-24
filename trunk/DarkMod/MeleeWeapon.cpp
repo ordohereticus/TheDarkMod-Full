@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3797 $
- * $Date: 2010-01-15 20:15:23 -0500 (Fri, 15 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3799 $
+ * $Date: 2010-01-16 05:01:29 -0500 (Sat, 16 Jan 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3797 2010-01-16 01:15:23Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3799 2010-01-16 10:01:29Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "Grabber.h"
@@ -1095,7 +1095,7 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 	if( !DmgDef )
 	{
 		DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("MeleeWeapon: Did not find damage def %s\r", DamageDefName);
-		goto Quit;
+		return;
 	}
 
 	// Apply physical impulse
@@ -1279,7 +1279,6 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 	}
 	// DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("MeleeCollision: Done!\r");
 
-Quit:
 	return;
 }
 
