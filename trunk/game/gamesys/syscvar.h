@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3843 $
- * $Date: 2010-03-01 11:10:58 -0500 (Mon, 01 Mar 2010) $
+ * $Revision: 3896 $
+ * $Date: 2010-05-09 14:54:28 -0400 (Sun, 09 May 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -585,11 +585,16 @@ extern idCVar r_HDR_brightPassOffset;
 extern idCVar r_HDR_min_luminance;	
 extern idCVar r_HDR_max_luminance;	
 extern idCVar r_HDR_colorCurveBias;
+extern idCVar r_HDR_sceneExposure;
+extern idCVar r_HDR_gammaCorrection;
 extern idCVar r_HDR_blueShiftBias;
 extern idCVar r_HDR_enableDebugMode;
 extern idCVar r_HDR_debugTextureIndex;
 extern idCVar r_HDR_eyeAdjustmentDelay;
 extern idCVar r_HDR_maxColorIntensity;
 extern idCVar r_HDR_bloomIntensity;
+extern idCVar r_HDR_haloIntensity;
+extern idCVar r_HDR_lumUpdateRate;
+extern idCVar r_HDR_eyeAdjustmentDelay;
 
 #endif /* !__SYS_CVAR_H__ */
