@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3512 $
- * $Date: 2009-07-02 23:51:35 -0400 (Thu, 02 Jul 2009) $
+ * $Revision: 3936 $
+ * $Date: 2010-06-10 09:43:06 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 3512 2009-07-03 03:51:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 3936 2010-06-10 13:43:06Z greebo $", init_version);
 
 #include <climits>
 #include "Conversation.h"
@@ -140,6 +140,12 @@ void Conversation::Start()
 
 	// Set the index to the first command
 	_currentCommand = 0;
+
+	// Reset the command execution status to ready
+	for (int i = 0; i < _commands.Num(); i++)
+	{
+		_commands[i]->SetState(ConversationCommand::EReadyForExecution);
+	}
 }
 
 void Conversation::End()
