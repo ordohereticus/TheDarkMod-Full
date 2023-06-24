@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3137 $
- * $Date: 2009-01-13 13:34:32 -0500 (Tue, 13 Jan 2009) $
+ * $Revision: 3256 $
+ * $Date: 2009-03-15 04:47:05 -0400 (Sun, 15 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3137 2009-01-13 18:34:32Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3256 2009-03-15 08:47:05Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1635,7 +1635,13 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 	{
 		// if there is already a door handling task active, 
 		// terminate that one so we can start a new one next time
-		owner->GetSubsystem(SubsysMovement)->FinishTask();
+		const SubsystemPtr& subsys = owner->GetSubsystem(SubsysMovement);
+		TaskPtr task = subsys->GetCurrentTask();
+
+		if (boost::dynamic_pointer_cast<HandleDoorTask>(task) != NULL)
+		{
+			subsys->FinishTask();
+		}
 	}
 }
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3170 $
- * $Date: 2009-01-18 04:40:41 -0500 (Sun, 18 Jan 2009) $
+ * $Revision: 3256 $
+ * $Date: 2009-03-15 04:47:05 -0400 (Sun, 15 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3170 2009-01-18 09:40:41Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3256 2009-03-15 08:47:05Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -453,17 +453,35 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				else
 				{
 					// door is open and possibly in the way, may need to close it
-					// check if there is a way around
-					idTraceModel trm(bounds);
-					idClipModel clip(trm);
-	
-					// check point next to the open door
+
+					// test the angle between the view direction of the AI and the open door
+					// door can only be in the way when the view direction 
+					// is approximately perpendicular to the open door
+					idVec3 ownerDir = owner->viewAxis.ToAngles().ToForward();
+
 					idVec3 testVector = openPos - frobDoorOrg;
 					testVector.z = 0;
 					float length = testVector.LengthFast();
 					float dist = size * SQUARE_ROOT_OF_2;
 					length += dist;
 					testVector.NormalizeFast();
+
+					float product = idMath::Fabs(ownerDir * testVector);
+
+					if (product > 0.3)
+					{
+						// door is not in the way and open, just continue walking
+						_doorHandlingState = EStateApproachingDoor;
+						break;
+					}
+
+					// check if there is a way around
+					idTraceModel trm(bounds);
+					idClipModel clip(trm);
+	
+					// check point next to the open door
+					
+
 					idVec3 testPoint = frobDoorOrg + testVector * length;
 
 					int contents = gameLocal.clip.Contents(testPoint, &clip, mat3_identity, CONTENTS_SOLID, owner);
