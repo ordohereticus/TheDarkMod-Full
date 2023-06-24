@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3250 $
- * $Date: 2009-03-15 01:47:06 -0400 (Sun, 15 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3261 $
+ * $Date: 2009-03-17 05:45:40 -0400 (Tue, 17 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 3250 2009-03-15 05:47:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: aas.cpp 3261 2009-03-17 09:45:40Z greebo $", init_version);
 
 #include "aas_local.h"
 
@@ -438,13 +438,16 @@ int idAASLocal::GetClusterNum(int areaNum)
 void idAASLocal::ReferenceDoor(CFrobDoor* door, int areaNum)
 {
 	_doors[areaNum] = door;
-	_doors.insert(DoorMap::value_type(areaNum, door));
 }
 
 void idAASLocal::DeReferenceDoor(CFrobDoor* door, int areaNum)
 {
 	DoorMap::iterator found = _doors.find(areaNum);
-	_doors.erase(found);
+
+	if (found != _doors.end())
+	{
+		_doors.erase(found);
+	}
 }
 
 CFrobDoor* idAASLocal::GetDoor(int areaNum) const
