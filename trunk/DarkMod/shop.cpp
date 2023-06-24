@@ -1,5 +1,18 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 3734 $
+ * $Date: 2009-11-02 01:25:49 -0500 (Mon, 02 Nov 2009) $
+ * $Author: greebo $
+ *
+ ***************************************************************************/
+// Copyright (C) 2004 Id Software, Inc.
+//
+
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Id: shop.cpp 3734 2009-11-02 06:25:49Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
