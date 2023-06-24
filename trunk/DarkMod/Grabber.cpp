@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3602 $
- * $Date: 2009-07-28 00:09:56 -0400 (Tue, 28 Jul 2009) $
+ * $Revision: 3727 $
+ * $Date: 2009-10-27 11:00:47 -0400 (Tue, 27 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3602 2009-07-28 04:09:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3727 2009-10-27 15:00:47Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1511,7 +1511,12 @@ bool CGrabber::Equip( void )
 
 	// Specific case of shouldering a body
 	if( ent->IsType(idAFEntity_Base::Type) && ent->spawnArgs.GetBool("shoulderable") )
+	{
 		ShoulderBody( static_cast<idAFEntity_Base *>(ent) );
+
+		// greebo: Clear the drag entity, otherwise frobbing interferes
+		m_dragEnt = NULL;
+	}
 
 	return true;
 }
