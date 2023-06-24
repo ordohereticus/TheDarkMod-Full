@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3765 $
- * $Date: 2009-11-26 11:35:34 -0500 (Thu, 26 Nov 2009) $
+ * $Revision: 3766 $
+ * $Date: 2009-11-30 13:56:06 -0500 (Mon, 30 Nov 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3765 2009-11-26 16:35:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3766 2009-11-30 18:56:06Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3408,12 +3408,18 @@ void idEntity::DetachOnAlert( const int alertIndex )
 {
 	idEntity *ent = NULL;
 
+	// Tels: TODO: What happens if m_Attachments.Num() is f.i. X and we detach one
+	//				of them during this loop, and .Num() is then X-1, would we then
+	//				miss one of them?
 	for ( int ind = 0; ind < m_Attachments.Num(); ind ++)
 	{
 		ent = m_Attachments[ind].ent.GetEntity();
 		if( ent && m_Attachments[ind].ent.IsValid() )
 		{
-		DetachInd(ind);	
+			if( ent->spawnArgs.GetInt( "unbindonalertindex", "6" ) >= alertIndex)
+			{
+				DetachInd(ind);	
+			}
 		}
 	}
 }
