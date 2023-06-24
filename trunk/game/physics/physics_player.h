@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3418 $
- * $Date: 2009-05-04 17:40:06 -0400 (Mon, 04 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3610 $
+ * $Date: 2009-07-29 03:06:16 -0400 (Wed, 29 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -844,7 +844,7 @@ public:
 	* rendering
 	* Returns current view lean translation in world axes
 	*/
-	idAngles GetViewLeanAngles();
+	const idAngles& GetViewLeanAngles() const;
 
 	/*
 	* This is called from idPlayer to adjust the camera before

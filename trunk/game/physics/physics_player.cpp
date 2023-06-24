@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3482 $
- * $Date: 2009-05-31 09:06:32 -0400 (Sun, 31 May 2009) $
+ * $Revision: 3610 $
+ * $Date: 2009-07-29 03:06:16 -0400 (Wed, 29 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3482 $   $Date: 2009-05-31 09:06:32 -0400 (Sun, 31 May 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3610 $   $Date: 2009-07-29 03:06:16 -0400 (Wed, 29 Jul 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4467,7 +4467,7 @@ bool idPhysics_Player::IsLeaning()
 
 //----------------------------------------------------------------------
 
-idAngles idPhysics_Player::GetViewLeanAngles()
+const idAngles& idPhysics_Player::GetViewLeanAngles() const
 {
 	return m_viewLeanAngles;
 }
