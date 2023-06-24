@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3734 $
- * $Date: 2009-11-02 01:25:49 -0500 (Mon, 02 Nov 2009) $
+ * $Revision: 3931 $
+ * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -65,6 +65,8 @@ public:
 
 private:
 
+	void UpdateSelectedMod(idUserInterface* gui);
+
 	// Searches for new PK4 files in the fms/ root folder
 	void SearchForNewMods();
 	// Sub-routine of SearchForNewMods() investigating the FM folder using the given extension (including dot ".pk4", ".zip")
@@ -99,7 +101,7 @@ private:
 	void InitStartingMap();
 
 	// Loads the contents of the readme.txt file to the GUI
-	idStr GetModNotes(int modIndex);
+	//idStr GetModNotes(int modIndex);
 
 	// Retries a mod info structure for the given mod (folder) name
 	ModInfo GetModInfo(const idStr& modName);

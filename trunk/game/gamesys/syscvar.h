@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3915 $
- * $Date: 2010-06-06 22:26:54 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3931 $
+ * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,6 +21,8 @@
 * DarkMod cvars - See text description in syscvar.cpp for descriptions
 **/
 extern idCVar cv_player_spawnclass;
+
+extern idCVar cv_default_mission_info_file;
 
 extern idCVar cv_ai_sndvol;
 extern idCVar cv_ai_bark_show;

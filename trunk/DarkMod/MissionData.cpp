@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3888 $
- * $Date: 2010-04-25 23:51:22 -0400 (Sun, 25 Apr 2010) $
+ * $Revision: 3931 $
+ * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3888 2010-04-26 03:51:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -20,6 +20,7 @@ static bool init_version = FileVersionList("$Id: MissionData.cpp 3888 2010-04-26
 #include "DifficultyManager.h"
 #include "../game/player.h"
 #include "StimResponse/StimResponseCollection.h"
+#include "Missions/MissionManager.h"
 
 /**
 * Add new component type names here.  Must be in exact same order as EComponentType
@@ -991,9 +992,9 @@ void CMissionData::Event_NewObjective()
 	player->UpdateObjectivesGUI();
 }
 
-void CMissionData::Event_MissionComplete( void )
+void CMissionData::Event_MissionComplete()
 {
-	DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objectives: MISSION COMPLETE. \r");
+	DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objectives: MISSION COMPLETED.\r");
 	gameLocal.Printf("MISSION COMPLETED\n");
 
 	// Fire the general mission end event
@@ -1004,8 +1005,9 @@ void CMissionData::Event_MissionComplete( void )
 	// greebo: Stop the gameplay timer, we've completed all objectives
 	m_TotalGamePlayTime = gameLocal.m_GamePlayTimer.GetTimeInSeconds();
 	
-	idPlayer *player = gameLocal.GetLocalPlayer();
-	if (player)
+	idPlayer* player = gameLocal.GetLocalPlayer();
+
+	if (player != NULL)
 	{
 		// Remember the player team, all entities are about to be removed
 		SetPlayerTeam(player->team);
@@ -1016,6 +1018,9 @@ void CMissionData::Event_MissionComplete( void )
 		player->PostEventMS(&EV_TriggerMissionEnd, 100);
 
 		player->UpdateObjectivesGUI();
+
+		// Notify the mission database
+		gameLocal.m_MissionManager->OnMissionComplete();
 	}
 }
 
