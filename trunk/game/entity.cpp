@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3881 $
- * $Date: 2010-04-20 12:10:41 -0400 (Tue, 20 Apr 2010) $
- * $Author: tels $
+ * $Revision: 3902 $
+ * $Date: 2010-05-25 10:19:41 -0400 (Tue, 25 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3881 2010-04-20 16:10:41Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3902 2010-05-25 14:19:41Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7446,7 +7446,7 @@ idEntity* idAnimatedEntity::GetEntityFromClassClosestToJoint( const idVec3 joint
 		//gameLocal.Warning ( "  Looking at entity for AIUse spawnarg %s", tempkv->GetValue().c_str() );
 
 		// has the proper AIUse type, so compute distance	
-		gameLocal.Printf("Has %s\n", AIUseType);
+		//gameLocal.Printf("Has %s\n", AIUseType);
 
 		const idVec3& deb = ent->GetPhysics()->GetOrigin();
 		idVec3 diff = joint_origin - deb;
@@ -7460,7 +7460,7 @@ idEntity* idAnimatedEntity::GetEntityFromClassClosestToJoint( const idVec3 joint
 		if (distance < closest_distance && distance < max_dist_sqr)
 		{
 			// use this one
-			gameLocal.Printf(" Distance %f < closest %f and < max_dist_sqr %f, so will use this entity.\n", distance, closest_distance, max_dist_sqr);
+			//gameLocal.Printf(" Distance %f < closest %f and < max_dist_sqr %f, so will use this entity.\n", distance, closest_distance, max_dist_sqr);
 			closest_distance = distance;
 			closest = ent;
 		}

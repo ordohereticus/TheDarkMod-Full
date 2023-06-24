@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1806 $
- * $Date: 2007-11-17 05:27:33 -0500 (Sat, 17 Nov 2007) $
+ * $Revision: 3902 $
+ * $Date: 2010-05-25 10:19:41 -0400 (Tue, 25 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -77,7 +77,8 @@ protected:
 	int numHideFromPVSAreas;
 
 	// The handle to the PVS system describing the PVS areas we are hiding from
-	pvsHandle_t h_hideFromPVS;
+	// greebo: Do not save this handle to savegames, the PVS index is changing in between saves.
+	mutable pvsHandle_t h_hideFromPVS;
 
 	// PVS areas we need to test as good hiding spots
 	int numPVSAreas;
@@ -287,6 +288,11 @@ protected:
 		int numPointsToTestThisPass,
 		int& inout_numPointsTestedThisPass
 	);
+
+	// greebo: Makes sure we have a valid PVS handle to work with
+	// Call this right before a PVS operation to ensure that the PVS
+	// handle is initialised.
+	void EnsurePVS();
 
 public:
 
