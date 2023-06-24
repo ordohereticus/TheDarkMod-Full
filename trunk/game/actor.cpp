@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3490 $
- * $Date: 2009-06-13 02:19:17 -0400 (Sat, 13 Jun 2009) $
+ * $Revision: 3491 $
+ * $Date: 2009-06-16 18:58:54 -0400 (Tue, 16 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3490 2009-06-13 06:19:17Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3491 2009-06-16 22:58:54Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1398,23 +1398,12 @@ void idActor::Restore( idRestoreGame *savefile ) {
 idActor::Hide
 ================
 */
-void idActor::Hide( void ) {
-	idEntity *ent;
-	idEntity *next;
-
+void idActor::Hide( void ) 
+{
 	idAFEntity_Base::Hide();
-	if ( head.GetEntity() ) {
+	if ( head.GetEntity() ) 
+	{
 		head.GetEntity()->Hide();
-	}
-
-	for( ent = GetNextTeamEntity(); ent != NULL; ent = next ) {
-		next = ent->GetNextTeamEntity();
-		if ( ent->GetBindMaster() == this ) {
-			ent->Hide();
-			if ( ent->IsType( idLight::Type ) ) {
-				static_cast<idLight *>( ent )->Off();
-			}
-		}
 	}
 	UnlinkCombat();
 }
@@ -1424,23 +1413,13 @@ void idActor::Hide( void ) {
 idActor::Show
 ================
 */
-void idActor::Show( void ) {
-	idEntity *ent;
-	idEntity *next;
-
+void idActor::Show( void ) 
+{
 	idAFEntity_Base::Show();
 	if ( head.GetEntity() ) {
 		head.GetEntity()->Show();
 	}
-	for( ent = GetNextTeamEntity(); ent != NULL; ent = next ) {
-		next = ent->GetNextTeamEntity();
-		if ( ent->GetBindMaster() == this ) {
-			ent->Show();
-			if ( ent->IsType( idLight::Type ) ) {
-				static_cast<idLight *>( ent )->On();
-			}
-		}
-	}
+
 	LinkCombat();
 }
 

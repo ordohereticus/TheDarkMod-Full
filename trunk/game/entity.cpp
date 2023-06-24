@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3485 $
- * $Date: 2009-06-01 06:45:03 -0400 (Mon, 01 Jun 2009) $
- * $Author: greebo $
+ * $Revision: 3491 $
+ * $Date: 2009-06-16 18:58:54 -0400 (Tue, 16 Jun 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3485 2009-06-01 10:45:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3491 2009-06-16 22:58:54Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2107,6 +2107,21 @@ void idEntity::Hide( void )
 			pDM->m_FrobEntity = NULL;
 		if( pDM && pDM->m_FrobEntityPrevious.GetEntity() == this )
 			pDM->m_FrobEntityPrevious = NULL;
+
+		// hide our bind-children:
+		idEntity *ent;
+		idEntity *next;
+
+		for( ent = GetNextTeamEntity(); ent != NULL; ent = next ) 
+		{
+			next = ent->GetNextTeamEntity();
+			if ( ent->GetBindMaster() == this ) 
+			{
+				ent->Hide();
+				if ( ent->IsType( idLight::Type ) ) 
+					static_cast<idLight *>( ent )->Off();
+			}
+		}
 	}
 }
 
@@ -2135,6 +2150,21 @@ void idEntity::Show( void )
 		if( m_FrobBox && m_bFrobable )
 			m_FrobBox->SetContents( CONTENTS_FROBABLE );
 		UpdateVisuals();
+
+		// show our bind-children
+		idEntity *ent;
+		idEntity *next;
+
+		for( ent = GetNextTeamEntity(); ent != NULL; ent = next ) 
+		{
+			next = ent->GetNextTeamEntity();
+			if ( ent->GetBindMaster() == this ) 
+			{
+				ent->Show();
+				if ( ent->IsType( idLight::Type ) )
+					static_cast<idLight *>( ent )->On();
+			}
+		}
 	}
 }
 
