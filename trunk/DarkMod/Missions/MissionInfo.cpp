@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3940 $
+ * $Date: 2010-06-11 00:13:06 -0400 (Fri, 11 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3940 2010-06-11 04:13:06Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -67,11 +67,11 @@ idStr CMissionInfo::GetMissionFolderSizeString()
 	}
 	else if (size < 1024*1024)
 	{
-		str = va("%0.2f kB", size/1024.0f);
+		str = va("%0.0f kB", size/1024.0f);
 	}
 	else if (size < 1024.0f*1024.0f*1024.0f)
 	{
-		str = va("%0.2f MB", size/(1024.0f*1024.0f));
+		str = va("%0.0f MB", size/(1024.0f*1024.0f));
 	}
 	else if (size < 1024.0f*1024.0f*1024.0f*1024.0f)
 	{
