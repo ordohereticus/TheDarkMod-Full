@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3697 $
- * $Date: 2009-09-07 02:03:15 -0400 (Mon, 07 Sep 2009) $
+ * $Revision: 3699 $
+ * $Date: 2009-09-07 07:11:33 -0400 (Mon, 07 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3697 2009-09-07 06:03:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3699 2009-09-07 11:11:33Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3531,7 +3531,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}
 	else if (cmd == "mainmenu_init")
 	{
-		gui->SetStateString("tdmversiontext", va("TDM %d.%02d", GAME_VERSION, TDM_VERSION_MAJOR, TDM_VERSION_MINOR));
+		gui->SetStateString("tdmversiontext", va("TDM %d.%02d", TDM_VERSION_MAJOR, TDM_VERSION_MINOR));
 	}
 
 	m_Shop->HandleCommands(menuCommand, gui, GetLocalPlayer());
