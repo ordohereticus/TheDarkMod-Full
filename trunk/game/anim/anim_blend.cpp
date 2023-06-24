@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3873 $
- * $Date: 2010-04-14 10:26:05 -0400 (Wed, 14 Apr 2010) $
+ * $Revision: 3874 $
+ * $Date: 2010-04-14 12:36:20 -0400 (Wed, 14 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3873 2010-04-14 14:26:05Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3874 2010-04-14 16:36:20Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1163,8 +1163,6 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					// get the attachment
 					idEntity* attEntity = ent->GetAttachment( command.string->c_str() );
 					ent->Detach( command.string->c_str() );
-					// call this to remove override animations:
-					ent->UnbindNotify( attEntity );
 					// and now remove it from the game world
 					// gameLocal.Warning ( "Going to remove attachment '%s' from '%s'\n", command.string->c_str(), ent->getName().c_str() );
 					attEntity->PostEventMS( &EV_Remove, 0 );
@@ -1177,8 +1175,6 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 
 					// only detach and unbind it
 					ent->Detach( command.string->c_str() );
-					// call this to remove override animations:
-					ent->UnbindNotify( detachedEntity );
 					// avoid the entity clipping into the hand by teleporting it down half a unit
 					if (detachedEntity)
 					{
@@ -1194,8 +1190,6 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 
 					// detach and unbind it
 					ent->Detach( command.string->c_str() );
-					// call this to remove override animations:
-					ent->UnbindNotify( detachedEntity );
 
 					// now restore origin and angles
 					const idKeyValue *tempkv;
@@ -1265,8 +1259,6 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
 					// gameLocal.Warning ( "Attaching '%s' as '%s' to '%s'", EntClass.c_str(), AttName.c_str(), AttPos.c_str());
 					ent->Attach( spawnedEntity, AttPos, AttName );
-					// let the attached entity override animations
-					ent->BindNotify( spawnedEntity );
 					break;
 				}
 				// tels: pick up an entity from the world
@@ -1312,8 +1304,6 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						gameLocal.Warning ( "Saving %f %f %f and %f %f %f", origin.x, origin.y, origin.z, ang[0], ang[1], ang[2] );
 						// and now attach it
 						ent->Attach( attTarget, AttPos, AttName );
-						// let the attached entity override animations
-						ent->BindNotify( attTarget );
 					}
 					else
 					{
