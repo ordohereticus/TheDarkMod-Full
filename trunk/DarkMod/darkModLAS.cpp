@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3097 $
- * $Date: 2008-12-30 11:27:46 -0500 (Tue, 30 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3592 $
+ * $Date: 2009-07-26 13:21:01 -0400 (Sun, 26 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /*!
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 3097 2008-12-30 16:27:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 3592 2009-07-26 17:21:01Z greebo $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -65,17 +65,21 @@ __inline bool darkModLAS::moveLightBetweenAreas (darkModLightRecord_t* p_LASLigh
 	
 	while (p_cursor != NULL)
 	{
-		darkModLightRecord_t* p_thisLASLight = (darkModLightRecord_t*) (p_cursor->Owner());
+		darkModLightRecord_t* p_thisLASLight = static_cast<darkModLightRecord_t*>(p_cursor->Owner());
+
 		if (p_thisLASLight == p_LASLight)
 		{
-			// angua: Check if this is the only light in this area. 
-			if (p_cursor->ListHead() == p_cursor && p_cursor->NextNode() == NULL) 
+			// greebo: Check if this is the list head, 
+			// we need to update the lightlist head pointer in that case
+			if (p_cursor->ListHead() == p_cursor)
 			{
-				// set this list to empty.
-				m_pp_areaLightLists[oldAreaNum] = NULL;
+				// NextNode() will return NULL if this is the only light in this list
+				m_pp_areaLightLists[oldAreaNum] = p_cursor->NextNode();
 			}
+
 			// Remove this node from its list
 			p_cursor->RemoveHeadsafe();
+
 			break;
 		}
 		else
