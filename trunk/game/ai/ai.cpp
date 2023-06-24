@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3705 $
- * $Date: 2009-09-15 05:58:24 -0400 (Tue, 15 Sep 2009) $
+ * $Revision: 3708 $
+ * $Date: 2009-09-19 11:59:52 -0400 (Sat, 19 Sep 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3705 2009-09-15 09:58:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3708 2009-09-19 15:59:52Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2245,7 +2245,8 @@ int idAI::GetThinkInterleave()
 	}
 	else
 	{
-		int thinkFrames = 1 + maxFrames * static_cast<int>((playerDist - minDist) / (maxDist - minDist));
+		float fraction = (playerDist - minDist) / (maxDist - minDist);
+		int thinkFrames = 1 + static_cast<int>(fraction * maxFrames);
 		return thinkFrames;
 	}
 }
