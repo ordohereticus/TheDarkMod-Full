@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "RangedCombatTask.h"
 #include "WaitTask.h"
@@ -69,7 +69,7 @@ bool RangedCombatTask::Perform(Subsystem& subsystem)
 			idAnimator* animator = owner->GetAnimatorForChannel(ANIMCHANNEL_LEGS);
 			int animint = animator->CurrentAnim(ANIMCHANNEL_LEGS)->AnimNum();
 			int length = animator->AnimLength(animint);
-			owner->GetSubsystem(SubsysAction)->PushTask(TaskPtr(new WaitTask(length + 1000)));
+			owner->actionSubsystem->PushTask(TaskPtr(new WaitTask(length + 1000)));
 		}
 	}
 

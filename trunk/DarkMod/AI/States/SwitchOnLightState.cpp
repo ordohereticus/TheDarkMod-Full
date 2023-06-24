@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -96,9 +96,9 @@ void SwitchOnLightState::Init(idAI* owner)
 				{
 					targetPoint.z = result.endpos.z + 1;
 
-					owner->GetSubsystem(SubsysAction)->ClearTasks();
-					owner->GetSubsystem(SubsysMovement)->ClearTasks();
-					owner->GetSubsystem(SubsysMovement)->PushTask(TaskPtr(new MoveToPositionTask(targetPoint)));
+					owner->actionSubsystem->ClearTasks();
+					owner->movementSubsystem->ClearTasks();
+					owner->movementSubsystem->PushTask(TaskPtr(new MoveToPositionTask(targetPoint)));
 					/*
 					if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 					{
@@ -226,7 +226,7 @@ void SwitchOnLightState::Think(idAI* owner)
 
 void SwitchOnLightState::StartSwitchOn(idAI* owner, idLight* light)
 {
-	owner->GetSubsystem(SubsysMovement)->ClearTasks();
+	owner->movementSubsystem->ClearTasks();
 	owner->StopMove(MOVE_STATUS_DONE);
 	_waitEndTime = gameLocal.time + 500;
 	_switchingOn = true;

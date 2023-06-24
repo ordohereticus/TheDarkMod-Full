@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BlindedState.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BlindedState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "BlindedState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -33,10 +33,10 @@ void BlindedState::Init(idAI* owner)
 	// Init base class first
 	State::Init(owner);
 
-	owner->GetSubsystem(SubsysMovement)->ClearTasks();
-	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
-	owner->GetSubsystem(SubsysAction)->ClearTasks();
+	owner->movementSubsystem->ClearTasks();
+	owner->senseSubsystem->ClearTasks();
+//	owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
+	owner->actionSubsystem->ClearTasks();
 
 	owner->StopMove(MOVE_STATUS_DONE);
 
@@ -47,9 +47,9 @@ void BlindedState::Init(idAI* owner)
 	owner->SetWaitState(ANIMCHANNEL_LEGS, "blinded");
 
 	// The communication system should bark
-	owner->GetSubsystem(SubsysCommunication)->PushTask(
+/*	owner->GetSubsystem(SubsysCommunication)->PushTask(
 		TaskPtr(new SingleBarkTask("snd_blinded"))
-	);
+	);*/
 
 	_endTime = gameLocal.time + 4000 + static_cast<int>(gameLocal.random.RandomFloat() * 2000);
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3264 $
- * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -116,12 +116,12 @@ void SearchingState::Init(idAI* owner)
 			}
 
 			// Clear the communication system
-			owner->GetSubsystem(SubsysCommunication)->ClearTasks();
+			// owner->GetSubsystem(SubsysCommunication)->ClearTasks(); // TODO_AI
 			// Allocate a singlebarktask, set the sound and enqueue it
 
-			owner->GetSubsystem(SubsysCommunication)->PushTask(
+			/*owner->GetSubsystem(SubsysCommunication)->PushTask(
 				TaskPtr(new SingleBarkTask(bark))
-			);
+			);*/ // TODO_AI
 		}
 	}
 	else if (memory.alertType == EAlertTypeEnemy)
@@ -203,7 +203,7 @@ void SearchingState::Think(idAI* owner)
 			// Choose to investigate spots closely on a random basis
 			memory.investigateStimulusLocationClosely = (gameLocal.random.RandomFloat() < 0.3f);
 
-			owner->GetSubsystem(SubsysAction)->PushTask(
+			owner->actionSubsystem->PushTask(
 				TaskPtr(InvestigateSpotTask::CreateInstance())
 			);
 			//gameRenderWorld->DebugArrow(colorBlue, owner->GetEyePosition(), memory.currentSearchSpot, 1, 2000);
@@ -227,7 +227,7 @@ void SearchingState::Think(idAI* owner)
 			//gameRenderWorld->DebugArrow(colorBlue, owner->GetEyePosition(), memory.currentSearchSpot, 1, 2000);
 
 			// Delegate the spot investigation to a new task, this will take the correct action.
-			owner->GetSubsystem(SubsysAction)->PushTask(InvestigateSpotTask::CreateInstance());
+			owner->actionSubsystem->PushTask(InvestigateSpotTask::CreateInstance());
 
 			// Prevent falling into the same hole twice
 			memory.hidingSpotInvestigationInProgress = true;
@@ -260,9 +260,9 @@ void SearchingState::StartNewHidingSpotSearch(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 
 	// Clear all the ongoing tasks
-	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	owner->GetSubsystem(SubsysAction)->ClearTasks();
-	owner->GetSubsystem(SubsysMovement)->ClearTasks();
+	owner->senseSubsystem->ClearTasks();
+	owner->actionSubsystem->ClearTasks();
+	owner->movementSubsystem->ClearTasks();
 
 	// If we are supposed to search the stimulus location do that instead 
 	// of just standing around while the search completes
@@ -272,7 +272,7 @@ void SearchingState::StartNewHidingSpotSearch(idAI* owner)
 		memory.currentSearchSpot = memory.alertPos;
 
 		// Delegate the spot investigation to a new task, this will take the correct action.
-		owner->GetSubsystem(SubsysAction)->PushTask(
+		owner->actionSubsystem->PushTask(
 			TaskPtr(new InvestigateSpotTask(memory.investigateStimulusLocationClosely))
 		);
 
@@ -455,7 +455,7 @@ void SearchingState::OnAudioAlert()
 	if (!memory.alertPos.Compare(memory.currentSearchSpot, 50))
 	{
 		// The position of the sound is different to the current search spot, redefine the goal
-		TaskPtr curTask = owner->GetSubsystem(SubsysAction)->GetCurrentTask();
+		TaskPtr curTask = owner->actionSubsystem->GetCurrentTask();
 		InvestigateSpotTaskPtr spotTask = boost::dynamic_pointer_cast<InvestigateSpotTask>(curTask);
 			
 		if (spotTask != NULL)

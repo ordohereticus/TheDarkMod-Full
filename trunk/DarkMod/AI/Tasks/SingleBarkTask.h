@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2632 $
- * $Date: 2008-07-12 03:48:12 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #ifndef __AI_SINGLE_BARK_TASK_H__
 #define __AI_SINGLE_BARK_TASK_H__
 
-#include "Task.h"
+#include "CommunicationTask.h"
 #include "../../AIComm_Message.h"
 
 namespace ai
@@ -23,10 +23,8 @@ class SingleBarkTask;
 typedef boost::shared_ptr<SingleBarkTask> SingleBarkTaskPtr;
 
 class SingleBarkTask :
-	public Task
+	public CommunicationTask
 {
-	// The name of the sound to be played
-	idStr _soundName;
 	int _endTime;
 
 	// The message which should be delivered when barking

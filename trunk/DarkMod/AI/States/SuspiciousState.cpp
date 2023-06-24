@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3264 $
- * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -66,8 +66,8 @@ void SuspiciousState::Init(idAI* owner)
 	// Shortcut reference
 	Memory& memory = owner->GetMemory();
 
-	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	owner->GetSubsystem(SubsysAction)->ClearTasks();
+	owner->senseSubsystem->ClearTasks();
+	owner->actionSubsystem->ClearTasks();
 
 	if (owner->GetMoveType() == MOVETYPE_SLEEP)
 	{
@@ -76,7 +76,7 @@ void SuspiciousState::Init(idAI* owner)
 	
 	if (gameLocal.random.RandomFloat() > 0.5f)
 	{
-		owner->GetSubsystem(SubsysMovement)->ClearTasks();
+		owner->movementSubsystem->ClearTasks();
 		owner->StopMove(MOVE_STATUS_DONE);
 		if (!owner->CheckFOV(memory.alertPos))
 		{
@@ -90,7 +90,7 @@ void SuspiciousState::Init(idAI* owner)
 
 	// barking
 	idStr bark;
-	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
+	//owner->GetSubsystem(SubsysCommunication)->ClearTasks(); // TODO_AI
 
 	if (owner->AlertIndexIncreased())
 	{
@@ -107,9 +107,9 @@ void SuspiciousState::Init(idAI* owner)
 			bark = "snd_alert1";
 		}
 
-		owner->GetSubsystem(SubsysCommunication)->PushTask(
+		/*owner->GetSubsystem(SubsysCommunication)->PushTask(
 			TaskPtr(new SingleBarkTask(bark))
-		);
+		);*/ // TODO_AI
 	}
 
 	// Let the AI update their weapons (make them nonsolid)

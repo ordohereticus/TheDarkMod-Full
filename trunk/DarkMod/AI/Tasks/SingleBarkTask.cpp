@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2643 $
- * $Date: 2008-07-13 02:24:10 -0400 (Sun, 13 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 2643 2008-07-13 06:24:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "SingleBarkTask.h"
 #include "../Memory.h"
@@ -20,11 +20,11 @@ namespace ai
 {
 
 SingleBarkTask::SingleBarkTask() :
-	_soundName("")
+	CommunicationTask("")
 {}
 
 SingleBarkTask::SingleBarkTask(const idStr& soundName, const CommMessagePtr& message) :
-	_soundName(soundName),
+	CommunicationTask(soundName),
 	_message(message)
 {}
 
@@ -79,8 +79,8 @@ void SingleBarkTask::SetSound(const idStr& soundName)
 // Save/Restore methods
 void SingleBarkTask::Save(idSaveGame* savefile) const
 {
-	Task::Save(savefile);
-	savefile->WriteString(_soundName);
+	CommunicationTask::Save(savefile);
+
 	savefile->WriteInt(_endTime);
 
 	savefile->WriteBool(_message != NULL);
@@ -92,8 +92,8 @@ void SingleBarkTask::Save(idSaveGame* savefile) const
 
 void SingleBarkTask::Restore(idRestoreGame* savefile)
 {
-	Task::Restore(savefile);
-	savefile->ReadString(_soundName);
+	CommunicationTask::Restore(savefile);
+
 	savefile->ReadInt(_endTime);
 
 	bool hasMessage;

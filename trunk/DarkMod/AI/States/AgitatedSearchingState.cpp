@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -79,30 +79,30 @@ void AgitatedSearchingState::Init(idAI* owner)
 		{
 			idStr bark = "snd_alert4";
 
-			owner->GetSubsystem(SubsysCommunication)->ClearTasks();
+/*			owner->GetSubsystem(SubsysCommunication)->ClearTasks();
 			owner->GetSubsystem(SubsysCommunication)->PushTask(
 				TaskPtr(new SingleBarkTask(bark))
-			);
+			);*/// TODO_AI
 		}
 	}
-	owner->GetSubsystem(SubsysCommunication)->QueueTask(
+/*	owner->GetSubsystem(SubsysCommunication)->QueueTask(
 		TaskPtr(new WaitTask(5000))
-		);
+		);*/// TODO_AI
 
 	int minTime = SEC2MS(owner->spawnArgs.GetFloat("searchbark_delay_min", "10"));
 	int maxTime = SEC2MS(owner->spawnArgs.GetFloat("searchbark_delay_max", "15"));
 
 	if (owner->HasSeenEvidence())
 	{
-		owner->GetSubsystem(SubsysCommunication)->QueueTask(
+/*		owner->GetSubsystem(SubsysCommunication)->QueueTask(
 			TaskPtr(new RepeatedBarkTask("snd_state4SeenEvidence", minTime, maxTime))
-		);
+		);*/// TODO_AI
 	}
 	else
 	{
-		owner->GetSubsystem(SubsysCommunication)->QueueTask(
+/*		owner->GetSubsystem(SubsysCommunication)->QueueTask(
 			TaskPtr(new RepeatedBarkTask("snd_state4SeenNoEvidence", minTime, maxTime))
-		);
+		);*/// TODO_AI
 	}
 	
 	owner->DrawWeapon();

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3335 $
- * $Date: 2009-03-28 06:13:09 -0400 (Sat, 28 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3335 2009-03-28 10:13:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1006,7 +1006,7 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 			int length = 0;
 			handle->StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
 
-			//gameRenderWorld->DebugArrow(colorWhite, handle->GetPhysics()->GetOrigin(), playerEyePos, 1, 5000);
+			// gameRenderWorld->DebugArrow(colorWhite, handle->GetPhysics()->GetOrigin(), gameLocal.GetLocalPlayer()->GetEyePosition(), 1, 5000);
 
 			return length;
 		}

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2643 $
- * $Date: 2008-07-13 02:24:10 -0400 (Sun, 13 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 2643 2008-07-13 06:24:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -21,7 +21,7 @@ namespace ai
 
 // Default constructor
 RepeatedBarkTask::RepeatedBarkTask() :
-	_soundName(""), 
+	CommunicationTask(""),
 	_barkRepeatIntervalMin(0), 
 	_barkRepeatIntervalMax(0)
 {}
@@ -29,7 +29,7 @@ RepeatedBarkTask::RepeatedBarkTask() :
 RepeatedBarkTask::RepeatedBarkTask(const idStr& soundName, 
 		int barkRepeatIntervalMin, int barkRepeatIntervalMax, 
 		const CommMessagePtr& message) : 
-	_soundName(soundName), 
+	CommunicationTask(soundName),
 	_barkRepeatIntervalMin(barkRepeatIntervalMin), 
 	_barkRepeatIntervalMax(barkRepeatIntervalMax),
 	_message(message)
@@ -93,8 +93,8 @@ bool RepeatedBarkTask::Perform(Subsystem& subsystem)
 // Save/Restore methods
 void RepeatedBarkTask::Save(idSaveGame* savefile) const
 {
-	Task::Save(savefile);
-	savefile->WriteString(_soundName);
+	CommunicationTask::Save(savefile);
+
 	savefile->WriteInt(_barkRepeatIntervalMin);
 	savefile->WriteInt(_barkRepeatIntervalMax);
 	savefile->WriteInt(_nextBarkTime);
@@ -108,8 +108,8 @@ void RepeatedBarkTask::Save(idSaveGame* savefile) const
 
 void RepeatedBarkTask::Restore(idRestoreGame* savefile)
 {
-	Task::Restore(savefile);
-	savefile->ReadString(_soundName);
+	CommunicationTask::Restore(savefile);
+
 	savefile->ReadInt(_barkRepeatIntervalMin);
 	savefile->ReadInt(_barkRepeatIntervalMax);
 	savefile->ReadInt(_nextBarkTime);

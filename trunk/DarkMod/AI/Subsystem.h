@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2822 $
- * $Date: 2008-09-13 00:50:55 -0400 (Sat, 13 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -108,7 +108,7 @@ public:
 	virtual void Restore(idRestoreGame* savefile);
 
 	// Returns some debug text for console or renderworld display
-	idStr GetDebugInfo();
+	virtual idStr GetDebugInfo();
 };
 typedef boost::shared_ptr<Subsystem> SubsystemPtr;
 

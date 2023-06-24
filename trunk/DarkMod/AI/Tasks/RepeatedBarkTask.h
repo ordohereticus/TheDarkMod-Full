@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2635 $
- * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #ifndef __AI_REPEATED_BARK_TASK_H__
 #define __AI_REPEATED_BARK_TASK_H__
 
-#include "Task.h"
+#include "CommunicationTask.h"
 #include "../../AIComm_Message.h"
 
 namespace ai
@@ -23,11 +23,9 @@ class RepeatedBarkTask;
 typedef boost::shared_ptr<RepeatedBarkTask> RepeatedBarkTaskPtr;
 
 class RepeatedBarkTask :
-	public Task
+	public CommunicationTask
 {
 private:
-	// Corresponds to AI spawnarg "bark_repeat_patrol"
-	idStr _soundName;
 	// times in milliseconds:
 	int _barkRepeatIntervalMin;
 	int _barkRepeatIntervalMax;

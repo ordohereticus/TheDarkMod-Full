@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StayInCoverState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: StayInCoverState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "StayInCoverState.h"
 #include "FleeState.h"
@@ -48,7 +48,7 @@ void StayInCoverState::Init(idAI* owner)
 
 	// The movement subsystem should do nothing.
 	owner->StopMove(MOVE_STATUS_DONE);
-	owner->GetSubsystem(SubsysMovement)->ClearTasks();
+	owner->movementSubsystem->ClearTasks();
 	
 	// Calculate the time we should stay in cover
 	int coverDelayMin = SEC2MS(owner->spawnArgs.GetFloat("emerge_from_cover_delay_min"));
@@ -59,14 +59,14 @@ void StayInCoverState::Init(idAI* owner)
 	_emergeDelay = gameLocal.time + waitTime;
 
 	// The communication system 
-	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
+	// owner->GetSubsystem(SubsysCommunication)->ClearTasks(); // TODO_AI
 
 	// The sensory system does random head turning
-	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	owner->GetSubsystem(SubsysSenses)->PushTask(RandomHeadturnTask::CreateInstance());
+	owner->senseSubsystem->ClearTasks();
+	owner->senseSubsystem->PushTask(RandomHeadturnTask::CreateInstance());
 
 	// Waiting in cover
-	owner->GetSubsystem(SubsysAction)->ClearTasks();
+	owner->actionSubsystem->ClearTasks();
 }
 
 // Gets called each time the mind is thinking

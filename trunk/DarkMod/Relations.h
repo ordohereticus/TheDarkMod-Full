@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3237 $
- * $Date: 2009-03-12 11:22:27 -0400 (Thu, 12 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -201,5 +201,22 @@ public:
 	void Event_Activate(idEntity* activator);
 };
 
+class CTarget_SetEntityRelation : 
+	public idEntity
+{
+public:
+	CLASS_PROTOTYPE( CTarget_SetEntityRelation );
+
+	void Event_Activate(idEntity* activator);
+};
+
+class CTarget_ChangeEntityRelation : 
+	public idEntity
+{
+public:
+	CLASS_PROTOTYPE( CTarget_ChangeEntityRelation );
+
+	void Event_Activate(idEntity* activator);
+};
 
 #endif

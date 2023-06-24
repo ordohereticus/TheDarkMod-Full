@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3285 $
- * $Date: 2009-03-22 05:17:27 -0400 (Sun, 22 Mar 2009) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DeadState.cpp 3285 2009-03-22 09:17:27Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: DeadState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -57,10 +57,10 @@ void DeadState::Init(idAI* owner)
 	// and the AI is done afterwards.
 
 	// Clear all the subsystems
-	owner->GetSubsystem(SubsysMovement)->ClearTasks();
-	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	owner->GetSubsystem(SubsysAction)->ClearTasks();
-	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
+	owner->movementSubsystem->ClearTasks();
+	owner->senseSubsystem->ClearTasks();
+	owner->actionSubsystem->ClearTasks();
+//	owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
 
 	_waitingForDeath = true;
 }

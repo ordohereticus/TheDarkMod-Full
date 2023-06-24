@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2731 $
- * $Date: 2008-08-13 15:03:59 -0400 (Wed, 13 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: LostTrackOfEnemyState.cpp 2731 2008-08-13 19:03:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: LostTrackOfEnemyState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "LostTrackOfEnemyState.h"
 #include "../Memory.h"
@@ -56,13 +56,13 @@ void LostTrackOfEnemyState::Init(idAI* owner)
 	owner->ClearEnemy();
 
 	// Enqueue a lost track of enemy bark
-	owner->GetSubsystem(SubsysCommunication)->PushTask(
+/*	owner->GetSubsystem(SubsysCommunication)->PushTask(
 		TaskPtr(new SingleBarkTask("snd_lostTrackOfEnemy"))
-	);
+	);*/// TODO_AI
 
 	// For now, clear the action tasks and movement tasks
-	owner->GetSubsystem(SubsysAction)->ClearTasks();
-	owner->GetSubsystem(SubsysMovement)->ClearTasks();
+	owner->actionSubsystem->ClearTasks();
+	owner->movementSubsystem->ClearTasks();
 
 	owner->GetMind()->EndState();
 }

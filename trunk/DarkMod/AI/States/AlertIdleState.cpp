@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3264 $
- * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -59,8 +59,8 @@ void AlertIdleState::Init(idAI* owner)
 	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 0);
 
 	// The sensory system does its Idle tasks
-	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	owner->GetSubsystem(SubsysSenses)->PushTask(RandomHeadturnTask::CreateInstance());
+	owner->senseSubsystem->ClearTasks();
+	owner->senseSubsystem->PushTask(RandomHeadturnTask::CreateInstance());
 
 	if (!owner->AI_bMeleeWeapDrawn)
 	{

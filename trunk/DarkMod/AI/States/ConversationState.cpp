@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3354 $
+ * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 3079 2008-12-06 08:28:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -90,10 +90,10 @@ void ConversationState::Init(idAI* owner)
 		return;
 	}
 
-	owner->GetSubsystem(SubsysAction)->ClearTasks();
-	owner->GetSubsystem(SubsysSenses)->ClearTasks();
-	owner->GetSubsystem(SubsysCommunication)->ClearTasks();
-	owner->GetSubsystem(SubsysMovement)->ClearTasks();
+	owner->actionSubsystem->ClearTasks();
+	owner->senseSubsystem->ClearTasks();
+//		owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
+	owner->movementSubsystem->ClearTasks();
 	owner->StopMove(MOVE_STATUS_DONE);
 
 	ConversationPtr conversation = gameLocal.m_ConversationSystem->GetConversation(_conversation);
@@ -129,7 +129,7 @@ void ConversationState::Init(idAI* owner)
 		{
 			float talkDistance = conversation->GetTalkDistance();
 
-			owner->GetSubsystem(SubsysMovement)->PushTask(
+			owner->movementSubsystem->PushTask(
 				TaskPtr(new MoveToPositionTask(targetActor, talkDistance))
 			);
 		}
@@ -196,11 +196,11 @@ void ConversationState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSyst
 			_commandType == ConversationCommand::EWalkToActor)
 		{
 			// Check if the subsystem is actually empty
-			if (owner->GetSubsystem(subSystem)->IsEmpty())
+/*			if (owner->GetSubsystem(subSystem)->IsEmpty())
 			{
 				_state = EReady; // ready for new commands
 				return;
-			}
+			}*/// TODO_AI
 		}
 	}
 	else if (subSystem == SubsysAction)
@@ -239,7 +239,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		{
 			float distance = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_WALKTOENTITY_DISTANCE;
 			
-			owner->GetSubsystem(SubsysMovement)->PushTask(
+			owner->movementSubsystem->PushTask(
 				TaskPtr(new MoveToPositionTask(ai, distance))
 			);
 
@@ -257,7 +257,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		idVec3 goal = command.GetVectorArgument(0);
 
 		// Start moving
-		owner->GetSubsystem(SubsysMovement)->PushTask(
+		owner->movementSubsystem->PushTask(
 			TaskPtr(new MoveToPositionTask(goal))
 		);
 
@@ -273,7 +273,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		{
 			float distance = (command.GetNumArguments() >= 2) ? command.GetFloatArgument(1) : DEFAULT_WALKTOENTITY_DISTANCE;
 			
-			owner->GetSubsystem(SubsysMovement)->PushTask(
+			owner->movementSubsystem->PushTask(
 				TaskPtr(new MoveToPositionTask(ent, distance))
 			);
 
@@ -339,7 +339,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		int blendFrames = (command.GetNumArguments() >= 2) ? atoi(command.GetArgument(1)) : DEFAULT_BLEND_FRAMES;
 
 		// Tell the animation subsystem to play the anim
-		owner->GetSubsystem(SubsysAction)->PushTask(
+		owner->actionSubsystem->PushTask(
 			TaskPtr(new PlayAnimationTask(animName, blendFrames))
 		);
 
@@ -358,7 +358,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		int blendFrames = (command.GetNumArguments() >= 2) ? atoi(command.GetArgument(1)) : DEFAULT_BLEND_FRAMES;
 
 		// Tell the animation subsystem to play the anim
-		owner->GetSubsystem(SubsysAction)->PushTask(
+		owner->actionSubsystem->PushTask(
 			TaskPtr(new PlayAnimationTask(animName, blendFrames, true)) // true == playCycle
 		);
 
@@ -517,7 +517,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		if (ent != NULL)
 		{
 			// Tell the action subsystem to do its job
-			owner->GetSubsystem(SubsysAction)->PushTask(
+			owner->actionSubsystem->PushTask(
 				TaskPtr(new InteractionTask(ent))
 			);
 
@@ -538,7 +538,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		if (!scriptFunction.IsEmpty())
 		{
 			// Tell the action subsystem to do its job
-			owner->GetSubsystem(SubsysAction)->PushTask(
+			owner->actionSubsystem->PushTask(
 				TaskPtr(new ScriptTask(scriptFunction))
 			);
 
