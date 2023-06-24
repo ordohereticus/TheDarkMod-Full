@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3230 $
- * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3240 $
+ * $Date: 2009-03-12 17:39:22 -0400 (Thu, 12 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -105,7 +105,7 @@ public:
 	bool				m_bCanParry;
 	bool				m_bCanParryAll;
 	idList<EMeleeType>	m_attacks; // possible attacks with current weapon
-	float				m_range; // by default same as melee_range on AI
+	float				m_range; // unarmed range (idAI::melee_range) + weapon range
 
 }; // CMeleeStatus
 

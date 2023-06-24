@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3230 $
- * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3240 $
+ * $Date: 2009-03-12 17:39:22 -0400 (Thu, 12 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -456,6 +456,9 @@ public:
 	* Returns true if AI is knocked out
 	**/
 	bool  IsKnockedOut( void ) { return (AI_KNOCKEDOUT!=0); };
+
+	/** Ishtvan: Swap the head CM while conscious **/
+	void SwapHeadAFCM( bool bConscious );
 
 	/**
 	* Return a damage multiplier if a sneak attack has occurred
@@ -927,6 +930,15 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Head joint ID on the living AI (used by FOV and KOing)
 	**/
 	jointHandle_t			m_HeadJointID;
+
+	/**
+	* Some AI have a different head CM while conscious.  
+	* This variable stores the original head CM from the AF, 
+	* to set it back when they die/get ko'd.
+	**/
+	idClipModel				*m_OrigHeadCM;
+	/** If true, head was swapped when alive and needs to be swapped back when ragdolled **/
+	bool					m_bHeadCMSwapped;
 
 	/**
 	* Knockout Data
