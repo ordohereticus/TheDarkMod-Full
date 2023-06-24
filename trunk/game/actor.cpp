@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3491 $
- * $Date: 2009-06-16 18:58:54 -0400 (Tue, 16 Jun 2009) $
+ * $Revision: 3496 $
+ * $Date: 2009-06-27 01:12:31 -0400 (Sat, 27 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3491 2009-06-16 22:58:54Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3496 2009-06-27 05:12:31Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2093,6 +2093,9 @@ bool idActor::StartRagdoll( void ) {
 
 	// start using the AF
 	af.StartFromCurrentPose( spawnArgs.GetInt( "velocityTime", "0" ) );
+
+	// ishtvan: Establish AF constraints for any AF bodies of bound entities
+	GenerateAddedEntConstraints();
 
 	slomoStart = MS2SEC( gameLocal.time ) + spawnArgs.GetFloat( "ragdoll_slomoStart", "-1.6" );
 	slomoEnd = MS2SEC( gameLocal.time ) + spawnArgs.GetFloat( "ragdoll_slomoEnd", "0.8" );

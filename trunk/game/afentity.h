@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3420 $
- * $Date: 2009-05-04 23:44:50 -0400 (Mon, 04 May 2009) $
+ * $Revision: 3496 $
+ * $Date: 2009-06-27 01:12:31 -0400 (Sat, 27 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -359,6 +359,11 @@ protected:
 	* Restore attached entities that have been added to the AF after a save
 	**/
 	virtual void			RestoreAddedEnts( void );
+
+	/**
+	* Generates constraints for added entities, intended to be called on ragdoll start if ents were added before ragdoll start
+	**/
+	virtual void			GenerateAddedEntConstraints( void );
 
 	/**
 	* Set the linear and angular velocities of a particular body given by ID argument
