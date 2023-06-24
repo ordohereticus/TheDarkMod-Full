@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3518 $
- * $Date: 2009-07-04 13:15:26 -0400 (Sat, 04 Jul 2009) $
+ * $Revision: 3519 $
+ * $Date: 2009-07-04 13:34:17 -0400 (Sat, 04 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3518 2009-07-04 17:15:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3519 2009-07-04 17:34:17Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -139,6 +139,12 @@ void CFrobLock::ToggleLock()
 
 bool CFrobLock::CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse) 
 {
+	// First, ask our base class (this also checks for frob masters)
+	// If this doesn't succeed, perform additional checks
+	bool baseIsUsable = idEntity::CanBeUsedBy(item, isFrobUse);
+
+	if (baseIsUsable) return true;
+
 	if (item == NULL) return false;
 
 	assert(item->Category() != NULL);
@@ -164,12 +170,26 @@ bool CFrobLock::CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse)
 		return (isFrobUse) ? IsLocked() : true;
 	}
 
-	return idEntity::CanBeUsedBy(item, isFrobUse);
+	return false;
 }
 
 bool CFrobLock::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 {
 	if (item == NULL) return false;
+
+	// First, ask our base class (this also checks for frob masters)
+	// If this doesn't succeed, perform additional checks
+	bool baseCouldBeUsed = idEntity::UseBy(impulseState, item);
+
+	if (baseCouldBeUsed) return true;
+
+	// Base class returned false, check if we have a master
+	if (GetFrobMaster() != NULL) 
+	{
+		// We have a master and the base class has already passed the call to it
+		// but returned false, so let's do the same
+		return false;
+	}
 
 	assert(item->Category() != NULL);
 
@@ -233,7 +253,7 @@ bool CFrobLock::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 		}
 	}
 
-	return idEntity::UseBy(impulseState, item);
+	return false;
 }
 
 void CFrobLock::AttackAction(idPlayer* player)

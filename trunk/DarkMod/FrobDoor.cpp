@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3486 $
- * $Date: 2009-06-01 10:56:59 -0400 (Mon, 01 Jun 2009) $
+ * $Revision: 3519 $
+ * $Date: 2009-07-04 13:34:17 -0400 (Sat, 04 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3486 2009-06-01 14:56:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3519 2009-07-04 17:34:17Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -401,6 +401,14 @@ bool CFrobDoor::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 	bool baseCouldBeUsed = idEntity::UseBy(impulseState, item);
 
 	if (baseCouldBeUsed) return true;
+
+	// Base class returned false, check if we have a master
+	if (GetFrobMaster() != NULL) 
+	{
+		// We have a master and the base class has already passed the call to it
+		// but returned false, so let's do the same
+		return false;
+	}
 
 	assert(item->Category() != NULL);
 
