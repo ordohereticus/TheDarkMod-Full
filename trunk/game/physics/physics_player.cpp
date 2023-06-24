@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3912 $
- * $Date: 2010-06-06 21:52:02 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3938 $
+ * $Date: 2010-06-10 10:39:54 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3912 $   $Date: 2010-06-06 21:52:02 -0400 (Sun, 06 Jun 2010) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3938 $   $Date: 2010-06-10 10:39:54 -0400 (Thu, 10 Jun 2010) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5015,31 +5015,25 @@ bool idPhysics_Player::IsDoorLeaning( void )
 	return (m_LeanDoorEnt.GetEntity() != NULL) && m_LeanDoorEnt.IsValid();
 }
 
-idStr idPhysics_Player::GetClimbSurfaceType( void ) const
+idStr idPhysics_Player::GetClimbSurfaceType() const
 {
-	idStr ReturnVal;
-	ReturnVal.Clear();
-	if( m_bOnClimb )
-		ReturnVal = m_ClimbSurfName;
-
-	return ReturnVal;
+	return m_bOnClimb ? m_ClimbSurfName : "";
 }
 
-float idPhysics_Player::GetClimbLateralCoord( idVec3 OrigVec ) const
+float idPhysics_Player::GetClimbLateralCoord(const idVec3& origVec) const
 {
-	float ReturnVal = 0.0f;
-
-	if( m_bOnClimb )
+	if (m_bOnClimb)
 	{
-		OrigVec -= (OrigVec * gravityNormal) * gravityNormal;
-		idVec3 ClimbNormXY = m_vClimbNormal - (m_vClimbNormal * gravityNormal) * gravityNormal;
-		idVec3 LatNormal = ClimbNormXY.Cross( gravityNormal );
-		LatNormal.NormalizeFast();
+		idVec3 orig = origVec - (origVec * gravityNormal) * gravityNormal;
 
-		ReturnVal = OrigVec * LatNormal;
+		idVec3 climbNormXY = m_vClimbNormal - (m_vClimbNormal * gravityNormal) * gravityNormal;
+		idVec3 latNormal = climbNormXY.Cross(gravityNormal);
+		latNormal.NormalizeFast();
+
+		return orig * latNormal;
 	}
 	
-	return ReturnVal;
+	return 0.0f;
 }
 
 void idPhysics_Player::SetRefEntVel( idEntity *ent, int bodID)
