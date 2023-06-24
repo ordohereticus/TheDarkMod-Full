@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3402 $
- * $Date: 2009-04-12 02:32:11 -0400 (Sun, 12 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3411 $
+ * $Date: 2009-04-23 05:41:32 -0400 (Thu, 23 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3402 2009-04-12 06:32:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3411 2009-04-23 09:41:32Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1885,8 +1885,9 @@ void idAI::Think( void )
 	SetNextThinkFrame();
 
 	// if we are completely closed off from the player, don't do anything at all
+	// angua: only go dormant while in idle
 	bool outsidePVS = CheckDormant();
-	if (outsidePVS && cv_ai_opt_disable.GetBool()) {
+	if (outsidePVS && AI_AlertIndex < 1 && cv_ai_opt_disable.GetBool()) {
 		return;
 	}
 			
