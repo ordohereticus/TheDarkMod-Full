@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3548 $
- * $Date: 2009-07-18 17:48:02 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3633 $
+ * $Date: 2009-08-02 12:01:32 -0400 (Sun, 02 Aug 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -49,6 +49,13 @@ public:
 	virtual void	SetColor( const idVec4 &color );
 	virtual void	GetColor( idVec3 &out ) const;
 	virtual void	GetColor( idVec4 &out ) const;
+
+	/**
+	* Tels: idLight::GetLightOrigin returns the origin of the light in the world. This
+	* is different from the physics origin, since the light can be offset.
+	*/
+	const idVec3 &	GetLightOrigin( void ) const { return renderLight.origin; }
+
 	const idVec3 &	GetBaseColor( void ) const { return baseColor; }
 	void			SetShader( const char *shadername );
 	void			SetLightParm( int parmnum, float value );

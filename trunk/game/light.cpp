@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3631 $
- * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3633 $
+ * $Date: 2009-08-02 12:01:32 -0400 (Sun, 02 Aug 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3631 2009-08-02 15:03:59Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3633 2009-08-02 16:01:32Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -494,6 +494,18 @@ void idLight::SetLightLevel( void ) {
 	PresentLightDefChange();
 	PresentModelDefChange();
 }
+
+/*
+================
+tels: idLight::GetLightOrigin returns the origin of the light in the world. This
+is different from the physics origin, since the light can be offset.
+================
+void idLight::GetLightOrigin( idVec3 &out ) const {
+	out[0] = renderLight.origin[0];
+	out[1] = renderLight.origin[1];
+	out[2] = renderLight.origin[2];
+}
+*/
 
 /*
 ================

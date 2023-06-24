@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3587 $
- * $Date: 2009-07-26 08:59:25 -0400 (Sun, 26 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3633 $
+ * $Date: 2009-08-02 12:01:32 -0400 (Sun, 02 Aug 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3587 2009-07-26 12:59:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3633 2009-08-02 16:01:32Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -128,6 +128,10 @@ const idEventDef EV_Heal("heal", "sf", 'd');
 
 // tels: Teleport the entity to the position/orientation of the given entity
 const idEventDef EV_TeleportTo("teleportTo", "e");
+
+// tels: Find all lights in the same PVS, then sum them up and return their
+// average light color.
+const idEventDef EV_AverageLightInPVS("averageLightInPVS", "", 'v');
 
 //===============================================================
 //                   TDM GUI interface
@@ -325,6 +329,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_Damage,				idEntity::Event_Damage )
 	EVENT( EV_Heal,					idEntity::Event_Heal )
 	EVENT( EV_TeleportTo,			idEntity::Event_TeleportTo )
+	EVENT( EV_AverageLightInPVS,	idEntity::Event_AverageLightInPVS )
 
 	EVENT( EV_SetGui,				idEntity::Event_SetGui )
 	EVENT( EV_GetGui,				idEntity::Event_GetGui )
@@ -9733,9 +9738,44 @@ void idEntity::Event_Heal( const char *healDefName, const float healScale )
 	idThread::ReturnInt(heal(healDefName, healScale));
 }
 
+// tels:
 void idEntity::Event_TeleportTo(idEntity* target)
 {
 	Teleport( vec3_origin, idAngles( 0.0f, 0.0f, 0.0f ), target );
+}
+
+// tels:
+void idEntity::Event_AverageLightInPVS( void )
+{
+	idEntity *next;
+	idEntity *ent;
+	idLight *light;
+
+	idVec3 sum = vec3_origin;		// 0 0 0
+	idVec3 local_light;
+
+	int areaNum = gameRenderWorld->PointInArea( this->GetPhysics()->GetOrigin() );
+
+	// TODO: find all light entities, then call PointInArea on them to check
+	// if they are in the same area:
+
+	float lights = 0;
+	for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = next ) {
+		next = ent->spawnNode.Next();
+		if ( !ent->IsType( idLight::Type ) ) {
+			continue;
+		}
+
+		light = static_cast<idLight*>( ent );
+
+		// light is in the same area?
+		if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
+			light->GetColor( local_light );
+			sum += local_light;
+			lights += 1.0f;
+		}
+    }
+	idThread::ReturnVector( sum / lights );
 }
 
 bool idEntity::canSeeEntity(idEntity* target, int useLighting) {
