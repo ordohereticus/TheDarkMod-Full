@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3754 $
+ * $Date: 2009-11-09 01:31:35 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3754 2009-11-09 06:31:35Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -117,9 +117,12 @@ static const char *LCString[LC_COUNT+1] = {
 	"STIMRESP",
 	"OBJECTIVES",
 	"DIFFICULTY",
+	"CONVERSATION",
 	"MAINMENU",
 	"(empty)"
 };
+
+
 
 SourceHook::CSourceHookImpl g_SourceHook;
 SourceHook::ISourceHook *g_SHPtr = NULL;
@@ -1249,4 +1252,26 @@ std::string CGlobal::GetDarkmodPath()
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Resulting darkmod path is %s\r", darkmodPath.string().c_str());
 
 	return darkmodPath.file_string();
+}
+
+LC_LogClass CGlobal::GetLogClassForString(const char* str)
+{
+	for (int i = 0; i < LC_COUNT; ++i)
+	{
+		if (idStr::Icmp(str, LCString[i]) == 0)
+		{
+			return static_cast<LC_LogClass>(i);
+		}
+	}
+
+	return LC_COUNT;
+}
+
+// Auto-completion function for log-classes
+void CGlobal::ArgCompletion_LogClasses( const idCmdArgs &args, void(*callback)( const char *s ) )
+{
+	for (int i = 0; i < LC_COUNT; ++i)
+	{
+		callback( va( "%s %s", args.Argv( 0 ), LCString[i] ) );
+	}
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3754 $
+ * $Date: 2009-11-09 01:31:35 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -86,6 +86,7 @@ typedef enum {
 	LC_COUNT
 } LC_LogClass;
 
+class idCmdArgs;
 class CDarkModPlayer;
 
 class CImage {
@@ -220,6 +221,11 @@ public:
 
 	// Returns the darkmod path
 	static std::string GetDarkmodPath();
+
+	// Converts a string to a logclass (LC_COUNT) if nothing found.
+	static LC_LogClass GetLogClassForString(const char* str);
+
+	static void ArgCompletion_LogClasses( const idCmdArgs &args, void(*callback)( const char *s ) );
 
 private:
 	void LoadINISettings(void *);

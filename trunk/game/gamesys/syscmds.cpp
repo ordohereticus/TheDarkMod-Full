@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3449 $
- * $Date: 2009-05-21 03:09:56 -0400 (Thu, 21 May 2009) $
+ * $Revision: 3754 $
+ * $Date: 2009-11-09 01:31:35 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 3449 2009-05-21 07:09:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 3754 2009-11-09 06:31:35Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -2752,6 +2752,56 @@ void Cmd_ShowLoot_f(const idCmdArgs& args)
 	gameLocal.Printf("Gold: %d, Jewels: %d, Goods: %d\n", gold, jewels, goods);
 }
 
+void Cmd_ActivateLog_f(const idCmdArgs& args)
+{
+	if (args.Argc() != 2)
+	{
+		gameLocal.Printf("Usage: tdm_activatelogclass <logclass>. Use the TAB to get auto-complete logclasses.\n" );
+		return;
+	}
+
+	LC_LogClass logclassIndex = CGlobal::GetLogClassForString(args.Argv(1));
+	
+	if (logclassIndex != LC_COUNT)
+	{
+		// Log class found
+		g_Global.m_ClassArray[logclassIndex] = true;
+
+		// activate all types too
+		g_Global.m_LogArray[LT_WARNING] = true;
+		g_Global.m_LogArray[LT_ERROR] = true;
+		g_Global.m_LogArray[LT_INFO] = true;
+		g_Global.m_LogArray[LT_DEBUG] = true;
+
+		gameLocal.Printf("Logclass %d activated.", static_cast<int>(logclassIndex));
+	}
+}
+
+void Cmd_DeactivateLog_f(const idCmdArgs& args)
+{
+	if (args.Argc() != 2)
+	{
+		gameLocal.Printf("Usage: tdm_deactivatelogclass <logclass>. Use the TAB to get auto-complete logclasses.\n" );
+		return;
+	}
+
+	LC_LogClass logclassIndex = CGlobal::GetLogClassForString(args.Argv(1));
+	
+	if (logclassIndex != LC_COUNT)
+	{
+		// Log class found
+		g_Global.m_ClassArray[logclassIndex] = false;
+
+		// activate all types too
+		g_Global.m_LogArray[LT_WARNING] = true;
+		g_Global.m_LogArray[LT_ERROR] = true;
+		g_Global.m_LogArray[LT_INFO] = true;
+		g_Global.m_LogArray[LT_DEBUG] = true;
+
+		gameLocal.Printf("Logclass %d deactivated.", static_cast<int>(logclassIndex));
+	}
+}
+
 #ifdef TIMING_BUILD
 void Cmd_ListTimers_f(const idCmdArgs& args) 
 {
@@ -2889,6 +2939,9 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "tdm_list_conversations",	Cmd_ListConversations_f,	CMD_FL_GAME,			"List all available conversations by name." );
 
 	cmdSystem->AddCommand( "tdm_show_loot",			Cmd_ShowLoot_f,	CMD_FL_GAME|CMD_FL_CHEAT,			"Highlight all loot items in the map." );
+
+	cmdSystem->AddCommand( "tdm_activatelogclass",		Cmd_ActivateLog_f,			CMD_FL_GAME,	"Activates a specific log class during run-time (as defined in darkmod.ini)", CGlobal::ArgCompletion_LogClasses );
+	cmdSystem->AddCommand( "tdm_deactivatelogclass",	Cmd_DeactivateLog_f,		CMD_FL_GAME,	"De-activates a specific log class during run-time (as defined in darkmod.ini)", CGlobal::ArgCompletion_LogClasses );
 
 #ifndef	ID_DEMO_BUILD
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );
