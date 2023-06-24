@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3625 $
- * $Date: 2009-07-31 12:18:18 -0400 (Fri, 31 Jul 2009) $
+ * $Revision: 3628 $
+ * $Date: 2009-08-01 00:46:12 -0400 (Sat, 01 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3625 2009-07-31 16:18:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3628 2009-08-01 04:46:12Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -307,21 +307,33 @@ void State::OnBlindStim(idEntity* stimSource, bool skipVisibilityCheck)
 		return;
 	}
 
+	// greebo: We don't check for alert type weights here, flashbombs are "top priority"
+
+	Memory& memory = owner->GetMemory();
+
+	memory.alertClass = EAlertVisual;
+	memory.alertedDueToCommunication = false;
+	memory.alertPos = stimSource->GetPhysics()->GetOrigin();
+	memory.alertRadius = 200;
+	memory.alertType = EAlertTypeWeapon;
+
 	if (!skipVisibilityCheck) 
 	{
 		// Perform visibility check
 		if (owner->CanSeeExt(stimSource, 1, 0))
 		{
-			// DEBUG_PRINT("AI blinded.");
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI can see the flash, switching to BlindedState.\r");
 			owner->GetMind()->PushState(STATE_BLINDED);
 		}
-		else 
+		else
 		{
-			// DEBUG_PRINT("AI can't see the flash.");
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI cannot see the flash.\r");
 		}
 	}
 	else 
 	{
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Visibility check for flash skipped, switching to BlindedState.\r");
+
 		// Skip visibility check
 		owner->GetMind()->PushState(STATE_BLINDED);
 	}

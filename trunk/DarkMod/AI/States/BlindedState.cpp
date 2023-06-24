@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3624 $
- * $Date: 2009-07-31 06:28:00 -0400 (Fri, 31 Jul 2009) $
+ * $Revision: 3628 $
+ * $Date: 2009-08-01 00:46:12 -0400 (Sat, 01 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BlindedState.cpp 3624 2009-07-31 10:28:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BlindedState.cpp 3628 2009-08-01 04:46:12Z greebo $", init_version);
 
 #include "BlindedState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -45,11 +45,13 @@ void BlindedState::Init(idAI* owner)
 	owner->SetWaitState(ANIMCHANNEL_TORSO, "blinded");
 	owner->SetWaitState(ANIMCHANNEL_LEGS, "blinded");
 
+	Memory& memory = owner->GetMemory();
+
 	CommMessagePtr message(new CommMessage(
 		CommMessage::RequestForHelp_CommType, 
 		owner, NULL, // from this AI to anyone 
 		NULL,
-		owner->GetPhysics()->GetOrigin()
+		memory.alertPos
 	));
 
 	owner->commSubsystem->AddCommTask(
