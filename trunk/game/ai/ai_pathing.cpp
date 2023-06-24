@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2650 $
- * $Date: 2008-07-13 09:19:08 -0400 (Sun, 13 Jul 2008) $
+ * $Revision: 3305 $
+ * $Date: 2009-03-25 12:15:24 -0400 (Wed, 25 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 2650 2008-07-13 13:19:08Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 3305 2009-03-25 16:15:24Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -386,13 +386,12 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 
 			// ignore myself, my enemy, and dead bodies
 			// TDM: Also ignore ALL enemies
-			if	(obPhys == physics || obEnt == ignore || obEnt->health <= 0 || 
-				 gameLocal.m_RelationsManager->IsEnemy(team, static_cast<idActor*>(obEnt)->team ))
+			if	(obPhys == physics || obEnt == ignore || obEnt->health <= 0 || self->IsEnemy(obEnt))
 			{
 				continue;
 			}
 			// if the actor is moving
-			idVec3 v1 = obPhys->GetLinearVelocity();
+			const idVec3& v1 = obPhys->GetLinearVelocity();
 			if ( v1.LengthSqr() > Square( 10.0f ) ) {
 				idVec3 v2 = physics->GetLinearVelocity();
 				if ( v2.LengthSqr() > Square( 10.0f ) ) {

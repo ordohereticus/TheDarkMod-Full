@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3230 $
- * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3305 $
+ * $Date: 2009-03-25 12:15:24 -0400 (Wed, 25 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3230 2009-03-08 07:50:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3305 2009-03-25 16:15:24Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -503,9 +503,6 @@ CLASS_DECLARATION( idActor, idAI )
 
 	EVENT( AI_PlayAndLipSync,					idAI::Event_PlayAndLipSync )
 	EVENT( AI_GetRelationEnt,					idAI::Event_GetRelationEnt )
-	EVENT( AI_IsEnemy,							idAI::Event_IsEnemy )
-	EVENT( AI_IsFriend,							idAI::Event_IsFriend )
-	EVENT( AI_IsNeutral,						idAI::Event_IsNeutral )
 	EVENT( AI_SetAlertLevel,					idAI::Event_SetAlertLevel )
 	EVENT( AI_Alert,							idAI::Event_Alert )
 	EVENT( AI_GetSndDir,						idAI::Event_GetSndDir )
@@ -3056,21 +3053,6 @@ void idAI::Event_GetRelationEnt( idEntity *ent )
 
 	actor = static_cast<idActor *>( ent );
 	idThread::ReturnInt( gameLocal.m_RelationsManager->GetRelNum( team, actor->team ) );
-}
-
-void idAI::Event_IsEnemy( idEntity *ent )
-{
-	idThread::ReturnInt(static_cast<int>(IsEnemy(ent)));
-}
-
-void idAI::Event_IsFriend( idEntity *ent )
-{
-	idThread::ReturnInt(IsFriend(ent));
-}
-
-void idAI::Event_IsNeutral( idEntity *ent )
-{
-	idThread::ReturnInt(IsNeutral(ent));
 }
 
 void idAI::Event_GetAcuity( const char *type )
