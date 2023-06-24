@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2862 $
- * $Date: 2008-09-18 15:46:51 -0400 (Thu, 18 Sep 2008) $
- * $Author: angua $
+ * $Revision: 3231 $
+ * $Date: 2009-03-10 12:10:16 -0400 (Tue, 10 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 2862 2008-09-18 19:46:51Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 3231 2009-03-10 16:10:16Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -333,7 +333,9 @@ void CsndProp::SetupFromLoader( const CsndPropLoader *in )
 			m_sndAreas[i].portals[k] = in->m_sndAreas[i].portals[k];
 
 		m_sndAreas[i].portalDists = new CMatRUT<float>;
-		m_sndAreas[i].portalDists->Copy( in->m_sndAreas[i].portalDists );
+
+		// Copy the values
+		*m_sndAreas[i].portalDists = *(in->m_sndAreas[i].portalDists);
 	}
 
 
@@ -901,7 +903,7 @@ bool CsndProp::ExpandWave(float volInit, idVec3 origin)
 		
 				// Obtain loss at this portal and store in temp var
 				tempDist = NextAreas[j].curDist;
-				AddedDist = *pSndAreas->portalDists->GetRev( LocalPort, i );
+				AddedDist = pSndAreas->portalDists->GetRev( LocalPort, i );
 				tempDist += AddedDist;
 
 				tempAtt = NextAreas[j].curAtt;
@@ -1573,7 +1575,7 @@ bool CsndProp::ExpandWaveFast( float volInit, idVec3 origin, float MaxDist, int 
 		
 				// Obtain loss at this portal and store in temp var
 				tempDist = NextAreas[j].curDist;
-				AddedDist = *pSndAreas->portalDists->GetRev( LocalPort, i );
+				AddedDist = pSndAreas->portalDists->GetRev( LocalPort, i );
 				tempDist += AddedDist;
 
 				tempAtt = NextAreas[j].curAtt;

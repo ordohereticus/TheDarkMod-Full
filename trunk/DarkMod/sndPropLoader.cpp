@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3207 $
- * $Date: 2009-02-07 13:58:53 -0500 (Sat, 07 Feb 2009) $
- * $Author: tels $
+ * $Revision: 3231 $
+ * $Date: 2009-03-10 12:10:16 -0400 (Tue, 10 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 3207 2009-02-07 18:58:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: sndPropLoader.cpp 3231 2009-03-10 16:10:16Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -112,12 +112,7 @@ void CsndPropBase::Save(idSaveGame *savefile) const
 			// greebo: Don't save winding pointer, gets restored from idRenderWorld.
 		}
 
-		savefile->WriteInt(m_sndAreas[area].portalDists->NumFilled());
-		// greebo: Write the RUT loss matrix by using a 1D index
-		for (int i = 0; i < m_sndAreas[area].portalDists->NumFilled(); i++)
-		{
-			savefile->WriteFloat(*m_sndAreas[area].portalDists->Get1d(i));
-		}
+		m_sndAreas[area].portalDists->Save(savefile);
 	}
 
 	savefile->WriteInt(m_AreaPropsG.Num());
@@ -175,17 +170,9 @@ void CsndPropBase::Restore(idRestoreGame *savefile)
 			soundportal.winding = p.w;
 		}
 
-		int num;
-		savefile->ReadInt(num);
-
 		// Allocate and resize the triangle matrix
 		m_sndAreas[area].portalDists = new CMatRUT<float>;
-		m_sndAreas[area].portalDists->Init(m_sndAreas[area].numPortals);
-
-		for (int i = 0; i < num; i++)
-		{
-			savefile->ReadFloat(*m_sndAreas[area].portalDists->Get1d(i));
-		}
+		m_sndAreas[area].portalDists->Restore(savefile);
 	}
 
 	int num;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 3231 $
+ * $Date: 2009-03-10 12:10:16 -0400 (Tue, 10 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -163,6 +163,23 @@ protected:
 **/
 	bool				m_bMatFailed;
 
+};
+
+/**
+ * greebo: A spawnable relation entity. At spawn time, this entity copies its 
+ * values to the global relations manager. 
+ *
+ * After spawning, this entity removes itself from the game.
+ */
+class CRelationsEntity : 
+	public idEntity
+{
+public:
+	CLASS_PROTOTYPE( CRelationsEntity );
+
+	CRelationsEntity();
+
+	void Spawn();
 };
 
 
