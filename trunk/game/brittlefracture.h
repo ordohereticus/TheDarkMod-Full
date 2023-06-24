@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 3327 $
+ * $Date: 2009-03-27 23:54:15 -0400 (Fri, 27 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -22,6 +22,9 @@ of the render model which can fracture.
 
 ===============================================================================
 */
+
+extern const idEventDef EV_UpdateSoundLoss;
+extern const idEventDef EV_DampenSound;
 
 typedef struct shard_s {
 	idClipModel *				clipModel;
@@ -90,6 +93,9 @@ private:
 	idBounds					bounds;
 	bool						disableFracture;
 
+	/** TDM: Moss arrow dampens sound of shattering **/
+	bool						m_bSoundDamped;
+
 	// for rendering
 	mutable int					lastRenderEntityUpdate;
 	mutable bool				changed;
@@ -115,6 +121,7 @@ private:
 
 	void						Event_Activate( idEntity *activator );
 	void						Event_Touch( idEntity *other, trace_t *trace );
+	void						Event_DampenSound( bool bDampen );
 
 	/**
 	* Update soundprop to set losses in associated portal, if portal is present
