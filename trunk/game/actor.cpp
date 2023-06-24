@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3595 $
- * $Date: 2009-07-27 02:00:39 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3596 $
+ * $Date: 2009-07-27 02:06:22 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3595 2009-07-27 06:00:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3596 2009-07-27 06:06:22Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -151,6 +151,7 @@ void idAnimState::SetState( const char *statename, int blendFrames ) {
 	if (cv_ai_show_animstate_switches.GetBool())
 	{
 		gameLocal.Printf("Switching anim state to %s (%s)\n", state.c_str(), self->name.c_str());
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Switching anim state to %s (%s)\r", state.c_str(), self->name.c_str());
 	}
 
 	state = statename;
@@ -3421,6 +3422,12 @@ void idActor::Event_PlayAnim( int channel, const char *animname ) {
 	animFlags_t	flags;
 	idEntity *headEnt;
 	int	anim;
+
+	if (cv_ai_show_animstate_switches.GetBool())
+	{
+		gameLocal.Printf("Frame: %d - playing anim %s (%s)\n", gameLocal.framenum, animname, name.c_str());
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Frame: %d - playing anim %s (%s)\r", gameLocal.framenum, animname, name.c_str());
+	}
 	
 	anim = GetAnim( channel, animname );
 	if ( !anim ) {
