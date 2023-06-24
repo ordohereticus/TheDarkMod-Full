@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3689 $
- * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
+ * $Revision: 3858 $
+ * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3689 2009-09-03 12:40:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3858 2010-03-21 03:43:30Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -43,6 +43,7 @@ Memory::Memory(idAI* owningAI) :
 	alertClass(EAlertClassCount),
 	alertType(EAlertTypeCount),
 	alertRadius(-1),
+	lastAudioAlertTime(-1),
 	stimulusLocationItselfShouldBeSearched(false),
 	investigateStimulusLocationClosely(false),
 	alertedDueToCommunication(false),

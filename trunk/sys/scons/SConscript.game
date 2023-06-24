@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3855 $
-#* $Date: 2010-03-20 09:29:22 -0400 (Sat, 20 Mar 2010) $
+#* $Revision: 3858 $
+#* $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -199,7 +199,7 @@ AI/States/AgitatedSearchingState.cpp \
 AI/States/AlertIdleState.cpp \
 AI/States/BlindedState.cpp \
 AI/States/CombatState.cpp \
-AI/States/CombatStateLanternBot.cpp \
+AI/States/AgitatedSearchingStateLanternBot.cpp \
 AI/States/ConversationState.cpp \
 AI/States/DeadState.cpp \
 AI/States/EmergeFromCoverState.cpp \

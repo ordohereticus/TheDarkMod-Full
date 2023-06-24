@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3856 $
- * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3858 $
+ * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3858 2010-03-21 03:43:30Z greebo $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -53,6 +53,12 @@ bool AgitatedSearchingState::CheckAlertLevel(idAI* owner)
 	return true;
 }
 
+void AgitatedSearchingState::CalculateAlertDecreaseRate(idAI* owner)
+{
+	float alertTime = owner->atime4 + owner->atime4_fuzzyness * (gameLocal.random.RandomFloat() - 0.5);
+	_alertLevelDecreaseRate = (owner->thresh_5 - owner->thresh_4) / alertTime;
+}
+
 void AgitatedSearchingState::Init(idAI* owner)
 {
 	// Init base class first (note: we're not calling SearchingState::Init() on purpose here)
@@ -67,9 +73,8 @@ void AgitatedSearchingState::Init(idAI* owner)
 	// Shortcut reference
 	Memory& memory = owner->GetMemory();
 
-	float alertTime = owner->atime4 + owner->atime4_fuzzyness * (gameLocal.random.RandomFloat() - 0.5);
-	_alertLevelDecreaseRate = (owner->thresh_5 - owner->thresh_4) / alertTime;
-
+	CalculateAlertDecreaseRate(owner);
+	
 	if (owner->GetMoveType() == MOVETYPE_SIT || owner->GetMoveType() == MOVETYPE_SLEEP)
 	{
 		owner->GetUp();

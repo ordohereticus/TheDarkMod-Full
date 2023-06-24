@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3850 $
- * $Date: 2010-03-19 10:28:12 -0400 (Fri, 19 Mar 2010) $
+ * $Revision: 3858 $
+ * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -226,6 +226,9 @@ public:
 
 	// radius of alert causing stimulus (depends on the type and distance)
 	float alertRadius;
+
+	// The last time we had an incoming audio alert
+	int lastAudioAlertTime;
 
 	// This is true if the original alert position is to be searched
 	bool stimulusLocationItselfShouldBeSearched;

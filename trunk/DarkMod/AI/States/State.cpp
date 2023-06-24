@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3753 $
- * $Date: 2009-11-08 04:45:22 -0500 (Sun, 08 Nov 2009) $
- * $Author: angua $
+ * $Revision: 3858 $
+ * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3753 2009-11-08 09:45:22Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3858 2010-03-21 03:43:30Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -268,6 +268,7 @@ void State::OnAudioAlert()
 	memory.alertClass = EAlertAudio;
 	memory.alertType = EAlertTypeSuspicious;
 	memory.alertPos = owner->GetSndDir();
+	memory.lastAudioAlertTime = gameLocal.time;
 
 	// Search within radius of stimulus that is 1/3 the distance from the
 	// observer to the point at the time heard

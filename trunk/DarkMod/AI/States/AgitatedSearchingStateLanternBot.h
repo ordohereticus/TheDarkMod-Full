@@ -1,25 +1,25 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3856 $
- * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3858 $
+ * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
-#ifndef _COMBAT_STATE_LANTERN_BOT_H_
-#define _COMBAT_STATE_LANTERN_BOT_H_
+#ifndef _AGITATED_SEARCHING_STATE_LANTERN_BOT_H_
+#define _AGITATED_SEARCHING_STATE_LANTERN_BOT_H_
 
 #include "../../../game/ai/ai.h"
-#include "CombatState.h"
+#include "AgitatedSearchingState.h"
 
 namespace ai
 {
 
-#define STATE_COMBAT_LANTERN_BOT "CombatLanternBot"
+#define STATE_AGITATED_SEARCHING_LANTERN_BOT "AgitatedSearchingLanternBot"
 
-class CombatStateLanternBot :
-	public CombatState
+class AgitatedSearchingStateLanternBot :
+	public AgitatedSearchingState
 {
 public:
 	// Get the name of this state

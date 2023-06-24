@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3858 $
+ * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -27,7 +27,7 @@ namespace ai
 #define STATE_AGITATED_SEARCHING "AgitatedSearching"
 
 class AgitatedSearchingState :
-	protected SearchingState
+	public SearchingState
 {
 public:
 	// Get the name of this state
@@ -44,6 +44,8 @@ public:
 protected:
 	// Override base class method
 	virtual bool CheckAlertLevel(idAI* owner);
+
+	virtual void CalculateAlertDecreaseRate(idAI* owner);
 };
 
 } // namespace ai
