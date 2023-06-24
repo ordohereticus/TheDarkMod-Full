@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3642 $
- * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3643 $
+ * $Date: 2009-08-04 11:20:48 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -57,6 +57,13 @@ public:
 
 	// Creates a new Instance of this task
 	static ResolveMovementBlockTaskPtr CreateInstance();
+
+private:
+	void InitBlockingAI(idAI* owner);
+	void InitBlockingStatic(idAI* owner);
+
+	bool PerformBlockingAI(idAI* owner);
+	bool PerformBlockingStatic(idAI* owner);
 };
 
 } // namespace ai

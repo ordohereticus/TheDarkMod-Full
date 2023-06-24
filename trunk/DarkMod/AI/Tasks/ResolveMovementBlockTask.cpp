@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3642 $
- * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3643 $
+ * $Date: 2009-08-04 11:20:48 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3642 2009-08-04 14:55:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3643 2009-08-04 15:20:48Z greebo $", init_version);
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -44,30 +44,65 @@ void ResolveMovementBlockTask::Init(idAI* owner, Subsystem& subsystem)
 	// Get the direction we're pushing against
 	_initialAngles = owner->viewAxis.ToAngles();
 
-	idVec3 ownerRight, ownerForward;
-	_initialAngles.ToVectors(&ownerForward, &ownerRight);
-
-	idVec3 masterForward;
-
 	// Set the TTL for this task
 	_endTime = gameLocal.time + 20000; // 20 seconds
 
 	// Save the movement state
 	owner->PushMove();
 
+	if (_blockingEnt->IsType(idAI::Type))
+	{
+		InitBlockingAI(owner);
+	}
+	else if (_blockingEnt->IsType(idStaticEntity::Type))
+	{
+		InitBlockingStatic(owner);
+	}
+}
+
+void ResolveMovementBlockTask::InitBlockingAI(idAI* owner)
+{
+	idVec3 ownerRight, ownerForward;
+	_initialAngles.ToVectors(&ownerForward, &ownerRight);
+
 	// Move 10 units to the right
 	owner->MoveToPosition(owner->GetPhysics()->GetOrigin() + ownerRight*10, 5);
+}
+
+void ResolveMovementBlockTask::InitBlockingStatic(idAI* owner)
+{
+	// TODO
 }
 
 bool ResolveMovementBlockTask::Perform(Subsystem& subsystem)
 {
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("ResolveMovementBlockTask performing.\r");
 
+	if (gameLocal.time > _endTime)
+	{
+		// Timeout
+		return true;
+	}
+
 	idAI* owner = _owner.GetEntity();
 
 	// This task may not be performed with empty entity pointer
 	assert(owner != NULL);
 
+	if (_blockingEnt->IsType(idAI::Type))
+	{
+		return PerformBlockingAI(owner);
+	}
+	else if (_blockingEnt->IsType(idStaticEntity::Type))
+	{
+		return PerformBlockingStatic(owner);
+	}
+	
+	return false; // not finished yet
+}
+
+bool ResolveMovementBlockTask::PerformBlockingAI(idAI* owner)
+{
 	if (owner->AI_MOVE_DONE)
 	{
 		idVec3 ownerRight, ownerForward;
@@ -99,13 +134,12 @@ bool ResolveMovementBlockTask::Perform(Subsystem& subsystem)
 		}
 	}
 
-	if (gameLocal.time > _endTime)
-	{
-		// Timeout
-		return true;
-	}
+	return false;
+}
 
-	return false; // not finished yet
+bool ResolveMovementBlockTask::PerformBlockingStatic(idAI* owner)
+{
+	return false;
 }
 
 void ResolveMovementBlockTask::OnFinish(idAI* owner)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3641 $
- * $Date: 2009-08-04 10:27:22 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3643 $
+ * $Date: 2009-08-04 11:20:48 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3641 2009-08-04 14:27:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3643 2009-08-04 15:20:48Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9749,35 +9749,31 @@ void idEntity::Event_TeleportTo(idEntity* target)
 // tels:
 void idEntity::Event_AverageLightInPVS( void )
 {
-	idEntity *next;
-	idEntity *ent;
-	idLight *light;
-
-	idVec3 sum = vec3_origin;		// 0 0 0
+	idVec3 sum(0,0,0);
 	idVec3 local_light;
 
-	int areaNum = gameRenderWorld->PointInArea( this->GetPhysics()->GetOrigin() );
+	int areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
 
-	// TODO: find all light entities, then call PointInArea on them to check
+	// Find all light entities, then call PointInArea on them to check
 	// if they are in the same area:
 
-	float lights = 0;
-	for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = next ) {
-		next = ent->spawnNode.Next();
+	int lights = 0;
+	for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
+	{
 		if ( !ent->IsType( idLight::Type ) ) {
 			continue;
 		}
 
-		light = static_cast<idLight*>( ent );
+		idLight* light = static_cast<idLight*>( ent );
 
 		// light is in the same area?
 		if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
 			light->GetColor( local_light );
 			sum += local_light;
-			lights += 1.0f;
+			lights++;
 		}
     }
-	idThread::ReturnVector( sum / lights );
+	idThread::ReturnVector( sum / static_cast<float>(lights) );
 }
 
 bool idEntity::canSeeEntity(idEntity* target, int useLighting) {
