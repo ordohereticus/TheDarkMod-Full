@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3933 $
- * $Date: 2010-06-10 05:53:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3946 $
+ * $Date: 2010-06-12 20:54:03 -0400 (Sat, 12 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3933 2010-06-10 09:53:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3946 2010-06-13 00:54:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3302,7 +3302,6 @@ void idGameLocal::UpdateScreenResolutionFromGUI(idUserInterface* gui)
 		int width = 1024;
 		int height = 600;
 
-		// "0;5;1;6;2;3;7;4" ==> "1024x600;1280x720;1280x800;1366x768;1440x900;1680x1050;1920x1080;1920x1200"
 		switch (mode)
 		{
 		case 0:
@@ -3326,12 +3325,12 @@ void idGameLocal::UpdateScreenResolutionFromGUI(idUserInterface* gui)
 			height = 1200;
 			break;
 		case 5:
-			width = 1280;
-			height = 720;
-			break;
-		case 6:
 			width = 1366;
 			height = 768;
+			break;
+		case 6:
+			width = 1280;
+			height = 720;
 			break;
 		case 7:
 			width = 1920;
@@ -3442,8 +3441,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			switch (width)
 			{
 			case 1024: cv_tdm_widescreenmode.SetInteger(0); break;
-			case 1280: cv_tdm_widescreenmode.SetInteger(height == 800 ? 1 : 5); break;
-			case 1366: cv_tdm_widescreenmode.SetInteger(6); break;
+			case 1280: cv_tdm_widescreenmode.SetInteger(height == 800 ? 1 : 6); break;
+			case 1366: cv_tdm_widescreenmode.SetInteger(5); break;
 			case 1440: cv_tdm_widescreenmode.SetInteger(2); break;
 			case 1680: cv_tdm_widescreenmode.SetInteger(3); break;
 			case 1920: cv_tdm_widescreenmode.SetInteger(height == 1200 ? 4 : 7); break;
