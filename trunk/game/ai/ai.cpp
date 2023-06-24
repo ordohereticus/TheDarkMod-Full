@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3455 $
- * $Date: 2009-05-22 09:18:54 -0400 (Fri, 22 May 2009) $
+ * $Revision: 3457 $
+ * $Date: 2009-05-22 10:49:33 -0400 (Fri, 22 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3455 2009-05-22 13:18:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3457 2009-05-22 14:49:33Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -449,6 +449,7 @@ idAI::idAI()
 	useBoneAxis			= false;
 
 	wakeOnFlashlight	= false;
+	lastUpdateEnemyPositionTime = -1;
 	memset( &worldMuzzleFlash, 0, sizeof ( worldMuzzleFlash ) );
 	worldMuzzleFlashHandle = -1;
 
@@ -729,6 +730,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteVec3( lastReachableEnemyPos );
 	savefile->WriteBool( enemyReachable );
 	savefile->WriteBool( wakeOnFlashlight );
+	savefile->WriteInt(lastUpdateEnemyPositionTime);
 
 	savefile->WriteAngles( eyeMin );
 	savefile->WriteAngles( eyeMax );
@@ -1054,9 +1056,8 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadVec3( lastVisibleReachableEnemyPos );
 	savefile->ReadVec3( lastReachableEnemyPos );
 	savefile->ReadBool( enemyReachable );
-
-
 	savefile->ReadBool( wakeOnFlashlight );
+	savefile->ReadInt(lastUpdateEnemyPositionTime);
 
 	savefile->ReadAngles( eyeMin );
 	savefile->ReadAngles( eyeMax );
@@ -6130,6 +6131,12 @@ idAI::UpdateEnemyPosition
 */
 void idAI::UpdateEnemyPosition()
 {
+	// Interleave this check
+	if (gameLocal.time <= lastUpdateEnemyPositionTime + cv_ai_opt_update_enemypos_interleave.GetInteger())
+	{
+		return;
+	}
+
 	idActor* enemyEnt = enemy.GetEntity();
 	enemyReachable = false;
 
@@ -6137,6 +6144,9 @@ void idAI::UpdateEnemyPosition()
 	{
 		return;
 	}
+
+	// Set a new time stamp
+	lastUpdateEnemyPositionTime = gameLocal.time;
 
 	START_SCOPED_TIMING(aiUpdateEnemyPositionTimer, scopedUpdateEnemyPositionTimer)
 

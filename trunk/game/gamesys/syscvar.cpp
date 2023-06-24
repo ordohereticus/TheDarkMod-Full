@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3456 $
- * $Date: 2009-05-22 09:55:58 -0400 (Fri, 22 May 2009) $
+ * $Revision: 3457 $
+ * $Date: 2009-05-22 10:49:33 -0400 (Fri, 22 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3456 2009-05-22 13:55:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3457 2009-05-22 14:49:33Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -94,6 +94,7 @@ idCVar cv_ai_opt_interleavethinkmindist (			"tdm_ai_opt_interleavethinkmindist",
 idCVar cv_ai_opt_interleavethinkmaxdist (			"tdm_ai_opt_interleavethinkmaxdist",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "If true (nonzero), this is the distance where interleave frame will reach its maximum value." );
 idCVar cv_ai_opt_interleavethinkskippvscheck (		"tdm_ai_opt_interleavethinkskipPVS",		"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If true (nonzero), the player PVS check for interleaved thinking will be skipped, so that the AI can also do interleaved thinking while in view." );
 idCVar cv_ai_opt_interleavethinkframes (			"tdm_ai_opt_interleavethinkframes",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "If true (nonzero), this is the maximum interleaved thinking frame number." );
+idCVar cv_ai_opt_update_enemypos_interleave (		"tdm_ai_opt_update_enemypos_interleave",	"48",			CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "Time to pass between enemy position updates. Set this to 0 for updates each frame." );
 
 idCVar cv_ai_opt_nomind (			"tdm_ai_opt_nomind",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI has its Mind thinking routines disabled." );
 idCVar cv_ai_opt_novisualstim (			"tdm_ai_opt_novisualstim",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not process any incoming visual stimuli." );

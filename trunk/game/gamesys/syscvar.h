@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3456 $
- * $Date: 2009-05-22 09:55:58 -0400 (Fri, 22 May 2009) $
+ * $Revision: 3457 $
+ * $Date: 2009-05-22 10:49:33 -0400 (Fri, 22 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -54,6 +54,7 @@ extern idCVar cv_ai_opt_interleavethinkmindist;
 extern idCVar cv_ai_opt_interleavethinkmaxdist;
 extern idCVar cv_ai_opt_interleavethinkskippvscheck;
 extern idCVar cv_ai_opt_interleavethinkframes;
+extern idCVar cv_ai_opt_update_enemypos_interleave;
 extern idCVar cv_ai_opt_nomind;
 extern idCVar cv_ai_opt_novisualstim;
 extern idCVar cv_ai_opt_nolipsync;

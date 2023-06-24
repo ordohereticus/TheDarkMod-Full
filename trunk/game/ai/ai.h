@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3454 $
- * $Date: 2009-05-22 08:51:15 -0400 (Fri, 22 May 2009) $
+ * $Revision: 3457 $
+ * $Date: 2009-05-22 10:49:33 -0400 (Fri, 22 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -684,6 +684,7 @@ public: // greebo: Made these public
 	idVec3					lastReachableEnemyPos;
 	bool					enemyReachable;
 	bool					wakeOnFlashlight;
+	int						lastUpdateEnemyPositionTime;
 
 public: // greebo: Made these public for now, I didn't want to write an accessor for EVERYTHING
 	// script variables
