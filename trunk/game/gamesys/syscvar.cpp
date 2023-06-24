@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3840 $
- * $Date: 2010-02-19 06:02:46 -0500 (Fri, 19 Feb 2010) $
+ * $Revision: 3843 $
+ * $Date: 2010-03-01 11:10:58 -0500 (Mon, 01 Mar 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3840 2010-02-19 11:02:46Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3843 2010-03-01 16:10:58Z jcdenton $", init_version);
 
 #include "../game_local.h"
 
@@ -703,6 +703,7 @@ idCVar r_HDR_min_luminance			( "r_HDR_min_luminance",		"0.06",			CVAR_GAME | CVA
 idCVar r_HDR_max_luminance			( "r_HDR_max_luminance",		"0.22",			CVAR_GAME | CVAR_FLOAT,		" Luminance is restricted to this value to control darkness when in super-bright areas. (Works only when automatic exposure is on)");
 idCVar r_HDR_eyeAdjustmentDelay		( "r_HDR_eyeAdjustmentDelay",	"1.6",			CVAR_GAME | CVAR_FLOAT,		" Total time in second taken to adjust eye exposure.(Works only when automatic exposure is on)");
 idCVar r_HDR_colorCurveBias			( "r_HDR_colorCurveBias",		"0.3",			CVAR_GAME | CVAR_FLOAT,		" Applies Exponential Color Curve to final pass (range 0 to 1), 1 = color curve fully applied , 0= No color curve");
+idCVar r_HDR_blueShiftBias			( "r_HDR_blueShiftBias",		"0.0",			CVAR_GAME | CVAR_FLOAT,		" Enables Blue Shift (range 0 to 1), 1 = Full Blue Shift, 0= No Blue Shift");
 idCVar r_HDR_maxColorIntensity		( "r_HDR_maxColorIntensity",	"3.0",			CVAR_GAME | CVAR_FLOAT,		" Adjusting this value will cause color burnout in a controllable fashion (range 0.0 - 256.0) \nHigher values reduces the contrast, lower values increases the contrast.");
 
 idCVar r_HDR_bloomIntensity			( "r_HDR_bloomIntensity",		"1.0",			CVAR_GAME | CVAR_FLOAT,		" Adjusts the Bloom intensity ");
