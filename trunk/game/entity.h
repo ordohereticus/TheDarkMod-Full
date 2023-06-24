@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3801 $
- * $Date: 2010-01-16 17:16:31 -0500 (Sat, 16 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3815 $
+ * $Date: 2010-01-24 07:11:37 -0500 (Sun, 24 Jan 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1201,15 +1201,8 @@ protected:
 	bool						m_bFrobHighlightState;
 
 	/**
-	* Records the frame number of when the ent was frob peer flooded
-	* Also counts an object hilighting itself as peer flooding
-	**/
-	int							m_FrobPeerFloodFrame;
-
-	/**
 	* Timestamp indicating when the frob highlight last changed
-	* Used for continuous fade in and fade out, distinct from
-	* m_FrobPeerFloodFrame which is used for flooding the frob to peers.
+	* Used for continuous fade in and fade out.
 	**/
 	int							m_FrobChangeTime;
 
