@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3444 $
- * $Date: 2009-05-16 15:49:11 -0400 (Sat, 16 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3454 $
+ * $Date: 2009-05-22 08:51:15 -0400 (Fri, 22 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3444 2009-05-16 19:49:11Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3454 2009-05-22 12:51:15Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -716,6 +716,9 @@ idEntity::idEntity()
 	// absolutely necessary to create these.
 	m_Inventory			= CInventoryPtr();
 	m_InventoryCursor	= CInventoryCursorPtr();
+
+	m_LightQuotient = 0;
+	m_LightQuotientLastEvalTime = -1;
 }
 
 /*
@@ -1261,6 +1264,9 @@ void idEntity::Save( idSaveGame *savefile ) const
 	}
 
 	m_userManager.Save(savefile);
+
+	savefile->WriteFloat(m_LightQuotient);
+	savefile->WriteInt(m_LightQuotientLastEvalTime);
 }
 
 /*
@@ -1497,6 +1503,8 @@ void idEntity::Restore( idRestoreGame *savefile )
 
 	m_userManager.Restore(savefile);
 
+	savefile->ReadFloat(m_LightQuotient);
+	savefile->ReadInt(m_LightQuotientLastEvalTime);
 }
 
 /*
@@ -2138,6 +2146,27 @@ void idEntity::Show( void )
 			m_FrobBox->SetContents( CONTENTS_FROBABLE );
 		UpdateVisuals();
 	}
+}
+
+float idEntity::GetLightQuotient()
+{
+	if (m_LightQuotientLastEvalTime < gameLocal.time)
+	{
+		idPhysics* physics = GetPhysics();
+
+		// Get the bounds and move it upwards a tiny bit
+		idBounds bounds = physics->GetAbsBounds() + physics->GetGravityNormal() * 0.1f; // Tweak to stay out of floors
+
+		// A single point doesn't work with ellipse intersection
+		bounds.ExpandSelf(0.1f); 
+
+		// Update the cache
+		m_LightQuotientLastEvalTime = gameLocal.time;
+		m_LightQuotient = LAS.queryLightingAlongLine(bounds[0], bounds[1], this, true);
+	}
+
+	// Return the cached result
+	return m_LightQuotient;
 }
 
 /*

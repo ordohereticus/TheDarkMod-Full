@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3402 $
- * $Date: 2009-04-12 02:32:11 -0400 (Sun, 12 Apr 2009) $
+ * $Revision: 3454 $
+ * $Date: 2009-05-22 08:51:15 -0400 (Fri, 22 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -341,6 +341,11 @@ public:
 	**/
 	idEntityPtr<idActor>	m_MovedByActor;
 
+	// The light quotient for this entity, calculated by the LAS
+	float					m_LightQuotient;
+	// The last time the above value has been calculated
+	int						m_LightQuotientLastEvalTime;
+
 public:
 	ABSTRACT_PROTOTYPE( idEntity );
 
@@ -400,6 +405,15 @@ public:
 	virtual void			Hide( void );
 	virtual void			Show( void );
 	bool					IsHidden( void ) const;
+
+	/**
+	 * greebo: Returns the light quotient for this entity, a value determined by the 
+	 * number of lights hitting this entity's bounding box, determined by the LAS.
+	 *
+	 * AI are using this method to determine an object's visibility. The result 
+	 * is cached, to save it from being recalculated for multiple AI each frame.
+	 */
+	float					GetLightQuotient();
 
 	// TDM: SZ: January 9, 2006 Made virtual to handle unique behavior in descendents
 	virtual void			UpdateVisuals( void );
