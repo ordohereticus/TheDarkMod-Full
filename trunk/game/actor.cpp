@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3584 $
- * $Date: 2009-07-26 07:19:21 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3595 $
+ * $Date: 2009-07-27 02:00:39 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3584 2009-07-26 11:19:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3595 2009-07-27 06:00:39Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -146,6 +146,11 @@ void idAnimState::SetState( const char *statename, int blendFrames ) {
 	if ( !func ) {
 		assert( 0 );
 		gameLocal.Error( "Can't find function '%s' in object '%s'", statename, self->scriptObject.GetTypeName() );
+	}
+
+	if (cv_ai_show_animstate_switches.GetBool())
+	{
+		gameLocal.Printf("Switching anim state to %s (%s)\n", state.c_str(), self->name.c_str());
 	}
 
 	state = statename;

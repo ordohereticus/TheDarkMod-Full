@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3561 $
- * $Date: 2009-07-22 08:54:08 -0400 (Wed, 22 Jul 2009) $
+ * $Revision: 3595 $
+ * $Date: 2009-07-27 02:00:39 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3561 2009-07-22 12:54:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3595 2009-07-27 06:00:39Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -100,7 +100,9 @@ idCVar cv_ai_opt_nomind (			"tdm_ai_opt_nomind",		"0",			CVAR_GAME | CVAR_BOOL, 
 idCVar cv_ai_opt_novisualstim (			"tdm_ai_opt_novisualstim",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not process any incoming visual stimuli." );
 idCVar cv_ai_opt_nolipsync (			"tdm_ai_opt_nolipsync",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not play lipsync animations." );
 idCVar cv_ai_opt_nopresent (			"tdm_ai_opt_nopresent",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not be presented." );
-idCVar cv_ai_opt_noobstacleavoidance (			"tdm_ai_opt_noobstacleavoidace",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not check for obstacles." );
+idCVar cv_ai_opt_noobstacleavoidance (			"tdm_ai_opt_noobstacleavoidance",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not check for obstacles." );
+
+idCVar cv_ai_show_animstate_switches (			"tdm_ai_show_animstate_switches",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), show transitions between anim states/script in the console." );
 
 idCVar cv_ai_show_aasfuncobstacle_state("tdm_ai_show_aasfuncobstacle_state",	"0", CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), idFuncAASObstacles will show their state at spawn time and during changes." );
 
