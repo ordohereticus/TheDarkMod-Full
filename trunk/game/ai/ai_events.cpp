@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3184 $
- * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
- * $Author: angua $
+ * $Revision: 3230 $
+ * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3230 2009-03-08 07:50:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -65,8 +65,6 @@ const idEventDef AI_CanBecomeSolid( "canBecomeSolid", NULL, 'f' );
 const idEventDef AI_BecomeSolid( "becomeSolid" );
 const idEventDef AI_BecomeRagdoll( "becomeRagdoll", NULL, 'd' );
 const idEventDef AI_StopRagdoll( "stopRagdoll" );
-const idEventDef AI_SetHealth( "setHealth", "f" );
-const idEventDef AI_GetHealth( "getHealth", NULL, 'f' );
 const idEventDef AI_AllowDamage( "allowDamage" );
 const idEventDef AI_IgnoreDamage( "ignoreDamage" );
 const idEventDef AI_GetCurrentYaw( "getCurrentYaw", NULL, 'f' );
@@ -391,8 +389,6 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( EV_BecomeNonSolid,					idAI::Event_BecomeNonSolid )
 	EVENT( AI_BecomeRagdoll,					idAI::Event_BecomeRagdoll )
 	EVENT( AI_StopRagdoll,						idAI::Event_StopRagdoll )
-	EVENT( AI_SetHealth,						idAI::Event_SetHealth )
-	EVENT( AI_GetHealth,						idAI::Event_GetHealth )
 	EVENT( AI_AllowDamage,						idAI::Event_AllowDamage )
 	EVENT( AI_IgnoreDamage,						idAI::Event_IgnoreDamage )
 	EVENT( AI_GetCurrentYaw,					idAI::Event_GetCurrentYaw )
@@ -1163,30 +1159,6 @@ void idAI::Event_StopRagdoll( void ) {
 
 	// set back the monster physics
 	SetPhysics( &physicsObj );
-}
-
-/*
-=====================
-idAI::Event_SetHealth
-=====================
-*/
-void idAI::Event_SetHealth( float newHealth ) {
-	health = static_cast<int>(newHealth);
-	fl.takedamage = true;
-	if ( health > 0 ) {
-		AI_DEAD = false;
-	} else {
-		AI_DEAD = true;
-	}
-}
-
-/*
-=====================
-idAI::Event_GetHealth
-=====================
-*/
-void idAI::Event_GetHealth( void ) {
-	idThread::ReturnFloat( health );
 }
 
 /*

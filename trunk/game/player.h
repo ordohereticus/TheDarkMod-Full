@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3229 $
- * $Date: 2009-03-08 03:24:27 -0400 (Sun, 08 Mar 2009) $
+ * $Revision: 3230 $
+ * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -272,7 +272,7 @@ public:
 	idScriptBool			AI_CROUCH;
 	idScriptBool			AI_ONGROUND;
 	idScriptBool			AI_ONLADDER;
-	idScriptBool			AI_DEAD;
+	//idScriptBool			AI_DEAD; // is defined on idActor now
 	idScriptBool			AI_RUN;
 	idScriptBool			AI_PAIN;
 	idScriptBool			AI_HARDLANDING;

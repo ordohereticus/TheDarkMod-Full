@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3229 $
- * $Date: 2009-03-08 03:24:27 -0400 (Sun, 08 Mar 2009) $
+ * $Revision: 3230 $
+ * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3229 2009-03-08 07:24:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3230 2009-03-08 07:50:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -465,7 +465,11 @@ idPlayer::LinkScriptVariables
 set up conditions for animation
 ==============
 */
-void idPlayer::LinkScriptVariables( void ) {
+void idPlayer::LinkScriptVariables()
+{
+	// Call the base class first
+	idActor::LinkScriptVariables();
+
 	AI_FORWARD.LinkTo(			scriptObject, "AI_FORWARD" );
 	AI_BACKWARD.LinkTo(			scriptObject, "AI_BACKWARD" );
 	AI_STRAFE_LEFT.LinkTo(		scriptObject, "AI_STRAFE_LEFT" );
@@ -475,7 +479,6 @@ void idPlayer::LinkScriptVariables( void ) {
 	AI_WEAPON_FIRED.LinkTo(		scriptObject, "AI_WEAPON_FIRED" );
 	AI_WEAPON_BLOCKED.LinkTo(	scriptObject, "AI_WEAPON_BLOCKED" );
 	AI_JUMP.LinkTo(				scriptObject, "AI_JUMP" );
-	AI_DEAD.LinkTo(				scriptObject, "AI_DEAD" );
 	AI_CROUCH.LinkTo(			scriptObject, "AI_CROUCH" );
 	AI_ONGROUND.LinkTo(			scriptObject, "AI_ONGROUND" );
 	AI_ONLADDER.LinkTo(			scriptObject, "AI_ONLADDER" );

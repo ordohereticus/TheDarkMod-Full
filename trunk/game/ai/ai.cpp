@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3222 $
- * $Date: 2009-03-04 08:37:27 -0500 (Wed, 04 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3230 $
+ * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3222 2009-03-04 13:37:27Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3230 2009-03-08 07:50:29Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2105,11 +2105,13 @@ idAI::LinkScriptVariables
 */
 void idAI::LinkScriptVariables( void )
 {
+	// Call the base class first
+	idActor::LinkScriptVariables();
+
 	AI_TALK.LinkTo(				scriptObject, "AI_TALK" );
 	AI_DAMAGE.LinkTo(			scriptObject, "AI_DAMAGE" );
 	AI_PAIN.LinkTo(				scriptObject, "AI_PAIN" );
 	AI_SPECIAL_DAMAGE.LinkTo(	scriptObject, "AI_SPECIAL_DAMAGE" );
-	AI_DEAD.LinkTo(				scriptObject, "AI_DEAD" );
 	AI_KNOCKEDOUT.LinkTo(		scriptObject, "AI_KNOCKEDOUT" );
 	AI_ENEMY_VISIBLE.LinkTo(	scriptObject, "AI_ENEMY_VISIBLE" );
 	AI_ENEMY_IN_FOV.LinkTo(		scriptObject, "AI_ENEMY_IN_FOV" );

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3220 $
- * $Date: 2009-03-01 23:00:08 -0500 (Sun, 01 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3230 $
+ * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3220 2009-03-02 04:00:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3230 2009-03-08 07:50:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -433,6 +433,10 @@ const idEventDef AI_GetState( "getState", NULL, 's' );
 const idEventDef AI_GetHead( "getHead", NULL, 'e' );
 const idEventDef AI_GetEyePos( "getEyePos", NULL, 'v' );
 
+// greebo: Moved these from ai_events.cpp to here
+const idEventDef AI_SetHealth( "setHealth", "f" );
+const idEventDef AI_GetHealth( "getHealth", NULL, 'f' );
+
 // Attachment Related Events:
 const idEventDef AI_Attach( "attach", "es" );
 const idEventDef AI_AttachToPos( "attachToPos", "ess" );
@@ -518,6 +522,8 @@ CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT( AI_GetState,					idActor::Event_GetState )
 	EVENT( AI_GetHead,					idActor::Event_GetHead )
 	EVENT( AI_GetEyePos,				idActor::Event_GetEyePos )
+	EVENT( AI_SetHealth,				idActor::Event_SetHealth )
+	EVENT( AI_GetHealth,				idActor::Event_GetHealth )
 	
 	EVENT ( AI_Attach,					idActor::Event_Attach )
 	EVENT ( AI_Attach,					idActor::Event_AttachToPos )
@@ -3126,6 +3132,12 @@ void idActor::PlayFootStepSound( void )
 	// empty, override this in the subclasses
 }
 
+void idActor::LinkScriptVariables()
+{
+	// Link the script variables to our script object
+	AI_DEAD.LinkTo(scriptObject, "AI_DEAD");
+}
+
 bool idActor::ReEvaluateArea(int areaNum)
 {
 	// Default implementation for actors: return positive
@@ -4128,6 +4140,30 @@ idActor::Event_GetEyePos
 void idActor::Event_GetEyePos( void )
 {
 	idThread::ReturnVector( GetEyePosition() );
+}
+
+/*
+=====================
+idActor::Event_SetHealth
+=====================
+*/
+void idActor::Event_SetHealth( float newHealth ) {
+	health = static_cast<int>(newHealth);
+	fl.takedamage = true;
+	if ( health > 0 ) {
+		AI_DEAD = false;
+	} else {
+		AI_DEAD = true;
+	}
+}
+
+/*
+=====================
+idActor::Event_GetHealth
+=====================
+*/
+void idActor::Event_GetHealth( void ) {
+	idThread::ReturnFloat( health );
 }
 
 /*
