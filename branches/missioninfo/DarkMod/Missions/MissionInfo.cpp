@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3920 $
- * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
+ * $Revision: 3921 $
+ * $Date: 2010-06-08 05:16:42 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3920 2010-06-08 08:45:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3921 2010-06-08 09:16:42Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -39,10 +39,10 @@ void CMissionInfo::SetKeyValue(const char* key, const char* value)
 void CMissionInfo::Save()
 {
 	// Don't do unnecessary work
-	if (!_declDirty) return;
+	//if (!_declDirty) return;
 
 	// Generate new declaration body text
-	_decl->SetText("\"Test\" \"Body\"");
+	_decl->Update(modName);
 	_decl->ReplaceSourceFileText();
 }
 

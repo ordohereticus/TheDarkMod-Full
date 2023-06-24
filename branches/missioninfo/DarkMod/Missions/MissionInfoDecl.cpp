@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3919 $
- * $Date: 2010-06-08 03:06:50 -0400 (Tue, 08 Jun 2010) $
+ * $Revision: 3921 $
+ * $Date: 2010-06-08 05:16:42 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,9 +10,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfoDecl.cpp 3919 2010-06-08 07:06:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfoDecl.cpp 3921 2010-06-08 09:16:42Z greebo $", init_version);
 
 #include "MissionInfoDecl.h"
+
+const char* const CMissionInfoDecl::TYPE_NAME = "tdm_missioninfo";
 
 CMissionInfoDecl::~CMissionInfoDecl()
 {
@@ -254,6 +256,28 @@ bool CMissionInfoDecl::Parse( const char *text, const int textLength )
 		MakeDefault();
 	}*/
 	return successfulParse;
+}
+
+void CMissionInfoDecl::Update(const idStr& name)
+{
+	idStr body;
+	
+	body += TYPE_NAME;
+	body += " " + name;
+	body += "\n{\n";
+
+	// Dump the keyvalues
+	for (int i = 0; i < data.GetNumKeyVals(); ++i)
+	{
+		const idKeyValue* kv = data.GetKeyVal(i);
+
+		body += "\t\"" + kv->GetKey() + "\"";
+		body += "\t\"" + kv->GetValue() + "\"\n";
+	}
+
+	body += "\n}\n\n";
+
+	this->SetText(body.c_str());
 }
 
 CMissionInfoDecl* CMissionInfoDecl::Find(const idStr& name)

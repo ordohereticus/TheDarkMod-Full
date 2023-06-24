@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3919 $
- * $Date: 2010-06-08 03:06:50 -0400 (Tue, 08 Jun 2010) $
+ * $Revision: 3921 $
+ * $Date: 2010-06-08 05:16:42 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3919 2010-06-08 07:06:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3921 2010-06-08 09:16:42Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -48,7 +48,7 @@ idCVar g_version(					"g_version",				gameVersion.string,	CVAR_GAME | CVAR_ROM, 
 **/
 idCVar cv_player_spawnclass(		"tdm_player_spawnclass",	"atdm:player_thief",	CVAR_GAME, "The player's classname." );
 
-idCVar cv_default_mission_info_file("tdm_default_mission_info_file", "missions.tdminfo",	CVAR_GAME, "The filename relative to darkmod/fms/ where all the persistent mission data is stored." );
+idCVar cv_default_mission_info_file("tdm_default_mission_info_file", "fms/missions.tdminfo",	CVAR_GAME, "The filename relative to darkmod/fms/ where all the persistent mission data is stored." );
 
 idCVar cv_ai_sndvol(				"tdm_ai_sndvol",			"0.0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Modifier to the volume of suspcious sounds that AI's hear.  Defaults to 0.0 dB" );
 idCVar cv_ai_bark_show(				"tdm_ai_showbark",			"0",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Displays the current sound when the AI starts barking" );
