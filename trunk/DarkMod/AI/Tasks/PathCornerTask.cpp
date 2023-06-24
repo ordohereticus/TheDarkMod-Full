@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3429 $
- * $Date: 2009-05-07 13:58:22 -0400 (Thu, 07 May 2009) $
+ * $Revision: 3477 $
+ * $Date: 2009-05-29 09:45:59 -0400 (Fri, 29 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3429 2009-05-07 17:58:22Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3477 2009-05-29 13:45:59Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -77,7 +77,7 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 			}
 			else
 			{
-				owner->MoveToPosition(path->GetPhysics()->GetOrigin());
+				owner->MoveToPosition(path->GetPhysics()->GetOrigin(), _accuracy);
 			}
 		}	
 		if (owner->AI_DEST_UNREACHABLE)
@@ -94,7 +94,7 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 	{
 		// moveToEntity() not yet called, do it now
 		owner->StopMove(MOVE_STATUS_DEST_NOT_FOUND);
-		owner->MoveToPosition(path->GetPhysics()->GetOrigin());
+		owner->MoveToPosition(path->GetPhysics()->GetOrigin(), _accuracy);
 
 		_moveInitiated = true;
 	}

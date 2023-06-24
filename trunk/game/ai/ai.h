@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3463 $
- * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3477 $
+ * $Date: 2009-05-29 09:45:59 -0400 (Fri, 29 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -1244,7 +1244,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 *
 	 * @returns: TRUE when the position has been reached, FALSE otherwise.
 	 */
-	bool					ReachedPos( const idVec3 &pos, const moveCommand_t moveCommand ) const;
+	bool					ReachedPos( const idVec3 &pos, const moveCommand_t moveCommand) const;
 
 	float					TravelDistance( const idVec3 &start, const idVec3 &end );
 
@@ -1372,7 +1372,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * @returns: TRUE, if the position is reachable and the AI is moving (AI_MOVE_DONE == false) 
 	 *                 OR the position is already reached (AI_MOVE_DONE == true).
 	 */
-	bool					MoveToPosition( const idVec3 &pos );
+	bool					MoveToPosition( const idVec3 &pos, float accuracy = -1 );
 
 	/**
 	 * angua: This looks for a suitable position for taking cover
