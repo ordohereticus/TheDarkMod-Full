@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3232 $
- * $Date: 2009-03-10 13:57:26 -0400 (Tue, 10 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3942 $
+ * $Date: 2010-06-11 03:17:12 -0400 (Fri, 11 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -110,7 +110,6 @@
 #include "../framework/declfx.h"
 #include "../framework/declparticle.h"
 #include "../framework/declaf.h"
-#include "../framework/declpda.h"
 
 // We have expression parsing and evaluation code in multiple places:
 // materials, sound shaders, and guis. We should unify them.
