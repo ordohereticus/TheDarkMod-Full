@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3604 $
- * $Date: 2009-07-28 00:32:56 -0400 (Tue, 28 Jul 2009) $
+ * $Revision: 3619 $
+ * $Date: 2009-07-30 23:27:31 -0400 (Thu, 30 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3604 2009-07-28 04:32:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3619 2009-07-31 03:27:31Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -470,6 +470,11 @@ const idEventDef AI_GetMeleeLastActTime( "getMeleeLastActTime", NULL, 'd' );
 const idEventDef AI_MeleeBestParry( "meleeBestParry", NULL, 'd' );
 const idEventDef AI_MeleeNameForNum( "meleeNameForNum", "d", 's' );
 
+// greebo: anim replacement script events
+const idEventDef AI_SetReplacementAnim( "setReplacementAnim", "ss");
+const idEventDef AI_LookupReplacementAnim( "lookupReplacementAnim", "s", 's');
+const idEventDef AI_RemoveReplacementAnim( "removeReplacementAnim", "s");
+
 
 CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT( AI_EnableEyeFocus,			idActor::Event_EnableEyeFocus )
@@ -544,6 +549,10 @@ CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT ( AI_GetNumAttachments,		idActor::Event_GetNumAttachments )
 	EVENT ( AI_GetNumRangedWeapons,		idActor::Event_GetNumRangedWeapons )
 	EVENT ( AI_GetNumMeleeWeapons,		idActor::Event_GetNumMeleeWeapons )
+
+	EVENT ( AI_SetReplacementAnim,		idActor::Event_SetReplacementAnim )
+	EVENT ( AI_LookupReplacementAnim,	idActor::Event_LookupReplacementAnim )
+	EVENT ( AI_RemoveReplacementAnim,	idActor::Event_RemoveReplacementAnim )
 	
 END_CLASS
 
@@ -2808,6 +2817,16 @@ const char* idActor::LookupReplacementAnim( const char *animname )
 	return replacement;
 }
 
+void idActor::SetReplacementAnim(const idStr& animToReplace, const idStr& replacementAnim)
+{
+	m_replacementAnims.Set(animToReplace, replacementAnim);
+}
+
+void idActor::RemoveReplacementAnim(const idStr& replacedAnim)
+{
+	m_replacementAnims.Delete(replacedAnim);
+}
+
 void idActor::StopAnim(int channel, int frames) 
 {
 	switch( channel ) {
@@ -4646,6 +4665,21 @@ void idActor::Event_GetMeleeResult()
 void idActor::Event_GetMeleeLastActTime()
 {
 	idThread::ReturnInt( m_MeleeStatus.m_LastActTime );
+}
+
+void idActor::Event_SetReplacementAnim(const char* animToReplace, const char* replacementAnim)
+{
+	SetReplacementAnim(animToReplace, replacementAnim);
+}
+
+void idActor::Event_RemoveReplacementAnim(const char* animName)
+{
+	RemoveReplacementAnim(animName);
+}
+
+void idActor::Event_LookupReplacementAnim(const char* animName)
+{
+	idThread::ReturnString(LookupReplacementAnim(animName));
 }
 
 // ========== CMeleeStatus implementation =========

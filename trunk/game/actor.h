@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3583 $
- * $Date: 2009-07-26 07:14:08 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3619 $
+ * $Date: 2009-07-30 23:27:31 -0400 (Thu, 30 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -538,6 +538,12 @@ public:
 	int						GetAnim( int channel, const char *name );
 	idAnimator*				GetAnimatorForChannel(int channel);
 	const char*				LookupReplacementAnim( const char *name );
+
+	// greebo: Replaces the given animToReplace by the animation replacementAnim
+	void					SetReplacementAnim(const idStr& animToReplace, const idStr& replacementAnim);
+
+	// greebo: Removes any replacement for the given anim.
+	void					RemoveReplacementAnim(const idStr& replacedAnim);
 	void					StopAnim(int channel, int frames);
 	void					UpdateAnimState( void );
 	void					SetAnimState( int channel, const char *name, int blendFrames );
@@ -817,6 +823,11 @@ public:
 	* Convert a melee type integer to the corresponding string name
 	**/
 	void					Event_MeleeNameForNum( int num );
+
+	// Script interface for replacing anims with different ones
+	void					Event_SetReplacementAnim(const char* animToReplace, const char* replacementAnim);
+	void					Event_RemoveReplacementAnim(const char* animName);
+	void					Event_LookupReplacementAnim(const char* animName);
 
 
 #ifdef TIMING_BUILD
