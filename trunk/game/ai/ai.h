@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3522 $
- * $Date: 2009-07-06 02:49:01 -0400 (Mon, 06 Jul 2009) $
+ * $Revision: 3530 $
+ * $Date: 2009-07-13 09:10:11 -0400 (Mon, 13 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -497,6 +497,9 @@ public:
 	// angua: this determines whether the AI should lay down to the left or to the right after sitting down
 	// gets read as spawn arg from the path_sleep entity
 	idScriptBool			AI_LAY_DOWN_LEFT;
+
+	// angua: the direction the AI faces before sitting and laying down
+	idScriptVector			AI_LAY_DOWN_FACE_DIR;
 
 	// greebo: This is to tell the scripts which idle animation should be played next in the CustomIdleAnim state
 	idStr					m_NextIdleAnim;

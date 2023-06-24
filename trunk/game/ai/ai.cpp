@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3529 $
- * $Date: 2009-07-12 23:35:23 -0400 (Sun, 12 Jul 2009) $
+ * $Revision: 3530 $
+ * $Date: 2009-07-13 09:10:11 -0400 (Mon, 13 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3529 2009-07-13 03:35:23Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3530 2009-07-13 13:10:11Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2323,6 +2323,8 @@ void idAI::LinkScriptVariables( void )
 	AI_CREEP.LinkTo(			scriptObject, "AI_CREEP");
 
 	AI_LAY_DOWN_LEFT.LinkTo(	scriptObject, "AI_LAY_DOWN_LEFT");
+	AI_LAY_DOWN_FACE_DIR.LinkTo(scriptObject, "AI_LAY_DOWN_FACE_DIR");
+
 }
 
 /*
@@ -4757,10 +4759,6 @@ void idAI::NoTurnMove()
 
 void idAI::LayDownMove()
 {
-	idVec3				goalDelta;
-	idVec3				newDest;
-	idVec3 delta;
-
 	idVec3 oldorigin(physicsObj.GetOrigin());
 	idMat3 oldaxis(viewAxis);
 
@@ -4770,11 +4768,10 @@ void idAI::LayDownMove()
 		gameRenderWorld->DebugLine( colorCyan, oldorigin, physicsObj.GetOrigin(), 5000 );
 	}
 
-	monsterMoveResult_t moveResult = physicsObj.GetMoveResult();
-
 	AI_ONGROUND = physicsObj.OnGround();
 
 	// angua: Let the animation move the origin onto the bed
+	idVec3 delta;
 	GetMoveDelta( oldaxis, viewAxis, delta );
 
 	physicsObj.SetDelta( delta );
@@ -4793,11 +4790,6 @@ void idAI::LayDownMove()
 		gameRenderWorld->DebugLine( colorYellow, org + EyeOffset(), org + EyeOffset() + viewAxis[ 0 ] * physicsObj.GetGravityAxis() * 16.0f, gameLocal.msec, true );
 		DrawRoute();
 	}
-
-
-
-
-
 }
 
 
@@ -10372,11 +10364,12 @@ void idAI::GetUp()
 
 void idAI::LayDown()
 {
-	idStr waitState(WaitState());
 	if (GetMoveType() != MOVETYPE_ANIM)
 	{
 		return;
 	}
+
+	AI_LAY_DOWN_FACE_DIR = idAngles( 0, current_yaw, 0 ).ToForward();
 
 	SetMoveType(MOVETYPE_LAY_DOWN);
 	SetWaitState("lay_down");
