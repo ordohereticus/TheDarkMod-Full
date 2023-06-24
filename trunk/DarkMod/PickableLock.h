@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3307 $
- * $Date: 2009-03-26 01:45:22 -0400 (Thu, 26 Mar 2009) $
+ * $Revision: 3311 $
+ * $Date: 2009-03-26 12:06:49 -0400 (Thu, 26 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -56,9 +56,6 @@ private:
 
 	// Lockpick state
 	ELockpickState	m_LockpickState;
-
-	// TRUE during the phase the player can land a success hit
-	bool			m_HotSpotActive;
 
 	/**
 	 * greebo: This variable keeps track of how many times the player missed
@@ -182,7 +179,6 @@ private:
 
 	// Gets called when a lockpick sound is finished playing
 	void			Event_LockpickSoundFinished(ELockpickState nextState);
-	void			Event_SetHotSpotStatusActive(int active);
 
 	/**
 	 * Create a random pin pattern for a given pin. Clicks defines the required 
