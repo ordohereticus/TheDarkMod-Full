@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3080 $
- * $Date: 2008-12-08 09:04:07 -0500 (Mon, 08 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3323 $
+ * $Date: 2009-03-27 19:44:04 -0400 (Fri, 27 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 3080 2008-12-08 14:04:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 3323 2009-03-27 23:44:04Z ishtvan $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "InteractionTask.h"
@@ -70,8 +70,23 @@ bool ChaseEnemyTask::Perform(Subsystem& subsystem)
 		return true;
 	}
 
+	// are we currently flat-footed?
+	if( owner->m_bFlatFooted )
+	{
+		_reachEnemyCheck = 0;
+
+		owner->StopMove(MOVE_STATUS_DONE);
+		//gameLocal.Printf("Flat footed!\n");
+		// Turn to the player
+		owner->TurnToward(enemy->GetEyePosition());
+
+		if( (gameLocal.time - owner->m_FlatFootedTimer) > owner->m_FlatFootedTime )
+		{
+			owner->m_bFlatFooted = false;
+		}
+	}
 	// Can we damage the enemy already? (this flag is set by the combat state)
-	if (memory.canHitEnemy)
+	else if (memory.canHitEnemy)
 	{
 		_reachEnemyCheck = 0;
 

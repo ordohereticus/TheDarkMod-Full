@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3289 $
- * $Date: 2009-03-22 17:42:00 -0400 (Sun, 22 Mar 2009) $
+ * $Revision: 3323 $
+ * $Date: 2009-03-27 19:44:04 -0400 (Fri, 27 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3289 2009-03-22 21:42:00Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3323 2009-03-27 23:44:04Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -231,7 +231,7 @@ void MeleeCombatTask::PerformParry(idAI* owner)
 		// TODO: Check if enemy is dead or beyond some max range, then stop parrying?
 		else
 		{
-			// debug display the countdown to release (SOMETHING WRONG HERE)
+			// debug display the countdown to release
 			if( cv_melee_state_debug.GetBool() )
 			{
 				idStr debugText = va("Parry Waiting for: %d [ms]", (gameLocal.time - pEnStatus->m_PhaseChangeTime) );
