@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3708 $
- * $Date: 2009-09-19 11:59:52 -0400 (Sat, 19 Sep 2009) $
- * $Author: angua $
+ * $Revision: 3713 $
+ * $Date: 2009-09-27 01:45:31 -0400 (Sun, 27 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3708 2009-09-19 15:59:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3713 2009-09-27 05:45:31Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7066,23 +7066,23 @@ bool idAI::TestMeleeFuture( void ) const {
 
 	//FIXME: make work with gravity vector
 	idVec3 org = physicsObj.GetOrigin();
-	idBounds bounds = physicsObj.GetBounds();
+	const idBounds& bounds = physicsObj.GetBounds();
 	idVec3 vel = physicsObj.GetLinearVelocity();
 
 
 	idVec3 enemyOrg = enemyEnt->GetPhysics()->GetOrigin();
-	idBounds enemyBounds = enemyEnt->GetPhysics()->GetBounds();
+	const idBounds& enemyBounds = enemyEnt->GetPhysics()->GetBounds();
 	idVec3 enemyVel = enemyEnt->GetPhysics()->GetLinearVelocity();
 
 	// update prediction
 	float dt = m_MeleePredictedAttTime;
 	idVec3 ds = dt * vel;
 	org += ds;
-	bounds = bounds.TranslateSelf( ds );
+	//bounds = bounds.TranslateSelf( ds );
 
 	idVec3 dsEnemy = dt * enemyVel;
 	enemyOrg += dsEnemy;
-	enemyBounds = enemyBounds.TranslateSelf( dsEnemy );
+	//enemyBounds = enemyBounds.TranslateSelf( dsEnemy );
 
 	// rest is the same as TestMelee
 	idVec3 dir = enemyOrg - org;
@@ -7095,7 +7095,7 @@ bool idAI::TestMeleeFuture( void ) const {
 	{
 		// angua: within horizontal distance
 		if ((org.z + bounds[1][2] + melee_range) > enemyOrg.z &&
-				(enemyOrg.z + enemyBounds[1][2]) > org.z)
+			(enemyOrg.z + enemyBounds[1][2]) > org.z)
 		{
 			// within height
 			// check if there is something in between
