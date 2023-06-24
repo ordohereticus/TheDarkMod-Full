@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3438 $
- * $Date: 2009-05-09 11:06:30 -0400 (Sat, 09 May 2009) $
+ * $Revision: 3473 $
+ * $Date: 2009-05-27 02:46:17 -0400 (Wed, 27 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -147,7 +147,7 @@ class idEditEntities;
 class idLocationEntity;
 
 #define	MAX_CLIENTS				32
-#define	GENTITYNUM_BITS			12
+#define	GENTITYNUM_BITS			13
 #define	MAX_GENTITIES			(1<<GENTITYNUM_BITS)
 #define	ENTITYNUM_NONE			(MAX_GENTITIES-1)
 #define	ENTITYNUM_WORLD			(MAX_GENTITIES-2)
