@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3456 $
- * $Date: 2009-05-22 09:55:58 -0400 (Fri, 22 May 2009) $
+ * $Revision: 3465 $
+ * $Date: 2009-05-24 05:40:53 -0400 (Sun, 24 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3456 2009-05-22 13:55:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3465 2009-05-24 09:40:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -522,6 +522,17 @@ void idGameLocal::Shutdown( void ) {
 	if ( !common ) {
 		return;
 	}
+
+	{
+		// greebo: Check if we have a game base. If yes, write the current configuration back to the
+		// "darkmod" game base folder, to preserver any settings made while an FM is installed.
+		idStr fs_game_base(cvarSystem->GetCVarString("fs_game_base"));
+
+		if (!fs_game_base.IsEmpty())
+		{
+			common->WriteConfigToFile("../" + fs_game_base + "/DoomConfig.cfg");
+		}
+	}		
 
 	Printf( "------------ Game Shutdown -----------\n" );
 	
