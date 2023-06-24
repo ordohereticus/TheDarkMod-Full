@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3641 $
- * $Date: 2009-08-04 10:27:22 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3642 $
+ * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,8 +25,8 @@ class ResolveMovementBlockTask :
 	public Task
 {
 private:
-	// The "masterAI" is the one who wants to pass
-	idAI* _masterAI;
+	// The entity in the way
+	idEntity* _blockingEnt;
 
 	// The angles we had when starting this task
 	idAngles _initialAngles;
@@ -39,8 +39,7 @@ private:
 	ResolveMovementBlockTask();
 
 public:
-	// The "masterAI" is the one who wants to pass
-	ResolveMovementBlockTask(idAI* masterAI);
+	ResolveMovementBlockTask(idEntity* blockingEnt);
 
 	// Get the name of this task
 	virtual const idStr& GetName() const;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3638 $
- * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3642 $
+ * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,6 +29,7 @@ public:
 		ENotBlocked,		// moving along
 		EPossiblyBlocked,	// might be blocked, watching...
 		EBlocked,			// not been making progress for too long
+		EResolvingBlock,	// resolving block
 	};
 
 protected:
@@ -70,6 +71,10 @@ public:
 	}
 
 	void SetBlockedState(const BlockedState newState);
+
+	void ResolveBlock(idEntity* blockingEnt);
+
+	bool IsResolvingBlock();
 
 protected:
 	virtual void CheckBlocked(idAI* owner);

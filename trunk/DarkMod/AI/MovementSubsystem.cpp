@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3638 $
- * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3642 $
+ * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,18 +10,19 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3638 2009-08-03 13:44:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3642 2009-08-04 14:55:30Z greebo $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
 #include "States/State.h"
+#include "Tasks/ResolveMovementBlockTask.h"
 
 namespace ai
 {
 
 #define HISTORY_SIZE 32
 #define HISTORY_BOUNDS_THRESHOLD 10 // units
-#define BLOCK_TIME_OUT 3000 // milliseconds
+#define BLOCK_TIME_OUT 800 // milliseconds
 
 MovementSubsystem::MovementSubsystem(SubsystemId subsystemId, idAI* owner) :
 	Subsystem(subsystemId, owner),
@@ -105,6 +106,9 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 				_state = ENotBlocked;
 			}
 			break;
+		case EResolvingBlock:
+			// nothing so far
+			break;
 		};
 	}
 	else
@@ -125,6 +129,20 @@ void MovementSubsystem::SetBlockedState(const BlockedState newState)
 		_lastTimeNotBlocked = gameLocal.time;
 		_historyBounds.Clear();
 	}
+}
+
+void MovementSubsystem::ResolveBlock(idEntity* blockingEnt)
+{
+	// Push a resolution task
+	PushTask(TaskPtr(new ResolveMovementBlockTask(blockingEnt)));
+
+	// Remember this state
+	SetBlockedState(EResolvingBlock);
+}
+
+bool MovementSubsystem::IsResolvingBlock()
+{
+	return _state == EResolvingBlock;
 }
 
 // Save/Restore methods
@@ -197,6 +215,10 @@ void MovementSubsystem::DebugDraw(idAI* owner)
 			case EBlocked:
 				str = "EBlocked";
 				colour = colorRed;
+				break;
+			case EResolvingBlock:
+				str = "EResolvingBlock";
+				colour = colorMagenta;
 				break;
 		}
 		gameRenderWorld->DrawText(str.c_str(), 

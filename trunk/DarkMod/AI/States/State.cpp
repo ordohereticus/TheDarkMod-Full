@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3641 $
- * $Date: 2009-08-04 10:27:22 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3642 $
+ * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3641 2009-08-04 14:27:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3642 2009-08-04 14:55:30Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -18,7 +18,6 @@ static bool init_version = FileVersionList("$Id: State.cpp 3641 2009-08-04 14:27
 #include "../Tasks/GreetingBarkTask.h"
 #include "../Tasks/HandleDoorTask.h"
 #include "../Tasks/HandleElevatorTask.h"
-#include "../Tasks/ResolveMovementBlockTask.h"
 #include "../../AIComm_Message.h"
 #include "../../StimResponse/StimResponse.h"
 #include "SearchingState.h"
@@ -1249,13 +1248,16 @@ void State::OnMovementBlocked(idAI* owner)
 			std::swap(master, slave);
 		}
 
-		// Tell the slave to get out of the way
-		slave->movementSubsystem->PushTask(TaskPtr(new ResolveMovementBlockTask(master)));
+		// Tell the slave to get out of the way, but only if none of the AI is currently resolving a block
+		if (!slave->movementSubsystem->IsResolvingBlock() && !master->movementSubsystem->IsResolvingBlock())
+		{
+			slave->movementSubsystem->ResolveBlock(master);
+		}
 	}
 	else if (ent->IsType(idStaticEntity::Type))
 	{
 		// Blocked by func_static, these are not considered by Obstacle Avoidance code.
-
+		// TODO
 	}
 }
 
