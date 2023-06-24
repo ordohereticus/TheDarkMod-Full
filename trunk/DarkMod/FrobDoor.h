@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3259 $
- * $Date: 2009-03-17 00:23:12 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3260 $
+ * $Date: 2009-03-17 00:39:56 -0400 (Tue, 17 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -148,6 +148,10 @@ protected:
 	// Specialised methods to handle certain impulse events
 	bool					ProcessLockpickPress(int type);
 	bool					ProcessLockpickRepeat(int type);
+	bool					ProcessLockpickRelease(int type);
+
+	// For debugging purposes
+	void					UpdateLockpickHUD();
 
 	/**
 	 * greebo: Play the given sound, this will post a "sound finished" event 
