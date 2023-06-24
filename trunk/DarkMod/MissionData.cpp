@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3814 $
- * $Date: 2010-01-24 01:40:33 -0500 (Sun, 24 Jan 2010) $
+ * $Revision: 3885 $
+ * $Date: 2010-04-24 22:37:27 -0400 (Sat, 24 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3814 2010-01-24 06:40:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3885 2010-04-25 02:37:27Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1135,6 +1135,11 @@ int CMissionData::GetHealthReceived()
 void CMissionData::HealthReceivedByPlayer(int amount)
 {
 	m_Stats.HealthReceived += amount;
+}
+
+void CMissionData::HandleMissionEvent(idEntity* objEnt, EMissionEventType eventType, const char* argument)
+{
+	// TODO
 }
 
 // ============================== Misc.  ==============================

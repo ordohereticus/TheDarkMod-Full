@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1921 $
- * $Date: 2007-12-28 05:08:24 -0500 (Fri, 28 Dec 2007) $
+ * $Revision: 3885 $
+ * $Date: 2010-04-24 22:37:27 -0400 (Sat, 24 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -67,6 +67,8 @@ extern const idEventDef EV_PointInLiquid;
 
 extern const idEventDef EV_TDM_SetPortSoundLoss;
 extern const idEventDef EV_TDM_GetPortSoundLoss;
+
+extern const idEventDef EV_HandleMissionEvent;
 
 class idThread : public idClass {
 private:
@@ -212,6 +214,9 @@ private:
 	
 	// The scriptevent counterpart of DM_LOG
 	void						Event_LogString(int logClass, int logType, const char* output);
+
+	// The script interface for raising mission events, like readable callbacks
+	void						Event_HandleMissionEvent(idEntity* entity, int eventType, const char* argument);
 
 public:							
 								CLASS_PROTOTYPE( idThread );
