@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathHideTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathHideTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -62,7 +62,7 @@ bool PathHideTask::Perform(Subsystem& subsystem)
 		// Trigger path targets, now that we've reached the corner
 		owner->ActivateTargets(owner);
 
-		NextPath();
+		// NextPath();
 
 		// Move is done, fall back to PatrolTask
 		DM_LOG(LC_AI, LT_INFO)LOGSTRING("entity is hidden.\r");

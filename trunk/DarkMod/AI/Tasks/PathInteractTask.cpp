@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathInteractTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathInteractTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -96,7 +96,7 @@ void PathInteractTask::OnFinish(idAI* owner)
 	// Trigger next path target(s)
 	owner->ActivateTargets(owner);
 
-	NextPath();
+	// NextPath();
 }
 
 // Save/Restore methods

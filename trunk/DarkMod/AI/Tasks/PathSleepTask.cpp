@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3731 $
- * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
- * $Author: greebo $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathSleepTask.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathSleepTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PathSleepTask.h"
@@ -57,11 +57,6 @@ void PathSleepTask::Init(idAI* owner, Subsystem& subsystem)
 	{
 		owner->LayDown();
 	}
-}
-
-void PathSleepTask::OnFinish(idAI* owner)
-{
-	NextPath();
 }
 
 bool PathSleepTask::Perform(Subsystem& subsystem)

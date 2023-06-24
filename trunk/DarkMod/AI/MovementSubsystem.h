@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3642 $
- * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -33,6 +33,8 @@ public:
 	};
 
 protected:
+	bool _patrolling;
+
 	// The origin history, contains the origin position of the last few frames
 	idList<idVec3> _originHistory;
 
@@ -59,6 +61,15 @@ public:
 	// @returns: TRUE if the subsystem is enabled and the task was performed, 
 	// @returns: FALSE if the subsystem is disabled and nothing happened.
 	virtual bool PerformTask();
+
+	void StartPatrol();
+	void Patrol();
+
+	virtual void StartPathTask();
+	virtual void NextPath();
+
+	virtual void ClearTasks();
+
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;

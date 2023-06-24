@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3291 $
- * $Date: 2009-03-23 05:08:23 -0400 (Mon, 23 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathWaitTask.cpp 3291 2009-03-23 09:08:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathWaitTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -71,7 +71,7 @@ bool PathWaitTask::Perform(Subsystem& subsystem)
 		// Trigger path targets, now that we've reached the corner
 		owner->ActivateTargets(owner);
 
-		NextPath();
+		// NextPath();
 
 		// Wait is done, fall back to PatrolTask
 		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Wait is done.\r");

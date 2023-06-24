@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3689 $
- * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3689 2009-09-03 12:40:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -208,35 +208,11 @@ void IdleState::InitialiseMovement(idAI* owner)
 	// The movement subsystem should start patrolling
 	owner->movementSubsystem->ClearTasks();
 
-	bool animalPatrol = owner->spawnArgs.GetBool("animal_patrol", "0");
-
-	// greebo: Choose the patrol task depending on the spawnargs.
-	TaskPtr patrolTask = TaskLibrary::Instance().CreateInstance(
-		animalPatrol ? TASK_ANIMAL_PATROL : TASK_PATROL
-	);
+	owner->movementSubsystem->StartPatrol();
 
 	// Check if the owner has patrol routes set
 	idPathCorner* path = memory.currentPath.GetEntity();
 	idPathCorner* lastPath = memory.lastPath.GetEntity();
-	
-	if (path == NULL && lastPath == NULL)
-	{
-		// Get a new random path off the owner's targets, this is the current one
-		path = idPathCorner::RandomPath(owner, NULL, owner);
-		memory.currentPath = path;
-
-		// Also, pre-select a next path to allow path predictions
-		if (path != NULL)
-		{
-			memory.nextPath = idPathCorner::RandomPath(path, NULL, owner);
-		}
-	}
-
-	if (path != NULL || animalPatrol)
-	{
-		// For animals, push the AnimalPatrol task anyway, they don't need paths
-		owner->movementSubsystem->PushTask(patrolTask);
-	}
 
 	if (path == NULL && lastPath == NULL)
 	{
@@ -259,6 +235,7 @@ void IdleState::InitialiseMovement(idAI* owner)
 			);
 		}
 	}
+	
 }
 
 void IdleState::InitialiseCommunication(idAI* owner)

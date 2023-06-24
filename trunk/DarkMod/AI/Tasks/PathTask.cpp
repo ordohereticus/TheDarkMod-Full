@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3731 $
- * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
- * $Author: greebo $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathTask.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -48,28 +48,6 @@ void PathTask::SetTargetEntity(idPathCorner* path)
 {
 	assert(path);
 	_path = path;
-}
-
-void PathTask::NextPath()
-{
-	idPathCorner* path = _path.GetEntity();
-	idAI* owner = _owner.GetEntity();
-
-	if (owner == NULL)
-	{
-		return;
-	}
-
-	// The current path gets stored in lastPath
-	owner->GetMemory().lastPath = path;
-
-	// The pre-selected "next path" is now our current one
-	owner->GetMemory().currentPath = owner->GetMemory().nextPath.GetEntity();
-
-	// Now pre-select a new (random) path entity for the next round
-	// this information is important for the PathCornerTask to decide which action to take on exit
-	idPathCorner* next = idPathCorner::RandomPath(path, NULL, owner);
-	owner->GetMemory().nextPath = next;
 }
 
 // Save/Restore methods

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PathAnimTask.h"
@@ -71,7 +71,7 @@ void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 
 void PathAnimTask::OnFinish(idAI* owner)
 {
-	NextPath();
+	// NextPath();
 
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
 	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 5);

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3731 $
- * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
- * $Author: greebo $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -38,8 +38,6 @@ public:
 	virtual void Init(idAI* owner, Subsystem& subsystem);
 
 	virtual bool Perform(Subsystem& subsystem);
-
-	virtual void OnFinish(idAI* owner);
 
 	// Creates a new Instance of this task
 	static PathSleepTaskPtr CreateInstance();

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3695 $
- * $Date: 2009-09-06 15:27:53 -0400 (Sun, 06 Sep 2009) $
- * $Author: tels $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3695 2009-09-06 19:27:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -85,7 +85,8 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 			{
 				// Trigger path targets, now that we've reached the corner
 				owner->ActivateTargets(owner);
-				NextPath();
+
+				// NextPath();
 
 				// Move is done, fall back to PatrolTask
 				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
@@ -124,7 +125,8 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 					{
 						// Trigger path targets, now that we've almost reached the corner
 						owner->ActivateTargets(owner);
-						NextPath();
+
+						// NextPath();
 
 						// Move is done, fall back to PatrolTask
 						DM_LOG(LC_AI, LT_INFO)LOGSTRING("PathCornerTask ending prematurely.\r");
@@ -149,7 +151,8 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 		{
 			// Unreachable, fall back to PatrolTask
 			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination is unreachable, skipping.\r");
-			NextPath();
+
+			// NextPath();
 			return true; // finish this task
 		}
 

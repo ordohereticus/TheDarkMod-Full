@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3689 $
- * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3767 $
+ * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3689 2009-09-03 12:40:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -90,7 +90,7 @@ bool PathLookatTask::Perform(Subsystem& subsystem)
 			// Trigger next path target(s)
 			owner->ActivateTargets(owner);
 
-			NextPath();
+			// NextPath();
 			
 			return true; // finish this task
 		}
@@ -112,7 +112,7 @@ bool PathLookatTask::Perform(Subsystem& subsystem)
 	owner->ActivateTargets(owner);
 
 	// Store a new path entity into the AI's mind
-	NextPath();
+	// NextPath();
 	
 	return true; // finish this task
 }
