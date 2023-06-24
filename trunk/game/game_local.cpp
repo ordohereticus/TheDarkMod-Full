@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3796 $
- * $Date: 2010-01-14 01:52:35 -0500 (Thu, 14 Jan 2010) $
+ * $Revision: 3798 $
+ * $Date: 2010-01-16 01:30:08 -0500 (Sat, 16 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3796 2010-01-14 06:52:35Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3798 2010-01-16 06:30:08Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3511,12 +3511,21 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		{
 		case 0: // Normal
 			cv_melee_difficulty.SetString("normal");
+			cv_melee_forbid_auto_parry.SetBool(false);
 			break;
 		case 1: // Hard
 			cv_melee_difficulty.SetString("hard");
+			cv_melee_forbid_auto_parry.SetBool(false);
 			break;
 		case 2: // Expert
 			cv_melee_difficulty.SetString("expert");
+			cv_melee_forbid_auto_parry.SetBool(false);
+			break;
+		case 3: // Master, same as expert but forces manual parry to be enabled
+			cv_melee_difficulty.SetString("expert");
+			cv_melee_auto_parry.SetBool(false);
+			cv_melee_forbid_auto_parry.SetBool(true);
+			// TODO: Figure out how to grey out menu option for auto parry
 			break;
 		default:
 			gameLocal.Warning("Unknown value for melee difficulty encountered!");
@@ -3528,6 +3537,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		int setting = 0;
 
 		idStr diffString = cv_melee_difficulty.GetString();
+		bool bForbidAuto = cv_melee_forbid_auto_parry.GetBool();
 
 		if ( diffString == "normal" )
 		{
@@ -3537,9 +3547,13 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		{
 			setting = 1; // Hard
 		}
-		else if( diffString == "expert" )
+		else if( diffString == "expert" && !bForbidAuto )
 		{
 			setting = 2; // Expert
+		}
+		else if( diffString == "expert" && bForbidAuto )
+		{
+			setting = 3; // Master
 		}
 		else
 		{
@@ -3547,6 +3561,14 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		}
 
 		gui->SetStateInt("melee_difficulty", setting);
+
+		if( bForbidAuto )
+		{
+			// also lock and gray out the auto parry option
+			// tried to do this in the gui with onTime 0 or 10, but it didn't work
+			gui->SetStateString("MeleeAutoParry::choices", "Disabled");
+			gui->SetStateString("MeleeAutoParry::forecolor", "0.5 0.5 0.5 0.85");
+		}
 	}
 	else if (cmd == "mainmenu_init")
 	{
