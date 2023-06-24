@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3264 $
- * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3275 $
+ * $Date: 2009-03-20 03:44:58 -0400 (Fri, 20 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3275 2009-03-20 07:44:58Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5351,8 +5351,9 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	}
 
 	// AI becomes frobable on death
-	SetFrobable( true );
-
+	// greebo: Add a delay before the AI becomes actually frobable
+	PostEventMS(&EV_SetFrobable, 750, 1);
+	
 	restartParticles = false;
 
 	mind->ClearStates();
@@ -9047,7 +9048,8 @@ void idAI::PostKnockOut()
 	}
 
 	// AI becomes frobable on KO
-	SetFrobable( true );
+	// greebo: Add a delay before the AI becomes actually frobable
+	PostEventMS(&EV_SetFrobable, 750, 1);
 
 	restartParticles = false;
 
