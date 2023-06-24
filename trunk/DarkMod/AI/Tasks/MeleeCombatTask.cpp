@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3247 $
- * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3248 $
+ * $Date: 2009-03-14 21:38:57 -0400 (Sat, 14 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3248 2009-03-15 01:38:57Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -18,11 +18,6 @@ static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3247 2009-0
 
 namespace ai
 {
-
-/** Max time hold a parry waiting for a player to make an attack **/
-// TODO: Make this a spawnarg?
-// TODO: Randomize
-const int MAX_PARRY_WAIT = 3000;
 
 // Get the name of this task
 const idStr& MeleeCombatTask::GetName() const
@@ -211,7 +206,7 @@ void MeleeCombatTask::PerformParry(idAI* owner)
 			bRelease = true;
 		// or if enemy is holding for over some time (for now hardcoded)
 		else if( pEnStatus->m_ActionPhase == MELEEPHASE_HOLDING
-				 && ((gameLocal.time - pEnStatus->m_PhaseChangeTime) > MAX_PARRY_WAIT) )
+				 && ((gameLocal.time - pEnStatus->m_PhaseChangeTime) > owner->m_MeleeCurrentParryHold) )
 		{
 			// also force an attack next, so we don't just go back into parry - this creates an opening
 			_bForceAttack = true;

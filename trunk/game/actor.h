@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3247 $
- * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3248 $
+ * $Date: 2009-03-14 21:38:57 -0400 (Sat, 14 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -254,6 +254,12 @@ public:
 	int						m_MeleeHoldTimeMin;
 	int						m_MeleeHoldTimeMax;
 	int						m_MeleeCurrentHoldTime;
+	/**
+	* Melee timing: Max time that we will hold a parry, waiting for the attack
+	**/
+	int						m_MeleeParryHoldMin;
+	int						m_MeleeParryHoldMax;
+	int						m_MeleeCurrentParryHold;
 	/**
 	* Melee timing: Time between subsequent attacks (in milliseconds)
 	**/
