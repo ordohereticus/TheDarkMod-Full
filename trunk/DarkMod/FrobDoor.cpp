@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3302 $
- * $Date: 2009-03-25 11:22:51 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3304 $
+ * $Date: 2009-03-25 12:13:33 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3302 2009-03-25 15:22:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3304 2009-03-25 16:13:33Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -620,7 +620,11 @@ void CFrobDoor::UpdateHandlePosition()
 	// Tell the doorhandles to update their position
 	for (int i = 0; i < m_Doorhandles.Num(); ++i)
 	{
-		m_Doorhandles[i].GetEntity()->SetFractionalPosition(fraction);
+		CFrobDoorHandle* handle = m_Doorhandles[i].GetEntity();
+
+		if (handle == NULL) continue;
+
+		handle->SetFractionalPosition(fraction);
 	}
 }
 

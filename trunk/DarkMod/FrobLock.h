@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3303 $
- * $Date: 2009-03-25 11:58:37 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3304 $
+ * $Date: 2009-03-25 12:13:33 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -52,6 +52,8 @@ public:
 
 protected:
 	void			PostSpawn();
+
+	void			UpdateHandlePosition();
 
 	// Adds a lockhandle to this lock. A lock can have multiple handles
 	void			AddLockHandle(CFrobLockHandle* handle);

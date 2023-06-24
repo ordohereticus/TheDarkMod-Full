@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3296 $
- * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3304 $
+ * $Date: 2009-03-25 12:13:33 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3296 2009-03-25 08:56:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3304 2009-03-25 16:13:33Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -422,7 +422,7 @@ bool PickableLock::ProcessLockpickRepeat(int type)
 				m_LockpickState = PIN_DELAY;
 
 				// Use a "nosound" to simulate the silence - then switch back to the first sample
-				PropPickSound("nosound", AFTER_PIN_DELAY, cv_lp_pick_timeout.GetInteger());
+				PropPickSound("snd_silence", AFTER_PIN_DELAY, cv_lp_pick_timeout.GetInteger());
 
 				success = true;
 				break;

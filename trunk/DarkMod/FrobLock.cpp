@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3303 $
- * $Date: 2009-03-25 11:58:37 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3304 $
+ * $Date: 2009-03-25 12:13:33 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3303 2009-03-25 15:58:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3304 2009-03-25 16:13:33Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -41,18 +41,35 @@ CFrobLock::CFrobLock()
 void CFrobLock::Save(idSaveGame *savefile) const
 {
 	m_Lock.Save(savefile);
+
+	savefile->WriteInt(m_Lockhandles.Num());
+	for (int i = 0; i < m_Lockhandles.Num(); i++)
+	{
+		m_Lockhandles[i].Save(savefile);
+	}
 }
 
 void CFrobLock::Restore( idRestoreGame *savefile )
 {
 	m_Lock.Restore(savefile);
+
+	int num;
+	savefile->ReadInt(num);
+	m_Lockhandles.SetNum(num);
+	for (int i = 0; i < num; i++)
+	{
+		m_Lockhandles[i].Restore(savefile);
+	}
 }
 
 void CFrobLock::Spawn()
 {
 	// Load the lock spawnargs
 	m_Lock.InitFromSpawnargs(spawnArgs);
-	PostEventMS(&EV_PostSpawn, 0);
+
+	// Schedule a post-spawn event to parse the rest of the spawnargs
+	// greebo: Be sure to use 16 ms as delay to allow the SpawnBind event to execute before this one.
+	PostEventMS(&EV_PostSpawn, 16);
 }
 
 void CFrobLock::PostSpawn()
@@ -267,9 +284,31 @@ void CFrobLock::AutoSetupLockHandles()
 	}
 }
 
+void CFrobLock::UpdateHandlePosition()
+{
+	// Calculate the fraction based on the current pin/sample state
+	float fraction = m_Lock.CalculateHandleMoveFraction();
+
+	if (cv_lp_debug_hud.GetBool())
+	{
+		idPlayer* player = gameLocal.GetLocalPlayer();
+		player->SetGuiString(player->lockpickHUD, "StatusText3", idStr(fraction));
+	}
+
+	// Tell the doorhandles to update their position
+	for (int i = 0; i < m_Lockhandles.Num(); ++i)
+	{
+		CFrobLockHandle* handle = m_Lockhandles[i].GetEntity();
+
+		if (handle == NULL) continue;
+
+		handle->SetFractionalPosition(fraction);
+	}
+}
+
 void CFrobLock::Event_Lock_StatusUpdate()
 {
-	// TODO: Update lever positions
+	UpdateHandlePosition();
 }
 
 void CFrobLock::Event_Lock_OnLockPicked()
