@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3720 $
- * $Date: 2009-10-18 11:00:24 -0400 (Sun, 18 Oct 2009) $
+ * $Revision: 3741 $
+ * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,10 +13,9 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 3720 2009-10-18 15:00:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
 
 #include "../game_local.h"
-#include "../DarkMod/PlayerData.h"
 #include "../DarkMod/Grabber.h"
 
 CLASS_DECLARATION( idPhysics_Base, idPhysics_RigidBody )

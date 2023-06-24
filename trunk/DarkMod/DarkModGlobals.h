@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3632 $
- * $Date: 2009-08-02 11:14:20 -0400 (Sun, 02 Aug 2009) $
+ * $Revision: 3741 $
+ * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -249,7 +249,6 @@ public:
 	const char		*m_Filename;
 	char			m_DriveLetter;		// Remember the last driveletter
 	int				m_Linenumber;
-	CDarkModPlayer	*m_DarkModPlayer;
 
 	idList<CLightMaterial *>		m_LightMaterial;
 	idList<CImage *>				m_Image;

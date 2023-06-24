@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3696 $
- * $Date: 2009-09-07 00:28:50 -0400 (Mon, 07 Sep 2009) $
+ * $Revision: 3741 $
+ * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,11 +14,11 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3696 $   $Date: 2009-09-07 00:28:50 -0400 (Mon, 07 Sep 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3741 $   $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/PlayerData.h"
+#include "../DarkMod/Grabber.h"
 #include "../DarkMod/BinaryFrobMover.h"
 #include "../DarkMod/FrobDoor.h"
 #include "force_push.h"

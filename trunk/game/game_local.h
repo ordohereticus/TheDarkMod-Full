@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3473 $
- * $Date: 2009-05-27 02:46:17 -0400 (Wed, 27 May 2009) $
+ * $Revision: 3741 $
+ * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -778,11 +778,6 @@ public:
 	 * that no multiple copies of it will exist.
 	 */
 	void					SpawnLightgemEntity(void);
-
-	/**
-	 * ProcessLightgem will trigger the actual lightgem processing.
-	 */
-	void					ProcessLightgem(idPlayer *pPlayer, bool bProcessing);
 
 	/**
 	 * CalcLightgem will do the rendersnapshot and analyze the snaphost image in order

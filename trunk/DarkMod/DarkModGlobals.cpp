@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3631 $
- * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3741 $
+ * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,14 +19,13 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3631 2009-08-02 15:03:59Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
 #endif
 
 #include "DarkModGlobals.h"
-#include "PlayerData.h"
 #include "MissionData.h"
 #include "Misc.h"
 #include "Profile.h"
@@ -177,8 +176,6 @@ void FileVersionDump(void)
 
 CGlobal::CGlobal()
 {
-	m_DarkModPlayer = new CDarkModPlayer;
-
 	memset(m_LogArray, 0, sizeof(m_LogArray));
 	memset(m_ClassArray, 0, sizeof(m_ClassArray));
 

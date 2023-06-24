@@ -1,20 +1,20 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3514 $
- * $Date: 2009-07-03 18:23:08 -0400 (Fri, 03 Jul 2009) $
- * $Author: ishtvan $
+ * $Revision: 3741 $
+ * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3514 2009-07-03 22:23:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
 
 #include "../game/game_local.h"
+#include "Grabber.h"
 #include "DarkModGlobals.h"
-#include "../DarkMod/PlayerData.h"
 #include "MeleeWeapon.h"
 
 CLASS_DECLARATION( idMoveable, CMeleeWeapon )
