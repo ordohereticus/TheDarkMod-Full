@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3444 $
- * $Date: 2009-05-16 15:49:11 -0400 (Sat, 16 May 2009) $
+ * $Revision: 3463 $
+ * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3444 2009-05-16 19:49:11Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3463 2009-05-24 02:35:45Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -100,7 +100,9 @@ void MeleeCombatTask::PerformReady(idAI* owner)
 	int NextParTime = pStatus->m_LastActTime + owner->m_MeleeCurrentParryRecovery;
 
 	// ATTACK: If the timer allows us and if the enemy is in range
-	if (gameLocal.time > NextAttTime && owner->GetMemory().canHitEnemy && !_bForceParry )
+	if (gameLocal.time > NextAttTime 
+		&& (owner->GetMemory().canHitEnemy || owner->GetMemory().willBeAbleToHitEnemy)
+		&& !_bForceParry )
 	{
 		StartAttack(owner);
 	}
@@ -138,7 +140,7 @@ void MeleeCombatTask::PerformReady(idAI* owner)
 		}
 
 		// Counter attack if enemy is in range and chance check succeeds
-		if( owner->GetMemory().canHitEnemy 
+		if( (owner->GetMemory().canHitEnemy || owner->GetMemory().willBeAbleToHitEnemy )
 			&& gameLocal.random.RandomFloat() < owner->m_MeleeCounterAttChance )
 		{
 			StartAttack(owner);

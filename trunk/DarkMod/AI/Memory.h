@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3463 $
+ * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -253,6 +253,10 @@ public:
 	// This flag is mostly for caching purposes so that the subsystem tasks
 	// don't need to query idAI::CanHitEnemy() independently.
 	bool canHitEnemy;
+	// ishtvan: Whether we will be able to hit the enemy in the future if we
+	// start a melee attack right now.
+	// If the AI checks this, the CanHitEnemy query sets it as well as canHitEnemy
+	bool willBeAbleToHitEnemy;
 
 	/**
 	* When true, an enemy can potentially hit us with a melee attack in the near future

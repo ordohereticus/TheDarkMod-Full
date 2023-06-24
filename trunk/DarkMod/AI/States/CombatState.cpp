@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3369 $
- * $Date: 2009-04-06 10:04:48 -0400 (Mon, 06 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3463 $
+ * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3369 2009-04-06 14:04:48Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3463 2009-05-24 02:35:45Z ishtvan $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -268,6 +268,8 @@ void CombatState::Think(idAI* owner)
 
 	// Check the distance to the enemy, the subsystem tasks need it.
 	memory.canHitEnemy = owner->CanHitEntity(enemy, _combatType);
+	if( owner->m_bMeleePredictProximity )
+		memory.willBeAbleToHitEnemy = owner->WillBeAbleToHitEntity(enemy, _combatType);
 
 	// Check whether the enemy can hit us in the near future
 	memory.canBeHitByEnemy = owner->CanBeHitByEntity(enemy, _combatType);
