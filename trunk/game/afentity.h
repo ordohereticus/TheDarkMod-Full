@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3819 $
- * $Date: 2010-01-30 13:31:56 -0500 (Sat, 30 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3948 $
+ * $Date: 2010-06-13 03:47:06 -0400 (Sun, 13 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -638,30 +638,5 @@ private:
 	void					InitSteamRenderEntity( void );
 };
 
-
-/*
-===============================================================================
-
-idAFEntity_ClawFourFingers
-
-===============================================================================
-*/
-
-class idAFEntity_ClawFourFingers : public idAFEntity_Base {
-public:
-	CLASS_PROTOTYPE( idAFEntity_ClawFourFingers );
-
-							idAFEntity_ClawFourFingers( void );
-
-	void					Spawn( void );
-	void					Save( idSaveGame *savefile ) const;
-	void					Restore( idRestoreGame *savefile );
-
-private:
-	idAFConstraint_Hinge *	fingers[4];
-
-	void					Event_SetFingerAngle( float angle );
-	void					Event_StopFingers( void );
-};
 
 #endif /* !__GAME_AFENTITY_H__ */

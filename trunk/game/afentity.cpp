@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3866 $
- * $Date: 2010-03-21 10:18:55 -0400 (Sun, 21 Mar 2010) $
+ * $Revision: 3948 $
+ * $Date: 2010-06-13 03:47:06 -0400 (Sun, 13 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 3866 2010-03-21 14:18:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 3948 2010-06-13 07:47:06Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3281,125 +3281,6 @@ void idAFEntity_SteamPipe::Think( void ) {
 	}
 
 	idAFEntity_Base::Think();
-}
-
-
-/*
-===============================================================================
-
-  idAFEntity_ClawFourFingers
-
-===============================================================================
-*/
-
-const idEventDef EV_SetFingerAngle( "setFingerAngle", "f" );
-const idEventDef EV_StopFingers( "stopFingers" );
-
-CLASS_DECLARATION( idAFEntity_Base, idAFEntity_ClawFourFingers )
-	EVENT( EV_SetFingerAngle,		idAFEntity_ClawFourFingers::Event_SetFingerAngle )
-	EVENT( EV_StopFingers,			idAFEntity_ClawFourFingers::Event_StopFingers )
-END_CLASS
-
-static const char *clawConstraintNames[] = {
-	"claw1", "claw2", "claw3", "claw4"
-};
-
-/*
-================
-idAFEntity_ClawFourFingers::idAFEntity_ClawFourFingers
-================
-*/
-idAFEntity_ClawFourFingers::idAFEntity_ClawFourFingers( void ) {
-	fingers[0]	= NULL;
-	fingers[1]	= NULL;
-	fingers[2]	= NULL;
-	fingers[3]	= NULL;
-}
-
-/*
-================
-idAFEntity_ClawFourFingers::Save
-================
-*/
-void idAFEntity_ClawFourFingers::Save( idSaveGame *savefile ) const {
-	int i;
-
-	for ( i = 0; i < 4; i++ ) {
-		fingers[i]->Save( savefile );
-	}
-}
-
-/*
-================
-idAFEntity_ClawFourFingers::Restore
-================
-*/
-void idAFEntity_ClawFourFingers::Restore( idRestoreGame *savefile ) {
-	int i;
-
-	for ( i = 0; i < 4; i++ ) {
-		fingers[i] = static_cast<idAFConstraint_Hinge *>(af.GetPhysics()->GetConstraint( clawConstraintNames[i] ));
-		fingers[i]->Restore( savefile );
-	}
-
-	SetCombatModel();
-	LinkCombat();
-}
-
-/*
-================
-idAFEntity_ClawFourFingers::Spawn
-================
-*/
-void idAFEntity_ClawFourFingers::Spawn( void ) {
-	int i;
-
-	LoadAF();
-
-	SetCombatModel();
-
-	af.GetPhysics()->LockWorldConstraints( true );
-	af.GetPhysics()->SetForcePushable( true );
-	SetPhysics( af.GetPhysics() );
-
-	ParseAttachmentsAF();
-
-	fl.takedamage = true;
-
-	for ( i = 0; i < 4; i++ ) {
-		fingers[i] = static_cast<idAFConstraint_Hinge *>(af.GetPhysics()->GetConstraint( clawConstraintNames[i] ));
-		if ( !fingers[i] ) {
-			gameLocal.Error( "idClaw_FourFingers '%s': can't find claw constraint '%s'", name.c_str(), clawConstraintNames[i] );
-		}
-	}
-}
-
-/*
-================
-idAFEntity_ClawFourFingers::Event_SetFingerAngle
-================
-*/
-void idAFEntity_ClawFourFingers::Event_SetFingerAngle( float angle ) {
-	int i;
-
-	for ( i = 0; i < 4; i++ ) {
-		fingers[i]->SetSteerAngle( angle );
-		fingers[i]->SetSteerSpeed( 0.5f );
-	}
-	af.GetPhysics()->Activate();
-}
-
-/*
-================
-idAFEntity_ClawFourFingers::Event_StopFingers
-================
-*/
-void idAFEntity_ClawFourFingers::Event_StopFingers( void ) {
-	int i;
-
-	for ( i = 0; i < 4; i++ ) {
-		fingers[i]->SetSteerAngle( fingers[i]->GetAngle() );
-	}
 }
 
 
