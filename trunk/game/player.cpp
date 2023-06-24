@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3527 $
- * $Date: 2009-07-12 12:27:06 -0400 (Sun, 12 Jul 2009) $
+ * $Revision: 3533 $
+ * $Date: 2009-07-14 10:39:45 -0400 (Tue, 14 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3527 2009-07-12 16:27:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3533 2009-07-14 14:39:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1189,9 +1189,15 @@ void idPlayer::SetupInventory()
 		const CShopItemPtr& shopItem = startingItems[si];
 		idStr weaponName = shopItem->GetID();
 
-		if (idStr::Cmpn(weaponName, "weapon_", 7) == 0)
+		// greebo: Append "atdm:" if it's missing, all weapon entityDefs are atdm:* now
+		if (idStr::Cmpn(weaponName, "atdm:", 5) != 0)
 		{
-			weaponName.Strip("weapon_");
+			weaponName = "atdm:" + weaponName;
+		}
+
+		if (idStr::Cmpn(weaponName, "atdm:weapon_", 12) == 0)
+		{
+			weaponName.Strip("atdm:weapon_");
 
 			for (int i = 0; i < category->GetNumItems(); i++)
 			{
@@ -1261,17 +1267,24 @@ void idPlayer::SetupInventory()
 	{
 		const CShopItemPtr& item = startingItems[si];
 
-		const char * weaponName = item->GetID();
-		const idDict *itemDict = gameLocal.FindEntityDefDict(weaponName, true);
+		idStr itemName = item->GetID();
 		int count = item->GetCount();
 
-		if (idStr::Cmpn(weaponName, "weapon_", 7) != 0 && count > 0)
+		// greebo: Append "atdm:" if it's missing, all weapon entityDefs are atdm:* now
+		if (idStr::Cmpn(itemName, "atdm:", 5) != 0)
+		{
+			itemName = "atdm:" + itemName;
+		}
+
+		if (idStr::Cmpn(itemName, "atdm:weapon_", 12) != 0 && count > 0)
 		{
 			// does the item already exist?
 			idEntity *entity = item->GetEntity();
+
 			if (entity == NULL)
 			{
 				// no, spawn it
+				const idDict* itemDict = gameLocal.FindEntityDefDict(itemName, true);
 				gameLocal.SpawnEntityDef( *itemDict, &entity );
 			}
 
