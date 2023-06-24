@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3493 $
- * $Date: 2009-06-26 21:34:56 -0400 (Fri, 26 Jun 2009) $
+ * $Revision: 3494 $
+ * $Date: 2009-06-26 23:39:33 -0400 (Fri, 26 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -74,7 +74,7 @@ void CAIVehicle::Spawn( void )
 		speed.Anim = spawnArgs.GetString(va("speed_%d_anim",i));
 		speed.MinAnimRate = spawnArgs.GetFloat(va("speed_%d_min_rate",i),"1.0");
 		speed.MaxAnimRate = spawnArgs.GetFloat(va("speed_%d_max_rate",i),"1.0");
-		speed.NextSpeedFrac = spawnArgs.GetFloat(va("speed_%d_next_speed_control_frac","1.0"));
+		speed.NextSpeedFrac = spawnArgs.GetFloat(va("speed_%d_next_speed_control_frac",i),"1.0");
 		
 		m_Speeds.Append(speed);
 	}
@@ -344,7 +344,10 @@ void CAIVehicle::Event_GetMoveAnim( void )
 	if( m_Controller.GetEntity() )
 		idThread::ReturnString(m_CurMoveAnim.c_str());
 	else
+	{
+		// this should help with debugging if this accidentally gets called with no controller
 		idThread::ReturnString("");
+	}
 }
 
 void CAIVehicle::LinkScriptVariables( void )
