@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3722 $
- * $Date: 2009-10-23 19:00:22 -0400 (Fri, 23 Oct 2009) $
- * $Author: ishtvan $
+ * $Revision: 3842 $
+ * $Date: 2010-02-25 22:18:47 -0500 (Thu, 25 Feb 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3722 2009-10-23 23:00:22Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3842 2010-02-26 03:18:47Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -784,6 +784,8 @@ float CBinaryFrobMover::GetMoveTimeFraction()
 int CBinaryFrobMover::GetAASArea(idAAS* aas)
 {
 	if (aas == NULL) return -1;
+
+	if (GetPhysics() == NULL) return -1;
 
 	idClipModel *clipModel = GetPhysics()->GetClipModel();
 	if (clipModel == NULL)
