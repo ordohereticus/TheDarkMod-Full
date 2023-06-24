@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3258 $
- * $Date: 2009-03-15 16:57:55 -0400 (Sun, 15 Mar 2009) $
+ * $Revision: 3326 $
+ * $Date: 2009-03-27 22:48:21 -0400 (Fri, 27 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3258 2009-03-15 20:57:55Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3326 2009-03-28 02:48:21Z ishtvan $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -221,7 +221,8 @@ void CombatState::Think(idAI* owner)
 	// angua: look at ememy
 	owner->Event_LookAtPosition(enemy->GetEyePosition(), gameLocal.msec);
 
-	if (owner->health < _criticalHealth)
+	// Flee if we are damaged and the current melee action is finished
+	if (owner->health < _criticalHealth && owner->m_MeleeStatus.m_ActionState == MELEEACTION_READY)
 	{
 		DM_LOG(LC_AI, LT_INFO)LOGSTRING("I'm badly hurt, I'm afraid!\r");
 		owner->GetMind()->SwitchState(STATE_FLEE);
