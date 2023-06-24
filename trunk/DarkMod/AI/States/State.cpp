@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3628 $
- * $Date: 2009-08-01 00:46:12 -0400 (Sat, 01 Aug 2009) $
+ * $Revision: 3638 $
+ * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3628 2009-08-01 04:46:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3638 2009-08-03 13:44:53Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1182,6 +1182,48 @@ void State::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bo
 
 	// Switch to failed knockout state
 	owner->GetMind()->PushState(StatePtr(new FailedKnockoutState(attacker, direction, hitHead)));
+}
+
+void State::OnMovementBlocked(idAI* owner)
+{
+	owner->StopMove(MOVE_STATUS_BLOCKED_BY_OBJECT);
+
+	// Determine which object is blocking us
+
+	const idVec3& ownerOrigin = owner->GetPhysics()->GetOrigin();
+
+	trace_t result;
+	gameLocal.clip.TraceBounds(result, ownerOrigin, ownerOrigin + owner->viewAxis.ToAngles().ToForward()*20, owner->GetPhysics()->GetBounds(),
+								CONTENTS_SOLID|CONTENTS_CORPSE, owner);
+
+	if (result.fraction < 1.0f)
+	{
+		idEntity* ent = gameLocal.entities[result.c.entityNum];
+
+		if (ent != NULL) 
+		{
+			if (ent != gameLocal.world)
+			{
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s is blocked by entity %s\r", owner->name.c_str(), ent->name.c_str());
+
+				if (cv_ai_debug_blocked.GetBool())
+				{
+					gameRenderWorld->DebugBounds(colorRed, ent->GetPhysics()->GetBounds(), ent->GetPhysics()->GetOrigin(), 2000);
+				}
+
+				// TODO
+			}
+			else
+			{
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s is blocked by world!\r", owner->name.c_str());
+			}
+		}
+	}
+	else
+	{
+		// Trace didn't hit anything?
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s is blocked but no entity in view\r", owner->name.c_str());
+	}
 }
 
 void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)

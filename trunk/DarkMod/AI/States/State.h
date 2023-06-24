@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3593 $
- * $Date: 2009-07-27 00:07:08 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3638 $
+ * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -114,6 +114,9 @@ public:
 	* ishtvan: Called when targets are changed, does nothing on base class
 	**/
 	virtual void OnChangeTarget(idAI *owner) {};
+
+	// Invoked when the movement subsystem considers this AI as blocked
+	virtual void OnMovementBlocked(idAI* owner);
 
 protected:
 	/**

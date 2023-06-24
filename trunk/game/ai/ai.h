@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3630 $
- * $Date: 2009-08-02 01:27:39 -0400 (Sun, 02 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3638 $
+ * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,6 +16,7 @@
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/AI/Mind.h"
 #include "../../DarkMod/AI/CommunicationSubsystem.h"
+#include "../../DarkMod/AI/MovementSubsystem.h"
 #include "../../DarkMod/HidingSpotSearchCollection.h"
 #include "../../DarkMod/darkmodHidingSpotTree.h"
 #include "MoveState.h"
@@ -1045,7 +1046,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// The array of subsystems of this AI
 	ai::SubsystemPtr senseSubsystem;
-	ai::SubsystemPtr movementSubsystem;
+	ai::MovementSubsystemPtr movementSubsystem;
 	ai::SubsystemPtr actionSubsystem;
 	ai::CommunicationSubsystemPtr commSubsystem;
 

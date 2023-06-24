@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3627 $
- * $Date: 2009-07-31 13:29:35 -0400 (Fri, 31 Jul 2009) $
+ * $Revision: 3638 $
+ * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3627 2009-07-31 17:29:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3638 2009-08-03 13:44:53Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3440,7 +3440,11 @@ bool idAI::MoveToAttackPosition( idEntity *ent, int attack_anim ) {
 idAI::MoveToPosition
 =====================
 */
-bool idAI::MoveToPosition( const idVec3 &pos, float accuracy ) {
+bool idAI::MoveToPosition( const idVec3 &pos, float accuracy )
+{
+	// Clear the "blocked" flag in the movement subsystem
+	movementSubsystem->SetBlockedState(ai::MovementSubsystem::ENotBlocked);
+
 	// Check if we already reached the position
 	if ( ReachedPos( pos, move.moveCommand) ) {
 		StopMove( MOVE_STATUS_DONE );
