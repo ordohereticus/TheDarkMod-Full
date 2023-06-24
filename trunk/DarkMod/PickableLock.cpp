@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3311 $
- * $Date: 2009-03-26 12:06:49 -0400 (Thu, 26 Mar 2009) $
+ * $Revision: 3312 $
+ * $Date: 2009-03-26 15:25:01 -0400 (Thu, 26 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3311 2009-03-26 16:06:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3312 2009-03-26 19:25:01Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -629,6 +629,7 @@ bool PickableLock::LockpickHotspotActive()
 void PickableLock::Save(idSaveGame *savefile) const
 {
 	savefile->WriteObject(m_Owner);
+	savefile->WriteBool(m_Locked);
 	savefile->WriteInt(static_cast<int>(m_LockpickState));
 	savefile->WriteInt(m_FailedLockpickRounds);
 	
@@ -663,6 +664,7 @@ void PickableLock::Save(idSaveGame *savefile) const
 void PickableLock::Restore( idRestoreGame *savefile )
 {
 	savefile->ReadObject(reinterpret_cast<idClass*&>(m_Owner));
+	savefile->ReadBool(m_Locked);
 
 	int temp;
 	savefile->ReadInt(temp);
