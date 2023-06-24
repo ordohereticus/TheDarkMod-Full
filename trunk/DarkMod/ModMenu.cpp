@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3934 $
- * $Date: 2010-06-10 06:59:50 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3935 $
+ * $Date: 2010-06-10 07:05:26 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,17 +12,18 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3934 2010-06-10 10:59:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3935 2010-06-10 11:05:26Z greebo $", init_version);
+
+#include <string>
+#include <boost/filesystem.hpp>
 
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/declxdata.h"
-#include "boost/filesystem.hpp"
 #include "../DarkMod/ZipLoader/ZipLoader.h"
 #include "../DarkMod/Missions/MissionManager.h"
 
-#include <string>
 #ifdef _WINDOWS
 #include <process.h>
 #else
@@ -318,10 +319,6 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 	gui->SetStateString("currentModDesc", curModInfo != NULL ? curModInfo->description : "");	
 }
 
-fs::path CModMenu::GetDarkmodPath()
-{
-	return fs::path(g_Global.GetDarkmodPath());
-}
 
 bool CModMenu::PerformVersionCheck(const CMissionInfoPtr& mission, idUserInterface* gui)
 {
@@ -385,7 +382,7 @@ void CModMenu::RestartGame()
 	parentPath = parentPath.remove_leaf().remove_leaf();
 
 	// Path to the darkmod directory
-	fs::path darkmodPath = GetDarkmodPath();
+	fs::path darkmodPath = g_Global.GetDarkmodPath();
 
 	// path to tdmlauncher
 #ifdef _WINDOWS

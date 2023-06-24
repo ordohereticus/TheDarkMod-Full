@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3916 $
- * $Date: 2010-06-06 22:30:39 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3935 $
+ * $Date: 2010-06-10 07:05:26 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3916 2010-06-07 02:30:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3935 2010-06-10 11:05:26Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -41,6 +41,9 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3916 2010-06
 #include "sourcehook/sourcehook_impl.h"
 #include "renderpipe.h"
 #include "RevisionTracker.h"
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 class idAI;
 
