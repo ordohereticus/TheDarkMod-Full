@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3569 $
- * $Date: 2009-07-23 10:24:43 -0400 (Thu, 23 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3593 $
+ * $Date: 2009-07-27 00:07:08 -0400 (Mon, 27 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -133,7 +133,11 @@ protected:
 
 	virtual void UpdateAlertLevel();
 
+	// Get the sound shader name for owner, when greeting otherAI
 	virtual idStr GetGreetingSound(idAI* owner, idAI* otherAI);
+
+	// Get the sound shader name for owner, when responding to a greeting from otherAI
+	virtual idStr GetGreetingResponseSound(idAI* owner, idAI* otherAI);
 
 private:
 	void OnMessageDetectedSomethingSuspicious(CommMessage& message);
