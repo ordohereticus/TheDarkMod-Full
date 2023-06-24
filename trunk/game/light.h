@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2198 $
- * $Date: 2008-04-22 12:33:35 -0400 (Tue, 22 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 3548 $
+ * $Date: 2009-07-18 17:48:02 -0400 (Sat, 18 Jul 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -60,6 +60,7 @@ public:
 	void			Fade( const idVec4 &to, float fadeTime );
 	void			FadeOut( float time );
 	void			FadeIn( float time );
+	void			FadeTo( idVec3 color, float time );
 	void			Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
 	void			BecomeBroken( idEntity *activator );
 	qhandle_t		GetLightDefHandle( void ) const { return lightDefHandle; }
@@ -158,6 +159,10 @@ private:
 	void			Event_SetSoundHandles( void );
 	void			Event_FadeOut( float time );
 	void			Event_FadeIn( float time );
+	/**
+	* Tels: Allows the color of the light to fade over to a new value over a time period.
+	*/
+	void			Event_FadeToLight( idVec3 &color, float time );
 	/**
 	* Allows script to get and set the light origin separate from model origin.
 	* Used to achieve moving lights with a stationary model

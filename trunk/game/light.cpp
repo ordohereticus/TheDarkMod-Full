@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2044 $
- * $Date: 2008-02-04 13:47:47 -0500 (Mon, 04 Feb 2008) $
+ * $Revision: 3548 $
+ * $Date: 2009-07-18 17:48:02 -0400 (Sat, 18 Jul 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 2044 2008-02-04 18:47:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3548 2009-07-18 21:48:02Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -44,6 +44,7 @@ const idEventDef EV_Light_GetLightOrigin( "getLightOrigin", NULL, 'v' );
 const idEventDef EV_Light_SetLightOrigin( "setLightOrigin", "v" );
 const idEventDef EV_Light_GetLightLevel ("getLightLevel", NULL, 'f');
 const idEventDef EV_Light_AddToLAS("addToLAS", NULL);
+const idEventDef EV_Light_FadeToLight( "fadeToLight", "vf" );
 
 
 CLASS_DECLARATION( idEntity, idLight )
@@ -67,6 +68,7 @@ CLASS_DECLARATION( idEntity, idLight )
 	EVENT( EV_Light_GetLightLevel,	idLight::Event_GetLightLevel )
 	EVENT( EV_Light_AddToLAS,		idLight::Event_AddToLAS )
 	EVENT( EV_InPVS,				idLight::Event_InPVS )
+	EVENT( EV_Light_FadeToLight,	idLight::Event_FadeToLight )
 END_CLASS
 
 
@@ -652,6 +654,20 @@ void idLight::FadeIn( float time ) {
 
 /*
 ================
+idLight::FadeTo
+================
+*/
+void idLight::FadeTo( idVec3 color, float time ) {
+
+	idVec4 color4;
+
+	currentLevel = levels;
+	color4.Set( color.x, color.y, color.z, 1.0f );
+	Fade( color4, time );
+}
+
+/*
+================
 idLight::Killed
 ================
 */
@@ -1051,6 +1067,15 @@ idLight::Event_FadeIn
 */
 void idLight::Event_FadeIn( float time ) {
 	FadeIn( time );
+}
+
+/*
+================
+idLight::Event_FadeToLight
+================
+*/
+void idLight::Event_FadeToLight( idVec3 &color, float time ) {
+	FadeTo( color, time );
 }
 
 /*
