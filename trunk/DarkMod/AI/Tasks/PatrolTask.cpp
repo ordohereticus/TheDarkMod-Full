@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3184 $
- * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
+ * $Revision: 3277 $
+ * $Date: 2009-03-20 12:30:48 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3277 2009-03-20 16:30:48Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -20,6 +20,7 @@ static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3184 2009-01-19 
 #include "PathAnimTask.h"
 #include "PathCycleAnimTask.h"
 #include "PathSitTask.h"
+#include "PathSleepTask.h"
 #include "PathWaitForTriggerTask.h"
 #include "PathHideTask.h"
 #include "PathShowTask.h"
@@ -140,6 +141,22 @@ bool PatrolTask::Perform(Subsystem& subsystem)
 		{
 			// No "angle" key set, just schedule the animation task
 			task = PathSitTaskPtr(new PathSitTask(path));
+		}
+	}
+
+	else if (classname == "path_sleep")
+	{
+		if (path->spawnArgs.FindKey("angle") != NULL)
+		{
+			// We have an angle key set, push a PathTurnTask on top of the anim task
+			subsystem.PushTask(TaskPtr(new PathSleepTask(path)));
+			// The "task" variable will be pushed later on in this code
+			task = PathTurnTaskPtr(new PathTurnTask(path));
+		}
+		else 
+		{
+			// No "angle" key set, just schedule the sleep task
+			task = PathSleepTaskPtr(new PathSleepTask(path));
 		}
 	}
 

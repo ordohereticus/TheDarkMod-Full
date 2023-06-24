@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3264 $
- * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3277 $
+ * $Date: 2009-03-20 12:30:48 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3277 2009-03-20 16:30:48Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -90,6 +90,7 @@ void IdleState::Init(idAI* owner)
 	else if (owner->GetMoveType() == MOVETYPE_SLEEP)
 	{
 		owner->GetMind()->SwitchState(STATE_IDLE_SLEEP);
+		return;
 	}
 	else if (owner->GetMoveType() == MOVETYPE_SIT)
 	{
@@ -146,6 +147,11 @@ void IdleState::Think(idAI* owner)
 			owner->GetMind()->SwitchState(STATE_IDLE_SLEEP);
 			return;
 		}
+	}
+	else if (owner->GetMoveType() == MOVETYPE_SLEEP)
+	{
+		owner->GetMind()->SwitchState(STATE_IDLE_SLEEP);
+		return;
 	}
 	else if (_startSitting && owner->GetMoveType() != MOVETYPE_SIT && waitState != "sit_down")
 	{
