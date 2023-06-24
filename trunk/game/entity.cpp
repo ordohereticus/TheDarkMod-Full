@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3567 $
- * $Date: 2009-07-23 04:25:00 -0400 (Thu, 23 Jul 2009) $
+ * $Revision: 3568 $
+ * $Date: 2009-07-23 06:41:08 -0400 (Thu, 23 Jul 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3567 2009-07-23 08:25:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3568 2009-07-23 10:41:08Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -5295,8 +5295,6 @@ void idEntity::Event_RemoveTarget(idEntity* target)
 {
 	RemoveTarget(target);
 }
-
-
 
 
 /*
