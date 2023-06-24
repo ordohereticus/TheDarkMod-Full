@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3927 $
- * $Date: 2010-06-10 00:05:49 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3928 $
+ * $Date: 2010-06-10 02:41:38 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3927 2010-06-10 04:05:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3928 2010-06-10 06:41:38Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -137,29 +137,26 @@ idStr CMissionInfo::GetMissionCompletedString()
 
 idStr CMissionInfo::GetKeyValue(const char* key, const char* defaultStr)
 {
-	assert(_decl != NULL);
+	if (_decl == NULL) return defaultStr;
 
 	return _decl->data.GetString(key, defaultStr);
 }
 
 void CMissionInfo::SetKeyValue(const char* key, const char* value)
 {
-	assert(_decl != NULL);
+	if (_decl == NULL) return;
 
 	_declDirty = true;
 
 	_decl->data.Set(key, value);
 }
 
-void CMissionInfo::Save()
+void CMissionInfo::SaveToFile(idFile* file)
 {
-	// Don't do unnecessary work
-	//if (!_declDirty) return;
-	//if (modName != "thieves") return;
+	if (_decl == NULL) return;
 
-	// Generate new declaration body text
 	_decl->Update(modName);
-	_decl->ReplaceSourceFileText();
+	_decl->SaveToFile(file);
 }
 
 idStr CMissionInfo::GetMissionFolderPath()

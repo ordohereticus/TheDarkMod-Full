@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3927 $
- * $Date: 2010-06-10 00:05:49 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3928 $
+ * $Date: 2010-06-10 02:41:38 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3927 2010-06-10 04:05:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3928 2010-06-10 06:41:38Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -24,6 +24,8 @@ CMissionManager::CMissionManager() :
 
 void CMissionManager::Init()
 {
+	_missionDB->Init();
+
 	// (Re-)generate mission list on start
 	ReloadMissionList();
 }
@@ -147,6 +149,9 @@ void CMissionManager::SearchForNewMissions()
 
 	// Merge the zips into the pk4 list
 	moveList.merge(zipMoveList);
+
+	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Found %d new mission packages.\r", static_cast<int>(moveList.size()));
+	gameLocal.Printf("Found %d new mission packages.\n", static_cast<int>(moveList.size()));
 
 	// greebo: The D3 engine should no longer hold locks on those files
 	// and we can start moving them into their respective locations

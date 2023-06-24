@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3922 $
- * $Date: 2010-06-08 21:10:19 -0400 (Tue, 08 Jun 2010) $
- * $Author: angua $
+ * $Revision: 3928 $
+ * $Date: 2010-06-10 02:41:38 -0400 (Thu, 10 Jun 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -37,6 +37,9 @@ public:
 	// Always returns non-NULL, if the name is not existing, 
 	// a new structure will be created
 	const CMissionInfoPtr& GetMissionInfo(const idStr& name);
+
+private:
+	void ReloadMissionInfoFile();
 };
 typedef boost::shared_ptr<CMissionDB> CMissionDBPtr;
 

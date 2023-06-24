@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3922 $
- * $Date: 2010-06-08 21:10:19 -0400 (Tue, 08 Jun 2010) $
- * $Author: angua $
+ * $Revision: 3928 $
+ * $Date: 2010-06-10 02:41:38 -0400 (Thu, 10 Jun 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionDB.cpp 3922 2010-06-09 01:10:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MissionDB.cpp 3928 2010-06-10 06:41:38Z greebo $", init_version);
 
 #include "MissionDB.h"
 #include "MissionInfoDecl.h"
@@ -21,26 +21,96 @@ CMissionDB::CMissionDB()
 
 void CMissionDB::Init()
 {
-	// Nothing for now
+	// Load mission database file
+	ReloadMissionInfoFile();
+}
+
+void CMissionDB::ReloadMissionInfoFile()
+{
+	// Clear mission info structure first
+	_missionInfo.clear();
+
+	idLexer src(cv_default_mission_info_file.GetString());
+	src.SetFlags(DECL_LEXER_FLAGS & ~LEXFL_NOSTRINGESCAPECHARS );
+	
+	idToken token;
+
+	while (true)
+	{
+		// If there's an EOF, this is an error.
+		if (!src.ReadToken(&token))
+		{
+			break;
+		}
+
+		if (token.type == TT_NAME && idStr::Cmp(token.c_str(), CMissionInfoDecl::TYPE_NAME) == 0)
+		{
+			if (!src.ReadToken(&token))
+			{
+				src.Warning("Missing name on info declaration in %s line %d", src.GetFileName(), src.GetLineNum());
+				break;
+			}
+
+			// Found a tdm_missioninfo declaration
+			CMissionInfoDeclPtr decl(new CMissionInfoDecl);
+
+			std::pair<MissionInfoMap::iterator, bool> result = _missionInfo.insert(
+				MissionInfoMap::value_type(token.c_str(), CMissionInfoPtr(new CMissionInfo(token.c_str(), decl))));
+
+			if (!result.second)
+			{
+				src.Warning("Duplicate mission info declaration found: %s", token.c_str());
+
+				// Attempt to skip over this decl
+				src.SkipUntilString("}");
+				continue;
+			}
+
+			// Load the data from the text files, if possible
+			result.first->second->LoadMetaData();
+
+			// Let the declaration parse the persistent info
+			decl->Parse(src);
+		}
+		else
+		{
+			src.Warning("Unknown token encountered in mission info file: %s", token.c_str());
+			break;
+		}
+	}
+
+	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Parsed %d mission declarations.\r", static_cast<int>(_missionInfo.size()));
+	gameLocal.Printf("Parsed %d mission declarations.\n", static_cast<int>(_missionInfo.size()));
 }
 
 void CMissionDB::Save()
 {
-	// Trigger saving all the changed declarations
-	// This will write the new .info file into the current mod's folder
-	// If no mission is installed, this will go into darkmod/fms.
+	// Create the mission database file
+	idStr infoFilePath = g_Global.GetDarkmodPath().c_str();
+	infoFilePath += "/";
+	infoFilePath += cv_default_mission_info_file.GetString();
 
-	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Saving Mission database %s\r", cv_default_mission_info_file.GetString());
+	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Saving Mission database to %s\r", infoFilePath.c_str());
+
+	idFile* outFile = fileSystem->OpenExplicitFileWrite(infoFilePath);
+
+	if (outFile == NULL)
+	{
+		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Could not open mission database for writing: %s\r", infoFilePath.c_str());
+		return;
+	}
 
 	// Save changed declarations
 	for (MissionInfoMap::iterator i = _missionInfo.begin(); i != _missionInfo.end(); ++i)
 	{
-		i->second->Save();
+		i->second->SaveToFile(outFile);
 	}
+
+	fileSystem->CloseFile(outFile);
 
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Done saving mission info declarartions\r");
 
-	idStr fs_game = cvarSystem->GetCVarString("fs_game");
+	/*idStr fs_game = cvarSystem->GetCVarString("fs_game");
 
 	if (!fs_game.IsEmpty() && fs_game != "darkmod")
 	{
@@ -68,9 +138,9 @@ void CMissionDB::Save()
 				DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Removing empty fms/ folder %s\r", srcPath.file_string().c_str());
 
 				CMissionManager::DoRemoveFile(srcPath);
-			}
+			}CMissionInfoDeclPtr(new CMissionInfoDecl)
 		}
-	}
+	}*/
 }
 
 const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
@@ -82,9 +152,8 @@ const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
 		return i->second;
 	}
 
-	// Get the mission info declaration (or create it if not found so far)
-	CMissionInfoDecl* decl = CMissionInfoDecl::FindOrCreate(name);
-
+	// Create a new one
+	CMissionInfoDeclPtr decl(new CMissionInfoDecl);
 	CMissionInfoPtr missionInfo(new CMissionInfo(name, decl));
 
 	std::pair<MissionInfoMap::iterator, bool> result = _missionInfo.insert(
