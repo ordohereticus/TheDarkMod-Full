@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3460 $
- * $Date: 2009-05-23 09:41:04 -0400 (Sat, 23 May 2009) $
+ * $Revision: 3768 $
+ * $Date: 2009-12-01 11:06:50 -0500 (Tue, 01 Dec 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3460 2009-05-23 13:41:04Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3768 2009-12-01 16:06:50Z angua $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -74,7 +74,17 @@ void FleeDoneState::Think(idAI* owner)
 	UpdateAlertLevel();
 		
 	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
+	if (!CheckAlertLevel(owner)) 
+	{
+		// terminate FleeDoneState when time is over
+		owner->movementSubsystem->ClearTasks();
+		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 4);
+		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 4);
+		owner->SetTurnRate(_oldTurnRate);
+
+		owner->GetMind()->EndState();
+		return;
+	}
 
 	// Let the AI check its senses
 	owner->PerformVisualScan();
