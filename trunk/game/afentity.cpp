@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3500 $
- * $Date: 2009-06-27 02:49:58 -0400 (Sat, 27 Jun 2009) $
- * $Author: ishtvan $
+ * $Revision: 3570 $
+ * $Date: 2009-07-23 14:29:36 -0400 (Thu, 23 Jul 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 3500 2009-06-27 06:49:58Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 3570 2009-07-23 18:29:36Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -316,7 +316,7 @@ void idAFAttachment::SetBody( idEntity *bodyEnt, const char *model, jointHandle_
 	m_FrobPeers.AddUnique(bodyEnt->name);
 
 	// ishtvan: Go through our bind children and copy the actor body info over to them
-	// might end up doing a few extra calls if GetBindTeam is broken like we think,
+	// might end up doing a few extra calls if GetTeamChildren is broken like we think,
 	// but that's okay, add extra check of direct bindmaster to prevent infinite recursion
 	idList<idEntity *> children;
 	GetTeamChildren( &children );
