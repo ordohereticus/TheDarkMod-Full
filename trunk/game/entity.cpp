@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3790 $
- * $Date: 2010-01-09 01:00:25 -0500 (Sat, 09 Jan 2010) $
+ * $Revision: 3794 $
+ * $Date: 2010-01-10 18:19:09 -0500 (Sun, 10 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3790 2010-01-09 06:00:25Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3794 2010-01-10 23:19:09Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -4597,6 +4597,9 @@ void idEntity::AddDamageEffect( const trace_t &collision, const idVec3 &velocity
 
 	// start impact sound based on material type
 	key = va( "snd_%s", surfName.c_str() );
+	
+	// ishtvan: No need to play the sound here anymore, right?
+/* 
 	sound = spawnArgs.GetString( key );
 	if ( *sound == '\0' ) {
 		sound = def->dict.GetString( key );
@@ -4604,6 +4607,7 @@ void idEntity::AddDamageEffect( const trace_t &collision, const idVec3 &velocity
 	if ( *sound != '\0' ) {
 		StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_BODY, 0, false, NULL );
 	}
+*/
 
 	if ( g_decals.GetBool() ) {
 		// place a wound overlay on the model
@@ -6982,6 +6986,8 @@ void idAnimatedEntity::AddLocalDamageEffect
 
 	// start impact sound based on material type
 	key = va( "snd_%s", surfName.c_str() );
+	// ishtvan: Shouldn't need to play the sound here anymore, right?
+/*
 	sound = spawnArgs.GetString( key );
 	if ( *sound == '\0' ) {
 		sound = def->dict.GetString( key );
@@ -6989,6 +6995,7 @@ void idAnimatedEntity::AddLocalDamageEffect
 	if ( *sound != '\0' ) {
 		StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_BODY, 0, false, NULL );
 	}
+*/
 
 	// blood splats are thrown onto nearby surfaces
 	key = va( "mtr_splat_%s", surfName.c_str() );
