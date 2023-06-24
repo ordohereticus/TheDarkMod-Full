@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3279 $
- * $Date: 2009-03-20 16:39:03 -0400 (Fri, 20 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3689 $
+ * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3279 2009-03-20 20:39:03Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PatrolTask.cpp 3689 2009-09-03 12:40:05Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -196,7 +196,9 @@ bool PatrolTask::Perform(Subsystem& subsystem)
 		return true;
 	}
 	
-	idPathCorner* next = idPathCorner::RandomPath(path, NULL, _owner.GetEntity());
+	// Take a peek at the next path entity in our queue
+	idAI* owner = _owner.GetEntity();
+	idPathCorner* next = owner->GetMemory().nextPath.GetEntity();
 
 	if (next == NULL && !tasks.empty())
 	{

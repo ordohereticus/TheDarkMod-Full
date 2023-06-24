@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3672 $
- * $Date: 2009-08-14 23:17:43 -0400 (Fri, 14 Aug 2009) $
+ * $Revision: 3689 $
+ * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -159,6 +159,9 @@ public:
 
 	// The path entity we're supposed to be heading to
 	idEntityPtr<idPathCorner> currentPath;
+
+	// Our next path entity
+	idEntityPtr<idPathCorner> nextPath;
 
 	// Our last path entity
 	idEntityPtr<idPathCorner> lastPath;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3688 $
- * $Date: 2009-09-03 04:59:02 -0400 (Thu, 03 Sep 2009) $
+ * $Revision: 3689 $
+ * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -32,6 +32,9 @@ private:
 
 	// Frame this task was last executed
 	int _lastFrameNum;
+
+	// Whether to anticipate the AI reaching path corners
+	bool _usePathPrediction;
 
 	PathCornerTask();
 

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3667 $
- * $Date: 2009-08-14 10:16:15 -0400 (Fri, 14 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3689 $
+ * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3667 2009-08-14 14:16:15Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3689 2009-09-03 12:40:05Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -218,13 +218,19 @@ void IdleState::InitialiseMovement(idAI* owner)
 	// Check if the owner has patrol routes set
 	idPathCorner* path = memory.currentPath.GetEntity();
 	idPathCorner* lastPath = memory.lastPath.GetEntity();
-
+	
 	if (path == NULL && lastPath == NULL)
 	{
+		// Get a new random path off the owner's targets, this is the current one
 		path = idPathCorner::RandomPath(owner, NULL, owner);
-	}
+		memory.currentPath = path;
 
-	memory.currentPath = path;
+		// Also, pre-select a next path to allow path predictions
+		if (path != NULL)
+		{
+			memory.nextPath = idPathCorner::RandomPath(path, NULL, owner);
+		}
+	}
 
 	if (path != NULL || animalPatrol)
 	{
