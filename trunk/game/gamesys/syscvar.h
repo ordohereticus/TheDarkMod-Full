@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3359 $
- * $Date: 2009-04-04 13:36:08 -0400 (Sat, 04 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3385 $
+ * $Date: 2009-04-10 01:55:49 -0400 (Fri, 10 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -268,6 +268,9 @@ extern idCVar cv_ambient_method;
 
 // Volume of music speakers
 extern idCVar cv_music_volume;
+
+// angua: Velocity and sound volume of collisions
+extern idCVar cv_moveable_collision;
 
 /**
 * CVars added for Darkmod knockout and field of vision changes

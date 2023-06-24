@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3231 $
- * $Date: 2009-03-10 12:10:16 -0400 (Tue, 10 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3385 $
+ * $Date: 2009-04-10 01:55:49 -0400 (Fri, 10 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 3231 2009-03-10 16:10:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 3385 2009-04-10 05:55:49Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -457,6 +457,11 @@ void CsndProp::Propagate
 	// scale the volume by some amount that is be a cvar for now for tweaking
 	// later we will put a permananet value in the def for globals->Vol
 	vol0 += cv_ai_sndvol.GetFloat();
+
+	if (cv_moveable_collision.GetFloat() > 0 && maker->IsType(idMoveable::Type))
+	{
+		gameRenderWorld->DrawText( va("PropVol: %f", vol0), maker->GetPhysics()->GetOrigin(), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
+	}
 
 	SSprParms propParms;
 	propParms.name = sndName;

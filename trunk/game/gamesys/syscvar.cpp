@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3368 $
- * $Date: 2009-04-05 19:05:32 -0400 (Sun, 05 Apr 2009) $
- * $Author: ishtvan $
+ * $Revision: 3385 $
+ * $Date: 2009-04-10 01:55:49 -0400 (Fri, 10 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3368 2009-04-05 23:05:32Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3385 2009-04-10 05:55:49Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -331,6 +331,8 @@ idCVar cv_ambient_method("tdm_ambient_method",	"0",	CVAR_GAME | CVAR_BOOL | CVAR
  * Volume of speakers with s_music set
  */
 idCVar cv_music_volume("tdm_music_volume",	"1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Volume in dB for speakers with s_music set." );
+
+idCVar cv_moveable_collision("tdm_show_moveable_collision",	"1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "If set to 1, shows the velocity at which the moveable collides and the volume of the resulting sound." );
 
 
 idCVar cv_darkradiant_rcfserver_enable("darkradiant_rcfserver_enable",	"0",	CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the DarkRadiant RCF Server will be enabled during the next startup." );
