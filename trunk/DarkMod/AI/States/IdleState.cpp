@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3532 $
- * $Date: 2009-07-14 10:29:16 -0400 (Tue, 14 Jul 2009) $
+ * $Revision: 3534 $
+ * $Date: 2009-07-14 11:09:49 -0400 (Tue, 14 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3532 2009-07-14 14:29:16Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3534 2009-07-14 15:09:49Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -67,7 +67,7 @@ void IdleState::Init(idAI* owner)
 	_startSleeping = owner->spawnArgs.GetBool("sleeping", "0");
 	_startSitting = owner->spawnArgs.GetBool("sitting", "0");
 	
-	if (owner->HasSeenEvidence() && !owner->spawnArgs.GetBool("disable_alert_idle", 0))
+	if (owner->HasSeenEvidence() && owner->spawnArgs.GetBool("disable_alert_idle", "0") == false)
 	{
 		owner->GetMind()->SwitchState(STATE_ALERT_IDLE);
 		return;
