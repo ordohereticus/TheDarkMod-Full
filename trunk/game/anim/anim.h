@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3871 $
- * $Date: 2010-04-13 10:22:39 -0400 (Tue, 13 Apr 2010) $
+ * $Revision: 3873 $
+ * $Date: 2010-04-14 10:26:05 -0400 (Wed, 14 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -158,7 +158,11 @@ typedef enum {
 **/
 	FC_DROP,
 /**
-* Tels: Pickup an object (either the direct name, or the AIUSE class)
+* Tels: Detach and put down the named attachement (e.g. restore origin and angles to "before pickup")
+**/
+	FC_PUTDOWN,
+/**
+* Tels: Pickup an object (either the direct entity name, or the AIUSE class)
 **/
 	FC_PICKUP,
 /**

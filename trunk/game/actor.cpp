@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3860 $
- * $Date: 2010-03-21 01:37:22 -0400 (Sun, 21 Mar 2010) $
- * $Author: greebo $
+ * $Revision: 3873 $
+ * $Date: 2010-04-14 10:26:05 -0400 (Wed, 14 Apr 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3860 2010-03-21 05:37:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3873 2010-04-14 14:26:05Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2293,6 +2293,7 @@ void idActor::BindNotify( idEntity *ent )
 		idStr key = KeyVal->GetKey();
 		key.StripLeadingOnce("replace_anim_");
 
+		//gameLocal.Warning( "idActor: Replacing animation %s with %s", key.c_str(), KeyVal->GetValue().c_str() );
 		m_replacementAnims.Set( key, KeyVal->GetValue() );
 
 		KeyVal = ent->spawnArgs.MatchPrefix( "replace_anim_", KeyVal );
@@ -2318,6 +2319,7 @@ void idActor::UnbindNotify( idEntity *ent )
 		if (strcmp(m_replacementAnims.GetString( key ), KeyVal->GetValue().c_str()) == 0 )
 		{
 			// This animation override is present, so remove it
+			//gameLocal.Warning( "idActor: Removing replacement animation %s", KeyVal->GetValue().c_str() );
 			m_replacementAnims.Delete( key );
 		}
 
