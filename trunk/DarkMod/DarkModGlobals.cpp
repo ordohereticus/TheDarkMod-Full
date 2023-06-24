@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3912 $
- * $Date: 2010-06-06 21:52:02 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3913 $
+ * $Date: 2010-06-06 22:02:51 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3912 2010-06-07 01:52:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3913 2010-06-07 02:02:51Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -44,12 +44,6 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3912 2010-06
 
 // The default max light quotient for hiding spots
 #define MAX_HIDING_SPOT_MAX_LIGHT_QUOTIENT 2.0
-
-// Default time value for phases of leaning
-#define DARKMOD_NUM_MILLISECONDS_FOR_LEAN_MOVE 600.0f
-
-// Default lean angle
-#define DARKMOD_MAX_LEAN_TILT_DEGREES 12.0f
 
 // Default readius of the AI COMMUNICATIONS STIM
 #define DEFAULT_DARKMOD_AI_COMMUNICATIONS_STIM_RADIUS 5000.0
@@ -218,12 +212,6 @@ CGlobal::CGlobal()
 	{
 		m_AcuityHash.Add( m_AcuityHash.GenerateKey( m_AcuityNames[i].c_str(), false ), i );
 	}
-
-	// Default time value for leaning
-	m_leanMove_Milliseconds = DARKMOD_NUM_MILLISECONDS_FOR_LEAN_MOVE;
-
-	// Default angle for leaning
-	m_leanMove_DegreesTilt = DARKMOD_MAX_LEAN_TILT_DEGREES;
 
 	/* initialize Sourcehook required global */
 	g_SHPtr = static_cast<SourceHook::ISourceHook*>(&g_SourceHook); 
@@ -450,16 +438,6 @@ void CGlobal::LoadINISettings(void *p)
 	{
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("Found GlobalParams section \r");
 
-		if (FindMap(ps, "Lean_Milliseconds", TRUE, &pm) != static_cast<ULONG>(-1))
-		{
-			m_leanMove_Milliseconds = atof(pm->Value);
-		}
-
-		if (FindMap(ps, "Lean_Degrees", TRUE, &pm) != static_cast<ULONG>(-1))
-		{
-			m_leanMove_DegreesTilt = atof(pm->Value);
-		}
-
 		if (FindMap(ps, "WeakLightgem", TRUE, &pm) != static_cast<ULONG>(-1))
 		{
 			m_WeakLightgem = atof(pm->Value);
@@ -490,9 +468,6 @@ void CGlobal::LoadINISettings(void *p)
 			m_hidingSpotMaxLightQuotient = atof(pm->Value);
 			DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("m_hidingSpotMaxLightQuotient set to %f", m_hidingSpotMaxLightQuotient);
 		}
-
-		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("Lean milliseconds: %f\r", m_leanMove_Milliseconds);
-		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("Lean degrees tilt: %f\r", m_leanMove_DegreesTilt);
 
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("AICommStimRadius: %f\r", m_AICommStimRadius);
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("maxHidingSpotTestsPerAIFrame: %d\r", m_maxNumHidingSpotPointTestsPerAIFrame);

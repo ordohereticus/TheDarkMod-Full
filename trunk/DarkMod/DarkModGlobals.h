@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3912 $
- * $Date: 2010-06-06 21:52:02 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3913 $
+ * $Date: 2010-06-06 22:02:51 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -279,22 +279,6 @@ public:
 	* Hiding spot search light quotient. This value probably needs tweaking.
 	*/
 	float m_hidingSpotMaxLightQuotient;
-
-	/*!
-	* Milliseconds of time it takes for the player to enter
-	* or exit a lean
-	* @author: sophisticatedZombie (DH)
-	*/
-	float m_leanMove_Milliseconds;
-
-	/*!
-	* The angle to which a player rolls to the side during
-	* a lean. The center of the circle is the player's feet,
-	* so lean angles are smaller than they would be if the
-	* player had a waist joint.
-	* @author: sophisticatedZombie (DH)
-	*/
-	float m_leanMove_DegreesTilt;
 
 	/**
 	* List of AI Acuities
