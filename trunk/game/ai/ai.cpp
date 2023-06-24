@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3835 $
- * $Date: 2010-02-02 02:51:23 -0500 (Tue, 02 Feb 2010) $
- * $Author: ishtvan $
+ * $Revision: 3850 $
+ * $Date: 2010-03-19 10:28:12 -0400 (Fri, 19 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3835 2010-02-02 07:51:23Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3850 2010-03-19 14:28:12Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -10478,13 +10478,14 @@ float idAI::StealthDamageMult()
 		return 1.0;
 }
 
-void idAI::SwapHeadAFCM( bool bUseLargerCM )
+void idAI::SwapHeadAFCM(bool bUseLargerCM)
 {
-	idAFBody *headBody;
-	headBody = af.GetPhysics()->GetBody(af.BodyForJoint(m_HeadJointID));
+	if (m_HeadJointID == -1) return; // safety check for AI without head
 
-	if( bUseLargerCM && !m_bHeadCMSwapped && spawnArgs.FindKey("blackjack_headbox_mins") )
+	if (bUseLargerCM && !m_bHeadCMSwapped && spawnArgs.FindKey("blackjack_headbox_mins"))
 	{
+		idAFBody* headBody = af.GetPhysics()->GetBody(af.BodyForJoint(m_HeadJointID));
+
 		idClipModel *oldClip = headBody->GetClipModel();
 		idVec3	CMorig	= oldClip->GetOrigin();
 		idMat3	CMaxis	= oldClip->GetAxis();
@@ -10520,6 +10521,8 @@ void idAI::SwapHeadAFCM( bool bUseLargerCM )
 	// swap back to original CM when going unconscious, if we swapped earlier
 	else if( !bUseLargerCM && m_bHeadCMSwapped )
 	{
+		idAFBody* headBody = af.GetPhysics()->GetBody(af.BodyForJoint(m_HeadJointID));
+
 		idClipModel *oldClip = headBody->GetClipModel();
 		idVec3	CMorig	= oldClip->GetOrigin();
 		idMat3	CMaxis	= oldClip->GetAxis();
