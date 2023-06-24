@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3497 $
- * $Date: 2009-06-27 01:35:04 -0400 (Sat, 27 Jun 2009) $
+ * $Revision: 3499 $
+ * $Date: 2009-06-27 01:49:25 -0400 (Sat, 27 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3497 2009-06-27 05:35:04Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3499 2009-06-27 05:49:25Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2207,9 +2207,9 @@ void idActor::Attach( idEntity *ent, const char *PosName, const char *AttName )
 	}
 	if( ent->spawnArgs.GetBool("on_attach_nonsolid") )
 	{
-		// clear solid contents
+		// clear solid and corpse contents
 		int oldContents = ent->GetPhysics()->GetContents();
-		ent->GetPhysics()->SetContents( (oldContents & ~CONTENTS_SOLID) );
+		ent->GetPhysics()->SetContents( (oldContents & ~CONTENTS_SOLID) & ~CONTENTS_CORPSE );
 	}
 	if( ent->spawnArgs.GetBool("on_attach_not_frobable") )
 		ent->SetFrobable(false);
