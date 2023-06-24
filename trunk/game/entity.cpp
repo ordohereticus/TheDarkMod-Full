@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3663 $
- * $Date: 2009-08-12 02:50:45 -0400 (Wed, 12 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3679 $
+ * $Date: 2009-08-30 06:28:05 -0400 (Sun, 30 Aug 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3663 2009-08-12 06:50:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3679 2009-08-30 10:28:05Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9750,6 +9750,7 @@ void idEntity::Event_GetLightInPVS( void )
 {
 	idVec3 sum(0,0,0);
 	idVec3 local_light;
+	idVec3 local_light_radius;
 
 	int areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
 
@@ -9767,6 +9768,15 @@ void idEntity::Event_GetLightInPVS( void )
 		// light is in the same area?
 		if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
 			light->GetColor( local_light );
+			// multiple the light color by the radius to get a fake "light energy":
+			light->GetRadius( local_light_radius );
+			// fireplace: 180+180+120/3 => 160 / 800 => 0.2
+			// candle:    130+130+120/3 => 123 / 800 => 0.15
+			// firearrow:  10+ 10+ 10/3 =>  10 / 800 => 0.0125
+			local_light *= (float)
+				(local_light_radius.x + 
+				 local_light_radius.y + 
+				 local_light_radius.z) / 2400; 
 			sum += local_light;
 		}
     }

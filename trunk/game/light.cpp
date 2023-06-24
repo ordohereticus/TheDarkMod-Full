@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3640 $
- * $Date: 2009-08-03 22:50:05 -0400 (Mon, 03 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3679 $
+ * $Date: 2009-08-30 06:28:05 -0400 (Sun, 30 Aug 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3640 2009-08-04 02:50:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3679 2009-08-30 10:28:05Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -597,7 +597,7 @@ void idLight::SetLightParms( float parm0, float parm1, float parm2, float parm3 
 idLight::SetRadiusXYZ
 ================
 */
-void idLight::SetRadiusXYZ( float x, float y, float z ) {
+void idLight::SetRadiusXYZ( const float x, const float y, const float z ) {
 	renderLight.lightRadius[0] = x;
 	renderLight.lightRadius[1] = y;
 	renderLight.lightRadius[2] = z;
@@ -609,9 +609,20 @@ void idLight::SetRadiusXYZ( float x, float y, float z ) {
 idLight::SetRadius
 ================
 */
-void idLight::SetRadius( float radius ) {
+void idLight::SetRadius( const float radius ) {
 	renderLight.lightRadius[0] = renderLight.lightRadius[1] = renderLight.lightRadius[2] = radius;
 	PresentLightDefChange();
+}
+
+/*
+ * ================
+ * Tels: idLight:GetRadius
+ * ================
+ * */
+void idLight::GetRadius( idVec3 &out ) const {
+    out.x = renderLight.lightRadius[0];
+    out.y = renderLight.lightRadius[1];
+    out.z = renderLight.lightRadius[2];
 }
 
 /*

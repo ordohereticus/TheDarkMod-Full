@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3633 $
- * $Date: 2009-08-02 12:01:32 -0400 (Sun, 02 Aug 2009) $
+ * $Revision: 3679 $
+ * $Date: 2009-08-30 06:28:05 -0400 (Sun, 30 Aug 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,8 +60,8 @@ public:
 	void			SetShader( const char *shadername );
 	void			SetLightParm( int parmnum, float value );
 	void			SetLightParms( float parm0, float parm1, float parm2, float parm3 );
-	void			SetRadiusXYZ( float x, float y, float z );
-	void			SetRadius( float radius );
+	void			SetRadiusXYZ( const float x, const float y, const float z );
+	void			SetRadius( const float radius );
 	void			On( void );
 	void			Off( void );
 	void			Fade( const idVec4 &to, float fadeTime );
@@ -78,6 +78,11 @@ public:
 	 * greebo: Returns the current lightlevel (currentlevel).
 	 */
 	int				GetLightLevel() const;
+
+	/**
+	 * Tels: return the current light radius.
+	 */
+	void			GetRadius( idVec3 &out ) const;
 
 	virtual void	ShowEditingDialog( void );
 
