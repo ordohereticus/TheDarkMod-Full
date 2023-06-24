@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3432 $
- * $Date: 2009-05-08 02:09:48 -0400 (Fri, 08 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3437 $
+ * $Date: 2009-05-09 10:11:26 -0400 (Sat, 09 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3432 2009-05-08 06:09:48Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3437 2009-05-09 14:11:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3207,6 +3207,12 @@ void idActor::LoadVocalSet()
 
 	// Copy all snd_* spawnargs over to this entity
 	for (const idKeyValue* kv = def->dict.MatchPrefix("snd_"); kv != NULL; kv = def->dict.MatchPrefix("snd_", kv), i++)
+	{
+		spawnArgs.Set(kv->GetKey(), kv->GetValue());
+	}
+	
+	// Copy all sound prop "spr*" spawnargs over to this entity
+	for (const idKeyValue* kv = def->dict.MatchPrefix("spr"); kv != NULL; kv = def->dict.MatchPrefix("spr", kv), i++)
 	{
 		spawnArgs.Set(kv->GetKey(), kv->GetValue());
 	}
