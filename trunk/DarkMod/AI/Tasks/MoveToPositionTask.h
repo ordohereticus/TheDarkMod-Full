@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2705 $
- * $Date: 2008-07-19 09:01:58 -0400 (Sat, 19 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3629 $
+ * $Date: 2009-08-01 00:53:27 -0400 (Sat, 01 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -42,15 +42,18 @@ private:
 	// the distance below which entities are considered "reached"
 	float _entityReachDistance;
 
+	// angua: if > 0, this changes the size of the bounding box used for checking whether the AI has reached their destination
+	float _accuracy;
+
 	// Default constructor
 	MoveToPositionTask();
 
 public:
 	// Constructor taking the target position (and optional target yaw) as input argument
-	MoveToPositionTask(const idVec3& targetPosition, float targetYaw = idMath::INFINITY);
+	MoveToPositionTask(const idVec3& targetPosition, float targetYaw = idMath::INFINITY, float accuracy = -1);
 
 	// Constructor taking a target entity
-	MoveToPositionTask(idEntity* targetEntity, float entityReachDistance = DEFAULT_ENTITY_REACH_DISTANCE);
+	MoveToPositionTask(idEntity* targetEntity, float entityReachDistance = DEFAULT_ENTITY_REACH_DISTANCE, float accuracy = -1);
 
 	// Get the name of this task
 	virtual const idStr& GetName() const;

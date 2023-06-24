@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3623 $
- * $Date: 2009-07-31 05:35:31 -0400 (Fri, 31 Jul 2009) $
+ * $Revision: 3629 $
+ * $Date: 2009-08-01 00:53:27 -0400 (Sat, 01 Aug 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3623 2009-07-31 09:35:31Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3629 2009-08-01 04:53:27Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -246,8 +246,9 @@ void IdleState::InitialiseMovement(idAI* owner)
 			// angua: don't do this when we are sitting or sleeping
 			// We already HAVE an idle position set, this means that we are
 			// supposed to be there, let's move
+			float startPosTolerance = owner->spawnArgs.GetFloat("startpos_tolerance", "-1");
 			owner->movementSubsystem->PushTask(
-				TaskPtr(new MoveToPositionTask(memory.idlePosition, memory.idleYaw))
+				TaskPtr(new MoveToPositionTask(memory.idlePosition, memory.idleYaw, startPosTolerance))
 			);
 		}
 	}
