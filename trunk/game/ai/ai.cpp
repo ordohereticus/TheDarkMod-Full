@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3324 $
- * $Date: 2009-03-27 20:37:51 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3325 $
+ * $Date: 2009-03-27 22:10:18 -0400 (Fri, 27 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3324 2009-03-28 00:37:51Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3325 2009-03-28 02:10:18Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7376,10 +7376,26 @@ bool idAI::UpdateAnimationControllers( void ) {
 	lookAng.Normalize180();
 
 	jointAng.roll = 0.0f;
-	for( i = 0; i < lookJoints.Num(); i++ ) {
-		jointAng.pitch	= lookAng.pitch * lookJointAngles[ i ].pitch;
-		jointAng.yaw	= lookAng.yaw * lookJointAngles[ i ].yaw;
-		animator.SetJointAxis( lookJoints[ i ], JOINTMOD_WORLD, jointAng.ToMat3() );
+
+	if (AI_AlertLevel >= thresh_5)
+	{
+		// use combat look joints in combat
+
+		for( i = 0; i < lookJointsCombat.Num(); i++ ) 
+		{
+			jointAng.pitch	= lookAng.pitch * lookJointAnglesCombat[ i ].pitch;
+			jointAng.yaw	= lookAng.yaw * lookJointAnglesCombat[ i ].yaw;
+			animator.SetJointAxis( lookJointsCombat[ i ], JOINTMOD_WORLD, jointAng.ToMat3() );
+		}
+	}
+	else
+	{
+		for( i = 0; i < lookJoints.Num(); i++ ) 
+		{
+			jointAng.pitch	= lookAng.pitch * lookJointAngles[ i ].pitch;
+			jointAng.yaw	= lookAng.yaw * lookJointAngles[ i ].yaw;
+			animator.SetJointAxis( lookJoints[ i ], JOINTMOD_WORLD, jointAng.ToMat3() );
+		}
 	}
 
 	if ( move.moveType == MOVETYPE_FLY ) {
