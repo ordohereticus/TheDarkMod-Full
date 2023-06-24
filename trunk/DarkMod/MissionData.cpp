@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3588 $
- * $Date: 2009-07-26 09:10:17 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3760 $
+ * $Date: 2009-11-21 09:01:53 -0500 (Sat, 21 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3588 2009-07-26 13:10:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3760 2009-11-21 14:01:53Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -663,7 +663,8 @@ void CMissionData::UpdateObjectives( void )
 			continue;
 
 		// if parent objective is invalid or the timer hasn't fired or it's latched, don't do anything
-		if( m_Objectives[ pComp->m_Index[0] ].m_state == STATE_INVALID
+		// greebo: Beware the the m_Index is 1-based, not 0-based
+		if( m_Objectives[ pComp->m_Index[0] - 1 ].m_state == STATE_INVALID
 			|| (gameLocal.time - pComp->m_TimeStamp < pComp->m_ClockInterval)
 			|| pComp->m_bLatched )
 		{
