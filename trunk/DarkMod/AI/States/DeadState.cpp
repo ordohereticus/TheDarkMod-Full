@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3852 $
- * $Date: 2010-03-19 21:05:19 -0400 (Fri, 19 Mar 2010) $
+ * $Revision: 3884 $
+ * $Date: 2010-04-24 07:53:33 -0400 (Sat, 24 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DeadState.cpp 3852 2010-03-20 01:05:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DeadState.cpp 3884 2010-04-24 11:53:33Z greebo $", init_version);
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -37,16 +37,28 @@ void DeadState::Init(idAI* owner)
 	// Stop move!
 	owner->StopMove(MOVE_STATUS_DONE);
 
+	// Clear all the subsystems, this might cause animstate changes
+	owner->movementSubsystem->ClearTasks();
+	owner->senseSubsystem->ClearTasks();
+	owner->actionSubsystem->ClearTasks();
+	owner->commSubsystem->ClearTasks();
+
+	// Reset anims
 	owner->StopAnim(ANIMCHANNEL_TORSO, 0);
 	owner->StopAnim(ANIMCHANNEL_LEGS, 0);
 	owner->StopAnim(ANIMCHANNEL_HEAD, 0);
 
-/*
-// angua: disabled for Thief's den release
-// anims didn't look good and produced problems
-	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Death", 0);
-	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Death", 0);
-*/
+	// greebo: Play death anim only for AI which want to play them
+	if (owner->spawnArgs.GetBool("enable_death_anim", "0"))
+	{
+		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Death", 0);
+		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Death", 0);
+
+		owner->SetWaitState(ANIMCHANNEL_TORSO, "death");
+		owner->SetWaitState(ANIMCHANNEL_LEGS, "death");
+	}
+
+	// Play the death anim on the head channel regardless
 	owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_Death", 0);
 
 	// greebo: Set the waitstate, this gets cleared by 
@@ -55,12 +67,6 @@ void DeadState::Init(idAI* owner)
 
 	// Don't do anything else, the death animation will finish in a few frames
 	// and the AI is done afterwards.
-
-	// Clear all the subsystems
-	owner->movementSubsystem->ClearTasks();
-	owner->senseSubsystem->ClearTasks();
-	owner->actionSubsystem->ClearTasks();
-	owner->commSubsystem->ClearTasks();
 
 	// Swap skin on death if required
 	idStr deathSkin;
@@ -104,6 +110,8 @@ void DeadState::Init(idAI* owner)
 		}
 	}
 
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Death state entered for AI: %s, frame %d\n", owner->name.c_str(), gameLocal.framenum);
+
 	_waitingForDeath = true;
 }
 
@@ -111,10 +119,11 @@ void DeadState::Init(idAI* owner)
 void DeadState::Think(idAI* owner)
 {
 	if (_waitingForDeath 
-		&&	idStr(owner->WaitState(ANIMCHANNEL_TORSO)) != "death"
-		&&	idStr(owner->WaitState(ANIMCHANNEL_LEGS)) != "death"
-		&&	idStr(owner->WaitState(ANIMCHANNEL_HEAD)) != "death") 
+		&& idStr(owner->WaitState(ANIMCHANNEL_TORSO)) != "death"
+		&& idStr(owner->WaitState(ANIMCHANNEL_LEGS)) != "death"
+		&& idStr(owner->WaitState(ANIMCHANNEL_HEAD)) != "death") 
 	{
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Post Death state entered for AI: %s, frame %d\r", owner->name.c_str(), gameLocal.framenum);
 		owner->PostDeath();
 		_waitingForDeath = false;
 	}

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3693 $
- * $Date: 2009-09-05 10:43:56 -0400 (Sat, 05 Sep 2009) $
+ * $Revision: 3884 $
+ * $Date: 2010-04-24 07:53:33 -0400 (Sat, 24 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3693 2009-09-05 14:43:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3884 2010-04-24 11:53:33Z greebo $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -219,9 +219,12 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 
 void IdleAnimationTask::OnFinish(idAI* owner)
 {
-	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
-	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 5);
-	owner->SetWaitState("");
+	if (!owner->AI_KNOCKEDOUT && owner->health > 0)
+	{
+		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
+		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 5);
+		owner->SetWaitState("");
+	}
 }
 
 // Save/Restore methods
