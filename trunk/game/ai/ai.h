@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3608 $
- * $Date: 2009-07-28 23:50:03 -0400 (Tue, 28 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3623 $
+ * $Date: 2009-07-31 05:35:31 -0400 (Fri, 31 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -532,7 +532,7 @@ public:
 		return mind;
 	}
 
-	ID_INLINE ai::Memory& GetMemory()
+	ID_INLINE ai::Memory& GetMemory() const
 	{
 		return mind->GetMemory();
 	}
@@ -1512,7 +1512,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * angua: this returns if the AI has seen evidence of an intruder already 
 	 * (the enemy, a body, missing loot...)
 	 */
-	bool HasSeenEvidence();
+	bool HasSeenEvidence() const;
 
 	/**
 	* Draw the debug cone representing valid knockout area

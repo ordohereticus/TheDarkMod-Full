@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3620 $
- * $Date: 2009-07-30 23:56:30 -0400 (Thu, 30 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3623 $
+ * $Date: 2009-07-31 05:35:31 -0400 (Fri, 31 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3620 2009-07-31 03:56:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3623 2009-07-31 09:35:31Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8300,6 +8300,12 @@ float idAI::GetAcuity(const char *type) const
 		}
 	}
 
+	// angua: drunken AI have reduced acuity, unless they have seen evidence of intruders
+	if (spawnArgs.GetBool("drunk", "0") && HasSeenEvidence() == false)
+	{
+		returnval *= spawnArgs.GetFloat("drunk_acuity_factor", "1");
+	}
+
 	//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Acuity %s = %f\r", type, returnval);
 
 	return returnval;
@@ -9073,7 +9079,7 @@ void idAI::CheckTactile()
 	}
 }
 
-bool idAI::HasSeenEvidence()
+bool idAI::HasSeenEvidence() const
 {
 	ai::Memory& memory = GetMemory();
 

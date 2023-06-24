@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3621 $
- * $Date: 2009-07-31 05:19:43 -0400 (Fri, 31 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3623 $
+ * $Date: 2009-07-31 05:35:31 -0400 (Fri, 31 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3621 2009-07-31 09:19:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3623 2009-07-31 09:35:31Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -109,7 +109,12 @@ void IdleState::Init(idAI* owner)
 	}
 	// The action subsystem plays the idle anims (scratching, yawning...)
 	owner->actionSubsystem->ClearTasks();
-	owner->actionSubsystem->PushTask(IdleAnimationTask::CreateInstance());
+
+	if (owner->spawnArgs.GetBool("drunk", "0") == false)
+	{
+		// angua: drunken AIs won't do any idle anims for now
+		owner->actionSubsystem->PushTask(IdleAnimationTask::CreateInstance());
+	}
 
 	// The sensory system does its Idle tasks
 	owner->senseSubsystem->ClearTasks();
@@ -136,10 +141,18 @@ void IdleState::Init(idAI* owner)
 	int idleBarkIntervalMin = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_min", "20"));
 	int idleBarkIntervalMax = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_max", "60"));
 	// Push the regular patrol barking to the list too
-	owner->commSubsystem->AddCommTask(
-		CommunicationTaskPtr(new RepeatedBarkTask("snd_relaxed", idleBarkIntervalMin, idleBarkIntervalMax))
-	);
-
+	if (owner->spawnArgs.GetBool("drunk", "0"))
+	{
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new RepeatedBarkTask("snd_drunk", idleBarkIntervalMin, idleBarkIntervalMax))
+		);
+	}
+	else
+	{
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new RepeatedBarkTask("snd_relaxed", idleBarkIntervalMin, idleBarkIntervalMax))
+		);
+	}
 	// Let the AI update their weapons (make them nonsolid)
 	owner->UpdateAttachmentContents(false);
 }
