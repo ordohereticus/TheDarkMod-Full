@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3134 $
- * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
+ * $Revision: 3406 $
+ * $Date: 2009-04-13 03:03:36 -0400 (Mon, 13 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 3134 2009-01-11 07:46:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 3406 2009-04-13 07:03:36Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -169,7 +169,10 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent)
 			rc->SetIcon(lootIcon);
 		}
 		
-		NotifyOwnerAboutPickup(pickedUpMsg, rc);
+		if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
+		{
+			NotifyOwnerAboutPickup(pickedUpMsg, rc);
+		}
 	}
 	else
 	{
@@ -788,14 +791,17 @@ CInventoryItemPtr CInventory::ValidateAmmo(idEntity* ent)
 			// Add the ammo to this weapon
 			weaponItem->SetAmmo(weaponItem->GetAmmo() + amount);
 
-			idStr msg = ent->spawnArgs.GetString("inv_name");
-
-			if (amount > 1)
+			if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
 			{
-				msg += " x" + idStr(amount);
-			}
+				idStr msg = ent->spawnArgs.GetString("inv_name");
 
-			NotifyOwnerAboutPickup(msg, weaponItem);
+				if (amount > 1)
+				{
+					msg += " x" + idStr(amount);
+				}
+
+				NotifyOwnerAboutPickup(msg, weaponItem);
+			}
 			
 			// We're done
 			return weaponItem;
@@ -843,7 +849,10 @@ CInventoryItemPtr CInventory::ValidateWeapon(idEntity* ent)
 			// Enable this weapon
 			weaponItem->SetEnabled(true);
 
-			NotifyOwnerAboutPickup(ent->spawnArgs.GetString("inv_name"), weaponItem);
+			if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
+			{
+				NotifyOwnerAboutPickup(ent->spawnArgs.GetString("inv_name"), weaponItem);
+			}
 			
 			// We're done
 			return weaponItem;
