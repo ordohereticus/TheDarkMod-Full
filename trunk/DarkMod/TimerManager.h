@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2501 $
- * $Date: 2008-06-15 07:32:37 -0400 (Sun, 15 Jun 2008) $
+ * $Revision: 3449 $
+ * $Date: 2009-05-21 03:09:56 -0400 (Thu, 21 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -59,6 +59,8 @@ public:
 	void	DumpTimerResults(const char* const separator = ";", const char* const comma = ".");
 	void	Clear();
 
+	// Resets all timers to 0, doesn't destroy any timers
+	void	ResetTimers();
 
 	// Contains the static singleton
 	static TimerManager& Instance();

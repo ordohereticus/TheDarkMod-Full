@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2817 $
- * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Revision: 3449 $
+ * $Date: 2009-05-21 03:09:56 -0400 (Thu, 21 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -101,6 +101,18 @@ void TimerManager::StopTimer(int timerId)
 	info.timer.Clear();
 }
 
+void TimerManager::ResetTimers()
+{
+	for (TimerMap::iterator i = _timers.begin(); i != _timers.end(); ++i)
+	{
+		TimerInfo& info = i->second;
+
+		info.runCount = 0;
+		info.runTime = 0;
+		info.maxTime = 0;
+		info.maxTimeCall = 0;
+	}
+}
 
 void TimerManager::PrintTimerResults()
 {

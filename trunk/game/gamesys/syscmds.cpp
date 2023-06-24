@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3193 $
- * $Date: 2009-01-20 01:44:36 -0500 (Tue, 20 Jan 2009) $
+ * $Revision: 3449 $
+ * $Date: 2009-05-21 03:09:56 -0400 (Thu, 21 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 3193 2009-01-20 06:44:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 3449 2009-05-21 07:09:56Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -2775,6 +2775,11 @@ void Cmd_WriteTimerCSV_f(const idCmdArgs& args)
 	// No arguments, call default
 	debugtools::TimerManager::Instance().DumpTimerResults();
 }
+
+void Cmd_ResetTimers_f(const idCmdArgs& args)
+{
+	debugtools::TimerManager::Instance().ResetTimers();
+}
 #endif // TIMING_BUILD 
 
 /*
@@ -2917,6 +2922,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 #ifdef TIMING_BUILD
 	cmdSystem->AddCommand( "listTimers",			Cmd_ListTimers_f,			CMD_FL_GAME,				"Shows total run time and max time of timers (TIMING_BUILD only)." );
 	cmdSystem->AddCommand( "writeTimerCSV",			Cmd_WriteTimerCSV_f,		CMD_FL_GAME,				"Writes the timer data to a csv file (usage: writeTimerCSV <separator> <commaChar>). The default separator is ';', the default comma is '.'");
+	cmdSystem->AddCommand( "resetTimers",			Cmd_ResetTimers_f,			CMD_FL_GAME,				"Resets the timer data so far.");
 #endif
 }
 
