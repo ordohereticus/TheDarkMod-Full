@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3255 $
- * $Date: 2009-03-15 04:34:28 -0400 (Sun, 15 Mar 2009) $
+ * $Revision: 3257 $
+ * $Date: 2009-03-15 05:05:47 -0400 (Sun, 15 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3255 2009-03-15 08:34:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3257 2009-03-15 09:05:47Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1077,6 +1077,8 @@ bool CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 				// If it was the last pin, the user successfully picked the lock.
 				if (m_FirstLockedPinIndex >= m_Pins.Num())
 				{
+					player->SetGuiString(player->lockpickHUD, "StatusText1", "Lock Successfully picked");
+
 					m_FirstLockedPinIndex = m_Pins.Num();
 					PropPickSound("snd_lockpick_lock_picked", cType, LPSOUND_PIN_SUCCESS, 0, HANDLE_POS_ORIGINAL, 0, 0);
 					Unlock(true);
@@ -1085,6 +1087,8 @@ bool CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 				}
 				else
 				{
+					player->SetGuiString(player->lockpickHUD, "StatusText1", "Pin Successfully picked");
+
 					m_SoundPinSampleIndex = 0;
 					PropPickSound("snd_lockpick_pin_success", cType, LPSOUND_PIN_SUCCESS, 0, HANDLE_POS_ORIGINAL, m_FirstLockedPinIndex, m_SoundPinSampleIndex);
 					DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] successfully picked!\r", name.c_str());
@@ -1092,6 +1096,8 @@ bool CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 			}
 			else
 			{
+				player->SetGuiString(player->lockpickHUD, "StatusText1", "Pin Failed");
+
 				m_SoundPinSampleIndex = 0;
 				PropPickSound("snd_lockpick_pin_fail", cType, LPSOUND_PIN_FAILED, 0, HANDLE_POS_SAMPLE, m_FirstLockedPinIndex, m_SoundPinSampleIndex);
 				DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Pick attempt: %u/%u failed (len: %u).\r", m_FirstLockedPinIndex, m_SoundPinSampleIndex, pick.Length());
