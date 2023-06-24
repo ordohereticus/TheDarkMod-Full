@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1436 $
- * $Date: 2007-10-16 13:12:36 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 3352 $
+ * $Date: 2009-04-03 23:47:48 -0400 (Fri, 03 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -77,6 +77,7 @@ public:
 	virtual float				GetStateFloat( const char *varName, const char* defaultString = "0" ) const = 0;
 
 								// The state has changed and the gui needs to update from the state idDict.
+								// greebo: NEVER call this on the main menu
 	virtual void				StateChanged( int time, bool redraw = false ) = 0;
 
 								// Activated the gui.
