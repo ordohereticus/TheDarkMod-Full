@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3507 $
- * $Date: 2009-07-02 13:08:00 -0400 (Thu, 02 Jul 2009) $
+ * $Revision: 3509 $
+ * $Date: 2009-07-02 13:31:30 -0400 (Thu, 02 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3507 2009-07-02 17:08:00Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3509 2009-07-02 17:31:30Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -10041,9 +10041,9 @@ bool idAI::ShouldCloseDoor(CBinaryFrobMover *frobMover)
 		// this door should really be closed
 		return true;
 	}
-	if (AI_AlertLevel >= thresh_4)
+	if (AI_AlertLevel >= thresh_3)
 	{
-		// don't close other doors while agitated searching
+		// don't close other doors while searching
 		return false;
 	}
 
