@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3667 $
- * $Date: 2009-08-14 10:16:15 -0400 (Fri, 14 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3670 $
+ * $Date: 2009-08-14 13:22:44 -0400 (Fri, 14 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3667 2009-08-14 14:16:15Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3670 2009-08-14 17:22:44Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1281,9 +1281,15 @@ void State::OnMovementBlocked(idAI* owner)
 
 	const idVec3& ownerOrigin = owner->GetPhysics()->GetOrigin();
 
+	// Set all attachments to nonsolid, temporarily
+	owner->SaveAttachmentContents();
+	owner->SetAttachmentContents(0);
+
 	trace_t result;
 	gameLocal.clip.TraceBounds(result, ownerOrigin, ownerOrigin + owner->viewAxis.ToAngles().ToForward()*20, owner->GetPhysics()->GetBounds(),
 								CONTENTS_SOLID|CONTENTS_CORPSE, owner);
+
+	owner->RestoreAttachmentContents();
 
 	if (result.fraction >= 1.0f)
 	{
