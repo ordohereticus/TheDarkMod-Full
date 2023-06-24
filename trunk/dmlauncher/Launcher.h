@@ -5,8 +5,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3176 $
- * $Date: 2009-01-18 07:28:09 -0500 (Sun, 18 Jan 2009) $
+ * $Revision: 3458 $
+ * $Date: 2009-05-23 00:34:07 -0400 (Sat, 23 May 2009) $
  * $Author: greebo $
  *
  *************************************************************************/
@@ -53,6 +53,10 @@ private:
 
 	// Reads the given text file and returns its contents
 	std::string ReadFile(const fs::path& fileName);
+
+	// Finds the engine executable (in Linux, this can be in several places), returns TRUE on success
+	// The member _darkmodDir must be set already when calling this method
+	bool FindExecutable();
 };
 
 #endif /* _LAUNCHER_H_ */
