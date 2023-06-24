@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3584 $
- * $Date: 2009-07-26 07:19:21 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3589 $
+ * $Date: 2009-07-26 11:43:20 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3584 2009-07-26 11:19:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3589 2009-07-26 15:43:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1278,20 +1278,21 @@ void idPlayer::SetupInventory()
 
 		if (idStr::Cmpn(itemName, "atdm:weapon_", 12) != 0 && count > 0)
 		{
-			// does the item already exist?
-			idEntity *entity = item->GetEntity();
+			const idStringList& classNames = item->GetClassnames();
 
-			if (entity == NULL)
+			for (int j = 0; j < classNames.Num(); ++j)
 			{
-				// no, spawn it
-				const idDict* itemDict = gameLocal.FindEntityDefDict(itemName, true);
-				gameLocal.SpawnEntityDef( *itemDict, &entity );
-			}
+				// Spawn this entitydef
+				const idDict* itemDict = gameLocal.FindEntityDefDict(classNames[j], true);
 
-			// add it to the inventory
-			CInventoryItemPtr invItem = crsr->Inventory()->PutItem(entity, this);
-			invItem->SetCount(count);
-			invItem->SetPersistent(item->GetPersistent());
+				idEntity* entity = NULL;
+				gameLocal.SpawnEntityDef( *itemDict, &entity );
+
+				// add it to the inventory
+				CInventoryItemPtr invItem = crsr->Inventory()->PutItem(entity, this);
+				invItem->SetCount(count);
+				invItem->SetPersistent(item->GetPersistent());
+			}
 		}
 	}
 }
