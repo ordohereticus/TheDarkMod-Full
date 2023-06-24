@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3369 $
+ * $Date: 2009-04-06 10:04:48 -0400 (Mon, 06 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 3369 2009-04-06 14:04:48Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -350,7 +350,7 @@ void CTarget_SetEntityRelation::Event_Activate(idEntity* activator)
 	if (ent1 != NULL && ent2 != NULL)
 	{
 		int relation = spawnArgs.GetInt("relation", "0");
-		ent1->SetEntityRelation(ent1, relation);
+		ent1->SetEntityRelation(ent2, relation);
 	}
 }
 
@@ -367,6 +367,6 @@ void CTarget_ChangeEntityRelation::Event_Activate(idEntity* activator)
 	if (ent1 != NULL && ent2 != NULL)
 	{
 		int relationChange = spawnArgs.GetInt("relationchange", "0");
-		ent1->ChangeEntityRelation(ent1, relationChange);
+		ent1->ChangeEntityRelation(ent2, relationChange);
 	}
 }

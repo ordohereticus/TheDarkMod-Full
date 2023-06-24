@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3369 $
+ * $Date: 2009-04-06 10:04:48 -0400 (Mon, 06 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3369 2009-04-06 14:04:48Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -211,6 +211,17 @@ void CombatState::Think(idAI* owner)
 	if (enemy == NULL)
 	{
 		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("No enemy, terminating task!\r");
+		owner->GetMind()->EndState();
+		// ishtvan: swap the expanded head model back in when exiting state
+		owner->SwapHeadAFCM( true );
+		return;
+	}
+
+	if (!owner->IsEnemy(enemy))
+	{
+		// angua: the relation to the enemy has changed, this is not an enemy any more
+		owner->StopMove(MOVE_STATUS_DONE);
+		owner->SetAlertLevel(owner->thresh_2 + (owner->thresh_3 - owner->thresh_2) * 0.9);
 		owner->GetMind()->EndState();
 		// ishtvan: swap the expanded head model back in when exiting state
 		owner->SwapHeadAFCM( true );
