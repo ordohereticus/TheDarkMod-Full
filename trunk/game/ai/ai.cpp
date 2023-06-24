@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3608 $
- * $Date: 2009-07-28 23:50:03 -0400 (Tue, 28 Jul 2009) $
+ * $Revision: 3620 $
+ * $Date: 2009-07-30 23:56:30 -0400 (Thu, 30 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3608 2009-07-29 03:50:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3620 2009-07-31 03:56:30Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8563,6 +8563,15 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 	if (!IsEnemy(responsibleActor)) 
 	{
 		return; // not an enemy, no alert
+	}
+
+	// greebo: We touched an enemy, check if it's an unconscious body or corpse
+	if (tactEnt->IsType(idAI::Type) && 
+		(static_cast<idAI*>(tactEnt)->AI_DEAD || static_cast<idAI*>(tactEnt)->AI_KNOCKEDOUT))
+	{
+		// When AI_DEAD or AI_KNOCKEDOUT ignore this alert from now on to avoid
+		// re-alerting us every time we touch it again and again
+		TactileIgnore(tactEnt);
 	}
 
 	// Set the alert amount to the according tactile alert value
