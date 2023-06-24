@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3774 $
+ * $Date: 2009-12-27 22:49:41 -0500 (Sun, 27 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3774 2009-12-28 03:49:41Z crispy $", init_version);
 
 #include "../game/game_local.h"
 #include "Grabber.h"
@@ -863,13 +863,19 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 	{
 		if ( other->spawnArgs.GetBool( "bleed" ) ) 
 		{
-			hitSound = DmgDef->GetString( "snd_hit" );
 			sndName = "snd_hit";
+			hitSound = DmgDef->GetString( sndName );
 
 			// places wound overlay, also tries to play another sound that's usually not there?
 			// on AI, also does the blood spurt particle
 			other->AddDamageEffect( *tr, impulse, DmgDef->GetString( "classname" ) );
-		} else 
+
+		} else if ( other->spawnArgs.GetBool( "fleshy" ) ) {
+			// For non-bleeders that should still always play the flesh impact sound
+			sndName = "snd_flesh";
+			hitSound = DmgDef->GetString( sndName );
+
+		} else
 		{
 			// we hit an entity that doesn't bleed, 
 			// decals, sound and smoke are handled here instead
@@ -882,13 +888,13 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 
 			// start impact sound based on material type
 			// DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("MeleeCollision: Playing hit sound\r");
-			hitSound = DmgDef->GetString( va( "snd_%s", surfType.c_str() ) );
 			sndName = va( "snd_%s", surfType.c_str() );
+			hitSound = DmgDef->GetString( sndName );
 
 			if ( hitSound.IsEmpty() ) 
 			{
-				hitSound = DmgDef->GetString( "snd_metal" );
 				sndName = "snd_metal";
+				hitSound = DmgDef->GetString( sndName );
 			}
 
 			// project decal 
