@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3388 $
- * $Date: 2009-04-11 04:26:24 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3390 $
+ * $Date: 2009-04-11 06:05:27 -0400 (Sat, 11 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3388 $   $Date: 2009-04-11 04:26:24 -0400 (Sat, 11 Apr 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3390 $   $Date: 2009-04-11 06:05:27 -0400 (Sat, 11 Apr 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1945,22 +1945,26 @@ void idPhysics_Player::CheckDuck( void ) {
 			}
  			else if ((oldMovementFlags & PMF_DUCKED) && waterLevel == WATERLEVEL_WAIST && previousWaterLevel == WATERLEVEL_HEAD)
 			{
-				// We're just floating up to the water surface, switch back to non-crouch mode
-				// Clear the flag again, just to be sure
-				current.movementFlags &= ~PMF_DUCKED;
+				// angua: only stand up when we should not be crouching
+				if (idealCrouchState == false)
+				{
+					// We're just floating up to the water surface, switch back to non-crouch mode
+					// Clear the flag again, just to be sure
+					current.movementFlags &= ~PMF_DUCKED;
 
-				// greebo: Perform a trace to see how far we can move downwards
-				trace_t	trace;
-				idVec3 end = player->GetEyePosition() + gravityNormal * pm_normalviewheight.GetFloat();
-				gameLocal.clip.Translation(trace, current.origin, end, clipModel, clipModel->GetAxis(), clipMask, self);
+					// greebo: Perform a trace to see how far we can move downwards
+					trace_t	trace;
+					idVec3 end = player->GetEyePosition() + gravityNormal * pm_normalviewheight.GetFloat();
+					gameLocal.clip.Translation(trace, current.origin, end, clipModel, clipModel->GetAxis(), clipMask, self);
 
-				// Set the origin to the end position of the trace
-				SetOrigin(trace.endpos);
+					// Set the origin to the end position of the trace
+					SetOrigin(trace.endpos);
 
-				maxZ = pm_normalheight.GetFloat();
+					maxZ = pm_normalheight.GetFloat();
 
-				// Set the Eye height directly to the new value, to avoid the smoothing happening in idPlayer::Move()
-				player->SetEyeHeight(pm_normalviewheight.GetFloat());
+					// Set the Eye height directly to the new value, to avoid the smoothing happening in idPlayer::Move()
+					player->SetEyeHeight(pm_normalviewheight.GetFloat());
+				}
 			}
 		}
 
