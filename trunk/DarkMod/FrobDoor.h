@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3267 $
- * $Date: 2009-03-18 06:51:18 -0400 (Wed, 18 Mar 2009) $
+ * $Revision: 3268 $
+ * $Date: 2009-03-18 08:27:16 -0400 (Wed, 18 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -238,6 +238,7 @@ protected:
 
 	// Updates the position of the attached handles according to the current lockpick state
 	void					UpdateHandlePosition();
+	float					CalculateHandleMoveFraction();
 
 	// Gets called when a lockpick sound is finished playing
 	void					Event_LockpickSoundFinished(ELockpickState nextState);

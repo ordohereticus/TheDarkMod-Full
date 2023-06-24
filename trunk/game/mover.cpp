@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2854 $
- * $Date: 2008-09-15 21:16:37 -0400 (Mon, 15 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 3268 $
+ * $Date: 2009-03-18 08:27:16 -0400 (Wed, 18 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 2854 2008-09-16 01:16:37Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 3268 2009-03-18 12:27:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -935,7 +935,7 @@ void idMover::BeginRotation( idThread *thread, bool stopwhendone ) {
 
 	physicsObj.GetLocalAngles( ang );
 	angle_delta = dest_angles - ang;
-	if ( angle_delta == ang_zero ) {
+	if ( angle_delta.Compare(ang_zero, VECTOR_EPSILON) ) {
 		// set our final angles so that we get rid of any numerical inaccuracy
 		dest_angles.Normalize360();
 		physicsObj.SetAngularExtrapolation( EXTRAPOLATION_NONE, 0, 0, dest_angles, ang_zero, ang_zero );

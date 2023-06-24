@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3243 $
- * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3268 $
+ * $Date: 2009-03-18 08:27:16 -0400 (Wed, 18 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3243 2009-03-14 18:19:09Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3268 2009-03-18 12:27:16Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -722,8 +722,7 @@ void CBinaryFrobMover::GetRemainingMovement(idVec3& out_deltaPosition, idAngles&
 float CBinaryFrobMover::GetMoveTimeFraction()
 {
 	// Get the current angles
-	idAngles curAngles;
-	physicsObj.GetLocalAngles(curAngles);
+	idAngles curAngles = physicsObj.GetLocalAngles();
 
 	// Calculate the delta
 	idAngles delta = dest_angles - curAngles;
