@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3276 $
- * $Date: 2009-03-20 04:56:02 -0400 (Fri, 20 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3290 $
+ * $Date: 2009-03-22 23:35:54 -0400 (Sun, 22 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3276 $   $Date: 2009-03-20 04:56:02 -0400 (Fri, 20 Mar 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3290 $   $Date: 2009-03-22 23:35:54 -0400 (Sun, 22 Mar 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1122,7 +1122,7 @@ void idPhysics_Player::RopeMove( void )
 		idVec3 kickDir = player->firstPersonViewAxis[0];
 		idVec3 bodyOrig = ropePhys->GetOrigin(bodID);
 		idMat3 rotDir = mat3_identity;
-		// apply modifiers if holding left/right
+		// apply modifiers if holding left/right/back
 		if( common->ButtonState(UB_MOVELEFT) )
 		{
 			rotDir = idAngles(0.0f, 90.0f, 0.0f).ToMat3();
@@ -1130,6 +1130,10 @@ void idPhysics_Player::RopeMove( void )
 		else if( common->ButtonState(UB_MOVERIGHT) )
 		{
 			rotDir = idAngles(0.0f, 270.0f, 0.0f).ToMat3();
+		}
+		else if( common->ButtonState(UB_BACK) )
+		{
+			rotDir = idAngles(0.0f, 180.0f, 0.0f).ToMat3();
 		}
 		kickDir = rotDir * kickDir;
 
