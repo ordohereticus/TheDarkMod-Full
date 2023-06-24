@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3408 $
- * $Date: 2009-04-19 12:37:09 -0400 (Sun, 19 Apr 2009) $
+ * $Revision: 3409 $
+ * $Date: 2009-04-20 10:13:54 -0400 (Mon, 20 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3408 2009-04-19 16:37:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3409 2009-04-20 14:13:54Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -314,6 +314,9 @@ idCVar cv_lg_velocity_mod_max_velocity("tdm_lg_velocity_mod_max_velocity", "300"
 idCVar cv_lg_velocity_mod_amount("tdm_lg_velocity_mod_amount", "1", CVAR_GAME | CVAR_FLOAT, "The maximum light level increase factor due to player velocity (this will be multiplied when the player velocity is >= tdm_lg_player_velocity_mod_max).");
 
 idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo", CVAR_GAME | CVAR_ARCHIVE, "The empty model referenced by the 'waitForRender' script event.");
+
+// Proxy CVARs
+idCVar cv_tdm_s_doorDistanceAdd("tdm_s_doorDistanceAdd", "450", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite s_doorDistanceAdd at game startup.");
 
 /**
  * Variables needed for lockpicking.
