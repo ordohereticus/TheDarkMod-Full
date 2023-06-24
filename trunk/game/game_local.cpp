@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3747 $
+ * $Date: 2009-11-05 23:19:04 -0500 (Thu, 05 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3747 2009-11-06 04:19:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2067,6 +2067,7 @@ void idGameLocal::MapShutdown( void ) {
 		m_RelationsManager->Clear();
 	}
 	m_ConversationSystem->Clear();
+	m_DifficultyManager.Clear();
 
 	// greebo: Don't clear the shop - MapShutdown() is called right before loading a map
 	// m_Shop->Clear();

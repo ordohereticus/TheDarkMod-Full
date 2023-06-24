@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3425 $
- * $Date: 2009-05-06 11:58:31 -0400 (Wed, 06 May 2009) $
+ * $Revision: 3747 $
+ * $Date: 2009-11-05 23:19:04 -0500 (Thu, 05 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -97,6 +97,8 @@ void DifficultyManager::Save(idSaveGame* savefile)
 
 void DifficultyManager::Restore(idRestoreGame* savefile)
 {
+	Clear(); // clear stuff before loading
+
 	savefile->ReadInt(_difficulty);
 	for (int i = 0; i < DIFFICULTY_COUNT; i++)
 	{
