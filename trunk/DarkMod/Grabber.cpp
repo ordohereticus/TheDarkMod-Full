@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3727 $
- * $Date: 2009-10-27 11:00:47 -0400 (Tue, 27 Oct 2009) $
+ * $Revision: 3738 $
+ * $Date: 2009-11-03 03:00:38 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3727 2009-10-27 15:00:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3738 2009-11-03 08:00:38Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -537,13 +537,13 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	// If an entity was not explictly passed in, use the frob entity
     if ( !newEnt ) 
 	{
-		FrobEnt = g_Global.m_DarkModPlayer->m_FrobEntity.GetEntity();
+		FrobEnt = player->m_FrobEntity.GetEntity();
 		if( !FrobEnt )
 			return;
 
 		newEnt = FrobEnt;
 
-		trace = g_Global.m_DarkModPlayer->m_FrobTrace;
+		trace = player->m_FrobTrace;
 		
 		// If the ent was not hit directly and is an AF, we must fill in the joint and body ID
 		if( trace.c.entityNum != FrobEnt->entityNumber && FrobEnt->IsType(idAFEntity_Base::Type) )

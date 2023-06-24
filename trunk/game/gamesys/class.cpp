@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2980 $
- * $Date: 2008-10-26 07:41:35 -0400 (Sun, 26 Oct 2008) $
- * $Author: tels $
+ * $Revision: 3738 $
+ * $Date: 2009-11-03 03:00:38 -0500 (Tue, 03 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ instancing of objects.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: class.cpp 2980 2008-10-26 11:41:35Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: class.cpp 3738 2009-11-03 08:00:38Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/PlayerData.h"
@@ -1035,14 +1035,22 @@ void idClass::Event_Remove( void )
 {
 	// If we are removing a currently frobbed entity,
 	// set the frob pointers to NULL to avoid stale pointers
-	CDarkModPlayer *pDM = g_Global.m_DarkModPlayer;
+	idPlayer* player = gameLocal.GetLocalPlayer();
+	
+	if (player != NULL)
+	{
+		if (player->m_FrobEntity.GetEntity() == this)
+		{
+			player->m_FrobEntity = NULL;
+		}
 
-	if( pDM && pDM->m_FrobEntity.GetEntity() == this )
-		pDM->m_FrobEntity = NULL;
-	if( pDM && pDM->m_FrobEntityPrevious.GetEntity() == this )
-		pDM->m_FrobEntityPrevious = NULL;
-
-	CGrabber *grabber = gameLocal.m_Grabber;
+		if (player->m_FrobEntityPrevious.GetEntity() == this)
+		{
+			player->m_FrobEntityPrevious = NULL;
+		}
+	}
+	
+	CGrabber* grabber = gameLocal.m_Grabber;
 	if (grabber)
 	{
 		// tels: If we remove a currently grabbed entity,

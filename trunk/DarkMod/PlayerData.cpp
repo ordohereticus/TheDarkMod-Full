@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2810 $
- * $Date: 2008-09-10 00:43:44 -0400 (Wed, 10 Sep 2008) $
+ * $Revision: 3738 $
+ * $Date: 2009-11-03 03:00:38 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,31 +10,18 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PlayerData.cpp 2810 2008-09-10 04:43:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PlayerData.cpp 3738 2009-11-03 08:00:38Z greebo $", init_version);
 
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/PlayerData.h"
 
 CDarkModPlayer::CDarkModPlayer()
 {
-	m_FrobEntity = NULL;
-	m_FrobJoint = INVALID_JOINT;
-	m_FrobID = 0;
-	m_FrobEntityPrevious = NULL;
 	m_LightgemValue = 0;
-
-	// greebo: Initialise the frob trace contact material to avoid 
-	// crashing during map save when nothing has been frobbed yet
-	memset(&m_FrobTrace, 0, sizeof(trace_t));
 }
 
 void CDarkModPlayer::Save( idSaveGame *savefile ) const
 {
-	m_FrobEntity.Save(savefile);
-	savefile->WriteJoint(m_FrobJoint);
-	savefile->WriteInt(m_FrobID);
-	savefile->WriteTrace(m_FrobTrace);
-	m_FrobEntityPrevious.Save(savefile);
 	savefile->WriteInt(m_LightgemValue);
 	savefile->WriteFloat(m_fColVal);
 
@@ -47,11 +34,6 @@ void CDarkModPlayer::Save( idSaveGame *savefile ) const
 
 void CDarkModPlayer::Restore( idRestoreGame *savefile )
 {
-	m_FrobEntity.Restore(savefile);
-	savefile->ReadJoint(m_FrobJoint);
-	savefile->ReadInt(m_FrobID);
-	savefile->ReadTrace(m_FrobTrace);
-	m_FrobEntityPrevious.Restore(savefile);
 	savefile->ReadInt(m_LightgemValue);
 	savefile->ReadFloat(m_fColVal);
 	
