@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3818 $
- * $Date: 2010-01-24 23:03:19 -0500 (Sun, 24 Jan 2010) $
+ * $Revision: 3824 $
+ * $Date: 2010-01-30 22:15:28 -0500 (Sat, 30 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3818 2010-01-25 04:03:19Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3824 2010-01-31 03:15:28Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3098,8 +3098,14 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 			}
 		}
 	}
+	// Ishtvan: Try commenting this out, it doesn't make sense to ignore nonzero "push" in the DmgDef just
+	// because the attack happens to hit armor and do no damage...
+	// Cleary Id was trying to fix something here, but I'm not sure what
+/*
 	else 
 	{
+		// Ishtvan: THIS IS WHAT'S CAUSING PLATE ARMOR HITS NOT TO MOVE AI... WHY DID ID DO THIS?
+
 		// don't accumulate knockback
 		if ( af.IsLoaded() ) 
 		{
@@ -3110,6 +3116,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 			BecomeActive( TH_PHYSICS );
 		}
 	}
+*/
 }
 
 /*

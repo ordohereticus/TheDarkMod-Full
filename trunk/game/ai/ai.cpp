@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3823 $
- * $Date: 2010-01-30 18:20:09 -0500 (Sat, 30 Jan 2010) $
+ * $Revision: 3824 $
+ * $Date: 2010-01-30 22:15:28 -0500 (Sat, 30 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3823 2010-01-30 23:20:09Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3824 2010-01-31 03:15:28Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9147,6 +9147,9 @@ idAI::TestKnockoutBlow
 bool idAI::TestKnockoutBlow( idEntity* attacker, const idVec3& dir, trace_t *tr, int location, bool bIsPowerBlow )
 {
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Attempted KO of AI %s\r", name.c_str());
+
+	if( AI_DEAD )
+		return false; // already dead
 
 	if( AI_KNOCKEDOUT )
 	{
