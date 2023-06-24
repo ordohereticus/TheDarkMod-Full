@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3045 $
- * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3243 $
+ * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -119,6 +119,8 @@ public:
 
 	virtual void				SetAreaTravelFlag( int index, int flag );
 
+	// angua: this returns the cluster number of this area
+	virtual int					GetClusterNum(int areaNum);
 
 	/*!
 	* See base class for interface definition

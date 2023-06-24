@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3080 $
- * $Date: 2008-12-08 09:04:07 -0500 (Mon, 08 Dec 2008) $
+ * $Revision: 3243 $
+ * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -127,6 +127,9 @@ protected:
 	 * the entities are loaded, should be done here.
 	 */
 	virtual void			PostSpawn();
+
+	// angua: flag the AAS area the door is located in with the travel flag TFL_DOOR
+	virtual void			SetDoorTravelFlag();
 
 	/**
 	 * Find out if this door is touching another door, and if they share the same portal

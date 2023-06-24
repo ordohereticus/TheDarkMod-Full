@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3242 $
- * $Date: 2009-03-14 02:58:52 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3243 $
+ * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3242 2009-03-14 06:58:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3243 2009-03-14 18:19:09Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -209,6 +209,8 @@ void CFrobDoor::Restore( idRestoreGame *savefile )
 	}
 
 	m_Bar.Restore(savefile);
+
+	SetDoorTravelFlag();
 }
 
 void CFrobDoor::Spawn( void )
@@ -390,6 +392,11 @@ void CFrobDoor::PostSpawn()
 		AutoSetupDoubleDoor();
 	}
 
+	SetDoorTravelFlag();
+}
+
+void CFrobDoor::SetDoorTravelFlag()
+{
 	// Flag the AAS areas the door is located in with door travel flag
 	for (int i = 0; i < gameLocal.NumAAS(); i++)
 	{
@@ -402,8 +409,8 @@ void CFrobDoor::PostSpawn()
 		int areaNum = GetAASArea(aas);
 		aas->SetAreaTravelFlag(areaNum, TFL_DOOR);
 	}
-
 }
+
 
 bool CFrobDoor::IsPickable()
 {

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2311 $
- * $Date: 2008-05-12 14:00:44 -0400 (Mon, 12 May 2008) $
- * $Author: greebo $
+ * $Revision: 3243 $
+ * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 2311 2008-05-12 18:00:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas.cpp 3243 2009-03-14 18:19:09Z angua $", init_version);
 
 #include "aas_local.h"
 
@@ -420,6 +420,11 @@ void idAASLocal::SetAreaTravelFlag( int index, int flag )
 	{
 		file->SetAreaTravelFlag(index, flag);
 	}
+}
+
+int idAASLocal::GetClusterNum(int areaNum)
+{
+	return file->GetArea( areaNum ).cluster;
 }
 
 void idAASLocal::Save(idSaveGame* savefile) const
