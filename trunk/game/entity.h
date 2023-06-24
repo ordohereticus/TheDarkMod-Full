@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3777 $
- * $Date: 2009-12-29 06:49:07 -0500 (Tue, 29 Dec 2009) $
- * $Author: tels $
+ * $Revision: 3790 $
+ * $Date: 2010-01-09 01:00:25 -0500 (Sat, 09 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -100,6 +100,8 @@ extern const idEventDef EV_StopSound;
 extern const idEventDef EV_CacheSoundShader;
 extern const idEventDef EV_ExtinguishLights;
 extern const idEventDef EV_TeleportTo;
+extern const idEventDef EV_IsDroppable;
+extern const idEventDef EV_SetDroppable;
 
 extern const idEventDef EV_IsType;
 
@@ -1441,6 +1443,11 @@ public:			// Events should be public, so they can be used from other places as w
 	* Tels: Teleport the entity to the given entity's origin and orientation.
 	*/
 	void					Event_TeleportTo(idEntity *target);
+	/**
+	* Get/set droppable on this entity and its inventory item if it's already in the inventory
+	**/
+	void					Event_IsDroppable();
+	void					Event_SetDroppable( bool Droppable );
 	/**
 	* Tels: Return the sum of all lights in the entities PVS.
 	*/
