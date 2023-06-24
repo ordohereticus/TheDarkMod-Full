@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3589 $
- * $Date: 2009-07-26 11:43:20 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3603 $
+ * $Date: 2009-07-28 00:21:26 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3589 2009-07-26 15:43:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3603 2009-07-28 04:21:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3803,8 +3803,11 @@ bool idPlayer::IsPushing()
 
 void idPlayer::OnStartShoulderingBody(idEntity* body)
 {
+	// Check if the other body is at least 30 kg heavier than us
+	bool isHeavy = body->GetPhysics()->GetMass() > GetPhysics()->GetMass() + 30;
+
 	// play the sound on the player, not the body (that was creating inconsistent volume)
-	StartSound( "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
+	StartSound( isHeavy ? "snd_shoulder_body_heavy" : "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
 
 	// set immobilizations
 	int immob = SHOULDER_IMMOBILIZATIONS;
