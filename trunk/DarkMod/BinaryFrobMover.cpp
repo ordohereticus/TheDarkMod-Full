@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3268 $
- * $Date: 2009-03-18 08:27:16 -0400 (Wed, 18 Mar 2009) $
+ * $Revision: 3274 $
+ * $Date: 2009-03-19 07:19:42 -0400 (Thu, 19 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3268 2009-03-18 12:27:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3274 2009-03-19 11:19:42Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -990,4 +990,22 @@ idVec3 CBinaryFrobMover::GetCurrentPos()
 		+ m_OpenDir * length * idMath::Sin(alpha* idMath::PI / 180);
 
 	return currentPos;
+}
+
+void CBinaryFrobMover::SetFractionalPosition(float fraction)
+{
+	idQuat newRotation;
+	newRotation.Slerp(m_ClosedAngles.ToQuat(), m_OpenAngles.ToQuat(), fraction);
+
+	const idAngles& curAngles = physicsObj.GetLocalAngles();
+	idAngles newAngles = newRotation.ToAngles().Normalize360();
+
+	if (!(curAngles - newAngles).Normalize180().Compare(idAngles(0,0,0), 0.01f))
+	{
+		Event_RotateTo(newAngles);
+	}
+
+	MoveToLocalPos(m_ClosedOrigin + (m_OpenOrigin - m_ClosedOrigin)*fraction);
+
+	UpdateVisuals();
 }

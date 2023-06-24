@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3272 $
- * $Date: 2009-03-19 03:15:39 -0400 (Thu, 19 Mar 2009) $
+ * $Revision: 3274 $
+ * $Date: 2009-03-19 07:19:42 -0400 (Thu, 19 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -340,13 +340,6 @@ protected:
 	 * Handles that are associated with this door.
 	 */
 	idList< idEntityPtr<CFrobDoorHandle> >	m_Doorhandles;
-
-	/**
-	 * Bar is the movable part of a lock that should jiggle, while
-	 * the lock is being picked. The default is to use the doorhandle
-	 * but if lockpick_bar is set on the door, then this is used instead.
-	 */
-	idEntityPtr<idEntity>		m_Bar;
 };
 
 #endif /* FROBDOOR_H */

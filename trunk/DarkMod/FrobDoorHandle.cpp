@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3269 $
- * $Date: 2009-03-18 08:29:24 -0400 (Wed, 18 Mar 2009) $
+ * $Revision: 3274 $
+ * $Date: 2009-03-19 07:19:42 -0400 (Thu, 19 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 3269 2009-03-18 12:29:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 3274 2009-03-19 11:19:42Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -140,24 +140,6 @@ bool CFrobDoorHandle::IsMaster()
 void CFrobDoorHandle::SetMaster(bool isMaster)
 {
 	m_Master = isMaster;
-}
-
-void CFrobDoorHandle::UpdatePosition(float fraction)
-{
-	idQuat newRotation;
-	newRotation.Slerp(m_ClosedAngles.ToQuat(), m_OpenAngles.ToQuat(), fraction);
-
-	const idAngles& curAngles = physicsObj.GetLocalAngles();
-	idAngles newAngles = newRotation.ToAngles().Normalize360();
-
-	if (!(curAngles - newAngles).Normalize180().Compare(idAngles(0,0,0), 0.01f))
-	{
-		Event_RotateTo(newAngles);
-	}
-
-	MoveToLocalPos(m_ClosedOrigin + (m_OpenOrigin - m_ClosedOrigin)*fraction);
-
-	UpdateVisuals();
 }
 
 void CFrobDoorHandle::OnOpenPositionReached()

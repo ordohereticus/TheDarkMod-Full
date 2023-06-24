@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3084 $
- * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3274 $
+ * $Date: 2009-03-19 07:19:42 -0400 (Thu, 19 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -151,6 +151,15 @@ public:
 	}
 
 	idVec3 GetCurrentPos();
+
+	/** 
+	 * greebo: Sets the position of this frobmover based on 
+	 * the given float, which should be in the range [0..1].
+	 *
+	 * @fraction: [0..1] where 0 refers to the original position and 
+	 *            a value of 1 refers to the fully rotated handle.
+	 */
+	void SetFractionalPosition(float fraction);
 
 	/**
 	* This is used to get the remaining translation left on the clip model
