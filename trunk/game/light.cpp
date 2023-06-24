@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3633 $
- * $Date: 2009-08-02 12:01:32 -0400 (Sun, 02 Aug 2009) $
- * $Author: tels $
+ * $Revision: 3640 $
+ * $Date: 2009-08-03 22:50:05 -0400 (Mon, 03 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3633 2009-08-02 16:01:32Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3640 2009-08-04 02:50:05Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -284,12 +284,7 @@ void idLight::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat(m_MaxLightRadius);
 	savefile->WriteInt(LASAreaIndex);
 
-	bool hasMaterial = (m_LightMaterial != NULL);
-	savefile->WriteBool(hasMaterial);
-	if (hasMaterial)
-	{
-		m_LightMaterial->Save(savefile);
-	}
+	// Don't save m_LightMaterial
 }
 
 /*
@@ -338,19 +333,15 @@ void idLight::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat(m_MaxLightRadius);
 	savefile->ReadInt(LASAreaIndex);
 
-	bool hasMaterial;
-	savefile->ReadBool(hasMaterial);
-	if (hasMaterial)
-	{
-		m_LightMaterial->Restore(savefile);
-	}
-
 	lightDefHandle = -1;
 
 	SetLightLevel();
 
 	m_MaterialName = NULL;
 	spawnArgs.GetString( "texture", "lights/squarelight1", &m_MaterialName);
+
+	// Re-acquire light material, now that the material name is known
+	m_LightMaterial = g_Global.GetMaterial(m_MaterialName);
 }
 
 /*
