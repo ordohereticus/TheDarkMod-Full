@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3059 $
- * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
+ * $Revision: 3310 $
+ * $Date: 2009-03-26 08:06:10 -0400 (Thu, 26 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeTask.cpp 3059 2008-11-22 13:30:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeTask.cpp 3310 2009-03-26 12:06:10Z angua $", init_version);
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -54,6 +54,12 @@ bool FleeTask::Perform(Subsystem& subsystem)
 	idActor* enemy = _enemy.GetEntity();
 	assert(enemy != NULL);
 
+	// angua: bad luck, my friend, yuo've been too slow...
+	// no more fleeing necessary when dead or ko'ed
+	if (owner->AI_DEAD || owner->AI_KNOCKEDOUT)
+	{
+		return true;
+	}
 
 //	gameRenderWorld->DrawText( va("%d  %d",_escapeSearchLevel, _distOpt), owner->GetPhysics()->GetAbsBounds().GetCenter(), 
 //		1.0f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
