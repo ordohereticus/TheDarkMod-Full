@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2275 $
- * $Date: 2008-05-09 11:57:56 -0400 (Fri, 09 May 2008) $
+ * $Revision: 3435 $
+ * $Date: 2009-05-08 13:27:20 -0400 (Fri, 08 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_import.cpp 2275 2008-05-09 15:57:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_import.cpp 3435 2009-05-08 17:27:20Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../MayaImport/maya_main.h"
@@ -114,6 +114,21 @@ bool idModelExport::CheckMayaInstall( void ) {
 #endif
 }
 
+#ifdef WIN32
+
+#define FORMAT_BUFSIZE 2048
+
+// Helper method to retrieve the error when DLL load failed.
+const char* FormatGetLastError() {
+	static char buf[FORMAT_BUFSIZE];
+	FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM |FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+			buf, 
+			FORMAT_BUFSIZE, NULL);
+	return buf;
+}
+#endif
+
 /*
 =====================
 idModelExport::LoadMayaDll
@@ -130,7 +145,19 @@ void idModelExport::LoadMayaDll( void ) {
 		return;
 	}
 	importDLL = sys->DLL_Load( dllPath );
+
 	if ( !importDLL ) {
+#ifdef WIN32
+		// greebo: Do another attempt in Win32 to get a better error message
+		idStr win32DllPath(dllPath);
+		win32DllPath.Replace("/", "\\");
+
+		HMODULE dll = LoadLibrary(win32DllPath);
+
+		if (dll == 0) {
+			gameLocal.Warning("Could not load MayaImport DLL: %s ", FormatGetLastError());
+		}
+#endif
 		return;
 	}
 
@@ -188,6 +215,7 @@ bool idModelExport::ConvertMayaToMD5( void ) {
 	// get the source file's time
 	if ( fileSystem->ReadFile( src, NULL, &sourceTime ) < 0 ) {
 		// source file doesn't exist
+		gameLocal.Warning("Source file doesn't exist: %s", src.c_str());
 		return true;
 	}
 
