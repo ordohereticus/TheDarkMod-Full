@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3689 $
- * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
+ * $Revision: 3690 $
+ * $Date: 2009-09-03 08:48:09 -0400 (Thu, 03 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3689 2009-09-03 12:40:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3690 2009-09-03 12:48:09Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -59,7 +59,7 @@ void PathCornerTask::Init(idAI* owner, Subsystem& subsystem)
 	idPathCorner* nextPath = owner->GetMemory().nextPath.GetEntity();
 
 	// Allow path prediction only if the next path is an actual path corner and no accuracy is set on this one
-	if (_accuracy == -1 && nextPath != NULL && nextPath->spawnArgs.GetString("classname") == "path_corner")
+	if (_accuracy == -1 && nextPath != NULL && idStr::Icmp(nextPath->spawnArgs.GetString("classname"), "path_corner") == 0)
 	{
 		_usePathPrediction = true;
 	}
