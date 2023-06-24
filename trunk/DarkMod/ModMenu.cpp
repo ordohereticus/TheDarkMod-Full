@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3732 $
- * $Date: 2009-10-29 04:15:31 -0400 (Thu, 29 Oct 2009) $
+ * $Revision: 3757 $
+ * $Date: 2009-11-09 02:14:40 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3732 2009-10-29 08:15:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3757 2009-11-09 07:14:40Z greebo $", init_version);
 
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
@@ -967,6 +967,14 @@ void CModMenu::RestartGame()
 
 	idStr engineArgument(enginePath.string().c_str());
 
+	// greebo: Optional delay between restarts to fix sound system release issues in some Linux systems
+	idStr additionalDelay = "";
+	if (cv_tdm_fm_restart_delay.GetInteger() > 0)
+	{
+		additionalDelay = " --delay=";
+		additionalDelay += cv_tdm_fm_restart_delay.GetString();
+	}
+
 #ifdef _WINDOWS
 	// Create a tdmlauncher process, setting the working directory to the doom directory
 	STARTUPINFO siStartupInfo;
@@ -977,7 +985,7 @@ void CModMenu::RestartGame()
 
 	siStartupInfo.cb = sizeof(siStartupInfo);
 
-	CreateProcess(NULL, (LPSTR) (commandLine + " " + engineArgument).c_str(), NULL, NULL,  false, 0, NULL,
+	CreateProcess(NULL, (LPSTR) (commandLine + " " + engineArgument + additionalDelay).c_str(), NULL, NULL,  false, 0, NULL,
 		parentPath.file_string().c_str(), &siStartupInfo, &piProcessInfo);
 #else
 	// start tdmlauncher

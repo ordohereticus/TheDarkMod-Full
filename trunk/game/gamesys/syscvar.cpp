@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3751 $
- * $Date: 2009-11-08 00:08:31 -0500 (Sun, 08 Nov 2009) $
+ * $Revision: 3757 $
+ * $Date: 2009-11-09 02:14:40 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3751 2009-11-08 05:08:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3757 2009-11-09 07:14:40Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -123,6 +123,7 @@ idCVar cv_tdm_fm_current_file( "tdm_fm_current_file", "currentfm.txt", CVAR_GUI,
 idCVar cv_tdm_fm_startingmap_file( "tdm_fm_startingmap_file", "startingmap.txt", CVAR_GUI, "(internal) The file where the name of the starting map of an FM is stored.");
 idCVar cv_tdm_fm_splashimage_file( "tdm_fm_splashimage_file", "install_splash.tga", CVAR_GUI, "(internal) The file to be used as splash screen for the installation GUI.");
 idCVar cv_tdm_fm_sync_config_files("tdm_fm_sync_config_files", "1", CVAR_BOOL | CVAR_ARCHIVE, "If true (1) the FM loader will sync DoomConfig.cfg files from the darkmod folder to the FM directory and back.");
+idCVar cv_tdm_fm_restart_delay("tdm_fm_restart_delay",	"0", CVAR_ARCHIVE | CVAR_INTEGER, "If non-zero, this is the timespan in milliseconds to wait between D3 restarts (to let the previous D3 process fully release all resources)." );
 
 idCVar cv_debug_aastype(			"tdm_debug_aastype",		"aas32",		CVAR_GAME | CVAR_ARCHIVE, "Sets the AAS type used for visualisation with impulse 27");
 
