@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3535 $
- * $Date: 2009-07-14 11:26:17 -0400 (Tue, 14 Jul 2009) $
+ * $Revision: 3536 $
+ * $Date: 2009-07-14 11:31:12 -0400 (Tue, 14 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 3535 2009-07-14 15:26:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 3536 2009-07-14 15:31:12Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -149,7 +149,16 @@ void CProjectileResult::Init
 		}
 		else
 		{
-			StimType stimType = CStimResponse::getStimType(spawnArgs.GetString(key));
+			StimType stimType = ST_DEFAULT;
+
+			if (value.IsNumeric())
+			{
+				stimType = static_cast<StimType>(spawnArgs.GetInt(key));
+			}
+			else
+			{
+				stimType = CStimResponse::getStimType(spawnArgs.GetString(key));
+			}
 
 			// The stim type of the projectile result is defined on the projectile itself
 			// even though it is not used there. Logically, the stim type is a part of the
