@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3884 $
- * $Date: 2010-04-24 07:53:33 -0400 (Sat, 24 Apr 2010) $
+ * $Revision: 3895 $
+ * $Date: 2010-05-08 21:30:09 -0400 (Sat, 08 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3884 2010-04-24 11:53:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3895 2010-05-09 01:30:09Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5628,6 +5628,13 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 	StartSound( deathSound.c_str(), SND_CHANNEL_VOICE, 0, false, NULL );
 
+	// Go to ragdoll mode immediately, if we don't have a death anim
+	// If death anims are enabled, we need to wait with going to ragdoll until PostKilled()
+	if (!spawnArgs.GetBool("enable_death_anim", "0"))
+	{
+		StartRagdoll();
+	}
+
 	// swaps the head CM back if a different one was swapped in while conscious
 	SwapHeadAFCM( false );
 
@@ -5763,8 +5770,12 @@ idAI::PostDeath
 */
 void idAI::PostDeath()
 {
-	// Start going to ragdoll here, instead of in Killed() to enable death anims
-	StartRagdoll();
+	// For death anims, we need to wait with going to ragdoll until here
+	if (spawnArgs.GetBool("enable_death_anim", "0"))
+	{
+		// Start going to ragdoll here, instead of in Killed() to enable death anims
+		StartRagdoll();
+	}
 
 	headAnim.StopAnim(1);
 	legsAnim.StopAnim(1);
