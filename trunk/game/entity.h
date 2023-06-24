@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3478 $
- * $Date: 2009-05-29 10:54:56 -0400 (Fri, 29 May 2009) $
+ * $Revision: 3481 $
+ * $Date: 2009-05-31 08:12:57 -0400 (Sun, 31 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -643,9 +643,12 @@ public:
 	 *    it is unconscious or dead it is picked up and the player can carry it around.
 	 * If it is a movable item the item is picked up and the player can carry it around.
 	 * Switches are flipped and/or de-/activated and appropriate scripts are triggered.
-	 * bMaster indicates whether the entity should call its master or not.
+	 *
+	 * @frobMaster indicates whether the entity is allowed to call its master or not.
+	 *
+	 * @isFrobPeerAction: this is TRUE if this frob action was propagated from a peer.
 	 */
-	virtual void FrobAction(bool bMaster, bool bPeer = false);
+	virtual void FrobAction(bool frobMaster, bool isFrobPeerAction = false);
 
 	/**
 	 * greebo: A frobbed entity might receive this signal if the player is hitting
@@ -1191,12 +1194,8 @@ protected:
 	 */
 	idStr						m_MasterFrob;
 
-	/**
-	 * Froblist is the list of entities that should be notified when this entity
-	 * is frobbed. Each entity in this list is called as if it were the one being
-	 * frobbed.
-	 */
-	idList<idStr>				m_FrobList;
+	// Is set to TRUE once the frob action function is entered on this entity. Prevents stack overflows.
+	bool						m_FrobActionLock;
 
 	CStimResponseCollection		*m_StimResponseColl;
 
