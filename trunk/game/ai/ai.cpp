@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3824 $
- * $Date: 2010-01-30 22:15:28 -0500 (Sat, 30 Jan 2010) $
+ * $Revision: 3825 $
+ * $Date: 2010-01-31 00:48:01 -0500 (Sun, 31 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3824 2010-01-31 03:15:28Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3825 2010-01-31 05:48:01Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -10540,10 +10540,11 @@ void idAI::CopyHeadKOInfo( void )
 		return;
 
 	// Change this if the list below changes:
-	const int numArgs = 9;
+	const int numArgs = 13;
 	const char *copyArgs[ numArgs ] = { "ko_immune", "ko_spot_offset", "ko_zone", 
 		"ko_alert_state", "ko_alert_immune",  "ko_angle_vert", "ko_angle_horiz",
-		"ko_angle_alert_vert", "ko_angle_alert_horiz"};
+		"ko_angle_alert_vert", "ko_angle_alert_horiz", "ko_rotation", "fov",
+		"fov_vert", "fov_rotation"};
 
 	const idKeyValue *tempkv;
 	const char *argName;
@@ -10562,12 +10563,10 @@ void idAI::ParseKnockoutInfo()
 {
 	m_bCanBeKnockedOut = !( spawnArgs.GetBool("ko_immune", "0") );
 	m_HeadCenterOffset = spawnArgs.GetVector("ko_spot_offset");
-	idAngles tempAngles = spawnArgs.GetAngles("fov_rotation");
-	m_FOVRot = tempAngles.ToMat3();
 	m_KoZone = spawnArgs.GetString("ko_zone");
 	m_KoAlertState = spawnArgs.GetInt("ko_alert_state");
 	m_bKoAlertImmune = spawnArgs.GetBool("ko_alert_immune");
-	tempAngles = spawnArgs.GetAngles("ko_rotation");
+	idAngles tempAngles = spawnArgs.GetAngles("ko_rotation");
 	m_KoRot = tempAngles.ToMat3();
 	
 	float tempAng;
@@ -10594,4 +10593,14 @@ void idAI::ParseKnockoutInfo()
 	}
 	else
 		m_KoAlertDotHoriz = m_KoDotHoriz;
+
+	// ishtvan: Also set the FOV again, as this may be copied from the head
+	// TODO: This was done once already in idActor, do we still need it there or can we remove FOV from idActor?
+	float fovDegHoriz, fovDegVert;	
+	spawnArgs.GetFloat( "fov", "150", fovDegHoriz );
+	// If fov_vert is -1, it will be set the same as horizontal
+	spawnArgs.GetFloat( "fov_vert", "-1", fovDegVert );
+	SetFOV( fovDegHoriz, fovDegVert );
+	tempAngles = spawnArgs.GetAngles("fov_rotation");
+	m_FOVRot = tempAngles.ToMat3();
 }
