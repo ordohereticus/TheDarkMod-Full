@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3636 $
- * $Date: 2009-08-03 01:17:19 -0400 (Mon, 03 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3637 $
+ * $Date: 2009-08-03 07:27:53 -0400 (Mon, 03 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3636 2009-08-03 05:17:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3637 2009-08-03 11:27:53Z angua $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -65,7 +65,7 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 		// Calculate the new bounds
 		_historyBounds.FromPoints(_originHistory.Ptr(), _originHistory.Num());
 
-		bool belowThreshold = _historyBounds.GetRadius() < _historyBoundsThreshold;
+		bool belowThreshold = _historyBounds.GetRadius(_historyBounds.GetCenter()) < _historyBoundsThreshold;
 
 		switch (_state)
 		{
