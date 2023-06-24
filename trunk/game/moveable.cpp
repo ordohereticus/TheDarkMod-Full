@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3405 $
- * $Date: 2009-04-13 02:39:09 -0400 (Mon, 13 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3424 $
+ * $Date: 2009-05-06 01:34:12 -0400 (Wed, 06 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 3405 2009-04-13 06:39:09Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3424 2009-05-06 05:34:12Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -387,6 +387,7 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 			{
 				gameRenderWorld->DrawText( va("Velocity: %f", v), (physicsObj.GetOrigin() + idVec3(0, 0, 20)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
 				gameRenderWorld->DrawText( va("Volume: %f", volume), (physicsObj.GetOrigin() + idVec3(0, 0, 10)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
+				gameRenderWorld->DebugArrow( colorMagenta, collision.c.point, (collision.c.point + 30 * collision.c.normal), 4.0f, 1);
 			}
 
 			SetSoundVolume(volume);

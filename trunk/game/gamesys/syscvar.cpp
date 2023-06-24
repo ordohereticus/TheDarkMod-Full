@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3413 $
- * $Date: 2009-04-26 23:34:44 -0400 (Sun, 26 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3424 $
+ * $Date: 2009-05-06 01:34:12 -0400 (Wed, 06 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3413 2009-04-27 03:34:44Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3424 2009-05-06 05:34:12Z ishtvan $", init_version);
 
 #include "../game_local.h"
 
@@ -218,6 +218,7 @@ idCVar cv_drag_encumber_minmass(		"tdm_drag_encumber_minmass", "10", CVAR_GAME |
 idCVar cv_drag_encumber_maxmass(		"tdm_drag_encumber_maxmass", "55", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Carried mass at which movement speed clamps to the lowest value." );
 idCVar cv_drag_encumber_max(			"tdm_drag_encumber_max", "0.4", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Maximum encumbrance when carrying heavy things (expressed as a fraction of maximum unencumbered movement speed)." );
 idCVar cv_dragged_item_highlight(		"tdm_dragged_item_highlight", "1", CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set this to 1 (=TRUE) if the grabbed item should always be highlighted." );
+idCVar cv_drag_debug(					"tdm_drag_debug", "0", CVAR_GAME | CVAR_BOOL, "Shows debug arrows for desired velocity and contact plane normals when moving objects with the grabber." );
 
 idCVar cv_melee_debug(					"tdm_melee_debug", "0", CVAR_GAME | CVAR_BOOL, "Enable to show debug melee combat graphics." );
 idCVar cv_melee_state_debug(			"tdm_melee_debug_state", "0", CVAR_GAME | CVAR_BOOL, "Enable to display debug text representing AI melee status." );
