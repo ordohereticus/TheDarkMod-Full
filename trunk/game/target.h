@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3577 $
- * $Date: 2009-07-24 13:43:53 -0400 (Fri, 24 Jul 2009) $
- * $Author: tels $
+ * $Revision: 3906 $
+ * $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -380,22 +380,6 @@ private:
 	void				Event_Activate( idEntity *activator );
 };
 
-
-/*
-===============================================================================
-
-idTarget_SetPrimaryObjective
-
-===============================================================================
-*/
-
-class idTarget_SetPrimaryObjective : public idTarget {
-public:
-	CLASS_PROTOTYPE( idTarget_SetPrimaryObjective );
-
-private:
-	void				Event_Activate( idEntity *activator );
-};
 
 /*
 ===============================================================================

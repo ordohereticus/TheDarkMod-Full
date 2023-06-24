@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3834 $
- * $Date: 2010-02-02 02:27:15 -0500 (Tue, 02 Feb 2010) $
- * $Author: ishtvan $
+ * $Revision: 3906 $
+ * $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -401,9 +401,6 @@ public:
 	// greebo: This is true if the inventory HUD needs a refresh
 	bool					inventoryHUDNeedsUpdate;
 
-	idUserInterface *		objectiveSystem;	 // not used by TDM (only for PDA)
-	bool					objectiveSystemOpen; // not used by TDM (only for PDA)
-
 	// greebo: A list of HUD messages which are displayed one after the other
 	idList<idStr>			hudMessages;
 	idList<idStr>			inventoryPickedUpMessages;
@@ -759,8 +756,6 @@ public:
 	void					ShowTip( const char *title, const char *tip, bool autoHide );
 	void					HideTip( void );
 	bool					IsTipVisible( void ) { return tipUp; };
-	void					ShowObjective( const char *obj );
-	void					HideObjective( void );
 
 	virtual void			ClientPredictionThink( void );
 	virtual void			WriteToSnapshot( idBitMsgDelta &msg ) const;
@@ -1158,7 +1153,6 @@ private:
 	idStr					pdaVideoWave;
 
 	bool					tipUp;
-	bool					objectiveUp;
 
 	int						lastDamageDef;
 	idVec3					lastDamageDir;
@@ -1323,13 +1317,13 @@ private:
 	 */
 	void					Event_ReadLightgemModifierFromWorldspawn();
 
-/**
-* NOTE: The following objective functions all take the "user" objective indices
-* That is, the indices start at 1 instead of 0
-*
-* If the objective/component for that index was not found
-* The getters return -1 for completion state and FALSE for component state
-**/
+	/**
+	* NOTE: The following objective functions all take the "user" objective indices
+	* That is, the indices start at 1 instead of 0
+	*
+	* If the objective/component for that index was not found
+	* The getters return -1 for completion state and FALSE for component state
+	**/
 	void					Event_SetObjectiveState( int ObjIndex, int State );
 	void					Event_GetObjectiveState( int ObjIndex );
 	void					Event_SetObjectiveComp( int ObjIndex, int CompIndex, int bState );

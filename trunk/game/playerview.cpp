@@ -1,9 +1,9 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 3897 $
-* $Date: 2010-05-09 14:56:05 -0400 (Sun, 09 May 2010) $
-* $Author: jcdenton $
+* $Revision: 3906 $
+* $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+* $Author: greebo $
 *
 ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 3897 2010-05-09 18:56:05Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 3906 2010-05-27 04:08:11Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -460,12 +460,6 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 	// TODO: Support overriding the location area so that reverb settings can be applied for listening thru doors?
 	gameSoundWorld->PlaceListener( player->GetListenerLoc(), view->viewaxis, player->entityNumber + 1, gameLocal.time, hud ? hud->State().GetString( "location" ) : "Undefined" );
 
-	// if the objective system is up, don't do normal drawing
-	if ( player->objectiveSystemOpen ) {
-		player->objectiveSystem->Redraw( gameLocal.time );
-		return;
-	}
-
 	// hack the shake in at the very last moment, so it can't cause any consistency problems
 	renderView_t	hackedView = *view;
 	hackedView.viewaxis = hackedView.viewaxis * ShakeAxis();
@@ -825,8 +819,7 @@ void idPlayerView::RenderPlayerView( idUserInterface *hud )
 
 		// HDR related - J.C.Denton
 		/* Update HDR post-process */
-		if ( !player->objectiveSystemOpen )
-			this->m_postProcessManager.Update();
+		this->m_postProcessManager.Update();
 
 		ScreenFade();
 	}

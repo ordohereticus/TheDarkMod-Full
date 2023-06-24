@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3826 $
- * $Date: 2010-01-31 06:04:50 -0500 (Sun, 31 Jan 2010) $
- * $Author: tels $
+ * $Revision: 3906 $
+ * $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3826 2010-01-31 11:04:50Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3906 2010-05-27 04:08:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1339,31 +1339,6 @@ void idTarget_SetFov::Think( void ) {
 		}
 	} else {
 		BecomeInactive( TH_ALL );
-	}
-}
-
-
-/*
-===============================================================================
-
-idTarget_SetPrimaryObjective
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idTarget, idTarget_SetPrimaryObjective )
-	EVENT( EV_Activate,	idTarget_SetPrimaryObjective::Event_Activate )
-END_CLASS
-
-/*
-================
-idTarget_SetPrimaryObjective::Event_Activate
-================
-*/
-void idTarget_SetPrimaryObjective::Event_Activate( idEntity *activator ) {
-	idPlayer *player = gameLocal.GetLocalPlayer();
-	if ( player && player->objectiveSystem ) {
-		player->objectiveSystem->SetStateString( "missionobjective", spawnArgs.GetString( "text", common->GetLanguageDict()->GetString( "#str_04253" ) ) );
 	}
 }
 

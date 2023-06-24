@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3184 $
- * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
- * $Author: angua $
+ * $Revision: 3906 $
+ * $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3906 2010-05-27 04:08:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1640,15 +1640,12 @@ void idStaticEntity::Think( void )
 			idPlayer *player = gameLocal.GetLocalPlayer();
 			if ( player ) 
 			{
-				if ( !player->objectiveSystemOpen ) 
-				{
-					renderEntity.gui[0]->StateChanged( gameLocal.time, true );
-					if ( renderEntity.gui[1] ) {
-						renderEntity.gui[1]->StateChanged( gameLocal.time, true );
-					}
-					if ( renderEntity.gui[2] ) {
-						renderEntity.gui[2]->StateChanged( gameLocal.time, true );
-					}
+				renderEntity.gui[0]->StateChanged( gameLocal.time, true );
+				if ( renderEntity.gui[1] ) {
+					renderEntity.gui[1]->StateChanged( gameLocal.time, true );
+				}
+				if ( renderEntity.gui[2] ) {
+					renderEntity.gui[2]->StateChanged( gameLocal.time, true );
 				}
 			}
 		}

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
- * $Author: angua $
+ * $Revision: 3906 $
+ * $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 3906 2010-05-27 04:08:11Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -964,7 +964,7 @@ void idObjective::Event_HideObjective(idEntity *e) {
 	if ( player ) {
 		idVec3 v = player->GetPhysics()->GetOrigin() - playerPos;
 		if ( v.Length() > 64.0f ) {
-			player->HideObjective();
+			//player->HideObjective();
 			PostEventMS( &EV_Remove, 0 );
 		} else {
 			PostEventMS( &EV_HideObjective, 100, player );
