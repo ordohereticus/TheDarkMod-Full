@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3478 $
- * $Date: 2009-05-29 10:54:56 -0400 (Fri, 29 May 2009) $
+ * $Revision: 3486 $
+ * $Date: 2009-06-01 10:56:59 -0400 (Mon, 01 Jun 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -54,6 +54,7 @@ public:
 	void			ToggleOpenTargets();
 	void			LockTargets();
 	void			UnlockTargets();
+	void			CloseAndLockTargets();
 
 	virtual bool	CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse);	// Overrides idEntity::CanBeUsedBy
 	virtual bool	UseBy(EImpulseState impulseState, const CInventoryItemPtr& item);	// Overrides idEntity::UseBy

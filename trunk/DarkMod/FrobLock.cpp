@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3478 $
- * $Date: 2009-05-29 10:54:56 -0400 (Fri, 29 May 2009) $
+ * $Revision: 3486 $
+ * $Date: 2009-06-01 10:56:59 -0400 (Mon, 01 Jun 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3478 2009-05-29 14:54:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3486 2009-06-01 14:56:59Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -367,6 +367,19 @@ void CFrobLock::UnlockTargets()
 	}
 }
 
+void CFrobLock::CloseAndLockTargets()
+{
+	// Unlock any targetted frobmovers
+	for (int i = 0; i < targets.Num(); i++)
+	{
+		idEntity* target = targets[i].GetEntity();
+
+		if (target == NULL || !target->IsType(CBinaryFrobMover::Type)) continue;
+
+		static_cast<CBinaryFrobMover*>(target)->CloseAndLock();
+	}
+}
+
 void CFrobLock::AddLockHandle(CFrobLockHandle* handle)
 {
 	// Store the pointer and the original position
@@ -481,8 +494,8 @@ void CFrobLock::Event_Lock_OnLockStatusChange(int locked)
 	}
 	else
 	{
-		// Locked
-		LockTargets();
+		// We're locked now
+		CloseAndLockTargets();
 		FrobLockStartSound("snd_lock");
 
 		if (spawnArgs.GetBool("trigger_targets_on_lock", "1"))
