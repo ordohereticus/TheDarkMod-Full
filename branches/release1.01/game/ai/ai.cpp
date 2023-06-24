@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3829 $
- * $Date: 2010-01-31 16:16:05 -0500 (Sun, 31 Jan 2010) $
+ * $Revision: 3836 $
+ * $Date: 2010-02-03 22:38:40 -0500 (Wed, 03 Feb 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3829 2010-01-31 21:16:05Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3836 2010-02-04 03:38:40Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9449,7 +9449,7 @@ bool idAI::CheckFOV( const idVec3 &pos ) const
 
 	// ugliness
 	const_cast<idAI *>(this)->GetJointWorldTransform( m_HeadJointID, gameLocal.time, HeadCenter, HeadAxis );
-	idMat3 HeadAxisR = HeadAxis * m_FOVRot;
+	idMat3 HeadAxisR = m_FOVRot * HeadAxis;
 
 	// Offset to get the center of the head
 	HeadCenter += HeadAxis * m_HeadCenterOffset;
