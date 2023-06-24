@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3563 $
- * $Date: 2009-07-22 09:49:21 -0400 (Wed, 22 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3782 $
+ * $Date: 2010-01-03 18:28:38 -0500 (Sun, 03 Jan 2010) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PainState.cpp 3563 2009-07-22 13:49:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PainState.cpp 3782 2010-01-03 23:28:38Z crispy $", init_version);
 
 #include "PainState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -69,21 +69,6 @@ void PainState::Think(idAI* owner)
 	if (gameLocal.time >= _stateEndTime || 
 		idStr(owner->WaitState(ANIMCHANNEL_TORSO)) != "pain") 
 	{
-		Memory& memory = owner->GetMemory();
-
-		// Alert this AI
-		memory.alertClass = EAlertTactile;
-		memory.alertType = EAlertTypeEnemy;
-	
-		// Set the alert position 50 units in the attacking direction
-		memory.alertPos = owner->GetPhysics()->GetOrigin();
-
-		memory.countEvidenceOfIntruders++;
-		memory.alertedDueToCommunication = false;
-
-		// Alert the AI
-		owner->AlertAI("tact", owner->thresh_5*2);
-
 		// End this state
 		owner->GetMind()->EndState();
 	}
