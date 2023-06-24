@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3803 $
- * $Date: 2010-01-20 01:46:13 -0500 (Wed, 20 Jan 2010) $
+ * $Revision: 3807 $
+ * $Date: 2010-01-20 14:12:42 -0500 (Wed, 20 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3803 2010-01-20 06:46:13Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3807 2010-01-20 19:12:42Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3561,11 +3561,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		}
 
 		gui->SetStateInt("melee_difficulty", setting);
-		// have the gui enable/disable auto parry
+		// have the gui enable/disable auto parry ( NOT WORKING! )
 		gui->HandleNamedEvent("UpdateAutoParryOptions");
-		// TEST:
-		if( bForbidAuto )
-			gui->HandleNamedEvent("DisableAutoParry");
 	}
 	else if (cmd == "mainmenu_init")
 	{
