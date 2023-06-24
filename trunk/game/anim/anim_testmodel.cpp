@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2801 $
- * $Date: 2008-09-06 06:32:37 -0400 (Sat, 06 Sep 2008) $
- * $Author: tels $
+ * $Revision: 3561 $
+ * $Date: 2009-07-22 08:54:08 -0400 (Wed, 22 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -35,7 +35,7 @@ move around it to view it from different angles.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_testmodel.cpp 2801 2008-09-06 10:32:37Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_testmodel.cpp 3561 2009-07-22 12:54:08Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -123,7 +123,19 @@ void idTestModel::Spawn( void ) {
 
 	if ( !headModelDefName.IsEmpty() )
 	{
-		jointName = "Head";//spawnArgs.GetString( "head_joint" );
+		jointName = spawnArgs.GetString( "head_joint" );
+
+		if (jointName.IsEmpty())
+		{
+			// greebo: Second chance, use the CVAR, if no head_joint defined
+			g_testModelHeadJoint.GetString();
+		}
+
+		if (jointName.IsEmpty())
+		{
+			jointName = "Spine2"; // fall back to hardcoded
+		}
+
 		joint = animator.GetJointHandle( jointName );
 		if ( joint == INVALID_JOINT )
 		{

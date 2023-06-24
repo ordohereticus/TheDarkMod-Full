@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3504 $
- * $Date: 2009-07-01 10:34:29 -0400 (Wed, 01 Jul 2009) $
+ * $Revision: 3561 $
+ * $Date: 2009-07-22 08:54:08 -0400 (Wed, 22 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -498,6 +498,7 @@ extern idCVar	g_testPostProcess;
 extern idCVar	g_rotoscope;
 
 extern idCVar	g_testModelHead;
+extern idCVar	g_testModelHeadJoint;
 extern idCVar	g_testModelRotate;
 extern idCVar	g_testModelAnimate;
 extern idCVar	g_testModelBlend;
