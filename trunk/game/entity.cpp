@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3746 $
- * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3762 $
+ * $Date: 2009-11-22 08:27:21 -0500 (Sun, 22 Nov 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3762 2009-11-22 13:27:21Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3356,12 +3356,41 @@ void idEntity::RemoveBinds( void ) {
 
 	for( ent = teamChain; ent != NULL; ent = next ) {
 		next = ent->teamChain;
+		// bound to us?
 		if ( ent->bindMaster == this ) {
 			ent->Unbind();
 
 			if( ent->spawnArgs.GetBool( "removeWithMaster", "1" ) ) {
 				ent->PostEventMS( &EV_Remove, 0 );
 			}
+			next = teamChain;
+		}
+	}
+}
+
+/*
+================
+idEntity::RemoveBindsOnAlert
+
+tels: Remove bound children when their "unbindonalertindex" is greater or equal to the given
+alert.
+================
+*/
+void idEntity::RemoveBindsOnAlertIndex( const int alertIndex ) {
+	idEntity *ent;
+	idEntity *next;
+
+	for( ent = teamChain; ent != NULL; ent = next )
+	{
+		next = ent->teamChain;
+		// bound to us?
+		if ( ent->bindMaster == this )
+		{
+			if( ent->spawnArgs.GetInt( "unbindonalertindex", "6" ) >= alertIndex)
+			{
+				ent->Unbind();
+			}
+
 			next = teamChain;
 		}
 	}

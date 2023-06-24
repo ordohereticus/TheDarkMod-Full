@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3753 $
- * $Date: 2009-11-08 04:45:22 -0500 (Sun, 08 Nov 2009) $
- * $Author: angua $
+ * $Revision: 3762 $
+ * $Date: 2009-11-22 08:27:21 -0500 (Sun, 22 Nov 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -1471,6 +1471,9 @@ public:			// Events should be public, so they can be used from other places as w
 	void					ResponseAdd(int Type);
 	void					ResponseRemove(int Type);
 	void					ResponseEnable(int Type, int State);
+
+	// tels: remove all bound entities that have "unbindonalertlevel" higher or equal than alertlevel
+	void					RemoveBindsOnAlertIndex( const int alertIndex );
 
 	/**
 	* This triggers a stand-alone response (without an actual Stim) on this entity.
