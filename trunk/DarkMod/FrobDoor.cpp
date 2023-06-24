@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3297 $
- * $Date: 2009-03-25 05:18:07 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3302 $
+ * $Date: 2009-03-25 11:22:51 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3297 2009-03-25 09:18:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3302 2009-03-25 15:22:51Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -855,7 +855,7 @@ void CFrobDoor::AutoSetupDoorHandles()
 		if (handle == NULL) continue;
 
 		// The first handle is the master, all others get their master flag set to FALSE
-		handle->SetMaster(i == 0);
+		handle->SetMasterHandle(i == 0);
 	}
 }
 
@@ -945,6 +945,8 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 
 		if (handle != NULL)
 		{
+			// TODO: Use the handle nearest to the player
+
 			// Let the sound play from the first handle, but use the soundshader
 			// as defined on this entity.
 			idStr sound = spawnArgs.GetString(soundName, "");
