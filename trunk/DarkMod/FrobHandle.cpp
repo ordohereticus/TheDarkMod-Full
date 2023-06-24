@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3302 $
- * $Date: 2009-03-25 11:22:51 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3336 $
+ * $Date: 2009-03-28 07:52:01 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobHandle.cpp 3302 2009-03-25 15:22:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobHandle.cpp 3336 2009-03-28 11:52:01Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -139,4 +139,17 @@ void CFrobHandle::Tap()
 {
 	// Default action: Trigger the handle movement
 	ToggleOpen();
+}
+
+bool CFrobHandle::GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis)
+{
+	const idBounds& bounds = GetPhysics()->GetAbsBounds();
+	idVec3 eyePos = gameLocal.GetLocalPlayer()->GetEyePosition();
+
+	// greebo: Choose the corner which is nearest to the player's eyeposition
+	origin.x = (idMath::Fabs(bounds[0].x - eyePos.x) < idMath::Fabs(bounds[1].x - eyePos.x)) ? bounds[0].x : bounds[1].x;
+	origin.y = (idMath::Fabs(bounds[0].y - eyePos.y) < idMath::Fabs(bounds[1].y - eyePos.y)) ? bounds[0].y : bounds[1].y;
+	origin.z = (idMath::Fabs(bounds[0].z - eyePos.z) < idMath::Fabs(bounds[1].z - eyePos.z)) ? bounds[0].z : bounds[1].z;
+
+	return true;
 }

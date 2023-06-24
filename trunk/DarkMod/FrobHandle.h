@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3302 $
- * $Date: 2009-03-25 11:22:51 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3336 $
+ * $Date: 2009-03-28 07:52:01 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -70,6 +70,12 @@ public:
 	 */
 	bool					IsMasterHandle();
 	void					SetMasterHandle(bool isMaster);
+
+	/** 
+	 * greebo: Override the standard idEntity method to emit sounds from the nearest position 
+	 * to the player instead of the bounding box center.
+	 */
+	virtual bool			GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis);
 
 protected:
 	// Script event interface
