@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3440 $
- * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
- * $Author: angua $
+ * $Revision: 3448 $
+ * $Date: 2009-05-21 03:00:35 -0400 (Thu, 21 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3448 2009-05-21 07:00:35Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -306,7 +306,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 						owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Use_righthand", 4);
 
 						_doorHandlingState = EStateStartOpen;
-						_waitEndTime = gameLocal.time + 500;
+						_waitEndTime = gameLocal.time + owner->spawnArgs.GetInt("door_open_delay_on_use_anim", "500");
 					}
 				}
 				break;
@@ -720,7 +720,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 								// close it
 								owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Use_righthand", 4);
 								_doorHandlingState = EStateStartClose;
-								_waitEndTime = gameLocal.time + 500;
+								_waitEndTime = gameLocal.time + owner->spawnArgs.GetInt("door_open_delay_on_use_anim", "500");
 							}
 							else
 							{
@@ -860,7 +860,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					{
 						owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Use_righthand", 4);
 						_doorHandlingState = EStateStartClose;
-						_waitEndTime = gameLocal.time + 500;
+						_waitEndTime = gameLocal.time + owner->spawnArgs.GetInt("door_open_delay_on_use_anim", "500");
 					}
 				}
 				else if (numUsers > 1 && !_doorInTheWay)
