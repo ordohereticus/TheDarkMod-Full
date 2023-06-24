@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3265 $
- * $Date: 2009-03-17 14:01:03 -0400 (Tue, 17 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3273 $
+ * $Date: 2009-03-19 04:33:07 -0400 (Thu, 19 Mar 2009) $
+ * $Author: douga $
  *
  ***************************************************************************/
 
@@ -103,6 +103,16 @@ extern idCVar cv_pm_push_start_delay;
 extern idCVar cv_pm_push_accel_time;
 extern idCVar cv_pm_push_heavy_threshold;
 extern idCVar cv_pm_push_max_mass;
+
+
+/**
+* TDM CVARs for controlling jumping
+*/
+extern idCVar cv_tdm_walk_jump_vel;
+extern idCVar cv_tdm_run_jump_vel;
+extern idCVar cv_tdm_min_vel_jump;
+extern idCVar cv_tdm_fwd_jump_vel;
+
 
 extern idCVar cv_pm_weightmod;
 

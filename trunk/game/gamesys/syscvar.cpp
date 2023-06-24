@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3265 $
- * $Date: 2009-03-17 14:01:03 -0400 (Tue, 17 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3273 $
+ * $Date: 2009-03-19 04:33:07 -0400 (Thu, 19 Mar 2009) $
+ * $Author: douga $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3265 2009-03-17 18:01:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3273 2009-03-19 08:33:07Z douga $", init_version);
 
 #include "../game_local.h"
 
@@ -150,6 +150,15 @@ idCVar cv_pm_weightmod(				"pm_weightmod",			"1",			CVAR_GAME | CVAR_ARCHIVE | C
 idCVar cv_pm_mantle_reach(			"pm_mantle_reach",		"0.5",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Horizontal reach of mantle ability, as fraction of player height.  Default is 0.5" );
 idCVar cv_pm_mantle_height(			"pm_mantle_height",		"0.2",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Vertical reach of mantle ability, as fraction of player height.  Default is 0.2" );
 idCVar cv_pm_mantle_minflatness(		"pm_mantle_minflatness",		"0.707",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Cannot mantle on top of surfaces whose angle's cosine is smaller than this value. e.g. >1.0 means nothing can be mantled; 1.0 means only perfectly flat floors (0 degrees) can be mantled on top of; ~0.707 means no surfaces steeper than 45 degrees can be mantled on top of; 0.5 means no surfaces steeper than 60 degrees can be mantled on top of; a large negative value (like -10) means all surfaces can be mantled regardless of steepness. Default is 0.707." );
+
+
+/**
+* Dark Mod Jumping 
+**/
+idCVar cv_tdm_walk_jump_vel(			"tdm_walk_jump_vel",			"2.2",			CVAR_FLOAT, "Jump velocity multiplier when walking" );
+idCVar cv_tdm_run_jump_vel(				"tdm_run_jump_vel",				"2.5",			CVAR_FLOAT, "Jump velocity multiplier when running" );
+idCVar cv_tdm_min_vel_jump(				"tdm_min_vel_jump",				"0.0",			CVAR_FLOAT, "The minimum speed before cv_tdm_run_jump_vel is used" );
+idCVar cv_tdm_fwd_jump_vel(				"tdm_fwd_jump_vel",				"50.0",			CVAR_FLOAT, "Forward vector multiple for jumping" );
 
 
 /**
