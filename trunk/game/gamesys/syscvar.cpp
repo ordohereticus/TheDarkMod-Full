@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3311 $
- * $Date: 2009-03-26 12:06:49 -0400 (Thu, 26 Mar 2009) $
+ * $Revision: 3315 $
+ * $Date: 2009-03-27 01:26:21 -0400 (Fri, 27 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3311 2009-03-26 16:06:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3315 2009-03-27 05:26:21Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -534,7 +534,7 @@ idCVar pm_jumpheight(				"pm_jumpheight",			"48",			CVAR_GAME | CVAR_NETWORKSYNC
 idCVar pm_stepsize(					"pm_stepsize",				"16",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT, "maximum height the player can step up without jumping" );
 // replaced by crouch multiplier
 //idCVar pm_crouchspeed(				"pm_crouchspeed",			"80",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT, "speed the player can move while crouched" );
-idCVar pm_walkspeed(				"pm_walkspeed",				"60",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "speed the player can move while walking" );
+idCVar pm_walkspeed(				"pm_walkspeed",				"70",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "speed the player can move while walking" );
 // also replaced by multiplier
 //idCVar pm_runspeed(					"pm_runspeed",				"220",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT, "speed the player can move while running" );
 idCVar pm_noclipspeed(				"pm_noclipspeed",			"200",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT, "speed the player can move while in noclip" );
