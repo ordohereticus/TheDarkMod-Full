@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3532 $
- * $Date: 2009-07-14 10:29:16 -0400 (Tue, 14 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3562 $
+ * $Date: 2009-07-22 09:17:29 -0400 (Wed, 22 Jul 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3532 2009-07-14 14:29:16Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3562 2009-07-22 13:17:29Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -5074,8 +5074,18 @@ idEntity::Teleport
 ================
 */
 void idEntity::Teleport( const idVec3 &origin, const idAngles &angles, idEntity *destination ) {
-	GetPhysics()->SetOrigin( origin );
-	GetPhysics()->SetAxis( angles.ToMat3() );
+
+	if (destination == NULL)
+	{
+		GetPhysics()->SetOrigin( origin );
+		GetPhysics()->SetAxis( angles.ToMat3() );
+	}
+	else
+	{
+		// copy origin and angles from the destination
+		GetPhysics()->SetOrigin( destination->GetPhysics()->GetOrigin() );
+		GetPhysics()->SetAxis( destination->GetPhysics()->GetAxis() );
+	}
 
 	UpdateVisuals();
 }
