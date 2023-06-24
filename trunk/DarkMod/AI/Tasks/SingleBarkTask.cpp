@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3427 $
- * $Date: 2009-05-07 13:02:16 -0400 (Thu, 07 May 2009) $
+ * $Revision: 3572 $
+ * $Date: 2009-07-24 01:52:30 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 3427 2009-05-07 17:02:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 3572 2009-07-24 05:52:30Z greebo $", init_version);
 
 #include "SingleBarkTask.h"
 #include "../Memory.h"
@@ -73,6 +73,11 @@ bool SingleBarkTask::Perform(Subsystem& subsystem)
 void SingleBarkTask::SetSound(const idStr& soundName)
 {
 	_soundName = soundName;
+}
+
+void SingleBarkTask::SetMessage(const CommMessagePtr& message)
+{
+	_message = message;
 }
 
 // Save/Restore methods

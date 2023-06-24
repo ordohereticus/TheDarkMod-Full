@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3563 $
- * $Date: 2009-07-22 09:49:21 -0400 (Wed, 22 Jul 2009) $
+ * $Revision: 3572 $
+ * $Date: 2009-07-24 01:52:30 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3563 2009-07-22 13:49:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3572 2009-07-24 05:52:30Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -405,6 +405,8 @@ idAI::idAI()
 	maxAreaReevaluationInterval = 2000; // msec
 	doorRetryTime		= 120000; // msec
 
+	greetingState		= ai::ECannotGreet;
+
 	kickForce			= 2048.0f;
 	ignore_obstacles	= false;
 	blockedRadius		= 0.0f;
@@ -618,6 +620,9 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt(lastAreaReevaluationTime);
 	savefile->WriteInt(maxAreaReevaluationInterval);
 	savefile->WriteInt(doorRetryTime);
+
+	savefile->WriteInt(static_cast<int>(greetingState));
+
 	move.Save( savefile );
 	savedMove.Save( savefile );
 
@@ -928,6 +933,11 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt(lastAreaReevaluationTime);
 	savefile->ReadInt(maxAreaReevaluationInterval);
 	savefile->ReadInt(doorRetryTime);
+
+	savefile->ReadInt(i);
+	assert(i >= ai::ECannotGreet && i < ENumAIGreetingStates);
+	greetingState = static_cast<ai::GreetingState>(i);
+
 	move.Restore( savefile );
 	savedMove.Restore( savefile );
 
@@ -1705,6 +1715,8 @@ void idAI::Spawn( void )
 	m_HandlingDoor = false;
 
 	m_HandlingElevator = false;
+
+	greetingState = spawnArgs.GetBool("canGreet", "0") ? ai::ENotGreetingAnybody : ai::ECannotGreet;
 
 	// =============== Set up KOing and FOV ==============
 	const char *HeadJointName = spawnArgs.GetString("head_jointname", "Head");

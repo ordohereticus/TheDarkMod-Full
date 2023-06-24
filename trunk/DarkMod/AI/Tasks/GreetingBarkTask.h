@@ -7,36 +7,34 @@
  *
  ***************************************************************************/
 
-#ifndef __AI_SINGLE_BARK_TASK_H__
-#define __AI_SINGLE_BARK_TASK_H__
+#ifndef __AI_GREETING_BARK_TASK_H__
+#define __AI_GREETING_BARK_TASK_H__
 
-#include "CommunicationTask.h"
+#include "SingleBarkTask.h"
 #include "../../AIComm_Message.h"
 
 namespace ai
 {
 
 // Define the name of this task
-#define TASK_SINGLE_BARK "SingleBark"
+#define TASK_GREETING_BARK "GreetingBark"
 
-class SingleBarkTask;
-typedef boost::shared_ptr<SingleBarkTask> SingleBarkTaskPtr;
+class GreetingBarkTask;
+typedef boost::shared_ptr<GreetingBarkTask> GreetingBarkTaskPtr;
 
-class SingleBarkTask :
-	public CommunicationTask
+class GreetingBarkTask :
+	public SingleBarkTask
 {
 protected:
-	int _endTime;
 
-	// The message which should be delivered when barking
-	CommMessagePtr _message;
+	idActor* _greetingTarget;
 
 	// Default constructor
-	SingleBarkTask();
+	GreetingBarkTask();
 
 public:
-	// Constructor taking a sound name as argument
-	SingleBarkTask(const idStr& soundName, const CommMessagePtr& message = CommMessagePtr());
+	// Constructor taking a sound name and the target actor as argument
+	GreetingBarkTask(const idStr& soundName, idActor* greetingTarget);
 
 	// Get the name of this task
 	virtual const idStr& GetName() const;
@@ -49,13 +47,9 @@ public:
 	virtual void Restore(idRestoreGame* savefile);
 
 	// Creates a new Instance of this task
-	static SingleBarkTaskPtr CreateInstance();
-
-	// Class-specific methods
-	virtual void SetSound(const idStr& soundName);
-	virtual void SetMessage(const CommMessagePtr& message);
+	static GreetingBarkTaskPtr CreateInstance();
 };
 
 } // namespace ai
 
-#endif /* __AI_SINGLE_BARK_TASK_H__ */
+#endif /* __AI_GREETING_BARK_TASK_H__ */

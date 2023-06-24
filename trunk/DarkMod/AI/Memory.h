@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3571 $
- * $Date: 2009-07-24 01:13:19 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3572 $
+ * $Date: 2009-07-24 01:52:30 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -144,6 +144,16 @@ const char* const AlertStateNames[EAlertStateNum] =
 
 // The maximum time the AI is able to follow the enemy although it's invisible
 #define MAX_BLIND_CHASE_TIME 3000
+
+enum GreetingState
+{
+	ECannotGreet = 0,		// AI is not able to greet (e.g. spiders)
+	ENotGreetingAnybody,	// AI is currently not greeting anybody (free)
+	EGoingToGreet,			// AI is about to greet somebody 
+	EIsGreeting,			// AI is currently playing its greeting sound
+	EAfterGreeting,			// AI is in the small pause after greeting
+	ENumAIGreetingStates,	// invalid state
+};
 
 /**
  * greebo: This class acts as container for all kinds of state variables.
