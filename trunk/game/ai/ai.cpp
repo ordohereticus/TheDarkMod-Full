@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3503 $
- * $Date: 2009-06-27 11:17:45 -0400 (Sat, 27 Jun 2009) $
+ * $Revision: 3507 $
+ * $Date: 2009-07-02 13:08:00 -0400 (Thu, 02 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3503 2009-06-27 15:17:45Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3507 2009-07-02 17:08:00Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4731,6 +4731,7 @@ void idAI::LayDownMove()
 
 	AI_ONGROUND = physicsObj.OnGround();
 
+	// angua: Let the animation move the origin onto the bed
 	GetMoveDelta( oldaxis, viewAxis, delta );
 
 	physicsObj.SetDelta( delta );
@@ -7967,7 +7968,9 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 
 		psychLoud *= GetAcuity("aud");
 
-		if (IsEnemy(m_AlertedByActor.GetEntity()))
+		// angua: the actor who produced this noise is either unknown or an enemy
+		// alert now
+		if (!m_AlertedByActor.GetEntity() || IsEnemy(m_AlertedByActor.GetEntity()))
 		{
 			AlertAI( "aud", psychLoud );
 
