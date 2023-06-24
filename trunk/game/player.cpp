@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3816 $
- * $Date: 2010-01-24 10:09:31 -0500 (Sun, 24 Jan 2010) $
+ * $Revision: 3817 $
+ * $Date: 2010-01-24 10:51:28 -0500 (Sun, 24 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3816 2010-01-24 15:09:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3817 2010-01-24 15:51:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6328,7 +6328,13 @@ void idPlayer::AdjustSpeed( void )
 	else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) ) 
 	{
 		// TDM: Removed stamina. TDM does not use stamina
-		bobFrac = 1.0f;
+		
+		// greebo: Only adjust bob fraction if actually running
+		if (physicsObj.HasRunningVelocity())
+		{
+			bobFrac = 1.0f;
+		}
+
 		speed = pm_walkspeed.GetFloat() * cv_pm_runmod.GetFloat();
 		
 		// ishtvan: we'll see if this works to prevent backwards running, depends on order things are set
@@ -10947,7 +10953,6 @@ void idPlayer::PlayFootStepSound()
 		if (AI_RUN && physicsObj.HasRunningVelocity())
 		{
 			moveType += "_run";
-			gameLocal.Printf("Running.");
 		}
 		else if (AI_CREEP)
 		{
@@ -10956,7 +10961,6 @@ void idPlayer::PlayFootStepSound()
 		else
 		{
 			moveType += "_walk";
-			gameLocal.Printf("Walking.");
 		}
 	}
 
