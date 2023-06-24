@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3069 $
- * $Date: 2008-11-27 13:55:01 -0500 (Thu, 27 Nov 2008) $
- * $Author: tels $
+ * $Revision: 3242 $
+ * $Date: 2009-03-14 02:58:52 -0400 (Sat, 14 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3069 2008-11-27 18:55:01Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3242 2009-03-14 06:58:52Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -275,21 +275,6 @@ void CFrobDoor::Spawn( void )
 	//TODO: Add portal/door pair to soundprop data here, 
 	//	replacing the old way in sndPropLoader
 
-	// Flag the AAS areas the door is located in with door travel flag
-	for (int i = 0; i < gameLocal.NumAAS(); i++)
-	{
-		idAAS*	aas = gameLocal.GetAAS(i);
-		if (aas == NULL)
-		{
-			continue;
-		}
-		
-		int areaNum = GetAASArea(aas);
-		idStr areatext(areaNum);
-		//gameRenderWorld->DrawText(areatext.c_str(), center + idVec3(0,0,i), 0.2f, colorGreen, 
-		//	mat3_identity, 1, 10000000);
-		aas->SetAreaTravelFlag(areaNum, TFL_DOOR);
-	}
 }
 
 void CFrobDoor::PostSpawn()
@@ -404,6 +389,20 @@ void CFrobDoor::PostSpawn()
 	{
 		AutoSetupDoubleDoor();
 	}
+
+	// Flag the AAS areas the door is located in with door travel flag
+	for (int i = 0; i < gameLocal.NumAAS(); i++)
+	{
+		idAAS*	aas = gameLocal.GetAAS(i);
+		if (aas == NULL)
+		{
+			continue;
+		}
+		
+		int areaNum = GetAASArea(aas);
+		aas->SetAreaTravelFlag(areaNum, TFL_DOOR);
+	}
+
 }
 
 bool CFrobDoor::IsPickable()

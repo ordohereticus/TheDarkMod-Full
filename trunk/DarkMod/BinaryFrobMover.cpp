@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3084 $
- * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
+ * $Revision: 3242 $
+ * $Date: 2009-03-14 02:58:52 -0400 (Sat, 14 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3084 2008-12-13 18:13:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3242 2009-03-14 06:58:52Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -763,6 +763,11 @@ int CBinaryFrobMover::GetAASArea(idAAS* aas)
 	center.z = bounds[0].z + 1;
 
 	int areaNum = aas->PointReachableAreaNum( center, bounds, AREA_REACHABLE_WALK );
+
+	// idStr areatext(areaNum);
+	// gameRenderWorld->DebugLine(colorGreen,center,center + idVec3(0,0,20),10000000);
+	// gameRenderWorld->DebugLine(colorOrange,GetPhysics()->GetOrigin(),GetPhysics()->GetOrigin() + m_ClosedPos,10000000);
+	// gameRenderWorld->DrawText(areatext.c_str(), center + idVec3(0,0,1), 0.2f, colorGreen, mat3_identity, 1, 10000000);
 
 	return areaNum;
 }
