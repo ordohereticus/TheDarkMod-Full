@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3652 $
- * $Date: 2009-08-06 00:19:43 -0400 (Thu, 06 Aug 2009) $
+ * $Revision: 3653 $
+ * $Date: 2009-08-06 00:24:01 -0400 (Thu, 06 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3652 2009-08-06 04:19:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3653 2009-08-06 04:24:01Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1188,13 +1188,18 @@ void State::OnProjectileHit(idProjectile* projectile, idEntity* attacker, int da
 		return;
 	}
 
+	idAI* owner = _owner.GetEntity();
+	if (owner == NULL) return;
+
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("AI %s has been hit by non-damaging projectile.\r", owner->name.c_str());
+
 	if (!ShouldProcessAlert(EAlertTypeWeapon))
 	{
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Ignoring non-damaging projectile hit.\r");
 		return;
 	}
 
-	idAI* owner = _owner.GetEntity();
-	if (owner == NULL) return;
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Alerting AI %s due to non-damaging projectile.\r", owner->name.c_str());
 	
 	if (owner->AI_AlertLevel < owner->thresh_5 - 0.1f)
 	{
