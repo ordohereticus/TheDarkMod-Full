@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3319 $
- * $Date: 2009-03-27 14:18:31 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3321 $
+ * $Date: 2009-03-27 14:42:57 -0400 (Fri, 27 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3319 2009-03-27 18:18:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3321 2009-03-27 18:42:57Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -378,7 +378,9 @@ void CFrobLock::UpdateHandlePosition()
 	// greebo: Don't issue an handle update position call each frame,
 	// this might cause movers to freeze in place, as the extrapolation class
 	// let's them rest for the first frame
-	if (gameLocal.time <= m_LastHandleUpdateTime) return;
+	if (gameLocal.time <= m_LastHandleUpdateTime + gameLocal.msec) return;
+
+	m_LastHandleUpdateTime = gameLocal.time;
 
 	// Calculate the fraction based on the current pin/sample state
 	float fraction = m_Lock.CalculateHandleMoveFraction();
