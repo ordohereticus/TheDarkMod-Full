@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3542 $
- * $Date: 2009-07-18 01:41:01 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3563 $
+ * $Date: 2009-07-22 09:49:21 -0400 (Wed, 22 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3542 2009-07-18 05:41:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3563 2009-07-22 13:49:21Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -23,6 +23,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 3542 2009-07-18 05:41:01
 #include "../../DarkMod/AI/States/KnockedOutState.h"
 #include "../../DarkMod/AI/States/DeadState.h"
 #include "../../DarkMod/AI/States/ConversationState.h"
+#include "../../DarkMod/AI/States/PainState.h"
 #include "../../DarkMod/AI/Tasks/SingleBarkTask.h"
 #include "../../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../../DarkMod/Relations.h"
@@ -5412,6 +5413,12 @@ bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVe
 
 		// AI don't like being attacked
 		ChangeEntityRelation(attacker, -10);
+
+		// Switch to pain state if idle
+		if (AI_AlertIndex == 0)
+		{
+			GetMind()->PushState(ai::StatePtr(new ai::PainState));
+		}
 	}
 
 	return ( AI_PAIN != 0 );
