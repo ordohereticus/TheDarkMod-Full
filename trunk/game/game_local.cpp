@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3421 $
- * $Date: 2009-05-05 08:37:48 -0400 (Tue, 05 May 2009) $
+ * $Revision: 3425 $
+ * $Date: 2009-05-06 11:58:31 -0400 (Wed, 06 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3421 2009-05-05 12:37:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3425 2009-05-06 15:58:31Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1542,6 +1542,9 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	// greebo: Initialize the Difficulty Manager, before any entities are spawned
 	m_DifficultyManager.Init(mapFile);
 	m_ConversationSystem->Init(mapFile);
+
+	// Immediately apply the CVAR difficulty settings
+	m_DifficultyManager.ApplyCVARDifficultySettings();
 	
 	InitScriptForMap();
 
