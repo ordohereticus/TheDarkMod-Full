@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3743 $
+ * $Date: 2009-11-04 00:03:45 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -806,7 +806,7 @@ public:
 	/**
 	* Do the frobbing trace and bounds intersection to mark entities as frobable
 	**/
-	void					FrobCheck( void );
+	void					PerformFrobCheck();
 
 	/**
 	 * greebo: Performs a frob action on the given entity. The above method

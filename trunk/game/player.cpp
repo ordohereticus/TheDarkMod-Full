@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3743 $
+ * $Date: 2009-11-04 00:03:45 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3743 2009-11-04 05:03:45Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -7123,7 +7123,7 @@ void idPlayer::Think( void )
 	// this may use firstPersonView, or a thirdPeroson / camera view
 	CalculateRenderView();
 
-	FrobCheck();
+	PerformFrobCheck();
 
 	// Check if we just hit the attack button
 	idEntity* frobbedEnt = m_FrobEntity.GetEntity();
@@ -10516,7 +10516,7 @@ void idPlayer::Event_GetFov()
 	idThread::ReturnFloat(CalcFov(true));
 }
 
-void idPlayer::FrobCheck()
+void idPlayer::PerformFrobCheck()
 {
 	// greebo: Don't run this when dead
 	if (AI_DEAD) 
