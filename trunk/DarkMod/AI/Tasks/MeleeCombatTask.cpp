@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3248 $
- * $Date: 2009-03-14 21:38:57 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3249 $
+ * $Date: 2009-03-15 00:54:12 -0400 (Sun, 15 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3248 2009-03-15 01:38:57Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3249 2009-03-15 04:54:12Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -42,14 +42,14 @@ bool MeleeCombatTask::Perform(Subsystem& subsystem)
 
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
-/*
+
 	idActor* enemy = _enemy.GetEntity();
-	if (enemy == NULL)
+	if (enemy == NULL || enemy->IsKnockedOut() || enemy->health <= 0)
 	{
 		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("No enemy, terminating task!\r");
 		return true; // terminate me
 	}
-*/
+
 	// Perform the task according to the current action
 	CMeleeStatus *pStatus = &owner->m_MeleeStatus;
 	EMeleeActState ActState = pStatus->m_ActionState;

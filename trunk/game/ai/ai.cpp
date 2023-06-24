@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3247 $
- * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3249 $
+ * $Date: 2009-03-15 00:54:12 -0400 (Sun, 15 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3249 2009-03-15 04:54:12Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5852,7 +5852,8 @@ bool idAI::EntityInAttackCone(idEntity* ent)
 
 bool idAI::CanHitEntity(idActor* entity, ECombatType combatType)
 {
-	if (entity == NULL) return false;
+	if (entity == NULL || entity->IsKnockedOut() || entity->health <= 0) 
+		return false;
 
 	if (combatType == COMBAT_MELEE)
 	{
@@ -5879,7 +5880,7 @@ bool idAI::CanHitEntity(idActor* entity, ECombatType combatType)
 
 bool idAI::CanBeHitByEntity(idActor* entity, ECombatType combatType)
 {
-	if (entity == NULL) 
+	if (entity == NULL || entity->IsKnockedOut() || entity->health <= 0 ) 
 		return false;
 
 	if (combatType == COMBAT_MELEE)
