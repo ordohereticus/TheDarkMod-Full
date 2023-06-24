@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3648 $
- * $Date: 2009-08-05 01:23:31 -0400 (Wed, 05 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3676 $
+ * $Date: 2009-08-19 04:00:46 -0400 (Wed, 19 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3648 2009-08-05 05:23:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3676 2009-08-19 08:00:46Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -21,6 +21,7 @@ static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3648 2009-08
 #include "../Tasks/SingleBarkTask.h"
 #include "../Tasks/MoveToPositionTask.h"
 #include "../Tasks/IdleAnimationTask.h"
+#include "../Tasks/RepeatedBarkTask.h"
 #include "ObservantState.h"
 #include "../Library.h"
 
@@ -53,6 +54,13 @@ void AlertIdleState::Init(idAI* owner)
 
 	InitialiseMovement(owner);
 	InitialiseCommunication(owner);
+
+	int idleBarkIntervalMin = SEC2MS(owner->spawnArgs.GetInt("alert_idle_bark_interval_min", "40"));
+	int idleBarkIntervalMax = SEC2MS(owner->spawnArgs.GetInt("alert_idle_bark_interval_max", "120"));
+
+	owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new RepeatedBarkTask("snd_alert_idle", idleBarkIntervalMin, idleBarkIntervalMax))
+		);
 
 	// Initialise the animation state
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 0);
