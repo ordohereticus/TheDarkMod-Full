@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3572 $
- * $Date: 2009-07-24 01:52:30 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3575 $
+ * $Date: 2009-07-24 02:57:08 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -26,6 +26,8 @@ class SingleBarkTask :
 	public CommunicationTask
 {
 protected:
+	int _startDelay;
+
 	int _endTime;
 
 	// The message which should be delivered when barking
@@ -36,7 +38,11 @@ protected:
 
 public:
 	// Constructor taking a sound name as argument
-	SingleBarkTask(const idStr& soundName, const CommMessagePtr& message = CommMessagePtr());
+	// Optional arguments are the message to deliver
+	// and the time to pass in ms before the bark should be played
+	SingleBarkTask(const idStr& soundName, 
+				   const CommMessagePtr& message = CommMessagePtr(),
+				   int startDelayMS = 0);
 
 	// Get the name of this task
 	virtual const idStr& GetName() const;
