@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3410 $
- * $Date: 2009-04-20 10:20:11 -0400 (Mon, 20 Apr 2009) $
+ * $Revision: 3415 $
+ * $Date: 2009-04-29 11:15:40 -0400 (Wed, 29 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3410 2009-04-20 14:20:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3415 2009-04-29 15:15:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3358,7 +3358,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			{
 				// Load the statistics into the GUI
 				m_MissionData->UpdateStatisticsGUI(gui, "listStatistics");
-
+			
 				// Show the success GUI
 				gui->HandleNamedEvent("ShowSuccessScreen");
 
@@ -3383,6 +3383,11 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Propagate the video CVARs to the GUI
 		gui->SetStateInt("video_aspectratio", cvarSystem->GetCVarInteger("r_aspectRatio"));
 		gui->SetStateBool("confirmQuit", cv_mainmenu_confirmquit.GetBool());
+	}
+	else if (cmd == "loadStatistics")
+	{
+		// Load the statistics into the GUI
+		m_MissionData->UpdateStatisticsGUI(gui, "listStatistics");
 	}
 	else if (cmd == "setVideoResWideScreen")
 	{

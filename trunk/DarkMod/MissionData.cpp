@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3393 $
- * $Date: 2009-04-11 07:33:21 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3415 $
+ * $Date: 2009-04-29 11:15:40 -0400 (Wed, 29 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3393 2009-04-11 11:33:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3415 2009-04-29 15:15:40Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2500,7 +2500,7 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	idStr prefix = va("%s_item_", listDefName.c_str());
 	
 	idStr divider(": ");
-	idStr postfix("\t");
+	idStr postfix("");
 
 	int difficultyLevel = gameLocal.m_DifficultyManager.GetDifficultyLevel();
 	key = "Difficulty Level";
