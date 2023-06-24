@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3618 $
- * $Date: 2009-07-30 13:12:30 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3687 $
+ * $Date: 2009-09-03 03:03:42 -0400 (Thu, 03 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3618 $   $Date: 2009-07-30 13:12:30 -0400 (Thu, 30 Jul 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3687 $   $Date: 2009-09-03 03:03:42 -0400 (Thu, 03 Sep 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1244,10 +1244,15 @@ void idPhysics_Player::RopeMove( void )
 	
 	wishvel = 0.9f * climbDir * upscale * scale * (float)command.forwardmove;
 
+	/* greebo: Removed command.upmove portion from wishvel. I guess this was to support
+	   the old crouching code which set command.upmove to negative values. This code
+	   is no longer there so command.upmove is only non-zero during jumping, 
+	   which we can ignore here.
+
 	if ( command.upmove ) 
 	{
 		wishvel += 0.5f * climbDir * scale * (float) command.upmove;
-	}
+	}*/
 
 	// detach the player from the rope if they jump
 	if ( idPhysics_Player::CheckRopeJump()) 
