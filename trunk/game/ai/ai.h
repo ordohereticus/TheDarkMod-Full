@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3654 $
- * $Date: 2009-08-06 03:23:44 -0400 (Thu, 06 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3673 $
+ * $Date: 2009-08-16 23:43:26 -0400 (Sun, 16 Aug 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -1201,6 +1201,16 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					SpawnBloodMarker(const idStr& splat, const idStr& splatFading, float size);
 
 	void					PostDeath();
+
+	/**
+	* Copy knockout spawnargs from the head entity (assumes head exists)
+	**/
+	void					CopyHeadKOInfo(void);
+
+	/**
+	* Parse knockout spawnargs
+	**/
+	void					ParseKnockoutInfo( void );
 
 	/**
 	* TestKnockOutBlow is called when the AI is hit with a weapon with knockout capability.
