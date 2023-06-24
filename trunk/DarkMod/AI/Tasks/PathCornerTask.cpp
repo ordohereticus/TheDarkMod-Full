@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3690 $
- * $Date: 2009-09-03 08:48:09 -0400 (Thu, 03 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3695 $
+ * $Date: 2009-09-06 15:27:53 -0400 (Sun, 06 Sep 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3690 2009-09-03 12:48:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3695 2009-09-06 19:27:53Z tels $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -176,7 +176,7 @@ void PathCornerTask::Save(idSaveGame* savefile) const
 	savefile->WriteBool(_moveInitiated);
 	savefile->WriteVec3(_lastPosition);
 	savefile->WriteInt(_lastFrameNum);
-	savefile->WriteInt(_usePathPrediction);
+	savefile->WriteBool(_usePathPrediction);
 }
 
 void PathCornerTask::Restore(idRestoreGame* savefile)
