@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3578 $
- * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3583 $
+ * $Date: 2009-07-26 07:14:08 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3578 2009-07-24 18:09:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3583 2009-07-26 11:14:08Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3040,7 +3040,7 @@ void idActor::ClearPain( void ) {
 idActor::Pain
 =====================
 */
-bool idActor::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location ) {
+bool idActor::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location, const idDict* damageDef ) {
 	if ( af.IsLoaded() && !IsKnockedOut() ) {
 		// clear impacts
 		af.Rest();

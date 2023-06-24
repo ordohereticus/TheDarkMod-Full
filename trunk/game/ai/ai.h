@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3578 $
- * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3583 $
+ * $Date: 2009-07-26 07:14:08 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1202,7 +1202,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	virtual void			Bark(const idStr& soundName);
 
 	// damage
-	virtual bool			Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
+	virtual bool			Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location, const idDict* damageDef );
 	virtual void			Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
 
 	void					DropBlood(idEntity *inflictor);

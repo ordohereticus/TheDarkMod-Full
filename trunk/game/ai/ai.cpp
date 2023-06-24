@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3578 $
- * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3583 $
+ * $Date: 2009-07-26 07:14:08 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3578 2009-07-24 18:09:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3583 2009-07-26 11:14:08Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5393,7 +5393,7 @@ int idAI::ReactionTo( const idEntity *ent )
 idAI::Pain
 =====================
 */
-bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location )
+bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location, const idDict* damageDef )
 {
 	AI_PAIN = idActor::Pain( inflictor, attacker, damage, dir, location );
 	AI_DAMAGE = true;
@@ -5416,7 +5416,8 @@ bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVe
 		ChangeEntityRelation(attacker, -10);
 
 		// Switch to pain state if idle
-		if (AI_AlertIndex == 0)
+		if (AI_AlertIndex == 0 && damage > 0 && 
+			(damageDef == NULL || !damageDef->GetBool("no_pain_anim", "0")))
 		{
 			GetMind()->PushState(ai::StatePtr(new ai::PainState));
 		}
