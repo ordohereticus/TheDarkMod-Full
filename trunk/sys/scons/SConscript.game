@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3427 $
-#* $Date: 2009-05-07 13:02:16 -0400 (Thu, 07 May 2009) $
-#* $Author: greebo $
+#* $Revision: 3475 $
+#* $Date: 2009-05-29 08:57:58 -0400 (Fri, 29 May 2009) $
+#* $Author: angua $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -188,6 +188,7 @@ AI/CommunicationSubsystem.cpp \
 AI/DoorInfo.cpp \
 AI/Mind.cpp \
 AI/Memory.cpp \
+AI/MovementSubsystem.cpp \
 AI/Subsystem.cpp \
 AI/Conversation/ConversationSystem.cpp \
 AI/Conversation/Conversation.cpp \
