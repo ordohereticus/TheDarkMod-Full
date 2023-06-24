@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3918 $
- * $Date: 2010-06-07 23:04:15 -0400 (Mon, 07 Jun 2010) $
+ * $Revision: 3919 $
+ * $Date: 2010-06-08 03:06:50 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfoDecl.cpp 3918 2010-06-08 03:04:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfoDecl.cpp 3919 2010-06-08 07:06:50Z greebo $", init_version);
 
 #include "MissionInfoDecl.h"
 
@@ -254,4 +254,31 @@ bool CMissionInfoDecl::Parse( const char *text, const int textLength )
 		MakeDefault();
 	}*/
 	return successfulParse;
+}
+
+CMissionInfoDecl* CMissionInfoDecl::Find(const idStr& name)
+{
+	return const_cast<CMissionInfoDecl*>(static_cast<const CMissionInfoDecl*>(
+		declManager->FindType(DECL_TDM_MISSIONINFO, name.c_str(), false)
+	));
+}
+
+// Creates a new declaration with the given name, in the given filename
+CMissionInfoDecl* CMissionInfoDecl::Create(const idStr& name)
+{
+	return static_cast<CMissionInfoDecl*>(
+		declManager->CreateNewDecl(DECL_TDM_MISSIONINFO, name.c_str(), cv_default_mission_info_file.GetString())
+	);
+}
+
+CMissionInfoDecl* CMissionInfoDecl::FindOrCreate(const idStr& name)
+{
+	CMissionInfoDecl* decl = Find(name);
+	
+	if (decl == NULL)
+	{
+		decl = Create(name);
+	}
+
+	return decl;
 }

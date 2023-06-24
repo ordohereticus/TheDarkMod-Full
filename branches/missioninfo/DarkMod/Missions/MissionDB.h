@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3918 $
- * $Date: 2010-06-07 23:04:15 -0400 (Mon, 07 Jun 2010) $
+ * $Revision: 3919 $
+ * $Date: 2010-06-08 03:06:50 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -34,7 +34,7 @@ public:
 	// Loads all stored data from disk
 	void Init();
 
-	// Returns the mission info structure for this name
+	// Returns the mission info structure for this fs_game
 	// Always returns non-NULL, if the name is not existing, 
 	// a new structure will be created
 	const CMissionInfoPtr& GetMissionInfo(const idStr& name);
