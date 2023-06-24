@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3606 $
- * $Date: 2009-07-28 22:50:21 -0400 (Tue, 28 Jul 2009) $
+ * $Revision: 3607 $
+ * $Date: 2009-07-28 23:32:16 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3606 2009-07-29 02:50:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3607 2009-07-29 03:32:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10923,8 +10923,8 @@ void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 		}
 
 		// Grab it if it's a grabable class
-		if( target->IsType( idMoveable::Type ) || target->IsType( idAFEntity_Base::Type )
-			|| target->IsType( idMoveableItem::Type ) )
+		if (target->IsType(idMoveable::Type) || target->IsType(idAFEntity_Base::Type) || 
+			target->IsType(idMoveableItem::Type) || target->IsType(idAFAttachment::Type))
 		{
 			// allow override of default grabbing behavior
 			if( !target->spawnArgs.GetBool("grabable","1") )
@@ -10938,7 +10938,7 @@ void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 					return;
 			}
 
-			gameLocal.m_Grabber->Update( gameLocal.GetLocalPlayer() );
+			gameLocal.m_Grabber->Update( this );
 		}
 	}
 }
