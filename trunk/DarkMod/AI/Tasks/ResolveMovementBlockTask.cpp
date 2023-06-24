@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3645 $
- * $Date: 2009-08-04 13:09:28 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3669 $
+ * $Date: 2009-08-14 13:14:39 -0400 (Fri, 14 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3645 2009-08-04 17:09:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3669 2009-08-14 17:14:39Z greebo $", init_version);
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -98,6 +98,10 @@ void ResolveMovementBlockTask::InitBlockingStatic(idAI* owner, Subsystem& subsys
 	// angua: move the bottom of the bounds up a bit, to avoid finding small objects on the ground that are "in the way"
 	bounds[0][2] += owner->GetAAS()->GetSettings()->maxStepHeight;
 
+	// Set all attachments to nonsolid, temporarily
+	owner->SaveAttachmentContents();
+	owner->SetAttachmentContents(0);
+
 	// check if there is a way around
 	idTraceModel trm(bounds);
 	idClipModel clip(trm);
@@ -134,36 +138,42 @@ void ResolveMovementBlockTask::InitBlockingStatic(idAI* owner, Subsystem& subsys
 		gameRenderWorld->DebugBounds(contents ? colorRed : colorGreen, bounds, testPoint, 1000);
 	}
 
-	if (contents == 0)
+	if (contents != 0)
 	{
+		// Right side is blocked, look at the left
+		testPoint = blockingPhys->GetOrigin();
+		testPoint.z = owner->GetPhysics()->GetOrigin().z;
+		testPoint -= ownerRight * (blockBoundsWidth + aasBoundsWidth + 5);
+
+		contents = gameLocal.clip.Contents(testPoint, &clip, mat3_identity, CONTENTS_SOLID, owner);
+
+		if (cv_ai_debug_blocked.GetBool())
+		{
+			gameRenderWorld->DebugBounds(contents ? colorRed : colorGreen, bounds, testPoint, 1000);
+		}
+
+		if (contents != 0)
+		{
+			// Neither left nor right have free space
+			owner->StopMove(MOVE_STATUS_BLOCKED_BY_OBJECT);
+			owner->AI_BLOCKED = true;
+			owner->AI_DEST_UNREACHABLE = true;
+
+			subsystem.FinishTask();
+		}
+		else
+		{
+			// Move to left position
+			owner->MoveToPosition(testPoint);
+		}
+	}
+	else
+	{
+		// Move to right position
 		owner->MoveToPosition(testPoint);
-		return;
 	}
 
-	// Right side is blocked, look at the left
-	testPoint = blockingPhys->GetOrigin();
-	testPoint.z = owner->GetPhysics()->GetOrigin().z;
-	testPoint -= ownerRight * (blockBoundsWidth + aasBoundsWidth + 5);
-
-	contents = gameLocal.clip.Contents(testPoint, &clip, mat3_identity, CONTENTS_SOLID, owner);
-
-	if (cv_ai_debug_blocked.GetBool())
-	{
-		gameRenderWorld->DebugBounds(contents ? colorRed : colorGreen, bounds, testPoint, 1000);
-	}
-
-	if (contents == 0)
-	{
-		owner->MoveToPosition(testPoint);
-		return;
-	}
-
-	// Neither left nor right have free space
-	owner->StopMove(MOVE_STATUS_BLOCKED_BY_OBJECT);
-	owner->AI_BLOCKED = true;
-	owner->AI_DEST_UNREACHABLE = true;
-
-	subsystem.FinishTask();
+	owner->RestoreAttachmentContents();
 }
 
 bool ResolveMovementBlockTask::Perform(Subsystem& subsystem)
