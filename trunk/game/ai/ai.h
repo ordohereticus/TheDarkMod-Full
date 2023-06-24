@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3823 $
- * $Date: 2010-01-30 18:20:09 -0500 (Sat, 30 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3853 $
+ * $Date: 2010-03-20 02:12:13 -0400 (Sat, 20 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1056,6 +1056,12 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	ai::MovementSubsystemPtr movementSubsystem;
 	ai::SubsystemPtr actionSubsystem;
 	ai::CommunicationSubsystemPtr commSubsystem;
+
+	// greebo: A mapping used to redirect alertstates of a certain level to named states
+	// e.g. ECombat => STATE_FLEE
+	// These are used by the CombatState
+	typedef std::map<ai::EAlertState, idStr> StateRedirectMap;
+	StateRedirectMap stateRedirects;
 
 	/**
 	* This internal method destroys the current hiding spot search
