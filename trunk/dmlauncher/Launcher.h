@@ -5,9 +5,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3756 $
- * $Date: 2009-11-09 02:07:59 -0500 (Mon, 09 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3778 $
+ * $Date: 2010-01-02 23:05:48 -0500 (Sat, 02 Jan 2010) $
+ * $Author: crispy $
  *
  *************************************************************************/
 
@@ -56,6 +56,10 @@ private:
 	// Finds the engine executable (in Linux, this can be in several places), returns TRUE on success
 	// The member _darkmodDir must be set already when calling this method
 	bool FindExecutable();
+
+	// Returns the path to Steam.exe if the engine executable we're using is running on Steam
+	// The member _engineExecutable must be set already when calling this method
+	fs::path FindSteamExecutable();
 };
 
 #endif /* _LAUNCHER_H_ */
