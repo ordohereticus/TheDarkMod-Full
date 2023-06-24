@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3909 $
- * $Date: 2010-05-27 04:12:08 -0400 (Thu, 27 May 2010) $
+ * $Revision: 3910 $
+ * $Date: 2010-05-27 04:45:09 -0400 (Thu, 27 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -35,6 +35,7 @@
 Darkmod LAS
 */
 #include "../DarkMod/darkModLAS.h"
+#include "Profile.h"
 
 class CRenderPipe;
 
@@ -229,6 +230,8 @@ public:
 
 private:
 	void LoadINISettings(void *);
+
+	void CheckLogClass(PROFILE_SECTION* ps, const char* key, LC_LogClass logClass);
 
 	// Sets up the surface hardness mapping
 	void InitSurfaceHardness();
