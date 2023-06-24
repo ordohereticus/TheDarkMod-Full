@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3738 $
- * $Date: 2009-11-03 03:00:38 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3740 $
+ * $Date: 2009-11-03 04:37:10 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,9 +29,6 @@ public:
 	void Save( idSaveGame *savefile ) const;
 	void Restore( idRestoreGame *savefile );
 
-	int						AddLight(idLight *);
-	int						RemoveLight(idLight *);
-
 public:
 	/**
 	 * LightgemValue determines the level of visibillity of the player.
@@ -43,14 +40,6 @@ public:
 	 * Contains the last lightgem value. This is stored for interleaving.
 	 */
 	float						m_fColVal;
-
-	/**
-	 * Each light entity must register here itself. This is used
-	 * to calculate the value for the lightgem.
-	 *
-	 * greebo: TODO: Move this to the Darkmod LAS.
-	 */
-	idList< idEntityPtr<idLight> >	m_LightList;
 };
 
 #endif

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3679 $
- * $Date: 2009-08-30 06:28:05 -0400 (Sun, 30 Aug 2009) $
- * $Author: tels $
+ * $Revision: 3740 $
+ * $Date: 2009-11-03 04:37:10 -0500 (Tue, 03 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3679 2009-08-30 10:28:05Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3740 2009-11-03 09:37:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -246,9 +246,11 @@ idLight::~idLight()
 	/*!
 	Darkmod player lighting
 	*/
-	g_Global.m_DarkModPlayer->RemoveLight(this);
-
-
+	idPlayer* player = gameLocal.GetLocalPlayer();
+	if (player != NULL)
+	{
+		player->RemoveLight(this);
+	}
 }
 
 /*
@@ -438,8 +440,6 @@ void idLight::Spawn( void )
 	{
 		DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Light has an image: %08lX\r", pImage);
 	}
-
-	g_Global.m_DarkModPlayer->AddLight(this);
 
 	// Sophisiticated Zombie (DMH)
 	// Darkmod Light Awareness System: Also need to add light to LAS
@@ -1514,6 +1514,13 @@ void idLight::Event_GetLightLevel ( void )
 void idLight::Event_AddToLAS()
 {
 	LAS.addLight(this);
+
+	// Also register this light with the local player
+	idPlayer* player = gameLocal.GetLocalPlayer();
+	if (player != NULL)
+	{
+		player->AddLight(this);
+	}
 }
 
 /**	Returns 1 if the light is in PVS.
