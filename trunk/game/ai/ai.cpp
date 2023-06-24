@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3522 $
- * $Date: 2009-07-06 02:49:01 -0400 (Mon, 06 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3523 $
+ * $Date: 2009-07-06 10:05:12 -0400 (Mon, 06 Jul 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3522 2009-07-06 06:49:01Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3523 2009-07-06 14:05:12Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2035,7 +2035,7 @@ void idAI::Think( void )
 				// static monsters
 				UpdateEnemyPosition();
 				UpdateScript();
-				// moving not allowed, tunrning around sitting pivot
+				// moving not allowed, turning around sitting pivot
 				SittingMove();
 				CheckBlink();
 				break;
