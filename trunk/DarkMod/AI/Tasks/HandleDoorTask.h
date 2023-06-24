@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3113 $
- * $Date: 2009-01-05 06:29:35 -0500 (Mon, 05 Jan 2009) $
+ * $Revision: 3539 $
+ * $Date: 2009-07-17 13:38:34 -0400 (Fri, 17 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -87,9 +87,13 @@ public:
 	void Save(idSaveGame* savefile) const;
 	void Restore(idRestoreGame* savefile);
 
-
 	// Creates a new Instance of this task
 	static HandleDoorTaskPtr CreateInstance();
+
+private:
+	// Finds an entity which can operate the door in question (a lever, forex)
+	// If multiple controllers are available, the nearest one is chosen
+	idEntity* GetRemoteControlEntityForDoor();
 };
 
 } // namespace ai
