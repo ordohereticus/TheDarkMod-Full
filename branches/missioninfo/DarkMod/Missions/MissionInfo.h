@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3919 $
- * $Date: 2010-06-08 03:06:50 -0400 (Tue, 08 Jun 2010) $
+ * $Revision: 3920 $
+ * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -45,11 +45,12 @@ public:
 	int requiredMajor;
 	int requiredMinor;
 
-	CMissionInfo(CMissionInfoDecl* detailsDecl) :
+	CMissionInfo(const idStr& modName_, CMissionInfoDecl* detailsDecl) :
 		_decl(detailsDecl),
 		_declDirty(false),
 		_modFolderSize(0),
 		_modFolderSizeComputed(false),
+		modName(modName_),
 		requiredMajor(TDM_VERSION_MAJOR),
 		requiredMinor(TDM_VERSION_MINOR)
 	{}
@@ -66,6 +67,9 @@ public:
 
 	// Will save any changes to the internal dictionary to disk
 	void	Save();
+
+	// Load stuff from darkmod.txt
+	void	LoadMetaData();
 };
 typedef boost::shared_ptr<CMissionInfo> CMissionInfoPtr;
 

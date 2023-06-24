@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3918 $
- * $Date: 2010-06-07 23:04:15 -0400 (Mon, 07 Jun 2010) $
+ * $Revision: 3920 $
+ * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3918 2010-06-08 03:04:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3920 2010-06-08 08:45:18Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -590,6 +590,7 @@ void idGameLocal::Shutdown( void ) {
 	m_Shop = CShopPtr();
 
 	// Clear the mission manager
+	m_MissionManager->Shutdown();
 	m_MissionManager = CMissionManagerPtr();
 
 	aasList.DeleteContents( true );

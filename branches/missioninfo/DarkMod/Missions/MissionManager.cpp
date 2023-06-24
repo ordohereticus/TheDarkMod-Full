@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3918 $
- * $Date: 2010-06-07 23:04:15 -0400 (Mon, 07 Jun 2010) $
+ * $Revision: 3920 $
+ * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3918 2010-06-08 03:04:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3920 2010-06-08 08:45:18Z greebo $", init_version);
 
 #include "MissionManager.h"
 #include "MissionDB.h"
@@ -26,6 +26,11 @@ void CMissionManager::Init()
 	ReloadMissionList();
 }
 
+void CMissionManager::Shutdown()
+{
+	_missionDB->Shutdown();
+}
+
 // Returns the number of available missions
 int CMissionManager::GetNumMissions()
 {
@@ -34,7 +39,7 @@ int CMissionManager::GetNumMissions()
 
 CMissionInfoPtr CMissionManager::GetMissionInfo(int index)
 {
-	if (index <= 0 || index >= _availableMissions.Num())
+	if (index < 0 || index >= _availableMissions.Num())
 	{
 		return CMissionInfoPtr(); // out of bounds
 	}
@@ -45,7 +50,7 @@ CMissionInfoPtr CMissionManager::GetMissionInfo(int index)
 
 CMissionInfoPtr CMissionManager::GetMissionInfo(const idStr& name)
 {
-	return CMissionInfoPtr(); // TODO
+	return _missionDB->GetMissionInfo(name);
 }
 
 void CMissionManager::SearchForNewMissions()
@@ -270,7 +275,7 @@ int CMissionManager::MissionSortCompare(const int* a, const int* b)
 
 	if (aInfo == NULL || bInfo == NULL) return 0;
 
-	return aInfo->displayName.Icmp(aInfo->displayName);
+	return aInfo->displayName.Icmp(bInfo->displayName);
 }
 
 void CMissionManager::SortMissionList()

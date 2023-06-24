@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3918 $
- * $Date: 2010-06-07 23:04:15 -0400 (Mon, 07 Jun 2010) $
+ * $Revision: 3920 $
+ * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,13 +36,16 @@ public:
 	// This initialises the list of available missions
 	void Init();
 
+	// Should be called when the game is shutting down
+	void Shutdown();
+
 	// Returns the number of available missions
 	int GetNumMissions();
 
 	// Returns the mission info by index (or NULL if out of bounds)
 	CMissionInfoPtr GetMissionInfo(int index);
 
-	// returns the mission info by name (or NULL if no such mission)
+	// returns the mission info by name (always non-NULL)
 	CMissionInfoPtr GetMissionInfo(const idStr& name);
 
 private:
