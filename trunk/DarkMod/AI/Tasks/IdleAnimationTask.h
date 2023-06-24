@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3461 $
- * $Date: 2009-05-23 12:40:38 -0400 (Sat, 23 May 2009) $
- * $Author: greebo $
+ * $Revision: 3515 $
+ * $Date: 2009-07-04 08:34:07 -0400 (Sat, 04 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -28,6 +28,8 @@ class IdleAnimationTask :
 
 	idList<idStr> _idleAnimations;
 	idList<idStr> _idleAnimationsTorso;
+	idList<idStr> _idleAnimationsSitting;
+
 	int _idleAnimationInterval;
 
 	// The index of the last anim played (to avoid duplicates)
