@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3829 $
- * $Date: 2010-01-31 16:16:05 -0500 (Sun, 31 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3839 $
+ * $Date: 2010-02-17 22:11:11 -0500 (Wed, 17 Feb 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -116,8 +116,10 @@ extern const idEventDef EV_IsInLiquid;			// MOD_WATERPHYSICS
 extern const idEventDef EV_CopyBind;
 extern const idEventDef EV_IsFrobable;
 extern const idEventDef EV_SetFrobable;
+extern const idEventDef EV_FrobHilight;
 extern const idEventDef EV_InPVS;
 extern const idEventDef EV_CanSeeEntity;
+extern const idEventDef EV_CanBeUsedBy;
 
 // greebo: Script event definition for dealing damage
 extern const idEventDef EV_Damage;
@@ -1289,6 +1291,8 @@ protected:
 
 	// Frobs this entity.
 	void					Event_Frob();
+	// Frobhighlights this entity or turns it off
+	void					Event_FrobHilight( bool bVal );
 
 	// angua: List of actors that currently use this entity
 	UserManager m_userManager;
@@ -1560,6 +1564,11 @@ public:			// Events should be public, so they can be used from other places as w
 	* greebo: script event wrapper for the above canSeeEntity() method.
 	*/
 	void					Event_CanSeeEntity(idEntity* target, int useLighting);
+
+	/**
+	* ishtvan: Let script acces CanBeUsedBy on this entity
+	**/
+	void					Event_CanBeUsedBy(idEntity *itemEnt);
 
 public:			// events that need to have an accessible counterpart
 	void					SetGuiString(int handle, const char *key, const char *val);

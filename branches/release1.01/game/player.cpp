@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3838 $
- * $Date: 2010-02-05 08:18:24 -0500 (Fri, 05 Feb 2010) $
+ * $Revision: 3839 $
+ * $Date: 2010-02-17 22:11:11 -0500 (Wed, 17 Feb 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3838 2010-02-05 13:18:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3839 2010-02-18 03:11:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10644,6 +10644,14 @@ void idPlayer::PerformFrobCheck()
 	// greebo: Don't run the frobcheck when we're dragging items around
 	if (m_bGrabberActive)
 	{
+		return;
+	}
+
+	// ishtvan: Don't run if frob hilighting is disabled
+	// TODO: Should we just add this functionality to EIM_FROB and get rid of EIM_FROBHILIGHT?
+	if ( GetImmobilization() & EIM_FROB_HILIGHT )
+	{
+		m_FrobEntity = NULL;
 		return;
 	}
 
