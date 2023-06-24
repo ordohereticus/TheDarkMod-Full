@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3540 $
- * $Date: 2009-07-18 00:39:55 -0400 (Sat, 18 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3569 $
+ * $Date: 2009-07-23 10:24:43 -0400 (Thu, 23 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -132,6 +132,8 @@ protected:
 	virtual bool CheckAlertLevel(idAI* owner);
 
 	virtual void UpdateAlertLevel();
+
+	virtual idStr GetGreetingSound(idAI* owner, idAI* otherAI);
 
 private:
 	void OnMessageDetectedSomethingSuspicious(CommMessage& message);
