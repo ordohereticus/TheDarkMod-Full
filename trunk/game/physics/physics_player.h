@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3816 $
- * $Date: 2010-01-24 10:09:31 -0500 (Sun, 24 Jan 2010) $
+ * $Revision: 3912 $
+ * $Date: 2010-06-06 21:52:02 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -506,7 +506,7 @@ protected:
 	* tiredness, length of lift....
 	* @param[in] mantlePhase The mantle phase for which the duration is to be retrieved
 	*/
-	float getMantleTimeForPhase(EMantlePhase mantlePhase);
+	float GetMantleTimeForPhase(EMantlePhase mantlePhase);
 
 	/*!
 	*
