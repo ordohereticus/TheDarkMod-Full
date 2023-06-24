@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3362 $
- * $Date: 2009-04-05 01:28:59 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3393 $
+ * $Date: 2009-04-11 07:33:21 -0400 (Sat, 11 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3362 2009-04-05 05:28:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3393 2009-04-11 11:33:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1263,6 +1263,11 @@ void idGameLocal::LoadMap( const char *mapName, int randseed ) {
 	// This is meant to catch cases where the player is reloading a map from the console without clicking
 	// the "Continue" button on the success GUI. I can't stop him, so I need to track this here.
 	successScreenActive = false;
+
+	if (m_MissionData != NULL)
+	{
+		m_MissionData->ClearGUIState();
+	}
 }
 
 /*

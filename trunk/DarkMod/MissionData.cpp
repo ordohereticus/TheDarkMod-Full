@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3387 $
- * $Date: 2009-04-11 04:24:04 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3393 $
+ * $Date: 2009-04-11 07:33:21 -0400 (Sat, 11 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3387 2009-04-11 08:24:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3393 2009-04-11 11:33:21Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -176,7 +176,8 @@ void CObjectiveComponent::Restore( idRestoreGame *savefile )
 CMissionData::CMissionData() :
 	m_mapFile(NULL),
 	m_PlayerTeam(0),
-	m_TotalGamePlayTime(0)
+	m_TotalGamePlayTime(0),
+	m_MissionDataLoadedIntoGUI(false)
 {
 	Clear();
 
@@ -2264,6 +2265,9 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 
 	ui->SetStateInt("NumVisibleObjectives", objIndices.Num());
 	ui->SetStateInt("ObjectiveBoxIsVisible", 1);
+
+	// Tell the GUI to set its values
+	ui->HandleNamedEvent("GetObjectivesInfo");
 
 	int numObjectivesPerPage = 5;
 	numObjectivesPerPage = ui->GetStateInt("NumObjectivesPerPage");
