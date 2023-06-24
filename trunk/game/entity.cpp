@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3491 $
- * $Date: 2009-06-16 18:58:54 -0400 (Tue, 16 Jun 2009) $
+ * $Revision: 3495 $
+ * $Date: 2009-06-27 00:22:54 -0400 (Sat, 27 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3491 2009-06-16 22:58:54Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3495 2009-06-27 04:22:54Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6192,7 +6192,7 @@ void idEntity::Event_CopyBind( idEntity* other )
 		Bind( master, true );
 
 		// greebo: If the bind master is static, set the solid for team flag
-		if (master->GetPhysics()->IsType(idPhysics_Static::Type))
+		if (master && master->GetPhysics()->IsType(idPhysics_Static::Type))
 		{
 			fl.solidForTeam = true;
 		}
