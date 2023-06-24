@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3885 $
- * $Date: 2010-04-24 22:37:27 -0400 (Sat, 24 Apr 2010) $
+ * $Revision: 3886 $
+ * $Date: 2010-04-25 09:38:40 -0400 (Sun, 25 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3885 2010-04-25 02:37:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3886 2010-04-25 13:38:40Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -39,7 +39,9 @@ static const char *gCompTypeName[COMP_COUNT] =
 	"custom",
 	"custom_clocked",
 	"info_location",
-	"distance"
+	"distance",
+	"readable_opened",
+	"readable_closed"
 };
 
 /**
@@ -1139,7 +1141,27 @@ void CMissionData::HealthReceivedByPlayer(int amount)
 
 void CMissionData::HandleMissionEvent(idEntity* objEnt, EMissionEventType eventType, const char* argument)
 {
-	// TODO
+	if (objEnt == NULL) return;
+
+	// Setup the entity parameters
+	SObjEntParms parms;
+
+	FillParmsData(objEnt, &parms);
+
+	switch (eventType)
+	{
+	case EVENT_NOTHING:
+		break;
+	case EVENT_READABLE_OPENED:
+		MissionEvent(COMP_READABLE_OPENED, &parms, true);
+		break;
+	case EVENT_READABLE_CLOSED:
+		MissionEvent(COMP_READABLE_CLOSED, &parms, true);
+		break;
+	default:
+		gameLocal.Warning("Unknown event type encountered in HandleMissionEvent: %d", eventType);
+		break;
+	};
 }
 
 // ============================== Misc.  ==============================
