@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3642 $
- * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3672 $
+ * $Date: 2009-08-14 23:17:43 -0400 (Fri, 14 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3642 2009-08-04 14:55:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3672 2009-08-15 03:17:43Z greebo $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -133,6 +133,13 @@ void MovementSubsystem::SetBlockedState(const BlockedState newState)
 
 void MovementSubsystem::ResolveBlock(idEntity* blockingEnt)
 {
+	idAI* owner = _owner.GetEntity();
+	
+	if (owner->GetMemory().resolvingMovementBlock)
+	{
+		return; // Already resolving
+	}
+
 	// Push a resolution task
 	PushTask(TaskPtr(new ResolveMovementBlockTask(blockingEnt)));
 

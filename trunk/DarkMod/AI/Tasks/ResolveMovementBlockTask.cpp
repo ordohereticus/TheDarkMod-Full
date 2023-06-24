@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3669 $
- * $Date: 2009-08-14 13:14:39 -0400 (Fri, 14 Aug 2009) $
+ * $Revision: 3672 $
+ * $Date: 2009-08-14 23:17:43 -0400 (Fri, 14 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3669 2009-08-14 17:14:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 3672 2009-08-15 03:17:43Z greebo $", init_version);
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -40,6 +40,8 @@ void ResolveMovementBlockTask::Init(idAI* owner, Subsystem& subsystem)
 {
 	// Just init the base class
 	Task::Init(owner, subsystem);
+
+	owner->GetMemory().resolvingMovementBlock = true;
 
 	if (_blockingEnt == NULL)
 	{
@@ -246,6 +248,8 @@ bool ResolveMovementBlockTask::PerformBlockingStatic(idAI* owner)
 
 void ResolveMovementBlockTask::OnFinish(idAI* owner)
 {
+	owner->GetMemory().resolvingMovementBlock = false;
+
 	if (_preTaskContents != -1)
 	{
 		owner->GetPhysics()->SetContents(_preTaskContents);

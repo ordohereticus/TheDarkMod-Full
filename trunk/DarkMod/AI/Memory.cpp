@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3586 $
- * $Date: 2009-07-26 08:37:43 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3672 $
+ * $Date: 2009-08-14 23:17:43 -0400 (Fri, 14 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3586 2009-07-26 12:37:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3672 2009-08-15 03:17:43Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -65,7 +65,8 @@ Memory::Memory(idAI* owningAI) :
 	chosenHidingSpot(0,0,0),
 	hidingSpotInvestigationInProgress(false),
 	fleeingDone(true),
-	positionBeforeTakingCover(0,0,0)
+	positionBeforeTakingCover(0,0,0),
+	resolvingMovementBlock(false)
 {}
 
 // Save/Restore routines
@@ -120,6 +121,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteBool(hidingSpotInvestigationInProgress);
 	savefile->WriteBool(fleeingDone);
 	savefile->WriteVec3(positionBeforeTakingCover);
+	//savefile->WriteBool(resolvingMovementBlock);
 
 	doorRelated.currentDoor.Save(savefile);
 
@@ -204,6 +206,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadBool(hidingSpotInvestigationInProgress);
 	savefile->ReadBool(fleeingDone);
 	savefile->ReadVec3(positionBeforeTakingCover);
+	savefile->ReadBool(resolvingMovementBlock);
 
 	doorRelated.currentDoor.Restore(savefile);
 	// Clear the containers before restoring them

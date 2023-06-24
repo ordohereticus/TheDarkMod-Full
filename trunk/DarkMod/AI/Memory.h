@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3586 $
- * $Date: 2009-07-26 08:37:43 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3672 $
+ * $Date: 2009-08-14 23:17:43 -0400 (Fri, 14 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -311,6 +311,9 @@ public:
 
 	// angua: The last position of the AI before it takes cover, so it can return to it later.
 	idVec3 positionBeforeTakingCover;
+
+	// TRUE when the AI is currently trying to resolve a block
+	bool resolvingMovementBlock;
 
 	// Maps doors to info structures
 	typedef std::map<CFrobDoor*, DoorInfoPtr> DoorInfoMap;
