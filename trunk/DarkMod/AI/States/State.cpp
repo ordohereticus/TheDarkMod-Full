@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3540 $
- * $Date: 2009-07-18 00:39:55 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3541 $
+ * $Date: 2009-07-18 01:05:04 -0400 (Sat, 18 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3540 2009-07-18 04:39:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3541 2009-07-18 05:05:04Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -877,7 +877,7 @@ bool State::OnUnconsciousPersonEncounter(idActor* person, idAI* owner)
 			
 			owner->AI_VISALERT = false;
 			
-			owner->SetAlertLevel(owner->thresh_5 + 0.1);
+			owner->SetAlertLevel(owner->thresh_5 + 0.1f);
 		}
 					
 		// Do new reaction to stimulus
@@ -895,7 +895,21 @@ bool State::OnUnconsciousPersonEncounter(idActor* person, idAI* owner)
 
 void State::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead)
 {
-	// TODO
+	idAI* owner = _owner.GetEntity();
+	Memory& memory = owner->GetMemory();
+
+	// Alert this AI
+	memory.alertClass = EAlertTactile;
+	memory.alertType = EAlertTypeEnemy;
+
+	// Set the alert position 50 units in the attacking direction
+	memory.alertPos = owner->GetPhysics()->GetOrigin() - direction * 50;
+
+	memory.countEvidenceOfIntruders++;
+	memory.alertedDueToCommunication = false;
+
+	// Alert the AI
+	owner->AlertAI("tact", owner->thresh_5*2);
 }
 
 void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)

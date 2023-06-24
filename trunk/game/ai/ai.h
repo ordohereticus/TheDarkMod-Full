@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3540 $
- * $Date: 2009-07-18 00:39:55 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3541 $
+ * $Date: 2009-07-18 01:05:04 -0400 (Sat, 18 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1220,8 +1220,10 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* bIsPowerBlow is set if the BJ was powered up
 	*
 	* Returns false if BJ attempt failed, or if already knocked out
+	*
+	* Note: overrides idActor::TestKnockoutBlow.
 	**/
-	bool					TestKnockoutBlow( idEntity* attacker, const idVec3& dir, trace_t *tr, int location, bool bIsPowerBlow );  
+	virtual bool			TestKnockoutBlow( idEntity* attacker, const idVec3& dir, trace_t *tr, int location, bool bIsPowerBlow );  
 	
 	/**
 	* Tells the AI to go unconscious.  Called by TestKnockoutBlow if successful,
