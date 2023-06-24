@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3406 $
- * $Date: 2009-04-13 03:03:36 -0400 (Mon, 13 Apr 2009) $
+ * $Revision: 3526 $
+ * $Date: 2009-07-12 12:11:20 -0400 (Sun, 12 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 3406 2009-04-13 07:03:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 3526 2009-07-12 16:11:20Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -320,13 +320,12 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 		ent->SpawnAbsenceMarker();
 	}
 
-
 	if (returnValue != NULL)
 	{
 		// The item is a valid loot item, remove the entity and return
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Added loot item to inventory: %s\r", ent->name.c_str());
 
-		// Remove the entity, it is a loot item (which vanish when added to the inventory)
+		// Remove the entity, it is a loot item (which vanishes when added to the inventory)
 		RemoveEntityFromMap(ent, true);
 
 		return returnValue;
@@ -458,6 +457,9 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 void CInventory::RemoveEntityFromMap(idEntity *ent, bool bDelete)
 {
 	if (ent == NULL) return;
+
+	// greebo: Don't hide inexhaustible items
+	if (ent->spawnArgs.GetBool("inv_inexhaustible", "0")) return;
 
 	DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Hiding entity from game: %s...\r", ent->name.c_str());
 
