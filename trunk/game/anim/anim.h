@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3213 $
- * $Date: 2009-02-16 06:34:30 -0500 (Mon, 16 Feb 2009) $
- * $Author: ishtvan $
+ * $Revision: 3869 $
+ * $Date: 2010-04-12 09:03:51 -0400 (Mon, 12 Apr 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -145,6 +145,18 @@ typedef enum {
 * Move an attachment to a different position
 **/
 	FC_REATTACH,
+/**
+* Tels: Spawn an item (the item contains where to attach it)
+**/
+	FC_ATTACH,
+/**
+* Tels: Detach and destroy the named attachement
+**/
+	FC_DETACH,
+/**
+* Tels: Detach and drop the named attachement
+**/
+	FC_DROP,
 /**
 * Pause the animation at its current frame, wait for unpause from somewhere else
 **/

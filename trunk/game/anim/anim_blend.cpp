@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3788 $
- * $Date: 2010-01-08 22:28:39 -0500 (Fri, 08 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3869 $
+ * $Date: 2010-04-12 09:03:51 -0400 (Mon, 12 Apr 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3788 2010-01-09 03:28:39Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3869 2010-04-12 13:03:51Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -626,6 +626,47 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		
 		fc.string->Append(va(" %s", token.c_str() ));
 	}
+	// tels:
+	else if ( token == "attach" ) 
+	{
+		// first argument (class of entity to spawn)
+		if( !src.ReadTokenOnLine( &token ) )
+			return "Unexpected end of line";
+
+		fc.type = FC_ATTACH;
+		fc.string = new idStr( token );
+
+		// second argument (attach name, optional)
+		if( src.ReadTokenOnLine( &token ) )
+		{
+			fc.string->Append(va(" %s", token.c_str() ));
+		}
+		// third argument (attach position, optional)
+		if( src.ReadTokenOnLine( &token ) )
+		{
+			fc.string->Append(va(" %s", token.c_str() ));
+		}
+	}
+	// tels:
+	else if ( token == "detach" ) 
+	{
+		// first argument (attachment name)
+		if( !src.ReadTokenOnLine( &token ) )
+			return "Unexpected end of line";
+
+		fc.type = FC_DETACH;
+		fc.string = new idStr( token );
+	}
+	// tels:
+	else if ( token == "drop" ) 
+	{
+		// first argument (attachment name)
+		if( !src.ReadTokenOnLine( &token ) )
+			return "Unexpected end of line";
+
+		fc.type = FC_DROP;
+		fc.string = new idStr( token );
+	}
 	else if ( token == "pause" ) 
 	{
 		fc.type = FC_PAUSE;
@@ -1079,6 +1120,63 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					idStr AttPos = command.string->Mid( spcind+1, command.string->Length() );
 
 					ent->ReAttachToPos( AttName, AttPos );
+					break;
+				}
+				// tels: detach and destroy an attachment
+				case FC_DETACH:
+				{
+					// get the attachment
+					idEntity* AttEntity = ent->GetAttachment( command.string->c_str() );
+						// detach and unbind it
+						// ent->Detach( command.string->c_str() );
+					// simple remove it, that will also detach it
+					// gameLocal.Warning ( "Going to remove attachment '%s' from '%s'\n", command.string->c_str(), ent->getName().c_str() );
+					AttEntity->PostEventMS( &EV_Remove, 0 );
+					break;
+				}
+				// tels: drop an attachement
+				case FC_DROP:
+				{
+					// only detach and unbind it
+					ent->Detach( command.string->c_str() );
+					break;
+				}
+				// spawn an entity
+				case FC_ATTACH:
+				{
+					// possible formats:
+					// "atdm:foo_bar"
+					// "atdm:foo_bar book"
+					// "atdm:foo_bar book hip_left"
+
+					idStr EntClass = command.string->Left(0);
+					// use these as defaults
+					idStr AttName = "";
+					idStr AttPos = "";
+
+					int spcind = command.string->Find(" ");
+					if (spcind > 0)
+					{
+						// format of AttName is afterwards either "book" or "book hip_left"
+						EntClass = command.string->Left( spcind );
+						AttName = command.string->Mid( spcind+1, command.string->Length() );
+						spcind = AttName.Find(" ");
+						if (spcind > 0)
+						{
+							AttPos = AttName.Mid( spcind+1, AttName.Length() );
+							AttName = AttName.Left( spcind );
+						}
+					}
+					// spawn the entity
+					idEntity* spawnedEntity;
+					const idDict* entityDef = gameLocal.FindEntityDefDict( EntClass );
+					if (!entityDef)
+					{
+						gameLocal.Error( "Cannot spawn %s - no such entityDef", EntClass.c_str() );
+					}
+					gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
+					// gameLocal.Warning ( "'%s' '%s' '%s'\n", EntClass.c_str(), AttName.c_str(), AttPos.c_str());
+					ent->Attach( spawnedEntity, AttPos, AttName );
 					break;
 				}
 				case FC_PAUSE:
@@ -2070,7 +2168,7 @@ void idAnimBlend::CallFrameCommands( idEntity *ent, int fromtime, int totime ) c
 		( 
 			!allowFrameCommands || !ent || 
 			frame || ( ( endtime > 0 ) && ( fromtime > endtime )
-			|| m_bPaused ) 
+			|| m_bPaused )
 		)
 		return;
 
