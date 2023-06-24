@@ -7,21 +7,20 @@
  *
  ***************************************************************************/
 
-#ifndef __AI_COMBAT_STATE_H__
-#define __AI_COMBAT_STATE_H__
+#ifndef _COMBAT_STATE_LANTERN_BOT_H_
+#define _COMBAT_STATE_LANTERN_BOT_H_
 
 #include "../../../game/ai/ai.h"
-#include "State.h"
+#include "CombatState.h"
 
 namespace ai
 {
 
-#define STATE_COMBAT "Combat"
+#define STATE_COMBAT_LANTERN_BOT "CombatLanternBot"
 
-class CombatState :
-	public State
+class CombatStateLanternBot :
+	public CombatState
 {
-protected:
 	// The AI's enemy
 	idEntityPtr<idActor> _enemy;
 	int _criticalHealth;
@@ -29,7 +28,6 @@ protected:
 	bool _rangedPossible;
 
 	ECombatType _combatType;
-
 
 public:
 	// Get the name of this state
@@ -41,25 +39,9 @@ public:
 	// Gets called each time the mind is thinking
 	virtual void Think(idAI* owner);
 
-	// Override the alert functions
-	virtual void OnTactileAlert(idEntity* tactEnt);
-	virtual void OnVisualAlert(idActor* enemy);
-	virtual void OnAudioAlert();
-
-	virtual void OnPersonEncounter(idEntity* stimSource, idAI* owner);
-	virtual void OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead);
-
-	// Save/Restore methods
-	virtual void Save(idSaveGame* savefile) const;
-	virtual void Restore(idRestoreGame* savefile);
-
 	static StatePtr CreateInstance();
-
-protected:
-	// Override base class method
-	virtual bool CheckAlertLevel(idAI* owner);
 };
 
-} // namespace ai
+} // namespace
 
-#endif /* __AI_COMBAT_STATE_H__ */
+#endif
