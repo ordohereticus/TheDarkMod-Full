@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3716 $
- * $Date: 2009-10-03 23:57:04 -0400 (Sat, 03 Oct 2009) $
- * $Author: greebo $
+ * $Revision: 3722 $
+ * $Date: 2009-10-23 19:00:22 -0400 (Fri, 23 Oct 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -234,6 +234,9 @@ extern idCVar cv_tdm_inv_hud_pickupmessages;
 extern idCVar cv_tdm_inv_loot_sound;
 extern idCVar cv_tdm_inv_use_on_frob;
 extern idCVar cv_tdm_inv_use_visual_feedback;
+
+extern idCVar cv_tdm_door_control;
+extern idCVar cv_tdm_door_control_sensitivity;
 
 extern idCVar cv_pm_stepvol_walk;
 extern idCVar cv_pm_stepvol_run;
