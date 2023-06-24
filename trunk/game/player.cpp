@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3395 $
- * $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3396 $
+ * $Date: 2009-04-11 11:34:41 -0400 (Sat, 11 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3395 2009-04-11 15:16:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3396 2009-04-11 15:34:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3797,6 +3797,11 @@ void idPlayer::OnStartShoulderingBody(idEntity* body)
 	else
 		IconName = body->spawnArgs.GetString("shouldered_name_dead", "Corpse");
 	*/
+
+	CallGui(m_InventoryOverlay, "OnStartShoulderingBody");
+
+	// Clear the inventory cursor
+	SelectInventoryItem("");
 
 	m_bShoulderingBody = true;
 }
