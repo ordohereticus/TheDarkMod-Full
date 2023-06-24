@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3463 $
- * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3571 $
+ * $Date: 2009-07-24 01:13:19 -0400 (Fri, 24 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3463 2009-05-24 02:35:45Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3571 2009-07-24 05:13:19Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -258,6 +258,26 @@ DoorInfoPtr Memory::GetDoorInfo(int areaNum)
 {
 	AreaToDoorInfoMap::iterator i = doorRelated.areaDoorInfoMap.find(areaNum);
 	return (i != doorRelated.areaDoorInfoMap.end()) ? i->second : DoorInfoPtr();
+}
+
+int Memory::GetLastGreetingTime(idActor* actor)
+{
+	ActorGreetingInfoMap::iterator i = greetingInfo.find(actor);
+
+	return (i != greetingInfo.end()) ? i->second.lastGreetingTime : -1;
+}
+
+void Memory::SetLastGreetingTime(idActor* actor, int time)
+{
+	// Insert structure if not existing
+	ActorGreetingInfoMap::iterator i = greetingInfo.find(actor);
+
+	if (i == greetingInfo.end())
+	{
+		i = greetingInfo.insert(ActorGreetingInfoMap::value_type(actor, GreetingInfo())).first;
+	}
+
+	i->second.lastGreetingTime = time;
 }
 
 } // namespace ai
