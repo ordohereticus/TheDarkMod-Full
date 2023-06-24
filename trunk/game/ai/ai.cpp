@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3820 $
- * $Date: 2010-01-30 16:50:20 -0500 (Sat, 30 Jan 2010) $
+ * $Revision: 3822 $
+ * $Date: 2010-01-30 17:55:35 -0500 (Sat, 30 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3820 2010-01-30 21:50:20Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3822 2010-01-30 22:55:35Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9483,7 +9483,7 @@ void idAI::FOVDebugDraw( void )
 
 	// store head joint base position to HeadCenter, axis to HeadAxis
 	GetJointWorldTransform( m_HeadJointID, gameLocal.time, HeadCenter, HeadAxis );
-	idMat3 HeadAxisR = HeadAxis * m_FOVRot;
+	idMat3 HeadAxisR =  m_FOVRot * HeadAxis;
 	// offset from head joint position to get the true head center
 	HeadCenter += HeadAxis * m_HeadCenterOffset;
 
