@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3381 $
- * $Date: 2009-04-09 12:39:35 -0400 (Thu, 09 Apr 2009) $
+ * $Revision: 3698 $
+ * $Date: 2009-09-07 07:01:56 -0400 (Mon, 07 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 3381 2009-04-09 16:39:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 3698 2009-09-07 11:01:56Z greebo $", init_version);
 
 #include "KnockedOutState.h"
 #include "../Memory.h"
@@ -46,8 +46,8 @@ void KnockedOutState::Init(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 
 	//owner->StopAnim(ANIMCHANNEL_TORSO, 0);
-	owner->StopAnim(ANIMCHANNEL_LEGS, 0);
-	owner->StopAnim(ANIMCHANNEL_HEAD, 0);
+	//owner->StopAnim(ANIMCHANNEL_LEGS, 0);
+	//owner->StopAnim(ANIMCHANNEL_HEAD, 0);
 
 	// angua: disabled for Thief's Den release
 	// anims didn't look good and produced problems
