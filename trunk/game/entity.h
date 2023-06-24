@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3305 $
- * $Date: 2009-03-25 12:15:24 -0400 (Wed, 25 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3402 $
+ * $Date: 2009-04-12 02:32:11 -0400 (Sun, 12 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1436,6 +1436,10 @@ public:			// Events should be public, so they can be used from other places as w
 	void					ResponseIgnore(int StimType, idEntity *);
 	void					ResponseAllow(int StimType, idEntity *);
 	void					ResponseSetAction(int StimType, const char *Action);
+
+	// greebo: Callback invoked by the response on incoming stims to trigger custom code
+	// To be overridden by subclasses, default implementation is empty
+	virtual void			OnStim(CStim* stim, idEntity* stimSource);
 
 	// Script event pendant to GetResponseEntity();
 	void					Event_GetResponseEntity();

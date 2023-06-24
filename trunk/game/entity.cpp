@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3347 $
- * $Date: 2009-04-02 10:46:02 -0400 (Thu, 02 Apr 2009) $
+ * $Revision: 3402 $
+ * $Date: 2009-04-12 02:32:11 -0400 (Sun, 12 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3347 2009-04-02 14:46:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3402 2009-04-12 06:32:11Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7778,6 +7778,11 @@ void idEntity::ResponseSetAction(int StimType, const char *s)
 
 	if(resp)
 		resp->SetResponseAction(s);
+}
+
+void idEntity::OnStim(CStim* stim, idEntity* stimSource)
+{
+	// Nothing
 }
 
 /**	Called when m_renderTrigger is rendered.

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3366 $
- * $Date: 2009-04-05 17:09:12 -0400 (Sun, 05 Apr 2009) $
- * $Author: ishtvan $
+ * $Revision: 3402 $
+ * $Date: 2009-04-12 02:32:11 -0400 (Sun, 12 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3366 2009-04-05 21:09:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3402 2009-04-12 06:32:11Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5482,15 +5482,16 @@ void idAI::DropBlood(idEntity *inflictor)
 
 		// blood splats are thrown onto nearby surfaces
 		idStr splat = def->dict.RandomPrefix("mtr_killed_splat", gameLocal.random);
+
 		if (!splat.IsEmpty()) 
 		{
-			SpawnBloodMarker(splat, 40);
+			SpawnBloodMarker(splat, splat + "_fading", 40);
 		}
 	}
 }
 
 
-void idAI::SpawnBloodMarker(idStr splat, float size)
+void idAI::SpawnBloodMarker(const idStr& splat, const idStr& splatFading, float size)
 {
 	trace_t result;
 	gameLocal.clip.TracePoint(result, GetPhysics()->GetOrigin(), GetPhysics()->GetOrigin() + 60 * idVec3(0, 0, -1), MASK_OPAQUE, this);
@@ -5516,7 +5517,7 @@ void idAI::SpawnBloodMarker(idStr splat, float size)
 
 	CBloodMarker* bloodMarker = static_cast<CBloodMarker*>(ent);
 	bloodMarker->SetOrigin(markerOrigin);
-	bloodMarker->Init(splat, size);
+	bloodMarker->Init(splat, splatFading, size);
 	bloodMarker->Event_GenerateBloodSplat();
 }
 

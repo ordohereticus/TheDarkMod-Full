@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3402 $
+ * $Date: 2009-04-12 02:32:11 -0400 (Sun, 12 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Response.cpp 2338 2008-05-15 16:23:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Response.cpp 3402 2009-04-12 06:32:11Z greebo $", init_version);
 
 #include "Response.h"
 #include "Stim.h"
@@ -79,7 +79,12 @@ void CResponse::TriggerResponse(idEntity *sourceEntity, CStim* stim)
 		return;
 	}
 
-	const function_t *pScriptFkt = m_Owner.GetEntity()->scriptObject.GetFunction(m_ScriptFunction.c_str());
+	idEntity* owner = m_Owner.GetEntity();
+
+	// Notify the owner entity
+	owner->OnStim(stim, sourceEntity);
+
+	const function_t *pScriptFkt = owner->scriptObject.GetFunction(m_ScriptFunction.c_str());
 	if(pScriptFkt == NULL)
 	{
 		DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Action: %s not found in local space, checking for global.\r", m_ScriptFunction.c_str());
@@ -91,7 +96,7 @@ void CResponse::TriggerResponse(idEntity *sourceEntity, CStim* stim)
 		DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Running ResponseScript\r");
 		idThread *pThread = new idThread(pScriptFkt);
 		int n = pThread->GetThreadNum();
-		pThread->CallFunctionArgs(pScriptFkt, true, "eef", m_Owner.GetEntity(), sourceEntity, n);
+		pThread->CallFunctionArgs(pScriptFkt, true, "eef", owner, sourceEntity, n);
 		pThread->DelayedStart(0);
 	}
 	else
@@ -107,13 +112,9 @@ void CResponse::TriggerResponse(idEntity *sourceEntity, CStim* stim)
 
 		// Calculate the magnitude of the stim based on the distance and the falloff model
 		magnitude = stim->m_Magnitude;
-		float distance = (m_Owner.GetEntity()->GetPhysics()->GetOrigin() - sourceEntity->GetPhysics()->GetOrigin()).LengthFast();
+		float distance = (owner->GetPhysics()->GetOrigin() - sourceEntity->GetPhysics()->GetOrigin()).LengthFast();
 		
-#ifdef __linux__
-		// Import std::min for GCC, since global min() function is non-standard
 		using std::min;
-#endif
-		
 		float base = 1 - min(stim->m_Radius, distance) / stim->m_Radius;
 		
 		// Calculate the falloff value (the magnitude is between [0, magnitude] for positive falloff exponents)
@@ -126,14 +127,14 @@ void CResponse::TriggerResponse(idEntity *sourceEntity, CStim* stim)
 		for (int i = 1; i <= m_NumRandomEffects; i++) {
 			// Get a random effectIndex in the range of [0, m_ResponseEffects.Num()[
 			int effectIndex = gameLocal.random.RandomInt(m_ResponseEffects.Num());
-			m_ResponseEffects[effectIndex]->runScript(m_Owner.GetEntity(), sourceEntity, magnitude);
+			m_ResponseEffects[effectIndex]->runScript(owner, sourceEntity, magnitude);
 		}
 	}
 	else {
 		DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Iterating through ResponseEffects: %d\r", m_ResponseEffects.Num());
 		// "Normal" mode, all the effects get fired in order
 		for (int i = 0; i < m_ResponseEffects.Num(); i++) {
-			m_ResponseEffects[i]->runScript(m_Owner.GetEntity(), sourceEntity, magnitude);
+			m_ResponseEffects[i]->runScript(owner, sourceEntity, magnitude);
 		}
 	}
 }
