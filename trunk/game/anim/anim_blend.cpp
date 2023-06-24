@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3874 $
- * $Date: 2010-04-14 12:36:20 -0400 (Wed, 14 Apr 2010) $
+ * $Revision: 3875 $
+ * $Date: 2010-04-14 12:49:42 -0400 (Wed, 14 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3874 2010-04-14 16:36:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3875 2010-04-14 16:49:42Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1283,17 +1283,34 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					}
 
 					gameLocal.Warning ( "Picking up '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
-					// now find the entity
-					idEntity* attTarget = gameLocal.FindEntity(EntityName);
+
+					// first see if the entity the animation is running on defines an entity to use
+					// via spawnarg: "pickup_" + "name_of_the_animation"
+					idStr Spawnarg = "pickup_"; Spawnarg.Append( name );
+
+					gameLocal.Warning ( "Lookign for entity defined via spawnarg '%s'", Spawnarg.c_str());
+					idStr SpawnargEntityName = ent->spawnArgs.GetString( Spawnarg, "" );
+					idEntity* attTarget = gameLocal.FindEntity( SpawnargEntityName );
+
 					if (attTarget == NULL)
 					{
-						// generic AIUSE class, find a suitable entity
-						gameLocal.Warning ( " Trying to find an entity matching '%s'", EntityName.c_str() );
+						// the spawnarg entity could not be found
+						// so try to use the entity named in the animation
+						attTarget = gameLocal.FindEntity( EntityName );
+						// could not be found either?
+						if (attTarget == NULL)
+						{
+							// generic AIUSE class, find a suitable entity
+							gameLocal.Warning ( " Trying to find an entity matching '%s'", EntityName.c_str() );
+						}
 					}
+					gameLocal.Warning ( "Found entity %s", attTarget->name.c_str() );
 
-					// did we find a suitable entity?
+					// did we find an entity to pickup?
 					if (attTarget)
 					{
+						// TODO: check that this entity is not attached to something/someone else
+
 						gameLocal.Warning ( "Attaching '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
 						// first get the origin and rotation of the entity
 						idVec3 origin = attTarget->GetPhysics()->GetOrigin();
