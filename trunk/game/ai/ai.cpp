@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3654 $
- * $Date: 2009-08-06 03:23:44 -0400 (Thu, 06 Aug 2009) $
+ * $Revision: 3658 $
+ * $Date: 2009-08-09 04:05:49 -0400 (Sun, 09 Aug 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3654 2009-08-06 07:23:44Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3658 2009-08-09 08:05:49Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1955,7 +1955,8 @@ void idAI::Think( void )
 				// greebo: Get the number of frames from the head animator
 				int numFrames = head.GetEntity()->GetAnimator()->NumFrames(m_lipSyncAnim);
 
-				int frame = static_cast<int>(numFrames * GetSoundEmitter()->CurrentAmplitude());
+				int frame = static_cast<int>(numFrames * idMath::Sqrt16(GetSoundEmitter()->CurrentAmplitude()));
+				frame = idMath::ClampInt(0, numFrames, frame);
 				headAnim.SetFrame(m_lipSyncAnim, frame);
 			}
 			else
