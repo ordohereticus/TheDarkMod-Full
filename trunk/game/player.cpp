@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3412 $
- * $Date: 2009-04-26 23:22:11 -0400 (Sun, 26 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3413 $
+ * $Date: 2009-04-26 23:34:44 -0400 (Sun, 26 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3412 2009-04-27 03:22:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3413 2009-04-27 03:34:44Z angua $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5413,24 +5413,12 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_23:		// Crouch
 		{
-			// angua: hitting crouch while climbing on a ladder or rope will detach
-			if (physicsObj.OnRope())
+			if (!cv_tdm_crouch_toggle.GetBool())
 			{
-				physicsObj.RopeDetach();
+				m_CrouchIntent = true;
 			}
-			else if (physicsObj.OnLadder())
-			{
-				physicsObj.ClimbDetach();
-			}
-			else
-			{
-				// in all other cases, change the crouch intent which will toggle crouch
-				m_ButtonStateTracker.StartTracking(impulse);
-				if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
-				{
-					m_CrouchIntent = !m_CrouchIntent;
-				}
-			}
+			
+			m_ButtonStateTracker.StartTracking(impulse);
 		}
 		break;
 
@@ -5674,8 +5662,27 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 void idPlayer::PerformKeyRepeat(int impulse, int holdTime)
 {
+
+
 	switch (impulse)
 	{
+		case IMPULSE_23:		// TDM Crouch
+		{
+			if (holdTime > cv_tdm_crouch_toggle_hold_time.GetFloat())
+			{
+				if (physicsObj.OnRope())
+				{
+					physicsObj.RopeDetach();
+				}
+				else if (physicsObj.OnLadder())
+				{
+					physicsObj.ClimbDetach();
+				}
+			}
+
+		}
+		break;
+
 		case IMPULSE_41:		// TDM Use/Frob
 		{
 			PerformFrobKeyRepeat();
@@ -5703,17 +5710,29 @@ void idPlayer::PerformKeyRelease(int impulse, int holdTime)
 
 	switch (impulse)
 	{
+		case IMPULSE_23:		// TDM crouch
+			if (cv_tdm_crouch_toggle.GetBool())
+			{
+				if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
+				{
+					m_CrouchIntent = !m_CrouchIntent;
+				}
+			}		
+			else
+			{
+				m_CrouchIntent = false;
+			}
+
+		break;
+
 		case IMPULSE_41:		// TDM Use/Frob
 		{
 			PerformFrobKeyRelease();
 		}
 		break;
-		case IMPULSE_23:
-			if ( !cv_tdm_crouch_toggle.GetBool() && m_CrouchIntent)
-			{
-				m_CrouchIntent = false;
-			}
-		break;
+
+
+
 		case IMPULSE_44:
 			if ( !cv_pm_lean_toggle.GetBool() && physicsObj.IsLeaning() )
 				physicsObj.ToggleLean(90.0);

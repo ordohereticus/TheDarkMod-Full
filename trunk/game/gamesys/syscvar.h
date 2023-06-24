@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3410 $
- * $Date: 2009-04-20 10:20:11 -0400 (Mon, 20 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3413 $
+ * $Date: 2009-04-26 23:34:44 -0400 (Sun, 26 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -142,6 +142,7 @@ extern idCVar cv_force_savegame_load;
 
 // angua: TDM toggle crouch
 extern idCVar cv_tdm_crouch_toggle;
+extern idCVar cv_tdm_crouch_toggle_hold_time;
 extern idCVar cv_tdm_reattach_delay;
 
 

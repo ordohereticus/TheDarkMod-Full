@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3410 $
- * $Date: 2009-04-20 10:20:11 -0400 (Mon, 20 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3413 $
+ * $Date: 2009-04-26 23:34:44 -0400 (Sun, 26 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3410 2009-04-20 14:20:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3413 2009-04-27 03:34:44Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -165,7 +165,9 @@ idCVar cv_tdm_fwd_jump_vel(				"tdm_fwd_jump_vel",				"50.0",			CVAR_FLOAT, "For
 
 // Dark Mod crouching
 idCVar cv_tdm_crouch_toggle(			"tdm_toggle_crouch",			"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to make crouching toggleable." );
+idCVar cv_tdm_crouch_toggle_hold_time(	"tdm_crouch_toggle_hold_time",	"400",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The time to hold crouch while on a rope/ladder for starting to slide down." );
 idCVar cv_tdm_reattach_delay(			"tdm_reattach_delay",			"100",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Delay (in ms) for reattaching to ropes/ladders after detaching using crouch." );
+
 
 /**
 * Dark Mod Leaning
