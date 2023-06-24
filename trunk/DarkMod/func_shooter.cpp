@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2734 $
- * $Date: 2008-08-15 01:50:27 -0400 (Fri, 15 Aug 2008) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: func_shooter.cpp 2734 2008-08-15 05:50:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: func_shooter.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
 
 #include "func_shooter.h"
 #include "StimResponse/StimResponseCollection.h"
@@ -61,9 +61,6 @@ tdmFuncShooter::Spawn
 */
 void tdmFuncShooter::Spawn()
 {
-	// Setup any stims/responses
-	m_StimResponseColl->ParseSpawnArgsToStimResponse(&spawnArgs, this);
-
 	_active = !spawnArgs.GetBool("start_off");
 	_lastFireTime = 0;
 	_fireInterval = spawnArgs.GetInt("fire_interval", "-1");
@@ -73,7 +70,7 @@ void tdmFuncShooter::Spawn()
 	idStr reqStimStr = spawnArgs.GetString("required_stim");
 
 	if (!reqStimStr.IsEmpty()) {
-		_requiredStim = CStimResponse::getStimType(reqStimStr);
+		_requiredStim = CStimResponse::GetStimType(reqStimStr);
 		_requiredStimTimeOut = spawnArgs.GetInt("required_stim_timeout", "5000");
 	}
 
@@ -267,6 +264,12 @@ void tdmFuncShooter::Fire()
 
 		idEntity* ent = NULL;
 		gameLocal.SpawnEntityDef(*projectileDict, &ent);
+
+		if (ent == NULL) 
+		{
+			gameLocal.Warning("Could not spawn projectile type: %s", projectileDef.c_str());
+			return;
+		}
 
 		if (ent->IsType(idProjectile::Type))
 		{

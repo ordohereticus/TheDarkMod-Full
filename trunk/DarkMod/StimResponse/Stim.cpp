@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2614 $
- * $Date: 2008-07-06 01:56:10 -0400 (Sun, 06 Jul 2008) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Stim.cpp 2614 2008-07-06 05:56:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Stim.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
 
 #include "Stim.h"
 
@@ -18,8 +18,8 @@ static bool init_version = FileVersionList("$Id: Stim.cpp 2614 2008-07-06 05:56:
 /********************************************************************/
 /*                     CStim                                        */
 /********************************************************************/
-CStim::CStim(idEntity *e, int Type, int uniqueId)
-: CStimResponse(e, Type, uniqueId)
+CStim::CStim(idEntity *e, StimType type, int uniqueId) : 
+	CStimResponse(e, type, uniqueId)
 {
 	m_bUseEntBounds = false;
 	m_bCollisionBased = false;
@@ -40,9 +40,9 @@ CStim::CStim(idEntity *e, int Type, int uniqueId)
 	m_Velocity = idVec3(0,0,0);
 }
 
-CStim::~CStim(void)
+CStim::~CStim()
 {
-	gameLocal.m_StimTimer.Remove(this);
+	RemoveTimerFromGame();
 }
 
 void CStim::Save(idSaveGame *savefile) const
@@ -135,22 +135,24 @@ void CStim::RemoveResponseIgnore(idEntity *e)
 	}
 }
 
-bool CStim::CheckResponseIgnore(idEntity *e)
+bool CStim::CheckResponseIgnore(idEntity* e)
 {
-	bool rc = false;
-	int i, n;
+	int n = m_ResponseIgnore.Num();
 
-	n = m_ResponseIgnore.Num();
-	for(i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
-		if(m_ResponseIgnore[i].GetEntity() == e)
+		if (m_ResponseIgnore[i].GetEntity() == e)
 		{
-			rc = true;
-			break;
+			return true;
 		}
 	}
 
-	return rc;
+	return false;
+}
+
+void CStim::ClearResponseIgnoreList()
+{
+	m_ResponseIgnore.Clear();
 }
 
 float CStim::GetRadius()
@@ -171,7 +173,7 @@ float CStim::GetRadius()
 	}
 }
 
-CStimResponseTimer* CStim::AddTimerToGame(void)
+CStimResponseTimer* CStim::AddTimerToGame()
 {
 	gameLocal.m_StimTimer.AddUnique(this);
 	m_Timer.SetTicks(sys->ClockTicksPerSecond()/1000);
@@ -179,7 +181,7 @@ CStimResponseTimer* CStim::AddTimerToGame(void)
 	return(&m_Timer);
 }
 
-void CStim::RemoveTimerFromGame(void)
+void CStim::RemoveTimerFromGame()
 {
 	gameLocal.m_StimTimer.Remove(this);
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3536 $
- * $Date: 2009-07-14 11:31:12 -0400 (Tue, 14 Jul 2009) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 3536 2009-07-14 15:31:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -157,7 +157,7 @@ void CProjectileResult::Init
 			}
 			else
 			{
-				stimType = CStimResponse::getStimType(spawnArgs.GetString(key));
+				stimType = CStimResponse::GetStimType(spawnArgs.GetString(key));
 			}
 
 			// The stim type of the projectile result is defined on the projectile itself
@@ -178,7 +178,7 @@ void CProjectileResult::Init
 				spawnArgs.GetBool(va("sr_collision_%u", stimIdx), "0", bCollisionBased );
 				spawnArgs.GetFloat(va("sr_magnitude_%u", stimIdx), "1.0", StimMagnitude );
 
-				CStim* stim = AddStim(static_cast<int>(stimType), StimRadius);
+				CStimPtr stim = AddStim(stimType, StimRadius);
 				
 				// TODO: Move these sets to the AddStim arguments once Addstim is rewritten
 				stim->m_Duration = StimDuration;
@@ -198,14 +198,7 @@ void CProjectileResult::Init
 					DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Stim with bounds setup\r");
 				}
 
-				if (spawnArgs.GetBool(va("sr_state_%u", stimIdx), "1"))
-				{
-					stim->EnableSR(true);
-				}
-				else
-				{
-					stim->EnableSR(false);
-				}
+				stim->SetEnabled(spawnArgs.GetBool(va("sr_state_%u", stimIdx), "1"));
 
 				DM_LOG(LC_WEAPON, LT_DEBUG)LOGSTRING("Stim index %u type %u with radius %f added to entity %08lX\r", stimIdx, stimType, StimRadius, this);
 			}

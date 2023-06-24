@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3433 $
- * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -37,7 +37,7 @@ public:
 	 * greebo: Overrides the OnStim method of the base class to check
 	 * for water stims.
 	 */
-	void					OnStim(CStim* stim, idEntity* stimSource);
+	void					OnStim(const CStimPtr& stim, idEntity* stimSource);
 
 	// Save and restore
 	void					Save( idSaveGame *savefile ) const;

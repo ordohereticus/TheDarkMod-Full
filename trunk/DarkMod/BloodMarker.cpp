@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3433 $
- * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -60,10 +60,10 @@ void CBloodMarker::Init(const idStr& splat, const idStr& splatFading, float size
 	_isFading = false;
 
 	AddResponse(ST_WATER);
-	ResponseEnable(ST_WATER, 1);
+	EnableResponse(ST_WATER);
 }
 
-void CBloodMarker::OnStim(CStim* stim, idEntity* stimSource)
+void CBloodMarker::OnStim(const CStimPtr& stim, idEntity* stimSource)
 {
 	// Call the base class in any case
 	idEntity::OnStim(stim, stimSource);

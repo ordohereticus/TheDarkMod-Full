@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3888 $
- * $Date: 2010-04-25 23:51:22 -0400 (Sun, 25 Apr 2010) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -58,10 +58,6 @@ class CRenderPipe;
  * Global function to keep track of the files and it's version.
  */
 bool FileVersionList(const char *str, bool state);
-
-class CStim;
-class CStimResponseTimer;
-class CGrabber;
 
 // enables water physics
 #define MOD_WATERPHYSICS
@@ -197,6 +193,11 @@ typedef boost::shared_ptr<CRelations> CRelationsPtr;
 class CMissionData;
 typedef boost::shared_ptr<CMissionData> CMissionDataPtr;
 class CStimResponse;
+typedef boost::shared_ptr<CStimResponse> CStimResponsePtr;
+class CStim;
+typedef boost::shared_ptr<CStim> CStimPtr;
+class CStimResponseTimer;
+class CGrabber;
 class CEscapePointManager;
 
 // Forward declare the Conversation System
@@ -822,7 +823,7 @@ public:
 	* @return The number of responses triggered
 	*
 	*/
-	int						DoResponseAction(CStim* stim, int numEntities, idEntity* originator, const idVec3& stimOrigin);
+	int						DoResponseAction(const CStimPtr& stim, int numEntities, idEntity* originator, const idVec3& stimOrigin);
 
 	/**
 	 * Process the timer ticks for all timers that are used for other purposes than stim/responses.
@@ -840,7 +841,7 @@ public:
 	 *
 	 * @returns: the pointer to the class, or NULL if the uniqueId couldn't be found.
 	 */
-	CStimResponse*			FindStimResponse(int uniqueId);
+	CStimResponsePtr		FindStimResponse(int uniqueId);
 
 	/**
 	 * CheckSignal will call all entites registered for a signal actacvtion.

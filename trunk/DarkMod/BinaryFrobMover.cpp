@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3841 $
- * $Date: 2010-02-23 07:35:40 -0500 (Tue, 23 Feb 2010) $
- * $Author: angua $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3841 2010-02-23 12:35:40Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -835,8 +835,8 @@ int CBinaryFrobMover::GetAASArea(idAAS* aas)
 void CBinaryFrobMover::OnMoveStart(bool open)
 {
 	// Clear this door from the ignore list so AI can react to it again	
-	StimClearIgnoreList(ST_VISUAL);
-	StimEnable(ST_VISUAL, 1);
+	ClearStimIgnoreList(ST_VISUAL);
+	EnableStim(ST_VISUAL);
 }
 
 bool CBinaryFrobMover::PreOpen() 

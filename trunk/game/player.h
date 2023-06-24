@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3908 $
- * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -621,6 +621,10 @@ public:
 	void					NextWeapon( void );
 	void					NextBestWeapon( void );
 	void					PrevWeapon( void );
+
+	// greebo: Returns the highest weapon index in the weapon inventory category (-1 if empty/error)
+	// Traverses the entire category, so this is not the fastest code
+	int						GetHightestWeaponIndex();
 
 	// returns FALSE if the weapon with the requested index could not be selected
 	bool					SelectWeapon( int num, bool force );

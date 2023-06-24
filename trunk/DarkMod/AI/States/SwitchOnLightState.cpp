@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -108,12 +108,12 @@ void SwitchOnLightState::Init(idAI* owner)
 						);
 					}
 					*/
-					light->ResponseIgnore(ST_VISUAL, owner);
+					light->IgnoreResponse(ST_VISUAL, owner);
 				}
 				else
 				{
 					// Probably can't reach light, no path to goal found
-					light->ResponseIgnore(ST_VISUAL, owner);
+					light->IgnoreResponse(ST_VISUAL, owner);
 					
 					/* greebo: Disabled bark when light is unreachable					
 					if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
@@ -130,7 +130,7 @@ void SwitchOnLightState::Init(idAI* owner)
 			else
 			{
 				// Probably can't reach the light, too far above ground
-				light->ResponseIgnore(ST_VISUAL, owner);
+				light->IgnoreResponse(ST_VISUAL, owner);
 				/*
 				if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 				{
@@ -165,7 +165,7 @@ void SwitchOnLightState::Think(idAI* owner)
 	owner->PerformVisualScan();
 	if (owner->AI_AlertLevel >= owner->thresh_5)
 	{
-		light->ResponseAllow(ST_VISUAL, owner);
+		light->AllowResponse(ST_VISUAL, owner);
 		owner->GetMind()->EndState();
 		return;
 	}

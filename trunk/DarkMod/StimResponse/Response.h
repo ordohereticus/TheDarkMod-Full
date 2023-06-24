@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,12 @@ class CResponse : public CStimResponse {
 	
 	friend class CStimResponseCollection;
 
+protected:
+	CResponse(idEntity* owner, StimType type, int uniqueId);	
+
 public:
+	virtual ~CResponse();
+
 	virtual void Save(idSaveGame *savefile) const;
 	virtual void Restore(idRestoreGame *savefile);
 
@@ -33,7 +38,7 @@ public:
 	*		 This is an optional argument, pass NULL to fire responses without
 	*		 a "real" stim (e.g. frobbing)
 	*/
-	virtual void TriggerResponse(idEntity *sourceEntity, CStim* stim = NULL);
+	virtual void TriggerResponse(idEntity *sourceEntity, const CStimPtr& stim = CStimPtr());
 
 	/**
 	 * Set the response script action.
@@ -51,13 +56,9 @@ public:
 	* @args:	The entity's spawnargs needed to query the script argument for the
 	*			aforementioned special case of "effect_script".
 	*/
-	CResponseEffect* addResponseEffect(const idStr& effectEntityDef, 
+	CResponseEffect* AddResponseEffect(const idStr& effectEntityDef, 
 									   const idStr& effectPostfix,
-									   const idDict *args);
-
-protected:
-	CResponse(idEntity *Owner, int Type, int uniqueId);
-	virtual ~CResponse(void);
+									   const idDict& args);
 
 protected:
 	/**
@@ -90,5 +91,6 @@ protected:
 	*/
 	idList<CResponseEffect*> m_ResponseEffects;
 };
+typedef boost::shared_ptr<CResponse> CResponsePtr;
 
 #endif /* SR_RESPONSE__H */

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3526 $
- * $Date: 2009-07-12 12:11:20 -0400 (Sun, 12 Jul 2009) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 3526 2009-07-12 16:11:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -501,7 +501,7 @@ void CInventory::PutItem(const CInventoryItemPtr& item, const idStr& categoryNam
 	}
 
 	// Pack the item into the category
-	category->PutItem(item);
+	category->PutItemFront(item);
 
 	// Objective callback for non-loot items:
 	// non-loot item passes in inv_name and individual item count, SuperGroupVal of 1

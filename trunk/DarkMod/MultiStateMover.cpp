@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3318 $
- * $Date: 2009-03-27 14:14:00 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3911 $
+ * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 3318 2009-03-27 18:14:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
 
 #include "MultiStateMover.h"
 
@@ -232,7 +232,7 @@ void CMultiStateMover::Restore(idRestoreGame *savefile)
 void CMultiStateMover::Activate(idEntity* activator)
 {
 	// Fire the TRIGGER response
-	ResponseTrigger(activator, ST_TRIGGER);
+	TriggerResponse(activator, ST_TRIGGER);
 
 	if (activator == NULL) return;
 
