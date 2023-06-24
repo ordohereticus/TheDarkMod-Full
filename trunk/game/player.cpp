@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3674 $
- * $Date: 2009-08-17 00:49:35 -0400 (Mon, 17 Aug 2009) $
- * $Author: ishtvan $
+ * $Revision: 3685 $
+ * $Date: 2009-09-01 08:16:10 -0400 (Tue, 01 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3674 2009-08-17 04:49:35Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3685 2009-09-01 12:16:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10777,10 +10777,10 @@ void idPlayer::PlayFootStepSound()
 		if (sound.IsEmpty())
 		{
 			gameLocal.Warning("Did not find footstep sound %s", (localSound + moveType).c_str());
-		}
 
-		// Fall back to normal sound
-		sound = spawnArgs.GetString( localSound );
+			// Fall back to normal sound
+			sound = spawnArgs.GetString( localSound );
+		}
 	}
 	else
 	{
