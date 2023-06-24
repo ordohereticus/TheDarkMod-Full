@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3881 $
- * $Date: 2010-04-20 12:10:41 -0400 (Tue, 20 Apr 2010) $
+ * $Revision: 3887 $
+ * $Date: 2010-04-25 10:39:35 -0400 (Sun, 25 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3881 2010-04-20 16:10:41Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3887 2010-04-25 14:39:35Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1199,6 +1199,10 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						// and now remove it from the game world
 						// gameLocal.Warning ( "Going to remove attachment '%s' from '%s'\n", command.string->c_str(), ent->getName().c_str() );
 						attEntity->PostEventMS( &EV_Remove, 0 );
+					}
+					else
+					{
+						gameLocal.Warning ( "Cannot find attachment '%s' to destroy in animation.\n", command.string->c_str() );
 					}
 					break;
 				}
