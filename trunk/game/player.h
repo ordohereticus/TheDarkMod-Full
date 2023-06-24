@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3738 $
- * $Date: 2009-11-03 03:00:38 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3739 $
+ * $Date: 2009-11-03 04:02:16 -0500 (Tue, 03 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -839,11 +839,10 @@ public:
 
 
 	/**
-	 * AdjustLightgem will calculate how much the lightgem should light up.
-	 * This function is obsolote now and replaced by a different version.
-	 * TODO: Shall it be removed completely?
+	 * CalculateWeakLightgem (formerly AdjustLightgem) will do the "weak" 
+	 * lightgem calculation, based on a list of lights, not using the rendershot.
 	 */
-	void AdjustLightgem(void);
+	void CalculateWeakLightgem();
 
 	/**
 	 * GetHeadEntity will return the entity for the head of the playermodel
