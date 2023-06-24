@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3781 $
- * $Date: 2010-01-03 16:54:06 -0500 (Sun, 03 Jan 2010) $
- * $Author: crispy $
+ * $Revision: 3800 $
+ * $Date: 2010-01-16 13:52:24 -0500 (Sat, 16 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3781 2010-01-03 21:54:06Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3800 2010-01-16 18:52:24Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -7743,8 +7743,6 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			{
 				// let the anim script know we took damage
 				AI_PAIN = Pain( inflictor, attacker, damage, dir, location, &damageDef->dict );
-				if(AI_PAIN)
-					gameLocal.Printf("Player:AI_PAIN set to true\n");
 			}
 			
 			// FIX: if drowning, stop pain SFX and play drown SFX on voice channel
