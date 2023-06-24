@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3477 $
- * $Date: 2009-05-29 09:45:59 -0400 (Fri, 29 May 2009) $
- * $Author: angua $
+ * $Revision: 3493 $
+ * $Date: 2009-06-26 21:34:56 -0400 (Fri, 26 Jun 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -1556,7 +1556,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					TriggerParticles( const char *jointName );
 
 	// AI script state management
-	void					LinkScriptVariables( void );
+	virtual void			LinkScriptVariables( void );
 	virtual void			UpdateScript(); // overrides idActor::UpdateScript
 
 	// Returns true if the current enemy can be reached
