@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3486 $
- * $Date: 2009-06-01 10:56:59 -0400 (Mon, 01 Jun 2009) $
- * $Author: greebo $
+ * $Revision: 3487 $
+ * $Date: 2009-06-01 12:07:45 -0400 (Mon, 01 Jun 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3486 2009-06-01 14:56:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3487 2009-06-01 16:07:45Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -369,7 +369,7 @@ void CFrobLock::UnlockTargets()
 
 void CFrobLock::CloseAndLockTargets()
 {
-	// Unlock any targetted frobmovers
+	// Close and lock any targetted frobmovers
 	for (int i = 0; i < targets.Num(); i++)
 	{
 		idEntity* target = targets[i].GetEntity();
