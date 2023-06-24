@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3688 $
+ * $Date: 2009-09-03 04:59:02 -0400 (Thu, 03 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -26,6 +26,12 @@ class PathCornerTask :
 {
 private:
 	bool _moveInitiated;
+
+	// Position last time this task was executed, used for path prediction
+	idVec3 _lastPosition;
+
+	// Frame this task was last executed
+	int _lastFrameNum;
 
 	PathCornerTask();
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3673 $
- * $Date: 2009-08-16 23:43:26 -0400 (Sun, 16 Aug 2009) $
- * $Author: ishtvan $
+ * $Revision: 3688 $
+ * $Date: 2009-09-03 04:59:02 -0400 (Thu, 03 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1262,6 +1262,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * @returns: TRUE when the position has been reached, FALSE otherwise.
 	 */
 	bool					ReachedPos( const idVec3 &pos, const moveCommand_t moveCommand) const;
+
+	// greebo: Bounding box check to see if the AI has reached the given position. Returns TRUE if position reached.
+	bool					ReachedPosAABBCheck(const idVec3& pos) const;
 
 	float					TravelDistance( const idVec3 &start, const idVec3 &end );
 
