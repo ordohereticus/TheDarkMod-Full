@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3635 $
- * $Date: 2009-08-02 13:29:37 -0400 (Sun, 02 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3668 $
+ * $Date: 2009-08-14 13:03:57 -0400 (Fri, 14 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3635 2009-08-02 17:29:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3668 2009-08-14 17:03:57Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -252,6 +252,11 @@ void CombatState::Think(idAI* owner)
 
 		// TODO: Check if more enemies are in range
 		owner->SetAlertLevel(owner->thresh_2 + (owner->thresh_3 - owner->thresh_2) * 0.9);
+
+		// Emit the killed player bark
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new SingleBarkTask("snd_killed_enemy"))
+		);
 
 		owner->GetMind()->EndState();
 		// ishtvan: swap the expanded head model back in when exiting state
