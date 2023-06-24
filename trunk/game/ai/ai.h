@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3538 $
- * $Date: 2009-07-17 13:34:56 -0400 (Fri, 17 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3540 $
+ * $Date: 2009-07-18 00:39:55 -0400 (Sat, 18 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1221,7 +1221,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	*
 	* Returns false if BJ attempt failed, or if already knocked out
 	**/
-	bool					TestKnockoutBlow( idEntity* attacker, idVec3 dir, trace_t *tr, int location, bool bIsPowerBlow );  
+	bool					TestKnockoutBlow( idEntity* attacker, const idVec3& dir, trace_t *tr, int location, bool bIsPowerBlow );  
 	
 	/**
 	* Tells the AI to go unconscious.  Called by TestKnockoutBlow if successful,

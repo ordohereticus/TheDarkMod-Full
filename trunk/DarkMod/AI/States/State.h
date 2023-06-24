@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3479 $
- * $Date: 2009-05-29 11:34:29 -0400 (Fri, 29 May 2009) $
- * $Author: angua $
+ * $Revision: 3540 $
+ * $Date: 2009-07-18 00:39:55 -0400 (Sat, 18 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -100,6 +100,15 @@ public:
 	// returns TRUE when the stim should be ignored from now on, FALSE otherwise
 	virtual bool OnDeadPersonEncounter(idActor* person, idAI* owner);
 	virtual bool OnUnconsciousPersonEncounter(idActor* person, idAI* owner);
+
+	/**
+	 * greebo: Called if an attacker performed a failed knockout attack
+	 *
+	 * @attacker: The attacking entity (most probably the player)
+	 * @direction: the direction of the attack
+	 * @hitHead: is TRUE if the head has been hit, FALSE if the attacker hit other body parts
+	 */
+	virtual void OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead);
 
 	/**
 	* ishtvan: Called when targets are changed, does nothing on base class

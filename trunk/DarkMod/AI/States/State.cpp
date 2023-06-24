@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3479 $
- * $Date: 2009-05-29 11:34:29 -0400 (Fri, 29 May 2009) $
- * $Author: angua $
+ * $Revision: 3540 $
+ * $Date: 2009-07-18 00:39:55 -0400 (Sat, 18 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3479 2009-05-29 15:34:29Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3540 2009-07-18 04:39:55Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -891,6 +891,11 @@ bool State::OnUnconsciousPersonEncounter(idActor* person, idAI* owner)
 
 	// Ignore from now on
 	return true;
+}
+
+void State::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead)
+{
+	// TODO
 }
 
 void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)
