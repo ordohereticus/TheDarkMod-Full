@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3379 $
- * $Date: 2009-04-09 04:05:44 -0400 (Thu, 09 Apr 2009) $
+ * $Revision: 3380 $
+ * $Date: 2009-04-09 05:45:29 -0400 (Thu, 09 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3379 $   $Date: 2009-04-09 04:05:44 -0400 (Thu, 09 Apr 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3380 $   $Date: 2009-04-09 05:45:29 -0400 (Thu, 09 Apr 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4406,30 +4406,20 @@ void idPhysics_Player::ToggleLean(float leanYawAngleDegrees)
 
 		m_b_leanFinished = false;
 
-		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING ("ToggleLean staring lean\r\n");
+		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("ToggleLean starting lean\r");
 	}
 	else
 	{
 		// End the lean
 		m_leanMoveStartTilt = m_CurrentLeanTiltDegrees;
+		m_leanTime = cv_pm_lean_forward_time.GetFloat();
 		m_leanMoveEndTilt = 0.0;
 		m_b_leanFinished = false;
 
-		// Hack: Use different values for forward/backward lean than side/side
-		if( leanYawAngleDegrees == 90.0f || leanYawAngleDegrees == -90.0f )
-		{
-			m_leanTime = cv_pm_lean_forward_time.GetFloat();
-			m_leanMoveMaxStretch = cv_pm_lean_forward_stretch.GetFloat();
-			m_leanMoveMaxAngle = cv_pm_lean_forward_angle.GetFloat();
-		}
-		else
-		{
-			m_leanTime = cv_pm_lean_time.GetFloat();
-			m_leanMoveMaxStretch = cv_pm_lean_stretch.GetFloat();
-			m_leanMoveMaxAngle = cv_pm_lean_angle.GetFloat();
-		}
+		// greebo: Leave the rest of the variables as they are
+		// to avoid view-jumping issues due to leaning back.
 
-		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING ("ToggleLean ending lean\r\n");
+		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("ToggleLean ending lean\r");
 	}
 }
 
@@ -4471,7 +4461,7 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 	// What would the new lean angle be?
 	float newLeanTiltDegrees = m_CurrentLeanTiltDegrees + deltaLeanTiltDegrees;
 
-	DM_LOG(LC_MOVEMENT,LT_DEBUG)LOGSTRING("newLeanTiltDegrees = %f", newLeanTiltDegrees );
+	DM_LOG(LC_MOVEMENT,LT_DEBUG)LOGSTRING("newLeanTiltDegrees = %f\r", newLeanTiltDegrees );
 
 	if (newLeanTiltDegrees < 0.0)
 	{
@@ -4493,7 +4483,7 @@ void idPhysics_Player::UpdateLeanAngle (float deltaLeanTiltDegrees, float deltaL
 	// Log max possible lean
 	DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING
 	(
-		"Currently leaning %.2f degrees, can lean up to %.2f more degrees this frame\n",
+		"Currently leaning %.2f degrees, can lean up to %.2f more degrees this frame\r",
 		m_CurrentLeanTiltDegrees,
 		deltaLeanTiltDegrees
 	);
