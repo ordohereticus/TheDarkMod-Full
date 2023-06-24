@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3282 $
- * $Date: 2009-03-21 07:02:13 -0400 (Sat, 21 Mar 2009) $
+ * $Revision: 3286 $
+ * $Date: 2009-03-22 07:38:37 -0400 (Sun, 22 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3282 2009-03-21 11:02:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3286 2009-03-22 11:38:37Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -846,7 +846,8 @@ void CFrobDoor::UpdateHandlePosition()
 
 float CFrobDoor::CalculateHandleMoveFraction()
 {
-	if (m_LockpickState == UNLOCKED || m_LockpickState == PICKED || m_Pins.Num() == 0)
+	if (m_LockpickState == LOCK_SUCCESS || m_LockpickState == UNLOCKED || 
+		m_LockpickState == PICKED || m_Pins.Num() == 0)
 	{
 		// unlocked handles or ones without lock pins are at the starting position
 		return 0.0f; 
