@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3310 $
- * $Date: 2009-03-26 08:06:10 -0400 (Thu, 26 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3419 $
+ * $Date: 2009-05-04 21:04:19 -0400 (Mon, 04 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeTask.cpp 3310 2009-03-26 12:06:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeTask.cpp 3419 2009-05-05 01:04:19Z ishtvan $", init_version);
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -52,11 +52,16 @@ bool FleeTask::Perform(Subsystem& subsystem)
 	assert(owner != NULL);
 	Memory& memory = owner->GetMemory();
 	idActor* enemy = _enemy.GetEntity();
-	assert(enemy != NULL);
 
 	// angua: bad luck, my friend, yuo've been too slow...
 	// no more fleeing necessary when dead or ko'ed
 	if (owner->AI_DEAD || owner->AI_KNOCKEDOUT)
+	{
+		return true;
+	}
+
+	// if the enemy we're fleeing from dies, enemy gets set to NULL
+	if (enemy == NULL )
 	{
 		return true;
 	}
