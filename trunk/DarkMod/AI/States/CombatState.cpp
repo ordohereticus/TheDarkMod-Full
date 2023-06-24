@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3546 $
- * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3551 $
+ * $Date: 2009-07-19 07:32:11 -0400 (Sun, 19 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3546 2009-07-18 17:27:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3551 2009-07-19 11:32:11Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -87,6 +87,13 @@ void CombatState::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& directi
 
 void CombatState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 {
+	if (!stimSource->IsType(idActor::Type)) return; // No Actor, quit
+
+	if (owner->IsFriend(stimSource))
+	{
+		// Remember last time a friendly AI was seen
+		owner->GetMemory().lastTimeFriendlyAISeen = gameLocal.time;
+	}
 	// angua: ignore other people during combat
 }
 
@@ -157,10 +164,33 @@ void CombatState::Init(idAI* owner)
 		));
 	}
 
-	// The communication system 
-	owner->commSubsystem->AddCommTask(
-		CommunicationTaskPtr(new SingleBarkTask("snd_charge", message))
-	);
+
+	// The communication system plays starting bark
+	idPlayer* player;
+	if (enemy->IsType(idPlayer::Type))
+	{
+		player = static_cast<idPlayer*>(enemy);
+	}
+
+	if (player && player->m_bShoulderingBody)
+	{
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new SingleBarkTask("snd_spotted_player_with_body", message))
+		);
+	}
+
+	else if ((MS2SEC(gameLocal.time) - memory.lastTimeFriendlyAISeen) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK)
+	{
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new SingleBarkTask("snd_to_combat_company", message))
+		);
+	}
+	else
+	{
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new SingleBarkTask("snd_to_combat", message))
+		);
+	}
 
 	// Ranged combat
 	if (_rangedPossible)
