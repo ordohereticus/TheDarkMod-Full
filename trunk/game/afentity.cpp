@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3746 $
- * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3809 $
+ * $Date: 2010-01-20 18:38:19 -0500 (Wed, 20 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 3809 2010-01-20 23:38:19Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -378,6 +378,90 @@ void idAFAttachment::PostUnbind( void )
 	// no longer bound to an actor
 	body = NULL;
 	attachJoint = INVALID_JOINT;
+}
+
+void idAFAttachment::DropOnRagdoll( void )
+{
+	// some stuff copied from idAI::DropOnRagdoll
+	idEntity *ent = NULL;
+	int mask(0);
+
+	// Drop TDM attachments
+	for( int i=0; i<m_Attachments.Num(); i++ )
+	{
+		ent = m_Attachments[i].ent.GetEntity();
+		if( !ent || !m_Attachments[i].ent.IsValid() )
+			continue;
+		
+		// greebo: Check if we should set some attachments to nonsolid
+		// this applies for instance to the builder guard's pauldrons which
+		// cause twitching and self-collisions when going down
+		if (ent->spawnArgs.GetBool( "drop_set_nonsolid" ))
+		{
+			int curContents = ent->GetPhysics()->GetContents();
+
+			// ishtvan: Also clear the CONTENTS_CORPSE flag (maybe this was a typo in original code?)
+			ent->GetPhysics()->SetContents(curContents & ~(CONTENTS_SOLID|CONTENTS_CORPSE));
+
+			// also have to iterate thru stuff attached to this attachment
+			// ishtvan: left this commentd out because I'm not sure if GetTeamChildren is bugged or not
+			// don't want to accidentally set all attachments to the AI to nonsolid
+			/*
+			idList<idEntity *> AttChildren;
+			ent->GetTeamChildren( &AttChildren );
+			gameLocal.Printf("TEST: drop_set_nonsolid, Num team children = %d", AttChildren.Num() );
+			for( int i=0; i < AttChildren.Num(); i++ )
+			{
+				idPhysics *pChildPhys = AttChildren[i]->GetPhysics();
+				if( pChildPhys == NULL )
+					continue;
+
+				int childContents = pChildPhys->GetContents();
+				pChildPhys->SetContents( childContents & ~(CONTENTS_SOLID|CONTENTS_CORPSE) );
+			}
+			*/
+		}
+
+		bool bDrop = ent->spawnArgs.GetBool( "drop_when_ragdoll" );
+		
+		if( !bDrop ) {
+			continue;
+		}
+
+		bool bSetSolid = ent->spawnArgs.GetBool( "drop_add_contents_solid" );
+		bool bSetCorpse = ent->spawnArgs.GetBool( "drop_add_contents_corpse" );
+		bool bSetFrob = ent->spawnArgs.GetBool( "drop_set_frobable" );
+		bool bExtinguish = ent->spawnArgs.GetBool("extinguish_on_drop", "0");
+
+		// Proceed with droppage
+		DetachInd( i );
+
+		if( bSetSolid )
+			mask = CONTENTS_SOLID;
+		if( bSetCorpse )
+			mask = mask | CONTENTS_CORPSE;
+
+		if( mask )
+			ent->GetPhysics()->SetContents( ent->GetPhysics()->GetContents() | mask );
+
+		if( bSetFrob )
+			ent->m_bFrobable = true;
+
+		// greebo: Check if we should extinguish the attachment, like torches
+		if ( bExtinguish )
+		{
+			// Get the delay in milliseconds
+			int delay = SEC2MS(ent->spawnArgs.GetInt("extinguish_on_drop_delay", "3"));
+			if (delay < 0) {
+				delay = 0;
+			}
+
+			// Schedule the extinguish event
+			ent->PostEventMS(&EV_ExtinguishLights, delay);
+		}
+
+		ent->GetPhysics()->Activate();
+	}
 }
 
 void idAFAttachment::CopyBodyTo( idAFAttachment *other )

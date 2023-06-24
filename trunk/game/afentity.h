@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3500 $
- * $Date: 2009-06-27 02:49:58 -0400 (Sat, 27 Jun 2009) $
+ * $Revision: 3809 $
+ * $Date: 2010-01-20 18:38:19 -0500 (Wed, 20 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -142,6 +142,9 @@ public:
 
 	/** Also overload PostUnBind to clear the body information **/
 	virtual void PostUnbind( void );
+
+	/** Use this to set up stuff attached to AI's heads when they go ragdoll **/
+	virtual void DropOnRagdoll( void );
 
 protected:
 	idEntity *				body;
