@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3374 $
- * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
+ * $Revision: 3478 $
+ * $Date: 2009-05-29 10:54:56 -0400 (Fri, 29 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3374 2009-04-08 09:15:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3478 2009-05-29 14:54:56Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -262,8 +262,13 @@ bool CFrobLock::IsPickable()
 
 void CFrobLock::Open()
 {
+	if (!IsLocked())
+	{
+		// If we're unlocked, just ToggleOpen the targets
+		ToggleOpenTargets();
+	}
 	// If we have handles we want to tap them before the lock starts to open its targets
-	if (m_Lockhandles.Num() > 0)
+	else if (m_Lockhandles.Num() > 0)
 	{
 		// Relay the call to the handles, the OpenTargets() call will come back to us
 		for (int i = 0; i < m_Lockhandles.Num(); i++)
@@ -272,6 +277,27 @@ void CFrobLock::Open()
 			if (handle == NULL) continue;
 
 			handle->Tap();
+		}
+	}
+}
+
+void CFrobLock::ToggleOpenTargets()
+{
+	if (IsLocked())
+	{
+		// We're still locked, play the locked sound and exit
+		FrobLockStartSound("snd_locked");
+	}
+	else
+	{
+		// Actually open any targetted frobmovers
+		for (int i = 0; i < targets.Num(); i++)
+		{
+			idEntity* target = targets[i].GetEntity();
+
+			if (target == NULL || !target->IsType(CBinaryFrobMover::Type)) continue;
+
+			static_cast<CBinaryFrobMover*>(target)->ToggleOpen();
 		}
 	}
 }

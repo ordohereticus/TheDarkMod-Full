@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3374 $
- * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
+ * $Revision: 3478 $
+ * $Date: 2009-05-29 10:54:56 -0400 (Fri, 29 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -51,6 +51,7 @@ public:
 	// This tries to open/lock/unlock any targetted frobmovers
 	void			OpenTargets();
 	void			CloseTargets();
+	void			ToggleOpenTargets();
 	void			LockTargets();
 	void			UnlockTargets();
 
