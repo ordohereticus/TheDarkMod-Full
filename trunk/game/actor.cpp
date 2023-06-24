@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3857 $
- * $Date: 2010-03-20 22:07:41 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3860 $
+ * $Date: 2010-03-21 01:37:22 -0400 (Sun, 21 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3857 2010-03-21 02:07:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3860 2010-03-21 05:37:22Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -548,7 +548,7 @@ CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT( AI_GetHealth,				idActor::Event_GetHealth )
 	
 	EVENT ( AI_Attach,					idActor::Event_Attach )
-	EVENT ( AI_Attach,					idActor::Event_AttachToPos )
+	EVENT ( AI_AttachToPos,				idActor::Event_AttachToPos )
 	EVENT ( AI_ReAttachToPos,			idActor::ReAttachToPos )
 	EVENT ( AI_ReAttachToCoords,		idActor::ReAttachToCoords )
 	EVENT ( AI_DropAttachment,			idActor::Detach )
