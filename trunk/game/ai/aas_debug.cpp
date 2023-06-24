@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 3450 $
+ * $Date: 2009-05-21 04:09:11 -0400 (Thu, 21 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_debug.cpp 3450 2009-05-21 08:09:11Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing
@@ -544,7 +544,10 @@ void idAASLocal::DrawAreas(const idVec3& playerOrigin)
 		if (area <= 0) continue;
 
 		idVec3 origin = file->GetArea(area).center;
-		gameRenderWorld->DrawText(va("%d", clusterNums[i]), origin, 1, colorRed, playerViewMatrix, 1, 10000);
+		if ((origin - playerOrigin).LengthFast() < 1000)
+		{
+			gameRenderWorld->DrawText(va("%d", clusterNums[i]), origin, 1, colorRed, playerViewMatrix, 1, 1000);
+		}
 	}
 }
 
