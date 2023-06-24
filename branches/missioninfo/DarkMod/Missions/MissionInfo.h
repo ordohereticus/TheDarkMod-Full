@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3920 $
- * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3923 $
+ * $Date: 2010-06-09 04:51:06 -0400 (Wed, 09 Jun 2010) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -57,7 +57,10 @@ public:
 
 	// Returns the size requirements of the fs_game folder
 	// Returns 0 if the mod has not been installed yet
-	std::size_t GetModFolderSize();
+	std::size_t GetMissionFolderSize();
+
+	// Returns a human-readable format string (i.e. 1.33 GB)
+	idStr	GetMissionFolderSizeString();
 
 	// Returns a specific key value from the mission info declaration's dictionary
 	idStr	GetKeyValue(const char* key);

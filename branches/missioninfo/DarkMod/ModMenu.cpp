@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3920 $
- * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3923 $
+ * $Date: 2010-06-09 04:51:06 -0400 (Wed, 09 Jun 2010) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3920 2010-06-08 08:45:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3923 2010-06-09 08:51:06Z angua $", init_version);
 
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
@@ -123,21 +123,38 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 		// Load the readme.txt contents, if available
 		gui->SetStateString("ModNotesText", GetModNotes(modIndex));
 	}
-	else if (cmd == "updateButtonVisibility")
+	else if (cmd == "onMissionSelected")
 	{
 		// Get selected mod
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
+		// TODO
 		gui->SetStateBool("hasModNoteButton", !GetModNotes(modIndex).IsEmpty());
 
-		if (modIndex >= 0 && modIndex < _modsAvailable.Num())
+		int numAvailableMissions = gameLocal.m_MissionManager->GetNumMissions();
+
+		if (modIndex >= 0 && modIndex < numAvailableMissions)
 		{
-			ModInfo selModInfo = GetModInfo(modIndex);
-			gui->SetStateBool("installModButtonVisible", idStr::Icmp(_curModName, _modsAvailable[modIndex]) != 0);
+			CMissionInfoPtr info = gameLocal.m_MissionManager->GetMissionInfo(modIndex);
+			
+			// Don't display the install button if the mod is already installed
+			gui->SetStateBool("installModButtonVisible", _curModName != info->modName);
+
+			// Set the mod size info
+			std::size_t missionSize = info->GetMissionFolderSize();
+			idStr missionSizeStr = info->GetMissionFolderSizeString();
+			gui->SetStateString("selectedModSize", missionSizeStr);
+
+			if (missionSize > 0)
+			{
+				gui->SetStateBool("eraseSelectedModButtonVisible", true);
+			}
 		}
 		else
 		{
 			gui->SetStateBool("installModButtonVisible", false);
+			gui->SetStateString("selectedModSize", "0 Bytes");
+			gui->SetStateBool("eraseSelectedModButtonVisible", false);
 		}
 	}
 	else if (cmd == "update")

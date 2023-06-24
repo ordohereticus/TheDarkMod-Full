@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3922 $
- * $Date: 2010-06-08 21:10:19 -0400 (Tue, 08 Jun 2010) $
+ * $Revision: 3923 $
+ * $Date: 2010-06-09 04:51:06 -0400 (Wed, 09 Jun 2010) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,14 +10,67 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3922 2010-06-09 01:10:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3923 2010-06-09 08:51:06Z angua $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
+#include <boost/filesystem.hpp>
 
-std::size_t CMissionInfo::GetModFolderSize()
+namespace fs = boost::filesystem;
+
+std::size_t CMissionInfo::GetMissionFolderSize()
 {
-	return 0;
+	if (_modFolderSizeComputed)
+	{
+		return _modFolderSize;
+	}
+
+	_modFolderSizeComputed = true;
+	_modFolderSize = 0;
+
+	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
+	parentPath = parentPath.remove_leaf().remove_leaf();
+
+	fs::path missionPath = parentPath / modName.c_str();
+
+	if (fs::exists(missionPath))
+	{
+		// Iterate over all files in the mod folder
+		for (fs::recursive_directory_iterator i(missionPath); 
+			i != fs::recursive_directory_iterator(); ++i)
+		{
+			_modFolderSize += fs::file_size(i->path());
+		}
+	}
+
+	return _modFolderSize;
+}
+
+idStr CMissionInfo::GetMissionFolderSizeString()
+{
+	float size = static_cast<float>(GetMissionFolderSize());
+
+	// TODO: i18n
+	idStr str;
+
+	if (size < 1024)
+	{
+		str = va("%0.2f Bytes", size);
+	}
+	else if (size < 1024*1024)
+	{
+		str = va("%0.2f kB", size/1024.0f);
+	}
+	else if (size < 1024.0f*1024.0f*1024.0f)
+	{
+		str = va("%0.2f MB", size/(1024.0f*1024.0f));
+	}
+	else if (size < 1024.0f*1024.0f*1024.0f*1024.0f)
+	{
+		str = va("%0.2f GB", size/(1024.0f*1024.0f*1024.0f));
+	}
+
+	return str;
 }
 
 idStr CMissionInfo::GetKeyValue(const char* key)
