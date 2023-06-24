@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3463 $
- * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3501 $
+ * $Date: 2009-06-27 11:13:52 -0400 (Sat, 27 Jun 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3463 2009-05-24 02:35:45Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3501 2009-06-27 15:13:52Z angua $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -78,6 +78,12 @@ void CombatState::OnAudioAlert()
 		owner->lastReachableEnemyPos = memory.alertPos;
 		// gameRenderWorld->DebugArrow(colorRed, owner->GetEyePosition(), memory.alertPos, 2, 1000);
 	}
+}
+
+
+void CombatState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
+{
+	// angua: ignore other people during combat
 }
 
 void CombatState::Init(idAI* owner)

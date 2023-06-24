@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2361 $
- * $Date: 2008-05-17 08:13:37 -0400 (Sat, 17 May 2008) $
+ * $Revision: 3501 $
+ * $Date: 2009-06-27 11:13:52 -0400 (Sat, 27 Jun 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -44,6 +44,8 @@ public:
 	virtual void OnTactileAlert(idEntity* tactEnt);
 	virtual void OnVisualAlert(idActor* enemy);
 	virtual void OnAudioAlert();
+
+	virtual void OnPersonEncounter(idEntity* stimSource, idAI* owner);
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
