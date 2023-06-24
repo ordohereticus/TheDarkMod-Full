@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3440 $
+ * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -82,7 +82,7 @@ void SearchingState::Init(idAI* owner)
 		// Setup a new hiding spot search
 		StartNewHidingSpotSearch(owner);
 
-		if (memory.alertType == EAlertTypeSuspicious || memory.alertType == EAlertTypeEnemy)
+		if (memory.alertedDueToCommunication == false && (memory.alertType == EAlertTypeSuspicious || memory.alertType == EAlertTypeEnemy))
 		{
 			if (memory.alertClass == EAlertVisual)
 			{

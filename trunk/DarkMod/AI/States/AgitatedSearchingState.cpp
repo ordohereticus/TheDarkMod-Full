@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3428 $
- * $Date: 2009-05-07 13:34:08 -0400 (Thu, 07 May 2009) $
- * $Author: greebo $
+ * $Revision: 3440 $
+ * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3428 2009-05-07 17:34:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -73,12 +73,21 @@ void AgitatedSearchingState::Init(idAI* owner)
 	// Setup a new hiding spot search
 	StartNewHidingSpotSearch(owner);
 
+	CommMessagePtr message = CommMessagePtr(new CommMessage(
+		CommMessage::DetectedSomethingSuspicious_CommType, 
+		owner, NULL, // from this AI to anyone
+		NULL,
+		memory.alertPos
+	));
+
+
 	if (owner->AlertIndexIncreased())
 	{
-		if (memory.alertType == EAlertTypeSuspicious || memory.alertType == EAlertTypeEnemy)
+
+		if (memory.alertedDueToCommunication == false && (memory.alertType == EAlertTypeSuspicious || memory.alertType == EAlertTypeEnemy))
 		{
 			owner->commSubsystem->AddCommTask(
-				CommunicationTaskPtr(new SingleBarkTask("snd_alert4"))
+				CommunicationTaskPtr(new SingleBarkTask("snd_alert4",message))
 			);
 		}
 	}
@@ -91,13 +100,13 @@ void AgitatedSearchingState::Init(idAI* owner)
 	if (owner->HasSeenEvidence())
 	{
 		owner->commSubsystem->AddCommTask(
-			CommunicationTaskPtr(new RepeatedBarkTask("snd_state4SeenEvidence", minTime, maxTime))
+			CommunicationTaskPtr(new RepeatedBarkTask("snd_state4SeenEvidence", minTime, maxTime, message))
 		);
 	}
 	else
 	{
 		owner->commSubsystem->AddCommTask(
-			CommunicationTaskPtr(new RepeatedBarkTask("snd_state4SeenNoEvidence", minTime, maxTime))
+			CommunicationTaskPtr(new RepeatedBarkTask("snd_state4SeenNoEvidence", minTime, maxTime, message))
 		);
 	}
 	

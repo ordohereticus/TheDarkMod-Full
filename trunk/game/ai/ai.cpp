@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3433 $
- * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
- * $Author: greebo $
+ * $Revision: 3440 $
+ * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3433 2009-05-08 15:36:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7764,19 +7764,13 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 
 		psychLoud *= GetAcuity("aud");
 
-		AlertAI( "aud", psychLoud );
-		
-		if( cv_spr_show.GetBool() )
+		if (IsEnemy(m_AlertedByActor.GetEntity()))
 		{
-			gameRenderWorld->DrawText( va("Alert: %.2f", psychLoud), 
-				(GetEyePosition() - GetPhysics()->GetGravityNormal() * 55.0f), 0.25f, 
-				colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec * 30);
+			AlertAI( "aud", psychLoud );
+
+			// greebo: Notify the currently active state
+			mind->GetState()->OnAudioAlert();
 		}
-
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s HEARD a sound\r", name.c_str() );
-
-		// greebo: Notify the currently active state
-		mind->GetState()->OnAudioAlert();
 
 		// Retrieve the messages from the other AI, if there are any
 		if (propParms->makerAI != NULL)
@@ -7786,6 +7780,15 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 				mind->GetState()->OnAICommMessage(*propParms->makerAI->m_Messages[i]);
 			}
 		}
+
+		if( cv_spr_show.GetBool() )
+		{
+			gameRenderWorld->DrawText( va("Alert: %.2f", psychLoud), 
+				(GetEyePosition() - GetPhysics()->GetGravityNormal() * 55.0f), 0.25f, 
+				colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec * 30);
+		}
+
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s HEARD a sound\r", name.c_str() );
 
 		if( cv_ai_debug.GetBool() )
 			gameLocal.Printf("AI %s HEARD a sound\n", name.c_str() );

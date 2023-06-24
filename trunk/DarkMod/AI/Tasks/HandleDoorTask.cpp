@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3256 $
- * $Date: 2009-03-15 04:47:05 -0400 (Sun, 15 Mar 2009) $
+ * $Revision: 3440 $
+ * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3256 2009-03-15 08:47:05Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -535,6 +535,11 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 			case EStateApproachingDoor:
 			{
+				if (owner->AI_AlertLevel >= owner->thresh_4)
+				{
+					return true;
+				}
+
 				idVec3 dir = frobDoorOrg - owner->GetPhysics()->GetOrigin();
 				dir.z = 0;
 				float dist = dir.LengthFast();
@@ -569,7 +574,6 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 			}
 
 			
-
 			case EStateMovingToFrontPos:
 				// check if the door was blocked or interrupted
 				if (frobDoor->IsBlocked() || 

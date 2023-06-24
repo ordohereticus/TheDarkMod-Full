@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3440 $
+ * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeState.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
 
 #include "FleeState.h"
 #include "../Memory.h"
@@ -61,7 +61,7 @@ void FleeState::Init(idAI* owner)
 		CommMessage::DetectedEnemy_CommType, 
 		owner, NULL, // from this AI to anyone 
 		owner->GetEnemy(),
-		memory.lastEnemyPos
+		memory.alertPos
 	));
 
 /*	owner->GetSubsystem(SubsysCommunication)->PushTask(
