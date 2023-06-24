@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3228 $
- * $Date: 2009-03-06 12:22:14 -0500 (Fri, 06 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3565 $
+ * $Date: 2009-07-22 13:45:06 -0400 (Wed, 22 Jul 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3228 2009-03-06 17:22:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3565 2009-07-22 17:45:06Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1425,8 +1425,16 @@ void idTarget_CallObjectFunction::Event_Activate( idEntity *activator ) {
 	const function_t	*func;
 	const char			*funcName;
 	idThread			*thread;
+	bool				pass_self;
+	float				wait, delay;
 
-	funcName = spawnArgs.GetString( "call" );
+	pass_self = spawnArgs.GetBool( "pass_self", false);
+	wait	  = spawnArgs.GetFloat ( "wait", "0");
+	funcName  = spawnArgs.GetString( "call" );
+
+	// we delay each thread by wait * numberOfTarget
+	delay = 0;
+
 	for( i = 0; i < targets.Num(); i++ ) {
 		ent = targets[ i ].GetEntity();
 		if ( ent && ent->scriptObject.HasObject() ) {
@@ -1442,8 +1450,16 @@ void idTarget_CallObjectFunction::Event_Activate( idEntity *activator ) {
 			}
 			// create a thread and call the function
 			thread = new idThread();
-			thread->CallFunction( ent, func, true );
-			thread->Start();
+			if (pass_self)
+				{
+				thread->CallFunctionArgs( func, true, "ee", ent, this );
+				}
+			else
+				{
+				thread->CallFunction( ent, func, true );
+				}
+			thread->DelayedStart( delay );
+			delay += wait;
 		}
 	}
 }
