@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3542 $
- * $Date: 2009-07-18 01:41:01 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3546 $
+ * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,6 +21,7 @@ class FailedKnockoutState :
 	public State
 {
 	int _stateEndTime;
+	int _allowEndTime;
 	idEntity* _attacker;
 	idVec3 _attackDirection;
 	bool _hitHead;

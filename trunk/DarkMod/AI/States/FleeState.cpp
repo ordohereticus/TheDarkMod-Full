@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3460 $
- * $Date: 2009-05-23 09:41:04 -0400 (Sat, 23 May 2009) $
- * $Author: angua $
+ * $Revision: 3546 $
+ * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeState.cpp 3460 2009-05-23 13:41:04Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeState.cpp 3546 2009-07-18 17:27:48Z greebo $", init_version);
 
 #include "FleeState.h"
 #include "../Memory.h"
@@ -96,6 +96,10 @@ void FleeState::Think(idAI* owner)
 	}
 }
 
+void FleeState::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead)
+{
+	// Ignore failed knockout attempts in flee mode
+}
 
 StatePtr FleeState::CreateInstance()
 {

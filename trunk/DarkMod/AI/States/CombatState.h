@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3501 $
- * $Date: 2009-06-27 11:13:52 -0400 (Sat, 27 Jun 2009) $
- * $Author: angua $
+ * $Revision: 3546 $
+ * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -46,6 +46,7 @@ public:
 	virtual void OnAudioAlert();
 
 	virtual void OnPersonEncounter(idEntity* stimSource, idAI* owner);
+	virtual void OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead);
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;

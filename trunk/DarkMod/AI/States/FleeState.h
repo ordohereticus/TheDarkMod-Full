@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3546 $
+ * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,6 +29,8 @@ public:
 
 	// Gets called each time the mind is thinking
 	virtual void Think(idAI* owner);
+
+	virtual void OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead);
 
 	static StatePtr CreateInstance();
 };

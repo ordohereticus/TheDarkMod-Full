@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3531 $
- * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3546 $
+ * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3546 2009-07-18 17:27:48Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -80,6 +80,10 @@ void CombatState::OnAudioAlert()
 	}
 }
 
+void CombatState::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead)
+{
+	// Ignore failed knockout attempts in combat mode
+}
 
 void CombatState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 {
