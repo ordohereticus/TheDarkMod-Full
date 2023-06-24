@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2727 $
- * $Date: 2008-08-06 14:09:52 -0400 (Wed, 06 Aug 2008) $
- * $Author: greebo $
+ * $Revision: 3567 $
+ * $Date: 2009-07-23 04:25:00 -0400 (Thu, 23 Jul 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -429,6 +429,21 @@ private:
 	void				Event_Activate( idEntity *activator );
 };
 
+/*
+===============================================================================
+
+Tels: idTarget_PostScriptEvent
+
+===============================================================================
+*/
+
+class idTarget_PostScriptEvent : public idTarget {
+public:
+	CLASS_PROTOTYPE( idTarget_PostScriptEvent );
+
+private:
+	void				Event_Activate( idEntity *activator );
+};
 
 /*
 ===============================================================================
