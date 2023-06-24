@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3240 $
- * $Date: 2009-03-12 17:39:22 -0400 (Thu, 12 Mar 2009) $
+ * $Revision: 3241 $
+ * $Date: 2009-03-12 18:36:54 -0400 (Thu, 12 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3240 2009-03-12 21:39:22Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3241 2009-03-12 22:36:54Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -6625,7 +6625,7 @@ bool idAI::TestMelee( void ) const {
 	if (dist < maxdist)
 	{
 		// angua: within horizontal distance
-		if ((org.z + bounds[1][2] + melee_range) > enemyOrg.z ||
+		if ((org.z + bounds[1][2] + melee_range) > enemyOrg.z &&
 				(enemyOrg.z + enemyBounds[1][2]) > org.z)
 		{
 			// within height
