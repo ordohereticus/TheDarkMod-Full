@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3124 $
- * $Date: 2009-01-07 11:35:28 -0500 (Wed, 07 Jan 2009) $
+ * $Revision: 3234 $
+ * $Date: 2009-03-11 16:23:16 -0400 (Wed, 11 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3124 2009-01-07 16:35:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3234 2009-03-11 20:23:16Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -143,7 +143,6 @@ SH_DECL_HOOK0_void(idCommon, Frame, SH_NOATTRIB, 0);
 // declare various global objects
 CsndPropLoader	g_SoundPropLoader;
 CsndProp		g_SoundProp;
-CRelations		g_globalRelations;
 CMissionData	g_MissionData;
 
 static idList<const char *> *s_FileVersion = NULL;
