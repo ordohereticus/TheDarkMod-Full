@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3434 $
- * $Date: 2009-05-08 11:42:24 -0400 (Fri, 08 May 2009) $
- * $Author: greebo $
+ * $Revision: 3444 $
+ * $Date: 2009-05-16 15:49:11 -0400 (Sat, 16 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3434 2009-05-08 15:42:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3444 2009-05-16 19:49:11Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6822,9 +6822,8 @@ void idAnimatedEntity::AddLocalDamageEffect
 	origin = origin + localOrigin * axis;
 	dir = localDir * axis;
 
-	int type = collisionMaterial->GetSurfaceType();
-
-	if ( type == SURFTYPE_NONE ) {
+	if ( !collisionMaterial || collisionMaterial->GetSurfaceType() == SURFTYPE_NONE )
+	{
 		surfName = gameLocal.sufaceTypeNames[ GetDefaultSurfaceType() ];
 	}
 	else

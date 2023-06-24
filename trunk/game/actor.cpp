@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3439 $
- * $Date: 2009-05-09 11:11:54 -0400 (Sat, 09 May 2009) $
- * $Author: greebo $
+ * $Revision: 3444 $
+ * $Date: 2009-05-16 15:49:11 -0400 (Sat, 16 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3439 2009-05-09 15:11:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3444 2009-05-16 19:49:11Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4525,7 +4525,14 @@ void idActor::Event_MeleeActionHeld()
 
 void idActor::Event_MeleeActionReleased()
 {
-	m_MeleeStatus.m_ActionPhase = MELEEPHASE_FINISHING;
+	// attacks go to executing phase, parries jump straight to recovering
+	// CMeleeWeapon handles toggling attacks from executing to recovering
+	if( m_MeleeStatus.m_ActionState == MELEEACTION_ATTACK )
+		m_MeleeStatus.m_ActionPhase = MELEEPHASE_EXECUTING;
+	else
+		m_MeleeStatus.m_ActionPhase = MELEEPHASE_RECOVERING;
+
+
 	m_MeleeStatus.m_PhaseChangeTime = gameLocal.time;
 }
 

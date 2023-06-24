@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3432 $
- * $Date: 2009-05-08 02:09:48 -0400 (Fri, 08 May 2009) $
+ * $Revision: 3444 $
+ * $Date: 2009-05-16 15:49:11 -0400 (Sat, 16 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -51,7 +51,8 @@ typedef enum
 {
 	MELEEPHASE_PREPARING, // Moving to backswing or parry position
 	MELEEPHASE_HOLDING, // holding a backswing or parry
-	MELEEPHASE_FINISHING // finishing an attack/parry and recovering
+	MELEEPHASE_EXECUTING, // executing a threatening attack (doesn't apply to parries)
+	MELEEPHASE_RECOVERING // recovering the current attack/parry back to guard position
 } EMeleeActPhase;
 
 /** Possible outcomes of a melee action (includes attacks and parries) **/

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3216 $
- * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3444 $
+ * $Date: 2009-05-16 15:49:11 -0400 (Sat, 16 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3216 2009-02-16 23:55:53Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3444 2009-05-16 19:49:11Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1127,7 +1127,18 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					idEntity *AttEnt = ent->GetAttachment( command.string->c_str() );
 					if( AttEnt && AttEnt->IsType(CMeleeWeapon::Type) )
 					{
-						static_cast<CMeleeWeapon *>(AttEnt)->DeactivateAttack();
+						CMeleeWeapon *WeapEnt = static_cast<CMeleeWeapon *>(AttEnt);
+						if( WeapEnt->GetOwner() )
+						{
+							CMeleeStatus *pStatus = &WeapEnt->GetOwner()->m_MeleeStatus;
+							// if attack hasn't hit yet, this was a miss
+							if( pStatus->m_ActionResult == MELEERESULT_IN_PROGRESS )
+							{
+								pStatus->m_ActionResult = MELEERESULT_AT_HIT;
+								pStatus->m_ActionPhase = MELEEPHASE_RECOVERING;
+							}
+						}
+						WeapEnt->DeactivateAttack();
 					}
 
 					break;
