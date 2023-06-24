@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3304 $
- * $Date: 2009-03-25 12:13:33 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3306 $
+ * $Date: 2009-03-25 12:59:25 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3304 2009-03-25 16:13:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3306 2009-03-25 16:59:25Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -237,8 +237,6 @@ void CFrobDoor::ClearDoorTravelFlag()
 		}
 	}
 }
-
-
 
 void CFrobDoor::Lock(bool bMaster)
 {

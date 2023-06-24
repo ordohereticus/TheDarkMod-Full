@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3302 $
- * $Date: 2009-03-25 11:22:51 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3306 $
+ * $Date: 2009-03-25 12:59:25 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLockHandle.cpp 3302 2009-03-25 15:22:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLockHandle.cpp 3306 2009-03-25 16:59:25Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -69,8 +69,7 @@ void CFrobLockHandle::OnOpenPositionReached()
 	// The handle is "opened", trigger the lock, but only if this is the master handle
 	if (IsMasterHandle() && m_FrobLock != NULL)
 	{
-		// TODO: What to do here? => Fire event?
-		// m_Door->OpenDoor(false);
+		m_FrobLock->OpenTargets();
 	}
 
 	// Let the handle return to its initial position
