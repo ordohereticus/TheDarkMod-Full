@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3322 $
- * $Date: 2009-03-27 14:58:09 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3330 $
+ * $Date: 2009-03-28 01:52:22 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3322 2009-03-27 18:58:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3330 2009-03-28 05:52:22Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -787,8 +787,7 @@ idStringList PickableLock::CreatePinPattern(int clicks, int baseCount, int maxCo
 
 	for (int i = 0; i < clicks; i++)
 	{
-		// Choose a different random number generator every other frame
-		int r = (i % 2) ? gameLocal.random.RandomInt(maxCount) : rnd.IRandom(0, maxCount);
+		int r = rnd.IRandom(0, maxCount);
 
 		idStr click = va(head, r);
 		returnValue.Append(click);
