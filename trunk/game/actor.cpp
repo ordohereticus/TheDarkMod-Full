@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3824 $
- * $Date: 2010-01-30 22:15:28 -0500 (Sat, 30 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3857 $
+ * $Date: 2010-03-20 22:07:41 -0400 (Sat, 20 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3824 2010-01-31 03:15:28Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3857 2010-03-21 02:07:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2143,7 +2143,10 @@ bool idActor::StartRagdoll( void ) {
 	}
 
 	// disable the monster bounding box
-	GetPhysics()->DisableClip();
+	if (spawnArgs.GetBool("nonsolid_on_ragdoll", "1"))
+	{
+		GetPhysics()->DisableClip();
+	}
 
 	// ishtvan: Establish AF constraints for any AF bodies of bound entities
 	UpdateAddedEntConstraints();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3856 $
- * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3857 $
+ * $Date: 2010-03-20 22:07:41 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3857 2010-03-21 02:07:41Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5616,8 +5616,11 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	AI_DEAD	= true;
 
 	// make monster nonsolid
-	physicsObj.SetContents( 0 );
-	physicsObj.GetClipModel()->Unlink();
+	if (spawnArgs.GetBool("nonsolid_on_ragdoll", "1"))
+	{
+		physicsObj.SetContents(0);
+		physicsObj.GetClipModel()->Unlink();
+	}
 
 	Unbind();
 
@@ -5644,9 +5647,12 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 		physicsObj.DisableImpact();
 	}
 
-	// AI becomes frobable on death
-	// greebo: Add a delay before the AI becomes actually frobable
-	PostEventMS(&EV_SetFrobable, 750, 1);
+	if (spawnArgs.GetBool("set_frobable_on_death", "1"))
+	{
+		// AI becomes frobable on death
+		// greebo: Add a delay before the AI becomes actually frobable
+		PostEventMS(&EV_SetFrobable, 750, 1);
+	}
 	
 	restartParticles = false;
 
@@ -9435,9 +9441,12 @@ void idAI::PostKnockOut()
 		physicsObj.DisableImpact();
 	}
 
-	// AI becomes frobable on KO
-	// greebo: Add a delay before the AI becomes actually frobable
-	PostEventMS(&EV_SetFrobable, 750, 1);
+	if (spawnArgs.GetBool("set_frobable_on_knockout", "1"))
+	{
+		// AI becomes frobable on KO
+		// greebo: Add a delay before the AI becomes actually frobable
+		PostEventMS(&EV_SetFrobable, 750, 1);
+	}
 
 	restartParticles = false;
 
