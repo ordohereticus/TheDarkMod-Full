@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3858 $
- * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3861 $
+ * $Date: 2010-03-21 01:46:06 -0400 (Sun, 21 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -32,6 +32,10 @@ public:
 	virtual void Think(idAI* owner);
 
 	static StatePtr CreateInstance();
+
+protected:
+	// Override base class method
+	virtual bool CheckAlertLevel(idAI* owner);
 };
 
 } // namespace

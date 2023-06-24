@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3859 $
- * $Date: 2010-03-20 23:49:42 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3861 $
+ * $Date: 2010-03-21 01:46:06 -0400 (Sun, 21 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingStateLanternBot.cpp 3859 2010-03-21 03:49:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingStateLanternBot.cpp 3861 2010-03-21 05:46:06Z greebo $", init_version);
 
 #include "AgitatedSearchingStateLanternBot.h"
 #include "../Tasks/ScriptTask.h"
@@ -24,6 +24,21 @@ const idStr& AgitatedSearchingStateLanternBot::GetName() const
 {
 	static idStr _name(STATE_AGITATED_SEARCHING_LANTERN_BOT);
 	return _name;
+}
+
+bool AgitatedSearchingStateLanternBot::CheckAlertLevel(idAI* owner)
+{
+	if (owner->AI_AlertIndex < 4)
+	{
+		// Alert index is too low for this state, fall back
+		owner->GetMind()->EndState();
+		return false;
+	}
+
+	// Don't let this AI go higher than this state
+
+	// Alert Index is matching, return OK
+	return true;
 }
 
 void AgitatedSearchingStateLanternBot::Init(idAI* owner)
