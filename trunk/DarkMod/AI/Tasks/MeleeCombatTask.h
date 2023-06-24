@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3216 $
- * $Date: 2009-02-16 18:55:53 -0500 (Mon, 16 Feb 2009) $
+ * $Revision: 3289 $
+ * $Date: 2009-03-22 17:42:00 -0400 (Sun, 22 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -32,6 +32,13 @@ class MeleeCombatTask :
 	**/
 	bool				_bForceAttack;
 	bool				_bForceParry;
+
+	/**
+	* Set to true when we have decided to parry but there is a delay before the anim starts
+	**/
+	bool				_bInParryDelayState;
+	/** Timer to keep track of when parry delay state started **/
+	int					_ParryDelayTimer;
 
 public:
 	// Get the name of this task

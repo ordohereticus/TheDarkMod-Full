@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3248 $
- * $Date: 2009-03-14 21:38:57 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3289 $
+ * $Date: 2009-03-22 17:42:00 -0400 (Sun, 22 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -285,6 +285,12 @@ public:
 	int						m_MeleeRiposteRecoveryMin;
 	int						m_MeleeRiposteRecoveryMax;
 	int						m_MeleeCurrentRiposteRecovery;
+	/**
+	* Melee timing: Time delay between when we decide to parry and when the anim starts
+	**/
+	int						m_MeleeParryDelayMin;
+	int						m_MeleeParryDelayMax;
+	int						m_MeleeCurrentParryDelay;
 
 	/**
 	* Correspondence between melee type and string name suffix of the action
