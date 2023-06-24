@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3619 $
- * $Date: 2009-07-30 23:27:31 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3634 $
+ * $Date: 2009-08-02 12:29:14 -0400 (Sun, 02 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3619 2009-07-31 03:27:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3634 2009-08-02 16:29:14Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -860,7 +860,10 @@ void idActor::Spawn( void )
 	if (spawnArgs.GetBool("unarmed_ranged"))
 	{
 		SetAttackFlag(COMBAT_RANGED, true);
-	}	
+	}
+
+	lowHealthThreshold = spawnArgs.GetInt("low_health_threshold", "-1");
+	lowHealthScript = spawnArgs.GetString("low_health_script");
 
 	LoadVocalSet();
 
@@ -1132,6 +1135,9 @@ void idActor::Save( idSaveGame *savefile ) const {
 		savefile->WriteFloat( damageScale[ i ] );
 	}
 
+	savefile->WriteInt(lowHealthThreshold);
+	savefile->WriteString(lowHealthScript);
+
 	savefile->WriteFloat( m_SneakAttackThresh );
 	savefile->WriteFloat( m_SneakAttackMult );
 
@@ -1324,6 +1330,9 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	for( i = 0; i < num; i++ ) {
 		savefile->ReadFloat( damageScale[ i ] );
 	}
+
+	savefile->ReadInt(lowHealthThreshold);
+	savefile->ReadString(lowHealthScript);
 
 	savefile->ReadFloat( m_SneakAttackThresh );
 	savefile->ReadFloat( m_SneakAttackMult );
@@ -3030,7 +3039,19 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 
 	if ( damage > 0 )
 	{
+		// Apply the damage
 		health -= damage;
+
+		if (lowHealthThreshold != -1 && health < lowHealthThreshold)
+		{
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Actor %s's fell below health threshold %d, firing script %s\r", name.c_str(), lowHealthThreshold, lowHealthScript.c_str());
+
+			if (!lowHealthScript.IsEmpty())
+			{
+				CallScriptFunctionArgs(lowHealthScript, true, 0, "e", this);
+			}
+		}
+
 		if ( health <= 0 ) 
 		{
 			if ( health < -999 ) 

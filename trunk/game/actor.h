@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3619 $
- * $Date: 2009-07-30 23:27:31 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3634 $
+ * $Date: 2009-08-02 12:29:14 -0400 (Sun, 02 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -608,6 +608,10 @@ protected:
 
 	idStrList				damageGroups;		// body damage groups
 	idList<float>			damageScale;		// damage scale per damage group
+
+	// greebo: If not -1, the actor will fire a script when its health falls below this value
+	int						lowHealthThreshold;
+	idStr					lowHealthScript;
 
 	/**
 	* Alertnum threshold above which sneak attacks won't work,
