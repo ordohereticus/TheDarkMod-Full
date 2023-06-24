@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3205 $
- * $Date: 2009-02-03 07:16:42 -0500 (Tue, 03 Feb 2009) $
- * $Author: greebo $
+ * $Revision: 3298 $
+ * $Date: 2009-03-25 06:38:28 -0400 (Wed, 25 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 3205 2009-02-03 12:16:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3298 2009-03-25 10:38:28Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -372,11 +372,18 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 				}
 			}
 
-			f = v > BOUNCE_SOUND_MAX_VELOCITY ? 1.0f : idMath::Sqrt( v - BOUNCE_SOUND_MIN_VELOCITY ) * ( 1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY ) );
-			if ( StartSound( SndNameLocal.c_str(), SND_CHANNEL_ANY, 0, false, NULL ) ) {
+			const idSoundShader* sndShader = declManager->FindSound( SndNameLocal.c_str() );
+
+			//f = v > BOUNCE_SOUND_MAX_VELOCITY ? 1.0f : idMath::Sqrt( v - BOUNCE_SOUND_MIN_VELOCITY ) * ( 1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY ) );
+
+			// angua: modify the volume set in the def instead of setting a fixed value. 
+			// At minimum velocity, the volume should be 10 db lower than the one specified in the def
+			// todo: define volume at min velocity in sndshd?
+			f = v > BOUNCE_SOUND_MAX_VELOCITY ? 0.0f : 10 * ( idMath::Sqrt(v - BOUNCE_SOUND_MIN_VELOCITY) * (1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY)) - 1 );
+			if ( StartSound( SndNameLocal.c_str(), SND_CHANNEL_ANY, 0, false, NULL, f ) ) {
 				// don't set the volume unless there is a bounce sound as it overrides the entire channel
 				// which causes footsteps on ai's to not honor their shader parms
-				SetSoundVolume( f );
+				SetSoundVolume(sndShader->GetParms()->volume + f);
 			}
 			nextSoundTime = gameLocal.time + 500;
 		}

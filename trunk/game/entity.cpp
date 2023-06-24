@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3262 $
- * $Date: 2009-03-17 13:07:53 -0400 (Tue, 17 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3298 $
+ * $Date: 2009-03-25 06:38:28 -0400 (Wed, 25 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3262 2009-03-17 17:07:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3298 2009-03-25 10:38:28Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2484,7 +2484,7 @@ bool idEntity::CanPlayChatterSounds( void ) const {
 idEntity::StartSound
 ================
 */
-bool idEntity::StartSound( const char *soundName, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length ) 
+bool idEntity::StartSound( const char *soundName, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length, float propVolMod) 
 {
 	const idSoundShader *shader;
 	const char *sound;
@@ -2510,7 +2510,7 @@ bool idEntity::StartSound( const char *soundName, const s_channelType channel, i
 	}
 	
 	// DarkMod sound propagation:
-	PropSoundDirect( soundName, true, false );
+	PropSoundDirect(soundName, true, false, propVolMod);
 
 	// play the audible sound
 	shader = declManager->FindSound( sound );
@@ -2522,7 +2522,7 @@ bool idEntity::StartSound( const char *soundName, const s_channelType channel, i
 idEntity::StartSoundShader
 ================
 */
-bool idEntity::StartSoundShader( const idSoundShader *shader, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length ) {
+bool idEntity::StartSoundShader( const idSoundShader *shader, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length) {
 	float diversity;
 	int len;
 

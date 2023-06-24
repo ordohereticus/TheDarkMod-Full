@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3262 $
- * $Date: 2009-03-17 13:07:53 -0400 (Tue, 17 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3298 $
+ * $Date: 2009-03-25 06:38:28 -0400 (Wed, 25 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -420,8 +420,10 @@ public:
 
 	// sound
 	virtual bool			CanPlayChatterSounds( void ) const;
-	bool					StartSound( const char *soundName, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length );
-	bool					StartSoundShader( const idSoundShader *shader, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length );
+
+	// angua: propVolMod only modifies the volume of the propagated sound
+	bool					StartSound( const char *soundName, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length, float propVolMod = 0);
+	bool					StartSoundShader( const idSoundShader *shader, const s_channelType channel, int soundShaderFlags, bool broadcast, int *length);
 	void					StopSound( const s_channelType channel, bool broadcast );	// pass SND_CHANNEL_ANY to stop all sounds
 	void					SetSoundVolume( float volume );
 	void					UpdateSound( void );
