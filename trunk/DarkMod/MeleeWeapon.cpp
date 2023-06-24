@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3366 $
- * $Date: 2009-04-05 17:09:12 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3367 $
+ * $Date: 2009-04-05 18:54:58 -0400 (Sun, 05 Apr 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3366 2009-04-05 21:09:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3367 2009-04-05 22:54:58Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -157,8 +157,9 @@ void CMeleeWeapon::ActivateAttack( idActor *ActOwner, const char *AttName )
 
 		// hack to fix crashes in closed Id code, set material hit to NULL
 		// AI don't SEEM to crash and we want to know armour type was hit, so exception for AI:
-		if( !ent->IsType(idActor::Type) )
-			tr.c.material = NULL;
+		// Update: Nope, AI crash too.  TODO: Fix this when D3 becomes open source
+		// if( !ent->IsType(idActor::Type) )
+		tr.c.material = NULL;
 
 		// the point is also inaccruate sometimes, set to origin of the weapon object
 		tr.c.point = m_OldOrigin;
