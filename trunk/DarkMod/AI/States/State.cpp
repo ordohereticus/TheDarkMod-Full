@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3649 $
- * $Date: 2009-08-05 01:58:52 -0400 (Wed, 05 Aug 2009) $
- * $Author: angua $
+ * $Revision: 3652 $
+ * $Date: 2009-08-06 00:19:43 -0400 (Thu, 06 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3649 2009-08-05 05:58:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3652 2009-08-06 04:19:43Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1178,6 +1178,57 @@ void State::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bo
 
 	// Switch to failed knockout state
 	owner->GetMind()->PushState(StatePtr(new FailedKnockoutState(attacker, direction, hitHead)));
+}
+
+void State::OnProjectileHit(idProjectile* projectile, idEntity* attacker, int damageTaken)
+{
+	if (damageTaken > 0)
+	{
+		// Only consider the "no damage" case, as Pain() is already taking care of alerting us
+		return;
+	}
+
+	if (!ShouldProcessAlert(EAlertTypeWeapon))
+	{
+		return;
+	}
+
+	idAI* owner = _owner.GetEntity();
+	if (owner == NULL) return;
+	
+	if (owner->AI_AlertLevel < owner->thresh_5 - 0.1f)
+	{
+		Memory& memory = owner->GetMemory();
+
+		// greebo: Set the alert position not directly to the attacker's origin, but let the AI 
+		// search in the right direction
+		const idVec3& ownerOrigin = owner->GetPhysics()->GetOrigin();
+
+		idVec3 attackerDir(0,0,0);
+		float distance = 0;
+		
+		if (attacker != NULL)
+		{
+			attackerDir = attacker->GetPhysics()->GetOrigin() - ownerOrigin;
+			distance = attackerDir.NormalizeFast();
+		}
+
+		// Start searching halfways between us the attacker
+		memory.alertPos = owner->GetPhysics()->GetOrigin() + attackerDir * distance * 0.5f;
+		memory.alertClass = EAlertTactile;
+		memory.alertType = EAlertTypeWeapon;
+		
+		// Do search as if there is an enemy that has escaped
+		memory.alertRadius = TACTILE_ALERT_RADIUS;
+		memory.alertSearchVolume = TACTILE_SEARCH_VOLUME*2; 
+		memory.alertSearchExclusionVolume.Zero();
+
+		memory.investigateStimulusLocationClosely = false;
+		
+		owner->AI_VISALERT = false;
+		
+		owner->SetAlertLevel(owner->thresh_5 - 0.1f);
+	}
 }
 
 void State::OnMovementBlocked(idAI* owner)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3638 $
- * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3652 $
+ * $Date: 2009-08-06 00:19:43 -0400 (Thu, 06 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -109,6 +109,11 @@ public:
 	 * @hitHead: is TRUE if the head has been hit, FALSE if the attacker hit other body parts
 	 */
 	virtual void OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead);
+
+	/**
+	 * greebo: Called whenever the AI gets hit by a projectile.
+	 */
+	virtual void OnProjectileHit(idProjectile* projectile, idEntity* attacker, int damageTaken);
 
 	/**
 	* ishtvan: Called when targets are changed, does nothing on base class

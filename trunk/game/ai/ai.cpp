@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3648 $
- * $Date: 2009-08-05 01:23:31 -0400 (Wed, 05 Aug 2009) $
+ * $Revision: 3652 $
+ * $Date: 2009-08-06 00:19:43 -0400 (Thu, 06 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3648 2009-08-05 05:23:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3652 2009-08-06 04:19:43Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5619,7 +5619,18 @@ void idAI::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir,
 	const char *damageDefName, const float damageScale, const int location,
 	trace_t *collision)
 {
+	// Save the current health, to see afterwards how much damage we've been taking
+	int preHitHealth = health;
+
 	idActor::Damage(inflictor, attacker, dir, damageDefName, damageScale, location, collision);
+
+	if (inflictor != NULL && inflictor->IsType(idProjectile::Type))
+	{
+		int damageTaken = preHitHealth - health;
+
+		// Send a signal to the current state that we've been hit by something
+		GetMind()->GetState()->OnProjectileHit(static_cast<idProjectile*>(inflictor), attacker, damageTaken);
+	}
 
 	if (attacker != NULL && IsEnemy(attacker))
 	{
