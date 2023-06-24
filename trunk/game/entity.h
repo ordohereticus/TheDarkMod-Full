@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3259 $
- * $Date: 2009-03-17 00:23:12 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3262 $
+ * $Date: 2009-03-17 13:07:53 -0400 (Tue, 17 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -630,6 +630,14 @@ public:
 	 * bMaster indicates whether the entity should call its master or not.
 	 */
 	virtual void FrobAction(bool bMaster, bool bPeer = false);
+
+	/**
+	 * greebo: A frobbed entity might receive this signal if the player is hitting
+	 * the attack button in this exact frame. (Used for lockpicking.)
+	 *
+	 * The player responsible for this action is passed as argument.
+	 */
+	virtual void AttackAction(idPlayer* player);
 
 	/**
 	 * AddToMasterList adds a string entry to a list and checks if a) the new entry

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3219 $
- * $Date: 2009-02-25 04:25:46 -0500 (Wed, 25 Feb 2009) $
- * $Author: tels $
+ * $Revision: 3262 $
+ * $Date: 2009-03-17 13:07:53 -0400 (Tue, 17 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3219 2009-02-25 09:25:46Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3262 2009-03-17 17:07:53Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7547,6 +7547,11 @@ void idEntity::FrobAction(bool bMaster, bool bPeer)
 
 Quit:
 	return;
+}
+
+void idEntity::AttackAction(idPlayer* player)
+{
+	// Empty implementation, to be overridden by subclasses
 }
 
 bool idEntity::CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse) 

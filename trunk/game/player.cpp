@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3255 $
- * $Date: 2009-03-15 04:34:28 -0400 (Sun, 15 Mar 2009) $
+ * $Revision: 3262 $
+ * $Date: 2009-03-17 13:07:53 -0400 (Tue, 17 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3255 2009-03-15 08:34:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3262 2009-03-17 17:07:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6849,6 +6849,14 @@ void idPlayer::Think( void )
 	CalculateRenderView();
 
 	FrobCheck();
+
+	// Check if we just hit the attack button
+	idEntity* frobbedEnt = g_Global.m_DarkModPlayer->m_FrobEntity.GetEntity();
+
+	if (frobbedEnt != NULL && usercmd.buttons & BUTTON_ATTACK && !(oldButtons & BUTTON_ATTACK))
+	{
+		frobbedEnt->AttackAction(this);
+	}
 
 	idStr strText;
 /*
