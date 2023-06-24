@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3610 $
- * $Date: 2009-07-29 03:06:16 -0400 (Wed, 29 Jul 2009) $
+ * $Revision: 3618 $
+ * $Date: 2009-07-30 13:12:30 -0400 (Thu, 30 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -228,6 +228,9 @@ private:
 	float					maxStepHeight;
 	float					maxJumpHeight;
 	int						debugLevel;				// if set, diagnostic output will be printed
+
+	// greebo: Used for "jump stamina"
+	int						lastJumpTime;
 
 	// player input
 	usercmd_t				command;

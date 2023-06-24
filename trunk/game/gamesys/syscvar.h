@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3615 $
- * $Date: 2009-07-30 01:41:47 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3618 $
+ * $Date: 2009-07-30 13:12:30 -0400 (Thu, 30 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -120,6 +120,8 @@ extern idCVar cv_tdm_run_jump_vel;
 extern idCVar cv_tdm_crouch_jump_vel;
 extern idCVar cv_tdm_min_vel_jump;
 extern idCVar cv_tdm_fwd_jump_vel;
+extern idCVar cv_tdm_backwards_jump_modifier;
+extern idCVar cv_tdm_jump_relaxation_time;
 
 extern idCVar cv_tdm_footfalls_movetype_specific;
 
