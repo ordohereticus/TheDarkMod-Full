@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3700 $
- * $Date: 2009-09-07 07:16:43 -0400 (Mon, 07 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3705 $
+ * $Date: 2009-09-15 05:58:24 -0400 (Tue, 15 Sep 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3700 2009-09-07 11:16:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3705 2009-09-15 09:58:24Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2396,6 +2396,11 @@ void idAI::KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick )
 			delta.ToVec2() += perpendicular * gameLocal.random.CRandomFloat() * 0.5f;
 			forceVec = delta * force * obEnt->GetPhysics()->GetMass();
 			obEnt->ApplyImpulse( this, 0, obEnt->GetPhysics()->GetOrigin(), forceVec );
+			if (obEnt->m_SetInMotionByActor.GetEntity() == NULL)
+			{
+				obEnt->m_SetInMotionByActor = this;
+				obEnt->m_MovedByActor = this;
+			}
 		}
 	}
 
@@ -2408,6 +2413,11 @@ void idAI::KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick )
 		delta.ToVec2() += perpendicular * gameLocal.random.CRandomFloat() * 0.5f;
 		forceVec = delta * force * alwaysKick->GetPhysics()->GetMass();
 		alwaysKick->ApplyImpulse( this, 0, alwaysKick->GetPhysics()->GetOrigin(), forceVec );
+		if (alwaysKick->m_SetInMotionByActor.GetEntity() == NULL)
+		{
+			alwaysKick->m_SetInMotionByActor = this;
+			alwaysKick->m_MovedByActor = this;
+		}
 	}
 }
 

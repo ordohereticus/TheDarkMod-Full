@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3705 $
+ * $Date: 2009-09-15 05:58:24 -0400 (Tue, 15 Sep 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DeadState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: DeadState.cpp 3705 2009-09-15 09:58:24Z angua $", init_version);
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -51,7 +51,7 @@ void DeadState::Init(idAI* owner)
 
 	// greebo: Set the waitstate, this gets cleared by 
 	// the script function when the animation is done.
-	owner->SetWaitState("dead");
+	owner->SetWaitState(ANIMCHANNEL_HEAD, "death");
 
 	// Don't do anything else, the death animation will finish in a few frames
 	// and the AI is done afterwards.

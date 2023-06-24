@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2860 $
- * $Date: 2008-09-18 11:25:26 -0400 (Thu, 18 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 3705 $
+ * $Date: 2009-09-15 05:58:24 -0400 (Tue, 15 Sep 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 2860 2008-09-18 15:25:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 3705 2009-09-15 09:58:24Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -1462,6 +1462,12 @@ bool idPhysics_RigidBody::Evaluate( int timeStepMSec, int endTimeMSec ) {
 		if ( ent && ( !cameToRest || !ent->IsAtRest() ) ) {
 			// apply impact to other entity
 			ent->ApplyImpulse( self, collision.c.id, collision.c.point, -impulse );
+
+			if (ent->m_SetInMotionByActor.GetEntity() == NULL)
+			{
+				ent->m_SetInMotionByActor = self->m_SetInMotionByActor;
+				ent->m_MovedByActor = self->m_MovedByActor;
+			}
 		}
 
 		// greebo: Are we stuck? We still have to consider gravity and external forces
