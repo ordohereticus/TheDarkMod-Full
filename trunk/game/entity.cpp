@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3833 $
- * $Date: 2010-02-01 22:38:43 -0500 (Mon, 01 Feb 2010) $
- * $Author: ishtvan $
+ * $Revision: 3863 $
+ * $Date: 2010-03-21 03:47:21 -0400 (Sun, 21 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3833 2010-02-02 03:38:43Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3863 2010-03-21 07:47:21Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -167,7 +167,7 @@ const idEventDef EV_LoadExternalData( "loadExternalData", "ss", 'd' );
 const idEventDef EV_GetLootAmount("getLootAmount", "d", 'd');				// returns the current value for the given group
 const idEventDef EV_ChangeLootAmount("changeLootAmount", "dd", 'd');		// Changes the loot amount of the given group by the given amount, returns the new amount of that type
 const idEventDef EV_AddInvItem("addInvItem", "e");					// Adds an entity to the inventory
-const idEventDef EV_ReplaceInvItem("replaceInvItem", "ee", 'd');	// olditem, newitem -> 1 if succeeded
+const idEventDef EV_ReplaceInvItem("replaceInvItem", "eE", 'd');	// olditem, newitem -> 1 if succeeded
 const idEventDef EV_GetNextInvItem("getNextInvItem", "", 'e');		// switches to the next inventory item
 const idEventDef EV_GetPrevInvItem("getPrevInvItem", "", 'e');		// switches to the previous inventory item
 const idEventDef EV_ChangeInvItemCount("changeInvItemCount", "ssd");		// Changes the stack count (call with "inv_name", "inv_category" and amount)
