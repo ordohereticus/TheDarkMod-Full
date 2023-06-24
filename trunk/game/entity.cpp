@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3656 $
- * $Date: 2009-08-07 09:17:40 -0400 (Fri, 07 Aug 2009) $
- * $Author: tels $
+ * $Revision: 3663 $
+ * $Date: 2009-08-12 02:50:45 -0400 (Wed, 12 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3656 2009-08-07 13:17:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3663 2009-08-12 06:50:45Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8421,7 +8421,7 @@ void idEntity::Attach( idEntity *ent, const char *PosName, const char *AttName )
 // The following is the old system and will be phased out
 	else
 	{
-		gameLocal.Warning("%s is attaching %s using the deprecated attachment system.\n", name.c_str(), ent->name.c_str());
+		//gameLocal.Warning("%s is attaching %s using the deprecated attachment system.\n", name.c_str(), ent->name.c_str());
 		angleOffset = ent->spawnArgs.GetAngles( "angles" );
 		originOffset = ent->spawnArgs.GetVector( "origin" );
 	}
