@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3405 $
- * $Date: 2009-04-13 02:39:09 -0400 (Mon, 13 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3408 $
+ * $Date: 2009-04-19 12:37:09 -0400 (Sun, 19 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3405 2009-04-13 06:39:09Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3408 2009-04-19 16:37:09Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -305,7 +305,7 @@ idCVar cv_lg_model("tdm_lg_model",		"models/darkmod/misc/system/lightgem.lwo",	C
 idCVar cv_lg_adjust("tdm_lg_adjust",		"0",		CVAR_GAME | CVAR_FLOAT,	"Adds a constant value to the lightgem." );
 idCVar cv_lg_split("tdm_lg_split",		"0",		CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE,	"Lightgem is always fully calculated (no splitting between interleaves). Warning! This can cause particle flickering if set to 1." );
 idCVar cv_lg_path("tdm_lg_path",		"",	CVAR_GAME,	"Dump the rendersnapshot to the filepath specified here." );
-idCVar cv_lg_crouch_modifier("tdm_lg_crouch_modifier",	"-4",	CVAR_GAME | CVAR_INTEGER,	"The value the lightgem is adjusted by when the player is crouching." );
+idCVar cv_lg_crouch_modifier("tdm_lg_crouch_modifier",	"-3",	CVAR_GAME | CVAR_INTEGER,	"The value the lightgem is adjusted by when the player is crouching." );
 idCVar cv_lg_image_width("tdm_lg_image_width",	"64",	CVAR_GAME | CVAR_INTEGER,		"Defines the pixel width of the lightem rendering. WARNING!!! Increasing this severly affects performance!" );
 idCVar cv_lg_screen_width("tdm_lg_screen_width",	"640",	CVAR_GAME | CVAR_INTEGER,		"Defines the screen width of the lightem rendering. WARNING!!! Increasing this severly affects performance!" );
 idCVar cv_lg_screen_height("tdm_lg_screen_height",	"480",	CVAR_GAME | CVAR_INTEGER,		"Defines the screen height of the lightem rendering. WARNING!!! Increasing this severly affects performance!" );
