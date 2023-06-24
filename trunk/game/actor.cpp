@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3437 $
- * $Date: 2009-05-09 10:11:26 -0400 (Sat, 09 May 2009) $
+ * $Revision: 3439 $
+ * $Date: 2009-05-09 11:11:54 -0400 (Sat, 09 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3437 2009-05-09 14:11:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3439 2009-05-09 15:11:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1238,6 +1238,9 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( m_MeleeParryDelayMin );
 	savefile->ReadInt( m_MeleeParryDelayMax );
 	savefile->ReadInt( m_MeleeCurrentParryDelay );
+	savefile->ReadInt( m_MeleeRepeatedParryDelayMin );
+	savefile->ReadInt( m_MeleeRepeatedParryDelayMax );
+	savefile->ReadInt( m_MeleeCurrentRepeatedParryDelay );
 	savefile->ReadInt( m_MeleeNumRepAttacks );
 	savefile->ReadInt( m_MeleeRepAttackTime );
 
