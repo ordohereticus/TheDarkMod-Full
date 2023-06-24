@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3847 $
- * $Date: 2010-03-18 14:50:53 -0400 (Thu, 18 Mar 2010) $
+ * $Revision: 3848 $
+ * $Date: 2010-03-19 02:19:04 -0400 (Fri, 19 Mar 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -131,11 +131,6 @@ private:
 	dnImageWrapper m_imageBloom;
 	dnImageWrapper m_imageHalo;
 	
-		// Every channel of this image will have a cooked mathematical data. 
-		// Since we might need more of these textures, I am numbering them.
-		dnImageWrapper		m_imageCookedMath0;
-		const idMaterial*	m_matCookMath0;
-
 	const idMaterial *m_matAvgLuminance64x;
 	const idMaterial *m_matAvgLumSample4x4;
 	const idMaterial *m_matAdaptLuminance;
@@ -146,6 +141,11 @@ private:
 	const idMaterial *m_matGaussBlurXHalo;
 	const idMaterial *m_matGaussBlurYHalo;
 	const idMaterial *m_matFinalScenePass;
+
+		// Every channel of this image will have a cooked mathematical data. 
+		// Since we might need more of these textures, I am numbering them.
+		dnImageWrapper		m_imageCookedMath0;
+		const idMaterial*	m_matCookMath0;
 
 	// For debug renders
 	const idMaterial *m_matDecodedLumTexture64x64;

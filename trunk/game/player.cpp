@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3845 $
- * $Date: 2010-03-12 21:18:53 -0500 (Fri, 12 Mar 2010) $
- * $Author: greebo $
+ * $Revision: 3848 $
+ * $Date: 2010-03-19 02:19:04 -0400 (Fri, 19 Mar 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3845 2010-03-13 02:18:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3848 2010-03-19 06:19:04Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2663,9 +2663,13 @@ void idPlayer::DrawHUD(idUserInterface *_hud)
 	}
 
 	if(_hud)
+		{
 		DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("PlayerHUD: [%s]\r", (_hud->Name() == NULL)?"null":_hud->Name());
+		}
 	else
+		{
 		DM_LOG(LC_SYSTEM, LT_INFO)LOGSTRING("PlayerHUD: NULL\r");
+		}
 
 	if ( !weapon.GetEntity() || influenceActive != INFLUENCE_NONE || privateCameraView || gameLocal.GetCamera() || !_hud || !g_showHud.GetBool() ) {
 		return;
@@ -9818,17 +9822,13 @@ idPlayer::GetMovementVolMod
 
 float idPlayer::GetMovementVolMod( void )
 {
-	float returnval;
+	float returnval = 0.0f;
 
 	bool isCrouched = AI_CROUCH != 0;
 
-	// figure out which of the 6 cases we have:
-	if( !AI_RUN && !AI_CREEP )
-	{
-		returnval = (isCrouched) ? m_stepvol_crouch_walk : m_stepvol_walk;
-	}
+	// figure out which of the 6 possible cases we have:
 	// NOTE: running always has priority over creeping
-	else if( AI_RUN )
+	if( AI_RUN )
 	{
 		if (physicsObj.HasRunningVelocity())
 		{
@@ -9843,9 +9843,10 @@ float idPlayer::GetMovementVolMod( void )
 	{
 		returnval = (isCrouched) ? m_stepvol_crouch_creep : m_stepvol_creep;
 	}
-	else 
+ 	// else it is not: AI_RUN or AI_CREEP
+	else
 	{
-		gameLocal.Error("idPlayer::GetMovementVolMod: Logic Error.");
+		returnval = (isCrouched) ? m_stepvol_crouch_walk : m_stepvol_walk;
 	}
 	//gameRenderWorld->DrawText(idStr(returnval), GetEyePosition() + viewAngles.ToForward()*20, 0.15f, colorWhite, viewAngles.ToMat3(), 1, 500);
 
