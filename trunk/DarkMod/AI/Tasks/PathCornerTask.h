@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #ifndef __AI_PATH_CORNER_TASK_H__
 #define __AI_PATH_CORNER_TASK_H__
 
-#include "Task.h"
+#include "PathTask.h"
 
 namespace ai
 {
@@ -22,10 +22,9 @@ class PathCornerTask;
 typedef boost::shared_ptr<PathCornerTask> PathCornerTaskPtr;
 
 class PathCornerTask :
-	public Task
+	public PathTask
 {
 private:
-	idEntityPtr<idPathCorner> _path;
 	bool _moveInitiated;
 
 	PathCornerTask();
@@ -48,8 +47,6 @@ public:
 	// Creates a new Instance of this task
 	static PathCornerTaskPtr CreateInstance();
 
-	// Class-specific methods
-	virtual void SetTargetEntity(idPathCorner* path);
 };
 
 } // namespace ai

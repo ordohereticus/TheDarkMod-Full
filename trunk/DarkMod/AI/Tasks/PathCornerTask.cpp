@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3184 $
- * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -21,10 +21,12 @@ namespace ai
 {
 
 PathCornerTask::PathCornerTask() :
+	PathTask(),
 	_moveInitiated(false)
 {}
 
 PathCornerTask::PathCornerTask(idPathCorner* path) :
+	PathTask(path),
 	_moveInitiated(false)
 {
 	_path = path;
@@ -40,12 +42,7 @@ const idStr& PathCornerTask::GetName() const
 void PathCornerTask::Init(idAI* owner, Subsystem& subsystem)
 {
 	// Just init the base class
-	Task::Init(owner, subsystem);
-
-	if (_path.GetEntity() == NULL)
-	{
-		gameLocal.Error("PathCornerTask: Path Entity not set before Init()");
-	}
+	PathTask::Init(owner, subsystem);
 
 	// Check the "run" spawnarg of this path entity
 	owner->AI_RUN = (_path.GetEntity()->spawnArgs.GetBool("run", "0"));
@@ -69,10 +66,7 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 		{
 			// Trigger path targets, now that we've reached the corner
 			owner->ActivateTargets(owner);
-
-			// Store the new path entity into the AI's mind
-			idPathCorner* next = idPathCorner::RandomPath(path, NULL, owner);
-			owner->GetMind()->GetMemory().currentPath = next;
+			NextPath();
 
 			// Move is done, fall back to PatrolTask
 			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
@@ -84,6 +78,7 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 		{
 			// Unreachable, fall back to PatrolTask
 			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Destination is unreachable, skipping.\r");
+			NextPath();
 			return true; // finish this task
 		}
 
@@ -101,27 +96,20 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 	return false; // not finished yet
 }
 
-void PathCornerTask::SetTargetEntity(idPathCorner* path) 
-{
-	assert(path);
-	_path = path;
-}
 
 // Save/Restore methods
 void PathCornerTask::Save(idSaveGame* savefile) const
 {
-	Task::Save(savefile);
+	PathTask::Save(savefile);
 
 	savefile->WriteBool(_moveInitiated);
-	_path.Save(savefile);
 }
 
 void PathCornerTask::Restore(idRestoreGame* savefile)
 {
-	Task::Restore(savefile);
+	PathTask::Restore(savefile);
 
 	savefile->ReadBool(_moveInitiated);
-	_path.Restore(savefile);
 }
 
 PathCornerTaskPtr PathCornerTask::CreateInstance()

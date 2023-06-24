@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3184 $
- * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -20,10 +20,12 @@ static bool init_version = FileVersionList("$Id: PathLookatTask.cpp 3184 2009-01
 namespace ai
 {
 
-PathLookatTask::PathLookatTask()
+PathLookatTask::PathLookatTask() :
+	PathTask()
 {}
 
-PathLookatTask::PathLookatTask(idPathCorner* path)
+PathLookatTask::PathLookatTask(idPathCorner* path) : 
+	PathTask(path)
 {
 	_path = path;
 }
@@ -37,14 +39,9 @@ const idStr& PathLookatTask::GetName() const
 
 void PathLookatTask::Init(idAI* owner, Subsystem& subsystem)
 {
-	// Just init the base class
-	Task::Init(owner, subsystem);
+	PathTask::Init(owner, subsystem);
 
 	idPathCorner* path = _path.GetEntity();
-
-	if (path == NULL) {
-		gameLocal.Error("PathLookatTask: Path Entity not set before Init()");
-	}
 
 	// The entity to look at is named by the "focus" spawnarg, if that spawnarg is set.
 	idStr focusEntName(path->spawnArgs.GetString("focus"));
@@ -93,9 +90,7 @@ bool PathLookatTask::Perform(Subsystem& subsystem)
 			// Trigger next path target(s)
 			owner->ActivateTargets(owner);
 
-			// Store the new path entity into the AI's mind
-			idPathCorner* next = idPathCorner::RandomPath(path, NULL, owner);
-			owner->GetMind()->GetMemory().currentPath = next;
+			NextPath();
 			
 			return true; // finish this task
 		}
@@ -123,18 +118,12 @@ bool PathLookatTask::Perform(Subsystem& subsystem)
 	return true; // finish this task
 }
 
-void PathLookatTask::SetTargetEntity(idPathCorner* path) 
-{
-	assert(path);
-	_path = path;
-}
+
 
 // Save/Restore methods
 void PathLookatTask::Save(idSaveGame* savefile) const
 {
-	Task::Save(savefile);
-
-	_path.Save(savefile);
+	PathTask::Save(savefile);
 
 	savefile->WriteObject(_focusEnt);
 
@@ -143,9 +132,7 @@ void PathLookatTask::Save(idSaveGame* savefile) const
 
 void PathLookatTask::Restore(idRestoreGame* savefile)
 {
-	Task::Restore(savefile);
-
-	_path.Restore(savefile);
+	PathTask::Restore(savefile);
 
 	savefile->ReadObject(reinterpret_cast<idClass*&>(_focusEnt));
 

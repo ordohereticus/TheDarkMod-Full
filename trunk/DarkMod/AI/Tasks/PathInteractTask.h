@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2829 $
- * $Date: 2008-09-13 14:08:37 -0400 (Sat, 13 Sep 2008) $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef __AI_PATH_INTERACT_TASK_H__
 #define __AI_PATH_INTERACT_TASK_H__
 
-#include "Task.h"
+#include "PathTask.h"
 
 namespace ai
 {
@@ -22,10 +22,8 @@ class PathInteractTask;
 typedef boost::shared_ptr<PathInteractTask> PathInteractTaskPtr;
 
 class PathInteractTask :
-	public Task
+	public PathTask
 {
-	idEntityPtr<idPathCorner> _path;
-
 	idEntity* _target;
 
 	int _waitEndTime;

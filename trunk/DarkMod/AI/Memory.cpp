@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3247 $
- * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -72,6 +72,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteObject(owner);
 	savefile->WriteInt(static_cast<int>(alertState));
 	currentPath.Save(savefile);
+	lastPath.Save(savefile);
 	savefile->WriteInt(lastAlertRiseTime);
 	savefile->WriteInt(lastPatrolChatTime);
 	savefile->WriteInt(lastTimeFriendlyAISeen);
@@ -138,6 +139,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	alertState = static_cast<EAlertState>(temp);
 
 	currentPath.Restore(savefile);
+	lastPath.Restore(savefile);
 	savefile->ReadInt(lastAlertRiseTime);
 	savefile->ReadInt(lastPatrolChatTime);
 	savefile->ReadInt(lastTimeFriendlyAISeen);

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #ifndef __AI_PATH_HIDE_TASK_H__
 #define __AI_PATH_HIDE_TASK_H__
 
-#include "Task.h"
+#include "PathTask.h"
 
 namespace ai
 {
@@ -22,11 +22,11 @@ class PathHideTask;
 typedef boost::shared_ptr<PathHideTask> PathHideTaskPtr;
 
 class PathHideTask :
-	public Task
+	public PathTask
 {
-	idEntityPtr<idPathCorner> _path;
-
+private:
 	PathHideTask();
+
 public:
 	PathHideTask(idPathCorner* path);
 
@@ -38,15 +38,9 @@ public:
 
 	virtual bool Perform(Subsystem& subsystem);
 
-	// Save/Restore methods
-	virtual void Save(idSaveGame* savefile) const;
-	virtual void Restore(idRestoreGame* savefile);
-
 	// Creates a new Instance of this task
 	static PathHideTaskPtr CreateInstance();
 
-	// Class-specific methods
-	virtual void SetTargetEntity(idPathCorner* path);
 };
 
 } // namespace ai

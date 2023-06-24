@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3092 $
- * $Date: 2008-12-28 16:26:07 -0500 (Sun, 28 Dec 2008) $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef __AI_PATH_LOOKAT_TASK_H__
 #define __AI_PATH_LOOKAT_TASK_H__
 
-#include "Task.h"
+#include "PathTask.h"
 
 namespace ai
 {
@@ -22,10 +22,9 @@ class PathLookatTask;
 typedef boost::shared_ptr<PathLookatTask> PathLookatTaskPtr;
 
 class PathLookatTask :
-	public Task
+	public PathTask
 {
-	idEntityPtr<idPathCorner> _path;
-
+private:
 	PathLookatTask();
 
 	idEntity* _focusEnt;
@@ -48,9 +47,6 @@ public:
 
 	// Creates a new Instance of this task
 	static PathLookatTaskPtr CreateInstance();
-
-	// Class-specific methods
-	virtual void SetTargetEntity(idPathCorner* path);
 };
 
 } // namespace ai

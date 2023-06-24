@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3247 $
- * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -159,6 +159,9 @@ public:
 
 	// The path entity we're supposed to be heading to
 	idEntityPtr<idPathCorner> currentPath;
+
+	// Our last path entity
+	idEntityPtr<idPathCorner> lastPath;
 
 	// The game time, the AlertLevel was last increased.
 	int lastAlertRiseTime;

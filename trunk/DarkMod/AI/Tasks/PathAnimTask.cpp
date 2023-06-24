@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3184 $
- * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
+ * $Revision: 3278 $
+ * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3184 2009-01-19 12:49:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PathAnimTask.h"
@@ -20,10 +20,12 @@ static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3184 2009-01-1
 namespace ai
 {
 
-PathAnimTask::PathAnimTask() 
+PathAnimTask::PathAnimTask() :
+	PathTask()
 {}
 
-PathAnimTask::PathAnimTask(idPathCorner* path)
+PathAnimTask::PathAnimTask(idPathCorner* path) :
+	PathTask(path)
 {
 	_path = path;
 }
@@ -38,13 +40,9 @@ const idStr& PathAnimTask::GetName() const
 void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 {
 	// Just init the base class
-	Task::Init(owner, subsystem);
+	PathTask::Init(owner, subsystem);
 
 	idPathCorner* path = _path.GetEntity();
-
-	if (path == NULL) {
-		gameLocal.Error("PathAnimTask: Path Entity not set before Init()");
-	}
 
 	// Parse animation spawnargs here
 	idStr animName = path->spawnArgs.GetString("anim");
@@ -73,11 +71,7 @@ void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 
 void PathAnimTask::OnFinish(idAI* owner)
 {
-	idPathCorner* path = _path.GetEntity();
-
-	// Store the new path entity into the AI's mind
-	idPathCorner* next = idPathCorner::RandomPath(path, NULL, owner);
-	owner->GetMind()->GetMemory().currentPath = next;
+	NextPath();
 
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
 	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 5);
@@ -99,27 +93,6 @@ bool PathAnimTask::Perform(Subsystem& subsystem)
 	// Exit when the waitstate is not "customAnim" anymore
 	idStr waitState(owner->WaitState());
 	return (waitState != "customAnim");
-}
-
-void PathAnimTask::SetTargetEntity(idPathCorner* path) 
-{
-	assert(path);
-	_path = path;
-}
-
-// Save/Restore methods
-void PathAnimTask::Save(idSaveGame* savefile) const
-{
-	Task::Save(savefile);
-
-	_path.Save(savefile);
-}
-
-void PathAnimTask::Restore(idRestoreGame* savefile)
-{
-	Task::Restore(savefile);
-
-	_path.Restore(savefile);
 }
 
 PathAnimTaskPtr PathAnimTask::CreateInstance()
