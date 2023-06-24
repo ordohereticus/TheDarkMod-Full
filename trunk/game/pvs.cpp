@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2107 $
- * $Date: 2008-02-25 06:03:50 -0500 (Mon, 25 Feb 2008) $
- * $Author: angua $
+ * $Revision: 3451 $
+ * $Date: 2009-05-21 08:51:23 -0400 (Thu, 21 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: pvs.cpp 2107 2008-02-25 11:03:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: pvs.cpp 3451 2009-05-21 12:51:23Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -846,20 +846,20 @@ idPVS::Shutdown
 */
 void idPVS::Shutdown( void ) {
 	if ( connectedAreas ) {
-		delete connectedAreas;
+		delete[] connectedAreas;
 		connectedAreas = NULL;
 	}
 	if ( areaQueue ) {
-		delete areaQueue;
+		delete[] areaQueue;
 		areaQueue = NULL;
 	}
 	if ( areaPVS ) {
-		delete areaPVS;
+		delete[] areaPVS;
 		areaPVS = NULL;
 	}
 	if ( currentPVS ) {
 		for ( int i = 0; i < MAX_CURRENT_PVS; i++ ) {
-			delete currentPVS[i].pvs;
+			delete[] currentPVS[i].pvs;
 			currentPVS[i].pvs = NULL;
 		}
 	}
