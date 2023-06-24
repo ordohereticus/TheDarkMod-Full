@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3635 $
- * $Date: 2009-08-02 13:29:37 -0400 (Sun, 02 Aug 2009) $
+ * $Revision: 3752 $
+ * $Date: 2009-11-08 04:26:47 -0500 (Sun, 08 Nov 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3635 2009-08-02 17:29:37Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3752 2009-11-08 09:26:47Z angua $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -261,13 +261,13 @@ void SearchingState::StartNewHidingSpotSearch(idAI* owner)
 	memory.restartSearchForHidingSpots = false;
 	memory.noMoreHidingSpots = false;
 
-	// Stop moving
-	owner->StopMove(MOVE_STATUS_DONE);
-
 	// Clear all the ongoing tasks
 	owner->senseSubsystem->ClearTasks();
 	owner->actionSubsystem->ClearTasks();
 	owner->movementSubsystem->ClearTasks();
+
+	// Stop moving
+	owner->StopMove(MOVE_STATUS_DONE);
 
 	// If we are supposed to search the stimulus location do that instead 
 	// of just standing around while the search completes
