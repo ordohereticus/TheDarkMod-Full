@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3858 $
- * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3859 $
+ * $Date: 2010-03-20 23:49:42 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingStateLanternBot.cpp 3858 2010-03-21 03:43:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingStateLanternBot.cpp 3859 2010-03-21 03:49:42Z greebo $", init_version);
 
 #include "AgitatedSearchingStateLanternBot.h"
 #include "../Tasks/ScriptTask.h"
@@ -82,7 +82,7 @@ void AgitatedSearchingStateLanternBot::Think(idAI* owner)
 	Memory& memory = owner->GetMemory();
 
 	// Look at alert position
-	owner->Event_LookAtPosition(memory.alertPos, gameLocal.msec);
+	owner->TurnToward(memory.alertPos);
 }
 
 StatePtr AgitatedSearchingStateLanternBot::CreateInstance()
