@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3487 $
- * $Date: 2009-06-01 12:07:45 -0400 (Mon, 01 Jun 2009) $
- * $Author: tels $
+ * $Revision: 3518 $
+ * $Date: 2009-07-04 13:15:26 -0400 (Sat, 04 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3487 2009-06-01 16:07:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3518 2009-07-04 17:15:26Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -267,16 +267,24 @@ void CFrobLock::Open()
 		// If we're unlocked, just ToggleOpen the targets
 		ToggleOpenTargets();
 	}
-	// If we have handles we want to tap them before the lock starts to open its targets
-	else if (m_Lockhandles.Num() > 0)
+	else // we're locked
 	{
-		// Relay the call to the handles, the OpenTargets() call will come back to us
-		for (int i = 0; i < m_Lockhandles.Num(); i++)
+		// If we have handles we want to tap them before the lock starts to open its targets
+		if (m_Lockhandles.Num() > 0)
 		{
-			CFrobLockHandle* handle = m_Lockhandles[i].GetEntity();
-			if (handle == NULL) continue;
+			// Relay the call to the handles, the OpenTargets() call will come back to us
+			for (int i = 0; i < m_Lockhandles.Num(); i++)
+			{
+				CFrobLockHandle* handle = m_Lockhandles[i].GetEntity();
+				if (handle == NULL) continue;
 
-			handle->Tap();
+				handle->Tap();
+			}
+		}
+		else
+		{
+			// No handles there to tap, emit the sound
+			FrobLockStartSound("snd_locked");
 		}
 	}
 }
