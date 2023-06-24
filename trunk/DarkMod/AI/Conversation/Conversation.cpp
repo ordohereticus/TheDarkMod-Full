@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3148 $
- * $Date: 2009-01-16 13:59:23 -0500 (Fri, 16 Jan 2009) $
+ * $Revision: 3512 $
+ * $Date: 2009-07-02 23:51:35 -0400 (Thu, 02 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Conversation.cpp 3148 2009-01-16 18:59:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Conversation.cpp 3512 2009-07-03 03:51:35Z greebo $", init_version);
 
 #include <climits>
 #include "Conversation.h"
@@ -92,7 +92,7 @@ bool Conversation::CheckConditions()
 		// Get the actor
 		idAI* ai = GetActor(i);
 
-		if (ai != NULL && (ai->IsKnockedOut() || ai->health <= 0))
+		if (ai == NULL || ai->IsKnockedOut() || ai->health <= 0)
 		{
 			DM_LOG(LC_CONVERSATION, LT_DEBUG)LOGSTRING("Actor %s in conversation %s is KO or dead!.\r", _actors[i].c_str(), _name.c_str());
 			return false;
