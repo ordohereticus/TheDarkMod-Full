@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3939 $
+ * $Date: 2010-06-10 23:39:35 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionDB.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionDB.cpp 3939 2010-06-11 03:39:35Z greebo $", init_version);
 
 #include "MissionDB.h"
 #include "MissionInfoDecl.h"
@@ -29,6 +29,16 @@ void CMissionDB::ReloadMissionInfoFile()
 {
 	// Clear mission info structure first
 	_missionInfo.clear();
+
+	// Check if the mission info file exists
+	if (fileSystem->ReadFile(cv_default_mission_info_file.GetString(), NULL) == -1)
+	{
+		// File doesn't exist, skip this step
+		gameLocal.Printf("Parsed 0 mission declarations, no mission database file present.\n");
+
+		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("TDM Mission Info file not existing, skipping parse.\r");
+		return;
+	}
 
 	idLexer src(cv_default_mission_info_file.GetString());
 	src.SetFlags(DECL_LEXER_FLAGS & ~LEXFL_NOSTRINGESCAPECHARS );
