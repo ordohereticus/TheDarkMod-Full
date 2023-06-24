@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3746 $
- * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 3758 $
+ * $Date: 2009-11-09 06:02:27 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3758 2009-11-09 11:02:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6711,11 +6711,10 @@ void idPlayer::UpdateHUD()
 	UpdateHUDMessages();
 	UpdateInventoryPickedUpMessages();
 
-	if (cv_show_gameplay_time.GetBool())
-	{
-		// Update the playing time in the HUD, if desired
-		hud->SetStateString("PlayingTime", gameLocal.m_GamePlayTimer.GetTime().c_str());
-	}
+	// Update the playing time in the HUD, if desired
+	hud->SetStateString("PlayingTime", cv_show_gameplay_time.GetBool() ? gameLocal.m_GamePlayTimer.GetTime().c_str() : "");
+
+	hud->SetStateBool("PlayerIsCrouched", AI_CROUCH ? true : false);
 }
 
 void idPlayer::UpdateInventoryHUD()
