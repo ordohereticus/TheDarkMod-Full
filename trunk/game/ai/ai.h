@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3516 $
- * $Date: 2009-07-04 11:36:32 -0400 (Sat, 04 Jul 2009) $
+ * $Revision: 3517 $
+ * $Date: 2009-07-04 12:42:53 -0400 (Sat, 04 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -578,6 +578,9 @@ protected:
 	float					anim_turn_amount;
 	float					anim_turn_angles;
 
+	// angua: the offset of the pivot for turning while seated
+	idVec3					sitting_turn_pivot;
+
 	// This expands the AABB a bit when the AI is checking for reached positions.
 	float					reachedpos_bbox_expansion;
 
@@ -968,11 +971,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * angua: is set true while the AI is handling the door.
 	 */
 	bool					m_HandlingDoor;
-
-
-	
-
-
 
 	/**
 	 * angua: is set true while the AI is handling an elevator.
