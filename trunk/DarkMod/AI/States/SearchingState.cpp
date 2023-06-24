@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3531 $
- * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3555 $
+ * $Date: 2009-07-19 12:53:13 -0400 (Sun, 19 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3555 2009-07-19 16:53:13Z greebo $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -86,7 +86,7 @@ void SearchingState::Init(idAI* owner)
 		{
 			if (memory.alertClass == EAlertVisual)
 			{
-				if ( (MS2SEC(gameLocal.time) - memory.lastTimeFriendlyAISeen) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
+				if ( (MS2SEC(gameLocal.time - memory.lastTimeFriendlyAISeen)) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
 				{
 					bark = "snd_alert3cs";
 				}
@@ -97,7 +97,7 @@ void SearchingState::Init(idAI* owner)
 			}
 			else if (memory.alertClass == EAlertAudio)
 			{
-				if ( (MS2SEC(gameLocal.time) - memory.lastTimeFriendlyAISeen) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
+				if ( (MS2SEC(gameLocal.time - memory.lastTimeFriendlyAISeen)) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
 				{
 					bark = "snd_alert3ch";
 				}
@@ -106,7 +106,7 @@ void SearchingState::Init(idAI* owner)
 					bark = "snd_alert3h";
 				}
 			}
-			else if ( (MS2SEC(gameLocal.time) - memory.lastTimeFriendlyAISeen) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
+			else if ( (MS2SEC(gameLocal.time - memory.lastTimeFriendlyAISeen)) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
 			{
 				bark = "snd_alert3c";
 			}

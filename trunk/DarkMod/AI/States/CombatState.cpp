@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3553 $
- * $Date: 2009-07-19 07:49:12 -0400 (Sun, 19 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3555 $
+ * $Date: 2009-07-19 12:53:13 -0400 (Sun, 19 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3553 2009-07-19 11:49:12Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3555 2009-07-19 16:53:13Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -181,7 +181,7 @@ void CombatState::Init(idAI* owner)
 		);
 	}
 
-	else if ((MS2SEC(gameLocal.time) - memory.lastTimeFriendlyAISeen) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK)
+	else if ((MS2SEC(gameLocal.time - memory.lastTimeFriendlyAISeen)) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK)
 	{
 		owner->commSubsystem->AddCommTask(
 			CommunicationTaskPtr(new SingleBarkTask("snd_to_combat_company", message))

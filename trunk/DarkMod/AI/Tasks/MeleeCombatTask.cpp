@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3550 $
- * $Date: 2009-07-19 07:03:12 -0400 (Sun, 19 Jul 2009) $
+ * $Revision: 3555 $
+ * $Date: 2009-07-19 12:53:13 -0400 (Sun, 19 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3550 2009-07-19 11:03:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3555 2009-07-19 16:53:13Z greebo $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "SingleBarkTask.h"
@@ -105,9 +105,13 @@ void MeleeCombatTask::PerformReady(idAI* owner)
 	}
 	// longer recovery if we were parried
 	else if( ownerStatus.m_ActionResult == MELEERESULT_AT_PARRIED )
+	{
 		NextAttTime = ownerStatus.m_LastActTime + owner->m_MeleeCurrentAttackLongRecovery;
+	}
 	else
+	{
 		NextAttTime = ownerStatus.m_LastActTime + owner->m_MeleeCurrentAttackRecovery;
+	}
 
 	int NextParTime = ownerStatus.m_LastActTime + owner->m_MeleeCurrentParryRecovery;
 
@@ -172,6 +176,8 @@ void MeleeCombatTask::PerformAttack(idAI* owner)
 	CMeleeStatus& ownerStatus = owner->m_MeleeStatus;
 	EMeleeActPhase phase = ownerStatus.m_ActionPhase;
 	
+	Memory& memory = owner->GetMemory();
+	
 	if( phase == MELEEPHASE_PREPARING )
 	{
 		if( cv_melee_state_debug.GetBool() )
@@ -214,8 +220,29 @@ void MeleeCombatTask::PerformAttack(idAI* owner)
 		if( waitState != "melee_action" )
 		{
 			// if attack hasn't hit anything, switch to missed at this point
-			if( ownerStatus.m_ActionResult == MELEERESULT_IN_PROGRESS )
+			if (ownerStatus.m_ActionResult == MELEERESULT_IN_PROGRESS)
+			{
 				ownerStatus.m_ActionResult = MELEERESULT_AT_MISSED;
+			}
+			else if (ownerStatus.m_ActionResult == MELEERESULT_AT_PARRIED)
+			{
+				// Emit our frustration bark with a certain probability (1 out of 3)
+				if (gameLocal.random.RandomFloat() > 0.7f)
+				{
+					EmitCombatBark(owner, "snd_combat_blocked_by_player");
+				}
+			}
+			else if (ownerStatus.m_ActionResult == MELEERESULT_AT_HIT)
+			{
+				// Emit our success bark with a certain probability (1 out of 3)
+				if (gameLocal.random.RandomFloat() > 0.7f)
+				{
+					bool hasCompany = (MS2SEC(gameLocal.time - memory.lastTimeFriendlyAISeen) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK);
+
+					EmitCombatBark(owner, hasCompany ? "snd_combat_hit_player_company" : "snd_combat_hit_player");
+				}
+			}
+
 			owner->Event_MeleeActionFinished();
 		}
 	}
