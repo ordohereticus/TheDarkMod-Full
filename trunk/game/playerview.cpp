@@ -1,9 +1,9 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 3843 $
-* $Date: 2010-03-01 11:10:58 -0500 (Mon, 01 Mar 2010) $
-* $Author: jcdenton $
+* $Revision: 3849 $
+* $Date: 2010-03-19 03:07:01 -0400 (Fri, 19 Mar 2010) $
+* $Author: tels $
 *
 ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 3843 2010-03-01 16:10:58Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 3849 2010-03-19 07:07:01Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -26,6 +26,15 @@ static int MakePowerOfTwo( int num ) {
 }
 
 const int IMPULSE_DELAY = 150;
+
+// Tels: for gcc and GNU C (we could use a >? b and a <? b, but only in GNU C++):
+#ifndef min
+#define min(a,b) fmin(a,b)
+#endif
+
+#ifndef max
+#define max(a,b) fmax(a,b)
+#endif
 
 /*
 ==============
@@ -961,7 +970,7 @@ void idPlayerView::dnPostProcessManager::Update( void )
 		// Measure Luminance from Downscaled Image
 		//-------------------------------------------------
 		renderSystem->CropRenderSize(64, 64, true);
-		renderSystem->SetColor4( 1.0f/min( 192.0f, m_iScreenWidth/fBackbufferLumDownScale), 1.0f, 1.0f, 1.0f );			 
+		renderSystem->SetColor4( 1.0f/min(192.0f, m_iScreenWidth/fBackbufferLumDownScale), 1.0f, 1.0f, 1.0f );			 
 		renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 1, 1, 0, m_matAvgLuminance64x );
 		renderSystem->CaptureRenderToImage( m_imageLuminance64x64 );
 		renderSystem->UnCrop();
@@ -1026,7 +1035,7 @@ void idPlayerView::dnPostProcessManager::Update( void )
 		//-------------------------------------------------
 		// Calculate and Render Final Image
 		//-------------------------------------------------
-		const float fMaxColorIntensity = max( r_HDR_maxColorIntensity.GetFloat(), 0.00001f );
+		const float fMaxColorIntensity = max(r_HDR_maxColorIntensity.GetFloat(), 0.00001f);
 		renderSystem->SetColor4( r_HDR_middleGray.GetFloat(), r_HDR_min_luminance.GetFloat(), r_HDR_colorCurveBias.GetFloat(), 1.0f/fMaxColorIntensity );
 		renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, m_fShiftScale_y, m_fShiftScale_x, 0, m_matFinalScenePass );
 
