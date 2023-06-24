@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3798 $
- * $Date: 2010-01-16 01:30:08 -0500 (Sat, 16 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3813 $
+ * $Date: 2010-01-24 01:32:36 -0500 (Sun, 24 Jan 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -228,6 +228,8 @@ extern idCVar cv_bounce_sound_min_vel;
 extern idCVar cv_reverse_grab_control;
 
 extern idCVar cv_tdm_rope_pull_force_factor;
+
+extern idCVar cv_tdm_obj_gui_file;
 
 extern idCVar cv_tdm_hud_opacity;
 extern idCVar cv_tdm_hud_hide_lightgem;

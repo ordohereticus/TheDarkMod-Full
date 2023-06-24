@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3745 $
- * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 3813 $
+ * $Date: 2010-01-24 01:32:36 -0500 (Sun, 24 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -864,6 +864,9 @@ public:
 	 */
 	void					NextInventoryMap();
 
+	// Shows/hides the in-game objectives GUI
+	void					ToggleObjectivesGUI();
+
 	/**
 	* Physically test whether an item would fit in the world when
 	* dropped with its center of mass (not origin!) at the specified point
@@ -963,6 +966,11 @@ protected:
 	*/
 	void SetupInventory();
 
+	// greebo: Methods used to manage the GUI layer for the in-game objectives
+	void UpdateObjectivesGUI();
+	void CreateObjectivesGUI();
+	void DestroyObjectivesGUI();
+
 	/**
 	* greebo: Parses the spawnargs for any weapon definitions and adds them
 	*         to the inventory. Expects the weapon category to exist.
@@ -1021,6 +1029,9 @@ private:
 	bool					gibsLaunched;
 	idVec3					gibsDir;
 	int						m_InventoryOverlay;
+
+	// The GUI handle used by the in-game objectives display 
+	int						objectivesOverlay;
 
 	idInterpolate<float>	zoomFov;
 	idInterpolate<float>	centerView;

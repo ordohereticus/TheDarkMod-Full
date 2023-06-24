@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3806 $
- * $Date: 2010-01-20 13:37:20 -0500 (Wed, 20 Jan 2010) $
- * $Author: tels $
+ * $Revision: 3813 $
+ * $Date: 2010-01-24 01:32:36 -0500 (Sun, 24 Jan 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3806 2010-01-20 18:37:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3813 2010-01-24 06:32:36Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -273,6 +273,8 @@ idCVar cv_reverse_grab_control(		"tdm_grabber_reverse_control",	"0",	CVAR_GAME |
 **/
 idCVar cv_tdm_inv_gui_file(	"tdm_inv_hud_file", "guis/tdm_inv.gui",	CVAR_GAME, "The name of the gui file that represents the hud for the inventory.");
 idCVar cv_tdm_inv_loot_item_def("tdm_inv_loot_item_def", "atdm:inv_loot_info_item", CVAR_GAME, "The name of the entityDef that defines the player's inventory loot item.");
+
+idCVar cv_tdm_obj_gui_file(	"tdm_obj_hud_file", "guis/tdm_objectives.gui",	CVAR_GAME, "The name of the gui file that defines the in-game objectives.");
 
 idCVar cv_tdm_hud_opacity(	"tdm_hud_opacity", "0.7",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"The opacity of the HUD GUIs. [0..1]", 0, 1 );
 idCVar cv_tdm_hud_hide_lightgem(	"tdm_hud_hide_lightgem", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"If set to true (=1), the lightgem will be hidden.", 0, 1 );
