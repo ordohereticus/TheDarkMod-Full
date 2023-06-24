@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3829 $
- * $Date: 2010-01-31 16:16:05 -0500 (Sun, 31 Jan 2010) $
+ * $Revision: 3830 $
+ * $Date: 2010-01-31 17:06:26 -0500 (Sun, 31 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3829 2010-01-31 21:16:05Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3830 2010-01-31 22:06:26Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -358,11 +358,13 @@ void CFrobDoor::OnClosedPositionReached()
 
 bool CFrobDoor::CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse) 
 {
-	// First, ask our base class (this also checks for frob masters)
+	// First, check if the frob master can be used
 	// If this doesn't succeed, perform additional checks
-	bool baseIsUsable = idEntity::CanBeUsedBy(item, isFrobUse);
-
-	if (baseIsUsable) return true;
+	idEntity* master = GetFrobMaster();
+	if( master != NULL && master->CanBeUsedBy(item, isFrobUse) )
+	{
+		return true;
+	}
 
 	if (item == NULL) return false;
 
