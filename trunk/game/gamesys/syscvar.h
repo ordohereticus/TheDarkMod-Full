@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3595 $
- * $Date: 2009-07-27 02:00:39 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3597 $
+ * $Date: 2009-07-27 02:24:18 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ extern idCVar cv_ai_opt_novisualstim;
 extern idCVar cv_ai_opt_nolipsync;
 extern idCVar cv_ai_opt_nopresent;
 extern idCVar cv_ai_opt_noobstacleavoidance;
-extern idCVar cv_ai_show_animstate_switches;
+extern idCVar cv_ai_debug_anims;
 
 extern idCVar cv_ai_show_aasfuncobstacle_state;
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3444 $
- * $Date: 2009-05-16 15:49:11 -0400 (Sat, 16 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3597 $
+ * $Date: 2009-07-27 02:24:18 -0400 (Mon, 27 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3444 2009-05-16 19:49:11Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3597 2009-07-27 06:24:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -792,6 +792,13 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 		end = index + frameLookup[ frame ].num;
 		while( index < end ) {
 			const frameCommand_t &command = frameCommands[ index++ ];
+
+			if (cv_ai_debug_anims.GetBool() && ent != gameLocal.GetLocalPlayer())
+			{
+				gameLocal.Printf("Frame: %d - executing frame command %d (%s)\n", gameLocal.framenum, command.type, ent->name.c_str());
+				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Frame: %d - executing frame command %d (%s)\r", gameLocal.framenum, command.type, ent->name.c_str());
+			}
+
 			switch( command.type ) {
 				case FC_SCRIPTFUNCTION: {
 					gameLocal.CallFrameCommand( ent, command.function );
