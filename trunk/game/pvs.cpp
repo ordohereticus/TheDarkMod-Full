@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3451 $
- * $Date: 2009-05-21 08:51:23 -0400 (Thu, 21 May 2009) $
+ * $Revision: 3883 $
+ * $Date: 2010-04-23 11:07:37 -0400 (Fri, 23 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: pvs.cpp 3451 2009-05-21 12:51:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: pvs.cpp 3883 2010-04-23 15:07:37Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -1119,8 +1119,10 @@ idPVS::FreeCurrentPVS
 */
 void idPVS::FreeCurrentPVS( pvsHandle_t handle ) const {
 	if ( handle.i < 0 || handle.i >= MAX_CURRENT_PVS || handle.h != currentPVS[handle.i].handle.h ) {
-		gameLocal.Error( "idPVS::FreeCurrentPVS: invalid handle" );
+		gameLocal.Warning( "idPVS::FreeCurrentPVS: invalid handle" );
+		return;
 	}
+
 	currentPVS[handle.i].handle.i = -1;
 }
 
