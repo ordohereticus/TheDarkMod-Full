@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3923 $
- * $Date: 2010-06-09 04:51:06 -0400 (Wed, 09 Jun 2010) $
- * $Author: angua $
+ * $Revision: 3924 $
+ * $Date: 2010-06-09 11:37:01 -0400 (Wed, 09 Jun 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3923 2010-06-09 08:51:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3924 2010-06-09 15:37:01Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -39,6 +39,8 @@ std::size_t CMissionInfo::GetMissionFolderSize()
 		for (fs::recursive_directory_iterator i(missionPath); 
 			i != fs::recursive_directory_iterator(); ++i)
 		{
+			if (fs::is_directory(i->path())) continue;
+
 			_modFolderSize += fs::file_size(i->path());
 		}
 	}
@@ -98,6 +100,33 @@ void CMissionInfo::Save()
 	// Generate new declaration body text
 	_decl->Update(modName);
 	_decl->ReplaceSourceFileText();
+}
+
+bool CMissionInfo::HasMissionNotes()
+{
+	// Check for the readme.txt file
+	idStr notesFileName = cv_tdm_fm_path.GetString() + modName + "/" + cv_tdm_fm_notes_file.GetString();
+
+	return fileSystem->ReadFile(notesFileName, NULL) != -1;
+}
+
+idStr CMissionInfo::GetMissionNotes()
+{
+	// Check for the readme.txt file
+	idStr notesFileName = cv_tdm_fm_path.GetString() + modName + "/" + cv_tdm_fm_notes_file.GetString();
+
+	char* buffer = NULL;
+
+	if (fileSystem->ReadFile(notesFileName, reinterpret_cast<void**>(&buffer)) == -1)
+	{
+		// File not found
+		return "";
+	}
+
+	idStr modNotes(buffer);
+	fileSystem->FreeFile(buffer);
+
+	return modNotes;
 }
 
 void CMissionInfo::LoadMetaData()
