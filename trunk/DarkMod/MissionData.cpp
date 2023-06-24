@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3351 $
- * $Date: 2009-04-03 13:11:50 -0400 (Fri, 03 Apr 2009) $
+ * $Revision: 3382 $
+ * $Date: 2009-04-09 13:37:15 -0400 (Thu, 09 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3351 2009-04-03 17:11:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3382 2009-04-09 17:37:15Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1625,6 +1625,7 @@ idMapFile* CMissionData::LoadMap(const idStr& mapFileName)
 	if (!m_mapFile->Parse(mapFileName))
 	{
 		delete m_mapFile;
+		m_mapFile = NULL;
 
 		gameLocal.Warning( "Couldn't load %s", mapFileName.c_str());
 		return NULL;
@@ -2341,6 +2342,9 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 		// Holds the X start position for the objectives
 		int objStartXPos = -1;
 
+		// Let the GUI know which map to load
+		gui->SetStateString("mapStartCmd", va("exec 'map %s'", cv_tdm_mapName.GetString()));
+
 		if (gui->GetStateInt("ingame") == 0)
 		{
 			// We're coming from the start screen
@@ -2351,7 +2355,12 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 			idStr startingMapfilename = va("maps/%s", cv_tdm_mapName.GetString());
 
 			// Ensure that the map is loaded
-			LoadMap(startingMapfilename);
+			idMapFile* map = LoadMap(startingMapfilename);
+
+			if (map == NULL)
+			{
+				gameLocal.Error("Couldn't load map %s", startingMapfilename.c_str());
+			}
 
 			// Load the objectives from the map
 			LoadDirectlyFromMapFile(m_mapFile);
@@ -2365,7 +2374,9 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 			{
 				const idDeclEntityDef *diffDef = static_cast<const idDeclEntityDef *>( diffDecl );
 				idMapEntity* worldspawn = m_mapFile->GetEntity(0);
-				idDict worldspawnDict = worldspawn->epairs;
+
+				const idDict& worldspawnDict = worldspawn->epairs;
+
 				for (int diffLevel = 0; diffLevel < 3; diffLevel++)
 				{
 					const char* diffName = worldspawnDict.GetString(va("difficulty%dName",diffLevel),
@@ -2373,13 +2384,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 					gui->SetStateString(va("diff%dName",diffLevel), diffName);
 				}
 
-				if (worldspawnDict.GetInt("shop_skip", "0") == 1) {
-					// skip the shop, so define the map start command now
-					gui->SetStateString("mapStartCmdNow", va("exec 'map %s'", startingMapfilename.c_str()));
-				} else {
-					// there will be a shop, so don't run the map right away
-					gui->SetStateString("mapStartCmdNow", "");
-				}
+				gui->SetStateBool("SkipShop", worldspawnDict.GetBool("shop_skip", "0"));
 
 				// Let the GUI know what the current difficulty level is
 				gui->SetStateInt("diffSelect", gameLocal.m_DifficultyManager.GetDifficultyLevel());
