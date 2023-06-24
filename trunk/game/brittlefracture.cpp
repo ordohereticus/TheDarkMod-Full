@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3327 $
- * $Date: 2009-03-27 23:54:15 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3328 $
+ * $Date: 2009-03-28 01:32:31 -0400 (Sat, 28 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: brittlefracture.cpp 3327 2009-03-28 03:54:15Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: brittlefracture.cpp 3328 2009-03-28 05:32:31Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1156,6 +1156,14 @@ void idBrittleFracture::CreateFractures( const idRenderModel *renderModel ) {
 	}
 
 	physicsObj.SetContents( material->GetContentFlags() );
+	// ishtvan: overwrite with custom contents if present
+	if( m_CustomContents != -1 )
+		physicsObj.SetContents( m_CustomContents );
+
+	// SR CONTENTS_RESONSE FIX
+	if( m_StimResponseColl->HasResponse() )
+		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
+
 	SetPhysics( &physicsObj );
 }
 
