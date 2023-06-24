@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3323 $
- * $Date: 2009-03-27 19:44:04 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3324 $
+ * $Date: 2009-03-27 20:37:51 -0400 (Fri, 27 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -650,6 +650,8 @@ protected:
 	idAngles				lookMax;
 	idList<jointHandle_t>	lookJoints;
 	idList<idAngles>		lookJointAngles;
+	idList<jointHandle_t>	lookJointsCombat;
+	idList<idAngles>		lookJointAnglesCombat;
 	float					eyeVerticalOffset;
 	float					eyeHorizontalOffset;
 	float					eyeFocusRate;
