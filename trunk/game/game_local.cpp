@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3409 $
- * $Date: 2009-04-20 10:13:54 -0400 (Mon, 20 Apr 2009) $
+ * $Revision: 3410 $
+ * $Date: 2009-04-20 10:20:11 -0400 (Mon, 20 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3409 2009-04-20 14:13:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3410 2009-04-20 14:20:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -435,7 +435,9 @@ void idGameLocal::Init( void ) {
 
 	// greebo: Let the proxy CVARs overwrite the closed source counter-part
 	cvarSystem->SetCVarInteger("s_doorDistanceAdd", cv_tdm_s_doorDistanceAdd.GetInteger());
-
+	cvarSystem->SetCVarFloat("gui_mediumFontLimit", cv_tdm_gui_mediumFontLimit.GetFloat());
+	cvarSystem->SetCVarFloat("gui_smallFontLimit", cv_tdm_gui_smallFontLimit.GetFloat());
+	
 	// load default scripts
 	program.Startup( SCRIPT_DEFAULT );
 	

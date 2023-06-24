@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3409 $
- * $Date: 2009-04-20 10:13:54 -0400 (Mon, 20 Apr 2009) $
+ * $Revision: 3410 $
+ * $Date: 2009-04-20 10:20:11 -0400 (Mon, 20 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3409 2009-04-20 14:13:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3410 2009-04-20 14:20:11Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -317,6 +317,8 @@ idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo",
 
 // Proxy CVARs
 idCVar cv_tdm_s_doorDistanceAdd("tdm_s_doorDistanceAdd", "450", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite s_doorDistanceAdd at game startup.");
+idCVar cv_tdm_gui_smallFontLimit("tdm_gui_smallFontLimit", "0.15", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite gui_smallFontLimit at game startup.");
+idCVar cv_tdm_gui_mediumFontLimit("tdm_gui_mediumFontLimit", "0.30", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite gui_mediumFontLimit at game startup.");
 
 /**
  * Variables needed for lockpicking.
