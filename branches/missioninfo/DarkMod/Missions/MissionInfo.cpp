@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3925 $
- * $Date: 2010-06-09 12:26:44 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3926 $
+ * $Date: 2010-06-09 21:52:20 -0400 (Wed, 09 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3925 2010-06-09 16:26:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3926 2010-06-10 01:52:20Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -79,6 +79,26 @@ idStr CMissionInfo::GetMissionFolderSizeString()
 	}
 
 	return str;
+}
+
+bool CMissionInfo::MissionCompleted(int difficultyLevel)
+{
+	bool anyCompleted = false;
+
+	for (int i = 0; i < DIFFICULTY_COUNT; ++i)
+	{
+		bool diffCompleted = GetKeyValue(va("mission_completed_%d", i)) == "1";
+
+		if (difficultyLevel == i)
+		{
+			return diffCompleted;
+		}
+
+		// Accumulate the information
+		anyCompleted |= diffCompleted;
+	}
+
+	return anyCompleted;
 }
 
 idStr CMissionInfo::GetKeyValue(const char* key)

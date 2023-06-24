@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3925 $
- * $Date: 2010-06-09 12:26:44 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3926 $
+ * $Date: 2010-06-09 21:52:20 -0400 (Wed, 09 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -69,6 +69,11 @@ public:
 
 	// Retrieves the readme.txt contents (is never cached, always read live from disk)
 	idStr GetMissionNotes();
+
+	// Returns true if this mission has been completed
+	// Pass the difficulty level to check for a specific difficulty, or -1 (default) to check
+	// whether the mission has been completed on any difficulty level.
+	bool MissionCompleted(int difficultyLevel = -1);
 
 	// Returns a human-readable format string (i.e. 1.33 GB)
 	idStr	GetMissionFolderSizeString();

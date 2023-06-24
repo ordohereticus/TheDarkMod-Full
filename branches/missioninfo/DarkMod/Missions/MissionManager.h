@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3925 $
- * $Date: 2010-06-09 12:26:44 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3926 $
+ * $Date: 2010-06-09 21:52:20 -0400 (Wed, 09 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -49,6 +49,9 @@ public:
 	CMissionInfoPtr GetMissionInfo(const idStr& name);
 
 	void EraseModFolder(const idStr& name);
+
+	// Called by MissionData when the player completed a mission
+	void OnMissionComplete();
 
 	// Convenience method which copies a file from <source> to <dest>
 	// If <overwrite> is set to TRUE, any existing destination file will be removed beforehand
