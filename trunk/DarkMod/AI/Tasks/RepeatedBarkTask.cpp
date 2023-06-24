@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3358 $
+ * $Date: 2009-04-04 12:28:28 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 3358 2009-04-04 16:28:28Z angua $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -73,17 +73,19 @@ bool RepeatedBarkTask::Perform(Subsystem& subsystem)
 			owner->AddMessage(_message);
 		}
 
-		int duration = owner->PlayAndLipSync(_soundName, "talk1");
+		_barkLength = owner->PlayAndLipSync(_soundName, "talk1");
+
+		_barkStartTime = gameLocal.time;
 
 		// Reset the timer
 		if (_barkRepeatIntervalMax > 0)
 		{
-			_nextBarkTime = static_cast<int>(gameLocal.time + duration + _barkRepeatIntervalMin + 
+			_nextBarkTime = static_cast<int>(_barkStartTime + _barkLength + _barkRepeatIntervalMin + 
 				gameLocal.random.RandomFloat() * (_barkRepeatIntervalMax - _barkRepeatIntervalMin));
 		}
 		else
 		{
-			_nextBarkTime = gameLocal.time + duration + _barkRepeatIntervalMin;
+			_nextBarkTime = _barkStartTime + _barkLength + _barkRepeatIntervalMin;
 		}
 	}
 

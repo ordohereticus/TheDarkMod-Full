@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3358 $
+ * $Date: 2009-04-04 12:28:28 -0400 (Sat, 04 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3358 2009-04-04 16:28:28Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -121,14 +121,12 @@ void IdleState::Init(idAI* owner)
 	int idleBarkIntervalMin = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_min", "45"));
 	int idleBarkIntervalMax = SEC2MS(owner->spawnArgs.GetInt("idle_bark_interval_max", "180"));
 	// Push the regular patrol barking to the list too
-/*	owner->GetSubsystem(SubsysCommunication)->QueueTask(
-		TaskPtr(new RepeatedBarkTask("snd_relaxed", idleBarkIntervalMin, idleBarkIntervalMax))
-	);*/// TODO_AI
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new RepeatedBarkTask("snd_relaxed", idleBarkIntervalMin, idleBarkIntervalMax))
+	);
 
 	// Let the AI update their weapons (make them nonsolid)
 	owner->UpdateAttachmentContents(false);
-	
-	
 }
 
 // Gets called each time the mind is thinking
