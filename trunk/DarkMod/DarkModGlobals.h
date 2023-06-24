@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3754 $
- * $Date: 2009-11-09 01:31:35 -0500 (Mon, 09 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3785 $
+ * $Date: 2010-01-05 22:18:13 -0500 (Tue, 05 Jan 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -29,7 +29,7 @@
 
 // greebo: Defines the darkmod release version
 #define TDM_VERSION_MAJOR 1
-#define TDM_VERSION_MINOR 0
+#define TDM_VERSION_MINOR 1
 
 /*!
 Darkmod LAS
