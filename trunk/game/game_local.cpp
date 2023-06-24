@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3632 $
- * $Date: 2009-08-02 11:14:20 -0400 (Sun, 02 Aug 2009) $
+ * $Revision: 3659 $
+ * $Date: 2009-08-09 04:28:46 -0400 (Sun, 09 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3632 2009-08-02 15:14:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3659 2009-08-09 08:28:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2431,9 +2431,17 @@ void idGameLocal::SpawnPlayer( int clientNum )
 	// they can connect
 	Printf( "SpawnPlayer: %i\n", clientNum );
 
+	idStr playerClass = isMultiplayer ? "player_tdm_thief_mp" : "player_tdm_thief";
+
+	// greebo: Allow worldspawn to specify a different player classname
+	if (world != NULL && world->spawnArgs.FindKey("player_classname") != NULL)
+	{
+		playerClass = world->spawnArgs.GetString("player_classname", "player_tdm_thief");
+	}
+
 	args.SetInt( "spawn_entnum", clientNum );
 	args.Set( "name", va( "player%d", clientNum + 1 ) );
-	args.Set( "classname", isMultiplayer ? "player_tdm_thief_mp" : "player_tdm_thief" );
+	args.Set( "classname", playerClass );
 	if ( !SpawnEntityDef( args, &ent ) || !entities[ clientNum ] ) {
 		Error( "Failed to spawn player as '%s'", args.GetString( "classname" ) );
 	}
