@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3702 $
- * $Date: 2009-09-08 12:04:15 -0400 (Tue, 08 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3753 $
+ * $Date: 2009-11-08 04:45:22 -0500 (Sun, 08 Nov 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3702 2009-09-08 16:04:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3753 2009-11-08 09:45:22Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1586,6 +1586,11 @@ void State::OnVisualStimMissingItem(idEntity* stimSource, idAI* owner)
 		float chance(gameLocal.random.RandomFloat());
 		if (chance >= refSpawnargs.GetFloat("absence_noticeability", "1"))
 		{
+			float recheckInterval = SEC2MS(refSpawnargs.GetFloat("absence_noticeability_recheck_interval", "60"));
+			if (recheckInterval > 0.0f)
+			{
+				stimSource->PostEventMS( &EV_ResponseAllow, recheckInterval, ST_VISUAL, owner);
+			}
 			return;
 		}
 		if (refSpawnargs.GetFloat("absence_alert", "0") > 0)

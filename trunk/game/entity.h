@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3746 $
- * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3753 $
+ * $Date: 2009-11-08 04:45:22 -0500 (Sun, 08 Nov 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -120,6 +120,9 @@ extern const idEventDef EV_CanSeeEntity;
 // greebo: Script event definition for dealing damage
 extern const idEventDef EV_Damage;
 extern const idEventDef EV_Heal;
+
+extern const idEventDef EV_ResponseAllow;
+
 
 // Think flags
 enum {
