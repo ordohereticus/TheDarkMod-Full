@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3894 $
+ * $Date: 2010-05-07 08:39:23 -0400 (Fri, 07 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -32,6 +32,8 @@ public:
 	CLASS_PROTOTYPE( idLiquid );
 
 	idLiquid( void );
+
+	virtual ~idLiquid();
 
 	void				Spawn( void );
 
