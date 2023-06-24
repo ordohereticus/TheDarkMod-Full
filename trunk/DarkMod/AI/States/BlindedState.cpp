@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3616 $
- * $Date: 2009-07-30 10:00:21 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3624 $
+ * $Date: 2009-07-31 06:28:00 -0400 (Fri, 31 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BlindedState.cpp 3616 2009-07-30 14:00:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BlindedState.cpp 3624 2009-07-31 10:28:00Z greebo $", init_version);
 
 #include "BlindedState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -56,7 +56,10 @@ void BlindedState::Init(idAI* owner)
 		CommunicationTaskPtr(new SingleBarkTask("snd_blinded", message))
 	);
 
-	_endTime = gameLocal.time + 4000 + static_cast<int>(gameLocal.random.RandomFloat() * 2000);
+	float duration = SEC2MS(owner->spawnArgs.GetFloat("blind_time", "4")) + 
+		(gameLocal.random.RandomFloat() - 0.5f) * 2 * SEC2MS(owner->spawnArgs.GetFloat("blind_time_fuzziness", "2"));
+
+	_endTime = gameLocal.time + static_cast<int>(duration);
 
 	// Set alert level a little bit below combat
 	if (owner->AI_AlertLevel < owner->thresh_5 - 1)
