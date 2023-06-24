@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3321 $
- * $Date: 2009-03-27 14:42:57 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3331 $
+ * $Date: 2009-03-28 04:11:19 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3321 2009-03-27 18:42:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3331 2009-03-28 08:11:19Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -955,12 +955,29 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 {
 	if (m_Doorhandles.Num() > 0)
 	{
-		CFrobDoorHandle* handle = m_Doorhandles[0].GetEntity();
+		float bestDistanceSqr = idMath::INFINITY;
+		idVec3 playerEyePos = gameLocal.GetLocalPlayer()->GetEyePosition();
+
+		CFrobDoorHandle* handle = NULL;
+
+		for (int i = 0; i < m_Doorhandles.Num(); ++i)
+		{
+			CFrobDoorHandle* candidate = m_Doorhandles[i].GetEntity();
+
+			if (candidate == NULL) continue;
+
+			float candidateDistanceSqr = (candidate->GetPhysics()->GetOrigin() - playerEyePos).LengthSqr();
+
+			if (candidateDistanceSqr < bestDistanceSqr)
+			{
+				// Found a new nearest handle
+				handle = candidate;
+				bestDistanceSqr = candidateDistanceSqr;
+			}
+		}
 
 		if (handle != NULL)
 		{
-			// TODO: Use the handle nearest to the player
-
 			// Let the sound play from the first handle, but use the soundshader
 			// as defined on this entity.
 			idStr sound = spawnArgs.GetString(soundName, "");
@@ -975,6 +992,9 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 
 			int length = 0;
 			handle->StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
+
+			//gameRenderWorld->DebugArrow(colorWhite, handle->GetPhysics()->GetOrigin(), playerEyePos, 1, 5000);
+
 			return length;
 		}
 	}
