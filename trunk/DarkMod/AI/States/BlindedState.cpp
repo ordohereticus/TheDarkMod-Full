@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3616 $
+ * $Date: 2009-07-30 10:00:21 -0400 (Thu, 30 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BlindedState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: BlindedState.cpp 3616 2009-07-30 14:00:21Z greebo $", init_version);
 
 #include "BlindedState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -45,15 +45,21 @@ void BlindedState::Init(idAI* owner)
 	owner->SetWaitState(ANIMCHANNEL_TORSO, "blinded");
 	owner->SetWaitState(ANIMCHANNEL_LEGS, "blinded");
 
-	// The communication system should bark
-/*	owner->GetSubsystem(SubsysCommunication)->PushTask(
-		TaskPtr(new SingleBarkTask("snd_blinded"))
-	);*/
+	CommMessagePtr message(new CommMessage(
+		CommMessage::RequestForHelp_CommType, 
+		owner, NULL, // from this AI to anyone 
+		NULL,
+		owner->GetPhysics()->GetOrigin()
+	));
+
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new SingleBarkTask("snd_blinded", message))
+	);
 
 	_endTime = gameLocal.time + 4000 + static_cast<int>(gameLocal.random.RandomFloat() * 2000);
 
 	// Set alert level a little bit below combat
-	if(owner->AI_AlertLevel < owner->thresh_5 - 1)
+	if (owner->AI_AlertLevel < owner->thresh_5 - 1)
 	{
 		owner->SetAlertLevel(owner->thresh_5 - 1);
 	}
