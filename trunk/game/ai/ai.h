@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3791 $
- * $Date: 2010-01-09 02:32:34 -0500 (Sat, 09 Jan 2010) $
- * $Author: tels $
+ * $Revision: 3802 $
+ * $Date: 2010-01-20 00:55:22 -0500 (Wed, 20 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -446,8 +446,12 @@ public:
 	**/
 	bool  IsKnockedOut( void ) { return (AI_KNOCKEDOUT!=0); };
 
-	/** Ishtvan: Swap the head CM while conscious **/
-	void SwapHeadAFCM( bool bConscious );
+	/** 
+	* Ishtvan: Swap the AI's head CM to a larger one
+	* (Used to make blackjacking easier, currently only called when a blackjack swings nearby)
+	* If the argument is true, the larger CM is used, otherwise, the original CM is swapped back.
+	**/
+	void SwapHeadAFCM( bool bUseLargerCM );
 
 	/**
 	* Return a damage multiplier if a sneak attack has occurred

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3668 $
- * $Date: 2009-08-14 13:03:57 -0400 (Fri, 14 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3802 $
+ * $Date: 2010-01-20 00:55:22 -0500 (Wed, 20 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3668 2009-08-14 17:03:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3802 2010-01-20 05:55:22Z ishtvan $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -42,8 +42,6 @@ bool CombatState::CheckAlertLevel(idAI* owner)
 	{
 		// Alert index is too low for this state, fall back
 		owner->GetMind()->EndState();
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
 		return false;
 	}
 
@@ -228,8 +226,6 @@ void CombatState::Init(idAI* owner)
 
 	// Let the AI update their weapons (make them nonsolid)
 	owner->UpdateAttachmentContents(false);
-	// ishtvan: swap out the expanded head bounding box for easy KOs
-	owner->SwapHeadAFCM( false );
 }
 
 // Gets called each time the mind is thinking
@@ -240,8 +236,6 @@ void CombatState::Think(idAI* owner)
 	{
 		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("No enemy, terminating task!\r");
 		owner->GetMind()->EndState();
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
 		return;
 	}
 
@@ -259,8 +253,6 @@ void CombatState::Think(idAI* owner)
 		);
 
 		owner->GetMind()->EndState();
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
 		return;
 	}
 
@@ -268,8 +260,6 @@ void CombatState::Think(idAI* owner)
 	if (!CheckAlertLevel(owner))
 	{
 		owner->GetMind()->EndState();
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
 		return;
 	}
 	Memory& memory = owner->GetMemory();
@@ -286,8 +276,6 @@ void CombatState::Think(idAI* owner)
 		owner->senseSubsystem->ClearTasks();
 		owner->actionSubsystem->ClearTasks();
 
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
 		return;
 	}
 
@@ -299,8 +287,6 @@ void CombatState::Think(idAI* owner)
 	{
 		DM_LOG(LC_AI, LT_INFO)LOGSTRING("I'm badly hurt, I'm afraid!\r");
 		owner->GetMind()->SwitchState(STATE_FLEE);
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
 		return;
 	}
 
@@ -357,8 +343,6 @@ void CombatState::Think(idAI* owner)
 		{
 			// BLIND_CHASE_TIME has expired, we have lost the enemy!
 			owner->GetMind()->SwitchState(STATE_LOST_TRACK_OF_ENEMY);
-			// ishtvan: swap the expanded head model back in when exiting state
-			owner->SwapHeadAFCM( true );
 			return;
 		}
 	}

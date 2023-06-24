@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3801 $
- * $Date: 2010-01-16 17:16:31 -0500 (Sat, 16 Jan 2010) $
+ * $Revision: 3802 $
+ * $Date: 2010-01-20 00:55:22 -0500 (Wed, 20 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3801 2010-01-16 22:16:31Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3802 2010-01-20 05:55:22Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1734,12 +1734,6 @@ void idAI::Spawn( void )
 	else
 	{
 		m_HeadBodyID = BodyForJoint(m_HeadJointID);
-	}
-
-	// modify the head clipmodel while conscious to facilitate KO'ing, if applicable
-	if( spawnArgs.FindKey("living_headbox_mins") != NULL && af.IsLoaded() )
-	{
-		SwapHeadAFCM( true );
 	}
 
 	if( head.GetEntity() )
@@ -10444,12 +10438,12 @@ float idAI::StealthDamageMult()
 		return 1.0;
 }
 
-void idAI::SwapHeadAFCM( bool bConscious )
+void idAI::SwapHeadAFCM( bool bUseLargerCM )
 {
 	idAFBody *headBody;
 	headBody = af.GetPhysics()->GetBody(af.BodyForJoint(m_HeadJointID));
 
-	if( bConscious && spawnArgs.FindKey("living_headbox_mins") )
+	if( bUseLargerCM && !m_bHeadCMSwapped && spawnArgs.FindKey("blackjack_headbox_mins") )
 	{
 		idClipModel *oldClip = headBody->GetClipModel();
 		idVec3	CMorig	= oldClip->GetOrigin();
@@ -10461,8 +10455,8 @@ void idAI::SwapHeadAFCM( bool bConscious )
 		m_OrigHeadCM = new idClipModel(oldClip);
 
 		idBounds HeadBounds;
-		spawnArgs.GetVector( "living_headbox_mins", NULL, HeadBounds[0] );
-		spawnArgs.GetVector( "living_headbox_maxs", NULL, HeadBounds[1] );
+		spawnArgs.GetVector( "blackjack_headbox_mins", NULL, HeadBounds[0] );
+		spawnArgs.GetVector( "blackjack_headbox_maxs", NULL, HeadBounds[1] );
 
 		idTraceModel trm;
 		trm.SetupBox( HeadBounds );
@@ -10484,7 +10478,7 @@ void idAI::SwapHeadAFCM( bool bConscious )
 		m_bHeadCMSwapped = true;
 	}
 	// swap back to original CM when going unconscious, if we swapped earlier
-	else if( !bConscious && m_bHeadCMSwapped )
+	else if( !bUseLargerCM && m_bHeadCMSwapped )
 	{
 		idClipModel *oldClip = headBody->GetClipModel();
 		idVec3	CMorig	= oldClip->GetOrigin();

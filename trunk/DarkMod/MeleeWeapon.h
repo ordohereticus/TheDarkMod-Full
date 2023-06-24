@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3797 $
- * $Date: 2010-01-15 20:15:23 -0500 (Fri, 15 Jan 2010) $
+ * $Revision: 3802 $
+ * $Date: 2010-01-20 00:55:22 -0500 (Wed, 20 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -101,6 +101,12 @@ protected:
 	* it no longer collides with parries once it "gets past" an invalid parry
 	**/
 	void TestParry( CMeleeWeapon *other, idVec3 dir, trace_t *trace );
+
+	/**
+	* Check to see what AI are in range, and whether we should modify their CMs
+	* (We do this if there is a flag on the weapon, if the AI is conscious, and not at combat alert)
+	**/
+	void CheckAICMSwaps( void );
 
 	/**
 	* Handle valid collision, called when trace hit something valid
@@ -231,6 +237,17 @@ protected:
 	* Number of particles we've generated in this attack
 	**/
 	int						m_ParticlesMade;
+
+	/**
+	* Whether this attack swaps in different CMs on the AI in range
+	* (for example, the blackjack swapping in easy-KO CMs)
+	**/
+	bool					m_bModAICMs;
+
+	/**
+	* List of AI whose CMs we've changed
+	**/
+	idList<idEntityPtr<idAI>>	m_AIWithModCMs;
 
 };
 
