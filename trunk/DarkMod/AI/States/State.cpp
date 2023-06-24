@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3593 $
- * $Date: 2009-07-27 00:07:08 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3594 $
+ * $Date: 2009-07-27 01:49:57 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3593 2009-07-27 04:07:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3594 2009-07-27 05:49:57Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -48,6 +48,8 @@ namespace ai
 #define PERSONTYPE_BUILDER			"PERSONTYPE_BUILDER"
 #define PERSONTYPE_PAGAN			"PERSONTYPE_PAGAN"
 #define PERSONTYPE_THIEF			"PERSONTYPE_THIEF"
+#define PERSONTYPE_PRIEST			"PERSONTYPE_PRIEST"
+#define PERSONTYPE_ELITE			"PERSONTYPE_ELITE"
 
 //----------------------------------------------------------------------------------------
 // The following strings define genders of person, these are used if AIUse is AIUSE_PERSON 

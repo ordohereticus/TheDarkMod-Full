@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3467 $
- * $Date: 2009-05-24 07:12:58 -0400 (Sun, 24 May 2009) $
+ * $Revision: 3594 $
+ * $Date: 2009-07-27 01:49:57 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3467 2009-05-24 11:12:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3594 2009-07-27 05:49:57Z greebo $", init_version);
 
 #include "UnreachableTargetState.h"
 #include "../Memory.h"
@@ -116,6 +116,9 @@ void UnreachableTargetState::Init(idAI* owner)
 		}
 		else 
 		{
+			// greebo: Sheathe weapon before starting to throw // FIXME: put weapon to left hand?
+			owner->SheathWeapon();
+
 			owner->FaceEnemy();
 			owner->actionSubsystem->PushTask(ThrowObjectTask::CreateInstance());
 
@@ -185,6 +188,9 @@ void UnreachableTargetState::Think(idAI* owner)
 		// We are finished moving closer
 		// Start throwing now
 		_moveRequired = false;
+
+		// greebo: Sheathe weapon before starting to throw // FIXME: put weapon to left hand?
+		owner->SheathWeapon();
 
 		owner->FaceEnemy();
 		owner->actionSubsystem->PushTask(ThrowObjectTask::CreateInstance());
