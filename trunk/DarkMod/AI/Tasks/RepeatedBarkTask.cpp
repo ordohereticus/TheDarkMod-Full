@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3358 $
- * $Date: 2009-04-04 12:28:28 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3427 $
+ * $Date: 2009-05-07 13:02:16 -0400 (Thu, 07 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 3358 2009-04-04 16:28:28Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 3427 2009-05-07 17:02:16Z greebo $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -44,8 +44,8 @@ const idStr& RepeatedBarkTask::GetName() const
 
 void RepeatedBarkTask::Init(idAI* owner, Subsystem& subsystem)
 {
-	// Just init the base class
-	Task::Init(owner, subsystem);
+	// Init the base class
+	CommunicationTask::Init(owner, subsystem);
 
 	// Initialise it to play the sound now
 	_nextBarkTime = gameLocal.time;

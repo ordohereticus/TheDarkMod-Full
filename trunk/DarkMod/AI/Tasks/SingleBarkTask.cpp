@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3358 $
- * $Date: 2009-04-04 12:28:28 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3427 $
+ * $Date: 2009-05-07 13:02:16 -0400 (Thu, 07 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 3358 2009-04-04 16:28:28Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 3427 2009-05-07 17:02:16Z greebo $", init_version);
 
 #include "SingleBarkTask.h"
 #include "../Memory.h"
@@ -37,6 +37,9 @@ const idStr& SingleBarkTask::GetName() const
 
 void SingleBarkTask::Init(idAI* owner, Subsystem& subsystem)
 {
+	// Init the base class
+	CommunicationTask::Init(owner, subsystem);
+
 	// This task may not be performed with empty entity pointers
 	assert(owner != NULL);
 
@@ -58,20 +61,13 @@ void SingleBarkTask::Init(idAI* owner, Subsystem& subsystem)
 	{
 		_endTime = gameLocal.time;
 	}
-
 }
 
 bool SingleBarkTask::Perform(Subsystem& subsystem)
 {
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("SingleBarkTask performing.\r");
 
-	idAI* owner = _owner.GetEntity();
-
-	if (gameLocal.time >= _endTime)
-	{
-		return true; // finished!
-	}
-	return false;
+	return (gameLocal.time >= _endTime);
 }
 
 void SingleBarkTask::SetSound(const idStr& soundName)
