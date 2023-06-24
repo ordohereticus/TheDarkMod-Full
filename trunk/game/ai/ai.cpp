@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3249 $
- * $Date: 2009-03-15 00:54:12 -0400 (Sun, 15 Mar 2009) $
+ * $Revision: 3258 $
+ * $Date: 2009-03-15 16:57:55 -0400 (Sun, 15 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3249 2009-03-15 04:54:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3258 2009-03-15 20:57:55Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -10046,7 +10046,7 @@ void idAI::SwapHeadAFCM( bool bConscious )
 	idAFBody *headBody;
 	headBody = af.GetPhysics()->GetBody(af.BodyForJoint(m_HeadJointID));
 
-	if( bConscious )
+	if( bConscious && spawnArgs.FindKey("living_headbox_mins") )
 	{
 		idClipModel *oldClip = headBody->GetClipModel();
 		idVec3	CMorig	= oldClip->GetOrigin();
