@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3943 $
- * $Date: 2010-06-11 07:08:52 -0400 (Fri, 11 Jun 2010) $
+ * $Revision: 3945 $
+ * $Date: 2010-06-11 08:07:22 -0400 (Fri, 11 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -465,20 +465,6 @@ idTarget_LevelTrigger
 class idTarget_LevelTrigger : public idTarget {
 public:
 	CLASS_PROTOTYPE( idTarget_LevelTrigger );
-private:
-	void				Event_Activate( idEntity *activator );
-};
-
-/*
-===============================================================================
-
-idTarget_EnableStamina
-
-===============================================================================
-*/
-class idTarget_EnableStamina : public idTarget {
-public:
-	CLASS_PROTOTYPE( idTarget_EnableStamina );
 private:
 	void				Event_Activate( idEntity *activator );
 };

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3943 $
- * $Date: 2010-06-11 07:08:52 -0400 (Fri, 11 Jun 2010) $
+ * $Revision: 3945 $
+ * $Date: 2010-06-11 08:07:22 -0400 (Fri, 11 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3943 2010-06-11 11:08:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3945 2010-06-11 12:07:22Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1746,38 +1746,6 @@ void idTarget_LevelTrigger::Event_Activate( idEntity *activator ) {
 	}
 }
 
-
-/*
-===============================================================================
-
-idTarget_EnableStamina
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idTarget, idTarget_EnableStamina )
-EVENT( EV_Activate,	idTarget_EnableStamina::Event_Activate )
-END_CLASS
-
-/*
-================
-idTarget_EnableStamina::Event_Activate
-================
-*/
-void idTarget_EnableStamina::Event_Activate( idEntity *activator ) {
-	for( int i = 0; i < gameLocal.numClients; i++ ) {
-		// Commented out by Dram. TDM does not use stamina
-		/*if ( gameLocal.entities[ i ] ) {
-			idPlayer *player = static_cast< idPlayer* >( gameLocal.entities[i] );
-			if ( spawnArgs.GetBool( "enable" ) ) {
-				pm_stamina.SetFloat( player->spawnArgs.GetFloat( "pm_stamina" ) );
-			} else {
-				pm_stamina.SetFloat( 0.0f );
-			}
-		}*/
-		return;
-	}
-}
 
 /*
 ===============================================================================
