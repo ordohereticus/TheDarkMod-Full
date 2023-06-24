@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3289 $
- * $Date: 2009-03-22 17:42:00 -0400 (Sun, 22 Mar 2009) $
+ * $Revision: 3432 $
+ * $Date: 2009-05-08 02:09:48 -0400 (Fri, 08 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -39,6 +39,18 @@ class MeleeCombatTask :
 	bool				_bInParryDelayState;
 	/** Timer to keep track of when parry delay state started **/
 	int					_ParryDelayTimer;
+
+	/** Last enemy that attacked us **/
+	idEntityPtr<idActor>	_PrevEnemy;
+	/** Previous attack type we tried to parry (if any) **/
+	EMeleeType				_PrevAttParried;
+	/** Time of that previous attack **/
+	int						_PrevAttTime;
+	/** 
+	* Number of times this attack type has been repeated in a row 
+	* Gets cleared if a timer expires before the next repeated attack. 
+	**/
+	int						_NumAttReps;
 
 public:
 	// Get the name of this task

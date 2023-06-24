@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3289 $
- * $Date: 2009-03-22 17:42:00 -0400 (Sun, 22 Mar 2009) $
+ * $Revision: 3432 $
+ * $Date: 2009-05-08 02:09:48 -0400 (Fri, 08 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3289 2009-03-22 21:42:00Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3432 2009-05-08 06:09:48Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -587,6 +587,11 @@ idActor::idActor( void ) {
 	m_MeleeParryDelayMin				= 0;
 	m_MeleeParryDelayMax				= 0;
 	m_MeleeCurrentParryDelay			= 0;
+	m_MeleeRepeatedParryDelayMin		= 0;
+	m_MeleeRepeatedParryDelayMax		= 0;
+	m_MeleeCurrentRepeatedParryDelay	= 0;
+	m_MeleeNumRepAttacks				= 0;
+	m_MeleeRepAttackTime				= 0;
 
 	state				= NULL;
 	idealState			= NULL;
@@ -718,6 +723,10 @@ void idActor::Spawn( void )
 	m_MeleeRiposteRecoveryMax			= spawnArgs.GetInt("melee_riposte_recovery_max");
 	m_MeleeParryDelayMin				= spawnArgs.GetInt("melee_parry_delay_min");
 	m_MeleeParryDelayMax				= spawnArgs.GetInt("melee_parry_delay_max");
+	m_MeleeRepeatedParryDelayMin		= spawnArgs.GetInt("melee_repeated_parry_delay_min");
+	m_MeleeRepeatedParryDelayMax		= spawnArgs.GetInt("melee_repeated_parry_delay_max");
+	m_MeleeNumRepAttacks				= spawnArgs.GetInt("melee_num_rep_attacks");
+	m_MeleeRepAttackTime				= spawnArgs.GetInt("melee_rep_attack_time");
 
 	LoadAF();
 
@@ -1051,6 +1060,11 @@ void idActor::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( m_MeleeParryDelayMin );
 	savefile->WriteInt( m_MeleeParryDelayMax );
 	savefile->WriteInt( m_MeleeCurrentParryDelay );
+	savefile->WriteInt( m_MeleeRepeatedParryDelayMin );
+	savefile->WriteInt( m_MeleeRepeatedParryDelayMax );
+	savefile->WriteInt( m_MeleeCurrentRepeatedParryDelay );
+	savefile->WriteInt( m_MeleeNumRepAttacks );
+	savefile->WriteInt( m_MeleeRepAttackTime );
 
 	savefile->WriteFloat( m_fovDotHoriz );
 	savefile->WriteFloat( m_fovDotVert );
@@ -1224,6 +1238,8 @@ void idActor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( m_MeleeParryDelayMin );
 	savefile->ReadInt( m_MeleeParryDelayMax );
 	savefile->ReadInt( m_MeleeCurrentParryDelay );
+	savefile->ReadInt( m_MeleeNumRepAttacks );
+	savefile->ReadInt( m_MeleeRepAttackTime );
 
 	savefile->ReadFloat( m_fovDotHoriz );
 	savefile->ReadFloat( m_fovDotVert );
@@ -4489,6 +4505,7 @@ void idActor::Event_MeleeParryStarted( int num )
 	m_MeleeCurrentParryRecovery = m_MeleeParryRecoveryMin + fRand*(m_MeleeParryRecoveryMax - m_MeleeParryRecoveryMin);
 	m_MeleeCurrentRiposteRecovery = m_MeleeRiposteRecoveryMin + fRand*(m_MeleeRiposteRecoveryMax - m_MeleeRiposteRecoveryMin);
 	m_MeleeCurrentParryDelay = m_MeleeParryDelayMin + fRand*(m_MeleeParryDelayMax - m_MeleeParryDelayMin);
+	m_MeleeCurrentRepeatedParryDelay = m_MeleeRepeatedParryDelayMin + fRand*(m_MeleeRepeatedParryDelayMax - m_MeleeParryDelayMin);
 }
 
 void idActor::Event_MeleeActionHeld()
