@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3443 $
- * $Date: 2009-05-16 09:27:21 -0400 (Sat, 16 May 2009) $
+ * $Revision: 3446 $
+ * $Date: 2009-05-19 12:49:30 -0400 (Tue, 19 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 3443 2009-05-16 13:27:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 3446 2009-05-19 16:49:30Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -295,11 +295,12 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 	case ConversationCommand::ETalk:
 	{
 		int length = Talk(owner, command.GetArgument(0));
-		idAI* talker = owner;
-
+		
 		// Check if we need to look at the listener
 		if (conversation.ActorsAlwaysFaceEachOtherWhileTalking())
 		{
+			idAI* talker = owner;
+
 			for (int i = 0; i < conversation.GetNumActors(); i++)
 			{
 				if (i != command.GetActor())
@@ -310,6 +311,9 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 
 					listener->TurnToward(talker->GetEyePosition());
 					listener->Event_LookAtPosition(talker->GetEyePosition(), MS2SEC(length));
+
+					// Listeners are idle
+					listener->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 8);
 				}
 				else
 				{
@@ -322,13 +326,13 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 
 						talker->TurnToward(listener->GetEyePosition());
 						talker->Event_LookAtPosition(listener->GetEyePosition(), MS2SEC(length));
+						
+						// Let the talker do his animation
+						talker->SetAnimState(ANIMCHANNEL_TORSO, "Torso_IdleTalk", 8);
 					}
 				}
 			}
 		}
-
-		// Let the talker do his animation
-		talker->SetAnimState(ANIMCHANNEL_TORSO, "Torso_IdleTalk", 8);
 		
 		_finishTime = gameLocal.time + length + 200;
 		_state = (command.WaitUntilFinished()) ? EBusy : EExecuting;
