@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3613 $
- * $Date: 2009-07-30 00:29:34 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3626 $
+ * $Date: 2009-07-31 12:39:11 -0400 (Fri, 31 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,13 +10,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 3613 2009-07-30 04:29:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 3626 2009-07-31 16:39:11Z greebo $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
 #include "../../AIComm_Message.h"
 #include "../Tasks/RandomHeadturnTask.h"
 #include "../Tasks/SingleBarkTask.h"
+#include "../Tasks/CommWaitTask.h"
 #include "../Tasks/WaitTask.h"
 #include "SuspiciousState.h"
 #include "../Library.h"
@@ -104,8 +105,13 @@ void ObservantState::Init(idAI* owner)
 
 		if (memory.alertType != EAlertTypeMissingItem)
 		{
+			CommunicationTaskPtr barkTask(new SingleBarkTask(soundName));
+
+			owner->commSubsystem->AddCommTask(barkTask);
+
+			// Push a wait task (1 sec) with the bark priority -1, to have it queued
 			owner->commSubsystem->AddCommTask(
-					CommunicationTaskPtr(new SingleBarkTask(soundName))
+				CommunicationTaskPtr(new CommWaitTask(1000, barkTask->GetPriority() - 1))
 			);
 		}
 	}
