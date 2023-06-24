@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3840 $
- * $Date: 2010-02-19 06:02:46 -0500 (Fri, 19 Feb 2010) $
- * $Author: jcdenton $
+ * $Revision: 3845 $
+ * $Date: 2010-03-12 21:18:53 -0500 (Fri, 12 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3840 2010-02-19 11:02:46Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3845 2010-03-13 02:18:53Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1546,6 +1546,19 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 		MapShutdown();
 	}
 
+	idStr mapNameStr = mapName;
+	mapNameStr.StripLeadingOnce("maps/");
+	mapNameStr.StripFileExtension();
+
+	idUserInterface* loadingGUI = uiManager->FindGui(va("guis/map/%s.gui", mapNameStr.c_str()), false, false, false);
+
+	if (loadingGUI != NULL)
+	{
+		// Use our own randomizer, the gameLocal.random one is not yet initialised
+		loadingGUI->SetStateFloat("random_value", static_cast<float>(rnd.Random()));
+		loadingGUI->HandleNamedEvent("OnRandomValueInitialised");
+	}
+	
 	// greebo: Clear the mission data, it might have been filled during the objectives screen display
 	m_MissionData->Clear();
 
