@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3556 $
-#* $Date: 2009-07-19 14:29:36 -0400 (Sun, 19 Jul 2009) $
+#* $Revision: 3557 $
+#* $Date: 2009-07-19 14:30:15 -0400 (Sun, 19 Jul 2009) $
 #* $Author: tels $
 #*
 #* $Log$
@@ -271,7 +271,7 @@ local_env.Append( CPPFLAGS = [ '-Wno-unused', '-Wno-deprecated' ] )
 # Use static Boost and DevIL
 local_env.Append(LIBS = [
     File('#/linux/devil/lib/libIL.a'),
-    File('/lib32/libboost_filesystem.a'),
+#    File('/lib32/libboost_filesystem.a'),
 #    File('/lib/libboost_filesystem.a'),
     File('/usr/lib/libboost_filesystem.a')
 ])
