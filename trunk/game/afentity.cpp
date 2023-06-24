@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3809 $
- * $Date: 2010-01-20 18:38:19 -0500 (Wed, 20 Jan 2010) $
+ * $Revision: 3819 $
+ * $Date: 2010-01-30 13:31:56 -0500 (Sat, 30 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 3809 2010-01-20 23:38:19Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 3819 2010-01-30 18:31:56Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -353,6 +353,16 @@ idEntity *idAFAttachment::GetBody( void ) const {
 	return body;
 }
 
+/*
+=====================
+idAFAttachment::GetAttachJoint
+=====================
+*/
+jointHandle_t idAFAttachment::GetAttachJoint( void ) const
+{
+	return attachJoint;
+}
+
 /**
 * Return true if we can mantle this attachment, false otherwise.
 **/
@@ -371,6 +381,14 @@ void idAFAttachment::BindNotify( idEntity *ent )
 	{
 		CopyBodyTo( static_cast<idAFAttachment *>(ent) );
 	}
+}
+
+void idAFAttachment::UnbindNotify( idEntity *ent )
+{
+	idEntity::UnbindNotify( ent );
+	// remove ent from AF if it was dynamically added as an AF body
+	if( body && body->IsType(idAFEntity_Base::Type) )
+		static_cast<idAFEntity_Base *>(body)->RemoveAddedEnt( ent );
 }
 
 void idAFAttachment::PostUnbind( void )
@@ -1496,6 +1514,7 @@ idAFEntity_Base::RemoveAddedEnt
 */
 void idAFEntity_Base::RemoveAddedEnt( idEntity *ent )
 {
+	bool bRemoved = false;
 	idStr bodyName;
 
 	for( int i=m_AddedEnts.Num() - 1; i >= 0; i-- )
@@ -1512,8 +1531,13 @@ void idAFEntity_Base::RemoveAddedEnt( idEntity *ent )
 			// Added ent AF bodies have a mass of 1 for now
 			// GetAFPhysics()->SetMass( GetPhysics()->GetMass() - ent->GetPhysics()->GetMass() );
 			GetAFPhysics()->SetMass( GetPhysics()->GetMass() - 1.0f );
+
+			bRemoved = true;
 		}
 	}
+
+	if( bRemoved && IsActiveAF() )
+		ActivatePhysics( this );
 }
 
 jointHandle_t idAFEntity_Base::JointForBody( int body )

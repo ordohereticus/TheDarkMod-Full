@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3809 $
- * $Date: 2010-01-20 18:38:19 -0500 (Wed, 20 Jan 2010) $
+ * $Revision: 3819 $
+ * $Date: 2010-01-30 13:31:56 -0500 (Sat, 30 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -104,6 +104,8 @@ public:
 	void					SetBody( idEntity *bodyEnt, const char *headModel, jointHandle_t attachJoint );
 	void					ClearBody( void );
 	idEntity *				GetBody( void ) const;
+	// ishtvan: Added this
+	jointHandle_t			GetAttachJoint( void ) const;
 
 	bool					IsMantleable( void );
 
@@ -139,6 +141,11 @@ public:
 	* bound to us, we copy over our data on the actor we're bound to
 	**/
 	virtual void BindNotify( idEntity *ent );
+
+	/**
+	* Also overload UnbindNotify to update the clipmodel physics on the AF we're attacehd to
+	**/
+	virtual void			UnbindNotify( idEntity *ent );
 
 	/** Also overload PostUnBind to clear the body information **/
 	virtual void PostUnbind( void );
