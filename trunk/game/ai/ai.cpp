@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3540 $
- * $Date: 2009-07-18 00:39:55 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3542 $
+ * $Date: 2009-07-18 01:41:01 -0400 (Sat, 18 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3540 2009-07-18 04:39:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3542 2009-07-18 05:41:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5409,6 +5409,9 @@ bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVe
 		{
 			AI_SPECIAL_DAMAGE = 0;
 		}
+
+		// AI don't like being attacked
+		ChangeEntityRelation(attacker, -10);
 	}
 
 	return ( AI_PAIN != 0 );

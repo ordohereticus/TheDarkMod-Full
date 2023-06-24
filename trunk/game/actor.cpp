@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3500 $
- * $Date: 2009-06-27 02:49:58 -0400 (Sat, 27 Jun 2009) $
- * $Author: ishtvan $
+ * $Revision: 3542 $
+ * $Date: 2009-07-18 01:41:01 -0400 (Sat, 18 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3500 2009-06-27 06:49:58Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3542 2009-07-18 05:41:01Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2930,9 +2930,9 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		attacker = gameLocal.world;
 	}
 
-	if ( finalBoss && !inflictor->IsType( idSoulCubeMissile::Type ) ) {
+	/*if ( finalBoss && !inflictor->IsType( idSoulCubeMissile::Type ) ) {
 		return;
-	}
+	}*/
 
 	// Try to find the damage entityDef
 	const idDict* damageDef = gameLocal.FindEntityDefDict( damageDefName );

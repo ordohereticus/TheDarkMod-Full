@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3541 $
- * $Date: 2009-07-18 01:05:04 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3542 $
+ * $Date: 2009-07-18 01:41:01 -0400 (Sat, 18 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3541 2009-07-18 05:05:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3542 2009-07-18 05:41:01Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -23,6 +23,7 @@ static bool init_version = FileVersionList("$Id: State.cpp 3541 2009-07-18 05:05
 #include "CombatState.h"
 #include "BlindedState.h"
 #include "SwitchOnLightState.h"
+#include "FailedKnockoutState.h"
 
 #include "../../BinaryFrobMover.h"
 #include "../../FrobDoor.h"
@@ -896,20 +897,11 @@ bool State::OnUnconsciousPersonEncounter(idActor* person, idAI* owner)
 void State::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead)
 {
 	idAI* owner = _owner.GetEntity();
-	Memory& memory = owner->GetMemory();
 
-	// Alert this AI
-	memory.alertClass = EAlertTactile;
-	memory.alertType = EAlertTypeEnemy;
+	if (owner == NULL) return;
 
-	// Set the alert position 50 units in the attacking direction
-	memory.alertPos = owner->GetPhysics()->GetOrigin() - direction * 50;
-
-	memory.countEvidenceOfIntruders++;
-	memory.alertedDueToCommunication = false;
-
-	// Alert the AI
-	owner->AlertAI("tact", owner->thresh_5*2);
+	// Switch to failed knockout state
+	owner->GetMind()->PushState(StatePtr(new FailedKnockoutState(attacker, direction, hitHead)));
 }
 
 void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)
