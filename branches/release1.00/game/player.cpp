@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3707 $
- * $Date: 2009-09-19 11:03:36 -0400 (Sat, 19 Sep 2009) $
+ * $Revision: 3715 $
+ * $Date: 2009-09-30 23:09:04 -0400 (Wed, 30 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3707 2009-09-19 15:03:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3715 2009-10-01 03:09:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6902,6 +6902,13 @@ void idPlayer::Think( void )
 	if (usercmd.upmove < 0)
 	{
 		usercmd.upmove = 0;
+	}
+
+	// greebo: Check always run
+	if (cvarSystem->GetCVarBool("in_alwaysRun"))
+	{
+		// Always run active, invert the behaviour, user has to hold down button to walk
+		usercmd.buttons ^= BUTTON_RUN;
 	}
 
 	if( !AI_PAIN )
