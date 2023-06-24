@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3230 $
- * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
+ * $Revision: 3246 $
+ * $Date: 2009-03-14 16:23:45 -0400 (Sat, 14 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -417,6 +417,9 @@ public:
 	CInventoryCursorPtr		m_WeaponCursor;
 	// A pointer to the current map/floorplan.
 	CInventoryCursorPtr		m_MapCursor;
+
+	// The currently active inventory map entity
+	idEntityPtr<idEntity>	m_ActiveInventoryMapEnt;
 
 public:
 	CLASS_PROTOTYPE( idPlayer );
@@ -1118,6 +1121,8 @@ private:
 
 	void					UseVehicle( void );
 
+	void					ClearActiveInventoryMap();
+
 	void					Event_GetButtons( void );
 	void					Event_GetMove( void );
 	void					Event_GetViewAngles( void );
@@ -1242,6 +1247,12 @@ private:
 	void					Event_ResetWeaponProjectile(const char* weaponName);
 	void					Event_ChangeWeaponName(const char* weaponName, const char* newName);
 	void					Event_GetCurWeaponName();
+
+	// Clears any active inventory maps
+	void					Event_ClearActiveInventoryMap();
+
+	// Sets the currently active map (feedback method for inventory map scripts)
+	void					Event_SetActiveInventoryMapEnt(idEntity* mapEnt);
 };
 
 ID_INLINE bool idPlayer::IsReady( void ) {
