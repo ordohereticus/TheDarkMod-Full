@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2156 $
- * $Date: 2008-03-29 13:40:53 -0400 (Sat, 29 Mar 2008) $
+ * $Revision: 3605 $
+ * $Date: 2009-07-28 00:53:58 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_actor.cpp 2156 2008-03-29 17:40:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_actor.cpp 3605 2009-07-28 04:53:58Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -40,6 +40,7 @@ idPhysics_Actor::idPhysics_Actor( void ) {
 	waterType = 0;					// MOD_WATERPHYSICS
 	waterLevelChanged = true;
 	submerseFrame = 0;
+	submerseTime = -1;
 #endif		// MOD_WATERPHYSICS
 }
 
@@ -78,6 +79,7 @@ void idPhysics_Actor::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( waterType );		// MOD_WATERPHYSICS
 	savefile->WriteBool(waterLevelChanged);
 	savefile->WriteInt(submerseFrame);
+	savefile->WriteInt(submerseTime);
 #endif 		// MOD_WATERPHYSICS
 
 	groundEntityPtr.Save( savefile );
@@ -106,6 +108,7 @@ void idPhysics_Actor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( waterType );				// MOD_WATERPHYSICS
 	savefile->ReadBool(waterLevelChanged);
 	savefile->ReadInt(submerseFrame);
+	savefile->ReadInt(submerseTime);
 #endif 		// MOD_WATERPHYSICS
 
 	groundEntityPtr.Restore( savefile );
@@ -450,6 +453,7 @@ void idPhysics_Actor::SetWaterLevel( bool updateWaterLevelChanged ) {
 		if (waterLevel == WATERLEVEL_HEAD && waterLevelChanged)
 		{
 			submerseFrame = gameLocal.framenum;
+			submerseTime = gameLocal.time;
 		}
 	}
 }
@@ -470,6 +474,11 @@ idPhysics_Actor::GetWaterType
 */
 int idPhysics_Actor::GetWaterType( void ) const {
 	return waterType;
+}
+
+int idPhysics_Actor::GetSubmerseTime() const
+{
+	return submerseTime;
 }
 
 #endif	// MOD_WATERPHYSICS

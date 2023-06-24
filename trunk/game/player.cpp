@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3603 $
- * $Date: 2009-07-28 00:21:26 -0400 (Tue, 28 Jul 2009) $
+ * $Revision: 3605 $
+ * $Date: 2009-07-28 00:53:58 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3603 2009-07-28 04:21:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3605 2009-07-28 04:53:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6857,12 +6857,20 @@ void idPlayer::UpdateUnderWaterEffects() {
 		}
 	}
 	else {
-		if (underWaterEffectsActive) {
+		if (underWaterEffectsActive)
+		{
 			StopSound( SND_CHANNEL_DEMONIC, false );
 			if (underWaterGUIHandle != -1) {
 				DestroyOverlay(underWaterGUIHandle);
 				underWaterGUIHandle = -1;
 			}
+
+			// If we were underwater for more than 4 seconds, play the "take breath" sound
+			if (physicsObj.GetSubmerseTime() > gameLocal.time + 4000)
+			{
+				StartSound( "snd_resurface", SND_CHANNEL_VOICE, 0, false, NULL );
+			}
+
 			underWaterEffectsActive = false;
 		}
 	}
