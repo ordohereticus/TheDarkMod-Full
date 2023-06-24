@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3709 $
- * $Date: 2009-09-23 23:37:37 -0400 (Wed, 23 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3736 $
+ * $Date: 2009-11-03 01:27:49 -0500 (Tue, 03 Nov 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3709 2009-09-24 03:37:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3736 2009-11-03 06:27:49Z angua $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -8886,7 +8886,8 @@ void idEntity::Event_CheckAbsence()
 
 bool idEntity::SpawnAbsenceMarker()
 {
-	const idDict* markerDef = gameLocal.FindEntityDefDict("atdm:absence_marker", false);
+	idStr absenceMarkerDefName = spawnArgs.GetString("def_absence_marker", "atdm:absence_marker");
+	const idDict* markerDef = gameLocal.FindEntityDefDict(absenceMarkerDefName, false);
 
 	if (markerDef == NULL)
 	{
