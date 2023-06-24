@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3672 $
- * $Date: 2009-08-14 23:17:43 -0400 (Fri, 14 Aug 2009) $
+ * $Revision: 3675 $
+ * $Date: 2009-08-18 11:38:38 -0400 (Tue, 18 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3672 2009-08-15 03:17:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3675 2009-08-18 15:38:38Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -121,7 +121,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteBool(hidingSpotInvestigationInProgress);
 	savefile->WriteBool(fleeingDone);
 	savefile->WriteVec3(positionBeforeTakingCover);
-	//savefile->WriteBool(resolvingMovementBlock);
+	savefile->WriteBool(resolvingMovementBlock);
 
 	doorRelated.currentDoor.Save(savefile);
 
