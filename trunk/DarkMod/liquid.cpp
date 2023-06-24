@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
- * $Author: greebo $
+ * $Revision: 3793 $
+ * $Date: 2010-01-10 02:55:44 -0500 (Sun, 10 Jan 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: liquid.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 3793 2010-01-10 07:55:44Z tels $", init_version);
 
 #include "StimResponse/StimResponseCollection.h"
 
@@ -99,7 +99,7 @@ void idLiquid::Spawn() {
 	//common->Printf("idLiquid:%s) Spawned\n",this->GetName() );
 
 	// getters
-	spawnArgs.GetFloat("density","0.01043f",liquidDensity);
+	spawnArgs.GetFloat("density","0.001043f",liquidDensity);
 	spawnArgs.GetFloat("viscosity","3.0f",liquidViscosity);
 	spawnArgs.GetFloat("friction","3.0f",liquidFriction);
 	spawnArgs.GetString("liquid_name","water",temp);
