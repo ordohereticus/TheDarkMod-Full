@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3463 $
- * $Date: 2009-05-23 22:35:45 -0400 (Sat, 23 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3474 $
+ * $Date: 2009-05-29 08:50:21 -0400 (Fri, 29 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,11 +13,12 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3463 2009-05-24 02:35:45Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3474 2009-05-29 12:50:21Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
 #include "../../DarkMod/AI/Subsystem.h"
+#include "../../DarkMod/AI/MovementSubsystem.h"
 #include "../../DarkMod/AI/Memory.h"
 #include "../../DarkMod/AI/States/KnockedOutState.h"
 #include "../../DarkMod/AI/States/DeadState.h"
@@ -1238,7 +1239,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	mind->Restore(savefile);
 
 	// Allocate and install the subsystems
-	movementSubsystem = ai::SubsystemPtr(new ai::Subsystem(ai::SubsysMovement, this));
+	movementSubsystem = ai::MovementSubsystemPtr(new ai::MovementSubsystem(ai::SubsysMovement, this));
 	senseSubsystem = ai::SubsystemPtr(new ai::Subsystem(ai::SubsysSenses, this));
 	commSubsystem = ai::CommunicationSubsystemPtr(new ai::CommunicationSubsystem(ai::SubsysCommunication, this));
 	actionSubsystem = ai::SubsystemPtr(new ai::Subsystem(ai::SubsysAction, this));
@@ -1316,7 +1317,7 @@ void idAI::Spawn( void )
 	mind = ai::MindPtr(new ai::Mind(this));
 
 	// Allocate and install the subsystems
-	movementSubsystem = ai::SubsystemPtr(new ai::Subsystem(ai::SubsysMovement, this));
+	movementSubsystem = ai::MovementSubsystemPtr(new ai::MovementSubsystem(ai::SubsysMovement, this));
 	senseSubsystem = ai::SubsystemPtr(new ai::Subsystem(ai::SubsysSenses, this));
 	commSubsystem = ai::CommunicationSubsystemPtr(new ai::CommunicationSubsystem(ai::SubsysCommunication, this));
 	actionSubsystem = ai::SubsystemPtr(new ai::Subsystem(ai::SubsysAction, this));
@@ -4540,8 +4541,6 @@ void idAI::AnimMove()
 		// greebo: We have a valid goalposition (not reached the target yet), check for obstacles
 		if (move.moveCommand != MOVE_WANDER && move.moveCommand != MOVE_VECTOR) 
 		{
-			//gameRenderWorld->DebugArrow(colorCyan, goalPos, goalPos + idVec3(0,0,15), 2, 1000);
-
 			idVec3 newDest;
 			CheckObstacleAvoidance( goalPos, newDest );
 
