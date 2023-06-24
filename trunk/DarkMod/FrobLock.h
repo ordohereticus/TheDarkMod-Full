@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3297 $
- * $Date: 2009-03-25 05:18:07 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3300 $
+ * $Date: 2009-03-25 07:25:09 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -50,7 +50,10 @@ protected:
 	// Required events which are called by the PickableLock class
 	void			Event_Lock_StatusUpdate();
 	void			Event_Lock_OnLockPicked();
-	void			Event_Lock_OnLockStatusChange();
+	void			Event_Lock_OnLockStatusChange(int locked);
+
+	void			Event_TriggerLockTargets();
+	void			Event_TriggerUnlockTargets();
 };
 
 #endif /* _FROB_LOCK_H_ */

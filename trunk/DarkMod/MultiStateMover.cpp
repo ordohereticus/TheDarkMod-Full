@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 3300 $
+ * $Date: 2009-03-25 07:25:09 -0400 (Wed, 25 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MultiStateMover.cpp 3300 2009-03-25 11:25:09Z greebo $", init_version);
 
 #include "MultiStateMover.h"
 
@@ -231,6 +231,9 @@ void CMultiStateMover::Restore(idRestoreGame *savefile)
 
 void CMultiStateMover::Activate(idEntity* activator)
 {
+	// Call the base class
+	idEntity::Activate(activator);
+
 	if (activator == NULL) return;
 
 	// Get the "position" spawnarg from the activator

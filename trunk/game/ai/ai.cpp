@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3275 $
- * $Date: 2009-03-20 03:44:58 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3300 $
+ * $Date: 2009-03-25 07:25:09 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3275 2009-03-20 07:44:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3300 2009-03-25 11:25:09Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5545,8 +5545,10 @@ DarkMod: Commented out calls to SetEnemy.  We don't want the AI calling setEnemy
 only the alert state scripts.
 =====================
 */
-void idAI::Activate( idEntity *activator ) {
-	idPlayer *player;
+void idAI::Activate( idEntity *activator )
+{
+	// call the base class first
+	idEntity::Activate(activator);
 
 	if ( AI_DEAD || AI_KNOCKEDOUT ) {
 		// ignore it when they're dead or KO'd
@@ -5560,6 +5562,8 @@ void idAI::Activate( idEntity *activator ) {
 		PlayCinematic();
 	} else {
 		AI_ACTIVATED = true;
+
+		/*idPlayer *player;
 		if ( !activator || !activator->IsType( idPlayer::Type ) ) {
 			player = gameLocal.GetLocalPlayer();
 		} else {
@@ -5569,7 +5573,7 @@ void idAI::Activate( idEntity *activator ) {
 		if ( ReactionTo( player ) & ATTACK_ON_ACTIVATE )
 		{
 			//SetEnemy( player );
-		}
+		}*/
 
 		// update the script in cinematics so that entities don't start anims or show themselves a frame late.
 		if ( cinematic ) {
