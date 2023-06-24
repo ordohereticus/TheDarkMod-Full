@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3731 $
- * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
+ * $Revision: 3732 $
+ * $Date: 2009-10-29 04:15:31 -0400 (Thu, 29 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3732 2009-10-29 08:15:31Z greebo $", init_version);
 
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
@@ -792,8 +792,18 @@ void CModMenu::InstallMod(int modIndex, idUserInterface* gui)
 
 	ModInfo info = GetModInfo(modIndex);
 
+	// Check the required TDM version of this FM
+	if (info.requiredMajor > TDM_VERSION_MAJOR || info.requiredMinor > TDM_VERSION_MINOR)
+	{
+		gui->SetStateString("requiredVersionCheckFailText", 
+			va("Cannot install this mission, as it requires\n%s v%d.%02d.\n\nYou are running %s v%d.%02d. Please run the tdm_update application to update your installation.",
+			GAME_VERSION, info.requiredMajor, info.requiredMinor, GAME_VERSION, TDM_VERSION_MAJOR, TDM_VERSION_MINOR));
+		gui->HandleNamedEvent("OnRequiredVersionCheckFail");
+		return;
+	}
+
 	// Issue the named command to the GUI
-	gui->SetStateString("modInstallProgressText", "Installing FM Package\n\n" + info.title);
+	gui->SetStateString("modInstallProgressText", "Installing Mission Package\n\n" + info.title);
 	gui->HandleNamedEvent("OnModInstallationStart");
 
 	// Ensure that the target folder exists
