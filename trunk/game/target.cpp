@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3908 $
- * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
- * $Author: greebo $
+ * $Revision: 3941 $
+ * $Date: 2010-06-11 03:02:45 -0400 (Fri, 11 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3908 2010-05-27 04:48:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3941 2010-06-11 07:02:45Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1719,31 +1719,6 @@ void idTarget_Tip::Event_TipOff( void ) {
 		} else {
 			PostEventMS( &EV_TipOff, 100 );
 		}
-	}
-}
-
-
-/*
-===============================================================================
-
-idTarget_GiveSecurity
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idTarget, idTarget_GiveSecurity )
-EVENT( EV_Activate,	idTarget_GiveSecurity::Event_Activate )
-END_CLASS
-
-/*
-================
-idTarget_GiveEmail::Event_Activate
-================
-*/
-void idTarget_GiveSecurity::Event_Activate( idEntity *activator ) {
-	idPlayer *player = gameLocal.GetLocalPlayer();
-	if ( player ) {
-		//player->GiveSecurity( spawnArgs.GetString( "text_security" ) );
 	}
 }
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3908 $
- * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
- * $Author: greebo $
+ * $Revision: 3941 $
+ * $Date: 2010-06-11 03:02:45 -0400 (Fri, 11 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -455,21 +455,6 @@ private:
 	void				Event_TipOff( void );
 	void				Event_GetPlayerPos( void );
 };
-
-/*
-===============================================================================
-
-idTarget_GiveSecurity
-
-===============================================================================
-*/
-class idTarget_GiveSecurity : public idTarget {
-public:
-	CLASS_PROTOTYPE( idTarget_GiveSecurity );
-private:
-	void				Event_Activate( idEntity *activator );
-};
-
 
 /*
 ===============================================================================
