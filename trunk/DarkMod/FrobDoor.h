@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3374 $
- * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
+ * $Revision: 3375 $
+ * $Date: 2009-04-08 05:25:52 -0400 (Wed, 08 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -101,6 +101,13 @@ public:
 	 * which is barely audible to the player.
 	 */
 	virtual int				FrobMoverStartSound(const char* soundName);
+
+	/** 
+	 * greebo: Override the standard idEntity method to emit sounds from the nearest position 
+	 * to the player instead of the bounding box center, which might be on the far side
+	 * of a closed portal. This method gets applied to doors without handles, usually.
+	 */
+	virtual bool			GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis);
 
 protected:
 

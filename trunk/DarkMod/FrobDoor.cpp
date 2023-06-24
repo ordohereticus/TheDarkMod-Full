@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3374 $
- * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
+ * $Revision: 3375 $
+ * $Date: 2009-04-08 05:25:52 -0400 (Wed, 08 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3374 2009-04-08 09:15:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3375 2009-04-08 09:25:52Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -996,6 +996,23 @@ CFrobDoorHandle* CFrobDoor::GetNearestHandle(const idVec3& pos)
 	}
 
 	return returnValue;
+}
+
+bool CFrobDoor::GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis)
+{
+	// This will kick in for doors without any handles, these are playing their
+	// sounds from the nearest point to the player's eyes, mid-bounding-box.
+	const idBounds& bounds = GetPhysics()->GetAbsBounds();
+	idVec3 eyePos = gameLocal.GetLocalPlayer()->GetEyePosition();
+
+	// greebo: Choose the corner which is nearest to the player's eyeposition
+	origin.x = (idMath::Fabs(bounds[0].x - eyePos.x) < idMath::Fabs(bounds[1].x - eyePos.x)) ? bounds[0].x : bounds[1].x;
+	origin.y = (idMath::Fabs(bounds[0].y - eyePos.y) < idMath::Fabs(bounds[1].y - eyePos.y)) ? bounds[0].y : bounds[1].y;
+	origin.z = bounds.GetCenter().z;
+
+	//gameRenderWorld->DebugArrow(colorWhite, origin, eyePos, 0, 5000);
+
+	return true;
 }
 
 int CFrobDoor::FrobMoverStartSound(const char* soundName)
