@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3247 $
- * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3614 $
+ * $Date: 2009-07-30 01:10:52 -0400 (Thu, 30 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 3614 2009-07-30 05:10:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3153,7 +3153,16 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 			spin = (float)DEG2RAD( 360.0f ) * gameLocal.random.RandomFloat();
 			//dir = playerViewAxis[ 0 ] + playerViewAxis[ 2 ] * ( ang * idMath::Sin( spin ) ) - playerViewAxis[ 1 ] * ( ang * idMath::Cos( spin ) );
 			dir = muzzleAxis[ 0 ]; // Dram: Make the weapon shoot directly from the barrel bone. Found by Ishtvan
+
+			if (projectileDef->dict.GetBool("fire_along_playerview", "0"))
+			{
+				// greebo: Fire the projectile along the playerview direction
+				dir = playerViewAxis.ToAngles().ToForward();
+			}
+
 			dir.Normalize();
+
+			//gameRenderWorld->DebugArrow(colorWhite, muzzleOrigin, muzzleOrigin + dir*100, 1, 15000);
 
 			if ( projectileEnt ) {
 				ent = projectileEnt;
