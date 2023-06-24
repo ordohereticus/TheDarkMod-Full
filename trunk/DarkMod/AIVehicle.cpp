@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3494 $
- * $Date: 2009-06-26 23:39:33 -0400 (Fri, 26 Jun 2009) $
- * $Author: ishtvan $
+ * $Revision: 3703 $
+ * $Date: 2009-09-08 12:09:42 -0400 (Tue, 08 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -37,7 +37,6 @@ END_CLASS
 CAIVehicle::CAIVehicle( void )
 {
 	m_Controller			= NULL;
-	AI_CONTROLLED			= false;
 	m_RideJoint		= INVALID_JOINT;
 	m_RideOffset.Zero();
 	m_RideAngles.Zero();
@@ -59,6 +58,8 @@ CAIVehicle::~CAIVehicle( void )
 
 void CAIVehicle::Spawn( void ) 
 {
+	AI_CONTROLLED = false; 
+
 	// set ride joint, steering speed
 	idStr JointName = spawnArgs.GetString("ride_joint", "origin");
 
