@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3385 $
- * $Date: 2009-04-10 01:55:49 -0400 (Fri, 10 Apr 2009) $
+ * $Revision: 3397 $
+ * $Date: 2009-04-11 11:36:37 -0400 (Sat, 11 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 3385 2009-04-10 05:55:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3397 2009-04-11 15:36:37Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -383,7 +383,7 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 
 			float volume = sndShader->GetParms()->volume + f;
 
-			if (cv_moveable_collision.GetFloat() > 0)
+			if (cv_moveable_collision.GetBool() > 0)
 			{
 				gameRenderWorld->DrawText( va("Velocity: %f", v), (physicsObj.GetOrigin() + idVec3(0, 0, 20)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
 				gameRenderWorld->DrawText( va("Volume: %f", volume), (physicsObj.GetOrigin() + idVec3(0, 0, 10)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
