@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3650 $
- * $Date: 2009-08-05 02:09:17 -0400 (Wed, 05 Aug 2009) $
+ * $Revision: 3655 $
+ * $Date: 2009-08-06 03:29:36 -0400 (Thu, 06 Aug 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3650 2009-08-05 06:09:17Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3655 2009-08-06 07:29:36Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -218,6 +218,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					if (controller != NULL && masterUser == owner && controller->GetUserManager().GetNumUsers() == 0)
 					{
 						// We have an entity to control this door, interact with it
+						owner->StopMove(MOVE_STATUS_DONE);
 						subsystem.PushTask(TaskPtr(new InteractionTask(controller)));
 						return false;
 					}
@@ -601,6 +602,10 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					{
 						owner->StopMove(MOVE_STATUS_WAITING);
 					}
+				}
+				else if (owner->MoveDone())
+				{
+					owner->MoveToPosition(_frontPos);
 				}
 			
 				break;
