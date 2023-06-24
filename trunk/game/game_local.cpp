@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3807 $
- * $Date: 2010-01-20 14:12:42 -0500 (Wed, 20 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3810 $
+ * $Date: 2010-01-21 09:47:13 -0500 (Thu, 21 Jan 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3807 2010-01-20 19:12:42Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3810 2010-01-21 14:47:13Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3502,9 +3502,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 		gui->SetStateInt("lp_difficulty", setting);
 	}
-	else if (cmd == "setMeleeDifficulty")
+	else if (cmd == "updateMeleeDifficulty")
 	{
-		// Lockpicking difficulty setting changed, update CVARs
+		// Melee difficulty setting changed, update CVARs
 		int setting = gui->GetStateInt("melee_difficulty", "-1");
 		
 		switch (setting)
@@ -3525,11 +3525,13 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			cv_melee_difficulty.SetString("expert");
 			cv_melee_auto_parry.SetBool(false);
 			cv_melee_forbid_auto_parry.SetBool(true);
-			// TODO: Figure out how to grey out menu option for auto parry
 			break;
 		default:
 			gameLocal.Warning("Unknown value for melee difficulty encountered!");
 		};
+
+		// Trigger an update for the auto-parry option when melee difficulty changes
+		gui->HandleNamedEvent("UpdateAutoParryOption");
 	}
 	else if (cmd == "loadMeleeDifficulty")
 	{
@@ -3561,8 +3563,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		}
 
 		gui->SetStateInt("melee_difficulty", setting);
-		// have the gui enable/disable auto parry ( NOT WORKING! )
-		gui->HandleNamedEvent("UpdateAutoParryOptions");
+
+		// Have the gui enable/disable auto parry
+		gui->HandleNamedEvent("UpdateAutoParryOption");
 	}
 	else if (cmd == "mainmenu_init")
 	{
