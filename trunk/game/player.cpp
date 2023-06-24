@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3339 $
- * $Date: 2009-03-28 11:41:56 -0400 (Sat, 28 Mar 2009) $
+ * $Revision: 3374 $
+ * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3339 2009-03-28 15:41:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3374 2009-04-08 09:15:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6870,7 +6870,6 @@ void idPlayer::Think( void )
 		frobbedEnt->AttackAction(this);
 	}
 
-	idStr strText;
 /*
 	// TODO: remove this because it is just to determine how to fill out the renderstructure.
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("RenderViewId: %u\r", renderView->viewID);

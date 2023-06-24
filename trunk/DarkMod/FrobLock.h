@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3319 $
- * $Date: 2009-03-27 14:18:31 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3374 $
+ * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -90,6 +90,8 @@ protected:
 
 	// Called by the frob action script
 	void			Event_Open();
+
+	void			Event_ClearPlayerImmobilization(idEntity* player);
 };
 
 #endif /* _FROB_LOCK_H_ */

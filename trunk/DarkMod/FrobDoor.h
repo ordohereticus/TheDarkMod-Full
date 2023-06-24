@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3335 $
- * $Date: 2009-03-28 06:13:09 -0400 (Sat, 28 Mar 2009) $
+ * $Revision: 3374 $
+ * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -191,6 +191,8 @@ protected:
 
 	// This is called periodically, to handle a pending close request (used for locking doors after closing)
 	void					Event_HandleLockRequest();
+
+	void					Event_ClearPlayerImmobilization(idEntity* player);
 
 protected:
 
