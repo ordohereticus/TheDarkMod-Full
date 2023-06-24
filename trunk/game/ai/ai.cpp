@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3586 $
- * $Date: 2009-07-26 08:37:43 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3598 $
+ * $Date: 2009-07-27 03:08:11 -0400 (Mon, 27 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3586 2009-07-26 12:37:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3598 2009-07-27 07:08:11Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9719,22 +9719,26 @@ void idAI::StopLipSync()
 
 void idAI::DrawWeapon() 
 {
-	const function_t* func = scriptObject.GetFunction("DrawWeapon");
+	/*const function_t* func = scriptObject.GetFunction("DrawWeapon");
 	if (func) {
 		idThread* thread = new idThread(func);
 		thread->CallFunction(this, func, true);
 		thread->DelayedStart(0);
-	}
+	}*/
+	// greebo: Replaced the above thread spawn with an animstate switch
+	SetAnimState(ANIMCHANNEL_TORSO, "Torso_DrawWeapon", 4);
 }
 
 void idAI::SheathWeapon() 
 {
-	const function_t* func = scriptObject.GetFunction("SheathWeapon");
+	/*const function_t* func = scriptObject.GetFunction("SheathWeapon");
 	if (func) {
 		idThread* thread = new idThread(func);
 		thread->CallFunction(this, func, true);
 		thread->DelayedStart(0);
-	}
+	}*/
+	// greebo: Replaced the above thread spawn with an animstate switch
+	SetAnimState(ANIMCHANNEL_TORSO, "Torso_SheathWeapon", 4);
 }
 
 void idAI::DropOnRagdoll( void )
