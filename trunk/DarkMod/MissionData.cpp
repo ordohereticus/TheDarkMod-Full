@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3382 $
- * $Date: 2009-04-09 13:37:15 -0400 (Thu, 09 Apr 2009) $
+ * $Revision: 3387 $
+ * $Date: 2009-04-11 04:24:04 -0400 (Sat, 11 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3382 2009-04-09 17:37:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3387 2009-04-11 08:24:04Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1608,9 +1608,9 @@ idMapFile* CMissionData::LoadMap(const idStr& mapFileName)
 	// First, check if we already have a map loaded
 	if (m_mapFile != NULL)
 	{
-		if (mapFileName == m_mapFile->GetName())
+		if (mapFileName == m_mapFile->GetName() && !m_mapFile->NeedsReload())
 		{
-			// Nothing to do, we already have a map loaded
+			// Nothing to do, we already have an up-to-date map loaded
 			return m_mapFile;
 		}
 
