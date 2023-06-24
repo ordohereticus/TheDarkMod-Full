@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3429 $
+ * $Date: 2009-05-07 13:58:22 -0400 (Thu, 07 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3429 2009-05-07 17:58:22Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -863,6 +863,12 @@ void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)
 
 	// Ignore from now on
 	stimSource->ResponseIgnore(ST_VISUAL, owner);
+
+	// angua: ignore blood after dead bodies have been found
+	if (memory.deadPeopleHaveBeenFound)
+	{
+		return;
+	}
 
 	// Vocalize that see something out of place
 	memory.lastTimeVisualStimBark = gameLocal.time;

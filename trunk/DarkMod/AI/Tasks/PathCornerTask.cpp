@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3429 $
+ * $Date: 2009-05-07 13:58:22 -0400 (Thu, 07 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3429 2009-05-07 17:58:22Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -62,18 +62,24 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 
 	if (_moveInitiated)
 	{
-		if (owner->AI_MOVE_DONE && owner->ReachedPos(path->GetPhysics()->GetOrigin(), MOVE_TO_POSITION))
+		if (owner->AI_MOVE_DONE)
 		{
-			// Trigger path targets, now that we've reached the corner
-			owner->ActivateTargets(owner);
-			NextPath();
+			if(owner->ReachedPos(path->GetPhysics()->GetOrigin(), MOVE_TO_POSITION))
+			{
+				// Trigger path targets, now that we've reached the corner
+				owner->ActivateTargets(owner);
+				NextPath();
 
-			// Move is done, fall back to PatrolTask
-			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
+				// Move is done, fall back to PatrolTask
+				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
 
-			return true; // finish this task
-		}
-		
+				return true; // finish this task
+			}
+			else
+			{
+				owner->MoveToPosition(path->GetPhysics()->GetOrigin());
+			}
+		}	
 		if (owner->AI_DEST_UNREACHABLE)
 		{
 			// Unreachable, fall back to PatrolTask
