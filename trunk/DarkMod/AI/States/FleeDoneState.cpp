@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
+ * $Revision: 3460 $
+ * $Date: 2009-05-23 09:41:04 -0400 (Sat, 23 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3460 2009-05-23 13:41:04Z angua $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -86,8 +86,6 @@ void FleeDoneState::Think(idAI* owner)
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 4);
 		owner->SetTurnRate(_oldTurnRate);
 
-		owner->ClearEnemy();
-
 		owner->GetMind()->EndState();
 	}
 
@@ -112,8 +110,8 @@ void FleeDoneState::Think(idAI* owner)
 			// Cry for help
 			// Create a new help message
 			CommMessagePtr message(new CommMessage(
-				CommMessage::DetectedEnemy_CommType, 
-				owner, friendlyAI, owner->GetEnemy(), memory.alertPos)
+				CommMessage::RequestForHelp_CommType, 
+				owner, friendlyAI, NULL, memory.alertPos)
 			); 
 
 			CommunicationTaskPtr barkTask(new SingleBarkTask("snd_flee", message));
@@ -146,7 +144,6 @@ void FleeDoneState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 
 	// Hard-cast the stimsource onto an actor 
 	idActor* other = static_cast<idActor*>(stimSource);	
-
 	if (owner->IsFriend(other))
 	{
 		if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
@@ -154,17 +151,17 @@ void FleeDoneState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 
 			memory.lastTimeVisualStimBark = gameLocal.time;
 			CommMessagePtr message(new CommMessage(
-				CommMessage::DetectedEnemy_CommType, 
-				owner, other, owner->GetEnemy(), memory.alertPos)
+				CommMessage::RequestForHelp_CommType, 
+				owner, other, NULL, memory.alertPos)
 			); 
 
 			CommunicationTaskPtr barkTask(new SingleBarkTask("snd_flee", message));
 			owner->commSubsystem->AddCommTask(barkTask);
 			memory.lastTimeVisualStimBark = gameLocal.time;
-
 		}
-
 	}
+
+	State::OnPersonEncounter(stimSource, owner);
 }
 
 
@@ -178,8 +175,6 @@ bool FleeDoneState::CheckAlertLevel(idAI* owner)
 		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 4);
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 4);
 		owner->SetTurnRate(_oldTurnRate);
-
-		owner->ClearEnemy();
 
 		return false;
 	}

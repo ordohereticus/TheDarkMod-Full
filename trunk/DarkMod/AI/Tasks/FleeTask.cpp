@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3419 $
- * $Date: 2009-05-04 21:04:19 -0400 (Mon, 04 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3460 $
+ * $Date: 2009-05-23 09:41:04 -0400 (Sat, 23 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeTask.cpp 3419 2009-05-05 01:04:19Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: FleeTask.cpp 3460 2009-05-23 13:41:04Z angua $", init_version);
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -66,13 +66,14 @@ bool FleeTask::Perform(Subsystem& subsystem)
 		return true;
 	}
 
-//	gameRenderWorld->DrawText( va("%d  %d",_escapeSearchLevel, _distOpt), owner->GetPhysics()->GetAbsBounds().GetCenter(), 
-//		1.0f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
+	gameRenderWorld->DrawText( va("%d  %d",_escapeSearchLevel, _distOpt), owner->GetPhysics()->GetAbsBounds().GetCenter(), 
+		1.0f, colorWhite, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 
-	// angua: in any case stop fleeing after max time (5 min).
+	// angua: in any case stop fleeing after max time (1 min).
 	// Might stay in flee task forever if pathing to destination not possible otherwise
 	// TODO: should be spawn arg, make member 
-	int maxFleeTime = 300000;
+	int maxFleeTime = 60000;
+
 	if (_failureCount > 5 || 
 			(owner->AI_MOVE_DONE && !owner->AI_DEST_UNREACHABLE && !owner->m_HandlingDoor) ||
 			gameLocal.time > _fleeStartTime + maxFleeTime)

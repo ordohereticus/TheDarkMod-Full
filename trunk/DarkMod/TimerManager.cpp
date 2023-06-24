@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3449 $
- * $Date: 2009-05-21 03:09:56 -0400 (Thu, 21 May 2009) $
- * $Author: greebo $
+ * $Revision: 3460 $
+ * $Date: 2009-05-23 09:41:04 -0400 (Sat, 23 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -80,8 +80,11 @@ void TimerManager::StartTimer(int timerId)
 	assert(found != _timers.end());
 
 	TimerInfo& info = found->second;
-	info.timer.Clear();
-	info.timer.Start();
+	if (!info.timer.Running())
+	{
+		info.timer.Clear();
+		info.timer.Start();
+	}
 }
 
 void TimerManager::StopTimer(int timerId)
@@ -90,15 +93,18 @@ void TimerManager::StopTimer(int timerId)
 	assert(found != _timers.end());
 
 	TimerInfo& info = found->second;
-	info.timer.Stop();
-	info.runCount++;
-	info.runTime += info.timer.Milliseconds();
-	if (info.timer.Milliseconds() > info.maxTime)
+	if (info.timer.Running())
 	{
-		info.maxTime = info.timer.Milliseconds();
-		info.maxTimeCall = info.runCount;
+		info.timer.Stop();
+		info.runCount++;
+		info.runTime += info.timer.Milliseconds();
+		if (info.timer.Milliseconds() > info.maxTime)
+		{
+			info.maxTime = info.timer.Milliseconds();
+			info.maxTimeCall = info.runCount;
+		}
+		info.timer.Clear();
 	}
-	info.timer.Clear();
 }
 
 void TimerManager::ResetTimers()
