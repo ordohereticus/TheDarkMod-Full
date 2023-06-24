@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3044 $
- * $Date: 2008-11-20 15:13:52 -0500 (Thu, 20 Nov 2008) $
+ * $Revision: 3453 $
+ * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -34,6 +34,8 @@ public:
 
 	// Gets called each time the mind is thinking
 	virtual void Think(idAI* owner);
+
+	void OnPersonEncounter(idEntity* stimSource, idAI* owner);
 
 	virtual bool CheckAlertLevel(idAI* owner);
 

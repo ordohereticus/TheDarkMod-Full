@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3442 $
- * $Date: 2009-05-16 02:26:22 -0400 (Sat, 16 May 2009) $
- * $Author: greebo $
+ * $Revision: 3453 $
+ * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -964,6 +964,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 */
 	bool					m_HandlingDoor;
 
+
+	
+
+
+
 	/**
 	 * angua: is set true while the AI is handling an elevator.
 	 */
@@ -1874,6 +1879,11 @@ private:
 	int aiPhysicsTimer;
 	int aiGetMovePosTimer;
 	int aiPathToGoalTimer;
+	int aiGetFloorPosTimer;
+	int aiPointReachableAreaNumTimer;
+	int aiCanSeeTimer;
+
+
 #endif
 };
 

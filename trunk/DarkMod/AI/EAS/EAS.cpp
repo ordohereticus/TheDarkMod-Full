@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2817 $
- * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
- * $Author: greebo $
+ * $Revision: 3453 $
+ * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
 
 #include "EAS.h"
 
@@ -248,7 +248,7 @@ void tdmEAS::SetupReachableElevatorStations()
 			idReachability* reach;
 			int travelTime = 0;
 			bool routeFound = _aas->RouteToGoalArea(areaNum, _aas->AreaCenter(areaNum), 
-				_elevatorStations[e]->areaNum, TFL_WALK|TFL_AIR, travelTime, &reach, NULL);
+				_elevatorStations[e]->areaNum, TFL_WALK|TFL_AIR, travelTime, &reach, NULL, NULL);
 
 			//gameRenderWorld->DebugArrow(routeFound ? colorGreen : colorRed, areaCenter, areaCenter2, 1, 50000);
 			
@@ -400,7 +400,7 @@ RouteInfoList tdmEAS::FindRoutesToCluster(int startCluster, int startArea, int g
 		int travelTime = 0;
 		// Workaround: Include the TFL_INVALID flag to include deactivated AAS areas
 		bool routeFound = _aas->RouteToGoalArea(startArea, _aas->AreaCenter(startArea), 
-			goalArea, TFL_WALK|TFL_AIR|TFL_INVALID, travelTime, &reach, NULL);
+			goalArea, TFL_WALK|TFL_AIR|TFL_INVALID, travelTime, &reach, NULL, NULL);
 
 		if (routeFound) 
 		{

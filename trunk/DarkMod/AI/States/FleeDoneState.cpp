@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3431 $
- * $Date: 2009-05-07 22:54:31 -0400 (Thu, 07 May 2009) $
- * $Author: greebo $
+ * $Revision: 3453 $
+ * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3431 2009-05-08 02:54:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -86,6 +86,8 @@ void FleeDoneState::Think(idAI* owner)
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 4);
 		owner->SetTurnRate(_oldTurnRate);
 
+		owner->ClearEnemy();
+
 		owner->GetMind()->EndState();
 	}
 
@@ -111,11 +113,13 @@ void FleeDoneState::Think(idAI* owner)
 			// Create a new help message
 			CommMessagePtr message(new CommMessage(
 				CommMessage::DetectedEnemy_CommType, 
-				owner, friendlyAI, owner->GetEnemy(), owner->lastVisibleEnemyPos)
+				owner, friendlyAI, owner->GetEnemy(), memory.alertPos)
 			); 
 
 			CommunicationTaskPtr barkTask(new SingleBarkTask("snd_flee", message));
 			owner->commSubsystem->AddCommTask(barkTask);
+			memory.lastTimeVisualStimBark = gameLocal.time;
+
 		}
 		else if (gameLocal.time >= _turnEndTime)
 		{
@@ -131,6 +135,39 @@ void FleeDoneState::Think(idAI* owner)
 	}
 }
 
+
+void FleeDoneState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
+{
+	assert(stimSource != NULL && owner != NULL); // must be fulfilled
+
+	Memory& memory = owner->GetMemory();
+	
+	if (!stimSource->IsType(idActor::Type)) return; // No Actor, quit
+
+	// Hard-cast the stimsource onto an actor 
+	idActor* other = static_cast<idActor*>(stimSource);	
+
+	if (owner->IsFriend(other))
+	{
+		if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
+		{
+
+			memory.lastTimeVisualStimBark = gameLocal.time;
+			CommMessagePtr message(new CommMessage(
+				CommMessage::DetectedEnemy_CommType, 
+				owner, other, owner->GetEnemy(), memory.alertPos)
+			); 
+
+			CommunicationTaskPtr barkTask(new SingleBarkTask("snd_flee", message));
+			owner->commSubsystem->AddCommTask(barkTask);
+			memory.lastTimeVisualStimBark = gameLocal.time;
+
+		}
+
+	}
+}
+
+
 bool FleeDoneState::CheckAlertLevel(idAI* owner)
 {
 	// FleeDoneState terminates itself when the AI reaches Suspicious
@@ -142,7 +179,8 @@ bool FleeDoneState::CheckAlertLevel(idAI* owner)
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 4);
 		owner->SetTurnRate(_oldTurnRate);
 
-		owner->GetMind()->EndState();
+		owner->ClearEnemy();
+
 		return false;
 	}
 	

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3450 $
- * $Date: 2009-05-21 04:09:11 -0400 (Thu, 21 May 2009) $
- * $Author: greebo $
+ * $Revision: 3453 $
+ * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 3450 2009-05-21 08:09:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: aas_debug.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing
@@ -191,7 +191,7 @@ void idAASLocal::ShowArea( const idVec3 &origin ) const {
 		int travelTime;
 		idReachability *reach;
 		
-		RouteToGoalArea( areaNum, org, aas_goalArea.GetInteger(), TFL_WALK|TFL_AIR, travelTime, &reach, NULL );
+		RouteToGoalArea( areaNum, org, aas_goalArea.GetInteger(), TFL_WALK|TFL_AIR, travelTime, &reach, NULL, NULL );
 		gameLocal.Printf( "\rtt = %4d", travelTime );
 		if ( reach ) {
 			gameLocal.Printf( " to area %4d", reach->toAreaNum );
@@ -256,7 +256,7 @@ void idAASLocal::ShowWalkPath( const idVec3 &origin, int goalAreaNum, const idVe
 
 	for ( i = 0; i < 100; i++ ) {
 
-		if ( !RouteToGoalArea( curAreaNum, org, goalAreaNum, TFL_WALK|TFL_AIR, travelTime, &reach, NULL ) ) {
+		if ( !RouteToGoalArea( curAreaNum, org, goalAreaNum, TFL_WALK|TFL_AIR, travelTime, &reach, NULL, NULL ) ) {
 			break;
 		}
 
@@ -302,7 +302,7 @@ void idAASLocal::ShowFlyPath( const idVec3 &origin, int goalAreaNum, const idVec
 
 	for ( i = 0; i < 100; i++ ) {
 
-		if ( !RouteToGoalArea( curAreaNum, org, goalAreaNum, TFL_WALK|TFL_FLY|TFL_AIR, travelTime, &reach, NULL ) ) {
+		if ( !RouteToGoalArea( curAreaNum, org, goalAreaNum, TFL_WALK|TFL_FLY|TFL_AIR, travelTime, &reach, NULL, NULL ) ) {
 			break;
 		}
 

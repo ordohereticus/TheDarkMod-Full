@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3045 $
- * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3453 $
+ * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3045 $   $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3453 $   $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $", init_version);
 
 #include "aas_local.h"
 #include "../../DarkMod/TimerManager.h"
@@ -286,11 +286,14 @@ bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &ori
 	path.secondaryGoal = origin;
 	path.reachability = NULL;
 	path.elevatorRoute = eas::RouteInfoPtr();
+	path.firstDoor = NULL;
 
 	if ( file == NULL || areaNum == goalAreaNum ) {
 		path.moveGoal = goalOrigin;
 		return true;
 	}
+
+	CFrobDoor* door = NULL;
 
 	int lastAreas[4] = { areaNum, areaNum, areaNum, areaNum };
 	int lastAreaIndex = 0;
@@ -300,14 +303,20 @@ bool idAASLocal::WalkPathToGoal( aasPath_t &path, int areaNum, const idVec3 &ori
 	idVec3 endPos;
 	int travelTime, endAreaNum;
 
-	for ( int i = 0; i < maxWalkPathIterations; i++ ) {
+	for ( int i = 0; i < maxWalkPathIterations; i++ )
+	{
 
-		if ( !idAASLocal::RouteToGoalArea( curAreaNum, path.moveGoal, goalAreaNum, travelFlags, travelTime, &reach, actor ) ) {
+		if ( !idAASLocal::RouteToGoalArea( curAreaNum, path.moveGoal, goalAreaNum, travelFlags, travelTime, &reach, &door, actor ) ) {
 			break;
 		}
 
 		if ( !reach ) {
 			return false;
+		}
+
+		if (door != NULL && path.firstDoor == NULL)
+		{
+			path.firstDoor = door;
 		}
 
 		// no need to check through the first area
@@ -472,6 +481,7 @@ bool idAASLocal::FlyPathToGoal( aasPath_t &path, int areaNum, const idVec3 &orig
 	path.secondaryGoal = origin;
 	path.reachability = NULL;
 	path.elevatorRoute = eas::RouteInfoPtr();
+	path.firstDoor = NULL;
 
 	if ( file == NULL || areaNum == goalAreaNum ) {
 		path.moveGoal = goalOrigin;
@@ -485,7 +495,7 @@ bool idAASLocal::FlyPathToGoal( aasPath_t &path, int areaNum, const idVec3 &orig
 
 	for ( i = 0; i < maxFlyPathIterations; i++ ) {
 
-		if ( !idAASLocal::RouteToGoalArea( curAreaNum, path.moveGoal, goalAreaNum, travelFlags, travelTime, &reach, NULL ) ) {
+		if ( !idAASLocal::RouteToGoalArea( curAreaNum, path.moveGoal, goalAreaNum, travelFlags, travelTime, &reach, &path.firstDoor, NULL ) ) {
 			break;
 		}
 

@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2559 $
- * $Date: 2008-06-22 10:08:06 -0400 (Sun, 22 Jun 2008) $
+ * $Revision: 3453 $
+ * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EscapePointEvaluator.cpp 2559 2008-06-22 14:08:06Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: EscapePointEvaluator.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
 
 #include "EscapePointEvaluator.h"
 #include "EscapePointManager.h"
@@ -36,7 +36,7 @@ bool EscapePointEvaluator::PerformDistanceCheck(EscapePoint& escapePoint)
 
 	// Calculate the traveltime
 	idReachability* reach;
-	_conditions.aas->RouteToGoalArea(_startAreaNum, _conditions.fromPosition, escapePoint.areaNum, travelFlags, travelTime, &reach, _conditions.self.GetEntity());
+	_conditions.aas->RouteToGoalArea(_startAreaNum, _conditions.fromPosition, escapePoint.areaNum, travelFlags, travelTime, &reach, NULL, _conditions.self.GetEntity());
 	
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Traveltime to point %d = %d\r", escapePoint.id, travelTime);
 
