@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3573 $
-#* $Date: 2009-07-24 01:53:48 -0400 (Fri, 24 Jul 2009) $
+#* $Revision: 3639 $
+#* $Date: 2009-08-03 10:31:08 -0400 (Mon, 03 Aug 2009) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -254,6 +254,7 @@ AI/Tasks/RandomHeadturnTask.cpp \
 AI/Tasks/RandomTurningTask.cpp \
 AI/Tasks/RangedCombatTask.cpp \
 AI/Tasks/RepeatedBarkTask.cpp \
+AI/Tasks/ResolveMovementBlockTask.cpp \
 AI/Tasks/SingleBarkTask.cpp \
 AI/Tasks/ScriptTask.cpp \
 AI/Tasks/ThrowObjectTask.cpp \
