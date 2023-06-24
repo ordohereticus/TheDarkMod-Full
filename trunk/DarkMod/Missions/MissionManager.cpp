@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3932 $
- * $Date: 2010-06-10 04:12:05 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3933 $
+ * $Date: 2010-06-10 05:53:31 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3932 2010-06-10 08:12:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3933 2010-06-10 09:53:31Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -28,6 +28,8 @@ void CMissionManager::Init()
 
 	// (Re-)generate mission list on start
 	ReloadMissionList();
+
+	InitStartingMap();
 }
 
 void CMissionManager::Shutdown()
@@ -499,5 +501,39 @@ bool CMissionManager::DoMoveFile(const fs::path& fromPath, const fs::path& toPat
 		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Exception while moving file: %s\r", e.what());
 
 		return false;
+	}
+}
+
+void CMissionManager::InitStartingMap()
+{
+	_curStartingMap.Empty();
+
+	idStr curModName = gameLocal.m_MissionManager->GetCurrentMissionName();
+
+	if (curModName.IsEmpty())
+	{
+		return;
+	}
+
+	// Find out which is the starting map of the current mod
+	fs::path doomPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
+	doomPath /= "..";
+
+	fs::path startingMapPath(cv_tdm_fm_path.GetString());
+	startingMapPath = startingMapPath / gameLocal.m_MissionManager->GetCurrentMissionName().c_str() / cv_tdm_fm_startingmap_file.GetString();
+
+	char* buffer = NULL;
+
+	if (fileSystem->ReadFile(startingMapPath.string().c_str(), reinterpret_cast<void**>(&buffer)) != -1)
+	{
+		// We have a startingmap
+		_curStartingMap = buffer;
+		fileSystem->FreeFile(reinterpret_cast<void*>(buffer));
+
+		cv_tdm_mapName.SetString(_curStartingMap);
+	}
+	else
+	{
+		gameLocal.Warning("No '%s' file for the current mod: %s", startingMapPath.string().c_str(), gameLocal.m_MissionManager->GetCurrentMissionName().c_str());
 	}
 }

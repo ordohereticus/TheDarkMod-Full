@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3933 $
+ * $Date: 2010-06-10 05:53:31 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3933 2010-06-10 09:53:31Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -508,10 +508,6 @@ void idGameLocal::Init( void ) {
 	m_MissionManager = CMissionManagerPtr(new CMissionManager);
 	m_MissionManager->Init();
 
-	// Initialise the mod menu class to load the FMs
-	assert(m_ModMenu != NULL);
-	m_ModMenu->Init();
-
 	assert(m_Shop != NULL);
 	m_Shop->Init();
 
@@ -720,7 +716,6 @@ void idGameLocal::SaveGame( idFile *f ) {
 	m_AreaManager.Save(&savegame);
 	m_ConversationSystem->Save(&savegame);
 	m_RelationsManager->Save(&savegame);
-	m_ModMenu->Save(&savegame);
 	m_Shop->Save(&savegame);
 	LAS.Save(&savegame);
 
@@ -1719,7 +1714,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_AreaManager.Restore(&savegame);
 	m_ConversationSystem->Restore(&savegame);
 	m_RelationsManager->Restore(&savegame);
-	m_ModMenu->Restore(&savegame);
 	m_Shop->Restore(&savegame);
 	LAS.Restore(&savegame);
 
