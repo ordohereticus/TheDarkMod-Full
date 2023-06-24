@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3550 $
- * $Date: 2009-07-19 07:03:12 -0400 (Sun, 19 Jul 2009) $
+ * $Revision: 3552 $
+ * $Date: 2009-07-19 07:38:41 -0400 (Sun, 19 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 3550 2009-07-19 11:03:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 3552 2009-07-19 11:38:41Z greebo $", init_version);
 
 #include "RangedCombatTask.h"
 #include "WaitTask.h"
@@ -63,6 +63,8 @@ bool RangedCombatTask::Perform(Subsystem& subsystem)
 			// greebo: Set the waitstate, this gets cleared by 
 			// the script function when the animation is done.
 			owner->SetWaitState("ranged_attack");
+
+			EmitCombatBark(owner, "snd_combat_ranged");
 		}
 		else
 		{
