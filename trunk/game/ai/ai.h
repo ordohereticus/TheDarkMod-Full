@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3648 $
- * $Date: 2009-08-05 01:23:31 -0400 (Wed, 05 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3654 $
+ * $Date: 2009-08-06 03:23:44 -0400 (Thu, 06 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -922,7 +922,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	/**
 	* Alert state above which their KO behavior changes (if any)
 	**/
-	idStr					m_KoAlertState;
+	int					m_KoAlertState;
 	/**
 	* True if AI is completely immune to KO when alerted above the given alert state
 	**/
@@ -1269,7 +1269,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					GetMovePos( idVec3 &seekPos );
 	bool					MoveDone( void ) const;
 
-	ID_INLINE moveType_t GetMoveType()
+	ID_INLINE moveType_t	GetMoveType() const
 	{
 		return move.moveType;
 	}
