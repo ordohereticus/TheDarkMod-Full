@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3548 $
- * $Date: 2009-07-18 17:48:02 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3554 $
+ * $Date: 2009-07-19 08:50:12 -0400 (Sun, 19 Jul 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3548 2009-07-18 21:48:02Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3554 2009-07-19 12:50:12Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -622,6 +622,11 @@ idLight::Fade
 */
 void idLight::Fade( const idVec4 &to, float fadeTime ) {
 	GetColor( fadeFrom );
+	// Tels: we already have the same color we should become, so we can skip this
+	if (fadeFrom == to)
+		{
+		return;
+		}
 	fadeTo = to;
 	fadeStart = gameLocal.time;
 	fadeEnd = gameLocal.time + SEC2MS( fadeTime );
@@ -661,6 +666,8 @@ void idLight::FadeTo( idVec3 color, float time ) {
 
 	idVec4 color4;
 
+	// tels: TODO: this step sets the intensity of the light to the maximum,
+	//		 do we really want this?
 	currentLevel = levels;
 	color4.Set( color.x, color.y, color.z, 1.0f );
 	Fade( color4, time );
