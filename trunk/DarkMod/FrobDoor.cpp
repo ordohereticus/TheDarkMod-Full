@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3331 $
- * $Date: 2009-03-28 04:11:19 -0400 (Sat, 28 Mar 2009) $
+ * $Revision: 3332 $
+ * $Date: 2009-03-28 04:36:10 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3331 2009-03-28 08:11:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3332 2009-03-28 08:36:10Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -955,6 +955,8 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 {
 	if (m_Doorhandles.Num() > 0)
 	{
+		// greebo: Find the handle nearest to the player, as one of the doorhandles could be 
+		// behind a closed visportal.
 		float bestDistanceSqr = idMath::INFINITY;
 		idVec3 playerEyePos = gameLocal.GetLocalPlayer()->GetEyePosition();
 
@@ -978,7 +980,7 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 
 		if (handle != NULL)
 		{
-			// Let the sound play from the first handle, but use the soundshader
+			// Let the sound play from the handle, but use the soundshader
 			// as defined on this entity.
 			idStr sound = spawnArgs.GetString(soundName, "");
 
