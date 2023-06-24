@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3530 $
- * $Date: 2009-07-13 09:10:11 -0400 (Mon, 13 Jul 2009) $
+ * $Revision: 3538 $
+ * $Date: 2009-07-17 13:34:56 -0400 (Fri, 17 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -500,6 +500,12 @@ public:
 
 	// angua: the direction the AI faces before sitting and laying down
 	idScriptVector			AI_LAY_DOWN_FACE_DIR;
+
+	// angua: the AI will turn to this direction after sitting down (this is practical for chairs next to a table)
+	idScriptFloat			AI_SIT_DOWN_ANGLE;
+
+	// angua: the AI will turn to this direction before getting up from sitting
+	idScriptFloat			AI_SIT_UP_ANGLE;
 
 	// greebo: This is to tell the scripts which idle animation should be played next in the CustomIdleAnim state
 	idStr					m_NextIdleAnim;

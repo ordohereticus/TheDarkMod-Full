@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3530 $
- * $Date: 2009-07-13 09:10:11 -0400 (Mon, 13 Jul 2009) $
+ * $Revision: 3538 $
+ * $Date: 2009-07-17 13:34:56 -0400 (Fri, 17 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3530 2009-07-13 13:10:11Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3538 2009-07-17 17:34:56Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2069,8 +2069,8 @@ void idAI::Think( void )
 				// static monsters
 				UpdateEnemyPosition();
 				UpdateScript();
-				// moving and turning not allowed
-				NoTurnMove();
+				// moving not allowed
+				SittingMove();
 				CheckBlink();
 				break;
 
@@ -2324,6 +2324,10 @@ void idAI::LinkScriptVariables( void )
 
 	AI_LAY_DOWN_LEFT.LinkTo(	scriptObject, "AI_LAY_DOWN_LEFT");
 	AI_LAY_DOWN_FACE_DIR.LinkTo(scriptObject, "AI_LAY_DOWN_FACE_DIR");
+
+	AI_SIT_DOWN_ANGLE.LinkTo(scriptObject, "AI_SIT_DOWN_ANGLE");
+	AI_SIT_UP_ANGLE.LinkTo(scriptObject, "AI_SIT_UP_ANGLE");
+
 
 }
 
