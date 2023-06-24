@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3776 $
- * $Date: 2009-12-28 20:17:57 -0500 (Mon, 28 Dec 2009) $
- * $Author: crispy $
+ * $Revision: 3777 $
+ * $Date: 2009-12-29 06:49:07 -0500 (Tue, 29 Dec 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3776 2009-12-29 01:17:57Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3777 2009-12-29 11:49:07Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -131,6 +131,9 @@ const idEventDef EV_Heal("heal", "sf", 'd');
 
 // tels: Teleport the entity to the position/orientation of the given entity
 const idEventDef EV_TeleportTo("teleportTo", "e");
+
+// tels: set noShadow on this entity to the given argument (true/false)
+const idEventDef EV_NoShadows( "noShadows", "d" );
 
 // tels: Find all lights in the same PVS, then returns their sum.
 const idEventDef EV_GetLightInPVS("getLightInPVS", "", 'v');
@@ -420,7 +423,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT(EV_SetEntityRelation,		idEntity::Event_SetEntityRelation )
 	EVENT(EV_ChangeEntityRelation,	idEntity::Event_ChangeEntityRelation )
 
-
+	EVENT( EV_NoShadows,			idEntity::Event_noShadows )
 
 END_CLASS
 
@@ -2200,6 +2203,19 @@ float idEntity::GetLightQuotient()
 
 	// Return the cached result
 	return m_LightQuotient;
+}
+
+/*
+================
+idEntity::Event_noShadows
+
+tels: Turn shadows from this entity on or off.
+================
+*/
+void idEntity::Event_noShadows( bool noShadow ) 
+{
+	renderEntity.noShadow = ( noShadow ? 1 : 0 );
+	UpdateVisuals();
 }
 
 /*
