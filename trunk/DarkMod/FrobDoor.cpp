@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3692 $
- * $Date: 2009-09-05 04:18:49 -0400 (Sat, 05 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 3829 $
+ * $Date: 2010-01-31 16:16:05 -0500 (Sun, 31 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3692 2009-09-05 08:18:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3829 2010-01-31 21:16:05Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -422,7 +422,7 @@ bool CFrobDoor::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 	if (itemName == "Keys" && impulseState == EPressed) 
 	{
 		// Keys can be used on button PRESS event, let's see if the key matches
-		if (m_UsedBy.FindIndex(itemEntity->name) != -1)
+		if (m_UsedByName.FindIndex(itemEntity->name) != -1)
 		{
 			// If we're locked or closed, just toggle the lock. 
 			if (IsLocked() || IsAtClosedPosition())

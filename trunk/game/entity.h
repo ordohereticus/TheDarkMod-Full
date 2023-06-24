@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3826 $
- * $Date: 2010-01-31 06:04:50 -0500 (Sun, 31 Jan 2010) $
- * $Author: tels $
+ * $Revision: 3829 $
+ * $Date: 2010-01-31 16:16:05 -0500 (Sun, 31 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -297,7 +297,21 @@ public:
 	 * In this example the entity can be used by any holy_fountain, any holy_bottle
 	 * and addtionaly by the entity named holy_cross.
 	 */
-	idList<idStr>			m_UsedBy;
+	idList<idStr>			m_UsedByName;
+	/**
+	* Same, but checks against inv_names
+	**/
+	idList<idStr>			m_UsedByInvName;
+	/**
+	* Same, but checks against inv_categories
+	**/
+	idList<idStr>			m_UsedByCategory;
+	/**
+	* Same, but checks against the entityDef name (e.g. atdm:playertools_lockpick*)
+	* This may be redundant sometimes, because classnames are often a part of the 
+	* entity name.  But not always, mappers can rename entities whatever they want
+	**/
+	idList<idStr>			m_UsedByClassname;
 
 	/**
 	* Set to true if objective locations should update the objectives system when

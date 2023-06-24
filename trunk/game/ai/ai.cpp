@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3825 $
- * $Date: 2010-01-31 00:48:01 -0500 (Sun, 31 Jan 2010) $
+ * $Revision: 3829 $
+ * $Date: 2010-01-31 16:16:05 -0500 (Sun, 31 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3825 2010-01-31 05:48:01Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3829 2010-01-31 21:16:05Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -10130,7 +10130,7 @@ bool idAI::CanUnlock(CBinaryFrobMover *frobMover)
 	}
 	
 	// Look through attachments
-	int n = frobMover->m_UsedBy.Num();
+	int n = frobMover->m_UsedByName.Num();
 	for (int i = 0; i < m_Attachments.Num(); i++)
 	{
 		idEntity* ent = m_Attachments[i].ent.GetEntity();
@@ -10142,7 +10142,7 @@ bool idAI::CanUnlock(CBinaryFrobMover *frobMover)
 		
 		for (int j = 0; j < n; j++)
 		{
-			if (ent->name == frobMover->m_UsedBy[j])
+			if (ent->name == frobMover->m_UsedByName[j])
 			{
 				return true;
 			}
