@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3665 $
- * $Date: 2009-08-13 05:34:55 -0400 (Thu, 13 Aug 2009) $
+ * $Revision: 3677 $
+ * $Date: 2009-08-28 22:31:05 -0400 (Fri, 28 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3665 2009-08-13 09:34:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3677 2009-08-29 02:31:05Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -647,6 +647,15 @@ void CFrobDoor::Event_Lock_OnLockPicked()
 
 void CFrobDoor::AttackAction(idPlayer* player)
 {
+	idEntity* master = GetFrobMaster();
+
+	if (master != NULL) 
+	{
+		master->AttackAction(player);
+		return;
+	}
+
+	// No master
 	m_Lock.AttackAction(player);
 }
 

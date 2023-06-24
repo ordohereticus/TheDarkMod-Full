@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3519 $
- * $Date: 2009-07-04 13:34:17 -0400 (Sat, 04 Jul 2009) $
+ * $Revision: 3677 $
+ * $Date: 2009-08-28 22:31:05 -0400 (Fri, 28 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3519 2009-07-04 17:34:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3677 2009-08-29 02:31:05Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -258,6 +258,15 @@ bool CFrobLock::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 
 void CFrobLock::AttackAction(idPlayer* player)
 {
+	idEntity* master = GetFrobMaster();
+
+	if (master != NULL) 
+	{
+		master->AttackAction(player);
+		return;
+	}
+
+	// No master
 	m_Lock.AttackAction(player);
 }
 
