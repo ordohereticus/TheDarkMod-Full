@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3374 $
- * $Date: 2009-04-08 05:15:44 -0400 (Wed, 08 Apr 2009) $
+ * $Revision: 3384 $
+ * $Date: 2009-04-10 01:08:32 -0400 (Fri, 10 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3374 2009-04-08 09:15:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3384 2009-04-10 05:08:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -56,6 +56,10 @@ const int HEALTHPULSE_TIME = 333;
 
 // minimum speed to bob and play run/walk animations at
 const float MIN_BOB_SPEED = 5.0f;
+
+// shouldered body immobilizations
+const int SHOULDER_IMMOBILIZATIONS = EIM_CLIMB | EIM_ITEM_SELECT | EIM_WEAPON_SELECT | EIM_ATTACK | EIM_ITEM_USE | EIM_MANTLE | EIM_FROB_COMPLEX;
+const float SHOULDER_JUMP_HINDERANCE = 0.25f;
 
 const idEventDef EV_Player_GetButtons( "getButtons", NULL, 'd' );
 const idEventDef EV_Player_GetMove( "getMove", NULL, 'v' );
@@ -3758,6 +3762,47 @@ void idPlayer::SetIsPushing(bool isPushing)
 bool idPlayer::IsPushing()
 {
 	return isPushing;
+}
+
+void idPlayer::OnStartShoulderingBody(idEntity* body)
+{
+	// play the sound on the player, not the body (that was creating inconsistent volume)
+	StartSound( "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
+
+	// set immobilizations
+	int immob = SHOULDER_IMMOBILIZATIONS;
+
+	// TODO: Also make sure you can't grab anything else (hands are full)
+	// requires a new EIM flag?
+	SetImmobilization( "ShoulderedBody", SHOULDER_IMMOBILIZATIONS );
+	
+	// set hinderance
+	float maxSpeed = body->spawnArgs.GetFloat("shouldered_maxspeed","1.0f");
+	SetHinderance( "ShoulderedBody", 1.0f, maxSpeed );
+	SetJumpHinderance( "ShoulderedBody", 1.0f, SHOULDER_JUMP_HINDERANCE );
+
+	// TODO: Adjust HUD
+	/*idStr IconName;
+	if( body->health > 0 )
+		IconName = body->spawnArgs.GetString("shouldered_name", "Body");
+	else
+		IconName = body->spawnArgs.GetString("shouldered_name_dead", "Corpse");
+	*/
+
+	m_bShoulderingBody = true;
+}
+
+void idPlayer::OnStopShoulderingBody(idEntity* body)
+{
+	// clear immobilizations
+	SetImmobilization( "ShoulderedBody", 0 );
+	SetHinderance( "ShoulderedBody", 1.0f, 1.0f );
+	SetJumpHinderance( "ShoulderedBody", 1.0f, 1.0f );
+
+	// same sound for unshouldering as shouldering
+	StartSound( "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
+
+	m_bShoulderingBody = false;
 }
 
 /*

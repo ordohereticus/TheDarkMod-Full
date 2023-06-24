@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3288 $
- * $Date: 2009-03-22 16:37:10 -0400 (Sun, 22 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3384 $
+ * $Date: 2009-04-10 01:08:32 -0400 (Fri, 10 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -334,7 +334,6 @@ public:
 
 	/**
 	* Set to true if the player is shouldering a body
-	* NOT YET IMPLEMENTED
 	**/
 	bool					m_bShoulderingBody;
 
@@ -500,6 +499,10 @@ public:
 	virtual void			SetIsPushing(bool isPushing);
 	// Returns whether the player is currently pushing something heavy (virtual override)
 	virtual bool			IsPushing();
+
+	// Called by the grabber to signal that we start/stop shouldering a body
+	void					OnStartShoulderingBody(idEntity* body);
+	void					OnStopShoulderingBody(idEntity* body);
 
 	/**
 	 * greebo: Plays the footstep sound according to the current movement type.
