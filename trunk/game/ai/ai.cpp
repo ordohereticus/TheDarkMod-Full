@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3763 $
- * $Date: 2009-11-22 09:15:46 -0500 (Sun, 22 Nov 2009) $
- * $Author: angua $
+ * $Revision: 3765 $
+ * $Date: 2009-11-26 11:35:34 -0500 (Thu, 26 Nov 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3763 2009-11-22 14:15:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3765 2009-11-26 16:35:34Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8262,11 +8262,11 @@ void idAI::SetAlertLevel(float newAlertLevel)
 		grace_count = 0;
 	}
 
-	// Tels: When the AI_AlertIndex increased, drop all bound entities
+	// Tels: When the AI_AlertIndex increased, detach all bound entities
 	// that have set "unbindonalertIndex" higher or equal:
     if (m_prevAlertIndex < AI_AlertIndex)
 	{
-		RemoveBindsOnAlertIndex( AI_AlertIndex );
+		DetachOnAlert( AI_AlertIndex );
 	}
 
 	// greebo: Remember the highest alert index

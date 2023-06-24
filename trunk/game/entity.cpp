@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3762 $
- * $Date: 2009-11-22 08:27:21 -0500 (Sun, 22 Nov 2009) $
+ * $Revision: 3765 $
+ * $Date: 2009-11-26 11:35:34 -0500 (Thu, 26 Nov 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3762 2009-11-22 13:27:21Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3765 2009-11-26 16:35:34Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3376,7 +3376,7 @@ tels: Remove bound children when their "unbindonalertindex" is greater or equal 
 alert.
 ================
 */
-void idEntity::RemoveBindsOnAlertIndex( const int alertIndex ) {
+void idEntity::RemoveBindsOnAlert( const int alertIndex ) {
 	idEntity *ent;
 	idEntity *next;
 
@@ -3392,6 +3392,28 @@ void idEntity::RemoveBindsOnAlertIndex( const int alertIndex ) {
 			}
 
 			next = teamChain;
+		}
+	}
+}
+
+/*
+================
+idEntity::DetachOnAlert
+
+tels: Remove attached entities when their "unbindonalertindex" is greater or equal to the given
+alert index. The attached entities will be removed from the attached list and are also unbound.
+================
+*/
+void idEntity::DetachOnAlert( const int alertIndex )
+{
+	idEntity *ent = NULL;
+
+	for ( int ind = 0; ind < m_Attachments.Num(); ind ++)
+	{
+		ent = m_Attachments[ind].ent.GetEntity();
+		if( ent && m_Attachments[ind].ent.IsValid() )
+		{
+		DetachInd(ind);	
 		}
 	}
 }
