@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3579 $
- * $Date: 2009-07-24 23:34:23 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3582 $
+ * $Date: 2009-07-25 14:13:04 -0400 (Sat, 25 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: GreetingBarkTask.cpp 3579 2009-07-25 03:34:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: GreetingBarkTask.cpp 3582 2009-07-25 18:13:04Z greebo $", init_version);
 
 #include "GreetingBarkTask.h"
 #include "../Memory.h"
@@ -52,8 +52,10 @@ void GreetingBarkTask::Init(idAI* owner, Subsystem& subsystem)
 		return;
 	}
 
-	if (owner->greetingState != ENotGreetingAnybody || 
-		_greetingTarget->greetingState != ENotGreetingAnybody)
+	// Allow state "waiting for greeting" for owner
+	// Allow state "after Greeting" for the other AI
+	if ((owner->greetingState != ENotGreetingAnybody && owner->greetingState != EWaitingForGreeting) || 
+		(_greetingTarget->greetingState != ENotGreetingAnybody && _greetingTarget->greetingState != EAfterGreeting))
 	{
 		// Target is busy
 		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Cannot greet: one of the actors is busy: %s to %s\r", owner->name.c_str(), _greetingTarget->name.c_str());
@@ -62,7 +64,7 @@ void GreetingBarkTask::Init(idAI* owner, Subsystem& subsystem)
 	}
 
 	// Check the last time we greeted this AI
-	int lastGreetingTime = owner->GetMemory().GetLastGreetingTime(_greetingTarget);
+	int lastGreetingTime = owner->GetMemory().GetGreetingInfo(_greetingTarget).lastGreetingTime;
 
 	if (lastGreetingTime > 0 && lastGreetingTime < gameLocal.time + MINIMUM_TIME_BETWEEN_GREETING_SAME_ACTOR)
 	{
@@ -121,7 +123,8 @@ bool GreetingBarkTask::Perform(Subsystem& subsystem)
 		owner->greetingState = EIsGreeting;
 
 		// Remember the time we greeted this actor
-		owner->GetMemory().SetLastGreetingTime(_greetingTarget, gameLocal.time);
+		Memory::GreetingInfo& info = owner->GetMemory().GetGreetingInfo(_greetingTarget);
+		info.lastGreetingTime = gameLocal.time;
 
 		int timeLeft = _endTime - gameLocal.time;
 

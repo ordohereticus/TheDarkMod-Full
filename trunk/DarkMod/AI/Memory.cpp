@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3580 $
- * $Date: 2009-07-25 09:43:16 -0400 (Sat, 25 Jul 2009) $
+ * $Revision: 3582 $
+ * $Date: 2009-07-25 14:13:04 -0400 (Sat, 25 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3580 2009-07-25 13:43:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3582 2009-07-25 18:13:04Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -138,6 +138,7 @@ void Memory::Save(idSaveGame* savefile) const
 	{
 		savefile->WriteObject(i->first);
 		savefile->WriteInt(i->second.lastGreetingTime);
+		savefile->WriteInt(i->second.lastConsiderTime);
 	}
 }
 
@@ -247,6 +248,7 @@ void Memory::Restore(idRestoreGame* savefile)
 			ActorGreetingInfoMap::value_type(ai, GreetingInfo()));
 		
 		savefile->ReadInt(result.first->second.lastGreetingTime);
+		savefile->ReadInt(result.first->second.lastConsiderTime);
 	}
 }
 
@@ -283,14 +285,7 @@ DoorInfoPtr Memory::GetDoorInfo(int areaNum)
 	return (i != doorRelated.areaDoorInfoMap.end()) ? i->second : DoorInfoPtr();
 }
 
-int Memory::GetLastGreetingTime(idActor* actor)
-{
-	ActorGreetingInfoMap::iterator i = greetingInfo.find(actor);
-
-	return (i != greetingInfo.end()) ? i->second.lastGreetingTime : -1;
-}
-
-void Memory::SetLastGreetingTime(idActor* actor, int time)
+Memory::GreetingInfo& Memory::GetGreetingInfo(idActor* actor)
 {
 	// Insert structure if not existing
 	ActorGreetingInfoMap::iterator i = greetingInfo.find(actor);
@@ -300,7 +295,7 @@ void Memory::SetLastGreetingTime(idActor* actor, int time)
 		i = greetingInfo.insert(ActorGreetingInfoMap::value_type(actor, GreetingInfo())).first;
 	}
 
-	i->second.lastGreetingTime = time;
+	return i->second;
 }
 
 } // namespace ai

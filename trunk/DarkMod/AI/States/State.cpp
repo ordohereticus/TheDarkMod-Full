@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3581 $
- * $Date: 2009-07-25 09:45:55 -0400 (Sat, 25 Jul 2009) $
+ * $Revision: 3582 $
+ * $Date: 2009-07-25 14:13:04 -0400 (Sat, 25 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3581 2009-07-25 13:45:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3582 2009-07-25 18:13:04Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -60,7 +60,8 @@ namespace ai
 #define PERSONGENDER_FEMALE		"PERSONGENDER_FEMALE"
 #define PERSONGENDER_UNKNOWN	"PERSONGENDER_UNKNOWN"
 
-
+const int MIN_TIME_BETWEEN_GREETING_CHECKS = 20000; // msecs
+const float CHANCE_FOR_GREETING = 0.3f; // 30% chance for greeting
 
 //----------------------------------------------------------------------------------------
 // The following defines a key that should be non-0 if the device should be closed
@@ -665,7 +666,31 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 
 					if (distSqr <= Square(230))
 					{
-						if (owner->CheckFOV(otherAI->GetEyePosition()) && otherAI->CheckFOV(owner->GetEyePosition()))
+						Memory::GreetingInfo& info = owner->GetMemory().GetGreetingInfo(otherAI);
+
+						bool consider = true;
+
+						// Owner has a certain chance of greeting when encountering the other person 
+						// this chance does not get re-evaluated for a given amount of time
+						// Basically this has the effect that AI evaluate the greeting chance
+						// immediately after they enter the greeting radius and ignore all stims for 
+						// the next 20 secs. (i.e. one chance evaluation per 20 seconds)
+						if (info.lastConsiderTime > -1 && 
+							gameLocal.time < info.lastConsiderTime + MIN_TIME_BETWEEN_GREETING_CHECKS)
+						{
+							// Not enough time has passed, ignore this stim
+							consider = false;
+						}
+						else
+						{
+							info.lastConsiderTime = gameLocal.time;
+
+							consider = (gameLocal.random.RandomFloat() > 1.0f - CHANCE_FOR_GREETING);
+						}
+
+						if (consider && 
+							owner->CheckFOV(otherAI->GetEyePosition()) && 
+							otherAI->CheckFOV(owner->GetEyePosition()))
 						{
 							// Clear the sound, a special GreetingBarkTask is handling this
 							soundName = "";
