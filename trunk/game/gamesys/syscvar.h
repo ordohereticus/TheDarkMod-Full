@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3826 $
- * $Date: 2010-01-31 06:04:50 -0500 (Sun, 31 Jan 2010) $
+ * $Revision: 3827 $
+ * $Date: 2010-01-31 10:46:02 -0500 (Sun, 31 Jan 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -314,8 +314,6 @@ extern idCVar cv_music_volume;
 extern idCVar cv_voice_player_volume;
 // Tels: Volume of the "speaker-from-off voice" speaker
 extern idCVar cv_voice_from_off_volume;
-// Tels: Is the player female?
-extern idCVar cv_player_is_female;
 
 // angua: Velocity and sound volume of collisions
 extern idCVar cv_moveable_collision;
