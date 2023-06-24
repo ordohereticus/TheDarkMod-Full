@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3436 $
- * $Date: 2009-05-09 03:35:38 -0400 (Sat, 09 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3527 $
+ * $Date: 2009-07-12 12:27:06 -0400 (Sun, 12 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3436 2009-05-09 07:35:38Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3527 2009-07-12 16:27:06Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1182,7 +1182,7 @@ void idPlayer::SetupInventory()
 
 	// give the player weapon ammo based on shop purchases
 	category = m_WeaponCursor->GetCurrentCategory();
-	idList<CShopItemPtr> startingItems = gameLocal.m_Shop->GetPlayerItems();
+	ShopItemList startingItems = gameLocal.m_Shop->GetPlayerItems();
 
 	for (int si = 0; si < startingItems.Num(); si++)
 	{
