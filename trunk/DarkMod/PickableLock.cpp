@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3307 $
- * $Date: 2009-03-26 01:45:22 -0400 (Thu, 26 Mar 2009) $
+ * $Revision: 3308 $
+ * $Date: 2009-03-26 05:09:37 -0400 (Thu, 26 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3307 2009-03-26 05:45:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3308 2009-03-26 09:09:37Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -574,6 +574,7 @@ void PickableLock::UpdateLockpickHUD()
 	player->SetGuiString(player->lockpickHUD, "StatusText5", StateNames[m_LockpickState]);
 	player->CallGui(player->lockpickHUD, "OnLockPickProcess");
 	player->SetGuiInt(player->lockpickHUD, "HotSpotActive", m_HotSpotActive ? 1 : 0);
+	player->SetGuiInt(player->lockpickHUD, "HotSpotInActive", m_HotSpotActive ? 0 : 1);
 
 	idStr patternText = "Current Pattern: ";
 	patternText += idStr(m_FirstLockedPinIndex + 1) + idStr(" of ") + idStr(m_Pins.Num());
