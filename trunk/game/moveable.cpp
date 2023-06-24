@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3298 $
- * $Date: 2009-03-25 06:38:28 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3299 $
+ * $Date: 2009-03-25 06:52:39 -0400 (Wed, 25 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 3298 2009-03-25 10:38:28Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3299 2009-03-25 10:52:39Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -43,7 +43,8 @@ END_CLASS
 
 static const float BOUNCE_SOUND_MIN_VELOCITY	= 80.0f;
 static const float BOUNCE_SOUND_MAX_VELOCITY	= 200.0f;
-static const float SLIDING_VELOCITY_THRESHOLD = 5.0f;
+static const float BOUNCE_MIN_VELOCITY_VOLMOD	= 10.0f;
+static const float SLIDING_VELOCITY_THRESHOLD	= 5.0f;
 
 /*
 ================
@@ -379,7 +380,7 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity ) {
 			// angua: modify the volume set in the def instead of setting a fixed value. 
 			// At minimum velocity, the volume should be 10 db lower than the one specified in the def
 			// todo: define volume at min velocity in sndshd?
-			f = v > BOUNCE_SOUND_MAX_VELOCITY ? 0.0f : 10 * ( idMath::Sqrt(v - BOUNCE_SOUND_MIN_VELOCITY) * (1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY)) - 1 );
+			f = v > BOUNCE_SOUND_MAX_VELOCITY ? 0.0f : BOUNCE_MIN_VELOCITY_VOLMOD * ( idMath::Sqrt(v - BOUNCE_SOUND_MIN_VELOCITY) * (1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY)) - 1 );
 			if ( StartSound( SndNameLocal.c_str(), SND_CHANNEL_ANY, 0, false, NULL, f ) ) {
 				// don't set the volume unless there is a bounce sound as it overrides the entire channel
 				// which causes footsteps on ai's to not honor their shader parms
