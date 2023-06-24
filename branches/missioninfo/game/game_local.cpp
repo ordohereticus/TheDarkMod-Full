@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3921 $
- * $Date: 2010-06-08 05:16:42 -0400 (Tue, 08 Jun 2010) $
+ * $Revision: 3927 $
+ * $Date: 2010-06-10 00:05:49 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3921 2010-06-08 09:16:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3927 2010-06-10 04:05:49Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1640,6 +1640,9 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	gamestate = GAMESTATE_ACTIVE;
 	m_MissionResult = MISSION_INPROGRESS;
 
+	// Let the mission database know that we start playing
+	m_MissionManager->OnMissionStart();
+
 	// We need an objectives update now that we've loaded the map
 	m_MissionData->ClearGUIState();
 
@@ -2007,6 +2010,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	{
 		m_StimTimer[i] = static_cast<CStim*>(FindStimResponse(tempStimTimerIdList[i]).get());
 	}
+
+	// Let the mission database know that we start playing
+	m_MissionManager->OnMissionStart();
 
 	Printf( "--------------------------------------\n" );
 

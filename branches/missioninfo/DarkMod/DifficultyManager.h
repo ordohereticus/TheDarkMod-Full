@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3425 $
- * $Date: 2009-05-06 11:58:31 -0400 (Wed, 06 May 2009) $
+ * $Revision: 3927 $
+ * $Date: 2010-06-10 00:05:49 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -64,7 +64,7 @@ public:
 	int GetDifficultyLevel() const;
 
 	// Returns the display name for the given level, which must an integer in [0..DIFFICULTY_COUNT)
-	const idStr& GetDifficultyName(int level);
+	idStr GetDifficultyName(int level);
 
 	/**
 	 * greebo: Applies the spawnarg modifiers of the currently chosen

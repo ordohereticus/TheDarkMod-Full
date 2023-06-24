@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3926 $
- * $Date: 2010-06-09 21:52:20 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3927 $
+ * $Date: 2010-06-10 00:05:49 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -75,11 +75,14 @@ public:
 	// whether the mission has been completed on any difficulty level.
 	bool MissionCompleted(int difficultyLevel = -1);
 
+	// Get the assembled mission completion string with difficulty information
+	idStr GetMissionCompletedString();
+
 	// Returns a human-readable format string (i.e. 1.33 GB)
 	idStr	GetMissionFolderSizeString();
 
 	// Returns a specific key value from the mission info declaration's dictionary
-	idStr	GetKeyValue(const char* key);
+	idStr	GetKeyValue(const char* key, const char* defaultStr ="");
 
 	// Saves a key into the internal declaration dictionary
 	void	SetKeyValue(const char* key, const char* value);

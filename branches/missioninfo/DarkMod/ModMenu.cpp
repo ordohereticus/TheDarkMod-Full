@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3926 $
- * $Date: 2010-06-09 21:52:20 -0400 (Wed, 09 Jun 2010) $
+ * $Revision: 3927 $
+ * $Date: 2010-06-10 00:05:49 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3926 2010-06-10 01:52:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3927 2010-06-10 04:05:49Z greebo $", init_version);
 
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
@@ -236,7 +236,8 @@ void CModMenu::UpdateSelectedMod(idUserInterface* gui)
 			"affected by this operation, you're still able to re-install the mission.", info->GetMissionFolderPath().c_str());
 		gui->SetStateString("eraseMissionText", eraseMissionText);
 
-		gui->SetStateBool(va("modCompleted%d", modIndex), info->MissionCompleted());
+		gui->SetStateString("selectedModCompleted", info->GetMissionCompletedString());
+		gui->SetStateString("selectedModLastPlayDate", info->GetKeyValue("last_play_date", "-"));
 	}
 	else
 	{
