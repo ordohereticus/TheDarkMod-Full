@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3295 $
- * $Date: 2009-03-25 04:09:01 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3296 $
+ * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3295 2009-03-25 08:09:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3296 2009-03-25 08:56:58Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -35,12 +35,39 @@ void CFrobLock::Spawn()
 	// Load the lock spawnargs
 	m_Lock.InitFromSpawnargs(spawnArgs);
 
+	/*
+	unlock_trigger_delay
+	lock_trigger_delay
+
+	unlock_target_N
+	lock_target_N
+
+	trigger_targets_on_lock
+	trigger_targets_on_unlock
+	
+	update_target_frobability
+
+	snd_lock
+	snd_locked
+	snd_unlock
+	*/
+
 	PostEventMS(&EV_PostSpawn, 0);
 }
 
 void CFrobLock::PostSpawn()
 {
 	// TODO: Find lever entities
+}
+
+void CFrobLock::Lock()
+{
+	m_Lock.SetLocked(true);
+}
+
+void CFrobLock::Unlock()
+{
+	m_Lock.SetLocked(false);
 }
 
 bool CFrobLock::IsLocked()
@@ -51,4 +78,20 @@ bool CFrobLock::IsLocked()
 bool CFrobLock::IsPickable()
 {
 	return m_Lock.IsPickable();
+}
+
+void CFrobLock::Event_Lock_StatusUpdate()
+{
+	// TODO: Update lever positions
+}
+
+void CFrobLock::Event_Lock_OnLockPicked()
+{
+	Unlock();
+}
+
+void CFrobLock::Event_Lock_OnLockStatusChange()
+{
+	// TODO: Update frobability
+	// TODO: Trigger targets
 }

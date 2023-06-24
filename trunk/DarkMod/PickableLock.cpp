@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3294 $
- * $Date: 2009-03-25 03:52:53 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3296 $
+ * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3294 2009-03-25 07:52:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3296 2009-03-25 08:56:58Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -38,8 +38,9 @@ static const char* StateNames[] =
 };
 
 // Events to be implemented by owner classes
-const idEventDef EV_TDM_Lockpick_StatusUpdate("TDM_Lockpick_StatusUpdate", NULL);
-const idEventDef EV_TDM_Lockpick_OnLockPicked("TDM_Lockpick_OnLockPicked", NULL);
+const idEventDef EV_TDM_Lock_StatusUpdate("TDM_Lock_StatusUpdate", NULL);
+const idEventDef EV_TDM_Lock_OnLockPicked("TDM_Lock_OnLockPicked", NULL);
+const idEventDef EV_TDM_Lock_OnLockStatusChange("TDM_Lock_OnLockStatusChange", "d"); // 1 = locked, 0 = locked
 
 // Internal events, no need to expose these to scripts
 const idEventDef EV_TDM_LockpickSoundFinished("TDM_LockpickSoundFinished", "d"); // pass the next state as argument
@@ -149,7 +150,17 @@ bool PickableLock::IsLocked()
 
 void PickableLock::SetLocked(bool locked)
 {
+	// For checking whether the status changes
+	bool wasLocked = m_Locked;
+
+	// Update to new lock state
 	m_Locked = locked;
+
+	if (m_Owner != NULL && wasLocked != locked)
+	{
+		// Send the lock status change event
+		m_Owner->ProcessEvent(&EV_TDM_Lock_OnLockStatusChange, m_Locked);
+	}
 }
 
 bool PickableLock::IsPickable()
@@ -207,10 +218,10 @@ void PickableLock::OnLockpickPinSuccess()
 		PropPickSound("snd_lockpick_lock_picked", PICKED);
 		
 		// Move the handle back to its original position
-		m_Owner->ProcessEvent(&EV_TDM_Lockpick_StatusUpdate);
+		m_Owner->ProcessEvent(&EV_TDM_Lock_StatusUpdate);
 
 		// And unlock the door after a small delay
-		m_Owner->PostEventMS(&EV_TDM_Lockpick_OnLockPicked, 150);
+		m_Owner->PostEventMS(&EV_TDM_Lock_OnLockPicked, 150);
 
 		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] successfully picked!\r", m_Owner->name.c_str());
 	}
@@ -357,7 +368,7 @@ bool PickableLock::ProcessLockpickRepeat(int type)
 	}
 
 	// Trigger an update event in any case
-	m_Owner->ProcessEvent(&EV_TDM_Lockpick_StatusUpdate);
+	m_Owner->ProcessEvent(&EV_TDM_Lock_StatusUpdate);
 
 	// Check if we're still playing a sound
 	if (m_SoundTimerStarted > 0) return false; // busy

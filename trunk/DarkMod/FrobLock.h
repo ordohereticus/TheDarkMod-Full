@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3295 $
- * $Date: 2009-03-25 04:09:01 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3296 $
+ * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -30,12 +30,19 @@ public:
 	bool	IsLocked();
 	bool	IsPickable();
 
+	void	Lock();
+	void	Unlock();
+
 	void	Save(idSaveGame *savefile) const;
 	void	Restore(idRestoreGame *savefile);
 
 protected:
 	void	PostSpawn();
 
+	// Required events which are called by the PickableLock class
+	void	Event_Lock_StatusUpdate();
+	void	Event_Lock_OnLockPicked();
+	void	Event_Lock_OnLockStatusChange();
 };
 
 #endif /* _FROB_LOCK_H_ */

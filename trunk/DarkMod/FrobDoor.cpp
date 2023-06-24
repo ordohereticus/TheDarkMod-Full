@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3295 $
- * $Date: 2009-03-25 04:09:01 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3296 $
+ * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3295 2009-03-25 08:09:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3296 2009-03-25 08:56:58Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -43,8 +43,8 @@ CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_Door_GetDoorhandle,		CFrobDoor::Event_GetDoorhandle)
 
 	// Needed for PickableLock: Update Handle position on lockpick status update
-	EVENT( EV_TDM_Lockpick_StatusUpdate,	CFrobDoor::Event_Lockpick_StatusUpdate)
-	EVENT( EV_TDM_Lockpick_OnLockPicked,	CFrobDoor::Event_Lockpick_OnLockPicked)
+	EVENT( EV_TDM_Lock_StatusUpdate,	CFrobDoor::Event_Lock_StatusUpdate)
+	EVENT( EV_TDM_Lock_OnLockPicked,	CFrobDoor::Event_Lock_OnLockPicked)
 END_CLASS
 
 #define LOCK_REQUEST_DELAY 250 // msecs before a door locks itself after closing (if the preference is set appropriately)
@@ -624,12 +624,12 @@ void CFrobDoor::UpdateHandlePosition()
 	}
 }
 
-void CFrobDoor::Event_Lockpick_StatusUpdate()
+void CFrobDoor::Event_Lock_StatusUpdate()
 {
 	UpdateHandlePosition();
 }
 
-void CFrobDoor::Event_Lockpick_OnLockPicked()
+void CFrobDoor::Event_Lock_OnLockPicked()
 {
 	// "Lock is picked" signal, unlock in master mode
 	Unlock(true);
