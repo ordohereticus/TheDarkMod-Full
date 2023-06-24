@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3333 $
- * $Date: 2009-03-28 04:48:50 -0400 (Sat, 28 Mar 2009) $
+ * $Revision: 3334 $
+ * $Date: 2009-03-28 05:31:15 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3333 2009-03-28 08:48:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3334 2009-03-28 09:31:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10190,8 +10190,22 @@ void idPlayer::FrobCheck()
 	}
 
 	idVec3 eyePos = GetEyePosition();
+	float maxFrobDistance = g_Global.m_MaxFrobDistance;
+
+	// greebo: Let the currently selected inventory item affect the frob distance (lockpicks, for instance)
+	CInventoryItemPtr curItem = InventoryCursor()->GetCurrentItem();
+	if (curItem != NULL)
+	{
+		float itemCap = curItem->GetFrobDistanceCap();
+
+		if (maxFrobDistance > itemCap)
+		{
+			maxFrobDistance = itemCap;
+		}
+	}
+
 	idVec3 start = eyePos;
-	idVec3 end = start + viewAngles.ToForward() * g_Global.m_MaxFrobDistance;
+	idVec3 end = start + viewAngles.ToForward() * maxFrobDistance;
 
 	// Do frob trace first, along view axis, record distance traveled
 	// Frob collision mask:

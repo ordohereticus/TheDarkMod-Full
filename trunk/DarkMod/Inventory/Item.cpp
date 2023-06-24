@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3039 $
- * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 3334 $
+ * $Date: 2009-03-28 05:31:15 -0400 (Sat, 28 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 3039 2008-11-19 09:06:27Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 3334 2009-03-28 09:31:15Z greebo $", init_version);
 
 #include "Item.h"
 #include <algorithm>
@@ -34,6 +34,7 @@ CInventoryItem::CInventoryItem(idEntity *owner)
 	m_Persistent = false;
 	m_LightgemModifier = 0;
 	m_MovementModifier = 1.0f;
+	m_FrobDistanceCap = -1;
 	m_UseOnFrob = false;
 	m_DropOrientation = mat3_identity;
 }
@@ -143,6 +144,7 @@ void CInventoryItem::Save( idSaveGame *savefile ) const
 	savefile->WriteInt(m_LightgemModifier);
 	savefile->WriteFloat(m_MovementModifier);
 	savefile->WriteBool(m_UseOnFrob);
+	savefile->WriteFloat(m_FrobDistanceCap);
 	savefile->WriteMat3(m_DropOrientation);
 }
 
@@ -180,6 +182,7 @@ void CInventoryItem::Restore( idRestoreGame *savefile )
 	savefile->ReadInt(m_LightgemModifier);
 	savefile->ReadFloat(m_MovementModifier);
 	savefile->ReadBool(m_UseOnFrob);
+	savefile->ReadFloat(m_FrobDistanceCap);
 	savefile->ReadMat3(m_DropOrientation);
 }
 
@@ -188,6 +191,7 @@ void CInventoryItem::ParseSpawnargs(const idDict& spawnArgs)
 	m_Persistent = spawnArgs.GetBool("inv_persistent", "0");
 	m_LightgemModifier = spawnArgs.GetInt("inv_lgmodifier", "0");
 	m_MovementModifier = spawnArgs.GetFloat("inv_movement_modifier", "1");
+	m_FrobDistanceCap = spawnArgs.GetFloat("inv_frob_distance_cap", "-1");
 	m_Icon = spawnArgs.GetString("inv_icon", "");
 }
 

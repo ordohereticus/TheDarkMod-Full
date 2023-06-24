@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3051 $
- * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3334 $
+ * $Date: 2009-03-28 05:31:15 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -126,6 +126,12 @@ public:
 	// Returns true when this item should be used by the 'frob' impulse
 	bool					UseOnFrob() const { return m_UseOnFrob; }
 
+	// Returns the frob distance cap. If this item doesn't enforce such a value, this returns idMath::INFINITY.
+	float					GetFrobDistanceCap()
+	{ 
+		return (m_FrobDistanceCap == -1) ? idMath::INFINITY : m_FrobDistanceCap;
+	}
+
 protected:
 	// Reads the values from the given spawnargs into the member variables
 	void					ParseSpawnargs(const idDict& spawnArgs);
@@ -165,6 +171,12 @@ protected:
 	// A value in [0,1] defining the fraction of the regular movement speed
 	// which the owner is allowed to move with when this item is equipped.
 	float					m_MovementModifier; 
+
+	/**
+	 * greebo: When this inventory item is selected, the frob distance can not be higher
+	 * than the value defined here. Is -1 if not set.
+	 */
+	float					m_FrobDistanceCap;
 
 	bool					m_UseOnFrob;	// Whether this item can be used by the 'frob' button
 
