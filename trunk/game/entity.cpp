@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3481 $
- * $Date: 2009-05-31 08:12:57 -0400 (Sun, 31 May 2009) $
+ * $Revision: 3482 $
+ * $Date: 2009-05-31 09:06:32 -0400 (Sun, 31 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3481 2009-05-31 12:12:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3482 2009-05-31 13:06:32Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6131,17 +6131,14 @@ void idEntity::Event_IsInLiquid( void ) {
 
 
 /*
-
 ================
-
 idEntity::Event_CopyBind
-
 ================
-
 */
 
-void idEntity::Event_CopyBind( idEntity *other ) 
+void idEntity::Event_CopyBind( idEntity* other ) 
 {
+	if (other == NULL) return;
 
 	idEntity *master = other->GetBindMaster();
 
@@ -6149,34 +6146,28 @@ void idEntity::Event_CopyBind( idEntity *other )
 
 	int body = other->GetBindBody();
 
-
-
-	if( joint != INVALID_JOINT ) {
-
+	if( joint != INVALID_JOINT )
+	{
 		// joint is specified so bind to that joint
-
 		BindToJoint( master, joint, true );
-
 	}
-
-	else if( body >= 0 ) { 
-
+	else if( body >= 0 )
+	{ 
 		// body is specified so bind to it
-
 		BindToBody( master, body, true );
-
 	}
-
-	else {
-
+	else
+	{
 		// no joint and no body specified to bind to master
-
 		Bind( master, true );
 
+		// greebo: If the bind master is static, set the solid for team flag
+		if (master->GetPhysics()->IsType(idPhysics_Static::Type))
+		{
+			fl.solidForTeam = true;
+		}
 	}
-
 }
-
 
 /***********************************************************************
 

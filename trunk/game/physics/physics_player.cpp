@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3418 $
- * $Date: 2009-05-04 17:40:06 -0400 (Mon, 04 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3482 $
+ * $Date: 2009-05-31 09:06:32 -0400 (Sun, 31 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3418 $   $Date: 2009-05-04 17:40:06 -0400 (Mon, 04 May 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3482 $   $Date: 2009-05-31 09:06:32 -0400 (Sun, 31 May 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1077,12 +1077,11 @@ void idPhysics_Player::RopeMove( void )
 		idEntity* ropeBindMaster = m_RopeEntity.GetEntity()->GetBindMaster();
 		if (ropeBindMaster != NULL)
 		{
-			idVec3 direction = GetGravity();
-			direction.NormalizeFast();
+			idVec3 direction = GetGravityNormal();
 
 			idPhysics* bindMasterPhysics = ropeBindMaster->GetPhysics();
 			
-			idVec3 ropeOrigin = ropePhys->GetOrigin();
+			const idVec3& ropeOrigin = ropePhys->GetOrigin();
 
 			idAFBody* topMostBody = ropePhys->GetBody(0);
 			if (topMostBody != NULL)
