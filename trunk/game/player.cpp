@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3404 $
- * $Date: 2009-04-13 02:36:37 -0400 (Mon, 13 Apr 2009) $
+ * $Revision: 3412 $
+ * $Date: 2009-04-26 23:22:11 -0400 (Sun, 26 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3404 2009-04-13 06:36:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3412 2009-04-27 03:22:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5425,7 +5425,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			else
 			{
 				// in all other cases, change the crouch intent which will toggle crouch
-				m_ButtonStateTracker.startTracking(impulse);
+				m_ButtonStateTracker.StartTracking(impulse);
 				if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
 				{
 					m_CrouchIntent = !m_CrouchIntent;
@@ -5534,7 +5534,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_41:		// TDM Use/Frob
 		{
 			// Register the button for tracking
-			m_ButtonStateTracker.startTracking(impulse);
+			m_ButtonStateTracker.StartTracking(impulse);
 			// Perform the frob
 			PerformFrob();
 		}
@@ -5545,7 +5545,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		*/
 		case IMPULSE_44:		// Lean forward
 		{
-			m_ButtonStateTracker.startTracking(impulse);
+			m_ButtonStateTracker.StartTracking(impulse);
 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
 				physicsObj.ToggleLean(90.0);
 		}
@@ -5556,7 +5556,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		*/
 		case IMPULSE_45:		// Lean left
 		{
-			m_ButtonStateTracker.startTracking(impulse);
+			m_ButtonStateTracker.StartTracking(impulse);
 			DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("Left lean impulse pressed\r");
 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
 			{
@@ -5572,7 +5572,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		*/
 		case IMPULSE_46:		// Lean right
 		{
-			m_ButtonStateTracker.startTracking(impulse);
+			m_ButtonStateTracker.StartTracking(impulse);
 			DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("Right lean impulse pressed\r");
 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
 				physicsObj.ToggleLean(0.0);
@@ -5650,7 +5650,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_51:	// Inventory use item
 		{
 			// Use key has "hold down" functions
-			m_ButtonStateTracker.startTracking(impulse);
+			m_ButtonStateTracker.StartTracking(impulse);
 			// Pass the call
 			UseInventoryItem();
 		}
@@ -6974,7 +6974,7 @@ void idPlayer::Think( void )
 		// service animations
 		if ( !spectating && !af.IsActive() && !gameLocal.inCinematic ) {
 			// Update the button state, this calls PerformKeyRelease() if a button has been released
-			m_ButtonStateTracker.update();
+			m_ButtonStateTracker.Update();
 
 			UpdateConditions();
 
@@ -8652,7 +8652,7 @@ void idPlayer::ClientPredictionThink( void ) {
 
 	// service animations
 	if ( !spectating && !af.IsActive() ) {
-		m_ButtonStateTracker.update();
+		m_ButtonStateTracker.Update();
     	UpdateConditions();
 		UpdateAnimState();
 		CheckBlink();

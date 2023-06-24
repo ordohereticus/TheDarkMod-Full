@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3412 $
+ * $Date: 2009-04-26 23:22:11 -0400 (Sun, 26 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,12 +14,10 @@
 
 /**
 * greebo: The ButtonStateTracker is a helper class keeping track
-*		  of certain buttons. As soon as a tracked button is
-*		  released, this calls the method PerformButtonRelease() on 
-*		  the idPlayer class.
+* of certain buttons. As soon as a tracked button is released, 
+* this calls the method PerformButtonRelease() on the idPlayer class.
 *
-*		  Use the startTracking() method to register an impulse for 
-*		  tracking.
+* Use the StartTracking() method to register an impulse for tracking.
 */
 
 // Forward declaration
@@ -45,14 +43,27 @@ public:
 	* greebo: Call this from the Think() method so that 
 	* this class can update the state of the tracked buttons.
 	*/
-	void update();
+	void Update();
 
 	/**
 	* greebo: Register an impulse for tracking to consider it
 	* during the update() routine. Released buttons get 
 	* automatically de-registered, so no stopTracking() call is needed.
 	*/
-	void startTracking(int impulse);
+	void StartTracking(int impulse);
+
+	/**
+	* greebo: Returns TRUE if the given impulse button is currently 
+	* held down by the user, FALSE otherwise.
+	*/
+	bool ButtonIsHeld(int impulse);
+
+	/**
+	* greebo: De-register an impulse for tracking. Calling this method 
+	* does not trigger a PerformKeyReleased() event on the player,
+	* so this is more or less a "cancellation".
+	*/
+	void StopTracking(int impulse);
 
 }; // class ButtonStateTracker
 
