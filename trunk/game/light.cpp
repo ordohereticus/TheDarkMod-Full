@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3792 $
+ * $Date: 2010-01-09 07:47:03 -0500 (Sat, 09 Jan 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 3792 2010-01-09 12:47:03Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -630,6 +630,9 @@ idLight::On
 ================
 */
 void idLight::On( void ) {
+	const char *skinName;
+	const idDeclSkin *skin;
+
 	currentLevel = levels;
 	// offset the start time of the shader to sync it to the game time
 	renderLight.shaderParms[ SHADERPARM_TIMEOFFSET ] = -MS2SEC( gameLocal.time );
@@ -637,6 +640,15 @@ void idLight::On( void ) {
 		StartSoundShader( refSound.shader, SND_CHANNEL_ANY, 0, false, NULL );
 		soundWasPlaying = false;
 	}
+	// Tels: set "skin_lit" if it is defined
+	spawnArgs.GetString( "skin_lit", "", &skinName );
+	skin = declManager->FindSkin( skinName );
+	if (skin) {
+		SetSkin( skin );
+		// set the spawnarg to the current active skin
+		spawnArgs.Set( "skin", skinName );
+	}
+	
 	SetLightLevel();
 	BecomeActive( TH_UPDATEVISUALS );
 }
@@ -647,12 +659,24 @@ idLight::Off
 ================
 */
 void idLight::Off( void ) {
+	const char *skinName;
+	const idDeclSkin *skin;
+
 	currentLevel = 0;
 	// kill any sound it was making
 	if ( refSound.referenceSound && refSound.referenceSound->CurrentlyPlaying() ) {
 		StopSound( SND_CHANNEL_ANY, false );
 		soundWasPlaying = true;
 	}
+	// Tels: set "skin_unlit" if it is defined
+	spawnArgs.GetString( "skin_unlit", "", &skinName );
+	skin = declManager->FindSkin( skinName );
+	if (skin) {
+		SetSkin( skin );
+		// set the spawnarg to the current active skin
+		spawnArgs.Set( "skin", skinName );
+	}
+	
 	SetLightLevel();
 	BecomeActive( TH_UPDATEVISUALS );
 }
@@ -688,6 +712,7 @@ idLight::FadeOut
 */
 void idLight::FadeOut( float time ) {
 	Fade( colorBlack, time );
+	// tels: at the end of the fade, set the skin to skin_unlit?
 }
 
 /*
