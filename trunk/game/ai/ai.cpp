@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3411 $
- * $Date: 2009-04-23 05:41:32 -0400 (Thu, 23 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3416 $
+ * $Date: 2009-05-03 13:03:41 -0400 (Sun, 03 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3411 2009-04-23 09:41:32Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3416 2009-05-03 17:03:41Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -552,6 +552,7 @@ idAI::idAI()
 	m_FlatFootParryMax	= 0;
 	m_FlatFootParryTimer = 0;
 	m_FlatFootParryTime	= 0;
+	m_MeleeCounterAttChance = 0.0f;
 
 	m_maxInterleaveThinkFrames = 0;
 	m_minInterleaveThinkDist = 1000;
@@ -857,6 +858,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt(m_FlatFootParryMax);
 	savefile->WriteInt(m_FlatFootParryTimer);
 	savefile->WriteInt(m_FlatFootParryTime);
+	savefile->WriteFloat(m_MeleeCounterAttChance);
 
 	savefile->WriteBool(m_bCanOperateDoors);
 	savefile->WriteBool(m_HandlingDoor);
@@ -1195,6 +1197,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt(m_FlatFootParryMax);
 	savefile->ReadInt(m_FlatFootParryTimer);
 	savefile->ReadInt(m_FlatFootParryTime);
+	savefile->ReadFloat(m_MeleeCounterAttChance);
 
 	savefile->ReadBool(m_bCanOperateDoors);
 	savefile->ReadBool(m_HandlingDoor);
@@ -1671,6 +1674,8 @@ void idAI::Spawn( void )
 	m_FlatFootedTime	= spawnArgs.GetInt("flatfooted_time");
 	m_FlatFootParryMax = spawnArgs.GetInt("flatfoot_parry_num");
 	m_FlatFootParryTime = spawnArgs.GetInt("flatfoot_parry_time");
+	// Convert percent chance to fractional
+	m_MeleeCounterAttChance = spawnArgs.GetInt("melee_chance_to_counter") / 100.0f;
 
 	m_bCanOperateDoors = spawnArgs.GetBool("canOperateDoors", "0");
 	m_HandlingDoor = false;

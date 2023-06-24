@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3402 $
- * $Date: 2009-04-12 02:32:11 -0400 (Sun, 12 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3416 $
+ * $Date: 2009-05-03 13:03:41 -0400 (Sun, 03 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3402 2009-04-12 06:32:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3416 2009-05-03 17:03:41Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1136,6 +1136,12 @@ void idEntity::Save( idSaveGame *savefile ) const
 
 	savefile->WriteBool(m_bIsClimbableRope);
 
+	savefile->WriteInt(m_animRates.Num());
+	for (i = 0; i < m_animRates.Num(); i++)
+	{
+		savefile->WriteFloat(m_animRates[i]);
+	}
+
 	m_SetInMotionByActor.Save(savefile);
 	m_MovedByActor.Save(savefile);
 
@@ -1320,6 +1326,13 @@ void idEntity::Restore( idRestoreGame *savefile )
 	savefile->ReadClipModel(m_FrobBox);
 
 	savefile->ReadBool(m_bIsClimbableRope);
+
+	savefile->ReadInt(num);
+	m_animRates.SetNum(num);
+	for (i = 0; i < num; i++)
+	{
+		savefile->ReadFloat(m_animRates[i]);
+	}
 
 	m_SetInMotionByActor.Restore(savefile);
 	m_MovedByActor.Restore(savefile);
