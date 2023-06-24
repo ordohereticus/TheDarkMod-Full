@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3605 $
- * $Date: 2009-07-28 00:53:58 -0400 (Tue, 28 Jul 2009) $
+ * $Revision: 3606 $
+ * $Date: 2009-07-28 22:50:21 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -101,7 +101,6 @@ protected:
 	waterLevel_t		previousWaterLevel;			// greebo: The water level of the previous frame
 	int					waterType;					// MOD_WATERPHYSICS
 	int					submerseFrame;				// greebo: The frame in which we submersed (above WATERLEVEL_HEAD)
-	int					submerseTime;				// greebo: The time we submersed (above WATERLEVEL_HEAD)
 
 	// greebo: This is TRUE if the water level has changed since the last physics evaluation (frame)
 	bool				waterLevelChanged;

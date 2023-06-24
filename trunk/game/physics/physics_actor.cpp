@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3605 $
- * $Date: 2009-07-28 00:53:58 -0400 (Tue, 28 Jul 2009) $
+ * $Revision: 3606 $
+ * $Date: 2009-07-28 22:50:21 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_actor.cpp 3605 2009-07-28 04:53:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_actor.cpp 3606 2009-07-29 02:50:21Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -40,7 +40,6 @@ idPhysics_Actor::idPhysics_Actor( void ) {
 	waterType = 0;					// MOD_WATERPHYSICS
 	waterLevelChanged = true;
 	submerseFrame = 0;
-	submerseTime = -1;
 #endif		// MOD_WATERPHYSICS
 }
 
@@ -79,7 +78,6 @@ void idPhysics_Actor::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( waterType );		// MOD_WATERPHYSICS
 	savefile->WriteBool(waterLevelChanged);
 	savefile->WriteInt(submerseFrame);
-	savefile->WriteInt(submerseTime);
 #endif 		// MOD_WATERPHYSICS
 
 	groundEntityPtr.Save( savefile );
@@ -108,7 +106,6 @@ void idPhysics_Actor::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( waterType );				// MOD_WATERPHYSICS
 	savefile->ReadBool(waterLevelChanged);
 	savefile->ReadInt(submerseFrame);
-	savefile->ReadInt(submerseTime);
 #endif 		// MOD_WATERPHYSICS
 
 	groundEntityPtr.Restore( savefile );
@@ -453,7 +450,6 @@ void idPhysics_Actor::SetWaterLevel( bool updateWaterLevelChanged ) {
 		if (waterLevel == WATERLEVEL_HEAD && waterLevelChanged)
 		{
 			submerseFrame = gameLocal.framenum;
-			submerseTime = gameLocal.time;
 		}
 	}
 }
@@ -478,7 +474,7 @@ int idPhysics_Actor::GetWaterType( void ) const {
 
 int idPhysics_Actor::GetSubmerseTime() const
 {
-	return submerseTime;
+	return submerseFrame*gameLocal.msec;
 }
 
 #endif	// MOD_WATERPHYSICS
