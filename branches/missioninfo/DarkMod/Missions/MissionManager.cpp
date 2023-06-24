@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3928 $
- * $Date: 2010-06-10 02:41:38 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3930 $
+ * $Date: 2010-06-10 03:47:44 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3928 2010-06-10 06:41:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3930 2010-06-10 07:47:44Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -141,6 +141,38 @@ CMissionInfoPtr CMissionManager::GetCurrentMissionInfo()
 	return GetMissionInfo(curMission);
 }
 
+int CMissionManager::GetNumNewMissions()
+{
+	return _newFoundMissions.Num();
+}
+
+idStr CMissionManager::GetNewFoundMissionsText()
+{
+	if (_newFoundMissions.Num() == 0)
+	{
+		return "";
+	}
+
+	idStr text;
+
+	for (int i = 0; i < _newFoundMissions.Num(); ++i)
+	{
+		CMissionInfoPtr info = GetMissionInfo(_newFoundMissions[i]);
+
+		if (info == NULL) continue;
+
+		text += (text.IsEmpty()) ? "" : "\n";
+		text += info->displayName;
+	}
+
+	return text;
+}
+
+void CMissionManager::ClearNewMissionList()
+{
+	_newFoundMissions.Clear();
+}
+
 void CMissionManager::SearchForNewMissions()
 {
 	// List all PK4s in the fms/ directory
@@ -214,6 +246,9 @@ CMissionManager::MoveList CMissionManager::SearchForNewMissions(const idStr& ext
 		modName.ToLower();
 
 		if (modName.IsEmpty()) continue; // error?
+
+		// Remember this for the user to display
+		_newFoundMissions.Append(modName);
 
 		// Clean modName string from any weird characters
 		for (int i = 0; i < modName.Length(); ++i)

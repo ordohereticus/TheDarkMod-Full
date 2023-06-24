@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3929 $
- * $Date: 2010-06-10 03:20:43 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3930 $
+ * $Date: 2010-06-10 03:47:44 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3929 2010-06-10 07:20:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3930 2010-06-10 07:47:44Z greebo $", init_version);
 
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
@@ -107,12 +107,31 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 {
 	idStr cmd = menuCommand;
 
-	if (cmd == "updateModList")
+	if (cmd == "refreshMissionList")
 	{
 		gameLocal.m_MissionManager->ReloadMissionList();
 
 		// Update the GUI state
 		UpdateGUI(gui);
+
+		int numNewMissions = gameLocal.m_MissionManager->GetNumNewMissions();
+
+		if (numNewMissions > 0)
+		{
+			if (numNewMissions > 1)
+			{
+				gui->SetStateString("newFoundMissionsText", va("%d new missions are available", numNewMissions));
+			}
+			else
+			{
+				gui->SetStateString("newFoundMissionsText", va("A new mission is available", numNewMissions));
+			}
+
+			gui->SetStateString("newFoundMissionsList", gameLocal.m_MissionManager->GetNewFoundMissionsText());
+			gui->HandleNamedEvent("OnNewMissionsFound");
+
+			gameLocal.m_MissionManager->ClearNewMissionList();
+		}
 	}
 	else if (cmd == "loadModNotes")
 	{

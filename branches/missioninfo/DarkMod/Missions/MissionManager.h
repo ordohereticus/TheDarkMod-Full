@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3929 $
- * $Date: 2010-06-10 03:20:43 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3930 $
+ * $Date: 2010-06-10 03:47:44 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,6 +29,9 @@ private:
 
 	// A list of path => path associations for moving files around
 	typedef std::list< std::pair<fs::path, fs::path> > MoveList;
+
+	// The list of new mods
+	idStringList _newFoundMissions;
 
 public:
 	CMissionManager();
@@ -61,6 +64,13 @@ public:
 
 	// Clears the mission list and searches for mods to install, then calls GenerateMissionList()
 	void ReloadMissionList();
+
+	// The number of newly available missions
+	int GetNumNewMissions();
+
+	idStr GetNewFoundMissionsText();
+
+	void ClearNewMissionList();
 
 	// Convenience method which copies a file from <source> to <dest>
 	// If <overwrite> is set to TRUE, any existing destination file will be removed beforehand
