@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3571 $
- * $Date: 2009-07-24 01:13:19 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3580 $
+ * $Date: 2009-07-25 09:43:16 -0400 (Sat, 25 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3571 2009-07-24 05:13:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3580 2009-07-25 13:43:16Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -130,6 +130,15 @@ void Memory::Save(idSaveGame* savefile) const
 	}
 
 	// greebo: Don't save the AAS areaNum => DoorInfo mapping (can be re-calculated at restore time)
+
+	savefile->WriteInt(static_cast<int>(greetingInfo.size()));
+
+	for (ActorGreetingInfoMap::const_iterator i = greetingInfo.begin();
+		 i != greetingInfo.end(); ++i)
+	{
+		savefile->WriteObject(i->first);
+		savefile->WriteInt(i->second.lastGreetingTime);
+	}
 }
 
 void Memory::Restore(idRestoreGame* savefile)
@@ -224,6 +233,20 @@ void Memory::Restore(idRestoreGame* savefile)
 		doorRelated.areaDoorInfoMap.insert(
 			AreaToDoorInfoMap::value_type(i->second->areaNum, i->second)
 		);
+	}
+
+	greetingInfo.clear();
+
+	savefile->ReadInt(temp);
+	for (int i = 0; i < temp; ++i)
+	{
+		idAI* ai;
+		savefile->ReadObject(reinterpret_cast<idClass*&>(ai));
+		
+		std::pair<ActorGreetingInfoMap::iterator, bool> result = greetingInfo.insert(
+			ActorGreetingInfoMap::value_type(ai, GreetingInfo()));
+		
+		savefile->ReadInt(result.first->second.lastGreetingTime);
 	}
 }
 

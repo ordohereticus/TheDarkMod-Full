@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3578 $
- * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3580 $
+ * $Date: 2009-07-25 09:43:16 -0400 (Sat, 25 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3578 2009-07-24 18:09:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3580 2009-07-25 13:43:16Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1510,9 +1510,17 @@ void State::OnAICommMessage(CommMessage& message, float psychLoud)
 			memory.lastTimeFriendlyAISeen = gameLocal.time;
 
 			// If not too upset, look at them
-			if (owner->AI_AlertLevel < owner->thresh_3)
+			if (owner->AI_AlertIndex < EObservant && owner->greetingState != ECannotGreet &&
+				issuingEntity->IsType(idAI::Type))
 			{
-				owner->Event_LookAtEntity(issuingEntity, 3.0); // 3 seconds
+				idAI* otherAI = static_cast<idAI*>(issuingEntity);
+
+				// Get the sound and queue the task
+				idStr greetSound = GetGreetingSound(owner, otherAI);
+
+				owner->commSubsystem->AddCommTask(
+					CommunicationTaskPtr(new GreetingBarkTask(greetSound, otherAI))
+				);
 			}
 			break;
 		case CommMessage::FriendlyJoke_CommType:
