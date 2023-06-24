@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3622 $
- * $Date: 2009-07-31 05:21:41 -0400 (Fri, 31 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3788 $
+ * $Date: 2010-01-08 22:28:39 -0500 (Fri, 08 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3622 2009-07-31 09:21:41Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3788 2010-01-09 03:28:39Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1140,7 +1140,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 							// if attack hasn't hit yet, this was a miss
 							if( pStatus->m_ActionResult == MELEERESULT_IN_PROGRESS )
 							{
-								pStatus->m_ActionResult = MELEERESULT_AT_HIT;
+								pStatus->m_ActionResult = MELEERESULT_AT_MISSED;
 								pStatus->m_ActionPhase = MELEEPHASE_RECOVERING;
 							}
 						}
