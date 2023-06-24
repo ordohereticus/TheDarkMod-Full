@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3367 $
- * $Date: 2009-04-05 18:54:58 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3436 $
+ * $Date: 2009-05-09 03:35:38 -0400 (Sat, 09 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3367 2009-04-05 22:54:58Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3436 2009-05-09 07:35:38Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -45,6 +45,9 @@ CMeleeWeapon::CMeleeWeapon( void )
 
 CMeleeWeapon::~CMeleeWeapon( void )
 {
+	// avoid leaving behind a clipmodel with stale entity pointers
+	DeactivateAttack();
+	DeactivateParry();
 }
 
 void CMeleeWeapon::Save( idSaveGame *savefile ) const 

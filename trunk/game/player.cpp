@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3418 $
- * $Date: 2009-05-04 17:40:06 -0400 (Mon, 04 May 2009) $
+ * $Revision: 3436 $
+ * $Date: 2009-05-09 03:35:38 -0400 (Sat, 09 May 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3418 2009-05-04 21:40:06Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3436 2009-05-09 07:35:38Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -124,6 +124,8 @@ const idEventDef EV_Player_WasDamaged("wasDamaged", NULL, 'd');
 const idEventDef EV_Mission_Success("missionSuccess", NULL);
 const idEventDef EV_TriggerMissionEnd("triggerMissionEnd", NULL);
 
+const idEventDef EV_GetLocation("getLocation", NULL, 'e');
+
 // greebo: These events are handling the FOV.
 const idEventDef EV_Player_StartZoom("startZoom", "fff");
 const idEventDef EV_Player_EndZoom("endZoom", "f");
@@ -221,6 +223,8 @@ CLASS_DECLARATION( idActor, idPlayer )
 
 	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
 	EVENT( EV_TriggerMissionEnd,			idPlayer::Event_TriggerMissionEnd )
+
+	EVENT( EV_GetLocation,					idPlayer::Event_GetLocation )
 
 	EVENT( EV_ChangeWeaponProjectile,		idPlayer::Event_ChangeWeaponProjectile )
 	EVENT( EV_ResetWeaponProjectile,		idPlayer::Event_ResetWeaponProjectile )
@@ -4085,6 +4089,16 @@ void idPlayer::UpdateLocation( void ) {
 			hud->SetStateString( "location", common->GetLanguageDict()->GetString( "#str_02911" ) );
 		}
 	}
+}
+
+/*
+================
+idPlayer::GetLocation
+================
+*/
+idLocationEntity *idPlayer::GetLocation( void )
+{
+	return gameLocal.LocationForPoint( GetEyePosition() );
 }
 
 /*
@@ -11140,6 +11154,11 @@ void idPlayer::Event_TriggerMissionEnd()
 
 	// Schedule an mission success event right after fadeout
 	PostEventMS(&EV_Mission_Success, 1500);
+}
+
+void idPlayer::Event_GetLocation()
+{
+	idThread::ReturnEntity( GetLocation() );
 }
 
 void idPlayer::Event_StartGamePlayTimer()
