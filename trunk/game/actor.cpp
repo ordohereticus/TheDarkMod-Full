@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3662 $
- * $Date: 2009-08-11 22:38:24 -0400 (Tue, 11 Aug 2009) $
+ * $Revision: 3702 $
+ * $Date: 2009-09-08 12:04:15 -0400 (Tue, 08 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3662 2009-08-12 02:38:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3702 2009-09-08 16:04:15Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1920,8 +1920,8 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const
 		return false;
 	}*/
 
-	// The enemy's origin
-	idVec3 entityOrigin = ent->GetPhysics()->GetOrigin();
+	// The entity's origin
+	const idVec3& entityOrigin = ent->GetPhysics()->GetOrigin();
 
 	// Check the field of view if specified
 	if (useFov && !CheckFOV(entityOrigin))

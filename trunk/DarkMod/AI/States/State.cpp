@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3670 $
- * $Date: 2009-08-14 13:22:44 -0400 (Fri, 14 Aug 2009) $
+ * $Revision: 3702 $
+ * $Date: 2009-09-08 12:04:15 -0400 (Tue, 08 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3670 2009-08-14 17:22:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3702 2009-09-08 16:04:15Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -320,14 +320,38 @@ void State::OnBlindStim(idEntity* stimSource, bool skipVisibilityCheck)
 	if (!skipVisibilityCheck) 
 	{
 		// Perform visibility check
-		if (owner->CanSeeExt(stimSource, 1, 0))
+		// Check FOV first
+		if (owner->CheckFOV(stimSource->GetPhysics()->GetOrigin()))
 		{
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI can see the flash, switching to BlindedState.\r");
-			owner->GetMind()->PushState(STATE_BLINDED);
+			// FOV check passed, check occlusion (skip lighting check)
+			if (owner->CanSeeExt(stimSource, false, false))
+			{
+				// Success, AI is blinded
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI can see the flash, switching to BlindedState.\r");
+				owner->GetMind()->PushState(STATE_BLINDED);
+			}
+			else
+			{
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI cannot see the flash.\r");
+			}
 		}
 		else
 		{
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI cannot see the flash.\r");
+			// greebo: FOV check might have failed, still consider near explosions of flashbombs
+			// as some AI might be so close to the player that dropping a flashbomb goes outside FOV
+			idVec3 distVec = (stimSource->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin());
+			float dist = distVec.NormalizeFast();
+			
+			// Check if the distance is within 100 units and the explosion is in front of us
+			if (dist < 100.0f && distVec * owner->viewAxis.ToAngles().ToForward() > 0)
+			{
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI blinded by flash at its feet, switching to BlindedState.\r");
+				owner->GetMind()->PushState(STATE_BLINDED);
+			}
+			else
+			{
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI cannot see the flash.\r");
+			}
 		}
 	}
 	else 
