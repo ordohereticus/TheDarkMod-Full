@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3276 $
- * $Date: 2009-03-20 04:56:02 -0400 (Fri, 20 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3288 $
+ * $Date: 2009-03-22 16:37:10 -0400 (Sun, 22 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -48,6 +48,7 @@ extern const idEventDef EV_Player_PlayStartSound;
 extern const idEventDef EV_Player_DeathMenu;
 extern const idEventDef EV_Player_MissionFailed;
 extern const idEventDef EV_Player_GiveHealthPool;
+extern const idEventDef EV_Player_WasDamaged;
 extern const idEventDef EV_Mission_Success;
 extern const idEventDef EV_TriggerMissionEnd;
 
@@ -291,6 +292,12 @@ public:
 	idScriptBool			AI_LEAN_LEFT;
 	idScriptBool			AI_LEAN_RIGHT;
 	idScriptBool			AI_LEAN_FORWARD;
+
+	/**
+	* Ishtvan: Set to true for the duration of the frame if the AI takes damage
+	* (more reliable than AI_PAIN)
+	**/
+	bool					m_bDamagedThisFrame;
 
 	/**
 	* Set to true if the player is creeping
@@ -1219,6 +1226,9 @@ private:
 	* greebo: This scriptevent routes the call to the member method "GiveHealthPool".
 	*/
 	void					Event_GiveHealthPool( float amount );
+
+	/** Returns true if we were damaged this frame **/
+	void					Event_WasDamaged( void );
 
 	/**
 	 * greebo: These scriptevents handle the player zoom in/out behaviour.
