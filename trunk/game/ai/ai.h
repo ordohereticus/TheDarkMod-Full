@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3517 $
- * $Date: 2009-07-04 12:42:53 -0400 (Sat, 04 Jul 2009) $
+ * $Revision: 3522 $
+ * $Date: 2009-07-06 02:49:01 -0400 (Mon, 06 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1175,6 +1175,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					AnimMove( void );
 	void					SlideMove( void );
 	void					SittingMove();
+	void					NoTurnMove();
 	void					LayDownMove();
 	void					AdjustFlyingAngles( void );
 	void					AddFlyBob( idVec3 &vel );
