@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3702 $
- * $Date: 2009-09-08 12:04:15 -0400 (Tue, 08 Sep 2009) $
+ * $Revision: 3709 $
+ * $Date: 2009-09-23 23:37:37 -0400 (Wed, 23 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3702 2009-09-08 16:04:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3709 2009-09-24 03:37:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3049,7 +3049,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		// Apply the damage
 		health -= damage;
 
-		if (lowHealthThreshold != -1 && health < lowHealthThreshold)
+		if (lowHealthThreshold != -1 && health <= lowHealthThreshold)
 		{
 			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Actor %s's fell below health threshold %d, firing script %s\r", name.c_str(), lowHealthThreshold, lowHealthScript.c_str());
 

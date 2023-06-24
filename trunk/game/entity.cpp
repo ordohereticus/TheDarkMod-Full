@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3679 $
- * $Date: 2009-08-30 06:28:05 -0400 (Sun, 30 Aug 2009) $
- * $Author: tels $
+ * $Revision: 3709 $
+ * $Date: 2009-09-23 23:37:37 -0400 (Wed, 23 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3679 2009-08-30 10:28:05Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3709 2009-09-24 03:37:37Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10215,6 +10215,8 @@ void idEntity::SaveAttachmentContents()
 	{
 		idEntity* ent = m_Attachments[i].ent.GetEntity();
 
+		if (ent == NULL) continue;
+
 		m_Attachments[i].savedContents = (ent != NULL) ? ent->GetPhysics()->GetContents() : -1;
 	}
 }
@@ -10225,6 +10227,8 @@ void idEntity::SetAttachmentContents(int newContents)
 	for (int i = 0; i < m_Attachments.Num(); ++i)
 	{
 		idEntity* ent = m_Attachments[i].ent.GetEntity();
+
+		if (ent == NULL) continue;
 
 		ent->GetPhysics()->SetContents(newContents);
 	}
