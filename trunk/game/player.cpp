@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3615 $
- * $Date: 2009-07-30 01:41:47 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3666 $
+ * $Date: 2009-08-14 00:26:44 -0400 (Fri, 14 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3615 2009-07-30 05:41:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3666 2009-08-14 04:26:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1288,8 +1288,12 @@ void idPlayer::SetupInventory()
 				idEntity* entity = NULL;
 				gameLocal.SpawnEntityDef( *itemDict, &entity );
 
+				// Inhibit pickup messages for these items
+				entity->spawnArgs.Set("inv_no_pickup_message", "1");
+
 				// add it to the inventory
 				CInventoryItemPtr invItem = crsr->Inventory()->PutItem(entity, this);
+
 				invItem->SetCount(count);
 				invItem->SetPersistent(item->GetPersistent());
 			}
