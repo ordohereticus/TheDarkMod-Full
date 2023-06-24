@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3722 $
- * $Date: 2009-10-23 19:00:22 -0400 (Fri, 23 Oct 2009) $
+ * $Revision: 3723 $
+ * $Date: 2009-10-23 23:17:43 -0400 (Fri, 23 Oct 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3722 2009-10-23 23:00:22Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3723 2009-10-24 03:17:43Z ishtvan $", init_version);
 
 #include "../game_local.h"
 
@@ -237,7 +237,8 @@ idCVar cv_melee_debug(					"tdm_melee_debug", "0", CVAR_GAME | CVAR_BOOL, "Enabl
 idCVar cv_melee_state_debug(			"tdm_melee_debug_state", "0", CVAR_GAME | CVAR_BOOL, "Enable to display debug text representing AI melee status." );
 idCVar cv_melee_mouse_thresh(			"tdm_melee_mouse_thresh", "40", CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "In manual control mode, sets the mouse movement threshold needed to decide on which attack/parry to make" );
 idCVar cv_melee_mouse_decision_time(	"tdm_melee_mouse_decision_time", "100", CVAR_GAME | CVAR_ARCHIVE | CVAR_INTEGER, "In manual control mode, holding the button for this many milliseconds, an attack/parry decision is made based on mouse motion, even if it is below threshold mouse motion." );
-idCVar cv_melee_mouse_slowview(			"tdm_melee_mouse_slowview", "0.2", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "In manual control mode, when attack/parry button is held down, the view turn rate is decreased to this fraction while the mouse motion is determining which attack/parry to make (NYI)." );
+idCVar cv_melee_mouse_dead_time(		"tdm_melee_mouse_dead_time", "150", CVAR_GAME | CVAR_INTEGER, "Controls how long after the button press that mouse motion is damped by the fraction in tdm_mouse_slowview.  In milliseconds." );
+idCVar cv_melee_mouse_slowview(			"tdm_melee_mouse_slowview", "0.2", CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "In manual control mode, when attack/parry button is held down, the view turn rate is decreased to this fraction while the mouse motion is determining which attack/parry to make." );
 idCVar cv_melee_invert_attack(			"tdm_melee_invert_attack", "0", CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to 1, mouse motions are inverted when controlling which attack to make." ); 
 idCVar cv_melee_invert_parry(			"tdm_melee_invert_parry", "0", CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to 1, mouse motions are inverted when controlling which parry to make." ); 
 idCVar cv_melee_auto_parry(				"tdm_melee_auto_parry", "0", CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "If set to 1, melee parries are chosen automatically to match the enemy's attack (manual parry mode is much harder)." );
