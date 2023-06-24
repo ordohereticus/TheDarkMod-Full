@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3359 $
- * $Date: 2009-04-04 13:36:08 -0400 (Sat, 04 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3368 $
+ * $Date: 2009-04-05 19:05:32 -0400 (Sun, 05 Apr 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3359 2009-04-04 17:36:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3368 2009-04-05 23:05:32Z ishtvan $", init_version);
 
 #include "../game_local.h"
 
@@ -135,7 +135,7 @@ idCVar cv_force_savegame_load(		"tdm_force_savegame_load", "0",   CVAR_BOOL|CVAR
 * Use multipliers instead of setting a speed for each
 **/
 idCVar cv_pm_runmod(				"pm_runmod",			"2.12",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The multiplier used to obtain run speed from pm_walkspeed." );
-idCVar cv_pm_run_backmod(			"pm_run_backmod",		"0.75",			CVAR_GAME | CVAR_FLOAT				,	"The multiplier applied to existing run speed when the player is running backwards." );
+idCVar cv_pm_run_backmod(			"pm_run_backmod",		"0.7",			CVAR_GAME | CVAR_FLOAT				,	"The multiplier applied to existing run speed when the player is running backwards." );
 idCVar cv_pm_creepmod(				"pm_creepmod",			"0.44",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The multiplier used to obtain creep speed from pm_walkspeed." );
 idCVar cv_pm_crouchmod(				"pm_crouchmod",			"0.54",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The multiplier used to obtain crouch speed from walk speed." );
 idCVar cv_pm_max_swimspeed_mod(		"pm_max_swimspeed_mod",	"1.4",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Maximum speed of the player when moving in >= waist deep water, relative to player walkspeed." );
