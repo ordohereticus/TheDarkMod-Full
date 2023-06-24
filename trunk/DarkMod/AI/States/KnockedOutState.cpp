@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3381 $
+ * $Date: 2009-04-09 12:39:35 -0400 (Thu, 09 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 3381 2009-04-09 16:39:35Z greebo $", init_version);
 
 #include "KnockedOutState.h"
 #include "../Memory.h"
@@ -45,7 +45,7 @@ void KnockedOutState::Init(idAI* owner)
 	// Stop move!
 	owner->StopMove(MOVE_STATUS_DONE);
 
-	owner->StopAnim(ANIMCHANNEL_TORSO, 0);
+	//owner->StopAnim(ANIMCHANNEL_TORSO, 0);
 	owner->StopAnim(ANIMCHANNEL_LEGS, 0);
 	owner->StopAnim(ANIMCHANNEL_HEAD, 0);
 
