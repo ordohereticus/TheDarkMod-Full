@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3396 $
- * $Date: 2009-04-11 11:34:41 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3398 $
+ * $Date: 2009-04-11 12:30:13 -0400 (Sat, 11 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3396 2009-04-11 15:34:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3398 2009-04-11 16:30:13Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3790,15 +3790,23 @@ void idPlayer::OnStartShoulderingBody(idEntity* body)
 	SetHinderance( "ShoulderedBody", 1.0f, maxSpeed );
 	SetJumpHinderance( "ShoulderedBody", 1.0f, SHOULDER_JUMP_HINDERANCE );
 
-	// TODO: Adjust HUD
-	/*idStr IconName;
-	if( body->health > 0 )
-		IconName = body->spawnArgs.GetString("shouldered_name", "Body");
-	else
-		IconName = body->spawnArgs.GetString("shouldered_name_dead", "Corpse");
-	*/
+	// greebo: Determine which icon to display on the HUD
+	idStr iconName;
 
-	CallGui(m_InventoryOverlay, "OnStartShoulderingBody");
+	if( body->health > 0 )
+	{
+		iconName = body->spawnArgs.GetString("shouldered_name", "Body");
+	}
+	else
+	{
+		iconName = body->spawnArgs.GetString("shouldered_name_dead", "Corpse");
+	}
+
+	// Send the name to the inventory HUD
+	SetGuiString(m_InventoryOverlay, "GrabbedItemName", iconName);
+
+	// Notify all GUIs about the event
+	m_overlays.broadcastNamedEvent("OnStartShoulderingBody");
 
 	// Clear the inventory cursor
 	SelectInventoryItem("");
@@ -3815,6 +3823,11 @@ void idPlayer::OnStopShoulderingBody(idEntity* body)
 
 	// same sound for unshouldering as shouldering
 	StartSound( "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
+
+	m_overlays.broadcastNamedEvent("OnStopShoulderingBody");
+
+	// Send the name to the inventory HUD
+	SetGuiString(m_InventoryOverlay, "GrabbedItemName", "");
 
 	m_bShoulderingBody = false;
 }
