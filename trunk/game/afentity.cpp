@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3819 $
- * $Date: 2010-01-30 13:31:56 -0500 (Sat, 30 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3866 $
+ * $Date: 2010-03-21 10:18:55 -0400 (Sun, 21 Mar 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 3819 2010-01-30 18:31:56Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 3866 2010-03-21 14:18:55Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1700,7 +1700,7 @@ void idAFEntity_Base::ReAttachToPos
  
 	// retain the AF body contents (don't want to accidentally re-enable them if clip disabled)
 	idAFBody *body = NULL;
-	int bodyContents, bodyClipMask;
+	int bodyContents = 0, bodyClipMask = 0;
 	bool bStoredAFBodyInfo = false;
 	if( (body = static_cast<idAFEntity_Base *>(this)->AFBodyForEnt( ent )) != NULL )
 	{
@@ -1742,7 +1742,7 @@ void idAFEntity_Base::ReAttachToCoords
 
 	// retain the AF body contents (don't want to accidentally re-enable them if clip disabled)
 	idAFBody *body = NULL;
-	int bodyContents, bodyClipMask;
+	int bodyContents = 0, bodyClipMask = 0;
 	bool bStoredAFBodyInfo = false;
 	if( (body = static_cast<idAFEntity_Base *>(this)->AFBodyForEnt( ent )) != NULL )
 	{
