@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3520 $
- * $Date: 2009-07-05 11:08:01 -0400 (Sun, 05 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3521 $
+ * $Date: 2009-07-05 11:48:04 -0400 (Sun, 05 Jul 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3520 2009-07-05 15:08:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3521 2009-07-05 15:48:04Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -174,10 +174,10 @@ void CObjectiveComponent::Restore( idRestoreGame *savefile )
 }
 
 CMissionData::CMissionData() :
+	m_MissionDataLoadedIntoGUI(false),
 	m_mapFile(NULL),
 	m_PlayerTeam(0),
-	m_TotalGamePlayTime(0),
-	m_MissionDataLoadedIntoGUI(false)
+	m_TotalGamePlayTime(0)
 {
 	Clear();
 
