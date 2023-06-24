@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3932 $
+ * $Date: 2010-06-10 04:12:05 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -53,6 +53,9 @@ public:
 
 	// Returns the info structure for the currently ongoing mod/mission (or NULL if none)
 	CMissionInfoPtr GetCurrentMissionInfo();
+
+	// Returns the name of the currently installed mod/mission
+	idStr GetCurrentMissionName();
 
 	void EraseModFolder(const idStr& name);
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3932 $
+ * $Date: 2010-06-10 04:12:05 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3932 2010-06-10 08:12:05Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -129,8 +129,10 @@ void CMissionManager::OnMissionComplete()
 
 CMissionInfoPtr CMissionManager::GetCurrentMissionInfo()
 {
-	// Get the name of the current mission
-	idStr curMission = cvarSystem->GetCVarString("fs_game");
+	idStr gameBase = cvarSystem->GetCVarString("fs_game_base");
+
+	// We only have a mod if game_base is set correctly, otherwise we're in "darkmod".
+	idStr curMission = (!gameBase.IsEmpty()) ? cvarSystem->GetCVarString("fs_game") : "";
 
 	if (curMission.IsEmpty() || curMission == "darkmod") 
 	{
@@ -139,6 +141,13 @@ CMissionInfoPtr CMissionManager::GetCurrentMissionInfo()
 	}
 
 	return GetMissionInfo(curMission);
+}
+
+idStr CMissionManager::GetCurrentMissionName()
+{
+	CMissionInfoPtr info = GetCurrentMissionInfo();
+
+	return (info != NULL) ? info->modName : "";
 }
 
 int CMissionManager::GetNumNewMissions()
