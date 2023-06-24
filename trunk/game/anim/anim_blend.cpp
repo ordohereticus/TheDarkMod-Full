@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3887 $
- * $Date: 2010-04-25 10:39:35 -0400 (Sun, 25 Apr 2010) $
+ * $Revision: 3889 $
+ * $Date: 2010-04-26 11:36:29 -0400 (Mon, 26 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3887 2010-04-25 14:39:35Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3889 2010-04-26 15:36:29Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -654,6 +654,7 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		{
 			fc.string->Append(va(" %s", token.c_str() ));
 		}
+
 	}
 	// tels:
 	else if ( token == "destroy" ) 
@@ -1321,16 +1322,26 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 							AttName = AttName.Left( spcind );
 						}
 					}
-					// spawn the entity
-					idEntity* spawnedEntity;
-					const idDict* entityDef = gameLocal.FindEntityDefDict( EntClass );
-					if (!entityDef)
+
+					// check that there isn't already something attached:
+					idEntity* attEntity = ent->GetAttachment( AttPos.c_str() );
+					if (attEntity)
 					{
-						gameLocal.Error( "Cannot spawn %s - no such entityDef", EntClass.c_str() );
+						gameLocal.Warning ( "Already got an attachment at %s, skipping frame command.", AttPos.c_str() );
 					}
-					gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
-					// gameLocal.Warning ( "Attaching '%s' as '%s' to '%s'", EntClass.c_str(), AttName.c_str(), AttPos.c_str());
-					ent->Attach( spawnedEntity, AttPos, AttName );
+					else
+					{
+						// spawn the entity
+						idEntity* spawnedEntity;
+						const idDict* entityDef = gameLocal.FindEntityDefDict( EntClass );
+						if (!entityDef)
+						{
+							gameLocal.Error( "Cannot spawn %s - no such entityDef", EntClass.c_str() );
+						}
+						gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
+						gameLocal.Printf ( "Attaching '%s' (%s) as '%s' to '%s'\n", EntClass.c_str(), spawnedEntity->GetName(), AttName.c_str(), AttPos.c_str() );
+						ent->Attach( spawnedEntity, AttPos, AttName );
+					}
 					break;
 				}
 				// tels: pick up an entity from the world
@@ -1369,7 +1380,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 
 						// gameLocal.Warning ( "Found entity %s", attTarget->name.c_str() );
 
-						gameLocal.Warning ( "Attaching '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
+						gameLocal.Printf ( "Attaching '%s' as '%s' to '%s' (in pickup)\n", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
 						// first get the origin and rotation of the entity
 						idVec3 origin = attTarget->GetPhysics()->GetOrigin();
 						idAngles ang = attTarget->GetPhysics()->GetAxis().ToAngles();
