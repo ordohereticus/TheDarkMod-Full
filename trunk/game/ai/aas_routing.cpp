@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3059 $
- * $Date: 2008-11-22 08:30:43 -0500 (Sat, 22 Nov 2008) $
+ * $Revision: 3250 $
+ * $Date: 2009-03-15 01:47:06 -0400 (Sun, 15 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 3059 2008-11-22 13:30:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 3250 2009-03-15 05:47:06Z angua $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
@@ -1142,6 +1142,7 @@ bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalArea
 		return false;
 	}
 
+	int bestPortalAreaNum = 0;
 	// find the portal of the source area cluster leading towards the goal area
 	for (int i = 0; i < cluster->numPortals; i++ ) {
 		int portalNum = file->GetPortalIndex( cluster->firstPortal + i );
@@ -1189,10 +1190,33 @@ bool idAASLocal::RouteToGoalArea( int areaNum, const idVec3 origin, int goalArea
 
 		// if the time is better than the one already found
 		if ( !bestTime || t < bestTime ) {
+			bestPortalAreaNum = portalAreaNum;
 			bestReach = r;
 			bestTime = t;
 		}
 	}
+
+	if (bestPortalAreaNum > 0)
+	{
+		aasArea_t portalArea = file->GetArea(bestPortalAreaNum);
+		if (portalArea.travelFlags & TFL_DOOR)
+		{
+			CFrobDoor* door = GetDoor(bestPortalAreaNum);
+			if (door != NULL)
+			{
+				const idVec3& doorOrg = door->GetPhysics()->GetOrigin();
+				const idVec3& org = actor->GetPhysics()->GetOrigin();
+				idVec3 dir = doorOrg - org;
+				dir.z = 0;
+				float dist = dir.LengthFast();
+				if (dist < 500)
+				{
+					static_cast<idAI*>(actor)->GetMind()->GetState()->OnFrobDoorEncounter(door);
+				}	
+			}
+		}
+	}
+
 
 	if ( !bestReach ) {
 		return false;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3045 $
- * $Date: 2008-11-21 09:00:43 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3250 $
+ * $Date: 2009-03-15 01:47:06 -0400 (Sun, 15 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -16,6 +16,8 @@
 // Need linked list
 #include "../../idlib/containers/list.h"
 #include "../../DarkMod/AI/EAS/RouteInfo.h"
+
+class CFrobDoor;
 
 #ifdef __linux__
 #include "tools/compilers/aas/aasfile.h"
@@ -200,7 +202,12 @@ public:
 	virtual idReachability*		GetAreaFirstReachability(int areaNum) const = 0;
 
 	virtual void				SetAreaTravelFlag( int index, int flag ) = 0;
+	virtual void				RemoveAreaTravelFlag( int index, int flag ) = 0;
 
+	virtual void				ReferenceDoor(CFrobDoor* door, int areaNum) = 0;
+	virtual void				DeReferenceDoor(CFrobDoor* door, int areaNum) = 0;
+
+	virtual CFrobDoor*			GetDoor(int areaNum) const = 0;
 
 	/**
 	* This function fills a reachability list

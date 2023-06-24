@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3243 $
- * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3250 $
+ * $Date: 2009-03-15 01:47:06 -0400 (Sun, 15 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3243 2009-03-14 18:19:09Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3250 2009-03-15 05:47:06Z angua $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -76,6 +76,11 @@ CFrobDoor::CFrobDoor()
 	m_SoundTimerStarted = 0;
 	m_PinTranslationFractionFlag = false;
 	m_PinRotationFractionFlag = false;
+}
+
+CFrobDoor::~CFrobDoor()
+{
+	ClearDoorTravelFlag();
 }
 
 void CFrobDoor::Save(idSaveGame *savefile) const
@@ -408,6 +413,31 @@ void CFrobDoor::SetDoorTravelFlag()
 		
 		int areaNum = GetAASArea(aas);
 		aas->SetAreaTravelFlag(areaNum, TFL_DOOR);
+		aas->ReferenceDoor(this, areaNum);
+	}
+}
+
+void CFrobDoor::ClearDoorTravelFlag()
+{
+	// Flag the AAS areas the door is located in with door travel flag
+	for (int i = 0; i < gameLocal.NumAAS(); i++)
+	{
+		idAAS*	aas = gameLocal.GetAAS(i);
+		if (aas == NULL)
+		{
+			continue;
+		}
+		
+		int areaNum = GetAASArea(aas);
+		if (areaNum > 0)
+		{
+			aas->RemoveAreaTravelFlag(areaNum, TFL_DOOR);
+			aas->DeReferenceDoor(this, areaNum);
+		}
+		else
+		{
+			gameLocal.Warning("Door %s is not within a valid AAS area", name.c_str());
+		}
 	}
 }
 

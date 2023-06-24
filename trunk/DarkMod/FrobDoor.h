@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3243 $
- * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3250 $
+ * $Date: 2009-03-15 01:47:06 -0400 (Sun, 15 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -55,6 +55,8 @@ public:
 	CLASS_PROTOTYPE( CFrobDoor );
 
 							CFrobDoor();
+
+	virtual					~CFrobDoor();
 
 	void					Spawn();
 
@@ -130,6 +132,7 @@ protected:
 
 	// angua: flag the AAS area the door is located in with the travel flag TFL_DOOR
 	virtual void			SetDoorTravelFlag();
+	virtual void			ClearDoorTravelFlag();
 
 	/**
 	 * Find out if this door is touching another door, and if they share the same portal

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3243 $
- * $Date: 2009-03-14 14:19:09 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3250 $
+ * $Date: 2009-03-15 01:47:06 -0400 (Sun, 15 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -16,6 +16,9 @@
 #include "aas.h"
 #include "../pvs.h"
 #include "../../DarkMod/AI/EAS/EAS.h"
+#include <map>
+
+class CFrobDoor;
 
 class idRoutingCache {
 	friend class idAASLocal;
@@ -119,8 +122,15 @@ public:
 
 	virtual void				SetAreaTravelFlag( int index, int flag );
 
+	virtual void				RemoveAreaTravelFlag( int index, int flag );
+
 	// angua: this returns the cluster number of this area
 	virtual int					GetClusterNum(int areaNum);
+
+	virtual void				ReferenceDoor(CFrobDoor* door, int areaNum);
+	virtual void				DeReferenceDoor(CFrobDoor* door, int areaNum);
+
+	CFrobDoor*					GetDoor(int areaNum) const;
 
 	/*!
 	* See base class for interface definition
@@ -162,6 +172,10 @@ public:
 private:
 	idAASFile *					file;
 	idStr						name;
+
+	typedef std::map<int, CFrobDoor*> DoorMap;
+	DoorMap _doors;
+
 
 private:	// routing data
 	idRoutingCache ***			areaCacheIndex;			// for each area in each cluster the travel times to all other areas in the cluster
