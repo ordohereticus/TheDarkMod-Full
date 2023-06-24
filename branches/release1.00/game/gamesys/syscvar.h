@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3660 $
- * $Date: 2009-08-09 04:37:27 -0400 (Sun, 09 Aug 2009) $
+ * $Revision: 3717 $
+ * $Date: 2009-10-04 01:38:39 -0400 (Sun, 04 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -275,6 +275,7 @@ extern idCVar cv_empty_model;
 extern idCVar cv_tdm_s_doorDistanceAdd;
 extern idCVar cv_tdm_gui_smallFontLimit;
 extern idCVar cv_tdm_gui_mediumFontLimit;
+extern idCVar cv_tdm_s_maxSoundsPerShader;
 
 // Lockpicking
 extern idCVar cv_lp_pin_base_count;

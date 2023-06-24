@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3704 $
- * $Date: 2009-09-08 22:01:32 -0400 (Tue, 08 Sep 2009) $
+ * $Revision: 3717 $
+ * $Date: 2009-10-04 01:38:39 -0400 (Sun, 04 Oct 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3704 2009-09-09 02:01:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3717 2009-10-04 05:38:39Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -440,6 +440,11 @@ void idGameLocal::Init( void ) {
 	cvarSystem->SetCVarInteger("s_doorDistanceAdd", cv_tdm_s_doorDistanceAdd.GetInteger());
 	cvarSystem->SetCVarFloat("gui_mediumFontLimit", cv_tdm_gui_mediumFontLimit.GetFloat());
 	cvarSystem->SetCVarFloat("gui_smallFontLimit", cv_tdm_gui_smallFontLimit.GetFloat());
+
+	if (cv_tdm_s_maxSoundsPerShader.GetInteger() != -1)
+	{
+		cvarSystem->SetCVarInteger("s_maxSoundsPerShader", cv_tdm_s_maxSoundsPerShader.GetInteger());
+	}
 	
 	// load default scripts
 	program.Startup( SCRIPT_DEFAULT );
