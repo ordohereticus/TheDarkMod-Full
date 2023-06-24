@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3802 $
- * $Date: 2010-01-20 00:55:22 -0500 (Wed, 20 Jan 2010) $
+ * $Revision: 3820 $
+ * $Date: 2010-01-30 16:50:20 -0500 (Sat, 30 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -984,6 +984,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* When this offset is added to the head joint, we should be at the head center
 	**/
 	idVec3					m_HeadCenterOffset;
+
+	/**
+	* Rotates the FOV cone relative to the head joint
+	**/
+	idMat3					m_FOVRot;
 
 	/**
 	* Set to true if we want this AI to push off the player when the
