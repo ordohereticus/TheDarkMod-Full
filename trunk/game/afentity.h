@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3496 $
- * $Date: 2009-06-27 01:12:31 -0400 (Sat, 27 Jun 2009) $
+ * $Revision: 3500 $
+ * $Date: 2009-06-27 02:49:58 -0400 (Sat, 27 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -361,9 +361,9 @@ protected:
 	virtual void			RestoreAddedEnts( void );
 
 	/**
-	* Generates constraints for added entities, intended to be called on ragdoll start if ents were added before ragdoll start
+	* Updates added ent constraints when going ragdoll, to resolve issue of ents bound to joints that can animate and move without the AF body moving
 	**/
-	virtual void			GenerateAddedEntConstraints( void );
+	virtual void			UpdateAddedEntConstraints( void );
 
 	/**
 	* Set the linear and angular velocities of a particular body given by ID argument

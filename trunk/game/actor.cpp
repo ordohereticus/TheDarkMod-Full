@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3499 $
- * $Date: 2009-06-27 01:49:25 -0400 (Sat, 27 Jun 2009) $
+ * $Revision: 3500 $
+ * $Date: 2009-06-27 02:49:58 -0400 (Sat, 27 Jun 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3499 2009-06-27 05:49:25Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3500 2009-06-27 06:49:58Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2091,12 +2091,11 @@ bool idActor::StartRagdoll( void ) {
 	// disable the monster bounding box
 	GetPhysics()->DisableClip();
 
+	// ishtvan: Establish AF constraints for any AF bodies of bound entities
+	UpdateAddedEntConstraints();
+
 	// start using the AF
 	af.StartFromCurrentPose( spawnArgs.GetInt( "velocityTime", "0" ) );
-
-	// ishtvan: Establish AF constraints for any AF bodies of bound entities
-	// commented out, not working as planned
-	// GenerateAddedEntConstraints();
 
 	slomoStart = MS2SEC( gameLocal.time ) + spawnArgs.GetFloat( "ragdoll_slomoStart", "-1.6" );
 	slomoEnd = MS2SEC( gameLocal.time ) + spawnArgs.GetFloat( "ragdoll_slomoEnd", "0.8" );
