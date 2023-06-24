@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3574 $
- * $Date: 2009-07-24 02:34:17 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3578 $
+ * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -560,9 +560,6 @@ public:
 	int						maxAreaReevaluationInterval;
 	// The time that needs to pass before locked doors are enabled for another try (msec)
 	int						doorRetryTime;
-
-	// The greeting state this AI is currently in (to coordinate greeting barks in between AI)
-	ai::GreetingState			greetingState;
 
 protected:
 	// navigation

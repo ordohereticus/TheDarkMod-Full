@@ -1,20 +1,21 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3569 $
- * $Date: 2009-07-23 10:24:43 -0400 (Thu, 23 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3578 $
+ * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3569 2009-07-23 14:24:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3578 2009-07-24 18:09:28Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
 #include "../Tasks/SingleBarkTask.h"
+#include "../Tasks/GreetingBarkTask.h"
 #include "../Tasks/HandleDoorTask.h"
 #include "../Tasks/HandleElevatorTask.h"
 #include "../../AIComm_Message.h"
@@ -654,7 +655,7 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 						soundName = "snd_warnSawEvidence";
 					}
 				}
-				else if (owner->AI_AlertIndex < EObservant)
+				else if (owner->AI_AlertIndex < EObservant && owner->greetingState != ECannotGreet)
 				{
 					const idVec3& origin = owner->GetPhysics()->GetOrigin();
 					const idVec3& otherOrigin = otherAI->GetPhysics()->GetOrigin();
@@ -666,17 +667,15 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 					{
 						if (owner->CheckFOV(otherAI->GetEyePosition()) && otherAI->CheckFOV(owner->GetEyePosition()))
 						{
-							
-							// Chance check passed, greetings!
-							// gameLocal.Printf("I see a friend, I'm going to say hello.\n");
-							message = CommMessagePtr(new CommMessage(
-								CommMessage::Greeting_CommType, 
-								owner, other, // from this AI to the other
-								NULL,
-								owner->GetPhysics()->GetOrigin()
-							));
+							// Clear the sound, a special GreetingBarkTask is handling this
+							soundName = "";
 
-							soundName = GetGreetingSound(owner, otherAI);
+							// Get the sound and queue the task
+							idStr greetSound = GetGreetingSound(owner, otherAI);
+
+							owner->commSubsystem->AddCommTask(
+								CommunicationTaskPtr(new GreetingBarkTask(greetSound, otherAI))
+							);
 						}
 					}
 				}
@@ -690,9 +689,9 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 					);
 				}
 			}
+
 			// Don't ignore in future
 			ignoreStimulusFromNowOn = false;
-
 		}
 		else
 		{

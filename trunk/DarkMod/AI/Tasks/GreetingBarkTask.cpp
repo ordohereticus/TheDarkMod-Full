@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3575 $
- * $Date: 2009-07-24 02:57:08 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3578 $
+ * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: GreetingBarkTask.cpp 3575 2009-07-24 06:57:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: GreetingBarkTask.cpp 3578 2009-07-24 18:09:28Z greebo $", init_version);
 
 #include "GreetingBarkTask.h"
 #include "../Memory.h"
@@ -39,17 +39,38 @@ void GreetingBarkTask::Init(idAI* owner, Subsystem& subsystem)
 {
 	// Init the base class
 	SingleBarkTask::Init(owner, subsystem);
-	
-	// This task may not be performed with empty entity pointers
-	assert(owner != NULL);
 
-	// Set up the message for the other AI
-	SetMessage(CommMessagePtr(new CommMessage(
-		CommMessage::Greeting_CommType, 
-		owner, _greetingTarget, // from this AI to the other
-		NULL,
-		owner->GetPhysics()->GetOrigin()
-	)));
+	// Check the prerequisites - are both AI available for greeting?
+	if (owner->greetingState == ECannotGreet || 
+		_greetingTarget->greetingState == ECannotGreet)
+	{
+		// Owner or other AI cannot do greetings
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Actors cannot great each other: %s to %s\r", owner->name.c_str(), _greetingTarget->name.c_str());
+		subsystem.FinishTask();
+		return;
+	}
+
+	if (owner->greetingState != ENotGreetingAnybody || 
+		_greetingTarget->greetingState != ENotGreetingAnybody)
+	{
+		// Target is busy
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Cannot greet: one of the actors is busy: %s to %s\r", owner->name.c_str(), _greetingTarget->name.c_str());
+		subsystem.FinishTask();
+		return;
+	}
+	
+	// Both AI are not greeting each other so far, continue
+	owner->greetingState = EGoingToGreet;
+	_greetingTarget->greetingState = EWaitingForGreeting;
+
+	/*
+	ECannotGreet = 0,		// actor is not able to greet (e.g. spiders)
+	EWaitingForGreeting
+	ENotGreetingAnybody,	// actor is currently not greeting anybody (free)
+	EGoingToGreet,			// actor is about to greet somebody 
+	EIsGreeting,			// actor is currently playing its greeting sound
+	EAfterGreeting,			// actor is in the small pause after greeting
+	*/
 }
 
 bool GreetingBarkTask::Perform(Subsystem& subsystem)
@@ -59,9 +80,57 @@ bool GreetingBarkTask::Perform(Subsystem& subsystem)
 	// Let the SingleBarkTask do the timing and act upon the result
 	bool done = SingleBarkTask::Perform(subsystem);
 
-	// TODO: Set AI greeting state
+	// Set the Greeting State according to our base class' work
+	idAI* owner = _owner.GetEntity();
+
+	if (done)
+	{
+		owner->greetingState = EAfterGreeting;
+
+		if (_greetingTarget != NULL && _greetingTarget->IsType(idAI::Type))
+		{
+			idAI* otherAI = static_cast<idAI*>(_greetingTarget);
+
+			CommMessage message(
+				CommMessage::Greeting_CommType, 
+				owner, otherAI, // from this AI to the other
+				NULL,
+				owner->GetPhysics()->GetOrigin()
+			);
+
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Sending AI Comm Message to %s.\r", otherAI->name.c_str());
+			otherAI->GetMind()->GetState()->OnAICommMessage(message, 0);
+		}
+
+		// Owner is done here
+	}
+	else if (_endTime < 0)
+	{
+		// Greeting not yet dispatched, waiting
+		owner->greetingState = EGoingToGreet;
+	}
+	else 
+	{
+		// End time is set, we're currently barking
+		owner->greetingState = EIsGreeting;
+	}
+
+	if (_barkStartTime > 0 && gameLocal.time > _barkStartTime + 50000)
+	{
+		gameLocal.Printf("Force termination of GreetingBarkTask after 50 seconds: %s.\n", owner->name.c_str());
+		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("Force termination of GreetingBarkTask after 50 seconds: %s.\r", owner->name.c_str());
+		return true;
+	}
 
 	return done;
+}
+
+void GreetingBarkTask::OnFinish(idAI* owner)
+{
+	if (owner != NULL && owner->greetingState != ECannotGreet)
+	{
+		owner->greetingState = ENotGreetingAnybody;
+	}
 }
 
 // Save/Restore methods

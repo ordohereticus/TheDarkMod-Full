@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3572 $
- * $Date: 2009-07-24 01:52:30 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3578 $
+ * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -41,6 +41,8 @@ public:
 
 	virtual void Init(idAI* owner, Subsystem& subsystem);
 	virtual bool Perform(Subsystem& subsystem);
+
+	virtual void OnFinish(idAI* owner);
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;

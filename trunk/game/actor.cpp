@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3562 $
- * $Date: 2009-07-22 09:17:29 -0400 (Wed, 22 Jul 2009) $
- * $Author: tels $
+ * $Revision: 3578 $
+ * $Date: 2009-07-24 14:09:28 -0400 (Fri, 24 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3562 2009-07-22 13:17:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3578 2009-07-24 18:09:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -557,6 +557,9 @@ idActor::idActor( void ) {
 	m_AItype			= 0;
 	m_Innocent			= false;
 	rank				= 0;
+
+	greetingState		= ECannotGreet;
+
 	m_fovDotHoriz		= 0.0f;
 	m_fovDotVert		= 0.0f;
 	m_SneakAttackMult	= 1.0f;
@@ -799,6 +802,8 @@ void idActor::Spawn( void )
 			copyJoints.Append( copyJoint );
 		}
 	}
+
+	greetingState = spawnArgs.GetBool("canGreet", "0") ? ENotGreetingAnybody : ECannotGreet;
 
 	// set up blinking
 	blink_anim = headAnimator->GetAnim( "blink" );
@@ -1052,6 +1057,8 @@ void idActor::Save( idSaveGame *savefile ) const {
 		savefile->WriteObject( ent );
 	}
 
+	savefile->WriteInt(static_cast<int>(greetingState));
+
 	// melee stuff
 	m_MeleeStatus.Save( savefile );
 	savefile->WriteFloat( melee_range_unarmed );
@@ -1237,6 +1244,10 @@ void idActor::Restore( idRestoreGame *savefile ) {
 			ent->enemyNode.AddToEnd( enemyList );
 		}
 	}
+
+	savefile->ReadInt(i);
+	assert(i >= ECannotGreet && i < ENumAIGreetingStates);
+	greetingState = static_cast<GreetingState>(i);
 
 	// melee stuff
 	m_MeleeStatus.Restore( savefile );
