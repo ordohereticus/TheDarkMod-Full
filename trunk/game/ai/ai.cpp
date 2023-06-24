@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3915 $
+ * $Date: 2010-06-06 22:26:54 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3915 2010-06-07 02:26:54Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -10026,7 +10026,7 @@ int idAI::ContinueSearchForHidingSpots()
 		bool moreProcessingToDo = p_hidingSpotFinder->continueSearchForHidingSpots
 		(
 			p_hidingSpotFinder->hidingSpotList,
-			g_Global.m_maxNumHidingSpotPointTestsPerAIFrame,
+			cv_ai_max_hiding_spot_tests_per_frame.GetInteger(),
 			gameLocal.framenum
 		);
 

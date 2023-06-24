@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3914 $
- * $Date: 2010-06-06 22:17:58 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 3915 $
+ * $Date: 2010-06-06 22:26:54 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -288,12 +288,6 @@ public:
 	 * This solution is less accurate, though. Default for this value is false.
 	 */
 	bool m_WeakLightgem;
-
-	/**
-	* This is the maximum number of hiding spot point tests to do in a single AI frame.
-	* Values in the 100 range seem to maintain decent frame rates
-	*/
-	int m_maxNumHidingSpotPointTestsPerAIFrame;
 };
 
 extern CGlobal g_Global;

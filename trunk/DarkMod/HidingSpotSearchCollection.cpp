@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2817 $
- * $Date: 2008-09-11 13:38:12 -0400 (Thu, 11 Sep 2008) $
+ * $Revision: 3915 $
+ * $Date: 2010-06-06 22:26:54 -0400 (Sun, 06 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 2817 2008-09-11 17:38:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HidingSpotSearchCollection.cpp 3915 2010-06-07 02:26:54Z greebo $", init_version);
 
 #include "./HidingSpotSearchCollection.h"
 
@@ -241,7 +241,7 @@ int CHidingSpotSearchCollection::getOrCreateSearch
 	bool b_moreProcessingToDo = search.startHidingSpotSearch
 	(
 		search.hidingSpotList,
-		g_Global.m_maxNumHidingSpotPointTestsPerAIFrame,
+		cv_ai_max_hiding_spot_tests_per_frame.GetInteger(),
 		frameIndex
 	);
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("First pass of hiding spot search found %d spots\r", search.hidingSpotList.getNumSpots());
