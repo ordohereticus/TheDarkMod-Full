@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3552 $
- * $Date: 2009-07-19 07:38:41 -0400 (Sun, 19 Jul 2009) $
+ * $Revision: 3651 $
+ * $Date: 2009-08-05 12:45:14 -0400 (Wed, 05 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 3552 2009-07-19 11:38:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 3651 2009-08-05 16:45:14Z greebo $", init_version);
 
 #include "RangedCombatTask.h"
 #include "WaitTask.h"
@@ -64,14 +64,20 @@ bool RangedCombatTask::Perform(Subsystem& subsystem)
 			// the script function when the animation is done.
 			owner->SetWaitState("ranged_attack");
 
-			EmitCombatBark(owner, "snd_combat_ranged");
+			if (_lastCombatBarkTime == -1)
+			{
+				EmitCombatBark(owner, "snd_combat_ranged");
+			}
 		}
 		else
 		{
 			idAnimator* animator = owner->GetAnimatorForChannel(ANIMCHANNEL_LEGS);
 			int animint = animator->CurrentAnim(ANIMCHANNEL_LEGS)->AnimNum();
 			int length = animator->AnimLength(animint);
-			owner->actionSubsystem->PushTask(TaskPtr(new WaitTask(length + 1000)));
+
+			int padding = gameLocal.random.RandomInt(4000) + 1000;
+
+			owner->actionSubsystem->PushTask(TaskPtr(new WaitTask(length + padding)));
 		}
 	}
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3550 $
- * $Date: 2009-07-19 07:03:12 -0400 (Sun, 19 Jul 2009) $
+ * $Revision: 3651 $
+ * $Date: 2009-08-05 12:45:14 -0400 (Wed, 05 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,6 +24,7 @@ typedef boost::shared_ptr<RangedCombatTask> RangedCombatTaskPtr;
 class RangedCombatTask :
 	public CombatTask
 {
+	int _lastCombatBarkTime;
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;
