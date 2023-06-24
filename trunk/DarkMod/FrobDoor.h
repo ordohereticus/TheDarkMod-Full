@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3319 $
- * $Date: 2009-03-27 14:18:31 -0400 (Fri, 27 Mar 2009) $
+ * $Revision: 3335 $
+ * $Date: 2009-03-28 06:13:09 -0400 (Sat, 28 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -103,6 +103,9 @@ public:
 	virtual int				FrobMoverStartSound(const char* soundName);
 
 protected:
+
+	// Returns the handle nearest to the given position
+	CFrobDoorHandle*		GetNearestHandle(const idVec3& pos);
 
 	/**
 	 * This will read the spawnargs lockpick_bar, lockpick_rotate and 
