@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2452 $
- * $Date: 2008-06-07 18:41:59 -0400 (Sat, 07 Jun 2008) $
- * $Author: tels $
+ * $Revision: 3329 $
+ * $Date: 2009-03-28 01:35:53 -0400 (Sat, 28 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponse.cpp 2452 2008-06-07 22:41:59Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponse.cpp 3329 2009-03-28 05:35:53Z ishtvan $", init_version);
 
 #include "StimResponse.h"
 
@@ -45,6 +45,7 @@ const char *cStimType[] = {
 	"STIM_PLAYER",
 	"STIM_FLASH",
 	"STIM_BLIND",
+	"STIM_MOSS",
 	NULL
 };
 
