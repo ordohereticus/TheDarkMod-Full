@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3882 $
- * $Date: 2010-04-23 10:38:56 -0400 (Fri, 23 Apr 2010) $
+ * $Revision: 3888 $
+ * $Date: 2010-04-25 23:51:22 -0400 (Sun, 25 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -195,6 +195,7 @@ class CsndProp;
 class CRelations;
 typedef boost::shared_ptr<CRelations> CRelationsPtr;
 class CMissionData;
+typedef boost::shared_ptr<CMissionData> CMissionDataPtr;
 class CStimResponse;
 class CEscapePointManager;
 
@@ -490,7 +491,7 @@ public:
 	/**
 	* Pointer to global Mission Data object (objectives & stats)
 	**/
-	CMissionData *			m_MissionData;
+	CMissionDataPtr			m_MissionData;
 	EMissionResult			m_MissionResult; // holds the global mission state
 
 	/**
