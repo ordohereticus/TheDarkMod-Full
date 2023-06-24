@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3051 $
- * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3867 $
+ * $Date: 2010-03-26 01:12:04 -0400 (Fri, 26 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 3051 2008-11-21 16:13:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 3867 2010-03-26 05:12:04Z greebo $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
@@ -100,14 +100,16 @@ void CInventoryCategory::SetOwner(idEntity *owner)
 	}
 }
 
-void CInventoryCategory::PutItem(CInventoryItemPtr item)
+void CInventoryCategory::PutItem(const CInventoryItemPtr& item)
 {
 	if (item == NULL) return;
 
 	item->SetOwner(m_Owner.GetEntity());
 	item->SetCategory(this);
 
-	m_Item.AddUnique(item);
+	// Insert this item at the front of the list.
+	// This is a tad slower, but has been requested (issue #2144)
+	m_Item.Insert(item, 0);
 }
 
 bool CInventoryCategory::SwapItemPosition(const CInventoryItemPtr& item1, const CInventoryItemPtr& item2)

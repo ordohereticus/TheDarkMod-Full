@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3051 $
- * $Date: 2008-11-21 11:13:37 -0500 (Fri, 21 Nov 2008) $
+ * $Revision: 3867 $
+ * $Date: 2010-03-26 01:12:04 -0400 (Fri, 26 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -48,7 +48,7 @@ public:
 	/**
 	 * greebo: Adds the given item to this category
 	 */
-	void					PutItem(CInventoryItemPtr Item);
+	void					PutItem(const CInventoryItemPtr& Item);
 
 	/**
 	 * greebo: Removes the specified <item> from this category.
