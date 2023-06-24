@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3790 $
- * $Date: 2010-01-09 01:00:25 -0500 (Sat, 09 Jan 2010) $
+ * $Revision: 3795 $
+ * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -1620,6 +1620,12 @@ public:
 	* rotation of the attachment relative to the joint's orientation.
 	**/
 	virtual void			ReAttachToCoords( const char *AttName, idStr jointName, idVec3 offset, idAngles angles );
+
+	/**
+	* Cache the animation rates from spawnargs
+	* Always called at spawn, sometimes called later if spawnargs changed and rates need recaching
+	**/
+	virtual void			CacheAnimRates( void );
 
 	enum {
 		EVENT_ADD_DAMAGE_EFFECT = idEntity::EVENT_MAXEVENTS,

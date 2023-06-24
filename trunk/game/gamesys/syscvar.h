@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3772 $
- * $Date: 2009-12-26 19:50:25 -0500 (Sat, 26 Dec 2009) $
- * $Author: crispy $
+ * $Revision: 3795 $
+ * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -293,6 +293,9 @@ extern idCVar cv_lp_auto_pick;
 extern idCVar cv_lp_randomize;
 extern idCVar cv_lp_pawlow;
 extern idCVar cv_lp_debug_hud;
+
+// melee difficulty
+extern idCVar cv_melee_difficulty;
 
 extern idCVar cv_door_auto_open_on_unlock;
 

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3787 $
- * $Date: 2010-01-07 01:09:54 -0500 (Thu, 07 Jan 2010) $
+ * $Revision: 3795 $
+ * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -738,6 +738,11 @@ private:
 	 * greebo: This loads the vocal set (the snd_* spawnargs) into this entity's spawnargs.
 	 */
 	void					LoadVocalSet();
+	
+	/**
+	* ishtvan: Load a set of melee difficulty options
+	**/
+	void					LoadMeleeSet();
 
 	void					SetupHead( void );
 

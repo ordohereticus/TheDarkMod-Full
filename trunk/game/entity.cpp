@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3794 $
- * $Date: 2010-01-10 18:19:09 -0500 (Sun, 10 Jan 2010) $
+ * $Revision: 3795 $
+ * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3794 2010-01-10 23:19:09Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3795 2010-01-13 05:01:11Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -4585,7 +4585,7 @@ idEntity::AddDamageEffect
 ================
 */
 void idEntity::AddDamageEffect( const trace_t &collision, const idVec3 &velocity, const char *damageDefName ) {
-	const char *sound, *decal, *key;
+	const char *decal, *key;
 	idStr surfName;
 
 	const idDeclEntityDef *def = gameLocal.FindEntityDef( damageDefName, false );
@@ -6683,6 +6683,7 @@ idAnimatedEntity::Spawn
 void idAnimatedEntity::Spawn( void )
 {
 	// Cache animation rates
+	CacheAnimRates();
 	int anims = animator.NumAnims();
 	m_animRates.Clear();
 	m_animRates.AssureSize(anims);
@@ -6963,7 +6964,7 @@ void idAnimatedEntity::AddLocalDamageEffect
 		const idDeclEntityDef *def, const idMaterial *collisionMaterial 
 	) 
 {
-	const char *sound, *splat, *decal, *bleed, *key;
+	const char *splat, *decal, *bleed, *key;
 	damageEffect_t	*de;
 	idVec3 origin, dir;
 	idMat3 axis;
@@ -7273,6 +7274,32 @@ void idAnimatedEntity::ReAttachToCoords
 
 Quit:
 	return;
+}
+
+/*
+===============
+idAnimatedEntity::CacheAnimRates
+===============
+*/
+void idAnimatedEntity::CacheAnimRates( void )
+{
+	// Cache animation rates
+	int anims = animator.NumAnims();
+	m_animRates.Clear();
+	m_animRates.AssureSize(anims);
+	for (int i=0; i<anims; i++) 
+	{
+		const idAnim *anim = animator.GetAnim(i);
+		if (anim != NULL) 
+		{
+			idStr spawnargname = "anim_rate_";
+			spawnargname += anim->Name();
+			m_animRates[i] = spawnArgs.GetFloat(spawnargname, "1");
+		} else 
+		{
+			m_animRates[i] = 1.0f;
+		}
+	}
 }
 
 /*
