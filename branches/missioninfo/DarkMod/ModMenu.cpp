@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3927 $
- * $Date: 2010-06-10 00:05:49 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3929 $
+ * $Date: 2010-06-10 03:20:43 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3927 2010-06-10 04:05:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 3929 2010-06-10 07:20:43Z greebo $", init_version);
 
 #include "ModMenu.h"
 #include "../DarkMod/shop.h"
@@ -109,8 +109,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 
 	if (cmd == "updateModList")
 	{
-		// Reload the mod list and update the GUI
-		BuildModList();
+		gameLocal.m_MissionManager->ReloadMissionList();
 
 		// Update the GUI state
 		UpdateGUI(gui);
