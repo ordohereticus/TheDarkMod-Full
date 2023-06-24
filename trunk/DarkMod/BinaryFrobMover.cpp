@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3293 $
- * $Date: 2009-03-24 13:16:29 -0400 (Tue, 24 Mar 2009) $
+ * $Revision: 3295 $
+ * $Date: 2009-03-25 04:09:01 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3293 2009-03-24 17:16:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3295 2009-03-25 08:09:01Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -34,6 +34,7 @@ const idEventDef EV_TDM_FrobMover_Unlock( "Unlock", NULL );
 const idEventDef EV_TDM_FrobMover_ToggleLock( "ToggleLock", NULL );
 const idEventDef EV_TDM_FrobMover_IsOpen( "IsOpen", NULL, 'f' );
 const idEventDef EV_TDM_FrobMover_IsLocked( "IsLocked", NULL, 'f' );
+const idEventDef EV_TDM_FrobMover_IsPickable( "IsPickable", NULL, 'f' );
 
 CLASS_DECLARATION( idMover, CBinaryFrobMover )
 	EVENT( EV_PostSpawn,					CBinaryFrobMover::Event_PostSpawn )
@@ -45,6 +46,7 @@ CLASS_DECLARATION( idMover, CBinaryFrobMover )
 	EVENT( EV_TDM_FrobMover_ToggleLock,		CBinaryFrobMover::Event_ToggleLock)
 	EVENT( EV_TDM_FrobMover_IsOpen,			CBinaryFrobMover::Event_IsOpen)
 	EVENT( EV_TDM_FrobMover_IsLocked,		CBinaryFrobMover::Event_IsLocked)
+	EVENT( EV_TDM_FrobMover_IsPickable,		CBinaryFrobMover::Event_IsPickable)
 	EVENT( EV_Activate,						CBinaryFrobMover::Event_Activate)
 END_CLASS
 
@@ -981,6 +983,11 @@ void CBinaryFrobMover::Event_ToggleLock()
 void CBinaryFrobMover::Event_IsLocked()
 {
 	idThread::ReturnInt(IsLocked());
+}
+
+void CBinaryFrobMover::Event_IsPickable()
+{
+	idThread::ReturnInt(IsPickable());
 }
 
 idVec3 CBinaryFrobMover::GetCurrentPos()

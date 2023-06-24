@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3294 $
- * $Date: 2009-03-25 03:52:53 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3295 $
+ * $Date: 2009-03-25 04:09:01 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -184,7 +184,6 @@ protected:
 
 	// Script event interface
 	void					Event_GetDoorhandle();
-	void					Event_IsPickable();
 	void					Event_OpenDoor(float master);
 
 	// This is called periodically, to handle a pending close request (used for locking doors after closing)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3294 $
- * $Date: 2009-03-25 03:52:53 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3295 $
+ * $Date: 2009-03-25 04:09:01 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3294 2009-03-25 07:52:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3295 2009-03-25 08:09:01Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -35,13 +35,11 @@ static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3294 2009-03-25 07
 
 const idEventDef EV_TDM_Door_OpenDoor( "OpenDoor", "f" );
 const idEventDef EV_TDM_Door_HandleLockRequest( "HandleLockRequest", NULL ); // used for periodic checks to lock the door once it is fully closed
-const idEventDef EV_TDM_Door_IsPickable( "IsPickable", NULL, 'f' );
 const idEventDef EV_TDM_Door_GetDoorhandle( "GetDoorhandle", NULL, 'e' );
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_Door_OpenDoor,			CFrobDoor::Event_OpenDoor)
 	EVENT( EV_TDM_Door_HandleLockRequest,	CFrobDoor::Event_HandleLockRequest)
-	EVENT( EV_TDM_Door_IsPickable,			CFrobDoor::Event_IsPickable)
 	EVENT( EV_TDM_Door_GetDoorhandle,		CFrobDoor::Event_GetDoorhandle)
 
 	// Needed for PickableLock: Update Handle position on lockpick status update
@@ -972,11 +970,6 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 void CFrobDoor::Event_GetDoorhandle()
 {
 	idThread::ReturnEntity(m_Doorhandles.Num() > 0 ? m_Doorhandles[0].GetEntity() : NULL);
-}
-
-void CFrobDoor::Event_IsPickable()
-{
-	idThread::ReturnInt(IsPickable());
 }
 
 void CFrobDoor::Event_OpenDoor(float master)
