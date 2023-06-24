@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3820 $
- * $Date: 2010-01-30 16:50:20 -0500 (Sat, 30 Jan 2010) $
+ * $Revision: 3823 $
+ * $Date: 2010-01-30 18:20:09 -0500 (Sat, 30 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -938,6 +938,10 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	float					m_KoDotHoriz;
 	float					m_KoAlertDotVert;
 	float					m_KoAlertDotHoriz;
+	/**
+	* Rotates the KO cone relative to the head joint
+	**/
+	idMat3					m_KoRot;
 
 	/**
 	* Current number of air ticks left for drowning
