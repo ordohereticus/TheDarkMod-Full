@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3230 $
- * $Date: 2009-03-08 03:50:29 -0400 (Sun, 08 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3247 $
+ * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3230 2009-03-08 07:50:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -566,6 +566,8 @@ idActor::idActor( void ) {
 	pain_delay			= 0;
 	pain_threshold		= 0;
 
+	melee_range_unarmed = 0.0f;
+	melee_range			= 0.0f;
 	m_MeleeDamageMult					= 1.0f;
 	m_MeleeHoldTimeMin					= 0;
 	m_MeleeHoldTimeMax					= 0;
@@ -696,7 +698,9 @@ void idActor::Spawn( void )
 
 	pain_delay		= SEC2MS( spawnArgs.GetFloat( "pain_delay" ) );
 	pain_threshold	= spawnArgs.GetInt( "pain_threshold" );
-
+	
+	melee_range_unarmed					= spawnArgs.GetFloat( "melee_range","64");
+	melee_range							= melee_range_unarmed;
 	m_MeleeDamageMult					= spawnArgs.GetFloat("melee_damage_mod","1.0f");
 	m_MeleeHoldTimeMin					= spawnArgs.GetInt("melee_hold_time_min");
 	m_MeleeHoldTimeMax					= spawnArgs.GetInt("melee_hold_time_max");
@@ -1017,6 +1021,8 @@ void idActor::Save( idSaveGame *savefile ) const {
 
 	// melee stuff
 	m_MeleeStatus.Save( savefile );
+	savefile->WriteFloat( melee_range_unarmed );
+	savefile->WriteFloat( melee_range );
 	savefile->WriteFloat( m_MeleeDamageMult );
 	savefile->WriteInt( m_MeleeHoldTimeMin );
 	savefile->WriteInt( m_MeleeHoldTimeMax );
@@ -1184,6 +1190,8 @@ void idActor::Restore( idRestoreGame *savefile ) {
 
 	// melee stuff
 	m_MeleeStatus.Restore( savefile );
+	savefile->ReadFloat( melee_range_unarmed );
+	savefile->ReadFloat( melee_range );
 	savefile->ReadFloat( m_MeleeDamageMult );
 	savefile->ReadInt( m_MeleeHoldTimeMin );
 	savefile->ReadInt( m_MeleeHoldTimeMax );

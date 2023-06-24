@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3220 $
- * $Date: 2009-03-01 23:00:08 -0500 (Sun, 01 Mar 2009) $
+ * $Revision: 3247 $
+ * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3220 2009-03-02 04:00:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "../Memory.h"
@@ -82,7 +82,6 @@ void MeleeCombatTask::PerformReady(idAI* owner)
 		gameRenderWorld->DrawText( debugText, (owner->GetEyePosition() - owner->GetPhysics()->GetGravityNormal()*-25), 0.20f, colorMagenta, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 	}
 
-	// TODO: Different recovery time based on what just happened (was parried, got hit, etc)
 	// TODO: Cache these rather than calc. every frame?
 	int NextAttTime;
 	if( pStatus->m_ActionResult == MELEERESULT_PAR_BLOCKED 
@@ -108,13 +107,12 @@ void MeleeCombatTask::PerformReady(idAI* owner)
 
 	// if we can't attack and our enemy is attacking us at a threatening range, parry
 	// TODO: Figure out how to switch enemies to face & parry a new one
-	// TODO: May need different range other than canHitEnemy, if enemy reach exceeds our own
 	else if
 		( 
 			pStatus->m_bCanParry
 			&& gameLocal.time > NextParTime
-			&& owner->GetMemory().canHitEnemy // we can hit them so they can hit us?
 			&& (pEnStatus->m_ActionState == MELEEACTION_ATTACK)
+			&& owner->GetMemory().canBeHitByEnemy
 			&& !_bForceAttack
 		)
 	{

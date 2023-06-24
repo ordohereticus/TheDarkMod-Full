@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2635 $
- * $Date: 2008-07-12 04:53:10 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 3247 $
+ * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 2635 2008-07-12 08:53:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
 
 #include "UnreachableTargetState.h"
 #include "../Memory.h"
@@ -216,7 +216,7 @@ void UnreachableTargetState::Think(idAI* owner)
 	targetDirection.y = enemyDirection.y * cosAngle + enemyDirection.x * sinAngle;
 
 	idVec3 targetPoint = enemy->GetPhysics()->GetOrigin() 
-				+ (targetDirection * (owner->spawnArgs.GetFloat("melee_range","64")));
+				+ (targetDirection * owner->melee_range);
 	idVec3 bottomPoint = targetPoint;
 	bottomPoint.z -= 70;
 	

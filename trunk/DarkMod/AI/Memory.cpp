@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3084 $
- * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3247 $
+ * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3084 2008-12-13 18:13:10Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -51,6 +51,7 @@ Memory::Memory(idAI* owningAI) :
 	alertSearchExclusionVolume(0,0,0),
 	lastEnemyPos(0,0,0),
 	canHitEnemy(false),
+	canBeHitByEnemy(false),
 	currentSearchSpot(0,0,0),
 	hidingSpotTestStarted(false),
 	hidingSpotSearchDone(true),
@@ -101,6 +102,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteVec3(alertSearchExclusionVolume);
 	savefile->WriteVec3(lastEnemyPos);
 	savefile->WriteBool(canHitEnemy);
+	savefile->WriteBool(canBeHitByEnemy);
 	savefile->WriteVec3(currentSearchSpot);
 	savefile->WriteBool(hidingSpotTestStarted);
 	savefile->WriteBool(hidingSpotSearchDone);
@@ -171,6 +173,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadVec3(alertSearchExclusionVolume);
 	savefile->ReadVec3(lastEnemyPos);
 	savefile->ReadBool(canHitEnemy);
+	savefile->ReadBool(canBeHitByEnemy);
 	savefile->ReadVec3(currentSearchSpot);
 	savefile->ReadBool(hidingSpotTestStarted);
 	savefile->ReadBool(hidingSpotSearchDone);

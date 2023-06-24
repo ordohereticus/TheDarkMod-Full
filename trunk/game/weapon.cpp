@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3078 $
- * $Date: 2008-12-06 03:23:40 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3247 $
+ * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 3078 2008-12-06 08:23:40Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -732,6 +732,13 @@ void idWeapon::Clear( void ) {
 	m_Attachments.Clear();
 
 	m_animRates.Clear();
+
+	// clear attack flags on the player
+	if( owner )
+	{
+		owner->SetAttackFlag(COMBAT_MELEE, false);
+		owner->SetAttackFlag(COMBAT_RANGED, false);
+	}
 }
 
 /*
@@ -1105,6 +1112,16 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 
 	// make sure we have the correct skin
 	UpdateSkin();
+
+	// update attack flags on the player
+	if(weaponDef->dict.GetBool("is_weapon_melee"))
+	{
+		owner->SetAttackFlag(COMBAT_MELEE, true);
+	}
+	else if(weaponDef->dict.GetBool("is_weapon_ranged"))
+	{
+		owner->SetAttackFlag(COMBAT_RANGED, true);
+	}
 }
 
 /***********************************************************************

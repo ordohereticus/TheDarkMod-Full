@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3240 $
- * $Date: 2009-03-12 17:39:22 -0400 (Thu, 12 Mar 2009) $
+ * $Revision: 3247 $
+ * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3240 2009-03-12 21:39:22Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3247 2009-03-15 00:52:26Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -926,4 +926,7 @@ void CMeleeWeapon::AttachedToActor(idActor *actor)
 	src.FreeSource();
 
 	pMeleeStatus->m_attacks = attacks;
+
+	// add weapon reach to AI's unarmed reach
+	actor->melee_range = actor->melee_range_unarmed + spawnArgs.GetFloat("reach");
 }

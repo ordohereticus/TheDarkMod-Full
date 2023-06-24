@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3084 $
- * $Date: 2008-12-13 13:13:10 -0500 (Sat, 13 Dec 2008) $
- * $Author: angua $
+ * $Revision: 3247 $
+ * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -250,6 +250,11 @@ public:
 	// This flag is mostly for caching purposes so that the subsystem tasks
 	// don't need to query idAI::CanHitEnemy() independently.
 	bool canHitEnemy;
+
+	/**
+	* When true, an enemy can potentially hit us with a melee attack in the near future
+	**/
+	bool canBeHitByEnemy;
 
 	/*!
 	* These hold the current spot search target, regardless of whether
