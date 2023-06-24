@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3542 $
-#* $Date: 2009-07-18 01:41:01 -0400 (Sat, 18 Jul 2009) $
-#* $Author: greebo $
+#* $Revision: 3556 $
+#* $Date: 2009-07-19 14:29:36 -0400 (Sun, 19 Jul 2009) $
+#* $Author: tels $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -220,6 +220,7 @@ AI/States/TakeCoverState.cpp \
 AI/States/UnreachableTargetState.cpp \
 AI/Tasks/ChaseEnemyRangedTask.cpp \
 AI/Tasks/ChaseEnemyTask.cpp \
+AI/Tasks/CombatTask.cpp \
 AI/Tasks/CommunicationTask.cpp \
 AI/Tasks/CommWaitTask.cpp \
 AI/Tasks/FleeTask.cpp \
@@ -271,6 +272,7 @@ local_env.Append( CPPFLAGS = [ '-Wno-unused', '-Wno-deprecated' ] )
 local_env.Append(LIBS = [
     File('#/linux/devil/lib/libIL.a'),
     File('/lib32/libboost_filesystem.a'),
+#    File('/lib/libboost_filesystem.a'),
     File('/usr/lib/libboost_filesystem.a')
 ])
 
