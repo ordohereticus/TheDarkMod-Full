@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3274 $
- * $Date: 2009-03-19 07:19:42 -0400 (Thu, 19 Mar 2009) $
+ * $Revision: 3281 $
+ * $Date: 2009-03-21 04:58:13 -0400 (Sat, 21 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -242,7 +242,6 @@ protected:
 
 	// Gets called when a lockpick sound is finished playing
 	void					Event_LockpickSoundFinished(ELockpickState nextState);
-	void					Event_UpdateHandlePosition();
 
 	// Script event interface
 	void					Event_GetDoorhandle();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3274 $
- * $Date: 2009-03-19 07:19:42 -0400 (Thu, 19 Mar 2009) $
+ * $Revision: 3281 $
+ * $Date: 2009-03-21 04:58:13 -0400 (Sat, 21 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3274 2009-03-19 11:19:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3281 2009-03-21 08:58:13Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -43,7 +43,6 @@ const idEventDef EV_TDM_Door_GetDoorhandle( "GetDoorhandle", NULL, 'e' );
 
 // Internal events, no need to expose these to scripts
 const idEventDef EV_TDM_LockpickSoundFinished("TDM_LockpickSoundFinished", "d"); // pass the next state as argument
-const idEventDef EV_TDM_LockpickUpdateHandlePos("TDM_UpdateHandlePosition", NULL);
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_Door_OpenDoor,			CFrobDoor::Event_OpenDoor)
@@ -51,7 +50,6 @@ CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_Door_IsPickable,			CFrobDoor::Event_IsPickable)
 	EVENT( EV_TDM_Door_GetDoorhandle,		CFrobDoor::Event_GetDoorhandle)
 	EVENT( EV_TDM_LockpickSoundFinished,	CFrobDoor::Event_LockpickSoundFinished)
-	EVENT( EV_TDM_LockpickUpdateHandlePos,	CFrobDoor::Event_UpdateHandlePosition)
 END_CLASS
 
 static const char* StateNames[] =
@@ -891,11 +889,6 @@ float CFrobDoor::CalculateHandleMoveFraction()
 	return fraction;
 }
 
-void CFrobDoor::Event_UpdateHandlePosition()
-{
-	UpdateHandlePosition();
-}
-
 void CFrobDoor::OnLockpickPinSuccess()
 {
 	// Pin was picked, so we try to advance to the next pin.
@@ -1649,6 +1642,13 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 			// Let the sound play from the first handle, but use the soundshader
 			// as defined on this entity.
 			idStr sound = spawnArgs.GetString(soundName, "");
+
+			if (sound.IsEmpty())
+			{
+				gameLocal.Warning("Cannot find sound %s on door %s\r", sound.c_str(), name.c_str());
+				return 0;
+			}
+
 			const idSoundShader* shader = declManager->FindSound(sound);
 
 			int length = 0;
