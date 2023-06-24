@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3290 $
- * $Date: 2009-03-22 23:35:54 -0400 (Sun, 22 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3316 $
+ * $Date: 2009-03-27 01:34:35 -0400 (Fri, 27 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3290 $   $Date: 2009-03-22 23:35:54 -0400 (Sun, 22 Mar 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3316 $   $Date: 2009-03-27 01:34:35 -0400 (Fri, 27 Mar 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -59,7 +59,7 @@ const float MANTLE_TEST_INCREMENT = 1.0;
 * This was determined for PM_FRICTION = 6.0 and should change if
 *	PM_FRICTION changes from 6.0.
 **/
-const float PM_NOFRICTION_SPEED = 69.0f;
+const float PM_NOFRICTION_SPEED = 71.0f;
 
 const float MIN_WALK_NORMAL		= 0.7f;		// can't walk on very steep slopes
 const float OVERCLIP			= 1.001f;
@@ -869,10 +869,12 @@ void idPhysics_Player::WalkMove( void )
 	{
 		accelerate = PM_ACCELERATE;
 		
-	//FIX: If the player is moving very slowly, bump up their acceleration
-	// so they don't get stuck to the floor by friction.
+		//FIX: If the player is moving very slowly, bump up their acceleration
+		// so they don't get stuck to the floor by friction.
 		if( playerSpeed < PM_NOFRICTION_SPEED )
+		{
 			accelerate *= 3.0f;
+		}
 	}
 
 	Accelerate( wishdir, wishspeed, accelerate );
