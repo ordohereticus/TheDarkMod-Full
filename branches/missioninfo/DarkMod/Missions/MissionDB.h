@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3920 $
- * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3922 $
+ * $Date: 2010-06-08 21:10:19 -0400 (Tue, 08 Jun 2010) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -31,7 +31,7 @@ public:
 	void Init();
 
 	// Saves changed data to disk
-	void Shutdown();
+	void Save();
 
 	// Returns the mission info structure for this fs_game
 	// Always returns non-NULL, if the name is not existing, 

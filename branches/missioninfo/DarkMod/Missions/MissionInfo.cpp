@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3921 $
- * $Date: 2010-06-08 05:16:42 -0400 (Tue, 08 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3922 $
+ * $Date: 2010-06-08 21:10:19 -0400 (Tue, 08 Jun 2010) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3921 2010-06-08 09:16:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3922 2010-06-09 01:10:19Z angua $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -40,6 +40,7 @@ void CMissionInfo::Save()
 {
 	// Don't do unnecessary work
 	//if (!_declDirty) return;
+	//if (modName != "thieves") return;
 
 	// Generate new declaration body text
 	_decl->Update(modName);

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3920 $
- * $Date: 2010-06-08 04:45:18 -0400 (Tue, 08 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3922 $
+ * $Date: 2010-06-08 21:10:19 -0400 (Tue, 08 Jun 2010) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3920 2010-06-08 08:45:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3922 2010-06-09 01:10:19Z angua $", init_version);
 
 #include "MissionManager.h"
 #include "MissionDB.h"
@@ -28,7 +28,7 @@ void CMissionManager::Init()
 
 void CMissionManager::Shutdown()
 {
-	_missionDB->Shutdown();
+	_missionDB->Save();
 }
 
 // Returns the number of available missions
