@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3810 $
- * $Date: 2010-01-21 09:47:13 -0500 (Thu, 21 Jan 2010) $
- * $Author: greebo $
+ * $Revision: 3840 $
+ * $Date: 2010-02-19 06:02:46 -0500 (Fri, 19 Feb 2010) $
+ * $Author: jcdenton $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3810 2010-01-21 14:47:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3840 2010-02-19 11:02:46Z jcdenton $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -510,12 +510,16 @@ void idGameLocal::Init( void ) {
 		// Use D3 interaction
 		Printf("Using D3 interaction.vfp\n");
 		cvarSystem->SetCVarInteger("r_testARBProgram", 0);
+		r_HDR_postProcess.SetBool( false );
 	}
 	else
 	{
 		// Use rebb's enhanced interaction
-		Printf("Using TDM's enhanced interaction.vfp\n");
+		// Rebb's interaction has been replaced by mine for now. -JC Denton
+		//Printf("Using TDM's enhanced interaction.vfp\n");
+		Printf("Using TDM's HDR\n");
 		cvarSystem->SetCVarInteger("r_testARBProgram", 1);
+		r_HDR_postProcess.SetBool( true );
 	}
 }
 
@@ -2880,12 +2884,16 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 					// Use D3 interaction
 					Printf("Switching to D3 interaction.vfp\n");
 					cvarSystem->SetCVarInteger("r_testARBProgram", 0);
+					r_HDR_postProcess.SetBool( false );
 				}
 				else
 				{
 					// Use rebb's enhanced interaction
-					Printf("Switching to TDM's enhanced interaction.vfp\n");
+					//Printf("Switching to TDM's enhanced interaction.vfp\n");
+					// Replacing Rebb's interaction with HDR for now. - JC Denton
+					Printf("Switching to TDM's HDR\n");
 					cvarSystem->SetCVarInteger("r_testARBProgram", 1);
+					r_HDR_postProcess.SetBool( true );
 				}
 			}
 		}
