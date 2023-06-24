@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3467 $
+ * $Date: 2009-05-24 07:12:58 -0400 (Sun, 24 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3467 2009-05-24 11:12:58Z greebo $", init_version);
 
 #include "UnreachableTargetState.h"
 #include "../Memory.h"
@@ -71,9 +71,6 @@ void UnreachableTargetState::Init(idAI* owner)
 	_takeCoverTime = -1;
 
 	// Fill the subsystems with their tasks
-
-	// The communication system is barking 
-	//owner->commSubsystem->ClearTasks(); // TODO_AI
 
 	// Create the message
 	CommMessagePtr message(new CommMessage(

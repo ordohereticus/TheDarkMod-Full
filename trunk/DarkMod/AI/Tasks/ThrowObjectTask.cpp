@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 3467 $
+ * $Date: 2009-05-24 07:12:58 -0400 (Sun, 24 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ThrowObjectTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ThrowObjectTask.cpp 3467 2009-05-24 11:12:58Z greebo $", init_version);
 
 #include "ThrowObjectTask.h"
 #include "../States/TakeCoverState.h"
@@ -35,8 +35,8 @@ void ThrowObjectTask::Init(idAI* owner, Subsystem& subsystem)
 	_projectileDelayMin = SEC2MS(owner->spawnArgs.GetFloat("outofreach_projectile_delay_min", "7.0"));
 	_projectileDelayMax = SEC2MS(owner->spawnArgs.GetFloat("outofreach_projectile_delay_max", "10.0"));
 
-	// First throw immediately
-	_nextThrowObjectTime = gameLocal.time;
+	// First throw after 3 seconds
+	_nextThrowObjectTime = gameLocal.time + 3000;
 }
 
 bool ThrowObjectTask::Perform(Subsystem& subsystem)
