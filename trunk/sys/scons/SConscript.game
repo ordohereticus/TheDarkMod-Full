@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3742 $
-#* $Date: 2009-11-03 05:40:41 -0500 (Tue, 03 Nov 2009) $
+#* $Revision: 3750 $
+#* $Date: 2009-11-07 23:29:30 -0500 (Sat, 07 Nov 2009) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -275,7 +275,12 @@ local_env.Append(LIBS = [
     File('#/linux/devil/lib/libIL.a'),
 #    File('/lib32/libboost_filesystem.a'),
 #    File('/lib/libboost_filesystem.a'),
-    File('/usr/lib/libboost_filesystem.a')
+# greebo: I needed to add these 3 to compile in Ubuntu 9.10 x64, uncomment them if needed
+# ---------------------------------------------
+#    File('#/linux/boost/lib/libboost_filesystem.a'),
+#    File('#/linux/boost/lib/libboost_system.a'),
+#    File('#/linux/libstdc/libstdc++.so')
+# ---------------------------------------------
 ])
 
 ret = local_env.SharedLibrary('game', game_list + darkModList + idlib_objects + ziploader_list )
