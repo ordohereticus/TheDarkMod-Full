@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3898 $
- * $Date: 2010-05-20 20:21:56 -0400 (Thu, 20 May 2010) $
+ * $Revision: 3903 $
+ * $Date: 2010-05-26 07:12:57 -0400 (Wed, 26 May 2010) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3898 2010-05-21 00:21:56Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3903 2010-05-26 11:12:57Z angua $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -271,7 +271,7 @@ void MovementSubsystem::StartPathTask()
 		else 
 		{
 			// No "angle" key set, just schedule the animation task
-			task = PathAnimTaskPtr(new PathAnimTask(path));
+			tasks.push_back(TaskPtr(new PathAnimTask(path)));
 		}
 	}
 	else if (classname == "path_cycleanim")
