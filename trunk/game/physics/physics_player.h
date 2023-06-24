@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3395 $
- * $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3400 $
+ * $Date: 2009-04-12 00:29:46 -0400 (Sun, 12 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -338,6 +338,8 @@ private:
 	int						m_ClimbSndRepDistVert;
 	int						m_ClimbSndRepDistHoriz;
 
+	int						m_NextAttachTime;
+
 	/**
 	* View yaw and pitch changes between this frame and last frame
 	* In degrees.
@@ -388,7 +390,6 @@ private:
 	void					CheckDuck( void );
 	bool					CheckJump( void );
 	bool					CheckRopeJump( void );
-	void					RopeDetach( void );
 	/**
 	* Read in the entity's velocity and store it to m_RefEntVelocity
 	* If the ent is a static, the bindmaster velocity is read off instead
@@ -409,6 +410,14 @@ private:
 
 public:
 	void					ClimbDetach( bool bStepUp = false );
+	void					RopeDetach( void );
+
+	// angua: player can not attach to rope/ladder before this time is over
+	void					SetNextAttachTime(int time)
+	{
+		m_NextAttachTime = time;
+	}
+
 
 
 	//#####################################################

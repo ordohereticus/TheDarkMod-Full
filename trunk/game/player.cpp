@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3398 $
- * $Date: 2009-04-11 12:30:13 -0400 (Sat, 11 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3400 $
+ * $Date: 2009-04-12 00:29:46 -0400 (Sun, 12 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3398 2009-04-11 16:30:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3400 2009-04-12 04:29:46Z angua $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5404,7 +5404,11 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_23:		// Crouch
 		{
 			// angua: hitting crouch while climbing on a ladder or rope will detach
-			if (physicsObj.OnRope() || physicsObj.OnLadder())
+			if (physicsObj.OnRope())
+			{
+				physicsObj.RopeDetach();
+			}
+			else if (physicsObj.OnLadder())
 			{
 				physicsObj.ClimbDetach();
 			}
