@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3623 $
- * $Date: 2009-07-31 05:35:31 -0400 (Fri, 31 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3627 $
+ * $Date: 2009-07-31 13:29:35 -0400 (Fri, 31 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3623 2009-07-31 09:35:31Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3627 2009-07-31 17:29:35Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2289,7 +2289,6 @@ void idAI::LinkScriptVariables( void )
 	AI_KNOCKEDOUT.LinkTo(		scriptObject, "AI_KNOCKEDOUT" );
 	AI_ENEMY_VISIBLE.LinkTo(	scriptObject, "AI_ENEMY_VISIBLE" );
 	AI_ENEMY_IN_FOV.LinkTo(		scriptObject, "AI_ENEMY_IN_FOV" );
-	AI_ENEMY_DEAD.LinkTo(		scriptObject, "AI_ENEMY_DEAD" );
 	AI_MOVE_DONE.LinkTo(		scriptObject, "AI_MOVE_DONE" );
 	AI_ONGROUND.LinkTo(			scriptObject, "AI_ONGROUND" );
 	AI_ACTIVATED.LinkTo(		scriptObject, "AI_ACTIVATED" );
@@ -5854,7 +5853,6 @@ idAI::EnemyDead
 */
 void idAI::EnemyDead( void ) {
 	ClearEnemy();
-	AI_ENEMY_DEAD = true;
 }
 
 /*
@@ -6566,8 +6564,6 @@ bool idAI::SetEnemy(idActor* newEnemy)
 	}
 	else
 	{
-		// greebo: update the ENEMY_DEAD status
-		AI_ENEMY_DEAD = (newEnemy->health <= 0); 
 		return true; // still a valid enemy
 	}
 }

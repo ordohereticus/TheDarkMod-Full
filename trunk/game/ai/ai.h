@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3623 $
- * $Date: 2009-07-31 05:35:31 -0400 (Fri, 31 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3627 $
+ * $Date: 2009-07-31 13:29:35 -0400 (Fri, 31 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -712,7 +712,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	idScriptBool			AI_KNOCKEDOUT;
 	idScriptBool			AI_ENEMY_VISIBLE;
 	idScriptBool			AI_ENEMY_IN_FOV;
-	idScriptBool			AI_ENEMY_DEAD;
 	idScriptBool			AI_MOVE_DONE;
 	idScriptBool			AI_ONGROUND;
 	idScriptBool			AI_ACTIVATED;
