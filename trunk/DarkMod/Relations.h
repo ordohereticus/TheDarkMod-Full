@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3234 $
- * $Date: 2009-03-11 16:23:16 -0400 (Wed, 11 Mar 2009) $
+ * $Revision: 3235 $
+ * $Date: 2009-03-12 00:49:35 -0400 (Thu, 12 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -170,12 +170,6 @@ protected:
 	* The relationship matrix uses class CMatrixSq to store a square matrix
 	**/
 	CMatrixSq<int>		m_RelMat;
-
-	/**
-	* Boolean to store whether the relations matrix failed to load
-	* Accessors will check this and return the default relation if true
-	**/
-	bool				m_bMatFailed;
 };
 typedef boost::shared_ptr<CRelations> CRelationsPtr;
 
