@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3260 $
- * $Date: 2009-03-17 00:39:56 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3265 $
+ * $Date: 2009-03-17 14:01:03 -0400 (Tue, 17 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3260 2009-03-17 04:39:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3265 2009-03-17 18:01:03Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -302,7 +302,7 @@ idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo",
 idCVar cv_lp_pin_base_count("tdm_lp_base_count",	"5",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "Base number of clicks per pin. This number will be added to the pinpattern." );
 idCVar cv_lp_sample_delay("tdm_lp_sample_delay",	"10",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "Time in ms added to each pin sample to create a small pause between each pinsample." );
 idCVar cv_lp_pick_timeout("tdm_lp_pick_timeout",	"100",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "Timeout that defines the maximum reaction time before the pin is to be considered unpicked and started over." );
-idCVar cv_lp_max_pick_attempts("tdm_lp_max_pick_attempts",	"0",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "How many pick attemps before it automatically gets picked? 0 = unlimited (you must solve it yourself)" );
+idCVar cv_lp_max_pick_attempts("tdm_lp_autopick_attempts",	"3",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "How many pick attemps before it automatically gets picked? 0 = unlimited (you must solve it yourself)" );
 idCVar cv_lp_auto_pick("tdm_lp_auto_pick",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "Determines if auto picking is enabled (see tdm_lp_max_pick_attempts)" );
 idCVar cv_lp_randomize("tdm_lp_randomize",	"1",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1, the jiggling, while lockpicking, will be randomized, otherwise it is linear." );
 idCVar cv_lp_pawlow("tdm_lp_pawlow",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the sweetspot sound will play at the end of the pattern instead of at the beginning. Thus making it into a reaction game." );

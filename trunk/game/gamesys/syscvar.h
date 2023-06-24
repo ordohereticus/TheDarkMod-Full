@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3260 $
- * $Date: 2009-03-17 00:39:56 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3265 $
+ * $Date: 2009-03-17 14:01:03 -0400 (Tue, 17 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -242,7 +242,7 @@ extern idCVar cv_empty_model;
 extern idCVar cv_lp_pin_base_count;
 extern idCVar cv_lp_sample_delay;
 extern idCVar cv_lp_pick_timeout;
-extern idCVar cv_lp_pick_attempts;
+extern idCVar cv_lp_max_pick_attempts;
 extern idCVar cv_lp_auto_pick;
 extern idCVar cv_lp_randomize;
 extern idCVar cv_lp_pawlow;
