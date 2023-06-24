@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3659 $
- * $Date: 2009-08-09 04:28:46 -0400 (Sun, 09 Aug 2009) $
+ * $Revision: 3660 $
+ * $Date: 2009-08-09 04:37:27 -0400 (Sun, 09 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3659 2009-08-09 08:28:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3660 2009-08-09 08:37:27Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1685,7 +1685,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	g_skill.SetInteger( i );
 
 	// precache the player
-	FindEntityDef( "player_tdm_thief", false );
+	FindEntityDef( cv_player_spawnclass.GetString(), false );
 
 	// precache the empty model (used by idEntity::m_renderTrigger)
 	renderModelManager->FindModel( cv_empty_model.GetString() );
@@ -2425,24 +2425,25 @@ idGameLocal::SpawnPlayer
 */
 void idGameLocal::SpawnPlayer( int clientNum )
 {
-	idEntity	*ent;
-	idDict		args;
-
 	// they can connect
 	Printf( "SpawnPlayer: %i\n", clientNum );
 
-	idStr playerClass = isMultiplayer ? "player_tdm_thief_mp" : "player_tdm_thief";
+	idStr playerClass = isMultiplayer ? "player_tdm_thief_mp" : cv_player_spawnclass.GetString();
 
 	// greebo: Allow worldspawn to specify a different player classname
-	if (world != NULL && world->spawnArgs.FindKey("player_classname") != NULL)
+	if (!isMultiplayer && world != NULL && world->spawnArgs.FindKey("player_classname") != NULL)
 	{
-		playerClass = world->spawnArgs.GetString("player_classname", "player_tdm_thief");
+		playerClass = world->spawnArgs.GetString("player_classname", cv_player_spawnclass.GetString());
 	}
 
+	idDict		args;
 	args.SetInt( "spawn_entnum", clientNum );
 	args.Set( "name", va( "player%d", clientNum + 1 ) );
 	args.Set( "classname", playerClass );
-	if ( !SpawnEntityDef( args, &ent ) || !entities[ clientNum ] ) {
+
+	idEntity	*ent;
+	if ( !SpawnEntityDef( args, &ent ) || !entities[ clientNum ] )
+	{
 		Error( "Failed to spawn player as '%s'", args.GetString( "classname" ) );
 	}
 
@@ -2455,8 +2456,7 @@ void idGameLocal::SpawnPlayer( int clientNum )
 		numClients = clientNum + 1;
 	}
 
-	idPlayer *player;	
-	player = GetLocalPlayer();
+	idPlayer* player = GetLocalPlayer(); // ??
 
 	mpGame.SpawnPlayer( clientNum );
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3636 $
- * $Date: 2009-08-03 01:17:19 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3660 $
+ * $Date: 2009-08-09 04:37:27 -0400 (Sun, 09 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,6 +20,8 @@
 /**
 * DarkMod cvars - See text description in syscvar.cpp for descriptions
 **/
+extern idCVar cv_player_spawnclass;
+
 extern idCVar cv_ai_sndvol;
 extern idCVar cv_ai_bark_show;
 extern idCVar cv_ai_bumpobject_impulse;
