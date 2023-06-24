@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3875 $
- * $Date: 2010-04-14 12:49:42 -0400 (Wed, 14 Apr 2010) $
+ * $Revision: 3876 $
+ * $Date: 2010-04-15 00:48:43 -0400 (Thu, 15 Apr 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3875 2010-04-14 16:49:42Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 3876 2010-04-15 04:48:43Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1197,28 +1197,33 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					idVec3 origin;
 					idAngles angles;
 					tempkv = ent->spawnArgs.FindKey( "putdown_origin" );
-					if( tempkv == NULL )
+					if( tempkv )
 					{
 						// if the entity itself specifies where it should be put down, use this
+						//gameLocal.Printf(" Using putdown_origin\n");
 						origin = detachedEntity->spawnArgs.GetVector( "putdown_origin", "0 0 0" );
+						detachedEntity->GetPhysics()->SetOrigin( origin );
 					}
 					else
 					{
 						// if not set on entity, restore pre-pickup values
+						//gameLocal.Printf(" Using pre_pickup_origin\n");
 						origin = detachedEntity->spawnArgs.GetVector( "pre_pickup_origin", "0 0 0" );
 					}
 					tempkv = ent->spawnArgs.FindKey( "putdown_angles" );
-					if( tempkv == NULL )
+					if( tempkv )
 					{
 						// if the entity itself specifies how it should be put down, use this
+						//gameLocal.Printf(" Using putdown_angles\n");
 						angles = idAngles( detachedEntity->spawnArgs.GetVector( "putdown_angles", "0 0 0" ) );
 					}
 					else
 					{
 						// if not set on entity, restore pre-pickup values
+						//gameLocal.Printf(" Using pre_pickup_angles\n");
 						angles = idAngles( detachedEntity->spawnArgs.GetVector( "pre_pickup_angles", "0 0 0" ) );
 					}
-					gameLocal.Printf("Restoring origin %f %f %f and angles %f %f %f on putdown", origin.x, origin.y, origin.z, angles[0], angles[1], angles[2] ); 
+					// gameLocal.Printf("Restoring origin %f %f %f and angles %f %f %f on putdown", origin.x, origin.y, origin.z, angles[0], angles[1], angles[2] ); 
 					detachedEntity->GetPhysics()->SetOrigin( origin );
 					detachedEntity->SetAngles( angles );
 					break;
@@ -1288,7 +1293,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					// via spawnarg: "pickup_" + "name_of_the_animation"
 					idStr Spawnarg = "pickup_"; Spawnarg.Append( name );
 
-					gameLocal.Warning ( "Lookign for entity defined via spawnarg '%s'", Spawnarg.c_str());
+					// gameLocal.Warning ( "Lookign for entity defined via spawnarg '%s'", Spawnarg.c_str());
 					idStr SpawnargEntityName = ent->spawnArgs.GetString( Spawnarg, "" );
 					idEntity* attTarget = gameLocal.FindEntity( SpawnargEntityName );
 
@@ -1304,12 +1309,13 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 							gameLocal.Warning ( " Trying to find an entity matching '%s'", EntityName.c_str() );
 						}
 					}
-					gameLocal.Warning ( "Found entity %s", attTarget->name.c_str() );
 
 					// did we find an entity to pickup?
 					if (attTarget)
 					{
 						// TODO: check that this entity is not attached to something/someone else
+
+						// gameLocal.Warning ( "Found entity %s", attTarget->name.c_str() );
 
 						gameLocal.Warning ( "Attaching '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
 						// first get the origin and rotation of the entity
@@ -1318,7 +1324,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						// now store them in temp. spawnargs
 						attTarget->spawnArgs.SetVector( "pre_pickup_origin", origin );
 						attTarget->spawnArgs.SetVector( "pre_pickup_angles", idVec3( ang[0], ang[1], ang[2] ) );
-						gameLocal.Warning ( "Saving %f %f %f and %f %f %f", origin.x, origin.y, origin.z, ang[0], ang[1], ang[2] );
+						// gameLocal.Warning ( "Saving origin %f %f %f and angles %f %f %f for %s", origin.x, origin.y, origin.z, ang[0], ang[1], ang[2], AttName.c_str() );
 						// and now attach it
 						ent->Attach( attTarget, AttPos, AttName );
 					}
