@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3858 $
- * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3879 $
+ * $Date: 2010-04-16 11:05:16 -0400 (Fri, 16 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3858 2010-03-21 03:43:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3879 2010-04-16 15:05:16Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -73,6 +73,9 @@ void State::Init(idAI* owner)
 {
 	_owner = owner;
 	_alertLevelDecreaseRate = 0;
+
+	// Load the value from the spawnargs to avoid looking it up each frame
+	owner->GetMemory().deadTimeAfterAlertRise = owner->spawnArgs.GetInt("alert_decrease_deadtime", "300");
 }
 
 bool State::CheckAlertLevel(idAI* owner)
@@ -90,9 +93,12 @@ void State::UpdateAlertLevel()
 	idAI* owner = _owner.GetEntity();
 	int currentTime = gameLocal.time;
 	int thinkDuration = currentTime - owner->m_lastThinkTime;
+
+	Memory& memory = owner->GetMemory();
 	
 	// angua: alert level stays for a short time before starting to decrease
-	if (currentTime >= owner->GetMemory().lastAlertRiseTime + 300 && owner->AI_AlertLevel > 0)
+	if (currentTime >= memory.lastAlertRiseTime + memory.deadTimeAfterAlertRise && 
+		owner->AI_AlertLevel > 0)
 	{
 		float decrease = _alertLevelDecreaseRate * MS2SEC(thinkDuration);
 		float newAlertLevel = owner->AI_AlertLevel - decrease;

@@ -2,9 +2,9 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3871 $
- * $Date: 2010-04-13 10:22:39 -0400 (Tue, 13 Apr 2010) $
- * $Author: tels $
+ * $Revision: 3879 $
+ * $Date: 2010-04-16 11:05:16 -0400 (Fri, 16 Apr 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -174,6 +174,9 @@ public:
 
 	// The game time, the AlertLevel was last increased.
 	int lastAlertRiseTime;
+
+	// Time in msecs to pass before alert level starts decreasing
+	int deadTimeAfterAlertRise;
 
 	// The last time the AI has been barking when patrolling
 	int lastPatrolChatTime;

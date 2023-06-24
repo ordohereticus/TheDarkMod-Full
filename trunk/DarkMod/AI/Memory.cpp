@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3858 $
- * $Date: 2010-03-20 23:43:30 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3879 $
+ * $Date: 2010-04-16 11:05:16 -0400 (Fri, 16 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3858 2010-03-21 03:43:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3879 2010-04-16 15:05:16Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -22,6 +22,7 @@ Memory::Memory(idAI* owningAI) :
 	owner(owningAI),
 	alertState(ERelaxed),
 	lastAlertRiseTime(-1),
+	deadTimeAfterAlertRise(300),
 	lastPatrolChatTime(-1),
 	lastTimeFriendlyAISeen(-1000),
 	lastTimeEnemySeen(-1),
