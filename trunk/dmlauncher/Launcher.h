@@ -5,8 +5,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3458 $
- * $Date: 2009-05-23 00:34:07 -0400 (Sat, 23 May 2009) $
+ * $Revision: 3459 $
+ * $Date: 2009-05-23 01:18:32 -0400 (Sat, 23 May 2009) $
  * $Author: greebo $
  *
  *************************************************************************/
@@ -35,7 +35,7 @@ class Launcher
 	std::string _arguments;
 
 	// True if launcher should wait a few secs before starting D3
-	bool _pauseBeforeStart;
+	bool _pauseBeforeStart; // TODO:  Remove this
 
 public:
 	// Pass the command line to this class
