@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3210 $
- * $Date: 2009-02-12 16:04:27 -0500 (Thu, 12 Feb 2009) $
- * $Author: ishtvan $
+ * $Revision: 3683 $
+ * $Date: 2009-08-31 02:20:14 -0400 (Mon, 31 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 3210 2009-02-12 21:04:27Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 3683 2009-08-31 06:20:14Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -28,7 +28,7 @@ const float LIMIT_ERROR_REDUCTION			= 0.3f;
 const float LCP_EPSILON						= 1e-7f;
 const float LIMIT_LCP_EPSILON				= 1e-4f;
 const float CONTACT_LCP_EPSILON				= 1e-6f;
-const float CENTER_OF_MASS_EPSILON			= 1e-4f;
+const float CENTER_OF_MASS_EPSILON			= 1e-2f;
 #ifdef MOD_WATERPHYSICS
 const float NO_MOVE_TIME					= 2.0f;
 // ishtvan test: move impulse threshold back to D3 default or below
