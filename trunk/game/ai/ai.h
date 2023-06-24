@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3638 $
- * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3648 $
+ * $Date: 2009-08-05 01:23:31 -0400 (Wed, 05 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -774,12 +774,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	**/
 	idScriptFloat			AI_AlertIndex;
 	
-	/**
-	* Boolean scriptvars set to true if either ranged or melee weapons are drawn
-	**/
-	idScriptBool			AI_bMeleeWeapDrawn;
-	idScriptBool			AI_bRangedWeapDrawn;
-
 	/**
 	* Stores the amount alerted in this frame
 	* Used to compare simultaneous alerts, the smaller one is ignored

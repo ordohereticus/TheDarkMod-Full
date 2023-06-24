@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3647 $
- * $Date: 2009-08-05 00:35:33 -0400 (Wed, 05 Aug 2009) $
+ * $Revision: 3648 $
+ * $Date: 2009-08-05 01:23:31 -0400 (Wed, 05 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3647 2009-08-05 04:35:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3648 2009-08-05 05:23:31Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2305,9 +2305,6 @@ void idAI::LinkScriptVariables( void )
 
 	AI_AlertLevel.LinkTo(			scriptObject, "AI_AlertLevel" );
 	AI_AlertIndex.LinkTo(			scriptObject, "AI_AlertIndex" );
-
-	AI_bMeleeWeapDrawn.LinkTo( scriptObject, "AI_bMeleeWeapDrawn" );
-	AI_bRangedWeapDrawn.LinkTo( scriptObject, "AI_bRangedWeapDrawn" );
 
 	//these are set until unset by the script
 	AI_HEARDSOUND.LinkTo(		scriptObject, "AI_HEARDSOUND");
@@ -9760,18 +9757,21 @@ void idAI::DropOnRagdoll( void )
 		if( bDropWhenDrawn )
 		{
 			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Testing drop weapon %s\r", ent->name.c_str() );
-			bool bIsMelee(false), bIsRanged(false);
+			
+			bool bIsMelee = ent->spawnArgs.GetBool( "is_weapon_melee" );
 
-			bIsMelee = ent->spawnArgs.GetBool( "is_weapon_melee" );
-			if( bIsMelee && !AI_bMeleeWeapDrawn )
+			if( bIsMelee && !GetAttackFlag(COMBAT_MELEE) )
 			{
 				DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Melee weapon was not drawn\r" );
 				continue;
 			}
 
-			bIsRanged = ent->spawnArgs.GetBool( "is_weapon_ranged" );
-			if( bIsRanged && !AI_bRangedWeapDrawn )
+			bool bIsRanged = ent->spawnArgs.GetBool( "is_weapon_ranged" );
+
+			if( bIsRanged && !GetAttackFlag(COMBAT_RANGED) )
+			{
 				continue;
+			}
 		}
 
 		// Proceed with droppage

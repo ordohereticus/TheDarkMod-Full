@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3648 $
+ * $Date: 2009-08-05 01:23:31 -0400 (Wed, 05 Aug 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3648 2009-08-05 05:23:31Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -62,7 +62,7 @@ void AlertIdleState::Init(idAI* owner)
 	owner->senseSubsystem->ClearTasks();
 	owner->senseSubsystem->PushTask(RandomHeadturnTask::CreateInstance());
 
-	if (!owner->AI_bMeleeWeapDrawn)
+	if (!owner->GetAttackFlag(COMBAT_MELEE) && !owner->GetAttackFlag(COMBAT_RANGED))
 	{
 		owner->DrawWeapon();
 	}
