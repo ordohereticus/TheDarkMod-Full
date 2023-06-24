@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3276 $
- * $Date: 2009-03-20 04:56:02 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3284 $
+ * $Date: 2009-03-21 13:33:47 -0400 (Sat, 21 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3276 2009-03-20 08:56:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3284 2009-03-21 17:33:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -4345,8 +4345,8 @@ void idPlayer::BobCycle( const idVec3 &pushVelocity ) {
 			bobmove = pm_walkbob.GetFloat() * ( 1.0f - bobFrac ) + pm_runbob.GetFloat() * bobFrac;
 		}
 
-		// greebo: is the player creeping?
-		if (usercmd.buttons & BUTTON_5) 
+		// greebo: is the player creeping? (Only kicks in when not running, run key cancels out creep key)
+		if (usercmd.buttons & BUTTON_5 && !(usercmd.buttons & BUTTON_RUN)) 
 		{
 			bobmove *= 0.5f * (1 - bobFrac);
 		}
