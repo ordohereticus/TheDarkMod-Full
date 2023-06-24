@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3483 $
- * $Date: 2009-05-31 10:26:44 -0400 (Sun, 31 May 2009) $
+ * $Revision: 3504 $
+ * $Date: 2009-07-01 10:34:29 -0400 (Wed, 01 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -76,6 +76,7 @@ extern idCVar cv_tdm_fm_current_file;
 extern idCVar cv_tdm_fm_notes_file;
 extern idCVar cv_tdm_fm_startingmap_file;
 extern idCVar cv_tdm_fm_splashimage_file;
+extern idCVar cv_tdm_fm_sync_config_files;
 
 extern idCVar cv_debug_aastype;
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3465 $
- * $Date: 2009-05-24 05:40:53 -0400 (Sun, 24 May 2009) $
+ * $Revision: 3504 $
+ * $Date: 2009-07-01 10:34:29 -0400 (Wed, 01 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3465 2009-05-24 09:40:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3504 2009-07-01 14:34:29Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -523,6 +523,7 @@ void idGameLocal::Shutdown( void ) {
 		return;
 	}
 
+	if (cv_tdm_fm_sync_config_files.GetBool())
 	{
 		// greebo: Check if we have a game base. If yes, write the current configuration back to the
 		// "darkmod" game base folder, to preserver any settings made while an FM is installed.
@@ -532,7 +533,7 @@ void idGameLocal::Shutdown( void ) {
 		{
 			common->WriteConfigToFile("../" + fs_game_base + "/DoomConfig.cfg");
 		}
-	}		
+	}
 
 	Printf( "------------ Game Shutdown -----------\n" );
 	
@@ -2936,7 +2937,7 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 				timer_singlethink.Stop();
 				ms = timer_singlethink.Milliseconds();
 				if ( ms >= g_timeentities.GetFloat() ) {
-					//Printf( "%d: entity '%s': %.1f ms\n", time, ent->name.c_str(), ms );
+					Printf( "%d: entity '%s': %.1f ms\n", time, ent->name.c_str(), ms );
 					DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("%d: entity '%s': %.3f ms\r", time, ent->name.c_str(), ms );
 				}
 				num++;
