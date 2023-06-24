@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3583 $
- * $Date: 2009-07-26 07:14:08 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3585 $
+ * $Date: 2009-07-26 07:42:54 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3583 2009-07-26 11:14:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3585 2009-07-26 11:42:54Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5395,7 +5395,7 @@ idAI::Pain
 */
 bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location, const idDict* damageDef )
 {
-	AI_PAIN = idActor::Pain( inflictor, attacker, damage, dir, location );
+	AI_PAIN = idActor::Pain( inflictor, attacker, damage, dir, location, damageDef );
 	AI_DAMAGE = true;
 
 	// force a blink

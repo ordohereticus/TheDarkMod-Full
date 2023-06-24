@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 3585 $
+ * $Date: 2009-07-26 07:42:54 -0400 (Sun, 26 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RandomTurningTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: RandomTurningTask.cpp 3585 2009-07-26 11:42:54Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -36,9 +36,6 @@ void RandomTurningTask::Init(idAI* owner, Subsystem& subsystem)
 	owner->TurnToward(_nextYaw);
 	_turning = true;
 	_nextTurningTime = gameLocal.time;
-
-	
-
 }
 
 bool RandomTurningTask::Perform(Subsystem& subsystem)
@@ -52,9 +49,6 @@ bool RandomTurningTask::Perform(Subsystem& subsystem)
 
 	if (_turning && owner->FacingIdeal())
 	{		
-		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 0);
-		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 0);
-
 		// TODO: un-hardcode
 		int turnDelay = static_cast<int>(1000 + gameLocal.random.RandomFloat() * 400);
 		
@@ -68,32 +62,12 @@ bool RandomTurningTask::Perform(Subsystem& subsystem)
 
 	if (!_turning && gameLocal.time >= _nextTurningTime)
 	{
-		
 		owner->TurnToward(_nextYaw);
-		if (_nextYaw < 0)
-		{
-			owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Turn_Left", 0);
-			owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Turn_Left", 0);
-
-		}
-		else
-		{
-			owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Turn_Right", 0);
-			owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Turn_Right", 0);
-
-		}
 		_turning = true;
 	}
 
 	return false;
 }
-
-void RandomTurningTask::OnFinish(idAI* owner)
-{
-	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 0);
-	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 0);
-}
-
 
 // Save/Restore methods
 void RandomTurningTask::Save(idSaveGame* savefile) const
