@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3515 $
- * $Date: 2009-07-04 08:34:07 -0400 (Sat, 04 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3693 $
+ * $Date: 2009-09-05 10:43:56 -0400 (Sat, 05 Sep 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3515 2009-07-04 12:34:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3693 2009-09-05 14:43:56Z greebo $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -56,7 +56,10 @@ void IdleAnimationTask::Init(idAI* owner, Subsystem& subsystem)
 	// Copy the strings into the idList<idStr>
 	for (std::size_t i = 0; i < anims.size(); i++)
 	{
-		_idleAnimations.Append(idStr(anims[i].c_str()));
+		if (!anims[i].empty())
+		{
+			_idleAnimations.Append(idStr(anims[i].c_str()));
+		}
 	}
 
 	// Now read the anims for the torso only
@@ -66,7 +69,10 @@ void IdleAnimationTask::Init(idAI* owner, Subsystem& subsystem)
 	// Copy the strings into the idList<idStr>
 	for (std::size_t i = 0; i < anims.size(); i++)
 	{
-		_idleAnimationsTorso.Append(idStr(anims[i].c_str()));
+		if (!anims[i].empty())
+		{
+			_idleAnimationsTorso.Append(idStr(anims[i].c_str()));
+		}
 	}
 
 	// Now read the anims for sitting AI
@@ -76,9 +82,11 @@ void IdleAnimationTask::Init(idAI* owner, Subsystem& subsystem)
 	// Copy the strings into the idList<idStr>
 	for (std::size_t i = 0; i < anims.size(); i++)
 	{
-		_idleAnimationsSitting.Append(idStr(anims[i].c_str()));
+		if (!anims[i].empty())
+		{
+			_idleAnimationsSitting.Append(idStr(anims[i].c_str()));
+		}
 	}
-
 
 	if (_idleAnimationInterval > 0 && (_idleAnimations.Num() > 0 || _idleAnimationsTorso.Num() || _idleAnimationsSitting.Num()))
 	{
