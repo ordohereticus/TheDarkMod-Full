@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3607 $
- * $Date: 2009-07-28 23:32:16 -0400 (Tue, 28 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3609 $
+ * $Date: 2009-07-29 02:34:25 -0400 (Wed, 29 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3607 2009-07-29 03:32:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3609 2009-07-29 06:34:25Z angua $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -8073,8 +8073,13 @@ idVec3 idPlayer::GetEyePosition( void ) const {
 	* Lean Mod
 	* @author sophisticatedZombie (DH)
 	* Move eye position due to leaning
+	* angua: need to check whether physics type is correct, dead player uses AF physics
 	*/
-	org += ((idPhysics_Player*)GetPhysics())->GetViewLeanTranslation();
+	idPhysics* physics = GetPhysics();
+	if (physics->IsType(idPhysics_Player::Type))
+	{
+		org += ((idPhysics_Player*)GetPhysics())->GetViewLeanTranslation();
+	}
 
 	// This was in SDK untouched
 	return org + ( GetPhysics()->GetGravityNormal() * -eyeOffset.z );
