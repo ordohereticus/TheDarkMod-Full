@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3705 $
- * $Date: 2009-09-15 05:58:24 -0400 (Tue, 15 Sep 2009) $
- * $Author: angua $
+ * $Revision: 3718 $
+ * $Date: 2009-10-13 10:07:26 -0400 (Tue, 13 Oct 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 3705 2009-09-15 09:58:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 3718 2009-10-13 14:07:26Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/PlayerData.h"
@@ -256,11 +256,14 @@ bool idPhysics_RigidBody::PropagateImpulse(const int id, const idVec3& point, co
 {
 	DM_LOG(LC_ENTITY, LT_INFO)LOGSTRING("Contacts with this entity %s = %d\r", self->name.c_str(), contacts.Num());
 
-	if (impulse.LengthSqr() < 1e-5)
+	if (propagateImpulseLock || impulse.LengthSqr() < 1e-5)
 	{
 		// greebo: Don't process incoming small impulses, quit at once.
 		return false;
 	}
+
+	// Don't accept other propagations during processing
+	propagateImpulseLock = true;
 
 	// greebo: Check all entities touching this physics object
 	EvaluateContacts();
@@ -363,6 +366,8 @@ bool idPhysics_RigidBody::PropagateImpulse(const int id, const idVec3& point, co
 
 	DM_LOG(LC_ENTITY, LT_INFO)LOGVECTOR("Linear Momentum after applyImpulse:", current.i.linearMomentum);
 	DM_LOG(LC_ENTITY, LT_INFO)LOGVECTOR("Angular Momentum after applyImpulse:", current.i.angularMomentum);
+
+	propagateImpulseLock = false;
 
 	// Return TRUE if we pushed any neighbours, FALSE if this was a single pushed object
 	return (numTouching > 0);
@@ -899,6 +904,8 @@ idPhysics_RigidBody::idPhysics_RigidBody( void ) {
 #endif
 
 	isBlocked = false;
+	propagateImpulseLock = false;
+
 	memset(&collisionTrace, 0, sizeof(collisionTrace));
 
 	// tels
@@ -993,6 +1000,8 @@ void idPhysics_RigidBody::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( isOrientated );
 
 	savefile->WriteBool(isBlocked);
+	// greebo: Note this is not saved (yet). Uncomment this after release 1.00
+	//savefile->WriteBool(propagateImpulseLock);
 	savefile->WriteTrace(collisionTrace);
 
 	// tels
@@ -1034,6 +1043,8 @@ void idPhysics_RigidBody::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( isOrientated );
 
 	savefile->ReadBool(isBlocked);
+	// greebo: Note this is not saved (yet). Uncomment this after release 1.00
+	//savefile->ReadBool(propagateImpulseLock);
 	savefile->ReadTrace(collisionTrace);
 
 	// tels
