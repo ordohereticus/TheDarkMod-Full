@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3802 $
- * $Date: 2010-01-20 00:55:22 -0500 (Wed, 20 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3805 $
+ * $Date: 2010-01-20 12:44:40 -0500 (Wed, 20 Jan 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -247,7 +247,7 @@ protected:
 	/**
 	* List of AI whose CMs we've changed
 	**/
-	idList<idEntityPtr<idAI>>	m_AIWithModCMs;
+	idList< idEntityPtr<idAI> >	m_AIWithModCMs;
 
 };
 
