@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3464 $
- * $Date: 2009-05-24 01:59:12 -0400 (Sun, 24 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3549 $
+ * $Date: 2009-07-19 06:47:25 -0400 (Sun, 19 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -90,6 +90,8 @@ private:
 	**/
 	void StartAttack(idAI* owner);
 	void StartParry(idAI* owner);
+
+	void EmitCombatBark(idAI* owner, const idStr& sndName);
 };
 
 } // namespace ai
