@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3560 $
- * $Date: 2009-07-22 08:43:43 -0400 (Wed, 22 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3625 $
+ * $Date: 2009-07-31 12:18:18 -0400 (Fri, 31 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3560 2009-07-22 12:43:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 3625 2009-07-31 16:18:18Z greebo $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -235,25 +235,6 @@ void CombatState::Init(idAI* owner)
 // Gets called each time the mind is thinking
 void CombatState::Think(idAI* owner)
 {
-	if (owner->AI_ENEMY_DEAD)
-	{
-		owner->StopMove(MOVE_STATUS_DONE);
-		owner->SetAlertLevel(owner->thresh_2 + (owner->thresh_3 - owner->thresh_2) * 0.9);
-		owner->GetMind()->EndState();
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
-		return;
-	}
-	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner))
-	{
-		owner->GetMind()->EndState();
-		// ishtvan: swap the expanded head model back in when exiting state
-		owner->SwapHeadAFCM( true );
-		return;
-	}
-	Memory& memory = owner->GetMemory();
-
 	idActor* enemy = _enemy.GetEntity();
 	if (enemy == NULL)
 	{
@@ -263,6 +244,30 @@ void CombatState::Think(idAI* owner)
 		owner->SwapHeadAFCM( true );
 		return;
 	}
+
+	if (enemy->AI_DEAD)
+	{
+		owner->ClearEnemy();
+		owner->StopMove(MOVE_STATUS_DONE);
+
+		// TODO: Check if more enemies are in range
+		owner->SetAlertLevel(owner->thresh_2 + (owner->thresh_3 - owner->thresh_2) * 0.9);
+
+		owner->GetMind()->EndState();
+		// ishtvan: swap the expanded head model back in when exiting state
+		owner->SwapHeadAFCM( true );
+		return;
+	}
+
+	// Ensure we are in the correct alert level
+	if (!CheckAlertLevel(owner))
+	{
+		owner->GetMind()->EndState();
+		// ishtvan: swap the expanded head model back in when exiting state
+		owner->SwapHeadAFCM( true );
+		return;
+	}
+	Memory& memory = owner->GetMemory();
 
 	if (!owner->IsEnemy(enemy))
 	{

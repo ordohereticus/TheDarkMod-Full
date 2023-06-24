@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3594 $
- * $Date: 2009-07-27 01:49:57 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3625 $
+ * $Date: 2009-07-31 12:18:18 -0400 (Fri, 31 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3594 2009-07-27 05:49:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3625 2009-07-31 16:18:18Z greebo $", init_version);
 
 #include "UnreachableTargetState.h"
 #include "../Memory.h"
@@ -153,8 +153,10 @@ void UnreachableTargetState::Think(idAI* owner)
 		return;
 	}
 
-	if (owner->AI_ENEMY_DEAD)
+	if (enemy->AI_DEAD)
 	{
+		owner->ClearEnemy();
+
 		owner->StopMove(MOVE_STATUS_DONE);
 		owner->SetAlertLevel(owner->thresh_2 + (owner->thresh_3 - owner->thresh_2) * 0.5);
 		owner->GetMind()->EndState();

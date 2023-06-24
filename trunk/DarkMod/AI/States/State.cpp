@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3601 $
- * $Date: 2009-07-27 23:46:52 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3625 $
+ * $Date: 2009-07-31 12:18:18 -0400 (Fri, 31 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3601 2009-07-28 03:46:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3625 2009-07-31 16:18:18Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -563,16 +563,20 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 		// Not knocked out, not dead, deal with it
 		if (owner->IsEnemy(other))
 		{
-			// Living enemy
-			gameLocal.Printf("I see a living enemy!\n");
-			owner->SetEnemy(other);
-			owner->AI_VISALERT = true;
-			
-			owner->SetAlertLevel(owner->thresh_5*2);
-			memory.alertClass = EAlertVisual;
-			memory.alertType = EAlertTypeEnemy;
-			// An enemy should not be ignored in the future
-			ignoreStimulusFromNowOn = false;
+			// Only do this if we don't have an enemy already
+			if (owner->GetEnemy() == NULL)
+			{
+				// Living enemy
+				gameLocal.Printf("I see a living enemy!\n");
+				owner->SetEnemy(other);
+				owner->AI_VISALERT = true;
+				
+				owner->SetAlertLevel(owner->thresh_5*2);
+				memory.alertClass = EAlertVisual;
+				memory.alertType = EAlertTypeEnemy;
+				// An enemy should not be ignored in the future
+				ignoreStimulusFromNowOn = false;
+			}
 		}
 		else if (owner->IsFriend(other))
 		{
