@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3572 $
- * $Date: 2009-07-24 01:52:30 -0400 (Fri, 24 Jul 2009) $
+ * $Revision: 3574 $
+ * $Date: 2009-07-24 02:34:17 -0400 (Fri, 24 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3572 2009-07-24 05:52:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3574 2009-07-24 06:34:17Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1290,22 +1290,21 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	RESTORE_TIMER_HANDLE(aiCanSeeTimer, savefile);
 }
 
-const ai::SubsystemPtr& idAI::GetSubsystem(ai::SubsystemId id)
+ai::Subsystem* idAI::GetSubsystem(ai::SubsystemId id)
 {
-	static ai::SubsystemPtr _nullSubsys;
-
 	switch (id)
 	{
 	case ai::SubsysSenses:
-		return senseSubsystem;
+		return senseSubsystem.get();
 	case ai::SubsysMovement:
-		return movementSubsystem;
+		return movementSubsystem.get();
 	case ai::SubsysCommunication:
-		return static_cast<const ai::SubsystemPtr&>(commSubsystem);
+		return commSubsystem.get();
 	case ai::SubsysAction:
-		return actionSubsystem;
+		return actionSubsystem.get();
 	default:
-		return _nullSubsys;
+		gameLocal.Error("Request for unknown subsystem %d", static_cast<int>(id));
+		return NULL;
 	};
 }
 
