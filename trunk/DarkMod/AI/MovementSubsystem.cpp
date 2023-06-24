@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3767 $
- * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
- * $Author: angua $
+ * $Revision: 3775 $
+ * $Date: 2009-12-28 02:33:34 -0500 (Mon, 28 Dec 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3775 2009-12-28 07:33:34Z tels $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -27,7 +27,7 @@ static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3767 2009
 #include "Tasks/PathWaitForTriggerTask.h"
 #include "Tasks/PathHideTask.h"
 #include "Tasks/PathShowTask.h"
-#include "Tasks/PathLookAtTask.h"
+#include "Tasks/PathLookatTask.h"
 #include "Tasks/PathInteractTask.h"
 
 namespace ai
