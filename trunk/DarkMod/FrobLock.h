@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3296 $
- * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3297 $
+ * $Date: 2009-03-25 05:18:07 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,24 +25,32 @@ class CFrobLock :
 public:
 	CLASS_PROTOTYPE( CFrobLock );
 
-	void	Spawn();
+	void			Spawn();
 
-	bool	IsLocked();
-	bool	IsPickable();
+	bool			IsLocked();
+	bool			IsPickable();
 
-	void	Lock();
-	void	Unlock();
+	void			Lock();
+	void			Unlock();
+	void			ToggleLock();
 
-	void	Save(idSaveGame *savefile) const;
-	void	Restore(idRestoreGame *savefile);
+	virtual bool	CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse);	// Overrides idEntity::CanBeUsedBy
+	virtual bool	UseBy(EImpulseState impulseState, const CInventoryItemPtr& item);	// Overrides idEntity::UseBy
+
+	virtual void	AttackAction(idPlayer* player); // Override idEntity::AttackAction to catch attack key presses from the player during lockpicking
+
+	void			Save(idSaveGame *savefile) const;
+	void			Restore(idRestoreGame *savefile);
 
 protected:
-	void	PostSpawn();
+	void			PostSpawn();
+
+	virtual int		FrobLockStartSound(const char* soundName);
 
 	// Required events which are called by the PickableLock class
-	void	Event_Lock_StatusUpdate();
-	void	Event_Lock_OnLockPicked();
-	void	Event_Lock_OnLockStatusChange();
+	void			Event_Lock_StatusUpdate();
+	void			Event_Lock_OnLockPicked();
+	void			Event_Lock_OnLockStatusChange();
 };
 
 #endif /* _FROB_LOCK_H_ */

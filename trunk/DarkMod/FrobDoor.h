@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3296 $
- * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3297 $
+ * $Date: 2009-03-25 05:18:07 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -66,6 +66,9 @@ public:
 	virtual bool			CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse);					// Overrides idEntity::CanBeUsedBy
 	virtual bool			UseBy(EImpulseState impulseState, const CInventoryItemPtr& item);	// Overrides idEntity::UseBy
 
+	// Override idEntity::AttackAction to catch attack key presses from the player during lockpicking
+	virtual void			AttackAction(idPlayer* player);
+
 	/**
 	 * Write the proper sound loss value to the soundprop portal data
 	 * Called when door spawns, is and when it is opened or closed
@@ -91,9 +94,6 @@ public:
 	{
 		return m_OpenPeers.Num();
 	}
-
-	// Override idEntity::AttackAction to catch attack key presses from the player during lockpicking
-	virtual void			AttackAction(idPlayer* player);
 
 	/**
 	 * greebo: Override the BinaryFrobMover function to re-route all sounds
