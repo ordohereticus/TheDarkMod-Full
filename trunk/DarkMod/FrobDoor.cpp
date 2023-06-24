@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3677 $
- * $Date: 2009-08-28 22:31:05 -0400 (Fri, 28 Aug 2009) $
+ * $Revision: 3692 $
+ * $Date: 2009-09-05 04:18:49 -0400 (Sat, 05 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3677 2009-08-29 02:31:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3692 2009-09-05 08:18:49Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1024,7 +1024,7 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 
 			if (sound.IsEmpty())
 			{
-				gameLocal.Warning("Cannot find sound %s on door %s\r", sound.c_str(), name.c_str());
+				gameLocal.Warning("Cannot find sound %s on door %s\r", soundName, name.c_str());
 				return 0;
 			}
 
