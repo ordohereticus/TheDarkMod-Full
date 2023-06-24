@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3546 $
- * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3547 $
+ * $Date: 2009-07-18 13:44:57 -0400 (Sat, 18 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeState.cpp 3546 2009-07-18 17:27:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FleeState.cpp 3547 2009-07-18 17:44:57Z angua $", init_version);
 
 #include "FleeState.h"
 #include "../Memory.h"
@@ -18,6 +18,7 @@ static bool init_version = FileVersionList("$Id: FleeState.cpp 3546 2009-07-18 1
 #include "../Library.h"
 #include "../Tasks/WaitTask.h"
 #include "../Tasks/FleeTask.h"
+#include "../Tasks/SingleBarkTask.h"
 #include "../Tasks/RepeatedBarkTask.h"
 #include "FleeDoneState.h"
 
@@ -67,6 +68,12 @@ void FleeState::Init(idAI* owner)
 		NULL,
 		memory.alertPos
 	));
+
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new SingleBarkTask("snd_to_flee",message))
+	);
+
+	owner->commSubsystem->AddSilence(3000);
 
 	CommunicationTaskPtr barkTask(new RepeatedBarkTask("snd_flee", 4000,8000, message));
 	owner->commSubsystem->AddCommTask(barkTask);
