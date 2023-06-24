@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3568 $
- * $Date: 2009-07-23 06:41:08 -0400 (Thu, 23 Jul 2009) $
- * $Author: tels $
+ * $Revision: 3587 $
+ * $Date: 2009-07-26 08:59:25 -0400 (Sun, 26 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3568 2009-07-23 10:41:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3587 2009-07-26 12:59:25Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10265,6 +10265,9 @@ void idEntity::ChangeEntityRelation(idEntity* entity, int relationChange)
 
 	if (found == m_EntityRelations.end())
 	{
+		// Sanity-check, some entities like worldspawn have team == -1
+		if (entity->team == -1) return;
+
 		// not yet set, load default from relations manager
 		int defaultrel = gameLocal.m_RelationsManager->GetRelNum(team, entity->team);
 
