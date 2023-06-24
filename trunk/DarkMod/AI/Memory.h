@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3582 $
- * $Date: 2009-07-25 14:13:04 -0400 (Sat, 25 Jul 2009) $
+ * $Revision: 3586 $
+ * $Date: 2009-07-26 08:37:43 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -197,6 +197,9 @@ public:
 
 	// TRUE if enemies have been seen
 	bool enemiesHaveBeenSeen;
+
+	// TRUE if the enemy has shot/hurt/attempted blackjacking
+	bool hasBeenAttackedByEnemy;
 
 	// TRUE if the AI knows that items have been stolen
 	bool itemsHaveBeenStolen;

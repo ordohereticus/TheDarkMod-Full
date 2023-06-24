@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3546 $
- * $Date: 2009-07-18 13:27:48 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3586 $
+ * $Date: 2009-07-26 08:37:43 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FailedKnockoutState.cpp 3546 2009-07-18 17:27:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FailedKnockoutState.cpp 3586 2009-07-26 12:37:43Z greebo $", init_version);
 
 #include "FailedKnockoutState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -47,6 +47,9 @@ void FailedKnockoutState::Init(idAI* owner)
 	assert(owner);
 
 	Memory& memory = owner->GetMemory();
+
+	// Failed KO counts as attack
+	memory.hasBeenAttackedByEnemy = true;
 
 	// Play the animation
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_FailedKO", 4);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3582 $
- * $Date: 2009-07-25 14:13:04 -0400 (Sat, 25 Jul 2009) $
+ * $Revision: 3586 $
+ * $Date: 2009-07-26 08:37:43 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3582 2009-07-25 18:13:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 3586 2009-07-26 12:37:43Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -34,6 +34,7 @@ Memory::Memory(idAI* owningAI) :
 	idleYaw(0),
 	playIdleAnimations(true),
 	enemiesHaveBeenSeen(false),
+	hasBeenAttackedByEnemy(false),
 	itemsHaveBeenStolen(false),
 	itemsHaveBeenBroken(false),
 	unconsciousPeopleHaveBeenFound(false),
@@ -87,6 +88,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteFloat(idleYaw);
 	savefile->WriteBool(playIdleAnimations);
 	savefile->WriteBool(enemiesHaveBeenSeen);
+	savefile->WriteBool(hasBeenAttackedByEnemy);
 	savefile->WriteBool(itemsHaveBeenStolen);
 	savefile->WriteBool(itemsHaveBeenBroken);
 	savefile->WriteBool(unconsciousPeopleHaveBeenFound);
@@ -165,6 +167,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadFloat(idleYaw);
 	savefile->ReadBool(playIdleAnimations);
 	savefile->ReadBool(enemiesHaveBeenSeen);
+	savefile->ReadBool(hasBeenAttackedByEnemy);
 	savefile->ReadBool(itemsHaveBeenStolen);
 	savefile->ReadBool(itemsHaveBeenBroken);
 	savefile->ReadBool(unconsciousPeopleHaveBeenFound);

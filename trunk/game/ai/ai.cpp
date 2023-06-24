@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3585 $
- * $Date: 2009-07-26 07:42:54 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3586 $
+ * $Date: 2009-07-26 08:37:43 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3585 2009-07-26 11:42:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3586 2009-07-26 12:37:43Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5620,6 +5620,18 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	DropBlood(inflictor);
 }
 
+void idAI::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, 
+	const char *damageDefName, const float damageScale, const int location,
+	trace_t *collision)
+{
+	idActor::Damage(inflictor, attacker, dir, damageDefName, damageScale, location, collision);
+
+	if (attacker != NULL && IsEnemy(attacker))
+	{
+		GetMemory().hasBeenAttackedByEnemy = true;
+	}
+}
+
 void idAI::DropBlood(idEntity *inflictor)
 {
 	if (inflictor)
@@ -9110,13 +9122,14 @@ bool idAI::HasSeenEvidence()
 	ai::Memory& memory = GetMemory();
 
 	return memory.enemiesHaveBeenSeen
+		|| memory.hasBeenAttackedByEnemy
 		|| memory.itemsHaveBeenStolen
 		|| memory.itemsHaveBeenBroken
 		|| memory.unconsciousPeopleHaveBeenFound
 		|| memory.deadPeopleHaveBeenFound
 		|| spawnArgs.GetBool("alert_idle", "0");
-
 }
+
 /**
 * ========================== BEGIN  TDM KNOCKOUT CODE =============================
 **/
