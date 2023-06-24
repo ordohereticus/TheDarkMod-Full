@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3816 $
+ * $Date: 2010-01-24 10:09:31 -0500 (Sun, 24 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3741 $   $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3816 $   $Date: 2010-01-24 10:09:31 -0500 (Sun, 24 Jan 2010) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3313,6 +3313,12 @@ idPhysics_Player::GetLinearVelocity
 */
 const idVec3 &idPhysics_Player::GetLinearVelocity( int id ) const {
 	return current.velocity;
+}
+
+bool idPhysics_Player::HasRunningVelocity()
+{
+	// Return true when about 7% above walkspeed
+	return (current.velocity.LengthSqr() > Square(pm_walkspeed.GetFloat()) * 1.15);
 }
 
 /*

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3618 $
- * $Date: 2009-07-30 13:12:30 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3816 $
+ * $Date: 2010-01-24 10:09:31 -0500 (Sun, 24 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -201,6 +201,9 @@ public:	// common physics interface
 	void					SetLinearVelocity( const idVec3 &newLinearVelocity, int id = 0 );
 
 	const idVec3 &			GetLinearVelocity( int id = 0 ) const;
+
+	// This is true as soon as the player's velocity is well enough above walk speed
+	bool					HasRunningVelocity();
 
 	void					SetPushed( int deltaTime );
 	const idVec3 &			GetPushedLinearVelocity( const int id = 0 ) const;

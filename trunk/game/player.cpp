@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3813 $
- * $Date: 2010-01-24 01:32:36 -0500 (Sun, 24 Jan 2010) $
+ * $Revision: 3816 $
+ * $Date: 2010-01-24 10:09:31 -0500 (Sun, 24 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3813 2010-01-24 06:32:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3816 2010-01-24 15:09:31Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9811,7 +9811,14 @@ float idPlayer::GetMovementVolMod( void )
 	// NOTE: running always has priority over creeping
 	else if( AI_RUN )
 	{
-		returnval = (isCrouched) ? m_stepvol_crouch_run : m_stepvol_run;
+		if (physicsObj.HasRunningVelocity())
+		{
+			returnval = (isCrouched) ? m_stepvol_crouch_run : m_stepvol_run;
+		}
+		else
+		{
+			returnval = (isCrouched) ? m_stepvol_crouch_walk : m_stepvol_walk;
+		}
 	}
 	else if( AI_CREEP )
 	{
@@ -10936,9 +10943,11 @@ void idPlayer::PlayFootStepSound()
 			moveType = "_crouch";
 		}
 
-		if (AI_RUN)
+		// greebo: Make sure that "_run" is only applied when actually running
+		if (AI_RUN && physicsObj.HasRunningVelocity())
 		{
 			moveType += "_run";
+			gameLocal.Printf("Running.");
 		}
 		else if (AI_CREEP)
 		{
@@ -10947,6 +10956,7 @@ void idPlayer::PlayFootStepSound()
 		else
 		{
 			moveType += "_walk";
+			gameLocal.Printf("Walking.");
 		}
 	}
 
