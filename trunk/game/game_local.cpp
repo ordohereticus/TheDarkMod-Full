@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3798 $
- * $Date: 2010-01-16 01:30:08 -0500 (Sat, 16 Jan 2010) $
+ * $Revision: 3803 $
+ * $Date: 2010-01-20 01:46:13 -0500 (Wed, 20 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3798 2010-01-16 06:30:08Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3803 2010-01-20 06:46:13Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3561,14 +3561,11 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		}
 
 		gui->SetStateInt("melee_difficulty", setting);
-
+		// have the gui enable/disable auto parry
+		gui->HandleNamedEvent("UpdateAutoParryOptions");
+		// TEST:
 		if( bForbidAuto )
-		{
-			// also lock and gray out the auto parry option
-			// tried to do this in the gui with onTime 0 or 10, but it didn't work
-			gui->SetStateString("MeleeAutoParry::choices", "Disabled");
-			gui->SetStateString("MeleeAutoParry::forecolor", "0.5 0.5 0.5 0.85");
-		}
+			gui->HandleNamedEvent("DisableAutoParry");
 	}
 	else if (cmd == "mainmenu_init")
 	{
