@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3677 $
- * $Date: 2009-08-28 22:31:05 -0400 (Fri, 28 Aug 2009) $
+ * $Revision: 3678 $
+ * $Date: 2009-08-28 23:03:27 -0400 (Fri, 28 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3677 2009-08-29 02:31:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3678 2009-08-29 03:03:27Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -115,14 +115,30 @@ void CFrobLock::PostSpawn()
 	}
 }
 
+void CFrobLock::OnLock()
+{
+	m_Lock.OnLock();
+}
+
+void CFrobLock::OnUnlock()
+{
+	m_Lock.OnUnlock();
+}
+
 void CFrobLock::Lock()
 {
 	m_Lock.SetLocked(true);
+
+	// Fire the event
+	OnLock();
 }
 
 void CFrobLock::Unlock()
 {
 	m_Lock.SetLocked(false);
+
+	// Fire the event
+	OnUnlock();
 }
 
 void CFrobLock::ToggleLock()

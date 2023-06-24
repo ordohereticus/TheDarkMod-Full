@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3407 $
- * $Date: 2009-04-15 11:05:10 -0400 (Wed, 15 Apr 2009) $
+ * $Revision: 3678 $
+ * $Date: 2009-08-28 23:03:27 -0400 (Fri, 28 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3407 2009-04-15 15:05:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3678 2009-08-29 03:03:27Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -173,7 +173,7 @@ void PickableLock::OnLock()
 	// greebo: Reset the lockpicking values
 	m_FirstLockedPinIndex = 0;
 	m_SoundTimerStarted = 0;
-	m_SoundPinSampleIndex = -1;
+	m_SoundPinSampleIndex = 0;
 	m_FailedLockpickRounds = 0;
 
 	m_LockpickState = LOCKED;

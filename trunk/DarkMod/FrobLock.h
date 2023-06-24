@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3486 $
- * $Date: 2009-06-01 10:56:59 -0400 (Mon, 01 Jun 2009) $
+ * $Revision: 3678 $
+ * $Date: 2009-08-28 23:03:27 -0400 (Fri, 28 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -79,6 +79,9 @@ protected:
 	void			AutoSetupLockHandles();
 
 	virtual int		FrobLockStartSound(const char* soundName);
+
+	virtual void	OnLock();
+	virtual void	OnUnlock();
 
 	// Required events which are called by the PickableLock class
 	void			Event_Lock_StatusUpdate();
