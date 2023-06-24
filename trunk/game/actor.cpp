@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3647 $
- * $Date: 2009-08-05 00:35:33 -0400 (Wed, 05 Aug 2009) $
+ * $Revision: 3662 $
+ * $Date: 2009-08-11 22:38:24 -0400 (Tue, 11 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3647 2009-08-05 04:35:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3662 2009-08-12 02:38:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4725,7 +4725,7 @@ void idActor::Event_SetAttackFlag(int combatType, int enabled)
 	if (combatType < COMBAT_NONE || combatType >= NUM_COMBAT_TYPES) 
 	{
 		// do nothing
-		gameLocal.Warning("Script is trying to set invalid combatType %s", combatType);
+		gameLocal.Warning("Script is trying to set invalid combatType %d", combatType);
 		return;
 	}
 
