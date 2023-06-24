@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3235 $
- * $Date: 2009-03-12 00:49:35 -0400 (Thu, 12 Mar 2009) $
+ * $Revision: 3237 $
+ * $Date: 2009-03-12 11:22:27 -0400 (Thu, 12 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 3235 2009-03-12 04:49:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 3237 2009-03-12 15:22:27Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -317,12 +317,21 @@ CLASS_DECLARATION( idEntity, CRelationsEntity )
 	// Events go here
 END_CLASS
 
-// Constructor, does nothing
-CRelationsEntity::CRelationsEntity()
-{}
-
 void CRelationsEntity::Spawn()
 {
 	// Copy the values from our dictionary to the global relations matrix manager
-	
+	gameLocal.m_RelationsManager->SetFromArgs(spawnArgs);
+
+	// Remove ourselves from the game
+	PostEventMS(&EV_SafeRemove, 0);
+}
+
+CLASS_DECLARATION( idEntity, CTarget_SetRelations )
+	EVENT( EV_Activate,	CTarget_SetRelations::Event_Activate )
+END_CLASS
+
+void CTarget_SetRelations::Event_Activate(idEntity* activator)
+{
+	// Copy the values from our dictionary to the global relations matrix manager
+	gameLocal.m_RelationsManager->SetFromArgs(spawnArgs);
 }

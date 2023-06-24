@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3235 $
- * $Date: 2009-03-12 00:49:35 -0400 (Thu, 12 Mar 2009) $
+ * $Revision: 3237 $
+ * $Date: 2009-03-12 11:22:27 -0400 (Thu, 12 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -185,9 +185,20 @@ class CRelationsEntity :
 public:
 	CLASS_PROTOTYPE( CRelationsEntity );
 
-	CRelationsEntity();
-
 	void Spawn();
+};
+
+/**
+ * greebo: A relations map entity which adds its relations settings
+ * to the global relations manager when triggered.
+ */
+class CTarget_SetRelations : 
+	public idEntity
+{
+public:
+	CLASS_PROTOTYPE( CTarget_SetRelations );
+
+	void Event_Activate(idEntity* activator);
 };
 
 
