@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3629 $
- * $Date: 2009-08-01 00:53:27 -0400 (Sat, 01 Aug 2009) $
+ * $Revision: 3667 $
+ * $Date: 2009-08-14 10:16:15 -0400 (Fri, 14 Aug 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3629 2009-08-01 04:53:27Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3667 2009-08-14 14:16:15Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -107,18 +107,19 @@ void IdleState::Init(idAI* owner)
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 0);
 		owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_Idle", 0);
 	}
-	// The action subsystem plays the idle anims (scratching, yawning...)
-	owner->actionSubsystem->ClearTasks();
 
+	owner->actionSubsystem->ClearTasks();
+	owner->senseSubsystem->ClearTasks();
+
+	// angua: drunken AIs won't do any head turning and idle anims for now
 	if (owner->spawnArgs.GetBool("drunk", "0") == false)
 	{
-		// angua: drunken AIs won't do any idle anims for now
+		// The action subsystem plays the idle anims (scratching, yawning...)
 		owner->actionSubsystem->PushTask(IdleAnimationTask::CreateInstance());
-	}
 
-	// The sensory system does its Idle tasks
-	owner->senseSubsystem->ClearTasks();
-	owner->senseSubsystem->PushTask(RandomHeadturnTask::CreateInstance());
+		// The sensory system does its Idle tasks
+		owner->senseSubsystem->PushTask(RandomHeadturnTask::CreateInstance());
+	}
 
 	InitialiseMovement(owner);
 
