@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3415 $
- * $Date: 2009-04-29 11:15:40 -0400 (Wed, 29 Apr 2009) $
+ * $Revision: 3445 $
+ * $Date: 2009-05-19 12:48:51 -0400 (Tue, 19 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3415 2009-04-29 15:15:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3445 2009-05-19 16:48:51Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1328,13 +1328,16 @@ void CMissionData::Event_SetObjVisible( int ObjIndex, bool bVal )
 		return;
 	}
 
-	bool wasVisible = m_Objectives[ObjIndex].m_bVisible;
+	CObjective& obj = m_Objectives[ObjIndex];
+
+	bool wasVisible = obj.m_bVisible;
 
 	// Set the new state
-	m_Objectives[ObjIndex].m_bVisible = bVal;
+	obj.m_bVisible = bVal;
 
 	// greebo: If we show a previously hidden objective, notify the player
-	if (bVal && !wasVisible)
+	// Only do this for applicable objectives
+	if (bVal && !wasVisible && obj.m_bApplies)
 	{
 		Event_NewObjective(); 
 	}
