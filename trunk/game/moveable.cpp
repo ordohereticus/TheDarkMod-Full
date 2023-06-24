@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3424 $
- * $Date: 2009-05-06 01:34:12 -0400 (Wed, 06 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3433 $
+ * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 3424 2009-05-06 05:34:12Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 3433 2009-05-08 15:36:35Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -359,16 +359,23 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 		{ 
 			const idMaterial *material = collision.c.material;
 
-			idStr sndNameLocal = "snd_bounce";
+			idStr sndNameLocal;
+			idStr surfaceName; // "tile", "glass", etc.
 
 			if (material != NULL)
 			{
+				surfaceName = g_Global.GetSurfName(material);
+
 				// Prepend the snd_bounce_ prefix to check for a surface-specific sound
-				idStr sndNameWithSurface = "snd_bounce_" + g_Global.GetSurfName(material);
+				idStr sndNameWithSurface = "snd_bounce_" + surfaceName;
 
 				if (spawnArgs.FindKey(sndNameWithSurface) != NULL)
 				{
 					sndNameLocal = sndNameWithSurface;
+				}
+				else
+				{
+					sndNameLocal = "snd_bounce";
 				}
 			}
 
@@ -383,7 +390,7 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 
 			float volume = sndShader->GetParms()->volume + f;
 
-			if (cv_moveable_collision.GetBool() > 0)
+			if (cv_moveable_collision.GetBool())
 			{
 				gameRenderWorld->DrawText( va("Velocity: %f", v), (physicsObj.GetOrigin() + idVec3(0, 0, 20)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
 				gameRenderWorld->DrawText( va("Volume: %f", volume), (physicsObj.GetOrigin() + idVec3(0, 0, 10)), 0.25f, colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 100 * gameLocal.msec );
@@ -392,8 +399,14 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 
 			SetSoundVolume(volume);
 
-			StartSound( sndNameLocal, SND_CHANNEL_ANY, 0, false, NULL, f );
+			// greebo: We don't use StartSound() here, we want to do the sound propagation call manually
+			StartSoundShader(sndShader, SND_CHANNEL_ANY, 0, false, NULL);
 
+			idStr sndPropName = GetSoundPropNameForMaterial(surfaceName);
+
+			// Propagate a suspicious sound, using the "group" convention (soft, hard, small, med, etc.)
+			PropSoundS( NULL, sndPropName, f );
+			
 			SetSoundVolume(0.0f);
 
 			nextSoundTime = gameLocal.time + 500;
@@ -433,7 +446,7 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 	 			m_collideScriptCounter = 0;
 			}
 
-		m_nextCollideScriptTime = gameLocal.time + 300;
+			m_nextCollideScriptTime = gameLocal.time + 300;
 		}
 
 	}
@@ -470,6 +483,14 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 	}
 
 	return false;
+}
+
+idStr idMoveable::GetSoundPropNameForMaterial(const idStr& materialName)
+{
+	// Object type defaults to "medium" and "hard"
+	return idStr("bounce_") + spawnArgs.GetString("spr_object_size", "medium") + 
+		"_" + spawnArgs.GetString("spr_object_hardness", "hard") + 
+		"_on_" + g_Global.GetSurfaceHardness(materialName);
 }
 
 /*

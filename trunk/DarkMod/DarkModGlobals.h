@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3405 $
- * $Date: 2009-04-13 02:39:09 -0400 (Mon, 13 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3433 $
+ * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -205,11 +205,26 @@ public:
 	 **/
 	idStr GetSurfName(const idMaterial* material);
 
+	/** 
+	 * greebo: Returns the surface hardness string ("soft", "hard")
+	 * for the given material type.
+	 */
+	const idStr& GetSurfaceHardness(const char* surfName);
+
 	// Returns the darkmod path
 	static std::string GetDarkmodPath();
 
 private:
 	void LoadINISettings(void *);
+
+	// Sets up the surface hardness mapping
+	void InitSurfaceHardness();
+
+	// A table for retrieving indices out of input strings
+	idHashIndex m_SurfaceHardnessHash;
+	
+	// A list of hardness strings ("hard", "soft")
+	idStringList m_SurfaceHardness;
 
 public:
 	/**

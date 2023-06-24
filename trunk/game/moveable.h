@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2804 $
- * $Date: 2008-09-07 19:51:59 -0400 (Sun, 07 Sep 2008) $
- * $Author: ishtvan $
+ * $Revision: 3433 $
+ * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -92,6 +92,9 @@ protected:
 	void					BecomeNonSolid( void );
 	void					InitInitialSpline( int startTime );
 	bool					FollowInitialSplinePath( void );
+
+	// greebo: Returns the soundprop name for the given material (e.g. "sprS_bounce_small_hard_on_soft")
+	idStr					GetSoundPropNameForMaterial(const idStr& materialName);
 
 	// greebo: Updates the sliding sounds according to the "pushed" state
 	void					UpdateSlidingSounds();

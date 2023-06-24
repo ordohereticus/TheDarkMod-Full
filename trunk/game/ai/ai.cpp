@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3416 $
- * $Date: 2009-05-03 13:03:41 -0400 (Sun, 03 May 2009) $
- * $Author: ishtvan $
+ * $Revision: 3433 $
+ * $Date: 2009-05-08 11:36:35 -0400 (Fri, 08 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3416 2009-05-03 17:03:41Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3433 2009-05-08 15:36:35Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5193,7 +5193,7 @@ void idAI::PlayFootStepSound()
 		SetSoundVolume( 0.0f );
 
 		// propagate the suspicious sound to other AI
-		PropSoundDirect( static_cast<const char *>( localSound.c_str() ), true, false );
+		PropSoundDirect( localSound, true, false );
 	}
 }
 
