@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3306 $
- * $Date: 2009-03-25 12:59:25 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3319 $
+ * $Date: 2009-03-27 14:18:31 -0400 (Fri, 27 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -27,6 +27,9 @@ class CFrobLock :
 	 * Handles that are associated with this lock.
 	 */
 	idList< idEntityPtr<CFrobLockHandle> >	m_Lockhandles;
+
+	// The last time we issues an "Update handle" call
+	int				m_LastHandleUpdateTime;
 
 public:
 	CLASS_PROTOTYPE( CFrobLock );

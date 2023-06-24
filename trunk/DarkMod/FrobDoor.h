@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3297 $
- * $Date: 2009-03-25 05:18:07 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3319 $
+ * $Date: 2009-03-27 14:18:31 -0400 (Fri, 27 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -223,6 +223,9 @@ protected:
 	 * Handles that are associated with this door.
 	 */
 	idList< idEntityPtr<CFrobDoorHandle> >	m_Doorhandles;
+
+	// The last time we issues an "Update handle" call
+	int							m_LastHandleUpdateTime;
 };
 
 #endif /* FROBDOOR_H */
