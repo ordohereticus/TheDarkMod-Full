@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3401 $
- * $Date: 2009-04-12 01:11:46 -0400 (Sun, 12 Apr 2009) $
+ * $Revision: 3403 $
+ * $Date: 2009-04-12 05:11:15 -0400 (Sun, 12 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3401 $   $Date: 2009-04-12 01:11:46 -0400 (Sun, 12 Apr 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3403 $   $Date: 2009-04-12 05:11:15 -0400 (Sun, 12 Apr 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3779,10 +3779,17 @@ void idPhysics_Player::GetCurrentMantlingReachDistances
 
 	// Determine maximum vertical and horizontal distance components for
 	// a mantleable surface
-	if (current.movementFlags & PMF_DUCKED )
+	if (current.movementFlags & PMF_DUCKED && !OnRope() && !OnLadder())
 	{
 		out_maxVerticalReachDistance = pm_crouchheight.GetFloat() + armVerticalReach;
 		out_maxHorizontalReachDistance = armReach;
+	}
+	else if (OnRope() || OnLadder())
+	{
+		// angua: need larger reach when on rope
+		out_maxVerticalReachDistance = pm_normalheight.GetFloat() + armVerticalReach;
+		out_maxHorizontalReachDistance = 2* armReach;
+		out_maxMantleTraceDistance *= 2;
 	}
 	else
 	{
@@ -3827,7 +3834,7 @@ void idPhysics_Player::MantleTargetTrace
 		bounds[1][1] = bounds[0][1] + 0.02f;
 		bounds[0][0] = bounds[0][1];
 		bounds[1][0] = bounds[1][1];
-		
+
 		clipModel->LoadModel( pm_usecylinder.GetBool() ? idTraceModel(bounds, 8) : idTraceModel(bounds) );
 		
 		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("Mantle gaze trace didn't hit anything, so doing forward movement trace for mantle target\r");
@@ -3842,6 +3849,9 @@ void idPhysics_Player::MantleTargetTrace
 			MASK_SOLID, 
 			self
 		);
+
+		// gameRenderWorld->DebugBounds(colorCyan, bounds, current.origin, 2000);
+		// gameRenderWorld->DebugBounds(colorBlue, bounds, current.origin + (maxMantleTraceDistance * forwardPerpGrav), 2000);
 
 		// Restore player clip model to normal
 		clipModel->LoadModel( pm_usecylinder.GetBool() ? idTraceModel(savedBounds, 8) : idTraceModel(savedBounds) );
