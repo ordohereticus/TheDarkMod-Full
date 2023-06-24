@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3626 $
- * $Date: 2009-07-31 12:39:11 -0400 (Fri, 31 Jul 2009) $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 3626 2009-07-31 16:39:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -43,7 +43,7 @@ bool ObservantState::CheckAlertLevel(idAI* owner)
 	else if (owner->AI_AlertIndex > 1)
 	{
 		// Alert index is too high, switch to the higher State
-		owner->GetMind()->PushState(STATE_SUSPICIOUS);
+		owner->GetMind()->PushState(owner->backboneStates[ESuspicious]);
 		return false;
 	}
 

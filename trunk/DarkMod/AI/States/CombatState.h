@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3854 $
- * $Date: 2010-03-20 09:24:47 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -58,6 +58,10 @@ public:
 protected:
 	// Override base class method
 	virtual bool CheckAlertLevel(idAI* owner);
+
+	// Checks enemy status (dead, visible, not an enemy anymore).
+	// Returns false if the enemy is not applicable anymore and the state has ended
+	bool CheckEnemyStatus(idActor* enemy, idAI* owner);
 };
 
 } // namespace ai

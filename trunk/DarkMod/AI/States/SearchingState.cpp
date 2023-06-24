@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3752 $
- * $Date: 2009-11-08 04:26:47 -0500 (Sun, 08 Nov 2009) $
- * $Author: angua $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3752 2009-11-08 09:26:47Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -44,7 +44,7 @@ bool SearchingState::CheckAlertLevel(idAI* owner)
 	else if (owner->AI_AlertIndex > 3)
 	{
 		// Alert index is too high, switch to the higher State
-		owner->GetMind()->PushState(STATE_AGITATED_SEARCHING);
+		owner->GetMind()->PushState(owner->backboneStates[EAgitatedSearching]);
 		return false;
 	}
 

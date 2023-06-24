@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3767 $
- * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
- * $Author: angua $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -43,7 +43,7 @@ bool IdleState::CheckAlertLevel(idAI* owner)
 	if (owner->AI_AlertIndex > 0)
 	{
 		// Alert index is too high, switch to the higher State
-		owner->GetMind()->PushState(STATE_OBSERVANT);
+		owner->GetMind()->PushState(owner->backboneStates[EObservant]);
 		return false;
 	}
 

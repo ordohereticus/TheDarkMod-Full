@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3446 $
- * $Date: 2009-05-19 12:49:30 -0400 (Tue, 19 May 2009) $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 3446 2009-05-19 16:49:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -146,7 +146,7 @@ void ConversationState::Think(idAI* owner)
 	// Ensure we are in the correct alert level
 	if (!CheckAlertLevel(owner)) 
 	{
-		owner->GetMind()->SwitchState(STATE_OBSERVANT);
+		owner->GetMind()->SwitchState(owner->backboneStates[EObservant]);
 		return;
 	}
 

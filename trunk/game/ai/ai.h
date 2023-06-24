@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3853 $
- * $Date: 2010-03-20 02:12:13 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1057,11 +1057,10 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	ai::SubsystemPtr actionSubsystem;
 	ai::CommunicationSubsystemPtr commSubsystem;
 
-	// greebo: A mapping used to redirect alertstates of a certain level to named states
-	// e.g. ECombat => STATE_FLEE
-	// These are used by the CombatState
-	typedef std::map<ai::EAlertState, idStr> StateRedirectMap;
-	StateRedirectMap stateRedirects;
+	// greebo: The names of the backbone states, one for each alert state
+	// e.g. ECombat => "Combat"
+	typedef std::map<ai::EAlertState, idStr> BackboneStateMap;
+	BackboneStateMap backboneStates;
 
 	/**
 	* This internal method destroys the current hiding spot search

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3854 $
- * $Date: 2010-03-20 09:24:47 -0400 (Sat, 20 Mar 2010) $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,14 +21,6 @@ namespace ai
 class CombatStateLanternBot :
 	public CombatState
 {
-	// The AI's enemy
-	idEntityPtr<idActor> _enemy;
-	int _criticalHealth;
-	bool _meleePossible;
-	bool _rangedPossible;
-
-	ECombatType _combatType;
-
 public:
 	// Get the name of this state
 	virtual const idStr& GetName() const;

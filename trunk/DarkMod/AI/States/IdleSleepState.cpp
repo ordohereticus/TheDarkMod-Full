@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3731 $
- * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleSleepState.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleSleepState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
 
 #include "IdleSleepState.h"
 #include "IdleState.h"
@@ -43,7 +43,7 @@ bool IdleSleepState::CheckAlertLevel(idAI* owner)
 	if (owner->AI_AlertIndex > 0)
 	{
 		// Alert index is too high, switch to the higher State
-		owner->GetMind()->PushState(STATE_OBSERVANT);
+		owner->GetMind()->PushState(owner->backboneStates[EObservant]);
 		return false;
 	}
 
@@ -75,7 +75,7 @@ void IdleSleepState::Init(idAI* owner)
 			|| owner->GetCurrentYaw() != memory.idleYaw))
 	{
 		// we need to get to the bed first before starting to sleep, back to idle state
-		owner->GetMind()->SwitchState(STATE_IDLE);
+		owner->GetMind()->SwitchState(owner->backboneStates[ERelaxed]);
 		return;
 	}
 
@@ -123,7 +123,7 @@ void IdleSleepState::Think(idAI* owner)
 	}
 	else if (owner->GetMoveType() == MOVETYPE_GET_UP_FROM_LYING)
 	{
-		owner->GetMind()->SwitchState(STATE_IDLE);
+		owner->GetMind()->SwitchState(owner->backboneStates[ERelaxed]);
 		owner->commSubsystem->ClearTasks();
 		return;
 	}

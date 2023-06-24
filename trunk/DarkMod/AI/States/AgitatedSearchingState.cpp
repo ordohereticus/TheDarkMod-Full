@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3531 $
- * $Date: 2009-07-13 09:27:15 -0400 (Mon, 13 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3856 $
+ * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3531 2009-07-13 13:27:15Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -45,7 +45,7 @@ bool AgitatedSearchingState::CheckAlertLevel(idAI* owner)
 	{
 		// Alert index is too high, switch to the higher State
 		owner->Event_CloseHidingSpotSearch();
-		owner->GetMind()->PushState(STATE_COMBAT);
+		owner->GetMind()->PushState(owner->backboneStates[ECombat]);
 		return false;
 	}
 
