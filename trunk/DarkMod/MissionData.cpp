@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3760 $
- * $Date: 2009-11-21 09:01:53 -0500 (Sat, 21 Nov 2009) $
+ * $Revision: 3811 $
+ * $Date: 2010-01-23 00:42:35 -0500 (Sat, 23 Jan 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3760 2009-11-21 14:01:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3811 2010-01-23 05:42:35Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2260,6 +2260,18 @@ Quit:
 
 void CMissionData::UpdateGUIState(idUserInterface* ui) 
 {
+	// Update UI element positioning
+	if (ui->GetStateBool("ingame"))
+	{
+		// Let the GUI adjust its position for in-game setup
+		ui->HandleNamedEvent("ObjMenuHideDifficultyOptions");
+	}
+	else
+	{
+		// Let the GUI adjust its position for pre-game setup
+		ui->HandleNamedEvent("ObjMenuShowDifficultyOptions");
+	}
+
 	// The list of indices of visible, applicable objectives
 	idList<int> objIndices;
 
@@ -2360,7 +2372,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 		// Let the GUI know which map to load
 		gui->SetStateString("mapStartCmd", va("exec 'map %s'", cv_tdm_mapName.GetString()));
 
-		if (gui->GetStateInt("ingame") == 0)
+		if (!gui->GetStateBool("ingame"))
 		{
 			// We're coming from the start screen
 			// Clear the objectives data and load them from the map
@@ -2392,7 +2404,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 
 				const idDict& worldspawnDict = worldspawn->epairs;
 
-				for (int diffLevel = 0; diffLevel < 3; diffLevel++)
+				for (int diffLevel = 0; diffLevel < DIFFICULTY_COUNT; diffLevel++)
 				{
 					const char* diffName = worldspawnDict.GetString(va("difficulty%dName",diffLevel),
 						diffDef->dict.GetString(va("diff%ddefault",diffLevel), ""));
@@ -2406,19 +2418,6 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 
 				// Clear the flag so that the objectives get updated
 				ClearGUIState();
-
-				// Display the Difficulty choices
-				gui->SetStateInt("DifficultyIsVisible", 1);
-
-				// Hide the objective checkboxes
-				gui->SetStateInt("ObjectiveBoxIsVisible", 0);
-
-				// Set the positioning according to the Difficulty screen
-				objStartXPos = gui->GetStateInt("DifficultyStartXPos");
-
-				gui->SetStateInt("ParchmentXPos", gui->GetStateInt("DifficultyParchmentXPos"));
-				gui->SetStateString("ObjTitle", gui->GetStateString("DifficultyTitle"));
-				gui->SetStateInt("TitleXPos", gui->GetStateInt("DifficultyTitleXPos"));
 			}
 			else
 			{
@@ -2426,24 +2425,6 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 				gameLocal.Error("Could not find difficulty entityDef %s", "difficultyMenu");
 			}			
 		}
-		else
-		{
-			// Hide the Difficulty choices
-			gui->SetStateInt("DifficultyIsVisible", 0);
-
-			// Display the objective checkboxes
-			gui->SetStateInt("ObjectiveBoxIsVisible", 1);
-
-			// Set the positioning according to the Objectives screen
-			objStartXPos = gui->GetStateInt("ObjectiveStartXPos");
-
-			gui->SetStateInt("ParchmentXPos", gui->GetStateInt("ObjectiveParchmentXPos"));
-			gui->SetStateString("ObjTitle", gui->GetStateString("ObjectiveTitle"));
-			gui->SetStateInt("TitleXPos", gui->GetStateInt("ObjectiveTitleXPos"));
-		}
-
-		// greebo: Sanity-check the objectives start position
-		gui->SetStateInt("ObjXPos", (objStartXPos == 0) ? 110 : objStartXPos);
 
 		if (!m_MissionDataLoadedIntoGUI)
 		{
