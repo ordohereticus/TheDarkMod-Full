@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3300 $
- * $Date: 2009-03-25 07:25:09 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3301 $
+ * $Date: 2009-03-25 07:37:44 -0400 (Wed, 25 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -52,6 +52,8 @@ protected:
 	void			Event_Lock_OnLockPicked();
 	void			Event_Lock_OnLockStatusChange(int locked);
 
+	// Private events, used for deferred triggering of lock/unlock/general targets
+	void			Event_TriggerTargets();
 	void			Event_TriggerLockTargets();
 	void			Event_TriggerUnlockTargets();
 };
