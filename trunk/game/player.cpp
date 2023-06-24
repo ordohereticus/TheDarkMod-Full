@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3262 $
- * $Date: 2009-03-17 13:07:53 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3276 $
+ * $Date: 2009-03-20 04:56:02 -0400 (Fri, 20 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3262 2009-03-17 17:07:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3276 2009-03-20 08:56:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3555,10 +3555,12 @@ idPlayer::RaiseWeapon
 */
 void idPlayer::RaiseWeapon( void ) 
 {
-	if ( weapon.GetEntity() 
-		&& weapon.GetEntity()->IsHidden()
-		&& ! (GetImmobilization() & EIM_ATTACK) ) 
+	if (weapon.GetEntity() && 
+		weapon.GetEntity()->IsHidden() && 
+		!(GetImmobilization() & EIM_ATTACK)) 
+	{
 		weapon.GetEntity()->RaiseWeapon();
+	}
 }
 
 /*
