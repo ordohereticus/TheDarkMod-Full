@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3933 $
- * $Date: 2010-06-10 05:53:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3934 $
+ * $Date: 2010-06-10 06:59:50 -0400 (Thu, 10 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -35,6 +35,14 @@ private:
 
 	// The map which should be the starting point
 	idStr _curStartingMap;
+
+public:
+	enum InstallResult
+	{
+		INSTALLED_OK,
+		INDEX_OUT_OF_BOUNDS,
+		COPY_FAILURE,
+	};
 
 public:
 	CMissionManager();
@@ -77,6 +85,15 @@ public:
 	idStr GetNewFoundMissionsText();
 
 	void ClearNewMissionList();
+
+	// Installs mission (by index)
+	InstallResult InstallMission(int index);
+
+	// Installs mission (by fs_game name)
+	InstallResult InstallMission(const idStr& name);
+
+	// Uninstalls the currently installed FM, basically clearing our currentfm.txt
+	void UninstallMission();
 
 	// Convenience method which copies a file from <source> to <dest>
 	// If <overwrite> is set to TRUE, any existing destination file will be removed beforehand
