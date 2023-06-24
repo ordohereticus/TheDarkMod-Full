@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3195 $
- * $Date: 2009-01-20 02:41:47 -0500 (Tue, 20 Jan 2009) $
- * $Author: greebo $
+ * $Revision: 3947 $
+ * $Date: 2010-06-13 02:39:27 -0400 (Sun, 13 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 3195 2009-01-20 07:41:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 3947 2010-06-13 06:39:27Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -617,9 +617,10 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity ) {
 	}
 
 	// MP: projectiles open doors
-	if ( gameLocal.isMultiplayer && ent->IsType( idDoor::Type ) && !static_cast< idDoor * >(ent)->IsOpen() && !ent->spawnArgs.GetBool( "no_touch" ) ) {
-		ent->ProcessEvent( &EV_Activate , this );
-	}
+	// tels: TODO 2010-06-11 need another way to find out if entity is a door (low priority, we don't have MP in TDM yet)
+	//if ( gameLocal.isMultiplayer && ent->IsType( idDoor::Type ) && !static_cast< idDoor * >(ent)->IsOpen() && !ent->spawnArgs.GetBool( "no_touch" ) ) {
+	//	ent->ProcessEvent( &EV_Activate , this );
+	//}
 
 	if ( ent->IsType( idActor::Type ) || ( ent->IsType( idAFAttachment::Type ) && static_cast<const idAFAttachment*>(ent)->GetBody()->IsType( idActor::Type ) ) ) {
 		if ( !projectileFlags.detonate_on_actor ) {
