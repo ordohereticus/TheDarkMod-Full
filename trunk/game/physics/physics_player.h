@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3400 $
- * $Date: 2009-04-12 00:29:46 -0400 (Sun, 12 Apr 2009) $
+ * $Revision: 3401 $
+ * $Date: 2009-04-12 01:11:46 -0400 (Sun, 12 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -262,10 +262,6 @@ private:
 	**/
 	idEntityPtr<idAFEntity_Base>	m_RopeEntTouched;
 
-	/**
-	* The gametime since the last detachment (used for detach-reattach timer)
-	**/
-	int						m_RopeDetachTimer;
 	
 	/**
 	* toggled based on whether the player should stay attached to rope
