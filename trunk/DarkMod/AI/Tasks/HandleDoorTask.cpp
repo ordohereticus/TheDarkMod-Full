@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
+ * $Revision: 3510 $
+ * $Date: 2009-07-02 13:38:13 -0400 (Thu, 02 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3510 2009-07-02 17:38:13Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -435,7 +435,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				{
 					if (FitsThrough())
 					{
-						if (owner->AI_AlertLevel >= owner->thresh_4)
+						if (owner->AI_AlertLevel >= owner->thresh_3)
 						{
 							return true;
 						}
@@ -539,7 +539,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 			case EStateApproachingDoor:
 			{
-				if (owner->AI_AlertLevel >= owner->thresh_4)
+				if (owner->AI_AlertLevel >= owner->thresh_3)
 				{
 					return true;
 				}
@@ -587,7 +587,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					if (FitsThrough())
 					{
 						// gap is large enough, move to back position
-						if (owner->AI_AlertLevel >= owner->thresh_4)
+						if (owner->AI_AlertLevel >= owner->thresh_3)
 						{
 							return true;
 						}
@@ -651,7 +651,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				else
 				{
 					// no need for waiting, door is already open, let's move
-					if (owner->AI_AlertLevel >= owner->thresh_4)
+					if (owner->AI_AlertLevel >= owner->thresh_3)
 					{
 						return true;
 					}
@@ -685,7 +685,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				}
 				else
 				{
-					if (owner->AI_AlertLevel >= owner->thresh_4)
+					if (owner->AI_AlertLevel >= owner->thresh_3)
 					{
 						return true;
 					}
@@ -758,7 +758,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				{
 					if (FitsThrough() && masterUser == owner)
 					{
-						if (owner->AI_AlertLevel >= owner->thresh_4)
+						if (owner->AI_AlertLevel >= owner->thresh_3)
 						{
 							return true;
 						}
@@ -786,7 +786,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				// door is fully open, let's get moving
 				else if	(!frobDoor->IsChangingState() && masterUser == owner)
 				{
-					if (owner->AI_AlertLevel >= owner->thresh_4)
+					if (owner->AI_AlertLevel >= owner->thresh_3)
 					{
 						return true;
 					}
@@ -853,7 +853,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					return true;
 				}
 
-				if (!_doorInTheWay && owner->AI_AlertLevel >= owner->thresh_4)
+				if (!_doorInTheWay && owner->AI_AlertLevel >= owner->thresh_3)
 				{
 					return true;
 				}
@@ -880,7 +880,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					return true;
 				}
 
-				if (!_doorInTheWay && owner->AI_AlertLevel >= owner->thresh_4)
+				if (!_doorInTheWay && owner->AI_AlertLevel >= owner->thresh_3)
 				{
 					return true;
 				}
@@ -902,7 +902,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				{
 					return true;
 				}
-				if (owner->AI_AlertLevel >= owner->thresh_4)
+				if (owner->AI_AlertLevel >= owner->thresh_3)
 				{
 					return true;
 				}
