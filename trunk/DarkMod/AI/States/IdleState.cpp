@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3279 $
+ * $Date: 2009-03-20 16:39:03 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3279 2009-03-20 20:39:03Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -184,16 +184,21 @@ void IdleState::InitialiseMovement(idAI* owner)
 	TaskPtr patrolTask = TaskLibrary::Instance().CreateInstance(
 		owner->spawnArgs.GetBool("animal_patrol", "0") ? TASK_ANIMAL_PATROL : TASK_PATROL
 	);
-	owner->GetSubsystem(SubsysMovement)->PushTask(patrolTask);
 
 	// Check if the owner has patrol routes set
 	idPathCorner* path = memory.currentPath.GetEntity();
-	if (path == NULL)
+	idPathCorner* lastPath = memory.lastPath.GetEntity();
+
+	if (path == NULL && lastPath == NULL)
 	{
+
 		path = idPathCorner::RandomPath(owner, NULL, owner);
 	}
 
-	if (path == NULL)
+	memory.currentPath = path;
+	owner->GetSubsystem(SubsysMovement)->PushTask(patrolTask);
+
+	if (path == NULL && lastPath == NULL)
 	{
 		// We don't have any patrol routes, so we're supposed to stand around
 		// where the mapper has put us.

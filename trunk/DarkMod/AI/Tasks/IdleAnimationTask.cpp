@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3264 $
- * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 3279 $
+ * $Date: 2009-03-20 16:39:03 -0400 (Fri, 20 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3279 2009-03-20 20:39:03Z angua $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -92,9 +92,13 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 
 	if (gameLocal.time > _nextAnimationTime)
 	{
-		// angua: don't play idle animations while sitting down or getting up
-		idStr waitState(owner->WaitState());
-		if (memory.playIdleAnimations && waitState != "sit_down" && waitState != "get_up")
+		// angua: don't play idle animations while sitting / lying down or getting up
+		if (memory.playIdleAnimations && 
+			owner->GetMoveType() != MOVETYPE_SIT_DOWN &&
+			owner->GetMoveType() != MOVETYPE_LAY_DOWN &&
+			owner->GetMoveType() != MOVETYPE_SLEEP &&
+			owner->GetMoveType() != MOVETYPE_GET_UP &&
+			owner->GetMoveType() != MOVETYPE_GET_UP_FROM_LYING)
 		{
 			// Check if the AI is moving or sitting, this determines which channel we can play on
 			if (!owner->AI_FORWARD && owner->GetMoveType() != MOVETYPE_SIT)
@@ -109,7 +113,7 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 			}
 			else 
 			{
-				// AI is walking, only use animations for the Torso channel
+				// AI is walking or sitting, only use animations for the Torso channel
 				int animIdx = gameLocal.random.RandomInt(_idleAnimationsTorso.Num());
 
 				idStr animName(_idleAnimationsTorso[animIdx]);
