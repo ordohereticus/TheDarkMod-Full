@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3644 $
- * $Date: 2009-08-04 11:57:02 -0400 (Tue, 04 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3649 $
+ * $Date: 2009-08-05 01:58:52 -0400 (Wed, 05 Aug 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3644 2009-08-04 15:57:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3649 2009-08-05 05:58:52Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1125,11 +1125,7 @@ bool State::OnUnconsciousPersonEncounter(idActor* person, idAI* owner)
 		idStr soundName;
 		idStr personGender = person->spawnArgs.GetString(PERSONGENDER_KEY);
 
-		if (idStr(person->spawnArgs.GetString(PERSONTYPE_KEY)) == owner->spawnArgs.GetString(PERSONTYPE_KEY))
-		{
-			soundName = "snd_foundComradeBody";
-		}
-		else if (personGender == PERSONGENDER_FEMALE)
+		if (personGender == PERSONGENDER_FEMALE)
 		{
 			soundName = "snd_foundUnconsciousFemale";
 		}
