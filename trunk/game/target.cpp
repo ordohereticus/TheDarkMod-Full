@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3941 $
- * $Date: 2010-06-11 03:02:45 -0400 (Fri, 11 Jun 2010) $
+ * $Revision: 3943 $
+ * $Date: 2010-06-11 07:08:52 -0400 (Fri, 11 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3941 2010-06-11 07:02:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3943 2010-06-11 11:08:52Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1303,41 +1303,6 @@ void idTarget_SetFov::Think( void ) {
 		}
 	} else {
 		BecomeInactive( TH_ALL );
-	}
-}
-
-/*
-===============================================================================
-
-idTarget_LockDoor
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idTarget, idTarget_LockDoor )
-	EVENT( EV_Activate,	idTarget_LockDoor::Event_Activate )
-END_CLASS
-
-/*
-================
-idTarget_LockDoor::Event_Activate
-================
-*/
-void idTarget_LockDoor::Event_Activate( idEntity *activator ) {
-	int i;
-	idEntity *ent;
-	int lock;
-
-	lock = spawnArgs.GetInt( "locked", "1" );
-	for( i = 0; i < targets.Num(); i++ ) {
-		ent = targets[ i ].GetEntity();
-		if ( ent && ent->IsType( idDoor::Type ) ) {
-			if ( static_cast<idDoor *>( ent )->IsLocked() ) {
-				static_cast<idDoor *>( ent )->Lock( 0 );
-			} else {
-				static_cast<idDoor *>( ent )->Lock( lock );
-			}
-		}
 	}
 }
 
