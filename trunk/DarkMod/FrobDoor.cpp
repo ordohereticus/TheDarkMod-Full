@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3253 $
- * $Date: 2009-03-15 03:10:19 -0400 (Sun, 15 Mar 2009) $
+ * $Revision: 3254 $
+ * $Date: 2009-03-15 04:13:06 -0400 (Sun, 15 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3253 2009-03-15 07:10:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3254 2009-03-15 08:13:06Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -962,6 +962,27 @@ bool CFrobDoor::ProcessLockpick(int cType, ELockpickSoundsample nSampleType)
 
 		return false;
 	}
+
+	idStr patternText = "Current Pattern: ";
+	patternText += idStr(m_FirstLockedPinIndex);
+	
+	const idStringList& pattern = *m_Pins[m_FirstLockedPinIndex];
+	for (int i = 0; i < pattern.Num(); ++i)
+	{
+		idStr p = pattern[i];
+		p.StripLeadingOnce("snd_lockpick_pin_");
+
+		gameLocal.GetLocalPlayer()->SetGuiString(m_LockPickHUD, "Sample" + idStr(i+1), p);
+
+		float opacity = (i < m_SoundPinSampleIndex) ? 0.2f : 0.6f;
+
+		if (i == m_SoundPinSampleIndex) opacity = 1;
+
+		gameLocal.GetLocalPlayer()->SetGuiFloat(m_LockPickHUD, "SampleOpacity" + idStr(i+1), opacity);
+		gameLocal.GetLocalPlayer()->SetGuiInt(m_LockPickHUD, "SampleBorder" + idStr(i+1), (i == m_SoundPinSampleIndex) ? 1 : 0);
+	}
+
+	gameLocal.GetLocalPlayer()->SetGuiString(m_LockPickHUD, "PatternText", patternText);
 
 	// Now check if the pick is of the correct type. If no picktype is given, or
 	// the mapper doesn't care, we ignore it.
