@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3523 $
- * $Date: 2009-07-06 10:05:12 -0400 (Mon, 06 Jul 2009) $
- * $Author: tels $
+ * $Revision: 3529 $
+ * $Date: 2009-07-12 23:35:23 -0400 (Sun, 12 Jul 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3523 2009-07-06 14:05:12Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3529 2009-07-13 03:35:23Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7308,6 +7308,11 @@ void idAI::PushWithAF( void ) {
 			{
 				vel.Normalize();
 				ent->ApplyImpulse( this, touchList[i].touchedClipModel->GetId(), ent->GetPhysics()->GetOrigin(), cv_ai_bumpobject_impulse.GetFloat() * vel );
+				if (ent->m_SetInMotionByActor.GetEntity() == NULL)
+				{
+					ent->m_SetInMotionByActor = this;
+					ent->m_MovedByActor = this;
+				}
 			}
 		}
 	}
@@ -8002,7 +8007,7 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 		else
 		{
 			// greebo: Take the responsible actor for motion sound
-			idActor* responsibleActor = propParms->maker->m_SetInMotionByActor.GetEntity();
+			idActor* responsibleActor = propParms->maker->m_MovedByActor.GetEntity();
 			if (responsibleActor != NULL)
 			{
 				m_AlertedByActor = responsibleActor;
