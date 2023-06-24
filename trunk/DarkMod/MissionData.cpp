@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3228 $
- * $Date: 2009-03-06 12:22:14 -0500 (Fri, 06 Mar 2009) $
+ * $Revision: 3351 $
+ * $Date: 2009-04-03 13:11:50 -0400 (Fri, 03 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3228 2009-03-06 17:22:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 3351 2009-04-03 17:11:50Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2319,9 +2319,6 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 		// Call UpdateObjectiveStateN to perform some GUI-specific updates
 		ui->HandleNamedEvent(va("UpdateObjective%d", guiObjNum));
 	}
-
-	// Force a redraw
-	ui->StateChanged(gameLocal.time, true);
 }
 
 void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui)
@@ -2571,9 +2568,6 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	key = "GameLocal.realClientTime";
 	value = idStr(gameLocal.realClientTime);
 	gui->SetStateString(prefix + idStr(index++), key + "\t" + value + postfix);*/
-
-	// Force a redraw
-	gui->StateChanged(gameLocal.time, true);
 }
 
 void CObjective::Save( idSaveGame *savefile ) const
