@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3795 $
- * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
+ * $Revision: 3801 $
+ * $Date: 2010-01-16 17:16:31 -0500 (Sat, 16 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3795 2010-01-13 05:01:11Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3801 2010-01-16 22:16:31Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -721,6 +721,7 @@ idEntity::idEntity()
 	m_FrobChangeTime = 0;
 	m_FrobPeerFloodFrame = 0;
 	m_FrobActionLock = false;
+	m_bAttachedAlertControlsSolidity = false;
 	m_bIsObjective = false;
 	m_bIsClimbableRope = false;
 	m_bIsMantleable = false;
@@ -1151,6 +1152,7 @@ void idEntity::Save( idSaveGame *savefile ) const
 		savefile->WriteString(m_UsedBy[i].c_str());
 	}
 
+	savefile->WriteBool(m_bAttachedAlertControlsSolidity);
 	savefile->WriteBool(m_bIsObjective);
 	savefile->WriteBool(m_bFrobable);
 	savefile->WriteBool(m_bFrobSimple);
@@ -1340,6 +1342,7 @@ void idEntity::Restore( idRestoreGame *savefile )
 		savefile->ReadString(m_UsedBy[i]);
 	}
 
+	savefile->ReadBool(m_bAttachedAlertControlsSolidity);
 	savefile->ReadBool(m_bIsObjective);
 	savefile->ReadBool(m_bFrobable);
 	savefile->ReadBool(m_bFrobSimple);
@@ -7517,6 +7520,8 @@ void idEntity::LoadTDMSettings(void)
 	m_AbsenceNoticeability = spawnArgs.GetFloat("absence_noticeability", "0");
 
 	team = spawnArgs.GetInt("team", "-1");
+
+	m_bAttachedAlertControlsSolidity = spawnArgs.GetBool("on_attach_alert_become_solid");
 
 	m_bIsObjective = spawnArgs.GetBool( "objective_ent", "0" );
 

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3795 $
- * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
+ * $Revision: 3801 $
+ * $Date: 2010-01-16 17:16:31 -0500 (Sat, 16 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -329,6 +329,13 @@ public:
 	* to make them easier to frob when placed next to large objects.
 	**/
 	float					m_FrobBias;
+
+	/**
+	* Controls whether this entity, when attached to an AI, will become solid when the AI
+	* is alerted and nonsolid when the AI is not alerted.
+	* Often applied in conjunction with attach_set_nonsolid spawnarg
+	**/
+	bool					m_bAttachedAlertControlsSolidity;
 
 	/**
 	* Set to true if this entity is a climbable rope.  This could be set on either

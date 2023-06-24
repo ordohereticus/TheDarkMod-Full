@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3791 $
- * $Date: 2010-01-09 02:32:34 -0500 (Sat, 09 Jan 2010) $
- * $Author: tels $
+ * $Revision: 3801 $
+ * $Date: 2010-01-16 17:16:31 -0500 (Sat, 16 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3791 2010-01-09 07:32:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3801 2010-01-16 22:16:31Z ishtvan $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -6305,9 +6305,10 @@ void idAI::UpdateAttachmentContents(bool makeSolid)
 
 		if (ent == NULL || !m_Attachments[i].ent.IsValid()) continue;
 
-		if (!ent->IsType(CMeleeWeapon::Type)) continue;
+		if (!ent->IsType(CMeleeWeapon::Type) && !ent->m_bAttachedAlertControlsSolidity) 
+			continue;
 		
-		// Found a melee weapon attachment
+		// Found a melee weapon or other attachment that should become solid on alert
 		idAFBody *body;
 		if (makeSolid)
 		{
