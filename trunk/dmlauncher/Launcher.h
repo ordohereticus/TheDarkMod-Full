@@ -5,8 +5,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3712 $
- * $Date: 2009-09-25 14:52:06 -0400 (Fri, 25 Sep 2009) $
+ * $Revision: 3756 $
+ * $Date: 2009-11-09 02:07:59 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  *************************************************************************/
@@ -33,6 +33,8 @@ class Launcher
 
 	// The arguments to pass to the engine
 	std::string _arguments;
+
+	std::size_t _additionalDelay;
 
 public:
 	// Pass the command line to this class
