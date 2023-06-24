@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3634 $
- * $Date: 2009-08-02 12:29:14 -0400 (Sun, 02 Aug 2009) $
+ * $Revision: 3647 $
+ * $Date: 2009-08-05 00:35:33 -0400 (Wed, 05 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,6 +18,7 @@
 #include "../DarkMod/AI/EAS/RouteInfo.h"
 #include <set>
 
+// greebo: Keep the values in scripts/tdm_defs.script in sync with these
 enum ECombatType
 {
 	COMBAT_NONE,
@@ -833,6 +834,8 @@ public:
 	void					Event_RemoveReplacementAnim(const char* animName);
 	void					Event_LookupReplacementAnim(const char* animName);
 
+	void					Event_GetAttackFlag(int combatType);
+	void					Event_SetAttackFlag(int combatType, int enabled);
 
 #ifdef TIMING_BUILD
 public:

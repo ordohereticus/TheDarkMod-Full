@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3638 $
- * $Date: 2009-08-03 09:44:53 -0400 (Mon, 03 Aug 2009) $
+ * $Revision: 3647 $
+ * $Date: 2009-08-05 00:35:33 -0400 (Wed, 05 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3638 2009-08-03 13:44:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3647 2009-08-05 04:35:33Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7112,7 +7112,6 @@ idAI::TestRanged
 */
 bool idAI::TestRanged() const 
 {
-	trace_t trace;
 	idActor *enemyEnt = enemy.GetEntity();
 
 	if ( !enemyEnt) 
@@ -7122,7 +7121,7 @@ bool idAI::TestRanged() const
 
 	if (!GetAttackFlag(COMBAT_RANGED))
 	{
-		// greebo: Cannot attack with melee weapons yet
+		// greebo: Cannot attack with ranged weapons yet
 		return false;
 	}
 
