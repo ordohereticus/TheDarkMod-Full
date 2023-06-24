@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3278 $
- * $Date: 2009-03-20 15:53:12 -0400 (Fri, 20 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3291 $
+ * $Date: 2009-03-23 05:08:23 -0400 (Mon, 23 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathWaitTask.cpp 3278 2009-03-20 19:53:12Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathWaitTask.cpp 3291 2009-03-23 09:08:23Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -58,7 +58,7 @@ void PathWaitTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool PathWaitTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Path Corner Task performing.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("PathWaitTask performing.\r");
 
 	idPathCorner* path = _path.GetEntity();
 	idAI* owner = _owner.GetEntity();
@@ -73,8 +73,8 @@ bool PathWaitTask::Perform(Subsystem& subsystem)
 
 		NextPath();
 
-		// Move is done, fall back to PatrolTask
-		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Turn is done.\r");
+		// Wait is done, fall back to PatrolTask
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Wait is done.\r");
 
 		return true; // finish this task
 	}
@@ -94,7 +94,7 @@ void PathWaitTask::Restore(idRestoreGame* savefile)
 {
 	PathTask::Restore(savefile);
 
-	_path.Restore(savefile);
+	savefile->ReadFloat(_endtime);
 }
 
 PathWaitTaskPtr PathWaitTask::CreateInstance()
