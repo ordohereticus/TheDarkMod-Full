@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3438 $
- * $Date: 2009-05-09 11:06:30 -0400 (Sat, 09 May 2009) $
+ * $Revision: 3602 $
+ * $Date: 2009-07-28 00:09:56 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3438 2009-05-09 15:06:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3602 2009-07-28 04:09:56Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -330,6 +330,9 @@ void CGrabber::Update( idPlayer *player, bool hold )
 	if( !hold && m_dragEnt.GetEntity() ) 
 	{
 		// ClampVelocity( MAX_RELEASE_LINVEL, MAX_RELEASE_ANGVEL, m_id );
+
+		// greebo: Clear the equipped entity reference as well, we're letting go
+		m_EquippedEnt = NULL;
 
 		StopDrag();
 		
