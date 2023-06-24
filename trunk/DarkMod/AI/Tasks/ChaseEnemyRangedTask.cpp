@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 3865 $
+ * $Date: 2010-03-21 07:06:10 -0400 (Sun, 21 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyRangedTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyRangedTask.cpp 3865 2010-03-21 11:06:10Z greebo $", init_version);
 
 #include "ChaseEnemyRangedTask.h"
 #include "../Memory.h"
@@ -83,8 +83,6 @@ bool ChaseEnemyRangedTask::Perform(Subsystem& subsystem)
 		else
 		{
 			// AI is moving, this is ok
-			
-			// TODO: check_blocked() port from scripts
 		}
 	}
 	else 
