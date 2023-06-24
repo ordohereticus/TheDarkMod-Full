@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3274 $
- * $Date: 2009-03-19 07:19:42 -0400 (Thu, 19 Mar 2009) $
+ * $Revision: 3280 $
+ * $Date: 2009-03-21 04:57:05 -0400 (Sat, 21 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3274 2009-03-19 11:19:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 3280 2009-03-21 08:57:05Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -587,22 +587,22 @@ bool CBinaryFrobMover::IsAtOpenPosition()
 {
 	const idVec3& localOrg = physicsObj.GetLocalOrigin();
 
-	idAngles localAngles = physicsObj.GetLocalAngles();
-	localAngles.Normalize180();
-
+	const idAngles& localAngles = physicsObj.GetLocalAngles();
+	
 	// greebo: Let the check be slightly inaccurate (use the standard epsilon).
-	return localAngles.Compare(m_OpenAngles, VECTOR_EPSILON) && localOrg.Compare(m_OpenOrigin, VECTOR_EPSILON);
+	return (localAngles - m_OpenAngles).Normalize360().Compare(ang_zero, VECTOR_EPSILON) && 
+		   localOrg.Compare(m_OpenOrigin, VECTOR_EPSILON);
 }
 
 bool CBinaryFrobMover::IsAtClosedPosition()
 {
 	const idVec3& localOrg = physicsObj.GetLocalOrigin();
 
-	idAngles localAngles = physicsObj.GetLocalAngles();
-	localAngles.Normalize180();
-
+	const idAngles& localAngles = physicsObj.GetLocalAngles();
+	
 	// greebo: Let the check be slightly inaccurate (use the standard epsilon).
-	return localAngles.Compare(m_ClosedAngles, VECTOR_EPSILON) && localOrg.Compare(m_ClosedOrigin, VECTOR_EPSILON);
+	return (localAngles - m_ClosedAngles).Normalize360().Compare(ang_zero, VECTOR_EPSILON) && 
+		   localOrg.Compare(m_ClosedOrigin, VECTOR_EPSILON);
 }
 
 void CBinaryFrobMover::CallStateScript()
