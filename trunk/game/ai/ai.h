@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3493 $
- * $Date: 2009-06-26 21:34:56 -0400 (Fri, 26 Jun 2009) $
- * $Author: ishtvan $
+ * $Revision: 3503 $
+ * $Date: 2009-06-27 11:17:45 -0400 (Sat, 27 Jun 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -493,6 +493,10 @@ public:
 	idScriptBool			AI_CROUCH;
 	idScriptBool			AI_RUN;
 	idScriptBool			AI_CREEP;
+
+	// angua: this determines whether the AI should lay down to the left or to the right after sitting down
+	// gets read as spawn arg from the path_sleep entity
+	idScriptBool			AI_LAY_DOWN_LEFT;
 
 	// greebo: This is to tell the scripts which idle animation should be played next in the CustomIdleAnim state
 	idStr					m_NextIdleAnim;
@@ -1173,6 +1177,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					AnimMove( void );
 	void					SlideMove( void );
 	void					SittingMove();
+	void					LayDownMove();
 	void					AdjustFlyingAngles( void );
 	void					AddFlyBob( idVec3 &vel );
 	void					AdjustFlyHeight( idVec3 &vel, const idVec3 &goalPos );
