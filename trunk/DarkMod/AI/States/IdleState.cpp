@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
+ * $Revision: 3513 $
+ * $Date: 2009-07-03 12:41:26 -0400 (Fri, 03 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3513 2009-07-03 16:41:26Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -195,7 +195,10 @@ void IdleState::InitialiseMovement(idAI* owner)
 	}
 
 	memory.currentPath = path;
-	owner->movementSubsystem->PushTask(patrolTask);
+	if (path)
+	{
+		owner->movementSubsystem->PushTask(patrolTask);
+	}
 
 	if (path == NULL && lastPath == NULL)
 	{
@@ -207,8 +210,9 @@ void IdleState::InitialiseMovement(idAI* owner)
 			memory.idlePosition = owner->GetPhysics()->GetOrigin();
 			memory.idleYaw = owner->GetCurrentYaw();
 		}
-		else
+		else if (owner->GetMoveType() == MOVETYPE_ANIM)
 		{
+			// angua: don't do this when we are sitting or sleeping
 			// We already HAVE an idle position set, this means that we are
 			// supposed to be there, let's move
 			owner->movementSubsystem->PushTask(
