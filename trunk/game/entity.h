@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3219 $
- * $Date: 2009-02-25 04:25:46 -0500 (Wed, 25 Feb 2009) $
- * $Author: tels $
+ * $Revision: 3259 $
+ * $Date: 2009-03-17 00:23:12 -0400 (Tue, 17 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -133,8 +133,8 @@ enum {
 // The impulse states a button can have
 enum EImpulseState {
 	EPressed,			// just pressed
-	EReleased,			// held down
-	ERepeat,			// just released
+	ERepeat,			// held down
+	EReleased,			// just released
 	ENumImpulseStates,
 };
 
