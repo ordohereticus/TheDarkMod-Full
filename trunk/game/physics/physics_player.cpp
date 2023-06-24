@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3345 $
- * $Date: 2009-04-01 07:11:04 -0400 (Wed, 01 Apr 2009) $
+ * $Revision: 3346 $
+ * $Date: 2009-04-01 07:45:44 -0400 (Wed, 01 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3345 $   $Date: 2009-04-01 07:11:04 -0400 (Wed, 01 Apr 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3346 $   $Date: 2009-04-01 07:45:44 -0400 (Wed, 01 Apr 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3576,6 +3576,15 @@ void idPhysics_Player::UpdateMantleTimers()
 				// check for clipping problems after mantling
 				// will advance to notMantling when the player isn't clipping
 				m_mantlePhase = fixClipping_DarkModMantlePhase;
+
+				// greebo: Reset the viewangle roll to 0 after mantling, sometimes this stays at 0.6 or something
+				viewAngles.roll = 0;
+
+				if (self != NULL)
+				{
+					static_cast<idPlayer*>(self)->SetViewAngles(viewAngles);
+				}
+
 				break;
 
 			default:
