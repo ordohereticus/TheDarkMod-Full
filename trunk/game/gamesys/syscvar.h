@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3618 $
- * $Date: 2009-07-30 13:12:30 -0400 (Thu, 30 Jul 2009) $
+ * $Revision: 3636 $
+ * $Date: 2009-08-03 01:17:19 -0400 (Mon, 03 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -33,6 +33,7 @@ extern idCVar cv_ai_alertlevel_show;
 extern idCVar cv_ai_dest_show;
 extern idCVar cv_ai_goalpos_show;
 extern idCVar cv_ai_aasarea_show;
+extern idCVar cv_ai_debug_blocked;
 extern idCVar cv_ai_door_show;
 extern idCVar cv_ai_elevator_show;
 extern idCVar cv_ai_debug;
