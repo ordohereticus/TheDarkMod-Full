@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3804 $
- * $Date: 2010-01-20 02:05:33 -0500 (Wed, 20 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 3806 $
+ * $Date: 2010-01-20 13:37:20 -0500 (Wed, 20 Jan 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3804 2010-01-20 07:05:33Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3806 2010-01-20 18:37:20Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -371,7 +371,7 @@ idCVar cv_ambient_method("tdm_ambient_method",	"0",	CVAR_GAME | CVAR_BOOL | CVAR
 /**
  * Volume of speakers with s_music set
  */
-idCVar cv_music_volume("tdm_music_volume",	"1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Volume in dB for speakers with s_music set." );
+idCVar cv_music_volume("tdm_music_volume",	"1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Volume in dB for speakers with s_music set. Goes from -40 to 0." );
 
 idCVar cv_moveable_collision("tdm_show_moveable_collision",	"0",	CVAR_GAME | CVAR_BOOL, "If set to 1, shows the velocity at which the moveable collides and the volume of the resulting sound." );
 
