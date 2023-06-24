@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3441 $
- * $Date: 2009-05-16 00:58:34 -0400 (Sat, 16 May 2009) $
+ * $Revision: 3442 $
+ * $Date: 2009-05-16 02:26:22 -0400 (Sat, 16 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3441 2009-05-16 04:58:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3442 2009-05-16 06:26:22Z greebo $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -107,7 +107,7 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 				// AI is not walking, play animations affecting all channels
 				int animIdx = gameLocal.random.RandomInt(_idleAnimations.Num());
 
-				idStr animName(_idleAnimations[animIdx]);
+				const idStr& animName = _idleAnimations[animIdx];
 
 				// Check if the animation exists
 				if (owner->GetAnim(ANIMCHANNEL_TORSO, animName) == 0 || 
@@ -119,18 +119,17 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 				}
 
 				// Issue the playanim call
-				owner->Event_PlayAnim(ANIMCHANNEL_TORSO, animName);
-				owner->Event_PlayAnim(ANIMCHANNEL_LEGS, animName);
+				owner->SetNextIdleAnim(animName);
 
-				owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_CustomAnim", 4);
-				owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_CustomAnim", 4);
+				owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_CustomIdleAnim", 4);
+				owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_CustomIdleAnim", 4);
 			}
 			else 
 			{
 				// AI is walking or sitting, only use animations for the Torso channel
 				int animIdx = gameLocal.random.RandomInt(_idleAnimationsTorso.Num());
 
-				idStr animName(_idleAnimationsTorso[animIdx]);
+				const idStr& animName = _idleAnimationsTorso[animIdx];
 
 				// Check if the animation exists
 				if (owner->GetAnim(ANIMCHANNEL_TORSO, animName) == 0)			
@@ -140,8 +139,8 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 					return true; // done with errors
 				}
 
-				owner->Event_PlayAnim(ANIMCHANNEL_TORSO, animName);
-				owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_CustomAnim", 4);
+				owner->SetNextIdleAnim(animName);
+				owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_CustomIdleAnim", 4);
 			}
 		}
 		

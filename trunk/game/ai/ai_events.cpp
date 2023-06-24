@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3305 $
- * $Date: 2009-03-25 12:15:24 -0400 (Wed, 25 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3442 $
+ * $Date: 2009-05-16 02:26:22 -0400 (Sat, 16 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3305 2009-03-25 16:15:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3442 2009-05-16 06:26:22Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -354,6 +354,8 @@ const idEventDef AI_GetObservationPosition ("getObservationPosition", "vf", 'v')
 **/
 const idEventDef AI_Knockout( "knockout", "e" );
 
+const idEventDef AI_GetNextIdleAnim( "getNextIdleAnim", NULL, 's' );
+
 /*
 * This is the AI event table class for a generic NPC actor.
 *
@@ -534,6 +536,8 @@ CLASS_DECLARATION( idActor, idAI )
 
 	EVENT( AI_Knockout,							idAI::Knockout )
 	EVENT ( AI_SpawnThrowableProjectile,		idAI::Event_SpawnThrowableProjectile)
+
+	EVENT(AI_GetNextIdleAnim,					idAI::Event_GetNextIdleAnim)
 
 END_CLASS
 
@@ -3391,4 +3395,9 @@ void idAI::Event_ProcessBlindStim(idEntity* stimSource, int skipVisibilityCheck)
 void idAI::Event_ProcessVisualStim(idEntity* stimSource)
 {
 	mind->GetState()->OnVisualStim(stimSource);
+}
+
+void idAI::Event_GetNextIdleAnim()
+{
+	idThread::ReturnString(GetNextIdleAnim());
 }

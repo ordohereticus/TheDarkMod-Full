@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3440 $
- * $Date: 2009-05-12 12:48:35 -0400 (Tue, 12 May 2009) $
- * $Author: angua $
+ * $Revision: 3442 $
+ * $Date: 2009-05-16 02:26:22 -0400 (Sat, 16 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3440 2009-05-12 16:48:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3442 2009-05-16 06:26:22Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -10025,6 +10025,16 @@ void idAI::ShowDebugInfo()
 
 		gameRenderWorld->DrawText(m_HandlingElevator ? "Elevator" : "---", physicsObj.GetOrigin(), 0.2f, m_HandlingElevator ? colorRed : colorGreen, playerViewMatrix, 1, gameLocal.msec);
 	}
+}
+
+const idStr& idAI::GetNextIdleAnim()
+{
+	return m_NextIdleAnim;
+}
+
+void idAI::SetNextIdleAnim(const idStr& nextIdleAnim)
+{
+	m_NextIdleAnim = nextIdleAnim;
 }
 
 bool idAI::SwitchToConversationState(const idStr& conversationName)
