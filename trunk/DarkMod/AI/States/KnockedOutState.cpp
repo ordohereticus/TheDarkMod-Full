@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
+ * $Revision: 3285 $
+ * $Date: 2009-03-22 05:17:27 -0400 (Sun, 22 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 3285 2009-03-22 09:17:27Z angua $", init_version);
 
 #include "KnockedOutState.h"
 #include "../Memory.h"
@@ -33,7 +33,6 @@ void KnockedOutState::Init(idAI* owner)
 
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("KnockedOutState initialised.\r");
 	assert(owner);
-
 	
 	// Clear all the subsystems
 	owner->GetSubsystem(SubsysMovement)->ClearTasks();
@@ -45,25 +44,26 @@ void KnockedOutState::Init(idAI* owner)
 
 	// Stop move!
 	owner->StopMove(MOVE_STATUS_DONE);
-/*
-// angua: disabled for Thief's Den release
-// anims didn't look good and produced problems
+
 	owner->StopAnim(ANIMCHANNEL_TORSO, 0);
 	owner->StopAnim(ANIMCHANNEL_LEGS, 0);
 	owner->StopAnim(ANIMCHANNEL_HEAD, 0);
 
+	// angua: disabled for Thief's Den release
+	// anims didn't look good and produced problems
+/*
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_KO", 0);
 	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_KO", 0);
-	owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_KO", 0);
 
 	// greebo: Set the waitstate, this gets cleared by 
 	// the script function when the animation is done.
 	owner->SetWaitState(ANIMCHANNEL_TORSO, "knock_out");
 	owner->SetWaitState(ANIMCHANNEL_LEGS, "knock_out");
-	owner->SetWaitState(ANIMCHANNEL_HEAD, "knock_out");
 	// Don't do anything else, the KO animation will finish in a few frames
 	// and the AI is done afterwards.
 */
+	owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_KO", 0);
+	owner->SetWaitState(ANIMCHANNEL_HEAD, "knock_out");
 }
 
 // Gets called each time the mind is thinking

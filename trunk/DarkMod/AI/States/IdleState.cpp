@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3279 $
- * $Date: 2009-03-20 16:39:03 -0400 (Fri, 20 Mar 2009) $
+ * $Revision: 3285 $
+ * $Date: 2009-03-22 05:17:27 -0400 (Sun, 22 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3279 2009-03-20 20:39:03Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3285 2009-03-22 09:17:27Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -85,24 +85,26 @@ void IdleState::Init(idAI* owner)
 	{
 		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle_Sit", 0);
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle_Sit", 0);
+		owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_Idle", 0);
 		owner->Event_SetMoveType(MOVETYPE_SIT);
-	}
-	else if (owner->GetMoveType() == MOVETYPE_SLEEP)
-	{
-		owner->GetMind()->SwitchState(STATE_IDLE_SLEEP);
-		return;
 	}
 	else if (owner->GetMoveType() == MOVETYPE_SIT)
 	{
 		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle_Sit", 0);
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle_Sit", 0);
+		owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_Idle", 0);
+	}
+	else if (owner->GetMoveType() == MOVETYPE_SLEEP)
+	{
+		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle_Sleep", 0);
+		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle_Sleep", 0);
+		owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_Idle_Sleep", 0);
 	}
 	else
 	{
-	
 		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 0);
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 0);
-		
+		owner->SetAnimState(ANIMCHANNEL_HEAD, "Head_Idle", 0);
 	}
 	// The action subsystem plays the idle anims (scratching, yawning...)
 	owner->GetSubsystem(SubsysAction)->ClearTasks();
