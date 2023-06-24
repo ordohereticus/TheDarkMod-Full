@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3533 $
- * $Date: 2009-07-14 10:39:45 -0400 (Tue, 14 Jul 2009) $
+ * $Revision: 3584 $
+ * $Date: 2009-07-26 07:19:21 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3533 2009-07-14 14:39:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3584 2009-07-26 11:19:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -7638,7 +7638,7 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 
 			if (!damageDef->dict.GetBool( "no_pain" )) {
 				// let the anim script know we took damage
-				AI_PAIN = Pain( inflictor, attacker, damage, dir, location );
+				AI_PAIN = Pain( inflictor, attacker, damage, dir, location, &damageDef->dict );
 				if(AI_PAIN)
 					gameLocal.Printf("Player:AI_PAIN set to true\n");
 			}
@@ -8974,7 +8974,7 @@ void idPlayer::ReadFromSnapshot( const idBitMsgDelta &msg ) {
 			const idDeclEntityDef *def = static_cast<const idDeclEntityDef *>( declManager->DeclByIndex( DECL_ENTITYDEF, lastDamageDef, false ) );
 			if ( def ) {
 				playerView.DamageImpulse( lastDamageDir * viewAxis.Transpose(), &def->dict );
-				AI_PAIN = Pain( NULL, NULL, oldHealth - health, lastDamageDir, lastDamageLocation );
+				AI_PAIN = Pain( NULL, NULL, oldHealth - health, lastDamageDir, lastDamageLocation, &def->dict );
 				lastDmgTime = gameLocal.time;
 			} else {
 				common->Warning( "NET: no damage def for damage feedback '%d'\n", lastDamageDef );

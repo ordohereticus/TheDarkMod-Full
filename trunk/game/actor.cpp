@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3583 $
- * $Date: 2009-07-26 07:14:08 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3584 $
+ * $Date: 2009-07-26 07:19:21 -0400 (Sun, 26 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3583 2009-07-26 11:14:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3584 2009-07-26 11:19:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3002,7 +3002,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		} 
 		else
 		{
-			Pain( inflictor, attacker, damage, dir, location );
+			Pain( inflictor, attacker, damage, dir, location, damageDef );
 
 			// FIX: if drowning, stop pain SFX and play drown SFX on voice channel
 			if ( damageDef->GetBool( "no_air" ) ) 
