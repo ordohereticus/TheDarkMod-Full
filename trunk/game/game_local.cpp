@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3888 $
- * $Date: 2010-04-25 23:51:22 -0400 (Sun, 25 Apr 2010) $
+ * $Revision: 3908 $
+ * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3888 2010-04-26 03:51:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3908 2010-05-27 04:48:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -426,7 +426,7 @@ void idGameLocal::Init( void ) {
 	declManager->RegisterDeclFolder( "fx",				".fx",				DECL_FX );
 	declManager->RegisterDeclFolder( "particles",		".prt",				DECL_PARTICLE );
 	declManager->RegisterDeclFolder( "af",				".af",				DECL_AF );
-	declManager->RegisterDeclFolder( "newpdas",			".pda",				DECL_PDA );
+	//declManager->RegisterDeclFolder( "newpdas",			".pda",				DECL_PDA );
 	// TDM specific DECLs
 	declManager->RegisterDeclFolder( "xdata",			".xd",				DECL_XDATA );
 	declManager->RegisterDeclFolder( "materials",		".mtr",				DECL_TDM_MATINFO );

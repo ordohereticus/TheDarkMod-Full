@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3906 $
- * $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+ * $Revision: 3908 $
+ * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -259,24 +259,6 @@ private:
 	void				Event_Activate( idEntity *activator );
 };
 
-
-/*
-===============================================================================
-
-idTarget_GiveEmail
-
-===============================================================================
-*/
-
-class idTarget_GiveEmail : public idTarget {
-public:
-	CLASS_PROTOTYPE( idTarget_GiveEmail );
-
-	void				Spawn( void );
-
-private:
-	void				Event_Activate( idEntity *activator );
-};
 
 /*
 ===============================================================================

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3896 $
- * $Date: 2010-05-09 14:54:28 -0400 (Sun, 09 May 2010) $
- * $Author: jcdenton $
+ * $Revision: 3908 $
+ * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 3896 2010-05-09 18:54:28Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 3908 2010-05-27 04:48:24Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -591,11 +591,6 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 
 	if ( idStr::Icmp( name, "invis" ) == 0 ) {
 		player->GivePowerUp( INVISIBILITY, SEC2MS( 30.0f ) );
-		return;
-	}
-
-	if ( idStr::Icmp( name, "pda" ) == 0 ) {
-		player->GivePDA( args.Argv(2), NULL );
 		return;
 	}
 

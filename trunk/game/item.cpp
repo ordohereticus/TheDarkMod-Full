@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3907 $
- * $Date: 2010-05-27 00:12:08 -0400 (Thu, 27 May 2010) $
+ * $Revision: 3908 $
+ * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 3907 2010-05-27 04:12:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 3908 2010-05-27 04:48:24Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -817,62 +817,6 @@ bool idItemPowerup::GiveToPlayer( idPlayer *player ) {
 /*
 ===============================================================================
 
-  idVideoCDItem
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idItem, idVideoCDItem )
-END_CLASS
-
-/*
-================
-idVideoCDItem::Spawn
-================
-*/
-void idVideoCDItem::Spawn( void ) {
-}
-
-/*
-================
-idVideoCDItem::GiveToPlayer
-================
-*/
-bool idVideoCDItem::GiveToPlayer( idPlayer *player ) {
-	idStr str = spawnArgs.GetString( "video" );
-	if ( player && str.Length() ) {
-		//player->GiveVideo( str, &spawnArgs );
-	}
-	return true;
-}
-
-/*
-===============================================================================
-
-  idPDAItem
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idItem, idPDAItem )
-END_CLASS
-
-/*
-================
-idPDAItem::GiveToPlayer
-================
-*/
-bool idPDAItem::GiveToPlayer(idPlayer *player) {
-	const char *str = spawnArgs.GetString( "pda_name" );
-	if ( player ) {
-		player->GivePDA( str, &spawnArgs );
-	}
-	return true;
-}
-
-/*
-===============================================================================
-
   idMoveableItem
 	
 ===============================================================================
@@ -1267,70 +1211,3 @@ void idMoveableItem::Show( void )
 	trigger->SetContents( CONTENTS_FROBABLE );
 }
 
-/*
-===============================================================================
-
-  idMoveablePDAItem
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idMoveableItem, idMoveablePDAItem )
-END_CLASS
-
-/*
-================
-idMoveablePDAItem::GiveToPlayer
-================
-*/
-bool idMoveablePDAItem::GiveToPlayer(idPlayer *player) {
-	const char *str = spawnArgs.GetString( "pda_name" );
-	if ( player ) {
-		player->GivePDA( str, &spawnArgs );
-	}
-	return true;
-}
-
-/*
-===============================================================================
-
-  idItemRemover
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idEntity, idItemRemover )
-	EVENT( EV_Activate,		idItemRemover::Event_Trigger )
-END_CLASS
-
-/*
-================
-idItemRemover::Spawn
-================
-*/
-void idItemRemover::Spawn( void ) {
-}
-
-/*
-================
-idItemRemover::RemoveItem
-================
-*/
-void idItemRemover::RemoveItem( idPlayer *player ) {
-	const char *remove;
-	
-	remove = spawnArgs.GetString( "remove" );
-	// greebo: TDM inventory not handled by this itemRemover (yet)
-	//player->RemoveInventoryItem( remove );
-}
-
-/*
-================
-idItemRemover::Event_Trigger
-================
-*/
-void idItemRemover::Event_Trigger( idEntity *activator ) {
-	if ( activator->IsType( idPlayer::Type ) ) {
-		RemoveItem( static_cast<idPlayer *>(activator) );
-	}
-}

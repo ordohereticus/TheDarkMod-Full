@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3906 $
- * $Date: 2010-05-27 00:08:11 -0400 (Thu, 27 May 2010) $
+ * $Revision: 3908 $
+ * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3906 2010-05-27 04:08:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3908 2010-05-27 04:48:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -616,42 +616,6 @@ void idTarget_Give::Event_Activate( idEntity *activator ) {
 		}
 	}
 }
-
-/*
-===============================================================================
-
-idTarget_GiveEmail
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idTarget, idTarget_GiveEmail )
-EVENT( EV_Activate,				idTarget_GiveEmail::Event_Activate )
-END_CLASS
-
-/*
-================
-idTarget_GiveEmail::Spawn
-================
-*/
-void idTarget_GiveEmail::Spawn( void ) {
-}
-
-/*
-================
-idTarget_GiveEmail::Event_Activate
-================
-*/
-void idTarget_GiveEmail::Event_Activate( idEntity *activator ) {
-	idPlayer *player = gameLocal.GetLocalPlayer();
-	const idDeclPDA *pda = player->GetPDA();
-	if ( pda ) {
-		//player->GiveEmail( spawnArgs.GetString( "email" ) );
-	} else {
-		player->ShowTip( spawnArgs.GetString( "text_infoTitle" ), spawnArgs.GetString( "text_PDANeeded" ), true );
-	}
-}
-
 
 /*
 ===============================================================================
