@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3761 $
- * $Date: 2009-11-22 05:26:46 -0500 (Sun, 22 Nov 2009) $
- * $Author: tels $
+ * $Revision: 3773 $
+ * $Date: 2009-12-27 22:21:34 -0500 (Sun, 27 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3761 2009-11-22 10:26:46Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3773 2009-12-28 03:21:34Z crispy $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -880,8 +880,8 @@ void CGrabber::AddToClipList( idEntity *ent )
 	{
 		phys->SetContents
 		( 
-			(contents & (~CONTENTS_SOLID)) | CONTENTS_MONSTERCLIP 
-			| CONTENTS_RENDERMODEL | (CONTENTS_CORPSE & (~CONTENTS_OPAQUE))
+			(contents & ~(CONTENTS_SOLID | CONTENTS_OPAQUE))
+			| CONTENTS_MONSTERCLIP | CONTENTS_RENDERMODEL | CONTENTS_CORPSE
 		);
 		bAddToList = true;
 	}
