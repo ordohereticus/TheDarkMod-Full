@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3642 $
- * $Date: 2009-08-04 10:55:30 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3644 $
+ * $Date: 2009-08-04 11:57:02 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3642 2009-08-04 14:55:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3644 2009-08-04 15:57:02Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1257,7 +1257,10 @@ void State::OnMovementBlocked(idAI* owner)
 	else if (ent->IsType(idStaticEntity::Type))
 	{
 		// Blocked by func_static, these are not considered by Obstacle Avoidance code.
-		// TODO
+		if (!owner->movementSubsystem->IsResolvingBlock())
+		{
+			owner->movementSubsystem->ResolveBlock(ent);
+		}
 	}
 }
 

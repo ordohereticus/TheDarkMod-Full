@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3590 $
- * $Date: 2009-07-26 11:44:06 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 3644 $
+ * $Date: 2009-08-04 11:57:02 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3590 2009-07-26 15:44:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3644 2009-08-04 15:57:02Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -493,7 +493,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 					float product = idMath::Fabs(ownerDir * testVector);
 
-					if (product > 0.3)
+					if (product > 0.3f)
 					{
 						// door is not in the way and open, just continue walking
 						_doorHandlingState = EStateApproachingDoor;

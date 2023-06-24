@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3643 $
- * $Date: 2009-08-04 11:20:48 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3644 $
+ * $Date: 2009-08-04 11:57:02 -0400 (Tue, 04 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -59,8 +59,8 @@ public:
 	static ResolveMovementBlockTaskPtr CreateInstance();
 
 private:
-	void InitBlockingAI(idAI* owner);
-	void InitBlockingStatic(idAI* owner);
+	void InitBlockingAI(idAI* owner, Subsystem& subsystem);
+	void InitBlockingStatic(idAI* owner, Subsystem& subsystem);
 
 	bool PerformBlockingAI(idAI* owner);
 	bool PerformBlockingStatic(idAI* owner);
