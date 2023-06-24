@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3555 $
- * $Date: 2009-07-19 12:53:13 -0400 (Sun, 19 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 3726 $
+ * $Date: 2009-10-25 00:19:02 -0400 (Sun, 25 Oct 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3555 2009-07-19 16:53:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3726 2009-10-25 04:19:02Z ishtvan $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "SingleBarkTask.h"
@@ -185,7 +185,14 @@ void MeleeCombatTask::PerformAttack(idAI* owner)
 			idStr debugText = "MeleeAction: Attack, Phase: Preparing";
 			gameRenderWorld->DrawText( debugText, (owner->GetEyePosition() - owner->GetPhysics()->GetGravityNormal()*-25), 0.20f, colorMagenta, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec );
 		}
-		// don't do anything, animation will update status when it reaches hold point
+		// don't do anything, animation will update melee status to holding when it reaches the hold point
+		// FIX: Some animations don't have a hold point and just go straight through
+		idStr waitState( owner->WaitState() );
+		if( waitState != "melee_action" )
+		{
+			// Hack: animation is done, advance the state where it will be handled properly in the next frame
+			owner->Event_MeleeActionReleased();
+		}
 		return;
 	}
 	else if( phase == MELEEPHASE_HOLDING )
