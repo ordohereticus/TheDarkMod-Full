@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3363 $
- * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3428 $
+ * $Date: 2009-05-07 13:34:08 -0400 (Thu, 07 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AgitatedSearchingState.cpp 3428 2009-05-07 17:34:08Z greebo $", init_version);
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -77,16 +77,13 @@ void AgitatedSearchingState::Init(idAI* owner)
 	{
 		if (memory.alertType == EAlertTypeSuspicious || memory.alertType == EAlertTypeEnemy)
 		{
-			idStr bark = "snd_alert4";
-
 			owner->commSubsystem->AddCommTask(
-				CommunicationTaskPtr(new SingleBarkTask(bark))
+				CommunicationTaskPtr(new SingleBarkTask("snd_alert4"))
 			);
 		}
 	}
-/*	owner->GetSubsystem(SubsysCommunication)->QueueTask(
-		TaskPtr(new WaitTask(5000))
-		);*/// TODO_AI
+
+	owner->commSubsystem->AddSilence(5000);
 
 	int minTime = SEC2MS(owner->spawnArgs.GetFloat("searchbark_delay_min", "10"));
 	int maxTime = SEC2MS(owner->spawnArgs.GetFloat("searchbark_delay_max", "15"));
