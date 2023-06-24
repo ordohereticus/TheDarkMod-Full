@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3069 $
- * $Date: 2008-11-27 13:55:01 -0500 (Thu, 27 Nov 2008) $
- * $Author: tels $
+ * $Revision: 3266 $
+ * $Date: 2009-03-18 06:29:57 -0400 (Wed, 18 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -82,6 +82,15 @@ public:
 	 */
 	bool					IsMaster();
 	void					SetMaster(bool isMaster);
+
+	/** 
+	 * greebo: Updates the position of this door handle based on 
+	 * the given float, which should be in the range [0..1].
+	 *
+	 * @fraction: [0..1] where 0 refers to the original position and 
+	 *            a value of 1 refers to the fully rotated handle.
+	 */
+	void					UpdatePosition(float fraction);
 
 protected:
 	// Specialise the OpenPositionReached method of BinaryFrobMover to trigger the door's Open() routine
