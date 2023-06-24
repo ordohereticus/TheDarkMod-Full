@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3773 $
- * $Date: 2009-12-27 22:21:34 -0500 (Sun, 27 Dec 2009) $
- * $Author: crispy $
+ * $Revision: 3808 $
+ * $Date: 2010-01-20 14:14:39 -0500 (Wed, 20 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3773 2009-12-28 03:21:34Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3808 2010-01-20 19:14:39Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -490,6 +490,7 @@ void CGrabber::Update( idPlayer *player, bool hold )
 	m_drag.SetDragPosition( draggedPosition );
 
 	// Test: Drop the object if it is stuck
+	// TODO: Also put absolute distance check and angle offset check in here
 	CheckStuck();
 	if( m_bObjStuck )
 	{
@@ -808,6 +809,14 @@ void CGrabber::ManipulateObject( idPlayer *player ) {
 		trace_t trResults;
 		physics->ClipRotation( trResults, m_rotation, NULL );
 		physics->Rotate( m_rotation * trResults.fraction );
+
+		// FIXME: If a bindmaster hits a bind slave when rotated, will it stop??
+		// debugging this here:
+		if( trResults.fraction < 1.0f )
+		{
+			// gameLocal.Printf("GRABBER ROTATION TO FACE PLAYER: Grabbed object %s hit object %s\n", m_dragEnt.GetEntity()->name.c_str(), gameLocal.entities[trResults.c.entityNum]->name.c_str() );
+			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER ROTATION TO FACE PLAYER: Grabbed object %s hit object %s\r", m_dragEnt.GetEntity()->name.c_str(), gameLocal.entities[trResults.c.entityNum]->name.c_str() );
+		}
 
 		if( !m_bMaintainPitch )
 		{
