@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3400 $
- * $Date: 2009-04-12 00:29:46 -0400 (Sun, 12 Apr 2009) $
+ * $Revision: 3479 $
+ * $Date: 2009-05-29 11:34:29 -0400 (Fri, 29 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 3400 2009-04-12 04:29:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 3479 2009-05-29 15:34:29Z angua $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -681,10 +681,10 @@ void CsndProp::SetupParms( const idDict *parms, SSprParms *propParms, USprFlags 
 	DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Parsing team alert and propagation flags from propagated_sounds.def\r");
 	
 	// note: by default, if the key is not found, GetBool returns false
-	tempflags.m_bits.same = parms->GetBool("alert_same");
-	tempflags.m_bits.friendly = parms->GetBool("alert_friend");
-	tempflags.m_bits.neutral = parms->GetBool("alert_neutral");
-	tempflags.m_bits.enemy = parms->GetBool("alert_enemy", "1");
+	tempflags.m_bits.same = parms->GetBool("prop_to_same");
+	tempflags.m_bits.friendly = parms->GetBool("prop_to_friend");
+	tempflags.m_bits.neutral = parms->GetBool("prop_to_neutral");
+	tempflags.m_bits.enemy = parms->GetBool("prop_to_enemy", "1");
 
 	tempflags.m_bits.omni_dir = parms->GetBool("omnidir");
 	tempflags.m_bits.unique_loc = parms->GetBool("unique_loc");

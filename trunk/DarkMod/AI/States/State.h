@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3079 $
- * $Date: 2008-12-06 03:28:50 -0500 (Sat, 06 Dec 2008) $
+ * $Revision: 3479 $
+ * $Date: 2009-05-29 11:34:29 -0400 (Fri, 29 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -72,7 +72,7 @@ public:
 	virtual void OnAudioAlert();
 
 	// Handles incoming messages from other AI
-	virtual void OnAICommMessage(CommMessage& message);
+	virtual void OnAICommMessage(CommMessage& message, float psychLoud);
 
 	// greebo: An event called by the obstacle avoidance code to indicate that we have a frobmover ahead
 	virtual void OnFrobDoorEncounter(CFrobDoor* frobDoor);

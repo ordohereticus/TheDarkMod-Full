@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3460 $
- * $Date: 2009-05-23 09:41:04 -0400 (Sat, 23 May 2009) $
+ * $Revision: 3479 $
+ * $Date: 2009-05-29 11:34:29 -0400 (Fri, 29 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3460 2009-05-23 13:41:04Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3479 2009-05-29 15:34:29Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1254,7 +1254,7 @@ void State::OnVisualStimDoor(idEntity* stimSource, idAI* owner)
 	memory.alertedDueToCommunication = false;
 }
 
-void State::OnAICommMessage(CommMessage& message)
+void State::OnAICommMessage(CommMessage& message, float psychLoud)
 {
 	idAI* owner = _owner.GetEntity();
 	// greebo: changed the IF back to an assertion, the owner should never be NULL
@@ -1351,7 +1351,7 @@ void State::OnAICommMessage(CommMessage& message)
 				{
 					// no enemy set or enemy not found yet
 					// set up search
-					owner->SetAlertLevel(owner->thresh_5 - 0.01);
+					owner->AlertAI("aud", psychLoud);
 
 					memory.alertPos = directObjectLocation;
 					memory.alertRadius = LOST_ENEMY_ALERT_RADIUS;

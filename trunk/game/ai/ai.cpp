@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3477 $
- * $Date: 2009-05-29 09:45:59 -0400 (Fri, 29 May 2009) $
+ * $Revision: 3479 $
+ * $Date: 2009-05-29 11:34:29 -0400 (Fri, 29 May 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3477 2009-05-29 13:45:59Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3479 2009-05-29 15:34:29Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7923,7 +7923,7 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 		{
 			for (int i = 0; i < propParms->makerAI->m_Messages.Num(); i++)
 			{
-				mind->GetState()->OnAICommMessage(*propParms->makerAI->m_Messages[i]);
+				mind->GetState()->OnAICommMessage(*propParms->makerAI->m_Messages[i], psychLoud);
 			}
 		}
 
