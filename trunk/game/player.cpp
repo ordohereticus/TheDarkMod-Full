@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3745 $
- * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 3746 $
+ * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3745 2009-11-05 04:26:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10674,11 +10674,12 @@ void idPlayer::PerformFrobCheck()
 		m_FrobEntity = bestEnt;
 		// and the trace for reference
 		m_FrobTrace = trace;
+
+		return; // done
 	}
-	else
-	{
-		m_FrobEntity = NULL;
-	}
+
+	// No frob entity
+	m_FrobEntity = NULL;
 }
 
 int idPlayer::GetImmobilization( const char *source )

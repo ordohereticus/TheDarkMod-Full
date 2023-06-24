@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3570 $
- * $Date: 2009-07-23 14:29:36 -0400 (Thu, 23 Jul 2009) $
- * $Author: tels $
+ * $Revision: 3746 $
+ * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 3570 2009-07-23 18:29:36Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -77,7 +77,7 @@ void idMultiModelAF::Present( void )
 
 	if( m_bFrobable )
 	{
-		UpdateFrob();
+		UpdateFrobState();
 		UpdateFrobDisplay();
 	}
 

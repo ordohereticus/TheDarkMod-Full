@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3328 $
- * $Date: 2009-03-28 01:32:31 -0400 (Sat, 28 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3746 $
+ * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: brittlefracture.cpp 3328 2009-03-28 05:32:31Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: brittlefracture.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -545,7 +545,7 @@ void idBrittleFracture::Present()
 {
 	if( m_bFrobable )
 	{
-		UpdateFrob();
+		UpdateFrobState();
 		UpdateFrobDisplay();
 	}
 

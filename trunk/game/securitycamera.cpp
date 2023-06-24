@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2461 $
- * $Date: 2008-06-08 09:30:47 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 3746 $
+ * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: securitycamera.cpp 2461 2008-06-08 13:30:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: securitycamera.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
@@ -556,7 +556,7 @@ void idSecurityCamera::Present( void )
 {
 	if( m_FrobDistance )
 	{
-		UpdateFrob();
+		UpdateFrobState();
 		UpdateFrobDisplay();
 	}
 

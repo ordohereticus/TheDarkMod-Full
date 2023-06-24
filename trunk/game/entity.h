@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3744 $
- * $Date: 2009-11-04 00:14:12 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 3746 $
+ * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1089,25 +1089,24 @@ public:
 
 protected:
 	/**
-	* Update frob highlighting and frob entity if frobbed.
-	* Also stops highlighting and clears itself from the frob entity
-	* if it's no longer frobbed.
-	* Depends on frob variables set in idPlayer::Think()
+	* Update frob highlight state if frobbed.
+	* Clears highlight state if it's no longer frobbed.
 	* Called in idEntity::Present
 	**/
-	void UpdateFrob( void );
+	void UpdateFrobState();
 
 	/**
-	* Used to fade frob highlight in and out smoothly
+	* This controls the shader parms for the frob highlighting,
+	* according to the frob highlight state. Includes fading algorithms.
 	* Called in idEntity::Present().
 	**/
-	void UpdateFrobDisplay( void );
+	void UpdateFrobDisplay();
 
 	/**
 	* Activate/deactivate frob highlighting on an entity
 	* Also calls this on any of the entity's peers
 	**/
-	void FrobHighlight( bool bVal );
+	void SetFrobHighlightState( bool bVal );
 
 	/**
 	* Parses spawnarg list of attachments and binds them on to the ent
