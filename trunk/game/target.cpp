@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3565 $
- * $Date: 2009-07-22 13:45:06 -0400 (Wed, 22 Jul 2009) $
+ * $Revision: 3566 $
+ * $Date: 2009-07-22 14:51:50 -0400 (Wed, 22 Jul 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3565 2009-07-22 17:45:06Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3566 2009-07-22 18:51:50Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1428,7 +1428,7 @@ void idTarget_CallObjectFunction::Event_Activate( idEntity *activator ) {
 	bool				pass_self;
 	float				wait, delay;
 
-	pass_self = spawnArgs.GetBool( "pass_self", false);
+	pass_self = spawnArgs.GetBool( "pass_self", "0");
 	wait	  = spawnArgs.GetFloat ( "wait", "0");
 	funcName  = spawnArgs.GetString( "call" );
 
