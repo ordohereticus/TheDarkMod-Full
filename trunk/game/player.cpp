@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3937 $
- * $Date: 2010-06-10 10:34:38 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3944 $
+ * $Date: 2010-06-11 08:04:54 -0400 (Fri, 11 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3937 2010-06-10 14:34:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3944 2010-06-11 12:04:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6333,7 +6333,36 @@ void idPlayer::Move( void )
 		
 		if (old_vert != new_vert) 
 		{
-			StartSound( "snd_rope_climb", SND_CHANNEL_ANY, 0, false, NULL );
+			// greebo: Get the rope entity and read the material/sound type from its spawnargs
+			idEntity* rope = physicsObj.GetRopeEntity();
+
+			// If we have a valid rope entity, copy the rope movement snd_ value from it to the player's spawnargs
+			if (rope != NULL)
+			{
+				const char* const tempKey = "snd_rope_climb_temp__"; // temporary key
+
+				// Check if the rope has an override keyvalue
+				const idKeyValue* kv = rope->spawnArgs.FindKey("snd_rope_climb");
+
+				// Fill the temporary key on the player entity
+				if (kv != NULL && kv->GetValue().Length() > 0)
+				{
+					spawnArgs.Set(tempKey, kv->GetValue());
+				}
+				else
+				{
+					// No special climb sound on the entity, use the one in the player def
+					spawnArgs.Set(tempKey, spawnArgs.GetString("snd_rope_climb"));
+				}
+
+				// Start the sound using the temporary key
+				StartSound(tempKey, SND_CHANNEL_ANY, 0, false, NULL);	
+			}
+			else
+			{
+				// No rope entity?! Fall back to player default
+				StartSound("snd_rope_climb", SND_CHANNEL_ANY, 0, false, NULL); 
+			}
 		}
 	}
 	// play climbing movement sounds
