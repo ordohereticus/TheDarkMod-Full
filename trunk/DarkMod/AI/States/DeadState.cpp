@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3851 $
- * $Date: 2010-03-19 11:24:05 -0400 (Fri, 19 Mar 2010) $
+ * $Revision: 3852 $
+ * $Date: 2010-03-19 21:05:19 -0400 (Fri, 19 Mar 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DeadState.cpp 3851 2010-03-19 15:24:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DeadState.cpp 3852 2010-03-20 01:05:19Z greebo $", init_version);
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -67,6 +67,41 @@ void DeadState::Init(idAI* owner)
 	if (owner->spawnArgs.GetString("skin_dead", "", deathSkin))
 	{
 		owner->Event_SetSkin(deathSkin);
+	}
+
+	// Run a death FX
+	idStr deathFX;
+	if (owner->spawnArgs.GetString("fx_on_death", "", deathFX))
+	{
+		owner->Event_StartFx(deathFX);
+	}
+
+	// Run a death script, if applicable
+	idStr deathScript;
+	if (owner->spawnArgs.GetString("death_script", "", deathScript))
+	{
+		const function_t* scriptFunction = owner->scriptObject.GetFunction(deathScript);
+		if (scriptFunction == NULL)
+		{
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Action: %s not found in local space, checking for global.\r", deathScript.c_str());
+			scriptFunction = gameLocal.program.FindFunction(deathScript.c_str());
+		}
+
+		if (scriptFunction)
+		{
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Running Death Script\r");
+
+			idThread* thread = new idThread(scriptFunction);
+			thread->CallFunctionArgs(scriptFunction, true, "e", owner);
+			thread->DelayedStart(0);
+
+			// Start execution immediately
+			thread->Execute();
+		}
+		else
+		{
+			DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Death Script not found! [%s]\r", deathScript.c_str());
+		}
 	}
 
 	_waitingForDeath = true;
