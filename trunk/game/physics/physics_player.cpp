@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3395 $
- * $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3399 $
+ * $Date: 2009-04-11 13:36:43 -0400 (Sat, 11 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3395 $   $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 3399 $   $Date: 2009-04-11 13:36:43 -0400 (Sat, 11 Apr 2009) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4422,8 +4422,14 @@ void idPhysics_Player::ToggleLean(float leanYawAngleDegrees)
 
 		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("ToggleLean starting lean\r");
 	}
-	else
+	else 
 	{
+		if (m_leanTime > 0 && m_leanMoveEndTilt == 0)
+		{
+			// We are already un-leaning
+			return;
+		}
+
 		// End the lean
 		m_leanMoveStartTilt = m_CurrentLeanTiltDegrees;
 		m_leanTime = cv_pm_lean_forward_time.GetFloat();
