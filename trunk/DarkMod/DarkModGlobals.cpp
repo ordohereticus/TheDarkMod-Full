@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3754 $
- * $Date: 2009-11-09 01:31:35 -0500 (Mon, 09 Nov 2009) $
+ * $Revision: 3755 $
+ * $Date: 2009-11-09 01:48:21 -0500 (Mon, 09 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3754 2009-11-09 06:31:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3755 2009-11-09 06:48:21Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -383,25 +383,36 @@ void CGlobal::LoadINISettings(void *p)
 	{
 		if(FindMap(ps, "LogFile", TRUE, &pm) != static_cast<ULONG>(-1))
 		{
-			struct tm *t;
-			time_t timer;
-
-			timer = time(NULL);
-			t = localtime(&timer);
-
-			if((logfile = fopen(pm->Value, "w+b")) != NULL)
+			if (idStr::Icmp(pm->Value, "") == 0)
 			{
-				DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Switching logfile to [%s].\r", pm->Value);
-				if(m_LogFile != NULL)
-				{
-					fclose(m_LogFile);
-					m_LogFile = logfile;
-				}
+				DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Logging disabled by darkmod.ini, closing logfile.\r");
 
-				DM_LOG(LC_INIT, LT_INIT)LOGSTRING("LogFile created at %04u.%02u.%02u %02u:%02u:%02u\r",
-							t->tm_year+1900, t->tm_mon, t->tm_mday, 
-							t->tm_hour, t->tm_min, t->tm_sec);
-				DM_LOG(LC_INIT, LT_INIT)LOGSTRING("DLL compiled on " __DATE__ " " __TIME__ "\r\r");
+				// No logfile defined, quit logging
+				fclose(m_LogFile);
+				m_LogFile = NULL;
+			}
+			else
+			{
+				struct tm *t;
+				time_t timer;
+
+				timer = time(NULL);
+				t = localtime(&timer);
+
+				if((logfile = fopen(pm->Value, "w+b")) != NULL)
+				{
+					DM_LOG(LC_INIT, LT_INIT)LOGSTRING("Switching logfile to [%s].\r", pm->Value);
+					if(m_LogFile != NULL)
+					{
+						fclose(m_LogFile);
+						m_LogFile = logfile;
+					}
+
+					DM_LOG(LC_INIT, LT_INIT)LOGSTRING("LogFile created at %04u.%02u.%02u %02u:%02u:%02u\r",
+								t->tm_year+1900, t->tm_mon, t->tm_mday, 
+								t->tm_hour, t->tm_min, t->tm_sec);
+					DM_LOG(LC_INIT, LT_INIT)LOGSTRING("DLL compiled on " __DATE__ " " __TIME__ "\r\r");
+				}
 			}
 		}
 
