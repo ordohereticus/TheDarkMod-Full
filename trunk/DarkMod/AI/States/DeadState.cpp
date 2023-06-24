@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3705 $
- * $Date: 2009-09-15 05:58:24 -0400 (Tue, 15 Sep 2009) $
- * $Author: angua $
+ * $Revision: 3851 $
+ * $Date: 2010-03-19 11:24:05 -0400 (Fri, 19 Mar 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DeadState.cpp 3705 2009-09-15 09:58:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: DeadState.cpp 3851 2010-03-19 15:24:05Z greebo $", init_version);
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -61,6 +61,13 @@ void DeadState::Init(idAI* owner)
 	owner->senseSubsystem->ClearTasks();
 	owner->actionSubsystem->ClearTasks();
 	owner->commSubsystem->ClearTasks();
+
+	// Swap skin on death if required
+	idStr deathSkin;
+	if (owner->spawnArgs.GetString("skin_dead", "", deathSkin))
+	{
+		owner->Event_SetSkin(deathSkin);
+	}
 
 	_waitingForDeath = true;
 }
