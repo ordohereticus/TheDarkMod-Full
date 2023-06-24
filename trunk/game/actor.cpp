@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3597 $
- * $Date: 2009-07-27 02:24:18 -0400 (Mon, 27 Jul 2009) $
+ * $Revision: 3604 $
+ * $Date: 2009-07-28 00:32:56 -0400 (Tue, 28 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3597 2009-07-27 06:24:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3604 2009-07-28 04:32:56Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3080,14 +3080,26 @@ bool idActor::Pain( idEntity *inflictor, idEntity *attacker, int damage, const i
 	// don't play pain sounds more than necessary
 	pain_debounce_time = gameLocal.time + pain_delay;
 
-	if ( health > 75  ) {
-		StartSound( "snd_pain_small", SND_CHANNEL_VOICE, 0, false, NULL );
-	} else if ( health > 50 ) {
-		StartSound( "snd_pain_medium", SND_CHANNEL_VOICE, 0, false, NULL );
-	} else if ( health > 25 ) {
-		StartSound( "snd_pain_large", SND_CHANNEL_VOICE, 0, false, NULL );
-	} else {
-		StartSound( "snd_pain_huge", SND_CHANNEL_VOICE, 0, false, NULL );
+	if (damageDef != NULL && damageDef->FindKey("snd_damage") != NULL)
+	{
+		// The damage def defines a special damage sound, use that one
+		// Copy it into our own spawnargs for use with StartSound() routine
+		spawnArgs.Set("snd_damage_internal___", damageDef->GetString("snd_damage"));
+
+		StartSound( "snd_damage_internal___", SND_CHANNEL_VOICE, 0, false, NULL );
+	}
+	else
+	{
+		// Ordinary health-based pain sound
+		if ( health > 75  ) {
+			StartSound( "snd_pain_small", SND_CHANNEL_VOICE, 0, false, NULL );
+		} else if ( health > 50 ) {
+			StartSound( "snd_pain_medium", SND_CHANNEL_VOICE, 0, false, NULL );
+		} else if ( health > 25 ) {
+			StartSound( "snd_pain_large", SND_CHANNEL_VOICE, 0, false, NULL );
+		} else {
+			StartSound( "snd_pain_huge", SND_CHANNEL_VOICE, 0, false, NULL );
+		}
 	}
 
 	if ( !allowPain || ( gameLocal.time < painTime ) ) {
@@ -4548,11 +4560,13 @@ CrashLandResult idActor::CrashLand( const idPhysics_Actor& physicsObj, const idV
 		if (damage > m_damage_thresh_hard)
 		{
 			// greebo: the damage_fall_hard entityDef has a damage value of 1, which is scaled by the calculated damage integer
+			StartSound("snd_damage_land_hard", SND_CHANNEL_VOICE, 0, false, NULL);
 			Damage(NULL, NULL, vGravNorm, "damage_fall_hard", damage, 0);
 		}
 		else
 		{
 			// We are below the "hard" threshold, just deal the "soft" damage
+			StartSound("snd_damage_land_soft", SND_CHANNEL_VOICE, 0, false, NULL);
 			Damage(NULL, NULL, vGravNorm, "damage_fall_soft", damage, 0);
 		}
 	}
