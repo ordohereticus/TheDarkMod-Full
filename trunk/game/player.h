@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3246 $
- * $Date: 2009-03-14 16:23:45 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3255 $
+ * $Date: 2009-03-15 04:34:28 -0400 (Sun, 15 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -255,6 +255,9 @@ public:
 	int						lastHitTime;			// last time projectile fired by player hit target
 	int						lastSndHitTime;			// MP hit sound - != lastHitTime because we throttle
 	int						lastSavingThrowTime;	// for the "free miss" effect
+
+	// The GUI of the lockpick visualisation HUD
+	int						lockpickHUD;
 
 	// angua: this is true when the player lands after jumping or a fall
 	// to play the jumping footstep sounds

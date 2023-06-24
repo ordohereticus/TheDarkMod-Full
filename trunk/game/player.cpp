@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3246 $
- * $Date: 2009-03-14 16:23:45 -0400 (Sat, 14 Mar 2009) $
+ * $Revision: 3255 $
+ * $Date: 2009-03-15 04:34:28 -0400 (Sun, 15 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3246 2009-03-14 20:23:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3255 2009-03-15 08:34:28Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -264,6 +264,8 @@ idPlayer::idPlayer() :
 	lastHitTime				= 0;
 	lastSndHitTime			= 0;
 	lastSavingThrowTime		= 0;
+
+	lockpickHUD				= 0;
 
 	hasLanded				= false;
 
@@ -975,6 +977,8 @@ void idPlayer::Spawn( void )
 		}
 	}
 
+	lockpickHUD = CreateOverlay("guis/tdm_lockpick.gui", 20);
+
 	// Clear the lightgem modifiers
 	m_LightgemModifierList.clear();
 
@@ -1309,6 +1313,9 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( lastSndHitTime );
 	savefile->WriteInt( lastSavingThrowTime );
 
+	savefile->WriteInt( lockpickHUD );
+	savefile->WriteBool( hasLanded );
+
 	// idBoolFields don't need to be saved, just re-linked in Restore
 
 	savefile->WriteInt( levelTriggers.Num() );
@@ -1598,6 +1605,9 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( lastHitTime );
 	savefile->ReadInt( lastSndHitTime );
 	savefile->ReadInt( lastSavingThrowTime );
+
+	savefile->ReadInt( lockpickHUD );
+	savefile->ReadBool( hasLanded );
 
 	// Re-link idBoolFields to the scriptObject, values will be restored in scriptObject's restore
 	LinkScriptVariables();
