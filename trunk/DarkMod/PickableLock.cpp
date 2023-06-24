@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3313 $
- * $Date: 2009-03-26 15:49:53 -0400 (Thu, 26 Mar 2009) $
+ * $Revision: 3317 $
+ * $Date: 2009-03-27 11:21:03 -0400 (Fri, 27 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3313 2009-03-26 19:49:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3317 2009-03-27 15:21:03Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -274,6 +274,13 @@ void PickableLock::AttackAction(idPlayer* player)
 	// Cancel all previous events on attack button hit
 	CancelEvents(&EV_TDM_LockpickSoundFinished);
 	m_SoundTimerStarted = 0;
+
+	if (m_LockpickState == LOCKED || m_LockpickState == PICKED ||
+		m_LockpickState == UNLOCKED)
+	{
+		// Don't respond to attack actions if not in lockpicking mode in the first place
+		return;
+	}
 
 	// Check if we're in the "hot spot" of the lock pick sequence
 	if (LockpickHotspotActive())
