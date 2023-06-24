@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3425 $
- * $Date: 2009-05-06 11:58:31 -0400 (Wed, 06 May 2009) $
+ * $Revision: 3438 $
+ * $Date: 2009-05-09 11:06:30 -0400 (Sat, 09 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3425 2009-05-06 15:58:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3438 2009-05-09 15:06:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -5946,29 +5946,31 @@ void idGameLocal::SpawnLightgemEntity(void)
 
 int idGameLocal::CheckStimResponse(idList< idEntityPtr<idEntity> > &list, idEntity *e)
 {
+	// Construct an idEntityPtr with the given entity
+	idEntityPtr<idEntity> entPtr;
+	entPtr = e;
 
-	int rc = -1;
-	int i, n;
-
-	n = list.Num();
-	for(i = 0; i < n; i++)
-	{
-		if(list[i].GetEntity() == e)
-		{
-			rc = i;
-			break;
-		}
-	}
-
-	return(rc);
+	return list.FindIndex(entPtr);
 }
 
+void idGameLocal::LinkStimEntity(idEntity* ent)
+{
+	if (ent != NULL && ent->GetStimResponseCollection()->HasStim())
+	{
+		AddStim(ent);
+	}
+}
+
+void idGameLocal::UnlinkStimEntity(idEntity* ent)
+{
+	RemoveStim(ent);
+}
 
 bool idGameLocal::AddStim(idEntity *e)
 {
 	bool rc = true;
 
-	if(CheckStimResponse(m_StimEntity, e) == -1)
+	if (CheckStimResponse(m_StimEntity, e) == -1)
 	{
 		idEntityPtr<idEntity> entPtr;
 		entPtr = e;
@@ -5980,9 +5982,9 @@ bool idGameLocal::AddStim(idEntity *e)
 
 void idGameLocal::RemoveStim(idEntity *e)
 {
-	int i;
+	int i = CheckStimResponse(m_StimEntity, e);
 
-	if((i = CheckStimResponse(m_StimEntity, e)) != -1)
+	if (i != -1)
 	{
 		m_StimEntity.RemoveIndex(i);
 	}
@@ -6005,9 +6007,9 @@ bool idGameLocal::AddResponse(idEntity *e)
 
 void idGameLocal::RemoveResponse(idEntity *e)
 {
-	int i;
+	int i = CheckStimResponse(m_RespEntity, e);
 
-	if((i = CheckStimResponse(m_RespEntity, e)) != -1)
+	if (i != -1)
 	{
 		m_RespEntity.RemoveIndex(i);
 	}
@@ -6156,6 +6158,8 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 	for (int i = 0; i < m_StimEntity.Num(); i++)
 	{
 		idEntity* entity = m_StimEntity[i].GetEntity();
+
+		if (entity == NULL) continue;
 
 		// greebo: Get the S/R collection, this is always non-NULL
 		CStimResponseCollection* srColl = entity->GetStimResponseCollection();

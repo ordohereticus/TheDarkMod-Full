@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3039 $
- * $Date: 2008-11-19 04:06:27 -0500 (Wed, 19 Nov 2008) $
- * $Author: ishtvan $
+ * $Revision: 3438 $
+ * $Date: 2009-05-09 11:06:30 -0400 (Sat, 09 May 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -147,7 +147,7 @@ public:
 		* UnShoulderBody is only called after we check if there's room
 		**/
 		void					ShoulderBody( idAFEntity_Base *body );
-		void					UnShoulderBody( void );
+		void					UnShoulderBody( idEntity *body );
 
 		/**
 		* Stop dragging and drop the current item if there is one

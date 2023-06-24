@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3234 $
- * $Date: 2009-03-11 16:23:16 -0400 (Wed, 11 Mar 2009) $
+ * $Revision: 3438 $
+ * $Date: 2009-05-09 11:06:30 -0400 (Sat, 09 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -800,6 +800,18 @@ public:
 	void					RemoveStim(idEntity *);
 	bool					AddResponse(idEntity *);
 	void					RemoveResponse(idEntity *);
+
+	/** 
+	 * greebo: Links the given entity into the list of Stim entities, such that
+	 * it gets considered each frame as potential stim emitter.
+	 */
+	void					LinkStimEntity(idEntity* ent);
+
+	/**
+	 * greebo: Removes the given entity from the global list of stimming entities.
+	 * Although it might have active stims, it is no longer considered each frame.
+	 */
+	void					UnlinkStimEntity(idEntity* ent);
 
 	/**
 	 * Checks whether the entity <e> is in the given list named <list>. 

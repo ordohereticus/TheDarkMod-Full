@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3384 $
- * $Date: 2009-04-10 01:08:32 -0400 (Fri, 10 Apr 2009) $
+ * $Revision: 3438 $
+ * $Date: 2009-05-09 11:06:30 -0400 (Sat, 09 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3384 2009-04-10 05:08:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 3438 2009-05-09 15:06:30Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1583,7 +1583,10 @@ bool CGrabber::Dequip( void )
 	{
 		// call unshoulderbody if dequipping a body
 		if( ent->IsType(idAFEntity_Base::Type) && ent->spawnArgs.GetBool("shoulderable") )
-			UnShoulderBody();
+		{
+			// greebo: Pass the entity along, the m_EquippedEnt reference might already be set to NULL at this point
+			UnShoulderBody(ent);
+		}
 
 		m_EquippedEnt = NULL;
 		
@@ -1633,6 +1636,9 @@ void CGrabber::ShoulderBody( idAFEntity_Base *body )
 	body->GetPhysics()->UnlinkClip();
 	body->Hide();
 
+	// greebo: prevent this entity from stimming while shouldered
+	gameLocal.UnlinkStimEntity(body);
+
 	// Load the animation frame that will put the body in the shouldered pose
 	// TODO: Doesn't seem to work currently
 	idAnimator *animator = body->GetAnimator();
@@ -1648,13 +1654,15 @@ void CGrabber::ShoulderBody( idAFEntity_Base *body )
 	}
 }
 
-void CGrabber::UnShoulderBody( void )
+void CGrabber::UnShoulderBody( idEntity *body )
 {
-	idEntity *body = m_EquippedEnt.GetEntity();
 	idPlayer *player = m_player.GetEntity();
 
 	// greebo: Emit the callback to the owner
 	player->OnStopShoulderingBody(body);
+
+	// Allow the body to stim again after dropping it
+	gameLocal.LinkStimEntity(body);
 
 	// toggle face up/down
 	m_bDropBodyFaceUp = !m_bDropBodyFaceUp;
