@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3567 $
- * $Date: 2009-07-23 04:25:00 -0400 (Thu, 23 Jul 2009) $
+ * $Revision: 3577 $
+ * $Date: 2009-07-24 13:43:53 -0400 (Fri, 24 Jul 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -442,7 +442,8 @@ public:
 	CLASS_PROTOTYPE( idTarget_PostScriptEvent );
 
 private:
-	void				Event_Activate( idEntity *activator );
+	void	Event_Activate( idEntity *activator );
+	void	TryPostOrCall( idEntity *ent, const idEventDef *ev, const char* funcName, const bool pass_self, const float delay);
 };
 
 /*
