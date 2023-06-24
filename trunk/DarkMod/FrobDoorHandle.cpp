@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3268 $
- * $Date: 2009-03-18 08:27:16 -0400 (Wed, 18 Mar 2009) $
+ * $Revision: 3269 $
+ * $Date: 2009-03-18 08:29:24 -0400 (Wed, 18 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 3268 2009-03-18 12:27:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoorHandle.cpp 3269 2009-03-18 12:29:24Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -156,6 +156,8 @@ void CFrobDoorHandle::UpdatePosition(float fraction)
 	}
 
 	MoveToLocalPos(m_ClosedOrigin + (m_OpenOrigin - m_ClosedOrigin)*fraction);
+
+	UpdateVisuals();
 }
 
 void CFrobDoorHandle::OnOpenPositionReached()
