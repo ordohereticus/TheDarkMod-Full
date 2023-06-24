@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3089 $
- * $Date: 2008-12-26 14:10:14 -0500 (Fri, 26 Dec 2008) $
+ * $Revision: 3264 $
+ * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3089 2008-12-26 19:10:14Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -128,16 +128,8 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 
 void IdleAnimationTask::OnFinish(idAI* owner)
 {
-	if (owner->GetMoveType() == MOVETYPE_SIT)
-	{
-		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle_Sit", 5);
-		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle_Sit", 5);
-	}
-	else
-	{
-		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
-		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 5);
-	}
+	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 5);
+	owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 5);
 	owner->SetWaitState("");
 }
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3247 $
- * $Date: 2009-03-14 20:52:26 -0400 (Sat, 14 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 3264 $
+ * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -473,10 +473,11 @@ public:
 
 	// angua: calls the script functions for sitting down and getting up
 	void SitDown();
+	void LayDown();
+
+	// GetUp is used both for getting up from sitting or sleeping
 	void GetUp();
 
-	void LayDown();
-	void GetUpFromLyingDown();
 
 public:
 	/**

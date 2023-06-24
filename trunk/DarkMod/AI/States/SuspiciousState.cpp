@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3221 $
- * $Date: 2009-03-03 23:53:35 -0500 (Tue, 03 Mar 2009) $
+ * $Revision: 3264 $
+ * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3221 2009-03-04 04:53:35Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -71,7 +71,7 @@ void SuspiciousState::Init(idAI* owner)
 
 	if (owner->GetMoveType() == MOVETYPE_SLEEP)
 	{
-		owner->GetUpFromLyingDown();
+		owner->GetUp();
 	}
 	
 	if (gameLocal.random.RandomFloat() > 0.5f)

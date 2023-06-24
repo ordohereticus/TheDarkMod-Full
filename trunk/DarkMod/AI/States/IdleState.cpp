@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3223 $
- * $Date: 2009-03-05 07:47:52 -0500 (Thu, 05 Mar 2009) $
+ * $Revision: 3264 $
+ * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3223 2009-03-05 12:47:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -66,7 +66,7 @@ void IdleState::Init(idAI* owner)
 
 	_startSleeping = owner->spawnArgs.GetBool("sleeping", "0");
 	_startSitting = owner->spawnArgs.GetBool("sitting", "0");
-
+	
 	if (owner->HasSeenEvidence())
 	{
 		owner->GetMind()->SwitchState(STATE_ALERT_IDLE);
@@ -98,10 +98,11 @@ void IdleState::Init(idAI* owner)
 	}
 	else
 	{
+	
 		owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_Idle", 0);
 		owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_Idle", 0);
+		
 	}
-
 	// The action subsystem plays the idle anims (scratching, yawning...)
 	owner->GetSubsystem(SubsysAction)->ClearTasks();
 	owner->GetSubsystem(SubsysAction)->PushTask(IdleAnimationTask::CreateInstance());
@@ -123,6 +124,8 @@ void IdleState::Init(idAI* owner)
 
 	// Let the AI update their weapons (make them nonsolid)
 	owner->UpdateAttachmentContents(false);
+	
+	
 }
 
 // Gets called each time the mind is thinking
@@ -131,13 +134,17 @@ void IdleState::Think(idAI* owner)
 	Memory& memory = owner->GetMemory();
 	idStr waitState = owner->WaitState();
 
-	if (_startSleeping && owner->GetMoveType() != MOVETYPE_SLEEP && waitState != "lay_down")
+	if (_startSleeping && !owner->HasSeenEvidence() && owner->GetMoveType() == MOVETYPE_ANIM)
 	{
 		if (owner->ReachedPos(memory.idlePosition, MOVE_TO_POSITION) 
 			&& owner->GetCurrentYaw() == memory.idleYaw)
 		{
-			owner->GetMind()->SwitchState(STATE_IDLE_SLEEP);
+			owner->GetSubsystem(SubsysAction)->ClearTasks();
+			owner->GetSubsystem(SubsysSenses)->ClearTasks();
+			owner->GetSubsystem(SubsysCommunication)->ClearTasks();
 
+			owner->GetMind()->SwitchState(STATE_IDLE_SLEEP);
+			return;
 		}
 	}
 	else if (_startSitting && owner->GetMoveType() != MOVETYPE_SIT && waitState != "sit_down")

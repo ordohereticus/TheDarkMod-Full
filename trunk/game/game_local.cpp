@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3244 $
- * $Date: 2009-03-14 15:10:07 -0400 (Sat, 14 Mar 2009) $
- * $Author: greebo $
+ * $Revision: 3264 $
+ * $Date: 2009-03-17 13:53:26 -0400 (Tue, 17 Mar 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3244 2009-03-14 19:10:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3264 2009-03-17 17:53:26Z angua $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2033,7 +2033,10 @@ void idGameLocal::MapShutdown( void ) {
 	m_Grabber = NULL;
 
 	m_sndProp->Clear();
-	m_RelationsManager->Clear();
+	if (m_RelationsManager != NULL)
+	{
+		m_RelationsManager->Clear();
+	}
 	m_ConversationSystem->Clear();
 	m_Shop->Clear();
 
