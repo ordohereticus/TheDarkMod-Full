@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3764 $
- * $Date: 2009-11-26 11:12:19 -0500 (Thu, 26 Nov 2009) $
+ * $Revision: 3898 $
+ * $Date: 2010-05-20 20:21:56 -0400 (Thu, 20 May 2010) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3764 2009-11-26 16:12:19Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 3898 2010-05-21 00:21:56Z angua $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -1511,8 +1511,17 @@ void HandleDoorTask::OnFinish(idAI* owner)
 
 void HandleDoorTask::DrawDebugOutput(idAI* owner)
 {
-	gameRenderWorld->DebugArrow(colorYellow, _frontPos, _frontPos + idVec3(0, 0, 20), 2, 1000);
-	gameRenderWorld->DebugArrow(colorGreen, _backPos, _backPos + idVec3(0, 0, 20), 2, 1000);
+	gameRenderWorld->DebugArrow(colorCyan, _frontPos, _frontPos + idVec3(0, 0, 20), 2, 1000);
+	gameRenderWorld->DrawText("front", 
+		(_frontPos + idVec3(0, 0, 30)), 
+		0.2f, colorCyan, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 4 * gameLocal.msec);
+
+	gameRenderWorld->DebugArrow(colorYellow, _backPos, _backPos + idVec3(0, 0, 20), 2, 1000);
+	gameRenderWorld->DrawText("back", 
+		(_backPos + idVec3(0, 0, 30)), 
+		0.2f, colorYellow, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 4 * gameLocal.msec);
+
+
 	idStr str;
 	switch (_doorHandlingState)
 	{
@@ -1550,6 +1559,25 @@ void HandleDoorTask::DrawDebugOutput(idAI* owner)
 	gameRenderWorld->DrawText(str.c_str(), 
 		(owner->GetEyePosition() - owner->GetPhysics()->GetGravityNormal()*60.0f), 
 		0.25f, colorYellow, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 4 * gameLocal.msec);
+
+	Memory& memory = owner->GetMemory();
+	CFrobDoor* frobDoor = memory.doorRelated.currentDoor.GetEntity();
+	idActor* masterUser = frobDoor->GetUserManager().GetMasterUser();
+
+	if (owner == masterUser)
+	{
+		gameRenderWorld->DrawText("Master", 
+			(owner->GetPhysics()->GetOrigin() + idVec3(0, 0, 20)), 
+			0.25f, colorOrange, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 4 * gameLocal.msec);
+	}
+	else
+	{
+		gameRenderWorld->DrawText("Slave", 
+			(owner->GetPhysics()->GetOrigin() + idVec3(0, 0, 20)), 
+			0.25f, colorMdGrey, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, 4 * gameLocal.msec);
+
+	}
+
 }
 
 void HandleDoorTask::Save(idSaveGame* savefile) const

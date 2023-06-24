@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3856 $
- * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
- * $Author: greebo $
+ * $Revision: 3898 $
+ * $Date: 2010-05-20 20:21:56 -0400 (Thu, 20 May 2010) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3898 2010-05-21 00:21:56Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -208,6 +208,14 @@ void IdleState::InitialiseMovement(idAI* owner)
 	// The movement subsystem should start patrolling
 	owner->movementSubsystem->ClearTasks();
 
+	// angua: store the position at map start
+	if (memory.idlePosition == idVec3(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY))
+	{
+		// No idle position saved yet, take the current one
+		memory.idlePosition = owner->GetPhysics()->GetOrigin();
+		memory.idleYaw = owner->GetCurrentYaw();
+	}
+
 	owner->movementSubsystem->StartPatrol();
 
 	// Check if the owner has patrol routes set
@@ -218,13 +226,8 @@ void IdleState::InitialiseMovement(idAI* owner)
 	{
 		// We don't have any patrol routes, so we're supposed to stand around
 		// where the mapper has put us.
-		if (memory.idlePosition == idVec3(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY))
-		{
-			// No idle position saved yet, take the current one
-			memory.idlePosition = owner->GetPhysics()->GetOrigin();
-			memory.idleYaw = owner->GetCurrentYaw();
-		}
-		else if (owner->GetMoveType() == MOVETYPE_ANIM)
+		
+		if (owner->GetMoveType() == MOVETYPE_ANIM)
 		{
 			// angua: don't do this when we are sitting or sleeping
 			// We already HAVE an idle position set, this means that we are

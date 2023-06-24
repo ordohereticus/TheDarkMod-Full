@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3767 $
- * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Revision: 3898 $
+ * $Date: 2010-05-20 20:21:56 -0400 (Thu, 20 May 2010) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -63,9 +63,12 @@ public:
 	virtual bool PerformTask();
 
 	void StartPatrol();
+	void RestartPatrol();
+
 	void Patrol();
 
 	virtual void StartPathTask();
+
 	virtual void NextPath();
 
 	virtual void ClearTasks();
@@ -89,6 +92,9 @@ public:
 
 protected:
 	virtual void CheckBlocked(idAI* owner);
+
+	// Returns the next actual path_corner entity, or NULL if nothing found or stuck in loops/dead ends
+	idPathCorner* GetNextPathCorner(idPathCorner* curPath, idAI* owner);
 
 private:
 	void DebugDraw(idAI* owner);
