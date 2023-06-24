@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3330 $
- * $Date: 2009-03-28 01:52:22 -0400 (Sat, 28 Mar 2009) $
+ * $Revision: 3407 $
+ * $Date: 2009-04-15 11:05:10 -0400 (Wed, 15 Apr 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3330 2009-03-28 05:52:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3407 2009-04-15 15:05:10Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -319,7 +319,11 @@ bool PickableLock::ProcessLockpickPress(int type)
 	}
 
 	// Check if we're still playing a sound
-	if (m_SoundTimerStarted > 0) return false; // busy
+	if (m_SoundTimerStarted > 0) 
+	{
+		// Busy, but at least return positive if the lockpick type matches
+		return CheckLockpickType(type);
+	}
 
 	switch (m_LockpickState)
 	{
