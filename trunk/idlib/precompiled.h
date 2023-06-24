@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1837 $
- * $Date: 2007-11-22 15:44:55 -0500 (Thu, 22 Nov 2007) $
+ * $Revision: 3232 $
+ * $Date: 2009-03-10 13:57:26 -0400 (Tue, 10 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -155,6 +155,16 @@ const int MAX_EXPRESSION_REGISTERS = 4096;
 #endif /* !_D3SDK */
 
 //-----------------------------------------------------
+
+#ifdef _WIN32
+
+// greebo: The idMath::FLT_EPSILON variable conflicts with the one defined in VC++'s float.h header
+// undefine it to avoid this conflict
+#ifdef FLT_EPSILON
+#undef FLT_EPSILON
+#endif
+
+#endif
 
 #endif	/* __cplusplus */
 

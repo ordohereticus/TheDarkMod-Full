@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3231 $
- * $Date: 2009-03-10 12:10:16 -0400 (Tue, 10 Mar 2009) $
+ * $Revision: 3232 $
+ * $Date: 2009-03-10 13:57:26 -0400 (Tue, 10 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -83,7 +83,7 @@ public:
 	* The following two functions save/restore the matrix to/from a
 	* save file.
 	**/
-	void Save(idSaveGame *savefile);
+	void Save(idSaveGame *savefile) const;
 	void Restore(idRestoreGame *savefile);
 };
 
@@ -225,7 +225,7 @@ inline void CMatrixSq<Type>::Clear( void )
 }
 
 template<class Type>
-inline void CMatrixSq<Type>::Save( idSaveGame *savefile )
+inline void CMatrixSq<Type>::Save( idSaveGame *savefile ) const
 {
 	savefile->WriteUnsignedInt(static_cast<unsigned int>(size1()));
 
@@ -260,7 +260,7 @@ inline void CMatrixSq<Type>::Restore( idRestoreGame *savefile )
 
 // Specialisation for an integer matrix
 template<>
-inline void CMatrixSq<int>::Save( idSaveGame *savefile )
+inline void CMatrixSq<int>::Save( idSaveGame *savefile ) const
 {
 	savefile->WriteUnsignedInt(static_cast<unsigned int>(size1()));
 
@@ -295,7 +295,7 @@ inline void CMatrixSq<int>::Restore( idRestoreGame *savefile )
 
 // Specialisation for a float matrix
 template<>
-inline void CMatrixSq<float>::Save( idSaveGame *savefile )
+inline void CMatrixSq<float>::Save( idSaveGame *savefile ) const
 {
 	savefile->WriteUnsignedInt(static_cast<unsigned int>(size1()));
 
