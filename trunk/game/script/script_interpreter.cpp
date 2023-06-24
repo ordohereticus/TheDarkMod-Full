@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 3771 $
+ * $Date: 2009-12-23 23:27:59 -0500 (Wed, 23 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_interpreter.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: script_interpreter.cpp 3771 2009-12-24 04:27:59Z crispy $", init_version);
 
 #include "../game_local.h"
 
@@ -1095,6 +1095,14 @@ bool idInterpreter::Execute( void ) {
 				}
 #endif
 			} else {
+				int entNum = *var_a.entityNumberPtr;
+				idEntity *ent = GetEntity(entNum);
+				if (ent) {
+					Warning("Tried to call function on entity %s, but entity has no script object", ent->name.c_str());
+				} else {
+					Warning("Tried to call function on non-existent entity (#%d)", entNum);
+				}
+
 				// return a 'safe' value
 				gameLocal.program.ReturnVector( vec3_zero );
 				gameLocal.program.ReturnString( "" );
