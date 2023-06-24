@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3542 $
- * $Date: 2009-07-18 01:41:01 -0400 (Sat, 18 Jul 2009) $
+ * $Revision: 3544 $
+ * $Date: 2009-07-18 12:21:29 -0400 (Sat, 18 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FailedKnockoutState.cpp 3542 2009-07-18 05:41:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FailedKnockoutState.cpp 3544 2009-07-18 16:21:29Z greebo $", init_version);
 
 #include "FailedKnockoutState.h"
 #include "../Memory.h"
@@ -49,7 +49,8 @@ void FailedKnockoutState::Init(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 
 	// Play the animation
-	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torseo_FailedKO", 4);
+	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_FailedKO", 4);
+	owner->SetWaitState(ANIMCHANNEL_TORSO, "failed_ko");
 
 	// Max. wait time 3 seconds
 	_stateEndTime = gameLocal.time + 3000;
@@ -58,8 +59,8 @@ void FailedKnockoutState::Init(idAI* owner)
 // Gets called each time the mind is thinking
 void FailedKnockoutState::Think(idAI* owner)
 {
-	if (gameLocal.time < _stateEndTime 
-		&& idStr(owner->WaitState(ANIMCHANNEL_TORSO)) != "failed_ko") 
+	if (gameLocal.time >= _stateEndTime || 
+		idStr(owner->WaitState(ANIMCHANNEL_TORSO)) != "failed_ko") 
 	{
 		Memory& memory = owner->GetMemory();
 
@@ -75,8 +76,6 @@ void FailedKnockoutState::Think(idAI* owner)
 
 		// Alert the AI
 		owner->AlertAI("tact", owner->thresh_5*2);
-
-		owner->Event_PlayAnim(ANIMCHANNEL_TORSO, "failed_ko");
 
 		// End this state
 		owner->GetMind()->EndState();
