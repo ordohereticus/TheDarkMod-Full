@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3830 $
- * $Date: 2010-01-31 17:06:26 -0500 (Sun, 31 Jan 2010) $
+ * $Revision: 3831 $
+ * $Date: 2010-01-31 18:34:04 -0500 (Sun, 31 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3830 2010-01-31 22:06:26Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3831 2010-01-31 23:34:04Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -195,18 +195,10 @@ bool CFrobLock::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 {
 	if (item == NULL) return false;
 
-	// First, ask our base class (this also checks for frob masters)
-	// If this doesn't succeed, perform additional checks
-	bool baseCouldBeUsed = idEntity::UseBy(impulseState, item);
-
-	if (baseCouldBeUsed) return true;
-
-	// Base class returned false, check if we have a master
+	// Pass the call on to the master, if we have one
 	if (GetFrobMaster() != NULL) 
 	{
-		// We have a master and the base class has already passed the call to it
-		// but returned false, so let's do the same
-		return false;
+		return GetFrobMaster()->UseBy(impulseState, item);
 	}
 
 	assert(item->Category() != NULL);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3829 $
- * $Date: 2010-01-31 16:16:05 -0500 (Sun, 31 Jan 2010) $
+ * $Revision: 3831 $
+ * $Date: 2010-01-31 18:34:04 -0500 (Sun, 31 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3829 2010-01-31 21:16:05Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3831 2010-01-31 23:34:04Z ishtvan $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7847,7 +7847,55 @@ bool idEntity::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 	// Redirect the call to the master if we have one
 	idEntity* master = GetFrobMaster();
 
-	return (master != NULL) ? master->UseBy(impulseState, item) : false;
+	if (master != NULL)
+		return master->UseBy(impulseState, item);
+
+	// no master, continue...
+	// Ishtvan: Call used_by script.  First check for scripts with the specific name/inv_name/classname/category/
+	// only call the most-specific script
+	idStrList suffixes;
+	idEntity *ent = item->GetItemEntity();
+	if( ent != NULL )
+	{
+		suffixes.Append( ent->name );
+		suffixes.Append( ent->GetEntityDefName() );
+	}
+	// inv_name comes before classname
+	suffixes.Insert( item->GetName(), 1 );
+	suffixes.Append( item->Category()->GetName() );
+
+	idThread* thread = NULL;
+	bool bFoundKey = false;
+	for( int i=0; i < suffixes.Num(); i++ )
+	{
+		idStr scriptName = "used_action_script_" + suffixes[i];
+		const idKeyValue *kv = spawnArgs.FindKey( scriptName.c_str() );
+		if( kv != NULL && kv->GetValue().Length() > 0 )
+		{
+			idThread* thread = CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
+			bFoundKey = true;
+			break;
+		}
+	}
+	
+	// if we didn't find a specific suffix, use "used_action_script" by itself
+	if( !bFoundKey )
+	{
+		const idKeyValue *kv = spawnArgs.FindKey( "used_action_script" );
+		if( kv != NULL && kv->GetValue().Length() > 0 )
+		{
+			idThread* thread = CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
+		}
+	}
+
+	if (thread != NULL)
+	{
+		// greebo: Run the thread at once, the script result might be needed below.
+		thread->Execute();
+		return true;
+	}
+
+	return false;
 }
 
 void idEntity::SetFrobbed( bool val )
