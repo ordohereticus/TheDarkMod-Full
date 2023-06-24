@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3646 $
- * $Date: 2009-08-04 14:28:30 -0400 (Tue, 04 Aug 2009) $
+ * $Revision: 3656 $
+ * $Date: 2009-08-07 09:17:40 -0400 (Fri, 07 Aug 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -1430,7 +1430,7 @@ public:			// Events should be public, so they can be used from other places as w
 	/**
 	* Tels: Return the sum of all lights in the entities PVS.
 	*/
-	void 					Event_AverageLightInPVS();
+	void 					Event_GetLightInPVS();
 
 	void					Event_LoadExternalData( const char *xdFile, const char* prefix );
 
