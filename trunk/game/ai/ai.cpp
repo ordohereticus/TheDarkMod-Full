@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3509 $
- * $Date: 2009-07-02 13:31:30 -0400 (Thu, 02 Jul 2009) $
+ * $Revision: 3516 $
+ * $Date: 2009-07-04 11:36:32 -0400 (Sat, 04 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3509 2009-07-02 17:31:30Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3516 2009-07-04 15:36:32Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4186,7 +4186,7 @@ void idAI::BlockedFailSafe( void ) {
 idAI::Turn
 =====================
 */
-void idAI::Turn( void ) {
+void idAI::Turn(const idVec3& pivotOffset) {
 	float diff;
 	float diff2;
 	float turnAmount;
@@ -4205,6 +4205,8 @@ void idAI::Turn( void ) {
 	if ( animflags.ai_no_turn ) {
 		return;
 	}
+
+	idVec3 startPos = viewAxis * pivotOffset;
 
 	if ( anim_turn_angles && animflags.anim_turn ) {
 		idMat3 rotateAxis;
@@ -4244,6 +4246,10 @@ void idAI::Turn( void ) {
 	}
 
 	viewAxis = idAngles( 0, current_yaw, 0 ).ToMat3();
+
+	idVec3 endPos = viewAxis * pivotOffset;
+
+	GetPhysics()->SetOrigin(GetPhysics()->GetOrigin() - idVec3(endPos - startPos));
 
 	if ( ai_debugMove.GetBool() ) {
 		const idVec3 &org = physicsObj.GetOrigin();
@@ -4689,6 +4695,8 @@ void idAI::SittingMove()
 	AI_BLOCKED = false;
 
 	RunPhysics();
+
+	Turn(idVec3(-20,0,0));
 
 	if ( ai_debugMove.GetBool() ) {
 		gameRenderWorld->DebugLine( colorCyan, oldorigin, physicsObj.GetOrigin(), 5000 );

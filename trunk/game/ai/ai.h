@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3503 $
- * $Date: 2009-06-27 11:17:45 -0400 (Sat, 27 Jun 2009) $
+ * $Revision: 3516 $
+ * $Date: 2009-07-04 11:36:32 -0400 (Sat, 04 Jul 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -1413,7 +1413,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// turning
 	bool					FacingIdeal( void );
-	void					Turn( void );
+	void					Turn(const idVec3& pivotOffset = idVec3(0,0,0));
 	bool					TurnToward( float yaw );
 	bool					TurnToward( const idVec3 &pos );
 	ID_INLINE float			GetCurrentYaw() { return current_yaw; }
