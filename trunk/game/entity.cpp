@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3643 $
- * $Date: 2009-08-04 11:20:48 -0400 (Tue, 04 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3646 $
+ * $Date: 2009-08-04 14:28:30 -0400 (Tue, 04 Aug 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3643 2009-08-04 15:20:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3646 2009-08-04 18:28:30Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9757,7 +9757,6 @@ void idEntity::Event_AverageLightInPVS( void )
 	// Find all light entities, then call PointInArea on them to check
 	// if they are in the same area:
 
-	int lights = 0;
 	for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
 	{
 		if ( !ent->IsType( idLight::Type ) ) {
@@ -9770,10 +9769,9 @@ void idEntity::Event_AverageLightInPVS( void )
 		if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
 			light->GetColor( local_light );
 			sum += local_light;
-			lights++;
 		}
     }
-	idThread::ReturnVector( sum / static_cast<float>(lights) );
+	idThread::ReturnVector( sum );
 }
 
 bool idEntity::canSeeEntity(idEntity* target, int useLighting) {

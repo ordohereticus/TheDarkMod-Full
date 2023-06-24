@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3641 $
- * $Date: 2009-08-04 10:27:22 -0400 (Tue, 04 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 3646 $
+ * $Date: 2009-08-04 14:28:30 -0400 (Tue, 04 Aug 2009) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -1428,7 +1428,7 @@ public:			// Events should be public, so they can be used from other places as w
 	*/
 	void					Event_TeleportTo(idEntity *target);
 	/**
-	* Tels: Return the average amount of all lights in the entities PVS.
+	* Tels: Return the sum of all lights in the entities PVS.
 	*/
 	void 					Event_AverageLightInPVS();
 
