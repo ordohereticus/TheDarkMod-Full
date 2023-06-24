@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3570 $
- * $Date: 2009-07-23 14:29:36 -0400 (Thu, 23 Jul 2009) $
+ * $Revision: 3576 $
+ * $Date: 2009-07-24 05:37:16 -0400 (Fri, 24 Jul 2009) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3570 2009-07-23 18:29:36Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 3576 2009-07-24 09:37:16Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1427,6 +1427,9 @@ void idTarget_CallObjectFunction::Event_Activate( idEntity *activator ) {
 	idThread			*thread;
 
 	funcName  = spawnArgs.GetString( "call" );
+	// we delay each call by: delay +  wait * numberOfTarget
+	float wait			= spawnArgs.GetFloat ( "wait", "0");
+	float delay			= spawnArgs.GetFloat ( "delay", "0");
 
 	DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("%s: Calling object function %s on %i targets.\r", name.c_str(), funcName, targets.Num() );
 
@@ -1447,7 +1450,8 @@ void idTarget_CallObjectFunction::Event_Activate( idEntity *activator ) {
 			// create a thread and call the function
 			thread = new idThread();
 			thread->CallFunction( ent, func, true );
-			thread->DelayedStart( 0 );
+			thread->DelayedStart( delay );
+			delay += wait;
 		}
 		else
 		{
