@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3305 $
- * $Date: 2009-03-25 12:15:24 -0400 (Wed, 25 Mar 2009) $
- * $Author: angua $
+ * $Revision: 3318 $
+ * $Date: 2009-03-27 14:14:00 -0400 (Fri, 27 Mar 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3305 2009-03-25 16:15:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3318 2009-03-27 18:14:00Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5544,8 +5544,8 @@ only the alert state scripts.
 */
 void idAI::Activate( idEntity *activator )
 {
-	// call the base class first
-	idEntity::Activate(activator);
+	// Fire the TRIGGER response
+	ResponseTrigger(activator, ST_TRIGGER);
 
 	if ( AI_DEAD || AI_KNOCKEDOUT ) {
 		// ignore it when they're dead or KO'd
