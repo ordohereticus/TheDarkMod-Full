@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3774 $
- * $Date: 2009-12-27 22:49:41 -0500 (Sun, 27 Dec 2009) $
- * $Author: crispy $
+ * $Revision: 3784 $
+ * $Date: 2010-01-03 20:29:34 -0500 (Sun, 03 Jan 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3774 2009-12-28 03:49:41Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeWeapon.cpp 3784 2010-01-04 01:29:34Z ishtvan $", init_version);
 
 #include "../game/game_local.h"
 #include "Grabber.h"
@@ -830,6 +830,29 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 		}
 	}
 
+	// actor-specific stuff (moved prior to damage call, ishtvan 01/03/2010)
+	if( other->IsType(idActor::Type) )
+	{
+		idActor *otherAct = static_cast<idActor *>(other);
+		// update the melee status
+		CMeleeStatus *pOthMeleeStatus = &otherAct->m_MeleeStatus;
+		pOthMeleeStatus->m_LastHitByType = m_MeleeType;
+
+		// apply a LARGE tactile alert to AI
+		if( other->IsType(idAI::Type) )
+		{
+			idAI *otherAI = static_cast<idAI *>(other);
+			otherAI->TactileAlert( GetOwner(), 100 );
+
+			// being hit always causes flat-footedness
+			if( otherAI->m_bCanBeFlatFooted )
+			{
+				otherAI->m_bFlatFooted = true;
+				otherAI->m_FlatFootedTimer = gameLocal.time;
+			}
+		}
+	}
+
 	if( other->fl.takedamage )
 	{
 		DM_LOG(LC_WEAPON,LT_DEBUG)LOGSTRING("MeleeWeapon: Applying damage at clipmodel id %d, joint handle %d\r", tr->c.id, CLIPMODEL_ID_TO_JOINT_HANDLE(tr->c.id) );
@@ -840,20 +863,6 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 			dir, DamageDefName,
 			DmgScale, location, tr 
 		);
-	}
-
-	// apply a LARGE tactile alert to AI
-	if( other->IsType(idAI::Type) )
-	{
-		idAI *otherAI = static_cast<idAI *>(other);
-		otherAI->TactileAlert( GetOwner(), 100 );
-
-		// being hit always causes flat-footedness
-		if( otherAI->m_bCanBeFlatFooted )
-		{
-			otherAI->m_bFlatFooted = true;
-			otherAI->m_FlatFootedTimer = gameLocal.time;
-		}
 	}
 
 	// copied from idWeapon, not necessarily what we want
