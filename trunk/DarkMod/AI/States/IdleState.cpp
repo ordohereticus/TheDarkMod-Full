@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3538 $
- * $Date: 2009-07-17 13:34:56 -0400 (Fri, 17 Jul 2009) $
- * $Author: angua $
+ * $Revision: 3621 $
+ * $Date: 2009-07-31 05:19:43 -0400 (Fri, 31 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3538 2009-07-17 17:34:56Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3621 2009-07-31 09:19:43Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -194,9 +194,11 @@ void IdleState::InitialiseMovement(idAI* owner)
 	// The movement subsystem should start patrolling
 	owner->movementSubsystem->ClearTasks();
 
+	bool animalPatrol = owner->spawnArgs.GetBool("animal_patrol", "0");
+
 	// greebo: Choose the patrol task depending on the spawnargs.
 	TaskPtr patrolTask = TaskLibrary::Instance().CreateInstance(
-		owner->spawnArgs.GetBool("animal_patrol", "0") ? TASK_ANIMAL_PATROL : TASK_PATROL
+		animalPatrol ? TASK_ANIMAL_PATROL : TASK_PATROL
 	);
 
 	// Check if the owner has patrol routes set
@@ -205,13 +207,14 @@ void IdleState::InitialiseMovement(idAI* owner)
 
 	if (path == NULL && lastPath == NULL)
 	{
-
 		path = idPathCorner::RandomPath(owner, NULL, owner);
 	}
 
 	memory.currentPath = path;
-	if (path)
+
+	if (path != NULL || animalPatrol)
 	{
+		// For animals, push the AnimalPatrol task anyway, they don't need paths
 		owner->movementSubsystem->PushTask(patrolTask);
 	}
 
