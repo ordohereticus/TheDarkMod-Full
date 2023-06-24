@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3743 $
- * $Date: 2009-11-04 00:03:45 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 3744 $
+ * $Date: 2009-11-04 00:14:12 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3743 2009-11-04 05:03:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3744 2009-11-04 05:14:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10590,6 +10590,8 @@ void idPlayer::PerformFrobCheck()
 
 			// Mark as frobbed for this frame
 			ent->SetFrobbed(true);
+
+			// Store the trace for later reference
 			m_FrobTrace = trace;
 
 			// we have found our frobbed entity, so exit

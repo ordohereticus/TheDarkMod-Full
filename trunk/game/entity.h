@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3721 $
- * $Date: 2009-10-23 18:58:43 -0400 (Fri, 23 Oct 2009) $
- * $Author: ishtvan $
+ * $Revision: 3744 $
+ * $Date: 2009-11-04 00:14:12 -0500 (Wed, 04 Nov 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -710,7 +710,7 @@ public:
 	virtual bool UseBy(EImpulseState nState, const CInventoryItemPtr& item);
 
 	/**
-	* Toggle whether the entity has been frobbed.  Should ONLY be called by idPlayer::CheckFrob
+	* Toggle whether the entity has been frobbed.  Should ONLY be called by idPlayer::PerformFrobCheck
 	**/
 	virtual void SetFrobbed( bool val );
 

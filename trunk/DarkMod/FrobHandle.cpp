@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3665 $
- * $Date: 2009-08-13 05:34:55 -0400 (Thu, 13 Aug 2009) $
+ * $Revision: 3744 $
+ * $Date: 2009-11-04 00:14:12 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobHandle.cpp 3665 2009-08-13 09:34:55Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobHandle.cpp 3744 2009-11-04 05:14:12Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -62,21 +62,20 @@ void CFrobHandle::Event_Tap()
 
 void CFrobHandle::SetFrobbed(bool val)
 {
-	if (m_FrobLock == false)		// Prevent an infinte loop here.
-	{
-		m_FrobLock = true;
+	if (m_FrobLock) return; // Prevent an infinite loop here.
 
-		idEntity::SetFrobbed(val);
-
-		if (m_FrobMaster != NULL)
-		{
-			m_FrobMaster->SetFrobbed(val);
-		}
-
-		m_FrobLock = false;
-	}
+	m_FrobLock = true;
 
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("CFrobHandle [%s] %08lX is frobbed\r", name.c_str(), this);
+
+	idEntity::SetFrobbed(val);
+
+	if (m_FrobMaster != NULL)
+	{
+		m_FrobMaster->SetFrobbed(val);
+	}
+
+	m_FrobLock = false;
 }
 
 bool CFrobHandle::IsFrobbed()

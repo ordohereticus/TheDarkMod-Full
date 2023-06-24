@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3336 $
- * $Date: 2009-03-28 07:52:01 -0400 (Sat, 28 Mar 2009) $
+ * $Revision: 3744 $
+ * $Date: 2009-11-04 00:14:12 -0500 (Wed, 04 Nov 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -37,7 +37,7 @@ public:
 	/**
 	 * Functions that must be forwarded to the master.
 	 */
-	void					SetFrobbed(bool val);
+	virtual void			SetFrobbed(bool val);
 	bool					IsFrobbed();
 
 	// Action function, these are re-routed to the frobmaster entity
