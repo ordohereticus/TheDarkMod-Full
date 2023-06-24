@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3872 $
- * $Date: 2010-04-13 23:53:48 -0400 (Tue, 13 Apr 2010) $
- * $Author: tels $
+ * $Revision: 3882 $
+ * $Date: 2010-04-23 10:38:56 -0400 (Fri, 23 Apr 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3872 2010-04-14 03:53:48Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3882 2010-04-23 14:38:56Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -111,7 +111,7 @@ idCVar cv_show_health (          "tdm_show_health",   "0",            CVAR_ARCHI
 
 idCVar cv_ai_show_aasfuncobstacle_state("tdm_ai_show_aasfuncobstacle_state",	"0", CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), idFuncAASObstacles will show their state at spawn time and during changes." );
 
-idCVar cv_interaction_vfp_type("tdm_interaction_vfp_type",	"1", CVAR_ARCHIVE | CVAR_BOOL, "If 1, the enhanced interaction shaders are used. Set to 0 to use the default D3 one." );
+idCVar cv_interaction_vfp_type("tdm_interaction_vfp_type",	"1", CVAR_ARCHIVE | CVAR_BOOL, "If 1, the HDR interaction shaders are used. Set to 0 to use TDM's enhanced ones." );
 idCVar cv_tdm_widescreenmode("tdm_wideScreenMode",	"0", CVAR_ARCHIVE | CVAR_INTEGER, "The widescreen mode selected in the main menu (for internal use)." );
 
 idCVar cv_tdm_show_trainer_messages("tdm_show_trainer_messages", "1", CVAR_BOOL | CVAR_ARCHIVE, "Whether TDM trainer maps should display pop-ups with helpful gameplay information." );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
+ * $Revision: 3882 $
+ * $Date: 2010-04-23 10:38:56 -0400 (Fri, 23 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -966,6 +966,9 @@ private:
 
 	// Sets the video CVARs according to the settings in the given GUI
 	void					UpdateScreenResolutionFromGUI(idUserInterface* gui);
+
+	// Chooses between the various VFP files according to the CVAR settings. Only call this if settings got changed.
+	void					UpdateInteractionShader();
 };
 
 //============================================================================

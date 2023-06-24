@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3845 $
- * $Date: 2010-03-12 21:18:53 -0500 (Fri, 12 Mar 2010) $
+ * $Revision: 3882 $
+ * $Date: 2010-04-23 10:38:56 -0400 (Fri, 23 Apr 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3845 2010-03-13 02:18:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3882 2010-04-23 14:38:56Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -505,22 +505,31 @@ void idGameLocal::Init( void ) {
 	m_Shop->Init();
 
 	// Check the interaction.vfp settings
-	if (cv_interaction_vfp_type.GetInteger() == 0)
+	UpdateInteractionShader();
+}
+
+void idGameLocal::UpdateInteractionShader()
+{
+	// Check the CVARs
+	switch (cv_interaction_vfp_type.GetInteger())
 	{
-		// Use D3 interaction
-		Printf("Using D3 interaction.vfp\n");
+	case 0: // Rebb's enhanced interaction shader
+		Printf("Using TDM's enhanced interaction.vfp\n");
 		cvarSystem->SetCVarInteger("r_testARBProgram", 0);
-		r_HDR_postProcess.SetBool( false );
-	}
-	else
-	{
-		// Use rebb's enhanced interaction
-		// Rebb's interaction has been replaced by mine for now. -JC Denton
-		//Printf("Using TDM's enhanced interaction.vfp\n");
+		r_HDR_postProcess.SetBool(false);
+		break;
+
+	case 1: // JC Denton's HDR
 		Printf("Using TDM's HDR\n");
 		cvarSystem->SetCVarInteger("r_testARBProgram", 1);
-		r_HDR_postProcess.SetBool( true );
-	}
+		r_HDR_postProcess.SetBool(true);
+		break;
+
+	default:
+		Warning("Unknown interaction type setting found, reverting to enhanced standard.");
+		cv_interaction_vfp_type.SetInteger(0);
+		UpdateInteractionShader();
+	};
 }
 
 /*
@@ -2890,24 +2899,10 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 			}
 
 			// Check the interaction.vfp settings
-			if (cv_interaction_vfp_type.GetInteger() != cvarSystem->GetCVarInteger("r_testARBProgram"))
+			if (cv_interaction_vfp_type.IsModified())
 			{
-				if (cv_interaction_vfp_type.GetInteger() == 0)
-				{
-					// Use D3 interaction
-					Printf("Switching to D3 interaction.vfp\n");
-					cvarSystem->SetCVarInteger("r_testARBProgram", 0);
-					r_HDR_postProcess.SetBool( false );
-				}
-				else
-				{
-					// Use rebb's enhanced interaction
-					//Printf("Switching to TDM's enhanced interaction.vfp\n");
-					// Replacing Rebb's interaction with HDR for now. - JC Denton
-					Printf("Switching to TDM's HDR\n");
-					cvarSystem->SetCVarInteger("r_testARBProgram", 1);
-					r_HDR_postProcess.SetBool( true );
-				}
+				UpdateInteractionShader();
+				cv_interaction_vfp_type.ClearModified();
 			}
 		}
 
