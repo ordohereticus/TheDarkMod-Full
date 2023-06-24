@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3762 $
- * $Date: 2009-11-22 08:27:21 -0500 (Sun, 22 Nov 2009) $
- * $Author: tels $
+ * $Revision: 3763 $
+ * $Date: 2009-11-22 09:15:46 -0500 (Sun, 22 Nov 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3762 2009-11-22 13:27:21Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3763 2009-11-22 14:15:46Z angua $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2148,6 +2148,16 @@ bool idAI::ThinkingIsAllowed()
 	{
 		// Ragdolls think every frame to avoid physics weirdness.
 		if (health <= 0)
+		{
+			return true;
+		}
+
+		// angua: AI think every frame while sitting/laying down and getting up
+		// otherwise, the AI might end up in a different sleeping position
+		if (move.moveType == MOVETYPE_SIT_DOWN
+			|| move.moveType == MOVETYPE_LAY_DOWN
+			|| move.moveType == MOVETYPE_GET_UP
+			|| move.moveType == MOVETYPE_GET_UP_FROM_LYING)
 		{
 			return true;
 		}

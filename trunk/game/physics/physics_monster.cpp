@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2584 $
- * $Date: 2008-06-28 11:10:38 -0400 (Sat, 28 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 3763 $
+ * $Date: 2009-11-22 09:15:46 -0500 (Sun, 22 Nov 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_monster.cpp 2584 2008-06-28 15:10:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_monster.cpp 3763 2009-11-22 14:15:46Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -470,6 +470,13 @@ idPhysics_Monster::Evaluate
 ================
 */
 bool idPhysics_Monster::Evaluate( int timeStepMSec, int endTimeMSec ) {
+
+	if (timeStepMSec == 0)
+	{
+		// angua: time step can be zero when the AI comes back from being dormant
+		return false;
+	}
+
 	idVec3 masterOrigin, oldOrigin;
 	idMat3 masterAxis;
 	float timeStep;
