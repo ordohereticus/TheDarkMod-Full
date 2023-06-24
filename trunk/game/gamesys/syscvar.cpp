@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3388 $
- * $Date: 2009-04-11 04:26:24 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3389 $
+ * $Date: 2009-04-11 04:31:28 -0400 (Sat, 11 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3388 2009-04-11 08:26:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3389 2009-04-11 08:31:28Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -163,7 +163,7 @@ idCVar cv_tdm_fwd_jump_vel(				"tdm_fwd_jump_vel",				"50.0",			CVAR_FLOAT, "For
 
 
 // Dark Mod crouching
-idCVar cv_tdm_crouch_toggle(			"tdm_crouch_toggle",			"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to make crouching toggleable." );
+idCVar cv_tdm_crouch_toggle(			"tdm_toggle_crouch",			"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to make crouching toggleable." );
 
 
 /**
