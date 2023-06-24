@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3388 $
- * $Date: 2009-04-11 04:26:24 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3395 $
+ * $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3388 2009-04-11 08:26:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3395 2009-04-11 15:16:49Z angua $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5385,10 +5385,19 @@ void idPlayer::PerformImpulse( int impulse ) {
 
 		case IMPULSE_23:		// Crouch
 		{
-			m_ButtonStateTracker.startTracking(impulse);
-			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
+			// angua: hitting crouch while climbing on a ladder or rope will detach
+			if (physicsObj.OnRope() || physicsObj.OnLadder())
 			{
-				m_CrouchIntent = !m_CrouchIntent;
+				physicsObj.ClimbDetach();
+			}
+			else
+			{
+				// in all other cases, change the crouch intent which will toggle crouch
+				m_ButtonStateTracker.startTracking(impulse);
+				if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) 
+				{
+					m_CrouchIntent = !m_CrouchIntent;
+				}
 			}
 		}
 		break;

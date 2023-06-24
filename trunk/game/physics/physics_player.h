@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3345 $
- * $Date: 2009-04-01 07:11:04 -0400 (Wed, 01 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3395 $
+ * $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -400,13 +400,16 @@ private:
 * The following are used in wall/ladder climbing
 **/
 	void					CheckClimbable( void );
-	void					ClimbDetach( bool bStepUp = false );
 
 #ifndef MOD_WATERPHYSICS
 	void					SetWaterLevel( void );
 #endif
 	void					DropTimers( void );
 	void					MovePlayer( int msec );
+
+public:
+	void					ClimbDetach( bool bStepUp = false );
+
 
 	//#####################################################
 	// Mantling handler

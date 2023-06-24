@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3388 $
- * $Date: 2009-04-11 04:26:24 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3395 $
+ * $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -111,9 +111,9 @@ extern idCVar cv_pm_push_max_mass;
 */
 extern idCVar cv_tdm_walk_jump_vel;
 extern idCVar cv_tdm_run_jump_vel;
+extern idCVar cv_tdm_crouch_jump_vel;
 extern idCVar cv_tdm_min_vel_jump;
 extern idCVar cv_tdm_fwd_jump_vel;
-
 
 extern idCVar cv_pm_weightmod;
 

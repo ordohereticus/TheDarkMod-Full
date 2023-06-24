@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3389 $
- * $Date: 2009-04-11 04:31:28 -0400 (Sat, 11 Apr 2009) $
+ * $Revision: 3395 $
+ * $Date: 2009-04-11 11:16:49 -0400 (Sat, 11 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3389 2009-04-11 08:31:28Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3395 2009-04-11 15:16:49Z angua $", init_version);
 
 #include "../game_local.h"
 
@@ -158,6 +158,7 @@ idCVar cv_pm_mantle_minflatness(		"pm_mantle_minflatness",		"0.707",			CVAR_GAME
 **/
 idCVar cv_tdm_walk_jump_vel(			"tdm_walk_jump_vel",			"2.2",			CVAR_FLOAT, "Jump velocity multiplier when walking" );
 idCVar cv_tdm_run_jump_vel(				"tdm_run_jump_vel",				"2.5",			CVAR_FLOAT, "Jump velocity multiplier when running" );
+idCVar cv_tdm_crouch_jump_vel(			"tdm_crouch_jump_vel",			"0.5",			CVAR_FLOAT, "Jump velocity multiplier when crouching" );
 idCVar cv_tdm_min_vel_jump(				"tdm_min_vel_jump",				"0.0",			CVAR_FLOAT, "The minimum speed before cv_tdm_run_jump_vel is used" );
 idCVar cv_tdm_fwd_jump_vel(				"tdm_fwd_jump_vel",				"50.0",			CVAR_FLOAT, "Forward vector multiple for jumping" );
 
