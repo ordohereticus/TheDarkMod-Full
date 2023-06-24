@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3312 $
- * $Date: 2009-03-26 15:25:01 -0400 (Thu, 26 Mar 2009) $
+ * $Revision: 3313 $
+ * $Date: 2009-03-26 15:49:53 -0400 (Thu, 26 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3312 2009-03-26 19:25:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 3313 2009-03-26 19:49:53Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -344,9 +344,13 @@ bool PickableLock::ProcessLockpickPress(int type)
 			// Play wrong lockpick sound
 			m_LockpickState = WRONG_LOCKPICK_SOUND;
 			// Fall back to the same state as we're now
-			PropPickSound("snd_lockpick_pick_wrong", m_LockpickState, 1000);
+			PropPickSound("snd_lockpick_pick_wrong", IsLocked() ? LOCKED : UNLOCKED, 1000);
 			return false;
 		}
+		case WRONG_LOCKPICK_SOUND:
+			// Fall back to the same state as we're now
+			PropPickSound("snd_lockpick_pick_wrong", IsLocked() ? LOCKED : UNLOCKED, 1000);
+			return false;
 		case PIN_SAMPLE:
 		case ADVANCE_TO_NEXT_SAMPLE:
 			// If we encounter a lockpick press during these, reset to start
@@ -529,6 +533,12 @@ bool PickableLock::ProcessLockpickRelease(int type)
 	// Cancel all previous events on release
 	CancelEvents(&EV_TDM_LockpickSoundFinished);
 	m_SoundTimerStarted = 0;
+
+	// If we're not locked in the first place, don't respond to the release event
+	if (!IsLocked())
+	{
+		return false;
+	}
 
 	// Check if we're in the "hot spot" of the lock pick sequence
 	if (LockpickHotspotActive())
@@ -779,7 +789,7 @@ idStringList PickableLock::CreatePinPattern(int clicks, int baseCount, int maxCo
 
 float PickableLock::CalculateHandleMoveFraction()
 {
-	if (m_LockpickState == LOCK_SUCCESS || m_LockpickState == UNLOCKED || 
+	if (!IsLocked() || m_LockpickState == LOCK_SUCCESS || m_LockpickState == UNLOCKED || 
 		m_LockpickState == PICKED || m_Pins.Num() == 0)
 	{
 		// unlocked handles or ones without lock pins are at the starting position
