@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3660 $
- * $Date: 2009-08-09 04:37:27 -0400 (Sun, 09 Aug 2009) $
+ * $Revision: 3684 $
+ * $Date: 2009-08-31 02:24:48 -0400 (Mon, 31 Aug 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3660 2009-08-09 08:37:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3684 2009-08-31 06:24:48Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -687,3 +687,4 @@ idCVar r_bloom_blurIterations( "r_bloom_blurIterations", "1", CVAR_GAME | CVAR_I
 idCVar r_bloom_hud( "r_bloom_hud", "0", CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "Enable blooming of the HUD" );
 idCVar r_bloom_lightRayScale( "r_bloom_lightRayScale", "1.3", CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "Brightness scale of light ray effects when bloom is active");
 
+idCVar s_driver("s_driver", "0", CVAR_GUI, "Dummy CVAR introduced by TDM to fix a console warning. Seems to be missing, but D3's mpmain.gui references this.");
