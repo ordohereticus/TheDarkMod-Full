@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3363 $
+ * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -116,8 +116,8 @@ void FleeDoneState::Think(idAI* owner)
 				owner, friendlyAI, owner->GetEnemy(), owner->lastVisibleEnemyPos)
 			); 
 
-			TaskPtr barkTask(new SingleBarkTask("snd_flee", message));
-// 			owner->GetSubsystem(SubsysCommunication)->PushTask(barkTask);// TODO_AI
+			CommunicationTaskPtr barkTask(new SingleBarkTask("snd_flee", message));
+			owner->commSubsystem->AddCommTask(barkTask);
 
 		}
 		else if (gameLocal.time >= _turnEndTime)

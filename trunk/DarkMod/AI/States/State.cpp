@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3363 $
+ * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -470,10 +470,9 @@ void State::OnVisualStimWeapon(idEntity* stimSource, idAI* owner)
 		gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 	{
 		memory.lastTimeVisualStimBark = gameLocal.time;
-		/*owner->GetSubsystem(SubsysCommunication)->ClearTasks();
-		owner->GetSubsystem(SubsysCommunication)->PushTask(
-			TaskPtr(new SingleBarkTask("snd_somethingSuspicious"))
-		);*/ // TODO_AI
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new SingleBarkTask("snd_somethingSuspicious"))
+		);
 	}
 
 	// TWO more piece of evidence of something out of place: A weapon is not a good thing
@@ -680,9 +679,9 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 			if (!soundName.IsEmpty() && gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 			{
 				memory.lastTimeVisualStimBark = gameLocal.time;
-				/*owner->GetSubsystem(SubsysCommunication)->PushTask(
-					TaskPtr(new SingleBarkTask(soundName, message))
-				);*/ // TODO_AI
+				owner->commSubsystem->AddCommTask(
+					CommunicationTaskPtr(new SingleBarkTask(soundName, message))
+				);
 			}
 			
 			// Don't ignore in future
@@ -747,10 +746,9 @@ bool State::OnDeadPersonEncounter(idActor* person, idAI* owner)
 		if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 		{
 			memory.lastTimeVisualStimBark = gameLocal.time;
-			/*owner->GetSubsystem(SubsysCommunication)->ClearTasks();
-			owner->GetSubsystem(SubsysCommunication)->PushTask(
-				TaskPtr(new SingleBarkTask(soundName))
-			);*/ // TODO_AI
+			owner->commSubsystem->AddCommTask(
+				CommunicationTaskPtr(new SingleBarkTask(soundName))
+			);
 		}
 
 		// Raise alert level
@@ -823,10 +821,9 @@ bool State::OnUnconsciousPersonEncounter(idActor* person, idAI* owner)
 
 		// Speak a reaction
 		memory.lastTimeVisualStimBark = gameLocal.time;
-		/*owner->GetSubsystem(SubsysCommunication)->ClearTasks();
-		owner->GetSubsystem(SubsysCommunication)->PushTask(
-			TaskPtr(new SingleBarkTask(soundName))
-		);*/ // TODO_AI
+		owner->commSubsystem->AddCommTask(
+			CommunicationTaskPtr(new SingleBarkTask(soundName))
+		);
 
 		// Raise alert level
 		if (owner->AI_AlertLevel < owner->thresh_5 + 0.1f)
@@ -869,9 +866,9 @@ void State::OnVisualStimBlood(idEntity* stimSource, idAI* owner)
 
 	// Vocalize that see something out of place
 	memory.lastTimeVisualStimBark = gameLocal.time;
-	/*owner->GetSubsystem(SubsysCommunication)->PushTask(
-		TaskPtr(new SingleBarkTask("snd_foundBlood"))
-	);*/ // TODO_AI
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new SingleBarkTask("snd_foundBlood"))
+	);
 	gameLocal.Printf("Is that blood!\n");
 	
 	// One more piece of evidence of something out of place
@@ -995,9 +992,9 @@ void State::OnVisualStimLightSource(idEntity* stimSource, idAI* owner)
 		if (gameLocal.time - memory.lastTimeVisualStimBark >= MINIMUM_SECONDS_BETWEEN_STIMULUS_BARKS)
 		{
 			memory.lastTimeVisualStimBark = gameLocal.time;
-			/*owner->GetSubsystem(SubsysCommunication)->PushTask(
-				TaskPtr(new SingleBarkTask("snd_noRelightTorch"))
-			);*/ // TODO_AI
+			owner->commSubsystem->AddCommTask(
+				CommunicationTaskPtr(new SingleBarkTask("snd_noRelightTorch"))
+			);
 		}
 
 	}
@@ -1065,10 +1062,9 @@ void State::OnVisualStimMissingItem(idEntity* stimSource, idAI* owner)
 
 	// Speak a reaction
 	memory.lastTimeVisualStimBark = gameLocal.time;
-	/*owner->GetSubsystem(SubsysCommunication)->ClearTasks();
-	owner->GetSubsystem(SubsysCommunication)->PushTask(
-		TaskPtr(new SingleBarkTask("snd_foundMissingItem"))
-	);*/ // TODO_AI
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new SingleBarkTask("snd_foundMissingItem"))
+	);
 
 	// One more piece of evidence of something out of place
 	memory.itemsHaveBeenStolen = true;
@@ -1111,9 +1107,9 @@ void State::OnVisualStimBrokenItem(idEntity* stimSource, idAI* owner)
 
 	// Speak a reaction
 	memory.lastTimeVisualStimBark = gameLocal.time;
-	/*owner->GetSubsystem(SubsysCommunication)->PushTask(
-		TaskPtr(new SingleBarkTask("snd_foundBrokenItem"))
-	);*/ // TODO_AI
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new SingleBarkTask("snd_foundBrokenItem"))
+	);
 
 	owner->AI_RUN = true;
 
@@ -1184,9 +1180,9 @@ void State::OnVisualStimDoor(idEntity* stimSource, idAI* owner)
 
 	// Vocalize that see something out of place
 	memory.lastTimeVisualStimBark = gameLocal.time;
-	/*owner->GetSubsystem(SubsysCommunication)->PushTask(
-		TaskPtr(new SingleBarkTask("snd_foundOpenDoor"))
-	);*/ // TODO_AI
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new SingleBarkTask("snd_foundOpenDoor"))
+	);
 	gameLocal.Printf("That door isn't supposed to be open!\n");
 	
 	// One more piece of evidence of something out of place

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3363 $
+ * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -196,11 +196,11 @@ void ConversationState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSyst
 			_commandType == ConversationCommand::EWalkToActor)
 		{
 			// Check if the subsystem is actually empty
-/*			if (owner->GetSubsystem(subSystem)->IsEmpty())
+			if (owner->GetSubsystem(subSystem)->IsEmpty())
 			{
 				_state = EReady; // ready for new commands
 				return;
-			}*/// TODO_AI
+			}
 		}
 	}
 	else if (subSystem == SubsysAction)

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3358 $
- * $Date: 2009-04-04 12:28:28 -0400 (Sat, 04 Apr 2009) $
+ * $Revision: 3363 $
+ * $Date: 2009-04-05 02:19:50 -0400 (Sun, 05 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3358 2009-04-04 16:28:28Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 3363 2009-04-05 06:19:50Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -142,7 +142,6 @@ void IdleState::Think(idAI* owner)
 		{
 			owner->actionSubsystem->ClearTasks();
 			owner->senseSubsystem->ClearTasks();
-//			owner->GetSubsystem(SubsysCommunication)->ClearTasks();// TODO_AI
 
 			owner->GetMind()->SwitchState(STATE_IDLE_SLEEP);
 			return;
@@ -222,9 +221,9 @@ void IdleState::InitialiseMovement(idAI* owner)
 void IdleState::InitialiseCommunication(idAI* owner)
 {
 	// Push a single bark to the communication subsystem first, it fires only once
-/*	owner->GetSubsystem(SubsysCommunication)->QueueTask(
-		TaskPtr(new SingleBarkTask(GetInitialIdleBark(owner)))
-	);*/// TODO_AI
+	owner->commSubsystem->AddCommTask(
+		CommunicationTaskPtr(new SingleBarkTask(GetInitialIdleBark(owner)))
+	);
 }
 
 
