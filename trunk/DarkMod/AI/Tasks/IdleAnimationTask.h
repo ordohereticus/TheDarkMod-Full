@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3461 $
+ * $Date: 2009-05-23 12:40:38 -0400 (Sat, 23 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -29,6 +29,9 @@ class IdleAnimationTask :
 	idList<idStr> _idleAnimations;
 	idList<idStr> _idleAnimationsTorso;
 	int _idleAnimationInterval;
+
+	// The index of the last anim played (to avoid duplicates)
+	int _lastIdleAnim;
 
 	// Default constructor is private
 	IdleAnimationTask();
