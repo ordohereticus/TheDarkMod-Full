@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3400 $
- * $Date: 2009-04-12 00:29:46 -0400 (Sun, 12 Apr 2009) $
+ * $Revision: 3405 $
+ * $Date: 2009-04-13 02:39:09 -0400 (Mon, 13 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -201,6 +201,9 @@ extern idCVar cv_throw_min;
 extern idCVar cv_throw_max;
 extern idCVar cv_throw_time;
 extern idCVar cv_throw_max_vel;
+
+extern idCVar cv_bounce_sound_max_vel;
+extern idCVar cv_bounce_sound_min_vel;
 
 extern idCVar cv_reverse_grab_control;
 

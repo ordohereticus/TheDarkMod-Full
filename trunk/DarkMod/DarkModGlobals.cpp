@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3370 $
- * $Date: 2009-04-06 10:20:38 -0400 (Mon, 06 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3405 $
+ * $Date: 2009-04-13 02:39:09 -0400 (Mon, 13 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3370 2009-04-06 14:20:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3405 2009-04-13 06:39:09Z angua $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -1115,6 +1115,27 @@ Quit:
 	//DM_LOG(LC_MISC, LT_DEBUG)LOGSTRING("GetSurfName: Found surface type name %s\r", strIn.c_str());
 
 	return;
+}
+
+idStr CGlobal::GetSurfName(const idMaterial* material)
+{
+	if (material == NULL)
+	{
+		return idStr();
+	}
+
+	const surfTypes_t surftype = material->GetSurfaceType();
+
+	if (surftype != SURFTYPE_15)
+	{
+		return gameLocal.sufaceTypeNames[ surftype ];
+	}
+
+	// return the first word of the description if it has surftype_15
+	idStr desc = material->GetDescription();
+	int end = desc.Find(' ');
+
+	return ( end == -1 ) ? desc : desc.Left(end);
 }
 
 std::string CGlobal::GetDarkmodPath()

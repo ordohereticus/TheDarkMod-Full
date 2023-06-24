@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3370 $
- * $Date: 2009-04-06 10:20:38 -0400 (Mon, 06 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3405 $
+ * $Date: 2009-04-13 02:39:09 -0400 (Mon, 13 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -198,6 +198,12 @@ public:
 	* If the surface is not found or invalid, stores "none"
 	**/
 	void GetSurfName(const idMaterial *material, idStr &strIn);
+
+	/**
+	 * greebo: Returns the surface name for the given material
+	 * or an empty string if not found.
+	 **/
+	idStr GetSurfName(const idMaterial* material);
 
 	// Returns the darkmod path
 	static std::string GetDarkmodPath();

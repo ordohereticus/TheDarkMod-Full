@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3400 $
- * $Date: 2009-04-12 00:29:46 -0400 (Sun, 12 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3404 $
+ * $Date: 2009-04-13 02:36:37 -0400 (Mon, 13 Apr 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3400 2009-04-12 04:29:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3404 2009-04-13 06:36:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3489,12 +3489,22 @@ void idPlayer::Weapon_Combat( void ) {
 	} else {
 		weaponGone = false;	// if you drop and re-get weap, you may miss the = false above 
 		if ( weapon.GetEntity()->IsHolstered() ) {
-			if ( !weapon.GetEntity()->AmmoAvailable() ) {
+			if ( !weapon.GetEntity()->AmmoAvailable() )
+			{
 				// weapons can switch automatically if they have no more ammo
 				// ishtvan: Only if the cvar is set
-				if( cv_weapon_next_on_empty.GetBool() )
+				if (cv_weapon_next_on_empty.GetBool())
+				{
 					NextBestWeapon();
-			} else {
+				}
+				else
+				{
+					// Switch to unarmed if no more ammo available
+					SelectWeapon(weapon_fists, false);
+				}
+			}
+			else
+			{
 				weapon.GetEntity()->Raise();
 				state = GetScriptFunction( "RaiseWeapon" );
 				if ( state ) {
