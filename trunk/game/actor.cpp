@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3795 $
- * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
+ * $Revision: 3818 $
+ * $Date: 2010-01-24 23:03:19 -0500 (Sun, 24 Jan 2010) $
  * $Author: ishtvan $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 3795 2010-01-13 05:01:11Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 3818 2010-01-25 04:03:19Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -749,6 +749,8 @@ void idActor::Spawn( void )
 
 	// load melee settings based on AI skill level + player difficulty
 	LoadMeleeSet();
+	// adjust health based on multiplier that may be in melee set
+	health += spawnArgs.GetFloat("health_offset", "0.0");
 	
 	melee_range_unarmed					= spawnArgs.GetFloat( "melee_range","64");
 	melee_range							= melee_range_unarmed;
