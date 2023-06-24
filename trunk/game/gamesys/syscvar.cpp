@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3757 $
- * $Date: 2009-11-09 02:14:40 -0500 (Mon, 09 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3772 $
+ * $Date: 2009-12-26 19:50:25 -0500 (Sat, 26 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3757 2009-11-09 07:14:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3772 2009-12-27 00:50:25Z crispy $", init_version);
 
 #include "../game_local.h"
 
@@ -106,6 +106,8 @@ idCVar cv_ai_opt_nopresent (			"tdm_ai_opt_nopresent",	"0",			CVAR_GAME | CVAR_B
 idCVar cv_ai_opt_noobstacleavoidance (			"tdm_ai_opt_noobstacleavoidance",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), AI will not check for obstacles." );
 
 idCVar cv_ai_debug_anims (			"tdm_ai_debug_anims",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), show debug info about AI anims in the console and log file." );
+
+idCVar cv_show_health (          "tdm_show_health",   "0",            CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), show health of entities for debugging." );
 
 idCVar cv_ai_show_aasfuncobstacle_state("tdm_ai_show_aasfuncobstacle_state",	"0", CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), idFuncAASObstacles will show their state at spawn time and during changes." );
 

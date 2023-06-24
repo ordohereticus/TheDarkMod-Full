@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3757 $
- * $Date: 2009-11-09 02:14:40 -0500 (Mon, 09 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3772 $
+ * $Date: 2009-12-26 19:50:25 -0500 (Sat, 26 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -64,6 +64,7 @@ extern idCVar cv_ai_opt_nolipsync;
 extern idCVar cv_ai_opt_nopresent;
 extern idCVar cv_ai_opt_noobstacleavoidance;
 extern idCVar cv_ai_debug_anims;
+extern idCVar cv_show_health;
 
 extern idCVar cv_ai_show_aasfuncobstacle_state;
 

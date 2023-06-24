@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3747 $
- * $Date: 2009-11-05 23:19:04 -0500 (Thu, 05 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 3772 $
+ * $Date: 2009-12-26 19:50:25 -0500 (Sat, 26 Dec 2009) $
+ * $Author: crispy $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3747 2009-11-06 04:19:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3772 2009-12-27 00:50:25Z crispy $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3740,6 +3740,25 @@ void idGameLocal::RunDebugInfo( void ) {
 
 	if ( g_showTriggers.GetBool() ) {
 		idTrigger::DrawDebugInfo();
+	}
+
+	if ( cv_show_health.GetBool() ) {
+		idMat3		axis = player->viewAngles.ToMat3();
+		idBounds	viewBounds( origin );
+		viewBounds.ExpandSelf( 512.0f );
+		for( ent = spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() ) {
+			// don't draw the worldspawn or "dead" entities
+			if ( ent == world || !ent->health) {
+				continue;
+			}
+
+			// skip if the entity is very far away
+			if ( !viewBounds.IntersectsBounds( ent->GetPhysics()->GetAbsBounds() ) ) {
+				continue;
+			}
+			
+			gameRenderWorld->DrawText(va("Health: %d", ent->health), ent->GetPhysics()->GetOrigin(), 0.2f, colorGreen, axis);
+		}
 	}
 
 	if ( ai_showCombatNodes.GetBool() ) {
