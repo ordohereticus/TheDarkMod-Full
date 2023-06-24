@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3478 $
- * $Date: 2009-05-29 10:54:56 -0400 (Fri, 29 May 2009) $
+ * $Revision: 3480 $
+ * $Date: 2009-05-30 09:29:41 -0400 (Sat, 30 May 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3478 2009-05-29 14:54:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 3480 2009-05-30 13:29:41Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1016,11 +1016,14 @@ bool CFrobDoor::GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis)
 	// sounds from the nearest point to the player's eyes, mid-bounding-box.
 	const idBounds& bounds = GetPhysics()->GetAbsBounds();
 	idVec3 eyePos = gameLocal.GetLocalPlayer()->GetEyePosition();
+	const idBounds& localBounds = GetPhysics()->GetBounds();
 
 	// greebo: Choose the corner which is nearest to the player's eyeposition
-	origin.x = (idMath::Fabs(bounds[0].x - eyePos.x) < idMath::Fabs(bounds[1].x - eyePos.x)) ? bounds[0].x : bounds[1].x;
-	origin.y = (idMath::Fabs(bounds[0].y - eyePos.y) < idMath::Fabs(bounds[1].y - eyePos.y)) ? bounds[0].y : bounds[1].y;
-	origin.z = bounds.GetCenter().z;
+	origin.x = (idMath::Fabs(bounds[0].x - eyePos.x) < idMath::Fabs(bounds[1].x - eyePos.x)) ? localBounds[0].x : localBounds[1].x;
+	origin.y = (idMath::Fabs(bounds[0].y - eyePos.y) < idMath::Fabs(bounds[1].y - eyePos.y)) ? localBounds[0].y : localBounds[1].y;
+	origin.z = (localBounds[0].z + localBounds[1].z) * 0.5f;
+
+	axis.Identity();
 
 	//gameRenderWorld->DebugArrow(colorWhite, origin, eyePos, 0, 5000);
 
@@ -1052,7 +1055,7 @@ int CFrobDoor::FrobMoverStartSound(const char* soundName)
 			int length = 0;
 			handle->StartSoundShader(shader, SND_CHANNEL_ANY, 0, false, &length);
 
-			// gameRenderWorld->DebugArrow(colorWhite, handle->GetPhysics()->GetOrigin(), gameLocal.GetLocalPlayer()->GetEyePosition(), 1, 5000);
+			//gameRenderWorld->DebugArrow(colorWhite, handle->GetPhysics()->GetOrigin(), gameLocal.GetLocalPlayer()->GetEyePosition(), 1, 5000);
 
 			return length;
 		}
