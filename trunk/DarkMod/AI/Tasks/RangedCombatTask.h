@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 3550 $
+ * $Date: 2009-07-19 07:03:12 -0400 (Sun, 19 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef __AI_RANGED_COMBAT_TASK_H__
 #define __AI_RANGED_COMBAT_TASK_H__
 
-#include "Task.h"
+#include "CombatTask.h"
 
 namespace ai
 {
@@ -22,10 +22,8 @@ class RangedCombatTask;
 typedef boost::shared_ptr<RangedCombatTask> RangedCombatTaskPtr;
 
 class RangedCombatTask :
-	public Task
+	public CombatTask
 {
-	idEntityPtr<idActor> _enemy;
-
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;

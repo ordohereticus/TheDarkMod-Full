@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3550 $
+ * $Date: 2009-07-19 07:03:12 -0400 (Sun, 19 Jul 2009) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: RangedCombatTask.cpp 3550 2009-07-19 11:03:12Z greebo $", init_version);
 
 #include "RangedCombatTask.h"
 #include "WaitTask.h"
@@ -30,7 +30,7 @@ const idStr& RangedCombatTask::GetName() const
 void RangedCombatTask::Init(idAI* owner, Subsystem& subsystem)
 {
 	// Init the base class
-	Task::Init(owner, subsystem);
+	CombatTask::Init(owner, subsystem);
 
 	_enemy = owner->GetEnemy();
 }
@@ -83,19 +83,14 @@ void RangedCombatTask::OnFinish(idAI* owner)
 	owner->SetWaitState("");
 }
 
-
 void RangedCombatTask::Save(idSaveGame* savefile) const
 {
-	Task::Save(savefile);
-
-	_enemy.Save(savefile);
+	CombatTask::Save(savefile);
 }
 
 void RangedCombatTask::Restore(idRestoreGame* savefile)
 {
-	Task::Restore(savefile);
-
-	_enemy.Restore(savefile);
+	CombatTask::Restore(savefile);
 }
 
 RangedCombatTaskPtr RangedCombatTask::CreateInstance()

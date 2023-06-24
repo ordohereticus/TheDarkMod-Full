@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3549 $
- * $Date: 2009-07-19 06:47:25 -0400 (Sun, 19 Jul 2009) $
+ * $Revision: 3550 $
+ * $Date: 2009-07-19 07:03:12 -0400 (Sun, 19 Jul 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3549 2009-07-19 10:47:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3550 2009-07-19 11:03:12Z greebo $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "SingleBarkTask.h"
@@ -30,8 +30,8 @@ const idStr& MeleeCombatTask::GetName() const
 void MeleeCombatTask::Init(idAI* owner, Subsystem& subsystem)
 {
 	// Init the base class
-	Task::Init(owner, subsystem);
-	_enemy = owner->GetEnemy();
+	CombatTask::Init(owner, subsystem);
+	
 	_bForceAttack = false;
 	_bForceParry = false;
 	_bInPreParryDelayState = false;
@@ -427,25 +427,6 @@ void MeleeCombatTask::StartParry(idAI* owner)
 	}
 }
 
-void MeleeCombatTask::EmitCombatBark(idAI* owner, const idStr& sndName)
-{
-	// This will hold the message to be delivered with the bark, if appropriate
-	CommMessagePtr message;
-	
-	// Only alert the bystanders if we didn't receive the alert by message ourselves
-	message = CommMessagePtr(new CommMessage(
-		CommMessage::DetectedEnemy_CommType, 
-		owner, NULL, // from this AI to anyone 
-		owner->GetEnemy(),
-		owner->GetPhysics()->GetOrigin()
-	));
-
-	// The communication system 
-	owner->commSubsystem->AddCommTask(
-		CommunicationTaskPtr(new SingleBarkTask(sndName, message))
-	);
-}
-
 void MeleeCombatTask::OnFinish(idAI* owner)
 {
 	// ishtvan TODO: Will need different code for when attack is finish vs. parry?
@@ -461,9 +442,8 @@ void MeleeCombatTask::OnFinish(idAI* owner)
 
 void MeleeCombatTask::Save(idSaveGame* savefile) const
 {
-	Task::Save(savefile);
+	CombatTask::Save(savefile);
 
-	_enemy.Save(savefile);
 	savefile->WriteBool( _bForceAttack );
 	savefile->WriteBool( _bForceParry );
 	savefile->WriteBool( _bInPreParryDelayState );
@@ -479,9 +459,8 @@ void MeleeCombatTask::Save(idSaveGame* savefile) const
 
 void MeleeCombatTask::Restore(idRestoreGame* savefile)
 {
-	Task::Restore(savefile);
+	CombatTask::Restore(savefile);
 
-	_enemy.Restore(savefile);
 	savefile->ReadBool( _bForceAttack );
 	savefile->ReadBool( _bForceParry );
 	savefile->ReadBool( _bInPreParryDelayState );
