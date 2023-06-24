@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3385 $
- * $Date: 2009-04-10 01:55:49 -0400 (Fri, 10 Apr 2009) $
+ * $Revision: 3388 $
+ * $Date: 2009-04-11 04:26:24 -0400 (Sat, 11 Apr 2009) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -139,6 +139,9 @@ extern idCVar cv_pm_climb_distance;
 extern idCVar cv_ai_search_show;
 
 extern idCVar cv_force_savegame_load;
+
+// angua: TDM toggle crouch
+extern idCVar cv_tdm_crouch_toggle;
 
 /**
 * TDM Leaning vars:

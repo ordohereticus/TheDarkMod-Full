@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3384 $
- * $Date: 2009-04-10 01:08:32 -0400 (Fri, 10 Apr 2009) $
- * $Author: greebo $
+ * $Revision: 3388 $
+ * $Date: 2009-04-11 04:26:24 -0400 (Sat, 11 Apr 2009) $
+ * $Author: angua $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -336,6 +336,15 @@ public:
 	* Set to true if the player is shouldering a body
 	**/
 	bool					m_bShoulderingBody;
+
+
+	// angua: whether the player should be crouching
+	bool					m_IdealCrouchState;
+
+	// angua: this is true when the player is holding the crocuh button
+	// or toggle crouch is active
+	bool					m_CrouchIntent;
+
 
 	/**
 	* Hack to fix the leaning test of key-releases
@@ -776,6 +785,16 @@ public:
 	void					PerformFrobKeyRepeat();
 	// Gets called when the player releases the frob button
 	void					PerformFrobKeyRelease();
+
+
+	// angua: Set ideal crouch state
+	void					EvaluateCrouch();
+
+	ID_INLINE bool			GetIdealCrouchState()
+	{
+		return m_IdealCrouchState;
+	}
+
 
 	/**
 	 * AdjustLightgem will calculate how much the lightgem should light up.
