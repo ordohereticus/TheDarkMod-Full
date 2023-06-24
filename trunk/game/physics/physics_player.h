@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3401 $
- * $Date: 2009-04-12 01:11:46 -0400 (Sun, 12 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3418 $
+ * $Date: 2009-05-04 17:40:06 -0400 (Mon, 04 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -165,6 +165,15 @@ public:
 	**/
 	float					GetDeltaViewYaw( void );
 	float					GetDeltaViewPitch( void );
+
+public:
+
+	/**
+	* Ishtvan: This variable is set when the player used crouch to detach
+	* from a climbable and is still holding down the button
+	* This is not saved/restored but cleared on restore, just to be safe
+	**/
+	bool					m_bClimbDetachCrouchHeld;
 
 public:	// common physics interface
 

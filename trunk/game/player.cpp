@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3413 $
- * $Date: 2009-04-26 23:34:44 -0400 (Sun, 26 Apr 2009) $
- * $Author: angua $
+ * $Revision: 3418 $
+ * $Date: 2009-05-04 17:40:06 -0400 (Mon, 04 May 2009) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3413 2009-04-27 03:34:44Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 3418 2009-05-04 21:40:06Z ishtvan $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5673,10 +5673,12 @@ void idPlayer::PerformKeyRepeat(int impulse, int holdTime)
 				if (physicsObj.OnRope())
 				{
 					physicsObj.RopeDetach();
+					physicsObj.m_bClimbDetachCrouchHeld = true;
 				}
 				else if (physicsObj.OnLadder())
 				{
 					physicsObj.ClimbDetach();
+					physicsObj.m_bClimbDetachCrouchHeld = true;
 				}
 			}
 
@@ -5722,6 +5724,9 @@ void idPlayer::PerformKeyRelease(int impulse, int holdTime)
 			{
 				m_CrouchIntent = false;
 			}
+
+			// clear climb detach intent when crouch is released
+			physicsObj.m_bClimbDetachCrouchHeld = false;
 
 		break;
 
