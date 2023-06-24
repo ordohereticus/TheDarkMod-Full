@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3306 $
- * $Date: 2009-03-25 12:59:25 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3307 $
+ * $Date: 2009-03-26 01:45:22 -0400 (Thu, 26 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 3306 2009-03-25 16:59:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 3307 2009-03-26 05:45:22Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -418,7 +418,7 @@ void CFrobLock::Event_Lock_OnLockStatusChange(int locked)
 		UnlockTargets();
 		FrobLockStartSound("snd_unlock");
 
-		if (spawnArgs.GetBool("trigger_targets_on_unlock", "0"))
+		if (spawnArgs.GetBool("trigger_targets_on_unlock", "1"))
 		{
 			// Get the delay for triggering the event
 			int delay = spawnArgs.GetInt("unlock_trigger_delay", "0");
@@ -431,7 +431,7 @@ void CFrobLock::Event_Lock_OnLockStatusChange(int locked)
 		LockTargets();
 		FrobLockStartSound("snd_lock");
 
-		if (spawnArgs.GetBool("trigger_targets_on_lock", "0"))
+		if (spawnArgs.GetBool("trigger_targets_on_lock", "1"))
 		{
 			int delay = spawnArgs.GetInt("lock_trigger_delay", "0");
 			PostEventMS(&EV_TDM_FrobLock_TriggerLockTargets, delay);
@@ -439,8 +439,11 @@ void CFrobLock::Event_Lock_OnLockStatusChange(int locked)
 	}
 
 	// Fire ordinary targets in any case
-	int delay = spawnArgs.GetInt("trigger_delay", "0");
-	PostEventMS(&EV_TDM_FrobLock_TriggerTargets, delay);
+	if (spawnArgs.GetBool("trigger_targets", "0"))
+	{
+		int delay = spawnArgs.GetInt("trigger_delay", "0");
+		PostEventMS(&EV_TDM_FrobLock_TriggerTargets, delay);
+	}
 }
 
 void CFrobLock::Event_TriggerTargets()

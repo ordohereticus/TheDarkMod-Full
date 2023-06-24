@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3296 $
- * $Date: 2009-03-25 04:56:58 -0400 (Wed, 25 Mar 2009) $
+ * $Revision: 3307 $
+ * $Date: 2009-03-26 01:45:22 -0400 (Thu, 26 Mar 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -56,6 +56,9 @@ private:
 
 	// Lockpick state
 	ELockpickState	m_LockpickState;
+
+	// TRUE during the phase the player can land a success hit
+	bool			m_HotSpotActive;
 
 	/**
 	 * greebo: This variable keeps track of how many times the player missed
@@ -173,11 +176,13 @@ private:
 	 * greebo: Play the given sound, this will post a "sound finished" event 
 	 * after the sound has been played (+ the given delay in ms).
 	 * When the sound is done, the lockpick state will be set to <nextState>.
+	 * @returns: the time until this occurs in msec.
 	 */
-	void			PropPickSound(const idStr& picksound, ELockpickState nextState, int additionalDelay = 0);
+	int				PropPickSound(const idStr& picksound, ELockpickState nextState, int additionalDelay = 0);
 
 	// Gets called when a lockpick sound is finished playing
 	void			Event_LockpickSoundFinished(ELockpickState nextState);
+	void			Event_SetHotSpotStatusActive(int active);
 
 	/**
 	 * Create a random pin pattern for a given pin. Clicks defines the required 
