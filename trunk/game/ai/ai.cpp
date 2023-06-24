@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3688 $
- * $Date: 2009-09-03 04:59:02 -0400 (Thu, 03 Sep 2009) $
+ * $Revision: 3700 $
+ * $Date: 2009-09-07 07:16:43 -0400 (Mon, 07 Sep 2009) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3688 2009-09-03 08:59:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 3700 2009-09-07 11:16:43Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9312,7 +9312,9 @@ void idAI::Knockout( idEntity* inflictor )
 
 void idAI::PostKnockOut()
 {
-	headAnim.StopAnim(1);
+	// greebo: Removed StopAnim() for head channel, this caused the AI to open its eyes again
+	//headAnim.StopAnim(1);
+
 	legsAnim.StopAnim(1);
 	torsoAnim.StopAnim(1);
 
