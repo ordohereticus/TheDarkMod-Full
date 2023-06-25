@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3981 $
- * $Date: 2010-06-25 07:27:18 +0200 (Fri, 25 Jun 2010) $
- * $Author: tels $
+ * $Revision: 4023 $
+ * $Date: 2010-07-07 22:14:25 -0400 (Wed, 07 Jul 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -17,7 +17,7 @@ Level Of Detail Entities - Manage other entities based on LOD (e.g. distance)
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 3981 2010-06-25 05:27:18Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4023 2010-07-08 02:14:25Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
