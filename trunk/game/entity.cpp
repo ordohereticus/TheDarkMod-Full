@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4266 $
- * $Date: 2010-10-29 10:25:12 -0400 (Fri, 29 Oct 2010) $
- * $Author: grayman $
+ * $Revision: 4271 $
+ * $Date: 2010-11-06 12:31:13 -0400 (Sat, 06 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4266 2010-10-29 14:25:12Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4271 2010-11-06 16:31:13Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1918,6 +1918,33 @@ void idEntity::Restore( idRestoreGame *savefile )
 	savefile->ReadInt(previousVoiceIndex);
 	savefile->ReadSoundShader((const idSoundShader *&)previousBodyShader);
 	savefile->ReadInt(previousBodyIndex);
+
+	// Tels #2417: after Restore call RestoreScriptObject() of the scriptObject so the
+	// script object can restore f.i. sounds:
+
+	const function_t *func = scriptObject.GetFunction( "RestoreScriptObject" );
+	if (func)
+	{
+		idThread *thread = idThread::CurrentThread();
+		if (!thread)
+		{
+			gameLocal.Printf("No running thread for RestoreScriptObject(), creating new one.\n");
+			thread = new idThread();
+			thread->SetThreadName( name.c_str() );
+		}
+		// gameLocal.Warning( "Will call function '%s' in '%s'", "RestoreScriptObject", scriptObject.GetTypeName() );
+		if ( func->type->NumParameters() != 1 ) {
+			gameLocal.Warning( "Function 'RestoreScriptObject' has the wrong number of parameters");
+		}
+		thread->CallFunction( this, func, true );
+		thread->DelayedStart( 0 );
+	}
+/*	else
+	{
+		gameLocal.Warning("No RestoreScriptObject() function in script object for %s", GetName() );
+	}
+*/
+	// done with calling "Restore()" on the script object
 }
 
 /*
@@ -5443,7 +5470,7 @@ idThread *idEntity::ConstructScriptObject( void ) {
 	// init the script object's data
 	scriptObject.ClearObject();
 
-	// call script object's constructor
+	// call script object's constructor (usually "init()")
 	constructor = scriptObject.GetConstructor();
 	if ( constructor ) {
 		// start a thread that will initialize after Spawn is done being called
