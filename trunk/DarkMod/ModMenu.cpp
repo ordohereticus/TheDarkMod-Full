@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+ * $Revision: 4057 $
+ * $Date: 2010-07-13 09:22:46 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4057 2010-07-13 13:22:46Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -53,15 +53,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 
 		if (numNewMissions > 0)
 		{
-			if (numNewMissions > 1)
-			{
-				gui->SetStateString("newFoundMissionsText", va("%d new missions are available", numNewMissions));
-			}
-			else
-			{
-				gui->SetStateString("newFoundMissionsText", va("A new mission is available", numNewMissions));
-			}
-
+			gui->SetStateString("newFoundMissionsText", "New missions available");
 			gui->SetStateString("newFoundMissionsList", gameLocal.m_MissionManager->GetNewFoundMissionsText());
 			gui->HandleNamedEvent("OnNewMissionsFound");
 

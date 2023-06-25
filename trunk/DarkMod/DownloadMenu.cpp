@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4056 $
- * $Date: 2010-07-13 08:10:36 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4057 $
+ * $Date: 2010-07-13 09:22:46 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4056 2010-07-13 12:10:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4057 2010-07-13 13:22:46Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -151,6 +151,14 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 		StartDownload(gui);
 		UpdateDownloadProgress(gui); // do this first
 		UpdateGUI(gui);
+	}
+	else if (cmd == "onDownloadCompleteConfirm")
+	{
+		// Let the mission list be refreshed
+		gameLocal.m_MissionManager->ReloadMissionList();
+
+		// Let the GUI request another refresh of downloadable missions (with delay)
+		gui->HandleNamedEvent("QueueDownloadableMissionListRefresh");
 	}
 }
 
@@ -345,7 +353,7 @@ void CDownloadMenu::ShowDownloadResult(idUserInterface* gui)
 	// Display the popup box
 	GuiMessage msg;
 	msg.type = GuiMessage::MSG_OK;
-	msg.okCmd = "close_msg_box;refreshAvailableMissionList";
+	msg.okCmd = "close_msg_box;onDownloadCompleteConfirm";
 	msg.title = "Mission Download Result";
 	msg.message = "";
 
