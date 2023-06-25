@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4072 $
-#* $Date: 2010-07-19 10:18:25 -0400 (Mon, 19 Jul 2010) $
+#* $Revision: 4109 $
+#* $Date: 2010-07-31 03:18:46 -0400 (Sat, 31 Jul 2010) $
 #* $Author: tels $
 #*
 #* $Log$
@@ -272,6 +272,7 @@ AI/Tasks/WaitTask.cpp \
 AI/Tasks/WanderInLocationTask.cpp \
 lode.cpp \
 ModelGenerator.cpp \
+MegaModel.cpp \
 sourcehook/sourcehook.cpp'
 
 darkModList = scons_utils.BuildList('../../DarkMod', darkModSrc)

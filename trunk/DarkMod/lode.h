@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4105 $
- * $Date: 2010-07-30 06:17:16 -0400 (Fri, 30 Jul 2010) $
+ * $Revision: 4109 $
+ * $Date: 2010-07-31 03:18:46 -0400 (Sat, 31 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,11 +14,12 @@
 #define __GAME_LODE_H__
 
 #include "ModelGenerator.h"
+#include "MegaModel.h"
 
 /*
 ===============================================================================
 
-  Lode - Level Of Detail Entity
+  Lode - Level Of Detail Entity Manager
   
   Automatically creates/culls entities based on distance from player.
 
@@ -55,7 +56,7 @@ struct lode_class_t {
 											//!< entity with a megamodel (a combined model from many entities),
 											//!< the model is still stored in hModel.
 											//!< These classes will be skipped when recreating the entities.
-	megamodel_t* 	  		megamodel;		//!< If we combined many entities into one megamodel, track
+	CMegaModel* 	  		megamodel;		//!< If we combined many entities into one megamodel, track
 											//!< here which ones at which LOD stage, so we can upate it.
 	int						seed;			//!< per-class seed so each class generates the same sequence of
 											//!< entities independ from the other classes, helps when the menu
