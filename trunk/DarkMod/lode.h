@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4170 $
- * $Date: 2010-09-10 03:42:14 -0400 (Fri, 10 Sep 2010) $
+ * $Revision: 4185 $
+ * $Date: 2010-09-21 12:25:15 -0400 (Tue, 21 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -431,6 +431,11 @@ private:
 	* Debug level. Default 0. Higher values will print more debug info.
 	*/
 	int							m_iDebug;
+
+	/**
+	* The origin of the LODE brush.
+	*/
+	idVec3						m_origin;
 
 	/**
 	* If true, debug colors are used instead of normal skins.
