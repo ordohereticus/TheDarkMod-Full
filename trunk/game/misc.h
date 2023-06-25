@@ -1,9 +1,10 @@
+// vim:ts=4:sw=4:cindent
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3184 $
- * $Date: 2009-01-19 07:49:11 -0500 (Mon, 19 Jan 2009) $
- * $Author: angua $
+ * $Revision: 3957 $
+ * $Date: 2010-06-18 04:55:46 -0400 (Fri, 18 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -334,7 +335,7 @@ private:
 
 	/**
 	* Set to true if whether this static entity should hide
-	* when outside a certain distance from the player
+	* or change models/skins when outside a certain distance from the player
 	**/
 	bool				m_bDistDependent;
 
@@ -355,6 +356,41 @@ private:
 	* Distance squared beyond which the entity hides, if it is distance dependent
 	**/
 	float				m_DistShowSq;
+
+	/**
+	* Tels: Distance squared beyond which the entity switches to LOD model/skin #1,#2,#3
+	* if it is distance dependent
+	**/
+	float				m_DistLOD1Sq;
+	float				m_DistLOD2Sq;
+	float				m_DistLOD3Sq;
+
+	/**
+	* Tels: LOD (0 - normal, 1,2,3 LOD, 4 hidden)
+	**/
+	int					m_LODLevel;
+
+	/**
+	* Tels: Models and skins to be used for the different LOD distances
+	* for level 0 we use "model" and "skin"
+	**/
+	idStr				m_ModelLOD1;
+	idStr				m_ModelLOD2;
+	idStr				m_ModelLOD3;
+	idStr				m_SkinLOD1;
+	idStr				m_SkinLOD2;
+	idStr				m_SkinLOD3;
+
+	/* Tels: different LOD models might need different offsets to match */
+	idVec3				m_OffsetLOD0;
+	idVec3				m_OffsetLOD1;
+	idVec3				m_OffsetLOD2;
+	idVec3				m_OffsetLOD3;
+
+	/* Tels: Store the current model and skin to avoid flicker when switching
+	   from one model to the same model */
+	idStr				m_ModelLODCur;
+	idStr				m_SkinLODCur;
 };
 
 

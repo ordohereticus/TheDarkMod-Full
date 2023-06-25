@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3957 $
+ * $Date: 2010-06-18 04:55:46 -0400 (Fri, 18 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3957 2010-06-18 08:55:46Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1852,16 +1852,6 @@ void idEntity::BecomeBroken( idEntity *activator )
 			if (clipmodel && clipmodel->IsTraceModel() && GetPhysics())
 			{
 				GetPhysics()->SetClipModel( clipmodel, 1.0f );
-				// tels: should not be nec.
-				//GetPhysics()->SetContents( CONTENTS_SOLID );
-				// SR CONTENTS_RESONSE FIX
-			/**
-			* Ishtvan: shouldn't have to do this again here
-				if( m_StimResponseColl->HasResponse() )
-				{
-					GetPhysics()->SetContents( GetPhysics()->GetContents() | CONTENTS_RESPONSE );
-				}
-			**/
 			}
 		}
 	} 
