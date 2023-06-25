@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4038 $
- * $Date: 2010-07-10 22:10:21 -0400 (Sat, 10 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -31,6 +31,9 @@ public:
 
 	// updates the GUI variables
 	void UpdateGUI(idUserInterface* gui);
+
+private:
+	void StartDownload(idUserInterface* gui);
 };
 typedef boost::shared_ptr<CDownloadMenu> CDownloadMenuPtr;
 

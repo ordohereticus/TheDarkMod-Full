@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4038 $
- * $Date: 2010-07-10 22:10:21 -0400 (Sat, 10 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,10 +12,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4038 2010-07-11 02:10:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4039 2010-07-11 04:41:50Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
+#include "Missions/Download.h"
+#include "Missions/DownloadManager.h"
 
 CDownloadMenu::CDownloadMenu() :
 	_availListTop(0),
@@ -108,6 +110,40 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 
 		UpdateGUI(gui);
 	}
+	else if (cmd == "onStartDownload")
+	{
+		StartDownload(gui);
+	}
+}
+
+void CDownloadMenu::StartDownload(idUserInterface* gui)
+{
+	// Add a new download for each selected mission
+	gui->SetStateBool("dl_button_visible", false);
+
+	const DownloadableMissionList& missions = gameLocal.m_MissionManager->GetDownloadableMissions();
+
+	for (int i = 0; i < _selectedMissions.Num(); ++i)
+	{
+		int missionIndex = _selectedMissions[i];
+
+		if (missionIndex > missions.Num()) continue;
+
+		const DownloadableMission& mission = missions[missionIndex];
+
+		idStr url = mission.downloadLocations[0];
+		idStr filename;
+		url.ExtractFileName(filename);
+
+		idStr targetPath = g_Global.GetDarkmodPath().c_str();
+		targetPath += "/";
+		targetPath += cv_tdm_fm_path.GetString();
+		targetPath += filename;
+
+		CDownloadPtr download(new CDownload(url, targetPath));
+
+		gameLocal.m_DownloadManager->AddDownload(download);
+	}
 }
 
 void CDownloadMenu::UpdateGUI(idUserInterface* gui)
@@ -147,5 +183,10 @@ void CDownloadMenu::UpdateGUI(idUserInterface* gui)
 		gui->SetStateString(va("dl_mission_name_%d", i), missionIndex != -1 ? missions[missionIndex].title : "");
 	}
 
+	gui->SetStateInt("dl_mission_count", _selectedMissions.Num());
+	gui->SetStateBool("dl_button_available", _selectedMissions.Num() > 0); //  TODO: && noDownloadInProgress
+	gui->SetStateBool("dl_button_visible", true);
+
 	gui->HandleNamedEvent("UpdateAvailableMissionColours");
+	gui->HandleNamedEvent("UpdateSelectedMissionColours");
 }

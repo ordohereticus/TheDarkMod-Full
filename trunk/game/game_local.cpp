@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4038 $
- * $Date: 2010-07-10 22:10:21 -0400 (Sat, 10 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4038 2010-07-11 02:10:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4039 2010-07-11 04:41:50Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -40,6 +40,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 4038 2010-07-11 
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../DarkMod/RevisionTracker.h"
 #include "../DarkMod/Missions/MissionManager.h"
+#include "../DarkMod/Missions/DownloadManager.h"
 #include "../DarkMod/Http/HttpConnection.h"
 #include "../DarkMod/Http/HttpRequest.h"
 
@@ -262,6 +263,7 @@ void idGameLocal::Clear( void )
 
 	m_ModMenu.reset();
 	m_DownloadMenu.reset();
+	m_DownloadManager.reset();
 	m_Shop.reset();
 
 	m_guiError.Clear();
@@ -479,6 +481,7 @@ void idGameLocal::Init( void ) {
 	m_RelationsManager = CRelationsPtr(new CRelations);
 	m_ModMenu = CModMenuPtr(new CModMenu);
 	m_DownloadMenu = CDownloadMenuPtr(new CDownloadMenu);
+	m_DownloadManager = CDownloadManagerPtr(new CDownloadManager);
 	m_ConversationSystem = ai::ConversationSystemPtr(new ai::ConversationSystem);
 	
 	// load the soundprop globals from the def file

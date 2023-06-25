@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4038 $
- * $Date: 2010-07-10 22:10:21 -0400 (Sat, 10 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -27,6 +27,8 @@ struct DownloadableMission
 	float sizeMB;
 	idStr releaseDate;
 	idStr language;
+
+	idStringList downloadLocations;
 };
 typedef idList<DownloadableMission> DownloadableMissionList;
 

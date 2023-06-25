@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4026 $
- * $Date: 2010-07-08 09:46:32 -0400 (Thu, 08 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,6 +10,7 @@
 #ifndef _HTTP_REQUEST_H_
 #define _HTTP_REQUEST_H_
 
+#include <fstream>
 #include <boost/shared_ptr.hpp>
 
 class CHttpConnection;
@@ -53,11 +54,18 @@ private:
 	// The current state
 	RequestStatus _status;
 
+	std::string _destFilename;
+
+	std::ofstream _destStream;
+
 public:
 	CHttpRequest(CHttpConnection& conn, const std::string& url);
 
-	// Callback for CURL
+	CHttpRequest(CHttpConnection& conn, const std::string& url, const std::string& destFilename);
+
+	// Callbacks for CURL
 	static size_t WriteMemoryCallback(void* ptr, size_t size, size_t nmemb, CHttpRequest* self);
+	static size_t WriteFileCallback(void* ptr, size_t size, size_t nmemb, CHttpRequest* self);
 
 	RequestStatus GetStatus();
 
@@ -69,6 +77,10 @@ public:
 
 	// Returns the result as XML document
 	XmlDocumentPtr GetResultXml();
+
+private:
+	// shared constructor code
+	void Construct();
 };
 typedef boost::shared_ptr<CHttpRequest> CHttpRequestPtr;
 

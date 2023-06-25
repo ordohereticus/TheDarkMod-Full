@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4030 $
- * $Date: 2010-07-08 22:02:21 -0400 (Thu, 08 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -45,9 +45,10 @@ public:
 	idStr GetProxyPassword();
 
 	/**
-	 * Constructs a new HTTP request using the given URL
+	 * Constructs a new HTTP request using the given URL (optional: filename)
 	 */ 
 	CHttpRequestPtr CreateRequest(const std::string& url);
+	CHttpRequestPtr CreateRequest(const std::string& url, const std::string& destFilename);
 };
 typedef boost::shared_ptr<CHttpConnection> CHttpConnectionPtr;
 

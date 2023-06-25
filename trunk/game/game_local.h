@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4038 $
- * $Date: 2010-07-10 22:10:21 -0400 (Sat, 10 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -214,6 +214,8 @@ class CModMenu;
 typedef boost::shared_ptr<CModMenu> CModMenuPtr;
 class CDownloadMenu;
 typedef boost::shared_ptr<CDownloadMenu> CDownloadMenuPtr;
+class CDownloadManager;
+typedef boost::shared_ptr<CDownloadManager> CDownloadManagerPtr;
 
 class CShop;
 typedef boost::shared_ptr<CShop> CShopPtr;
@@ -498,8 +500,11 @@ public:
 	 */
 	CModMenuPtr				m_ModMenu;
 
-	// The download menu manager
+	// The download menu handler
 	CDownloadMenuPtr		m_DownloadMenu;
+
+	// The download manager
+	CDownloadManagerPtr		m_DownloadManager;
 
 	/**
 	 * greebo: The mission manager instance, for manipulating mission PK4s and saving play info.

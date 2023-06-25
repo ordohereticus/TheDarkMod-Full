@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4038 $
- * $Date: 2010-07-10 22:10:21 -0400 (Sat, 10 Jul 2010) $
+ * $Revision: 4039 $
+ * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4038 2010-07-11 02:10:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4039 2010-07-11 04:41:50Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -723,21 +723,29 @@ void CMissionManager::ReloadDownloadableMissions()
 	{
 		pugi::xml_node node = i->node();
 
-		DownloadableMission& mission = _downloadableMissions.Alloc();
+		DownloadableMission mission;
 
 		mission.title = node.attribute("title").value();
 		mission.sizeMB = node.attribute("size").as_float();
 		mission.author = node.attribute("author").value();
 		mission.releaseDate = node.attribute("releaseDate").value();
 
-		// Only accept English downloadlinks
-		pugi::xpath_node_set downloadLocations = node.select_nodes("//downloadLocation");
+		pugi::xpath_node_set downloadLocations = node.select_nodes("downloadLocation");
 
 		for (pugi::xpath_node_set::const_iterator loc = downloadLocations.begin(); loc != downloadLocations.end(); ++loc)	
 		{
 			pugi::xml_node locNode = loc->node();
 
+			// Only accept English downloadlinks
+			if (idStr::Icmp(locNode.attribute("language").value(), "english") != 0) continue;
 
+			mission.downloadLocations.Append(locNode.attribute("url").value());
+		}
+
+		// Only add missions with valid locations
+		if (mission.downloadLocations.Num() > 0)
+		{
+			_downloadableMissions.Append(mission);
 		}
 	}
 }
