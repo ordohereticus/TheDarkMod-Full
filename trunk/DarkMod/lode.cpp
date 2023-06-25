@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4089 $
- * $Date: 2010-07-23 06:11:49 -0400 (Fri, 23 Jul 2010) $
+ * $Revision: 4091 $
+ * $Date: 2010-07-23 07:26:45 -0400 (Fri, 23 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -24,13 +24,13 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4089 2010-07-23 10:11:49Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4091 2010-07-23 11:26:45Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
 
 // maximum number of tries to place an entity
-#define MAX_TRIES 16
+#define MAX_TRIES 8
 
 // the name of the class where to look for shared models
 #define FUNC_STATIC "func_static"
@@ -722,9 +722,9 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 		gameLocal.Printf("LODE %s: Loaded %i x %i pixel image with %i bpp = %li bytes.\n", 
 				GetName(), LodeClass.img->m_Width, LodeClass.img->m_Height, LodeClass.img->m_Bpp, LodeClass.img->GetBufferLen() );
 
-		if (LodeClass.img->m_Bpp != 8)
+		if (LodeClass.img->m_Bpp != 1)
 		{
-			gameLocal.Error("LODE %s: Bits per pixel must be 8 but is %i!\n", GetName(), LodeClass.img->m_Bpp );
+			gameLocal.Error("LODE %s: Bytes per pixel must be 1 but is %i!\n", GetName(), LodeClass.img->m_Bpp );
 		}
 	}
 
@@ -1326,9 +1326,28 @@ void Lode::PrepareEntities( void )
        			// image based falloff probability
 				if (m_Classes[i].img)
 				{
-					unsigned char *imgData = m_Classes[i].img->GetImage();
 					// compute the pixel we need to query
+					float x = (LodeEntity.origin.x / size.x) + 0.5f;		// 0 .. 1.0
+					float y = (LodeEntity.origin.y / size.y) + 0.5f;		// 0 .. 1.0
 
+					int px = x * m_Classes[i].img->m_Width;					// 0 .. w (f.i. 0 .. 1024)
+					int py = y * m_Classes[i].img->m_Height;				// 0 .. h (f.i. 0 .. 1024)
+
+					// calculate the correct offset
+					//int ofs = m_Classes[i].img->m_Bpp * (py * m_Classes[i].img->m_Height + px);
+					// Bpp is 1
+					int ofs = (py * m_Classes[i].img->m_Height + px);
+
+					unsigned char *imgData = m_Classes[i].img->GetImage();
+					int value = imgData[ofs];
+					//gameLocal.Printf("LODE %s: Pixel at %i, %i (ofs = %i) has value %i (p=%0.2f).\n", GetName(), px, py, ofs, value, (float)value / 256.0f);
+					probability *= (float)value / 256.0f;
+
+					if (probability < 0.000001)
+					{
+						// p too small, continue instead of doing expensive material checks
+						continue;
+					}
 				}
 
 				// Rotate around our rotation axis (to support rotated LODE brushes)
