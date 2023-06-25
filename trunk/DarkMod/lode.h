@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4036 $
- * $Date: 2010-07-09 10:03:53 -0400 (Fri, 09 Jul 2010) $
+ * $Revision: 4049 $
+ * $Date: 2010-07-12 04:46:08 -0400 (Mon, 12 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -177,12 +177,6 @@ private:
 	* means these entities should have a "m_DistCheckInterval" of 0.
 	**/
 	bool				m_bDistDependent;
-
-	/**
-	* Entities further from player than "hide_distance" + m_fCullRange will be culled.
-	* Set to 0 to disable.
-	**/
-	float				m_fCullRange;
 
 	/**
 	* Current seed value for the random generator, which generates the sequence used to place
