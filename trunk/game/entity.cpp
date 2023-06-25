@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3983 $
- * $Date: 2010-06-25 05:38:20 -0400 (Fri, 25 Jun 2010) $
+ * $Revision: 3985 $
+ * $Date: 2010-06-27 02:27:49 -0400 (Sun, 27 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3983 2010-06-25 09:38:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3985 2010-06-27 06:27:49Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2028,7 +2028,12 @@ void idEntity::SetColor( const idVec4 &color ) {
 ================
 idEntity::SetAlpha
 
-Tels: Just set the alpha value
+Tels: Just set the alpha value. Note: Due to the D3 engine not being
+	  able to render faces transparently with correct lighting (you
+	  either get 100% opaque with correct light, or 50% transparent
+	  with correct light, or X% transparent with incorrect light),
+	  this doesn't actually work unless you have a material
+	  shader that takes the alpha value into account.
 ================
 */
 void idEntity::SetAlpha( const float alpha ) {

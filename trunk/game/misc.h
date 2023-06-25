@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3958 $
- * $Date: 2010-06-20 09:16:22 -0400 (Sun, 20 Jun 2010) $
+ * $Revision: 3985 $
+ * $Date: 2010-06-27 02:27:49 -0400 (Sun, 27 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -382,6 +382,12 @@ private:
 	/* Tels: different LOD models might need different offsets to match
 	*		 the position of the LOD 0 level. */
 	idVec3				m_OffsetLOD[ LOD_LEVELS ];
+
+	/**
+	* Tels: fade out and fade in range in D3 units
+	**/
+	float				m_fLODFadeOutRange;
+	float				m_fLODFadeInRange;
 
 	/* Tels: Store the current model and skin to avoid flicker by not
 	*		 switching from one model/skin to the same model/skin when
