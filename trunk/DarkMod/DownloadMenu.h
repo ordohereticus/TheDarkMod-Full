@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4055 $
- * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4407 $
+ * $Date: 2011-01-10 21:39:10 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -43,6 +43,13 @@ private:
 	void UpdateDownloadProgress(idUserInterface* gui);
 
 	void ShowDownloadResult(idUserInterface* gui);
+
+	void UpdateMissionDetails(idUserInterface* gui);
+
+	void PerformScreenshotStep(idUserInterface* gui, int step);
+
+	void UpdateNextScreenshotData(idUserInterface* gui, int nextScreenshotNum);
+	void UpdateScreenshotItemVisibility(idUserInterface* gui);
 };
 typedef boost::shared_ptr<CDownloadMenu> CDownloadMenuPtr;
 
