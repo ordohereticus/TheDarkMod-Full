@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4145 $
- * $Date: 2010-08-28 07:40:38 -0400 (Sat, 28 Aug 2010) $
+ * $Revision: 4150 $
+ * $Date: 2010-08-29 06:36:09 -0400 (Sun, 29 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -513,10 +513,17 @@ public:
 
 	// thinking
 	virtual void			Think( void );
-	// Tels: If LOD is enabled on this entity, check distance and do the right thing
+
+	// Tels: If LOD is enabled on this entity, compute new LOD level and new alpha value.
 	// We pass in a pointer to the data (so the LODE can use shared data) as well as the distance,
 	// so the lode can pre-compute the distance.
-	virtual void			ThinkAboutLOD( const lod_data_t* lod_data, const float deltaSq );
+	virtual float			ThinkAboutLOD( const lod_data_t* lod_data, const float deltaSq );
+
+	// Tels: If LOD is enabled on this entity, call ThinkAboutLOD, computing new LOD level and new
+	// alpha value, then do the right things like Hide/Show, SetAlpha, switch models/skin etc.
+	// We pass in a pointer to the data (so the LODE can use shared data) as well as the distance,
+	// so the lode can pre-compute the distance.
+	virtual	bool			SwitchLOD( const lod_data_t *m_LOD, const float deltaSq );
 
 	bool					CheckDormant( void );	//!< dormant == on the active list, but out of PVS
 	virtual	void			DormantBegin( void );	//!< called when entity becomes dormant
