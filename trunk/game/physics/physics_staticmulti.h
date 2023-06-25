@@ -1,8 +1,9 @@
+// vim:ts=4:sw=4:cindent
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4143 $
- * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Revision: 4444 $
+ * $Date: 2011-01-17 15:34:45 -0500 (Mon, 17 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -73,6 +74,9 @@ public:	// common physics interface
 
 	void					SetOrigin( const idVec3 &newOrigin, int id = -1 );
 	void					SetAxis( const idMat3 &newAxis, int id = -1 );
+
+	// Tels: Scale the clipmodel with the id "id"
+	void					Scale( const idVec3 &scale, int id = -1 );
 
 	void					Translate( const idVec3 &translation, int id = -1 );
 	void					Rotate( const idRotation &rotation, int id = -1 );

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2404 $
- * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 4444 $
+ * $Date: 2011-01-17 15:34:45 -0500 (Mon, 17 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_staticmulti.cpp 2404 2008-06-01 06:05:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_staticmulti.cpp 4444 2011-01-17 20:34:45Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -554,6 +554,30 @@ void idPhysics_StaticMulti::Translate( const idVec3 &translation, int id ) {
 			current[i].origin += translation;
 
 			if ( clipModels[i] ) {
+				clipModels[i]->Link( gameLocal.clip, self, i, current[i].origin, current[i].axis );
+			}
+		}
+	}
+}
+
+/*
+================
+Tels: idPhysics_StaticMulti::Scale
+================
+*/
+void idPhysics_StaticMulti::Scale( const idVec3 &scale, int id ) {
+	int i;
+
+	if ( id >= 0 && id < clipModels.Num() ) {
+		if ( clipModels[id] ) {
+			clipModels[id]->Scale( scale );
+			// Tels: nec.?
+			clipModels[id]->Link( gameLocal.clip, self, id, current[id].origin, current[id].axis );
+		}
+	} else if ( id == -1 ) {
+		for ( i = 0; i < clipModels.Num(); i++ ) {
+			if ( clipModels[i] ) {
+				clipModels[i]->Scale( scale );
 				clipModels[i]->Link( gameLocal.clip, self, i, current[i].origin, current[i].axis );
 			}
 		}
