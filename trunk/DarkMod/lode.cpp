@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4165 $
- * $Date: 2010-09-08 11:52:47 -0400 (Wed, 08 Sep 2010) $
+ * $Revision: 4167 $
+ * $Date: 2010-09-08 12:34:12 -0400 (Wed, 08 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,14 +19,15 @@ TODO: add a "pseudoclass" bit so into the entity flags field, so we can use much
 	  smaller structs for pseudo classes (we might have thousands
 	  of pseudoclass structs due to each having a different hmodel)
 TODO: add "watch_models" (or "combine_models"?) so the mapper can place models and
-	  then use the modelgenerator to combine them into one big rendermodel. also
-	  test if doom's "combine_models" works or not.
+	  then use the modelgenerator to combine them into one big rendermodel. The current
+	  way of targeting and using "watch_brethren" does get all "func_static" as it is
+	  classname based, not model name based.
 */
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4165 2010-09-08 15:52:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4167 2010-09-08 16:34:12Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
