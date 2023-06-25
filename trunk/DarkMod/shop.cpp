@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4369 $
- * $Date: 2010-12-11 18:36:48 -0500 (Sat, 11 Dec 2010) $
- * $Author: grayman $
+ * $Revision: 4435 $
+ * $Date: 2011-01-14 00:32:03 -0500 (Fri, 14 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4369 2010-12-11 23:36:48Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4435 2011-01-14 05:32:03Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -327,6 +327,8 @@ void CShop::HandleCommands(const char *menuCommand, idUserInterface *gui, idPlay
 		int soldItem = gui->GetStateInt("soldItem", "0");
 		SellItem(soldItem);
 		UpdateGUI(gui);
+
+		gui->HandleNamedEvent("UpdateItemColoursForSale");
 	}
 	else if (idStr::Icmp(menuCommand, "shopDrop") == 0)
 	{
