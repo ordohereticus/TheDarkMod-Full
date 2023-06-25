@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4093 $
- * $Date: 2010-07-24 03:44:37 -0400 (Sat, 24 Jul 2010) $
+ * $Revision: 4099 $
+ * $Date: 2010-07-25 15:55:25 -0400 (Sun, 25 Jul 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -137,6 +137,7 @@ private:
 		dnImageWrapper		m_imageCookedMath;
 		const idMaterial*	m_matCookMath_pass1;
 		const idMaterial*	m_matCookMath_pass2;
+		const idMaterial*	m_matCookMath_pass3;
 
 	const idMaterial *m_matAvgLuminance64x;
 	const idMaterial *m_matAvgLumSample4x4;
