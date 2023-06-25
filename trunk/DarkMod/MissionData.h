@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4191 $
- * $Date: 2010-09-25 10:49:53 -0400 (Sat, 25 Sep 2010) $
- * $Author: baal $
+ * $Revision: 4192 $
+ * $Date: 2010-09-25 22:37:14 -0400 (Sat, 25 Sep 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -928,10 +928,15 @@ class CObjectiveLocation : public idEntity
 public:
 	CLASS_PROTOTYPE( CObjectiveLocation );
 	
-	CObjectiveLocation( void );
+	CObjectiveLocation();
+
+	~CObjectiveLocation();
 
 	void Think( void );
 	void Spawn( void );
+
+	// Called by ~idEntity to catch entity destructions
+	void OnEntityDestroyed(idEntity* ent);
 
 	void Save( idSaveGame *savefile ) const;
 	void Restore( idRestoreGame *savefile );

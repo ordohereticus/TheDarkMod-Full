@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4174 $
- * $Date: 2010-09-10 13:48:46 -0400 (Fri, 10 Sep 2010) $
- * $Author: tels $
+ * $Revision: 4192 $
+ * $Date: 2010-09-25 22:37:14 -0400 (Sat, 25 Sep 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4174 2010-09-10 17:48:46Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4192 2010-09-26 02:37:14Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -28,6 +28,7 @@ static bool init_version = FileVersionList("$Id: entity.cpp 4174 2010-09-10 17:4
 #include "../DarkMod/Inventory/Inventory.h"
 #include "../DarkMod/Inventory/Cursor.h"
 #include "../DarkMod/AbsenceMarker.h"
+#include "../DarkMod/MissionData.h"
 
 /*
 ===============================================================================
@@ -1274,6 +1275,16 @@ idEntity::~idEntity
 idEntity::~idEntity( void )
 {
 	DM_LOG(LC_FUNCTION, LT_DEBUG)LOGSTRING("this: %08lX [%s]\r", this, __FUNCTION__);
+
+	// Let each objective entity we're currently in know about our destruction
+	for (int i = 0; i < m_objLocations.Num(); ++i)
+	{
+		CObjectiveLocation* locationEnt = m_objLocations[i].GetEntity();
+
+		if (locationEnt == NULL) continue; // probably already deleted
+
+		locationEnt->OnEntityDestroyed(this);
+	}
 
 	gameLocal.RemoveResponse(this);
 	gameLocal.RemoveStim(this);
@@ -8973,6 +8984,28 @@ const CInventoryCursorPtr& idEntity::InventoryCursor()
 	}
 
 	return m_InventoryCursor;
+}
+
+void idEntity::OnAddToLocationEntity(CObjectiveLocation* locationEnt)
+{
+	idEntityPtr<CObjectiveLocation> locationEntPtr;
+	locationEntPtr = locationEnt;
+
+	// Ensure that objective locations don't add themselves twice or more times
+	assert(m_objLocations.FindIndex(locationEntPtr) == -1);
+
+	m_objLocations.Alloc() = locationEntPtr;
+}
+
+void idEntity::OnRemoveFromLocationEntity(CObjectiveLocation* locationEnt)
+{
+	idEntityPtr<CObjectiveLocation> locationEntPtr;
+	locationEntPtr = locationEnt;
+
+	// Ensure that only registered location ents are removed
+	assert(m_objLocations.FindIndex(locationEntPtr) != -1);
+
+	m_objLocations.Remove(locationEntPtr);
 }
 
 void idEntity::Event_PropSound( const char *sndName )
