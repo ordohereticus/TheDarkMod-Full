@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4115 $
- * $Date: 2010-08-01 05:18:13 -0400 (Sun, 01 Aug 2010) $
+ * $Revision: 4178 $
+ * $Date: 2010-09-17 06:24:44 -0400 (Fri, 17 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4115 2010-08-01 09:18:13Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4178 2010-09-17 10:24:44Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -759,6 +759,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// Save our grabber pointer
 	savegame.WriteObject(m_Grabber);
+
+	// Save the model generator data
+	m_ModelGenerator->Save(&savegame);
 
 	m_DifficultyManager.Save(&savegame);
 
