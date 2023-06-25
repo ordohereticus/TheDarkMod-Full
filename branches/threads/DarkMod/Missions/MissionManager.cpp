@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4043 $
- * $Date: 2010-07-11 09:49:34 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4044 $
+ * $Date: 2010-07-11 10:14:08 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4043 2010-07-11 13:49:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4044 2010-07-11 14:14:08Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -744,7 +744,7 @@ void CMissionManager::ReloadDownloadableMissions()
 			}
 		}
 
-		if (missionExists) continue;
+		// TODO if (missionExists) continue;
 
 		pugi::xpath_node_set downloadLocations = node.select_nodes("downloadLocation");
 
