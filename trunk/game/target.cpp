@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4221 $
- * $Date: 2010-10-03 11:23:15 -0400 (Sun, 03 Oct 2010) $
+ * $Revision: 4244 $
+ * $Date: 2010-10-13 21:48:45 -0400 (Wed, 13 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 4221 2010-10-03 15:23:15Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 4244 2010-10-14 01:48:45Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1598,107 +1598,6 @@ void idTarget_EnableLevelWeapons::Event_Activate( idEntity *activator ) {
 		}
 	}
 }
-
-/*
-===============================================================================
-
-idTarget_Tip
-
-===============================================================================
-*/
-
-const idEventDef EV_TipOff( "<TipOff>" );
-extern const idEventDef EV_GetPlayerPos( "<getplayerpos>" );
-
-CLASS_DECLARATION( idTarget, idTarget_Tip )
-	EVENT( EV_Activate,		idTarget_Tip::Event_Activate )
-	EVENT( EV_TipOff,		idTarget_Tip::Event_TipOff )
-	EVENT( EV_GetPlayerPos,	idTarget_Tip::Event_GetPlayerPos )
-END_CLASS
-
-
-/*
-================
-idTarget_Tip::idTarget_Tip
-================
-*/
-idTarget_Tip::idTarget_Tip( void ) {
-	playerPos.Zero();
-}
-
-/*
-================
-idTarget_Tip::Spawn
-================
-*/
-void idTarget_Tip::Spawn( void ) {
-}
-
-/*
-================
-idTarget_Tip::Save
-================
-*/
-void idTarget_Tip::Save( idSaveGame *savefile ) const {
-	savefile->WriteVec3( playerPos );
-}
-
-/*
-================
-idTarget_Tip::Restore
-================
-*/
-void idTarget_Tip::Restore( idRestoreGame *savefile ) {
-	savefile->ReadVec3( playerPos );
-}
-
-/*
-================
-idTarget_Tip::Event_Activate
-================
-*/
-void idTarget_Tip::Event_GetPlayerPos( void ) {
-	idPlayer *player = gameLocal.GetLocalPlayer();
-	if ( player ) {
-		playerPos = player->GetPhysics()->GetOrigin();
-		PostEventMS( &EV_TipOff, 100 );
-	}
-}
-
-/*
-================
-idTarget_Tip::Event_Activate
-================
-*/
-void idTarget_Tip::Event_Activate( idEntity *activator ) {
-	idPlayer *player = gameLocal.GetLocalPlayer();
-	if ( player ) {
-		if ( player->IsTipVisible() ) {
-			PostEventSec( &EV_Activate, 5.1f, activator );
-			return;
-		}
-		player->ShowTip( spawnArgs.GetString( "text_title" ), spawnArgs.GetString( "text_tip" ), false );
-		PostEventMS( &EV_GetPlayerPos, 2000 );
-	}
-}
-
-/*
-================
-idTarget_Tip::Event_TipOff
-================
-*/
-void idTarget_Tip::Event_TipOff( void ) {
-	idPlayer *player = gameLocal.GetLocalPlayer();
-	if ( player ) {
-		idVec3 v = player->GetPhysics()->GetOrigin() - playerPos;
-		if ( v.Length() > 96.0f ) {
-			player->HideTip();
-		} else {
-			PostEventMS( &EV_TipOff, 100 );
-		}
-	}
-}
-
 
 /*
 ===============================================================================
