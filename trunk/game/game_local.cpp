@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4333 $
- * $Date: 2010-11-25 22:25:23 -0500 (Thu, 25 Nov 2010) $
+ * $Revision: 4335 $
+ * $Date: 2010-11-26 02:10:00 -0500 (Fri, 26 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4333 2010-11-26 03:25:23Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4335 2010-11-26 07:10:00Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3505,9 +3505,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	// When this is set to TRUE, the next command will be dumped to the console
 	static bool logNextCommand = false;
 
-	// TODO Tels: Verify this is the right place!
-	mainMenuExited = true;
-
 	idStr cmd(menuCommand);
 
 	// Watch out for objectives GUI-related commands
@@ -3615,6 +3612,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}	
 	else if (cmd == "close") 
 	{
+		// Solarsplace: fix for #2424:
+		mainMenuExited = true;
+
 		// Start the timer again, we're closing the menu
 		m_GamePlayTimer.Start();
 	}
