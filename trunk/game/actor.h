@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3795 $
- * $Date: 2010-01-13 00:01:11 -0500 (Wed, 13 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 4063 $
+ * $Date: 2010-07-14 23:16:38 -0400 (Wed, 14 Jul 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -545,6 +545,10 @@ public:
 							// animation state control
 	int						GetAnim( int channel, const char *name );
 	idAnimator*				GetAnimatorForChannel(int channel);
+
+	// greebo: Searches the given dictionary for animation replacement spawnargs and applies them to this actor
+	void					LoadReplacementAnims(const idDict& spawnArgs);
+
 	const char*				LookupReplacementAnim( const char *name );
 
 	// greebo: Replaces the given animToReplace by the animation replacementAnim
