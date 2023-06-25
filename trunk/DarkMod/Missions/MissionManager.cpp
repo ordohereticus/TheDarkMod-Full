@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4319 $
- * $Date: 2010-11-23 10:06:00 -0500 (Tue, 23 Nov 2010) $
+ * $Revision: 4379 $
+ * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4319 2010-11-23 15:06:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4379 2010-12-22 14:49:40Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -31,6 +31,12 @@ CMissionManager::CMissionManager() :
 	_missionDB(new CMissionDB),
 	_refreshMissionListDownloadId(-1)
 {}
+
+CMissionManager::~CMissionManager()
+{
+	// Clear contents and the list elements themselves
+	_downloadableMissions.DeleteContents(true);
+}
 
 void CMissionManager::Init()
 {
@@ -691,7 +697,8 @@ void CMissionManager::UninstallMission()
 
 int CMissionManager::StartReloadDownloadableMissions()
 {
-	_downloadableMissions.Clear();
+	// Clear contents and the list elements themselves
+	_downloadableMissions.DeleteContents(true);
 
 	if (gameLocal.m_HttpConnection == NULL) return -1;
 
@@ -865,9 +872,17 @@ void CMissionManager::LoadMissionListFromXml(const XmlDocumentPtr& doc)
 		// Only add missions with valid locations
 		if (mission.downloadLocations.Num() > 0)
 		{
-			_downloadableMissions.Append(mission);
+			// Copy-construct the local mission struct into the heap-allocated one
+			_downloadableMissions.Append(new DownloadableMission(mission));
 		}
 	}
+
+	SortDownloadableMissions();
+}
+
+void CMissionManager::SortDownloadableMissions()
+{
+	_downloadableMissions.Sort(DownloadableMission::SortCompare);
 }
 
 const DownloadableMissionList& CMissionManager::GetDownloadableMissions() const

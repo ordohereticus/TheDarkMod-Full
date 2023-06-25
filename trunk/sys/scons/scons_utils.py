@@ -4,9 +4,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 1302 $
-#* $Date: 2007-08-20 03:09:05 -0400 (Mon, 20 Aug 2007) $
-#* $Author: crispy $
+#* $Revision: 4379 $
+#* $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+#* $Author: greebo $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -18,7 +18,7 @@
 #*
 #***************************************************************************
 
-import sys, os, string, time, commands, re, pickle, StringIO, popen2, commands, pdb, zipfile, tempfile
+import sys, os, string, time, commands, re, pickle, StringIO, commands, pdb, zipfile, tempfile
 import SCons
 
 # need an Environment and a matching buffered_spawn API .. encapsulate

@@ -1,3 +1,12 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod - Updater
+ * $Revision: 4379 $
+ * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Author: greebo $
+ *
+ ***************************************************************************/
+
 #pragma once
 
 #include "afxwin.h"
@@ -48,7 +57,7 @@ public:
 	void SetProgressText(const std::string& text);
 	void SetProgressSpeedText(const std::string& text);
 	void SetProgress(double progressFraction);
-	void SetFullDownloadProgress(double progressFraction);
+	void SetFullDownloadProgress(const tdm::updater::ProgressInfo& info);
 
 	void SetTaskbarProgress(TaskbarProgressType type, double progressFraction);
 

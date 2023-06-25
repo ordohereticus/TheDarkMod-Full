@@ -1,3 +1,12 @@
+#############################################################################
+# 
+#  PROJECT: The Dark Mod - Updater
+#  $Revision: 4379 $
+#  $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+#  $Author: greebo $
+# 
+##############################################################################
+
 # The Dark Mod Updater build script
 # Adapted from id's game sconscript
 # Author: greebo
@@ -16,7 +25,7 @@ def BuildList( s_prefix, s_string ):
 # Master list of source files to compile
 tdm_update_list = BuildList('./', 'tdm_update.cpp ConsoleUpdater.cpp')
 
-local_env = g_env.Copy()
+local_env = g_env.Clone()
 local_env.Append(CPPFLAGS = [ '-Wno-unused', '-Wno-deprecated', '-Wno-non-virtual-dtor' ])
 
 local_env.Append(CPPPATH = '#/../include')

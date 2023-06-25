@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4079 $
- * $Date: 2010-07-21 23:34:52 -0400 (Wed, 21 Jul 2010) $
- * $Author: jcdenton $
+ * $Revision: 4379 $
+ * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -63,7 +63,7 @@ public:
 	void			SetRadiusXYZ( const float x, const float y, const float z );
 	void			SetRadius( const float radius );
 	void			On( void );
-	void			Off( void );
+	void			Off( const bool stopSound = true );
 	void			Fade( const idVec4 &to, float fadeTime );
 	void			FadeOut( float time );
 	void			FadeIn( float time );

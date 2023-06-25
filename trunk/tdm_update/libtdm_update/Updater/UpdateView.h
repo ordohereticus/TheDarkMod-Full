@@ -1,3 +1,12 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod - Updater
+ * $Revision: 4379 $
+ * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Author: greebo $
+ *
+ ***************************************************************************/
+
 #pragma once
 
 #include "DifferentialUpdateInfo.h"
@@ -50,6 +59,12 @@ struct ProgressInfo
 
 	// Number of bytes received
 	std::size_t downloadedBytes;
+
+	// Number of bytes to download
+	std::size_t bytesToDownload;
+
+	// Number of files to download
+	std::size_t filesToDownload;
 };
 
 /**

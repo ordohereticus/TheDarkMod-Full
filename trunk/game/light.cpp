@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4337 $
- * $Date: 2010-11-26 06:57:10 -0500 (Fri, 26 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4379 $
+ * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 4337 2010-11-26 11:57:10Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 4379 2010-12-22 14:49:40Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -660,13 +660,13 @@ void idLight::On( void ) {
 idLight::Off
 ================
 */
-void idLight::Off( void ) {
+void idLight::Off( const bool stopSound ) {
 	const char *skinName;
 	const idDeclSkin *skin;
 
 	currentLevel = 0;
-	// kill any sound it was making
-	if ( refSound.referenceSound && refSound.referenceSound->CurrentlyPlaying() ) {
+
+	if ( stopSound && refSound.referenceSound && refSound.referenceSound->CurrentlyPlaying() ) {
 		StopSound( SND_CHANNEL_ANY, false );
 		soundWasPlaying = true;
 	}
@@ -701,7 +701,8 @@ void idLight::Fade( const idVec4 &to, float fadeTime ) {
 		if (to == colorBlack)
 		{
 			// The fade does not happen (time too short), so Off() would not be called so do it now (#2440)
-			Off();
+			// avoid the sound stopping, because this might be snd_extinguished
+			Off( false );
 		}
 		else
 		{
@@ -721,10 +722,11 @@ idLight::FadeOut
 ================
 */
 void idLight::FadeOut( float time ) {
-	if (fadeFrom == colorBlack)
+	if (baseColor.x == 0 && baseColor.y == 0 && baseColor.z == 0)
 	{
 		// The fade would not happen, so Off() would not be called, so do it now (#2440)
-		Off();
+		// avoid the sound stopping, because this might be snd_extinguished
+		Off( false );
 	}
 	else
 	{
@@ -743,6 +745,7 @@ void idLight::FadeIn( float time ) {
 	idVec4 color4;
 
 	currentLevel = levels;
+	// restore the original light color
 	spawnArgs.GetVector( "_color", "1 1 1", color );
 	color4.Set( color.x, color.y, color.z, 1.0f );
 	Fade( color4, time );
@@ -925,7 +928,8 @@ void idLight::Think( void ) {
 				// Tels: Fix issues like 2440: FadeOff() does not switch the light to the off state
 				if (color[0] == 0 && color[1] == 0 && color[2] == 0)
 				{
-					Off();
+					// avoid the sound stopping, because this might be snd_extinguished
+					Off( false );
 				}
 				BecomeInactive( TH_THINK );
 			}
