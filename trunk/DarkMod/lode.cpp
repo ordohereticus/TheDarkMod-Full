@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4129 $
- * $Date: 2010-08-06 09:34:12 -0400 (Fri, 06 Aug 2010) $
+ * $Revision: 4131 $
+ * $Date: 2010-08-09 22:13:30 -0400 (Mon, 09 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4129 2010-08-06 13:34:12Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4131 2010-08-10 02:13:30Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2053,7 +2053,8 @@ void Lode::CombineEntities( void )
 			}
 			// mark all entities that will be merged as "deleted", but
 			// skip the rest
-			for (int d = 0; d < tobedeleted.Num(); d++)
+			unsigned int n = (unsigned int)tobedeleted.Num();
+			for (unsigned int d = 0; d < n; d++)
 			{
 				int todo = tobedeleted[d];
 				// mark
