@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4058 $
- * $Date: 2010-07-13 10:23:30 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4060 $
+ * $Date: 2010-07-13 20:22:10 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4058 2010-07-13 14:23:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4060 2010-07-14 00:22:10Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -172,15 +172,11 @@ void CDownloadMenu::StartDownload(idUserInterface* gui)
 
 		const DownloadableMission& mission = missions[missionIndex];
 
-		// Take the filename from the first URL
-		idStr url = mission.downloadLocations[0];
-		idStr filename;
-		url.ExtractFileName(filename);
-
+		// The filename is deduced from the mod name found on the website
 		idStr targetPath = g_Global.GetDarkmodPath().c_str();
 		targetPath += "/";
 		targetPath += cv_tdm_fm_path.GetString();
-		targetPath += filename;
+		targetPath += mission.modName + ".pk4";
 
 		CDownloadPtr download(new CDownload(mission.downloadLocations, targetPath));
 
