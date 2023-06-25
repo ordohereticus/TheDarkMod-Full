@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3939 $
- * $Date: 2010-06-10 23:39:35 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 4058 $
+ * $Date: 2010-07-13 10:23:30 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionDB.cpp 3939 2010-06-11 03:39:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionDB.cpp 4058 2010-07-13 14:23:30Z greebo $", init_version);
 
 #include "MissionDB.h"
 #include "MissionInfoDecl.h"
@@ -173,4 +173,9 @@ const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
 	missionInfo->LoadMetaData();
 
 	return result.first->second;
+}
+
+bool CMissionDB::MissionInfoExists(const idStr& name)
+{
+	return _missionInfo.find(name.c_str()) != _missionInfo.end();
 }

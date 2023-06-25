@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 4058 $
+ * $Date: 2010-07-13 10:23:30 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -37,6 +37,9 @@ public:
 	// Always returns non-NULL, if the name is not existing, 
 	// a new structure will be created
 	const CMissionInfoPtr& GetMissionInfo(const idStr& name);
+
+	// Checks whether there is a record for the given mission name
+	bool MissionInfoExists(const idStr& name);
 
 private:
 	void ReloadMissionInfoFile();

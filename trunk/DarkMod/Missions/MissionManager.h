@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4055 $
- * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4058 $
+ * $Date: 2010-07-13 10:23:30 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -28,6 +28,7 @@ struct DownloadableMission
 	idStr releaseDate;
 	idStr language;
 	int version;
+	bool isUpdate;
 
 	idStringList downloadLocations;
 };

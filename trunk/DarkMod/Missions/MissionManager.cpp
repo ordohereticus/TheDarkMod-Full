@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4056 $
- * $Date: 2010-07-13 08:10:36 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4058 $
+ * $Date: 2010-07-13 10:23:30 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4056 2010-07-13 12:10:36Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4058 2010-07-13 14:23:30Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -731,6 +731,7 @@ void CMissionManager::ReloadDownloadableMissions()
 		mission.releaseDate = node.attribute("releaseDate").value();
 		mission.modName = node.attribute("internalName").value();
 		mission.version = node.attribute("version").as_int();
+		mission.isUpdate = false;
 
 		bool missionExists = false;
 
@@ -744,7 +745,26 @@ void CMissionManager::ReloadDownloadableMissions()
 			}
 		}
 
-		if (missionExists) continue;
+		if (missionExists)
+		{
+			// Check Mission version, there might be an update available
+			if (_missionDB->MissionInfoExists(mission.modName))
+			{
+				CMissionInfoPtr missionInfo = _missionDB->GetMissionInfo(mission.modName);
+
+				idStr versionStr = missionInfo->GetKeyValue("downloaded_version", "1");
+				int existingVersion = atoi(versionStr.c_str());
+
+				if (existingVersion >= mission.version)
+				{
+					continue; // Our version is up to date
+				}
+				else
+				{
+					mission.isUpdate = true;
+				}
+			}
+		}
 
 		pugi::xpath_node_set downloadLocations = node.select_nodes("downloadLocation");
 
