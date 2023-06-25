@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4099 $
- * $Date: 2010-07-25 15:55:25 -0400 (Sun, 25 Jul 2010) $
+ * $Revision: 4154 $
+ * $Date: 2010-08-30 12:35:47 -0400 (Mon, 30 Aug 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -296,6 +296,8 @@ extern idCVar cv_lg_screen_height;
 extern idCVar cv_lg_velocity_mod_min_velocity;
 extern idCVar cv_lg_velocity_mod_max_velocity;
 extern idCVar cv_lg_velocity_mod_amount;
+
+extern idCVar cv_lg_fade_delay;						// Added by  J.C.Denton
 
 extern idCVar cv_empty_model;
 

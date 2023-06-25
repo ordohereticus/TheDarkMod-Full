@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4154 $
+ * $Date: 2010-08-30 12:35:47 -0400 (Mon, 30 Aug 2010) $
+ * $Author: jcdenton $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -1111,10 +1111,12 @@ private:
 	 * DARKMOD_LG_MIN (1) <= N <= DARKMOG_LG_MAX (32)
 	 */
 	int							m_LightgemValue;
+
 	/**
 	 * Contains the last lightgem value. This is stored for interleaving.
 	 */
 	float						m_fColVal;
+	float						m_fBlendColVal;						// Store the result for smooth fading of lightgem - J.C.Denton
 
 	// An integer keeping track of the lightgem interleaving
 	int							m_LightgemInterleave;
