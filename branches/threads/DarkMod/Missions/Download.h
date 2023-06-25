@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4043 $
- * $Date: 2010-07-11 09:49:34 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4045 $
+ * $Date: 2010-07-11 22:05:51 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,6 +25,9 @@ private:
 
 	// destination file
 	idStr _destFilename;
+
+	// Temporary filename for partial download data
+	idStr _tempFilename;
 
 public:
 	enum Status
