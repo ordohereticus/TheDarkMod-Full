@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3957 $
- * $Date: 2010-06-18 04:55:46 -0400 (Fri, 18 Jun 2010) $
+ * $Revision: 3982 $
+ * $Date: 2010-06-25 02:15:02 -0400 (Fri, 25 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3957 2010-06-18 08:55:46Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3982 2010-06-25 06:15:02Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1983,7 +1983,7 @@ void idEntity::SetShaderParm( int parmnum, float value )
 idEntity::SetColor
 ================
 */
-void idEntity::SetColor( float red, float green, float blue ) {
+void idEntity::SetColor( const float red, const float green, const float blue ) {
 	renderEntity.shaderParms[ SHADERPARM_RED ]		= red;
 	renderEntity.shaderParms[ SHADERPARM_GREEN ]	= green;
 	renderEntity.shaderParms[ SHADERPARM_BLUE ]		= blue;
@@ -2021,6 +2021,16 @@ void idEntity::SetColor( const idVec4 &color ) {
 	renderEntity.shaderParms[ SHADERPARM_GREEN ]	= color[ 1 ];
 	renderEntity.shaderParms[ SHADERPARM_BLUE ]		= color[ 2 ];
 	renderEntity.shaderParms[ SHADERPARM_ALPHA ]	= color[ 3 ];
+	UpdateVisuals();
+}
+
+/*
+================
+idEntity::SetAlpha
+================
+*/
+void idEntity::SetAlpha( const float alpha ) {
+	renderEntity.shaderParms[ SHADERPARM_ALPHA ]	= alpha;
 	UpdateVisuals();
 }
 

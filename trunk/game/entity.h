@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3982 $
+ * $Date: 2010-06-25 02:15:02 -0400 (Fri, 25 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -435,7 +435,7 @@ public:
 	void					SetSkin( const idDeclSkin *skin );
 	const idDeclSkin *		GetSkin( void ) const;
 	void					SetShaderParm( int parmnum, float value );
-	virtual void			SetColor( float red, float green, float blue );
+	virtual void			SetColor( const float red, const float green, const float blue );
 	virtual void			SetColor( const idVec3 &color );
 	virtual void			GetColor( idVec3 &out ) const;
 	virtual void			SetColor( const idVec4 &color );
@@ -445,6 +445,11 @@ public:
 	virtual void			Hide( void );
 	virtual void			Show( void );
 	bool					IsHidden( void ) const;
+
+	/**
+	 * Tels: Only set the alpha channel to fade in/out
+	 */
+	virtual void			SetAlpha( const float alpha );
 
 	/**
 	 * greebo: Returns the light quotient for this entity, a value determined by the 
