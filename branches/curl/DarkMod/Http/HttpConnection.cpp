@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3973 $
- * $Date: 2010-06-22 21:38:58 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3979 $
+ * $Date: 2010-06-24 05:14:38 -0400 (Thu, 24 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpConnection.cpp 3973 2010-06-23 01:38:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpConnection.cpp 3979 2010-06-24 09:14:38Z greebo $", init_version);
 
 #include "HttpConnection.h"
 #include "HttpRequest.h"
@@ -30,6 +30,26 @@ CHttpConnection::~CHttpConnection()
 {
 	// Clean up cURL
 	curl_global_cleanup();
+}
+
+bool CHttpConnection::HasProxy()
+{
+	return idStr::Length(cv_tdm_proxy.GetString()) > 0;
+}
+
+idStr CHttpConnection::GetProxyHost()
+{
+	return cv_tdm_proxy.GetString();
+}
+
+idStr CHttpConnection::GetProxyUsername()
+{
+	return cv_tdm_proxy_user.GetString();
+}
+
+idStr CHttpConnection::GetProxyPassword()
+{
+	return cv_tdm_proxy_pass.GetString();
 }
 
 CHttpRequestPtr CHttpConnection::CreateRequest(const std::string& url)

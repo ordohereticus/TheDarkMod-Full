@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3968 $
- * $Date: 2010-06-22 21:14:59 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3979 $
+ * $Date: 2010-06-24 05:14:38 -0400 (Thu, 24 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -87,6 +87,10 @@ extern idCVar cv_tdm_fm_startingmap_file;
 extern idCVar cv_tdm_fm_splashimage_file;
 extern idCVar cv_tdm_fm_sync_config_files;
 extern idCVar cv_tdm_fm_restart_delay;
+
+extern idCVar cv_tdm_proxy;
+extern idCVar cv_tdm_proxy_user;
+extern idCVar cv_tdm_proxy_pass;
 
 extern idCVar cv_debug_aastype;
 

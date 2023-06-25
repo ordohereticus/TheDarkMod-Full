@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3966 $
- * $Date: 2010-06-22 09:42:32 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3979 $
+ * $Date: 2010-06-24 05:14:38 -0400 (Thu, 24 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -27,6 +27,12 @@ public:
 	CHttpConnection();
 
 	~CHttpConnection();
+
+	bool HasProxy();
+
+	idStr GetProxyHost();
+	idStr GetProxyUsername();
+	idStr GetProxyPassword();
 
 	/**
 	 * Constructs a new HTTP request using the given URL

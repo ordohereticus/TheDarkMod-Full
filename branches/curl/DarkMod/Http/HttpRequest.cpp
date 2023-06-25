@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3978 $
- * $Date: 2010-06-23 11:38:23 -0400 (Wed, 23 Jun 2010) $
+ * $Revision: 3979 $
+ * $Date: 2010-06-24 05:14:38 -0400 (Thu, 24 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 3978 2010-06-23 15:38:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpRequest.cpp 3979 2010-06-24 09:14:38Z greebo $", init_version);
 
 #include "HttpRequest.h"
 #include "HttpConnection.h"
@@ -40,9 +40,14 @@ CHttpRequest::CHttpRequest(CHttpConnection& conn, const std::string& url) :
 	curl_easy_setopt(_handle, CURLOPT_WRITEDATA, this);
 
 	// Set agent
-	curl_easy_setopt(_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+	curl_easy_setopt(_handle, CURLOPT_USERAGENT, "The Dark Mod libcurl-agent/1.0");
 
-	// TODO: Get the proxy from the HttpConnection class
+	// Get the proxy from the HttpConnection class
+	if (_conn.HasProxy())
+	{
+		curl_easy_setopt(_handle, CURLOPT_PROXY, _conn.GetProxyHost().c_str());
+		curl_easy_setopt(_handle, CURLOPT_PROXYUSERPWD, (_conn.GetProxyUsername() + ":" + _conn.GetProxyPassword()).c_str());
+	}
 }
 
 void CHttpRequest::Perform()
