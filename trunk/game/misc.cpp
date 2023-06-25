@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3967 $
- * $Date: 2010-06-22 09:49:42 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3980 $
+ * $Date: 2010-06-25 00:17:04 -0400 (Fri, 25 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3967 2010-06-22 13:49:42Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3980 2010-06-25 04:17:04Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1632,7 +1632,7 @@ void idStaticEntity::Spawn( void ) {
 
 				// compute a random number and check it against the hide probability spawnarg
 				// do this only once at setup time, so the setting is stable during runtime
-				float fHideProbability = spawnArgs.GetFloat( "hide_probability", "1.0" );
+				float fHideProbability = spawnArgs.GetFloat( "lod_hide_probability", "1.0" );
 				float fRandom = gameLocal.random.RandomFloat();	// 0.0 .. 1.0
 				if (fRandom <= fHideProbability)
 				{
