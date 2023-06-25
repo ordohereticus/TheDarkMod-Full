@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4186 $
- * $Date: 2010-09-22 12:48:42 -0400 (Wed, 22 Sep 2010) $
+ * $Revision: 4187 $
+ * $Date: 2010-09-24 11:41:58 -0400 (Fri, 24 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -40,7 +40,7 @@ TODO: Make it so we can also combine entities from different classes, e.g. not j
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4186 2010-09-22 16:48:42Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4187 2010-09-24 15:41:58Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2280,7 +2280,8 @@ void Lode::CombineEntities( void )
 
 		// compute the alpha value and the LOD level
 		float fAlpha  = ThinkAboutLOD( entityClass->m_LOD, LODDistance( entityClass->m_LOD, m_Entities[i].origin - playerPos ) );
-		ofs.lod	   = m_LODLevel;
+		// 0 => default model, 1 => first stage etc
+		ofs.lod	   = m_LODLevel + 1;
 //		gameLocal.Warning("LODE %s: Using LOD model %i for base entity.\n", GetName(), ofs.lod );
 		// TODO: pack in the correct alpha value
 		ofs.color  = m_Entities[i].color;
@@ -2343,7 +2344,8 @@ void Lode::CombineEntities( void )
 
 			// compute the alpha value and the LOD level
 			float fAlpha = ThinkAboutLOD( entityClass->m_LOD, LODDistance( entityClass->m_LOD, m_Entities[i].origin - playerPos ) );
-			ofs.lod		= m_LODLevel;
+			// 0 => default model, 1 => level 0 etc.
+			ofs.lod		= m_LODLevel + 1;
 //			gameLocal.Warning("LODE %s: Using LOD model %i for combined entity %i.\n", GetName(), ofs.lod, j );
 			// TODO: pack in the new alpha value
 			ofs.color  = m_Entities[j].color;
