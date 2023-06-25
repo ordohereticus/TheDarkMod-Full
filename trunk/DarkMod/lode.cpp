@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4140 $
- * $Date: 2010-08-15 21:36:54 -0400 (Sun, 15 Aug 2010) $
+ * $Revision: 4142 $
+ * $Date: 2010-08-22 05:56:54 -0400 (Sun, 22 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: add a "pseudoclass" bit so into the entity flags field, so we can use much
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4140 2010-08-16 01:36:54Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4142 2010-08-22 09:56:54Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2049,6 +2049,14 @@ void Lode::CombineEntities( void )
 				PseudoClass.classname = entityClass->classname;
 				PseudoClass.hModel = NULL;
 				PseudoClass.physicsObj = new idPhysics_StaticMulti;
+
+				PseudoClass.physicsObj->SetContents( CONTENTS_RENDERMODEL );
+	
+				// TODO:	physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_TRIGGER );
+				//	// SR CONTENTS_RESONSE FIX
+				//	if( m_StimResponseColl->HasResponse() )
+				//		physicsObj.SetContents( physicsObj.GetContents() | CONTENTS_RESPONSE );
+
 				PseudoClass.megamodel = NULL;
 			}
 			// for this entity
@@ -2092,6 +2100,13 @@ void Lode::CombineEntities( void )
 				// truncate to only combine as much as we can:
 				offsets.SetNum( maxModelCount );
 			}
+
+			if (clipLoaded)
+			{
+				// TODO: expose this:
+				// PseudoClass.physicsObj->SetClipModelsNum( merged > maxModelCount ? maxModelCount : merged );
+				//clipModels.SetNum( 1 );
+			}
 			// mark all entities that will be merged as "deleted", but skip the rest
 			unsigned int n = (unsigned int)tobedeleted.Num();
 			for (unsigned int d = 0; d < n; d++)
@@ -2104,9 +2119,12 @@ void Lode::CombineEntities( void )
 					// add the clipmodel to the multi-clipmodel
 					if (clipLoaded)
 					{
+						// TODO: this does not help: idClipModel *clipModel = new idClipModel( lod_0_clip );
+
 						// TODO: if this comes last, it uses the already set origin and axis, but does this matter?
 						PseudoClass.physicsObj->SetClipModel(lod_0_clip, 1.0f, d, true);
-						PseudoClass.physicsObj->SetOrigin(m_Entities[ todo ].origin, d);
+
+						PseudoClass.physicsObj->SetOrigin(offsets[d].offset, d);
 						PseudoClass.physicsObj->SetAxis(m_Entities[ todo ].angles.ToMat3(), d);
 					}
 				}
