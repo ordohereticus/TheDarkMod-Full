@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4267 $
- * $Date: 2010-10-30 11:20:14 -0400 (Sat, 30 Oct 2010) $
- * $Author: grayman $
+ * $Revision: 4270 $
+ * $Date: 2010-11-05 17:17:00 -0400 (Fri, 05 Nov 2010) $
+ * $Author: ishtvan $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 4267 $   $Date: 2010-10-30 11:20:14 -0400 (Sat, 30 Oct 2010) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 4270 $   $Date: 2010-11-05 17:17:00 -0400 (Fri, 05 Nov 2010) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3576,7 +3576,9 @@ void idPhysics_Player::MantleMove()
 		idPhysics* p_physics = m_p_mantledEntity->GetPhysics();
 		if (p_physics != NULL)
 		{
-			newPosition += p_physics->GetOrigin();
+			// Ishtvan: Track rotation as well
+			// newPosition += p_physics->GetOrigin();
+			newPosition = p_physics->GetOrigin() + p_physics->GetAxis() * newPosition;
 		}
 	}
 
@@ -3784,10 +3786,17 @@ void idPhysics_Player::StartMantle
 		if (p_physics != NULL)
 		{
 			const idVec3& mantledEntityOrigin = p_physics->GetOrigin();
+			const idMat3& mantledEntityAxis = p_physics->GetAxis();
 
+			// ishtvan 1/3/2010: Incorporate entity rotation as well as translation
+			/*
 			startPos -= mantledEntityOrigin;
 			eyePos -= mantledEntityOrigin;
 			endPos -= mantledEntityOrigin;
+			*/
+			startPos = (startPos - mantledEntityOrigin) * mantledEntityAxis.Transpose();
+			eyePos = (eyePos - mantledEntityOrigin) * mantledEntityAxis.Transpose();
+			endPos = (endPos - mantledEntityOrigin) * mantledEntityAxis.Transpose();
 		}
 	}
 
