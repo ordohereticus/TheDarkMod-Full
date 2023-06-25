@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4192 $
- * $Date: 2010-09-25 22:37:14 -0400 (Sat, 25 Sep 2010) $
+ * $Revision: 4200 $
+ * $Date: 2010-09-28 01:58:30 -0400 (Tue, 28 Sep 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4192 2010-09-26 02:37:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4200 2010-09-28 05:58:30Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1459,6 +1459,13 @@ void idEntity::Save( idSaveGame *savefile ) const
 
 	savefile->WriteBool(m_bAttachedAlertControlsSolidity);
 	savefile->WriteBool(m_bIsObjective);
+
+	savefile->WriteInt(m_objLocations.Num());
+	for (i = 0; i < m_objLocations.Num(); ++i)
+	{
+		m_objLocations[i].Save(savefile);
+	}
+
 	savefile->WriteBool(m_bFrobable);
 	savefile->WriteBool(m_bFrobSimple);
 	savefile->WriteInt(m_FrobDistance);
@@ -1704,6 +1711,14 @@ void idEntity::Restore( idRestoreGame *savefile )
 
 	savefile->ReadBool(m_bAttachedAlertControlsSolidity);
 	savefile->ReadBool(m_bIsObjective);
+
+	savefile->ReadInt(num);
+	m_objLocations.SetNum(num);
+	for (i = 0; i < num; ++i)
+	{
+		m_objLocations[i].Restore(savefile);
+	}
+
 	savefile->ReadBool(m_bFrobable);
 	savefile->ReadBool(m_bFrobSimple);
 	savefile->ReadInt(m_FrobDistance);
