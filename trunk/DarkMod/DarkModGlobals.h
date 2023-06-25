@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4087 $
- * $Date: 2010-07-23 03:22:04 -0400 (Fri, 23 Jul 2010) $
+ * $Revision: 4090 $
+ * $Date: 2010-07-23 06:15:43 -0400 (Fri, 23 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -132,8 +132,8 @@ public:
 
 	/**
 	 * Returns the buffer length of the loaded image data in bytes. Each pixel will have
-	 * m_Bpp bits (8 or 24 or 32), and there are m_Width * m_Height pixel. The data will
-	 * not be padded per-line (as f.i. with BMP) if you loaded a TGA file.
+	 * m_Bpp bytes (1 or 3 or 4, depending on format), and there are m_Width * m_Height pixel.
+	 * The data will not be padded per-line (as f.i. with BMP) if you loaded a TGA file.
 	 */
 	unsigned long GetBufferLen(void);
 
@@ -155,9 +155,9 @@ protected:
 
 public:
 	idStr			m_Name;
-	int				m_Width;
-	int				m_Height;
-	int				m_Bpp;
+	int				m_Width;	//!< Image width in pixel
+	int				m_Height;	//!< Image height in pixel
+	int				m_Bpp;		//!< Bytes per pixel (not bits!)
 };
 
 class CLightMaterial {
