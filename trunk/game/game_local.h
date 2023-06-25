@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4333 $
- * $Date: 2010-11-25 22:25:23 -0500 (Thu, 25 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4402 $
+ * $Date: 2011-01-10 21:27:44 -0500 (Mon, 10 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -1047,6 +1047,9 @@ private:
 
 	// Sets the video CVARs according to the settings in the given GUI
 	void					UpdateScreenResolutionFromGUI(idUserInterface* gui);
+
+	// Platform-specific implementation to change the D3's title and icon
+	void					ChangeWindowTitleAndIcon();
 };
 
 //============================================================================
