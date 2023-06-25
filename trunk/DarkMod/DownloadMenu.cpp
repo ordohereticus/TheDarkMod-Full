@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4055 $
- * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4056 $
+ * $Date: 2010-07-13 08:10:36 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4055 2010-07-13 11:17:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4056 2010-07-13 12:10:36Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -195,6 +195,8 @@ void CDownloadMenu::StartDownload(idUserInterface* gui)
 void CDownloadMenu::UpdateGUI(idUserInterface* gui)
 {
 	const DownloadableMissionList& missions = gameLocal.m_MissionManager->GetDownloadableMissions();
+
+	gui->SetStateBool("av_no_download_available", missions.Num() == 0);
 
 	bool downloadInProgress = gui->GetStateBool("mission_download_in_progress");
 
