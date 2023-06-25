@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4351 $
- * $Date: 2010-11-28 23:37:48 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4352 $
+ * $Date: 2010-11-29 21:39:29 -0500 (Mon, 29 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4351 2010-11-29 04:37:48Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4352 2010-11-30 02:39:29Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -52,6 +52,8 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 			{
 				case CMissionManager::DOWNLOAD_FAILED:
 				{
+					gui->HandleNamedEvent("onAvailableMissionsRefreshed"); // hide progress dialog
+
 					// Issue a failure message
 					gameLocal.Printf("Connection Error.\n");
 
