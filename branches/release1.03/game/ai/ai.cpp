@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4339 $
- * $Date: 2010-11-26 20:45:22 -0500 (Fri, 26 Nov 2010) $
+ * $Revision: 4371 $
+ * $Date: 2010-12-13 18:41:45 -0500 (Mon, 13 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4339 2010-11-27 01:45:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4371 2010-12-13 23:41:45Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4739,7 +4739,8 @@ void idAI::AnimMove()
 			StopMove(MOVE_STATUS_DONE);
 		}
 	}
-	else if (allowMove && (move.moveCommand != MOVE_NONE)) // grayman 2414 - add MOVE_NONE check
+	else if (allowMove) // grayman - remove the second check, because it caused animation jitter at path_corners
+//	else if (allowMove && (move.moveCommand != MOVE_NONE)) // grayman #2414 - add MOVE_NONE check
 	{
 		// Moving is allowed, get the delta
 		GetMoveDelta( oldaxis, viewAxis, delta );
