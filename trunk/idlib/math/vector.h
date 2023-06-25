@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4138 $
+ * $Date: 2010-08-13 05:02:34 -0400 (Fri, 13 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -1917,6 +1917,7 @@ public:
 
 					idPolar3( void );
 					explicit idPolar3( const float radius, const float theta, const float phi );
+					explicit idPolar3( const idVec3 vec3 );
 
 	void 			Set( const float radius, const float theta, const float phi );
 
@@ -1936,6 +1937,13 @@ ID_INLINE idPolar3::idPolar3( const float radius, const float theta, const float
 	this->radius = radius;
 	this->theta = theta;
 	this->phi = phi;
+}
+
+ID_INLINE idPolar3::idPolar3( const idVec3 vec3 ) {
+	assert( vec3.x > 0 );
+	this->radius = vec3.x;
+	this->theta = vec3.y;
+	this->phi = vec3.z;
 }
 	
 ID_INLINE void idPolar3::Set( const float radius, const float theta, const float phi ) {
