@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4059 $
- * $Date: 2010-07-13 10:27:27 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4177 $
+ * $Date: 2010-09-16 07:29:51 -0400 (Thu, 16 Sep 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4059 2010-07-13 14:27:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4177 2010-09-16 11:29:51Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -197,7 +197,10 @@ void CMissionManager::SearchForNewMissions()
 	MoveList zipMoveList = SearchForNewMissions(".zip");
 
 	// Merge the zips into the pk4 list
-	moveList.merge(zipMoveList);
+	if (!zipMoveList.empty())
+	{
+		moveList.merge(zipMoveList);
+	}
 
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Found %d new mission packages.\r", static_cast<int>(moveList.size()));
 	gameLocal.Printf("Found %d new mission packages.\n", static_cast<int>(moveList.size()));
