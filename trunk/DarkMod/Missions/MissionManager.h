@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4385 $
+ * $Date: 2010-12-25 20:55:28 -0500 (Sat, 25 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -129,6 +129,9 @@ public:
 	idStr GetNewFoundMissionsText();
 
 	void ClearNewMissionList();
+
+	// Reload darkmod.txt for newly downloaded/found missions, to update any outdated mission db entries
+	void RefreshMetaDataForNewFoundMissions();
 
 	// Installs mission (by index)
 	InstallResult InstallMission(int index);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4318 $
- * $Date: 2010-11-23 09:43:07 -0500 (Tue, 23 Nov 2010) $
+ * $Revision: 4385 $
+ * $Date: 2010-12-25 20:55:28 -0500 (Sat, 25 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -97,8 +97,8 @@ public:
 	// Will save any persistent info to the given file
 	void	SaveToFile(idFile* file);
 
-	// Load stuff from darkmod.txt
-	void	LoadMetaData();
+	// Load stuff from darkmod.txt, returns FALSE if the file couldn't be read
+	bool	LoadMetaData();
 
 	// Moves articles from the front of the string to its back "The Alchemist" => "Alchemist, The"
 	static void MoveArticlesToBack(idStr& title);

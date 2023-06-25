@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4385 $
+ * $Date: 2010-12-25 20:55:28 -0500 (Sat, 25 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 4379 2010-12-22 14:49:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 4385 2010-12-26 01:55:28Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -217,12 +217,12 @@ idStr CMissionInfo::GetMissionNotes()
 	return modNotes;
 }
 
-void CMissionInfo::LoadMetaData()
+bool CMissionInfo::LoadMetaData()
 {
 	if (modName.IsEmpty()) 
 	{
-		DM_LOG(LC_MAINMENU, LT_ERROR)LOGSTRING("Cannot load mission information from darkomd.txt without mod name.\r");
-		return;
+		DM_LOG(LC_MAINMENU, LT_ERROR)LOGSTRING("Cannot load mission information from darkmod.txt without mod name.\r");
+		return false;
 	}
 
 	idStr fmPath = cv_tdm_fm_path.GetString() + modName + "/";
@@ -235,8 +235,8 @@ void CMissionInfo::LoadMetaData()
 	if (fileSystem->ReadFile(descFileName, reinterpret_cast<void**>(&buffer)) == -1)
 	{
 		// File not found
-		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Couldn't find darkomd.txt for mod %s.\r", modName.c_str());
-		return;
+		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Couldn't find darkmod.txt for mod %s.\r", modName.c_str());
+		return false;
 	}
 
 	idStr modFileContent(buffer);
@@ -245,8 +245,8 @@ void CMissionInfo::LoadMetaData()
 	if (modFileContent.IsEmpty())
 	{
 		// Failed to find info
-		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Empty darkomd.txt for mod %s.\r", modName.c_str());
-		return;
+		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Empty darkmod.txt for mod %s.\r", modName.c_str());
+		return false;
 	}
 
 	pathToFMPackage = fmPath;
@@ -314,6 +314,8 @@ void CMissionInfo::LoadMetaData()
 
 		image = pathToFMPackage + splashImageName;
 	}
+
+	return true;
 }
 
 void CMissionInfo::MoveArticlesToBack(idStr& title)

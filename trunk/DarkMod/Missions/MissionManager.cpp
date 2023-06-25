@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4385 $
+ * $Date: 2010-12-25 20:55:28 -0500 (Sat, 25 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4379 2010-12-22 14:49:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4385 2010-12-26 01:55:28Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -278,9 +278,6 @@ CMissionManager::MoveList CMissionManager::SearchForNewMissions(const idStr& ext
 
 		if (modName.IsEmpty()) continue; // error?
 
-		// Remember this for the user to display
-		_newFoundMissions.Append(modName);
-
 		// Clean modName string from any weird characters
 		for (int i = 0; i < modName.Length(); ++i)
 		{
@@ -288,6 +285,9 @@ CMissionManager::MoveList CMissionManager::SearchForNewMissions(const idStr& ext
 
 			modName[i] = '_'; // replace non-ASCII keys with underscores
 		}
+
+		// Remember this for the user to display
+		_newFoundMissions.Append(modName);
 
 		// Assemble the mod folder, e.g. c:/games/doom3/darkmod/fms/outpost
 		fs::path modFolder = darkmodPath / cv_tdm_fm_path.GetString() / modName.c_str();
@@ -448,6 +448,28 @@ void CMissionManager::SortMissionList()
 	for (int i = 0; i < indexList.Num(); ++i)
 	{
 		_availableMissions[i] = temp[indexList[i]];
+	}
+}
+
+void CMissionManager::RefreshMetaDataForNewFoundMissions()
+{
+	// greebo: If we have new found missions, refresh the meta data of the corresponding MissionDB entries
+	// otherwise we end up with empty display names after downloading a mission we had on the HDD before
+	for (int i = 0; i < _newFoundMissions.Num(); ++i)
+	{
+		CMissionInfoPtr info = GetMissionInfo(_newFoundMissions[i]);
+
+		if (info != NULL) 
+		{
+			if (info->LoadMetaData())
+			{
+				DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Successfully read meta data for newly found mission %s\r", _newFoundMissions[i].c_str());
+			}
+			else
+			{
+				DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Could not read meta data for newly found mission %s\r", _newFoundMissions[i].c_str());
+			}
+		}
 	}
 }
 
