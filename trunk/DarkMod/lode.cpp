@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4117 $
- * $Date: 2010-08-01 05:19:42 -0400 (Sun, 01 Aug 2010) $
+ * $Revision: 4120 $
+ * $Date: 2010-08-01 22:06:52 -0400 (Sun, 01 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4117 2010-08-01 09:19:42Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4120 2010-08-02 02:06:52Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -2009,8 +2009,15 @@ void Lode::CombineEntities( void )
 				LODs.Append( entityClass->hModel );
 			}
 			//PseudoClass.hModel = gameLocal.m_ModelGenerator->DuplicateLODModels( &LODs, GetName(), true, &offsets );
+			// Get the player pos
+			idPlayer *player = gameLocal.GetLocalPlayer();
+			// if we have no player (how can this happen?), use our own origin as stand-in
+			idVec3 playerPos = renderEntity.origin;
+			if ( player ) {
+				playerPos = player->GetPhysics()->GetOrigin();
+			}
 			// use a megamodel to get the combined model, that we later can update, too:
-			PseudoClass.megamodel = new CMegaModel( &LODs, &offsets );
+			PseudoClass.megamodel = new CMegaModel( &LODs, &offsets, &playerPos, &m_Entities[i].origin );
 			PseudoClass.hModel = PseudoClass.megamodel->GetRenderModel();
 
 			// replace the old class with the new pseudo class which contains the merged model
