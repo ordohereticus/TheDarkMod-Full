@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4292 $
- * $Date: 2010-11-19 03:16:36 -0500 (Fri, 19 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4398 $
+ * $Date: 2011-01-10 14:50:23 -0500 (Mon, 10 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: brittlefracture.cpp 4292 2010-11-19 08:16:36Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: brittlefracture.cpp 4398 2011-01-10 19:50:23Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -323,7 +323,7 @@ idBrittleFracture::RemoveShard
 ================
 */
 void idBrittleFracture::RemoveShard( int index ) {
-	int i;
+//	int i; // grayman - commented to stop compiler complaint
 
 	delete shards[index];
 	shards.RemoveIndex( index, false );	// Tels: false => don't bother to keep shards sorted
