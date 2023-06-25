@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4019 $
- * $Date: 2010-07-04 10:15:45 -0400 (Sun, 04 Jul 2010) $
+ * $Revision: 4020 $
+ * $Date: 2010-07-04 10:59:01 -0400 (Sun, 04 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4019 2010-07-04 14:15:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4020 2010-07-04 14:59:01Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1863,8 +1863,6 @@ void idStaticEntity::Think( void )
 				}
 				else
 				{
-					gameLocal.Printf ("%s nextLevel %i (i=%i)\n", GetName(), nextLevel, i);
-
 					// only hide if hiding isn't disabled
 					// last usable level goes to infinity
 					bWithinDist = m_DistLODSq[i] > 0 && (deltaSq > m_DistLODSq[i]);
