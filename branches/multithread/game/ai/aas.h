@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
- * $Author: angua $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -130,10 +130,6 @@ public:
 								// Find all areas within or touching the bounds with the given contents and disable/enable them for routing.
 	virtual bool				SetAreaState( const idBounds &bounds, const int areaContents, bool disabled ) = 0;
 
-	// angua: disable / enable a specific area
-	virtual void				DisableArea( int areanum ) = 0;
-	virtual void				EnableArea( int areanum ) = 0;
-
 								// Add an obstacle to the routing system.
 	virtual aasHandle_t			AddObstacle( const idBounds &bounds ) = 0;
 								// Remove an obstacle from the routing system.
@@ -210,6 +206,14 @@ public:
 	virtual void				DeReferenceDoor(CFrobDoor* door, int areaNum) = 0;
 
 	virtual CFrobDoor*			GetDoor(int areaNum) const = 0;
+
+	// angua: disable / enable a specific area
+	virtual void				DisableArea( int areanum ) = 0;
+	virtual void				EnableArea( int areanum ) = 0;
+
+	// greebo: mark an area as potentially disabled or remove that flag
+	virtual void				MarkAreaAsPotentiallyDisabled( int areanum ) = 0;
+	virtual void				RemovePotentiallyDisabledFlag( int areanum ) = 0;
 
 	/**
 	* This function fills a reachability list

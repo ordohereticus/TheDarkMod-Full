@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1436 $
- * $Date: 2007-10-16 13:12:36 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -41,6 +41,7 @@
 #define TFL_WATER					BIT(21)		// travel through water
 #define TFL_AIR						BIT(22)		// travel through air
 #define TFL_DOOR					BIT(23)		// travel through a not-open door
+#define TFL_POTENTIALLY_DISABLED	BIT(24)		// potentially disabled for AI, needs specific check
 
 // face flags
 #define FACE_SOLID					BIT(0)		// solid at the other side

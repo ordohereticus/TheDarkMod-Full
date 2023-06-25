@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4391 $
- * $Date: 2010-12-29 20:07:37 -0500 (Wed, 29 Dec 2010) $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4391 2010-12-30 01:07:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4394 2010-12-31 02:46:02Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2954,7 +2954,7 @@ void idGameLocal::RunThinkFrameMT(int modulo, int remainder)
 		}
 	}
 
-	DM_LOG(LC_THREAD, LT_INFO)LOGSTRING("Thread (modulo %d) performed multi-threaded thinking for %d entities.\r", modulo, count);
+	DM_LOG(LC_THREAD, LT_INFO)LOGSTRING("Thread (modulo %d) performed multi-threaded thinking for %d entities, thread id %s.\r", modulo, count, str.str().c_str());
 }
 
 /*

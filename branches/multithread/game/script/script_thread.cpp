@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4392 $
- * $Date: 2010-12-29 20:51:14 -0500 (Wed, 29 Dec 2010) $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,13 +13,15 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 4392 2010-12-30 01:51:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 4394 2010-12-31 02:46:02Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/sndProp.h"
 #include "../../DarkMod/MissionData.h"
+
+#include <boost/thread.hpp>
 
 class CRelations;
 class CsndProp;
@@ -684,12 +686,21 @@ idThread::Execute
 */
 bool idThread::Execute( void )
 {
+	std::stringstream str;
+	str << boost::this_thread::get_id();
+
+	DM_LOG(LC_THREAD, LT_DEBUG)LOGSTRING("Thread %s entering idThread::Execute.\r", str.str().c_str());
+
 	boost::recursive_mutex::scoped_lock executionLock(_executionMutex);
+
+	DM_LOG(LC_THREAD, LT_DEBUG)LOGSTRING("Thread %s got the lock\r", str.str().c_str());
 
 	idThread	*oldThread;
 	bool		done;
 
-	if ( manualControl && ( waitingUntil > gameLocal.time ) ) {
+	if ( manualControl && ( waitingUntil > gameLocal.time ) )
+	{
+		DM_LOG(LC_THREAD, LT_DEBUG)LOGSTRING("Thread %s about to leave idThread::Execute returning false\r", str.str().c_str());
 		return false;
 	}
 
@@ -714,6 +725,7 @@ bool idThread::Execute( void )
 
 	currentThread = oldThread;
 
+	DM_LOG(LC_THREAD, LT_DEBUG)LOGSTRING("Thread %s about to leave idThread::Execute returning done\r", str.str().c_str());
 	return done;
 }
 

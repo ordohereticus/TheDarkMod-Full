@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4390 $
- * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -583,6 +583,12 @@ protected:
 
 	// A stack of movestates, used for saving and restoring moves in PushMove() and PopMove()
 	std::list<idMoveState>	moveStack;
+
+	// temporaries to pass between AnimMoveMT and AnimMove
+	mutable idVec3			m_animMoveGoalPos;
+	mutable idVec3			m_animMoveOldorigin;
+	mutable idMat3			m_animMoveOldaxis;
+	mutable bool			m_animMoveGetMovePosResult;
 
 	float					kickForce;
 	bool					ignore_obstacles;
@@ -1203,7 +1209,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	void					GetMoveDelta( const idMat3 &oldaxis, const idMat3 &axis, idVec3 &delta );
 	void					CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos );
 	void					DeadMove( void );
-	void					AnimMove( void );
+	void					AnimMove();
+	void					AnimMoveMT();
 	void					SlideMove( void );
 	void					SittingMove();
 	void					NoTurnMove();

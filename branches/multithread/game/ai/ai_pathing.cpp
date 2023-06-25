@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3305 $
- * $Date: 2009-03-25 12:15:24 -0400 (Wed, 25 Mar 2009) $
- * $Author: angua $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 3305 2009-03-25 16:15:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4394 2010-12-31 02:46:02Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -357,7 +357,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 	}
 
 	// find all obstacles touching the clip bounds
-	static idClipModel* clipModelList[ MAX_GENTITIES ];
+	idClipModel* clipModelList[ MAX_GENTITIES ];
 	int numListedClipModels = gameLocal.clip.ClipModelsTouchingBounds( clipBounds, clipMask, clipModelList, MAX_GENTITIES );
 
 	int numObstacles = 0; // no obstacles so far
@@ -1093,7 +1093,7 @@ bool idAI::FindPathAroundObstacles( const idPhysics *physics, const idAAS *aas, 
 	aas->PushPointIntoAreaNum( areaNum, path.startPosOutsideObstacles );
 
 	// get all the nearby obstacles
-	static obstacle_t obstacles[MAX_OBSTACLES];
+	obstacle_t obstacles[MAX_OBSTACLES];
 	idBounds clipBounds;
 
 	START_TIMING(owner->actorGetObstaclesTimer);

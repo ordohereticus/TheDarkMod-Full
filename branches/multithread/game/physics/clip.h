@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4391 $
- * $Date: 2010-12-29 20:07:37 -0500 (Wed, 29 Dec 2010) $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,6 +18,7 @@
 #endif
 
 #include <boost/thread/mutex.hpp>
+#include <boost/thread/shared_mutex.hpp>
 
 /*
 ===============================================================================
@@ -316,10 +317,9 @@ private:
 	int						numContents;
 	int						numContacts;
 
-	boost::mutex			_translationMutex;
-	boost::mutex			_rotationMutex;
-	boost::mutex			_contentsMutex;
-	boost::mutex			_contactsMutex;
+	boost::mutex			_cmMutex;
+
+	static boost::shared_mutex	_clipSectorMutex;	// multi-read/single-write mutex for altering clipSectors
 
 private:
 	struct clipSector_s *	CreateClipSectors_r( const int depth, const idBounds &bounds, idVec3 &maxSector );

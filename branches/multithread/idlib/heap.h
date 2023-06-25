@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -138,6 +138,8 @@ __inline void operator delete[]( void *p ) {
 ===============================================================================
 */
 
+#include <boost/thread/mutex.hpp>
+
 template<class type, int blockSize>
 class idBlockAlloc {
 public:
@@ -167,6 +169,8 @@ private:
 	element_t *				free;
 	int						total;
 	int						active;
+
+	boost::mutex			_writeMutex;
 };
 
 template<class type, int blockSize>
@@ -182,7 +186,11 @@ idBlockAlloc<type,blockSize>::~idBlockAlloc( void ) {
 }
 
 template<class type, int blockSize>
-type *idBlockAlloc<type,blockSize>::Alloc( void ) {
+type *idBlockAlloc<type,blockSize>::Alloc( void )
+{
+	// Get exclusive write access
+	boost::mutex::scoped_lock lock(_writeMutex);
+
 	if ( !free ) {
 		block_t *block = new block_t;
 		block->next = blocks;
@@ -201,7 +209,11 @@ type *idBlockAlloc<type,blockSize>::Alloc( void ) {
 }
 
 template<class type, int blockSize>
-void idBlockAlloc<type,blockSize>::Free( type *t ) {
+void idBlockAlloc<type,blockSize>::Free( type *t )
+{
+	// Get exclusive write access
+	boost::mutex::scoped_lock lock(_writeMutex);
+
 	element_t *element = (element_t *)( ( (unsigned char *) t ) - ( (int) &((element_t *)0)->t ) );
 	element->next = free;
 	free = element;

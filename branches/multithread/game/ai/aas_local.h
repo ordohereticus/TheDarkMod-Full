@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
- * $Author: angua $
+ * $Revision: 4394 $
+ * $Date: 2010-12-30 21:46:02 -0500 (Thu, 30 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -176,6 +176,8 @@ private:
 	typedef std::map<int, CFrobDoor*> DoorMap;
 	DoorMap _doors;
 
+	mutable boost::shared_mutex	_areaCacheMutex;
+	mutable boost::shared_mutex	_portalCacheMutex;
 
 private:	// routing data
 	idRoutingCache ***			areaCacheIndex;			// for each area in each cluster the travel times to all other areas in the cluster
@@ -218,8 +220,10 @@ private:	// routing
 	void						RemoveRoutingCacheUsingArea( int areaNum );
 
 public:
-	void						DisableArea( int areaNum );
-	void						EnableArea( int areaNum );
+	void						DisableArea(int areaNum);
+	void						EnableArea(int areaNum);
+	void						MarkAreaAsPotentiallyDisabled(int areanum);
+	void						RemovePotentiallyDisabledFlag(int areanum);
 
 private:
 	bool						SetAreaState_r( int nodeNum, const idBounds &bounds, const int areaContents, bool disabled );
