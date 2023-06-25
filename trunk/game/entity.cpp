@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4012 $
- * $Date: 2010-07-02 01:02:00 -0400 (Fri, 02 Jul 2010) $
+ * $Revision: 4061 $
+ * $Date: 2010-07-14 08:16:33 -0400 (Wed, 14 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4012 2010-07-02 05:02:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4061 2010-07-14 12:16:33Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10463,8 +10463,8 @@ void idEntity::ParseAttachmentSpawnargs( idList<idDict> *argsList, idDict *from 
 			}
 
 			// store for later query
-			from->Set("_poskey", PosKey);
-			from->Set("_attnamevalue", AttNameValue );
+			args.Set("_poskey", PosKey);
+			args.Set("_attnamevalue", AttNameValue );
 
 			// tels: parse all "set .." spawnargs
 			const idKeyValue *kv_set = from->MatchPrefix( "set ", NULL );
