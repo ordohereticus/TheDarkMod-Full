@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4281 $
- * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4294 $
+ * $Date: 2010-11-19 10:22:14 -0500 (Fri, 19 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 4281 2010-11-19 03:58:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 4294 2010-11-19 15:22:14Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3099,6 +3099,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 			if ( damageDef->GetBool( "no_air" ) ) 
 			{
 				StopSound( SND_CHANNEL_VOICE, false );
+				SetSoundVolume(-10); // grayman #1488 - less volume underwater
 				StartSound( "snd_airGasp", SND_CHANNEL_VOICE, 0, false, NULL );
 			}
 		}

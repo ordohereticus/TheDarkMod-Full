@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3689 $
- * $Date: 2009-09-03 08:40:05 -0400 (Thu, 03 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 4294 $
+ * $Date: 2010-11-19 10:22:14 -0500 (Fri, 19 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -17,6 +17,11 @@ namespace ai
 
 // Define the name of this task
 #define TASK_PATH_CORNER "PathCorner"
+
+// grayman #2414 - For path prediction
+const int PATH_PREDICTION_MOVES = 2; // Number of moves to look ahead
+const float PATH_PREDICTION_CONSTANT = 26.0; // Empirically determined for smooth
+											 // turns at any m_maxInterleaveThinkFrames
 
 class PathCornerTask;
 typedef boost::shared_ptr<PathCornerTask> PathCornerTaskPtr;

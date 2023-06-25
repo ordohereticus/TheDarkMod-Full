@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3767 $
- * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
- * $Author: angua $
+ * $Revision: 4294 $
+ * $Date: 2010-11-19 10:22:14 -0500 (Fri, 19 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 4294 2010-11-19 15:22:14Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -105,23 +105,42 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 			
 			idVec3 moveDeltaVec = ownerOrigin - _lastPosition;
 			float moveDelta = moveDeltaVec.NormalizeFast();
+		
+			// grayman #2414 - start of new prediction code
 
 			if (moveDelta > 0)
 			{
 				idVec3 toPath = path->GetPhysics()->GetOrigin() - ownerOrigin;
+				toPath.z = 0; // ignore vertical component
 				float distToPath = toPath.NormalizeFast();
-				
-				// The move direction and the distance vector to the path are pointing in roughly the same direction
-				// The prediction will be rather accurate
+
+				// The move direction and the distance vector to the path are pointing in roughly the same direction.
+				// The prediction will be rather accurate.
+
 				if (toPath * moveDeltaVec > 0.7f)
 				{
-					// Virtually translate the origin towards the path and see if the ReachedPos'
-					// box check would succeed
-					// Take the amount of frames into account between this and the last time this task was
-					// performed. This is a non-constant value, so calculate it on the fly
-					int frameDelta = (gameLocal.framenum - _lastFrameNum)*2 - 1;
+					bool turnNow = false; // whether it's time to make the turn
 
-					if (owner->ReachedPosAABBCheck(path->GetPhysics()->GetOrigin() - toPath * moveDelta * frameDelta))
+					// will we overshoot the path_corner within the next two checks?
+
+					if (distToPath <= PATH_PREDICTION_MOVES*moveDelta) // quick check for overshooting
+					{
+						turnNow = true;
+					}
+					else
+					{
+						int frameDelta = gameLocal.framenum - _lastFrameNum;
+						float factor = PATH_PREDICTION_MOVES + PATH_PREDICTION_CONSTANT/static_cast<float>(frameDelta);
+						if (distToPath <= factor*moveDelta) // consider the size of the AI's bounding box if we're w/in a certain range
+						{
+							// Virtually translate the path_corner position back to the origin and
+							// see if ReachedPos's box check would succeed.
+
+							turnNow = owner->ReachedPosAABBCheck(path->GetPhysics()->GetOrigin() - toPath*factor*moveDelta);
+						}
+					}
+
+					if (turnNow)
 					{
 						// Trigger path targets, now that we've almost reached the corner
 						owner->ActivateTargets(owner);
