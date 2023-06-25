@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4336 $
- * $Date: 2010-11-26 03:38:27 -0500 (Fri, 26 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4384 $
+ * $Date: 2010-12-25 15:25:35 -0500 (Sat, 25 Dec 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4336 2010-11-26 08:38:27Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4384 2010-12-25 20:25:35Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -658,6 +658,11 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 			}
 			else
 			{
+				if (otherAI->GetMoveType() == MOVETYPE_SLEEP) // grayman #2464 - is the other asleep?
+				{
+					return; // nothing else to do
+				}
+
 				// Issue a communication stim to the friend we spotted.
 				// We can issue warnings, greetings, etc...
 
