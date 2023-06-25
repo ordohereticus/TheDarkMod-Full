@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4094 $
- * $Date: 2010-07-24 10:10:15 -0400 (Sat, 24 Jul 2010) $
+ * $Revision: 4100 $
+ * $Date: 2010-07-26 10:41:28 -0400 (Mon, 26 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4094 2010-07-24 14:10:15Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4100 2010-07-26 14:41:28Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -806,6 +806,8 @@ void idEntity::ParseLODSpawnargs(void)
 	idStr temp;
 	// distance dependent LOD from this point on:
 	m_LOD->OffsetLOD[0] = renderEntity.origin;
+
+	m_LOD->DistLODSq[0] = 0;
 
 	// start at 1, since 0 is "the original level" setup already above
 	for (int i = 1; i < LOD_LEVELS; i++)
