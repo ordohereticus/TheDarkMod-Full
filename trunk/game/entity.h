@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4216 $
- * $Date: 2010-10-03 01:14:22 -0400 (Sun, 03 Oct 2010) $
- * $Author: tels $
+ * $Revision: 4261 $
+ * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -1444,6 +1444,11 @@ private:
 	// A pointer to our cursor - the cursor is for arbitrary use, and may not point to our own inventory.
 	CInventoryCursorPtr	m_InventoryCursor;
 
+	// Information about the most recent voice and body sound requests. grayman - #2341
+	idSoundShader *		previousVoiceShader;	// shader for the most recent voice request (safe because shader pointers are constant, being decls)
+	int					previousVoiceIndex;		// index of most recent voice sound requested (1->N, where there are N sounds in the shader)
+	idSoundShader *		previousBodyShader;		// shader for the most recent body request (safe because shader pointers are constant, being decls)
+	int					previousBodyIndex;		// index of most recent body sound requested (1->N, where there are N sounds in the shader)
 private:
 	void				FixupLocalizedStrings();
 

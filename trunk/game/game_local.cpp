@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4210 $
- * $Date: 2010-09-30 09:07:24 -0400 (Thu, 30 Sep 2010) $
- * $Author: angua $
+ * $Revision: 4261 $
+ * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4210 2010-09-30 13:07:24Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4261 2010-10-20 21:20:42Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -99,10 +99,11 @@ const char *idGameLocal::sufaceTypeNames[ MAX_SURFACE_TYPES ] = {
 
 /* This list isn't actually used by the code, it's here just for reference. The code
    accepts any first word in the description as the surface type name: */
+// grayman - #1421/1422 - added "hardwood"
 const char *idGameLocal::m_NewSurfaceTypes[ MAX_SURFACE_TYPES * 2 + 1] = {
 	"tile", "carpet", "dirt", "gravel", "grass", "rock", "twigs", "foliage", "sand", "mud",
 	"brokeglass", "snow", "ice", "squeakboard", "puddle", "moss", "cloth", "ceramic", "slate",
-	"straw", "armor_leath", "armor_chain", "armor_plate", "climbable", "paper"
+	"straw", "armor_leath", "armor_chain", "armor_plate", "climbable", "paper","hardwood"
 };
 
 fontInfoEx_t font_an;

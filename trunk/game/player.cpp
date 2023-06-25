@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4244 $
- * $Date: 2010-10-13 21:48:45 -0400 (Wed, 13 Oct 2010) $
- * $Author: tels $
+ * $Revision: 4261 $
+ * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4244 2010-10-14 01:48:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4261 2010-10-20 21:20:42Z grayman $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6394,11 +6394,10 @@ void idPlayer::Move( void )
 				tempStr = localSound + "default";
 				sound = spawnArgs.GetString(tempStr.c_str());
 			}
-
 			// DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("Climb sound: %s\r", TempStr.c_str() );
 			if (sound.Length() > 0)
 			{
-				StartSound(tempStr.c_str(), SND_CHANNEL_ANY, 0, false, NULL);
+				StartSound(tempStr.c_str(), SND_CHANNEL_BODY, 0, false, NULL); // grayman - #2341 - was SND_CHANNEL_ANY
 			}
 		}
 	}

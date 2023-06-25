@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4261 $
+ * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4261 2010-10-20 21:20:42Z grayman $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -921,6 +921,7 @@ void CGlobal::InitSurfaceHardness()
 	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("armor_chain"), hard );
 	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("armor_plate"), hard );
 	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("climbable"), hard );
+	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("hardwood"), hard ); // grayman #1421/1422
 
 	// The soft ones
 	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("flesh"), soft );
