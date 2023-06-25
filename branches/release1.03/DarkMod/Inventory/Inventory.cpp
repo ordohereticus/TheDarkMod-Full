@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4236 $
- * $Date: 2010-10-09 07:04:48 -0400 (Sat, 09 Oct 2010) $
- * $Author: grayman $
+ * $Revision: 4367 $
+ * $Date: 2010-12-09 18:58:16 -0500 (Thu, 09 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4236 2010-10-09 11:04:48Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4367 2010-12-09 23:58:16Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -323,7 +323,7 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 
 	// grayman (#2376) - If there's a shop with this item in it,
 	// and this is an inv_map_start item, we won't put it into the
-	// inventory because the player already has it.
+	// inventory because the player already has it. 
 
 	ShopItemList startingItems = gameLocal.m_Shop->GetPlayerStartingEquipment();
 	bool gotFromShop = ((startingItems.Num() > 0) && (ent->spawnArgs.GetBool("inv_map_start", "0")));
@@ -347,14 +347,14 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 		return returnValue;
 	}
 
-	// Let's see if this is an ammonition item
+	// Let's see if this is an ammunition item
 	returnValue = ValidateAmmo(ent,gotFromShop); // grayman (#2376)
 
 	if (returnValue != NULL)
 	{
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Added ammo item to inventory, removing from map: %s\r", ent->name.c_str());
 
-		// Remove the entity from the game, the ammonition is added
+		// Remove the entity from the game, the ammunition is added
 		RemoveEntityFromMap(ent, true);
 
 		return returnValue;
@@ -367,7 +367,7 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 	{
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Added weapon item to inventory, removing from map: %s\r", ent->name.c_str());
 
-		// Remove the entity from the game, the ammonition is added
+		// Remove the entity from the game, the ammunition is added
 		RemoveEntityFromMap(ent, true);
 
 		return returnValue;
@@ -393,6 +393,14 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 		if (!ent->spawnArgs.GetBool("inv_stackable", "0"))
 		{
 			DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Cannot put %s in inventory: not stackable.\r", ent->name.c_str());
+
+			// grayman #2467 - Remove the entity from the game if it was already put into the inventory by the shop code.
+
+			if (gotFromShop)
+			{
+				RemoveEntityFromMap(ent, true);
+			}
+
 			return returnValue;
 		}
 
