@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4443 $
+ * $Date: 2011-01-17 15:33:38 -0500 (Mon, 17 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -68,6 +68,7 @@ public:
 	**/
 	void					TranslateOrigin( const idVec3 &translation );
 	void					Translate( const idVec3 &translation );							// unlinks the clip model
+	void					Scale( const idVec3 &scale );								// unlinks the clip model
 	void					Rotate( const idRotation &rotation );							// unlinks the clip model
 	void					Enable( void );						// enable for clipping
 	void					Disable( void );					// keep linked but disable for clipping
@@ -138,6 +139,18 @@ ID_INLINE void idClipModel::Rotate( const idRotation &rotation ) {
 	Unlink();
 	origin *= rotation;
 	axis *= rotation.ToMat3();
+}
+
+ID_INLINE void idClipModel::Scale( const idVec3 &scale ) {
+	if( IsTraceModel() )
+	{
+		// copy & scale the tracemodel
+		// Tels: Is the copy nec.?
+		idTraceModel trm = *(idClipModel::GetCachedTraceModel( traceModelIndex ));
+		trm.Scale( scale );
+		
+		LoadModel( trm );
+	}
 }
 
 ID_INLINE void idClipModel::Enable( void ) {
