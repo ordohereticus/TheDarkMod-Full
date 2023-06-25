@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3903 $
- * $Date: 2010-05-26 07:12:57 -0400 (Wed, 26 May 2010) $
+ * $Revision: 4222 $
+ * $Date: 2010-10-04 07:53:41 -0400 (Mon, 04 Oct 2010) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 3903 2010-05-26 11:12:57Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4222 2010-10-04 11:53:41Z angua $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -97,19 +97,23 @@ void MovementSubsystem::StartPatrol()
 		else if (path != NULL)
 		{
 			// we already have a stored path, patrolling was already started and is resumed now
-			idPathCorner* candidate = GetNextPathCorner(path, owner);
+			// if we are currently sleeping/sitting, just continue where we are (probably a path_wait)
+			if (owner->GetMoveType() != MOVETYPE_SLEEP && owner->GetMoveType() != MOVETYPE_SIT)
+			{
+				idPathCorner* candidate = GetNextPathCorner(path, owner);
 
-			if (candidate != NULL)
-			{
-				// advance to next path corner, don't resume other path tasks at the current (presumably wrong) position 
-				memory.currentPath = candidate;
-				memory.nextPath = idPathCorner::RandomPath(candidate, NULL, owner);
-			}
-			else
-			{
-				// We don't have a valid path_corner in our current path branch,
-				// or we ended in a "dead end" or in a loop, restart the system
-				RestartPatrol();
+				if (candidate != NULL)
+				{
+					// advance to next path corner, don't resume other path tasks at the current (presumably wrong) position 
+					memory.currentPath = candidate;
+					memory.nextPath = idPathCorner::RandomPath(candidate, NULL, owner);
+				}
+				else
+				{
+					// We don't have a valid path_corner in our current path branch,
+					// or we ended in a "dead end" or in a loop, restart the system
+					RestartPatrol();
+				}
 			}
 		}
 		else // path == NULL && last path != NULL
