@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4431 $
- * $Date: 2011-01-11 16:47:38 -0500 (Tue, 11 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 4450 $
+ * $Date: 2011-01-20 13:33:59 -0500 (Thu, 20 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4431 2011-01-11 21:47:38Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4450 2011-01-20 18:33:59Z stgatilov $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7257,7 +7257,7 @@ bool idAI::TestMeleeFuture( void ) const {
 idAI::TestRanged
 =====================
 */
-bool idAI::TestRanged() const 
+bool idAI::TestRanged()
 {
 	idActor *enemyEnt = enemy.GetEntity();
 
@@ -7272,10 +7272,18 @@ bool idAI::TestRanged() const
 		return false;
 	}
 
-	// Test if the enemy is within range, in FOV and not occluded
-	float dist = (GetEyePosition() - enemyEnt->GetEyePosition()).LengthFast();
+	// Calculate the point on enemy AI needs to see
+	idVec3 enemyPoint;
+	// stgatilov: Look at the UNLEANED player's eye position
+	// to achieve this, we treat player as ordinary actor
+	if (enemyEnt->IsType(idPlayer::Type))
+		enemyPoint = enemyEnt->idActor::GetEyePosition();
+	else
+		enemyPoint = enemyEnt->GetEyePosition();
 
-	return dist <= fire_range && CanSeeExt(enemyEnt, false, false);
+	// Test if the enemy is within range, in FOV and not occluded
+	float dist = (GetEyePosition() - enemyPoint).LengthFast();
+	return dist <= fire_range && CanSeePositionExt(enemyPoint, false, false);
 }
 
 

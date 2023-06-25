@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4339 $
- * $Date: 2010-11-26 20:45:22 -0500 (Fri, 26 Nov 2010) $
- * $Author: greebo $
+ * $Revision: 4450 $
+ * $Date: 2011-01-20 13:33:59 -0500 (Thu, 20 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -1592,7 +1592,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					TestMelee( void ) const;
 	/** ishtvan: test melee anticipating future positions **/
 	bool					TestMeleeFuture( void ) const;
-	bool					TestRanged( void ) const;
+	bool					TestRanged( void );
 	bool					AttackMelee( const char *meleeDefName );
 	void					BeginAttack( const char *name );
 	void					EndAttack( void );
