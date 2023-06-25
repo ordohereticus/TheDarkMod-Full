@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4066 $
- * $Date: 2010-07-15 22:29:39 -0400 (Thu, 15 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4334 $
+ * $Date: 2010-11-26 00:09:35 -0500 (Fri, 26 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 4066 2010-07-16 02:29:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 4334 2010-11-26 05:09:35Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1577,7 +1577,7 @@ bool CGrabber::Dequip( void )
 	}
 
 	// tels: Execute a potential dequip script
-    if( bDequipped && ent->spawnArgs.GetString("dequip_action_script", "", str))
+	if( bDequipped && ent->spawnArgs.GetString("dequip_action_script", "", str))
 	{ 
 		// Call the script
         idThread* thread = CallScriptFunctionArgs(str.c_str(), true, 0, "e", ent);
@@ -1709,6 +1709,12 @@ void CGrabber::Forget( idEntity* ent )
     if ( m_dragEnt.GetEntity() == ent || m_EquippedEnt.GetEntity() == ent )
 	{
 		StopDrag();
+
+		if ( m_EquippedEnt.GetEntity() == ent )
+		{
+			// Tels: Fix #2430
+			m_EquippedEnt = NULL;
+		}
 
 		// try to remove from grabber clip list
 		if( ent->IsType(idEntity::Type) )

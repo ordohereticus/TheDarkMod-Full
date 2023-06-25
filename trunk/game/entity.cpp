@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4271 $
- * $Date: 2010-11-06 12:31:13 -0400 (Sat, 06 Nov 2010) $
+ * $Revision: 4334 $
+ * $Date: 2010-11-26 00:09:35 -0500 (Fri, 26 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4271 2010-11-06 16:31:13Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4334 2010-11-26 05:09:35Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1284,6 +1284,18 @@ idEntity::~idEntity
 idEntity::~idEntity( void )
 {
 	DM_LOG(LC_FUNCTION, LT_DEBUG)LOGSTRING("this: %08lX [%s]\r", this, __FUNCTION__);
+
+	// Tels: #2430 - If this entity is shouldered by the player, dequip it forcefully
+	if (gameLocal.m_Grabber->GetEquipped() == this)
+	{
+		if ( spawnArgs.GetBool("shoulderable") )
+		{
+			gameLocal.Printf("Grabber: Forcefully unshouldering %s because it will be removed.\n", GetName() );
+			gameLocal.m_Grabber->UnShoulderBody(this);
+		}
+		gameLocal.Printf("Grabber: Forcefully dequipping %s because it will be removed.\n", GetName() );
+		gameLocal.m_Grabber->Forget(this);
+	}
 
 	// Let each objective entity we're currently in know about our destruction
 	for (int i = 0; i < m_objLocations.Num(); ++i)
