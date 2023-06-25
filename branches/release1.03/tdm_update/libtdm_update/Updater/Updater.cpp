@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4344 $
- * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4348 $
+ * $Date: 2010-11-28 08:56:04 -0500 (Sun, 28 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1115,9 +1115,11 @@ void Updater::NotifyFullUpdateProgress()
 	}
 
 	info.updateType = OverallDownloadProgressInfo::Full;
+	info.totalDownloadSize = totalDownloadSize;
 	info.bytesLeftToDownload = totalDownloadSize - totalBytesDownloaded;
 	info.downloadedBytes = totalBytesDownloaded;
 	info.progressFraction = static_cast<double>(totalBytesDownloaded) / totalDownloadSize;
+	info.filesToDownload = _downloadQueue.size();
 	
 	_downloadProgressCallback->OnOverallProgress(info);
 }
@@ -1278,6 +1280,11 @@ std::size_t Updater::GetTotalDownloadSize()
 	}
 
 	return totalSize;
+}
+
+std::size_t Updater::GetTotalBytesDownloaded()
+{
+	return _conn->GetBytesDownloaded();
 }
 
 void Updater::SetDownloadProgressCallback(const DownloadProgressPtr& callback)

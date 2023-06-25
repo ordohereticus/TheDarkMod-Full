@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4344 $
- * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4348 $
+ * $Date: 2010-11-28 08:56:04 -0500 (Sun, 28 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -52,6 +52,8 @@ public:
 
 		progress.progressFraction = info.progressFraction > 1.0 ? 1.0 : info.progressFraction;
 		progress.downloadedBytes = info.downloadedBytes;
+		progress.bytesToDownload = info.totalDownloadSize;
+		progress.filesToDownload = info.filesToDownload;
 
 		_view.OnProgressChange(progress);
 	}
@@ -66,6 +68,8 @@ public:
 		progress.mirrorDisplayName = info.mirrorDisplayName;
 		progress.downloadSpeed = info.downloadSpeed;
 		progress.downloadedBytes = info.downloadedBytes;
+		progress.bytesToDownload = 0;
+		progress.filesToDownload = 1;
 
 		_view.OnProgressChange(progress);
 

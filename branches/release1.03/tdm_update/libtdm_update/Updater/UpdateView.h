@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4344 $
- * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4348 $
+ * $Date: 2010-11-28 08:56:04 -0500 (Sun, 28 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -59,6 +59,12 @@ struct ProgressInfo
 
 	// Number of bytes received
 	std::size_t downloadedBytes;
+
+	// Number of bytes to download
+	std::size_t bytesToDownload;
+
+	// Number of files to download
+	std::size_t filesToDownload;
 };
 
 /**

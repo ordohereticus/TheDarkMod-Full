@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4344 $
- * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4348 $
+ * $Date: 2010-11-28 08:56:04 -0500 (Sun, 28 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -97,6 +97,11 @@ bool UpdateController::LocalFilesNeedUpdate()
 std::size_t UpdateController::GetTotalDownloadSize()
 {
 	return _updater.GetTotalDownloadSize();
+}
+
+std::size_t UpdateController::GetTotalBytesDownloaded()
+{
+	return _updater.GetTotalBytesDownloaded();
 }
 
 std::size_t UpdateController::GetNumFilesToBeUpdated()
@@ -227,6 +232,7 @@ void UpdateController::PerformStep(UpdateStep step)
 	case DownloadFullUpdate:
 		_updater.PrepareUpdateStep();
 		_updater.PerformUpdateStep();
+		_updater.CleanupUpdateStep();
 		break;
 
 	case PostUpdateCleanup:
@@ -368,10 +374,7 @@ void UpdateController::OnFinishStep(UpdateStep step)
 		break;
 
 	case DownloadFullUpdate:
-		{
-			_updater.CleanupUpdateStep();
-			TryToProceedTo(PostUpdateCleanup);
-		}
+		TryToProceedTo(PostUpdateCleanup);
 		break;
 
 	case PostUpdateCleanup:

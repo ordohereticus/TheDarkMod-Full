@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4344 $
- * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4348 $
+ * $Date: 2010-11-28 08:56:04 -0500 (Sun, 28 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -57,7 +57,7 @@ public:
 	void SetProgressText(const std::string& text);
 	void SetProgressSpeedText(const std::string& text);
 	void SetProgress(double progressFraction);
-	void SetFullDownloadProgress(double progressFraction);
+	void SetFullDownloadProgress(const tdm::updater::ProgressInfo& info);
 
 	void SetTaskbarProgress(TaskbarProgressType type, double progressFraction);
 
