@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4383 $
+ * $Date: 2010-12-25 06:37:01 -0500 (Sat, 25 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,6 +16,8 @@
 
 #ifdef WIN32
 #include <winsock2.h> // greebo: need to include winsock2 before curl/curl.h
+#include <Ws2tcpip.h>
+#include <Wspiapi.h>
 #endif
 
 #include <curl/curl.h>

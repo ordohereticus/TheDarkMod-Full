@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4313 $
- * $Date: 2010-11-23 03:21:35 -0500 (Tue, 23 Nov 2010) $
+ * $Revision: 4383 $
+ * $Date: 2010-12-25 06:37:01 -0500 (Sat, 25 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,13 +10,15 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4313 2010-11-23 08:21:35Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4383 2010-12-25 11:37:01Z greebo $", init_version);
 
 #include "HttpRequest.h"
 #include "HttpConnection.h"
 
 #ifdef WIN32
 #include <winsock2.h> // greebo: need to include winsock2 before curl/curl.h
+#include <Ws2tcpip.h>
+#include <Wspiapi.h>
 #endif
 
 #include <curl/curl.h>
