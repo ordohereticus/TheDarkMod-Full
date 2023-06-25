@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3973 $
- * $Date: 2010-06-23 03:38:58 +0200 (Mi, 23 Jun 2010) $
+ * $Revision: 3975 $
+ * $Date: 2010-06-22 22:26:49 -0400 (Tue, 22 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 3973 2010-06-23 01:38:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: XmlDocument.cpp 3975 2010-06-23 02:26:49Z greebo $", init_version);
 
 #include "XmlDocument.h"
 #include "XPathException.h"
