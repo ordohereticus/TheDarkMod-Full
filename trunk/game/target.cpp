@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3945 $
- * $Date: 2010-06-11 08:07:22 -0400 (Fri, 11 Jun 2010) $
+ * $Revision: 4214 $
+ * $Date: 2010-10-02 07:02:47 -0400 (Sat, 02 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 3945 2010-06-11 12:07:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 4214 2010-10-02 11:02:47Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1471,7 +1471,7 @@ void idTarget_PostScriptEvent::TryPostOrCall( idEntity *ent, const idEventDef *e
 
 			// create a thread and call the function
 			idThread *thread = new idThread();
-			if (pass_self) {
+			if (numParams == 1) {
 				thread->CallFunction( ent, func, true );
 			} else {
 				thread->CallFunctionArgs( func, true, "ee", ent, this );
