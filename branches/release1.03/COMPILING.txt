@@ -1,0 +1,16 @@
+To read the most recent compilation guide, please visit:
+
+http://modetwo.net/darkmod/wiki/index.php?title=The_Dark_Mod_-_Compilation_Guide
+
+See also the README.linux file for further info about how to compile the code for Linux.
+
+=== Additional info about building the static 32-bit library libcurl ===
+
+Download the libcurl 7.21 source package, and extract it on your system, then run the following commands:
+
+env CFLAGS="-m32" LDFLAGS="-m32" ./configure --disable-ldap --build=i686-unknown-linux-gnu --without-libidn --without-zlib
+make
+sudo make install
+
+The library is then located in /usr/local/lib/libcurl.a.
+Copy that to darkmod_src/linux/libcurl/
