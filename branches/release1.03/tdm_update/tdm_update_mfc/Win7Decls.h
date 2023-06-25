@@ -1,3 +1,12 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod - Updater
+ * $Revision: 4344 $
+ * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Author: greebo $
+ *
+ ***************************************************************************/
+
 /**
  * greebo: I copied the main part of this auxiliary header 
  * directly from the TortoiseSVN repository.

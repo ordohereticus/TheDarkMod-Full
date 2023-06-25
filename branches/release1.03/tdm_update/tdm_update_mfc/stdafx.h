@@ -1,3 +1,11 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod - Updater
+ * $Revision: 4344 $
+ * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Author: greebo $
+ *
+ ***************************************************************************/
 
 // stdafx.h : include file for standard system include files,
 // or project specific include files that are used frequently,
