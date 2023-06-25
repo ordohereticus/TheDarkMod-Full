@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4058 $
- * $Date: 2010-07-13 10:23:30 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4059 $
+ * $Date: 2010-07-13 10:27:27 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4058 2010-07-13 14:23:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4059 2010-07-13 14:27:27Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -719,6 +719,8 @@ void CMissionManager::ReloadDownloadableMissions()
 
 	pugi::xpath_node_set nodes = doc->select_nodes("//tdm/availableMissions//mission");
 
+	const char* fs_game = cvarSystem->GetCVarString("fs_game");
+
 	for (pugi::xpath_node_set::const_iterator i = nodes.begin(); i != nodes.end(); ++i)	
 	{
 		pugi::xml_node node = i->node();
@@ -732,6 +734,12 @@ void CMissionManager::ReloadDownloadableMissions()
 		mission.modName = node.attribute("internalName").value();
 		mission.version = node.attribute("version").as_int();
 		mission.isUpdate = false;
+
+		if (idStr::Cmp(mission.modName.c_str(), fs_game) == 0)
+		{
+			DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Removing currently installed mission %s from the list of downloadable missions.\r", fs_game);
+			continue;
+		}
 
 		bool missionExists = false;
 
