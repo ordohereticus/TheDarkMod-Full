@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4082 $
- * $Date: 2010-07-22 09:10:21 -0400 (Thu, 22 Jul 2010) $
+ * $Revision: 4085 $
+ * $Date: 2010-07-22 13:02:37 -0400 (Thu, 22 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@ Level Of Detail Entities - Manage other entities based on LOD (e.g. distance)
 
 TODO: add console command to save all LODE entities as prefab?
 TODO: take over LOD changes from entity
-TODO: add debug spawnag to limit print messages
+TODO: add debug spawnarg to limit print messages
 TODO: add random entity coloring (lode_color_min lode_color_max)
 TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit so
 	  we can use much smaller structs for pseudo classes (we might have thousands
@@ -25,7 +25,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4082 2010-07-22 13:10:21Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4085 2010-07-22 17:02:37Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -218,6 +218,25 @@ void Lode::Save( idSaveGame *savefile ) const {
 
 /*
 ===============
+Lode::ClearClasses
+===============
+*/
+void Lode::ClearClasses( void )
+{
+	int n = m_Classes.Num();
+	for(int i = 0; i < n; i++ )
+	{
+		if (NULL != m_Classes[i].hModel)
+		{
+			renderModelManager->FreeModel( m_Classes[i].hModel );
+			m_Classes[i].hModel = NULL;
+		}
+	}
+	m_Classes.Clear();
+}
+
+/*
+===============
 Lode::Restore
 ===============
 */
@@ -257,8 +276,8 @@ void Lode::Restore( idRestoreGame *savefile ) {
 	}
 
     savefile->ReadInt( num );
-	// TODO: FreeModel( hModel ) here
-	m_Classes.Clear();
+	// clear m_Classes and free any models in it, too
+	ClearClasses();
 	m_Classes.SetNum( num );
 	for( int i = 0; i < num; i++ )
 	{
@@ -943,8 +962,7 @@ void Lode::Prepare( void )
 		}
 
 		// clear out memory just to be sure
-		// TODO: FreeModel( hModel ) here
-		m_Classes.Clear();
+		ClearClasses();
 		m_Entities.Clear();
 		m_iNumEntities = -1;
 

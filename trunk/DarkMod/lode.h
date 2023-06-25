@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4082 $
- * $Date: 2010-07-22 09:10:21 -0400 (Thu, 22 Jul 2010) $
+ * $Revision: 4085 $
+ * $Date: 2010-07-22 13:02:37 -0400 (Thu, 22 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -126,6 +126,11 @@ public:
 
 	void				Spawn( void );
 	virtual void		Think( void );
+
+	/**
+	* Clear the m_Classes list and also free any allocated models.
+	*/
+	void				ClearClasses( void );
 
 	/**
 	* Stop thinking and no longer cull/spawn entities.
