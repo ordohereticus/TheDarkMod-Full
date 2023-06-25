@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4055 $
- * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4399 $
+ * $Date: 2011-01-10 21:22:39 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -57,6 +57,20 @@ public:
 		SUCCESS,
 	};
 
+	// Some additional data which can be set by clients
+	struct UserData
+	{
+		int		id;		// an arbitrary ID, -1 by default
+		int		id2;	// an arbitrary ID, -1 by default
+		void*	ptr;	// a pointer, NULL by default
+
+		UserData() :
+			id(-1),
+			id2(-1),
+			ptr(NULL)
+		{}
+	};
+
 private:
 	DownloadStatus _status;
 
@@ -67,6 +81,8 @@ private:
 	ThreadPtr _thread;
 
 	bool _pk4CheckEnabled;
+
+	UserData _userData;
 
 public:
 	/** 
@@ -99,6 +115,10 @@ public:
 	DownloadStatus GetStatus();
 
 	double GetProgressFraction();
+
+	// UserData accessors
+	const UserData& GetUserData() const { return _userData; };
+	UserData& GetUserData() { return _userData; };
 
 	// Check method
 	static bool CheckValidPK4(const idStr& path);
