@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3885 $
- * $Date: 2010-04-24 22:37:27 -0400 (Sat, 24 Apr 2010) $
+ * $Revision: 4392 $
+ * $Date: 2010-12-29 20:51:14 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 3885 2010-04-25 02:37:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 4392 2010-12-30 01:51:14Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
@@ -234,6 +234,7 @@ idThread			*idThread::currentThread = NULL;
 int					idThread::threadIndex = 0;
 idList<idThread *>	idThread::threadList;
 trace_t				idThread::trace;
+boost::recursive_mutex		idThread::_executionMutex;
 
 /*
 ================
@@ -681,7 +682,10 @@ void idThread::KillThread( int num ) {
 idThread::Execute
 ================
 */
-bool idThread::Execute( void ) {
+bool idThread::Execute( void )
+{
+	boost::recursive_mutex::scoped_lock executionLock(_executionMutex);
+
 	idThread	*oldThread;
 	bool		done;
 

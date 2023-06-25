@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4391 $
- * $Date: 2010-12-29 20:07:37 -0500 (Wed, 29 Dec 2010) $
+ * $Revision: 4392 $
+ * $Date: 2010-12-29 20:51:14 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4391 2010-12-30 01:07:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4392 2010-12-30 01:51:14Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2063,8 +2063,8 @@ void idAI::ThinkMT()
 			case MOVETYPE_ANIM :
 				// animation based movement
 				UpdateEnemyPosition();
-				/*UpdateScript();
-				if (!cv_ai_opt_noanims.GetBool())
+				UpdateScript();
+				/*if (!cv_ai_opt_noanims.GetBool())
 				{
 					AnimMove();
 				}
@@ -2267,8 +2267,8 @@ void idAI::Think( void )
 
 			case MOVETYPE_ANIM :
 				// animation based movement
-				/*UpdateEnemyPosition();*/
-				UpdateScript();
+				/*UpdateEnemyPosition();
+				UpdateScript();*/
 				if (!cv_ai_opt_noanims.GetBool())
 				{
 					AnimMove();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3885 $
- * $Date: 2010-04-24 22:37:27 -0400 (Sat, 24 Apr 2010) $
+ * $Revision: 4392 $
+ * $Date: 2010-12-29 20:51:14 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,6 +12,8 @@
 
 #ifndef __SCRIPT_THREAD_H__
 #define __SCRIPT_THREAD_H__
+
+#include <boost/thread/recursive_mutex.hpp>
 
 extern const idEventDef EV_Thread_Execute;
 extern const idEventDef EV_Thread_SetCallback;
@@ -93,6 +95,8 @@ private:
 	static idList<idThread *>	threadList;
 
 	static trace_t				trace;
+
+	static boost::recursive_mutex	_executionMutex;
 
 	void						Init( void );
 	void						Pause( void );
