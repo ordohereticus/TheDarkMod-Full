@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3963 $
- * $Date: 2010-06-21 08:39:39 -0400 (Mon, 21 Jun 2010) $
+ * $Revision: 3967 $
+ * $Date: 2010-06-22 09:49:42 -0400 (Tue, 22 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3963 2010-06-21 12:39:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3967 2010-06-22 13:49:42Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1629,6 +1629,16 @@ void idStaticEntity::Spawn( void ) {
 			{
 				// last distance is named differently so you don't need to know how many levels the code supports:
 				m_DistLODSq[i] = fHideDistance;
+
+				// compute a random number and check it against the hide probability spawnarg
+				// do this only once at setup time, so the setting is stable during runtime
+				float fHideProbability = spawnArgs.GetFloat( "hide_probability", "1.0" );
+				float fRandom = gameLocal.random.RandomFloat();	// 0.0 .. 1.0
+				if (fRandom <= fHideProbability)
+				{
+					m_DistLODSq[i] = -1.0f;		// disable
+				}
+					
 			}
 
 			//gameLocal.Printf (" %s: init LOD %i m_DistLODSq=%f\n", GetName(), i, m_DistLODSq[i]); 
@@ -1713,6 +1723,7 @@ void idStaticEntity::Think( void )
 	if( m_bDistDependent 
 		&& ( (gameLocal.time - m_DistCheckTimeStamp) > m_DistCheckInterval ) )
 	{
+		
 		idVec3 delta, vGravNorm;
 		bool bWithinDist = false;
 
