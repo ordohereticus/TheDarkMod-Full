@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4172 $
- * $Date: 2010-09-10 12:19:58 -0400 (Fri, 10 Sep 2010) $
+ * $Revision: 4420 $
+ * $Date: 2011-01-11 01:23:39 -0500 (Tue, 11 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: liquid.cpp 4172 2010-09-10 16:19:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 4420 2011-01-11 06:23:39Z tels $", init_version);
 
 #include "StimResponse/StimResponseCollection.h"
 
@@ -157,8 +157,8 @@ void idLiquid::Spawn() {
 
 	renderEntity.shaderParms[ 3 ]	= spawnArgs.GetFloat( "shaderParm3", "1" );
 	renderEntity.shaderParms[ 4 ]	= spawnArgs.GetFloat( "shaderParm4", "0" );
-	renderEntity.shaderParms[ 5 ]	= spawnArgs.GetFloat( "shaderParm5", "0" );
-	renderEntity.shaderParms[ 6 ]	= spawnArgs.GetFloat( "shaderParm6", "0" );
+	renderEntity.shaderParms[ 5 ]	= spawnArgs.GetFloat( "shaderParm5", "0.1" );
+	renderEntity.shaderParms[ 6 ]	= spawnArgs.GetFloat( "shaderParm6", "1.5" );
 	renderEntity.shaderParms[ 7 ]	= spawnArgs.GetFloat( "shaderParm7", "0" );
 	renderEntity.shaderParms[ 8 ]	= spawnArgs.GetFloat( "shaderParm8", "0" );
 	renderEntity.shaderParms[ 9 ]	= spawnArgs.GetFloat( "shaderParm9", "0" );
