@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4205 $
- * $Date: 2010-09-28 10:00:09 -0400 (Tue, 28 Sep 2010) $
+ * $Revision: 4213 $
+ * $Date: 2010-09-30 13:45:59 -0400 (Thu, 30 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4205 2010-09-28 14:00:09Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4213 2010-09-30 17:45:59Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2071,7 +2071,7 @@ float idEntity::ThinkAboutLOD( const lod_data_t *m_LOD, const float deltaSq )
 				fAlpha = 1.0f;	// show
 			}
 
-			// We found the right level and switched to it
+			// We found the right level and wil switch to it
 			return fAlpha;
 		}
 

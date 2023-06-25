@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4209 $
- * $Date: 2010-09-30 03:14:54 -0400 (Thu, 30 Sep 2010) $
+ * $Revision: 4213 $
+ * $Date: 2010-09-30 13:45:59 -0400 (Thu, 30 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -58,7 +58,7 @@ TODO: add a "entity" field (int) to the offsets list, so we avoid having to
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4209 2010-09-30 07:14:54Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4213 2010-09-30 17:45:59Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2577,7 +2577,7 @@ void Lode::CombineEntities( void )
 				material = declManager->FindMaterial( m, false );
 			}
 			// use a megamodel to get the combined model, that we later can update, too:
-			PseudoClass.megamodel = new CMegaModel( &LODs, &offsets, &playerPos, &m_Entities[i].origin, material );
+			PseudoClass.megamodel = new CMegaModel( &LODs, &offsets, &m_Entities[i].origin, material );
 			PseudoClass.hModel = PseudoClass.megamodel->GetRenderModel();
 
 			// replace the old class with the new pseudo class which contains the merged model
