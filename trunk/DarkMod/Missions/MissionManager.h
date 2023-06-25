@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3934 $
- * $Date: 2010-06-10 06:59:50 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 4038 $
+ * $Date: 2010-07-10 22:10:21 -0400 (Sat, 10 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -18,6 +18,17 @@ class CMissionDB;
 typedef boost::shared_ptr<CMissionDB> CMissionDBPtr;
 
 namespace fs = boost::filesystem;
+
+struct DownloadableMission
+{
+	idStr modName;
+	idStr title;
+	idStr author;
+	float sizeMB;
+	idStr releaseDate;
+	idStr language;
+};
+typedef idList<DownloadableMission> DownloadableMissionList;
 
 class CMissionManager
 {
@@ -35,6 +46,8 @@ private:
 
 	// The map which should be the starting point
 	idStr _curStartingMap;
+
+	DownloadableMissionList _downloadableMissions;
 
 public:
 	enum InstallResult
@@ -94,6 +107,12 @@ public:
 
 	// Uninstalls the currently installed FM, basically clearing our currentfm.txt
 	void UninstallMission();
+
+	// Checks online for available missions
+	void ReloadDownloadableMissions();
+
+	// Accessor to the downloadble mission list
+	const DownloadableMissionList& GetDownloadableMissions() const;
 
 	// Convenience method which copies a file from <source> to <dest>
 	// If <overwrite> is set to TRUE, any existing destination file will be removed beforehand
