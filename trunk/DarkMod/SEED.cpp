@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4458 $
- * $Date: 2011-01-23 11:20:32 -0500 (Sun, 23 Jan 2011) $
+ * $Revision: 4461 $
+ * $Date: 2011-01-23 14:35:29 -0500 (Sun, 23 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -68,7 +68,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output model generation debug info
 //#define M_DEBUG
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4458 2011-01-23 16:20:32Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4461 2011-01-23 19:35:29Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1667,8 +1667,7 @@ void Seed::Prepare( void )
 		idEntity *ent = targets[ i ].GetEntity();
 		if (ent)
 		{
-			// TODO: SafeRemove?
-			ent->PostEventMS( &EV_Remove, 0 );
+			ent->PostEventMS( &EV_SafeRemove, 0 );
 		}
 	}
 	targets.Clear();
@@ -1694,7 +1693,7 @@ void Seed::Prepare( void )
 		BecomeInactive( TH_THINK );
 
 		// post event to remove ourselfes
-		PostEventMS( &EV_Remove, 0 );
+		PostEventMS( &EV_SafeRemove, 0 );
 	}
 	else
 	{
@@ -3268,7 +3267,7 @@ bool Seed::CullEntity( const int idx )
 		ent->flags &= (! SEED_ENTITY_EXISTS);
 		ent->entity = 0;
 
-		// TODO: SafeRemve?
+		// TODO: SafeRemove?
 		ent2->PostEventMS( &EV_Remove, 0 );
 
 		return true;
