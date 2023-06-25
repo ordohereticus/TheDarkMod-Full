@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4072 $
- * $Date: 2010-07-19 10:18:25 -0400 (Mon, 19 Jul 2010) $
+ * $Revision: 4074 $
+ * $Date: 2010-07-20 08:10:34 -0400 (Tue, 20 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@ TODO: take over LOD changes from entity
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4072 2010-07-19 14:18:25Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4074 2010-07-20 12:10:34Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -1497,6 +1497,26 @@ void Lode::PrepareEntities( void )
 			}
 		}
 	}
+
+	// combine the spawned entities into megamodels if possible
+	CombineEntities();
+}
+
+void Lode::CombineEntities( void )
+{
+	model_combineinfo_t	info;
+
+	for (int i = 0; i < m_Entities.Num(); i++)
+	{
+		// try to combine as much entities into this one
+		// O(N*N) performance, but only if we don't combine any entities, otherwise
+		// every combine step reduces the number of entities to look at next:
+		for (int j = i; j < m_Entities.Num(); j++)
+		{
+			// TODO write this code using gameLocal.m_ModelGenerator.CombineModels()
+			//info = gameLocal.m_ModelGenerator.CombineModels( const idRenderModel *source, const idVec3 *ofs, const idAngles *angles, idRenderModel *target );
+		}
+	}
 }
 
 /*
@@ -1688,6 +1708,7 @@ bool Lode::CullEntity( const int idx )
 		m_iNumVisible --;
 		ent->exists = false;
 		ent->hidden = true;
+		ent->entity = 0;
 
 		// TODO: SafeRemve?
 		ent2->PostEventMS( &EV_Remove, 0 );
