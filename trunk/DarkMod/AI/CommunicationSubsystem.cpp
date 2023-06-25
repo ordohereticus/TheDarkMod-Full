@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3731 $
- * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
+ * $Revision: 4396 $
+ * $Date: 2010-12-31 07:06:48 -0500 (Fri, 31 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CommunicationSubsystem.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CommunicationSubsystem.cpp 4396 2010-12-31 12:06:48Z greebo $", init_version);
 
 #include "CommunicationSubsystem.h"
 #include "Library.h"
@@ -171,7 +171,7 @@ int CommunicationSubsystem::GetCurrentPriority()
 
 idStr CommunicationSubsystem::GetDebugInfo()
 {
-	return (_enabled) ? GetCurrentTaskName() + " (" + idStr(_taskQueue.size()) + ")" : "";
+	return (_enabled) ? GetCurrentTaskName() + " (" + idStr(static_cast<unsigned>(_taskQueue.size())) + ")" : "";
 }
 
 // Save/Restore methods
