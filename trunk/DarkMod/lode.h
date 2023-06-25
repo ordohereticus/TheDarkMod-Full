@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4243 $
- * $Date: 2010-10-13 12:07:34 -0400 (Wed, 13 Oct 2010) $
+ * $Revision: 4246 $
+ * $Date: 2010-10-15 01:31:15 -0400 (Fri, 15 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -149,6 +149,7 @@ struct lode_class_t {
 /** Defines one area that inhibits entity spawning */
 struct lode_inhibitor_t {
 	idVec3					origin;			//!< origin of the area
+	idVec3					size;			//!< size of the area (for falloff computation)
 	idBox					box;			//!< oriented box of the area
 	idList< idStr >			classnames;		//!< Contains a list of classes to inhibit/allow, depending on "inhibit_only"
 	bool					inhibit_only;	//!< If false, classes in 'classnames' are allowed instead of inhibited
