@@ -1,9 +1,9 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 4283 $
-* $Date: 2010-11-18 23:52:24 -0500 (Thu, 18 Nov 2010) $
-* $Author: tels $
+* $Revision: 4377 $
+* $Date: 2010-12-20 20:30:44 -0500 (Mon, 20 Dec 2010) $
+* $Author: greebo $
 *
 ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 4283 2010-11-19 04:52:24Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 4377 2010-12-21 01:30:44Z greebo $", init_version);
 
 #include "game_local.h"
 
@@ -913,9 +913,10 @@ m_matCookMath_pass2		( declManager->FindMaterial( "postprocess/cookMath_pass2" )
 	 // Using idStr::FindText to make sure that we account for trailing white spaces. However, even an invalid command 
 	 // e.g. like "reloadImagesADEAW" would update the cooked data, but that should not be a problem.
 	 if( NULL != a_pcText && 
-		( 0 == idStr::FindText( a_pcText, "reloadimages", false ) || 0 == idStr::FindText(a_pcText, "vid_restart", false ) )
+		( 0 == idStr::FindText( a_pcText, "reloadimages", false ) || 0 == idStr::FindText(a_pcText, "vid_restart", false ) || 0 == idStr::FindText(a_pcText, "image_anisotropy", false ) )
 		 )
 	 {
+	 
 		 m_nFramesToUpdateCookedData = 1;
 		 if( r_postprocess.GetBool() )
 			gameLocal.Printf("Cooked Data will be updated after %d frames...\n", m_nFramesToUpdateCookedData  );
