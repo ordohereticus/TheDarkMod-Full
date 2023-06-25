@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4127 $
- * $Date: 2010-08-04 12:34:37 -0400 (Wed, 04 Aug 2010) $
+ * $Revision: 4128 $
+ * $Date: 2010-08-05 10:24:16 -0400 (Thu, 05 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4127 2010-08-04 16:34:37Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4128 2010-08-05 14:24:16Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10817,8 +10817,8 @@ void idEntity::Event_GetLightInPVS( const float lightFalloff, const float lightD
 	idVec3 local_light;
 	idVec3 local_light_radius;
 	idVec3 origin;
-	// divide dist by this factor, so 1 as light in 1000 units stays, is half in 2000 etc
-	float dist_scaling = 10000 * lightDistScale;
+	// divide dist by this factor, so 1 as light in 500 units stays, is half in 1000 etc
+	float dist_scaling = 5000 * lightDistScale;
 
 	// If this is a player, use the eye location to match what the script does
 	// with $player1.GetLocation()
@@ -10869,8 +10869,7 @@ void idEntity::Event_GetLightInPVS( const float lightFalloff, const float lightD
 				float dist;
 				if (lightFalloff < 1)
 				{
-					dist = dist3.Length();
-					dist /= dist;			// square root of dist
+					dist = idMath::Sqrt( dist3.Length() );	// square root of dist
 				}
 				else if (lightFalloff > 1)
 					{
@@ -10883,12 +10882,12 @@ void idEntity::Event_GetLightInPVS( const float lightFalloff, const float lightD
 						dist = dist3.Length();
 					}
 				// divide by dist
-				gameLocal.Warning(" dist %0.2f, falloff %0.0f\n", dist, lightFalloff );
+				//gameLocal.Warning(" dist %0.2f, falloff %0.0f\n", dist, lightFalloff );
 				dist /= dist_scaling;
-				gameLocal.Warning(" dist is now %0.2f\n", dist );
-				gameLocal.Warning(" local_light %s\n", local_light.ToString() );
+				//gameLocal.Warning(" dist is now %0.2f\n", dist );
+				//gameLocal.Warning(" local_light %s\n", local_light.ToString() );
 				local_light /= dist;
-				gameLocal.Warning(" local_light %s\n", local_light.ToString() );
+				//gameLocal.Warning(" local_light %s\n", local_light.ToString() );
 			}
 			sum += local_light;
 		}
