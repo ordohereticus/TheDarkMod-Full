@@ -5,9 +5,10 @@
  * Compile this file with -DNO_GZCOMPRESS to avoid the compression code.
  */
 
-/* @(#) $Id: gzio.c 3153 2009-01-17 05:52:40Z greebo $ */
+/* @(#) $Id: gzio.c 4288 2010-11-19 07:21:57Z greebo $ */
 
 #include <stdio.h>
+#include <errno.h>
 
 #include "zutil.h"
 
