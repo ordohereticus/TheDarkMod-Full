@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4171 $
- * $Date: 2010-09-10 05:58:43 -0400 (Fri, 10 Sep 2010) $
+ * $Revision: 4173 $
+ * $Date: 2010-09-10 13:18:13 -0400 (Fri, 10 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -27,7 +27,7 @@ TODO: add "watch_models" (or "combine_models"?) so the mapper can place models a
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4171 2010-09-10 09:58:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4173 2010-09-10 17:18:13Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -925,12 +925,12 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 		{
 		// Store m_LOD at the class
 		LodeClass.m_LOD = m_LOD;
-		m_LOD = NULL;				// prevent double free
 		}
 	else
 		{
 		LodeClass.m_LOD = NULL;
 		}
+	m_LOD = NULL;				// prevent double free (and LODE doesn't have LOD)
 	LodeClass.materials.Clear();
 
 	// The default probability for all materials not matching anything in materials:
@@ -1946,7 +1946,7 @@ void Lode::PrepareEntities( void )
 											// flip the true/false value if we found a match
 											inhibited = !inhibited;
 											gameLocal.Printf( "LODE %s: Entity class %s %s by inhibitor %i.\n", 
-													GetName(), m_Classes[i].classname.c_str(), inhibited ? "inhibited" : "allowed" );
+													GetName(), m_Classes[i].classname.c_str(), inhibited ? "inhibited" : "allowed", k );
 											break;
 										}
 									}
