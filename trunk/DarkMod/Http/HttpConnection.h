@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+ * $Revision: 4030 $
+ * $Date: 2010-07-08 22:02:21 -0400 (Thu, 08 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,12 +20,22 @@ typedef boost::shared_ptr<CHttpRequest> CHttpRequestPtr;
  * proxy settings and providing error handling.
  *
  * Use the CreateRequest() method to generate a new request object.
+ *
+ * TDM provides a single http connection object via the gameLocal class:
+ *
+ * gameLocal.m_HttpConnection->CreateRequest("http://www.thedarkmod.com");
+ *
+ * Note: the m_HttpConnection object can be NULL if HTTP requests have been
+ * disabled by the user.
  */
 class CHttpConnection
 {
-public:
+	friend class idGameLocal;
+
+private:
 	CHttpConnection();
 
+public:
 	~CHttpConnection();
 
 	bool HasProxy();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+ * $Revision: 4030 $
+ * $Date: 2010-07-08 22:02:21 -0400 (Thu, 08 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -91,6 +91,7 @@ extern idCVar cv_tdm_fm_restart_delay;
 extern idCVar cv_tdm_proxy;
 extern idCVar cv_tdm_proxy_user;
 extern idCVar cv_tdm_proxy_pass;
+extern idCVar cv_tdm_allow_http_access;
 
 extern idCVar cv_debug_aastype;
 

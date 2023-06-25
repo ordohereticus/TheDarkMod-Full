@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+ * $Revision: 4030 $
+ * $Date: 2010-07-08 22:02:21 -0400 (Thu, 08 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4030 2010-07-09 02:02:21Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -134,6 +134,7 @@ idCVar cv_tdm_fm_restart_delay("tdm_fm_restart_delay",	"0", CVAR_ARCHIVE | CVAR_
 idCVar cv_tdm_proxy("tdm_proxy", "", CVAR_ARCHIVE, "The proxy to use when connecting to the internet, format: hostname:8080" );
 idCVar cv_tdm_proxy_user("tdm_proxy_user", "", CVAR_ARCHIVE, "The proxy user to use when connecting to the internet via proxy." );
 idCVar cv_tdm_proxy_pass("tdm_proxy_pass", "", CVAR_ARCHIVE, "The proxy password to use when connecting to the internet via proxy." );
+idCVar cv_tdm_allow_http_access("tdm_allow_http_access",		"1",			CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If true (nonzero), TDM is allowed to send HTTP request to the TDM servers to check for updates, missions, etc. Setting this to false disables all web functionality." );
 
 idCVar cv_debug_aastype(			"tdm_debug_aastype",		"aas32",		CVAR_GAME | CVAR_ARCHIVE, "Sets the AAS type used for visualisation with impulse 27");
 
