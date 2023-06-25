@@ -2,16 +2,19 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4448 $
- * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 4451 $
+ * $Date: 2011-01-20 15:24:45 -0500 (Thu, 20 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
-// Copyright (C) 2010 Tels (Donated to The Dark Mod Team)
+// Copyright (C) 2010-2011 Tels (Donated to The Dark Mod Team)
 
 /*
-Level Of Detail Entities - Manage other entities based on LOD (e.g. distance)
+  System for Environmental Entity Distribution (SEED, formerly known as LODE)
+
+  Manage other entities based on LOD (e.g. distance), as well as create entities
+  based on rules in semi-random places/rotations/sizes and colors.
 
 Important things to do:
 
@@ -62,11 +65,11 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4451 2011-01-20 20:24:45Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
-#include "lode.h"
+#include "SEED.h"
 
 // maximum number of tries to place an entity
 #define MAX_TRIES 8
