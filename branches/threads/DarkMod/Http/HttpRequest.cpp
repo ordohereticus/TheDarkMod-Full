@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4039 $
- * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4041 $
+ * $Date: 2010-07-11 02:01:29 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4039 2010-07-11 04:41:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4041 2010-07-11 06:01:29Z greebo $", init_version);
 
 #include "HttpRequest.h"
 #include "HttpConnection.h"
@@ -25,7 +25,8 @@ CHttpRequest::CHttpRequest(CHttpConnection& conn, const std::string& url) :
 	_conn(conn),
 	_url(url),
 	_handle(NULL),
-	_status(NOT_PERFORMED_YET)
+	_status(NOT_PERFORMED_YET),
+	_cancelFlag(false)
 {
 	Construct();
 }
@@ -35,7 +36,8 @@ CHttpRequest::CHttpRequest(CHttpConnection& conn, const std::string& url, const 
 	_url(url),
 	_handle(NULL),
 	_status(NOT_PERFORMED_YET),
-	_destFilename(destFilename)
+	_destFilename(destFilename),
+	_cancelFlag(false)
 {
 	Construct();
 }
@@ -82,21 +84,37 @@ void CHttpRequest::Perform()
 
 	CURLcode result = curl_easy_perform(_handle);
 
-	_destStream.flush();
-	_destStream.close();
-
-	switch (result)
+	if (!_destFilename.empty())
 	{
-	case CURLE_OK:
-		_status = OK;
-		break;
-	default:
-		_status = FAILED;
-	};
+		_destStream.flush();
+		_destStream.close();
+	}
+
+	if (_cancelFlag)
+	{
+		_status = ABORTED;
+	}
+	else
+	{
+		switch (result)
+		{
+		case CURLE_OK:
+			_status = OK;
+			break;
+		default:
+			_status = FAILED;
+		};
+	}
 
 	curl_easy_cleanup(_handle);
 
 	_handle = NULL;
+}
+
+void CHttpRequest::Cancel()
+{
+	// The memory callback will catch this flag
+	_cancelFlag = true;
 }
 
 CHttpRequest::RequestStatus CHttpRequest::GetStatus()
@@ -120,6 +138,11 @@ XmlDocumentPtr CHttpRequest::GetResultXml()
 
 size_t CHttpRequest::WriteMemoryCallback(void* ptr, size_t size, size_t nmemb, CHttpRequest* self)
 {
+	if (self->_cancelFlag)
+	{
+		return 0; // cancel the process
+	}
+
 	// Needed size
 	std::size_t bytesToCopy = size * nmemb;
 
@@ -144,6 +167,11 @@ size_t CHttpRequest::WriteMemoryCallback(void* ptr, size_t size, size_t nmemb, C
 
 size_t CHttpRequest::WriteFileCallback(void* ptr, size_t size, size_t nmemb, CHttpRequest* self)
 {
+	if (self->_cancelFlag)
+	{
+		return 0; // cancel the process
+	}
+
 	// Needed size
 	std::size_t bytesToCopy = size * nmemb;
 

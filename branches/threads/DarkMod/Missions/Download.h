@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4039 $
- * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4041 $
+ * $Date: 2010-07-11 02:01:29 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,6 +12,7 @@
 
 #include "../Http/HttpRequest.h"
 #include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
 
 /**
  * An object representing a single download
@@ -40,6 +41,9 @@ private:
 	// The corresponding HTTP request
 	CHttpRequestPtr _request;
 
+	typedef boost::shared_ptr<boost::thread> ThreadPtr;
+	ThreadPtr _thread;
+
 public:
 	CDownload(const idStr& url, const idStr& destFilename);
 
@@ -53,6 +57,10 @@ public:
 	
 	// The current status of this download
 	Status GetStatus();
+
+private:
+	// Thread entry point
+	void Perform();
 };
 typedef boost::shared_ptr<CDownload> CDownloadPtr;
 

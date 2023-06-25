@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4039 $
- * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4041 $
+ * $Date: 2010-07-11 02:01:29 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,7 +36,8 @@ public:
 		NOT_PERFORMED_YET,
 		OK,	// successful
 		IN_PROGRESS,
-		FAILED
+		FAILED,
+		ABORTED,
 	};
 
 private:
@@ -58,6 +59,9 @@ private:
 
 	std::ofstream _destStream;
 
+	// True if we should cancel the download
+	bool _cancelFlag;
+
 public:
 	CHttpRequest(CHttpConnection& conn, const std::string& url);
 
@@ -71,6 +75,8 @@ public:
 
 	// Perform the request
 	void Perform();
+
+	void Cancel();
 
 	// Returns the result string
 	std::string GetResultString();
