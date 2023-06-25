@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4042 $
- * $Date: 2010-07-11 07:51:52 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4043 $
+ * $Date: 2010-07-11 09:49:34 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4042 2010-07-11 11:51:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4043 2010-07-11 13:49:34Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -244,10 +244,10 @@ void CDownloadMenu::UpdateDownloadProgress(idUserInterface* gui)
 			gui->SetStateString(va("dl_mission_progress_%d", i), "failed ");
 			break;
 		case CDownload::IN_PROGRESS:
-			gui->SetStateString(va("dl_mission_progress_%d", i), "0%");
+			gui->SetStateString(va("dl_mission_progress_%d", i), va("%0.0f%s", download->GetProgressFraction()*100, "% "));
 			break;
 		case CDownload::SUCCESS:
-			gui->SetStateString(va("dl_mission_progress_%d", i), "100%");
+			gui->SetStateString(va("dl_mission_progress_%d", i), "100% ");
 			break;
 		};
 	}

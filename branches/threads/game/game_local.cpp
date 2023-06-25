@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4039 $
- * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4042 $
+ * $Date: 2010-07-11 07:51:52 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4039 2010-07-11 04:41:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4042 2010-07-11 11:51:52Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2951,6 +2951,9 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 	// Check for any activated signals, and trigger them.
 	CheckSDKSignals();
 
+	// Handle any mission downloads in progress
+	m_DownloadManager->ProcessDownloads();
+
 	// Update the gameplay timer
 	m_GamePlayTimer.Update();
 
@@ -3539,6 +3542,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		{
 			HandleGuiMessages(gui);
 		}
+
+		// Handle downloads in progress
+		m_DownloadManager->ProcessDownloads();
 
 		// Propagate the video CVARs to the GUI
 		gui->SetStateInt("video_aspectratio", cvarSystem->GetCVarInteger("r_aspectRatio"));

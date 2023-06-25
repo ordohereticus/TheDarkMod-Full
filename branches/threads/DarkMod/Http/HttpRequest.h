@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4041 $
- * $Date: 2010-07-11 02:01:29 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4043 $
+ * $Date: 2010-07-11 09:49:34 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -62,6 +62,8 @@ private:
 	// True if we should cancel the download
 	bool _cancelFlag;
 
+	double _progress;
+
 public:
 	CHttpRequest(CHttpConnection& conn, const std::string& url);
 
@@ -78,6 +80,9 @@ public:
 
 	void Cancel();
 
+	// Between 0.0 and 1.0
+	double GetProgressFraction();
+
 	// Returns the result string
 	std::string GetResultString();
 
@@ -87,6 +92,8 @@ public:
 private:
 	// shared constructor code
 	void Construct();
+
+	void UpdateProgress();
 };
 typedef boost::shared_ptr<CHttpRequest> CHttpRequestPtr;
 

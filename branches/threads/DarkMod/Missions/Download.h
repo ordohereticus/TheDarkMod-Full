@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4041 $
- * $Date: 2010-07-11 02:01:29 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4043 $
+ * $Date: 2010-07-11 09:49:34 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -57,6 +57,8 @@ public:
 	
 	// The current status of this download
 	Status GetStatus();
+
+	double GetProgressFraction();
 
 private:
 	// Thread entry point
