@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4093 $
- * $Date: 2010-07-24 03:44:37 -0400 (Sat, 24 Jul 2010) $
+ * $Revision: 4095 $
+ * $Date: 2010-07-24 14:32:22 -0400 (Sat, 24 Jul 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4093 2010-07-24 07:44:37Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4095 2010-07-24 18:32:22Z jcdenton $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6686,7 +6686,7 @@ idLight * idGameLocal::FindMainAmbientLight( bool a_bCreateNewIfNotFound /*= fal
 		{
 			idVec3 vec3LightRadius; 
 			idLight *pLight =  static_cast<idLight *>( entities[i] );
-			gameLocal.Printf( "Light found %i \n", j++ ); 
+// 			gameLocal.Printf( "Light found %i \n", j++ ); 
 
 			if (!pLight->IsAmbient())
 				continue;
