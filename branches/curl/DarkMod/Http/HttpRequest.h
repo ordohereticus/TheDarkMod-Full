@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3976 $
- * $Date: 2010-06-22 22:40:34 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3978 $
+ * $Date: 2010-06-23 11:38:23 -0400 (Wed, 23 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -26,10 +26,11 @@ typedef void CURL;
 class CHttpRequest
 {
 public:
-	enum Status
+
+	enum RequestStatus
 	{
-		NOT_PERFORMED_YET = -1,
-		OK = 0,	// successful
+		NOT_PERFORMED_YET,
+		OK,	// successful
 		IN_PROGRESS,
 		FAILED
 	};
@@ -47,7 +48,7 @@ private:
 	CURL* _handle;
 
 	// The current state
-	Status _status;
+	RequestStatus _status;
 
 public:
 	CHttpRequest(CHttpConnection& conn, const std::string& url);
@@ -55,7 +56,7 @@ public:
 	// Callback for CURL
 	static size_t WriteMemoryCallback(void* ptr, size_t size, size_t nmemb, CHttpRequest* self);
 
-	Status GetStatus();
+	RequestStatus GetStatus();
 
 	// Perform the request
 	void Perform();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3976 $
- * $Date: 2010-06-22 22:40:34 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3978 $
+ * $Date: 2010-06-23 11:38:23 -0400 (Wed, 23 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 3976 2010-06-23 02:40:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpRequest.cpp 3978 2010-06-23 15:38:23Z greebo $", init_version);
 
 #include "HttpRequest.h"
 #include "HttpConnection.h"
@@ -63,7 +63,7 @@ void CHttpRequest::Perform()
 	_handle = NULL;
 }
 
-CHttpRequest::Status CHttpRequest::GetStatus()
+CHttpRequest::RequestStatus CHttpRequest::GetStatus()
 {
 	return _status;
 }
