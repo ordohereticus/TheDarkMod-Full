@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 4436 $
+ * $Date: 2011-01-14 05:19:55 -0500 (Fri, 14 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: clip.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: clip.cpp 4436 2011-01-14 10:19:55Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -772,7 +772,7 @@ void idClip::ClipModelsTouchingBounds_r( const struct clipSector_s *node, listPa
 		}
 
 		if ( parms.count >= parms.maxCount ) {
-			gameLocal.Warning( "idClip::ClipModelsTouchingBounds_r: max count" );
+			gameLocal.Warning( "idClip::ClipModelsTouchingBounds_r: max count (%i) reached", parms.maxCount );
 			return;
 		}
 
@@ -831,7 +831,7 @@ int idClip::EntitiesTouchingBounds( const idBounds &bounds, int contentMask, idE
 		}
 		if ( j >= entCount ) {
 			if ( entCount >= maxCount ) {
-				gameLocal.Warning( "idClip::EntitiesTouchingBounds: max count" );
+				gameLocal.Warning( "idClip::EntitiesTouchingBounds: max count (%i) reached.", maxCount );
 				return entCount;
 			}
 			entityList[entCount] = clipModelList[i]->entity;
