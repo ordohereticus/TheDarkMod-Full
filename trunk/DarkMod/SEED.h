@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4454 $
- * $Date: 2011-01-23 07:40:50 -0500 (Sun, 23 Jan 2011) $
+ * $Revision: 4456 $
+ * $Date: 2011-01-23 09:40:33 -0500 (Sun, 23 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -465,6 +465,11 @@ private:
 	* If true, debug colors are used instead of normal skins.
 	*/
 	bool						m_bDebugColors;
+
+	/**
+	* If true, this SEED will combine entities into StaticMulti entities
+	*/
+	bool						m_bCombine;
 
 	static const unsigned long	IEEE_ONE  = 0x3f800000;
 	static const unsigned long	IEEE_MASK = 0x007fffff;
