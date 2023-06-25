@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4092 $
- * $Date: 2010-07-23 07:33:08 -0400 (Fri, 23 Jul 2010) $
+ * $Revision: 4094 $
+ * $Date: 2010-07-24 10:10:15 -0400 (Sat, 24 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4092 2010-07-23 11:33:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4094 2010-07-24 14:10:15Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -482,7 +482,8 @@ void Lode::Spawn( void ) {
 	idAngles a = clip->GetAxis().ToAngles();
 	gameLocal.Printf( "LODE %s: Clipmodel origin %0.2f %0.2f %0.2f size %0.2f %0.2f %0.2f axis %s.\n", GetName(), o.x, o.y, o.z, s.x, s.y, s.z, a.ToString() );
 
-	// gameLocal.Printf( "LODE %s: Sizes: lode_entity_t %i, lode_class_t %i, idEntity %i.\n", GetName(), sizeof(lode_entity_t), sizeof(lode_class_t), sizeof(idEntity) );
+	gameLocal.Printf( "LODE %s: Sizes: lode_entity_t %i, lode_class_t %i, lod_data_t %i, idEntity %i, idStaticEntity %i.\n", 
+			GetName(), sizeof(lode_entity_t), sizeof(lode_class_t), sizeof(lod_data_t), sizeof(idEntity), sizeof(idStaticEntity) );
 
 //	idTraceModel *trace = GetPhysics()->GetClipModel()->GetTraceModel();
 //	idVec3 o = trace->GetOrigin();
