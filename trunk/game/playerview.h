@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4079 $
- * $Date: 2010-07-21 23:34:52 -0400 (Wed, 21 Jul 2010) $
- * $Author: jcdenton $
+ * $Revision: 4083 $
+ * $Date: 2010-07-22 09:50:37 -0400 (Thu, 22 Jul 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -101,8 +101,8 @@ private:
 
 	public:
 		dnImageWrapper( const char *a_strImage ) : 
-		m_matImage			( declManager->FindMaterial(a_strImage) ),
-		m_strImage			( a_strImage )
+		m_strImage			( a_strImage ),
+		m_matImage			( declManager->FindMaterial(a_strImage) )
 		{
 		}
 		ID_INLINE operator const char * () const
