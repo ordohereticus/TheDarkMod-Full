@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4243 $
- * $Date: 2010-10-13 12:07:34 -0400 (Wed, 13 Oct 2010) $
+ * $Revision: 4245 $
+ * $Date: 2010-10-14 23:12:18 -0400 (Thu, 14 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -57,7 +57,7 @@ TODO: Sort all the generated entities into multiple lists, keyed on a hash-key t
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4243 2010-10-13 16:07:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4245 2010-10-15 03:12:18Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1696,9 +1696,13 @@ void Lode::PrepareEntities( void )
 							x = 2.0f * (RandomFloat() - 0.5f);
 							y = 2.0f * (RandomFloat() - 0.5f);
 
-							// then see if it passes the test (inside and higher than the probability)
-							// compute distance to center
-							float d = idMath::Sqrt( x * x + y * y );
+							// Then see if it passes the test (inside and higher than the probability)
+							// compute distance to center. We skip computing the square root here,
+							// because SQRT(X) where X < 1 always produces a result < 1, and if X > 1
+							// the result is always > 1, so SQRT() does not change the result in regard
+							// to comparing it against 1.0f:
+							//float d = idMath::Sqrt( x * x + y * y );
+							float d = x * x + y * y;
 
 							if (d > 1.0f)
 							{
@@ -1714,17 +1718,18 @@ void Lode::PrepareEntities( void )
 							}
 
 							// compute the probability this position would pass based on "d" (0..1.0f)
-							// 2 or 3 => pow
+							// 4 => linear
 							if (falloff == 4)
 							{
-								p = 1.0f - d;
+								p = d;
 							}
+							// 2 or 3 => pow
 							else
 							{
-								p = 1.0f - idMath::Pow( d, factor );
+								p = idMath::Pow( d, factor );
 							}
 							// compute a random value and see if it is bigger than p
-							if (RandomFloat() < p)
+							if (RandomFloat() > p)
 							{
 								p = 1.0f;
 								break;
