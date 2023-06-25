@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3934 $
- * $Date: 2010-06-10 06:59:50 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3954 $
+ * $Date: 2010-06-17 02:52:16 -0400 (Thu, 17 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3934 2010-06-10 10:59:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3954 2010-06-17 06:52:16Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -24,10 +24,12 @@ CMissionManager::CMissionManager() :
 
 void CMissionManager::Init()
 {
-	_missionDB->Init();
-
 	// (Re-)generate mission list on start
 	ReloadMissionList();
+
+	// greebo: Now that any new PK4 files have been copied/moved,
+	// reload the mission database.
+	_missionDB->Init();
 
 	InitStartingMap();
 }
