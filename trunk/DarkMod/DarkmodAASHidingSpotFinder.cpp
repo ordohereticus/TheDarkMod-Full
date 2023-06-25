@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3914 $
- * $Date: 2010-06-06 22:17:58 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4269 $
+ * $Date: 2010-11-01 23:27:29 -0400 (Mon, 01 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 3914 2010-06-07 02:17:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 4269 2010-11-02 03:27:29Z tels $", init_version);
 
 #include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
@@ -524,6 +524,7 @@ bool CDarkmodAASHidingSpotFinder::testingAASAreas_InNonVisiblePVSArea
 				p_hidingAreaNode, 
 				hidingSpot.goal, 
 				hidingSpot.hidingSpotTypes,
+				// TODO: gcc says these two are used uninitialized:
 				hidingSpot.lightQuotient,
 				hidingSpot.qualityWithoutDistanceFactor,
 				hidingSpot.quality,
