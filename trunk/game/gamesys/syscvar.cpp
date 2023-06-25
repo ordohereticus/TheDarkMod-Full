@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4175 $
- * $Date: 2010-09-16 03:04:00 -0400 (Thu, 16 Sep 2010) $
+ * $Revision: 4176 $
+ * $Date: 2010-09-16 03:10:45 -0400 (Thu, 16 Sep 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4175 2010-09-16 07:04:00Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4176 2010-09-16 07:10:45Z jcdenton $", init_version);
 
 #include "../game_local.h"
 
@@ -357,7 +357,7 @@ idCVar cv_lg_velocity_mod_min_velocity("tdm_lg_velocity_mod_min_velocity", "0", 
 idCVar cv_lg_velocity_mod_max_velocity("tdm_lg_velocity_mod_max_velocity", "300", CVAR_GAME | CVAR_FLOAT, "The maximum player speed taken into account for the lightgem.");
 idCVar cv_lg_velocity_mod_amount("tdm_lg_velocity_mod_amount", "1", CVAR_GAME | CVAR_FLOAT, "The maximum light level increase factor due to player velocity (this will be multiplied when the player velocity is >= tdm_lg_player_velocity_mod_max).");
 
-idCVar cv_lg_fade_delay("tdm_lg_fade_delay",		"0.15",		CVAR_GAME | CVAR_FLOAT,	"lightgem fade time from previous value to new value in seconds." );		// J.C.Denton
+idCVar cv_lg_fade_delay("tdm_lg_fade_delay",		"0.04",		CVAR_GAME | CVAR_FLOAT,	"lightgem fade time from previous value to new value in seconds." );		// J.C.Denton
 
 
 idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo", CVAR_GAME | CVAR_ARCHIVE, "The empty model referenced by the 'waitForRender' script event.");
