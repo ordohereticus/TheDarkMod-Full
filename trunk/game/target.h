@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3945 $
- * $Date: 2010-06-11 08:07:22 -0400 (Fri, 11 Jun 2010) $
+ * $Revision: 4216 $
+ * $Date: 2010-10-03 01:14:22 -0400 (Sun, 03 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -393,7 +393,7 @@ public:
 
 private:
 	void	Event_Activate( idEntity *activator );
-	void	TryPostOrCall( idEntity *ent, const idEventDef *ev, const char* funcName, const bool pass_self, const float delay);
+	void	TryPostOrCall( idEntity *ent, idEntity *activator, const idEventDef *ev, const char* funcName, const bool pass_self, const bool pass_activator, const float delay);
 };
 
 /*

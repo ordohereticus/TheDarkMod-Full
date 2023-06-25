@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4215 $
- * $Date: 2010-10-02 12:01:45 -0400 (Sat, 02 Oct 2010) $
+ * $Revision: 4216 $
+ * $Date: 2010-10-03 01:14:22 -0400 (Sun, 03 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -1606,6 +1606,8 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_GetLootAmount(int lootType);
 	void					Event_ChangeLootAmount(int lootType, int amount);
 	void					Event_AddInvItem(idEntity* ent);
+	// Tels: The reverse of AddInvItem()
+	void					Event_AddItemToInv(idEntity* ent);
 	void					Event_ReplaceInvItem(idEntity* oldItem, idEntity* newItem);
 	void					Event_GetNextInvItem();
 	void					Event_GetPrevInvItem();
