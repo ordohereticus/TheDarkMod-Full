@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4200 $
- * $Date: 2010-09-28 01:58:30 -0400 (Tue, 28 Sep 2010) $
- * $Author: greebo $
+ * $Revision: 4205 $
+ * $Date: 2010-09-28 10:00:09 -0400 (Tue, 28 Sep 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4200 2010-09-28 05:58:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4205 2010-09-28 14:00:09Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1965,7 +1965,8 @@ float idEntity::ThinkAboutLOD( const lod_data_t *m_LOD, const float deltaSq )
 	// have no LOD
 	if (NULL == m_LOD)
 	{
-		return false;
+		// fully visible
+		return 1.0f;
 	}
 
 	bool bWithinDist = false;
@@ -2177,7 +2178,8 @@ void idEntity::Think( void )
 		}
 
 		// multiply with the user LOD bias setting, and return the result:
-		float deltaSq = delta.LengthSqr() / (cv_lod_bias.GetFloat() * cv_lod_bias.GetFloat());
+		// floor the value to avoid inaccurancies leading to toggling when the player stands still:
+		float deltaSq = idMath::Floor( delta.LengthSqr() / (cv_lod_bias.GetFloat() * cv_lod_bias.GetFloat()) );
 
 		SwitchLOD( m_LOD, deltaSq );
 	}
