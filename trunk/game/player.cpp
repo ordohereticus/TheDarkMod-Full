@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4281 $
- * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
+ * $Revision: 4333 $
+ * $Date: 2010-11-25 22:25:23 -0500 (Thu, 25 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4281 2010-11-19 03:58:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4333 2010-11-26 03:25:23Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6663,6 +6663,7 @@ Called every tic for each player
 */
 void idPlayer::Think( void )
 {
+	bool allowAttack = false;
 	renderEntity_t *headRenderEnt;
 	UpdatePlayerIcons();
 
@@ -6674,6 +6675,13 @@ void idPlayer::Think( void )
 	usercmd = gameLocal.usercmds[ entityNumber ];
 	buttonMask &= usercmd.buttons;
 	usercmd.buttons &= ~buttonMask;
+
+	// Solarsplace 19th Nov 2010 - Bug tracker id 0002424
+	if ( ! (gameLocal.mainMenuExited && ( usercmd.buttons & BUTTON_ATTACK )) )
+	{
+        	allowAttack = true;
+		gameLocal.mainMenuExited = false;
+	}
 
 	// angua: disable doom3 crouching
 	if (usercmd.upmove < 0)
@@ -6842,7 +6850,8 @@ void idPlayer::Think( void )
 	// Check if we just hit the attack button
 	idEntity* frobbedEnt = m_FrobEntity.GetEntity();
 
-	if (frobbedEnt != NULL && usercmd.buttons & BUTTON_ATTACK && !(oldButtons & BUTTON_ATTACK))
+	// Solarsplace: allowAttack - bug fix for #2424
+	if (frobbedEnt != NULL && usercmd.buttons & BUTTON_ATTACK && !(oldButtons & BUTTON_ATTACK) && allowAttack)
 	{
 		frobbedEnt->AttackAction(this);
 	}
@@ -6861,7 +6870,7 @@ void idPlayer::Think( void )
 */
 	if ( spectating ) {
 		UpdateSpectating();
-	} else if ( health > 0 ) {
+	} else if ( health > 0 && allowAttack) {
 		UpdateWeapon();
 	}
 
@@ -6914,7 +6923,7 @@ void idPlayer::Think( void )
 	if ( !g_stopTime.GetBool() ) {
 		UpdateAnimation();
 
-        Present();
+	        Present();
 
 		UpdateDamageEffects();
 

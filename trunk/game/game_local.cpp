@@ -1,8 +1,9 @@
 /***************************************************************************
+ * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4283 $
- * $Date: 2010-11-18 23:52:24 -0500 (Thu, 18 Nov 2010) $
+ * $Revision: 4333 $
+ * $Date: 2010-11-25 22:25:23 -0500 (Thu, 25 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -15,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4283 2010-11-19 04:52:24Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4333 2010-11-26 03:25:23Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -258,6 +259,8 @@ void idGameLocal::Clear( void )
 	m_sndProp = &g_SoundProp;
 	m_RelationsManager = CRelationsPtr();
 	m_MissionData.reset();
+
+	mainMenuExited = false;
 
 	m_Grabber = NULL;
 	m_DifficultyManager.Clear();
@@ -3501,6 +3504,9 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 {
 	// When this is set to TRUE, the next command will be dumped to the console
 	static bool logNextCommand = false;
+
+	// TODO Tels: Verify this is the right place!
+	mainMenuExited = true;
 
 	idStr cmd(menuCommand);
 
