@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4337 $
- * $Date: 2010-11-26 06:57:10 -0500 (Fri, 26 Nov 2010) $
+ * $Revision: 4358 $
+ * $Date: 2010-12-06 09:04:38 -0500 (Mon, 06 Dec 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 4337 2010-11-26 11:57:10Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 4358 2010-12-06 14:04:38Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -721,7 +721,8 @@ idLight::FadeOut
 ================
 */
 void idLight::FadeOut( float time ) {
-	if (fadeFrom == colorBlack)
+	if (baseColor.x == 0 && baseColor.y == 0 && baseColor.z == 0)
+	//if (fadeFrom == colorBlack)
 	{
 		// The fade would not happen, so Off() would not be called, so do it now (#2440)
 		Off();
@@ -743,6 +744,7 @@ void idLight::FadeIn( float time ) {
 	idVec4 color4;
 
 	currentLevel = levels;
+	// restore the original light color
 	spawnArgs.GetVector( "_color", "1 1 1", color );
 	color4.Set( color.x, color.y, color.z, 1.0f );
 	Fade( color4, time );
