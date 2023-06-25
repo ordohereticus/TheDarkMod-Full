@@ -1,12 +1,3 @@
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
- *
- ***************************************************************************/
-
 //						FastDelegate.h
 //	Efficient delegates in C++ that generate only two lines of asm code!
 //  Documentation is found at http://www.codeproject.com/cpp/FastDelegate.asp
@@ -3818,4 +3809,3 @@ FastDelegate20<Param1, Param2, Param3, Param4, Param5, Param6, Param7, Param8, P
 } // namespace fastdelegate
 
 #endif // !defined(FASTDELEGATE_H)
-
