@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3951 $
- * $Date: 2010-06-13 22:35:24 -0400 (Sun, 13 Jun 2010) $
+ * $Revision: 3964 $
+ * $Date: 2010-06-21 08:48:21 -0400 (Mon, 21 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3951 2010-06-14 02:35:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3964 2010-06-21 12:48:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -39,6 +39,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 3951 2010-06-14 
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../DarkMod/RevisionTracker.h"
 #include "../DarkMod/Missions/MissionManager.h"
+#include "../DarkMod/Http/HttpConnection.h"
 
 #include "IL/il.h"
 #include "../DarkMod/randomizer/randomc.h"
@@ -505,6 +506,8 @@ void idGameLocal::Init( void ) {
 
 	// Check the interaction.vfp settings
 	UpdateInteractionShader();
+
+	CHttpConnection conn;
 }
 
 void idGameLocal::UpdateInteractionShader()
