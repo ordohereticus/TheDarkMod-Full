@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3908 $
- * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
+ * $Revision: 3950 $
+ * $Date: 2010-06-13 08:31:42 -0400 (Sun, 13 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,12 +13,13 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 3908 2010-05-27 04:48:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 3950 2010-06-13 12:31:42Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
 #include "../../DarkMod/sndPropLoader.h"
 #include "../../DarkMod/Relations.h"
+#include "../../DarkMod/MissionData.h"
 #include "../../DarkMod/Inventory/Inventory.h"
 #include "../../DarkMod/Inventory/Item.h"
 #include "../../DarkMod/TimerManager.h"
@@ -62,6 +63,22 @@ void Cmd_PrintAIRelations_f( const idCmdArgs &args )
 {
 	gameLocal.m_RelationsManager->DebugPrintMat();
 	return;
+}
+
+/**
+ * greebo: This is a helper command, used by the restart.gui
+ */
+void Cmd_RestartGuiCmd_UpdateObjectives_f(const idCmdArgs &args) 
+{
+	idUserInterface* gui = uiManager->FindGui("guis/restart.gui", false, true, true);
+
+	if (gui == NULL) 
+	{
+		gameLocal.Warning("Could not find restart.gui");
+		return;
+	}
+	
+	gameLocal.m_MissionData->UpdateGUIState(gui);
 }
 
 /*
@@ -3424,6 +3441,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "tdm_activatelogclass",		Cmd_ActivateLog_f,			CMD_FL_GAME,	"Activates a specific log class during run-time (as defined in darkmod.ini)", CGlobal::ArgCompletion_LogClasses );
 	cmdSystem->AddCommand( "tdm_deactivatelogclass",	Cmd_DeactivateLog_f,		CMD_FL_GAME,	"De-activates a specific log class during run-time (as defined in darkmod.ini)", CGlobal::ArgCompletion_LogClasses );
 	cmdSystem->AddCommand( "tdm_batchConvertMaterials",	Cmd_BatchConvertMaterials_f,	CMD_FL_GAME,	"Converts all the materials to support new ambient lighting" );
+
+	cmdSystem->AddCommand( "tdm_restart_gui_update_objectives", Cmd_RestartGuiCmd_UpdateObjectives_f, CMD_FL_GAME, "Don't use. Reserved for internal use to dispatch restart GUI commands to the local game instance.");
 
 #ifndef	ID_DEMO_BUILD
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );
