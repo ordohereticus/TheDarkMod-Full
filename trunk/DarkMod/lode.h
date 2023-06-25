@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4165 $
- * $Date: 2010-09-08 11:52:47 -0400 (Wed, 08 Sep 2010) $
+ * $Revision: 4170 $
+ * $Date: 2010-09-10 03:42:14 -0400 (Fri, 10 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -141,6 +141,8 @@ struct lode_class_t {
 struct lode_inhibitor_t {
 	idVec3					origin;			//!< origin of the area
 	idBox					box;			//!< oriented box of the area
+	idList< idStr >			classnames;		//!< Contains a list of classes to inhibit/allow, depending on "inhibit_only"
+	bool					inhibit_only;	//!< If false, classes in 'classnames' are allowed instead of inhibited
 };
 
 #define LODE_ENTITY_FLAGMASK 0x00FFFFFF
