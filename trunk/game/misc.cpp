@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4094 $
- * $Date: 2010-07-24 10:10:15 -0400 (Sat, 24 Jul 2010) $
+ * $Revision: 4145 $
+ * $Date: 2010-08-28 07:40:38 -0400 (Sat, 28 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4094 2010-07-24 14:10:15Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4145 2010-08-28 11:40:38Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1550,7 +1550,11 @@ void idStaticEntity::Spawn( void ) {
 		BecomeActive( TH_THINK );
 	}
 
-	ParseLODSpawnargs();
+	if (ParseLODSpawnargs( &spawnArgs, gameLocal.random.RandomFloat() ) )
+		{
+		// Have to start thinking if we're distance dependent
+		BecomeActive( TH_THINK );
+		}
 }
 
 /*
