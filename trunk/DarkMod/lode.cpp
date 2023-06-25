@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4195 $
- * $Date: 2010-09-26 03:58:40 -0400 (Sun, 26 Sep 2010) $
+ * $Revision: 4196 $
+ * $Date: 2010-09-26 04:15:24 -0400 (Sun, 26 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -40,7 +40,7 @@ TODO: Make it so we can also combine entities from different classes, e.g. not j
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4195 2010-09-26 07:58:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4196 2010-09-26 08:15:24Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2496,7 +2496,7 @@ void Lode::CombineEntities( void )
 			{
 				int todo = sortedOffsets[d].entity;
 				// mark as combined
-				gameLocal.Printf( " Combined entity %i\n", todo );
+//				gameLocal.Printf( " Combined entity %i\n", todo );
 				m_Entities[todo].classIdx = -1;
 				// add the clipmodel to the multi-clipmodel
 				if (clipLoaded)
