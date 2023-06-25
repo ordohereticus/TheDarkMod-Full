@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4215 $
- * $Date: 2010-10-02 12:01:45 -0400 (Sat, 02 Oct 2010) $
+ * $Revision: 4220 $
+ * $Date: 2010-10-03 08:40:30 -0400 (Sun, 03 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -58,7 +58,7 @@ TODO: add a "entity" field (int) to the offsets list, so we avoid having to
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4215 2010-10-02 16:01:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4220 2010-10-03 12:40:30Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1350,24 +1350,27 @@ void Lode::Prepare( void )
 		kv = spawnArgs.MatchPrefix( "spawn_class", kv );
 	}
 
-	// increase the avg by X% to allow some spacing (even if spacing = 0)
-	m_fAvgSize *= 1.3f;
-
-	// (32 * 32 + 64 * 64 ) / 2 => 50 * 50
-	m_fAvgSize /= m_Classes.Num();
-
-	// avoid values too small or even 0
-	if (m_fAvgSize < 2)
+	if (m_Classes.Num() > 0)
 	{
-		m_fAvgSize = 2;
-	}
+		// increase the avg by X% to allow some spacing (even if spacing = 0)
+		m_fAvgSize *= 1.3f;
 
-	// set m_iNumEntities from spawnarg, or density, taking GUI setting into account
-	ComputeEntityCount();
+		// (32 * 32 + 64 * 64 ) / 2 => 50 * 50
+		m_fAvgSize /= m_Classes.Num();
 
-	if (m_iNumEntities <= 0)
-	{
-		gameLocal.Warning( "LODE %s: entity count is invalid: %i!\n", GetName(), m_iNumEntities );
+		// avoid values too small or even 0
+		if (m_fAvgSize < 2)
+		{
+			m_fAvgSize = 2;
+		}
+
+		// set m_iNumEntities from spawnarg, or density, taking GUI setting into account
+		ComputeEntityCount();
+
+		if (m_iNumEntities <= 0)
+		{
+			gameLocal.Warning( "LODE %s: entity count is invalid: %i!\n", GetName(), m_iNumEntities );
+		}
 	}
 
 	gameLocal.Printf( "LODE %s: Overall score: %i. Max. entity count: %i\n", GetName(), m_iScore, m_iNumEntities );
@@ -2944,7 +2947,8 @@ void Lode::Think( void )
 					}
 
 				}
-				// TODO: Normal LOD code here (replicate from entity)
+
+/*				// TODO: Normal LOD code here (replicate from entity)
 				// todo: int oldLODLevel = ent->lod;
 				float fAlpha = ThinkAboutLOD( lclass->m_LOD, deltaSq );
 				if (fAlpha == 0.0f)
@@ -2959,6 +2963,7 @@ void Lode::Think( void )
 					// setAlpha
 					// switchModel/switchSkin/noshadows
 				}
+*/
 			}
 		}
 		if (spawned > 0 || culled > 0)
