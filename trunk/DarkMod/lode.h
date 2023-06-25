@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4109 $
- * $Date: 2010-07-31 03:18:46 -0400 (Sat, 31 Jul 2010) $
+ * $Revision: 4110 $
+ * $Date: 2010-07-31 03:53:11 -0400 (Sat, 31 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -74,6 +74,7 @@ struct lode_class_t {
 											//!< at "z" where the are in the editor
 	bool					stack;			//!< if true, the entities can stack on top of each other
 	bool					noinhibit;		//!< if true, the entities of this class will not be inhibited
+	bool					nocombine;		//!< if true, the entities of this class will never be combined into megamodels
 	idVec3					color_base;		//!< base color
 	idVec3					color_min;		//!< random color minimum value
 	idVec3					color_max;		//!< random color maximum value
