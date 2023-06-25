@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4042 $
- * $Date: 2010-07-11 07:51:52 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4046 $
+ * $Date: 2010-07-11 22:40:10 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -31,6 +31,8 @@ public:
 	CDownloadManager();
 
 	void ProcessDownloads();
+
+	void ClearDownloads();
 
 	int AddDownload(const CDownloadPtr& download);
 	void RemoveDownload(int id);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4045 $
- * $Date: 2010-07-11 22:05:51 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4046 $
+ * $Date: 2010-07-11 22:40:10 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Download.cpp 4045 2010-07-12 02:05:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Download.cpp 4046 2010-07-12 02:40:10Z greebo $", init_version);
 
 #include "Download.h"
 #include "../Http/HttpConnection.h"
@@ -66,6 +66,9 @@ void CDownload::Stop()
 		_request.reset();
 
 		_status = FAILED;
+
+		// Remove temporary file
+		CMissionManager::DoRemoveFile(_tempFilename.c_str());
 	}
 }
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4042 $
- * $Date: 2010-07-11 07:51:52 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4046 $
+ * $Date: 2010-07-11 22:40:10 -0400 (Sun, 11 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadManager.cpp 4042 2010-07-11 11:51:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadManager.cpp 4046 2010-07-12 02:40:10Z greebo $", init_version);
 
 #include "DownloadManager.h"
 
@@ -35,6 +35,11 @@ CDownloadPtr CDownloadManager::GetDownload(int id)
 	Downloads::iterator found = _downloads.find(id);
 
 	return (found != _downloads.end()) ? found->second : CDownloadPtr();
+}
+
+void CDownloadManager::ClearDownloads()
+{
+	_downloads.clear();
 }
 
 bool CDownloadManager::DownloadInProgress()
