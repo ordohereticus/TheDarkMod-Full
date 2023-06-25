@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4261 $
- * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
- * $Author: grayman $
+ * $Revision: 4281 $
+ * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4261 2010-10-20 21:20:42Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4281 2010-11-19 03:58:55Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2271,9 +2271,7 @@ void idGameLocal::DumpOggSounds( void ) {
 				// if not voice over or combat chatter
 				if (	soundName.Find( "/vo/", false ) == -1 &&
 						soundName.Find( "/combat_chatter/", false ) == -1 &&
-						soundName.Find( "/bfgcarnage/", false ) == -1 &&
-						soundName.Find( "/enpro/", false ) == - 1 &&
-						soundName.Find( "/soulcube/energize_01.wav", false ) == -1 ) {
+						soundName.Find( "/enpro/", false ) == - 1 ) {
 					// don't OGG weapon sounds
 					if (	soundName.Find( "weapon", false ) != -1 ||
 							soundName.Find( "gun", false ) != -1 ||
@@ -4483,11 +4481,6 @@ bool idGameLocal::InhibitEntitySpawn( idDict &spawnArgs ) {
 	}
 #endif
 
-	if ( gameLocal.isMultiplayer ) {
-		name = spawnArgs.GetString( "classname" );
-		if ( idStr::Icmp( name, "weapon_bfg" ) == 0 || idStr::Icmp( name, "weapon_soulcube" ) == 0 ) {
-			result = true;
-		}
 	}*/
 
 	// Consult the difficulty manager, whether this entity should be prevented from being spawned.

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4244 $
- * $Date: 2010-10-13 21:48:45 -0400 (Wed, 13 Oct 2010) $
+ * $Revision: 4281 $
+ * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -401,7 +401,6 @@ public:
 	idList<idStr>			hudMessages;
 	idList<idStr>			inventoryPickedUpMessages;
 
-	int						weapon_soulcube;
 	int						weapon_fists;
 
 	bool					m_HeartBeatAllow; /// disable hearbeat except when dying or drowning - Need this to track state
@@ -426,7 +425,6 @@ public:
 
 
 	bool					hiddenWeapon;		// if the weapon is hidden ( in noWeapons maps )
-	idEntityPtr<idProjectile> soulCubeProjectile;
 
 	// mp stuff
 	static idVec3			colorBarTable[ 5 ];
@@ -654,9 +652,6 @@ public:
 	bool					CanShowWeaponViewmodel( void ) const;
 	// greebo: This method updates the player's movement hinderance when weapons are drawn
 	void					UpdateWeaponEncumbrance();
-
-	void					AddAIKill( void );
-	void					SetSoulCubeProjectile( idProjectile *projectile );
 
 	void					AdjustHeartRate( int target, float timeInSecs, float delay, bool force );
 	void					SetCurrentHeartRate( void );

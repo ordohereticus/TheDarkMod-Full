@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3915 $
- * $Date: 2010-06-06 22:26:54 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4281 $
+ * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 3915 2010-06-07 02:26:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4281 2010-11-19 03:58:55Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5663,12 +5663,7 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	// drop items
 	DropOnRagdoll();
 
-	if ( ( attacker && attacker->IsType( idPlayer::Type ) ) && ( inflictor && !inflictor->IsType( idSoulCubeMissile::Type ) ) )
-	{
-		static_cast< idPlayer* >( attacker )->AddAIKill();
-		bPlayerResponsible = ( attacker == gameLocal.GetLocalPlayer() );
-	}
-	else if( attacker && attacker->m_SetInMotionByActor.GetEntity() )
+	if( attacker && attacker->m_SetInMotionByActor.GetEntity() )
 	{
 		bPlayerResponsible = (attacker != gameLocal.world &&
 			attacker->m_SetInMotionByActor.GetEntity() == gameLocal.GetLocalPlayer());

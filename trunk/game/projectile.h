@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2240 $
- * $Date: 2008-04-28 16:00:22 -0400 (Mon, 28 Apr 2008) $
- * $Author: greebo $
+ * $Revision: 4281 $
+ * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -210,36 +210,6 @@ private:
 	bool					unGuided;
 	float					burstDist;
 	float					burstVelocity;
-};
-
-class idSoulCubeMissile : public idGuidedProjectile {
-public:
-	CLASS_PROTOTYPE ( idSoulCubeMissile );
-	~idSoulCubeMissile();
-	void					Save( idSaveGame *savefile ) const;
-	void					Restore( idRestoreGame *savefile );
-
-	void					Spawn( void );
-	virtual void			Think( void );
-	virtual void			Launch( const idVec3 &start, const idVec3 &dir, const idVec3 &pushVelocity, const float timeSinceFire = 0.0f, const float power = 1.0f, const float dmgPower = 1.0f );
-
-protected:
-	virtual void			GetSeekPos( idVec3 &out );
-	void					ReturnToOwner( void );
-	void					KillTarget( const idVec3 &dir );
-
-private:
-	idVec3					startingVelocity;
-	idVec3					endingVelocity;
-	float					accelTime;
-	int						launchTime;
-	bool					killPhase;
-	bool					returnPhase;
-	idVec3					destOrg;
-	idVec3					orbitOrg;
-	int						orbitTime;
-	int						smokeKillTime;
-	const idDeclParticle *	smokeKill;
 };
 
 struct beamTarget_t {
