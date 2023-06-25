@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3968 $
+ * $Date: 2010-06-22 21:14:59 -0400 (Tue, 22 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -329,6 +329,9 @@ extern idCVar cv_voice_from_off_volume;
 
 // angua: Velocity and sound volume of collisions
 extern idCVar cv_moveable_collision;
+
+// Tels: LOD system: multiplier for the LOD distance to be used
+extern idCVar cv_lod_bias;
 
 /**
 * CVars added for Darkmod knockout and field of vision changes
