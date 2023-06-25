@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4133 $
- * $Date: 2010-08-10 22:08:10 -0400 (Tue, 10 Aug 2010) $
+ * $Revision: 4134 $
+ * $Date: 2010-08-10 22:09:51 -0400 (Tue, 10 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4133 2010-08-11 02:08:10Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4134 2010-08-11 02:09:51Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2273,6 +2273,7 @@ bool Lode::SpawnEntity( const int idx, const bool managed )
 					// each pseudoclass spawns only one entity
 					r->hModel = lclass->hModel;
 					r->bounds = lclass->hModel->Bounds();
+					// TODO: remove old physics object first
 					ent2->SetPhysics( lclass->physicsObj );
 				}
 				else
@@ -2361,6 +2362,8 @@ bool Lode::CullEntity( const int idx )
 			// TODO: cl.megaModel.stopUpdates();
 			// avoid freeing the composed model
 			ent2->GetRenderEntity()->hModel = NULL;
+			// TODO: either swap physics object or set to NULL to avoid freeing
+			// 		 the object from the pseudo class
 		}
 		else
 		{
