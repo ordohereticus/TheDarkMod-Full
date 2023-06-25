@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4334 $
- * $Date: 2010-11-26 00:09:35 -0500 (Fri, 26 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4374 $
+ * $Date: 2010-12-20 07:38:13 -0500 (Mon, 20 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4334 2010-11-26 05:09:35Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4374 2010-12-20 12:38:13Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -796,6 +796,9 @@ Tels: Look at dist_think_interval, lod_1_distance etc. and fill the m_LOD
 bool idEntity::ParseLODSpawnargs( const idDict* dict, const float fRandom)
 {
 	m_LOD = NULL;
+
+	// greebo: Disable this for TDM 1.03
+	return false;
 
 	int d = (int) (1000.0f * dict->GetFloat( "dist_check_period", "0" ));
 
