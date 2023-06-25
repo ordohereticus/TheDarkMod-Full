@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4437 $
- * $Date: 2011-01-14 07:41:03 -0500 (Fri, 14 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4447 $
+ * $Date: 2011-01-18 12:48:22 -0500 (Tue, 18 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -1092,10 +1092,12 @@ public:
 	 */
 	virtual CInventoryItemPtr AddToInventory(idEntity *ent);
 
-	virtual void NextInventoryItem();	// Cycles to the next item in the inventory.
-	virtual void PrevInventoryItem();	// Cycles to the previous item in the inventory.
-	virtual void NextInventoryGroup();	// Cycles to the next group in the inventory.
-	virtual void PrevInventoryGroup();	// Cycles to the previous group in the inventory.
+	// Cycles to the prev/next item in the inventory.
+	// direction<0 - cycles to previous, direction>0 - cycles to next
+	virtual void NextPrevInventoryItem(int direction);
+	// Cycles to the prev/next group in the inventory.
+	// direction<0 - cycles to previous, direction>0 - cycles to next
+	virtual void NextPrevInventoryGroup(int direction);	
 
 	/**
 	 * greebo: This cycles through a specific inventory group (=category). 

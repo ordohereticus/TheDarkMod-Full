@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4446 $
- * $Date: 2011-01-18 12:07:24 -0500 (Tue, 18 Jan 2011) $
+ * $Revision: 4447 $
+ * $Date: 2011-01-18 12:48:22 -0500 (Tue, 18 Jan 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4446 2011-01-18 17:07:24Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4447 2011-01-18 17:48:22Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -5386,7 +5386,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
 
-			PrevInventoryItem();
+			NextPrevInventoryItem(-1);
 		}
 		break;
 
@@ -5407,7 +5407,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
 
-			NextInventoryItem();
+			NextPrevInventoryItem(1);
 		}
 		break;
 
@@ -5426,7 +5426,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
 
-			PrevInventoryGroup();
+			NextPrevInventoryGroup(-1);
 		}
 		break;
 
@@ -5445,7 +5445,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 			if(GetImmobilization() & EIM_ITEM_SELECT)
 				return;
 
-			NextInventoryGroup();
+			NextPrevInventoryGroup(1);
 		}
 		break;
 
@@ -9581,7 +9581,7 @@ bool idPlayer::SelectInventoryItem(const idStr& name)
 		itemName = TDM_DUMMY_ITEM;
 		if (prev->GetName() != itemName)
 		{
-			// Save name of current item (to restore it in NextInventoryItem / PrevInventoryItem)
+			// Save name of current item (to restore it in idEntity::NextPrevInventoryItem)
 			m_LastItemNameBeforeClear = prev->GetName();
 		}
 	}
