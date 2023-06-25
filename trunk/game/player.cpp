@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4393 $
- * $Date: 2010-12-30 09:37:16 -0500 (Thu, 30 Dec 2010) $
+ * $Revision: 4397 $
+ * $Date: 2011-01-01 06:35:04 -0500 (Sat, 01 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4393 2010-12-30 14:37:16Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4397 2011-01-01 11:35:04Z grayman $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2886,7 +2886,10 @@ void idPlayer::BlockWeapon( void )
 
 	if ( !hiddenWeapon && weapon.GetEntity()->IsReady() ) 
 	{
-		ignoreWeaponAttack = true; // grayman #597
+		if (AI_ATTACK_HELD) // grayman #597
+		{
+			ignoreWeaponAttack = true;
+		}
 		AI_BLOCK_HELD = true;
 		weapon.GetEntity()->BeginBlock();
 	}
