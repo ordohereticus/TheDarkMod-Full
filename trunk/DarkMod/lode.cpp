@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4135 $
- * $Date: 2010-08-13 01:18:50 -0400 (Fri, 13 Aug 2010) $
+ * $Revision: 4136 $
+ * $Date: 2010-08-13 01:45:08 -0400 (Fri, 13 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4135 2010-08-13 05:18:50Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4136 2010-08-13 05:45:08Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -640,10 +640,12 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 	
 	LodeClass.nocombine = ent->spawnArgs.GetBool("lode_combine","1") ? false : true;
 
-	// never combine moveables
-	if ( ent->IsType( idMoveable::Type ) )
+	// never combine moveables, actors or lights
+	if ( ent->IsType( idMoveable::Type ) ||
+		 ent->IsType( idActor::Type ) ||
+		 ent->IsType( idLight::Type ) )
 	{
-		LodeClass.nocombine = false;
+		LodeClass.nocombine = true;
 	}
 
 	// only for pseudo classes
