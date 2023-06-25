@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4051 $
- * $Date: 2010-07-12 22:24:43 -0400 (Mon, 12 Jul 2010) $
+ * $Revision: 4052 $
+ * $Date: 2010-07-13 06:42:36 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -49,7 +49,7 @@ private:
 	idStr _tempFilename;
 
 public:
-	enum Status
+	enum DownloadStatus
 	{
 		NOT_STARTED_YET,
 		IN_PROGRESS,
@@ -58,7 +58,7 @@ public:
 	};
 
 private:
-	Status _status;
+	DownloadStatus _status;
 
 	// The corresponding HTTP request
 	CHttpRequestPtr _request;
