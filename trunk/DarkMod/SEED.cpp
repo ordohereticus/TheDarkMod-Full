@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4454 $
- * $Date: 2011-01-23 07:40:50 -0500 (Sun, 23 Jan 2011) $
+ * $Revision: 4455 $
+ * $Date: 2011-01-23 08:53:58 -0500 (Sun, 23 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -65,7 +65,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4454 2011-01-23 12:40:50Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4455 2011-01-23 13:53:58Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2628,6 +2628,12 @@ void Seed::CombineEntities( void )
 	model_ofs_t ofs;
 	seed_sort_ofs_t sortOfs;
 
+	if ( ! spawnArgs.GetBool("combine", "0"))
+	{
+		gameLocal.Printf("SEED %s: combine = 0, skipping combine step.\n", GetName() );
+		return;
+	}
+
 	float max_combine_distance = spawnArgs.GetFloat("combine_distance", "1024");
 	if (max_combine_distance < 10)
 	{
@@ -2636,12 +2642,6 @@ void Seed::CombineEntities( void )
 	}
 	// square for easier comparing
 	max_combine_distance *= max_combine_distance;
-
-	if ( ! spawnArgs.GetBool("combine", "0"))
-	{
-		gameLocal.Printf("SEED %s: combine = 0, skipping combine step.\n", GetName() );
-		return;
-	}
 
 	int start = (int) time (NULL);
 
