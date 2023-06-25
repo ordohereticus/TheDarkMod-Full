@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4180 $
- * $Date: 2010-09-17 14:40:00 -0400 (Fri, 17 Sep 2010) $
+ * $Revision: 4181 $
+ * $Date: 2010-09-18 03:35:38 -0400 (Sat, 18 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4180 2010-09-17 18:40:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4181 2010-09-18 07:35:38Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -2196,6 +2196,16 @@ void idLocationSeparatorEntity::Event_GetPortalHandle( void )
 		return idThread::ReturnFloat( -1.0f );
 	}
 	idThread::ReturnFloat( (float) m_Portal );
+}
+
+qhandle_t idLocationSeparatorEntity::GetPortalHandle( void ) const
+{
+	return m_Portal;
+}
+
+float idLocationSeparatorEntity::GetLightLoss( void ) const
+{
+	return m_LightLoss;
 }
 
 /*

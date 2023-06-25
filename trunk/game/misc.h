@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4180 $
- * $Date: 2010-09-17 14:40:00 -0400 (Fri, 17 Sep 2010) $
+ * $Revision: 4181 $
+ * $Date: 2010-09-18 03:35:38 -0400 (Sat, 18 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -487,6 +487,8 @@ public:
 	void				Restore( idRestoreGame *savefile );
 
 	qhandle_t			GetPortalHandle( void ) const;
+	// Returns a factor (0..1.0) that says how  much light the portal lets through
+	float				GetLightLoss( void ) const;
 	void				Event_GetPortalHandle( void );	
 
 private:
