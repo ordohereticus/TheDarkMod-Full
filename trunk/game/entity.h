@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4121 $
- * $Date: 2010-08-02 09:54:15 -0400 (Mon, 02 Aug 2010) $
+ * $Revision: 4127 $
+ * $Date: 2010-08-04 12:34:37 -0400 (Wed, 04 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -1615,7 +1615,7 @@ public:			// Events should be public, so they can be used from other places as w
 	/**
 	* Tels: Return the sum of all lights in the entities PVS.
 	*/
-	void 					Event_GetLightInPVS();
+	void 					Event_GetLightInPVS( const float lightFalloff, const float lightDistScale);
 
 	/**
 	* Tels: Toggle the noShadow flag on this entity.
