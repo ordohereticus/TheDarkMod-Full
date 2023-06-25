@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4223 $
- * $Date: 2010-10-04 08:59:45 -0400 (Mon, 04 Oct 2010) $
+ * $Revision: 4224 $
+ * $Date: 2010-10-04 11:10:19 -0400 (Mon, 04 Oct 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -611,6 +611,6 @@ extern idCVar r_postprocess_sceneGamma;
 extern idCVar r_postprocess_debugMode;
 extern idCVar r_postprocess_bloomKernelSize;
 extern idCVar r_postprocess_bloomIntensity;
-extern idCVar r_postprocess_destaturation;
+extern idCVar r_postprocess_desaturation;
 
 #endif /* !__SYS_CVAR_H__ */

@@ -1,8 +1,8 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 4223 $
-* $Date: 2010-10-04 08:59:45 -0400 (Mon, 04 Oct 2010) $
+* $Revision: 4224 $
+* $Date: 2010-10-04 11:10:19 -0400 (Mon, 04 Oct 2010) $
 * $Author: jcdenton $
 *
 ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 4223 2010-10-04 12:59:45Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 4224 2010-10-04 15:10:19Z jcdenton $", init_version);
 
 #include "game_local.h"
 
@@ -1069,7 +1069,7 @@ void idPlayerView::dnPostProcessManager::Update( void )
 		//-------------------------------------------------
 		// Calculate and Render Final Image
 		//-------------------------------------------------
-		float fDesaturation = Max ( Min ( r_postprocess_destaturation.GetFloat(), 1.0f ), 0.0f );
+		float fDesaturation = Max ( Min ( r_postprocess_desaturation.GetFloat(), 1.0f ), 0.0f );
 		renderSystem->SetColor4( fBloomIntensity, fDesaturation, 1.0f, 1.0f );
 		renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, m_fShiftScale_y, m_fShiftScale_x, 0, m_matFinalScenePass );
 		//-------------------------------------------------
