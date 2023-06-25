@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4161 $
- * $Date: 2010-09-05 22:13:56 -0400 (Sun, 05 Sep 2010) $
+ * $Revision: 4162 $
+ * $Date: 2010-09-06 11:51:08 -0400 (Mon, 06 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -124,6 +124,12 @@ struct lode_class_t {
 	float					func_max;
 	idStr					map;			//!< name of the image map (greyscale 8-bit TGA)
 	CImage*					img;			//!< if map != "": ptr to the distribution image map
+
+	float					z_min;			// depends on z_invert
+	float					z_max;			// depends on z_invert
+	float					z_fadein;		// depends on z_invert
+	float					z_fadeout;		// depends on z_invert
+	bool					z_invert;		// false => entities spawn between z_min => z_max, otherwise outside
 
 	lod_data_t*				m_LOD;			//!< Contains (sharable, constant) LOD data if non-NULL.
 };
