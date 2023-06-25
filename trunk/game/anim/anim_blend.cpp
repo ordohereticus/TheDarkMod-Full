@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4272 $
- * $Date: 2010-11-12 06:46:55 -0500 (Fri, 12 Nov 2010) $
- * $Author: grayman $
+ * $Revision: 4386 $
+ * $Date: 2010-12-25 23:40:23 -0500 (Sat, 25 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,12 +14,13 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4272 2010-11-12 11:46:55Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4386 2010-12-26 04:40:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
 #include "../../DarkMod/Misc.h"
 #include "../../DarkMod/MeleeWeapon.h"
+#include "../../DarkMod/AI/Tasks/SingleBarkTask.h"
 
 static const char *channelNames[ ANIM_NumAnimChannels ] = {
 	"all", "torso", "legs", "head", "eyelids"
@@ -932,24 +933,47 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					}
 					break;
 				}
-				case FC_SOUND_VOICE: {
-					if ( !command.soundShader ) {
-						if ( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE, 0, false, NULL ) ) {
+				case FC_SOUND_VOICE:
+				{
+					if (command.soundShader == NULL)
+					{
+						// greebo: Use the communication subsystem for AI (issue #2483)
+						if (ent->IsType(idAI::Type))
+						{
+							static_cast<idAI*>(ent)->commSubsystem->AddCommTask(
+								ai::CommunicationTaskPtr(new ai::SingleBarkTask(*(command.string)))
+							);
+						}
+						else if ( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE, 0, false, NULL ) ) {
 							gameLocal.Warning( "Framecommand 'sound_voice' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 								ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
 						}
-					} else {
+					}
+					else
+					{
 						ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE, 0, false, NULL );
 					}
 					break;
 				}
-				case FC_SOUND_VOICE2: {
-					if ( !command.soundShader ) {
-						if ( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE2, 0, false, NULL ) ) {
+				case FC_SOUND_VOICE2:
+				{
+					if (command.soundShader == NULL)
+					{
+						// greebo: Use the communication subsystem for AI (issue #2483)
+						if (ent->IsType(idAI::Type))
+						{
+							static_cast<idAI*>(ent)->commSubsystem->AddCommTask(
+								ai::CommunicationTaskPtr(new ai::SingleBarkTask(*(command.string)))
+							);
+						}
+						else if ( !ent->StartSound( command.string->c_str(), SND_CHANNEL_VOICE2, 0, false, NULL ) )
+						{
 							gameLocal.Warning( "Framecommand 'sound_voice2' on entity '%s', anim '%s', frame %d: Could not find sound '%s'",
 								ent->name.c_str(), FullName(), frame + 1, command.string->c_str() );
 						}
-					} else {
+					}
+					else 
+					{
 						ent->StartSoundShader( command.soundShader, SND_CHANNEL_VOICE2, 0, false, NULL );
 					}
 					break;
