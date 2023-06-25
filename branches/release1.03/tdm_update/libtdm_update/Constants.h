@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4344 $
- * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4355 $
+ * $Date: 2010-11-30 09:25:16 -0500 (Tue, 30 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 namespace tdm
 {
 
-const char* const LIBTDM_UPDATE_VERSION = "0.47";
+const char* const LIBTDM_UPDATE_VERSION = "0.48";
 
 const char* const TDM_MIRRORS_FILE = "tdm_mirrors.txt";
 const char* const TDM_MIRRORS_SERVER = "http://bloodgate.com/mirrors/tdm/pub/pk4/";
