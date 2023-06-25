@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4225 $
- * $Date: 2010-10-05 04:28:54 -0400 (Tue, 05 Oct 2010) $
+ * $Revision: 4231 $
+ * $Date: 2010-10-08 03:31:13 -0400 (Fri, 08 Oct 2010) $
  * $Author: newhorizon $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4225 2010-10-05 08:28:54Z newhorizon $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4231 2010-10-08 07:31:13Z newhorizon $", init_version);
 
 #include "../game_local.h"
 
@@ -727,7 +727,7 @@ idCVar r_postprocess_colorCorrectBias		( "r_postprocess_colorCorrectBias",		"0.1
 idCVar r_postprocess_desaturation			( "r_postprocess_desaturation",			"0.05",		CVAR_GAME | CVAR_FLOAT,		" Desaturates the scene ");
 idCVar r_postprocess_sceneExposure			( "r_postprocess_sceneExposure",		"0.9",		CVAR_GAME | CVAR_FLOAT,		" Scene render is linearly scaled up. Try values lower or greater than 1.0");
 idCVar r_postprocess_sceneGamma				( "r_postprocess_sceneGamma",			"0.92",		CVAR_GAME | CVAR_FLOAT,		" Gamma Correction.");
-idCVar r_postprocess_bloomIntensity			( "r_postprocess_bloomIntensity",		"0.2",		CVAR_GAME | CVAR_FLOAT,		" Adjusts the Bloom intensity. 0.0 disables the bloom but other postprocessing effects remain unaffected.");
+idCVar r_postprocess_bloomIntensity			( "r_postprocess_bloomIntensity",		"0",		CVAR_GAME | CVAR_FLOAT,		" Adjusts the Bloom intensity. 0.0 disables the bloom but other postprocessing effects remain unaffected.");
 idCVar r_postprocess_bloomKernelSize		( "r_postprocess_bloomKernelSize",		"2",		CVAR_GAME | CVAR_INTEGER,	" Sets Bloom's Kernel size. Smaller is faster, takes less memory. Also, smaller kernel means larger bloom spread. \n 1. Large (2x smaller than current resolution) \n 2. Small (4x smaller than current resolution) " );
 //----------------------------------
 
