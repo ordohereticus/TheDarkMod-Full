@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4087 $
- * $Date: 2010-07-23 03:22:04 -0400 (Fri, 23 Jul 2010) $
+ * $Revision: 4088 $
+ * $Date: 2010-07-23 03:58:32 -0400 (Fri, 23 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -25,7 +25,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4087 2010-07-23 07:22:04Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4088 2010-07-23 07:58:32Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -710,7 +710,7 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 	{
 		LodeClass.img = new CImage();
 		LodeClass.img->LoadImage( LodeClass.map );
-		m_Classes[i].img->InitImageInfo();
+		LodeClass.img->InitImageInfo();
 	}
 
 	LodeClass.bunching = ent->spawnArgs.GetFloat( "lode_bunching", spawnArgs.GetString( "bunching", "0") );
