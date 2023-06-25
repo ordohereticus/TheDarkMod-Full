@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4125 $
- * $Date: 2010-08-03 21:47:33 -0400 (Tue, 03 Aug 2010) $
+ * $Revision: 4126 $
+ * $Date: 2010-08-04 09:49:00 -0400 (Wed, 04 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4125 2010-08-04 01:47:33Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4126 2010-08-04 13:49:00Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10811,8 +10811,20 @@ void idEntity::Event_GetLightInPVS( void )
 	idVec3 sum(0,0,0);
 	idVec3 local_light;
 	idVec3 local_light_radius;
+ 	int areaNum = -1;
 
- 	int areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
+	// If this is a player, use the eye location to match what the script does
+	// with $player1.GetLocation()
+	const idPlayer* player = gameLocal.GetLocalPlayer();
+	
+	if (player == this)
+	{
+ 		areaNum = gameRenderWorld->PointInArea( player->GetEyePosition() );
+	}
+	else
+	{
+ 		areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
+	}
 
 	// Find all light entities, then check if they are in the same area as the player:
 	for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
