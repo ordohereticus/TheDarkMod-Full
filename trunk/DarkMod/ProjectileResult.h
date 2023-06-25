@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1524 $
- * $Date: 2007-10-22 13:32:08 -0400 (Mon, 22 Oct 2007) $
- * $Author: tels $
+ * $Revision: 4274 $
+ * $Date: 2010-11-13 09:30:01 -0500 (Sat, 13 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -81,6 +81,7 @@ protected:
 
 	void Event_GetIncidenceAngle( void );
 
+	void Event_GetActualStruckEnt( void ); // grayman #837
 };
 
 #endif
