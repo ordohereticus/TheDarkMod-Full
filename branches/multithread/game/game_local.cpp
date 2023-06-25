@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4390 $
- * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
+ * $Revision: 4391 $
+ * $Date: 2010-12-29 20:07:37 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4390 2010-12-29 11:19:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4391 2010-12-30 01:07:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2933,12 +2933,12 @@ void idGameLocal::SortActiveEntityList( void ) {
 	sortPushers = false;
 }
 
-void idGameLocal::RunThinkFrameMT(int modulo)
+void idGameLocal::RunThinkFrameMT(int modulo, int remainder)
 {
 	std::stringstream str;
 
 	str << boost::this_thread::get_id();
-	DM_LOG(LC_THREAD, LT_INFO)LOGSTRING("Started worker thread with modulo %d: id %s.\r", modulo, str.str().c_str());
+	DM_LOG(LC_THREAD, LT_INFO)LOGSTRING("Started worker thread with modulo %d, remainder %d, thread id %s.\r", modulo, remainder, str.str().c_str());
 
 	int count = 0;
 	int entCount = 0;
@@ -2947,7 +2947,7 @@ void idGameLocal::RunThinkFrameMT(int modulo)
 	{
 		// Make sure the ThinkMT routine is invoked before the actual Think() routine, for entities that
 		// are designed for multithreading and have code in that method.
-		if ((ent->thinkFlags & TH_MULTITHREADED) && (entCount++) % 2 == modulo)
+		if ((ent->thinkFlags & TH_MULTITHREADED) && (entCount++) % modulo == remainder)
 		{
 			ent->ThinkMT();
 			count++;
@@ -3139,12 +3139,22 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 				if (cv_tdm_enable_multithreading.GetBool())
 				{
 					// Set up two threads to handle mt-enabled entities
-					boost::thread thinkThread0(boost::bind(&idGameLocal::RunThinkFrameMT, this, 0));
-					boost::thread thinkThread1(boost::bind(&idGameLocal::RunThinkFrameMT, this, 1));
+					boost::thread thinkThread0(boost::bind(&idGameLocal::RunThinkFrameMT, this, 2, 0));
+					boost::thread thinkThread1(boost::bind(&idGameLocal::RunThinkFrameMT, this, 2, 1));
 
 					// Wait for these threads to finish their work
-					thinkThread0.join();
-					thinkThread1.join();
+					int n = (int)boost::posix_time::time_duration::ticks_per_second() / 10000;
+					boost::posix_time::time_duration delay(0,0,0,n);
+
+					if (!thinkThread0.timed_join(delay))
+					{
+						thinkThread0.join();
+					}
+
+					if (!thinkThread1.timed_join(delay))
+					{
+						thinkThread1.join();
+					}
 
 					// Perform the single-threaded thinking loop
 					for (ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next())

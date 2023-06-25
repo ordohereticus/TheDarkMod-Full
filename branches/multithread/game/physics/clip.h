@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 4391 $
+ * $Date: 2010-12-29 20:07:37 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,6 +16,8 @@
 #ifdef __linux__
 #include "cm/collisionmodel.h"
 #endif
+
+#include <boost/thread/mutex.hpp>
 
 /*
 ===============================================================================
@@ -313,6 +315,11 @@ private:
 	int						numRenderModelTraces;
 	int						numContents;
 	int						numContacts;
+
+	boost::mutex			_translationMutex;
+	boost::mutex			_rotationMutex;
+	boost::mutex			_contentsMutex;
+	boost::mutex			_contactsMutex;
 
 private:
 	struct clipSector_s *	CreateClipSectors_r( const int depth, const idBounds &bounds, idVec3 &maxSector );

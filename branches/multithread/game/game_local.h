@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4390 $
- * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
+ * $Revision: 4391 $
+ * $Date: 2010-12-29 20:07:37 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -665,8 +665,8 @@ public:
 	virtual void			SpawnPlayer( int clientNum );
 	virtual gameReturn_t	RunFrame( const usercmd_t *clientCmds );
 
-	// Performs ThinkMT() for entities that support it. The entNumModulo is a not-too-elegant way to distribute entities among threads
-	void					RunThinkFrameMT(int modulo);
+	// Performs ThinkMT() for entities that support it. The moduloRemainder is a not-too-elegant way to distribute entities among threads
+	void					RunThinkFrameMT(int modulo, int remainder);
 
 	/**
 	* TDM: Pause/Unpause game
