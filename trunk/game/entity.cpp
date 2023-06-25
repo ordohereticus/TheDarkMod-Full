@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4387 $
- * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4424 $
+ * $Date: 2011-01-11 01:31:38 -0500 (Tue, 11 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4387 2010-12-26 10:44:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4424 2011-01-11 06:31:38Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -802,9 +802,11 @@ bool idEntity::ParseLODSpawnargs( const idDict* dict, const float fRandom)
 
 	int d = (int) (1000.0f * dict->GetFloat( "dist_check_period", "0" ));
 
+	float fHideDistance = dict->GetFloat( "hide_distance", "0.0" );
+
 	m_DistCheckTimeStamp = 0;
 	// a quick check for LOD, to avoid looking at all lod_x_distance spawnargs:
-	if (d == 0)
+	if (d == 0 || fHideDistance < 0.1f)
 	{
 		// no LOD wanted
 		return false;
@@ -820,8 +822,6 @@ bool idEntity::ParseLODSpawnargs( const idDict* dict, const float fRandom)
 	m_LODLevel = 0;
 
 	m_LOD->noshadowsLOD = dict->GetBool( "noshadows", "0" ) ? 1 : 0;	// the default value for level 0
-
-	float fHideDistance = dict->GetFloat( "hide_distance", "0.0" );
 
 	idStr temp;
 	// distance dependent LOD from this point on:
