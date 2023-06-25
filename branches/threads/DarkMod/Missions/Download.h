@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4052 $
- * $Date: 2010-07-13 06:42:36 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4053 $
+ * $Date: 2010-07-13 06:46:42 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -96,7 +96,7 @@ public:
 	void EnableValidPK4Check(bool enable);
 	
 	// The current status of this download
-	Status GetStatus();
+	DownloadStatus GetStatus();
 
 	double GetProgressFraction();
 

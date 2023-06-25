@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4051 $
- * $Date: 2010-07-12 22:24:43 -0400 (Mon, 12 Jul 2010) $
+ * $Revision: 4053 $
+ * $Date: 2010-07-13 06:46:42 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Download.cpp 4051 2010-07-13 02:24:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Download.cpp 4053 2010-07-13 10:46:42Z greebo $", init_version);
 
 #include "Download.h"
 #include "../Http/HttpConnection.h"
@@ -41,7 +41,7 @@ CDownload::~CDownload()
 	Stop();
 }
 
-CDownload::Status CDownload::GetStatus()
+CDownload::DownloadStatus CDownload::GetStatus()
 {
 	return _status;
 }
