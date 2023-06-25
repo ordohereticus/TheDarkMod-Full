@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4110 $
- * $Date: 2010-07-31 03:53:11 -0400 (Sat, 31 Jul 2010) $
+ * $Revision: 4121 $
+ * $Date: 2010-08-02 09:54:15 -0400 (Mon, 02 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -350,6 +350,11 @@ private:
 	* to 0 evertime we think and increased if outside the PVS.
 	*/
 	int							m_iThinkCounter;
+
+	/**
+	* If true, wait until triggered before spawning entities.
+	*/
+	bool						m_bWaitForTrigger;
 
 	/**
 	* Debug level. Default 0. Higher values will print more debug info.

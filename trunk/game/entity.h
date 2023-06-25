@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4094 $
- * $Date: 2010-07-24 10:10:15 -0400 (Sat, 24 Jul 2010) $
+ * $Revision: 4121 $
+ * $Date: 2010-08-02 09:54:15 -0400 (Mon, 02 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -669,7 +669,7 @@ public:
 	virtual void			ApplyImpulse( idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse );
 							// add a force to the physics object, 'ent' is the entity adding the force
 	virtual void			AddForce( idEntity *ent, int id, const idVec3 &point, const idVec3 &force );
-							// activate the physics object, 'ent' is the entity activating this entity
+							// activate the physics object, 'ent' is the entity activating this entity (and ignored in the code in entity.cpp...)
 	virtual void			ActivatePhysics( idEntity *ent );
 							// returns true if the physics object is at rest
 	virtual bool			IsAtRest( void ) const;
