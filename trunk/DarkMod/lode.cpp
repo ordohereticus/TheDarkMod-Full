@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4220 $
- * $Date: 2010-10-03 08:40:30 -0400 (Sun, 03 Oct 2010) $
+ * $Revision: 4229 $
+ * $Date: 2010-10-07 23:06:14 -0400 (Thu, 07 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -58,7 +58,7 @@ TODO: add a "entity" field (int) to the offsets list, so we avoid having to
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4220 2010-10-03 12:40:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4229 2010-10-08 03:06:14Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1931,7 +1931,7 @@ void Lode::PrepareEntities( void )
 
 				// compute a random sink value (that is added ater flooring and after the z-min/max check, so you can
 				// have some variability, too)
-				if (m_Classes[i].sink_max > 0)
+				if (m_Classes[i].sink_min != 0 || m_Classes[i].sink_max != 0)
 				{
 					// TODO: use a gravity normal
 					float sink = m_Classes[i].sink_min + RandomFloat() * ( m_Classes[i].sink_max - m_Classes[i].sink_min );
@@ -2002,7 +2002,7 @@ void Lode::PrepareEntities( void )
 
 								if (inhibited == true)
 								{
-									gameLocal.Printf( "LODE %s: Entity inhibited by inhibitor %i. Trying new place.\n", GetName(), k );
+									//gameLocal.Printf( "LODE %s: Entity inhibited by inhibitor %i. Trying new place.\n", GetName(), k );
 									break;							
 								}
 							}
