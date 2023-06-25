@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4417 $
- * $Date: 2011-01-11 01:14:58 -0500 (Tue, 11 Jan 2011) $
+ * $Revision: 4425 $
+ * $Date: 2011-01-11 01:44:39 -0500 (Tue, 11 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4417 2011-01-11 06:14:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4425 2011-01-11 06:44:39Z tels $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -829,12 +829,6 @@ void CImage::InitImageInfo()
 	ilBindImage(m_ImageId);
 
 	if (ilLoadL(m_defaultImageType, m_Image, m_BufferLength) == IL_FALSE)
-	{
-		DM_LOG(LC_SYSTEM, LT_ERROR)LOGSTRING("Error while loading image [%s]\r", m_Name.c_str());
-		return;
-	}
-
-	if (rc == false)
 	{
 		ILenum error = ilGetError();
 		DM_LOG(LC_SYSTEM, LT_ERROR)LOGSTRING("Error %i while loading image [%s]\r", (int)error, m_Name.c_str());
