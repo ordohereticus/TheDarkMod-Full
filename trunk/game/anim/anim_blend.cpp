@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4386 $
- * $Date: 2010-12-25 23:40:23 -0500 (Sat, 25 Dec 2010) $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4386 2010-12-26 04:40:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -3511,7 +3511,11 @@ bool idDeclModelDef::Parse( const char *text, const int textLength ) {
 			}
 
 			for( i = ANIMCHANNEL_ALL + 1; i < ANIM_NumAnimChannels; i++ ) {
+#ifdef MACOS_X
+				if ( !strcasecmp( channelNames[ i ], token2.c_str() ) ) {
+#else
 				if ( !stricmp( channelNames[ i ], token2.c_str() ) ) {
+#endif
 					break;
 				}
 			}

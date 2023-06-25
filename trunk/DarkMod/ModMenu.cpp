@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4385 $
- * $Date: 2010-12-25 20:55:28 -0500 (Sat, 25 Dec 2010) $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4385 2010-12-26 01:55:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -387,8 +387,12 @@ void CModMenu::RestartGame()
 	// path to tdmlauncher
 #ifdef _WINDOWS
 	fs::path launcherExe(darkmodPath / "tdmlauncher.exe");
-#else
+#elif __linux__
 	fs::path launcherExe(darkmodPath / "tdmlauncher.linux");
+#elif MACOS_X
+	fs::path launcherExe(darkmodPath / "tdmlauncher.macosx");
+#else
+#error 'Unsupported platform.'
 #endif
 
 	if (!fs::exists(launcherExe))

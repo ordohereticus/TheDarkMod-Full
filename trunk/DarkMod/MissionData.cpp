@@ -1,17 +1,18 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4192 $
- * $Date: 2010-09-25 22:37:14 -0400 (Sat, 25 Sep 2010) $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
+#include "../idlib/precompiled.h"
 #pragma hdrstop
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4192 2010-09-26 02:37:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 

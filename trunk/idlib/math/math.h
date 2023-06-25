@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4304 $
- * $Date: 2010-11-21 09:51:46 -0500 (Sun, 21 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -21,6 +21,9 @@
 #endif
 
 #ifdef MACOS_X
+// greebo: Include this for ID_INLINE
+#include "sys/sys_public.h"
+
 // for square root estimate instruction
 #include <ppc_intrinsics.h>
 // for FLT_MIN

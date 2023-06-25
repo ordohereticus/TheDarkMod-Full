@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3524 $
- * $Date: 2009-07-09 00:20:12 -0400 (Thu, 09 Jul 2009) $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Subsystem.cpp 3524 2009-07-09 04:20:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Subsystem.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 #include "Subsystem.h"
 #include "Library.h"
@@ -50,7 +50,7 @@ bool Subsystem::IsEmpty() const
 
 idStr Subsystem::GetDebugInfo()
 {
-	return (_enabled) ? GetCurrentTaskName() + " (" + idStr(_taskQueue.size()) + ")" : "";
+	return (_enabled) ? GetCurrentTaskName() + " (" + idStr(static_cast<unsigned>(_taskQueue.size())) + ")" : "";
 }
 
 idStr Subsystem::GetCurrentTaskName() const

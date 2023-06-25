@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3369 $
- * $Date: 2009-04-06 10:04:48 -0400 (Mon, 06 Apr 2009) $
- * $Author: angua $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -20,11 +20,12 @@
 *
 *****************************************************************************/
 
+#include "../idlib/precompiled.h"
 #pragma hdrstop
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: Relations.cpp 3369 2009-04-06 14:04:48Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Relations.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 

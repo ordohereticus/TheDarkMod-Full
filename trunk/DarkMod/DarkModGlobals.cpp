@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4400 $
- * $Date: 2011-01-10 21:25:29 -0500 (Mon, 10 Jan 2011) $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4400 2011-01-11 02:25:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -68,9 +68,11 @@ VersionCheckResult CompareVersion(int major, int minor, int toMajor, int toMinor
 }
 
 // Name of the logfile to use for Dark Mod logging
-#ifdef __linux__
+#if defined(__linux__)
 const char* DARKMOD_LOGFILE = "/tmp/DarkMod.log";
-#else
+#elif MACOS_X
+const char* DARKMOD_LOGFILE = "~/Library/Logs/DarkMod.log";
+#else // Windows
 const char* DARKMOD_LOGFILE = "c:\\d3modlogger.log";
 #endif
 
@@ -249,10 +251,18 @@ void CGlobal::Init()
 
 #endif
 
+	// Report the darkmod path for diagnostic purposes
+	LogString("Darkmod path is %s\r", GetDarkmodPath().c_str());
+
 #ifdef _WINDOWS_
 
 	std::string iniPath = GetDarkmodPath();
 	iniPath += "\\darkmod.ini";
+
+#elif MACOS_X
+
+	std::string iniPath = GetDarkmodPath();
+	iniPath += "/darkmod.ini";
 
 #else   // LINUX
 	

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: frustum.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: frustum.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 //#define FRUSTUM_DEBUG
 
@@ -2030,7 +2030,7 @@ bool idFrustum::ProjectionBounds( const idBounds &bounds, idBounds &projectionBo
 	return ProjectionBounds( idBox( bounds, vec3_origin, mat3_identity ), projectionBounds );
 }
 
-#ifndef __linux__
+#if !defined(__linux__) && !defined(MACOS_X)
 
 /*
 ============

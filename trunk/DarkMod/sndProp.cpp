@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3661 $
- * $Date: 2009-08-09 13:35:18 -0400 (Sun, 09 Aug 2009) $
- * $Author: angua $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -20,11 +20,12 @@
 *
 *****************************************************************************/
 
+#include "../idlib/precompiled.h"
 #pragma hdrstop
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 3661 2009-08-09 17:35:18Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2588 $
- * $Date: 2008-06-29 15:22:06 -0400 (Sun, 29 Jun 2008) $
+ * $Revision: 4409 $
+ * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#ifdef __linux__
+#if defined(__linux__) || defined(MACOS_X)
 #include "idlib/lib.h"
 #include "sound/sound.h"
 #endif
