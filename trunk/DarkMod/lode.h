@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4029 $
- * $Date: 2010-07-08 12:39:03 -0400 (Thu, 08 Jul 2010) $
+ * $Revision: 4031 $
+ * $Date: 2010-07-08 23:55:50 -0400 (Thu, 08 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -204,7 +204,7 @@ private:
 	* turning on rainclouds high above the player.
 	**/
 	bool				m_bDistCheckXYOnly;
-	
+
 	/**
 	* Timestamp and interval between distance checks, in milliseconds
 	**/

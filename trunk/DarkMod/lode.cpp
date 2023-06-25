@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4029 $
- * $Date: 2010-07-08 12:39:03 -0400 (Thu, 08 Jul 2010) $
+ * $Revision: 4031 $
+ * $Date: 2010-07-08 23:55:50 -0400 (Thu, 08 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@ TODO: take over LOD changes from entity
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4029 2010-07-08 16:39:03Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4031 2010-07-09 03:55:50Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -355,7 +355,7 @@ float Lode::addClassFromEntity( idEntity *ent, const int iEntScore )
 	// the entity already between spawning and us querying the info:
 	LodeClass.origin = ent->spawnArgs.GetVector( "origin" );
 	// these are ignored for pseudo classes (e.g. watch_breathren):
-	LodeClass.floor = ent->spawnArgs.GetBool( "lode_floor", "0" );
+	LodeClass.floor = ent->spawnArgs.GetBool( "lode_floor", spawnArgs.GetString( "floor", "0") );
 	LodeClass.stack = ent->spawnArgs.GetBool( "lode_stack", "1" );
 	LodeClass.noinhibit = ent->spawnArgs.GetBool( "lode_noinhibit", "0" );
 
@@ -1068,7 +1068,8 @@ bool Lode::spawnEntity( const int idx, const bool managed )
 		// move to right place
 		args.SetVector("origin", ent->origin );
 
-		// TODO: set skin
+		// TODO: set random skin
+	    args.Set("skin", lclass->skin );
 
 		// TODO: spawn as hidden, then later unhide them via LOD code
 		//args.Set("hide", "1");
