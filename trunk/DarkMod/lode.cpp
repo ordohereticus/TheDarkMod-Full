@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4187 $
- * $Date: 2010-09-24 11:41:58 -0400 (Fri, 24 Sep 2010) $
+ * $Revision: 4190 $
+ * $Date: 2010-09-24 12:18:57 -0400 (Fri, 24 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -40,7 +40,7 @@ TODO: Make it so we can also combine entities from different classes, e.g. not j
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4187 2010-09-24 15:41:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4190 2010-09-24 16:18:57Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2408,7 +2408,9 @@ void Lode::CombineEntities( void )
 					// load model, then combine away
 //					gameLocal.Warning("LODE %s: Trying to load LOD model #%i %s for entity %i.", 
 //							GetName(), mi, tmlod->ModelLOD[mi].c_str(), i);
-					idRenderModel* tModel = NULL;
+					// for "model_lod_1" "" => use default model
+					idRenderModel* tModel = tempModel;
+					// else:
 					idStr* mName = &(tmlod->ModelLOD[mi]);
 					if (! mName->IsEmpty() )
 					{
@@ -2427,6 +2429,9 @@ void Lode::CombineEntities( void )
 				}
 			}
 			// else just one stage
+			{
+				LODs.Append( NULL );							// LOD 1 - same as default model
+			}
 
 			idClipModel* lod_0_clip = new idClipModel();
 			// load the clipmodel for the lowest LOD stage for collision detection
