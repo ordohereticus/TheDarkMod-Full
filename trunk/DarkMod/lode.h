@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4088 $
- * $Date: 2010-07-23 03:58:32 -0400 (Fri, 23 Jul 2010) $
+ * $Revision: 4089 $
+ * $Date: 2010-07-23 06:11:49 -0400 (Fri, 23 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -342,6 +342,11 @@ private:
 	* to 0 evertime we think and increased if outside the PVS.
 	*/
 	int							m_iThinkCounter;
+
+	/**
+	* Debug level. Default 0. Higher values will print more debug info.
+	*/
+	int							m_iDebug;
 
 	static const unsigned long	IEEE_ONE  = 0x3f800000;
 	static const unsigned long	IEEE_MASK = 0x007fffff;
