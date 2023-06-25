@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4065 $
- * $Date: 2010-07-15 22:06:25 -0400 (Thu, 15 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4273 $
+ * $Date: 2010-11-12 12:08:17 -0500 (Fri, 12 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 4065 2010-07-16 02:06:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 4273 2010-11-12 17:08:17Z grayman $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -96,23 +96,37 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 
 	if (gameLocal.time > _nextAnimationTime)
 	{
+		// grayman #2169 - no idle animations while drowning
+
+		idAI* ai = static_cast<idAI*>(owner);
+		bool drowning = false;
+		if (ai)
+		{
+			drowning = ai->MouthIsUnderwater();
+		}
+
 		// angua: don't play idle animations while sitting / lying down or getting up
 		// TODO: Disable the playIdleAnimation flag rather than catch all those cases
+
+		// grayman: changed repeated instances of owner->GetMoveType() to one instance
+
+		moveType_t moveType = owner->GetMoveType();
 		if (memory.playIdleAnimations && 
 			!owner->AI_RUN &&
-			owner->GetMoveType() != MOVETYPE_SIT_DOWN &&
-			owner->GetMoveType() != MOVETYPE_LAY_DOWN &&
-			owner->GetMoveType() != MOVETYPE_SLEEP &&
-			owner->GetMoveType() != MOVETYPE_GET_UP &&
-			owner->GetMoveType() != MOVETYPE_GET_UP_FROM_LYING)
+			moveType != MOVETYPE_SIT_DOWN &&
+			moveType != MOVETYPE_LAY_DOWN &&
+			moveType != MOVETYPE_SLEEP &&
+			moveType != MOVETYPE_GET_UP &&
+			moveType != MOVETYPE_GET_UP_FROM_LYING &&
+			!drowning)
 		{
 			// Check if the AI is moving or sitting, this determines which channel we can play on
-			if (!owner->AI_FORWARD && owner->GetMoveType() != MOVETYPE_SIT)
+			if (!owner->AI_FORWARD && (moveType != MOVETYPE_SIT))
 			{
 				// AI is not walking or sitting, play animations affecting all channels
 				AttemptToPlayAnim(owner, _idleAnimations, false);
 			}
-			else if (owner->GetMoveType() == MOVETYPE_SIT)
+			else if (moveType == MOVETYPE_SIT)
 			{
 				// AI is sitting, only use sitting animations on torso channel
 				AttemptToPlayAnim(owner, _idleAnimationsSitting, true); // TORSO only

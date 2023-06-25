@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3427 $
- * $Date: 2009-05-07 13:02:16 -0400 (Thu, 07 May 2009) $
- * $Author: greebo $
+ * $Revision: 4273 $
+ * $Date: 2010-11-12 12:08:17 -0500 (Fri, 12 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 3427 2009-05-07 17:02:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RepeatedBarkTask.cpp 4273 2010-11-12 17:08:17Z grayman $", init_version);
 
 #include "RepeatedBarkTask.h"
 #include "../Memory.h"
@@ -67,13 +67,22 @@ bool RepeatedBarkTask::Perform(Subsystem& subsystem)
 	{
 		// The time has come, bark now
 
-		// Setup the message to be propagated, if we have one
-		if (_message != NULL)
-		{
-			owner->AddMessage(_message);
-		}
+		// grayman #2169 - no barks while underwater
 
-		_barkLength = owner->PlayAndLipSync(_soundName, "talk1");
+		if (!owner->MouthIsUnderwater())
+		{
+			// Setup the message to be propagated, if we have one
+			if (_message != NULL)
+			{
+				owner->AddMessage(_message);
+			}
+
+			_barkLength = owner->PlayAndLipSync(_soundName, "talk1");
+		}
+		else
+		{
+			_barkLength = 0;
+		}
 
 		_barkStartTime = gameLocal.time;
 

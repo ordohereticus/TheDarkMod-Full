@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3575 $
- * $Date: 2009-07-24 02:57:08 -0400 (Fri, 24 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 4273 $
+ * $Date: 2010-11-12 12:08:17 -0500 (Fri, 12 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 3575 2009-07-24 06:57:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 4273 2010-11-12 17:08:17Z grayman $", init_version);
 
 #include "SingleBarkTask.h"
 #include "../Memory.h"
@@ -81,23 +81,32 @@ bool SingleBarkTask::Perform(Subsystem& subsystem)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	// Push the message and play the sound
-	if (_message != NULL)
+	// grayman #2169 - no barks while underwater
+
+	if (!owner->MouthIsUnderwater())
 	{
-		owner->AddMessage(_message);
+		// Push the message and play the sound
+		if (_message != NULL)
+		{
+			owner->AddMessage(_message);
+		}
+
+		_barkLength = owner->PlayAndLipSync(_soundName, "talk1");
+	
+		// Sanity check the returned length
+		if (_barkLength == 0)
+		{
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Received 0 sound length when playing %s.\r", _soundName.c_str());
+		}
+	}
+	else
+	{
+		_barkLength = 0;
 	}
 
-	_barkLength = owner->PlayAndLipSync(_soundName, "talk1");
 	_barkStartTime = gameLocal.time;
-
 	_endTime = _barkStartTime + _barkLength;
 
-	// Sanity check the returned length
-	if (_barkLength == 0)
-	{
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Received 0 sound length when playing %s.\r", _soundName.c_str());
-	}
-	
 	// End the task as soon as we've finished playing the sound
 	return !IsBarking();
 }
