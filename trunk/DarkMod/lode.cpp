@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4199 $
- * $Date: 2010-09-26 10:09:41 -0400 (Sun, 26 Sep 2010) $
+ * $Revision: 4203 $
+ * $Date: 2010-09-28 07:52:14 -0400 (Tue, 28 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -47,7 +47,7 @@ TODO: Make it so we can also combine entities from different classes, e.g. not j
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4199 2010-09-26 14:09:41Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4203 2010-09-28 11:52:14Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2735,6 +2735,9 @@ bool Lode::SpawnEntity( const int idx, const bool managed )
 					lclass->physicsObj->SetSelf( ent2 );
 					lclass->physicsObj->SetOrigin( ent->origin );
 
+					// enable updates to LOD stages again
+					lclass->megamodel->StartUpdating();
+
 					//lclass->physicsObj->SetSelf( ent2 );
 					// enable thinking (mainly for debug draw)
 					ent2->BecomeActive( TH_THINK | TH_PHYSICS );
@@ -2846,14 +2849,12 @@ bool Lode::CullEntity( const int idx )
 		// If the class has a model with shared data, manage this to avoid double frees
 		if ( lclass->pseudo )
 		{
-			// is just a pointer to a rendermodel
-			lclass->hModel = NULL;
 			// mark as inactive and remove changes because the entity will be no longer existing
 			lclass->megamodel->StopUpdating();
-			lclass->megamodel->ClearChanges();
+
 			// avoid freeing the composed model
 			ent2->GetRenderEntity()->hModel = NULL;
-			// Avoid freeing the combied physics (clip)model
+			// Avoid freeing the combined physics (clip)model
 			ent2->SetPhysics(NULL);
 		}
 		else
