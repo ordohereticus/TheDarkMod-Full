@@ -1,8 +1,8 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 4224 $
-* $Date: 2010-10-04 11:10:19 -0400 (Mon, 04 Oct 2010) $
+* $Revision: 4226 $
+* $Date: 2010-10-07 13:00:44 -0400 (Thu, 07 Oct 2010) $
 * $Author: jcdenton $
 *
 ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 4224 2010-10-04 15:10:19Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 4226 2010-10-07 17:00:44Z jcdenton $", init_version);
 
 #include "game_local.h"
 
@@ -82,6 +82,7 @@ m_postProcessManager()			// Invoke the postprocess Manager Constructor - J.C.Den
 	//cur_amb_method = !cv_ambient_method.GetBool();
 	// JC: Just set the flag so that we know that the update is needed.
 	cv_ambient_method.SetModified();
+	cv_interaction_vfp_type.SetModified();	// Always update interaction shader the first time. J.C.Denton
 }
 
 /*
