@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4206 $
- * $Date: 2010-09-28 10:43:31 -0400 (Tue, 28 Sep 2010) $
+ * $Revision: 4215 $
+ * $Date: 2010-10-02 12:01:45 -0400 (Sat, 02 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -72,20 +72,18 @@ struct lode_material_t {
 struct lode_class_t {
 	idStr					classname;		//!< Entity class to respawn entities
 	idList< int >			skins;			//!< index into skins array
-	idRenderModel*			hModel;			//!< Used to share data between many entities with the same model
-											//!< (f.i. when you turn a brush inside DR into a idStaticEntity and
-											//!< use it as template)
-	idPhysics_StaticMulti*	physicsObj;		//!< Used to share data between many entities with the same model
-											//!< (f.i. when you turn a brush inside DR into a idStaticEntity and
-											//!< use it as template)
+	idRenderModel*			hModel;			//!< When you turn a brush inside DR into a idStaticEntity and use it as template,
+   											//!< this is used to keep their renderModel (as it is not loadable by name).
 	idStr					modelname;		//!< To load the rendermodel for combining it w/o spawning
-											//!< the entity first.
+											//!< the entity first. Used to calculate f.i. how many models
+											//!< can be combined at most (as this model is the high-poly version).
 	bool					pseudo;			//!< if true, this class is a pseudo-class, and describes an
 											//!< entity with a megamodel (a combined model from many entities),
 											//!< the model is still stored in hModel.
 											//!< These classes will be skipped when recreating the entities.
-	CMegaModel* 	  		megamodel;		//!< If we combined many entities into one megamodel, track
-											//!< here which ones at which LOD stage, so we can upate it.
+	idPhysics_StaticMulti*	physicsObj;		//!< if pseudo: If you turn multiple entities into one, this keeps their clipmodels.
+	idStr					materialName;	//!< Override material for debug_colors.
+	idList< model_ofs_t >	offsets;		//!< List of enitity offsets to construct a combined model
 	int						seed;			//!< per-class seed so each class generates the same sequence of
 											//!< entities independ from the other classes, helps when the menu
    											//!> setting changes

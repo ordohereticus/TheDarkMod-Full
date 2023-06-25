@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4179 $
-#* $Date: 2010-09-17 12:10:40 -0400 (Fri, 17 Sep 2010) $
+#* $Revision: 4215 $
+#* $Date: 2010-10-02 12:01:45 -0400 (Sat, 02 Oct 2010) $
 #* $Author: tels $
 #*
 #* $Log$
@@ -273,7 +273,6 @@ AI/Tasks/WanderInLocationTask.cpp \
 lode.cpp \
 ModelGenerator.cpp \
 LightController.cpp \
-MegaModel.cpp \
 StaticMulti.cpp \
 sourcehook/sourcehook.cpp'
 
