@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4226 $
- * $Date: 2010-10-07 13:00:44 -0400 (Thu, 07 Oct 2010) $
+ * $Revision: 4227 $
+ * $Date: 2010-10-07 13:03:18 -0400 (Thu, 07 Oct 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4226 2010-10-07 17:00:44Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4227 2010-10-07 17:03:18Z jcdenton $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -3376,7 +3376,7 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 
 	if( args.Argc() < 3 )
 	{
-		gameLocal.Printf( "Usage: tdm_batchConvertMaterials <StartIndex> <nMaterials> [forceUpdateAll] \n OR \n" );
+		gameLocal.Printf( "Usage: tdm_batchConvertMaterials <StartIndex> <nMaterials> [forceUpdateAll] \n" );
 		return;
 	}
 
@@ -3421,7 +3421,6 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 		idLexer lexSource( &charBuffer[0], charBuffer.size(), mat->GetName(), LEXFL_NOFATALERRORS | LEXFL_ALLOWPATHNAMES );
 
 		gameLocal.Printf("Finding out shader stages... \n" );
-
 
 		bool bAreBumpmapsExtracted		=false;
 		bool bAreDiffusemapsExtracted	=false;
