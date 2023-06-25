@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4407 $
- * $Date: 2011-01-10 21:39:10 -0500 (Mon, 10 Jan 2011) $
+ * $Revision: 4413 $
+ * $Date: 2011-01-10 23:09:04 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -261,7 +261,7 @@ public:
 	// -------- Screenshot Requests -----------
 	bool IsMissionScreenshotRequestInProgress();
 	int StartDownloadingMissionScreenshot(int missionIndex, int screenshotNum);
-	CMissionManager::RequestStatus CMissionManager::ProcessMissionScreenshotRequest();
+	CMissionManager::RequestStatus ProcessMissionScreenshotRequest();
 
 	// Accessor to the downloadble mission list
 	const DownloadableMissionList& GetDownloadableMissions() const;
