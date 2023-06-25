@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4185 $
- * $Date: 2010-09-21 12:25:15 -0400 (Tue, 21 Sep 2010) $
+ * $Revision: 4195 $
+ * $Date: 2010-09-26 03:58:40 -0400 (Sun, 26 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -53,6 +53,13 @@ const char* lode_debug_materials[LODE_DEBUG_MATERIAL_COUNT] = {
 	"debug_dark_red",
 	"debug_orange",
 	"debug_brown",
+};
+
+/** To sort a list of offsets by distance, but still keep the info which offset
+    belongs to which entity so we can take the N nearest: */
+struct lode_sort_ofs_t {
+	model_ofs_t	ofs;					//!< the offset data
+	int			entity;					//!< Index into m_Entities
 };
 
 /** Defines one material class that modulates how often entities appear on it: */
