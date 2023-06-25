@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3885 $
- * $Date: 2010-04-24 22:37:27 -0400 (Sat, 24 Apr 2010) $
- * $Author: greebo $
+ * $Revision: 4422 $
+ * $Date: 2011-01-11 01:28:19 -0500 (Tue, 11 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -44,6 +44,8 @@ extern const idEventDef EV_Thread_AngToRight;
 extern const idEventDef EV_Thread_AngToUp;
 extern const idEventDef EV_Thread_Sine;
 extern const idEventDef EV_Thread_Cosine;
+extern const idEventDef EV_Thread_Log;
+extern const idEventDef EV_Thread_Pow;
 extern const idEventDef EV_Thread_Normalize;
 extern const idEventDef EV_Thread_VecLength;
 extern const idEventDef EV_Thread_VecDotProduct;
@@ -135,8 +137,10 @@ private:
 	void						Event_AngToForward( idAngles &ang );
 	void						Event_AngToRight( idAngles &ang );
 	void						Event_AngToUp( idAngles &ang );
-	void						Event_GetSine( float angle );
-	void						Event_GetCosine( float angle );
+	void						Event_GetSine( const float angle );
+	void						Event_GetCosine( const float angle );
+	void						Event_GetLog( const float x );
+	void						Event_GetPow( const float x, const float y );
 	void						Event_GetSquareRoot( float theSquare );
 	void						Event_VecNormalize( idVec3 &vec );
 	void						Event_VecLength( idVec3 &vec );
