@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4046 $
- * $Date: 2010-07-11 22:40:10 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4050 $
+ * $Date: 2010-07-12 06:56:24 -0400 (Mon, 12 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Download.cpp 4046 2010-07-12 02:40:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Download.cpp 4050 2010-07-12 10:56:24Z greebo $", init_version);
 
 #include "Download.h"
 #include "../Http/HttpConnection.h"
@@ -87,11 +87,11 @@ void CDownload::Perform()
 	{
 		if (_request->GetStatus() == CHttpRequest::ABORTED)
 		{
-			gameLocal.Printf("Download from %s aborted.\n", _url.c_str());
+			DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Download from %s aborted.\r", _url.c_str());
 		}
 		else
 		{
-			gameLocal.Printf("Connection Error.\n");
+			DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Connection Error.\r");
 		}
 
 		_status = FAILED;

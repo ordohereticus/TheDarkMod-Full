@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4043 $
- * $Date: 2010-07-11 09:49:34 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4050 $
+ * $Date: 2010-07-12 06:56:24 -0400 (Mon, 12 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -90,8 +90,7 @@ public:
 	XmlDocumentPtr GetResultXml();
 
 private:
-	// shared constructor code
-	void Construct();
+	void InitRequest();
 
 	void UpdateProgress();
 };

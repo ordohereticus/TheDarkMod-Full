@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4043 $
- * $Date: 2010-07-11 09:49:34 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4050 $
+ * $Date: 2010-07-12 06:56:24 -0400 (Mon, 12 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4043 2010-07-11 13:49:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4050 2010-07-12 10:56:24Z greebo $", init_version);
 
 #include "HttpRequest.h"
 #include "HttpConnection.h"
@@ -28,9 +28,7 @@ CHttpRequest::CHttpRequest(CHttpConnection& conn, const std::string& url) :
 	_status(NOT_PERFORMED_YET),
 	_cancelFlag(false),
 	_progress(0)
-{
-	Construct();
-}
+{}
 
 CHttpRequest::CHttpRequest(CHttpConnection& conn, const std::string& url, const std::string& destFilename) :
 	_conn(conn),
@@ -40,11 +38,9 @@ CHttpRequest::CHttpRequest(CHttpConnection& conn, const std::string& url, const 
 	_destFilename(destFilename),
 	_cancelFlag(false),
 	_progress(0)
-{
-	Construct();
-}
+{}
 
-void CHttpRequest::Construct()
+void CHttpRequest::InitRequest()
 {
 	// Init the curl session
 	_handle = curl_easy_init();
@@ -78,7 +74,10 @@ void CHttpRequest::Construct()
 
 void CHttpRequest::Perform()
 {
+	InitRequest();
+
 	_progress = 0;
+	_status = IN_PROGRESS;
 
 	// Check target file
 	if (!_destFilename.empty())
