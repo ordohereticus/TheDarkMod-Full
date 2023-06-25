@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4089 $
- * $Date: 2010-07-23 06:11:49 -0400 (Fri, 23 Jul 2010) $
+ * $Revision: 4096 $
+ * $Date: 2010-07-25 07:21:32 -0400 (Sun, 25 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -49,6 +49,8 @@ struct lode_class_t {
 	idRenderModel*			hModel;			//!< Used to share data between many entities with the same model
 											//!< (f.i. when you turn a brush inside DR into a idStaticEntity and
 											//!< use it as template)
+	idStr					modelname;		//!< To load the rendermodel for combining it w/o spawning
+											//!< the entity first.
 	bool					pseudo;			//!< if true, this class is a pseudo-class, and describes an
 											//!< entity with a megamodel (a combined model from many entities),
 											//!< the model is still stored in hModel.
@@ -123,6 +125,7 @@ public:
 	CLASS_PROTOTYPE( Lode );
 
 						Lode( void );
+	virtual				~Lode( void );
 
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
