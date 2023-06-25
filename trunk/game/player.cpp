@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4369 $
- * $Date: 2010-12-11 18:36:48 -0500 (Sat, 11 Dec 2010) $
- * $Author: grayman $
+ * $Revision: 4388 $
+ * $Date: 2010-12-26 07:33:21 -0500 (Sun, 26 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4369 2010-12-11 23:36:48Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4388 2010-12-26 12:33:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -6853,10 +6853,19 @@ void idPlayer::Think( void )
 	// position the view weapon, among other things
 	CalculateFirstPersonView();
 
-	// this may use firstPersonView, or a thirdPeroson / camera view
+	// this may use firstPersonView, or a thirdPerson / camera view
 	CalculateRenderView();
 
 	PerformFrobCheck();
+
+	// greebo: Close any opened inventory maps when releasing the attack button (#2460)
+	if (m_ActiveInventoryMapEnt.GetEntity() != NULL && (oldButtons & BUTTON_ATTACK) && !(usercmd.buttons & BUTTON_ATTACK))
+	{
+		ClearActiveInventoryMap();
+
+		// Disallow attacks to avoid triggering the weapon immediately after closing the map
+		allowAttack = false;
+	}
 
 	// Check if we just hit the attack button
 	idEntity* frobbedEnt = m_FrobEntity.GetEntity();
