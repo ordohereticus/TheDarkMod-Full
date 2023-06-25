@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3942 $
- * $Date: 2010-06-11 03:17:12 -0400 (Fri, 11 Jun 2010) $
- * $Author: tels $
+ * $Revision: 4426 $
+ * $Date: 2011-01-11 04:20:33 -0500 (Tue, 11 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -56,6 +56,7 @@
 #include <malloc.h>							// no malloc.h on mac or unix
 
 #define _WINSOCKAPI_   /* Prevent inclusion of winsock.h in windows.h */
+#define NOMINMAX
 #include <windows.h>						// for qgl.h
 #undef FindText								// stupid namespace poluting Microsoft monkeys
 
