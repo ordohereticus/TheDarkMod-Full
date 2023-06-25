@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3898 $
- * $Date: 2010-05-20 20:21:56 -0400 (Thu, 20 May 2010) $
+ * $Revision: 4211 $
+ * $Date: 2010-09-30 09:08:53 -0400 (Thu, 30 Sep 2010) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 3898 2010-05-21 00:21:56Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 4211 2010-09-30 13:08:53Z angua $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -133,6 +133,9 @@ void IdleState::Init(idAI* owner)
 		{
 			owner->AI_SIT_DOWN_ANGLE = memory.idleYaw;
 		}
+
+		owner->AI_SIT_DOWN_ANGLE = idMath::AngleNormalize180(owner->AI_SIT_DOWN_ANGLE);
+
 		owner->AI_SIT_UP_ANGLE = memory.idleYaw;
 	}	
 

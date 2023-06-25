@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3767 $
- * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
+ * $Revision: 4211 $
+ * $Date: 2010-09-30 09:08:53 -0400 (Thu, 30 Sep 2010) $
  * $Author: angua $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathSitTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathSitTask.cpp 4211 2010-09-30 13:08:53Z angua $", init_version);
 
 #include "../Memory.h"
 #include "PathSitTask.h"
@@ -72,6 +72,8 @@ void PathSitTask::Init(idAI* owner, Subsystem& subsystem)
 		owner->AI_SIT_DOWN_ANGLE = owner->GetCurrentYaw();
 	}
 	owner->AI_SIT_UP_ANGLE = owner->GetCurrentYaw();
+
+	owner->AI_SIT_DOWN_ANGLE = idMath::AngleNormalize180(owner->AI_SIT_DOWN_ANGLE);
 
 	
 	if (owner->GetMoveType() != MOVETYPE_SIT)
