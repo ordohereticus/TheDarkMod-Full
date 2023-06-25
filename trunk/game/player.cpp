@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4154 $
- * $Date: 2010-08-30 12:35:47 -0400 (Mon, 30 Aug 2010) $
- * $Author: jcdenton $
+ * $Revision: 4191 $
+ * $Date: 2010-09-25 10:49:53 -0400 (Sat, 25 Sep 2010) $
+ * $Author: baal $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4154 2010-08-30 16:35:47Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4191 2010-09-25 14:49:53Z baal $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9769,12 +9769,16 @@ bool idPlayer::DropToHands( idEntity *ent, CInventoryItemPtr item )
 			DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Spawning new entity from stackable inventory item...\r");
 			// Spawn a new entity of this type
 			idEntity* spawnedEntity;
-			const idDict* entityDef = gameLocal.FindEntityDefDict(ent->GetEntityDefName());
+			const idDict* entityDef = gameLocal.FindEntityDefDict(ent->GetEntityDefName());            
 			gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
 
 			// Replace the entity to be dropped with the newly spawned one.
 			ent = spawnedEntity;
-		}
+            
+            // Set flag used by objective location entities so that stackable items 
+            // can trigger objectives even if their entity definition doesn't have "objective_ent" set.
+            ent->m_bIsObjective = true;
+        }
 
 		grabber->PutInHands( ent, dropPoint, dropAxis );
 		DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Item was successfully put in hands: %s\r", ent->name.c_str());

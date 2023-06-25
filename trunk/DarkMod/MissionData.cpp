@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4191 $
+ * $Date: 2010-09-25 10:49:53 -0400 (Sat, 25 Sep 2010) $
+ * $Author: baal $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4191 2010-09-25 14:49:53Z baal $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1673,6 +1673,38 @@ int CMissionData::AddObjsFromDict(const idDict& dict)
 		ReturnVal = -1;
 
 	return ReturnVal;
+}
+
+bool    CMissionData::MatchLocationObjectives( idEntity * entity )
+{
+    if ( !entity )
+        return false;
+    
+    SObjEntParms    entParms;
+    
+    //  iterate over all components of the objectives and test the COMP_LOCATION components against the entity.
+    //  returns on the first match.
+    for ( int i = 0; i < m_Objectives.Num(); i++ )
+    {
+        CObjective  & currentObjective = m_Objectives[ i ];
+        for ( int j = 0; j < currentObjective.m_Components.Num(); j++ )
+        {
+            CObjectiveComponent & currentComponent = currentObjective.m_Components[ j ];
+            if ( currentComponent.m_Type != COMP_LOCATION )
+            {
+                continue;
+            }
+            
+            entParms.Clear();
+            FillParmsData( entity, &entParms );
+            if ( MatchSpec( &currentComponent, &entParms, 0 ) )
+            {
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }
 
 idMapFile* CMissionData::LoadMap(const idStr& mapFileName)
