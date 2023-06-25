@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4023 $
- * $Date: 2010-07-07 22:14:25 -0400 (Wed, 07 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4025 $
+ * $Date: 2010-07-08 08:17:45 -0400 (Thu, 08 Jul 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -12,12 +12,15 @@
 
 /*
 Level Of Detail Entities - Manage other entities based on LOD (e.g. distance)
+
+TODO: add console command to save all LODE entities as prefab?
+TODO: take over LOD changes from entity
 */
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4023 2010-07-08 02:14:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4025 2010-07-08 12:17:45Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -166,7 +169,8 @@ void Lode::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( m_bDistCheckXYOnly );
 
     savefile->ReadInt( num );
-	assert( num == m_Entities.Num() );
+	m_Entities.Clear();
+	m_Entities.SetNum( num );
 	for( int i = 0; i < num; i++ )
 	{
 		savefile->ReadString( m_Entities[i].skin );
@@ -179,7 +183,8 @@ void Lode::Restore( idRestoreGame *savefile ) {
 	}
 
     savefile->ReadInt( num );
-	assert( num == m_Classes.Num() );
+	m_Classes.Clear();
+	m_Classes.SetNum( num );
 	for( int i = 0; i < num; i++ )
 	{
 		savefile->ReadString( m_Classes[i].classname );
@@ -199,7 +204,8 @@ void Lode::Restore( idRestoreGame *savefile ) {
 		savefile->ReadVec3( m_Classes[i].size );
 	}
     savefile->ReadInt( num );
-	assert( num == m_Inhibitors.Num() );
+	m_Inhibitors.Clear();
+	m_Inhibitors.SetNum( num );
 	for( int i = 0; i < num; i++ )
 	{
 		savefile->ReadVec3( m_Inhibitors[i].origin );
@@ -1053,7 +1059,7 @@ bool Lode::spawnEntity( const int idx, const bool managed )
 		// disable LOD checks on entities (we take care of this)
 		if (managed)
 		{
-			args.Set("dist_check_period", "0");
+			//args.Set("dist_check_period", "0");
 		}
 
 		gameLocal.SpawnEntityDef( args, &ent2 );
