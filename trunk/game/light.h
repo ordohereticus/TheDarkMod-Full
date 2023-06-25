@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3679 $
- * $Date: 2009-08-30 06:28:05 -0400 (Sun, 30 Aug 2009) $
- * $Author: tels $
+ * $Revision: 4022 $
+ * $Date: 2010-07-07 22:12:56 -0400 (Wed, 07 Jul 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -45,7 +45,7 @@ public:
 	void			Present( void );
 
 	void			SaveState( idDict *args );
-	virtual void	SetColor( float red, float green, float blue );
+	virtual void	SetColor( const float red, const float green, const float blue );
 	virtual void	SetColor( const idVec4 &color );
 	virtual void	GetColor( idVec3 &out ) const;
 	virtual void	GetColor( idVec4 &out ) const;

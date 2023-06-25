@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3792 $
- * $Date: 2010-01-09 07:47:03 -0500 (Sat, 09 Jan 2010) $
- * $Author: tels $
+ * $Revision: 4022 $
+ * $Date: 2010-07-07 22:12:56 -0400 (Wed, 07 Jul 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 3792 2010-01-09 12:47:03Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 4022 2010-07-08 02:12:56Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -525,7 +525,8 @@ void idLight::GetColor( idVec4 &out ) const {
 idLight::SetColor
 ================
 */
-void idLight::SetColor( float red, float green, float blue ) {
+void idLight::SetColor( const float red, const float green, const float blue )
+{
 	// Tels: If the light is currently fading, stop this:
 	fadeEnd = 0;
 	BecomeInactive( TH_THINK );
