@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4264 $
- * $Date: 2010-10-28 07:41:13 -0400 (Thu, 28 Oct 2010) $
- * $Author: tels $
+ * $Revision: 4267 $
+ * $Date: 2010-10-30 11:20:14 -0400 (Sat, 30 Oct 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 4264 $   $Date: 2010-10-28 07:41:13 -0400 (Thu, 28 Oct 2010) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 4267 $   $Date: 2010-10-30 11:20:14 -0400 (Sat, 30 Oct 2010) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1757,7 +1757,7 @@ void idPhysics_Player::CheckGround( void ) {
 	
 	// grayman #2409 - apply velocity change due to friction loss on slick surfaces
 	
-	bool slick = groundMaterial->IsSlick();
+	bool slick = (groundMaterial && (groundMaterial->IsSlick()));
 	float walkNormal = MIN_WALK_NORMAL;
 	if (slick)
 	{
