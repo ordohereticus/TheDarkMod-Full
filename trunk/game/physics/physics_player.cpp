@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3944 $
- * $Date: 2010-06-11 08:04:54 -0400 (Fri, 11 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4262 $
+ * $Date: 2010-10-24 18:48:14 -0400 (Sun, 24 Oct 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3944 $   $Date: 2010-06-11 08:04:54 -0400 (Fri, 11 Jun 2010) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 4262 $   $Date: 2010-10-24 18:48:14 -0400 (Sun, 24 Oct 2010) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -43,6 +43,7 @@ const float PM_AIRFRICTION		= 0.0f;
 const float PM_WATERFRICTION	= 1.0f;
 const float PM_FLYFRICTION		= 3.0f;
 const float PM_NOCLIPFRICTION	= 12.0f;
+const float PM_SLICK			= 0.1f; // grayman - #2409 - for slippery surfaces
 
 /**
 *  Height unit increment for mantle test
@@ -595,15 +596,19 @@ void idPhysics_Player::Friction( void )
 		drop += speed * PM_FLYFRICTION * frametime;
 	}
 	// apply ground friction
-	else if ( walking && waterLevel <= WATERLEVEL_FEET ) {
-		// no friction on slick surfaces
-		if ( !(groundMaterial && groundMaterial->GetSurfaceFlags() & SURF_SLICK) ) {
-			// if getting knocked back, no friction
-			if ( !(current.movementFlags & PMF_TIME_KNOCKBACK) ) 
+	else if ( walking && waterLevel <= WATERLEVEL_FEET )
+	{
+		if ( !(current.movementFlags & PMF_TIME_KNOCKBACK) ) // if getting knocked back, no friction
+		{
+			// grayman - #2409 - less friction on slick surfaces
+
+			float friction = PM_FRICTION; // default
+			if (groundMaterial && (groundMaterial->GetSurfaceFlags() & SURF_SLICK))
 			{
-				float control = speed < PM_STOPSPEED ? PM_STOPSPEED : speed;
-				drop += control * PM_FRICTION * frametime;
+				friction *= PM_SLICK; // reduce friction
 			}
+			float control = (speed < PM_STOPSPEED) ? PM_STOPSPEED : speed;
+			drop += control * friction * frametime;
 		}
 	}
 	// apply water friction even if just wading
@@ -842,7 +847,7 @@ void idPhysics_Player::WalkMove( void )
 	float accelerate = 0;
 
 	// when a player gets hit, they temporarily lose full control, which allows them to be moved a bit
-	if ( ( groundMaterial && groundMaterial->GetSurfaceFlags() & SURF_SLICK ) || current.movementFlags & PMF_TIME_KNOCKBACK ) {
+	if ( /*( groundMaterial && groundMaterial->GetSurfaceFlags() & SURF_SLICK ) || grayman #2409 */ current.movementFlags & PMF_TIME_KNOCKBACK ) {
 		accelerate = PM_AIRACCELERATE;
 	}
 	else 
@@ -859,7 +864,8 @@ void idPhysics_Player::WalkMove( void )
 
 	Accelerate( wishdir, wishspeed, accelerate );
 
-	if ( ( groundMaterial && groundMaterial->GetSurfaceFlags() & SURF_SLICK ) || current.movementFlags & PMF_TIME_KNOCKBACK ) {
+	if ( /*( groundMaterial && groundMaterial->GetSurfaceFlags() & SURF_SLICK ) || grayman #2409 */ current.movementFlags & PMF_TIME_KNOCKBACK )
+	{
 		current.velocity += gravityVector * frametime;
 	}
 
