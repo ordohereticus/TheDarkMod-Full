@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4246 $
- * $Date: 2010-10-15 01:31:15 -0400 (Fri, 15 Oct 2010) $
+ * $Revision: 4247 $
+ * $Date: 2010-10-15 01:46:42 -0400 (Fri, 15 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -92,6 +92,8 @@ struct lode_class_t {
    											//!> setting changes
 	int						score;			//!< to find out how many entities (calculated at spawn time from score)
 	idVec3					origin;			//!< origin of the original target entity, useful for "flooring"
+	idVec3					offset;			//!< offset to displace the final entity, used to correct for models with their
+											//!< origin not at the base
 	float					cullDist;		//!< distance after where we remove the entity from the world
 	float					spawnDist;		//!< distance where we respawn the entity
 	float					spacing;		//!< min. distance between entities of this class
