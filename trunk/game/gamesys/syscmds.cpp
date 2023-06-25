@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4157 $
- * $Date: 2010-08-30 14:05:15 -0400 (Mon, 30 Aug 2010) $
+ * $Revision: 4208 $
+ * $Date: 2010-09-30 02:56:19 -0400 (Thu, 30 Sep 2010) $
  * $Author: jcdenton $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4157 2010-08-30 18:05:15Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4208 2010-09-30 06:56:19Z jcdenton $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -3394,7 +3394,7 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 
 void Cmd_updateCookedMathData_f( const idCmdArgs& args )
 {
-	r_HDR_colorCurveBias.SetModified();
+	r_postprocess_colorCurveBias.SetModified();
 }
 
 #ifdef TIMING_BUILD
