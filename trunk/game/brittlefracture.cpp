@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3746 $
- * $Date: 2009-11-04 23:43:21 -0500 (Wed, 04 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 4292 $
+ * $Date: 2010-11-19 03:16:36 -0500 (Fri, 19 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: brittlefracture.cpp 3746 2009-11-05 04:43:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: brittlefracture.cpp 4292 2010-11-19 08:16:36Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -326,11 +326,21 @@ void idBrittleFracture::RemoveShard( int index ) {
 	int i;
 
 	delete shards[index];
-	shards.RemoveIndex( index );
-	physicsObj.RemoveIndex( index );
+	shards.RemoveIndex( index, false );	// Tels: false => don't bother to keep shards sorted
+	physicsObj.RemoveIndex( index, false );
 
-	for ( i = index; i < shards.Num(); i++ ) {
+	// Tels: When we used RemoveIndex(), that might have moved some shards
+	// after index, so we needed to set the correct ID back to the climodel
+	// again. Now the RemoveIndex(index,false) routine will *only* move the
+	// last index back to "index", so this is the only (if it exists) shard
+	// that got moved, so we only need to update it's clipModel ID:
+	/*for ( i = index; i < shards.Num(); i++ ) {
 		shards[i]->clipModel->SetId( i );
+	}*/
+	// [0,1,2,3,4,5] (remove index == 2) => [ 0,1,5,3,4 ]
+	if (index < shards.Num())
+	{
+		shards[index]->clipModel->SetId( index );
 	}
 }
 
