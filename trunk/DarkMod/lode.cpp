@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4074 $
- * $Date: 2010-07-20 08:10:34 -0400 (Tue, 20 Jul 2010) $
+ * $Revision: 4075 $
+ * $Date: 2010-07-21 02:52:58 -0400 (Wed, 21 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@ TODO: take over LOD changes from entity
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4074 2010-07-20 12:10:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4075 2010-07-21 06:52:58Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -719,15 +719,22 @@ float Lode::LODBIAS ( void )
 	float lod_bias = cv_lod_bias.GetFloat();
 	if (lod_bias < 0.8)
 	{
-		lod_bias *= 1.2f;										// 0.5, 0.75 => 0.57, 0.87
+		if (lod_bias < 0.7)
+		{
+			lod_bias *= 1.4f;									// 0.5 => 0.7
+		}
+		else
+		{
+			lod_bias *= 1.2f;									// 0.75 => 0.90
+		}
 	}
 	else if (lod_bias > 1.0f)
 	{
-																// 1.5, 2, 3 => 1.16, 1.33, 1.5
-		lod_bias = ( lod_bias > 2.0f ? 0.5f : 1.0f) + ((lod_bias - 1.0f) / 3.0f);
+																// 1.5, 2, 3 => 1.13, 1.25, 1.4
+		lod_bias = ( lod_bias > 2.0f ? 0.9f : 1.0f) + ((lod_bias - 1.0f) / 4.0f);
 	}
 
-	// 0.57, 0.87, 1.0, 1.16, 1.33, 1.5
+	// 0.7, 0.9, 1.0, 1.13, 1.25, 1.4
 	return lod_bias;
 }
 
