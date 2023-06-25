@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4107 $
- * $Date: 2010-07-30 08:10:38 -0400 (Fri, 30 Jul 2010) $
+ * $Revision: 4108 $
+ * $Date: 2010-07-30 09:26:43 -0400 (Fri, 30 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4107 2010-07-30 12:10:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4108 2010-07-30 13:26:43Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -847,7 +847,15 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 		// reduce the density, and thus the entity count:
 		size *= 1.2732f; 
 	}
-	return size;
+
+	// scale the per-class size by the per-class density
+	float fDensity = ent->spawnArgs.GetFloat( "lode_density", "1.0" );
+	if (fDensity <= 0.0001)
+	{
+		fDensity = 0.0001;
+	}
+
+	return size / fDensity;
 }
 
 /*
