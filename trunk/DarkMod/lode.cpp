@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4085 $
- * $Date: 2010-07-22 13:02:37 -0400 (Thu, 22 Jul 2010) $
+ * $Revision: 4086 $
+ * $Date: 2010-07-22 14:12:15 -0400 (Thu, 22 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -25,7 +25,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4085 2010-07-22 17:02:37Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4086 2010-07-22 18:12:15Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -1062,7 +1062,9 @@ void Lode::PrepareEntities( void )
 		m_Classes[i].seed = RandomSeed();		// random generator 2 inits the random generator 1
 	}
 
-	// shuffle all entries
+	// shuffle all entries, but use the second generator for a "predictable" class sequence
+	// that does not change when the menu changes
+	m_iSeed = RandomSeed();
 	s = m_Classes.Num();
 	for (int i = 0; i < s; i++)
 	{
