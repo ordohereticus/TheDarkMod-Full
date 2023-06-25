@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4151 $
- * $Date: 2010-08-29 08:52:26 -0400 (Sun, 29 Aug 2010) $
+ * $Revision: 4161 $
+ * $Date: 2010-09-05 22:13:56 -0400 (Sun, 05 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -163,6 +163,8 @@ struct lode_entity_t {
 	int						classIdx;		//!< index into m_Classes
 };
 
+extern const idEventDef EV_Disable;
+extern const idEventDef EV_Enable;
 extern const idEventDef EV_Deactivate;
 extern const idEventDef EV_CullAll;
 
@@ -187,7 +189,13 @@ public:
 	/**
 	* Stop thinking and no longer cull/spawn entities.
 	*/
-	void				Event_Deactivate( idEntity *activator );
+	void				Event_Disable( void );
+
+	/**
+	* Start thinking and cull/spawn entities again.
+	*/
+	void				Event_Enable( void );
+
 	/*
 	* Cull all entities. Only useful after Deactivate().
 	*/
