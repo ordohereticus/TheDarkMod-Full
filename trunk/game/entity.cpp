@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4119 $
- * $Date: 2010-08-01 08:25:28 -0400 (Sun, 01 Aug 2010) $
+ * $Revision: 4125 $
+ * $Date: 2010-08-03 21:47:33 -0400 (Tue, 03 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4119 2010-08-01 12:25:28Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4125 2010-08-04 01:47:33Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10812,10 +10812,9 @@ void idEntity::Event_GetLightInPVS( void )
 	idVec3 local_light;
 	idVec3 local_light_radius;
 
-// 	int areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
+ 	int areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
 
 	// Find all light entities, then check if they are in the same area as the player:
-
 	for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
 	{
 		if ( !ent || !ent->IsType( idLight::Type ) ) {
@@ -10824,16 +10823,18 @@ void idEntity::Event_GetLightInPVS( void )
 
 		idLight* light = static_cast<idLight*>( ent );
 
+		// this makes it add all lights in the PVS, which is not good, albeit it makes leaning a bit better
+		//if ( gameLocal.InPlayerPVS( light ) ) {
+
 		// light is in the same area?
-		// fix bug #2326:
-		if ( gameLocal.InPlayerPVS( light ) ) {
-		//if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
+		if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
 			light->GetColor( local_light );
 			// multiple the light color by the radius to get a fake "light energy":
 			light->GetRadius( local_light_radius );
 			// fireplace: 180+180+120/3 => 160 / 800 => 0.2
 			// candle:    130+130+120/3 => 123 / 800 => 0.15
 			// firearrow:  10+ 10+ 10/3 =>  10 / 800 => 0.0125
+			//gameLocal.Printf (" Adding light %s color %s radius %s\n", light->GetName(), local_light.ToString(),  local_light_radius.ToString() );
 			local_light *= (float)
 				(local_light_radius.x + 
 				 local_light_radius.y + 
