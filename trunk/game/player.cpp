@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4207 $
- * $Date: 2010-09-30 02:01:53 -0400 (Thu, 30 Sep 2010) $
- * $Author: jcdenton $
+ * $Revision: 4228 $
+ * $Date: 2010-10-07 22:37:38 -0400 (Thu, 07 Oct 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4207 2010-09-30 06:01:53Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4228 2010-10-08 02:37:38Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2698,11 +2698,7 @@ idPlayer::EnterCinematic
 */
 void idPlayer::EnterCinematic( void ) {
 	Hide();
-	StopSound( SND_CHANNEL_PDA, false );
-	if ( hud ) {
-		hud->HandleNamedEvent( "radioChatterDown" );
-	}
-	
+
 	physicsObj.SetLinearVelocity( vec3_origin );
 	
 	SetState( "EnterCinematic" );
