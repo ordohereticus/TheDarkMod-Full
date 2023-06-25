@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4191 $
- * $Date: 2010-09-25 10:49:53 -0400 (Sat, 25 Sep 2010) $
+ * $Revision: 4193 $
+ * $Date: 2010-09-26 00:02:13 -0400 (Sun, 26 Sep 2010) $
  * $Author: baal $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4191 2010-09-25 14:49:53Z baal $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4193 2010-09-26 04:02:13Z baal $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9774,9 +9774,12 @@ bool idPlayer::DropToHands( idEntity *ent, CInventoryItemPtr item )
 
 			// Replace the entity to be dropped with the newly spawned one.
 			ent = spawnedEntity;
+        }
             
-            // Set flag used by objective location entities so that stackable items 
-            // can trigger objectives even if their entity definition doesn't have "objective_ent" set.
+        // If the item is referenced by any objective with a item-location component set the flag
+        // so it will be considered by location entities.
+        if ( gameLocal.m_MissionData->MatchLocationObjectives( ent ) )
+        {
             ent->m_bIsObjective = true;
         }
 
