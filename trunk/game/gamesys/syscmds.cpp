@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4227 $
- * $Date: 2010-10-07 13:03:18 -0400 (Thu, 07 Oct 2010) $
- * $Author: jcdenton $
+ * $Revision: 4382 $
+ * $Date: 2010-12-25 06:34:19 -0500 (Sat, 25 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4227 2010-10-07 17:03:18Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4382 2010-12-25 11:34:19Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -3525,6 +3525,13 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 				charBuffer.erase( charBuffer.begin() + uiBlockStartOffset, charBuffer.begin() + uiBlockEndOffset );
 				bIsAmbientBlockFound = true;
 			}
+
+			// Try the search again, in case the material is vertex color blended and there is second inverse-vertex-colored ambient block.
+			bIsOldAmbientBlockFound = FindBlockContainingWords( &charBuffer[0], arrSearchWords, uiBlockStartOffset, uiBlockEndOffset );
+
+			if( bIsOldAmbientBlockFound  )
+				charBuffer.erase( charBuffer.begin() + uiBlockStartOffset, charBuffer.begin() + uiBlockEndOffset );
+
 			// If we couldn't find old ambient block and we have new ambient block in place, 
 			// then we can safely skip this material.
 			else if( !bForceUpdateAllMaterials && bIsAmbientBlockFound )
