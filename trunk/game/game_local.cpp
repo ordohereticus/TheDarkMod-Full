@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4184 $
- * $Date: 2010-09-21 11:17:27 -0400 (Tue, 21 Sep 2010) $
- * $Author: tels $
+ * $Revision: 4201 $
+ * $Date: 2010-09-28 02:12:12 -0400 (Tue, 28 Sep 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4184 2010-09-21 15:17:27Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4201 2010-09-28 06:12:12Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1785,6 +1785,9 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	// Restore our grabber pointer
 	savegame.ReadObject( reinterpret_cast<idClass*&>(m_Grabber) );
 
+	m_ModelGenerator->Restore(&savegame);
+	m_LightController->Restore(&savegame);
+
 	m_DifficultyManager.Restore(&savegame);
 
 	for ( i = 0; i < NumAAS(); i++)
@@ -1801,8 +1804,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_AreaManager.Restore(&savegame);
 	m_ConversationSystem->Restore(&savegame);
 	m_RelationsManager->Restore(&savegame);
-	m_ModelGenerator->Restore(&savegame);
-	m_LightController->Restore(&savegame);
 	m_Shop->Restore(&savegame);
 	LAS.Restore(&savegame);
 
