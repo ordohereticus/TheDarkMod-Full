@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4039 $
- * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4072 $
+ * $Date: 2010-07-19 10:18:25 -0400 (Mon, 19 Jul 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -176,6 +176,7 @@ void gameError( const char *fmt, ... );
 #include "../DarkMod/DifficultyManager.h"
 #include "../DarkMod/AI/AreaManager.h"
 #include "../DarkMod/GamePlayTimer.h"
+#include "../DarkMod/ModelGenerator.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -203,6 +204,9 @@ class CMissionManager;
 typedef boost::shared_ptr<CMissionManager> CMissionManagerPtr;
 class CHttpConnection;
 typedef boost::shared_ptr<CHttpConnection> CHttpConnectionPtr;
+
+class CModelGenerator;
+typedef boost::shared_ptr<CModelGenerator> CModelGeneratorPtr;
 
 // Forward declare the Conversation System
 namespace ai { 
@@ -510,6 +514,11 @@ public:
 	 * greebo: The mission manager instance, for manipulating mission PK4s and saving play info.
 	 */
 	CMissionManagerPtr		m_MissionManager;
+
+	/**
+	 * tels: The model generator instance, for manipulating/generating models on the fly.
+	 */
+	CModelGeneratorPtr		m_ModelGenerator;
 
 	/**
 	 * greebo: The class handling the main menu's shop GUI.
