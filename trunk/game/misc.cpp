@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3988 $
- * $Date: 2010-06-27 07:58:55 -0400 (Sun, 27 Jun 2010) $
+ * $Revision: 4011 $
+ * $Date: 2010-07-01 23:06:18 -0400 (Thu, 01 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3988 2010-06-27 11:58:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4011 2010-07-02 03:06:18Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1755,6 +1755,49 @@ idStaticEntity::ShowEditingDialog
 void idStaticEntity::ShowEditingDialog( void ) {
 	common->InitTool( EDITOR_PARTICLE, &spawnArgs );
 }
+
+/*
+================
+idStaticEntity::StopLOD
+
+Tels: Disable LOD checks including all attachements
+================
+*/
+void idStaticEntity::StopLOD( const bool doTeam )
+{
+	BecomeInactive( TH_THINK );
+	m_DistCheckInterval = 0; 
+
+	if (!doTeam)
+	{
+		return;
+	}
+
+	/* also all the bound entities in our team */
+	idEntity* NextEnt = this;
+
+	idEntity* bindM = GetBindMaster();
+	if ( bindM )
+		{
+		NextEnt = bindM;	
+		}
+
+	while ( NextEnt != NULL )
+	{
+		//gameLocal.Printf(" Looking at entity %s\n", NextEnt->name.c_str());
+		if ( idStr( NextEnt->spawnArgs.GetString( "spawnclass", "") ) == "idStaticEntity")
+		{
+			idStaticEntity *ent = static_cast<idStaticEntity*>( NextEnt );
+			if (ent)
+			{
+				ent->StopLOD( false );
+			}
+		}
+	/* get next Team member */
+	NextEnt = NextEnt->GetNextTeamEntity();
+	}
+}
+
 /*
 ================
 idStaticEntity::Think
@@ -1767,6 +1810,7 @@ void idStaticEntity::Think( void )
 
 	// Distance dependence checks
 	if( m_bDistDependent 
+		&& (m_DistCheckInterval > 0) 
 		&& ( (gameLocal.time - m_DistCheckTimeStamp) > m_DistCheckInterval ) )
 	{
 		

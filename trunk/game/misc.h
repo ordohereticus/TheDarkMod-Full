@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3985 $
- * $Date: 2010-06-27 02:27:49 -0400 (Sun, 27 Jun 2010) $
+ * $Revision: 4011 $
+ * $Date: 2010-07-01 23:06:18 -0400 (Thu, 01 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -323,6 +323,12 @@ public:
 	virtual void		Show( void );
 	void				Fade( const idVec4 &to, float fadeTime );
 	virtual void		Think( void );
+
+	/**
+	 * Tels: Stop LOD changes. If doTeam is true, also disables it on teammembers.
+	 */
+	void				StopLOD( const bool doTeam);
+
 
 	virtual void		WriteToSnapshot( idBitMsgDelta &msg ) const;
 	virtual void		ReadFromSnapshot( const idBitMsgDelta &msg );
