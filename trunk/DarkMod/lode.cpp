@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4254 $
- * $Date: 2010-10-16 04:57:40 -0400 (Sat, 16 Oct 2010) $
+ * $Revision: 4326 $
+ * $Date: 2010-11-25 09:52:56 -0500 (Thu, 25 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -57,7 +57,7 @@ TODO: Sort all the generated entities into multiple lists, keyed on a hash-key t
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4254 2010-10-16 08:57:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4326 2010-11-25 14:52:56Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1854,6 +1854,10 @@ void Lode::PrepareEntities( void )
 				LodeEntity.origin += m_origin;
 
 				// should only appear on certain ground material(s)?
+
+				// TODO: do the ground trace also: if only appears for certain angles
+				// TODO: do the ground trace also: if we rotate the spawned entity to match the ground
+
 				if (m_Classes[i].materials.Num() > 0)
 				{
 					// end of the trace (downwards the length from entity class position to bottom of LODE)
@@ -1938,7 +1942,7 @@ void Lode::PrepareEntities( void )
 						// multiply probability with p (so 0.5 * 0.5 results in 0.25)
 						probability *= p;
 
-						// TODO: height based probability, angle-of-surface probability
+						// TODO: angle-of-surface probability
 
 					}	
 					else
@@ -1991,6 +1995,8 @@ void Lode::PrepareEntities( void )
 						//	GetName(), trTest.fraction, trTest.endpos.x, trTest.endpos.y, trTest.endpos.z ); 
 						LodeEntity.origin = trTest.endpos;
 						LodeEntity.angles = trTest.endAxis.ToAngles();
+
+						// TODO: take trTest.c.normal and angle the entity on this instead
 
 						// TODO: If the model bounds are quite big, but the model itself is "thin"
 						// at the bottom (like a tree with a trunk), then the model will "float"
