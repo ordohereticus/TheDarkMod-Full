@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4281 $
- * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
+ * $Revision: 4282 $
+ * $Date: 2010-11-18 23:27:07 -0500 (Thu, 18 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4281 2010-11-19 03:58:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4282 2010-11-19 04:27:07Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5663,7 +5663,11 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	// drop items
 	DropOnRagdoll();
 
-	if( attacker && attacker->m_SetInMotionByActor.GetEntity() )
+	if ( attacker && (attacker == gameLocal.GetLocalPlayer()) && inflictor)
+	{
+		bPlayerResponsible = true;
+	}
+	else if( attacker && attacker->m_SetInMotionByActor.GetEntity() )
 	{
 		bPlayerResponsible = (attacker != gameLocal.world &&
 			attacker->m_SetInMotionByActor.GetEntity() == gameLocal.GetLocalPlayer());
