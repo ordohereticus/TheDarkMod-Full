@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3053 $
- * $Date: 2008-11-21 11:31:52 -0500 (Fri, 21 Nov 2008) $
- * $Author: angua $
+ * $Revision: 4395 $
+ * $Date: 2010-12-31 00:12:30 -0500 (Fri, 31 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AreaManager.cpp 3053 2008-11-21 16:31:52Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AreaManager.cpp 4395 2010-12-31 05:12:30Z greebo $", init_version);
 
 #include "AreaManager.h"
 
@@ -110,7 +110,7 @@ void AreaManager::DisableForbiddenAreas(const idAI* ai)
 	if (foundAI != _aiAreas.end())
 	{
 		idAAS* aas = ai->GetAAS();
-		for (AreaSet::iterator i = foundAI->second.begin(); i != foundAI->second.end(); i++)
+		for (AreaSet::iterator i = foundAI->second.begin(); i != foundAI->second.end(); ++i)
 		{
 			aas->DisableArea(*i);
 		}
@@ -123,7 +123,7 @@ void AreaManager::EnableForbiddenAreas(const idAI* ai)
 	if (foundAI != _aiAreas.end())
 	{
 		idAAS* aas = ai->GetAAS();
-		for (AreaSet::iterator i = foundAI->second.begin(); i != foundAI->second.end(); i++)
+		for (AreaSet::iterator i = foundAI->second.begin(); i != foundAI->second.end(); ++i)
 		{
 			aas->EnableArea(*i);
 		}
