@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4163 $
- * $Date: 2010-09-06 22:01:13 -0400 (Mon, 06 Sep 2010) $
+ * $Revision: 4165 $
+ * $Date: 2010-09-08 11:52:47 -0400 (Wed, 08 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -18,13 +18,15 @@ TODO: take over LOD changes from entity
 TODO: add a "pseudoclass" bit so into the entity flags field, so we can use much
 	  smaller structs for pseudo classes (we might have thousands
 	  of pseudoclass structs due to each having a different hmodel)
-TODO: Feed sink_min/sink_max to the ModelGenerator (needs first a scaling field in offsets)
+TODO: add "watch_models" (or "combine_models"?) so the mapper can place models and
+	  then use the modelgenerator to combine them into one big rendermodel. also
+	  test if doom's "combine_models" works or not.
 */
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4163 2010-09-07 02:01:13Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4165 2010-09-08 15:52:47Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1923,6 +1925,14 @@ void Lode::PrepareEntities( void )
 			// TODO: add waiting flag and enter in waiting_queue if wanted
 			LodeEntity.entity = 0;
 			LodeEntity.classIdx = i;
+
+			// compute a random value between scale_min and scale_max
+			idVec3 scale = m_Classes[i].scale_max - m_Classes[i].scale_min; 
+			scale.x = scale.x * RandomFloat() + m_Classes[i].scale_min.x;
+			scale.y = scale.y * RandomFloat() + m_Classes[i].scale_min.y;
+			scale.z = scale.z * RandomFloat() + m_Classes[i].scale_min.z;
+			LodeEntity.scale = scale;
+
 			// precompute bounds for a fast collision check
 			LodeEntityBounds.Append( (idBounds (m_Classes[i].size ) + LodeEntity.origin) * LodeEntity.angles.ToMat3() );
 			// precompute box for slow collision check
@@ -2131,6 +2141,7 @@ void Lode::CombineEntities( void )
 //		gameLocal.Warning("LODE %s: Using LOD model %i for base entity.\n", GetName(), ofs.lod );
 		// TODO: pack in the correct alpha value
 		ofs.color  = m_Entities[i].color;
+		ofs.scale  = m_Entities[i].scale;
 		ofs.flags  = 0;
 		// restore our value (it is not used, anyway)
 		m_LODLevel = 0;
@@ -2193,6 +2204,7 @@ void Lode::CombineEntities( void )
 //			gameLocal.Warning("LODE %s: Using LOD model %i for combined entity %i.\n", GetName(), ofs.lod, j );
 			// TODO: pack in the new alpha value
 			ofs.color  = m_Entities[j].color;
+			ofs.scale  = m_Entities[j].scale;
 			ofs.flags  = 0;
 			// restore our value (it is not used, anyway)
 			m_LODLevel = 0;

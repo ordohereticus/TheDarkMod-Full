@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4163 $
- * $Date: 2010-09-06 22:01:13 -0400 (Mon, 06 Sep 2010) $
+ * $Revision: 4165 $
+ * $Date: 2010-09-08 11:52:47 -0400 (Wed, 08 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -159,6 +159,7 @@ struct lode_entity_t {
 	int						skinIdx;		//!< index into skin list, the final skin for this entity (might be randomly choosen)
 	idVec3					origin;			//!< (semi-random) origin
 	idAngles				angles;			//!< zyx (yaw, pitch, roll) (semi-random) angles
+	idVec3					scale;			//!< XYZ scale factor
 	dword					color;			//!< (semi-random) color, computed from base/min/max colors of the class
 	int						flags;			/*!< flags & 0x00FFFFFF:
 												  0x01 hidden? 1 = hidden, 0 => visible
