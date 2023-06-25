@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4145 $
- * $Date: 2010-08-28 07:40:38 -0400 (Sat, 28 Aug 2010) $
+ * $Revision: 4180 $
+ * $Date: 2010-09-17 14:40:00 -0400 (Fri, 17 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4145 2010-08-28 11:40:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4180 2010-09-17 18:40:00Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -2131,7 +2131,10 @@ idLocationSeparatorEntity
 ===============================================================================
 */
 
+const idEventDef EV_GetPortalHandle( "getPortalHandle", NULL, 'f' );
+
 CLASS_DECLARATION( idEntity, idLocationSeparatorEntity )
+	EVENT( EV_GetPortalHandle,		idLocationSeparatorEntity::Event_GetPortalHandle )
 END_CLASS
 
 /*
@@ -2142,26 +2145,58 @@ idLocationSeparatorEntity::Spawn
 void idLocationSeparatorEntity::Spawn() 
 {
 	idBounds b;
-	float SoundLoss;
 
+	// Tels: TODO: keep the portal handle as member, add Save/Restore
+	// and a script event to return the portal handle, so getPortalSoundLoss()
+	// and setPortalSoundLoss() can use it.
 	b = idBounds( spawnArgs.GetVector( "origin" ) ).Expand( 16 );
-	qhandle_t portal = gameRenderWorld->FindPortal( b );
+	m_Portal = gameRenderWorld->FindPortal( b );
 
-	if ( !portal ) 
+	if ( !m_Portal ) 
 	{
-		gameLocal.Warning( "LocationSeparator '%s' didn't contact a portal", spawnArgs.GetString( "name" ) );
-		goto Quit;
+		gameLocal.Warning( "LocationSeparator '%s' didn't contact a portal", GetName() );
+		return;
 	}
-	gameLocal.SetPortalState( portal, PS_BLOCK_LOCATION );
+	gameLocal.SetPortalState( m_Portal, PS_BLOCK_LOCATION );
 
 	// update the sound loss for the associated portal (Note sound loss must be positive)
-	SoundLoss = spawnArgs.GetFloat("sound_loss", "0.0");
-	gameLocal.m_sndPropLoader->SetPortalLoss( portal, idMath::Fabs(SoundLoss) );
+	m_SoundLoss = spawnArgs.GetFloat("sound_loss", "0.0");
+	gameLocal.m_sndPropLoader->SetPortalLoss( m_Portal, idMath::Fabs(m_SoundLoss) );
 
-Quit:
-		return;
+	// store the light loss factor for this portal
+	m_LightLoss = spawnArgs.GetFloat("light_loss", "0.0");
+
 }
 
+/*
+================
+idLocationSeparatorEntity::Save
+
+Tels: Each idLocationSeparatorEntity contains the handle of the portal it
+	  is connected to, so we can let it return the handle.
+================
+*/
+void idLocationSeparatorEntity::Save( idSaveGame *savefile ) const
+{
+	savefile->WriteFloat( m_SoundLoss );
+	savefile->WriteFloat( m_LightLoss );
+	savefile->WriteInt( m_Portal );
+}
+
+void idLocationSeparatorEntity::Restore( idRestoreGame *savefile )
+{
+	savefile->ReadFloat( m_SoundLoss );
+	savefile->ReadFloat( m_LightLoss );
+	savefile->ReadInt( m_Portal );
+}
+
+void idLocationSeparatorEntity::Event_GetPortalHandle( void )
+{
+	if ( !m_Portal ) {
+		return idThread::ReturnFloat( -1.0f );
+	}
+	idThread::ReturnFloat( (float) m_Portal );
+}
 
 /*
 ===============================================================================

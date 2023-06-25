@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4094 $
- * $Date: 2010-07-24 10:10:15 -0400 (Sat, 24 Jul 2010) $
+ * $Revision: 4180 $
+ * $Date: 2010-09-17 14:40:00 -0400 (Fri, 17 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -483,7 +483,29 @@ public:
 
 	void				Spawn( void );
 
+	void				Save( idSaveGame *savefile ) const;
+	void				Restore( idRestoreGame *savefile );
+
+	qhandle_t			GetPortalHandle( void ) const;
+	void				Event_GetPortalHandle( void );	
+
 private:
+
+	/**
+	* Soundprop: Volume loss for sounds traveling through this portal, in
+	* addition to a potential door on this portal.
+	**/
+	float				m_SoundLoss;
+
+	/**
+	* Tels: Lightprop: Volume loss for sounds traveling through this portal
+	**/
+	float				m_LightLoss;
+
+	/**
+	* Tels: Handle of the portal this entity touches.
+	**/
+	qhandle_t			m_Portal;
 };
 
 class idVacuumSeparatorEntity : public idEntity {
