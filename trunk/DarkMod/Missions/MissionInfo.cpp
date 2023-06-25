@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3940 $
- * $Date: 2010-06-11 00:13:06 -0400 (Fri, 11 Jun 2010) $
+ * $Revision: 3952 $
+ * $Date: 2010-06-14 12:40:28 -0400 (Mon, 14 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3940 2010-06-11 04:13:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3952 2010-06-14 16:40:28Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -149,6 +149,27 @@ void CMissionInfo::SetKeyValue(const char* key, const char* value)
 	_declDirty = true;
 
 	_decl->data.Set(key, value);
+}
+
+void CMissionInfo::RemoveKeyValue(const char* key)
+{
+	if (_decl == NULL) return;
+
+	_declDirty = true;
+
+	_decl->data.Delete(key);
+}
+
+void CMissionInfo::RemoveKeyValuesMatchingPrefix(const char* prefix)
+{
+	if (_decl == NULL) return;
+
+	for (const idKeyValue* kv = _decl->data.MatchPrefix(prefix, NULL); 
+		 kv != NULL; 
+		 kv = _decl->data.MatchPrefix(prefix, NULL))
+	{
+		_decl->data.Delete(kv->GetKey());
+	}
 }
 
 void CMissionInfo::SaveToFile(idFile* file)

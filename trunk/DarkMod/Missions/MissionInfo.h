@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 3952 $
+ * $Date: 2010-06-14 12:40:28 -0400 (Mon, 14 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -87,6 +87,12 @@ public:
 
 	// Saves a key into the internal declaration dictionary
 	void	SetKeyValue(const char* key, const char* value);
+
+	// Removes a certain keyvalue
+	void	RemoveKeyValue(const char* key);
+
+	// Removes key values matching the given prefix
+	void	RemoveKeyValuesMatchingPrefix(const char* prefix);
 
 	// Will save any persistent info to the given file
 	void	SaveToFile(idFile* file);
