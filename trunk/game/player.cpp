@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4359 $
- * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
+ * $Revision: 4369 $
+ * $Date: 2010-12-11 18:36:48 -0500 (Sat, 11 Dec 2010) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4359 2010-12-07 09:50:57Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4369 2010-12-11 23:36:48Z grayman $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1360,6 +1360,11 @@ void idPlayer::SetupInventory()
 
 				// Inhibit pickup messages for these items
 				entity->spawnArgs.Set("inv_no_pickup_message", "1");
+
+				// grayman #2467 - Items added in this manner should be set to inv_map_start = 0.
+				// Otherwise they run the risk of being deleted when the map processes inv_map_start/1 items.
+				// Since this item is now in the inventory, inv_map_start should no longer need to be queried.
+				entity->spawnArgs.Set("inv_map_start", "0");
 
 				// add it to the inventory
 				CInventoryItemPtr invItem = crsr->Inventory()->PutItem(entity, this);
