@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3014 $
- * $Date: 2008-11-11 13:12:59 -0500 (Tue, 11 Nov 2008) $
- * $Author: greebo $
+ * $Revision: 3999 $
+ * $Date: 2010-06-30 03:06:45 -0400 (Wed, 30 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: savegame.cpp 3014 2008-11-11 18:12:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: savegame.cpp 3999 2010-06-30 07:06:45Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/RevisionTracker.h"
@@ -275,6 +275,17 @@ idSaveGame::WriteBounds
 */
 void idSaveGame::WriteBounds( const idBounds &bounds ) {
 	idBounds b = bounds;
+	LittleRevBytes( &b, sizeof(float), sizeof(b)/sizeof(float) );
+	file->Write( &b, sizeof( b ) );
+}
+
+/*
+================
+idSaveGame::WriteBox
+================
+*/
+void idSaveGame::WriteBox( const idBox &box ) {
+	idBox b = box;
 	LittleRevBytes( &b, sizeof(float), sizeof(b)/sizeof(float) );
 	file->Write( &b, sizeof( b ) );
 }
@@ -1045,6 +1056,16 @@ idRestoreGame::ReadBounds
 void idRestoreGame::ReadBounds( idBounds &bounds ) {
 	file->Read( &bounds, sizeof( bounds ) );
 	LittleRevBytes( &bounds, sizeof(float), sizeof(bounds)/sizeof(float) );
+}
+
+/*
+================
+idRestoreGame::ReadBox
+================
+*/
+void idRestoreGame::ReadBox( idBox &box ) {
+	file->Read( &box, sizeof( box ) );
+	LittleRevBytes( &box, sizeof(float), sizeof(box)/sizeof(float) );
 }
 
 /*
