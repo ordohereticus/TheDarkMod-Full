@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4181 $
- * $Date: 2010-09-18 03:35:38 -0400 (Sat, 18 Sep 2010) $
+ * $Revision: 4307 $
+ * $Date: 2010-11-21 10:26:58 -0500 (Sun, 21 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -760,32 +760,6 @@ private:
 	bool				state;
 
 	void				Event_Activate( idEntity *activator );
-};
-
-
-/*
-===============================================================================
-
-idFuncRadioChatter
-
-===============================================================================
-*/
-
-class idFuncRadioChatter : public idEntity {
-public:
-	CLASS_PROTOTYPE( idFuncRadioChatter );
-
-						idFuncRadioChatter();
-
-	void				Spawn( void );
-
-	void				Save( idSaveGame *savefile ) const;
-	void				Restore( idRestoreGame *savefile );
-
-private:
-	float				time;
-	void				Event_Activate( idEntity *activator );
-	void				Event_ResetRadioHud( idEntity *activator );
 };
 
 
