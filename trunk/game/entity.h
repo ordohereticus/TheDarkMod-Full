@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4387 $
- * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4437 $
+ * $Date: 2011-01-14 07:41:03 -0500 (Fri, 14 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -284,6 +284,7 @@ public:
 	**/
 	int					m_preHideContents;
 	int					m_preHideClipMask;
+
 	/**
 	* Entity contents may be overwritten by a custom contents spawnarg
 	* Store it here to keep track of it, because derived classes can
@@ -1318,6 +1319,9 @@ protected:
 	int						modelDefHandle;				//!< handle to static renderer model
 	refSound_t				refSound;					//!< used to present sound to the audio engine
 	idStr					brokenModel;				//!< model set when health drops down to or below zero
+
+	/* Tels: The origin is nec. for LOD computation, as an hidden entity has "0,0,0" as origin */
+	idVec3					m_preHideOrigin;
 
 	/**
 	* List storing attachment data for each attachment
