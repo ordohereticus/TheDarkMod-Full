@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4105 $
- * $Date: 2010-07-30 06:17:16 -0400 (Fri, 30 Jul 2010) $
+ * $Revision: 4106 $
+ * $Date: 2010-07-30 07:13:37 -0400 (Fri, 30 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4105 2010-07-30 10:17:16Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4106 2010-07-30 11:13:37Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -204,6 +204,8 @@ void Lode::Save( idSaveGame *savefile ) const {
 		//image based distribution
 		savefile->WriteString( m_Classes[i].map );
 
+		// TODO: write megamodel struct
+
 		// only write the model if it is used
 		if ( NULL != m_Classes[i].hModel)
 		{
@@ -253,6 +255,11 @@ void Lode::ClearClasses( void )
 				renderModelManager->FreeModel( m_Classes[i].hModel );
 			}
 			m_Classes[i].hModel = NULL;
+		}
+		if (NULL != m_Classes[i].megamodel)
+		{
+			delete m_Classes[i].megamodel;
+			m_Classes[i].megamodel = NULL;
 		}
 		if (NULL != m_Classes[i].img)
 		{
@@ -373,6 +380,8 @@ void Lode::Restore( idRestoreGame *savefile ) {
 			m_Classes[i].img->LoadImage( m_Classes[i].map );
 			m_Classes[i].img->InitImageInfo();
 		}
+
+		// TODO: read megamodel struct
 
 		savefile->ReadBool( bHaveModel );
 		m_Classes[i].hModel = NULL;
@@ -592,6 +601,7 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 	LodeClass.score = iEntScore;
 	LodeClass.classname = ent->GetEntityDefName();
 	LodeClass.modelname = ent->spawnArgs.GetString("model","");
+	LodeClass.megamodel = NULL;
 	
 	// get all "skin" and "skin_xx" spawnargs
 
@@ -1866,6 +1876,8 @@ void Lode::CombineEntities( void )
 				PseudoClass.img = NULL;
 				// a combined entity must be of this class
 				PseudoClass.classname = entityClass->classname;
+				PseudoClass.hModel = NULL;
+				PseudoClass.megamodel = NULL;
 			}
 			// for this entity
 			merged ++;
@@ -1893,6 +1905,11 @@ void Lode::CombineEntities( void )
 				corr -= entityClass->hModel->Bounds()[0];
 				PseudoClass.hModel = gameLocal.m_ModelGenerator->DuplicateModel( entityClass->hModel, GetName(), true, &offsets );
 			}
+			PseudoClass.megamodel = new megamodel_t;
+			PseudoClass.megamodel->offsets.Append( offsets );
+			PseudoClass.megamodel->changes.Clear();
+			PseudoClass.megamodel->lastUpdate = gameLocal.time;
+
 			// replace the old class with the new pseudo class which contains the merged model
 			m_Entities[i].classIdx = m_Classes.Append( PseudoClass );
 			// don't try to rotate the combined model after spawn
