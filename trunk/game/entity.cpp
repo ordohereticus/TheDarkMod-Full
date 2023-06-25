@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4100 $
- * $Date: 2010-07-26 10:41:28 -0400 (Mon, 26 Jul 2010) $
+ * $Revision: 4118 $
+ * $Date: 2010-08-01 05:20:00 -0400 (Sun, 01 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4100 2010-07-26 14:41:28Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4118 2010-08-01 09:20:00Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -517,7 +517,16 @@ void idGameEdit::ParseSpawnArgsToRenderEntity( const idDict *args, renderEntity_
 		renderEntity->bounds.Zero();
 	}
 
-	temp = args->GetString( "skin" );
+	idStr rskin = args->GetString( "random_skin", "" );
+	if ( !rskin.IsEmpty() ) {
+		// found list, select a random skin
+		temp = rskin.RandomPart().c_str();
+	}
+	else {
+		// else just use the "skin" spawnarg
+		temp = args->GetString( "skin" );
+	}
+
 	if ( temp[0] != '\0' ) {
 		renderEntity->customSkin = declManager->FindSkin( temp );
 	} else if ( modelDef ) {
@@ -914,7 +923,15 @@ void idEntity::ParseLODSpawnargs(void)
 
 	// setup level 0 (aka "The one and only original")
 	m_LOD->ModelLOD[0] = spawnArgs.GetString( "model" );
-	m_LOD->SkinLOD[0] = spawnArgs.GetString( "skin" );
+	// use whatever was set as skin, that can differ from spawnArgs.GetString("skin") due to random_skin:
+	if ( renderEntity.customSkin )
+	{
+		m_LOD->SkinLOD[0] = renderEntity.customSkin->GetName(); 
+	}
+	else
+	{
+		m_LOD->SkinLOD[0] = "";
+	}
 
 	//gameLocal.Printf (" LOD default model %s default skin %s\n", m_ModelLODCur.c_str(), m_SkinLODCur.c_str() );
 
