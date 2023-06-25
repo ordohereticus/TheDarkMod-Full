@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4250 $
+ * $Date: 2010-10-15 03:24:42 -0400 (Fri, 15 Oct 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: simd.cpp 4250 2010-10-15 07:24:42Z tels $", init_version);
 
 #include "simd_generic.h"
 #include "simd_mmx.h"
@@ -82,8 +82,8 @@ void idSIMD::InitProcessor( const char *module, bool forceGeneric ) {
 
 	if ( newProcessor != SIMDProcessor ) {
 		SIMDProcessor = newProcessor;
-		idLib::common->Printf( "%s using %s for SIMD processing\n", module, SIMDProcessor->GetName() );
 	}
+	idLib::common->Printf( "%s using %s for SIMD processing.\n", module, SIMDProcessor->GetName() );
 
 	if ( cpuid & CPUID_FTZ ) {
 		idLib::sys->FPU_SetFTZ( true );
