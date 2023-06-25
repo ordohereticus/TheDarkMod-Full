@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4178 $
- * $Date: 2010-09-17 06:24:44 -0400 (Fri, 17 Sep 2010) $
+ * $Revision: 4179 $
+ * $Date: 2010-09-17 12:10:40 -0400 (Fri, 17 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4178 2010-09-17 10:24:44Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4179 2010-09-17 16:10:40Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -512,6 +512,10 @@ void idGameLocal::Init( void ) {
 	m_ModelGenerator = CModelGeneratorPtr(new CModelGenerator);
 	m_ModelGenerator->Init();
 
+	// Initialise the light controller
+	m_LightController = CLightControllerPtr(new CLightController);
+	m_LightController->Init();
+
 	m_Shop = CShopPtr(new CShop);
 	m_Shop->Init();
 
@@ -641,6 +645,10 @@ void idGameLocal::Shutdown( void ) {
 	m_ModelGenerator->Shutdown();
 	m_ModelGenerator = CModelGeneratorPtr();
 
+	// Destroy the light controller
+	m_LightController->Shutdown();
+	m_LightController = CLightControllerPtr();
+
 	// Clear http connection
 	m_HttpConnection.reset();
 	m_GuiMessages.Clear();
@@ -760,8 +768,11 @@ void idGameLocal::SaveGame( idFile *f ) {
 	// Save our grabber pointer
 	savegame.WriteObject(m_Grabber);
 
-	// Save the model generator data
+	// Save whatever the model generator needs
 	m_ModelGenerator->Save(&savegame);
+
+	// Save whatever the light controller needs
+	m_LightController->Save(&savegame);
 
 	m_DifficultyManager.Save(&savegame);
 
@@ -1782,6 +1793,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_ConversationSystem->Restore(&savegame);
 	m_RelationsManager->Restore(&savegame);
 	m_ModelGenerator->Restore(&savegame);
+	m_LightController->Restore(&savegame);
 	m_Shop->Restore(&savegame);
 	LAS.Restore(&savegame);
 
@@ -2178,6 +2190,7 @@ void idGameLocal::MapShutdown( void ) {
 	m_ConversationSystem->Clear();
 	m_DifficultyManager.Clear();
 	m_ModelGenerator->Clear();
+	m_LightController->Clear();
 
 	// greebo: Don't clear the shop - MapShutdown() is called right before loading a map
 	// m_Shop->Clear();
