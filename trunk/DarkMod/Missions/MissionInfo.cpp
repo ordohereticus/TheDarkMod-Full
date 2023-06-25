@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3952 $
- * $Date: 2010-06-14 12:40:28 -0400 (Mon, 14 Jun 2010) $
+ * $Revision: 4318 $
+ * $Date: 2010-11-23 09:43:07 -0500 (Tue, 23 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 3952 2010-06-14 16:40:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 4318 2010-11-23 14:43:07Z greebo $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -265,6 +265,9 @@ void CMissionInfo::LoadMetaData()
 		displayName.StripLeading(" ");
 		displayName.StripLeading("\t");
 		displayName.StripTrailingWhitespace();
+
+		// Remove articles from mission titles
+		MoveArticlesToBack(displayName);
 	}
 
 	if (descPos >= 0)
@@ -310,5 +313,18 @@ void CMissionInfo::LoadMetaData()
 		splashImageName.StripFileExtension();
 
 		image = pathToFMPackage + splashImageName;
+	}
+}
+
+void CMissionInfo::MoveArticlesToBack(idStr& title)
+{
+	if (title.StripLeadingOnce("The "))
+	{
+		title += ", The";
+	}
+
+	if (title.StripLeadingOnce("A "))
+	{
+		title += ", A";
 	}
 }

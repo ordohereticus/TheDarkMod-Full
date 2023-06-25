@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4312 $
- * $Date: 2010-11-23 01:36:22 -0500 (Tue, 23 Nov 2010) $
+ * $Revision: 4318 $
+ * $Date: 2010-11-23 09:43:07 -0500 (Tue, 23 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4312 2010-11-23 06:36:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4318 2010-11-23 14:43:07Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -799,6 +799,10 @@ void CMissionManager::LoadMissionListFromXml(const XmlDocumentPtr& doc)
 		DownloadableMission mission;
 
 		mission.title = node.attribute("title").value();
+
+		// Remove articles from mission titles
+		CMissionInfo::MoveArticlesToBack(mission.title);
+
 		mission.sizeMB = node.attribute("size").as_float();
 		mission.author = node.attribute("author").value();
 		mission.releaseDate = node.attribute("releaseDate").value();

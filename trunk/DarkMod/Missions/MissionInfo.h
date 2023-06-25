@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3952 $
- * $Date: 2010-06-14 12:40:28 -0400 (Mon, 14 Jun 2010) $
+ * $Revision: 4318 $
+ * $Date: 2010-11-23 09:43:07 -0500 (Tue, 23 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -99,6 +99,9 @@ public:
 
 	// Load stuff from darkmod.txt
 	void	LoadMetaData();
+
+	// Moves articles from the front of the string to its back "The Alchemist" => "Alchemist, The"
+	static void MoveArticlesToBack(idStr& title);
 };
 typedef boost::shared_ptr<CMissionInfo> CMissionInfoPtr;
 
