@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3625 $
- * $Date: 2009-07-31 12:18:18 -0400 (Fri, 31 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 4305 $
+ * $Date: 2010-11-21 09:53:11 -0500 (Sun, 21 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 3625 2009-07-31 16:18:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 4305 2010-11-21 14:53:11Z tels $", init_version);
 
 #include "UnreachableTargetState.h"
 #include "../Memory.h"
@@ -58,7 +58,7 @@ void UnreachableTargetState::Init(idAI* owner)
 	if (owner->spawnArgs.GetBool("taking_cover_enabled","0"))
 	{
 		aasGoal_t hideGoal;
-		if (_takingCoverPossible = owner->LookForCover(hideGoal, enemy, owner->lastVisibleEnemyPos))
+		if ( (_takingCoverPossible = owner->LookForCover(hideGoal, enemy, owner->lastVisibleEnemyPos)) )
 		{
 			// We should not go into TakeCoverState if we are already at a suitable position
 			if (hideGoal.origin == owner->GetPhysics()->GetOrigin() )
