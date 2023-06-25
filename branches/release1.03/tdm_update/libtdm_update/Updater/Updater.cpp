@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4350 $
- * $Date: 2010-11-28 22:46:19 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4354 $
+ * $Date: 2010-11-30 09:23:07 -0500 (Tue, 30 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -890,6 +890,16 @@ void Updater::CheckLocalFiles()
 	fs::path targetPath = GetTargetPath();
 
 	TraceLog::WriteLine(LOG_VERBOSE, "Checking target folder: " + targetPath.file_string());
+
+	// List PK4 inventory to logfile, for reference
+	for (fs::directory_iterator i = fs::directory_iterator(targetPath); 
+		 i != fs::directory_iterator(); ++i)
+	{
+		if (File::IsPK4(*i))
+		{
+			TraceLog::WriteLine(LOG_VERBOSE, "[PK4 Inventory] Found " + i->string());
+		}
+	}
 
 	std::size_t count = 0;
 
