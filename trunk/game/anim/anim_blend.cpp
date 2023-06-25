@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3889 $
- * $Date: 2010-04-26 11:36:29 -0400 (Mon, 26 Apr 2010) $
- * $Author: tels $
+ * $Revision: 4272 $
+ * $Date: 2010-11-12 06:46:55 -0500 (Fri, 12 Nov 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 3889 2010-04-26 15:36:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4272 2010-11-12 11:46:55Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1249,7 +1249,8 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						ent->Detach( command.string->c_str() );
 
 						idVec3 origin = detachedEntity->GetPhysics()->GetOrigin();
-						origin.z -= DROP_DOWN_ADJUSTMENT; detachedEntity->GetPhysics()->SetOrigin( origin );
+						origin.z -= DROP_DOWN_ADJUSTMENT;
+						detachedEntity->GetPhysics()->SetOrigin( origin );
 					}
 					break;
 				}
