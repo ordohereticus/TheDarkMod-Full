@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4318 $
- * $Date: 2010-11-23 09:43:07 -0500 (Tue, 23 Nov 2010) $
- * $Author: greebo $
+ * $Revision: 4341 $
+ * $Date: 2010-11-27 04:27:01 -0500 (Sat, 27 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfo.cpp 4318 2010-11-23 14:43:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionInfo.cpp 4341 2010-11-27 09:27:01Z tels $", init_version);
 
 #include "MissionInfo.h"
 #include "MissionInfoDecl.h"
@@ -322,9 +322,12 @@ void CMissionInfo::MoveArticlesToBack(idStr& title)
 	{
 		title += ", The";
 	}
-
-	if (title.StripLeadingOnce("A "))
+	else if (title.StripLeadingOnce("A "))
 	{
 		title += ", A";
+	}
+	else if (title.StripLeadingOnce("An "))
+	{
+		title += ", An";
 	}
 }
