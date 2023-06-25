@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4359 $
- * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
- * $Author: grayman $
+ * $Revision: 4387 $
+ * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4359 2010-12-07 09:50:57Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4387 2010-12-26 10:44:56Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1415,6 +1415,12 @@ void idEntity::SaveLOD( idSaveGame *savefile ) const
 		savefile->WriteInt( 0 );
 	}
 }
+
+void idEntity::AddObjectsToSaveGame(idSaveGame* savefile)
+{
+	// empty default implementation
+}
+
 /*
 ================
 idEntity::Save

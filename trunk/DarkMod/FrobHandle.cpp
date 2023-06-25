@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3744 $
- * $Date: 2009-11-04 00:14:12 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 4387 $
+ * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobHandle.cpp 3744 2009-11-04 05:14:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobHandle.cpp 4387 2010-12-26 10:44:56Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -52,7 +52,7 @@ void CFrobHandle::Spawn()
 	m_bInterruptable = false;
 
 	// greebo: The handle itself must never locked, otherwise it can't move in Tap()
-	m_Lock.SetLocked(false);
+	m_Lock->SetLocked(false);
 }
 
 void CFrobHandle::Event_Tap()

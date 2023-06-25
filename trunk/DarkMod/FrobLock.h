@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3678 $
- * $Date: 2009-08-28 23:03:27 -0400 (Fri, 28 Aug 2009) $
+ * $Revision: 4387 $
+ * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -21,7 +21,7 @@ class CFrobLock :
 	public idStaticEntity
 {
 	// The actual lock implementation
-	PickableLock	m_Lock;
+	PickableLock*	m_Lock;
 
 	/**
 	 * Handles that are associated with this lock.
@@ -35,6 +35,7 @@ public:
 	CLASS_PROTOTYPE( CFrobLock );
 
 	CFrobLock();
+	virtual ~CFrobLock();
 
 	void			Spawn();
 
@@ -60,6 +61,9 @@ public:
 	virtual bool	UseBy(EImpulseState impulseState, const CInventoryItemPtr& item);	// Overrides idEntity::UseBy
 
 	virtual void	AttackAction(idPlayer* player); // Override idEntity::AttackAction to catch attack key presses from the player during lockpicking
+
+	// Override idEntity to register the PickableLock class as object
+	virtual void	AddObjectsToSaveGame(idSaveGame* savefile);
 
 	void			Save(idSaveGame *savefile) const;
 	void			Restore(idRestoreGame *savefile);

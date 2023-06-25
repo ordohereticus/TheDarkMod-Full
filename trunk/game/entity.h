@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4359 $
- * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
- * $Author: grayman $
+ * $Revision: 4387 $
+ * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -453,6 +453,13 @@ public:
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );
+
+	/**
+	 * greebo: This method is called before the savegame is writing its "object list" to the file,
+	 * to give this entity an opportunity to register its subobjects (like the PickableLock class
+	 * which is a non-spawned object of the BinaryFrobMover class).
+	 */
+	virtual void			AddObjectsToSaveGame(idSaveGame* savefile);
 
 	/**
 	 * Tels: Save/Restore optional LOD data.
