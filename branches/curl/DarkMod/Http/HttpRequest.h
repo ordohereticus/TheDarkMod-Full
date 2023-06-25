@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3973 $
- * $Date: 2010-06-22 21:38:58 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3976 $
+ * $Date: 2010-06-22 22:40:34 -0400 (Tue, 22 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,6 +10,7 @@
 #ifndef _HTTP_REQUEST_H_
 #define _HTTP_REQUEST_H_
 
+#include "XmlDocument.h"
 #include <boost/shared_ptr.hpp>
 
 class CHttpConnection;
@@ -61,6 +62,9 @@ public:
 
 	// Returns the result string
 	std::string GetResultString();
+
+	// Returns the result as XML document
+	xml::Document GetResultXml();
 };
 typedef boost::shared_ptr<CHttpRequest> CHttpRequestPtr;
 

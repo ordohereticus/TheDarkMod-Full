@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3966 $
- * $Date: 2010-06-22 09:42:32 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3976 $
+ * $Date: 2010-06-22 22:40:34 -0400 (Tue, 22 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3966 2010-06-22 13:42:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3976 2010-06-23 02:40:34Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -514,6 +514,19 @@ void idGameLocal::Init( void ) {
 
 	req->Perform();
 	gameLocal.Printf("Result:\n%s\n\n", req->GetResultString().c_str());
+
+	xml::Document result = req->GetResultXml();
+
+	xml::NodeList nodes = result.FindXPath("tdm/currentVersion");
+
+	if (!nodes.empty())
+	{
+		Printf("Current TDM Version: %s", nodes[0].GetAttributeValue("value").c_str());
+	}
+	else
+	{
+		Printf("Couldn't find current version tag.\n");
+	}
 }
 
 void idGameLocal::UpdateInteractionShader()
