@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4337 $
- * $Date: 2010-11-26 06:57:10 -0500 (Fri, 26 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4373 $
+ * $Date: 2010-12-17 07:13:49 -0500 (Fri, 17 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4337 2010-11-26 11:57:10Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4373 2010-12-17 12:13:49Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -76,8 +76,6 @@ CBinaryFrobMover::CBinaryFrobMover()
 	m_stopWhenBlocked = false;
 	m_LockOnClose = false;
 	m_bFineControlStarting = false;
-
-	m_iActivator = -1;
 }
 
 void CBinaryFrobMover::Save(idSaveGame *savefile) const
@@ -121,8 +119,6 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 	savefile->WriteBool(m_stopWhenBlocked);
 	savefile->WriteBool(m_LockOnClose);
 	savefile->WriteBool(m_bFineControlStarting);
-
-	savefile->WriteInt(m_iActivator);
 }
 
 void CBinaryFrobMover::Restore( idRestoreGame *savefile )
@@ -166,8 +162,6 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 	savefile->ReadBool(m_stopWhenBlocked);
 	savefile->ReadBool(m_LockOnClose);
 	savefile->ReadBool(m_bFineControlStarting);
-
-	savefile->ReadInt(m_iActivator);
 }
 
 void CBinaryFrobMover::Spawn()
@@ -653,9 +647,6 @@ void CBinaryFrobMover::CallStateScript()
 
 void CBinaryFrobMover::Event_Activate(idEntity *activator) 
 {
-	// save the entity index so we can relay it along
-	m_iActivator = activator->entityNumber;
-
 	ToggleOpen();
 }
 
@@ -891,7 +882,7 @@ void CBinaryFrobMover::OnStartOpen(bool wasClosed, bool bMaster)
 		// trigger our targets on opening, if set to do so
 		if (spawnArgs.GetBool("trigger_on_open", "0"))
 		{
-			ActivateTargets( m_iActivator < 0 ? this : gameLocal.entities[ m_iActivator ] );
+			ActivateTargets(this);
 		}
 	}
 
@@ -910,7 +901,7 @@ void CBinaryFrobMover::OnOpenPositionReached()
 	// trigger our targets when completely opened, if set to do so
 	if (spawnArgs.GetBool("trigger_when_opened", "0"))
 	{
-		ActivateTargets( m_iActivator < 0 ? this : gameLocal.entities[ m_iActivator ] );
+		ActivateTargets(this);
 	}
 
 	// Check if we should move back to the closedpos after use
@@ -930,7 +921,7 @@ void CBinaryFrobMover::OnClosedPositionReached()
 	// trigger our targets on completely closing, if set to do so
 	if (spawnArgs.GetBool("trigger_on_close", "0"))
 	{
-		ActivateTargets( m_iActivator < 0 ? this : gameLocal.entities[ m_iActivator ] );
+		ActivateTargets(this);
 	}
 
 	// Check if we should move back to the openpos

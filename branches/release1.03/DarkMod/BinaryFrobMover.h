@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4218 $
- * $Date: 2010-10-03 02:54:44 -0400 (Sun, 03 Oct 2010) $
- * $Author: tels $
+ * $Revision: 4373 $
+ * $Date: 2010-12-17 07:13:49 -0500 (Fri, 17 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -497,14 +497,6 @@ protected:
 	* True when frob is held down but not long enough to initialize fine control
 	**/
 	bool						m_bFineControlStarting;
-
-
-	/**
-	* Tels: The entity that activated us, so we can relay it to our targets. Stored
-	*	as entity index, as it could get destroyed before the ActivateTargets()
-	*	happens.
-	**/
-	int						m_iActivator;
 };
 
 #endif /* !BINARYFROBMOVER */
