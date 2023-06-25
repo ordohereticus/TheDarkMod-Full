@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4060 $
- * $Date: 2010-07-13 20:22:10 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4312 $
+ * $Date: 2010-11-23 01:36:22 -0500 (Tue, 23 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4060 2010-07-14 00:22:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4312 2010-11-23 06:36:22Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -41,13 +41,47 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 		{
 			UpdateDownloadProgress(gui);
 		}
+		
+		// Do we have a pending mission list request?
+		if (gameLocal.m_MissionManager->IsDownloadableMissionsRequestInProgress())
+		{
+			CMissionManager::MissionListDownloadStatus status = 
+				gameLocal.m_MissionManager->ProcessReloadDownloadableMissionsRequest();
+			
+			switch (status)
+			{
+				case CMissionManager::DOWNLOAD_FAILED:
+				{
+					// Issue a failure message
+					gameLocal.Printf("Connection Error.\n");
+
+					GuiMessage msg;
+					msg.title = "Unable to contact Mission Archive";
+					msg.message = "Cannot connect to server.";
+					msg.type = GuiMessage::MSG_OK;
+					msg.okCmd = "close_msg_box";
+
+					gameLocal.AddMainMenuMessage(msg);
+				}
+				break;
+
+				case CMissionManager::DOWNLOAD_SUCCESSFUL:
+				{
+					gui->HandleNamedEvent("onAvailableMissionsRefreshed"); // hide progress dialog
+
+					UpdateGUI(gui);
+					UpdateDownloadProgress(gui);
+				}
+				break;
+			};
+		}
 	}
 	else if (cmd == "refreshAvailableMissionList")
 	{
-		gui->HandleNamedEvent("onAvailableMissionsRefreshed"); // hide progress dialog in any case
-
 		if (!cv_tdm_allow_http_access.GetBool() || gameLocal.m_HttpConnection == NULL)
 		{
+			gui->HandleNamedEvent("onAvailableMissionsRefreshed"); // hide progress dialog
+
 			// HTTP Access disallowed, display message
 			gameLocal.Printf("HTTP requests disabled, cannot check for available missions.\n");
 
@@ -62,13 +96,13 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 			return;
 		}
 
-		// Refresh list
-		gameLocal.m_MissionManager->ReloadDownloadableMissions();
-
+		// Clear data before updating the list
 		_selectedMissions.Clear();
-
 		UpdateGUI(gui);
 		UpdateDownloadProgress(gui);
+
+		// Start refreshing the list, will be handled in mainmenu_heartbeat
+		gameLocal.m_MissionManager->StartReloadDownloadableMissions();
 	}
 	else if (cmd == "onDownloadableMissionSelected")
 	{

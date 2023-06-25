@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4055 $
- * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4312 $
+ * $Date: 2010-11-23 01:36:22 -0500 (Tue, 23 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Download.cpp 4055 2010-07-13 11:17:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Download.cpp 4312 2010-11-23 06:36:22Z greebo $", init_version);
 
 #include "Download.h"
 #include "../Http/HttpConnection.h"
@@ -131,6 +131,12 @@ void CDownload::Perform()
 					_curUrl++;
 					continue;
 				}
+			}
+
+			// Make sure the destination file is overwritten
+			if (fs::exists(_destFilename.c_str()))
+			{
+				CMissionManager::DoRemoveFile(_destFilename.c_str());
 			}
 
 			// Move temporary file to the real one
