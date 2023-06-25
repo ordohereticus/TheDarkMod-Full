@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4218 $
- * $Date: 2010-10-03 02:54:44 -0400 (Sun, 03 Oct 2010) $
+ * $Revision: 4337 $
+ * $Date: 2010-11-26 06:57:10 -0500 (Fri, 26 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4218 2010-10-03 06:54:44Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4337 2010-11-26 11:57:10Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -653,7 +653,7 @@ void CBinaryFrobMover::CallStateScript()
 
 void CBinaryFrobMover::Event_Activate(idEntity *activator) 
 {
-	// svae the entity index so we can relay it along
+	// save the entity index so we can relay it along
 	m_iActivator = activator->entityNumber;
 
 	ToggleOpen();
