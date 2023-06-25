@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4011 $
- * $Date: 2010-07-01 23:06:18 -0400 (Thu, 01 Jul 2010) $
+ * $Revision: 4019 $
+ * $Date: 2010-07-04 10:15:45 -0400 (Sun, 04 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4011 2010-07-02 03:06:18Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4019 2010-07-04 14:15:45Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1623,10 +1623,10 @@ void idStaticEntity::Spawn( void ) {
 	// a quick check for LOD, to avoid looking at all lod_x_distance spawnargs:
 	m_bDistDependent = (m_DistCheckInterval != 0) ? true : false;
 
-	float fHideDistance = spawnArgs.GetFloat( "hide_distance", "0.0" );
-
 	if (m_bDistDependent)
 	{
+		float fHideDistance = spawnArgs.GetFloat( "hide_distance", "0.0" );
+
 		idStr temp;
 		// distance dependent LOD from this point on:
 		m_OffsetLOD[0] = renderEntity.origin;
@@ -1645,8 +1645,9 @@ void idStaticEntity::Spawn( void ) {
 				// do this only once at setup time, so the setting is stable during runtime
 				float fHideProbability = spawnArgs.GetFloat( "lod_hide_probability", "1.0" );
 				float fRandom = gameLocal.random.RandomFloat();	// 0.0 .. 1.0
-				if (fRandom <= fHideProbability)
+				if (fRandom > fHideProbability)
 				{
+					// disable hiding
 					m_DistLODSq[i] = -1.0f;		// disable
 				}
 
@@ -1714,10 +1715,8 @@ void idStaticEntity::Spawn( void ) {
 					sprintf(temp, "noshadows_lod_%i", i );
 									  // 1, 2, 4, 8, 16 etc
 					m_noshadowsLOD |= (spawnArgs.GetBool( temp, "0" ) ? 1 : 0) << i;
-				}
-				// setup the manual offset for this LOD stage (needed to align some models)
-				if (i < LOD_LEVELS - 1)
-				{
+
+					// setup the manual offset for this LOD stage (needed to align some models)
 					sprintf(temp, "offset_lod_%i", i);
 					m_OffsetLOD[i] = m_OffsetLOD[0] + spawnArgs.GetVector( temp, "0,0,0" );
 				}
@@ -1841,6 +1840,7 @@ void idStaticEntity::Think( void )
 			// skip this level
 			if (m_DistLODSq[i] <= 0)
 			{
+				//gameLocal.Printf ("%s skipping LOD %i (distance %f)\n", GetName(), i, m_DistLODSq[i]);
 				continue;
 			}
 
@@ -1857,8 +1857,18 @@ void idStaticEntity::Think( void )
 			}
 			else
 			{
-				// last usable level goes to infinity
-				bWithinDist = (deltaSq > m_DistLODSq[i]);
+				if (i < LOD_LEVELS - 1)
+				{
+					bWithinDist = (deltaSq < m_DistLODSq[ LOD_LEVELS - 1]);
+				}
+				else
+				{
+					gameLocal.Printf ("%s nextLevel %i (i=%i)\n", GetName(), nextLevel, i);
+
+					// only hide if hiding isn't disabled
+					// last usable level goes to infinity
+					bWithinDist = m_DistLODSq[i] > 0 && (deltaSq > m_DistLODSq[i]);
+				}
 
 				// compute the alpha value of still inside the fade range
 				if (bWithinDist)
@@ -1894,7 +1904,7 @@ void idStaticEntity::Think( void )
 						// just hide if outside
 						if (!fl.hidden)
 						{
-							// gameLocal.Printf ("%s hiding due to out-of-range %0.2f\n", GetName(), deltaSq);
+							//gameLocal.Printf ("%s hiding due to out-of-range %0.2f\n", GetName(), deltaSq);
 							Hide();
 						}
 					}
@@ -1908,7 +1918,7 @@ void idStaticEntity::Think( void )
 				}
 			}
 
-			//gameLocal.Printf ("%s passed LOD %i distance check %f (%f), inside?: %i \n", GetName(), i, m_DistLODSq[i], deltaSq, bWithinDist);
+			//gameLocal.Printf ("%s passed LOD %i distance check %f (%f), inside?: %i (old level %i)\n", GetName(), i, m_DistLODSq[i], deltaSq, bWithinDist, m_LODLevel);
 			
 			// don't do anything when we are already at that level
 			if ( bWithinDist && m_LODLevel != i)
