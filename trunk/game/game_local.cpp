@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4034 $
- * $Date: 2010-07-09 04:53:16 -0400 (Fri, 09 Jul 2010) $
+ * $Revision: 4035 $
+ * $Date: 2010-07-09 08:33:11 -0400 (Fri, 09 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4034 2010-07-09 08:53:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4035 2010-07-09 12:33:11Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -656,6 +656,7 @@ void idGameLocal::Shutdown( void ) {
 
 	// Clear http connection
 	m_HttpConnection.reset();
+	m_GuiMessages.Clear();
 
 	aasList.DeleteContents( true );
 	aasNames.Clear();
