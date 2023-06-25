@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4442 $
+ * $Date: 2011-01-17 15:32:31 -0500 (Mon, 17 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -112,7 +112,10 @@ public:
 						// translate the trm
 	void				Translate( const idVec3 &translation );
 						// rotate the trm
-	void				Rotate( const idMat3 &rotation );
+						// rotate the trm or apply non-singular linear transform
+	void				Rotate( const idMat3 &rotation, bool isRotationOrthogonal = true );
+						// scale the trm
+	void				Scale( const idVec3 &scale );
 						// shrink the model m units on all sides
 	void				Shrink( const float m );
 						// compare
