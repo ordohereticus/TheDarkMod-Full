@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4327 $
- * $Date: 2010-11-25 10:34:56 -0500 (Thu, 25 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd.cpp 4327 2010-11-25 15:34:56Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: simd.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
 
 #include "simd_generic.h"
 #include "simd_mmx.h"
@@ -48,7 +48,6 @@ idSIMD::InitProcessor
 */
 void idSIMD::InitProcessor( const char *module, bool forceGeneric ) {
 	cpuid_t cpuid;
-	int cores = 0;
 	idSIMDProcessor *newProcessor;
 
 	cpuid = idLib::sys->GetProcessorId();
@@ -58,6 +57,7 @@ void idSIMD::InitProcessor( const char *module, bool forceGeneric ) {
 	*       the correct flags:
 	*/
 #ifdef __linux__
+	int cores = 0;
 	dword a,c,d, result;
 
 	/* Check for AMD or Intel first */

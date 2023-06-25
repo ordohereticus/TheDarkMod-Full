@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -2430,7 +2430,7 @@ ID_INLINE void idMatX::Clamp( float min, float max ) {
 	}
 }
 
-ID_INLINE idMatX &idMatX::SwapRows( int r1, int r2 ) {
+inline idMatX &idMatX::SwapRows( int r1, int r2 ) {
 	float *ptr;
 
 	ptr = (float *) _alloca16( numColumns * sizeof( float ) );

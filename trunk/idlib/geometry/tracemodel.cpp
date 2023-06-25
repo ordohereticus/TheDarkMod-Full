@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4442 $
- * $Date: 2011-01-17 15:32:31 -0500 (Mon, 17 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: tracemodel.cpp 4442 2011-01-17 20:32:31Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: tracemodel.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
 
 #include "tracemodel.h"
 
@@ -1024,8 +1024,9 @@ void idTraceModel::Rotate( const idMat3 &rotation, bool isRotationOrthogonal ) {
 
 	idMat3 normalRotation = rotation;
 	if (!isRotationOrthogonal) {
-                bool nonSingular = normalRotation.InverseSelf();
-                assert(nonSingular);
+		bool nonSingular = normalRotation.InverseSelf();
+		nonSingular;	//eliminates "never used" warning in release
+		assert(nonSingular);
 		normalRotation.TransposeSelf();
 	}
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lcp.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: lcp.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
 
 static idCVar lcp_showFailures( "lcp_showFailures", "0", CVAR_SYSTEM | CVAR_BOOL, "show LCP solver failures" );
 
@@ -325,7 +325,7 @@ idLCP_Square::CalcForceDelta
   modifies this->delta_f
 ============
 */
-ID_INLINE void idLCP_Square::CalcForceDelta( int d, float dir ) {
+inline void idLCP_Square::CalcForceDelta( int d, float dir ) {
 	int i;
 	float *ptr;
 

@@ -1,21 +1,22 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4383 $
- * $Date: 2010-12-25 06:37:01 -0500 (Sat, 25 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpConnection.cpp 4383 2010-12-25 11:37:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpConnection.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
 
 #include "HttpConnection.h"
 #include "HttpRequest.h"
 
 #ifdef WIN32
+#pragma warning(disable: 4800) // stgatilov: suppress "forcing value to bool" warning in WinSDK
 #include <winsock2.h> // greebo: need to include winsock2 before curl/curl.h
 #include <Ws2tcpip.h>
 #include <Wspiapi.h>

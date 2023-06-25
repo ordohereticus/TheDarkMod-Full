@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -184,7 +184,7 @@ idCurve::RombergIntegral
 ====================
 */
 template< class type >
-ID_INLINE float idCurve<type>::RombergIntegral( const float t0, const float t1, const int order ) const {
+inline float idCurve<type>::RombergIntegral( const float t0, const float t1, const int order ) const {
 	int i, j, k, m, n;
 	float sum, delta;
 	float *temp[2];

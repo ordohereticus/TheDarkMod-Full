@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4445 $
- * $Date: 2011-01-17 15:36:19 -0500 (Mon, 17 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -62,7 +62,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4445 2011-01-17 20:36:19Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1108,11 +1108,11 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 
 		gameLocal.Printf("LODE %s: Loaded %s: %ix%i px, %i bpp = %li bytes, average density %0.4f.\n", 
 				GetName(), mapName.c_str(), LodeClass.img->m_Width, LodeClass.img->m_Height, LodeClass.img->m_Bpp, LodeClass.img->GetBufferLen(), fImgDensity );
-		if (fImgDensity < 0.001)
+		if (fImgDensity < 0.001f)
 		{
 			gameLocal.Warning("The average density of this image map is very low.");
 			// avoid divide-by-zero
-			fImgDensity = 0.001;
+			fImgDensity = 0.001f;
 		}
 	}
 
@@ -1254,7 +1254,7 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 	LodeClass.impulse_max  = ent->spawnArgs.GetVector("lode_impulse_max", spawnArgs.GetString("impulse_max", "0 90 360"));
 
 	// clamp to 0..360, -180..180, 0..1000
-    LodeClass.impulse_min.Clamp( idVec3(0,-90,0), idVec3(1000,+90,359.9) );
+    LodeClass.impulse_min.Clamp( idVec3(0,-90,0), idVec3(1000,+90,359.9f) );
     LodeClass.impulse_max.Clamp( LodeClass.impulse_min, idVec3(1000,+90,360) );
 
     LodeClass.z_invert = ent->spawnArgs.GetBool("lode_z_invert", spawnArgs.GetString("z_invert", "0"));
@@ -1381,9 +1381,9 @@ void Lode::ComputeEntityCount( void )
 		idBounds bounds = renderEntity.bounds;
 		idVec3 size = bounds.GetSize();
 
-		if (fDensity < 0.00001)
+		if (fDensity < 0.00001f)
 		{
-			fDensity = 0.00001;
+			fDensity = 0.00001f;
 		}
 
 		// m_fAvgSize is corrected for "per-class" falloff already

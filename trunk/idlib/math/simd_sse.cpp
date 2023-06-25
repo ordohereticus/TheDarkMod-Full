@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4430 $
- * $Date: 2011-01-11 14:45:02 -0500 (Tue, 11 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4448 $
+ * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd_sse.cpp 4430 2011-01-11 19:45:02Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: simd_sse.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
 
 #include "simd_generic.h"
 #include "simd_mmx.h"
@@ -611,7 +611,7 @@ void VPCALL idSIMD_SSE::Dot( float *dst, const idVec3 &constant, const idPlane *
 
 #include <xmmintrin.h>
 #pragma warning( push )
-#pragma warning( disable: 4127 )
+#pragma warning( disable: 4127 4740 )
 
 #define SHUFFLEPS( x, y, z, w )		(( (x) & 3 ) << 6 | ( (y) & 3 ) << 4 | ( (z) & 3 ) << 2 | ( (w) & 3 ))
 #define R_SHUFFLEPS( x, y, z, w )	(( (w) & 3 ) << 6 | ( (z) & 3 ) << 4 | ( (y) & 3 ) << 2 | ( (x) & 3 ))
