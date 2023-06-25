@@ -1,8 +1,9 @@
+// vim:ts=4:sw=4:cindent
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4114 $
- * $Date: 2010-08-01 03:13:42 -0400 (Sun, 01 Aug 2010) $
+ * $Revision: 4116 $
+ * $Date: 2010-08-01 05:18:52 -0400 (Sun, 01 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +14,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: str.cpp 4114 2010-08-01 07:13:42Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: str.cpp 4116 2010-08-01 09:18:52Z tels $", init_version);
 
 #if !defined( ID_REDIRECT_NEWDELETE ) && !defined( MACOS_X )
 	#define USE_STRING_DATA_ALLOCATOR
@@ -160,6 +161,85 @@ void idStr::operator=( const char *text ) {
 	EnsureAlloced( l + 1, false );
 	strcpy( data, text );
 	len = l;
+}
+
+idStr idStr::RandomPart( const char c ) const {
+	idStr part;
+
+	// check for list and if found, use random part
+	int seps = Count(c);
+	if (seps > 0) {
+		// if we have X commata, we have X+1 pieces, so select one at random
+		seps ++;
+		//gameLocal.Printf("Found random list with %i parts.\n", seps);
+		int idx = (int) (gameLocal.random.RandomFloat() * (float)seps);
+		//gameLocal.Printf("random part #%i\n", idx);
+		// split string into pieces, and select idx
+		int i = 0; int d = 0;
+		int start = 0; int end = len;
+		while (d < len) {
+			if (data[d] == c) {
+					i++;
+			}
+			if (i == idx) {
+				// found start, find end
+				start = d;
+				if (i > 0)
+				{
+					// on first part, start at 0, other parts skip "c"
+					start ++;
+				}
+				end = start;
+				while (end < len && data[end] != c)
+				{
+					end++;
+				}
+				break;
+			}
+			d++;
+		}
+		//gameLocal.Printf("Cutting %s between %i and %i.\n", data, start, end);
+		part = Mid(start, end - start);
+		// left-over separator 
+		part.Strip(c);
+		// and spaces
+		part.Strip(' ');
+		if (part == "''") {
+			// default
+			part = "";
+		}
+		//gameLocal.Printf("Result: '%s'.\n", part.c_str() );
+	// end for random
+	}
+	else {
+		// copy
+		part.Append( data );
+	}
+	
+	return part;
+}
+
+/*
+============
+idStr::CountChar
+
+returns count of c between start and end
+============
+*/
+int idStr::CountChar( const char *str, const char c, int start, int end ) {
+	int i;
+	int count = 0;
+
+	if ( end == -1 ) {
+		end = strlen( str ) - 1;
+	}
+
+	for ( i = start; i <= end; i++ ) {
+		if ( str[i] == c ) {
+			count++;
+		}
+	}
+	return count;
 }
 
 /*
