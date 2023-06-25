@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4361 $
- * $Date: 2010-12-08 17:24:56 -0500 (Wed, 08 Dec 2010) $
+ * $Revision: 4431 $
+ * $Date: 2011-01-11 16:47:38 -0500 (Tue, 11 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4361 2010-12-08 22:24:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4431 2011-01-11 21:47:38Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1960,9 +1960,24 @@ void idAI::Think( void )
 
 	// if we are completely closed off from the player, don't do anything at all
 	// angua: only go dormant while in idle
-	bool outsidePVS = CheckDormant();
-	if (outsidePVS && AI_AlertIndex < 1 && cv_ai_opt_disable.GetBool()) {
-		return;
+	// grayman #2536 - move alert check up in front
+	if (AI_AlertIndex < 1)
+	{
+		bool outsidePVS = CheckDormant();
+		if (outsidePVS && cv_ai_opt_disable.GetBool())
+		{
+			return;
+		}
+	}
+
+	// grayman #2536 - if dormant and alert index > 0, wake up
+
+	if ((AI_AlertIndex > 0) && fl.isDormant)
+	{
+		dormantStart = 0;
+		fl.hasAwakened = true;
+		fl.isDormant = false;
+		DormantEnd();
 	}
 			
 	// save old origin and velocity for crashlanding
@@ -8098,8 +8113,10 @@ bool idAI::CheckHearing( SSprParms *propParms )
 {
 	bool returnval(false);
 
-	if( propParms->loudness > m_AudThreshold)
+	if (propParms->loudness > m_AudThreshold)
+	{
 		returnval = true;
+	}
 
 	return returnval;
 }
