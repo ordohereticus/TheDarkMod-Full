@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4242 $
- * $Date: 2010-10-13 11:38:20 -0400 (Wed, 13 Oct 2010) $
+ * $Revision: 4243 $
+ * $Date: 2010-10-13 12:07:34 -0400 (Wed, 13 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -286,16 +286,6 @@ private:
 	* In the range 0.. 1.0, using our own m_iSeed value.
 	*/
 	float				RandomFloat( void );
-
-	/**
-	* Squared falloff
-	*/
-	float				RandomFloatSqr( void );
-
-	/**
-	* Exponential falloff
-	*/
-	float				RandomFloatExp( const float lambda );
 
 	/**
 	* Spawn the entity with the given index, return true if it could be spawned.
