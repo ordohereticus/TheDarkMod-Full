@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4236 $
- * $Date: 2010-10-09 07:04:48 -0400 (Sat, 09 Oct 2010) $
- * $Author: grayman $
+ * $Revision: 4308 $
+ * $Date: 2010-11-21 10:27:27 -0500 (Sun, 21 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4236 2010-10-09 11:04:48Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4308 2010-11-21 15:27:27Z tels $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -728,8 +728,8 @@ void CShop::AddMapItems(idMapFile* mapFile)
 			{
 				idStr itemName = mapEnt->epairs.GetString("classname");
 				int quantity;
-				bool isWeapon = false; // is this an arrow?
-				int max_ammo; // in case this is a weapon
+				bool isWeapon = false;	// is this an arrow?
+				int max_ammo = 1;	// in case this is a weapon
 
 				// Special handling for arrows. The shop definitions allow for
 				// atdm:weapon_*, but not atdm:ammo_*. The latter form is used on
