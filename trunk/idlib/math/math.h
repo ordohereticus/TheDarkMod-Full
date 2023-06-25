@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
- * $Author: greebo $
+ * $Revision: 4304 $
+ * $Date: 2010-11-21 09:51:46 -0500 (Sun, 21 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -159,8 +159,8 @@ public:
 	static int					ILog2( float f );			// integral base-2 logarithm of the floating point value
 	static int					ILog2( int i );				// integral base-2 logarithm of the integer value
 
-	static int					BitsForFloat( float f );	// minumum number of bits required to represent ceil( f )
-	static int					BitsForInteger( int i );	// minumum number of bits required to represent i
+	static int					BitsForFloat( float f );	// minimum number of bits required to represent ceil( f )
+	static int					BitsForInteger( int i );	// minimum number of bits required to represent i
 	static int					MaskForFloatSign( float f );// returns 0x00000000 if x >= 0.0f and returns 0xFFFFFFFF if x <= -0.0f
 	static int					MaskForIntegerSign( int i );// returns 0x00000000 if x >= 0 and returns 0xFFFFFFFF if x < 0
 	static int					FloorPowerOfTwo( int x );	// round x down to the nearest power of 2
