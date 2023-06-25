@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4348 $
- * $Date: 2010-11-28 08:56:04 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4353 $
+ * $Date: 2010-11-30 08:39:08 -0500 (Tue, 30 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -164,6 +164,11 @@ void UpdateController::PerformStep(UpdateStep step)
 		if (Util::D3IsRunning())
 		{
 			_view.OnWarning("The Doom 3 process was found to be active.\nThe updater will not be able to update any Dark Mod PK4s.\nPlease exit Doom 3 before continuing.");
+		}
+
+		if (Util::DarkRadiantIsRunning())
+		{
+			_view.OnWarning("DarkRadiant was found to be in the list of active processes.\nThe updater will not be able to update any Dark Mod PK4s.\nPlease exit DarkRadiant before continuing.");
 		}
 
 		break;

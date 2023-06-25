@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4344 $
- * $Date: 2010-11-28 00:02:54 -0500 (Sun, 28 Nov 2010) $
+ * $Revision: 4353 $
+ * $Date: 2010-11-30 08:39:08 -0500 (Tue, 30 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -82,6 +82,9 @@ public:
 
 	// Platform-dependent process check routine (searches for gamex86.dll/gamex86.so)
 	static bool D3IsRunning();
+
+	// Platform-dependent process check routine (searches for DarkRadiant)
+	static bool DarkRadiantIsRunning();
 };
 
 } // namespace
