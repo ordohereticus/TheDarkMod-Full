@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4400 $
- * $Date: 2011-01-10 21:25:29 -0500 (Mon, 10 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4418 $
+ * $Date: 2011-01-11 01:17:39 -0500 (Tue, 11 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -28,6 +28,7 @@ TODO: add "watch_models" (or "combine_models"?) so the mapper can place models a
 	  then use the modelgenerator to combine them into one big rendermodel. The current
 	  way of targeting and using "watch_brethren" does get all "func_static" as it is
 	  classname based, not model name based.
+TODO: add spawnarg-based scaling factor and offset to image-maps
 
 Optimizations:
 
@@ -57,7 +58,7 @@ TODO: Sort all the generated entities into multiple lists, keyed on a hash-key t
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4400 2011-01-11 02:25:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4418 2011-01-11 06:17:39Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -751,6 +752,7 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 	lode_class_t			LodeClass;
 	lode_material_t			LodeMaterial;
 	const idKeyValue *kv;
+	float fImgDensity = 1.0f;		// average "density" of the image map
 
 	LodeClass.pseudo = false;		// this is a true entity class
 	LodeClass.score = iEntScore;
@@ -946,12 +948,40 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 		LodeClass.img->LoadImageFromVfs( LodeClass.map );
 		LodeClass.img->InitImageInfo();
 
-		gameLocal.Printf("LODE %s: Loaded %i x %i pixel image with %i bpp = %li bytes.\n", 
-				GetName(), LodeClass.img->m_Width, LodeClass.img->m_Height, LodeClass.img->m_Bpp, LodeClass.img->GetBufferLen() );
+		unsigned char *imgData = LodeClass.img->GetImage();
+		if (!imgData)
+		{
+			gameLocal.Error("LODE %s: Could not access image data.\n", GetName() );
+		}
 
 		if (LodeClass.img->m_Bpp != 1)
 		{
 			gameLocal.Error("LODE %s: Bytes per pixel must be 1 but is %i!\n", GetName(), LodeClass.img->m_Bpp );
+		}
+
+		// Compute an average density for the image map, so we can correct the number of entities
+		// based on this. An image map with 50% black and 50% white should result in 0.5, as should 50% grey:
+		fImgDensity = 0.0f;
+
+		int w = LodeClass.img->m_Width;
+		int h = LodeClass.img->m_Height;
+		for (int x = 0; x < w; x++)
+		{
+			for (int y = 0; y < h; y++)
+			{
+				fImgDensity += (float)imgData[ w * y + x];	// 0 .. 255
+			}
+		}
+		// divide the sum by W and H and 256 so we arrive at 0 .. 1.0
+		fImgDensity /= (float)(w * h * 256.0f);
+
+		gameLocal.Printf("LODE %s: Loaded %s: %i x %i px, %i bpp = %li bytes, average density %0.4f.\n", 
+				GetName(), LodeClass.map.c_str(), LodeClass.img->m_Width, LodeClass.img->m_Height, LodeClass.img->m_Bpp, LodeClass.img->GetBufferLen(), fImgDensity );
+		if (fImgDensity < 0.001)
+		{
+			gameLocal.Warning("The average density of this image map is very low.");
+			// avoid divide-by-zero
+			fImgDensity = 0.001;
 		}
 	}
 
@@ -1125,7 +1155,11 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 
 	gameLocal.Printf( "LODE %s: Adding class %s.\n", GetName(), LodeClass.classname.c_str() );
 
-	float size = (LodeClass.size.x + LodeClass.spacing) * (LodeClass.size.y + LodeClass.spacing);
+	// if the size on x or y is very small, use "0.2" instead. This is to avoid that models
+	// consisting of a flat plane get 0 as size:
+//	gameLocal.Printf( "LODE %s: size %0.2f x %0.2f.\n", GetName(), fmax( 0.1, LodeClass.size.x), fmax( 0.1, LodeClass.size.y ) );
+
+	float size = (fmax( 0.1, LodeClass.size.x) + LodeClass.spacing) * (fmax( 0.1, LodeClass.size.y) + LodeClass.spacing);
 
 	// if falloff != none, correct the density, because the ellipse-shape is smaller then the rectangle
 	if ( LodeClass.falloff >= 1 && LodeClass.falloff <= 3)
@@ -1143,8 +1177,9 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 	{
 		fDensity = 0.0001;
 	}
+//	gameLocal.Printf( "LODE %s: Scaling class size by %0.2f.\n", GetName(), fDensity);
 
-	return size / fDensity;
+	return ( size / fImgDensity ) / fDensity;
 }
 
 /*
@@ -1823,6 +1858,7 @@ void Lode::PrepareEntities( void )
 				if (m_Classes[i].img)
 				{
 					// compute the pixel we need to query
+					// TODO: add spawnarg-based scaling factor and offset here
 					float x = (LodeEntity.origin.x / size.x) + 0.5f;		// 0 .. 1.0
 					float y = (LodeEntity.origin.y / size.y) + 0.5f;		// 0 .. 1.0
 
