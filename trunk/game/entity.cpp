@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4261 $
- * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
+ * $Revision: 4266 $
+ * $Date: 2010-10-29 10:25:12 -0400 (Fri, 29 Oct 2010) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4261 2010-10-20 21:20:42Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4266 2010-10-29 14:25:12Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1608,12 +1608,13 @@ void idEntity::Save( idSaveGame *savefile ) const
 
 	SaveLOD(savefile);
 
-	// grayman #2341 - save previous voice and body shaders and indices
+	// grayman #2341 - don't save previous voice and body shaders and indices,
+	// since they're irrelevant across saved games
 
-	savefile->WriteSoundShader(previousVoiceShader);
-	savefile->WriteInt(previousVoiceIndex);
-	savefile->WriteSoundShader(previousBodyShader);
-	savefile->WriteInt(previousBodyIndex);
+	savefile->WriteSoundShader(NULL);	// previousVoiceShader
+	savefile->WriteInt(0);				// previousVoiceIndex
+	savefile->WriteSoundShader(NULL);	// previousBodyShader
+	savefile->WriteInt(0);				// previousBodyIndex
 }
 
 void idEntity::RestoreLOD( idRestoreGame *savefile )
