@@ -1,4 +1,6 @@
 # -*- mode: python -*-
+# coding=utf-8
+
 # DOOM build script
 # TTimo <ttimo@idsoftware.com>
 # http://scons.sourceforge.net
@@ -7,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4411 $
-#* $Date: 2011-01-10 22:48:07 -0500 (Mon, 10 Jan 2011) $
+#* $Revision: 4412 $
+#* $Date: 2011-01-10 22:55:39 -0500 (Mon, 10 Jan 2011) $
 #* $Author: greebo $
 #*
 #* $Log$
