@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4195 $
- * $Date: 2010-09-26 03:58:40 -0400 (Sun, 26 Sep 2010) $
+ * $Revision: 4199 $
+ * $Date: 2010-09-26 10:09:41 -0400 (Sun, 26 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -258,6 +258,12 @@ private:
 	* Compute the LOD level for this entity based on distance to player.
 	*/
 	int					ComputeLODLevel( const lod_data_t* m_LOD, const idVec3 dist ) const;
+
+	/**
+	* Helper routine to load and set a clipmodel on a idPhysics_StaticMulti object. Returns true
+	* if the clip model could be loaded.
+	*/
+	bool				SetClipModelForMulti( idPhysics_StaticMulti* physics, const idStr modelName, const idVec3 origin, const idAngles angles, const int idx );
 
 	/**
 	* Combine entity models into "megamodels". Called automatically by PrepareEntities().
