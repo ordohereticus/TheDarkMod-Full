@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4326 $
- * $Date: 2010-11-25 09:52:56 -0500 (Thu, 25 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4400 $
+ * $Date: 2011-01-10 21:25:29 -0500 (Mon, 10 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -57,7 +57,7 @@ TODO: Sort all the generated entities into multiple lists, keyed on a hash-key t
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4326 2010-11-25 14:52:56Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4400 2011-01-11 02:25:29Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -491,7 +491,7 @@ void Lode::Restore( idRestoreGame *savefile ) {
 		{
 			// image based distribution
 			m_Classes[i].img = new CImage();
-			m_Classes[i].img->LoadImage( m_Classes[i].map );
+			m_Classes[i].img->LoadImageFromVfs( m_Classes[i].map );
 			m_Classes[i].img->InitImageInfo();
 		}
 
@@ -943,7 +943,7 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 	if ( ! LodeClass.map.IsEmpty())
 	{
 		LodeClass.img = new CImage();
-		LodeClass.img->LoadImage( LodeClass.map );
+		LodeClass.img->LoadImageFromVfs( LodeClass.map );
 		LodeClass.img->InitImageInfo();
 
 		gameLocal.Printf("LODE %s: Loaded %i x %i pixel image with %i bpp = %li bytes.\n", 
