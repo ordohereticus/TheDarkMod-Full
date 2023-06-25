@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4036 $
- * $Date: 2010-07-09 10:03:53 -0400 (Fri, 09 Jul 2010) $
+ * $Revision: 4037 $
+ * $Date: 2010-07-10 06:19:33 -0400 (Sat, 10 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@ TODO: take over LOD changes from entity
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4036 2010-07-09 14:03:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4037 2010-07-10 10:19:33Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -469,8 +469,8 @@ float Lode::addClassFromEntity( idEntity *ent, const int iEntScore )
 		}
 		else
 		{
-			gameLocal.Warning( "LODE %s: Using material %s, probability %0.2f (%s)\n",
-					GetName(), LodeMaterial.name.c_str(), LodeMaterial.probability, kv->GetKey().c_str() );
+			//gameLocal.Warning( "LODE %s: Using material %s, probability %0.2f (%s)\n",
+			//		GetName(), LodeMaterial.name.c_str(), LodeMaterial.probability, kv->GetKey().c_str() );
 			LodeClass.materials.Append( LodeMaterial );
 		}
 		kv = ent->spawnArgs.MatchPrefix( "lode_material_", kv );
@@ -950,8 +950,8 @@ void Lode::PrepareEntities( void )
 						}
 
 						// hit something
-						//gameLocal.Printf ("LODE %s: Hit something at %0.2f (%0.2f %0.2f %0.2f material %s)\n",
-						//	GetName(), trTest.fraction, trTest.endpos.x, trTest.endpos.y, trTest.endpos.z, descr.c_str() );
+						//gameLocal.Printf ("LODE %s: Hit something at %0.2f (%0.2f %0.2f %0.2f material %s (%s))\n",
+						//	GetName(), trTest.fraction, trTest.endpos.x, trTest.endpos.y, trTest.endpos.z, descr.c_str(), mat->GetName() );
 
 						float probability = m_Classes[i].defaultProb;		// the default if nothing hits
 
@@ -1260,7 +1260,7 @@ bool Lode::spawnEntity( const int idx, const bool managed )
 		// disable LOD checks on entities (we take care of this)
 		if (managed)
 		{
-			//args.Set("dist_check_period", "0");
+			args.Set("dist_check_period", "0");
 		}
 
 		gameLocal.SpawnEntityDef( args, &ent2 );
