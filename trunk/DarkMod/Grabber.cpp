@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3808 $
- * $Date: 2010-01-20 14:14:39 -0500 (Wed, 20 Jan 2010) $
- * $Author: ishtvan $
+ * $Revision: 4066 $
+ * $Date: 2010-07-15 22:29:39 -0400 (Thu, 15 Jul 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 3808 2010-01-20 19:14:39Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 4066 2010-07-16 02:29:39Z greebo $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1515,20 +1515,33 @@ bool CGrabber::Equip( void )
 		m_bEquippedEntInWorld = true;
 	}
 
-	m_EquippedEnt = ent;
-
 	// Specific case of shouldering a body
-	if( ent->IsType(idAFEntity_Base::Type) && ent->spawnArgs.GetBool("shoulderable") )
+	if (ent->IsType(idAFEntity_Base::Type))
 	{
-		StopDrag();
+		// greebo: Only shoulderable AF should get "equipped"
+		if (ent->spawnArgs.GetBool("shoulderable"))
+		{
+			m_EquippedEnt = ent;
 
-		ShoulderBody( static_cast<idAFEntity_Base *>(ent) );
+			StopDrag();
 
-		// greebo: Clear the drag entity, otherwise frobbing interferes
-		m_dragEnt = NULL;
+			ShoulderBody(static_cast<idAFEntity_Base*>(ent));
+
+			// greebo: Clear the drag entity, otherwise frobbing interferes
+			m_dragEnt = NULL;
+
+			return true; // equipped
+		}
+
+		// non-shoulderable AF entity, did not equip this one
+		return false; 
 	}
-
-	return true;
+	else
+	{
+		// Non-AF entity, mark it as equipped
+		m_EquippedEnt = ent;
+		return true;
+	}
 }
 
 bool CGrabber::Dequip( void )
