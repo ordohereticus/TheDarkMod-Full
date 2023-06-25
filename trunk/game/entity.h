@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4261 $
- * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
+ * $Revision: 4359 $
+ * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -420,6 +420,12 @@ public:
 	int						m_ModelLODCur;
 	int						m_SkinLODCur;
 
+	/* grayman #597 - hide until this timer expires. For
+	*  hiding arrows when they're first nocked.
+	*/
+	int						m_HideUntilTime;
+
+
 public:
 	ABSTRACT_PROTOTYPE( idEntity );
 
@@ -693,6 +699,9 @@ public:
 	bool					TouchTriggers( void ) const;
 	idCurve_Spline<idVec3> *GetSpline( void ) const;
 	virtual void			ShowEditingDialog( void );
+
+	void					SetHideUntilTime(int time);	// grayman #597
+	int						GetHideUntilTime(void);		// grayman #597
 
 	enum {
 		EVENT_STARTSOUNDSHADER,

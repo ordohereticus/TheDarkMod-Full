@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4333 $
- * $Date: 2010-11-25 22:25:23 -0500 (Thu, 25 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4359 $
+ * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4333 2010-11-26 03:25:23Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4359 2010-12-07 09:50:57Z grayman $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3584,6 +3584,13 @@ void idPlayer::Weapon_Combat( void ) {
 			}
 			weaponCatchup = false;			
 		} else {
+
+			// grayman #597 - if the current weapon is an arrow, and the ideal
+			// weapon is also an arrow, make the switch, but
+			// don't play the "lower bow, then raise bow" animation.
+
+			weapon.GetEntity()->SetArrow2Arrow((currentWeapon >= ARROW_WEAPON_INDEX_BEGIN) && (idealWeapon >= ARROW_WEAPON_INDEX_BEGIN));
+
 			if ( weapon.GetEntity()->IsReady() ) {
 				weapon.GetEntity()->PutAway();
 			}
@@ -3599,7 +3606,6 @@ void idPlayer::Weapon_Combat( void ) {
 				animPrefix = spawnArgs.GetString( va( "def_weapon%d", currentWeapon ) );
 				weapon.GetEntity()->GetWeaponDef( animPrefix, 0/*inventory.clip[ currentWeapon ]*/ );
 				animPrefix.Strip( "weapon_" );
-
 				weapon.GetEntity()->Raise();
 			}
 		}

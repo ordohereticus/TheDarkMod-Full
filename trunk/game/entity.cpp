@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4334 $
- * $Date: 2010-11-26 00:09:35 -0500 (Fri, 26 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4359 $
+ * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4334 2010-11-26 05:09:35Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4359 2010-12-07 09:50:57Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -764,6 +764,9 @@ idEntity::idEntity()
 	// by default no LOD to save memory and time
 	m_LOD = NULL;
 	m_DistCheckTimeStamp = 0;
+
+	// grayman #597 - for hiding arrows when nocked to the bow
+	m_HideUntilTime = 0;
 }
 
 /*
@@ -1627,6 +1630,10 @@ void idEntity::Save( idSaveGame *savefile ) const
 	savefile->WriteInt(0);				// previousVoiceIndex
 	savefile->WriteSoundShader(NULL);	// previousBodyShader
 	savefile->WriteInt(0);				// previousBodyIndex
+
+	// grayman #597
+
+	savefile->WriteInt(m_HideUntilTime); // arrow-hiding timer
 }
 
 void idEntity::RestoreLOD( idRestoreGame *savefile )
@@ -1930,6 +1937,10 @@ void idEntity::Restore( idRestoreGame *savefile )
 	savefile->ReadInt(previousVoiceIndex);
 	savefile->ReadSoundShader((const idSoundShader *&)previousBodyShader);
 	savefile->ReadInt(previousBodyIndex);
+
+	// grayman #597
+
+	savefile->ReadInt(m_HideUntilTime); // arrow-hiding timer
 
 	// Tels #2417: after Restore call RestoreScriptObject() of the scriptObject so the
 	// script object can restore f.i. sounds:
@@ -2817,6 +2828,26 @@ bool idEntity::IsHidden( void ) const {
 
 /*
 ================
+idEntity::SetHideUntilTime
+================
+*/
+void idEntity::SetHideUntilTime(int time) // grayman #597
+{
+	m_HideUntilTime = time;
+}
+
+/*
+================
+idEntity::GetHideUntilTime
+================
+*/
+int idEntity::GetHideUntilTime() // grayman #597
+{
+	return m_HideUntilTime;
+}
+
+/*
+================
 idEntity::Hide
 ================
 */
@@ -2898,9 +2929,12 @@ void idEntity::Show( void )
 			next = ent->GetNextTeamEntity();
 			if ( ent->GetBindMaster() == this ) 
 			{
-				ent->Show();
-				if ( ent->IsType( idLight::Type ) )
-					static_cast<idLight *>( ent )->On();
+				if (gameLocal.time >= ent->GetHideUntilTime()) // grayman #597 - one second needs to pass before showing
+				{
+					ent->Show();
+					if ( ent->IsType( idLight::Type ) )
+						static_cast<idLight *>( ent )->On();
+				}
 			}
 		}
 	}

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4281 $
- * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4359 $
+ * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -60,6 +60,8 @@ const int	FOCUS_GUI_TIME = 500;
 
 #define TDM_PLAYER_WEAPON_CATEGORY			"Weapons"
 #define TDM_PLAYER_MAPS_CATEGORY			"Maps"
+
+#define ARROW_WEAPON_INDEX_BEGIN 3		// grayman #597 - weapons at or above this index are arrows
 
 const int DEAD_HEARTRATE = 0;			// fall to as you die
 const int LOWHEALTH_HEARTRATE_ADJ = 20; // 
