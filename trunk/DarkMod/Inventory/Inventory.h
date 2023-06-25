@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3134 $
- * $Date: 2009-01-11 02:46:40 -0500 (Sun, 11 Jan 2009) $
- * $Author: greebo $
+ * $Revision: 4236 $
+ * $Date: 2010-10-09 07:04:48 -0400 (Sat, 09 Oct 2010) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 #ifndef __DARKMOD_INVENTORY_H__
@@ -201,14 +201,14 @@ private:
 	 * 
 	 * @returns: The standard loot info InventoryItem or NULL if the item is not a valid loot item.
 	 */
-	CInventoryItemPtr		ValidateLoot(idEntity *ent);
+	CInventoryItemPtr		ValidateLoot(idEntity *ent, const bool gotFromShop); // grayman (#2376)
 
 	/**
 	 * greebo: Checks the given entity for ammo definitions. Does not remove the entity.
 	 *
 	 * @returns: The weaponItem the ammo has been added to or NULL, if <ent> isn't a valid ammo item.
 	 */
-	CInventoryItemPtr		ValidateAmmo(idEntity* ent);
+	CInventoryItemPtr		ValidateAmmo(idEntity* ent, const bool gotFromShop); // grayman (#2376)
 
 	/**
 	 * greebo: Checks the given entity for weapon definitions. Does not remove the entity.
@@ -216,7 +216,7 @@ private:
 	 * @returns: The weaponItem which has been added or enabled in the inventory or NULL, 
 	 * if <ent> isn't a valid ammo item.
 	 */
-	CInventoryItemPtr		ValidateWeapon(idEntity* ent);
+	CInventoryItemPtr		ValidateWeapon(idEntity* ent, const bool gotFromShop); // grayman (#2376)
 
 private:
 	idEntityPtr<idEntity>				m_Owner;
