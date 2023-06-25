@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4055 $
- * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4313 $
+ * $Date: 2010-11-23 03:21:35 -0500 (Tue, 23 Nov 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4055 2010-07-13 11:17:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4313 2010-11-23 08:21:35Z greebo $", init_version);
 
 #include "HttpRequest.h"
 #include "HttpConnection.h"
@@ -62,7 +62,9 @@ void CHttpRequest::InitRequest()
 	curl_easy_setopt(_handle, CURLOPT_WRITEDATA, this);
 
 	// Set agent
-	curl_easy_setopt(_handle, CURLOPT_USERAGENT, "The Dark Mod libcurl-agent/1.0");
+	idStr agent = "The Dark Mod Agent/";
+	agent += va("%d.%02d", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+	curl_easy_setopt(_handle, CURLOPT_USERAGENT, agent.c_str());
 
 	// Get the proxy from the HttpConnection class
 	if (_conn.HasProxy())
