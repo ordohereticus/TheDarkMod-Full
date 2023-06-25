@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1436 $
- * $Date: 2007-10-16 13:12:36 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4264 $
+ * $Date: 2010-10-28 07:41:13 -0400 (Thu, 28 Oct 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -363,6 +363,10 @@ public:
 						// which can be used to make a simplified shadow hull for a complex object set
 						// as noShadow
 	bool				IsDrawn( void ) const { return ( numStages > 0 || entityGui != 0 || gui != NULL ); }
+
+						// Tels: Added for TDM v1.03
+	bool				IsSlick( void ) const { return ((materialFlags & SURF_SLICK) != 0); };
+	bool				IsLadder( void ) const { return ((materialFlags & SURF_LADDER) != 0); };
 
 						// returns true if the material will draw any non light interaction stages
 	bool				HasAmbient( void ) const { return ( numAmbientStages > 0 ); }
