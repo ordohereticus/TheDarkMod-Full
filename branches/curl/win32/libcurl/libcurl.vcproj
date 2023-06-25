@@ -16,7 +16,7 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../../lib"
+			OutputDirectory="../lib"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
@@ -49,7 +49,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=".,..\include"
+				AdditionalIncludeDirectories="../../include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;BUILDING_LIBCURL;CURL_DISABLE_LDAP;CURL_DISABLE_POP3;CURL_DISABLE_SMTP"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -99,7 +99,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
+			OutputDirectory="../lib"
 			IntermediateDirectory=".\Debug"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
@@ -131,8 +131,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".,..\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;BUILDING_LIBCURL"
+				AdditionalIncludeDirectories="../../include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;BUILDING_LIBCURL;CURL_DISABLE_LDAP;CURL_DISABLE_POP3;CURL_DISABLE_SMTP"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -185,351 +185,727 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="base64.c"
+				RelativePath="..\..\lib\curl\amigaos.c"
 				>
 			</File>
 			<File
-				RelativePath="connect.c"
+				RelativePath="..\..\lib\curl\amigaos.h"
 				>
 			</File>
 			<File
-				RelativePath="content_encoding.c"
+				RelativePath="..\..\lib\curl\arpa_telnet.h"
 				>
 			</File>
 			<File
-				RelativePath="cookie.c"
+				RelativePath="..\..\lib\curl\base64.c"
 				>
 			</File>
 			<File
-				RelativePath="curl_addrinfo.c"
+				RelativePath="..\..\lib\curl\config-amigaos.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_fnmatch.c"
+				RelativePath="..\..\lib\curl\config-mac.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_memrchr.c"
+				RelativePath="..\..\lib\curl\config-os400.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_rand.c"
+				RelativePath="..\..\lib\curl\config-riscos.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_rtmp.c"
+				RelativePath="..\..\lib\curl\config-symbian.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_sspi.c"
+				RelativePath="..\..\lib\curl\config-tpf.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_threads.c"
+				RelativePath="..\..\lib\curl\config-vxworks.h"
 				>
 			</File>
 			<File
-				RelativePath="dict.c"
+				RelativePath="..\..\lib\curl\config-win32.h"
 				>
 			</File>
 			<File
-				RelativePath="easy.c"
+				RelativePath="..\..\lib\curl\config-win32ce.h"
 				>
 			</File>
 			<File
-				RelativePath="escape.c"
+				RelativePath="..\..\lib\curl\connect.c"
 				>
 			</File>
 			<File
-				RelativePath="file.c"
+				RelativePath="..\..\lib\curl\connect.h"
 				>
 			</File>
 			<File
-				RelativePath="fileinfo.c"
+				RelativePath="..\..\lib\curl\content_encoding.c"
 				>
 			</File>
 			<File
-				RelativePath="formdata.c"
+				RelativePath="..\..\lib\curl\content_encoding.h"
 				>
 			</File>
 			<File
-				RelativePath="ftp.c"
+				RelativePath="..\..\lib\curl\cookie.c"
 				>
 			</File>
 			<File
-				RelativePath="ftplistparser.c"
+				RelativePath="..\..\lib\curl\cookie.h"
 				>
 			</File>
 			<File
-				RelativePath="getenv.c"
+				RelativePath="..\..\lib\curl\curl_addrinfo.c"
 				>
 			</File>
 			<File
-				RelativePath="getinfo.c"
+				RelativePath="..\..\lib\curl\curl_addrinfo.h"
 				>
 			</File>
 			<File
-				RelativePath="gtls.c"
+				RelativePath="..\..\lib\curl\curl_base64.h"
 				>
 			</File>
 			<File
-				RelativePath="hash.c"
+				RelativePath="..\..\lib\curl\curl_fnmatch.c"
 				>
 			</File>
 			<File
-				RelativePath="hmac.c"
+				RelativePath="..\..\lib\curl\curl_fnmatch.h"
 				>
 			</File>
 			<File
-				RelativePath="hostares.c"
+				RelativePath="..\..\lib\curl\curl_hmac.h"
 				>
 			</File>
 			<File
-				RelativePath="hostasyn.c"
+				RelativePath="..\..\lib\curl\curl_ldap.h"
 				>
 			</File>
 			<File
-				RelativePath="hostip.c"
+				RelativePath="..\..\lib\curl\curl_md5.h"
 				>
 			</File>
 			<File
-				RelativePath="hostip4.c"
+				RelativePath="..\..\lib\curl\curl_memory.h"
 				>
 			</File>
 			<File
-				RelativePath="hostip6.c"
+				RelativePath="..\..\lib\curl\curl_memrchr.c"
 				>
 			</File>
 			<File
-				RelativePath="hostsyn.c"
+				RelativePath="..\..\lib\curl\curl_memrchr.h"
 				>
 			</File>
 			<File
-				RelativePath="hostthre.c"
+				RelativePath="..\..\lib\curl\curl_rand.c"
 				>
 			</File>
 			<File
-				RelativePath="http.c"
+				RelativePath="..\..\lib\curl\curl_rand.h"
 				>
 			</File>
 			<File
-				RelativePath="http_chunks.c"
+				RelativePath="..\..\lib\curl\curl_rtmp.c"
 				>
 			</File>
 			<File
-				RelativePath="http_digest.c"
+				RelativePath="..\..\lib\curl\curl_rtmp.h"
 				>
 			</File>
 			<File
-				RelativePath="http_negotiate.c"
+				RelativePath="..\..\lib\curl\curl_sspi.c"
 				>
 			</File>
 			<File
-				RelativePath="http_ntlm.c"
+				RelativePath="..\..\lib\curl\curl_sspi.h"
 				>
 			</File>
 			<File
-				RelativePath="if2ip.c"
+				RelativePath="..\..\lib\curl\curl_threads.c"
 				>
 			</File>
 			<File
-				RelativePath="imap.c"
+				RelativePath="..\..\lib\curl\curl_threads.h"
 				>
 			</File>
 			<File
-				RelativePath="inet_ntop.c"
+				RelativePath="..\..\lib\curl\curlx.h"
 				>
 			</File>
 			<File
-				RelativePath="inet_pton.c"
+				RelativePath="..\..\lib\curl\dict.c"
 				>
 			</File>
 			<File
-				RelativePath="krb4.c"
+				RelativePath="..\..\lib\curl\dict.h"
 				>
 			</File>
 			<File
-				RelativePath="krb5.c"
+				RelativePath="..\..\lib\curl\easy.c"
 				>
 			</File>
 			<File
-				RelativePath="ldap.c"
+				RelativePath="..\..\lib\curl\easyif.h"
 				>
 			</File>
 			<File
-				RelativePath="llist.c"
+				RelativePath="..\..\lib\curl\escape.c"
 				>
 			</File>
 			<File
-				RelativePath="md5.c"
+				RelativePath="..\..\lib\curl\escape.h"
 				>
 			</File>
 			<File
-				RelativePath="memdebug.c"
+				RelativePath="..\..\lib\curl\file.c"
 				>
 			</File>
 			<File
-				RelativePath="mprintf.c"
+				RelativePath="..\..\lib\curl\file.h"
 				>
 			</File>
 			<File
-				RelativePath="multi.c"
+				RelativePath="..\..\lib\curl\fileinfo.c"
 				>
 			</File>
 			<File
-				RelativePath="netrc.c"
+				RelativePath="..\..\lib\curl\fileinfo.h"
 				>
 			</File>
 			<File
-				RelativePath="nonblock.c"
+				RelativePath="..\..\lib\curl\formdata.c"
 				>
 			</File>
 			<File
-				RelativePath="nss.c"
+				RelativePath="..\..\lib\curl\formdata.h"
 				>
 			</File>
 			<File
-				RelativePath="openldap.c"
+				RelativePath="..\..\lib\curl\ftp.c"
 				>
 			</File>
 			<File
-				RelativePath="parsedate.c"
+				RelativePath="..\..\lib\curl\ftp.h"
 				>
 			</File>
 			<File
-				RelativePath="pingpong.c"
+				RelativePath="..\..\lib\curl\ftplistparser.c"
 				>
 			</File>
 			<File
-				RelativePath="polarssl.c"
+				RelativePath="..\..\lib\curl\ftplistparser.h"
 				>
 			</File>
 			<File
-				RelativePath="pop3.c"
+				RelativePath="..\..\lib\curl\getenv.c"
 				>
 			</File>
 			<File
-				RelativePath="progress.c"
+				RelativePath="..\..\lib\curl\getinfo.c"
 				>
 			</File>
 			<File
-				RelativePath="qssl.c"
+				RelativePath="..\..\lib\curl\getinfo.h"
 				>
 			</File>
 			<File
-				RelativePath="rawstr.c"
+				RelativePath="..\..\lib\curl\gtls.c"
 				>
 			</File>
 			<File
-				RelativePath="rtsp.c"
+				RelativePath="..\..\lib\curl\gtls.h"
 				>
 			</File>
 			<File
-				RelativePath="security.c"
+				RelativePath="..\..\lib\curl\hash.c"
 				>
 			</File>
 			<File
-				RelativePath="select.c"
+				RelativePath="..\..\lib\curl\hash.h"
 				>
 			</File>
 			<File
-				RelativePath="sendf.c"
+				RelativePath="..\..\lib\curl\hmac.c"
 				>
 			</File>
 			<File
-				RelativePath="share.c"
+				RelativePath="..\..\lib\curl\hostares.c"
 				>
 			</File>
 			<File
-				RelativePath="slist.c"
+				RelativePath="..\..\lib\curl\hostasyn.c"
 				>
 			</File>
 			<File
-				RelativePath="smtp.c"
+				RelativePath="..\..\lib\curl\hostip.c"
 				>
 			</File>
 			<File
-				RelativePath="socks.c"
+				RelativePath="..\..\lib\curl\hostip.h"
 				>
 			</File>
 			<File
-				RelativePath="socks_gssapi.c"
+				RelativePath="..\..\lib\curl\hostip4.c"
 				>
 			</File>
 			<File
-				RelativePath="socks_sspi.c"
+				RelativePath="..\..\lib\curl\hostip6.c"
 				>
 			</File>
 			<File
-				RelativePath="speedcheck.c"
+				RelativePath="..\..\lib\curl\hostsyn.c"
 				>
 			</File>
 			<File
-				RelativePath="splay.c"
+				RelativePath="..\..\lib\curl\hostthre.c"
 				>
 			</File>
 			<File
-				RelativePath="ssh.c"
+				RelativePath="..\..\lib\curl\http.c"
 				>
 			</File>
 			<File
-				RelativePath="sslgen.c"
+				RelativePath="..\..\lib\curl\http.h"
 				>
 			</File>
 			<File
-				RelativePath="ssluse.c"
+				RelativePath="..\..\lib\curl\http_chunks.c"
 				>
 			</File>
 			<File
-				RelativePath="strdup.c"
+				RelativePath="..\..\lib\curl\http_chunks.h"
 				>
 			</File>
 			<File
-				RelativePath="strequal.c"
+				RelativePath="..\..\lib\curl\http_digest.c"
 				>
 			</File>
 			<File
-				RelativePath="strerror.c"
+				RelativePath="..\..\lib\curl\http_digest.h"
 				>
 			</File>
 			<File
-				RelativePath="strtok.c"
+				RelativePath="..\..\lib\curl\http_negotiate.c"
 				>
 			</File>
 			<File
-				RelativePath="strtoofft.c"
+				RelativePath="..\..\lib\curl\http_negotiate.h"
 				>
 			</File>
 			<File
-				RelativePath="telnet.c"
+				RelativePath="..\..\lib\curl\http_ntlm.c"
 				>
 			</File>
 			<File
-				RelativePath="tftp.c"
+				RelativePath="..\..\lib\curl\http_ntlm.h"
 				>
 			</File>
 			<File
-				RelativePath="timeval.c"
+				RelativePath="..\..\lib\curl\if2ip.c"
 				>
 			</File>
 			<File
-				RelativePath="transfer.c"
+				RelativePath="..\..\lib\curl\if2ip.h"
 				>
 			</File>
 			<File
-				RelativePath="url.c"
+				RelativePath="..\..\lib\curl\imap.c"
 				>
 			</File>
 			<File
-				RelativePath="version.c"
+				RelativePath="..\..\lib\curl\imap.h"
 				>
 			</File>
 			<File
-				RelativePath="warnless.c"
+				RelativePath="..\..\lib\curl\inet_ntop.c"
 				>
 			</File>
 			<File
-				RelativePath="wildcard.c"
+				RelativePath="..\..\lib\curl\inet_ntop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\inet_pton.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\inet_pton.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\krb4.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\krb4.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\krb5.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\ldap.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\llist.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\llist.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\md5.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\memdebug.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\memdebug.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\mprintf.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\multi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\multiif.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\netrc.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\netrc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\nonblock.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\nonblock.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\nss.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\nssg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\nwlib.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\nwos.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\openldap.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\parsedate.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\parsedate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\pingpong.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\pingpong.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\polarssl.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\polarssl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\pop3.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\pop3.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\progress.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\progress.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\qssl.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\qssl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\rawstr.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\rawstr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\rtsp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\rtsp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\security.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\select.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\select.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\sendf.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\sendf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\setup-os400.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\setup.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\setup_once.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\share.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\share.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\slist.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\slist.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\smtp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\smtp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\sockaddr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\socks.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\socks.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\socks_gssapi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\socks_sspi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\speedcheck.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\speedcheck.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\splay.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\splay.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\ssh.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\ssh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\sslgen.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\sslgen.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\ssluse.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\ssluse.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strdup.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strdup.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strequal.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strequal.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strerror.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strerror.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strtok.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strtok.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strtoofft.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\strtoofft.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\telnet.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\telnet.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\tftp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\tftp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\timeval.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\timeval.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\transfer.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\transfer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\url.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\url.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\urldata.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\version.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\warnless.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\warnless.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\wildcard.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\curl\wildcard.h"
 				>
 			</File>
 		</Filter>
@@ -537,327 +913,43 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="arpa_telnet.h"
+				RelativePath="..\..\include\curl\curl.h"
 				>
 			</File>
 			<File
-				RelativePath="config-win32.h"
+				RelativePath="..\..\include\curl\curlbuild.h"
 				>
 			</File>
 			<File
-				RelativePath="connect.h"
+				RelativePath="..\..\include\curl\curlrules.h"
 				>
 			</File>
 			<File
-				RelativePath="content_encoding.h"
+				RelativePath="..\..\include\curl\curlver.h"
 				>
 			</File>
 			<File
-				RelativePath="cookie.h"
+				RelativePath="..\..\include\curl\easy.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_addrinfo.h"
+				RelativePath="..\..\include\curl\mprintf.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_base64.h"
+				RelativePath="..\..\include\curl\multi.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_fnmatch.h"
+				RelativePath="..\..\include\curl\stdcheaders.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_hmac.h"
+				RelativePath="..\..\include\curl\typecheck-gcc.h"
 				>
 			</File>
 			<File
-				RelativePath="curl_ldap.h"
-				>
-			</File>
-			<File
-				RelativePath="curl_md5.h"
-				>
-			</File>
-			<File
-				RelativePath="curl_memory.h"
-				>
-			</File>
-			<File
-				RelativePath="curl_memrchr.h"
-				>
-			</File>
-			<File
-				RelativePath="curl_rand.h"
-				>
-			</File>
-			<File
-				RelativePath="curl_rtmp.h"
-				>
-			</File>
-			<File
-				RelativePath="curl_sspi.h"
-				>
-			</File>
-			<File
-				RelativePath="curl_threads.h"
-				>
-			</File>
-			<File
-				RelativePath="curlx.h"
-				>
-			</File>
-			<File
-				RelativePath="dict.h"
-				>
-			</File>
-			<File
-				RelativePath="easyif.h"
-				>
-			</File>
-			<File
-				RelativePath="escape.h"
-				>
-			</File>
-			<File
-				RelativePath="file.h"
-				>
-			</File>
-			<File
-				RelativePath="fileinfo.h"
-				>
-			</File>
-			<File
-				RelativePath="formdata.h"
-				>
-			</File>
-			<File
-				RelativePath="ftp.h"
-				>
-			</File>
-			<File
-				RelativePath="ftplistparser.h"
-				>
-			</File>
-			<File
-				RelativePath="getinfo.h"
-				>
-			</File>
-			<File
-				RelativePath="gtls.h"
-				>
-			</File>
-			<File
-				RelativePath="hash.h"
-				>
-			</File>
-			<File
-				RelativePath="hostip.h"
-				>
-			</File>
-			<File
-				RelativePath="http.h"
-				>
-			</File>
-			<File
-				RelativePath="http_chunks.h"
-				>
-			</File>
-			<File
-				RelativePath="http_digest.h"
-				>
-			</File>
-			<File
-				RelativePath="http_negotiate.h"
-				>
-			</File>
-			<File
-				RelativePath="http_ntlm.h"
-				>
-			</File>
-			<File
-				RelativePath="if2ip.h"
-				>
-			</File>
-			<File
-				RelativePath="imap.h"
-				>
-			</File>
-			<File
-				RelativePath="inet_ntop.h"
-				>
-			</File>
-			<File
-				RelativePath="inet_pton.h"
-				>
-			</File>
-			<File
-				RelativePath="krb4.h"
-				>
-			</File>
-			<File
-				RelativePath="llist.h"
-				>
-			</File>
-			<File
-				RelativePath="memdebug.h"
-				>
-			</File>
-			<File
-				RelativePath="multiif.h"
-				>
-			</File>
-			<File
-				RelativePath="netrc.h"
-				>
-			</File>
-			<File
-				RelativePath="nonblock.h"
-				>
-			</File>
-			<File
-				RelativePath="nssg.h"
-				>
-			</File>
-			<File
-				RelativePath="parsedate.h"
-				>
-			</File>
-			<File
-				RelativePath="pingpong.h"
-				>
-			</File>
-			<File
-				RelativePath="polarssl.h"
-				>
-			</File>
-			<File
-				RelativePath="pop3.h"
-				>
-			</File>
-			<File
-				RelativePath="progress.h"
-				>
-			</File>
-			<File
-				RelativePath="qssl.h"
-				>
-			</File>
-			<File
-				RelativePath="rawstr.h"
-				>
-			</File>
-			<File
-				RelativePath="rtsp.h"
-				>
-			</File>
-			<File
-				RelativePath="select.h"
-				>
-			</File>
-			<File
-				RelativePath="sendf.h"
-				>
-			</File>
-			<File
-				RelativePath="setup.h"
-				>
-			</File>
-			<File
-				RelativePath="setup_once.h"
-				>
-			</File>
-			<File
-				RelativePath="share.h"
-				>
-			</File>
-			<File
-				RelativePath="slist.h"
-				>
-			</File>
-			<File
-				RelativePath="smtp.h"
-				>
-			</File>
-			<File
-				RelativePath="sockaddr.h"
-				>
-			</File>
-			<File
-				RelativePath="socks.h"
-				>
-			</File>
-			<File
-				RelativePath="speedcheck.h"
-				>
-			</File>
-			<File
-				RelativePath="splay.h"
-				>
-			</File>
-			<File
-				RelativePath="ssh.h"
-				>
-			</File>
-			<File
-				RelativePath="sslgen.h"
-				>
-			</File>
-			<File
-				RelativePath="ssluse.h"
-				>
-			</File>
-			<File
-				RelativePath="strdup.h"
-				>
-			</File>
-			<File
-				RelativePath="strequal.h"
-				>
-			</File>
-			<File
-				RelativePath="strerror.h"
-				>
-			</File>
-			<File
-				RelativePath="strtok.h"
-				>
-			</File>
-			<File
-				RelativePath="strtoofft.h"
-				>
-			</File>
-			<File
-				RelativePath="telnet.h"
-				>
-			</File>
-			<File
-				RelativePath="tftp.h"
-				>
-			</File>
-			<File
-				RelativePath="timeval.h"
-				>
-			</File>
-			<File
-				RelativePath="transfer.h"
-				>
-			</File>
-			<File
-				RelativePath="url.h"
-				>
-			</File>
-			<File
-				RelativePath="urldata.h"
-				>
-			</File>
-			<File
-				RelativePath="warnless.h"
-				>
-			</File>
-			<File
-				RelativePath="wildcard.h"
+				RelativePath="..\..\include\curl\types.h"
 				>
 			</File>
 		</Filter>
