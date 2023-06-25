@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4057 $
- * $Date: 2010-07-13 09:22:46 -0400 (Tue, 13 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4375 $
+ * $Date: 2010-12-20 17:21:48 -0500 (Mon, 20 Dec 2010) $
+ * $Author: newhorizon $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4057 2010-07-13 13:22:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4375 2010-12-20 22:21:48Z newhorizon $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -172,6 +172,11 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 	else if (cmd == "uninstallMod")
 	{
 		UninstallMod(gui);
+	}
+	else if (cmd == "updateCookedMathData")		// Adding a way to update cooked data from menu - J.C.Denton
+	{
+		// Add the command to buffer, but no need to issue it immediately. 
+		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "tdm_updateCookedMathData" );
 	}
 }
 
