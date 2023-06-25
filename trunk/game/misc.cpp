@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3981 $
- * $Date: 2010-06-25 01:27:18 -0400 (Fri, 25 Jun 2010) $
+ * $Revision: 3984 $
+ * $Date: 2010-06-25 07:43:51 -0400 (Fri, 25 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3981 2010-06-25 05:27:18Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3984 2010-06-25 11:43:51Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1561,7 +1561,6 @@ idStaticEntity::Spawn
 */
 void idStaticEntity::Spawn( void ) {
 	bool solid;
-	bool hidden;
 
 	// an inline static model will not do anything at all
 	if ( spawnArgs.GetBool( "inline" ) || gameLocal.world->spawnArgs.GetBool( "inlineAllStatics" ) ) {
@@ -1570,7 +1569,6 @@ void idStaticEntity::Spawn( void ) {
 	}
 
 	solid = spawnArgs.GetBool( "solid" );
-	hidden = spawnArgs.GetBool( "hide" );
 
 	// ishtvan fix : Let clearing contents happen naturally on Hide instead of
 	// checking hidden here and clearing contents prematurely
