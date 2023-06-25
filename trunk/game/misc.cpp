@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3986 $
- * $Date: 2010-06-27 02:42:20 -0400 (Sun, 27 Jun 2010) $
+ * $Revision: 3987 $
+ * $Date: 2010-06-27 02:51:33 -0400 (Sun, 27 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3986 2010-06-27 06:42:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3987 2010-06-27 06:51:33Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -2011,7 +2011,6 @@ idStaticEntity::Event_Activate
 ================
 */
 void idStaticEntity::Event_Activate( idEntity *activator ) {
-	idStr activateGui;
 
 	spawnTime = gameLocal.time;
 	active = !active;
