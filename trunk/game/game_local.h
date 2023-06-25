@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4072 $
- * $Date: 2010-07-19 10:18:25 -0400 (Mon, 19 Jul 2010) $
- * $Author: tels $
+ * $Revision: 4079 $
+ * $Date: 2010-07-21 23:34:52 -0400 (Wed, 21 Jul 2010) $
+ * $Author: jcdenton $
  *
  ***************************************************************************/
 
@@ -111,6 +111,8 @@ bool FileVersionList(const char *str, bool state);
 #define private		public
 #define protected	public
 #endif
+
+class idLight;			// J.C.Denton: Required for the declaration of FindMainAmbientLight
 
 class idRenderWorld;
 extern idRenderWorld *				gameRenderWorld;
@@ -850,6 +852,12 @@ public:
 	void					RemoveStim(idEntity *);
 	bool					AddResponse(idEntity *);
 	void					RemoveResponse(idEntity *);
+	
+	/************************************************************************/
+	/* J.C.Denton:	Finds the main ambient light and creates a new one if	*/
+	/*				the main ambient is not found							*/
+	/************************************************************************/
+	idLight *				FindMainAmbientLight( bool a_bCreateNewIfNotFound = false );  
 
 	/** 
 	 * greebo: Links the given entity into the list of Stim entities, such that
@@ -911,6 +919,7 @@ public:
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;
 
+	idStr					m_strMainAmbientLightName;	// The name of main ambient light, default is: "ambient_world". - J.C.Denton
 	idStr					mapFileName;			// name of the map, empty string if no map loaded
 	idMapFile *				mapFile;				// will be NULL during the game unless in-game editing is used
 	bool					mapCycleLoaded;

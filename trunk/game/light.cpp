@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4022 $
- * $Date: 2010-07-07 22:12:56 -0400 (Wed, 07 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4079 $
+ * $Date: 2010-07-21 23:34:52 -0400 (Wed, 21 Jul 2010) $
+ * $Author: jcdenton $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 4022 2010-07-08 02:12:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 4079 2010-07-22 03:34:52Z jcdenton $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1568,4 +1568,11 @@ void idLight::Event_InPVS()
 	idThread::ReturnFloat( gameLocal.pvs.InCurrentPVS( gameLocal.GetPlayerPVS(), localPVSAreas, localNumPVSAreas ) );
 }
 
+// Returns true if this is an ambient light. - J.C.Denton
+bool idLight::IsAmbient(void)
+{
+	if( renderLight.shader )
+		return renderLight.shader->IsAmbientLight();
 
+	return false; 
+}

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4022 $
- * $Date: 2010-07-07 22:12:56 -0400 (Wed, 07 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4079 $
+ * $Date: 2010-07-21 23:34:52 -0400 (Wed, 21 Jul 2010) $
+ * $Author: jcdenton $
  *
  ***************************************************************************/
 
@@ -124,6 +124,7 @@ public:
 	inline bool		IsParallel(void) { return renderLight.parallel; };
 	inline bool		IsPointlight(void) { return renderLight.pointLight; };
 	bool			CastsShadow(void);
+	bool			IsAmbient(void);	// Returns true if this is an ambient light. - J.C.Denton
 
 	/**
 	 * GetLightCone returns the lightdata.
