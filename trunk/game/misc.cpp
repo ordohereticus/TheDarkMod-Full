@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3958 $
- * $Date: 2010-06-20 09:16:22 -0400 (Sun, 20 Jun 2010) $
+ * $Revision: 3963 $
+ * $Date: 2010-06-21 08:39:39 -0400 (Mon, 21 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3958 2010-06-20 13:16:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3963 2010-06-21 12:39:39Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1728,8 +1728,8 @@ void idStaticEntity::Think( void )
 			delta -= (vGravNorm * delta) * vGravNorm;
 		}
 
-		// cache that value
-		float deltaSq = delta.LengthSqr();
+		// multiply with the user LOD bias setting, and cache that the result:
+		float deltaSq = delta.LengthSqr() / (cv_lod_bias.GetFloat() * cv_lod_bias.GetFloat());
 
 		/* Tels: check in which LOD level we are */
 		for (int i = 0; i < LOD_LEVELS; i++)

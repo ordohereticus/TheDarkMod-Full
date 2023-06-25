@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 3963 $
+ * $Date: 2010-06-21 08:39:39 -0400 (Mon, 21 Jun 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 3963 2010-06-21 12:39:39Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -393,6 +393,11 @@ idCVar cv_voice_from_off_volume("tdm_voice_from_off_volume", "1.0",	CVAR_GAME | 
 idCVar cv_moveable_collision("tdm_show_moveable_collision",	"0",	CVAR_GAME | CVAR_BOOL, "If set to 1, shows the velocity at which the moveable collides and the volume of the resulting sound." );
 
 idCVar cv_darkradiant_rcfserver_enable("darkradiant_rcfserver_enable",	"0",	CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the DarkRadiant RCF Server will be enabled during the next startup." );
+
+/**
+* DarkMod LOD system
+**/
+idCVar cv_lod_bias("tdm_lod_bias",	"1.0",	CVAR_GAME | CVAR_FLOAT | CVAR_ARCHIVE, "A factor to multiply the LOD (level of detail) distance with. Default is 1.0 (meaning no change). Values < 1.0 make the distances smaller, reducing detail and increasing framerate, values > 1 increase the distance and thus detail at the expense of framerate." );
 
 /**
 * End DarkMod cvars
