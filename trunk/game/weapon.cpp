@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4359 $
- * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
+ * $Revision: 4393 $
+ * $Date: 2010-12-30 09:37:16 -0500 (Thu, 30 Dec 2010) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 4359 2010-12-07 09:50:57Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 4393 2010-12-30 14:37:16Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1075,10 +1075,19 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 						weaponDef->dict.GetString(AttName.c_str()) );
 			else
 				Attach( ent, NULL, weaponDef->dict.GetString(AttName.c_str()) );
-			if (IsRanged()) // grayman #597 - hide arrows for one second
+			if (IsRanged()) // grayman #597 - hide arrows for one second & play an 'equip' sound
 			{
 				ent->Hide();
 				ent->SetHideUntilTime(gameLocal.time + 1000);
+
+				// Play an arrow-equipping sound
+
+				if (arrow2Arrow)
+				{
+					const char *shader = "arrow_equip";
+					const idSoundShader *sndEquip = declManager->FindSound(shader);
+					StartSoundShader(sndEquip,SND_CHANNEL_BODY,0,false,NULL);
+				}
 			}
 		}
 		KeyVal = weaponDef->dict.MatchPrefix( "def_attach", KeyVal );

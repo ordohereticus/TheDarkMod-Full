@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4359 $
- * $Date: 2010-12-07 04:50:57 -0500 (Tue, 07 Dec 2010) $
+ * $Revision: 4393 $
+ * $Date: 2010-12-30 09:37:16 -0500 (Thu, 30 Dec 2010) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1113,6 +1113,9 @@ private:
 
 	// An integer keeping track of the lightgem interleaving
 	int							m_LightgemInterleave;
+
+	// grayman #597 - ignore attack button if depressed, but weapon has been lowered
+	bool						ignoreWeaponAttack;
 
 	static const int		NUM_LOGGED_VIEW_ANGLES = 64;		// for weapon turning angle offsets
 	idAngles				loggedViewAngles[NUM_LOGGED_VIEW_ANGLES];	// [gameLocal.framenum&(LOGGED_VIEW_ANGLES-1)]
