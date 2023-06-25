@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4179 $
- * $Date: 2010-09-17 12:10:40 -0400 (Fri, 17 Sep 2010) $
+ * $Revision: 4183 $
+ * $Date: 2010-09-20 11:20:52 -0400 (Mon, 20 Sep 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4179 2010-09-17 16:10:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4183 2010-09-20 15:20:52Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -270,6 +270,9 @@ void idGameLocal::Clear( void )
 
 	m_AreaManager.Clear();
 	m_ConversationSystem.reset();
+
+	m_ModelGenerator->Clear();
+	m_LightController->Clear();
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Clear();
