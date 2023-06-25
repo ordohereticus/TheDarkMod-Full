@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4039 $
- * $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4055 $
+ * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,7 +36,8 @@ public:
 		NOT_PERFORMED_YET,
 		OK,	// successful
 		IN_PROGRESS,
-		FAILED
+		FAILED,
+		ABORTED,
 	};
 
 private:
@@ -58,6 +59,11 @@ private:
 
 	std::ofstream _destStream;
 
+	// True if we should cancel the download
+	bool _cancelFlag;
+
+	double _progress;
+
 public:
 	CHttpRequest(CHttpConnection& conn, const std::string& url);
 
@@ -72,6 +78,11 @@ public:
 	// Perform the request
 	void Perform();
 
+	void Cancel();
+
+	// Between 0.0 and 1.0
+	double GetProgressFraction();
+
 	// Returns the result string
 	std::string GetResultString();
 
@@ -79,8 +90,9 @@ public:
 	XmlDocumentPtr GetResultXml();
 
 private:
-	// shared constructor code
-	void Construct();
+	void InitRequest();
+
+	void UpdateProgress();
 };
 typedef boost::shared_ptr<CHttpRequest> CHttpRequestPtr;
 

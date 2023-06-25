@@ -7,8 +7,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4039 $
-#* $Date: 2010-07-11 00:41:50 -0400 (Sun, 11 Jul 2010) $
+#* $Revision: 4055 $
+#* $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -292,6 +292,7 @@ local_env.Append(LIBS = [
 # ---------------------------------------------
     File('#/linux/boost/lib/libboost_filesystem.a'),
     File('#/linux/boost/lib/libboost_system.a'),
+    File('#/linux/boost/lib/libboost_thread.a'),
     File('#/linux/libstdc/libstdc++.so')
 # ---------------------------------------------
 ])
