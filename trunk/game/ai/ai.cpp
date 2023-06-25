@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4294 $
- * $Date: 2010-11-19 10:22:14 -0500 (Fri, 19 Nov 2010) $
- * $Author: grayman $
+ * $Revision: 4306 $
+ * $Date: 2010-11-21 10:26:42 -0500 (Sun, 21 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4294 2010-11-19 15:22:14Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4306 2010-11-21 15:26:42Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2291,7 +2291,9 @@ void idAI::SetNextThinkFrame()
 			}
 			if (thinkMore)
 			{
-				thinkDelta = min(thinkFrame,TEMP_THINK_INTERLEAVE);
+				// Tels: gcc doesn't like "min(...)":
+				//thinkDelta = min(thinkFrame,TEMP_THINK_INTERLEAVE);
+				thinkDelta = (thinkFrame < TEMP_THINK_INTERLEAVE ? thinkFrame : TEMP_THINK_INTERLEAVE);
 			}
 		}
 	}
