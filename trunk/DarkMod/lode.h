@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4433 $
- * $Date: 2011-01-13 16:55:56 -0500 (Thu, 13 Jan 2011) $
+ * $Revision: 4445 $
+ * $Date: 2011-01-17 15:36:19 -0500 (Mon, 17 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -279,7 +279,7 @@ private:
 	* if the clip model could be loaded. If idClipModel != NULL, then this clipmodel will be
 	* used, this happens f.i. for func_statics created from brush/patch geometry inside DR.
 	*/
-	bool				SetClipModelForMulti( idPhysics_StaticMulti* physics, const idStr modelName, const idVec3 origin, const idAngles angles, const int idx, idClipModel* clipModel = NULL);
+	bool				SetClipModelForMulti( idPhysics_StaticMulti* physics, const idStr modelName, const lode_entity_t* entity, const int idx, idClipModel* clipModel = NULL);
 
 	/**
 	* Combine entity models into "megamodels". Called automatically by PrepareEntities().
