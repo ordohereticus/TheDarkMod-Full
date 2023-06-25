@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4116 $
- * $Date: 2010-08-01 05:18:52 -0400 (Sun, 01 Aug 2010) $
+ * $Revision: 4146 $
+ * $Date: 2010-08-28 12:06:47 -0400 (Sat, 28 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -184,7 +184,7 @@ public:
 	int					Find( const char *text, bool casesensitive = true, int start = 0, int end = -1 ) const;
 	// Tels: Count how often c occurs between start and end
 	int					Count( const char c, int start = 0, int end = -1 ) const;
-	// Tels: Given a list like "abc, def" (where c can be changed), returns one part of it randomly
+	// Tels: Given a list like "abcX def" (where X = ',' but can be changed), returns one part of it randomly
 	idStr				RandomPart( const char c = ',') const;
 	bool				Filter( const char *filter, bool casesensitive ) const;
 	int					Last( const char c ) const;						// return the index to the last occurance of 'c', returns -1 if not found
