@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4339 $
- * $Date: 2010-11-26 20:45:22 -0500 (Fri, 26 Nov 2010) $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1153,6 +1153,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	virtual	void			DormantBegin( void );	// called when entity becomes dormant
 	virtual	void			DormantEnd( void );		// called when entity wakes from being dormant
 	void					Think( void );
+	virtual void			ThinkMT();
 	void					Activate( idEntity *activator );
 	int						ReactionTo( const idEntity *ent );
 	bool					CheckForEnemy( void );
@@ -1176,6 +1177,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	// the AI will only think once in this number of frames
 	int						GetThinkInterleave() const; // grayman 2414 - add 'const'
 	int						m_nextThinkFrame;
+
+	// greebo: Re-calculated each frame this determines whether this AI should think. Don't bother saving/restoring this.
+	mutable bool			m_shouldThinkThisFrame;
 
 	// Below min dist, the AI thinks normally every frame.
 	// Above max dist, the thinking frequency is given by max interleave think frames.

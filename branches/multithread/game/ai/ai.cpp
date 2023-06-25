@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4361 $
- * $Date: 2010-12-08 17:24:56 -0500 (Wed, 08 Dec 2010) $
- * $Author: grayman $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4361 2010-12-08 22:24:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4390 2010-12-29 11:19:31Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -53,6 +53,7 @@ static bool init_version = FileVersionList("$Id: ai.cpp 4361 2010-12-08 22:24:56
 #include "../../DarkMod/AI/AreaManager.h"
 
 #include <boost/lexical_cast.hpp>
+#include <boost/thread/thread.hpp>
 
 //TODO: Move these to AI def:
 
@@ -1937,22 +1938,26 @@ void idAI::DormantEnd( void ) {
 	m_lastThinkTime = gameLocal.time;
 }
 
-/*
-=====================
-idAI::Think
-=====================
-*/
-void idAI::Think( void ) 
+void idAI::ThinkMT()
 {
-	START_SCOPED_TIMING(aiThinkTimer, scopedThinkTimer);
+	std::stringstream str;
+
+	str << boost::this_thread::get_id();
+	DM_LOG(LC_THREAD, LT_INFO)LOGSTRING("Entity %s thinking on thread %s.\r", name.c_str(), str.str().c_str()); 
+
+	// By default, we'll be thinking
+	m_shouldThinkThisFrame = true;
+
 	if (cv_ai_opt_nothink.GetBool()) 
 	{
+		m_shouldThinkThisFrame = false;
 		return; // Thinking is disabled.
 	}
 
 	// Interleaved thinking
 	if (!ThinkingIsAllowed())
 	{
+		m_shouldThinkThisFrame = false;
 		return;
 	}
 
@@ -1961,9 +1966,49 @@ void idAI::Think( void )
 	// if we are completely closed off from the player, don't do anything at all
 	// angua: only go dormant while in idle
 	bool outsidePVS = CheckDormant();
-	if (outsidePVS && AI_AlertIndex < 1 && cv_ai_opt_disable.GetBool()) {
+	if (outsidePVS && AI_AlertIndex < 1 && cv_ai_opt_disable.GetBool())
+	{
+		m_shouldThinkThisFrame = false;
 		return;
 	}
+
+	// TODO
+}
+
+/*
+=====================
+idAI::Think
+=====================
+*/
+void idAI::Think( void ) 
+{
+	START_SCOPED_TIMING(aiThinkTimer, scopedThinkTimer);
+
+	// The boolean is calculated in ThinkMT() which is always called before this method
+	if (!m_shouldThinkThisFrame)
+	{
+		return;
+	}
+
+	/*if (cv_ai_opt_nothink.GetBool()) 
+	{
+		return; // Thinking is disabled.
+	}*/
+
+	/*// Interleaved thinking
+	if (!ThinkingIsAllowed())
+	{
+		return;
+	}*/
+
+	//SetNextThinkFrame();
+
+	// if we are completely closed off from the player, don't do anything at all
+	// angua: only go dormant while in idle
+	/*bool outsidePVS = CheckDormant();
+	if (outsidePVS && AI_AlertIndex < 1 && cv_ai_opt_disable.GetBool()) {
+		return;
+	}*/
 			
 	// save old origin and velocity for crashlanding
 	idVec3 oldOrigin = physicsObj.GetOrigin();

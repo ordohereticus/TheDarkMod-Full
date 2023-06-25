@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4261 $
- * $Date: 2010-10-20 17:20:42 -0400 (Wed, 20 Oct 2010) $
- * $Author: grayman $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4261 2010-10-20 21:20:42Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4390 2010-12-29 11:19:31Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -108,6 +108,7 @@ static const char *LCString[LC_COUNT+1] = {
 	"DIFFICULTY",
 	"CONVERSATION",
 	"MAINMENU",
+	"THREAD",
 	"(empty)"
 };
 
@@ -307,6 +308,8 @@ void CGlobal::LogMat3(idStr const &Name, idMat3 const &Mat)
 
 void CGlobal::LogString(const char *fmt, ...)
 {
+	boost::mutex::scoped_lock lock(_logMutex);
+
 	if(m_LogFile == NULL)
 		return;
 
@@ -444,6 +447,7 @@ void CGlobal::LoadINISettings(void *p)
 		CheckLogClass(ps, "LogClass_CONVERSATION", LC_CONVERSATION);
 		CheckLogClass(ps, "LogClass_MAINMENU", LC_MAINMENU);
 		CheckLogClass(ps, "LogClass_LOCKPICK", LC_LOCKPICK);
+		CheckLogClass(ps, "LogClass_THREAD", LC_THREAD);
 	}
 
 	if(FindSection(pfh, "GlobalParams", &ps) != static_cast<ULONG>(-1))

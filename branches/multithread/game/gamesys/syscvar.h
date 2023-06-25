@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4224 $
- * $Date: 2010-10-04 11:10:19 -0400 (Mon, 04 Oct 2010) $
- * $Author: jcdenton $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -346,6 +346,7 @@ extern idCVar cv_lod_bias;
 extern idCVar cv_ai_fov_show;
 extern idCVar cv_ai_ko_show;
 
+extern idCVar cv_tdm_enable_multithreading;
 
 /**
 * End DarkMod cvars

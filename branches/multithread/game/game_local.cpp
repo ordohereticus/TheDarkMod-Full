@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4387 $
- * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4387 2010-12-26 10:44:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4390 2010-12-29 11:19:31Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2933,6 +2933,30 @@ void idGameLocal::SortActiveEntityList( void ) {
 	sortPushers = false;
 }
 
+void idGameLocal::RunThinkFrameMT(int modulo)
+{
+	std::stringstream str;
+
+	str << boost::this_thread::get_id();
+	DM_LOG(LC_THREAD, LT_INFO)LOGSTRING("Started worker thread with modulo %d: id %s.\r", modulo, str.str().c_str());
+
+	int count = 0;
+	int entCount = 0;
+
+	for (idEntity* ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next())
+	{
+		// Make sure the ThinkMT routine is invoked before the actual Think() routine, for entities that
+		// are designed for multithreading and have code in that method.
+		if ((ent->thinkFlags & TH_MULTITHREADED) && (entCount++) % 2 == modulo)
+		{
+			ent->ThinkMT();
+			count++;
+		}
+	}
+
+	DM_LOG(LC_THREAD, LT_INFO)LOGSTRING("Thread (modulo %d) performed multi-threaded thinking for %d entities.\r", modulo, count);
+}
+
 /*
 ================
 idGameLocal::RunFrame
@@ -3105,11 +3129,47 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 					ent->Think();
 					num++;
 				}
-			} else {
+			}
+			else
+			{
+				// Default thinking loop, this will be performed 98% of the time 
 				num = 0;
-				for( ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next() ) {
-					ent->Think();
-					num++;
+
+				// greebo: While the other entities think, set up threading for the those entities that support it
+				if (cv_tdm_enable_multithreading.GetBool())
+				{
+					// Set up two threads to handle mt-enabled entities
+					boost::thread thinkThread0(boost::bind(&idGameLocal::RunThinkFrameMT, this, 0));
+					boost::thread thinkThread1(boost::bind(&idGameLocal::RunThinkFrameMT, this, 1));
+
+					// Wait for these threads to finish their work
+					thinkThread0.join();
+					thinkThread1.join();
+
+					// Perform the single-threaded thinking loop
+					for (ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next())
+					{
+						ent->Think();
+						num++;
+					}
+				}
+				else
+				{
+					// Multi-threading disabled, make sure all code is executed
+
+					// Perform the single-threaded thinking loop
+					for (ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next())
+					{
+						// Make sure the ThinkMT routine is invoked before the actual Think() routine, for entities that
+						// are designed for multithreading and have code in that method.
+						if (ent->thinkFlags & TH_MULTITHREADED)
+						{
+							ent->ThinkMT();
+						}
+
+						ent->Think();
+						num++;
+					}
 				}
 			}
 		}

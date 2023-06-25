@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4379 2010-12-22 14:49:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4390 2010-12-29 11:19:31Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -110,6 +110,8 @@ idCVar cv_ai_hiding_spot_max_light_quotient(	"tdm_ai_hiding_spot_max_light_quoti
 idCVar cv_ai_max_hiding_spot_tests_per_frame(	"tdm_ai_max_hiding_spot_tests_per_frame",	"10",	CVAR_GAME | CVAR_INTEGER, "This is the maximum number of hiding spot point tests to do in a single AI frame." );
 
 idCVar cv_ai_debug_anims (			"tdm_ai_debug_anims",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), show debug info about AI anims in the console and log file." );
+
+idCVar cv_tdm_enable_multithreading("tdm_enable_multithreading_experimental",	"0",		CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), some entities are thinking simultaneously - experimental, use at your own risk." );
 
 idCVar cv_show_health (          "tdm_show_health",   "0",            CVAR_ARCHIVE | CVAR_GAME | CVAR_BOOL, "If true (nonzero), show health of entities for debugging." );
 

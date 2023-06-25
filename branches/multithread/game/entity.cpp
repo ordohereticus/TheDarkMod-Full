@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4387 $
- * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4387 2010-12-26 10:44:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4390 2010-12-29 11:19:31Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2562,8 +2562,17 @@ void idEntity::BecomeActive( int flags )
 	}
 
 	int oldFlags = thinkFlags;
+
+	// Set the mulit-thread think flag for active ents
+	if (flags & TH_THINK)
+	{
+		flags |= TH_MULTITHREADED;
+	}
+
 	thinkFlags |= flags;
-	if ( thinkFlags ) {
+
+	if ( thinkFlags )
+	{
 		if ( !IsActive() ) {
 			activeNode.AddToEnd( gameLocal.activeEntities );
 		} else if ( !oldFlags ) {
@@ -2592,8 +2601,15 @@ void idEntity::BecomeInactive( int flags )
 		}
 	}
 
-	if ( thinkFlags ) {
+	if ( thinkFlags )
+	{
+		if (flags & TH_THINK)
+		{
+			flags |= TH_MULTITHREADED;
+		}
+		
 		thinkFlags &= ~flags;
+
 		if ( !thinkFlags && IsActive() ) {
 			gameLocal.numEntitiesToDeactivate++;
 		}

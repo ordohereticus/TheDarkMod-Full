@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4333 $
- * $Date: 2010-11-25 22:25:23 -0500 (Thu, 25 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4390 $
+ * $Date: 2010-12-29 06:19:31 -0500 (Wed, 29 Dec 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -664,6 +664,9 @@ public:
 	virtual void			CacheDictionaryMedia( const idDict *dict );
 	virtual void			SpawnPlayer( int clientNum );
 	virtual gameReturn_t	RunFrame( const usercmd_t *clientCmds );
+
+	// Performs ThinkMT() for entities that support it. The entNumModulo is a not-too-elegant way to distribute entities among threads
+	void					RunThinkFrameMT(int modulo);
 
 	/**
 	* TDM: Pause/Unpause game
