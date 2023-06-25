@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4393 $
- * $Date: 2010-12-30 09:37:16 -0500 (Thu, 30 Dec 2010) $
- * $Author: grayman $
+ * $Revision: 4449 $
+ * $Date: 2011-01-20 12:23:52 -0500 (Thu, 20 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 4393 2010-12-30 14:37:16Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 4449 2011-01-20 17:23:52Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3108,7 +3108,6 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 	idVec3			dir;
 	float			ang;
 	float			spin;
-	float			distance;
 	trace_t			tr;
 	idVec3			start;
 	idVec3			muzzle_pos;
@@ -3256,16 +3255,23 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 
 			projBounds = proj->GetPhysics()->GetBounds().Rotate( proj->GetPhysics()->GetAxis() );
 
-			// make sure the projectile starts inside the bounding box of the owner
+			// make sure the projectile start point does not clip with anything
 			if ( i == 0 ) {
 				muzzle_pos = muzzleOrigin + playerViewAxis[ 0 ] * 2.0f;
-				if ( ( ownerBounds - projBounds).RayIntersection( muzzle_pos, playerViewAxis[0], distance ) ) {
-					start = muzzle_pos + distance * playerViewAxis[0];
-				} else {
-					start = ownerBounds.GetCenter();
+				start = ownerBounds.GetCenter();
+				/* stgatilov: translate to viewpoint first, then to muzzle point.
+				 Otherwise shot while leaning over the corner would lag. Picture:
+				  XXXX M		C - center of player's bbox
+				  XXXX |		V - player's view origin
+				  XXXX |		M - muzzle position
+				  C----V
+				*/
+				idClipModel *clm = proj->GetPhysics()->GetClipModel();
+				if (!gameLocal.clip.Translation( tr, start, playerViewOrigin, clm, clm->GetAxis(), MASK_SHOT_RENDERMODEL, owner )) {
+					gameLocal.clip.Translation( tr, playerViewOrigin, muzzle_pos, clm, clm->GetAxis(), MASK_SHOT_RENDERMODEL, owner );
 				}
-				gameLocal.clip.Translation( tr, start, muzzle_pos, proj->GetPhysics()->GetClipModel(), proj->GetPhysics()->GetClipModel()->GetAxis(), MASK_SHOT_RENDERMODEL, owner );
 				muzzle_pos = tr.endpos;
+				
 			}
 
 			proj->Launch( muzzle_pos, dir, pushVelocity, fuseOffset, launchPower, dmgPower );
