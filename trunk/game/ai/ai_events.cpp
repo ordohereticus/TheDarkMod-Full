@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3791 $
- * $Date: 2010-01-09 02:32:34 -0500 (Sat, 09 Jan 2010) $
- * $Author: tels $
+ * $Revision: 3956 $
+ * $Date: 2010-06-18 00:06:23 -0400 (Fri, 18 Jun 2010) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3791 2010-01-09 07:32:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 3956 2010-06-18 04:06:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -353,7 +353,7 @@ const idEventDef AI_GetObservationPosition ("getObservationPosition", "vf", 'v')
 /**
 * This event handles a knockout of the AI (takes the attacker as argument)
 **/
-const idEventDef AI_Knockout( "knockout", "e" );
+const idEventDef AI_Knockout( "knockout", "E" );
 
 const idEventDef AI_GetNextIdleAnim( "getNextIdleAnim", NULL, 's' );
 
