@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2404 $
- * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -182,7 +182,7 @@ public:	// common physics interface
 
 	virtual idPhysics_Liquid	*GetWater() = 0; // MOD_WATERPHYSICS
 
-	virtual void				SetWater( idPhysics_Liquid *e ) = 0; // MOD_WATERPHYSICS
+	virtual void				SetWater( idPhysics_Liquid *e, const float murkiness) = 0; // MOD_WATERPHYSICS
 
 #endif
 

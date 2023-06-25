@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/Grabber.h"
@@ -4526,6 +4526,7 @@ idAFBody::SetWaterLevel
 float idAFBody::SetWaterLevel( idPhysics_Liquid *l, const idVec3 &gravityNormal, bool fixedDensityBuoyancy ) {
 	if( l == NULL ) {
 		this->waterLevel = 0.0f;
+		this->m_fWaterMurkiness = 0.0f;
 		return 0.0f;
 	}
 
@@ -5800,7 +5801,7 @@ void idPhysics_AF::CheckForCollisions( float timeStep ) {
 
 					this->self->GetImpactInfo(ent,collision.c.id,collision.c.point,&info);
 
-					this->SetWater(liquid);
+					this->SetWater(liquid, ent->spawnArgs.GetFloat("murkiness", "0") );
 					this->water->Splash(this->self,body->GetVolume(),info,collision);
 				}
 			}
@@ -6033,7 +6034,11 @@ void idPhysics_AF::AddGravity( void ) {
 #ifdef MOD_WATERPHYSICS
 // if all AFBodies are not in the water, we assume the whole entity is not in water so
 // we clear the water flag
-	if( !inWater ) this->water = NULL;
+	if( !inWater )
+	{
+		this->water = NULL;
+		this->m_fWaterMurkiness = 0.0f;
+	}
 #endif
 }
 
@@ -6989,6 +6994,7 @@ idPhysics_AF::idPhysics_AF( void ) {
 		this->liquidDensity = DEFAULT_LIQUID_SCALAR;
 	}
 	this->water = NULL;
+	this->m_fWaterMurkiness = 0.0f;
 #endif
 
 	suspendVelocity.Set( SUSPEND_LINEAR_VELOCITY, SUSPEND_ANGULAR_VELOCITY );

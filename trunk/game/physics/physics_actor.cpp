@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3611 $
- * $Date: 2009-07-29 03:10:24 -0400 (Wed, 29 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_actor.cpp 3611 2009-07-29 07:10:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_actor.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -443,7 +443,7 @@ void idPhysics_Actor::SetWaterLevel( bool updateWaterLevelChanged ) {
 		}
 	}
 	else
-		this->SetWater(NULL);
+		this->SetWater(NULL, 0.0f);
 
 	if (updateWaterLevelChanged)
 	{

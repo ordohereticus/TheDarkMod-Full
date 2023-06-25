@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3902 $
- * $Date: 2010-05-25 10:19:41 -0400 (Tue, 25 May 2010) $
- * $Author: greebo $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: liquid.cpp 3902 2010-05-25 14:19:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
 
 #include "StimResponse/StimResponseCollection.h"
 
@@ -82,7 +82,7 @@ idLiquid::~idLiquid()
 	{
 		if (ent->GetPhysics()->GetWater() == &physicsObj)
 		{
-			ent->GetPhysics()->SetWater(NULL);
+			ent->GetPhysics()->SetWater(NULL, 0.0f);
 		}
 	}
 }

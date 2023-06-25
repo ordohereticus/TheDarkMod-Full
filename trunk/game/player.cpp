@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3944 $
- * $Date: 2010-06-11 08:04:54 -0400 (Fri, 11 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 3944 2010-06-11 12:04:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9168,6 +9168,16 @@ int idPlayer::ProcessLightgem(bool processing)
 
 	value += cv_lg_adjust.GetFloat();
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Adjustment %f\r", cv_lg_adjust.GetFloat());
+
+	// Tels: #2324 Water should decrease visibility
+	// Subtract the adjustment value from the water body we are in so we can
+	// have clear water, murky water etc.
+	if (physicsObj.GetWaterLevel() >= WATERLEVEL_HEAD)
+	{
+		float murkiness = physicsObj.GetWaterMurkiness();
+		value -= murkiness;
+		// gameLocal.Printf( "Water murkiness %0.2f, final value: %0.2f\n", murkiness, value);
+	}
 
 	m_fColVal = value;
 	m_LightgemValue = int(DARKMOD_LG_MAX * value);

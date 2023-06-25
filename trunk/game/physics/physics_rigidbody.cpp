@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3741 $
- * $Date: 2009-11-03 05:38:51 -0500 (Tue, 03 Nov 2009) $
- * $Author: greebo $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 3741 2009-11-03 10:38:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/Grabber.h"
@@ -237,7 +237,7 @@ void idPhysics_RigidBody::Integrate( float deltaTime, rigidBodyPState_t &next ) 
 		next.i.angularMomentum += (bCenter - next.i.position).Cross(rForce);
 
 		// take the body out of water if it's not in water.
-		if( !inWater ) this->SetWater(NULL);
+		if( !inWater ) this->SetWater(NULL, 0.0f);
 	} else 
 #endif
 	next.i.linearMomentum += deltaTime * gravityVector * mass; // apply normal gravity
@@ -563,7 +563,7 @@ bool idPhysics_RigidBody::CheckForCollisions( const float deltaTime, rigidBodyPS
 					}
 				}
 
-				this->SetWater(liquid);
+				this->SetWater(liquid, ent->spawnArgs.GetFloat("murkiness", "0"));
 				this->water->Splash(this->self,this->volume,info,waterCollision);
 			}
 		}
@@ -883,6 +883,7 @@ idPhysics_RigidBody::idPhysics_RigidBody( void ) {
 	inverseInertiaTensor.Identity();
 #ifdef MOD_WATERPHYSICS
 	this->water = NULL;
+	this->m_fWaterMurkiness = 0.0f;
 #endif
 
 	// use the least expensive euler integrator

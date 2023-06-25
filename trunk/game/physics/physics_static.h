@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2989 $
- * $Date: 2008-11-03 19:54:49 -0500 (Mon, 03 Nov 2008) $
- * $Author: dram $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -137,7 +137,7 @@ public:	// common physics interface
 	// just some functions to avoid making this class abstract.  Water has no effect on a static object
 	// so it sort of makes sense these functions do nothing.
 	virtual idPhysics_Liquid	*GetWater() { return NULL; } // MOD_WATERPHYSICS
-	virtual void				SetWater( idPhysics_Liquid *e ) {} // MOD_WATERPHYSICS
+	virtual void				SetWater( idPhysics_Liquid *e, const float murkiness ) {} // MOD_WATERPHYSICS
 #endif
 protected:
 	idEntity *				self;					// entity using this physics object

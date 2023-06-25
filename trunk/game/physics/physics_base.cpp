@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2404 $
- * $Date: 2008-06-01 02:05:14 -0400 (Sun, 01 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 4143 $
+ * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_base.cpp 2404 2008-06-01 06:05:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: physics_base.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -29,6 +29,7 @@ idPhysics_Base::idPhysics_Base( void ) {
 	self = NULL;
 #ifdef MOD_WATERPHYSICS
 	water = NULL;	// MOD_WATERPHYSICS
+	m_fWaterMurkiness = 0.0f;
 #endif		// MOD_WATERPHYSICS
 
 	clipMask = 0;
@@ -838,8 +839,20 @@ void idPhysics_Base::ReadFromSnapshot( const idBitMsgDelta &msg ) {
 idPhysics_Base::SetWater
 ================
 */
-void idPhysics_Base::SetWater( idPhysics_Liquid *e ) {
+void idPhysics_Base::SetWater( idPhysics_Liquid *e, const float m ) {
+	if (e != this->water)
+	{
+		if (NULL != e)
+		{
+			gameLocal.Printf("Entered water with murkiness %f.\n", m );
+		}
+		else
+		{
+			gameLocal.Printf("Leaving water.\n");
+		}
+	}
 	this->water = e;
+	this->m_fWaterMurkiness = m;
 }
 
 /*
@@ -850,6 +863,16 @@ idPhysics_Base::GetWater
 idPhysics_Liquid *idPhysics_Base::GetWater()
 {
 	return this->water;
+}
+
+/*
+================
+idPhysics_Base::GetWaterMurkiness
+================
+*/
+float idPhysics_Base::GetWaterMurkiness() const
+{
+	return this->m_fWaterMurkiness;
 }
 
 /*
@@ -878,13 +901,15 @@ float idPhysics_Base::SetWaterLevelf() {
 		bounds += this->GetOrigin();
 
 		// trace for a water contact
+		// Tels: TODO This additional trace might be expensive because it is done every frame
 		if( gameLocal.clip.EntitiesTouchingBounds(bounds,MASK_WATER,e,2) ) {
 			if( e[0]->GetPhysics()->IsType(idPhysics_Liquid::Type) ) {
-				this->water = static_cast<idPhysics_Liquid *>(e[0]->GetPhysics());
+				SetWater( static_cast<idPhysics_Liquid *>(e[0]->GetPhysics()), e[0]->spawnArgs.GetFloat("murkiness", "0") );
 				return 1.0f;
 			}
 		}
 
+		this->m_fWaterMurkiness = 0.0f;
 		return 0.0f;
 	}
 	else
