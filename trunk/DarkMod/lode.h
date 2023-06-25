@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4149 $
- * $Date: 2010-08-29 01:01:32 -0400 (Sun, 29 Aug 2010) $
+ * $Revision: 4151 $
+ * $Date: 2010-08-29 08:52:26 -0400 (Sun, 29 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -221,6 +221,11 @@ private:
 	* Create the entity positions.
 	*/
 	void				PrepareEntities( void );
+
+	/**
+	* Compute the LOD distance based on delta vector and entity LOD data (like xydistcheckonly)
+	*/
+	float				LODDistance( const lod_data_t* m_LOD, idVec3 delta ) const;
 
 	/**
 	* Compute the LOD level for this entity based on distance to player.
