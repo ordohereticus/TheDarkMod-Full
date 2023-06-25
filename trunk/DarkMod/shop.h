@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4236 $
- * $Date: 2010-10-09 07:04:48 -0400 (Sat, 09 Oct 2010) $
+ * $Revision: 4356 $
+ * $Date: 2010-12-05 09:45:32 -0500 (Sun, 05 Dec 2010) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -201,6 +201,10 @@ private:
 
 	// Copies purchasedItems into startingItems
 	void CopyPurchasedIntoStartingEquipment();
+
+	// grayman - Provides max_ammo value
+	int GetMaxAmmo(const idStr& weaponName);
+
 };
 
 
