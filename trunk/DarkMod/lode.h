@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4068 $
- * $Date: 2010-07-18 03:43:23 -0400 (Sun, 18 Jul 2010) $
+ * $Revision: 4069 $
+ * $Date: 2010-07-18 07:07:48 -0400 (Sun, 18 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -287,6 +287,19 @@ private:
 	* Average floorspace of all classes
 	*/
 	float						m_fAvgSize;
+
+	/**
+	* The PVS this LODE spans - can be more than one when it crosses a visportal.
+	* TODO: What if it are more than 64?
+	*/
+	int							m_iNumPVSAreas;
+	int							m_iPVSAreas[64];
+
+	/**
+	* If we are outside the PVS area, only think every Nth time. This counter is set
+	* to 0 evertime we think and increased if outside the PVS.
+	*/
+	int							m_iThinkCounter;
 
 	static const unsigned long	IEEE_ONE  = 0x3f800000;
 	static const unsigned long	IEEE_MASK = 0x007fffff;
