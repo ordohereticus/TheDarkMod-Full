@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4430 $
+ * $Date: 2011-01-11 14:45:02 -0500 (Tue, 11 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,12 +13,12 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: simd_sse2.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: simd_sse2.cpp 4430 2011-01-11 19:45:02Z tels $", init_version);
 
-#include "Simd_Generic.h"
-#include "Simd_MMX.h"
-#include "Simd_SSE.h"
-#include "Simd_SSE2.h"
+#include "simd_generic.h"
+#include "simd_mmx.h"
+#include "simd_sse.h"
+#include "simd_sse2.h"
 
 
 //===============================================================
