@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3954 $
- * $Date: 2010-06-17 02:52:16 -0400 (Thu, 17 Jun 2010) $
+ * $Revision: 3955 $
+ * $Date: 2010-06-17 09:04:56 -0400 (Thu, 17 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 3954 2010-06-17 06:52:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 3955 2010-06-17 13:04:56Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -215,7 +215,6 @@ void CMissionManager::SearchForNewMissions()
 
 		// Remove any darkmod.txt, splashimage etc. when copying a new PK4. It may contain updated versions of those.
 		DoRemoveFile(targetPath / cv_tdm_fm_desc_file.GetString());
-		DoRemoveFile(targetPath / cv_tdm_fm_startingmap_file.GetString());
 		DoRemoveFile(targetPath / cv_tdm_fm_splashimage_file.GetString());
 		DoRemoveFile(targetPath / cv_tdm_fm_notes_file.GetString());
 	}
@@ -373,12 +372,6 @@ void CMissionManager::GenerateMissionList()
 				pk4file->ExtractFileTo(cv_tdm_fm_desc_file.GetString(), destPath.string().c_str());
 
 				// Check for the other meta-files as well
-				if (pk4file->ContainsFile(cv_tdm_fm_startingmap_file.GetString()))
-				{
-					destPath = fmPath / cv_tdm_fm_startingmap_file.GetString();
-					pk4file->ExtractFileTo(cv_tdm_fm_startingmap_file.GetString(), destPath.string().c_str());
-				}
-
 				if (pk4file->ContainsFile(cv_tdm_fm_splashimage_file.GetString()))
 				{
 					destPath = fmPath / cv_tdm_fm_splashimage_file.GetString();
@@ -518,15 +511,9 @@ void CMissionManager::InitStartingMap()
 	}
 
 	// Find out which is the starting map of the current mod
-	fs::path doomPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
-	doomPath /= "..";
-
-	fs::path startingMapPath(cv_tdm_fm_path.GetString());
-	startingMapPath = startingMapPath / GetCurrentMissionName().c_str() / cv_tdm_fm_startingmap_file.GetString();
-
 	char* buffer = NULL;
 
-	if (fileSystem->ReadFile(startingMapPath.string().c_str(), reinterpret_cast<void**>(&buffer)) != -1)
+	if (fileSystem->ReadFile(cv_tdm_fm_startingmap_file.GetString(), reinterpret_cast<void**>(&buffer)) != -1)
 	{
 		// We have a startingmap
 		_curStartingMap = buffer;
@@ -536,7 +523,7 @@ void CMissionManager::InitStartingMap()
 	}
 	else
 	{
-		gameLocal.Warning("No '%s' file for the current mod: %s", startingMapPath.string().c_str(), GetCurrentMissionName().c_str());
+		gameLocal.Warning("No '%s' file for the current mod: %s", cv_tdm_fm_startingmap_file.GetString(), GetCurrentMissionName().c_str());
 	}
 }
 
