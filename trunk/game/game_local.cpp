@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4095 $
- * $Date: 2010-07-24 14:32:22 -0400 (Sat, 24 Jul 2010) $
- * $Author: jcdenton $
+ * $Revision: 4115 $
+ * $Date: 2010-08-01 05:18:13 -0400 (Sun, 01 Aug 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4095 2010-07-24 18:32:22Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4115 2010-08-01 09:18:13Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1295,7 +1295,9 @@ void idGameLocal::LoadMap( const char *mapName, int randseed ) {
 	firstFreeIndex	= MAX_CLIENTS;
 
 	// reset the random number generator.
-	random.SetSeed( isMultiplayer ? randseed : 0 );
+	// Tels: use a random seed for single-player, too, otherwise map content can't be random
+	//random.SetSeed( isMultiplayer ? randseed : 0 );
+	random.SetSeed( randseed );
 
 	camera			= NULL;
 	world			= NULL;
