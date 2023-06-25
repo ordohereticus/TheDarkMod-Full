@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4097 $
- * $Date: 2010-07-25 09:29:38 -0400 (Sun, 25 Jul 2010) $
+ * $Revision: 4105 $
+ * $Date: 2010-07-30 06:17:16 -0400 (Fri, 30 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -55,9 +55,8 @@ struct lode_class_t {
 											//!< entity with a megamodel (a combined model from many entities),
 											//!< the model is still stored in hModel.
 											//!< These classes will be skipped when recreating the entities.
-	idList<model_combineinfo_t>	info;		//!< For each entity, an entry with the
-											//!< where the model starts, so that we
-											//!< later can remove it again. Not used yet.
+	megamodel_t* 	  		megamodel;		//!< If we combined many entities into one megamodel, track
+											//!< here which ones at which LOD stage, so we can upate it.
 	int						seed;			//!< per-class seed so each class generates the same sequence of
 											//!< entities independ from the other classes, helps when the menu
    											//!> setting changes
