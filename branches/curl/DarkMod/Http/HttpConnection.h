@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3965 $
- * $Date: 2010-06-22 09:04:10 -0400 (Tue, 22 Jun 2010) $
+ * $Revision: 3966 $
+ * $Date: 2010-06-22 09:42:32 -0400 (Tue, 22 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,6 +11,9 @@
 #define _HTTP_CONNECTION_H_
 
 #include <boost/shared_ptr.hpp>
+
+class CHttpRequest;
+typedef boost::shared_ptr<CHttpRequest> CHttpRequestPtr;
 
 /**
  * greebo: An object representing a single HttpConnection, holding 
@@ -22,6 +25,13 @@ class CHttpConnection
 {
 public:
 	CHttpConnection();
+
+	~CHttpConnection();
+
+	/**
+	 * Constructs a new HTTP request using the given URL
+	 */ 
+	CHttpRequestPtr CreateRequest(const std::string& url);
 };
 typedef boost::shared_ptr<CHttpConnection> CHttpConnectionPtr;
 

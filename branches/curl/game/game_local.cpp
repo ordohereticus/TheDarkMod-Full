@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3964 $
- * $Date: 2010-06-21 08:48:21 -0400 (Mon, 21 Jun 2010) $
+ * $Revision: 3966 $
+ * $Date: 2010-06-22 09:42:32 -0400 (Tue, 22 Jun 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3964 2010-06-21 12:48:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 3966 2010-06-22 13:42:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -40,6 +40,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 3964 2010-06-21 
 #include "../DarkMod/RevisionTracker.h"
 #include "../DarkMod/Missions/MissionManager.h"
 #include "../DarkMod/Http/HttpConnection.h"
+#include "../DarkMod/Http/HttpRequest.h"
 
 #include "IL/il.h"
 #include "../DarkMod/randomizer/randomc.h"
@@ -508,6 +509,11 @@ void idGameLocal::Init( void ) {
 	UpdateInteractionShader();
 
 	CHttpConnection conn;
+
+	CHttpRequestPtr req = conn.CreateRequest("http://www.bloodgate.com/mirrors/tdm/pub/tdm_version_info.xml");
+
+	req->Perform();
+	gameLocal.Printf("Result:\n%s\n\n", req->GetResultString().c_str());
 }
 
 void idGameLocal::UpdateInteractionShader()
