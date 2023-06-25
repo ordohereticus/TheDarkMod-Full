@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4193 $
- * $Date: 2010-09-26 00:02:13 -0400 (Sun, 26 Sep 2010) $
- * $Author: baal $
+ * $Revision: 4207 $
+ * $Date: 2010-09-30 02:01:53 -0400 (Thu, 30 Sep 2010) $
+ * $Author: jcdenton $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4193 2010-09-26 04:02:13Z baal $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4207 2010-09-30 06:01:53Z jcdenton $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9167,6 +9167,17 @@ int idPlayer::ProcessLightgem(bool processing)
 			m_LightgemInterleave = 0;
 
 			fValue = gameLocal.CalcLightgem(this);
+
+// 			if( cv_interaction_vfp_type.GetBool() ) // If HDR is enabled then make sure that we decode the compressed value and tone-map it. J.C.Denton
+// 			{
+// 				//Decode 
+// 				fValue = fValue /( 1 - fValue );
+// 				
+// 				// Tone-map
+// 				fValue *= ((1.0f / Max(cv_lg_maxColorIntensity.GetFloat(), 0.0001f )) * fValue + 1.0);
+// 				fValue /= (fValue + 1);
+// 				
+// 			}
 		}
 	}
 
