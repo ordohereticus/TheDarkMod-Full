@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3951 $
- * $Date: 2010-06-13 22:35:24 -0400 (Sun, 13 Jun 2010) $
+ * $Revision: 4024 $
+ * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 3951 2010-06-14 02:35:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -39,6 +39,8 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 3951 2010-06-14 
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../DarkMod/RevisionTracker.h"
 #include "../DarkMod/Missions/MissionManager.h"
+#include "../DarkMod/Http/HttpConnection.h"
+#include "../DarkMod/Http/HttpRequest.h"
 
 #include "IL/il.h"
 #include "../DarkMod/randomizer/randomc.h"
@@ -505,6 +507,42 @@ void idGameLocal::Init( void ) {
 
 	// Check the interaction.vfp settings
 	UpdateInteractionShader();
+
+	/*CHttpConnection conn;
+
+	Printf("Checking http://www.bloodgate.com/mirrors/tdm/pub/tdm_version.xml...\n");
+	CHttpRequestPtr req = conn.CreateRequest("http://www.bloodgate.com/mirrors/tdm/pub/tdm_version.xml");
+
+	req->Perform();
+
+	xml::Document result = req->GetResultXml();
+
+	xml::NodeList nodes = result.FindXPath("//tdm/currentVersion");
+
+	if (!nodes.empty())
+	{
+		int major = atoi(nodes[0].GetAttributeValue("major").c_str());
+		int minor = atoi(nodes[0].GetAttributeValue("minor").c_str());
+
+		Printf("Most recent TDM Version is: %d.%02d\n", major, minor);
+
+		switch (CompareVersion(TDM_VERSION_MAJOR, TDM_VERSION_MINOR, major, minor))
+		{
+		case EQUAL:
+			Printf("Your version %d.%02d is up to date.\n", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			break;
+		case OLDER:
+			Printf("Your version %d.%02d needs updating.\n", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			break;
+		case NEWER:
+			Printf("Your version %d.%02d is newer than the most recently published one.\n", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			break;
+		};
+	}
+	else
+	{
+		Printf("Couldn't find current version tag.\n");
+	}*/
 }
 
 void idGameLocal::UpdateInteractionShader()

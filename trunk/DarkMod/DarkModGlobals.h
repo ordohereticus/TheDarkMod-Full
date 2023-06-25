@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3916 $
- * $Date: 2010-06-06 22:30:39 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 4024 $
+ * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -30,6 +30,17 @@
 // greebo: Defines the darkmod release version
 #define TDM_VERSION_MAJOR 1
 #define TDM_VERSION_MINOR 3
+
+enum VersionCheckResult
+{
+	EQUAL,
+	OLDER,
+	NEWER,
+};
+
+// Compares the version pair <major, minor> to <toMajor, toMinor> and returns the result
+// @returns: OLDER when <major, minor> is OLDER than <toMajor, toMinor>
+VersionCheckResult CompareVersion(int major, int minor, int toMajor, int toMinor);
 
 /*!
 Darkmod LAS

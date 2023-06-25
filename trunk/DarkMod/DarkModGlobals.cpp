@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3935 $
- * $Date: 2010-06-10 07:05:26 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 4024 $
+ * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3935 2010-06-10 11:05:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -46,6 +46,26 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 3935 2010-06
 namespace fs = boost::filesystem;
 
 class idAI;
+
+VersionCheckResult CompareVersion(int major, int minor, int toMajor, int toMinor)
+{
+	// Equality check
+	if (major == toMajor && minor == toMinor) return EQUAL;
+
+	// Not equal, find the difference
+	if (major < toMajor)
+	{
+		return OLDER; // major version is older
+	}
+	else if (major > toMajor)
+	{
+		return NEWER;
+	}
+	else // Major version equal, check minor versions
+	{
+		return (minor < toMinor) ? OLDER : NEWER;
+	}
+}
 
 // Name of the logfile to use for Dark Mod logging
 #ifdef __linux__

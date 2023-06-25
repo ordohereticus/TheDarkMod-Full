@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3935 $
- * $Date: 2010-06-10 07:05:26 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 4024 $
+ * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 3935 2010-06-10 11:05:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -323,7 +323,7 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 bool CModMenu::PerformVersionCheck(const CMissionInfoPtr& mission, idUserInterface* gui)
 {
 	// Check the required TDM version of this FM
-	if (mission->requiredMajor > TDM_VERSION_MAJOR || mission->requiredMinor > TDM_VERSION_MINOR)
+	if (CompareVersion(TDM_VERSION_MAJOR, TDM_VERSION_MINOR, mission->requiredMajor, mission->requiredMinor) == OLDER)
 	{
 		gui->SetStateString("requiredVersionCheckFailText", 
 			va("Cannot install this mission, as it requires\n%s v%d.%02d.\n\nYou are running %s v%d.%02d. Please run the tdm_update application to update your installation.",

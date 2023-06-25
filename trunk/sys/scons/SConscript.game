@@ -7,9 +7,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 3989 $
-#* $Date: 2010-06-27 08:00:50 -0400 (Sun, 27 Jun 2010) $
-#* $Author: tels $
+#* $Revision: 4024 $
+#* $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+#* $Author: greebo $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -172,6 +172,10 @@ Missions/MissionDB.cpp \
 Missions/MissionInfo.cpp \
 Missions/MissionInfoDecl.cpp \
 Missions/MissionManager.cpp \
+Http/HttpConnection.cpp \
+Http/HttpRequest.cpp \
+Http/XmlDocument.cpp \
+Http/XmlNode.cpp \
 randomizer/mersenne.cpp \
 randomizer/mother.cpp \
 randomizer/ranrotb.cpp \
@@ -278,6 +282,8 @@ local_env.Append( CPPFLAGS = [ '-Wno-unused', '-Wno-deprecated' ] )
 # Use static Boost and DevIL
 local_env.Append(LIBS = [
     File('#/linux/devil/lib/libIL.a'),
+    File('#/linux/libcurl/libcurl.a'),
+    File('#/linux/libxml2/libxml2.a'),
 #    File('/lib32/libboost_filesystem.a'),
 #    File('/lib32/libboost_system.a'),
 # greebo: I needed to add these 3 to compile in Ubuntu 9.10 x64, uncomment them if needed
