@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4091 $
- * $Date: 2010-07-23 07:26:45 -0400 (Fri, 23 Jul 2010) $
+ * $Revision: 4092 $
+ * $Date: 2010-07-23 07:33:08 -0400 (Fri, 23 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@ TODO: turn "exists" and "hidden" into flags field, add there a "pseudoclass" bit
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4091 2010-07-23 11:26:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4092 2010-07-23 11:33:08Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -1330,7 +1330,8 @@ void Lode::PrepareEntities( void )
 					float x = (LodeEntity.origin.x / size.x) + 0.5f;		// 0 .. 1.0
 					float y = (LodeEntity.origin.y / size.y) + 0.5f;		// 0 .. 1.0
 
-					int px = x * m_Classes[i].img->m_Width;					// 0 .. w (f.i. 0 .. 1024)
+					// 1 - x to correct for top-left images
+					int px = (1.0f - x) * m_Classes[i].img->m_Width;		// 0 .. w (f.i. 0 .. 1024)
 					int py = y * m_Classes[i].img->m_Height;				// 0 .. h (f.i. 0 .. 1024)
 
 					// calculate the correct offset
