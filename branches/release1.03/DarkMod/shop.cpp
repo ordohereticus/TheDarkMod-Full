@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4357 $
- * $Date: 2010-12-05 21:15:52 -0500 (Sun, 05 Dec 2010) $
+ * $Revision: 4370 $
+ * $Date: 2010-12-11 20:30:07 -0500 (Sat, 11 Dec 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4357 2010-12-06 02:15:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4370 2010-12-12 01:30:07Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -178,6 +178,7 @@ void CShop::Clear()
 	skipShop = false;
 	pickSetShop = false;     // grayman (#2376) -
 	pickSetStarting = false; // Lockpick handling
+	gold = 0; // grayman - needs to be initialized
 }
 
 void CShop::Save(idSaveGame *savefile) const
