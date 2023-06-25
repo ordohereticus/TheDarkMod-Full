@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4407 $
- * $Date: 2011-01-10 21:39:10 -0500 (Mon, 10 Jan 2011) $
+ * $Revision: 4414 $
+ * $Date: 2011-01-10 23:24:32 -0500 (Mon, 10 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4407 2011-01-11 02:39:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4414 2011-01-11 04:24:32Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -1049,7 +1049,7 @@ void CMissionManager::LoadMissionDetailsFromXml(const XmlDocumentPtr& doc, int m
 
 		int screenshotNum = mission.screenshots.Append(screenshot);
 
-		fs::path localPath = GetDarkmodPath() / mission.GetLocalScreenshotPath(screenshotNum);
+		fs::path localPath = GetDarkmodPath() / mission.GetLocalScreenshotPath(screenshotNum).c_str();
 
 		if (fs::exists(localPath))
 		{
@@ -1202,7 +1202,7 @@ bool CMissionManager::ProcessMissionScreenshot(const fs::path& tempFilename, Dow
 		fs::create_directories(targetPath);
 	}
 
-	targetPath = GetDarkmodPath() / mission.GetLocalScreenshotPath(screenshotNum);
+	targetPath = GetDarkmodPath() / mission.GetLocalScreenshotPath(screenshotNum).c_str();
 	
 	// Save the file locally as JPEG
 	if (!image.SaveToFile(targetPath, CImage::JPG))
