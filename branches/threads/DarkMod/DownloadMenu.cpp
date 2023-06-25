@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4047 $
- * $Date: 2010-07-11 22:46:10 -0400 (Sun, 11 Jul 2010) $
+ * $Revision: 4051 $
+ * $Date: 2010-07-12 22:24:43 -0400 (Mon, 12 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,12 +12,20 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4047 2010-07-12 02:46:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4051 2010-07-13 02:24:43Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
 #include "Missions/Download.h"
 #include "Missions/DownloadManager.h"
+
+namespace
+{
+	inline const char* GetPlural(int num, const char* singular, const char* plural)
+	{
+		return (num == 1) ? singular : plural;
+	}
+}
 
 CDownloadMenu::CDownloadMenu() :
 	_availListTop(0),
@@ -159,6 +167,7 @@ void CDownloadMenu::StartDownload(idUserInterface* gui)
 
 		const DownloadableMission& mission = missions[missionIndex];
 
+		// Take the filename from the first URL
 		idStr url = mission.downloadLocations[0];
 		idStr filename;
 		url.ExtractFileName(filename);
@@ -168,7 +177,10 @@ void CDownloadMenu::StartDownload(idUserInterface* gui)
 		targetPath += cv_tdm_fm_path.GetString();
 		targetPath += filename;
 
-		CDownloadPtr download(new CDownload(url, targetPath));
+		CDownloadPtr download(new CDownload(mission.downloadLocations, targetPath));
+
+		// Check for valid PK4 files after download
+		download->EnableValidPK4Check(true);
 
 		int id = gameLocal.m_DownloadManager->AddDownload(download);
 
@@ -333,12 +345,23 @@ void CDownloadMenu::ShowDownloadResult(idUserInterface* gui)
 	msg.type = GuiMessage::MSG_OK;
 	msg.okCmd = "close_msg_box;refreshAvailableMissionList";
 	msg.title = "Mission Download Result";
-	msg.message = va("%d missions have been successfully downloaded. You'll find the missions in the 'New Mission' page.", successfulDownloads);
+	msg.message = "";
+
+	if (successfulDownloads > 0)
+	{
+		msg.message += va("%d %s been successfully downloaded. "
+						  "You'll find the %s in the 'New Mission' page.", 
+						  successfulDownloads, 
+						  GetPlural(successfulDownloads, "mission has", "missions have"),
+						  GetPlural(successfulDownloads, "mission", "missions")); 
+	}
 	
 	if (failedDownloads > 0)
 	{
-		msg.message += va("\n%d missions couldn't be downloaded. Please check your disk space (or maybe some file is "
-			"write protected) and try again.", failedDownloads);
+		msg.message += va("\n%d %s couldn't be downloaded. "
+						  "Please check your disk space (or maybe some file is "
+						  "write protected) and try again.", failedDownloads,
+						  GetPlural(failedDownloads, "mission", "missions"));
 	}
 
 	gameLocal.AddMainMenuMessage(msg);
