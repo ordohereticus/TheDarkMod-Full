@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4069 $
- * $Date: 2010-07-18 07:07:48 -0400 (Sun, 18 Jul 2010) $
+ * $Revision: 4070 $
+ * $Date: 2010-07-18 08:13:28 -0400 (Sun, 18 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@ TODO: Creating func_statics out of brushes/patches does not work, the models are
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4069 2010-07-18 11:07:48Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4070 2010-07-18 12:13:28Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "lode.h"
@@ -440,6 +440,9 @@ idRenderModel * Lode::DuplicateModel ( const idRenderModel *source, const char* 
 				{
 					newSurf.geometry->indexes[j] = surf->geometry->indexes[j];
 				}
+				// copy the bounds, too
+                newSurf.geometry->bounds[0] = surf->geometry->bounds[0];
+                newSurf.geometry->bounds[1] = surf->geometry->bounds[1];
 			}
 			else
 			{
@@ -451,6 +454,8 @@ idRenderModel * Lode::DuplicateModel ( const idRenderModel *source, const char* 
 		}
 	}
 	hModel->FinishSurfaces();
+
+	// TODO: copy the bounds, too
 
 	gameLocal.Printf ("LODE %s: Duplicated model for %s with %i surfaces, %i verts and %i indexes.\n", GetName(), snapshotName, numSurfaces, numVerts, numIndexes );
 
@@ -788,7 +793,10 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 		// make a copy, but without sharing the data
 		// TODO: need to use a distinc name here?
 		gameLocal.Printf( "LODE %s: Duplicating model for %s.\n", GetName(), LodeClass.classname.c_str() );
-		LodeClass.hModel = DuplicateModel( ent->GetRenderEntity()->hModel, LodeClass.classname.c_str(), false );
+		//LodeClass.hModel = DuplicateModel( ent->GetRenderEntity()->hModel, LodeClass.classname.c_str(), false );
+		LodeClass.hModel = ent->GetRenderEntity()->hModel;
+		// prevent a double free
+		ent->GetRenderEntity()->hModel = NULL;
 		LodeClass.classname = FUNC_DUMMY;
 	}
 
@@ -1694,6 +1702,10 @@ bool Lode::SpawnEntity( const int idx, const bool managed )
 				if ( r->hModel )
 				{
 					r->bounds = r->hModel->Bounds( r );
+					gameLocal.Printf("LODE %s: Bounds of new model: %s.\n", GetName(), r->bounds.ToString() );
+					gameLocal.Printf("LODE %s: Bounds of old model: %s.\n", GetName(), lclass->hModel->Bounds().ToString() );
+					// overwrite wrong bounds with correct version?
+					r->bounds = lclass->hModel->Bounds();
 				}
 				else
 				{
