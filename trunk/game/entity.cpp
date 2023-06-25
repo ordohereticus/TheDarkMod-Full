@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3982 $
- * $Date: 2010-06-25 02:15:02 -0400 (Fri, 25 Jun 2010) $
+ * $Revision: 3983 $
+ * $Date: 2010-06-25 05:38:20 -0400 (Fri, 25 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 3982 2010-06-25 06:15:02Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 3983 2010-06-25 09:38:20Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2027,10 +2027,43 @@ void idEntity::SetColor( const idVec4 &color ) {
 /*
 ================
 idEntity::SetAlpha
+
+Tels: Just set the alpha value
 ================
 */
 void idEntity::SetAlpha( const float alpha ) {
 	renderEntity.shaderParms[ SHADERPARM_ALPHA ]	= alpha;
+	UpdateVisuals();
+}
+
+/*
+================
+idEntity::SetAlpha
+
+Tels: Set alpha including on our children
+================
+*/
+void idEntity::SetAlpha( const float alpha, const bool bound ) {
+
+	renderEntity.shaderParms[ SHADERPARM_ALPHA ]	= alpha;
+
+	if (!bound)
+	{
+		return;
+	}
+
+	// show our bind-children
+	idEntity *ent;
+	idEntity *next;
+
+	for( ent = GetNextTeamEntity(); ent != NULL; ent = next ) 
+	{
+		next = ent->GetNextTeamEntity();
+		if ( ent->GetBindMaster() == this ) 
+		{
+			ent->SetAlpha( alpha );
+		}
+	}
 	UpdateVisuals();
 }
 

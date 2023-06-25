@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 3982 $
- * $Date: 2010-06-25 02:15:02 -0400 (Fri, 25 Jun 2010) $
+ * $Revision: 3983 $
+ * $Date: 2010-06-25 05:38:20 -0400 (Fri, 25 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -450,6 +450,10 @@ public:
 	 * Tels: Only set the alpha channel to fade in/out
 	 */
 	virtual void			SetAlpha( const float alpha );
+	/**
+	 * Tels: Same as SetAlpha(); but sends bound children, too, if doTeam is true
+	 */
+	virtual void			SetAlpha( const float alpha, const bool doTeam );
 
 	/**
 	 * greebo: Returns the light quotient for this entity, a value determined by the 
