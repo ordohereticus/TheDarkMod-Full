@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+ * $Revision: 4026 $
+ * $Date: 2010-07-08 09:46:32 -0400 (Thu, 08 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,12 +10,15 @@
 #ifndef _HTTP_REQUEST_H_
 #define _HTTP_REQUEST_H_
 
-#include "XmlDocument.h"
 #include <boost/shared_ptr.hpp>
 
 class CHttpConnection;
 
+#include "../pugixml/pugixml.hpp"
 typedef void CURL;
+
+// Shared_ptr typedef
+typedef boost::shared_ptr<pugi::xml_document> XmlDocumentPtr;
 
 /**
  * greebo: An object representing a single HttpRequest, holding 
@@ -65,7 +68,7 @@ public:
 	std::string GetResultString();
 
 	// Returns the result as XML document
-	xml::Document GetResultXml();
+	XmlDocumentPtr GetResultXml();
 };
 typedef boost::shared_ptr<CHttpRequest> CHttpRequestPtr;
 

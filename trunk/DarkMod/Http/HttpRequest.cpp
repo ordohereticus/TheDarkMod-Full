@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+ * $Revision: 4026 $
+ * $Date: 2010-07-08 09:46:32 -0400 (Thu, 08 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HttpRequest.cpp 4026 2010-07-08 13:46:32Z greebo $", init_version);
 
 #include "HttpRequest.h"
 #include "HttpConnection.h"
@@ -78,9 +78,13 @@ std::string CHttpRequest::GetResultString()
 	return _buffer.empty() ? "" : std::string(&_buffer.front());
 }
 
-xml::Document CHttpRequest::GetResultXml()
+XmlDocumentPtr CHttpRequest::GetResultXml()
 {
-	return xml::Document::CreateFromString(GetResultString());
+	XmlDocumentPtr doc(new pugi::xml_document);
+	
+	doc->load(GetResultString().c_str());
+
+	return doc;
 }
 
 size_t CHttpRequest::WriteMemoryCallback(void *ptr, size_t size, size_t nmemb, CHttpRequest* self)

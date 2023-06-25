@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4024 $
- * $Date: 2010-07-07 23:57:03 -0400 (Wed, 07 Jul 2010) $
+ * $Revision: 4026 $
+ * $Date: 2010-07-08 09:46:32 -0400 (Thu, 08 Jul 2010) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4024 2010-07-08 03:57:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4026 2010-07-08 13:46:32Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -515,15 +515,15 @@ void idGameLocal::Init( void ) {
 
 	req->Perform();
 
-	xml::Document result = req->GetResultXml();
+	XmlDocumentPtr doc = req->GetResultXml();
 
-	xml::NodeList nodes = result.FindXPath("//tdm/currentVersion");
+	pugi::xpath_node node = doc->select_single_node("//tdm/currentVersion");
 
-	if (!nodes.empty())
+	if (node)
 	{
-		int major = atoi(nodes[0].GetAttributeValue("major").c_str());
-		int minor = atoi(nodes[0].GetAttributeValue("minor").c_str());
-
+		int major = node.node().attribute("major").as_int();
+		int minor = node.node().attribute("minor").as_int();
+		
 		Printf("Most recent TDM Version is: %d.%02d\n", major, minor);
 
 		switch (CompareVersion(TDM_VERSION_MAJOR, TDM_VERSION_MINOR, major, minor))
