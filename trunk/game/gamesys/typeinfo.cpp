@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4283 $
+ * $Date: 2010-11-18 23:52:24 -0500 (Thu, 18 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -17,7 +17,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: typeinfo.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: typeinfo.cpp 4283 2010-11-19 04:52:24Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -371,10 +371,6 @@ bool IsRenderHandleVariable( const char *varName, const char *varType, const cha
 		}
 	} else if ( idStr::Icmp( scope, "idProjectile" ) == 0 ) {
 		if ( idStr::Icmp( varName, "lightDefHandle" ) == 0 ) {
-			return true;
-		}
-	} else if ( idStr::Icmp( scope, "idBFGProjectile" ) == 0 ) {
-		if ( idStr::Icmp( varName, "secondModelDefHandle" ) == 0 ) {
 			return true;
 		}
 	} else if ( idStr::Icmp( scope, "idSmokeParticles" ) == 0 ) {

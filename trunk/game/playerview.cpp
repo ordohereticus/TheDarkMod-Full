@@ -1,9 +1,9 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 4226 $
-* $Date: 2010-10-07 13:00:44 -0400 (Thu, 07 Oct 2010) $
-* $Author: jcdenton $
+* $Revision: 4283 $
+* $Date: 2010-11-18 23:52:24 -0500 (Thu, 18 Nov 2010) $
+* $Author: tels $
 *
 ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 4226 2010-10-07 17:00:44Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 4283 2010-11-19 04:52:24Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -51,9 +51,7 @@ m_postProcessManager()			// Invoke the postprocess Manager Constructor - J.C.Den
 	berserkMaterial = declManager->FindMaterial( "textures/decals/berserk" );
 	irGogglesMaterial = declManager->FindMaterial( "textures/decals/irblend" );
 	bloodSprayMaterial = declManager->FindMaterial( "textures/decals/bloodspray" );
-	bfgMaterial = declManager->FindMaterial( "textures/decals/bfgvision" );
 	lagoMaterial = declManager->FindMaterial( LAGO_MATERIAL, false );
-	bfgVision = false;
 
 	dvFinishTime = 0;
 	kickFinishTime = 0;
@@ -114,14 +112,12 @@ void idPlayerView::Save( idSaveGame *savefile ) const {
 	savefile->WriteMaterial( dvMaterial );
 	savefile->WriteInt( kickFinishTime );
 	savefile->WriteAngles( kickAngles );
-	savefile->WriteBool( bfgVision );
 
 	savefile->WriteMaterial( tunnelMaterial );
 	savefile->WriteMaterial( armorMaterial );
 	savefile->WriteMaterial( berserkMaterial );
 	savefile->WriteMaterial( irGogglesMaterial );
 	savefile->WriteMaterial( bloodSprayMaterial );
-	savefile->WriteMaterial( bfgMaterial );
 	savefile->WriteFloat( lastDamageTime );
 
 	savefile->WriteVec4( fadeColor );
@@ -168,14 +164,12 @@ void idPlayerView::Restore( idRestoreGame *savefile ) {
 	savefile->ReadMaterial( dvMaterial );
 	savefile->ReadInt( kickFinishTime );
 	savefile->ReadAngles( kickAngles );			
-	savefile->ReadBool( bfgVision );
 
 	savefile->ReadMaterial( tunnelMaterial );
 	savefile->ReadMaterial( armorMaterial );
 	savefile->ReadMaterial( berserkMaterial );
 	savefile->ReadMaterial( irGogglesMaterial );
 	savefile->ReadMaterial( bloodSprayMaterial );
-	savefile->ReadMaterial( bfgMaterial );
 	savefile->ReadFloat( lastDamageTime );
 
 	savefile->ReadVec4( fadeColor );
@@ -221,7 +215,6 @@ void idPlayerView::ClearEffects() {
 	}
 
 	fadeTime = 0;
-	bfgVision = false;
 }
 
 /*
@@ -584,11 +577,6 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 		renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, berserkMaterial );
 		}
 		}*/
-
-		if ( bfgVision ) {
-			renderSystem->SetColor4( 1.0f, 1.0f, 1.0f, 1.0f );
-			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, bfgMaterial );
-		}
 
 	}
 

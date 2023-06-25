@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4281 $
- * $Date: 2010-11-18 22:58:55 -0500 (Thu, 18 Nov 2010) $
+ * $Revision: 4283 $
+ * $Date: 2010-11-18 23:52:24 -0500 (Thu, 18 Nov 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4281 2010-11-19 03:58:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4283 2010-11-19 04:52:24Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2276,7 +2276,6 @@ void idGameLocal::DumpOggSounds( void ) {
 					if (	soundName.Find( "weapon", false ) != -1 ||
 							soundName.Find( "gun", false ) != -1 ||
 							soundName.Find( "bullet", false ) != -1 ||
-							soundName.Find( "bfg", false ) != -1 ||
 							soundName.Find( "plasma", false ) != -1 ) {
 						weaponSounds.AddUnique( soundName );
 						continue;
