@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4118 $
- * $Date: 2010-08-01 05:20:00 -0400 (Sun, 01 Aug 2010) $
+ * $Revision: 4119 $
+ * $Date: 2010-08-01 08:25:28 -0400 (Sun, 01 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4118 2010-08-01 09:20:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4119 2010-08-01 12:25:28Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -141,7 +141,7 @@ const idEventDef EV_SetDroppable( "setDroppable", "d" );
 // tels: set noShadow on this entity to the given argument (true/false)
 const idEventDef EV_NoShadows( "noShadows", "d" );
 
-// tels: Find all lights in the same PVS, then returns their sum.
+// tels: Find all lights in the player PVS, then returns their sum.
 const idEventDef EV_GetLightInPVS("getLightInPVS", "", 'v');
 
 //===============================================================
@@ -10812,21 +10812,22 @@ void idEntity::Event_GetLightInPVS( void )
 	idVec3 local_light;
 	idVec3 local_light_radius;
 
-	int areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
+// 	int areaNum = gameRenderWorld->PointInArea( GetPhysics()->GetOrigin() );
 
-	// Find all light entities, then call PointInArea on them to check
-	// if they are in the same area:
+	// Find all light entities, then check if they are in the same area as the player:
 
 	for( idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next() )
 	{
-		if ( !ent->IsType( idLight::Type ) ) {
+		if ( !ent || !ent->IsType( idLight::Type ) ) {
 			continue;
 		}
 
 		idLight* light = static_cast<idLight*>( ent );
 
 		// light is in the same area?
-		if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
+		// fix bug #2326:
+		if ( gameLocal.InPlayerPVS( light ) ) {
+		//if ( areaNum == gameRenderWorld->PointInArea( light->GetLightOrigin() ) ) {
 			light->GetColor( local_light );
 			// multiple the light color by the radius to get a fake "light energy":
 			light->GetRadius( local_light_radius );
