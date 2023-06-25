@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3985 $
- * $Date: 2010-06-27 02:27:49 -0400 (Sun, 27 Jun 2010) $
+ * $Revision: 3986 $
+ * $Date: 2010-06-27 02:42:20 -0400 (Sun, 27 Jun 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 3985 2010-06-27 06:27:49Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 3986 2010-06-27 06:42:20Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1619,9 +1619,9 @@ void idStaticEntity::Spawn( void ) {
 	m_DistCheckInterval = (int) (1000.0f * spawnArgs.GetFloat( "dist_check_period", "0" ));
 
 	// a quick check for LOD, to avoid looking at all lod_x_distance spawnargs:
+	m_bDistDependent = m_DistCheckInterval != 0;
 
 	float fHideDistance = spawnArgs.GetFloat( "hide_distance", "0.0" );
-	m_bDistDependent = m_DistCheckInterval != 0 || fHideDistance != 0;
 
 	if (m_bDistDependent)
 	{
