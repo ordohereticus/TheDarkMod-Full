@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4129 $
- * $Date: 2010-08-06 09:34:12 -0400 (Fri, 06 Aug 2010) $
+ * $Revision: 4133 $
+ * $Date: 2010-08-10 22:08:10 -0400 (Tue, 10 Aug 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,6 +66,9 @@ struct lode_class_t {
 	idStr					classname;		//!< Entity class to respawn entities
 	idList< int >			skins;			//!< index into skins array
 	idRenderModel*			hModel;			//!< Used to share data between many entities with the same model
+											//!< (f.i. when you turn a brush inside DR into a idStaticEntity and
+											//!< use it as template)
+	idPhysics_StaticMulti*	physicsObj;		//!< Used to share data between many entities with the same model
 											//!< (f.i. when you turn a brush inside DR into a idStaticEntity and
 											//!< use it as template)
 	idStr					modelname;		//!< To load the rendermodel for combining it w/o spawning
