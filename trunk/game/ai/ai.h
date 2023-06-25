@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4294 $
- * $Date: 2010-11-19 10:22:14 -0500 (Fri, 19 Nov 2010) $
- * $Author: grayman $
+ * $Revision: 4336 $
+ * $Date: 2010-11-26 03:38:27 -0500 (Fri, 26 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -479,6 +479,9 @@ public:
 	// GetUp is used both for getting up from sitting or sleeping
 	void GetUp();
 
+private:
+
+	float				m_oldVisualAcuity;	// Tels: fixes 2408
 
 public:
 	/**

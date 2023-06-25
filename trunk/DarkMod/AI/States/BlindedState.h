@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 4336 $
+ * $Date: 2010-11-26 03:38:27 -0500 (Fri, 26 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -23,7 +23,7 @@ class BlindedState :
 {
 private:
 	int _endTime;
-	float _oldAcuity;
+	float _oldAcuity;	// to restore visual acuity
 
 public:
 	// Get the name of this state

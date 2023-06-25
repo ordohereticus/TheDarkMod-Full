@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4336 $
+ * $Date: 2010-11-26 03:38:27 -0500 (Fri, 26 Nov 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4336 2010-11-26 08:38:27Z tels $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -383,6 +383,8 @@ void State::OnVisualStim(idEntity* stimSource)
 		// Owner might not be initialised, serviceEvents is called after Mind::Think()
 		return;
 	}
+
+	// gameLocal.Printf("Visual stim for %s, visual acuity %0.2f\n", owner->GetName(), owner->GetAcuity("vis") );
 
 	// Don't respond to NULL entities or when dead/knocked out/blind and no enemy in sight
 	if (stimSource == NULL || 
