@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4419 $
- * $Date: 2011-01-11 01:20:57 -0500 (Tue, 11 Jan 2011) $
+ * $Revision: 4421 $
+ * $Date: 2011-01-11 01:24:56 -0500 (Tue, 11 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Sort all the generated entities into multiple lists, keyed on a hash-key t
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4419 2011-01-11 06:20:57Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4421 2011-01-11 06:24:56Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -832,6 +832,11 @@ float Lode::AddClassFromEntity( idEntity *ent, const int iEntScore )
 				if (end - start > 0)
 				{
 					idStr skin = random_skin.Mid(start, end - start);
+					// "''" => "" (default skin)
+					if (skin == "''")
+					{
+						skin = "";
+					}
 					int skinIdx = AddSkin( &skin );
 					gameLocal.Printf( "LODE %s: Adding random skin '%s' (idx %i) to class.\n", GetName(), skin.c_str(), skinIdx );
 					LodeClass.skins.Append ( skinIdx );
