@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4032 $
+ * $Date: 2010-07-09 02:54:21 -0400 (Fri, 09 Jul 2010) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: bounds.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: bounds.cpp 4032 2010-07-09 06:54:21Z tels $", init_version);
 
 idBounds bounds_zero( vec3_zero, vec3_zero );
 
@@ -408,3 +408,13 @@ void idBounds::ToPoints( idVec3 points[8] ) const {
 		points[i][2] = b[(i>>2)&1][2];
 	}
 }
+
+/*
+============
+idBounds::ToString
+============
+*/
+const char * idBounds::ToString( const int precision ) const {
+	return idStr( b[0].ToString( precision ) ) + " -> " + idStr( b[1].ToString( precision ) );
+}
+

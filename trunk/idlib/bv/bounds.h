@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3997 $
- * $Date: 2010-06-30 00:58:51 -0400 (Wed, 30 Jun 2010) $
+ * $Revision: 4032 $
+ * $Date: 2010-07-09 02:54:21 -0400 (Fri, 09 Jul 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -95,6 +95,8 @@ public:
 
 	void			ToPoints( idVec3 points[8] ) const;
 	idSphere		ToSphere( void ) const;
+
+	const char *		ToString( const int precision = 2 ) const;
 
 	void			AxisProjection( const idVec3 &dir, float &min, float &max ) const;
 	void			AxisProjection( const idVec3 &origin, const idMat3 &axis, const idVec3 &dir, float &min, float &max ) const;
