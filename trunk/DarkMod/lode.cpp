@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4237 $
- * $Date: 2010-10-12 03:50:21 -0400 (Tue, 12 Oct 2010) $
+ * $Revision: 4238 $
+ * $Date: 2010-10-12 04:35:06 -0400 (Tue, 12 Oct 2010) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -58,7 +58,7 @@ TODO: add a "entity" field (int) to the offsets list, so we avoid having to
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lode.cpp 4237 2010-10-12 07:50:21Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: lode.cpp 4238 2010-10-12 08:35:06Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1505,16 +1505,26 @@ void Lode::PrepareEntities( void )
 
 	for (int i = 0; i < m_Classes.Num(); i++)
 	{
-		if (m_Classes[i].pseudo && m_Classes[i].hModel)
+		if (m_Classes[i].pseudo)
 		{
-			renderModelManager->FreeModel( m_Classes[i].hModel );
-			m_Classes[i].hModel = NULL;
+			// remove the render model
+		   	if (m_Classes[i].hModel)
+			{
+				renderModelManager->FreeModel( m_Classes[i].hModel );
+				m_Classes[i].hModel = NULL;
+			}
+			// remove the physics object
+			if (m_Classes[i].physicsObj)
+			{
+				delete m_Classes[i].physicsObj;
+				m_Classes[i].physicsObj = NULL;
+			}
 			continue;
 		}
 		newClasses.Append ( m_Classes[i] );
 	}
 	m_Classes.Swap( newClasses );		// copy over
-	newClasses.Clear();					// remove
+	newClasses.Clear();					// remove old entries (including pseudoclasses)
 
 	// random shuffle the class indexes around
 	// also calculate the per-class seed:
@@ -1526,7 +1536,7 @@ void Lode::PrepareEntities( void )
 	}
 
 	// shuffle all entries, but use the second generator for a "predictable" class sequence
-	// that does not change when the menu changes
+	// that does not change when the menui setting changes
 	m_iSeed = RandomSeed();
 	s = m_Classes.Num();
 	for (int i = 0; i < s; i++)
@@ -1788,6 +1798,7 @@ void Lode::PrepareEntities( void )
 								descr = "plastic";
 								break;
 							case SURFTYPE_15:
+								// TODO: only use the first word (until the first space)
 								descr = mat->GetDescription();
 								break;
 							default:
