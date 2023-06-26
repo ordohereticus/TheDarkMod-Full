@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4654 $
- * $Date: 2011-03-04 15:56:36 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4667 $
+ * $Date: 2011-03-08 10:38:29 -0500 (Tue, 08 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4654 2011-03-04 20:56:36Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4667 2011-03-08 15:38:29Z grayman $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -232,7 +232,7 @@ void MovementSubsystem::NextPath()
 	idPathCorner* path = memory.currentPath.GetEntity();
 
 	// The current path gets stored in lastPath (grayman #2345 - but only if it's a path_corner)
-	if (idStr::Cmp(path->spawnArgs.GetString("classname"), "path_corner") == 0)
+	if ((path == NULL) || (idStr::Cmp(path->spawnArgs.GetString("classname"), "path_corner") == 0)) // grayman #2683 - check for null
 	{
 		memory.lastPath = path;
 	}

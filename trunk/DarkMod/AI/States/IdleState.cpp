@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4211 $
- * $Date: 2010-09-30 09:08:53 -0400 (Thu, 30 Sep 2010) $
- * $Author: angua $
+ * $Revision: 4667 $
+ * $Date: 2011-03-08 10:38:29 -0500 (Tue, 08 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 4211 2010-09-30 13:08:53Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 4667 2011-03-08 15:38:29Z grayman $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -219,7 +219,10 @@ void IdleState::InitialiseMovement(idAI* owner)
 		memory.idleYaw = owner->GetCurrentYaw();
 	}
 
-	owner->movementSubsystem->StartPatrol();
+	if (owner->spawnArgs.GetBool("patrol", "1")) // grayman #2683 - only start patrol if you're supposed to 
+	{
+		owner->movementSubsystem->StartPatrol();
+	}
 
 	// Check if the owner has patrol routes set
 	idPathCorner* path = memory.currentPath.GetEntity();
