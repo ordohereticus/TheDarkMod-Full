@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4652 $
+ * $Date: 2011-03-04 13:51:27 -0500 (Fri, 04 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -1041,7 +1041,7 @@ private:
 	void					ChangeWindowTitleAndIcon();
 
 public:
-	ID_INLINE idList<char> & GetLightgemRenderBuffer(void) const
+	ID_INLINE idList<char> &GetLightgemRenderBuffer(void)
 	{
 		return m_lightGem.GetLightgemRenderBuffer();
 	}
