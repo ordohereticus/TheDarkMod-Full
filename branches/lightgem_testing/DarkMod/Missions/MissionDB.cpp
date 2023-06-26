@@ -1,19 +1,19 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4385 $
- * $Date: 2010-12-25 20:55:28 -0500 (Sat, 25 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionDB.cpp 4385 2010-12-26 01:55:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionDB.cpp 4767 2011-04-10 15:28:50Z stgatilov $", init_version);
 
 #include "MissionDB.h"
-#include "MissionInfoDecl.h"
+#include "ModInfoDecl.h"
 #include "MissionManager.h"
 
 CMissionDB::CMissionDB()
@@ -53,7 +53,7 @@ void CMissionDB::ReloadMissionInfoFile()
 			break;
 		}
 
-		if (token.type == TT_NAME && idStr::Cmp(token.c_str(), CMissionInfoDecl::TYPE_NAME) == 0)
+		if (token.type == TT_NAME && idStr::Cmp(token.c_str(), CModInfoDecl::TYPE_NAME) == 0)
 		{
 			if (!src.ReadToken(&token))
 			{
@@ -62,10 +62,10 @@ void CMissionDB::ReloadMissionInfoFile()
 			}
 
 			// Found a tdm_missioninfo declaration
-			CMissionInfoDeclPtr decl(new CMissionInfoDecl);
+			CModInfoDeclPtr decl(new CModInfoDecl);
 
 			std::pair<MissionInfoMap::iterator, bool> result = _missionInfo.insert(
-				MissionInfoMap::value_type(token.c_str(), CMissionInfoPtr(new CMissionInfo(token.c_str(), decl))));
+				MissionInfoMap::value_type(token.c_str(), CModInfoPtr(new CModInfo(token.c_str(), decl))));
 
 			if (!result.second)
 			{
@@ -121,7 +121,7 @@ void CMissionDB::Save()
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Done saving mission info declarartions\r");
 }
 
-const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
+const CModInfoPtr& CMissionDB::GetModInfo(const idStr& name)
 {
 	MissionInfoMap::iterator i = _missionInfo.find(name.c_str());
 	
@@ -131,8 +131,8 @@ const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
 	}
 
 	// Create a new one
-	CMissionInfoDeclPtr decl(new CMissionInfoDecl);
-	CMissionInfoPtr missionInfo(new CMissionInfo(name, decl));
+	CModInfoDeclPtr decl(new CModInfoDecl);
+	CModInfoPtr missionInfo(new CModInfo(name, decl));
 
 	std::pair<MissionInfoMap::iterator, bool> result = _missionInfo.insert(
 		MissionInfoMap::value_type(name.c_str(), missionInfo));
@@ -143,7 +143,7 @@ const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
 	return result.first->second;
 }
 
-bool CMissionDB::MissionInfoExists(const idStr& name)
+bool CMissionDB::ModInfoExists(const idStr& name)
 {
 	return _missionInfo.find(name.c_str()) != _missionInfo.end();
 }

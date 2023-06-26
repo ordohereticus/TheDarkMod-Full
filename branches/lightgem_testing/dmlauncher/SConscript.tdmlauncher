@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # The Dark Mod Launcher build script
 # Adapted from id's game sconscript
 # Author: greebo
@@ -6,9 +8,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4409 $
-#* $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
-#* $Author: greebo $
+#* $Revision: 4767 $
+#* $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+#* $Author: stgatilov $
 #*
 #***************************************************************************
 

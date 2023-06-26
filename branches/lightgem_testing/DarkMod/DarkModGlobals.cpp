@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4767 2011-04-10 15:28:50Z stgatilov $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -32,7 +32,6 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4650 2011-03
 #include "sndPropLoader.h"
 #include "sndProp.h"
 #include "Relations.h"
-#include "shop.h"
 #include "ModMenu.h"
 #include "../game/ai/ai.h"
 #include "sourcehook/sourcehook.h"

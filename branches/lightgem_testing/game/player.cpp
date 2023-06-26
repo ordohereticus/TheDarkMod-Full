@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4767 2011-04-10 15:28:50Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -27,7 +27,7 @@ static bool init_version = FileVersionList("$Id: player.cpp 4472 2011-01-25 01:4
 #include "../DarkMod/MissionData.h"
 #include "../DarkMod/Inventory/Inventory.h"
 #include "../DarkMod/Inventory/WeaponItem.h"
-#include "../DarkMod/shop.h"
+#include "../DarkMod/Shop/Shop.h"
 
 /*
 ===============================================================================
@@ -1377,8 +1377,19 @@ void idPlayer::SetupInventory()
 			}
 		}
 	}
+
+	// Carry over persistent items from the previous map
+	AddPersistentInventoryItems();
 }
 
+void idPlayer::AddPersistentInventoryItems()
+{
+	// Copy all persistent items into our own inventory
+	Inventory()->CopyPersistentItemsFrom(*gameLocal.persistentPlayerInventory, this);
+
+	// We've changed maps, let's respawn our item entities where needed, put them to our own position
+	Inventory()->RestoreItemEntities(GetPhysics()->GetOrigin());
+}
 
 /*
 ==============
@@ -11050,6 +11061,17 @@ void idPlayer::Event_Unpausegame()
 
 void idPlayer::Event_MissionSuccess()
 {
+	// Clear the persistent inventory, it might have old data from the previous mission
+	gameLocal.persistentPlayerInventory->Clear();
+
+	// Save loot info
+
+	// Save current inventory into the persistent one
+	Inventory()->CopyTo(*gameLocal.persistentPlayerInventory);
+	
+	// Save the item entities of all persistent items
+	gameLocal.persistentPlayerInventory->SaveItemEntities(true);
+	
 	// Set the gamestate
 	gameLocal.SetMissionResult(MISSION_COMPLETE);
 	gameLocal.sessionCommand = "disconnect";

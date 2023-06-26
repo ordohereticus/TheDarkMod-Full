@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4767 2011-04-10 15:28:50Z stgatilov $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1405,7 +1405,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 							gameLocal.Error("Cannot spawn %s - no such entityDef", EntClass.c_str() );
 						}
 						gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
-						gameLocal.Printf("Attaching '%s' (%s) as '%s' to '%s'\n", EntClass.c_str(), spawnedEntity->GetName(), AttName.c_str(), AttPos.c_str() );
+						// gameLocal.Printf("Attaching '%s' (%s) as '%s' to '%s'\n", EntClass.c_str(), spawnedEntity->GetName(), AttName.c_str(), AttPos.c_str() );
 
 						ent->Attach(spawnedEntity, AttPos, AttName);
 					}
@@ -1432,7 +1432,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						AttName = AttName.Left( spcind );
 					}
 
-					gameLocal.Warning ( "Picking up '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
+					// gameLocal.Warning ( "Picking up '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
 
 					idStr Spawnarg = "pickup_"; Spawnarg.Append( name );
 					// ent is idEntity, but also an idAnimatedEntity (whoever came up with that distinction?)
@@ -1447,7 +1447,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 
 						// gameLocal.Warning ( "Found entity %s", attTarget->name.c_str() );
 
-						gameLocal.Printf ( "Attaching '%s' as '%s' to '%s' (in pickup)\n", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
+						// gameLocal.Printf ( "Attaching '%s' as '%s' to '%s' (in pickup)\n", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
 						// first get the origin and rotation of the entity
 						idVec3 origin = attTarget->GetPhysics()->GetOrigin();
 						idAngles ang = attTarget->GetPhysics()->GetAxis().ToAngles();

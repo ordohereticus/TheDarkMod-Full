@@ -2,9 +2,9 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3879 $
- * $Date: 2010-04-16 11:05:16 -0400 (Fri, 16 Apr 2010) $
- * $Author: greebo $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -329,6 +329,9 @@ public:
 
 	// TRUE when the AI is currently trying to resolve a block
 	bool resolvingMovementBlock;
+
+	// grayman #2712 - last door handled
+	idEntityPtr<CFrobDoor> lastDoorHandled;
 
 	// Maps doors to info structures
 	typedef std::map<CFrobDoor*, DoorInfoPtr> DoorInfoMap;

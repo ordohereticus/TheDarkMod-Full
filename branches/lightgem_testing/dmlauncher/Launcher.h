@@ -5,9 +5,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 3778 $
- * $Date: 2010-01-02 23:05:48 -0500 (Sat, 02 Jan 2010) $
- * $Author: crispy $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  *************************************************************************/
 
@@ -60,6 +60,9 @@ private:
 	// Returns the path to Steam.exe if the engine executable we're using is running on Steam
 	// The member _engineExecutable must be set already when calling this method
 	fs::path FindSteamExecutable();
+
+	// Tries to remove as many ../ and ./ from the given path as possible. Only works for absolute input paths
+	static fs::path NormalisePath(const fs::path& p);
 };
 
 #endif /* _LAUNCHER_H_ */

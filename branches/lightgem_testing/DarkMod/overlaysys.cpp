@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1892 $
- * $Date: 2007-12-25 06:25:58 -0500 (Tue, 25 Dec 2007) $
- * $Author: tels $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: overlaysys.cpp 1892 2007-12-25 11:25:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: overlaysys.cpp 4767 2011-04-10 15:28:50Z stgatilov $", init_version);
 
 #include "../game/game_local.h"
 
@@ -122,7 +122,10 @@ void COverlaySys::drawOverlays()
 	{
 		gui = oNode->Owner()->m_gui;
 		if(gui)
+		{
+			gameLocal.UpdateGUIScaling(gui);
 			gui->Redraw(gameLocal.realClientTime);
+		}
 		oNode = oNode->NextNode();
 	}
 }

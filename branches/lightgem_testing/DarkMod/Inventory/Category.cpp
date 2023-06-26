@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 4767 2011-04-10 15:28:50Z stgatilov $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
@@ -221,15 +221,15 @@ int CInventoryCategory::GetLoot(int& gold, int& jewelry, int& goods)
 
 		switch (item->GetLootType())
 		{
-			case CInventoryItem::LT_JEWELS:
+			case LOOT_JEWELS:
 				jewelry += item->GetValue();
 			break;
 
-			case CInventoryItem::LT_GOLD:
+			case LOOT_GOLD:
 				gold += item->GetValue();
 			break;
 
-			case CInventoryItem::LT_GOODS:
+			case LOOT_GOODS:
 				goods += item->GetValue();
 			break;
 			

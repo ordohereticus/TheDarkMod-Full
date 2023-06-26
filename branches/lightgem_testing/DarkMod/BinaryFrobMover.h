@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4658 $
- * $Date: 2011-03-05 12:50:35 -0500 (Sat, 05 Mar 2011) $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -82,8 +82,10 @@ public:
 	virtual void			FrobHeld(bool frobMaster, bool isFrobPeerAction = false, int holdTime = 0);
 	virtual void			FrobReleased(bool frobMaster, bool isFrobPeerAction = false, int holdTime = 0);
 
-	void					RegisterAI(idAI* ai); // grayman #1145
-		
+	void					RegisterAI(idAI* ai);	// grayman #1145
+	void					TellRegisteredUsers();	// grayman #1145
+	idVec3					GetRotationAxis();		// grayman #2691
+
 	/**
 	* This is the non-script version of GetOpen 
 	*/

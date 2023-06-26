@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4767 2011-04-10 15:28:50Z stgatilov $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -453,6 +453,24 @@ void CBinaryFrobMover::Lock(bool bMaster)
 	OnLock(bMaster);
 }
 
+void CBinaryFrobMover::TellRegisteredUsers()
+{
+	// grayman #1145 - remove this door's area number from each registered AI's forbidden area list
+
+	int numUsers = m_registeredAI.Num();
+
+	for (int i = 0 ; i < numUsers ; i++)
+	{
+		idAI* ai = m_registeredAI[i].GetEntity();
+		idAAS* aas = ai->GetAAS();
+		if (aas != NULL)
+		{
+			gameLocal.m_AreaManager.RemoveForbiddenArea(GetAASArea(aas),ai);
+		}
+	}
+	m_registeredAI.Clear(); // served its purpose, clear for next batch
+}
+
 void CBinaryFrobMover::Unlock(bool bMaster)
 {
 	if (!PreUnlock(bMaster)) {
@@ -469,20 +487,7 @@ void CBinaryFrobMover::Unlock(bool bMaster)
 	// Fire the event for the subclasses
 	OnUnlock(bMaster);
 
-	// grayman #1145 - remove this door's area number from each registered AI's forbidden area list
-
-	int numUsers = m_registeredAI.Num();
-
-	for (int i = 0 ; i < numUsers ; i++)
-	{
-		idAI* ai = m_registeredAI[i].GetEntity();
-		idAAS* aas = ai->GetAAS();
-		if (aas != NULL)
-		{
-			gameLocal.m_AreaManager.RemoveForbiddenArea(GetAASArea(aas),ai);
-		}
-	}
-	m_registeredAI.Clear(); // served its purpose, clear for next batch
+	TellRegisteredUsers(); // grayman #1145 - remove this door's area number from each registered AI's forbidden area list
 }
 
 void CBinaryFrobMover::ToggleLock()
@@ -884,9 +889,15 @@ float CBinaryFrobMover::GetMoveTimeFraction()
 
 int CBinaryFrobMover::GetAASArea(idAAS* aas)
 {
-	if (aas == NULL) return -1;
+	if (aas == NULL)
+	{
+		return -1;
+	}
 
-	if (GetPhysics() == NULL) return -1;
+	if (GetPhysics() == NULL)
+	{
+		return -1;
+	}
 
 	idClipModel *clipModel = GetPhysics()->GetClipModel();
 	if (clipModel == NULL)
@@ -999,6 +1010,8 @@ void CBinaryFrobMover::OnStartClose(bool wasOpen, bool bMaster)
 
 void CBinaryFrobMover::OnOpenPositionReached()
 {
+	TellRegisteredUsers(); // grayman #1145
+
 	// trigger our targets when completely opened, if set to do so
 	if (spawnArgs.GetBool("trigger_when_opened", "0"))
 	{
@@ -1280,4 +1293,11 @@ void CBinaryFrobMover::RegisterAI(idAI* ai)
 	idEntityPtr<idAI> aiPtr;
 	aiPtr = ai;
 	m_registeredAI.Append(aiPtr);
+}
+
+// grayman #2691 - get the axis of rotation
+
+idVec3 CBinaryFrobMover::GetRotationAxis()
+{
+	return m_Rotate.ToRotation().GetVec();
 }

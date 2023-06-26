@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4767 $
+ * $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -30,7 +30,7 @@
 
 // greebo: Defines the darkmod release version
 #define TDM_VERSION_MAJOR 1
-#define TDM_VERSION_MINOR 5
+#define TDM_VERSION_MINOR 6
 
 enum VersionCheckResult
 {
