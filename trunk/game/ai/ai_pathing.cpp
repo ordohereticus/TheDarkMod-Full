@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4739 $
- * $Date: 2011-03-31 12:41:32 -0400 (Thu, 31 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4752 $
+ * $Date: 2011-04-07 11:07:26 -0400 (Thu, 07 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4739 2011-03-31 16:41:32Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4752 2011-04-07 15:07:26Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -1292,6 +1292,7 @@ bool idAI::FindPathAroundObstacles(const idPhysics *physics, const idAAS *aas, c
 	path.startPosObstacle = NULL;
 	path.seekPosOutsideObstacles = seekPos;
 	path.seekPosObstacle = NULL;
+	path.doorObstacle = NULL;
 
 	if (aas == NULL) {
 		return true; // no AAS!

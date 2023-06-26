@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4747 $
- * $Date: 2011-04-06 01:02:29 -0400 (Wed, 06 Apr 2011) $
- * $Author: grayman $
+ * $Revision: 4752 $
+ * $Date: 2011-04-07 11:07:26 -0400 (Thu, 07 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4747 2011-04-06 05:02:29Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4752 2011-04-07 15:07:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6728,9 +6728,10 @@ int idGameLocal::DoResponseAction(const CStimPtr& stim, int numEntities, idEntit
 
 			idEntity *ent = srEntities[i];
 			idVec3 entitySpot = ent->GetPhysics()->GetOrigin();
-			if (!(ent->IsType(idAFAttachment::Type))) // is this an attached head?
+
+			if (stim->m_StimTypeId == ST_GAS) // grayman #2721 - only need the mouth location if this is a gas stim
 			{
-				if (stim->m_StimTypeId == ST_GAS) // grayman #2721 - only need the mouth location if this is a gas stim
+				if (!ent->IsType(idAFAttachment::Type)) // is this an attached head?
 				{
 					// no separate head entity, so find the mouth
 
