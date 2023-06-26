@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4809 $
- * $Date: 2011-04-20 05:20:06 -0400 (Wed, 20 Apr 2011) $
+ * $Revision: 4822 $
+ * $Date: 2011-04-28 12:58:36 -0400 (Thu, 28 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "ObjectiveCondition.h"
 #include "CampaignStatistics.h"
 
-static bool init_version = FileVersionList("$Id: ObjectiveCondition.cpp 4809 2011-04-20 09:20:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ObjectiveCondition.cpp 4822 2011-04-28 16:58:36Z greebo $", init_version);
 
 ObjectiveCondition::ObjectiveCondition() :
 	_type(INVALID_TYPE),
@@ -117,11 +117,11 @@ void ObjectiveCondition::ParseFromSpawnargs(const idDict& dict, int index)
 	{
 		_type = CHANGE_STATE;
 	}
-	else if (idStr::Cmp(type, "changevisibility") != 0)
+	else if (idStr::Cmp(type, "changevisibility") == 0)
 	{
 		_type = CHANGE_VISIBILITY;
 	}
-	else if (idStr::Cmp(type, "changemandatory") != 0)
+	else if (idStr::Cmp(type, "changemandatory") == 0)
 	{
 		_type = CHANGE_MANDATORY;
 	}
