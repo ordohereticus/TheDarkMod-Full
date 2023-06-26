@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4720 $
- * $Date: 2011-03-24 08:08:08 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4725 $
+ * $Date: 2011-03-25 03:05:58 -0400 (Fri, 25 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4720 2011-03-24 12:08:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4725 2011-03-25 07:05:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3429,7 +3429,8 @@ const char* idGameLocal::HandleGuiCommands( const char *menuCommand ) {
 int idGameLocal::AccumulateVideoLength(const char* videosStr)
 {
 	std::vector<std::string> parts;
-	boost::algorithm::split(parts, std::string(videosStr), boost::algorithm::is_any_of(";"));
+	std::string temp(videosStr);
+	boost::algorithm::split(parts, temp, boost::algorithm::is_any_of(";"));
 
 	if (parts.empty())
 	{
