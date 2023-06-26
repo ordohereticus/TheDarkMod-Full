@@ -9,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4828 $
-#* $Date: 2011-05-01 15:31:36 -0400 (Sun, 01 May 2011) $
+#* $Revision: 4857 $
+#* $Date: 2011-05-22 01:41:39 -0400 (Sun, 22 May 2011) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -144,6 +144,7 @@ Grabber.cpp \
 HidingSpotSearchCollection.cpp \
 AbsenceMarker.cpp \
 Intersection.cpp \
+IniFile.cpp \
 lightgem.cpp \
 liquid.cpp \
 MaterialConverter.cpp \
@@ -154,7 +155,6 @@ MultiStateMoverButton.cpp \
 MultiStateMoverPosition.cpp \
 overlaysys.cpp \
 PositionWithinRangeFinder.cpp \
-Profile.cpp \
 ProjectileResult.cpp \
 PVSToAASMapping.cpp \
 rdline.cpp \
