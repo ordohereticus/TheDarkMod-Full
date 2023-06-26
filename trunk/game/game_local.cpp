@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4801 $
- * $Date: 2011-04-17 05:33:09 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4814 $
+ * $Date: 2011-04-24 02:00:23 -0400 (Sun, 24 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4801 2011-04-17 09:33:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4814 2011-04-24 06:00:23Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3028,9 +3028,6 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 #endif
 
 	player = GetLocalPlayer();
-
-	// Check for any activated signals, and trigger them.
-	CheckSDKSignals();
 
 	// Handle any mission downloads in progress
 	m_DownloadManager->ProcessDownloads();
@@ -6785,21 +6782,6 @@ idEntity *idGameLocal::PlayerTraceEntity( void )
 	
 Quit:
 	return returnEnt;
-}
-
-void idGameLocal::AddSDKSignal(idEntity *oObject)
-{
-	if(oObject != NULL)
-		m_SignalList.Append(oObject);
-}
-
-void idGameLocal::CheckSDKSignals()
-{
-	int n = m_SignalList.Num();
-	for(int i = 0; i < n; i++)
-	{
-		m_SignalList[i]->CheckSDKSignal();
-	}
 }
 
 void idGameLocal::PauseGame( bool bPauseState )

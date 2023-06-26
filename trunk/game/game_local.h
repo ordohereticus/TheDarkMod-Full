@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4814 $
+ * $Date: 2011-04-24 02:00:23 -0400 (Sun, 24 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -934,12 +934,6 @@ public:
 	 */
 	CStimResponsePtr		FindStimResponse(int uniqueId);
 
-	/**
-	 * CheckSignal will call all entites registered for a signal actacvtion.
-	 */
-	void					CheckSDKSignals();
-	void					AddSDKSignal(idEntity *oObject);
-
 	// Checks the TDM version
 	void					CheckTDMVersion();
 
@@ -1035,8 +1029,6 @@ private:
 	};
 
 	idList<InterMissionTrigger>	m_InterMissionTriggers;
-
-	idList<idEntity *>		m_SignalList;
 
 	void					Clear( void );
 							// returns true if the entity shouldn't be spawned at all in this game type or difficulty level
