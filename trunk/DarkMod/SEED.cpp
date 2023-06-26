@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4557 $
- * $Date: 2011-02-05 10:00:13 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4558 $
+ * $Date: 2011-02-05 12:33:01 -0500 (Sat, 05 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4557 2011-02-05 15:00:13Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4558 2011-02-05 17:33:01Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -971,6 +971,12 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch )
 		 ent->IsType( idAFAttachment::Type ) ||
 		 ent->IsType( idAnimatedEntity::Type ) ||
 		 ent->IsType( idWeapon::Type ) ||
+		 ent->IsType( idFuncEmitter::Type ) ||
+		 ent->IsType( idFuncSmoke::Type ) ||
+		 ent->IsType( idFuncSplat::Type ) ||
+		 ent->IsType( idFuncPortal::Type ) ||
+		 ent->IsType( idFuncAASPortal::Type ) ||
+		 ent->IsType( idFuncAASObstacle::Type ) ||
 		 ent->IsType( idLight::Type ) )
 	{
 		SeedClass.nocombine = true;
