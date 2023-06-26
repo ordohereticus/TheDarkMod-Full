@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4542 $
- * $Date: 2011-02-03 15:56:03 -0500 (Thu, 03 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4544 $
+ * $Date: 2011-02-03 16:05:15 -0500 (Thu, 03 Feb 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4542 2011-02-03 20:56:03Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4544 2011-02-03 21:05:15Z stgatilov $", init_version);
 
 #include "ImageMapManager.h"
 
@@ -134,6 +134,8 @@ CImageMapManager::GetImageMap - Create a new map entry by name
 */
 int CImageMapManager::GetImageMap( idStr name ) {
 	imagemap_t map;
+	// stgatilov: initialize if you don't wont to get 0xCCCCCCCC pointer=)
+	map.img = NULL;
 
 	// convert for example "spots" into "textures/seed/spots.png"
 
