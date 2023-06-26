@@ -9,9 +9,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4619 $
-#* $Date: 2011-02-22 02:17:58 -0500 (Tue, 22 Feb 2011) $
-#* $Author: tels $
+#* $Revision: 4639 $
+#* $Date: 2011-02-27 04:09:56 -0500 (Sun, 27 Feb 2011) $
+#* $Author: greebo $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -125,7 +125,6 @@ darkmodHidingSpotTree.cpp \
 darkModLAS.cpp \
 decltdm_matinfo.cpp \
 declxdata.cpp \
-DifficultyMenu.cpp \
 DifficultyManager.cpp \
 DifficultySettings.cpp \
 DownloadMenu.cpp \
