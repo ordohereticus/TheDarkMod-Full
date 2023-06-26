@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4754 $
- * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4759 $
+ * $Date: 2011-04-09 05:19:52 -0400 (Sat, 09 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4759 2011-04-09 09:19:52Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -20,7 +20,7 @@ static bool init_version = FileVersionList("$Id: Inventory.cpp 4754 2011-04-08 1
 #include "../game/game_local.h"
 
 #include "../MissionData.h"
-#include "../DarkMod/shop.h" // grayman (#2376)
+#include "../DarkMod/Shop/Shop.h" // grayman (#2376)
 
 static idStr sLootTypeName[LOOT_COUNT] = 
 {
