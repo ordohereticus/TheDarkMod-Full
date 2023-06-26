@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4540 $
- * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4703 $
+ * $Date: 2011-03-20 21:53:21 -0400 (Sun, 20 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -58,8 +58,10 @@ private:
 	bool _wasLocked;
 	bool _doorInTheWay;
 	int _retryCount;
-	int _leaveQueue; // grayman #2345
+	int _leaveQueue;	// grayman #2345
+	int _leaveDoor;		// grayman #2700
 	bool _triedFitting; // grayman #2345
+	bool _wasRunning;	// grayman #2694
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;

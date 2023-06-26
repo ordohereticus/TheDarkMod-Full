@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4655 $
- * $Date: 2011-03-04 15:59:56 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4703 $
+ * $Date: 2011-03-20 21:53:21 -0400 (Sun, 20 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4655 2011-03-04 20:59:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4703 2011-03-21 01:53:21Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -48,7 +48,7 @@ const int 	MAX_AAS_WALL_EDGES			= 256;
 const int 	MAX_OBSTACLES				= 256;
 const int	MAX_PATH_NODES				= 256;
 const int 	MAX_OBSTACLE_PATH			= 64;
-const int	REUSE_DOOR_DELAY			= 10000; // grayman #2345 - wait before using a door again
+const int	REUSE_DOOR_DELAY			= 8000; // grayman #2345 - wait before using a door again
 
 typedef struct obstacle_s {
 	idVec2				bounds[2];
@@ -565,6 +565,11 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 
 			if (p_binaryFrobMover->IsType(CFrobDoor::Type))
 			{
+				if (!selfAI->m_bCanOperateDoors) // grayman #2691
+				{
+					continue; // ignore this door
+				}
+
 				if (p_binaryFrobMover->IsOpen())
 				{
 					if (self->IsType(idAI::Type))

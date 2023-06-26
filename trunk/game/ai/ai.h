@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4673 $
- * $Date: 2011-03-09 15:03:31 -0500 (Wed, 09 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4703 $
+ * $Date: 2011-03-20 21:53:21 -0400 (Sun, 20 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -1268,6 +1268,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// the last time where the AI did its thinking (used for physics)
 	int						m_lastThinkTime;
+
+	// grayman #2691 - this checks if a doorway is large enough to fit through when the door is fully open
+	bool					CanPassThroughDoor(CFrobDoor* frobDoor);
 
 	virtual void			Hide( void );
 	virtual void			Show( void );

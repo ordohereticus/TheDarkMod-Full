@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4687 $
- * $Date: 2011-03-10 11:29:30 -0500 (Thu, 10 Mar 2011) $
+ * $Revision: 4703 $
+ * $Date: 2011-03-20 21:53:21 -0400 (Sun, 20 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4687 2011-03-10 16:29:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4703 2011-03-21 01:53:21Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4838,6 +4838,41 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos )
 	}
 
 	move.obstacle = obstacle;
+}
+
+/*
+=====================
+idAI::CanPassThroughDoor - Is a doorway wide enough and tall enough for the AI to fit through? (grayman #2691) 
+=====================
+*/
+
+bool idAI::CanPassThroughDoor(CFrobDoor* frobDoor)
+{
+	idBounds door1Bounds = frobDoor->GetPhysics()->GetBounds();
+	idBounds myBounds = GetPhysics()->GetBounds();
+	idVec3 door1Size = door1Bounds.GetSize();
+	idVec3 mySize = myBounds.GetSize();
+	bool canPassDoor1 = (door1Size.z > mySize.z) && ((door1Size.x > mySize.x) || (door1Size.y > mySize.y));
+	if (canPassDoor1)
+	{
+		return true;
+	}
+
+	// The AI can't fit through the first door. Is this door part of a double door?
+	
+	CFrobDoor* doubleDoor = frobDoor->GetDoubleDoor();
+	if (doubleDoor != NULL)
+	{
+		idBounds door2Bounds = doubleDoor->GetPhysics()->GetBounds();
+		idVec3 door2Size = door2Bounds.GetSize();
+		bool canPassDoors = (door1Size.z > mySize.z) && (door2Size.z > mySize.z) && (((door1Size.x + door2Size.x) > mySize.x) || ((door1Size.y + door2Size.y) > mySize.y));
+		if (canPassDoors)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /*
