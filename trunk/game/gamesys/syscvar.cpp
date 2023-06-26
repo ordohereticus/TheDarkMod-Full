@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4648 $
- * $Date: 2011-03-04 11:46:51 -0500 (Fri, 04 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4649 $
+ * $Date: 2011-03-04 12:43:43 -0500 (Fri, 04 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4648 2011-03-04 16:46:51Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4649 2011-03-04 17:43:43Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -126,6 +126,7 @@ idCVar cv_tdm_fm_desc_file( "tdm_fm_desc_file", "darkmod.txt", CVAR_GUI, "(inter
 idCVar cv_tdm_fm_notes_file( "tdm_fm_notes_file", "readme.txt", CVAR_GUI, "(internal) The readme file name of FM packages.");
 idCVar cv_tdm_fm_current_file( "tdm_fm_current_file", "currentfm.txt", CVAR_GUI, "(internal) The file where the name of the currently installed FM is stored.");
 idCVar cv_tdm_fm_startingmap_file( "tdm_fm_startingmap_file", "startingmap.txt", CVAR_GUI, "(internal) The file where the name of the starting map of an FM is stored.");
+idCVar cv_tdm_fm_mapsequence_file( "tdm_fm_mapsequence_file", "tdm_mapsequence.txt", CVAR_GUI, "(internal) The file where the sequence of the map files is stored.");
 idCVar cv_tdm_fm_splashimage_file( "tdm_fm_splashimage_file", "install_splash.tga", CVAR_GUI, "(internal) The file to be used as splash screen for the installation GUI.");
 idCVar cv_tdm_fm_sync_config_files("tdm_fm_sync_config_files", "1", CVAR_BOOL | CVAR_ARCHIVE, "If true (1) the FM loader will sync DoomConfig.cfg files from the darkmod folder to the FM directory and back.");
 idCVar cv_tdm_fm_restart_delay("tdm_fm_restart_delay",	"0", CVAR_ARCHIVE | CVAR_INTEGER, "If non-zero, this is the timespan in milliseconds to wait between D3 restarts (to let the previous D3 process fully release all resources)." );
