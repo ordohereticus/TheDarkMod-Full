@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4548 $
- * $Date: 2011-02-04 04:55:36 -0500 (Fri, 04 Feb 2011) $
+ * $Revision: 4549 $
+ * $Date: 2011-02-04 08:28:05 -0500 (Fri, 04 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -26,7 +26,7 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4548 2011-02-04 09:55:36Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4549 2011-02-04 13:28:05Z tels $", init_version);
 
 #include "ModelGenerator.h"
 
@@ -133,7 +133,6 @@ int CModelGenerator::GetBacksideForSurface( const idRenderModel * source, const 
 		if (!surf || !surf->shader->ShouldCreateBackSides()) { continue; }
 
 		// check if they have the same shader
-		const idMaterial *shader = surf->shader;
 		if (surf->shader == firstShader)
 		{
 			// same shader, but has it the same size?
@@ -448,7 +447,8 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 	*/
 
 	/* ** 2 **
-	* Then check for each offset which model stage it uses, and count them.
+	* Then check for each offset which model stage it uses, and count them. If one of the
+	* offsets uses a model with a shadow casting surface, we need to call FinishSurfaces().
 	* Also correct out-of-bounds entries here.
 	*		O(N) where N the number of offsets.
 	*/
