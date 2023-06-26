@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4630 $
- * $Date: 2011-02-25 07:20:31 -0500 (Fri, 25 Feb 2011) $
+ * $Revision: 4642 $
+ * $Date: 2011-02-27 06:50:24 -0500 (Sun, 27 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -225,6 +225,11 @@ public:
 	* Get a pointer to the LOD data for this handle.
 	*/
 	const lod_data_t*		GetLODDataPtr( const unsigned int handle ) const;
+
+	/**
+	* Print memory usage info.
+    */
+	void					Print( void ) const;
 
 private:
 
