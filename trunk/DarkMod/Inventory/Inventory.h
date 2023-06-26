@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4743 $
- * $Date: 2011-04-05 05:02:44 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4744 $
+ * $Date: 2011-04-05 05:44:16 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -200,8 +200,9 @@ public:
 	/**
 	 * greebo: Copies all inventory items from the given sourceInventory that are marked
 	 * as persistent (i.e. have GetPersistentCount() > 0). No items are deleted from the source.
+	 * The given newOwner entity is set to the new owner for all the copied items.
 	 */
-	void					CopyPersistentItemsFrom(const CInventory& sourceInventory);
+	void					CopyPersistentItemsFrom(const CInventory& sourceInventory, idEntity* newOwner);
 
 	// Save the spawnargs of persistent items. This is needed for respawning them in the next mission
 	void					SaveItemEntities(bool persistentOnly = true);

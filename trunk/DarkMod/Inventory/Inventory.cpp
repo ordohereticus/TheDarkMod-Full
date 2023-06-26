@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4743 $
- * $Date: 2011-04-05 05:02:44 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4744 $
+ * $Date: 2011-04-05 05:44:16 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4743 2011-04-05 09:02:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4744 2011-04-05 09:44:16Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -81,7 +81,7 @@ void CInventory::CopyTo(CInventory& targetInventory)
 	}
 }
 
-void CInventory::CopyPersistentItemsFrom(const CInventory& sourceInventory)
+void CInventory::CopyPersistentItemsFrom(const CInventory& sourceInventory, idEntity* newOwner)
 {
 	// Cycle through all categories to add them
 	for (int c = 0; c < sourceInventory.GetNumCategories(); ++c)
@@ -104,6 +104,8 @@ void CInventory::CopyPersistentItemsFrom(const CInventory& sourceInventory)
 			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING(
 				"Adding persistent item %s to player inventory, quantity: %d.\r",
 				item->GetName().c_str(), item->GetPersistentCount());
+
+			item->SetOwner(newOwner);
 
 			// Add this item to our inventory
 			PutItem(item, item->Category()->GetName());

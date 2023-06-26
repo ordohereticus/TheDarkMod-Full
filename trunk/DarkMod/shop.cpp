@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4742 $
- * $Date: 2011-04-04 08:49:09 -0400 (Mon, 04 Apr 2011) $
+ * $Revision: 4744 $
+ * $Date: 2011-04-05 05:44:16 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4742 2011-04-04 12:49:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4744 2011-04-05 09:44:16Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -315,17 +315,11 @@ bool CShop::GetNothingForSale()
 	return itemsForSale.Num() == 0;
 }
 
-/**
- * Combine the purchased list and the starting list
- */
 ShopItemList CShop::GetPlayerStartingEquipment()
 {
 	return startingItems;
 }
 
-/**
- * Handle Main Menu commands
- */
 void CShop::HandleCommands(const char *menuCommand, idUserInterface *gui, idPlayer *player)
 {
 	if (idStr::Icmp(menuCommand, "shopLoad") == 0)
@@ -1205,5 +1199,8 @@ void CShop::UpdateGUI(idUserInterface* gui)
 
 void CShop::AddGoldFromPreviousMission()
 {
-	// TODO
+	int prevGold, prevJewelry, prevGoods;
+	int prevTotal = gameLocal.persistentPlayerInventory->GetLoot(prevGold, prevJewelry, prevGoods);
+
+	gold += prevTotal;
 }

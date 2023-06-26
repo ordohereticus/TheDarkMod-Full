@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4743 $
- * $Date: 2011-04-05 05:02:44 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4744 $
+ * $Date: 2011-04-05 05:44:16 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4743 2011-04-05 09:02:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4744 2011-04-05 09:44:16Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1385,7 +1385,7 @@ void idPlayer::SetupInventory()
 void idPlayer::AddPersistentInventoryItems()
 {
 	// Copy all persistent items into our own inventory
-	Inventory()->CopyPersistentItemsFrom(*gameLocal.persistentPlayerInventory);
+	Inventory()->CopyPersistentItemsFrom(*gameLocal.persistentPlayerInventory, this);
 
 	// We've changed maps, let's respawn our item entities where needed, put them to our own position
 	Inventory()->RestoreItemEntities(GetPhysics()->GetOrigin());
