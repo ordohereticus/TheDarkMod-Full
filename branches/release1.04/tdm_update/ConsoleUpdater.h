@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4574 $
+ * $Date: 2011-02-10 23:46:50 -0500 (Thu, 10 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,8 +16,6 @@
 #include "TraceLog.h"
 #include "ExceptionSafeThread.h"
 #include <signal.h>
-
-#include "DownloadProgressPrinter.h"
 
 namespace tdm
 {
