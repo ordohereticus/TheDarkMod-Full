@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4753 $
- * $Date: 2011-04-08 09:39:58 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4755 $
+ * $Date: 2011-04-08 10:16:32 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4753 2011-04-08 13:39:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4755 2011-04-08 14:16:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1823,18 +1823,18 @@ void CMissionData::AlertCallback(idEntity *Alerted, idEntity *Alerter, int Alert
 
 int CMissionData::GetFoundLoot()
 {
-	return m_Stats.FoundLoot;
+	return m_Stats.GetFoundLootValue();
 }
 
-void CMissionData::ChangeFoundLoot(int lootType, int amount)
+void CMissionData::ChangeFoundLoot(LootType lootType, int amount)
 {
-	m_Stats.FoundLoot += amount;
+	m_Stats.FoundLoot[lootType] += amount;
 }
 
-void CMissionData::AddMissionLoot(int lootType, int amount)
+void CMissionData::AddMissionLoot(LootType lootType, int amount)
 {
-	// greebo: For now, we disregard the various loot types, just add to the sum
-	m_Stats.TotalLootInMission += amount;
+	// greebo: add to the individual sum
+	m_Stats.LootInMission[lootType] += amount;
 }
 
 // =============== Boolean Logic Parsing for Objective Failure/Success ==============
@@ -2598,7 +2598,7 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
 
 	key = "Loot Acquired";
-	value = idStr(m_Stats.FoundLoot) + " out of " + idStr(m_Stats.TotalLootInMission);
+	value = idStr(m_Stats.GetFoundLootValue()) + " out of " + idStr(m_Stats.GetTotalLootInMission());
 	gui->SetStateString(prefix + idStr(index++), key + divider + value + postfix);
 
 	gui->SetStateString(prefix + idStr(index++), " "); // Empty line

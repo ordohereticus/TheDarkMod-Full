@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4745 $
- * $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4755 $
+ * $Date: 2011-04-08 10:16:32 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionStatistics.cpp 4745 2011-04-05 15:45:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionStatistics.cpp 4755 2011-04-08 14:16:32Z greebo $", init_version);
 
 #include "MissionStatistics.h"
 
@@ -49,8 +49,13 @@ void SMissionStats::Clear()
 	DamageReceived = 0;
 	HealthReceived = 0;
 	PocketsPicked = 0;
-	FoundLoot = 0;
-	TotalLootInMission = 0;
+
+	for (int i = 0; i < LOOT_COUNT; ++i)
+	{
+		FoundLoot[i] = 0;
+		LootInMission[i] = 0;
+	}
+	
 	TotalGamePlayTime = 0;
 }
 
@@ -98,8 +103,13 @@ void SMissionStats::Save(idSaveGame* savefile) const
 	savefile->WriteInt(DamageDealt);
 	savefile->WriteInt(DamageReceived);
 	savefile->WriteInt(PocketsPicked);
-	savefile->WriteInt(FoundLoot);
-	savefile->WriteInt(TotalLootInMission);
+
+	for (int i = 0; i < LOOT_COUNT; ++i)
+	{
+		savefile->WriteInt(FoundLoot[i]);
+		savefile->WriteInt(LootInMission[i]);
+	}
+
 	savefile->WriteUnsignedInt(TotalGamePlayTime);
 }
 
@@ -147,9 +157,38 @@ void SMissionStats::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(DamageDealt);
 	savefile->ReadInt(DamageReceived);
 	savefile->ReadInt(PocketsPicked);
-	savefile->ReadInt(FoundLoot);
-	savefile->ReadInt(TotalLootInMission);
+
+	for (int i = 0; i < LOOT_COUNT; ++i)
+	{
+		savefile->ReadInt(FoundLoot[i]);
+		savefile->ReadInt(LootInMission[i]);
+	}
+
 	savefile->ReadUnsignedInt(TotalGamePlayTime);
+}
+
+int SMissionStats::GetFoundLootValue() const
+{
+	int sum = 0;
+
+	for (int i = LOOT_NONE+1; i < LOOT_COUNT; ++i)
+	{
+		sum += FoundLoot[i];
+	}
+
+	return sum;
+}
+
+int SMissionStats::GetTotalLootInMission() const
+{
+	int sum = 0;
+
+	for (int i = LOOT_NONE+1; i < LOOT_COUNT; ++i)
+	{
+		sum += LootInMission[i];
+	}
+
+	return sum;
 }
 
 void CampaignStats::Save(idSaveGame* savefile) const

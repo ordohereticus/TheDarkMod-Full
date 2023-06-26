@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4754 $
- * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4755 $
+ * $Date: 2011-04-08 10:16:32 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4755 2011-04-08 14:16:32Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10536,7 +10536,7 @@ void idEntity::Event_InitInventory(int callCount)
 	// Check if the loot type is valid
 	if (lootType > LOOT_NONE && lootType < LOOT_COUNT && lootValue != 0) 
 	{
-		gameLocal.m_MissionData->AddMissionLoot(lootType, lootValue);
+		gameLocal.m_MissionData->AddMissionLoot(static_cast<LootType>(lootType), lootValue);
 	}
 
 	// Check if this object should be put into the inventory of some entity
@@ -10689,7 +10689,7 @@ int idEntity::ChangeLootAmount(int lootType, int amount)
 
 	int gold, jewelry, goods;
 	int total = Inventory()->GetLoot(gold, jewelry, goods);
-	bool bGained = (amount >= 0);
+	bool gained = (amount >= 0);
 
 	switch(lootType)
 	{
@@ -10722,10 +10722,10 @@ int idEntity::ChangeLootAmount(int lootType, int amount)
 	// Set the new values
 	Inventory()->SetLoot(gold, jewelry, goods);
 
-	if( rc != 0 )
+	if (rc != 0)
 	{
-		gameLocal.m_MissionData->InventoryCallback( NULL, groupname, groupTotal, total, bGained );  
-		gameLocal.m_MissionData->ChangeFoundLoot(lootType, amount);
+		gameLocal.m_MissionData->InventoryCallback(NULL, groupname, groupTotal, total, gained);  
+		gameLocal.m_MissionData->ChangeFoundLoot(static_cast<LootType>(lootType), amount);
 	}
 
 	return rc;

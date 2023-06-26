@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4746 $
- * $Date: 2011-04-05 11:53:29 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4755 $
+ * $Date: 2011-04-08 10:16:32 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4746 2011-04-05 15:53:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4755 2011-04-08 14:16:32Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -1203,6 +1203,6 @@ void CShop::AddGoldFromPreviousMission()
 
 	if (prevMission >= 0 && gameLocal.m_CampaignStats->Num() > prevMission)
 	{
-		gold += (*gameLocal.m_CampaignStats)[prevMission].FoundLoot;	
+		gold += (*gameLocal.m_CampaignStats)[prevMission].FoundLoot[LOOT_GOLD];	
 	}
 }
