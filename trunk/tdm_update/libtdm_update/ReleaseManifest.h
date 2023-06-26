@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4476 $
- * $Date: 2011-01-26 03:03:02 -0500 (Wed, 26 Jan 2011) $
+ * $Revision: 4481 $
+ * $Date: 2011-01-27 13:56:48 -0500 (Thu, 27 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -327,7 +327,7 @@ private:
 			beg += 2; // skip leading ./
 		}
 
-		push_back(ManifestFile(std::string(beg, end)));
+		push_back(ManifestFile(boost::algorithm::trim_copy(std::string(beg, end))));
 	}
 
 	void AddDestFile(char const* beg, char const* end)
@@ -342,7 +342,7 @@ private:
 		// Set the destination on the last element
 		assert(!empty());
 
-		back().destFile = std::string(beg, end);
+		back().destFile = boost::algorithm::trim_copy(std::string(beg, end));
 	}
 
 };
