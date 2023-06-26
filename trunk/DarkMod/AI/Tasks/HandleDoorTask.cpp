@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4655 $
- * $Date: 2011-03-04 15:59:56 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4672 $
+ * $Date: 2011-03-09 13:44:50 -0500 (Wed, 09 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4655 2011-03-04 20:59:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4672 2011-03-09 18:44:50Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -76,8 +76,11 @@ void HandleDoorTask::Init(idAI* owner, Subsystem& subsystem)
 			if (aas != NULL)
 			{
 				int areaNum = frobDoor->GetAASArea(aas);
-				gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
-				owner->PostEventMS(&AI_ReEvaluateArea, owner->doorRetryTime, areaNum);
+				if (areaNum > 0) // grayman #2685 - footlocker lids are doors with no area number
+				{
+					gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
+					owner->PostEventMS(&AI_ReEvaluateArea, owner->doorRetryTime, areaNum);
+				}
 			}
 		}
 		subsystem.FinishTask();
