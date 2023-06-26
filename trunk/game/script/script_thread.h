@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4422 $
- * $Date: 2011-01-11 01:28:19 -0500 (Tue, 11 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4823 $
+ * $Date: 2011-04-29 07:26:34 -0400 (Fri, 29 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -134,6 +134,9 @@ private:
 	void 						Event_GetPersistantString( const char *key );
 	void 						Event_GetPersistantFloat( const char *key );
 	void 						Event_GetPersistantVector( const char *key );
+
+	void						Event_GetCurrentMissionNum();
+
 	void						Event_AngToForward( idAngles &ang );
 	void						Event_AngToRight( idAngles &ang );
 	void						Event_AngToUp( idAngles &ang );
