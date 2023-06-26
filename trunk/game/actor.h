@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4811 $
- * $Date: 2011-04-20 11:26:10 -0400 (Wed, 20 Apr 2011) $
+ * $Revision: 4812 $
+ * $Date: 2011-04-20 18:28:05 -0400 (Wed, 20 Apr 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -255,6 +255,10 @@ public:
 	**/
 	float					melee_range_unarmed; // potential
 	float					melee_range; // includes reach of current weapon
+	/**
+	* grayman #2655 - some AI need a different vertical melee_range, i.e. the werebeast crawler
+	**/
+	float					melee_range_vert;
 	/**
 	* This should roughly correspond to the time it takes them to swing the weapon
 	* In seconds (read from spawnarg in milliseconds and converted)
