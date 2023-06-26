@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4513 $
- * $Date: 2011-01-30 13:46:13 -0500 (Sun, 30 Jan 2011) $
+ * $Revision: 4518 $
+ * $Date: 2011-02-01 04:12:47 -0500 (Tue, 01 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4513 2011-01-30 18:46:13Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4518 2011-02-01 09:12:47Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1965,7 +1965,7 @@ void Seed::PrepareEntities( void )
 	s = m_Classes.Num();
 	for (int i = 0; i < s; i++)
 	{
-		int second = (int)(RandomFloat() * s);
+		int second = (int)(RandomFloat() * (i+1));
 		int temp = ClassIndex[i]; ClassIndex[i] = ClassIndex[second]; ClassIndex[second] = temp;
 	}
 
