@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3879 $
- * $Date: 2010-04-16 11:05:16 -0400 (Fri, 16 Apr 2010) $
+ * $Revision: 4737 $
+ * $Date: 2011-03-30 01:50:23 -0400 (Wed, 30 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 3879 2010-04-16 15:05:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 4737 2011-03-30 05:50:23Z greebo $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -125,6 +125,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteBool(fleeingDone);
 	savefile->WriteVec3(positionBeforeTakingCover);
 	savefile->WriteBool(resolvingMovementBlock);
+	lastDoorHandled.Save(savefile); // grayman #2712
 
 	doorRelated.currentDoor.Save(savefile);
 
@@ -211,6 +212,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadBool(fleeingDone);
 	savefile->ReadVec3(positionBeforeTakingCover);
 	savefile->ReadBool(resolvingMovementBlock);
+	lastDoorHandled.Restore(savefile); // grayman #2712
 
 	doorRelated.currentDoor.Restore(savefile);
 	// Clear the containers before restoring them

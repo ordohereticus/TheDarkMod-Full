@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4729 $
- * $Date: 2011-03-25 14:08:15 -0400 (Fri, 25 Mar 2011) $
+ * $Revision: 4737 $
+ * $Date: 2011-03-30 01:50:23 -0400 (Wed, 30 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4729 2011-03-25 18:08:15Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4737 2011-03-30 05:50:23Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2273,24 +2273,6 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 		return;
 	}
 
-	// grayman #2345 - don't handle this door if we just finished handling it, unless alerted.
-
-	if (owner->AI_AlertIndex < 3) // grayman #2670
-	{
-		int lastTimeUsed = owner->GetMemory().GetDoorInfo(frobDoor).lastTimeUsed;
-		if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + 1000))
-		{
-			return;
-		}
-	}
-
-	// grayman #2691 - if we don't fit through this door, don't use it
-
-	if (!owner->CanPassThroughDoor(frobDoor))
-	{
-		return;
-	}
-
 	if (cv_ai_door_show.GetBool()) 
 	{
 		gameRenderWorld->DebugArrow(colorRed, owner->GetEyePosition(), frobDoor->GetPhysics()->GetOrigin(), 1, 16);
@@ -2303,6 +2285,21 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 	CFrobDoor* currentDoor = memory.doorRelated.currentDoor.GetEntity();
 	if (currentDoor == NULL)
 	{
+		// grayman #2691 - if we don't fit through this new door, don't use it
+
+		if (!owner->CanPassThroughDoor(frobDoor))
+		{
+			return;
+		}
+
+		// grayman #2345 - don't handle this door if we just finished handling it, unless alerted.
+
+		int lastTimeUsed = owner->GetMemory().GetDoorInfo(frobDoor).lastTimeUsed;
+		if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + 3000)) // grayman #2712 - delay time should match REUSE_DOOR_DELAY
+		{
+			return; // ignore this door
+		}
+
 		memory.doorRelated.currentDoor = frobDoor;
 		owner->movementSubsystem->PushTask(HandleDoorTask::CreateInstance());
 	}
@@ -2334,11 +2331,8 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 				memory.doorRelated.currentDoor = NULL;
 			}
 		}
-		// this is our current door
-		else
+		else // this is our current door
 		{
-			// this is already our current door
-
 			const SubsystemPtr& subsys = owner->movementSubsystem;
 			TaskPtr task = subsys->GetCurrentTask();
 

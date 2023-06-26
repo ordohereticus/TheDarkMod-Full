@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4723 $
- * $Date: 2011-03-25 00:49:57 -0400 (Fri, 25 Mar 2011) $
+ * $Revision: 4737 $
+ * $Date: 2011-03-30 01:50:23 -0400 (Wed, 30 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -60,10 +60,11 @@ private:
 	bool _wasLocked;
 	bool _doorInTheWay;
 	int _retryCount;
-	int _leaveQueue;	// grayman #2345
-	int _leaveDoor;		// grayman #2700
-	bool _triedFitting; // grayman #2345
-	bool _wasRunning;	// grayman #2694
+	int _leaveQueue;		// grayman #2345
+	int _leaveDoor;			// grayman #2700
+	bool _triedFitting;		// grayman #2345
+	bool _wasRunning;		// grayman #2694
+	bool _canHandleDoor;	// grayman #2712
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;
@@ -79,7 +80,7 @@ public:
 
 	idVec3 GetAwayPos(idAI* owner, CFrobDoor* frobDoor);
 	idVec3 GetTowardPos(idAI* owner, CFrobDoor* frobDoor);
-	idVec3 GetMidPos(idAI* owner, CFrobDoor* frobDoor); // grayman #2345
+	idVec3 GetMidPos(idAI* owner, CFrobDoor* frobDoor, bool away); // grayman #2345/#2712
 
 	void PickWhere2Go(CFrobDoor* door); // grayman #2345
 
