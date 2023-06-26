@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4728 $
- * $Date: 2011-03-25 13:48:14 -0400 (Fri, 25 Mar 2011) $
+ * $Revision: 4731 $
+ * $Date: 2011-03-26 08:59:10 -0400 (Sat, 26 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -470,9 +470,10 @@ public:
 	bool					sortTeamMasters;		// true if active lists needs to be reordered to place physics team masters before their slaves
 	idDict					persistentLevelInfo;	// contains args that are kept around between levels
 
-	// greebo: Is set to TRUE if the success screen is currently active. (Usually these state variables should
-	// be kept in the GUI, but in this case I need it to be accessible when the player loads a new map via the console.)
-	bool					successScreenActive;
+	// greebo: Is set to TRUE if the post-mission screen (debriefing or success screen) is currently active. 
+	// (Usually these state variables should be kept in the GUI, but in this case I need it to be accessible 
+	// when the player loads a new map via the console.)
+	bool					postMissionScreenActive;
 
 	// Toggle to keep track whether the GUI state variables have been set up
 	bool					briefingVideoInfoLoaded;
