@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4572 $
+ * $Date: 2011-02-10 07:28:26 -0500 (Thu, 10 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -344,7 +344,13 @@ ZipFileRead::CompressedFilePtr ZipFileRead::ReadCompressedFile(const std::string
 	void* data = !output->data.empty() ? &output->data.front() : NULL;
 	int bytesRead = unzReadCurrentFile(_handle, data, info.compressed_size);
 
-	if (bytesRead != info.compressed_size) 
+	if (bytesRead < 0)
+	{
+		// Return value negative, this is an error
+		tdm::TraceLog::WriteLine(LOG_VERBOSE, "[ReadCompressedFile] Error: unzReadCurrentFile returned error code: " + intToStr(bytesRead));
+		return CompressedFilePtr();
+	}
+	else if (static_cast<uLong>(bytesRead) != info.compressed_size) 
 	{
 		// Bytes read != bytes claimed
 		tdm::TraceLog::WriteLine(LOG_VERBOSE, "[ReadCompressedFile] Error: Bytes read != compressed size, bailing out: " + filename);
