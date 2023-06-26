@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4603 $
- * $Date: 2011-02-16 23:01:24 -0500 (Wed, 16 Feb 2011) $
+ * $Revision: 4631 $
+ * $Date: 2011-02-25 08:40:43 -0500 (Fri, 25 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4603 2011-02-17 04:01:24Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4631 2011-02-25 13:40:43Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -1917,6 +1917,12 @@ void HandleDoorTask::DrawDebugOutput(idAI* owner)
 		case EStateApproachingDoor:
 			str = "EStateMovingToFrontPos";
 			break;
+		case EStateMovingToMidPos: // grayman #2345
+			str = "EStateMovingToMidPos";
+			break;
+		case EStateMovingToSafePos: // grayman #2345
+			str = "EStateMovingToSafePos";
+			break;
 		case EStateWaitBeforeOpen:
 			str = "EStateWaitBeforeOpen";
 			break;
@@ -1937,6 +1943,9 @@ void HandleDoorTask::DrawDebugOutput(idAI* owner)
 			break;
 		case EStateClosingDoor:
 			str = "EStateClosingDoor";
+			break;
+		default: // grayman #2345
+			str = "";
 			break;
 	}
 	gameRenderWorld->DrawText(str.c_str(), 
