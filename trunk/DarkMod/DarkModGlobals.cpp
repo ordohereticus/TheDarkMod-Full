@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4806 $
- * $Date: 2011-04-19 17:47:06 -0400 (Tue, 19 Apr 2011) $
- * $Author: grayman $
+ * $Revision: 4840 $
+ * $Date: 2011-05-13 01:30:33 -0400 (Fri, 13 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4806 2011-04-19 21:47:06Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4840 2011-05-13 05:30:33Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "Misc.h"
@@ -165,23 +165,24 @@ idStr GetExpandedTildePath(const char* path)
 {
 	assert(path != NULL); // don't accept bogus input
 
-	glob_t globbuf;
-    idStr result;
+	idStr result = path;
 
-    if (glob(path, GLOB_TILDE, NULL, &globbuf) == 0) //success
-    {
-        char** v = globbuf.gl_pathv; // list of matched pathnames
-        
-		// //number of matched pathnames, gl_pathc == 1
-		// copy the expanded path into our return value
-		result = v[0];
-
-        globfree(&globbuf);
-    }
-	else
+	// Check if the path starts with a tilde 
+	if (result.CmpPrefix("~") == 0)
 	{
-		// Could not expand the path, return the input string
-		result = path;
+		// Got a tilde at the front, replace that with the home folder using glob()
+		glob_t globbuf;
+
+		if (glob("~", GLOB_TILDE, NULL, &globbuf) == 0)
+		{
+			char** v = globbuf.gl_pathv; // list of matched pathnames
+	        
+			// Replace the tilde
+			result.StripLeading('~');
+			result = v[0] + result;
+
+			globfree(&globbuf);
+		}
 	}
 
 	return result;
