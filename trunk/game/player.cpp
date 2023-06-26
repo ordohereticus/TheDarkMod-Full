@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4744 $
- * $Date: 2011-04-05 05:44:16 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4745 $
+ * $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4744 2011-04-05 09:44:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4745 2011-04-05 15:45:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11063,6 +11063,8 @@ void idPlayer::Event_MissionSuccess()
 {
 	// Clear the persistent inventory, it might have old data from the previous mission
 	gameLocal.persistentPlayerInventory->Clear();
+
+	// Save loot info
 
 	// Save current inventory into the persistent one
 	Inventory()->CopyTo(*gameLocal.persistentPlayerInventory);

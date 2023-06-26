@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4741 $
- * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
+ * $Revision: 4745 $
+ * $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -198,6 +198,8 @@ class CRelations;
 typedef boost::shared_ptr<CRelations> CRelationsPtr;
 class CMissionData;
 typedef boost::shared_ptr<CMissionData> CMissionDataPtr;
+class CampaignStats;
+typedef boost::shared_ptr<CampaignStats> CampaignStatsPtr;
 class CStimResponse;
 typedef boost::shared_ptr<CStimResponse> CStimResponsePtr;
 class CStim;
@@ -593,6 +595,9 @@ public:
 	**/
 	CMissionDataPtr			m_MissionData;
 	EMissionResult			m_MissionResult; // holds the global mission state
+
+	// Campaign statistics
+	CampaignStatsPtr		m_CampaignStats;
 
 	/**
 	* Pointer to global sound prop loader object

@@ -9,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4709 $
-#* $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
+#* $Revision: 4745 $
+#* $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -148,6 +148,7 @@ liquid.cpp \
 MaterialConverter.cpp \
 MeleeWeapon.cpp \
 MissionData.cpp \
+MissionStatistics.cpp \
 ModMenu.cpp \
 MultiStateMover.cpp \
 MultiStateMoverButton.cpp \
