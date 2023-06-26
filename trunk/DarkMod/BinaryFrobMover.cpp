@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4703 $
- * $Date: 2011-03-20 21:53:21 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4721 $
+ * $Date: 2011-03-24 11:45:08 -0400 (Thu, 24 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4703 2011-03-21 01:53:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4721 2011-03-24 15:45:08Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -889,9 +889,15 @@ float CBinaryFrobMover::GetMoveTimeFraction()
 
 int CBinaryFrobMover::GetAASArea(idAAS* aas)
 {
-	if (aas == NULL) return -1;
+	if (aas == NULL)
+	{
+		return -1;
+	}
 
-	if (GetPhysics() == NULL) return -1;
+	if (GetPhysics() == NULL)
+	{
+		return -1;
+	}
 
 	idClipModel *clipModel = GetPhysics()->GetClipModel();
 	if (clipModel == NULL)
@@ -1287,4 +1293,11 @@ void CBinaryFrobMover::RegisterAI(idAI* ai)
 	idEntityPtr<idAI> aiPtr;
 	aiPtr = ai;
 	m_registeredAI.Append(aiPtr);
+}
+
+// grayman #2691 - get the axis of rotation
+
+idVec3 CBinaryFrobMover::GetRotationAxis()
+{
+	return m_Rotate.ToRotation().GetVec();
 }

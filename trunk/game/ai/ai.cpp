@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4703 $
- * $Date: 2011-03-20 21:53:21 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4721 $
+ * $Date: 2011-03-24 11:45:08 -0400 (Thu, 24 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4703 2011-03-21 01:53:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4721 2011-03-24 15:45:08Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3758,7 +3758,6 @@ bool idAI::MoveToPosition( const idVec3 &pos, float accuracy )
 		return true;
 	}
 
-
 	idVec3 org = pos;
 	move.toAreaNum = 0;
 	aasPath_t path;
@@ -4842,17 +4841,32 @@ void idAI::CheckObstacleAvoidance( const idVec3 &goalPos, idVec3 &newPos )
 
 /*
 =====================
-idAI::CanPassThroughDoor - Is a doorway wide enough and tall enough for the AI to fit through? (grayman #2691) 
+idAI::CanPassThroughDoor - Is the AI allowed through this door? (grayman #2691) 
 =====================
 */
 
 bool idAI::CanPassThroughDoor(CFrobDoor* frobDoor)
 {
+	// grayman #2691 - quick test for spawnarg that appears on many furniture doors
+
+	if (frobDoor->spawnArgs.GetBool("immune_to_target_setfrobable", "0"))
+	{
+		return false;
+	}
+
+	// grayman #2691 - can't pass through doors that don't rotate on the z-axis
+
+	idVec3 rotationAxis = frobDoor->GetRotationAxis();
+	if (rotationAxis.z == 0)
+	{
+		return false;
+	}
+
 	idBounds door1Bounds = frobDoor->GetPhysics()->GetBounds();
 	idBounds myBounds = GetPhysics()->GetBounds();
 	idVec3 door1Size = door1Bounds.GetSize();
 	idVec3 mySize = myBounds.GetSize();
-	bool canPassDoor1 = (door1Size.z > mySize.z) && ((door1Size.x > mySize.x) || (door1Size.y > mySize.y));
+	bool canPassDoor1 = (door1Size.x > mySize.x) || (door1Size.y > mySize.y);
 	if (canPassDoor1)
 	{
 		return true;
@@ -4865,7 +4879,7 @@ bool idAI::CanPassThroughDoor(CFrobDoor* frobDoor)
 	{
 		idBounds door2Bounds = doubleDoor->GetPhysics()->GetBounds();
 		idVec3 door2Size = door2Bounds.GetSize();
-		bool canPassDoors = (door1Size.z > mySize.z) && (door2Size.z > mySize.z) && (((door1Size.x + door2Size.x) > mySize.x) || ((door1Size.y + door2Size.y) > mySize.y));
+		bool canPassDoors = ((door1Size.x + door2Size.x) > mySize.x) || ((door1Size.y + door2Size.y) > mySize.y);
 		if (canPassDoors)
 		{
 			return true;
@@ -10707,7 +10721,8 @@ void idAI::PushMove()
 
 void idAI::PopMove()
 {
-	if (moveStack.empty()) {
+	if (moveStack.empty())
+	{
 		return; // nothing to pop from
 	}
 
@@ -10715,8 +10730,6 @@ void idAI::PopMove()
 	const idMoveState& saved = moveStack.back();
 
 	RestoreMove(saved);
-
-	// Remove the last element
 	moveStack.pop_back();
 }
 
