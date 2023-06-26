@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4523 $
- * $Date: 2011-02-01 09:31:04 -0500 (Tue, 01 Feb 2011) $
+ * $Revision: 4525 $
+ * $Date: 2011-02-01 12:32:58 -0500 (Tue, 01 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4523 2011-02-01 14:31:04Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4525 2011-02-01 17:32:58Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1825,7 +1825,9 @@ void Seed::Prepare( void )
 	const idKeyValue *kv = spawnArgs.MatchPrefix( "template", NULL );
 	while( kv )
 	{
-		if (kv->GetKey().Find('_') < 0)
+		int found = kv->GetKey().Find('_',9);
+		// ignore "template1_count" or "template_1_count", but not "template_1"
+		if (found < 0)
 		{
 			// ignore things like "template_skin"
 			AddTemplateFromEntityDef( kv->GetKey(), &sa );
