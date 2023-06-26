@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4610 $
+ * $Date: 2011-02-19 12:54:01 -0500 (Sat, 19 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -68,6 +68,8 @@ public:
 	bool				Parse( idParser &parser );
 						// copy key/value pairs from other dict not present in this dict
 	void				SetDefaults( const idDict *dict );
+						// Tels: like SetDefaults(), but skip all keys starting with "skip"
+	void				SetDefaults( const idDict *dict, const idStr &skip );
 						// clear dict freeing up memory
 	void				Clear( void );
 						// print the dict

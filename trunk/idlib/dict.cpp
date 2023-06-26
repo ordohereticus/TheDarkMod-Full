@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
- * $Author: greebo $
+ * $Revision: 4610 $
+ * $Date: 2011-02-19 12:54:01 -0500 (Sat, 19 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: dict.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: dict.cpp 4610 2011-02-19 17:54:01Z tels $", init_version);
 
 
 idStrPool		idDict::globalKeys;
@@ -171,6 +171,34 @@ void idDict::SetDefaults( const idDict *dict ) {
 	n = dict->args.Num();
 	for( i = 0; i < n; i++ ) {
 		def = &dict->args[i];
+		kv = FindKey( def->GetKey() );
+		if ( !kv ) {
+			newkv.key = globalKeys.CopyString( def->key );
+			newkv.value = globalValues.CopyString( def->value );
+			argHash.Add( argHash.GenerateKey( newkv.GetKey(), false ), args.Append( newkv ) );
+		}
+	}
+}
+
+/*
+================
+idDict::SetDefaults
+
+Tels: Like SetDefaults(), but skips all entries starting with skip:
+================
+*/
+void idDict::SetDefaults( const idDict *dict, const idStr &skip ) {
+	int i, n;
+	const idKeyValue *kv, *def;
+	idKeyValue newkv;
+
+	n = dict->args.Num();
+	for( i = 0; i < n; i++ ) {
+		def = &dict->args[i];
+		if (def->GetKey().IcmpPrefix(skip) == 0)
+		{
+			continue;
+		}
 		kv = FindKey( def->GetKey() );
 		if ( !kv ) {
 			newkv.key = globalKeys.CopyString( def->key );
