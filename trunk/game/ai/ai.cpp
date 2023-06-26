@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4473 $
- * $Date: 2011-01-25 05:07:13 -0500 (Tue, 25 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4477 $
+ * $Date: 2011-01-26 14:31:54 -0500 (Wed, 26 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4473 2011-01-25 10:07:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4477 2011-01-26 19:31:54Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8393,7 +8393,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	if (AI_DEAD || AI_KNOCKEDOUT) return;
 	
 	AI_AlertLevel = newAlertLevel;
-	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("idAI::SetAlertLevel %s Set AI_AlertLevel = %.2f\r",name.c_str(),AI_AlertLevel);
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("idAI::SetAlertLevel %s Set AI_AlertLevel = %.2f\r", name.c_str(), newAlertLevel);
 
 	if (AI_AlertLevel > m_maxAlertLevel)
 	{
