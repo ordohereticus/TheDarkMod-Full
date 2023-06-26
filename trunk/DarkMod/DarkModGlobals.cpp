@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4545 $
- * $Date: 2011-02-04 00:24:36 -0500 (Fri, 04 Feb 2011) $
- * $Author: stgatilov $
+ * $Revision: 4569 $
+ * $Date: 2011-02-08 16:04:36 -0500 (Tue, 08 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4545 2011-02-04 05:24:36Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4569 2011-02-08 21:04:36Z tels $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -424,7 +424,7 @@ void CGlobal::LoadINISettings(void *p)
 					DM_LOG(LC_INIT, LT_INIT)LOGSTRING("LogFile created at %04u.%02u.%02u %02u:%02u:%02u\r",
 								t->tm_year+1900, t->tm_mon, t->tm_mday, 
 								t->tm_hour, t->tm_min, t->tm_sec);
-					DM_LOG(LC_INIT, LT_INIT)LOGSTRING("DLL compiled on " __DATE__ " " __TIME__ "\r\r");
+					DM_LOG(LC_INIT, LT_INIT)LOGSTRING("DLL compiled on " __DATE__ " " __TIME__ "\r");
 				}
 			}
 		}
