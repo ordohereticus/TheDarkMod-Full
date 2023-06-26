@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4535 $
- * $Date: 2011-02-02 14:20:43 -0500 (Wed, 02 Feb 2011) $
+ * $Revision: 4537 $
+ * $Date: 2011-02-02 17:09:13 -0500 (Wed, 02 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4535 2011-02-02 19:20:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4537 2011-02-02 22:09:13Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -713,7 +713,7 @@ void Seed::Spawn( void ) {
     modelAbsBounds.FromTransformedBounds( b, m_origin, renderEntity.axis );
 	m_iNumPVSAreas = gameLocal.pvs.GetPVSAreas( modelAbsBounds, m_iPVSAreas, sizeof( m_iPVSAreas ) / sizeof( m_iPVSAreas[0] ) );
 
-	gameLocal.Printf( "SEED %s: Seed %i Size %0.2f %0.2f %0.2f Axis %s, PVS count %i.\n", GetName(), m_iSeed, size.x, size.y, size.z, angles.ToString(), m_iNumPVSAreas );
+	gameLocal.Printf( "SEED %s: Randseed %i Size %0.2f %0.2f %0.2f Axis %s, PVS count %i.\n", GetName(), m_iSeed, size.x, size.y, size.z, angles.ToString(), m_iNumPVSAreas );
 
 /*
 	// how to get the current model (rough outline)
@@ -2445,10 +2445,9 @@ void Seed::PrepareEntities( void )
 					gameLocal.clip.TraceBounds( trTest, traceStart, traceEnd, class_bounds, 
 							CONTENTS_SOLID | CONTENTS_BODY | CONTENTS_CORPSE | CONTENTS_OPAQUE | CONTENTS_MOVEABLECLIP, this );
 
-					// Didn't hit anything?
+					// hit something?
 					if ( trTest.fraction != 1.0f )
 					{
-						// hit something
 						//gameLocal.Printf ("SEED %s: Hit something at %0.2f (%0.2f %0.2f %0.2f)\n",
 						//	GetName(), trTest.fraction, trTest.endpos.x, trTest.endpos.y, trTest.endpos.z ); 
 						SeedEntity.origin = trTest.endpos;
@@ -2467,8 +2466,10 @@ void Seed::PrepareEntities( void )
 					else
 					{
 						// hit nothing
+#ifdef M_DEBUG
 						gameLocal.Printf ("SEED %s: Hit nothing at %0.2f (%0.2f %0.2f %0.2f)\n",
 							GetName(), trTest.fraction, SeedEntity.origin.x, SeedEntity.origin.y, SeedEntity.origin.z );
+#endif
 					}
 				}
 				else
@@ -2586,8 +2587,10 @@ void Seed::PrepareEntities( void )
 										{
 											// flip the true/false value if we found a match
 											inhibited = !inhibited;
+#ifdef M_DEBUG
 											gameLocal.Printf( "SEED %s: Entity class %s %s by inhibitor %i.\n", 
 													GetName(), m_Classes[i].classname.c_str(), inhibited ? "inhibited" : "allowed", k );
+#endif
 											break;
 										}
 									}
