@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4745 $
- * $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4747 $
+ * $Date: 2011-04-06 01:02:29 -0400 (Wed, 06 Apr 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4745 2011-04-05 15:45:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4747 2011-04-06 05:02:29Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -45,6 +45,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 4745 2011-04-05 
 #include "../DarkMod/Missions/DownloadManager.h"
 #include "../DarkMod/Http/HttpConnection.h"
 #include "../DarkMod/Http/HttpRequest.h"
+#include "../DarkMod/StimResponse/StimType.h" // grayman #2721
 
 #include "IL/il.h"
 #include "../DarkMod/randomizer/randomc.h"
@@ -6723,20 +6724,23 @@ int idGameLocal::DoResponseAction(const CStimPtr& stim, int numEntities, idEntit
 			float radiusSqr = stim->GetRadius();
 			radiusSqr *= radiusSqr; 
 
-			// grayman #2468 - handle AI with no separate head entities 
+			// grayman #2468 - handle AI with no separate head entities
 
 			idEntity *ent = srEntities[i];
 			idVec3 entitySpot = ent->GetPhysics()->GetOrigin();
 			if (!(ent->IsType(idAFAttachment::Type))) // is this an attached head?
 			{
-				// no separate head entity, so find the mouth
-
-				if (ent->IsType(idAI::Type))
+				if (stim->m_StimTypeId == ST_GAS) // grayman #2721 - only need the mouth location if this is a gas stim
 				{
-					idAI* entAI = static_cast<idAI*>(ent);
+					// no separate head entity, so find the mouth
 
-					entitySpot = entAI->GetEyePosition();
-					entitySpot.z += entAI->m_MouthOffset.z;
+					if (ent->IsType(idAI::Type))
+					{
+						idAI* entAI = static_cast<idAI*>(ent);
+
+						entitySpot = entAI->GetEyePosition();
+						entitySpot.z += entAI->m_MouthOffset.z;
+					}
 				}
 			}
 
