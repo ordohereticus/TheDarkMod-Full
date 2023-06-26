@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4545 $
- * $Date: 2011-02-04 00:24:36 -0500 (Fri, 04 Feb 2011) $
- * $Author: stgatilov $
+ * $Revision: 4548 $
+ * $Date: 2011-02-04 04:55:36 -0500 (Fri, 04 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -26,7 +26,7 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4545 2011-02-04 05:24:36Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4548 2011-02-04 09:55:36Z tels $", init_version);
 
 #include "ModelGenerator.h"
 
@@ -34,7 +34,7 @@ static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4545 2011-02
 //#define M_DEBUG 1
 
 // uncomment to get detailed timing info
-#define M_TIMINGS 1
+//#define M_TIMINGS 1
 
 #ifdef M_TIMINGS
 static idTimer timer_combinemodels, timer_copymodeldata, timer_finishsurfaces, timer_dupmodel;
