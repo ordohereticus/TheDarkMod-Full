@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4447 $
- * $Date: 2011-01-18 12:48:22 -0500 (Tue, 18 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 4588 $
+ * $Date: 2011-02-12 10:43:23 -0500 (Sat, 12 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -1321,9 +1321,6 @@ protected:
 	int						modelDefHandle;				//!< handle to static renderer model
 	refSound_t				refSound;					//!< used to present sound to the audio engine
 	idStr					brokenModel;				//!< model set when health drops down to or below zero
-
-	/* Tels: The origin is nec. for LOD computation, as an hidden entity has "0,0,0" as origin */
-	idVec3					m_preHideOrigin;
 
 	/**
 	* List storing attachment data for each attachment
