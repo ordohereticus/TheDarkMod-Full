@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3947 $
- * $Date: 2010-06-13 02:39:27 -0400 (Sun, 13 Jun 2010) $
- * $Author: tels $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -403,6 +403,10 @@ private:
 	void					SetRotationFromSpawnargs(bool forward);
 
 	idEntityPtr<idEntity>	activatedBy;
+
+	// If true, the next activation will let the mover rotate in forward direction
+	// this is only used when "invert_on_trigger" is set to "1"
+	bool					nextTriggerDirectionIsForward;
 
 	void					Event_Activate( idEntity *activator );
 };

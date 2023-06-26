@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: box.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: box.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 idBox box_zero( vec3_zero, vec3_zero, mat3_identity );
 
@@ -831,3 +831,16 @@ int idBox::GetParallelProjectionSilhouetteVerts( const idVec3 &projectionDir, id
 
 	return index[0];
 }
+
+/*
+============
+idBox::ToString
+============
+*/
+const char * idBox::ToString( const int precision ) const {
+	idVec3 min = center - extents;
+	idVec3 max = center + extents;
+	return idStr( min.ToString( precision ) ) + " -> " + idStr( max.ToString( precision ) ) + " (" + idStr( axis.ToString() ) + ")";
+}
+
+

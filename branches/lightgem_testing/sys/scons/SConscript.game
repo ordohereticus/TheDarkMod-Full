@@ -9,9 +9,9 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4469 $
-#* $Date: 2011-01-24 10:10:41 -0500 (Mon, 24 Jan 2011) $
-#* $Author: greebo $
+#* $Revision: 4650 $
+#* $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+#* $Author: stgatilov $
 #*
 #* $Log$
 #* Revision 1.3  2005/11/11 22:50:09  sparhawk
@@ -36,6 +36,7 @@ game_string = ' \
 	actor.cpp \
 	camera.cpp \
 	entity.cpp \
+	emitter.cpp \
 	brittlefracture.cpp \
 	fx.cpp \
 	gameedit.cpp \
@@ -124,7 +125,6 @@ darkmodHidingSpotTree.cpp \
 darkModLAS.cpp \
 decltdm_matinfo.cpp \
 declxdata.cpp \
-DifficultyMenu.cpp \
 DifficultyManager.cpp \
 DifficultySettings.cpp \
 DownloadMenu.cpp \

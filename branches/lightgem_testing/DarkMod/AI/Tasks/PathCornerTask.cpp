@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4294 $
- * $Date: 2010-11-19 10:22:14 -0500 (Fri, 19 Nov 2010) $
- * $Author: grayman $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 4294 2010-11-19 15:22:14Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -74,6 +74,25 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 
 	// This task may not be performed with empty entity pointers
 	assert(path != NULL && owner != NULL);
+
+	// grayman #2345 - if you've timed out of a door queue, go back to your
+	// previous path_corner
+
+	if (owner->m_leftQueue)
+	{
+		owner->m_leftQueue = false;
+		Memory& memory = owner->GetMemory();
+		idPathCorner* tempPath = memory.lastPath.GetEntity();
+		if (tempPath != NULL)
+		{
+			memory.lastPath = path;
+			_path = tempPath;
+			path = tempPath;
+			memory.currentPath = path;
+			memory.nextPath = idPathCorner::RandomPath(path, NULL, owner);
+			owner->StopMove(MOVE_STATUS_DONE); // lets the new pathing take over
+		}
+	}
 
 	if (_moveInitiated)
 	{

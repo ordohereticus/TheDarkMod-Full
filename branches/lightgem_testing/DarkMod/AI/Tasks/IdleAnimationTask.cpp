@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4474 $
- * $Date: 2011-01-25 12:37:10 -0500 (Tue, 25 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 4474 2011-01-25 17:37:10Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -110,6 +110,9 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 
 		// grayman: changed repeated instances of owner->GetMoveType() to one instance
 
+		// grayman #2345 - no idle animations while handling a door and not waiting
+		// in a door queue, since they can interfere with reaching for the door handle
+
 		moveType_t moveType = owner->GetMoveType();
 		if (memory.playIdleAnimations && 
 			!owner->AI_RUN &&
@@ -118,7 +121,8 @@ bool IdleAnimationTask::Perform(Subsystem& subsystem)
 			moveType != MOVETYPE_SLEEP &&
 			moveType != MOVETYPE_GET_UP &&
 			moveType != MOVETYPE_GET_UP_FROM_LYING &&
-			!drowning)
+			!drowning &&
+			(!owner->m_HandlingDoor || (owner->GetMoveStatus() == MOVE_STATUS_WAITING)))
 		{
 			// Check if the AI is moving or sitting, this determines which channel we can play on
 			if (!owner->AI_FORWARD && (moveType != MOVETYPE_SIT))

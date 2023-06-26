@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4483 $
- * $Date: 2011-01-28 05:59:26 -0500 (Fri, 28 Jan 2011) $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 4483 2011-01-28 10:59:26Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -479,6 +479,7 @@ void idAFAttachment::DropOnRagdoll( void )
 		}
 
 		ent->GetPhysics()->Activate();
+		ent->m_droppedByAI = true; // grayman #1330
 	}
 }
 

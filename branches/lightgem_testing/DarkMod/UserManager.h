@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -26,6 +26,8 @@ public:
 
 	idActor* GetUserAtIndex(const int index); // grayman #2345
 	void InsertUserAtIndex(idActor* actor,const int index); // grayman #2345
+
+	int GetIndex(idActor* user); // grayman #2345
 
 	void Save(idSaveGame* savefile) const;
 	void Restore(idRestoreGame* savefile);

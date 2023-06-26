@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -144,6 +144,14 @@ void SwitchOnLightState::Init(idAI* owner)
 				return;
 			}
 		}
+	}
+	else
+	{
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("SwitchOnLightState can't handle that type of light: %s.\r", lightType.c_str());
+
+		// Can't handle that type of light, exit this state and ignore the light
+		light->IgnoreResponse(ST_VISUAL, owner);
+		owner->GetMind()->EndState();
 	}
 }
 

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4438 $
- * $Date: 2011-01-17 01:28:00 -0500 (Mon, 17 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -92,6 +92,7 @@ private:
 			("release-name", bpo::value<std::string>()->default_value("darkmod"), "The name of the release package to generate the manifest for, e.g. --release-name=saintlucia \n")
 			("headversion", bpo::value<std::string>(), "The version number of the head PK4 set, e.g. '1.03'\n")
 			("allow-unversioned-files", "Skips the 'is under SVN version control' check when creating the manifest (use this only if you actually exported your SVN working copy for packaging.)\n")
+			("use-singlethread-compression", "Processes one file after the other during packaging, to avoid threading issues on the TDM server.\n")
 			("help", "Display this help page")
 			;
 	}

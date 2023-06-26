@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Response.cpp 3911 2010-06-06 10:30:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Response.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "Response.h"
 #include "Stim.h"
@@ -113,7 +113,9 @@ void CResponse::TriggerResponse(idEntity *sourceEntity, const CStimPtr& stim)
 		float distance = (owner->GetPhysics()->GetOrigin() - sourceEntity->GetPhysics()->GetOrigin()).LengthFast();
 		
 		using std::min;
-		float base = 1 - min(stim->m_Radius, distance) / stim->m_Radius;
+		// greebo: Be sure to use GetRadius() to consider time-dependent radii
+		float radius = stim->GetRadius();
+		float base = 1 - min(radius, distance) / radius;
 		
 		// Calculate the falloff value (the magnitude is between [0, magnitude] for positive falloff exponents)
 		magnitude *= pow(base, stim->m_FallOffExponent);

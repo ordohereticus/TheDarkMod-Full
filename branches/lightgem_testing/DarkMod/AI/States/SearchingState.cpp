@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3862 $
- * $Date: 2010-03-21 01:54:27 -0400 (Sun, 21 Mar 2010) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 3862 2010-03-21 05:54:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -142,6 +142,10 @@ void SearchingState::Init(idAI* owner)
 
 void SearchingState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSystem)
 {
+/* grayman #2560 - InvestigateSpotTask is the only task this was needed
+   for, and this code has been moved to a new OnFinish() for that task. No longer
+   needed here.
+
 	Memory& memory = owner->GetMemory();
 
 	if (memory.hidingSpotInvestigationInProgress && subSystem == SubsysAction)
@@ -150,6 +154,7 @@ void SearchingState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSystem)
 		// boolean back to false, so that the next spot can be chosen
 		memory.hidingSpotInvestigationInProgress = false;
 	}
+ */
 }
 
 // Gets called each time the mind is thinking

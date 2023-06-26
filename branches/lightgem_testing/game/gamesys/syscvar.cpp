@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4490 $
- * $Date: 2011-01-28 17:41:47 -0500 (Fri, 28 Jan 2011) $
- * $Author: jcdenton $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4490 2011-01-28 22:41:47Z jcdenton $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "../game_local.h"
 
@@ -121,7 +121,6 @@ idCVar cv_tdm_widescreenmode("tdm_wideScreenMode",	"0", CVAR_ARCHIVE | CVAR_INTE
 idCVar cv_tdm_show_trainer_messages("tdm_show_trainer_messages", "1", CVAR_BOOL | CVAR_ARCHIVE, "Whether TDM trainer maps should display pop-ups with helpful gameplay information." );
 
 idCVar cv_tdm_default_relations_def( "tdm_default_relations_def", "atdm:team_relations_default", CVAR_GAME | CVAR_ARCHIVE, "The name of the entityDef holding the TDM default team relationships." );
-idCVar cv_tdm_mapName( "tdm_mapName", "", CVAR_GUI, "(internal) The map which is about to be started by the GUI." );
 idCVar cv_tdm_fm_path( "tdm_fm_path", "fms/", CVAR_GUI, "(internal) The path where the fan mission packages are stored.");
 idCVar cv_tdm_fm_desc_file( "tdm_fm_desc_file", "darkmod.txt", CVAR_GUI, "(internal) The description file name of FM packages.");
 idCVar cv_tdm_fm_notes_file( "tdm_fm_notes_file", "readme.txt", CVAR_GUI, "(internal) The readme file name of FM packages.");
@@ -359,7 +358,7 @@ idCVar cv_lg_velocity_mod_max_velocity("tdm_lg_velocity_mod_max_velocity", "300"
 idCVar cv_lg_velocity_mod_amount("tdm_lg_velocity_mod_amount", "1", CVAR_GAME | CVAR_FLOAT, "The maximum light level increase factor due to player velocity (this will be multiplied when the player velocity is >= tdm_lg_player_velocity_mod_max).");
 
 idCVar cv_lg_fade_delay			("tdm_lg_fade_delay",			"0.09",		CVAR_GAME | CVAR_FLOAT,	"lightgem fade time from previous value to new value in seconds." );		// J.C.Denton
-idCVar cv_lg_timeSlice			("tdm_lg_timeSlice",			"5.0",		CVAR_GAME | CVAR_FLOAT,	"Time Slice in milliseconds given to process lightgem per frame. \n 0 disables time slice based lightgem processing" );		// J.C.Denton
+idCVar cv_lg_timeSlice			("tdm_lg_timeSlice",			"0.0",		CVAR_GAME | CVAR_FLOAT,	"Time Slice in milliseconds given to process lightgem per frame. \n 0 disables time slice based lightgem processing" );		// J.C.Denton
 
 idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo", CVAR_GAME | CVAR_ARCHIVE, "The empty model referenced by the 'waitForRender' script event.");
 

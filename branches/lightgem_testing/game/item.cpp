@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3908 $
- * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 3908 2010-05-27 04:48:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -376,9 +376,10 @@ void idItem::GetAttributes( idDict &attributes )
 	int					i;
 	const idKeyValue	*arg;
 
-	for( i = 0; i < spawnArgs.GetNumKeyVals(); i++ ) {
+	int num = spawnArgs.GetNumKeyVals();
+	for( i = 0; i < num; i++ ) {
 		arg = spawnArgs.GetKeyVal( i );
-		if ( arg->GetKey().Left( 4 ) == "inv_" ) {
+		if ( arg->GetKey().Cmpn( "inv_", 4 ) ) {
 			attributes.Set( arg->GetKey().Right( arg->GetKey().Length() - 4 ), arg->GetValue() );
 		}
 	}

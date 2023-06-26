@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4141 $
- * $Date: 2010-08-22 01:07:49 -0400 (Sun, 22 Aug 2010) $
- * $Author: tels $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 4141 2010-08-22 05:07:49Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3028,7 +3028,9 @@ END_CLASS
 idRotater::idRotater
 ===============
 */
-idRotater::idRotater( void ) {
+idRotater::idRotater( void ) :
+	nextTriggerDirectionIsForward(true)
+{
 	activatedBy = this;
 }
 
@@ -3061,8 +3063,10 @@ void idRotater::Spawn( void )
 idRotater::Save
 ===============
 */
-void idRotater::Save( idSaveGame *savefile ) const {
+void idRotater::Save( idSaveGame *savefile ) const
+{
 	activatedBy.Save( savefile );
+	savefile->WriteBool(nextTriggerDirectionIsForward);
 }
 
 /*
@@ -3070,8 +3074,10 @@ void idRotater::Save( idSaveGame *savefile ) const {
 idRotater::Restore
 ===============
 */
-void idRotater::Restore( idRestoreGame *savefile ) {
+void idRotater::Restore( idRestoreGame *savefile )
+{
 	activatedBy.Restore( savefile );
+	savefile->ReadBool(nextTriggerDirectionIsForward);
 }
 
 /*
@@ -3083,16 +3089,19 @@ void idRotater::Event_Activate( idEntity *activator )
 {
 	activatedBy = activator;
 
-	// Tels: If "invert_on_trigger" is true (default is "1"), then
-	// rotate the direction on each trigger:
-	if ( spawnArgs.GetBool("invert_on_trigger", "1") )
+	bool isRotating = spawnArgs.GetBool("rotate");
+
+	// greebo: If rotate direction inversion is activated, toggle the boolean, else leave it alone
+	if (!isRotating && spawnArgs.GetBool("invert_on_trigger", "0"))
 	{
-		// greebo: Invert the "rotate" spawnarg
-		spawnArgs.Set("rotate", spawnArgs.GetBool("rotate") ? "0" : "1");
+		nextTriggerDirectionIsForward = !nextTriggerDirectionIsForward;
 	}
 
+	// greebo: Invert the "rotate" spawnarg, this toggles the rotation itself
+	spawnArgs.Set("rotate", isRotating ? "0" : "1");
+
 	// Start or stop the rotation, based on the spawnargs (forward direction)
-	SetRotationFromSpawnargs(true);
+	SetRotationFromSpawnargs(nextTriggerDirectionIsForward);
 }
 
 void idRotater::SetRotationFromSpawnargs(bool forward)

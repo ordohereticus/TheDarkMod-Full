@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -22,6 +22,9 @@ struct DoorInfo
 
 	// When this door was seen the last time (-1 == never)
 	int lastTimeSeen;
+
+	// When this door was used the last time (-1 == never)
+	int lastTimeUsed; // grayman #2345
 
 	// The last time this door was attempted to be opened (-1 == never)
 	int lastTimeTriedToOpen;

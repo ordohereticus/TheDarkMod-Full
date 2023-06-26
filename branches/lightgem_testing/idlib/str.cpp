@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4116 $
- * $Date: 2010-08-01 05:18:52 -0400 (Sun, 01 Aug 2010) $
- * $Author: tels $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: str.cpp 4116 2010-08-01 09:18:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: str.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #if !defined( ID_REDIRECT_NEWDELETE ) && !defined( MACOS_X )
 	#define USE_STRING_DATA_ALLOCATOR
@@ -163,7 +163,7 @@ void idStr::operator=( const char *text ) {
 	len = l;
 }
 
-idStr idStr::RandomPart( const char c ) const {
+idStr idStr::RandomPart( const char c, const float rand ) const {
 	idStr part;
 
 	// check for list and if found, use random part
@@ -172,7 +172,12 @@ idStr idStr::RandomPart( const char c ) const {
 		// if we have X commata, we have X+1 pieces, so select one at random
 		seps ++;
 		//gameLocal.Printf("Found random list with %i parts.\n", seps);
-		int idx = (int) (gameLocal.random.RandomFloat() * (float)seps);
+		float r = rand;
+		if (r < 0.0f || r > 1.0f)
+		{
+			r = gameLocal.random.RandomFloat();
+		}
+		int idx = (int) (r * (float)seps);
 		//gameLocal.Printf("random part #%i\n", idx);
 		// split string into pieces, and select idx
 		int i = 0; int d = 0;

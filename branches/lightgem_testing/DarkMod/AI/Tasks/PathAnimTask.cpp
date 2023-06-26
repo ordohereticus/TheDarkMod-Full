@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3767 $
- * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
- * $Author: angua $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathAnimTask.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "../Memory.h"
 #include "PathAnimTask.h"
@@ -57,6 +57,9 @@ void PathAnimTask::Init(idAI* owner, Subsystem& subsystem)
 	// Play the anim on the TORSO channel (will override the LEGS channel)
 	owner->Event_PlayAnim(ANIMCHANNEL_TORSO, animName);
 	owner->Event_PlayAnim(ANIMCHANNEL_LEGS, animName);
+
+	// greebo: Be sure to sync the anim channels, otherwise we get duplicate frame commands
+	owner->Event_SyncAnimChannels(ANIMCHANNEL_LEGS, ANIMCHANNEL_TORSO, 0);
 	
 	// Set the name of the state script
 	owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_CustomAnim", blendIn);

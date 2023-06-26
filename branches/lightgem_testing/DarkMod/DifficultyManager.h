@@ -1,22 +1,24 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #ifndef DIFFICULTY_MANAGER_H
 #define DIFFICULTY_MANAGER_H
 
-#include "DifficultyMenu.h"
 #include "DifficultySettings.h"
 
 namespace difficulty {
 
 #define DEFAULT_DIFFICULTY_ENTITYDEF "atdm:difficulty_settings_default"
 #define DIFFICULTY_ENTITYDEF "atdm:difficulty_settings"
+
+// number of difficulty levels
+#define DIFFICULTY_COUNT 3
 
 /**
  * greebo: The Difficulty Manager provides methods to load

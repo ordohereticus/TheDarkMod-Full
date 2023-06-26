@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -38,6 +38,11 @@ UpdateController::~UpdateController()
 void UpdateController::PauseAt(UpdateStep step)
 {
 	_interruptionPoints.insert(step);
+}
+
+void UpdateController::DontPauseAt(UpdateStep step)
+{
+	_interruptionPoints.erase(step);
 }
 
 void UpdateController::StartOrContinue()

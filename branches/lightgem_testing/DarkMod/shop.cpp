@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4453 $
- * $Date: 2011-01-23 06:18:34 -0500 (Sun, 23 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -13,11 +13,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4453 2011-01-23 11:18:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
 #include "MissionData.h"
+#include "Missions/MissionManager.h"
 #include "./Inventory/Inventory.h"
 
 CShopItem::CShopItem() :
@@ -910,10 +911,12 @@ void CShop::CheckPicks(ShopItemList& list)
 
 void CShop::DisplayShop(idUserInterface *gui)
 {
-	idStr filename = va("maps/%s", cv_tdm_mapName.GetString());
+	const idStr& curStartingMap = gameLocal.m_MissionManager->GetCurrentStartingMap();
+
+	idStr filename = va("maps/%s", curStartingMap.c_str());
 
 	// Let the GUI know which map to load
-	gui->SetStateString("mapStartCmd", va("exec 'map %s'", cv_tdm_mapName.GetString()));
+	gui->SetStateString("mapStartCmd", va("exec 'map %s'", curStartingMap.c_str()));
 
 	// Load the map from the missiondata class (provides cached loading)
 	idMapFile* mapFile = gameLocal.m_MissionData->LoadMap(filename);
@@ -1083,6 +1086,10 @@ void CShop::UpdateGUI(idUserInterface* gui)
 		// nothing for sale, let the user know
 		gui->SetStateInt("forSaleAvail0", 0);
 		gui->SetStateString("forSale0_name", "<no items for sale>");
+		// Tels: Fix #2661: do not show a description if nothing is for sale
+		gui->SetStateString("gui::forSale0_desc", "");
+		gui->SetStateString("gui::forSale0_image", "");
+		gui->SetStateString("forSaleCost0_cost", "0");
 	}
 	else
 	{

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4440 $
- * $Date: 2011-01-17 01:33:33 -0500 (Mon, 17 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 namespace tdm
 {
 
-const char* const LIBTDM_UPDATE_VERSION = "0.50";
+const char* const LIBTDM_UPDATE_VERSION = "0.53";
 
 const char* const TDM_MIRRORS_FILE = "tdm_mirrors.txt";
 const char* const TDM_MIRRORS_SERVER = "http://bloodgate.com/mirrors/tdm/pub/pk4/";
@@ -24,7 +24,11 @@ const char* const TDM_UDPATE_INFO_FILE = "tdm_update_info.txt";
 // The file containing the version information of all released packages since 1.02
 const char* const TDM_VERSION_INFO_FILE = "tdm_version_info.txt";
 
+#ifdef WIN32
 const char* const TDM_UPDATE_UPDATER_BATCH_FILE = "tdm_update_updater.cmd";
+#else
+const char* const TDM_UPDATE_UPDATER_BATCH_FILE = "tdm_update_updater.sh";
+#endif
 
 // The standard mod path below D3
 const char* const TDM_STANDARD_MOD_FOLDER = "darkmod";

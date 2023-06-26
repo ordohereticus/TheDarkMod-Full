@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4471 $
- * $Date: 2011-01-24 10:40:30 -0500 (Mon, 24 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4650 $
+ * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4471 2011-01-24 15:40:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
 
 #include "ImageMapManager.h"
 
@@ -134,12 +134,14 @@ CImageMapManager::GetImageMap - Create a new map entry by name
 */
 int CImageMapManager::GetImageMap( idStr name ) {
 	imagemap_t map;
+	// stgatilov: initialize if you don't wont to get 0xCCCCCCCC pointer=)
+	map.img = NULL;
 
 	// convert for example "spots" into "textures/seed/spots.png"
 
 	// If the map name does not start with "textures/seed/", prepend it:
 	idStr mapName = name;
-	if (mapName.Left(14) != "textures/seed/")
+	if (!mapName.Cmpn("textures/seed/", 14))
 	{
 		mapName = "textures/seed/" + name;
 	}
@@ -163,6 +165,7 @@ int CImageMapManager::GetImageMap( idStr name ) {
 				if((fl = fileSystem->OpenFileRead(mapName)) == NULL)
 				{
 					// not found at all
+					m_lastError = "File not found.";
 					return -1;
 				}
 			}
@@ -229,7 +232,7 @@ unsigned char* CImageMapManager::GetMapData( const unsigned int id )
 
 	if (img)
 	{
-		return img->GetImage();
+		return img->GetImageData();
 	}
 
 	// some error happened
@@ -331,7 +334,7 @@ unsigned int CImageMapManager::GetMapDataAt( const unsigned int id, const float 
 		m_lastError = "X or Y out of range.";
 		return 0;
 	}
-    unsigned char *imgData = img->GetImage();
+    unsigned char *imgData = img->GetImageData();
 
 	if (imgData)
 	{
@@ -427,7 +430,7 @@ bool CImageMapManager::LoadImage( imagemap_t* map ) {
 	}
 
 	map->density = 0.0f;
-	unsigned char* imgData = map->img->GetImage();
+	unsigned char* imgData = map->img->GetImageData();
 	if (!imgData)
 	{
 		return false;
