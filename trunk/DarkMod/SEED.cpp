@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4595 $
- * $Date: 2011-02-13 11:03:33 -0500 (Sun, 13 Feb 2011) $
+ * $Revision: 4597 $
+ * $Date: 2011-02-15 12:58:35 -0500 (Tue, 15 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4595 2011-02-13 16:03:33Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4597 2011-02-15 17:58:35Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -1084,22 +1084,25 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 	SeedClass.nocombine = ent->spawnArgs.GetBool("seed_combine","1") ? false : true;
 
 	// never combine these types
-	if ( ent->IsType( idMoveable::Type ) ||
-		 ent->IsType( CBinaryFrobMover::Type ) ||
-		 ent->IsType( idBrittleFracture::Type ) ||
-		 ent->IsType( idTarget::Type ) ||
+	if ( ent->IsType( CBinaryFrobMover::Type ) ||
+		 ent->IsType( tdmFuncShooter::Type ) ||
 		 ent->IsType( idActor::Type ) ||
 		 ent->IsType( idAFEntity_Base::Type ) ||
 		 ent->IsType( idAFAttachment::Type ) ||
 		 ent->IsType( idAnimatedEntity::Type ) ||
-		 ent->IsType( idWeapon::Type ) ||
+		 ent->IsType( idBrittleFracture::Type ) ||
+		 ent->IsType( idDamagable::Type ) ||
+		 ent->IsType( idExplodable::Type ) ||
 		 ent->IsType( idFuncEmitter::Type ) ||
 		 ent->IsType( idFuncSmoke::Type ) ||
 		 ent->IsType( idFuncSplat::Type ) ||
 		 ent->IsType( idFuncPortal::Type ) ||
 		 ent->IsType( idFuncAASPortal::Type ) ||
 		 ent->IsType( idFuncAASObstacle::Type ) ||
-		 ent->IsType( idLight::Type ) )
+		 ent->IsType( idLight::Type ) ||
+		 ent->IsType( idMoveable::Type ) ||
+		 ent->IsType( idTarget::Type ) ||
+		 ent->IsType( idWeapon::Type ) )
 	{
 		SeedClass.nocombine = true;
 	}
