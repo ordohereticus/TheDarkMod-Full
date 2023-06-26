@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4782 $
- * $Date: 2011-04-14 12:10:30 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4785 $
+ * $Date: 2011-04-15 01:42:29 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -960,9 +960,12 @@ protected:
 
 	/**
 	* greebo: Parses the spawnargs for any weapon definitions and adds them
-	*         to the inventory. Expects the weapon category to exist.
+	* to the inventory. Expects the weapon category to exist.
 	*/
 	void AddWeaponsToInventory();
+
+	// Sorts the weapon item category by weapon index
+	void SortWeaponItems();
 
 private:
 	jointHandle_t			hipJoint;
