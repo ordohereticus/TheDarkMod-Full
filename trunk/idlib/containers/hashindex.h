@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4732 $
+ * $Date: 2011-03-26 14:54:08 -0400 (Sat, 26 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -385,5 +385,12 @@ idHashIndex::GenerateKey
 ID_INLINE int idHashIndex::GenerateKey( const int n1, const int n2 ) const {
 	return ( ( n1 + n2 ) & hashMask );
 }
+
+// stgatilov: class for displaying hash + index arrays of idHashIndex
+//   in MSVC debug watch (look "autoexp.dat")
+struct _idHashIndex_showarray_helper {
+	int size;
+	int *ptr;
+};
 
 #endif /* !__HASHINDEX_H__ */
