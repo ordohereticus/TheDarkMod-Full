@@ -1,14 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Packager
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4476 $
+ * $Date: 2011-01-26 03:03:02 -0500 (Wed, 26 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
 #pragma once
 
+#include <stdio.h>
 #include <string>
 #include <boost/shared_ptr.hpp>
 
