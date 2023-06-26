@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4527 $
- * $Date: 2011-02-02 00:10:56 -0500 (Wed, 02 Feb 2011) $
+ * $Revision: 4528 $
+ * $Date: 2011-02-02 00:18:42 -0500 (Wed, 02 Feb 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -92,6 +92,7 @@ ID_INLINE dword idDrawVert::GetColor( void ) const {
 
 ID_INLINE void idDrawVert::ScaleToUnitNormal( void ) {
 	float invNormLen = idMath::RSqrt(normal.LengthSqr());
+	if (invNormLen == 1.0f) return;
 	normal *= invNormLen;
 	tangents[0] *= invNormLen;
 	tangents[1] *= invNormLen;
