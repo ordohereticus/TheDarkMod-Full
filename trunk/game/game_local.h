@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4731 $
- * $Date: 2011-03-26 08:59:10 -0400 (Sat, 26 Mar 2011) $
+ * $Revision: 4733 $
+ * $Date: 2011-03-28 03:11:56 -0400 (Mon, 28 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -485,10 +485,17 @@ public:
 		int		lengthMsec; // length in msecs
 	};
 
+	// The list of briefing videos for the current mission
 	idList<BriefingVideoPart>	briefingVideo;
 	
 	// Index into the above list
 	int							curBriefingVideoPart;
+
+	// The list of DE-briefing videos for the current mission
+	idList<BriefingVideoPart>	debriefingVideo;
+
+	// Index into the above list
+	int							curDebriefingVideoPart;
 
 	bool					mainMenuExited;			// Solarsplace 19th Nov 2010 - Bug tracker id 0002424
 
@@ -1079,11 +1086,12 @@ private:
 	// Sets the video CVARs according to the settings in the given GUI
 	void					UpdateScreenResolutionFromGUI(idUserInterface* gui);
 
-	// Splits the given string and stores the found video materials in the briefingVideo list.
+	// Splits the given string and stores the found video materials in the target list.
 	// Calculates the length of the ROQ videos as defined in the string (each material
 	// is separated by a semicolon) Returns the total length in milliseconds, or -1 on failure.
 	// The lengthStr corresponds to the videosStr, but contains the lengths of the clips
-	int						LoadVideosFromString(const char* videosStr, const char* lengthStr);
+	static int				LoadVideosFromString(const char* videosStr, const char* lengthStr, 
+												 idList<BriefingVideoPart>& targetList);
 
 	// Platform-specific implementation to change the D3's title and icon
 	void					ChangeWindowTitleAndIcon();
