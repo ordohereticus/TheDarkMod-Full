@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4706 $
+ * $Date: 2011-03-21 17:42:58 -0400 (Mon, 21 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -56,17 +56,17 @@ typedef enum {
 	DECL_FX,
 	DECL_PARTICLE,
 	DECL_AF,
-	DECL_PDA,
+	DECL_UNUSED,				// tels: was DECL_PDA
 	DECL_VIDEO,
 	DECL_AUDIO,
-	DECL_EMAIL,
+	DECL_UNUSED2,				// tels: was DECL_EMAIL
 	DECL_MODELEXPORT,
 	DECL_MAPDEF,
 
 	// TDM specific DECLs
-	DECL_XDATA, // External data, for scripts
-	DECL_TDM_MATINFO, // Material information local to TDM.
-	DECL_TDM_MISSIONINFO, // Mission information
+	DECL_XDATA, 				// External data, for scripts
+	DECL_TDM_MATINFO,			// Material information local to TDM.
+	DECL_TDM_MISSIONINFO, 			// Mission information
 	// new decl types can be added here
 
 	DECL_MAX_TYPES			= 32

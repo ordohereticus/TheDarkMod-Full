@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4705 $
- * $Date: 2011-03-21 03:35:33 -0400 (Mon, 21 Mar 2011) $
+ * $Revision: 4706 $
+ * $Date: 2011-03-21 17:42:58 -0400 (Mon, 21 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4705 2011-03-21 07:35:33Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4706 2011-03-21 21:42:58Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2545,14 +2545,6 @@ void idGameLocal::CacheDictionaryMedia( const idDict *dict ) {
 		kv = dict->MatchPrefix( "def", kv );
 	}
 
-	kv = dict->MatchPrefix( "pda_name", NULL );
-	while( kv ) {
-		if ( kv->GetValue().Length() ) {
-			declManager->FindType( DECL_PDA, kv->GetValue().c_str(), false );
-		}
-		kv = dict->MatchPrefix( "pda_name", kv );
-	}
-
 	kv = dict->MatchPrefix( "video", NULL );
 	while( kv ) {
 		if ( kv->GetValue().Length() ) {
@@ -2637,8 +2629,6 @@ void idGameLocal::SpawnPlayer( int clientNum )
 	if ( clientNum >= numClients ) {
 		numClients = clientNum + 1;
 	}
-
-	idPlayer* player = GetLocalPlayer(); // ??
 
 	mpGame.SpawnPlayer( clientNum );
 }
