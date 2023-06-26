@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4647 $
- * $Date: 2011-03-02 20:39:36 -0500 (Wed, 02 Mar 2011) $
+ * $Revision: 4648 $
+ * $Date: 2011-03-04 11:46:51 -0500 (Fri, 04 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4647 2011-03-03 01:39:36Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4648 2011-03-04 16:46:51Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -413,7 +413,7 @@ idAI::idAI()
 	maxAreaReevaluationInterval = 2000; // msec
 	doorRetryTime		= 120000; // msec
 
-	kickForce			= 2048.0f;
+	kickForce			= 60.0f; // grayman #2568 - default Doom 3 value
 	ignore_obstacles	= false;
 	blockedRadius		= 0.0f;
 	blockedMoveTime		= 750;
@@ -1576,7 +1576,7 @@ void idAI::Spawn( void )
 	}
 
 	spawnArgs.GetBool( "animate_z",				"0",		disableGravity );
-	spawnArgs.GetFloat( "kick_force",			"4096",		kickForce );
+	spawnArgs.GetFloat( "kick_force",			"60",		kickForce ); // grayman #2568 - use default Doom 3 value
 	spawnArgs.GetBool( "ignore_obstacles",		"0",		ignore_obstacles );
 	spawnArgs.GetFloat( "blockedRadius",		"-1",		blockedRadius );
 	spawnArgs.GetInt( "blockedMoveTime",		"750",		blockedMoveTime );
@@ -1737,7 +1737,10 @@ void idAI::Spawn( void )
 
 	physicsObj.SetSelf( this );
 	physicsObj.SetClipModel( new idClipModel( GetPhysics()->GetClipModel() ), 1.0f );
+
 	physicsObj.SetMass( spawnArgs.GetFloat( "mass", "100" ) );
+	kickForce = 1.5*physicsObj.GetMass(); // grayman #2568 - equation arrived at empirically
+
 	physicsObj.SetStepUpIncrease(spawnArgs.GetFloat("step_up_increase", "0"));
 
 	if ( spawnArgs.GetBool( "big_monster" ) ) {
@@ -2635,14 +2638,16 @@ void idAI::KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick )
 			continue;
 		}
 
-		if ( obEnt->IsType( idMoveable::Type ) && obEnt->GetPhysics()->IsPushable() ) {
+		if ( obEnt->IsType( idMoveable::Type ) && obEnt->GetPhysics()->IsPushable() )
+		{
 			delta = obEnt->GetPhysics()->GetOrigin() - org;
 			delta.NormalizeFast();
 			perpendicular.x = -delta.y;
 			perpendicular.y = delta.x;
 			delta.z += 0.5f;
 			delta.ToVec2() += perpendicular * gameLocal.random.CRandomFloat() * 0.5f;
-			forceVec = delta * force * obEnt->GetPhysics()->GetMass();
+			forceVec = delta * force; // grayman #2568 - remove obEnt->mass from the equation
+//			forceVec = delta * force * obEnt->GetPhysics()->GetMass(); // grayman #2568 - old way
 			obEnt->ApplyImpulse( this, 0, obEnt->GetPhysics()->GetOrigin(), forceVec );
 			if (obEnt->m_SetInMotionByActor.GetEntity() == NULL)
 			{
@@ -2652,14 +2657,16 @@ void idAI::KickObstacles( const idVec3 &dir, float force, idEntity *alwaysKick )
 		}
 	}
 
-	if ( alwaysKick ) {
+	if ( alwaysKick )
+	{
 		delta = alwaysKick->GetPhysics()->GetOrigin() - org;
 		delta.NormalizeFast();
 		perpendicular.x = -delta.y;
 		perpendicular.y = delta.x;
 		delta.z += 0.5f;
 		delta.ToVec2() += perpendicular * gameLocal.random.CRandomFloat() * 0.5f;
-		forceVec = delta * force * alwaysKick->GetPhysics()->GetMass();
+		forceVec = delta * force; // grayman #2568 - remove obEnt->mass from the equation
+//		forceVec = delta * force * alwaysKick->GetPhysics()->GetMass(); // grayman #2568 - old way
 		alwaysKick->ApplyImpulse( this, 0, alwaysKick->GetPhysics()->GetOrigin(), forceVec );
 		if (alwaysKick->m_SetInMotionByActor.GetEntity() == NULL)
 		{
@@ -4955,8 +4962,12 @@ void idAI::AnimMove()
 		DirectDamage( attack, enemy.GetEntity() );
 	} else {
 		idEntity *blockEnt = physicsObj.GetSlideMoveEntity();
-		if ( blockEnt && blockEnt->IsType( idMoveable::Type ) && blockEnt->GetPhysics()->IsPushable() ) {
-			KickObstacles( viewAxis[ 0 ], kickForce, blockEnt );
+		if ( blockEnt)
+		{
+			if (blockEnt->IsType( idMoveable::Type ) && blockEnt->GetPhysics()->IsPushable() )
+			{
+				KickObstacles( viewAxis[ 0 ], kickForce, blockEnt );
+			}
 		}
 	}
 
