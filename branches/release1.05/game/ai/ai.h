@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4704 $
- * $Date: 2011-03-21 02:37:44 -0400 (Mon, 21 Mar 2011) $
+ * $Revision: 4723 $
+ * $Date: 2011-03-25 00:49:57 -0400 (Fri, 25 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1066,6 +1066,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * angua: is set true while the AI is handling the door.
 	 */
 	bool					m_HandlingDoor;
+
+	/**
+	 * grayman #2706: is set true when the move prior to door handling is saved
+	 */
+	bool					m_RestoreMove;
 
 	/**
 	 * angua: is set true while the AI is handling an elevator.

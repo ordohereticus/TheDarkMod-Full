@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4704 $
- * $Date: 2011-03-21 02:37:44 -0400 (Mon, 21 Mar 2011) $
+ * $Revision: 4723 $
+ * $Date: 2011-03-25 00:49:57 -0400 (Fri, 25 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -84,7 +84,8 @@ public:
 
 	void					RegisterAI(idAI* ai);	// grayman #1145
 	void					TellRegisteredUsers();	// grayman #1145
-	
+	idVec3					GetRotationAxis();		// grayman #2691
+
 	/**
 	* This is the non-script version of GetOpen 
 	*/

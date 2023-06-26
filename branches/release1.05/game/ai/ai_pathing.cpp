@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4704 $
- * $Date: 2011-03-21 02:37:44 -0400 (Mon, 21 Mar 2011) $
+ * $Revision: 4723 $
+ * $Date: 2011-03-25 00:49:57 -0400 (Fri, 25 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4704 2011-03-21 06:37:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4723 2011-03-25 04:49:57Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -48,7 +48,7 @@ const int 	MAX_AAS_WALL_EDGES			= 256;
 const int 	MAX_OBSTACLES				= 256;
 const int	MAX_PATH_NODES				= 256;
 const int 	MAX_OBSTACLE_PATH			= 64;
-const int	REUSE_DOOR_DELAY			= 8000; // grayman #2345 - wait before using a door again
+const int	REUSE_DOOR_DELAY			= 1000; // grayman #2345 - wait before using a door again. #2706 - lower from 8s to 1s to reduce circling
 
 typedef struct obstacle_s {
 	idVec2				bounds[2];
