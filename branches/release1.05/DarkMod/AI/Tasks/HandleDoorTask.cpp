@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4672 $
- * $Date: 2011-03-09 13:44:50 -0500 (Wed, 09 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4694 $
+ * $Date: 2011-03-17 11:10:08 -0400 (Thu, 17 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4672 2011-03-09 18:44:50Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4694 2011-03-17 15:10:08Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -88,7 +88,12 @@ void HandleDoorTask::Init(idAI* owner, Subsystem& subsystem)
 	}
 
 	// Let the owner save its move
-	owner->PushMove();
+
+	if (!owner->GetEnemy()) // grayman #2690 - AI run toward where they saw you last. Don't save that location when handling doors.
+	{
+		owner->PushMove();
+	}
+
 	owner->m_HandlingDoor = true;
 
 	_wasLocked = false;
@@ -1916,7 +1921,11 @@ void HandleDoorTask::OnFinish(idAI* owner)
 
 	if (owner->m_HandlingDoor)
 	{
-		owner->PopMove();
+		if (!owner->GetEnemy()) // grayman #2690 - AI run toward where they saw you last. Don't save that location when handling doors.
+		{
+			owner->PopMove();
+		}
+
 		owner->m_HandlingDoor = false;
 	}
 
