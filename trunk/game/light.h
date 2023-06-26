@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
- * $Author: grayman $
+ * $Revision: 4835 $
+ * $Date: 2011-05-07 04:02:16 -0400 (Sat, 07 May 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -173,7 +173,7 @@ private:
 	int				triggercount;
 	idEntity *		lightParent;
 	bool			beingRelit;					// grayman #2603 - true if being relit
-	idList<idEntityPtr<idEntity>> switchList;	// grayman #2603 - list of my switches
+	idList< idEntityPtr<idEntity> > switchList;	// grayman #2603 - list of my switches
 	idVec4			fadeFrom;
 	idVec4			fadeTo;
 	int				fadeStart;

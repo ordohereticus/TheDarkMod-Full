@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
- * $Author: grayman $
+ * $Revision: 4835 $
+ * $Date: 2011-05-07 04:02:16 -0400 (Sat, 07 May 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -1088,7 +1088,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	/**
 	 * grayman #2603: list of doused lights seen recently
 	 */
-	idList<idEntityPtr<idEntity>>		m_RecentDousedLightsSeen;
+	idList< idEntityPtr<idEntity> >		m_RecentDousedLightsSeen;
 
 
 	/**
