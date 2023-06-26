@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4700 $
- * $Date: 2011-03-20 16:07:52 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4715 $
+ * $Date: 2011-03-23 02:35:56 -0400 (Wed, 23 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4700 2011-03-20 20:07:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4715 2011-03-23 06:35:56Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -446,6 +446,11 @@ idCVar developer(					"developer",				"0",			CVAR_GAME | CVAR_BOOL, "" );
 idCVar r_aspectRatio( 				"r_aspectRatio",			"0",			CVAR_RENDERER | CVAR_INTEGER | CVAR_ARCHIVE, "Aspect ratio of view, determines the ratio between FOV for x and y. Only used if r_fovRatio is 0:\n0 = 4:3\n1 = 16:9\n2 = 16:10\n3 = 5:4\n16:9 TV", 0, 4 );
 
 idCVar cv_r_fovRatio( 				"r_fovRatio",			"0",			CVAR_RENDERER | CVAR_FLOAT | CVAR_ARCHIVE, "Aspect ratio of view, if set to greater than 0, determines the ratio between FOV for x and y directly, and r_aspectRatio is ignored. The value should closely match r_customWidth / r_customHeight." );
+
+idCVar cv_gui_Width( 				"gui_Width",			"1.0",			CVAR_RENDERER | CVAR_FLOAT | CVAR_ARCHIVE, "Size of the GUI as factor of the screen width. Default is 1.0 and stretches the GUI over the entire screen." );
+idCVar cv_gui_Height( 				"gui_Height",			"1.0",			CVAR_RENDERER | CVAR_FLOAT | CVAR_ARCHIVE, "Size of the GUI as factor of the screen height. Default is 1.0 and stretches the GUI over the entire screen." );
+idCVar cv_gui_CenterX( 			"gui_CenterX",			"0.5",			CVAR_RENDERER | CVAR_FLOAT | CVAR_ARCHIVE, "Position of the center of the GUI as percentage of the whole screen width. Default is 0.5 (half of the screen width)." );
+idCVar cv_gui_CenterY( 			"gui_CenterY",			"0.5",			CVAR_RENDERER | CVAR_FLOAT | CVAR_ARCHIVE, "Position of the center of the GUI as percentage of the whole screen height. Default is 0.5 (half of the screen height)." );
 
 idCVar g_cinematic(					"g_cinematic",				"1",			CVAR_GAME | CVAR_BOOL, "skips updating entities that aren't marked 'cinematic' '1' during cinematics" );
 idCVar g_cinematicMaxSkipTime(		"g_cinematicMaxSkipTime",	"600",			CVAR_GAME | CVAR_FLOAT, "# of seconds to allow game to run when skipping cinematic.  prevents lock-up when cinematic doesn't end.", 0, 3600 );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4700 $
- * $Date: 2011-03-20 16:07:52 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4715 $
+ * $Date: 2011-03-23 02:35:56 -0400 (Wed, 23 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -350,6 +350,15 @@ extern idCVar cv_ai_ko_show;
 * If != 0, use this ratio between FOV X and Y and ignore r_aspectRatio.
 */
 extern idCVar	cv_r_fovRatio;
+
+/** Screen width * gui_Width = GUI width */
+extern idCVar	cv_gui_Width;
+/** Screen height * gui_Height = GUI height */
+extern idCVar	cv_gui_Height;
+/** Screen width * gui_CenterX = GUI center X */
+extern idCVar	cv_gui_CenterX;
+/** Screen height * gui_CenterY = GUI center Y */
+extern idCVar	cv_gui_CenterY;
 
 /**
 * End DarkMod cvars
