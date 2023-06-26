@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4862 $
- * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
+ * $Revision: 4863 $
+ * $Date: 2011-05-22 08:55:09 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -30,6 +30,8 @@ private:
 	FollowActorTask();
 
 public:
+	// Construct this task by passing an actor to follow - it's safe to pass a NULL actor,
+	// the task will terminate after one thinking round in that case.
 	FollowActorTask(idActor* actorToFollow);
 
 	// Get the name of this task

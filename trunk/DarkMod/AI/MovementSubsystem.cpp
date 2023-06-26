@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4862 $
- * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
+ * $Revision: 4863 $
+ * $Date: 2011-05-22 08:55:09 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4862 2011-05-22 12:41:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4863 2011-05-22 12:55:09Z greebo $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -379,6 +379,8 @@ void MovementSubsystem::StartPathTask()
 	}
 	else if (classname == "path_follow_actor")
 	{
+		idActor* actor = NULL;
+
 		for (int i = 0; i < path->targets.Num(); i++)
 		{
 			idEntity* target = path->targets[i].GetEntity();
@@ -388,9 +390,12 @@ void MovementSubsystem::StartPathTask()
 				continue;
 			}
 
-			tasks.push_back(FollowActorTaskPtr(new FollowActorTask(static_cast<idActor*>(target))));
+			actor = static_cast<idActor*>(target);
 			break;
 		}
+
+		// Add a new task, even if the actor is NULL - the task will deal with that
+		tasks.push_back(FollowActorTaskPtr(new FollowActorTask(actor)));
 	}
 	else
 	{
