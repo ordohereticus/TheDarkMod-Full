@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4840 $
- * $Date: 2011-05-13 01:30:33 -0400 (Fri, 13 May 2011) $
+ * $Revision: 4841 $
+ * $Date: 2011-05-13 04:23:07 -0400 (Fri, 13 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4840 2011-05-13 05:30:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4841 2011-05-13 08:23:07Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "Misc.h"
@@ -382,7 +382,10 @@ void CGlobal::LoadINISettings(void *p)
 	// will also be enabled as a marker in the logfile.
 	if(FindSection(pfh, "Debug", &ps) != static_cast<ULONG>(-1))
 	{
-		if(FindMap(ps, "LogFile", TRUE, &pm) != static_cast<ULONG>(-1))
+
+// Don't use the LogFile section for OSX, always log to the original path in ~/Library/Logs
+#ifndef MACOS_X
+		if (FindMap(ps, "LogFile", TRUE, &pm) != static_cast<ULONG>(-1))
 		{
 			if (idStr::Icmp(pm->Value, "") == 0)
 			{
@@ -416,6 +419,7 @@ void CGlobal::LoadINISettings(void *p)
 				}
 			}
 		}
+#endif
 
 		DM_LOG(LC_FORCE, LT_FORCE)LOGSTRING("Found Debug section \r");
 
