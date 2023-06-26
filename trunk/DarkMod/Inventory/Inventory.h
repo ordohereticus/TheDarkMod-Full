@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4784 $
- * $Date: 2011-04-15 01:22:03 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4791 $
+ * $Date: 2011-04-16 02:12:54 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -55,12 +55,9 @@
  * If an item is put into an inventory, without specifying the group, it will be put
  * in the default group which is always at index 0 and has the name DEFAULT.
  */
-class CInventory : 
-	public idClass
+class CInventory
 {
 public:
-	CLASS_PROTOTYPE(CInventory);
-
 	CInventory();
 	~CInventory();
 

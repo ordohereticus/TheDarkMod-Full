@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4786 $
- * $Date: 2011-04-15 10:26:28 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4791 $
+ * $Date: 2011-04-16 02:12:54 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4786 2011-04-15 14:26:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4791 2011-04-16 06:12:54Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -29,9 +29,6 @@ static idStr sLootTypeName[LOOT_COUNT] =
 	"loot_gold",
 	"loot_goods"
 };
-
-CLASS_DECLARATION(idClass, CInventory)
-END_CLASS
 
 CInventory::CInventory() :
 	m_HighestCursorId(0),
