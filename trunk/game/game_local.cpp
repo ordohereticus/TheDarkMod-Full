@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4560 $
- * $Date: 2011-02-05 13:57:41 -0500 (Sat, 05 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4562 $
+ * $Date: 2011-02-06 00:10:50 -0500 (Sun, 06 Feb 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4560 2011-02-05 18:57:41Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4562 2011-02-06 05:10:50Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -548,9 +548,9 @@ void idGameLocal::Init( void ) {
 	}
 }
 
-idStr idGameLocal::GetMapFileName() const
+const idStr& idGameLocal::GetMapFileName() const
 {
-	return idStr( mapFileName );
+	return mapFileName;
 }
 
 void idGameLocal::CheckTDMVersion(idUserInterface* ui)
