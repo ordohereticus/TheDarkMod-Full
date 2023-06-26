@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4645 $
- * $Date: 2011-03-01 18:29:36 -0500 (Tue, 01 Mar 2011) $
+ * $Revision: 4655 $
+ * $Date: 2011-03-04 15:59:56 -0500 (Fri, 04 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4645 2011-03-01 23:29:36Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4655 2011-03-04 20:59:56Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -301,7 +301,7 @@ bool GetFirstBlockingObstacle(const idPhysics *physics, const obstacle_t *obstac
 				
 				// grayman #2345 - Return the index number of the closest blocking door,
 				// regardless of whether the door is the closest blocking obstacle. Ignore
-				// a door that you recently used. This keeps you from going back and forth
+				// a door that you recently used if not alerted. This keeps you from going back and forth
 				// through the same door.
 
 				idEntity* e = obstacles[i].entity;
@@ -309,11 +309,14 @@ bool GetFirstBlockingObstacle(const idPhysics *physics, const obstacle_t *obstac
 				{
 					if (blockingScale < blockingScaleDoor)
 					{
-						CFrobDoor *frobDoor = static_cast<CFrobDoor*>(e);
-						int lastTimeUsed = selfAI->GetMemory().GetDoorInfo(frobDoor).lastTimeUsed;
-						if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + REUSE_DOOR_DELAY))
+						if (selfAI->AI_AlertIndex < 3) // grayman #2670
 						{
-							continue; // ignore this door
+							CFrobDoor *frobDoor = static_cast<CFrobDoor*>(e);
+							int lastTimeUsed = selfAI->GetMemory().GetDoorInfo(frobDoor).lastTimeUsed;
+							if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + REUSE_DOOR_DELAY))
+							{
+								continue; // ignore this door
+							}
 						}
 						blockingDoorNum = i;
 						blockingScaleDoor = blockingScale;

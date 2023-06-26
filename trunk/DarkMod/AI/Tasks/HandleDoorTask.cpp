@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4647 $
- * $Date: 2011-03-02 20:39:36 -0500 (Wed, 02 Mar 2011) $
+ * $Revision: 4655 $
+ * $Date: 2011-03-04 15:59:56 -0500 (Fri, 04 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4647 2011-03-03 01:39:36Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4655 2011-03-04 20:59:56Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -146,7 +146,12 @@ void HandleDoorTask::PickWhere2Go(CFrobDoor* door)
 	// If you're the only AI on the queue, close the door behind you.
 
 	int numUsers = door->GetUserManager().GetNumUsers();
-	if (numUsers < 2)
+
+	if (owner->AI_RUN) // grayman #2670
+	{
+		// run for the mid position
+	}
+	else if (numUsers < 2)
 	{
 		if (AllowedToClose(owner) && (_doorInTheWay || owner->ShouldCloseDoor(door)))
 		{
@@ -1085,10 +1090,11 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				{
 					if (owner->ReachedPos(_backPos, MOVE_TO_POSITION) || ((owner->GetTactileEntity() != NULL) && (closedPos - owner->GetPhysics()->GetOrigin()).LengthFast() < 100)) // grayman #2345
 					{
-						if (!AllowedToClose(owner))
+						if (!AllowedToClose(owner) || owner->AI_RUN) // grayman #2670
 						{
 							return true;
 						}
+
 						bool closeDoor = false;
 						if (numUsers < 2)
 						{
@@ -1125,15 +1131,15 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 				
 			case EStateWaitBeforeClose:
-				if (!AllowedToClose(owner))
+				if (!AllowedToClose(owner) || (!_doorInTheWay && (owner->AI_AlertIndex >= EInvestigating)) || owner->AI_RUN) // grayman #2670
 				{
 					return true;
 				}
 
-				if (!_doorInTheWay && owner->AI_AlertIndex >= EInvestigating)
-				{
-					return true;
-				}
+//				if (!_doorInTheWay && (owner->AI_AlertIndex >= EInvestigating))
+//				{
+//					return true;
+//				}
 
 				if (gameLocal.time >= _waitEndTime && (numUsers < 2 || _doorInTheWay))
 				{
@@ -1152,15 +1158,15 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				break;
 
 			case EStateStartClose:
-				if (!AllowedToClose(owner))
+				if (!AllowedToClose(owner) || (!_doorInTheWay && (owner->AI_AlertIndex >= EInvestigating)) || owner->AI_RUN) // grayman #2670
 				{
 					return true;
 				}
 
-				if (!_doorInTheWay && owner->AI_AlertIndex >= EInvestigating)
-				{
-					return true;
-				}
+//				if (!_doorInTheWay && owner->AI_AlertIndex >= EInvestigating)
+//				{
+//					return true;
+//				}
 
 				if (gameLocal.time >= _waitEndTime && (numUsers < 2 || _doorInTheWay))
 				{
@@ -1175,14 +1181,15 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 
 			case EStateClosingDoor:
-				if (!AllowedToClose(owner))
+				if (!AllowedToClose(owner) || (owner->AI_AlertIndex >= EInvestigating) || owner->AI_RUN) // grayman #2670
 				{
 					return true;
 				}
-				if (owner->AI_AlertIndex >= EInvestigating)
-				{
-					return true;
-				}
+
+//				if (owner->AI_AlertIndex >= EInvestigating)
+//				{
+//					return true;
+//				}
 
 				// check blocked or interrupted
 				if (frobDoor->IsBlocked() || 
