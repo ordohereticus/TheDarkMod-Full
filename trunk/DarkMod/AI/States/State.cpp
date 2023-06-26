@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4703 $
- * $Date: 2011-03-20 21:53:21 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4722 $
+ * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4703 2011-03-21 01:53:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4722 2011-03-24 18:45:06Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2259,6 +2259,13 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
+	// grayman #2706 - can't handle doors if you're resolving a block
+
+	if (owner->movementSubsystem->IsResolvingBlock() || owner->movementSubsystem->IsWaiting())
+	{
+		return;
+	}
+
 	// grayman #2650 - can we handle doors?
 
 	if (!owner->m_bCanOperateDoors)
@@ -2312,7 +2319,12 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 
 			if (boost::dynamic_pointer_cast<HandleDoorTask>(task) != NULL)
 			{
-				subsys->FinishTask();
+				// grayman #2706 - only quit this door if you're in the approaching states.
+				// otherwise, finish with this door before you move to another one.
+				if (task->CanAbort())
+				{
+					subsys->FinishTask();
+				}
 			}
 			else
 			{

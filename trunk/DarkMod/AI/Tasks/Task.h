@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3524 $
- * $Date: 2009-07-09 00:20:12 -0400 (Thu, 09 Jul 2009) $
- * $Author: greebo $
+ * $Revision: 4722 $
+ * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -86,6 +86,12 @@ public:
 	virtual bool IsInitialised()
 	{
 		return _initialised;
+	}
+
+	// grayman #2706 - can we abort this task? override in task instances
+	virtual bool CanAbort()
+	{
+		return true;
 	}
 };
 typedef boost::shared_ptr<Task> TaskPtr;

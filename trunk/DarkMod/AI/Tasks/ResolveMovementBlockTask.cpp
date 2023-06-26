@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4670 $
- * $Date: 2011-03-08 21:55:26 -0500 (Tue, 08 Mar 2011) $
+ * $Revision: 4722 $
+ * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 4670 2011-03-09 02:55:26Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 4722 2011-03-24 18:45:06Z grayman $", init_version);
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -51,6 +51,7 @@ void ResolveMovementBlockTask::Init(idAI* owner, Subsystem& subsystem)
 	if (_blockingEnt == NULL)
 	{
 		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s cannot resolve a NULL blocking entity.\r", owner->name.c_str());
+		owner->PushMove(); // grayman #2706 - save movement state, because it gets popped in OnFinish()
 		subsystem.FinishTask();
 	}
 
@@ -126,6 +127,7 @@ void ResolveMovementBlockTask::InitBlockingAI(idAI* owner, Subsystem& subsystem)
 	}
 
 	owner->MoveToPosition(dest, 5);
+	owner->movementSubsystem->SetBlockedState(ai::MovementSubsystem::EResolvingBlock); // grayman #2706 - stay in EResolvingBlock
 }
 
 void ResolveMovementBlockTask::InitBlockingStatic(idAI* owner, Subsystem& subsystem)
@@ -143,6 +145,7 @@ void ResolveMovementBlockTask::InitBlockingStatic(idAI* owner, Subsystem& subsys
 
 		if (owner->movementSubsystem->AttemptToExtricate())
 		{
+			owner->movementSubsystem->SetBlockedState(ai::MovementSubsystem::EResolvingBlock); // grayman #2706 - stay in EResolvingBlock
 			return;
 		}
 
@@ -262,6 +265,7 @@ void ResolveMovementBlockTask::InitBlockingStatic(idAI* owner, Subsystem& subsys
 		owner->MoveToPosition(testPoint);
 		owner->RestoreAttachmentContents();
 	}
+	owner->movementSubsystem->SetBlockedState(ai::MovementSubsystem::EResolvingBlock); // grayman #2706 - stay in EResolvingBlock
 }
 
 bool ResolveMovementBlockTask::Perform(Subsystem& subsystem)
@@ -449,6 +453,7 @@ bool ResolveMovementBlockTask::PerformBlockingStatic(idAI* owner) // grayman #23
 	if (owner->movementSubsystem->GetPrevTraveled() < 0.1)
 	{
 		owner->movementSubsystem->AttemptToExtricate();
+		owner->movementSubsystem->SetBlockedState(ai::MovementSubsystem::EResolvingBlock); // grayman #2706 - stay in EResolvingBlock
 	}
 
 	return false;

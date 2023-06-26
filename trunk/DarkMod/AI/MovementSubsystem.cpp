@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4687 $
- * $Date: 2011-03-10 11:29:30 -0500 (Thu, 10 Mar 2011) $
+ * $Revision: 4722 $
+ * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4687 2011-03-10 16:29:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4722 2011-03-24 18:45:06Z grayman $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -646,6 +646,7 @@ void MovementSubsystem::SetWaiting(bool solid) // grayman #2345
 		if (frobDoor != NULL)
 		{
 			frobDoor->GetUserManager().RemoveUser(owner);
+			frobDoor->GetUserManager().ResetMaster(frobDoor); // grayman #2345/#2706 - redefine which AI is the master
 		}
 	}
 }
@@ -678,6 +679,24 @@ void MovementSubsystem::ResolveBlock(idEntity* blockingEnt)
 	if (owner->GetMemory().resolvingMovementBlock || !owner->m_canResolveBlock) // grayman #2345
 	{
 		return; // Already resolving
+	}
+
+	// grayman #2706 - if handling a door, the door handling task will disappear, so clean up first
+
+	if (owner->m_HandlingDoor)
+	{
+		CFrobDoor* frobDoor = owner->GetMemory().doorRelated.currentDoor.GetEntity();
+		if (frobDoor)
+		{
+			frobDoor->GetUserManager().RemoveUser(owner);
+			frobDoor->GetUserManager().ResetMaster(frobDoor); // redefine which AI is the master door user
+		}
+		owner->m_HandlingDoor = false;
+		if (owner->m_RestoreMove) // AI run toward where they saw you last. Don't save that location when handling doors.
+		{
+			SetBlockedState(EResolvingBlock); // preset this so PopMove() calling RestoreMove() doesn't start handling another door 
+			owner->PopMove(); // flush the movement state saved when door handling began
+		}
 	}
 
 	// Push a resolution task
@@ -792,42 +811,6 @@ void MovementSubsystem::DebugDraw(idAI* owner)
 		gameRenderWorld->DebugBox(colorWhite, idBox(_historyBounds), 3* gameLocal.msec);
 	}
 
-	/*	grayman #2345
-
-		Show the door situation along with movement state.
-
-		Format is:
-	  
-			<EBlockedState> <DoorName> - <Position in door queue>/<# users in door queue>
-
-		For example:
-
-			ENotBlocked Door4 - 2/3
-
-		means the AI is in movement state "ENotBlocked" and is currently in the second
-		slot in a door queue of 3 users on door Door4.
-	 */
-
-	idStr position = "";
-	if (owner->m_HandlingDoor)
-	{
-		CFrobDoor* frobDoor = owner->GetMemory().doorRelated.currentDoor.GetEntity();
-		if (frobDoor != NULL)
-		{
-			idStr doorName = frobDoor->name;
-			int numUsers = frobDoor->GetUserManager().GetNumUsers();
-			int slot = frobDoor->GetUserManager().GetIndex(owner) + 1;
-			if (slot > 0)
-			{
-				position = " " + doorName + " - " + slot + "/" + numUsers;
-			}
-		}
-		else
-		{
-			position = " (ERROR: no door)";
-		}
-	}
-
 	idStr str;
 	idVec4 colour;
 	switch (_state) 
@@ -857,7 +840,6 @@ void MovementSubsystem::DebugDraw(idAI* owner)
 			colour = colorBlue;
 			break;
 	}
-	str += position;
 
 	gameRenderWorld->DrawText(str.c_str(), 
 		(owner->GetEyePosition() - owner->GetPhysics()->GetGravityNormal()*60.0f), 
