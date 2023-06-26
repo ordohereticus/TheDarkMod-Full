@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4825 $
- * $Date: 2011-04-30 03:09:37 -0400 (Sat, 30 Apr 2011) $
+ * $Revision: 4827 $
+ * $Date: 2011-05-01 02:08:08 -0400 (Sun, 01 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4825 2011-04-30 07:09:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4827 2011-05-01 06:08:08Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -581,6 +581,14 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 
 		// Increase the stack count
 		existing->SetCount(existing->GetCount() + count);
+
+		// Persistent flags are latched - once a inv_persistent item is added to a stack, the whole stack
+		// snaps into persistent mode.
+		if (ent->spawnArgs.GetBool("inv_persistent") && !existing->IsPersistent())
+		{
+			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Marking stackable items as persistent after picking up one persistent item: %s\r", existing->GetName().c_str());
+			existing->SetPersistent(true);
+		}
 
 		// We added a stackable item that was already in the inventory
 		gameLocal.m_MissionData->InventoryCallback(

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4792 $
- * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4827 $
+ * $Date: 2011-05-01 02:08:08 -0400 (Sun, 01 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -105,6 +105,8 @@ public:
 	 *         Stackable persistent items will return the current stack count.
 	 */
 	int						GetPersistentCount();
+
+	bool					IsPersistent() const { return m_Persistent; };
 	void					SetPersistent(bool newValue);
 
 	/**
