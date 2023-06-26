@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4801 $
+ * $Date: 2011-04-17 05:33:09 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,11 +11,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4801 2011-04-17 09:33:09Z greebo $", init_version);
 
 #include "Shop.h"
 #include "../../game/game_local.h"
 #include "../Objectives/MissionData.h"
+#include "../Objectives/CampaignStatistics.h"
 #include "../Missions/MissionManager.h"
 #include "../Inventory/Inventory.h"
 #include "../Inventory/WeaponItem.h"

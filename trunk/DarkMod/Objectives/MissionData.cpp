@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4800 $
- * $Date: 2011-04-17 04:32:34 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4801 $
+ * $Date: 2011-04-17 05:33:09 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4800 2011-04-17 08:32:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4801 2011-04-17 09:33:09Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -23,6 +23,7 @@ static bool init_version = FileVersionList("$Id: MissionData.cpp 4800 2011-04-17
 #include "../StimResponse/StimResponseCollection.h"
 #include "../Missions/MissionManager.h"
 
+#include "CampaignStatistics.h"
 #include "ObjectiveLocation.h"
 
 /**
