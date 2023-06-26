@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4597 $
- * $Date: 2011-02-15 12:58:35 -0500 (Tue, 15 Feb 2011) $
+ * $Revision: 4611 $
+ * $Date: 2011-02-19 14:28:35 -0500 (Sat, 19 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -493,6 +493,11 @@ private:
 	* If Restore() just finished, the next Think() does need to do this.
 	*/
 	bool 						m_bRestoreLOD;
+
+	/**
+	* Number of currently existing entities, to see if we reached the spawn limit.
+	*/
+	int 						m_iNumEntitiesInGame;
 
 	static const unsigned long	IEEE_ONE  = 0x3f800000;
 	static const unsigned long	IEEE_MASK = 0x007fffff;

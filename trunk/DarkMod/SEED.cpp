@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4602 $
- * $Date: 2011-02-16 17:11:15 -0500 (Wed, 16 Feb 2011) $
+ * $Revision: 4611 $
+ * $Date: 2011-02-19 14:28:35 -0500 (Sat, 19 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4602 2011-02-16 22:11:15Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4611 2011-02-19 19:28:35Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -147,6 +147,8 @@ Seed::Seed( void ) {
 	m_DistCheckTimeStamp = 0;
 	m_DistCheckInterval = 0.5f;
 	m_bDistCheckXYOnly = false;
+
+	m_iNumEntitiesInGame = 0;
 }
 
 /*
@@ -183,6 +185,7 @@ void Seed::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( m_iThinkCounter );
 	savefile->WriteFloat( m_fLODBias );
 	savefile->WriteBool( m_bPrepared );
+	savefile->WriteInt( m_iNumEntitiesInGame );
 
     savefile->WriteInt( m_DistCheckTimeStamp );
 	savefile->WriteInt( m_DistCheckInterval );
@@ -480,6 +483,7 @@ void Seed::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( m_iThinkCounter );
 	savefile->ReadFloat( m_fLODBias );
 	savefile->ReadBool( m_bPrepared );
+	savefile->ReadInt( m_iNumEntitiesInGame );
 	
     savefile->ReadInt( m_DistCheckTimeStamp );
 	savefile->ReadInt( m_DistCheckInterval );
@@ -3587,8 +3591,9 @@ bool Seed::SpawnEntity( const int idx, const bool managed )
 	}
 
 	// avoid that we run out of entities during run time
-	if (gameLocal.num_entities > SPAWN_LIMIT)
+	if (m_iNumEntitiesInGame > SPAWN_LIMIT)
 	{
+//		gameLocal.Printf("SEED %s: Entity limit reached.\n", GetName() );
 		return false;
 	}
 
@@ -3644,6 +3649,8 @@ bool Seed::SpawnEntity( const int idx, const bool managed )
 		gameLocal.SpawnEntityDef( args, &ent2 );
 		if (ent2)
 		{
+			m_iNumEntitiesInGame ++;
+
 			// TODO: check if the entity has been spawned for the first time and if so,
 			// 		 also take control of any attachments it has? Or spawn it during build
 			//		 and then parse the attachments as new class?
@@ -3776,7 +3783,6 @@ bool Seed::SpawnEntity( const int idx, const bool managed )
 							 );
 						//ent2->ApplyImpulse( this, 0, ent->origin, idPolar3( impulse ).ToVec3() );
 					}
-
 				}
 			}
 
@@ -3836,6 +3842,7 @@ bool Seed::CullEntity( const int idx )
 		}
 		// gameLocal.Printf( "SEED %s: Culling entity #%i (%0.2f > %0.2f).\n", GetName(), i, deltaSq, lclass->cullDist );
 
+		m_iNumEntitiesInGame --;
 		m_iNumExisting --;
 		m_iNumVisible --;
 		// add visible, reset exists, but keep the others (esp. ENTITY_WAS_SPAWNED and ENTITY_WATCHED)
@@ -3969,6 +3976,13 @@ void Seed::Think( void )
 		idVec3 playerPos = gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin();
 		float lodBias = cv_lod_bias.GetFloat();
 
+	    m_iNumEntitiesInGame = 0;
+		for( int i = 0; i < gameLocal.num_entities; i++ ) {
+			if ( gameLocal.entities[ i ] ) {
+	    		m_iNumEntitiesInGame ++;
+			}
+		}
+
 		// for each of our "entities", do the distance check
 		int numEntities = m_Entities.Num();
 		for (int i = 0; i < numEntities; i++)
@@ -4027,7 +4041,7 @@ void Seed::Think( void )
 			// to get the true real amount, one would probably go through gameLocal.entities[] and
 			// count the valid ones:
 			gameLocal.Printf( "%s: spawned %i, culled %i, existing: %i, visible: %i, overall: %i\n",
-				GetName(), spawned, culled, m_iNumExisting, m_iNumVisible, gameLocal.num_entities );
+				GetName(), spawned, culled, m_iNumExisting, m_iNumVisible, m_iNumEntitiesInGame );
 		}
 	}
 }
