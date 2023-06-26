@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4402 $
- * $Date: 2011-01-10 21:27:44 -0500 (Mon, 10 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4462 $
+ * $Date: 2011-01-23 15:43:53 -0500 (Sun, 23 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -180,6 +180,7 @@ void gameError( const char *fmt, ... );
 #include "../DarkMod/AI/AreaManager.h"
 #include "../DarkMod/GamePlayTimer.h"
 #include "../DarkMod/ModelGenerator.h"
+#include "../DarkMod/ImageMapManager.h"
 #include "../DarkMod/LightController.h"
 
 #include <boost/shared_ptr.hpp>
@@ -211,6 +212,8 @@ typedef boost::shared_ptr<CHttpConnection> CHttpConnectionPtr;
 
 class CModelGenerator;
 typedef boost::shared_ptr<CModelGenerator> CModelGeneratorPtr;
+class CImageMapManager;
+typedef boost::shared_ptr<CImageMapManager> CImageMapManagerPtr;
 class CLightController;
 typedef boost::shared_ptr<CLightController> CLightControllerPtr;
 
@@ -527,6 +530,11 @@ public:
 	 * tels: The model generator instance, for manipulating/generating models on the fly.
 	 */
 	CModelGeneratorPtr		m_ModelGenerator;
+
+	/**
+	 * tels: The image mapmanager instance, for loading/sharing image maps for the SEED system.
+	 */
+	CImageMapManagerPtr		m_ImageMapManager;
 
 	/**
 	 * tels: The light controller instance, used to control local ambient lights.

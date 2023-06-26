@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4402 $
- * $Date: 2011-01-10 21:27:44 -0500 (Mon, 10 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4462 $
+ * $Date: 2011-01-23 15:43:53 -0500 (Sun, 23 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4402 2011-01-11 02:27:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4462 2011-01-23 20:43:53Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -278,6 +278,10 @@ void idGameLocal::Clear( void )
 	{
 		m_ModelGenerator->Clear();
 	}
+	if (m_ImageMapManager)
+	{
+		m_ImageMapManager->Clear();
+	}
 	if (m_LightController)
 	{
 		m_LightController->Clear();
@@ -526,6 +530,10 @@ void idGameLocal::Init( void ) {
 	m_ModelGenerator = CModelGeneratorPtr(new CModelGenerator);
 	m_ModelGenerator->Init();
 
+	// Initialise the image map manager
+	m_ImageMapManager = CImageMapManagerPtr(new CImageMapManager);
+	m_ImageMapManager->Init();
+
 	// Initialise the light controller
 	m_LightController = CLightControllerPtr(new CLightController);
 	m_LightController->Init();
@@ -659,6 +667,10 @@ void idGameLocal::Shutdown( void ) {
 	m_ModelGenerator->Shutdown();
 	m_ModelGenerator = CModelGeneratorPtr();
 
+	// Destroy the image map manager
+	m_ImageMapManager->Shutdown();
+	m_ImageMapManager = CImageMapManagerPtr();
+
 	// Destroy the light controller
 	m_LightController->Shutdown();
 	m_LightController = CLightControllerPtr();
@@ -789,6 +801,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// Save whatever the model generator needs
 	m_ModelGenerator->Save(&savegame);
+
+	// Save whatever the image map manager needs
+	m_ImageMapManager->Save(&savegame);
 
 	// Save whatever the light controller needs
 	m_LightController->Save(&savegame);
@@ -1796,6 +1811,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	savegame.ReadObject( reinterpret_cast<idClass*&>(m_Grabber) );
 
 	m_ModelGenerator->Restore(&savegame);
+	m_ImageMapManager->Restore(&savegame);
 	m_LightController->Restore(&savegame);
 
 	m_DifficultyManager.Restore(&savegame);
@@ -2217,6 +2233,10 @@ void idGameLocal::MapShutdown( void ) {
 	if (m_ModelGenerator != NULL)
 	{
 		m_ModelGenerator->Clear();
+	}
+	if (m_ImageMapManager != NULL)
+	{
+		m_ImageMapManager->Clear();
 	}
 	
 	if (m_LightController != NULL)
