@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4792 $
- * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4794 $
+ * $Date: 2011-04-16 04:33:53 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -82,7 +82,7 @@ public:
 	const ShopItemList& GetPurchasedItems();
 
 	// returns the combination of For Sale and Starting items
-	ShopItemList GetPlayerStartingEquipment();
+	const ShopItemList& GetPlayerStartingEquipment() const;
 
 	// adjust the lists
 	void SellItem(int index);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4791 $
- * $Date: 2011-04-16 02:12:54 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4794 $
+ * $Date: 2011-04-16 04:33:53 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4791 2011-04-16 06:12:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4794 2011-04-16 08:33:53Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -470,7 +470,7 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 	// and this is an inv_map_start item, we won't put it into the
 	// inventory because the player already has it. 
 
-	ShopItemList startingItems = gameLocal.m_Shop->GetPlayerStartingEquipment();
+	const ShopItemList& startingItems = gameLocal.m_Shop->GetPlayerStartingEquipment();
 	bool gotFromShop = ((startingItems.Num() > 0) && (ent->spawnArgs.GetBool("inv_map_start", "0")));
 
 	// Check for loot items

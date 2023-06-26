@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4792 $
- * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4794 $
+ * $Date: 2011-04-16 04:33:53 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4792 2011-04-16 07:42:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4794 2011-04-16 08:33:53Z greebo $", init_version);
 
 #include "Shop.h"
 #include "../../game/game_local.h"
@@ -155,7 +155,7 @@ bool CShop::GetNothingForSale()
 	return _itemsForSale.Num() == 0;
 }
 
-ShopItemList CShop::GetPlayerStartingEquipment()
+const ShopItemList& CShop::GetPlayerStartingEquipment() const
 {
 	return _startingItems;
 }
