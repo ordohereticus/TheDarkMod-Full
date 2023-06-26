@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4794 $
- * $Date: 2011-04-16 04:33:53 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4795 $
+ * $Date: 2011-04-16 10:33:10 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4794 2011-04-16 08:33:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4795 2011-04-16 14:33:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1309,8 +1309,11 @@ void idPlayer::SetupInventory()
 						item->SetEnabled(shopItem->GetCount() > 0);
 					}
 
-					// Set the persistent flag and the ammo
-					item->SetPersistent(shopItem->GetPersistent());
+					// greebo: Don't set the persistent flag for weapons, they need to be persistent at all times
+					// The carry-over limits can be controlled via atdm:campaign_info objects
+					// item->SetPersistent(shopItem->GetPersistent());
+
+					// Set the ammo
 					item->SetAmmo(shopItem->GetCount());
 					break;
 				}

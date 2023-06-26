@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4794 $
- * $Date: 2011-04-16 04:33:53 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4795 $
+ * $Date: 2011-04-16 10:33:10 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -117,7 +117,7 @@ private:
 
 	// greebo: Tries to merge the named shopitem (with the given quantity) into the existing starting equipment
 	// Returns TRUE if the quantity was merged into the list, FALSE if the item doesn't exist yet
-	bool MergeIntoStartingEquipment(const idStr& itemName, int quantity, bool isWeapon);
+	bool MergeIntoStartingEquipment(const idStr& itemName, int quantity, bool isWeapon, bool isMeleeWeapon);
 
 	// grayman (#2376) - check for individual lockpicks
 	void CheckPicks(ShopItemList& list);
