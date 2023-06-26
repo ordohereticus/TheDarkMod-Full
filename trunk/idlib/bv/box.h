@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2096 $
- * $Date: 2008-02-15 12:18:36 -0500 (Fri, 15 Feb 2008) $
- * $Author: angua $
+ * $Revision: 4505 $
+ * $Date: 2011-01-30 09:26:42 -0500 (Sun, 30 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -90,9 +90,13 @@ public:
 	int				GetProjectionSilhouetteVerts( const idVec3 &projectionOrigin, idVec3 silVerts[6] ) const;
 	int				GetParallelProjectionSilhouetteVerts( const idVec3 &projectionDir, idVec3 silVerts[6] ) const;
 
-					// angua: fills in the 8 corner vertices of the box
-					// verts must be an array of 8 idVec3s.
+	// angua: fills in the 8 corner vertices of the box
+	// verts must be an array of 8 idVec3s.
 	void			GetVerts(idVec3* verts) const;
+
+	// Tels: added
+	const char *		ToString( const int precision = 2 ) const;
+
 
 private:
 	idVec3			center;
