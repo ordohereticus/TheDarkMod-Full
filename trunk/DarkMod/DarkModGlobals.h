@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4724 $
- * $Date: 2011-03-25 02:23:54 -0400 (Fri, 25 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4769 $
+ * $Date: 2011-04-10 12:43:43 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -49,8 +49,6 @@ Darkmod LAS
 #include "../DarkMod/darkModLAS.h"
 #include "Profile.h"
 #include <boost/filesystem.hpp>
-
-class CRenderPipe;
 
 typedef enum {
 	LT_INIT,

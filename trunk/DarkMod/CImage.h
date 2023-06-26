@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4661 $
- * $Date: 2011-03-07 03:14:15 -0500 (Mon, 07 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4769 $
+ * $Date: 2011-04-10 12:43:43 -0400 (Sun, 10 Apr 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -69,9 +69,9 @@ public:
 
 	/**
 	 * Load the image into memory and allow access to it, reading the image
-	 * data from a renderpipe.
+	 * data from memory buffer.
 	 */
-	bool LoadImage(CRenderPipe *FileHandle);
+	bool LoadImage(const idList<char> &imageBuffer);
 
 	/**
 	 * greebo: Saves the loaded image to the given path. Existing target files
