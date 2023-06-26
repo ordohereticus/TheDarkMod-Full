@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4469 $
- * $Date: 2011-01-24 10:10:41 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4504 $
+ * $Date: 2011-01-30 06:33:51 -0500 (Sun, 30 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4469 2011-01-24 15:10:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4504 2011-01-30 11:33:51Z greebo $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -165,6 +165,38 @@ void FileVersionDump(void)
 		DM_LOG(LC_INIT, LT_INIT)LOGSTRING("%s\r", (*s_FileVersion)[i]);
 }
 
+#ifdef MACOS_X
+// Platform-specific method to expand the ~ in a path with a full path
+// adjusted from http://developer.apple.com/library/mac/#qa/qa2007/qa1549.html
+
+#include <glob.h>
+
+idStr GetExpandedTildePath(const char* path)
+{
+	assert(path != NULL); // don't accept bogus input
+
+	glob_t globbuf;
+    idStr result;
+
+    if (glob(path, GLOB_TILDE, NULL, &globbuf) == 0) //success
+    {
+        char** v = globbuf.gl_pathv; // list of matched pathnames
+        
+		// //number of matched pathnames, gl_pathc == 1
+		// copy the expanded path into our return value
+		result = v[0];
+
+        globfree(&globbuf);
+    }
+	else
+	{
+		// Could not expand the path, return the input string
+		result = path;
+	}
+
+	return result;
+}
+#endif
 
 CGlobal::CGlobal()
 {
@@ -197,8 +229,15 @@ CGlobal::CGlobal()
 	m_LogType = LT_DEBUG;
 	m_Filename = "undefined";
 	m_Linenumber = 0;
+
+	idStr logFilePath = DARKMOD_LOGFILE;
+
+#ifdef MACOS_X
+	// In OSX we need to resolve the user's home folder first
+	logFilePath = GetExpandedTildePath(logFilePath);
+#endif
 	
-	m_LogFile = fopen(DARKMOD_LOGFILE, "w+b");
+	m_LogFile = fopen(logFilePath.c_str(), "w+b");
 
 	if (m_LogFile != NULL)
 	{
@@ -232,8 +271,10 @@ CGlobal::CGlobal()
 
 CGlobal::~CGlobal()
 {
-	if(m_LogFile != NULL)
+	if (m_LogFile != NULL)
+	{
 		fclose(m_LogFile);
+	}
 }
 
 void CGlobal::Init()
