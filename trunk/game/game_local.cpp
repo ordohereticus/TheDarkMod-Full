@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4562 $
- * $Date: 2011-02-06 00:10:50 -0500 (Sun, 06 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4605 $
+ * $Date: 2011-02-17 10:01:01 -0500 (Thu, 17 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4562 2011-02-06 05:10:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4605 2011-02-17 15:01:01Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3468,6 +3468,12 @@ void idGameLocal::UpdateScreenResolutionFromGUI(idUserInterface* gui)
 			width = 1920;
 			height = 1080;
 			break;
+		case 8:
+			width = 2560;
+			height = 1440;
+		case 9:
+			width = 2560;
+			height = 1600;
 		default:
 			break;
 		};
@@ -3631,6 +3637,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			case 1440: cv_tdm_widescreenmode.SetInteger(2); break;
 			case 1680: cv_tdm_widescreenmode.SetInteger(3); break;
 			case 1920: cv_tdm_widescreenmode.SetInteger(height == 1200 ? 4 : 7); break;
+			case 2560: cv_tdm_widescreenmode.SetInteger(height == 1440 ? 8 : 9); break;
 			default: cv_tdm_widescreenmode.SetInteger(0); break;
 			}
 		}
