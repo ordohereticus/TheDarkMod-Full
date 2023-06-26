@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4801 $
- * $Date: 2011-04-17 05:33:09 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4802 $
+ * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4801 2011-04-17 09:33:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4802 2011-04-17 15:56:32Z greebo $", init_version);
 
 #include "Shop.h"
 #include "../../game/game_local.h"
@@ -1193,7 +1193,7 @@ void CShop::AddGoldFromPreviousMission()
 
 	if (prevMission >= 0 && prevMission < gameLocal.m_CampaignStats->Num())
 	{
-		const SMissionStats& stats = (*gameLocal.m_CampaignStats)[prevMission];
+		const MissionStatistics& stats = (*gameLocal.m_CampaignStats)[prevMission];
 
 		// First, check the difficulty-specific rulesets
 		int difficultyLevel = gameLocal.m_DifficultyManager.GetDifficultyLevel();

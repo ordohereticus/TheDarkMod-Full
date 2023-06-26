@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4801 $
- * $Date: 2011-04-17 05:33:09 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4802 $
+ * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,18 +22,18 @@ class CampaignStats
 {
 private:
 	// The internal array of statistics
-	idList<SMissionStats> _stats;
+	idList<MissionStatistics> _stats;
 
 public:
 	// greebo: Use this operator to get access to the stats of the mission with the given index
 	// The internal list will automatically be resized to fit.
-	SMissionStats& operator[] (int index)
+	MissionStatistics& operator[] (int index)
 	{
 		EnsureSize(index + 1);
 		return _stats[index];
 	}
 
-	const SMissionStats& operator[] (int index) const
+	const MissionStatistics& operator[] (int index) const
 	{
 		return _stats[index];
 	}

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4801 $
- * $Date: 2011-04-17 05:33:09 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4802 $
+ * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4801 2011-04-17 09:33:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4802 2011-04-17 15:56:32Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -813,6 +813,12 @@ void CMissionData::Event_MissionComplete()
 
 	// greebo: Stop the gameplay timer, we've completed all objectives
 	m_Stats.TotalGamePlayTime = gameLocal.m_GamePlayTimer.GetTimeInSeconds();
+
+	// Save the state of all objectives for possible later reference
+	for (int i = 0; i < m_Objectives.Num(); ++i)
+	{
+		m_Stats.SetObjectiveState(i, m_Objectives[i].m_state);
+	}
 
 	// Copy our current mission statistics to the correct slot of the campaign statistics
 	int curMission = gameLocal.m_MissionManager->GetCurrentMissionIndex();

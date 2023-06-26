@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4798 $
- * $Date: 2011-04-17 04:09:52 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4802 $
+ * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -482,7 +482,7 @@ protected:
 	* Object holding all mission stats relating to AI, damage to player and AI
 	* Loot stats are maintained by the inventory
 	**/
-	SMissionStats m_Stats;
+	MissionStatistics m_Stats;
 
 	/**
 	* Hash indices to store string->enum conversions for objective component type and
