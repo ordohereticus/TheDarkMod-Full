@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4527 $
- * $Date: 2011-02-02 00:10:56 -0500 (Wed, 02 Feb 2011) $
- * $Author: stgatilov $
+ * $Revision: 4534 $
+ * $Date: 2011-02-02 14:19:10 -0500 (Wed, 02 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4527 2011-02-02 05:10:56Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4534 2011-02-02 19:19:10Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -849,7 +849,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch )
 	seed_class_t			SeedClass;
 	seed_material_t			SeedMaterial;
 	const idKeyValue *kv;
-	float fImgDensity = 0.0f;		// average "density" of the image map
+	float fImgDensity = 1.0f;		// average "density" of the image map, 1.0f in case we have no image map
 
 	// TODO: support for "seed_spawn_probability" (if < 1.0, only spawn entities of this class if RandomFloat() <= seed_spawn_probability)
 
