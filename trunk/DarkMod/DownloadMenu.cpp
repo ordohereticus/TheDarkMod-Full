@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4837 $
- * $Date: 2011-05-09 04:30:59 -0400 (Mon, 09 May 2011) $
+ * $Revision: 4846 $
+ * $Date: 2011-05-14 02:40:39 -0400 (Sat, 14 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4837 2011-05-09 08:30:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4846 2011-05-14 06:40:39Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -524,7 +524,7 @@ void CDownloadMenu::UpdateGUI(idUserInterface* gui)
 
 		if (it == _downloads.end())
 		{
-			gui->SetStateString(va("dl_mission_progress_%d", i), "queued ");
+			gui->SetStateString(va("dl_mission_progress_%d", i), listItemExists ? "queued " : "");
 			continue;
 		}
 	}
