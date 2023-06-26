@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4675 $
- * $Date: 2011-03-09 15:06:29 -0500 (Wed, 09 Mar 2011) $
+ * $Revision: 4680 $
+ * $Date: 2011-03-10 06:10:22 -0500 (Thu, 10 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4675 2011-03-09 20:06:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4680 2011-03-10 11:10:22Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2200,13 +2200,18 @@ bool idEntity::SwitchLOD( const lod_data_t *m_LOD, const float deltaSq )
 
 	if (m_LODLevel != oldLODLevel)
 	{
-//				gameLocal.Printf( "%s LOD level changed from %i to %i\n",
-//					GetName(), oldLODLevel, m_LODLevel );
+//				gameLocal.Printf( "%s LOD level changed from %i to %i\n", GetName(), oldLODLevel, m_LODLevel );
 		if (m_ModelLODCur != m_LODLevel)
 			{
 //				gameLocal.Printf( "%s switching to LOD %i (model %s offset %f %f %f)\n",
 //					GetName(), m_LODLevel, m_LOD->ModelLOD[m_LODLevel].c_str(), m_LOD->OffsetLOD[m_LODLevel].x, m_LOD->OffsetLOD[m_LODLevel].x, m_LOD->OffsetLOD[m_LODLevel].z );
-				SetModel( m_LOD->ModelLOD[m_LODLevel] );
+				// func_statics that have map geometry do not have a model, and their LOD data gets ""
+				// as model name so they can all share the same data. However, we must not use "" when
+				// setting a new model:
+				if (!m_LOD->ModelLOD[m_LODLevel].IsEmpty())
+				{
+					SetModel( m_LOD->ModelLOD[m_LODLevel] );
+				}
 				m_ModelLODCur = m_LODLevel;
 				// Fix 1.04 blinking bug:
 				// if the old LOD level had an offset, we need to revert this.
@@ -2245,11 +2250,14 @@ idEntity::GetLODDistance
 
 Returns the distance that should be considered for LOD and hiding, depending on:
 
-* the distance of the origin to the given player origin
+* the distance of the entity origin to the given player origin
+  (TODO: this should be actualy the distance to the closest point of the entity,
+  to aovid that very long entities get hidden when you are far from their origin,
+  but close to their corner)
 * the lod-bias set in the menu
 * some minimum and maximum distances based on entity size/importance
 
-The returned value is the actual distance squared, and rounded down to an integer.
+The returned value is the (virtual) distance squared, and rounded down to an integer.
 ================
 */
 float idEntity::GetLODDistance( const lod_data_t *m_LOD, const idVec3 &playerOrigin, const idVec3 &entOrigin, const idVec3 &entSize, const float lod_bias ) const
@@ -2277,7 +2285,10 @@ float idEntity::GetLODDistance( const lod_data_t *m_LOD, const idVec3 &playerOri
 		minDist = m_LOD->fLODNormalDistance;
 	}
 	// if the entity is inside the "lod_normal_distance", simply ignore any LOD_BIAS < 1.0f
-	if (minDist > 0 && lod_bias < 1.0f && deltaSq < (minDist * minDist))
+	// Tels: For v1.05 use at least 1.0f for lod_bias, so that any distance the mapper sets
+	//       acts as the absolute minimum distance. Needs fixing later.
+	//if (minDist > 0 && lod_bias < 1.0f && deltaSq < (minDist * minDist))
+	if (lod_bias <= 1.0f)
 	{
 		deltaSq = idMath::Floor( deltaSq );
 	}
