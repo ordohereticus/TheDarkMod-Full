@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4577 $
- * $Date: 2011-02-11 02:50:30 -0500 (Fri, 11 Feb 2011) $
+ * $Revision: 4579 $
+ * $Date: 2011-02-11 04:32:08 -0500 (Fri, 11 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4577 2011-02-11 07:50:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4579 2011-02-11 09:32:08Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -3411,6 +3411,8 @@ void Seed::CombineEntities( void )
 				PseudoClass.classname = FUNC_DUMMY;
 				// in case the combined model needs to be combined from multiple func_statics
 				PseudoClass.hModel = entityClass->hModel;
+				// not used here
+				PseudoClass.spawnArgs = NULL;
 
 				// TODO: put this into m_LOD as there it can be shared and doesn't need to be
 				//		 calculated anew every time:
