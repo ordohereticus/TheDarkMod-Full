@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4583 $
- * $Date: 2011-02-11 07:25:59 -0500 (Fri, 11 Feb 2011) $
+ * $Revision: 4595 $
+ * $Date: 2011-02-13 11:03:33 -0500 (Sun, 13 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -273,11 +273,6 @@ private:
 	* Create the entity positions based on entities we watch.
 	*/
 	void				CreateWatchedList( void );
-
-	/**
-	* Compute the LOD distance based on delta vector and entity LOD data (like xydistcheckonly)
-	*/
-	float				LODDistance( const lod_data_t* m_LOD, idVec3 delta ) const;
 
 	/**
 	* Compute the LOD level for this entity based on distance to player.

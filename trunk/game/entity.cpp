@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4594 $
- * $Date: 2011-02-13 10:08:28 -0500 (Sun, 13 Feb 2011) $
+ * $Revision: 4595 $
+ * $Date: 2011-02-13 11:03:33 -0500 (Sun, 13 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4594 2011-02-13 15:08:28Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4595 2011-02-13 16:03:33Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2274,19 +2274,21 @@ Returns the distance that should be considered for LOD and hiding, depending on:
 The returned value is the actual distance squared, and rounded down to an integer.
 ================
 */
-float idEntity::GetLODDistance( const idVec3 &playerOrigin, const float lod_bias ) const
+float idEntity::GetLODDistance( const lod_data_t *m_LOD, const idVec3 &playerOrigin, const idVec3 &entOrigin, const idVec3 &entSize, const float lod_bias ) const
 {
-	idVec3 delta = playerOrigin - GetPhysics()->GetOrigin();
+	idVec3 delta = playerOrigin - entOrigin;
 
 	if( m_LOD && m_LOD->bDistCheckXYOnly )
 	{
+		// todo: allow passing in a different gravityNormal
 		idVec3 vGravNorm = GetPhysics()->GetGravityNormal();
 		delta -= (vGravNorm * delta) * vGravNorm;
 	}
 
 	// multiply with the user LOD bias setting, and return the result:
 	// floor the value to avoid inaccurancies leading to toggling when the player stands still:
-	float deltaSq = idMath::Floor( delta.LengthSqr() / (cv_lod_bias.GetFloat() * cv_lod_bias.GetFloat()) );
+	assert(lod_bias > 0.01f);
+	float deltaSq = idMath::Floor( delta.LengthSqr() / (lod_bias * lod_bias) );
 
 	// TODO: enforce minimum and maximum distances based on entity size/importance
 
@@ -2321,7 +2323,8 @@ void idEntity::Think( void )
 //			gameLocal.Warning("%s: Think called with m_LOD %p, %i, interval %i, origin %s",
 //					GetName(), m_LOD, m_DistCheckTimeStamp, m_LOD->DistCheckInterval, GetPhysics()->GetOrigin().ToString() );
 
-			SwitchLOD( m_LOD, GetLODDistance( gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin(), cv_lod_bias.GetFloat() ) );
+			SwitchLOD( m_LOD, 
+				GetLODDistance( m_LOD, gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin(), GetPhysics()->GetOrigin(), renderEntity.bounds.GetSize(), cv_lod_bias.GetFloat() ) );
 		}
 	}
 	Present();
