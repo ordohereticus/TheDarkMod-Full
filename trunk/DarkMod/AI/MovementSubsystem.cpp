@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4863 $
- * $Date: 2011-05-22 08:55:09 -0400 (Sun, 22 May 2011) $
- * $Author: greebo $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4863 2011-05-22 12:55:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -701,7 +701,7 @@ bool MovementSubsystem::IsNotBlocked(void) // grayman #2345
 void MovementSubsystem::ResolveBlock(idEntity* blockingEnt)
 {
 	idAI* owner = _owner.GetEntity();
-	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Asking %s to resolve a block by %s\r", owner->name.c_str(),blockingEnt->name.c_str());
+	//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Asking %s to resolve a block by %s\r", owner->name.c_str(),blockingEnt->name.c_str());
 	
 	if (owner->GetMemory().resolvingMovementBlock || !owner->m_canResolveBlock) // grayman #2345
 	{

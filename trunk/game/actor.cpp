@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -481,11 +481,6 @@ const idEventDef AI_MeleeNameForNum( "meleeNameForNum", "d", 's' );
 const idEventDef AI_SetReplacementAnim( "setReplacementAnim", "ss");
 const idEventDef AI_LookupReplacementAnim( "lookupReplacementAnim", "s", 's');
 const idEventDef AI_RemoveReplacementAnim( "removeReplacementAnim", "s");
-
-// grayman #2603 - deal with doused lights
-const idEventDef AI_PerformRelight("performRelight");
-const idEventDef AI_DropTorch("dropTorch");
-
 
 CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
 	EVENT( AI_EnableEyeFocus,			idActor::Event_EnableEyeFocus )

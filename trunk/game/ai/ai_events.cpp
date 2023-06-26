@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -47,7 +47,7 @@ const idEventDef AI_FindFriendlyAI( "findFriendlyAI", "d", 'e' );
 const idEventDef AI_ProcessBlindStim( "processBlindStim", "ed" );
 const idEventDef AI_ProcessVisualStim("processVisualStim", "e");
 const idEventDef AI_PerformRelight("performRelight"); // grayman #2603
-const idEventDef AI_DropTorch("dropTorch"); // grayman #2603
+const idEventDef AI_DropTorch("dropTorch");	// grayman #2603
 
 const idEventDef AI_SetEnemy( "setEnemy", "E" );
 const idEventDef AI_ClearEnemy( "clearEnemy" );
@@ -3466,7 +3466,6 @@ void idAI::Event_EndState()
 	idThread::ReturnInt(static_cast<int>(mind->EndState()));
 }
 
-
 void idAI::Event_ProcessBlindStim(idEntity* stimSource, int skipVisibilityCheck)
 {
 	mind->GetState()->OnBlindStim(stimSource, skipVisibilityCheck != 0);
@@ -3481,7 +3480,6 @@ void idAI::Event_GetNextIdleAnim()
 {
 	idThread::ReturnString(GetNextIdleAnim());
 }
-
 
 void idAI::Event_HasSeenEvidence()
 {
@@ -3503,18 +3501,17 @@ void idAI::Event_DropTorch() // grayman #2603
 			continue;
 		}
 
-		if (ent->name.Find("torch") >= 0)
+		if (ent->spawnArgs.GetBool("is_torch","0"))
 		{
 			DetachInd(i);
 
-			// grayman #2603 - drop the torch a bit to get away from the AI's hand
+			// drop the torch a bit to get away from the AI's hand
 
 			idVec3 origin = ent->GetPhysics()->GetOrigin();
 			origin.z -= 20;
 			ent->GetPhysics()->SetOrigin( origin );
 
 			ent->m_droppedByAI = true; // grayman #1330
-//			ent->GetPhysics()->Activate();
 			GetMemory().stopRelight = true; // in case a relight was in progress - try again later w/o torch
 			break;
 		}

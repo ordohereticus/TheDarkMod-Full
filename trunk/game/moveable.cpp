@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/Objectives/MissionData.h"
@@ -413,10 +413,15 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 			// greebo: We don't use StartSound() here, we want to do the sound propagation call manually
 			StartSoundShader(sndShader, SND_CHANNEL_ANY, 0, false, NULL);
 
-			idStr sndPropName = GetSoundPropNameForMaterial(surfaceName);
+			// grayman #2603 - don't propagate a sound if this is a doused torch dropped by an AI
 
-			// Propagate a suspicious sound, using the "group" convention (soft, hard, small, med, etc.)
-			PropSoundS( NULL, sndPropName, f );
+			if (!spawnArgs.GetBool("is_torch","0"))
+			{
+				idStr sndPropName = GetSoundPropNameForMaterial(surfaceName);
+
+				// Propagate a suspicious sound, using the "group" convention (soft, hard, small, med, etc.)
+				PropSoundS( NULL, sndPropName, f );
+			}
 			
 			SetSoundVolume(0.0f);
 

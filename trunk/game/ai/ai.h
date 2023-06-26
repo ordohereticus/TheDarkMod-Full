@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -706,6 +706,23 @@ protected:
 	ActiveProjectile		activeProjectile;
 
 	idStr					attack;
+
+	/**
+	 * grayman #2603 - Per-stim info for relighting lights. This allows AI to
+	 * keep track of delays for responding to visual stims. The delays are
+	 * determined by conditions surrounding a relight and the probabilities
+	 * associated with relighting.
+	 */
+	struct DelayedStim
+	{
+		// The next time to consider the stim
+		int nextTimeToConsider;
+		
+		// The stim being delayed
+		idEntityPtr<idEntity> stim;
+	};
+
+	idList<DelayedStim>		delayedStims; // grayman #2603
 
 	// chatter/talking
 	talkState_t				talk_state;
@@ -1833,6 +1850,12 @@ public:
 
 	const idStr&			GetNextIdleAnim();
 	void					SetNextIdleAnim(const idStr& nextIdleAnim);
+
+	// grayman #2603 - work with the list of delayed visual stims
+
+	void					SetDelayedStimExpiration(idEntityPtr<idEntity> stimPtr);
+	int						GetDelayedStimExpiration(idEntityPtr<idEntity> stimPtr);
+	void					AddDelayedStim(idEntityPtr<idEntity> stimPtr);
 	
 	//
 	// ai/ai_events.cpp
@@ -2116,7 +2139,6 @@ public:
 
 	// grayman #2603 - drop torch
 	void Event_DropTorch();
-
 
 #ifdef TIMING_BUILD
 private:

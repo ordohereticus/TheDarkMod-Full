@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4519 $
- * $Date: 2011-02-01 04:44:51 -0500 (Tue, 01 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Response.cpp 4519 2011-02-01 09:44:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Response.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #include "Response.h"
 #include "Stim.h"
@@ -71,8 +71,6 @@ void CResponse::Restore(idRestoreGame *savefile)
 
 void CResponse::TriggerResponse(idEntity *sourceEntity, const CStimPtr& stim)
 {
-	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Response for Id %s triggered (Action: %s)\r", m_StimTypeName.c_str(), m_ScriptFunction.c_str());
-
 	// Perform the probability check
 	if (!CheckChance()) return;
 

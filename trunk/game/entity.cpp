@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2990,7 +2990,9 @@ void idEntity::Show( void )
 	{
 		fl.hidden = false;
 		if( m_FrobBox && m_bFrobable )
+		{
 			m_FrobBox->SetContents( CONTENTS_FROBABLE );
+		}
 		UpdateVisuals();
 
 		// show our bind-children
@@ -11934,4 +11936,6 @@ void idEntity::Event_ChangeEntityRelation(idEntity* entity, int relationChange)
 {
 	ChangeEntityRelation(entity, relationChange);
 }
+
+
 

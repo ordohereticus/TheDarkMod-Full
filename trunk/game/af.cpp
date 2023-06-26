@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2926 $
- * $Date: 2008-10-06 01:12:54 -0400 (Mon, 06 Oct 2008) $
- * $Author: ishtvan $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: af.cpp 2926 2008-10-06 05:12:54Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: af.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #include "game_local.h"
 
@@ -559,7 +559,7 @@ void idAF::DeleteBodyExtern( idAFEntity_Base *ent, const char *bodyName )
 		{
 			if( jointMods[i].bodyName == bodyName )
 			{
-				DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Removed body %s from AF\r", bodyName );
+				//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("Removed body %s from AF\r", bodyName );
 				jointMods.RemoveIndex(i);
 			}
 		}

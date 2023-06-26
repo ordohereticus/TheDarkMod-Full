@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4722 $
- * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4866 $
+ * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 4722 2011-03-24 18:45:06Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -66,18 +66,18 @@ void ResolveMovementBlockTask::Init(idAI* owner, Subsystem& subsystem)
 
 	if (_blockingEnt->IsType(idAI::Type))
 	{
-		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s starting to resolve blocking AI: %s\r", owner->name.c_str(), _blockingEnt->name.c_str());
+		//DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s starting to resolve blocking AI: %s\r", owner->name.c_str(), _blockingEnt->name.c_str());
 		InitBlockingAI(owner, subsystem);
 	}
 	else if (_blockingEnt->IsType(idStaticEntity::Type))
 	{
-		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s starting to resolve static blocking entity: %s\r", owner->name.c_str(), _blockingEnt->name.c_str());
+		//DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s starting to resolve static blocking entity: %s\r", owner->name.c_str(), _blockingEnt->name.c_str());
 		InitBlockingStatic(owner, subsystem);
 	}
 	else
 	{
 		// Unknown entity type, exit task
-		DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s cannot resolve blocking entity: %s\r", owner->name.c_str(), _blockingEnt->name.c_str());
+		//DM_LOG(LC_AI, LT_WARNING)LOGSTRING("AI %s cannot resolve blocking entity: %s\r", owner->name.c_str(), _blockingEnt->name.c_str());
 		subsystem.FinishTask(); 
 	}
 }
