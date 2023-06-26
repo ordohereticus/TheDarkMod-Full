@@ -9,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4797 $
-#* $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+#* $Revision: 4798 $
+#* $Date: 2011-04-17 04:09:52 -0400 (Sun, 17 Apr 2011) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -179,6 +179,7 @@ Missions/ModInfoDecl.cpp \
 Missions/MissionManager.cpp \
 Objectives/MissionData.cpp \
 Objectives/MissionStatistics.cpp \
+Objectives/ObjectiveComponent.cpp \
 Http/HttpConnection.cpp \
 Http/HttpRequest.cpp \
 randomizer/mersenne.cpp \
