@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4638 $
- * $Date: 2011-02-27 03:57:05 -0500 (Sun, 27 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4641 $
+ * $Date: 2011-02-27 06:45:57 -0500 (Sun, 27 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4638 2011-02-27 08:57:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4641 2011-02-27 11:45:57Z tels $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -1086,6 +1086,10 @@ void CShop::UpdateGUI(idUserInterface* gui)
 		// nothing for sale, let the user know
 		gui->SetStateInt("forSaleAvail0", 0);
 		gui->SetStateString("forSale0_name", "<no items for sale>");
+		// Tels: Fix #2661: do not show a description if nothing is for sale
+		gui->SetStateString("gui::forSale0_desc", "");
+		gui->SetStateString("gui::forSale0_image", "");
+		gui->SetStateString("forSaleCost0_cost", "0");
 	}
 	else
 	{
