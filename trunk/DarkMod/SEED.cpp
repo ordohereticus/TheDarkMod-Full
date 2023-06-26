@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4682 $
- * $Date: 2011-03-10 08:53:32 -0500 (Thu, 10 Mar 2011) $
+ * $Revision: 4684 $
+ * $Date: 2011-03-10 09:06:11 -0500 (Thu, 10 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4682 2011-03-10 13:53:32Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4684 2011-03-10 14:06:11Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -3230,7 +3230,6 @@ void Seed::CombineEntities( void )
 		m_LODLevel = 0;
 		if (entityClass->m_LODHandle)
 		{
-			gameLocal.Printf("GetLODDataPtr %i\n", entityClass->m_LODHandle);
 			const lod_data_t *class_LOD = gameLocal.m_ModelGenerator->GetLODDataPtr( entityClass->m_LODHandle );
 			ThinkAboutLOD( class_LOD, GetLODDistance( class_LOD, playerPos, m_Entities[i].origin, entityClass->size, m_fLODBias ) );
 		}
@@ -3308,7 +3307,6 @@ void Seed::CombineEntities( void )
 			m_LODLevel = 0;
 			if (entityClass->m_LODHandle)
 			{
-				gameLocal.Printf("GetLODDataPtr %i\n", entityClass->m_LODHandle);
 				const lod_data_t *class_LOD = gameLocal.m_ModelGenerator->GetLODDataPtr( entityClass->m_LODHandle );
 				ThinkAboutLOD( class_LOD, GetLODDistance( class_LOD, playerPos, m_Entities[i].origin, entityClass->size, m_fLODBias ) );
 			}
