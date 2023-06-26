@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2374 $
- * $Date: 2008-05-18 15:27:53 -0400 (Sun, 18 May 2008) $
- * $Author: greebo $
+ * $Revision: 4626 $
+ * $Date: 2011-02-24 12:33:07 -0500 (Thu, 24 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -72,6 +72,8 @@ public:
 	 * greebo: Sets the "should investigate closely" flag.
 	 */
 	virtual void SetInvestigateClosely(bool closely);
+
+	virtual void OnFinish(idAI* owner); // grayman #2560
 
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
