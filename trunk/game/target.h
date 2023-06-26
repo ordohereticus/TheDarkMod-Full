@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4780 $
- * $Date: 2011-04-13 13:11:04 -0400 (Wed, 13 Apr 2011) $
+ * $Revision: 4782 $
+ * $Date: 2011-04-14 12:10:30 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -454,20 +454,6 @@ private:
 	void				Event_Activate( idEntity *activator );
 };
 
-
-/*
-===============================================================================
-
-idTarget_LevelTrigger
-
-===============================================================================
-*/
-class idTarget_LevelTrigger : public idTarget {
-public:
-	CLASS_PROTOTYPE( idTarget_LevelTrigger );
-private:
-	void				Event_Activate( idEntity *activator );
-};
 
 /*
 ===============================================================================

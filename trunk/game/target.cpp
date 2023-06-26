@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4780 $
- * $Date: 2011-04-13 13:11:04 -0400 (Wed, 13 Apr 2011) $
+ * $Revision: 4782 $
+ * $Date: 2011-04-14 12:10:30 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 4780 2011-04-13 17:11:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 4782 2011-04-14 16:10:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -1627,33 +1627,6 @@ void idTarget_RemoveWeapons::Event_Activate( idEntity *activator ) {
 				kv = spawnArgs.MatchPrefix( "weapon", kv );
 			}
 			player->SelectWeapon( player->weapon_fists, true );
-		}
-	}
-}
-
-
-/*
-===============================================================================
-
-idTarget_LevelTrigger
-
-===============================================================================
-*/
-
-CLASS_DECLARATION( idTarget, idTarget_LevelTrigger )
-EVENT( EV_Activate,	idTarget_LevelTrigger::Event_Activate )
-END_CLASS
-
-/*
-================
-idTarget_LevelTrigger::Event_Activate
-================
-*/
-void idTarget_LevelTrigger::Event_Activate( idEntity *activator ) {
-	for( int i = 0; i < gameLocal.numClients; i++ ) {
-		if ( gameLocal.entities[ i ] ) {
-			idPlayer *player = static_cast< idPlayer* >( gameLocal.entities[i] );
-			player->SetLevelTrigger( spawnArgs.GetString( "levelName" ), spawnArgs.GetString( "triggerName" ) );
 		}
 	}
 }
