@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4715 $
- * $Date: 2011-03-23 02:35:56 -0400 (Wed, 23 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4735 $
+ * $Date: 2011-03-29 01:57:20 -0400 (Tue, 29 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -74,6 +74,7 @@ extern idCVar cv_ai_show_aasfuncobstacle_state;
 
 extern idCVar cv_interaction_vfp_type;
 extern idCVar cv_tdm_widescreenmode;
+extern idCVar cv_tdm_menu_music;
 
 extern idCVar cv_tdm_show_trainer_messages;
 

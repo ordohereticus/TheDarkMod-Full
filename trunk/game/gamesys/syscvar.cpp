@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4715 $
- * $Date: 2011-03-23 02:35:56 -0400 (Wed, 23 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4735 $
+ * $Date: 2011-03-29 01:57:20 -0400 (Tue, 29 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4715 2011-03-23 06:35:56Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4735 2011-03-29 05:57:20Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -117,6 +117,7 @@ idCVar cv_ai_show_aasfuncobstacle_state("tdm_ai_show_aasfuncobstacle_state",	"0"
 
 idCVar cv_interaction_vfp_type("tdm_interaction_vfp_type",	"1", CVAR_ARCHIVE | CVAR_BOOL, "If 1, the new enhanced interaction are used. Set to 0 to use default interaction shader." );
 idCVar cv_tdm_widescreenmode("tdm_wideScreenMode",	"0", CVAR_ARCHIVE | CVAR_INTEGER, "The widescreen mode selected in the main menu (for internal use)." );
+idCVar cv_tdm_menu_music("tdm_menu_music",	"1", CVAR_ARCHIVE | CVAR_BOOL, "Whether to play background music in the main menu (for internal use)." );
 
 idCVar cv_tdm_show_trainer_messages("tdm_show_trainer_messages", "1", CVAR_BOOL | CVAR_ARCHIVE, "Whether TDM trainer maps should display pop-ups with helpful gameplay information." );
 

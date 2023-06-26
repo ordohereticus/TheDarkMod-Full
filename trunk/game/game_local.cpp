@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4734 $
- * $Date: 2011-03-28 10:03:44 -0400 (Mon, 28 Mar 2011) $
+ * $Revision: 4735 $
+ * $Date: 2011-03-29 01:57:20 -0400 (Tue, 29 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4734 2011-03-28 14:03:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4735 2011-03-29 05:57:20Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3755,6 +3755,14 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Propagate the video CVARs to the GUI
 		gui->SetStateInt("video_aspectratio", cvarSystem->GetCVarInteger("r_aspectRatio"));
 		gui->SetStateBool("confirmQuit", cv_mainmenu_confirmquit.GetBool());
+		gui->SetStateBool("menu_bg_music", cv_tdm_menu_music.GetBool());
+
+		if (cv_tdm_menu_music.IsModified())
+		{
+			gui->HandleNamedEvent("OnMenuMusicSettingChanged");
+
+			cv_tdm_menu_music.ClearModified();
+		}
 	}
 	else if (cmd == "setVideoResWideScreen")
 	{
