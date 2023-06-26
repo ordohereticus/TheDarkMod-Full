@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4574 $
- * $Date: 2011-02-10 23:46:50 -0500 (Thu, 10 Feb 2011) $
+ * $Revision: 4575 $
+ * $Date: 2011-02-10 23:54:32 -0500 (Thu, 10 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -376,6 +376,10 @@ void ConsoleUpdater::OnProgressChange(const ProgressInfo& info)
 		// Download progress
 		if (!_info.file.empty() && !info.file.empty() && info.file != _info.file)
 		{
+			// New file, finish the current download
+			_info.progressFraction = 1.0f;
+			PrintProgress();
+
 			// Add a line break when a new file starts
 			TraceLog::WriteLine(LOG_PROGRESS, "");
 
