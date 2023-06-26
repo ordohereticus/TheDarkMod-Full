@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4819 $
- * $Date: 2011-04-25 20:31:37 -0400 (Mon, 25 Apr 2011) $
+ * $Revision: 4820 $
+ * $Date: 2011-04-25 20:39:01 -0400 (Mon, 25 Apr 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4819 2011-04-26 00:31:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4820 2011-04-26 00:39:01Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -552,7 +552,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		{
 			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GetObstacles - found idMoveable %s\r",obEnt->name.c_str()); // grayman debug
 
-			// grayman debug - ignore movables attached to the AI
+			// grayman #2740 - ignore movables attached to the AI
 
 			idEntity* bindMaster = obEnt->GetBindMaster();
 			if (self == bindMaster)
