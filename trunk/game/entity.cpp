@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4663 $
- * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
+ * $Revision: 4675 $
+ * $Date: 2011-03-09 15:06:29 -0500 (Wed, 09 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4675 2011-03-09 20:06:29Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -862,6 +862,9 @@ lod_handle idEntity::ParseLODSpawnargs( const idDict* dict, const float fRandom)
 	// start at 1, since 0 is "the original level" setup already above
 	for (int i = 1; i < LOD_LEVELS; i++)
 	{
+		// set to 0,0,0 as default in case someone tries to use it
+		m_LOD->OffsetLOD[i] = idVec3(0,0,0);
+		
 		if (i < LOD_LEVELS - 1)
 		{
 			// for i == LOD_LEVELS - 1, we use "hide_distance"
@@ -969,6 +972,13 @@ lod_handle idEntity::ParseLODSpawnargs( const idDict* dict, const float fRandom)
 		// else hiding needs no offset
 
 		//gameLocal.Printf (" noshadowsLOD 0x%08x model %s skin %s\n", m_noshadowsLOD, m_ModelLOD[i].c_str(), m_SkinLOD[i].c_str() );
+		}
+		else
+		{
+			// initialize to empty in case someone tries to access them
+			m_LOD->SkinLOD[i] = "";
+			m_LOD->ModelLOD[i] = "";
+			m_LOD->OffsetLOD[i] = idVec3(0,0,0);
 		}
 	}
 
