@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4583 $
- * $Date: 2011-02-11 07:25:59 -0500 (Fri, 11 Feb 2011) $
+ * $Revision: 4591 $
+ * $Date: 2011-02-12 14:44:15 -0500 (Sat, 12 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4583 2011-02-11 12:25:59Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4591 2011-02-12 19:44:15Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -3097,7 +3097,7 @@ void Seed::CreateWatchedList(void) {
 
 					if (noModel)
 					{
-						gameLocal.Printf( "SEED %s: TODO: watch over func_statics based on map geometry.\n", GetName() );
+						//gameLocal.Printf( "SEED %s: TODO: watch over func_statics based on map geometry.\n", GetName() );
 						// skip for now
 						continue;
 					}
