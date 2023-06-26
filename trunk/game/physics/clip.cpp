@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4659 $
- * $Date: 2011-03-06 20:04:25 -0500 (Sun, 06 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4677 $
+ * $Date: 2011-03-09 15:41:58 -0500 (Wed, 09 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: clip.cpp 4659 2011-03-07 01:04:25Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: clip.cpp 4677 2011-03-09 20:41:58Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -378,7 +378,6 @@ void idClipModel::Save( idSaveGame *savefile ) const {
 		savefile->WriteString( "" );
 	}
 	savefile->WriteInt( traceModelIndex );
-	savefile->WriteInt( renderModelHandle );
 	savefile->WriteBool( clipLinks != NULL );
 	savefile->WriteInt( touchCount );
 }
@@ -412,11 +411,10 @@ void idClipModel::Restore( idRestoreGame *savefile ) {
 	if ( traceModelIndex >= 0 ) {
 		traceModelCache[traceModelIndex]->refCount++;
 	}
-	savefile->ReadInt( renderModelHandle );
 	savefile->ReadBool( linked );
 	savefile->ReadInt( touchCount );
 
-	// the render model will be set when the clip model is linked
+	// the render model will be set when the clip model is linked, so do not restore it
 	renderModelHandle = -1;
 	clipLinks = NULL;
 	touchCount = -1;
