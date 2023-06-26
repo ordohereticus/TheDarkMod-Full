@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4462 $
- * $Date: 2011-01-23 15:43:53 -0500 (Sun, 23 Jan 2011) $
+ * $Revision: 4560 $
+ * $Date: 2011-02-05 13:57:41 -0500 (Sat, 05 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -934,6 +934,9 @@ public:
 
 	void					AddMainMenuMessage(const GuiMessage& message);
 	void					HandleGuiMessages(idUserInterface* ui);
+
+	// Tels: Return mapFileName as it is private
+	idStr					GetMapFileName() const;
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;
