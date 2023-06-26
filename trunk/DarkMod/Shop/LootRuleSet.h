@@ -2,11 +2,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4761 $
- * $Date: 2011-04-09 05:30:34 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4762 $
+ * $Date: 2011-04-09 05:31:28 -0400 (Sat, 09 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
+
+#ifndef TDM_LOOTRULESET_H
+#define TDM_LOOTRULESET_H
 
 #include "DifficultyManager.h"
 #include "Inventory/LootType.h"
@@ -75,3 +78,5 @@ struct LootRuleSet
 		return *this == LootRuleSet();
 	}
 };
+
+#endif
