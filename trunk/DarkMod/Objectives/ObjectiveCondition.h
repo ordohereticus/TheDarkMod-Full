@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4804 $
- * $Date: 2011-04-19 14:07:26 -0400 (Tue, 19 Apr 2011) $
+ * $Revision: 4805 $
+ * $Date: 2011-04-19 14:30:26 -0400 (Tue, 19 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,6 +11,8 @@
 #define TDM_OBJECTIVE_CONDITION_H
 
 #include "../idlib/precompiled.h"
+
+#include "Objective.h"
 
 class CMissionData;
 
@@ -30,7 +32,7 @@ private:
 
 	int _value;
 	int _srcMission;
-	int _srcState;
+	EObjCompletionState _srcState;
 	int _srcObj;	
 	int _targetObj;
 

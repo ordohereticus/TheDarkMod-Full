@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4804 $
- * $Date: 2011-04-19 14:07:26 -0400 (Tue, 19 Apr 2011) $
+ * $Revision: 4805 $
+ * $Date: 2011-04-19 14:30:26 -0400 (Tue, 19 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -124,6 +124,9 @@ public:
 
 	void Save( idSaveGame *savefile ) const;
 	void Restore( idRestoreGame *savefile );
+
+	// Returns the number of objectives
+	int GetNumObjectives() const { return m_Objectives.Num(); };
 
 	/**
 	* Update objectives if they need it
