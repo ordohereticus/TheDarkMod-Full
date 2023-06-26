@@ -1,5 +1,16 @@
+/***************************************************************************
+ *
+ * PROJECT: The Dark Mod
+ * $Revision: 4772 $
+ * $Date: 2011-04-11 02:18:42 -0400 (Mon, 11 Apr 2011) $
+ * $Author: greebo $
+ *
+ ***************************************************************************/
+
 #include "../idlib/precompiled.h"
 #pragma hdrstop
+
+static bool init_version = FileVersionList("$Id: lightgem.cpp 4772 2011-04-11 06:18:42Z greebo $", init_version);
 
 #include "lightgem.h"
 
