@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4829 $
- * $Date: 2011-05-02 02:53:22 -0400 (Mon, 02 May 2011) $
+ * $Revision: 4830 $
+ * $Date: 2011-05-02 03:04:19 -0400 (Mon, 02 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4829 2011-05-02 06:53:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4830 2011-05-02 07:04:19Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11202,10 +11202,12 @@ void idPlayer::EnforcePersistentInventoryItemLimits()
 			limit = campaignInfo->spawnArgs.GetInt(diffPrefix + va("limit_%d", index), va("%d", limit));
 
 			// Item limit of -1 means: no limit
-			if (limit != -1)
+			if (limit == -1)
 			{
 				continue;
 			}
+
+			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Trying to enforce inventory item limit: %s => max %d\r", itemName.c_str(), limit);
 
 			CInventoryItemPtr item = Inventory()->GetItem(itemName);
 
@@ -11216,7 +11218,7 @@ void idPlayer::EnforcePersistentInventoryItemLimits()
 
 			if (item->IsPersistent() && item->GetCount() > limit)
 			{
-				ChangeInventoryItemCount(item->GetName(), item->Category()->GetName(), limit);
+				ChangeInventoryItemCount(item->GetName(), item->Category()->GetName(), limit - item->GetCount());
 			}
 		}
 	}
