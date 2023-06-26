@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4668 $
- * $Date: 2011-03-08 12:43:37 -0500 (Tue, 08 Mar 2011) $
+ * $Revision: 4669 $
+ * $Date: 2011-03-08 13:05:23 -0500 (Tue, 08 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4668 2011-03-08 17:43:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4669 2011-03-08 18:05:23Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -66,6 +66,10 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 
 		// Update the GUI state
 		UpdateGUI(gui);
+	}
+	else if (cmd == "mainMenuStartup")
+	{
+		gui->SetStateBool("curModIsCampaign", gameLocal.m_MissionManager->CurrentModIsCampaign());
 	}
 	else if (cmd == "loadModNotes")
 	{
