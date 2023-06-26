@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4551 $
- * $Date: 2011-02-04 10:50:49 -0500 (Fri, 04 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4552 $
+ * $Date: 2011-02-04 12:43:35 -0500 (Fri, 04 Feb 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4551 2011-02-04 15:50:49Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4552 2011-02-04 17:43:35Z stgatilov $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -497,7 +497,7 @@ void Seed::Restore( idRestoreGame *savefile ) {
 		savefile->ReadAngles( m_Watched[i].angles );
 		// a dword is "unsigned int"
 		savefile->ReadInt( clr );
-		m_Entities[i].color = (dword)clr;
+		m_Watched[i].color = (dword)clr;
 		savefile->ReadInt( m_Watched[i].flags );
 		savefile->ReadInt( m_Watched[i].entity );
 		savefile->ReadInt( m_Watched[i].classIdx );
