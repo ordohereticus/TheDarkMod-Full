@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4688 $
- * $Date: 2011-03-11 03:47:11 -0500 (Fri, 11 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4691 $
+ * $Date: 2011-03-12 00:19:50 -0500 (Sat, 12 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4688 2011-03-11 08:47:11Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4691 2011-03-12 05:19:50Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1638,6 +1638,10 @@ void idEntity::Save( idSaveGame *savefile ) const
 	savefile->WriteBool(m_droppedByAI); // grayman #1330
 
 	savefile->WriteInt(m_LODHandle);
+	savefile->WriteInt(m_DistCheckTimeStamp);
+	savefile->WriteInt(m_LODLevel);
+	savefile->WriteInt(m_ModelLODCur);
+	savefile->WriteInt(m_SkinLODCur);
 
 	// grayman #2341 - don't save previous voice and body shaders and indices,
 	// since they're irrelevant across saved games
@@ -1911,9 +1915,11 @@ void idEntity::Restore( idRestoreGame *savefile )
 
 	savefile->ReadBool(m_droppedByAI); // grayman #1330
 
-	unsigned int t;
-	savefile->ReadUnsignedInt(t);
-	m_LODHandle = t;
+	savefile->ReadUnsignedInt(m_LODHandle);
+	savefile->ReadInt(m_DistCheckTimeStamp);
+	savefile->ReadInt(m_LODLevel);
+	savefile->ReadInt(m_ModelLODCur);
+	savefile->ReadInt(m_SkinLODCur);
 
 	// grayman #2341 - restore previous voice and body shaders and indices
 
