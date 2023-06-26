@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3585 $
- * $Date: 2009-07-26 07:42:54 -0400 (Sun, 26 Jul 2009) $
+ * $Revision: 4862 $
+ * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,10 +10,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: RandomTurningTask.cpp 3585 2009-07-26 11:42:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: RandomTurningTask.cpp 4862 2011-05-22 12:41:11Z greebo $", init_version);
 
 #include "../Memory.h"
-#include "PatrolTask.h"
 #include "RandomTurningTask.h"
 #include "../Library.h"
 

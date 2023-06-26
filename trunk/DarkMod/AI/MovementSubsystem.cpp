@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
- * $Author: grayman $
+ * $Revision: 4862 $
+ * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4862 2011-05-22 12:41:11Z greebo $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -30,7 +30,7 @@ static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4834 2011
 #include "Tasks/PathLookatTask.h"
 #include "Tasks/PathInteractTask.h"
 #include "Tasks/MoveToPositionTask.h"
-
+#include "Tasks/FollowActorTask.h"
 
 namespace ai
 {
@@ -376,6 +376,21 @@ void MovementSubsystem::StartPathTask()
 	else if (classname == "path_interact")
 	{
 		tasks.push_back(PathInteractTaskPtr(new PathInteractTask(path)));
+	}
+	else if (classname == "path_follow_actor")
+	{
+		for (int i = 0; i < path->targets.Num(); i++)
+		{
+			idEntity* target = path->targets[i].GetEntity();
+			
+			if (target == NULL || !target->IsType(idActor::Type))
+			{
+				continue;
+			}
+
+			tasks.push_back(FollowActorTaskPtr(new FollowActorTask(static_cast<idActor*>(target))));
+			break;
+		}
 	}
 	else
 	{

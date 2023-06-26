@@ -1,22 +1,21 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
- * $Author: grayman $
+ * $Revision: 4862 $
+ * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 4862 2011-05-22 12:41:11Z greebo $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
 #include "../Memory.h"
 #include "../Tasks/RandomHeadturnTask.h"
-#include "../Tasks/PatrolTask.h"
 #include "../Tasks/AnimalPatrolTask.h"
 #include "../Tasks/SingleBarkTask.h"
 #include "../Tasks/MoveToPositionTask.h"

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3731 $
- * $Date: 2009-10-29 03:50:38 -0400 (Thu, 29 Oct 2009) $
+ * $Revision: 4862 $
+ * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,10 +10,9 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CommunicationTask.cpp 3731 2009-10-29 07:50:38Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CommunicationTask.cpp 4862 2011-05-22 12:41:11Z greebo $", init_version);
 
 #include "../Memory.h"
-#include "PatrolTask.h"
 #include "CommunicationTask.h"
 #include "../Library.h"
 

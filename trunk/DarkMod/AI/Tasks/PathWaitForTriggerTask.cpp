@@ -1,19 +1,18 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3767 $
- * $Date: 2009-12-01 00:17:07 -0500 (Tue, 01 Dec 2009) $
- * $Author: angua $
+ * $Revision: 4862 $
+ * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathWaitForTriggerTask.cpp 3767 2009-12-01 05:17:07Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: PathWaitForTriggerTask.cpp 4862 2011-05-22 12:41:11Z greebo $", init_version);
 
 #include "../Memory.h"
-#include "PatrolTask.h"
 #include "PathWaitForTriggerTask.h"
 #include "../Library.h"
 
