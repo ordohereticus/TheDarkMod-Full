@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4733 $
- * $Date: 2011-03-28 03:11:56 -0400 (Mon, 28 Mar 2011) $
+ * $Revision: 4741 $
+ * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -209,6 +209,8 @@ class CMissionManager;
 typedef boost::shared_ptr<CMissionManager> CMissionManagerPtr;
 class CHttpConnection;
 typedef boost::shared_ptr<CHttpConnection> CHttpConnectionPtr;
+class CInventory;
+typedef boost::shared_ptr<CInventory> CInventoryPtr;
 
 class CModelGenerator;
 typedef boost::shared_ptr<CModelGenerator> CModelGeneratorPtr;
@@ -469,6 +471,9 @@ public:
 	bool					sortPushers;			// true if active lists needs to be reordered to place pushers at the front
 	bool					sortTeamMasters;		// true if active lists needs to be reordered to place physics team masters before their slaves
 	idDict					persistentLevelInfo;	// contains args that are kept around between levels
+
+	// The inventory class which keeps items safe between maps
+	CInventoryPtr			persistentPlayerInventory;
 
 	// greebo: Is set to TRUE if the post-mission screen (debriefing or success screen) is currently active. 
 	// (Usually these state variables should be kept in the GUI, but in this case I need it to be accessible 

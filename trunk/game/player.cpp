@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 4741 $
+ * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4741 2011-04-04 12:16:07Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1377,8 +1377,19 @@ void idPlayer::SetupInventory()
 			}
 		}
 	}
+
+	// Carry over persistent items from the previous map
+	AddPersistentInventoryItems();
 }
 
+void idPlayer::AddPersistentInventoryItems()
+{
+	// Copy all persistent items into our own inventory
+	Inventory()->CopyPersistentItemsFrom(*gameLocal.persistentPlayerInventory);
+
+	// Finally clear the persistent inventory, it has run its course
+	gameLocal.persistentPlayerInventory->Clear();
+}
 
 /*
 ==============
@@ -11050,6 +11061,9 @@ void idPlayer::Event_Unpausegame()
 
 void idPlayer::Event_MissionSuccess()
 {
+	// Save current inventory into the persistent one
+	Inventory()->CopyTo(*gameLocal.persistentPlayerInventory);
+	
 	// Set the gamestate
 	gameLocal.SetMissionResult(MISSION_COMPLETE);
 	gameLocal.sessionCommand = "disconnect";

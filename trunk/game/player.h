@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4446 $
- * $Date: 2011-01-18 12:07:24 -0500 (Tue, 18 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 4741 $
+ * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -962,6 +962,8 @@ protected:
 	* greebo: This creates all the default inventory items and adds the weapons.
 	*/
 	void SetupInventory();
+
+	void AddPersistentInventoryItems();
 
 	// greebo: Methods used to manage the GUI layer for the in-game objectives
 	void CreateObjectivesGUI();
