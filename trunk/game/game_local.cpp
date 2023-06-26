@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4612 $
- * $Date: 2011-02-19 15:00:18 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4613 $
+ * $Date: 2011-02-19 15:14:29 -0500 (Sat, 19 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4612 2011-02-19 20:00:18Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4613 2011-02-19 20:14:29Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4300,14 +4300,8 @@ void idGameLocal::RegisterEntity( idEntity *ent ) {
 	ent->entityNumber = spawn_entnum;
 	ent->spawnNode.AddToEnd( spawnedEntities );
 
-	// stgatilov: copy all spawnargs except editor spawnargs
-	ent->spawnArgs.Clear();
-	for (int i = 0; i < spawnArgs.GetNumKeyVals(); i++) {
-		const idKeyValue *pkv = spawnArgs.GetKeyVal(i);
-		if (pkv->GetKey().IcmpPrefix("editor_") == 0) continue;
-		ent->spawnArgs.Set(pkv->GetKey(), pkv->GetValue());
-	}
-	spawnArgs.Clear();
+	// this will also have the effect of spawnArgs.Clear() at the same time:
+	ent->spawnArgs.TransferKeyValues( spawnArgs );
 
 	if ( spawn_entnum >= num_entities ) {
 		num_entities++;
@@ -4453,7 +4447,8 @@ bool idGameLocal::SpawnEntityDef( const idDict &args, idEntity **ent, bool setDe
 		return false;
 	}
 
-	spawnArgs.SetDefaults( &def->dict );
+	// Tels: SetDefaults(), but without the "editor_" spawnargs
+	spawnArgs.SetDefaults( &def->dict, idStr("editor_") );
 
 #ifdef TIMING_BUILD
 	timer_copySpawnArgs.Stop();
@@ -4681,7 +4676,7 @@ void idGameLocal::SpawnMapEntities( void ) {
 				const idKeyValue *p = args.GetKeyVal(x);
 				const idStr k = p->GetKey();
 				const idStr v = p->GetValue();
-				DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Entity[%u] Key:[%s] = [%s]\r", i, k.c_str(), v.c_str());
+				DM_LOG(LC_ENTITY, LT_DEBUG)LOGSTRING("Entity[%u] Key:[%s] = [%s]\r", i, k.c_str(), v.c_str());
 			}
 		}
 #endif
