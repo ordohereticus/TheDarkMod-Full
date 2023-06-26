@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4716 $
- * $Date: 2011-03-23 02:36:24 -0400 (Wed, 23 Mar 2011) $
+ * $Revision: 4719 $
+ * $Date: 2011-03-24 05:26:58 -0400 (Thu, 24 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -253,6 +253,10 @@ public:
 	// in a campaign, this method returns the one that should be loaded next).
 	// Example: "patently_dangerous", no file extension, no maps/ prefix.
 	const idStr& GetCurrentStartingMap() const;
+
+	// Returns the current mission index (0-based: first mission == 0)
+	// Will always return 0 for non-campaigns
+	int GetCurrentMissionIndex() const;
 
 	// Returns TRUE if the currently installed mod is a campaign
 	bool CurrentModIsCampaign() const;

@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4717 $
- * $Date: 2011-03-23 15:40:08 -0400 (Wed, 23 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4719 $
+ * $Date: 2011-03-24 05:26:58 -0400 (Thu, 24 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -473,6 +473,9 @@ public:
 	// greebo: Is set to TRUE if the success screen is currently active. (Usually these state variables should
 	// be kept in the GUI, but in this case I need it to be accessible when the player loads a new map via the console.)
 	bool					successScreenActive;
+
+	// Toggle to keep track whether the GUI state variables have been set up
+	bool					briefingVideoInfoLoaded;
 
 	bool					mainMenuExited;			// Solarsplace 19th Nov 2010 - Bug tracker id 0002424
 

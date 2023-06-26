@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4717 $
- * $Date: 2011-03-23 15:40:08 -0400 (Wed, 23 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4719 $
+ * $Date: 2011-03-24 05:26:58 -0400 (Thu, 24 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4717 2011-03-23 19:40:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4719 2011-03-24 09:26:58Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -221,11 +221,12 @@ void TestGameAPI( void ) {
 idGameLocal::idGameLocal
 ============
 */
-idGameLocal::idGameLocal()
+idGameLocal::idGameLocal() :
+	successScreenActive(false),
+	briefingVideoInfoLoaded(false)
 {
 	m_HighestSRId = 0;
 	m_MissionResult = MISSION_NOTEVENSTARTED;
-	successScreenActive = false;
 
 	Clear();
 }
@@ -3744,6 +3745,25 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 		// Start the timer again, we're closing the menu
 		m_GamePlayTimer.Start();
+	}
+	else if (cmd == "prepareBriefingVideo")
+	{
+		// Check if we've set up the briefing video 
+		if (!briefingVideoInfoLoaded)
+		{
+			briefingVideoInfoLoaded = true;
+
+			// Tell the briefing video GUI to load all video materials into the state dict
+			gui->HandleNamedEvent("LoadVideoDefinitions");
+		}
+
+		// Check the video defs
+		int missionNum = m_MissionManager->GetCurrentMissionIndex() + 1;
+
+		idStr videoMaterials = gui->GetStateString(va("BriefingVideoMaterials%d", missionNum));
+		idStr videoSoundCmd = gui->GetStateString(va("BriefingVideoSoundCmd%d", missionNum));
+
+		// TODO
 	}
 	else if (cmd == "onSuccessScreenContinueClicked")
 	{
