@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4843 $
- * $Date: 2011-05-14 00:06:42 -0400 (Sat, 14 May 2011) $
+ * $Revision: 4845 $
+ * $Date: 2011-05-14 00:53:40 -0400 (Sat, 14 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4843 2011-05-14 04:06:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4845 2011-05-14 04:53:40Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "Misc.h"
@@ -33,6 +33,10 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4843 2011-05
 #include "sourcehook/sourcehook_impl.h"
 #include "RevisionTracker.h"
 #include <boost/filesystem.hpp>
+
+#ifdef MACOS_X
+#include <mach-o/dyld.h>
+#endif
 
 namespace fs = boost::filesystem;
 

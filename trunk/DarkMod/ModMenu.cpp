@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4844 $
- * $Date: 2011-05-14 00:20:19 -0400 (Sat, 14 May 2011) $
+ * $Revision: 4845 $
+ * $Date: 2011-05-14 00:53:40 -0400 (Sat, 14 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4844 2011-05-14 04:20:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4845 2011-05-14 04:53:40Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -29,10 +29,6 @@ static bool init_version = FileVersionList("$Id: ModMenu.cpp 4844 2011-05-14 04:
 #else
 #include <limits.h>
 #include <unistd.h>
-#endif
-
-#ifdef MACOS_X
-#include <mach-o/dyld.h>
 #endif
 
 CModMenu::CModMenu() :
