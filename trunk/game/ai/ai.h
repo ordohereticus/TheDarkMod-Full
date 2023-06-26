@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4662 $
- * $Date: 2011-03-07 15:51:20 -0500 (Mon, 07 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4666 $
+ * $Date: 2011-03-08 08:26:59 -0500 (Tue, 08 Mar 2011) $
+ * $Author: newhorizon $
  *
  ***************************************************************************/
 
@@ -992,6 +992,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Name of damage location within which a KO is possible
 	**/
 	idStr					m_KoZone;
+	/**
+	* Alert state above which their KO Immunity changes (if any)
+	**/
+	int					m_KoAlertImmuneState;
+	/**
 	/**
 	* Alert state above which their KO behavior changes (if any)
 	**/
