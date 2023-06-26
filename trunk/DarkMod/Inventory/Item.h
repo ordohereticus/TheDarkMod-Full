@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4754 $
- * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4771 $
+ * $Date: 2011-04-11 01:53:56 -0400 (Mon, 11 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -69,7 +69,7 @@ public:
 	void					SetDroppable(bool bDroppable) { m_Droppable = bDroppable; };
 	bool					IsDroppable() { return m_Droppable; };
 
-	void					SetLootType(CInventoryItem::LootType t);
+	void					SetLootType(LootType t);
 	LootType				GetLootType() { return m_LootType; };
 
 	void					SetValue(int n);
