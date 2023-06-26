@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4624 $
- * $Date: 2011-02-23 12:06:34 -0500 (Wed, 23 Feb 2011) $
+ * $Revision: 4657 $
+ * $Date: 2011-03-05 09:27:23 -0500 (Sat, 05 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ func_emitters - have one or more particle models
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: emitter.cpp 4624 2011-02-23 17:06:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: emitter.cpp 4657 2011-03-05 14:27:23Z tels $", init_version);
 
 //#include "game_local.h"
 #include "emitter.h"
@@ -153,23 +153,24 @@ void idFuncEmitter::Present( void )
 	renderEntity.axis = GetPhysics()->GetAxis();
 	renderEntity.hModel = renderModelManager->FindModel( m_modelName );
 
-	if ( renderEntity.hModel ) {
-		renderEntity.bounds = renderEntity.hModel->Bounds( &renderEntity );
-	}
-	else {
-		renderEntity.bounds.Zero();
-	}
-	// TODO: add to the bounds above the bounds of the other models
-
 	renderEntity.bodyId = 0;
 	// make each of them have a unique timeoffset, so they do not appear to be in sync
 	renderEntity.shaderParms[ SHADERPARM_TIMEOFFSET ] = -MS2SEC( gameLocal.time - gameLocal.random.RandomInt( 32767 ) );
-	// add to refresh list
-	if ( modelDefHandle == -1 ) {
-		modelDefHandle = gameRenderWorld->AddEntityDef( &renderEntity );
-	} else {
-		gameRenderWorld->UpdateEntityDef( modelDefHandle, &renderEntity );
+
+	if ( renderEntity.hModel ) {
+		renderEntity.bounds = renderEntity.hModel->Bounds( &renderEntity );
+		// add to refresh list
+		if ( modelDefHandle == -1 ) {
+			modelDefHandle = gameRenderWorld->AddEntityDef( &renderEntity );
+		} else {
+			gameRenderWorld->UpdateEntityDef( modelDefHandle, &renderEntity );
+		}
 	}
+	else {
+		// don't present the model if it is non-existant
+		renderEntity.bounds.Zero();
+	}
+	// TODO: add to the bounds above the bounds of the other models
 
 	// present additional models to the renderer
 	const int num = m_models.Num();
@@ -195,16 +196,15 @@ void idFuncEmitter::Present( void )
 
 		if ( renderEntity.hModel ) {
 			renderEntity.bounds = renderEntity.hModel->Bounds( &renderEntity );
+			// add to refresh list
+			if ( m_models[i].defHandle == -1 ) {
+				m_models[i].defHandle = gameRenderWorld->AddEntityDef( &renderEntity );
+			} else {
+				gameRenderWorld->UpdateEntityDef( m_models[i].defHandle, &renderEntity );
+			}
 		}
 		else {
 			renderEntity.bounds.Zero();
-		}
-
-		// add to refresh list
-		if ( m_models[i].defHandle == -1 ) {
-			m_models[i].defHandle = gameRenderWorld->AddEntityDef( &renderEntity );
-		} else {
-			gameRenderWorld->UpdateEntityDef( m_models[i].defHandle, &renderEntity );
 		}
 	}
 }
@@ -264,6 +264,7 @@ idFuncEmitter::Save
 */
 void idFuncEmitter::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( hidden );
+	savefile->WriteString(m_modelName);
 
 	const int num = m_models.Num();
 	savefile->WriteInt( num );
@@ -304,6 +305,7 @@ idFuncEmitter::Restore
 */
 void idFuncEmitter::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( hidden );
+	savefile->ReadString(m_modelName);
 	int num;
 	savefile->ReadInt( num );
 
