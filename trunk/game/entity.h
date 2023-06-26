@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4815 $
- * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
+ * $Revision: 4832 $
+ * $Date: 2011-05-04 08:11:53 -0400 (Wed, 04 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1783,6 +1783,9 @@ protected:
 protected:
 	idAnimator				animator;
 	damageEffect_t *		damageEffects;
+
+	// The game time UpdateAnimation() has been called the last time
+	int						lastUpdateTime;
 
 private:
 	void					Event_GetJointHandle( const char *jointname );

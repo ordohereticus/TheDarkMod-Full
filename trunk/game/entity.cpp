@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4814 $
- * $Date: 2011-04-24 02:00:23 -0400 (Sun, 24 Apr 2011) $
+ * $Revision: 4832 $
+ * $Date: 2011-05-04 08:11:53 -0400 (Wed, 04 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4814 2011-04-24 06:00:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4832 2011-05-04 12:11:53Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -7573,7 +7573,9 @@ void CAttachInfo::Restore( idRestoreGame *savefile )
 idAnimatedEntity::idAnimatedEntity
 ================
 */
-idAnimatedEntity::idAnimatedEntity() {
+idAnimatedEntity::idAnimatedEntity() :
+	lastUpdateTime(-1)
+{
 	animator.SetEntity( this );
 	damageEffects = NULL;
 }
@@ -7617,6 +7619,8 @@ void idAnimatedEntity::Spawn( void )
 			m_animRates[i] = 1.0f;
 		}
 	}
+
+	lastUpdateTime = 0;
 }
 
 /*
@@ -7629,6 +7633,7 @@ archives object for save game file
 void idAnimatedEntity::Save( idSaveGame *savefile ) const 
 {
 	animator.Save( savefile );
+	savefile->WriteInt(lastUpdateTime);
 
 	// Wounds are very temporary, ignored at this time
 	//damageEffect_t			*damageEffects;
@@ -7644,6 +7649,7 @@ unarchives object from save game file
 void idAnimatedEntity::Restore( idRestoreGame *savefile ) 
 {
 	animator.Restore( savefile );
+	savefile->ReadInt(lastUpdateTime);
 
 	// check if the entity has an MD5 model
 	if ( animator.ModelHandle() )
@@ -7699,9 +7705,11 @@ void idAnimatedEntity::UpdateAnimation( void ) {
 		return;
 	}
 
-	// call any frame commands that have happened in the past frame
-	if ( !fl.hidden ) {
-		animator.ServiceAnims( gameLocal.previousTime, gameLocal.time );
+	// call any frame commands that have happened since the last update
+	if ( !fl.hidden )
+	{
+		animator.ServiceAnims( lastUpdateTime, gameLocal.time );
+		lastUpdateTime = gameLocal.time;
 	}
 
 	// if the model is animating then we have to update it
