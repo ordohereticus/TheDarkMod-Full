@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4843 $
+ * $Date: 2011-05-14 00:06:42 -0400 (Sat, 14 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4843 2011-05-14 04:06:42Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -384,6 +384,11 @@ void CModMenu::RestartGame()
 	// Path to the darkmod directory
 	fs::path darkmodPath = g_Global.GetDarkmodPath();
 
+	// Path to the game executable
+	fs::path enginePath = g_Global.GetEnginePath();
+
+	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Engine Path: %s\r", enginePath.file_string().c_str());
+
 	// path to tdmlauncher
 #ifdef _WINDOWS
 	fs::path launcherExe(darkmodPath / "tdmlauncher.exe");
@@ -400,39 +405,6 @@ void CModMenu::RestartGame()
 		gameLocal.Error("Could not find tdmlauncher!");
 		return;
 	}
-
-	fs::path enginePath;
-
-#ifdef _WINDOWS
-	// Get the command line of the current process
-	idStr cmdLine = GetCommandLine();
-
-	int d3Pos = cmdLine.Find("DOOM3.exe", false);
-	cmdLine = cmdLine.Mid(0, d3Pos + 9);
-	cmdLine.StripLeadingOnce("\"");
-	cmdLine.StripLeading(" ");
-	cmdLine.StripLeading("\t");
-
-	enginePath = cmdLine.c_str();
-#elif defined(__linux__)
-	// TDM launcher needs to know where the engine is located, pass this as first argument
-	char exepath[PATH_MAX] = {0};
-	readlink("/proc/self/exe", exepath, sizeof(exepath));
-
-	enginePath = fs::path(exepath);
-#elif defined (MACOS_X)
-	char exepath[4096] = {0};
-	uint32_t size = sizeof(exepath);
-	
-	if (_NSGetExecutablePath(exepath, &size) != 0)
-	{
-		DM_LOG(LC_MAINMENU, LT_ERROR)LOGSTRING("Cannot read executable path, buffer too small\r");
-	}
-	
-	enginePath = fs::path(exepath);
-#else
-#error Unsupported Platform
-#endif
 
 	// command line to spawn tdmlauncher
 	idStr commandLine(launcherExe.file_string().c_str());

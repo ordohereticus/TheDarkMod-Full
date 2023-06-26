@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4806 $
- * $Date: 2011-04-19 17:47:06 -0400 (Tue, 19 Apr 2011) $
- * $Author: grayman $
+ * $Revision: 4843 $
+ * $Date: 2011-05-14 00:06:42 -0400 (Sat, 14 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -172,6 +172,9 @@ public:
 
 	// Returns the darkmod path
 	static std::string GetDarkmodPath();
+
+	// Helper to retrieve the path to the game executable
+	static std::string GetEnginePath();
 
 	// Converts a string to a logclass (LC_COUNT) if nothing found.
 	static LC_LogClass GetLogClassForString(const char* str);
