@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4273 $
- * $Date: 2010-11-12 12:08:17 -0500 (Fri, 12 Nov 2010) $
+ * $Revision: 4474 $
+ * $Date: 2011-01-25 12:37:10 -0500 (Tue, 25 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 4273 2010-11-12 17:08:17Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 4474 2011-01-25 17:37:10Z grayman $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -234,7 +234,7 @@ bool IdleAnimationTask::AnimIsApplicable(idAI* owner, const idStr& animName)
 	// Check if this anim interferes with random head turning
 	if (owner->GetMemory().currentlyHeadTurning && AnimHasNoHeadTurnFlag(owner, torsoAnimNum))
 	{
-		gameLocal.Printf("Inhibited idle animation %s, since random head turning is active.\n", animName.c_str());
+//		gameLocal.Printf("Inhibited idle animation %s, since random head turning is active.\n", animName.c_str());
 
 		// Cannot play this one at this point
 		return false;
