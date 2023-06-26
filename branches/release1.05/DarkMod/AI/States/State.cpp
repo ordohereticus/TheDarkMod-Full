@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4655 $
- * $Date: 2011-03-04 15:59:56 -0500 (Fri, 04 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4704 $
+ * $Date: 2011-03-21 02:37:44 -0400 (Mon, 21 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4655 2011-03-04 20:59:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4704 2011-03-21 06:37:44Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2275,6 +2275,13 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 		{
 			return;
 		}
+	}
+
+	// grayman #2691 - if we don't fit through this door, don't use it
+
+	if (!owner->CanPassThroughDoor(frobDoor))
+	{
+		return;
 	}
 
 	if (cv_ai_door_show.GetBool()) 
