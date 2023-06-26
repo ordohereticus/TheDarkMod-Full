@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4808 $
- * $Date: 2011-04-20 04:00:04 -0400 (Wed, 20 Apr 2011) $
+ * $Revision: 4809 $
+ * $Date: 2011-04-20 05:20:06 -0400 (Wed, 20 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "ObjectiveCondition.h"
 #include "CampaignStatistics.h"
 
-static bool init_version = FileVersionList("$Id: ObjectiveCondition.cpp 4808 2011-04-20 08:00:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ObjectiveCondition.cpp 4809 2011-04-20 09:20:06Z greebo $", init_version);
 
 ObjectiveCondition::ObjectiveCondition() :
 	_type(INVALID_TYPE),
@@ -71,12 +71,14 @@ bool ObjectiveCondition::Apply(CMissionData& missionData)
 	case CHANGE_STATE:
 		// Attempt to set the completion state
 		DM_LOG(LC_OBJECTIVES, LT_DEBUG)LOGSTRING("Objective condition will set the state of objective %d to %d.\r", _targetObj, _value);
-		missionData.SetCompletionState(_targetObj, _value);
+
+		// Set completion state and suppress event firing, we might not have a player around to receive GUI events
+		missionData.SetCompletionState(_targetObj, _value, false);
 		break;
 
 	case CHANGE_VISIBILITY:
 		DM_LOG(LC_OBJECTIVES, LT_DEBUG)LOGSTRING("Objective condition will set the visiblity of objective %d to %d\r", _targetObj, _value);
-		missionData.SetObjectiveVisibility(_targetObj, _value != 0);
+		missionData.SetObjectiveVisibility(_targetObj, _value != 0, false); // don't fire events
 		break;
 
 	case CHANGE_MANDATORY:
