@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4610 $
- * $Date: 2011-02-19 12:54:01 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4614 $
+ * $Date: 2011-02-19 17:32:11 -0500 (Sat, 19 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: dict.cpp 4610 2011-02-19 17:54:01Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: dict.cpp 4614 2011-02-19 22:32:11Z tels $", init_version);
 
 
 idStrPool		idDict::globalKeys;
@@ -188,14 +188,15 @@ Tels: Like SetDefaults(), but skips all entries starting with skip:
 ================
 */
 void idDict::SetDefaults( const idDict *dict, const idStr &skip ) {
-	int i, n;
+	int i, n, l;
 	const idKeyValue *kv, *def;
 	idKeyValue newkv;
 
 	n = dict->args.Num();
+	l = skip.Length();
 	for( i = 0; i < n; i++ ) {
 		def = &dict->args[i];
-		if (def->GetKey().IcmpPrefix(skip) == 0)
+		if (def->GetKey().Icmpn(skip, l) == 0)
 		{
 			continue;
 		}
