@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4633 $
- * $Date: 2011-02-25 17:31:32 -0500 (Fri, 25 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4640 $
+ * $Date: 2011-02-27 04:26:18 -0500 (Sun, 27 Feb 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4633 2011-02-25 22:31:32Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4640 2011-02-27 09:26:18Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -830,6 +830,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 	m_RelationsManager->Save(&savegame);
 	m_Shop->Save(&savegame);
 	LAS.Save(&savegame);
+	m_MissionManager->Save(&savegame);
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Save(&savegame);
@@ -1837,6 +1838,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	m_RelationsManager->Restore(&savegame);
 	m_Shop->Restore(&savegame);
 	LAS.Restore(&savegame);
+	m_MissionManager->Restore(&savegame);
 
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Restore(&savegame);

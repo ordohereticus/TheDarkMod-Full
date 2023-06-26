@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4638 $
- * $Date: 2011-02-27 03:57:05 -0500 (Sun, 27 Feb 2011) $
+ * $Revision: 4640 $
+ * $Date: 2011-02-27 04:26:18 -0500 (Sun, 27 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4638 2011-02-27 08:57:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4640 2011-02-27 09:26:18Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -52,6 +52,16 @@ void CMissionManager::Init()
 	_missionDB->Init();
 
 	InitStartingMap();
+}
+
+void CMissionManager::Save(idSaveGame* savefile) const
+{
+	
+}
+
+void CMissionManager::Restore(idRestoreGame* savefile)
+{
+
 }
 
 void CMissionManager::Shutdown()

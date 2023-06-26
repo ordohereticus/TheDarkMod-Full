@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4638 $
- * $Date: 2011-02-27 03:57:05 -0500 (Sun, 27 Feb 2011) $
+ * $Revision: 4640 $
+ * $Date: 2011-02-27 04:26:18 -0500 (Sun, 27 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -183,6 +183,10 @@ public:
 
 	// This initialises the list of available missions
 	void Init();
+
+	// Save/Restore data
+	void Save(idSaveGame* savefile) const;
+	void Restore(idRestoreGame* savefile);
 
 	// Should be called when the game is shutting down
 	void Shutdown();
