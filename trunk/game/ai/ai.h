@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4530 $
- * $Date: 2011-02-02 02:30:58 -0500 (Wed, 02 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4540 $
+ * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -1111,9 +1111,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	int m_headTurnMinDuration;
 	int m_headTurnMaxDuration;
 
-	bool m_canExtricate;		// grayman #2345 - whether we can use AttemptToExtricate() to stop being stuck
 	idEntity* m_tactileEntity;	// grayman #2345 - something we bumped into this frame, not necessarily an enemy
 	bool m_canResolveBlock;		// grayman #2345 - whether we can resolve a block if asked
+	bool m_leftQueue;			// grayman #2345 - if we timed out waiting in a door queue
 
 	// The mind of this AI
 	ai::MindPtr mind;

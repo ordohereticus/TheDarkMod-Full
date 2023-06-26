@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4503 $
- * $Date: 2011-01-30 06:26:05 -0500 (Sun, 30 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4540 $
+ * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -67,7 +67,7 @@ private:
 	bool PerformBlockingStatic(idAI* owner);
 	bool Room2Pass(idAI* owner);	// grayman #2345
 	bool IsSolid();			// grayman #2345
-
+	void BecomeNonSolid(idAI* owner); // grayman #2345
 };
 
 } // namespace ai

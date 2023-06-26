@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4497 $
- * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
+ * $Revision: 4540 $
+ * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -59,6 +59,7 @@ private:
 	bool _doorInTheWay;
 	int _retryCount;
 	int _leaveQueue; // grayman #2345
+	bool _triedFitting; // grayman #2345
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;
@@ -112,6 +113,7 @@ private:
 
 	void ResetMaster(CFrobDoor* frobDoor); // grayman #2345
 	void AddUser(idAI* owner, CFrobDoor* frobDoor); // grayman #2345
+
 };
 
 } // namespace ai

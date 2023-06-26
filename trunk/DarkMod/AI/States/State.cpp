@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4497 $
- * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
+ * $Revision: 4540 $
+ * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4497 2011-01-30 00:40:01Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4540 2011-02-03 18:59:49Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1425,16 +1425,12 @@ void State::OnMovementBlocked(idAI* owner)
 			std::swap(master, slave);
 		}
 
-		// Tell the slave to get out of the way, but only if neither AI is currently resolving a block
-		// grayman #2345 - or waiting for the other to pass.
-
-		if (!slave->movementSubsystem->IsResolvingBlock() &&
-			!master->movementSubsystem->IsResolvingBlock() &&
-			!slave->movementSubsystem->IsWaiting() &&
-			!master->movementSubsystem->IsWaiting())
+		if (slave->movementSubsystem->IsResolvingBlock() || !slave->m_canResolveBlock) // grayman #2345
 		{
-			slave->movementSubsystem->ResolveBlock(master);
+			std::swap(master, slave);
 		}
+
+		slave->movementSubsystem->ResolveBlock(master);
 	}
 	else if (ent->IsType(idStaticEntity::Type))
 	{
@@ -2260,6 +2256,14 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 {
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
+
+	// grayman #2345 - don't handle this door if we just finished handling it.
+
+	int lastTimeUsed = owner->GetMemory().GetDoorInfo(frobDoor).lastTimeUsed;
+	if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + 5000))
+	{
+		return;
+	}
 
 	if (cv_ai_door_show.GetBool()) 
 	{

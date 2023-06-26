@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4540 $
+ * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4540 2011-02-03 18:59:49Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -75,11 +75,23 @@ CBinaryFrobMover::CBinaryFrobMover()
 	m_stopWhenBlocked = false;
 	m_LockOnClose = false;
 	m_bFineControlStarting = false;
+	m_closedBox = box_zero; // grayman #2345 - holds closed position
+	m_closedBox.Clear();	// grayman #2345
 }
 
 CBinaryFrobMover::~CBinaryFrobMover()
 {
 	delete m_Lock;
+}
+
+void CBinaryFrobMover::SetClosedBox(idBox box) // grayman #2345
+{
+	m_closedBox = box;
+}
+
+idBox CBinaryFrobMover::GetClosedBox() // grayman #2345
+{
+	return m_closedBox;
 }
 
 void CBinaryFrobMover::AddObjectsToSaveGame(idSaveGame* savefile)
@@ -131,6 +143,7 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 	savefile->WriteBool(m_stopWhenBlocked);
 	savefile->WriteBool(m_LockOnClose);
 	savefile->WriteBool(m_bFineControlStarting);
+	savefile->WriteBox(m_closedBox); // grayman #2345
 }
 
 void CBinaryFrobMover::Restore( idRestoreGame *savefile )
@@ -175,6 +188,7 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 	savefile->ReadBool(m_stopWhenBlocked);
 	savefile->ReadBool(m_LockOnClose);
 	savefile->ReadBool(m_bFineControlStarting);
+	savefile->ReadBox(m_closedBox); // grayman #2345
 }
 
 void CBinaryFrobMover::Spawn()

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4387 $
- * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4540 $
+ * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -107,6 +107,9 @@ public:
 	{
 		return m_LastBlockingEnt.GetEntity();
 	}
+
+	void SetClosedBox(idBox box);	// grayman #2345
+	idBox GetClosedBox();			// grayman #2345
 
 	/**
 	* This is the non-script version of GetLock
@@ -502,6 +505,12 @@ protected:
 	* True when frob is held down but not long enough to initialize fine control
 	**/
 	bool						m_bFineControlStarting;
+
+	/**
+	* grayman #2345 - idBox of the closed mover, used in pathfinding
+	**/
+
+	idBox						m_closedBox;
 };
 
 #endif /* !BINARYFROBMOVER */
