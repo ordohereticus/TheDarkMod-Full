@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 4473 $
+ * $Date: 2011-01-25 05:07:13 -0500 (Tue, 25 Jan 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4473 2011-01-25 10:07:13Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -868,6 +868,14 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat(atime4_fuzzyness);
 	savefile->WriteFloat(atime_fleedone_fuzzyness);
 
+	savefile->WriteInt(m_timeBetweenHeadTurnChecks);
+	savefile->WriteFloat(m_headTurnChanceIdle);
+	savefile->WriteFloat(m_headTurnFactorAlerted);
+	savefile->WriteFloat(m_headTurnMaxYaw);
+	savefile->WriteFloat(m_headTurnMaxPitch);
+	savefile->WriteInt(m_headTurnMinDuration);
+	savefile->WriteInt(m_headTurnMaxDuration);
+
 	savefile->WriteInt(static_cast<int>(backboneStates.size()));
 	for (BackboneStateMap::const_iterator i = backboneStates.begin(); i != backboneStates.end(); ++i)
 	{
@@ -1225,6 +1233,14 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat(atime4_fuzzyness);
 	savefile->ReadFloat(atime_fleedone_fuzzyness);
 
+	savefile->ReadInt(m_timeBetweenHeadTurnChecks);
+	savefile->ReadFloat(m_headTurnChanceIdle);
+	savefile->ReadFloat(m_headTurnFactorAlerted);
+	savefile->ReadFloat(m_headTurnMaxYaw);
+	savefile->ReadFloat(m_headTurnMaxPitch);
+	savefile->ReadInt(m_headTurnMinDuration);
+	savefile->ReadInt(m_headTurnMaxDuration);
+
 	backboneStates.clear();
 	savefile->ReadInt(num);
 
@@ -1471,7 +1487,6 @@ void idAI::Spawn( void )
 
 	spawnArgs.GetFloat( "headturn_duration_max",			"3",		headTurnSec);
 	m_headTurnMaxDuration = SEC2MS(headTurnSec);
-
 
 	alertTypeWeight[ai::EAlertTypeNone] = 0;
 	alertTypeWeight[ai::EAlertTypeSuspicious] = 5;
