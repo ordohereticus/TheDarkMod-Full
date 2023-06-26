@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4138 $
- * $Date: 2010-08-13 05:02:34 -0400 (Fri, 13 Aug 2010) $
- * $Author: tels $
+ * $Revision: 4527 $
+ * $Date: 2011-02-02 00:10:56 -0500 (Wed, 02 Feb 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -323,6 +323,8 @@ public:
 	idVec3 &		operator/=( const idVec3 &a );
 	idVec3 &		operator/=( const float a );
 	idVec3 &		operator*=( const float a );
+	idVec3 &		MulCW( const idVec3 &a );									// multiply on vector component-wise
+	idVec3 &		DivCW( const idVec3 &a );									// divide on vector component-wise
 
 	friend idVec3	operator*( const float a, const idVec3 b );
 
@@ -478,6 +480,22 @@ ID_INLINE idVec3 &idVec3::operator*=( const float a ) {
 	x *= a;
 	y *= a;
 	z *= a;
+
+	return *this;
+}
+
+ID_INLINE idVec3 &idVec3::MulCW( const idVec3 &a ) {
+	x *= a.x;
+	y *= a.y;
+	z *= a.z;
+
+	return *this;
+}
+
+ID_INLINE idVec3 &idVec3::DivCW( const idVec3 &a ) {
+	x /= a.x;
+	y /= a.y;
+	z /= a.z;
 
 	return *this;
 }

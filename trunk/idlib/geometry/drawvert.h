@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4527 $
+ * $Date: 2011-02-02 00:10:56 -0500 (Wed, 02 Feb 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -40,6 +40,8 @@ public:
 	void			LerpAll( const idDrawVert &a, const idDrawVert &b, const float f );
 
 	void			Normalize( void );
+	// stgatilov: this normalization scales normal/tangents by common factor, so that normal becomes unit length.
+	void			ScaleToUnitNormal( void );
 
 	void			SetColor( dword color );
 	dword			GetColor( void ) const;
@@ -87,5 +89,13 @@ ID_INLINE void idDrawVert::SetColor( dword color ) {
 ID_INLINE dword idDrawVert::GetColor( void ) const {
 	return *reinterpret_cast<const dword *>(this->color);
 }
+
+ID_INLINE void idDrawVert::ScaleToUnitNormal( void ) {
+	float invNormLen = idMath::RSqrt(normal.LengthSqr());
+	normal *= invNormLen;
+	tangents[0] *= invNormLen;
+	tangents[1] *= invNormLen;
+}
+
 
 #endif /* !__DRAWVERT_H__ */

@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4526 $
- * $Date: 2011-02-01 13:09:10 -0500 (Tue, 01 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4527 $
+ * $Date: 2011-02-02 00:10:56 -0500 (Wed, 02 Feb 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4526 2011-02-01 18:09:10Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4527 2011-02-02 05:10:56Z stgatilov $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1982,7 +1982,6 @@ void Seed::PrepareEntities( void )
 
 	idList< int >			ClassIndex;			// random shuffling of classes
 	int						s;
-	float					f;
 
 	int start = (int) time (NULL);
 
@@ -3576,10 +3575,12 @@ bool Seed::SpawnEntity( const int idx, const bool managed )
 						impulse.x = impulse.x * RandomFloat() + lclass->impulse_min.x;
 						impulse.y = impulse.y * RandomFloat() + lclass->impulse_min.y;
 						impulse.z = impulse.z * RandomFloat() + lclass->impulse_min.z;
+						idVec3 impulseVec = (impulse.x == 0.0f ? idVec3() : idPolar3( impulse ).ToVec3());
 						// gameLocal.Printf("SEED %s: Applying random impulse (polar %s, vec3 %s) to entity.\n", GetName(), impulse.ToString(), idPolar3( impulse ).ToVec3().ToString() );
 						ent2->GetPhysics()->SetLinearVelocity( 
 							// ent2->GetPhysics()->GetLinearVelocity() +
-							idPolar3( impulse ).ToVec3() );
+							impulseVec
+							 );
 						//ent2->ApplyImpulse( this, 0, ent->origin, idPolar3( impulse ).ToVec3() );
 					}
 
