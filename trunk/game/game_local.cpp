@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4780 $
- * $Date: 2011-04-13 13:11:04 -0400 (Wed, 13 Apr 2011) $
+ * $Revision: 4781 $
+ * $Date: 2011-04-14 01:57:41 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4780 2011-04-13 17:11:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4781 2011-04-14 05:57:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -305,6 +305,8 @@ void idGameLocal::Clear( void )
 
 	m_lightGem.Clear();
 	m_DoLightgem = true;
+
+	m_InterMissionTriggers.Clear();
 	
 	serverInfo.Clear();
 	numClients = 0;
@@ -325,6 +327,7 @@ void idGameLocal::Clear( void )
 	sortTeamMasters = false;
 	persistentLevelInfo.Clear();
 	persistentPlayerInventory.reset();
+	campaignInfoEntities.Clear();
 
 	memset( globalShaderParms, 0, sizeof( globalShaderParms ) );
 	random.SetSeed( 0 );
@@ -899,6 +902,12 @@ void idGameLocal::SaveGame( idFile *f ) {
 	savegame.WriteDict( &persistentLevelInfo );
 
 	persistentPlayerInventory->Save(&savegame);
+
+	savegame.WriteInt(campaignInfoEntities.Num());
+	for (i = 0; i < campaignInfoEntities.Num(); ++i)
+	{
+		savegame.WriteObject(campaignInfoEntities[i]);
+	}
 	
 	for( i = 0; i < MAX_GLOBAL_SHADER_PARMS; i++ ) {
 		savegame.WriteFloat( globalShaderParms[ i ] );
@@ -1976,6 +1985,13 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	savegame.ReadDict( &persistentLevelInfo );
 
 	persistentPlayerInventory->Restore(&savegame);
+
+	savegame.ReadInt(num);
+	campaignInfoEntities.SetNum(num);
+	for (i = 0; i < num; ++i)
+	{
+		savegame.ReadObject(reinterpret_cast<idClass*&>(campaignInfoEntities[i]));
+	}
 
 	for( i = 0; i < MAX_GLOBAL_SHADER_PARMS; i++ ) {
 		savegame.ReadFloat( globalShaderParms[ i ] );
@@ -4811,6 +4827,13 @@ bool idGameLocal::SpawnEntityDef( const idDict &args, idEntity **ent, bool setDe
 			*ent = static_cast<idEntity *>(obj);
 		}
 
+		// Check for campaign info ents
+		if (idStr::Cmp(classname, "atdm:campaign_info") == 0)
+		{
+			assert(obj->IsType(idEntity::Type));
+			campaignInfoEntities.Append(static_cast<idEntity*>(obj));
+		}
+
 		return true;
 	}
 
@@ -4975,6 +4998,9 @@ void idGameLocal::SpawnMapEntities( void ) {
 	num = 1;
 	inhibit = 0;
 
+	// Clear out the campaign info cache
+	campaignInfoEntities.Clear();
+
 	for ( i = 1 ; i < numEntities ; i++ ) {
 		mapEnt = mapFile->GetEntity( i );
 		args = mapEnt->epairs;
@@ -4995,11 +5021,12 @@ void idGameLocal::SpawnMapEntities( void ) {
 		}
 #endif
 
-		if ( !InhibitEntitySpawn( args ) ) {
+		if (!InhibitEntitySpawn(args))
+		{
 			// precache any media specified in the map entity
-			CacheDictionaryMedia( &args );
+			CacheDictionaryMedia(&args);
 
-			SpawnEntityDef( args );
+			SpawnEntityDef(args);
 			num++;
 		} else {
 			inhibit++;

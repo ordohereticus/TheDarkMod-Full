@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4780 $
- * $Date: 2011-04-13 13:11:04 -0400 (Wed, 13 Apr 2011) $
+ * $Revision: 4781 $
+ * $Date: 2011-04-14 01:57:41 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -454,6 +454,9 @@ public:
 
 	// The inventory class which keeps items safe between maps
 	CInventoryPtr			persistentPlayerInventory;
+
+	// The list of campaign info entities in this map
+	idList<idEntity*>		campaignInfoEntities;
 
 	// greebo: Is set to TRUE if the post-mission screen (debriefing or success screen) is currently active. 
 	// (Usually these state variables should be kept in the GUI, but in this case I need it to be accessible 

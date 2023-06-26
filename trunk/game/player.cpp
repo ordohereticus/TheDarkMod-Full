@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4779 $
- * $Date: 2011-04-13 03:07:21 -0400 (Wed, 13 Apr 2011) $
+ * $Revision: 4781 $
+ * $Date: 2011-04-14 01:57:41 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4779 2011-04-13 07:07:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4781 2011-04-14 05:57:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11051,7 +11051,15 @@ void idPlayer::SendInventoryPickedUpMessage(const idStr& text)
 
 void idPlayer::EnforcePersistentInventoryItemLimits()
 {
-	// TODO
+	for (int i = 0; i < gameLocal.campaignInfoEntities.Num(); ++i)
+	{
+		idEntity* campaignInfo = gameLocal.campaignInfoEntities[i];
+		assert(campaignInfo != NULL);
+
+		// TODO: Enforce weapon limits
+
+		// TODO: Enforce regular inventory item limits
+	}
 }
 
 void idPlayer::Event_Pausegame()
