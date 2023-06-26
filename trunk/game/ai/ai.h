@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4666 $
- * $Date: 2011-03-08 08:26:59 -0500 (Tue, 08 Mar 2011) $
- * $Author: newhorizon $
+ * $Revision: 4673 $
+ * $Date: 2011-03-09 15:03:31 -0500 (Wed, 09 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -996,7 +996,6 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* Alert state above which their KO Immunity changes (if any)
 	**/
 	int					m_KoAlertImmuneState;
-	/**
 	/**
 	* Alert state above which their KO behavior changes (if any)
 	**/
