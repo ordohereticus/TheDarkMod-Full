@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4663 $
- * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
+ * $Revision: 4678 $
+ * $Date: 2011-03-09 15:44:55 -0500 (Wed, 09 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: track skin changes on the different LOD stages
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StaticMulti.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: StaticMulti.cpp 4678 2011-03-09 20:44:55Z tels $", init_version);
 
 #include "StaticMulti.h"
 
@@ -69,19 +69,18 @@ CStaticMulti::CStaticMulti( void )
 
 	m_iVisibleModels = 0;
 	m_iMaxChanges = 1;
-	
+	m_fHideDistance = 0.0f;	
 	m_DistCheckTimeStamp = 0;
 	m_DistCheckInterval = 0;
-	m_fHideDistance = 0.0f;
 	m_bDistCheckXYOnly = false;
 }
 
 CStaticMulti::~CStaticMulti()
 {
-	// no need to free these as they are just ptr to a copy
 	if (m_LODHandle)
 	{
 		gameLocal.m_ModelGenerator->UnregisterLODData( m_LODHandle );
+		m_LODHandle = 0;
 	}
 
 	// make sure the render entity is freed before the model is freed
@@ -637,7 +636,6 @@ void CStaticMulti::Save( idSaveGame *savefile ) const {
 		savefile->WriteInt( m_Changes[i].oldFlags );
 		savefile->WriteInt( m_Changes[i].newFlags );
 	}
-	savefile->WriteInt( m_LODHandle );
 }
 
 void CStaticMulti::Restore( idRestoreGame *savefile )
