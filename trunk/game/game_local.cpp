@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4662 $
- * $Date: 2011-03-07 15:51:20 -0500 (Mon, 07 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4663 $
+ * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4662 2011-03-07 20:51:20Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -668,6 +668,8 @@ void idGameLocal::Shutdown( void ) {
 	m_MissionManager->Shutdown();
 	m_MissionManager = CMissionManagerPtr();
 
+	// Print ModelGenerator Statistics
+	m_ModelGenerator->Print();
 	// Destroy the model generator
 	m_ModelGenerator->Shutdown();
 	m_ModelGenerator = CModelGeneratorPtr();
@@ -2239,6 +2241,7 @@ void idGameLocal::MapShutdown( void ) {
 
 	if (m_ModelGenerator != NULL)
 	{
+		m_ModelGenerator->Print();
 		m_ModelGenerator->Clear();
 	}
 	if (m_ImageMapManager != NULL)

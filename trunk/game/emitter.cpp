@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4657 $
- * $Date: 2011-03-05 09:27:23 -0500 (Sat, 05 Mar 2011) $
+ * $Revision: 4663 $
+ * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ func_emitters - have one or more particle models
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: emitter.cpp 4657 2011-03-05 14:27:23Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: emitter.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
 
 //#include "game_local.h"
 #include "emitter.h"
@@ -40,7 +40,7 @@ idFuncEmitter::idFuncEmitter
 */
 idFuncEmitter::idFuncEmitter( void ) {
 	hidden = false;
-	m_LOD = NULL;
+	m_LODHandle = 0;
 
 	m_modelName = "";
 	m_models.Clear();

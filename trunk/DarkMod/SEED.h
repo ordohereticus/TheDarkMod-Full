@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4619 $
- * $Date: 2011-02-22 02:17:58 -0500 (Tue, 22 Feb 2011) $
+ * $Revision: 4663 $
+ * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -157,15 +157,15 @@ struct seed_class_t {
 	float					map_ofs_x;		//!< x offset for the map (0..1.0)
 	float					map_ofs_y;		//!< y offset for the map (0..1.0)
 
-	float					z_min;			// depends on z_invert
-	float					z_max;			// depends on z_invert
-	float					z_fadein;		// depends on z_invert
-	float					z_fadeout;		// depends on z_invert
-	bool					z_invert;		// false => entities spawn between z_min => z_max, otherwise outside
+	float					z_min;			//!< depends on z_invert
+	float					z_max;			//!< depends on z_invert
+	float					z_fadein;		//!< depends on z_invert
+	float					z_fadeout;		//!< depends on z_invert
+	bool					z_invert;		//!< false => entities spawn between z_min => z_max, otherwise outside
 
-	lod_data_t*				m_LOD;			//!< Contains (sharable, constant) LOD data if non-NULL
+	lod_handle				m_LODHandle;	//!< handle to shared, constant LOD data
 
-	idDict					*spawnArgs;		// pointer to a dictionary with additional spawnargs that were present in the map file
+	idDict					*spawnArgs;		//!< pointer to a dictionary with additional spawnargs that were present in the map file
 };
 
 /** Defines one area that inhibits entity spawning */

@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4627 $
- * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
- * $Author: grayman $
+ * $Revision: 4663 $
+ * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -401,12 +401,12 @@ public:
 	bool					m_droppedByAI; // grayman #1330
 
 	/**
-	* Tels: Contains (sharable, constant) LOD data if non-NULL.
+	* Tels: Contains handle to (sharable, constant) LOD data if != 0.
 	*/
-	lod_data_t*				m_LOD;
+	lod_handle				m_LODHandle;
 
 	/**
-	* Tels: Info for LOD, per entity. used if m_LOD != NULL:
+	* Tels: Info for LOD, per entity. used if m_LODHandle != 0:
 	* Timestamp for next LOD think.
 	**/
 	int						m_DistCheckTimeStamp;
@@ -444,10 +444,10 @@ public:
 	virtual void			LoadModels( void );
 
 	/**
-	* Parse the LOD spawnargs and fill the m_LOD struct  if nec.
-	* Returns true if this entity (or the passed in entity def) has LOD.
+	* Parse the LOD spawnargs and returns 0 if the entity has no LOD (or hide_distance),
+    * otherwise returns a handle registered with ModelGenerator::RegisterLODData();
 	*/
-	bool					ParseLODSpawnargs( const idDict* dict, const float fRandom);
+	lod_handle				ParseLODSpawnargs( const idDict* dict, const float fRandom);
 
 	/**
 	 * Tels: Stop LOD changes. If doTeam is true, also disables it on teammembers.
@@ -463,12 +463,6 @@ public:
 	 * which is a non-spawned object of the BinaryFrobMover class).
 	 */
 	virtual void			AddObjectsToSaveGame(idSaveGame* savefile);
-
-	/**
-	 * Tels: Save/Restore optional LOD data.
-	 */
-	void					SaveLOD( idSaveGame *savefile ) const;
-	void					RestoreLOD( idRestoreGame *savefile );
 
 	const char *			GetEntityDefName( void ) const;
 	void					SetName( const char *name );

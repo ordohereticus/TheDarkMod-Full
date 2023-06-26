@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4145 $
- * $Date: 2010-08-28 07:40:38 -0400 (Sat, 28 Aug 2010) $
+ * $Revision: 4663 $
+ * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 4145 2010-08-28 11:40:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
@@ -77,7 +77,7 @@ idMoveable::idMoveable( void ) {
 	lastPushOrigin = vec3_zero;
 
 	// by default no LOD
-	m_LOD = NULL;
+	m_LODHandle = 0;
 	m_DistCheckTimeStamp = 0;
 }
 
@@ -279,8 +279,6 @@ void idMoveable::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool(wasPushedLastFrame);
 	savefile->WriteVec3(pushDirection);
 	savefile->WriteVec3(lastPushOrigin);
-
-	SaveLOD( savefile );
 }
 
 /*
@@ -324,8 +322,6 @@ void idMoveable::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool(wasPushedLastFrame);
 	savefile->ReadVec3(pushDirection);
 	savefile->ReadVec3(lastPushOrigin);
-
-	RestoreLOD( savefile );
 }
 
 /*
@@ -637,7 +633,7 @@ idMoveable::Think
 */
 void idMoveable::Think( void ) {
 	if ( thinkFlags & TH_THINK ) {
-		if ( !FollowInitialSplinePath() && !isPushed && !m_LOD) {
+		if ( !FollowInitialSplinePath() && !isPushed && !m_LODHandle) {
 			BecomeInactive( TH_THINK );
 		}
 	}

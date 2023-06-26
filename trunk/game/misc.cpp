@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4619 $
- * $Date: 2011-02-22 02:17:58 -0500 (Tue, 22 Feb 2011) $
+ * $Revision: 4663 $
+ * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4619 2011-02-22 07:17:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1460,7 +1460,7 @@ idStaticEntity::idStaticEntity( void ) {
 	fadeEnd	= 0;
 	runGui = false;
 
-	m_LOD = NULL;
+	m_LODHandle = 0;
 }
 
 /*
@@ -1727,7 +1727,7 @@ idFuncSmoke::idFuncSmoke() {
 	smokeTime = 0;
 	smoke = NULL;
 	restart = false;
-	m_LOD = NULL;
+	m_LODHandle = 0;
 }
 
 /*
@@ -1814,18 +1814,19 @@ void idFuncSmoke::Think( void ) {
 		}
 	}
 
-	if (m_LOD)
+	if (m_LODHandle)
 	{
 		// If this entity has LOD, let it think about it:
 		// Distance dependence checks
-		if ( ( m_LOD->DistCheckInterval > 0) 
-		  && ( (gameLocal.time - m_DistCheckTimeStamp) > m_LOD->DistCheckInterval ) )
+		const lod_data_t *lod = gameLocal.m_ModelGenerator->GetLODDataPtr( m_LODHandle );
+		if ( ( lod->DistCheckInterval > 0) 
+		  && ( (gameLocal.time - m_DistCheckTimeStamp) > lod->DistCheckInterval ) )
 		{
 			m_DistCheckTimeStamp = gameLocal.time;
 //			gameLocal.Warning("%s: Think called with m_LOD %p, %i, interval %i, origin %s",
-//					GetName(), m_LOD, m_DistCheckTimeStamp, m_LOD->DistCheckInterval, GetPhysics()->GetOrigin().ToString() );
-			SwitchLOD( m_LOD, 
-				GetLODDistance( m_LOD, gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin(), GetPhysics()->GetOrigin(), renderEntity.bounds.GetSize(), cv_lod_bias.GetFloat() ) );
+//					GetName(), lod, m_DistCheckTimeStamp, m_LOD->DistCheckInterval, GetPhysics()->GetOrigin().ToString() );
+			SwitchLOD( lod, 
+				GetLODDistance( lod, gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin(), GetPhysics()->GetOrigin(), renderEntity.bounds.GetSize(), cv_lod_bias.GetFloat() ) );
 		}
 	}
 }
