@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4763 $
- * $Date: 2011-04-09 05:43:59 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4774 $
+ * $Date: 2011-04-11 15:25:08 -0400 (Mon, 11 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -17,7 +17,7 @@
 #define LIST_SIZE_STARTING 7
 
 #include "ShopItem.h"
-#include "DifficultyManager.h"
+#include "../DifficultyManager.h"
 #include "LootRuleSet.h"
 
 // Represents the Shop

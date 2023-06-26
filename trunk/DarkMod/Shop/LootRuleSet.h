@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4765 $
- * $Date: 2011-04-09 09:18:53 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4774 $
+ * $Date: 2011-04-11 15:25:08 -0400 (Mon, 11 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #ifndef TDM_LOOTRULESET_H
 #define TDM_LOOTRULESET_H
 
-#include "Inventory/LootType.h"
+#include "../Inventory/LootType.h"
 
 /**
  * greebo: A structure defining loot carry-over rules for the shop.
