@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4571 $
+ * $Date: 2011-02-10 07:27:37 -0500 (Thu, 10 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -163,10 +163,8 @@ private:
 	// True if we've downloaded an update for the tdm_update binary
 	bool _updatingUpdater;
 
-#ifdef WIN32
-	// The name of the Win32 update batch file (not needed for *nix builds)
+	// The name of the update batch/shell script file
 	fs::path _updateBatchFile;
-#endif
 
 	// The version information, indexed by version string "1.02" => [ReleaseFileSet]
 	ReleaseVersions _releaseVersions;
@@ -333,10 +331,8 @@ private:
 
 	bool DifferentialUpdateAvailableForVersion(const std::string& version);
 
-#ifdef WIN32
-	// Prepare the update batch file (for Win32 builds only)
+	// Prepare the update batch/script file
 	void PrepareUpdateBatchFile(const fs::path& temporaryUpdater);
-#endif
 };
 
 } // namespace
