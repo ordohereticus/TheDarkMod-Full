@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4708 $
- * $Date: 2011-03-22 03:54:17 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4709 $
+ * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4708 2011-03-22 07:54:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -76,7 +76,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 		// Get selected mod
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
+		CModInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		// Load the readme.txt contents, if available
 		gui->SetStateString("ModNotesText", info != NULL ? info->GetMissionNotes() : "");
@@ -89,7 +89,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 	{
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
+		CModInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		if (info != NULL)
 		{
@@ -134,7 +134,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 		// Get selected mod
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
+		CModInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		if (info == NULL) return; // sanity check
 
@@ -146,7 +146,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 		// Get selected mod
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
+		CModInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		if (info == NULL) return; // sanity check
 
@@ -191,7 +191,7 @@ void CModMenu::UpdateSelectedMod(idUserInterface* gui)
 	// Get selected mod
 	int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-	CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
+	CModInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 	if (info != NULL)
 	{
@@ -295,7 +295,7 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 		int missionIndex = _modTop + modIndex;
 		int numMissions = gameLocal.m_MissionManager->GetNumMods();
 
-		CMissionInfoPtr info;
+		CModInfoPtr info;
 
 		// Retrieve the mission info
 		if (_modTop + modIndex < numMissions)
@@ -315,14 +315,14 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 	gui->SetStateBool("isModsScrollDownVisible", _modTop + modsPerPage < gameLocal.m_MissionManager->GetNumMods());
 
 	// Update the currently installed mod
-	CMissionInfoPtr curModInfo = gameLocal.m_MissionManager->GetCurrentModInfo();
+	CModInfoPtr curModInfo = gameLocal.m_MissionManager->GetCurrentModInfo();
 
 	gui->SetStateBool("hasCurrentMod", curModInfo != NULL);
 	gui->SetStateString("currentModName", curModInfo != NULL ? curModInfo->displayName : "<No Mission Installed>");
 	gui->SetStateString("currentModDesc", curModInfo != NULL ? curModInfo->description : "");	
 }
 
-bool CModMenu::PerformVersionCheck(const CMissionInfoPtr& mission, idUserInterface* gui)
+bool CModMenu::PerformVersionCheck(const CModInfoPtr& mission, idUserInterface* gui)
 {
 	// Check the required TDM version of this FM
 	if (CompareVersion(TDM_VERSION_MAJOR, TDM_VERSION_MINOR, mission->requiredMajor, mission->requiredMinor) == OLDER)
@@ -339,7 +339,7 @@ bool CModMenu::PerformVersionCheck(const CMissionInfoPtr& mission, idUserInterfa
 	return true; // version check passed
 }
 
-void CModMenu::InstallMission(const CMissionInfoPtr& mission, idUserInterface* gui)
+void CModMenu::InstallMission(const CModInfoPtr& mission, idUserInterface* gui)
 {
 	assert(mission != NULL);
 	assert(gui != NULL);

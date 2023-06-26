@@ -1,19 +1,19 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 4709 $
+ * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
-#ifndef _MISSION_INFO_DECL_H_
-#define _MISSION_INFO_DECL_H_
+#ifndef _MOD_INFO_DECL_H_
+#define _MOD_INFO_DECL_H_
 
 #include "../../idlib/precompiled.h"
 #include <boost/shared_ptr.hpp>
 
-class CMissionInfoDecl
+class CModInfoDecl
 {
 private:
 	// The body text used for saving
@@ -23,7 +23,7 @@ public:
 	// Construct this declaration from the given token stream
 	bool Parse(idLexer& src);
 
-	/// Key/value data parsed from the mission info decl.
+	/// Key/value data parsed from the mod info decl.
 	idDict data;
 
 	// Regenerates the declaration body using the given name as decl name
@@ -34,6 +34,6 @@ public:
 
 	static const char* const TYPE_NAME;
 };
-typedef boost::shared_ptr<CMissionInfoDecl> CMissionInfoDeclPtr;
+typedef boost::shared_ptr<CModInfoDecl> CModInfoDeclPtr;
 
-#endif /* _MISSION_INFO_DECL_H_ */
+#endif /* _MOD_INFO_DECL_H_ */

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4708 $
- * $Date: 2011-03-22 03:54:17 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4709 $
+ * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4708 2011-03-22 07:54:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -26,7 +26,7 @@ static bool init_version = FileVersionList("$Id: syscmds.cpp 4708 2011-03-22 07:
 #include "../../DarkMod/TimerManager.h"
 #include "../../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../../DarkMod/Missions/MissionManager.h"
-#include "../../DarkMod/Missions/MissionInfo.h"
+#include "../../DarkMod/Missions/ModInfo.h"
 
 #include "typeinfo.h"
 
@@ -90,7 +90,7 @@ void Cmd_ListMissions_f(const idCmdArgs& args)
 
 	for (int i = 0; i < gameLocal.m_MissionManager->GetNumMods(); ++i)
 	{
-		CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(i);
+		CModInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(i);
 
 		if (missionInfo == NULL) continue;
 
@@ -133,7 +133,7 @@ void Cmd_SetMissionCompleted_f(const idCmdArgs& args)
 		return;
 	}
 
-	CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(missionName);
+	CModInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(missionName);
 
 	if (missionInfo == NULL)
 	{

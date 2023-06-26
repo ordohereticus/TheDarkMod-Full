@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4707 $
- * $Date: 2011-03-22 03:38:11 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4709 $
+ * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,10 +10,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionDB.cpp 4707 2011-03-22 07:38:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionDB.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
 
 #include "MissionDB.h"
-#include "MissionInfoDecl.h"
+#include "ModInfoDecl.h"
 #include "MissionManager.h"
 
 CMissionDB::CMissionDB()
@@ -53,7 +53,7 @@ void CMissionDB::ReloadMissionInfoFile()
 			break;
 		}
 
-		if (token.type == TT_NAME && idStr::Cmp(token.c_str(), CMissionInfoDecl::TYPE_NAME) == 0)
+		if (token.type == TT_NAME && idStr::Cmp(token.c_str(), CModInfoDecl::TYPE_NAME) == 0)
 		{
 			if (!src.ReadToken(&token))
 			{
@@ -62,10 +62,10 @@ void CMissionDB::ReloadMissionInfoFile()
 			}
 
 			// Found a tdm_missioninfo declaration
-			CMissionInfoDeclPtr decl(new CMissionInfoDecl);
+			CModInfoDeclPtr decl(new CModInfoDecl);
 
 			std::pair<MissionInfoMap::iterator, bool> result = _missionInfo.insert(
-				MissionInfoMap::value_type(token.c_str(), CMissionInfoPtr(new CMissionInfo(token.c_str(), decl))));
+				MissionInfoMap::value_type(token.c_str(), CModInfoPtr(new CModInfo(token.c_str(), decl))));
 
 			if (!result.second)
 			{
@@ -121,7 +121,7 @@ void CMissionDB::Save()
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Done saving mission info declarartions\r");
 }
 
-const CMissionInfoPtr& CMissionDB::GetModInfo(const idStr& name)
+const CModInfoPtr& CMissionDB::GetModInfo(const idStr& name)
 {
 	MissionInfoMap::iterator i = _missionInfo.find(name.c_str());
 	
@@ -131,8 +131,8 @@ const CMissionInfoPtr& CMissionDB::GetModInfo(const idStr& name)
 	}
 
 	// Create a new one
-	CMissionInfoDeclPtr decl(new CMissionInfoDecl);
-	CMissionInfoPtr missionInfo(new CMissionInfo(name, decl));
+	CModInfoDeclPtr decl(new CModInfoDecl);
+	CModInfoPtr missionInfo(new CModInfo(name, decl));
 
 	std::pair<MissionInfoMap::iterator, bool> result = _missionInfo.insert(
 		MissionInfoMap::value_type(name.c_str(), missionInfo));

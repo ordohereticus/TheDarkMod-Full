@@ -9,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4639 $
-#* $Date: 2011-02-27 04:09:56 -0500 (Sun, 27 Feb 2011) $
+#* $Revision: 4709 $
+#* $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -176,8 +176,8 @@ Inventory/WeaponItem.cpp \
 Missions/Download.cpp \
 Missions/DownloadManager.cpp \
 Missions/MissionDB.cpp \
-Missions/MissionInfo.cpp \
-Missions/MissionInfoDecl.cpp \
+Missions/ModInfo.cpp \
+Missions/ModInfoDecl.cpp \
 Missions/MissionManager.cpp \
 Http/HttpConnection.cpp \
 Http/HttpRequest.cpp \

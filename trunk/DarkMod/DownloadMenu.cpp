@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4708 $
- * $Date: 2011-03-22 03:54:17 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4709 $
+ * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4708 2011-03-22 07:54:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -636,7 +636,7 @@ void CDownloadMenu::ShowDownloadResult(idUserInterface* gui)
 				successfulDownloads++;
 
 				// Save the mission version into the MissionDB for later use
-				CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(mod.modName);
+				CModInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(mod.modName);
 				missionInfo->SetKeyValue("downloaded_version", idStr(mod.version).c_str());
 			}
 			break;

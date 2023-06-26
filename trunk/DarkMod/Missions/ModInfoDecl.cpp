@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
+ * $Revision: 4709 $
+ * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,20 +10,20 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionInfoDecl.cpp 3931 2010-06-10 07:52:31Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModInfoDecl.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
 
-#include "MissionInfoDecl.h"
+#include "ModInfoDecl.h"
 
-const char* const CMissionInfoDecl::TYPE_NAME = "tdm_missioninfo";
+const char* const CModInfoDecl::TYPE_NAME = "tdm_missioninfo";
 
-bool CMissionInfoDecl::Parse(idLexer& src)
+bool CModInfoDecl::Parse(idLexer& src)
 {
 	idToken		key;
 	idToken		value;
 
 	if (!src.ReadToken(&key))
 	{
-		src.Warning("Unclosed mission info declaration.");
+		src.Warning("Unclosed mod info declaration.");
 		return false;
 	}
 
@@ -38,7 +38,7 @@ bool CMissionInfoDecl::Parse(idLexer& src)
 		// If there's an EOF, this is an error.
 		if (!src.ReadToken(&key))
 		{
-			src.Warning("Unclosed mission info declaration.");
+			src.Warning("Unclosed mod info declaration.");
 			return false;
 		}
 
@@ -77,7 +77,7 @@ bool CMissionInfoDecl::Parse(idLexer& src)
 	return true;
 }
 
-void CMissionInfoDecl::Update(const idStr& name)
+void CModInfoDecl::Update(const idStr& name)
 {
 	_bodyText = TYPE_NAME;
 	_bodyText += " " + name;
@@ -95,7 +95,7 @@ void CMissionInfoDecl::Update(const idStr& name)
 	_bodyText += "}\n\n";
 }
 
-void CMissionInfoDecl::SaveToFile(idFile* file)
+void CModInfoDecl::SaveToFile(idFile* file)
 {
 	file->Write(_bodyText.c_str(), _bodyText.Length());
 }
