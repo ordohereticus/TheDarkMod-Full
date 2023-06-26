@@ -1,13 +1,16 @@
+# -*- mode: python -*-
+# coding=utf-8
+
 #############################################################################
 # 
 #  PROJECT: The Dark Mod - Updater
-#  $Revision: 4476 $
-#  $Date: 2011-01-26 03:03:02 -0500 (Wed, 26 Jan 2011) $
+#  $Revision: 4487 $
+#  $Date: 2011-01-28 11:39:29 -0500 (Fri, 28 Jan 2011) $
 #  $Author: greebo $
 # 
 ##############################################################################
 
-# The Dark Mod Updater build script for Linux
+# The Dark Mod Packager build script for Linux
 # Based on id's game sconscript
 # Author: greebo
 
