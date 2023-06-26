@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4443 $
- * $Date: 2011-01-17 15:33:38 -0500 (Mon, 17 Jan 2011) $
+ * $Revision: 4690 $
+ * $Date: 2011-03-11 10:26:29 -0500 (Fri, 11 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -124,7 +124,7 @@ private:
 	void					Link_r( struct clipSector_s *node );
 
 	static int				AllocTraceModel( const idTraceModel &trm );
-	static void				FreeTraceModel( int traceModelIndex );
+	static void				FreeTraceModel( const int traceModelIndex );
 	static idTraceModel *	GetCachedTraceModel( int traceModelIndex );
 	static int				GetTraceModelHashKey( const idTraceModel &trm );
 };

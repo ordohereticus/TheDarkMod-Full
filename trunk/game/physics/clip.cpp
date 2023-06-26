@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4677 $
- * $Date: 2011-03-09 15:41:58 -0500 (Wed, 09 Mar 2011) $
+ * $Revision: 4690 $
+ * $Date: 2011-03-11 10:26:29 -0500 (Fri, 11 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: clip.cpp 4677 2011-03-09 20:41:58Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: clip.cpp 4690 2011-03-11 15:26:29Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -114,9 +114,13 @@ int idClipModel::AllocTraceModel( const idTraceModel &trm ) {
 idClipModel::FreeTraceModel
 ===============
 */
-void idClipModel::FreeTraceModel( int traceModelIndex ) {
-	if ( traceModelIndex < 0 || traceModelIndex >= traceModelCache.Num() || traceModelCache[traceModelIndex]->refCount <= 0 ) {
-		gameLocal.Warning( "idClipModel::FreeTraceModel: tried to free uncached trace model" );
+void idClipModel::FreeTraceModel( const int traceModelIndex ) {
+	if ( traceModelIndex < 0 || traceModelIndex >= traceModelCache.Num() ) {
+		gameLocal.Warning( "idClipModel::FreeTraceModel: traceModelIndex %i out of range (0..%i)", traceModelIndex, traceModelCache.Num() );
+		return;
+	}
+	if ( traceModelCache[traceModelIndex]->refCount <= 0 ) {
+		gameLocal.Warning( "idClipModel::FreeTraceModel: tried to free uncached trace model (index=%i)", traceModelIndex );
 		return;
 	}
 	traceModelCache[traceModelIndex]->refCount--;
