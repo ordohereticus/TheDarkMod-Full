@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4465 $
- * $Date: 2011-01-24 07:43:24 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4479 $
+ * $Date: 2011-01-26 16:57:50 -0500 (Wed, 26 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -471,6 +471,16 @@ private:
 	* If true, this SEED will combine entities into StaticMulti entities
 	*/
 	bool						m_bCombine;
+
+	/**
+	* How many StaticMulti entities do we have that require a SetLODData?
+	*/
+	int							m_iNumStaticMulties;
+
+	/**
+	* If Restore() just finished, the next Think() does need to do this.
+	*/
+	bool 						m_bRestoreLOD;
 
 	static const unsigned long	IEEE_ONE  = 0x3f800000;
 	static const unsigned long	IEEE_MASK = 0x007fffff;
