@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4818 $
- * $Date: 2011-04-25 03:21:25 -0400 (Mon, 25 Apr 2011) $
+ * $Revision: 4829 $
+ * $Date: 2011-05-02 02:53:22 -0400 (Mon, 02 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4818 2011-04-25 07:21:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4829 2011-05-02 06:53:22Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11186,7 +11186,39 @@ void idPlayer::EnforcePersistentInventoryItemLimits()
 			weaponCategory->RemoveItem(itemsToRemove[w]);
 		}
 
-		// TODO: Enforce regular inventory item limits
+		// Enforce regular inventory item limits
+		for (const idKeyValue* kv = campaignInfo->spawnArgs.MatchPrefix("item_");
+			 kv != NULL; kv = campaignInfo->spawnArgs.MatchPrefix("item_", kv))
+		{
+			idStr indexStr = kv->GetKey();
+			indexStr.StripLeadingOnce("item_");
+
+			int index = atoi(indexStr.c_str());
+
+			const idStr& itemName = kv->GetValue();
+			int limit = campaignInfo->spawnArgs.GetInt(va("limit_%d", index), "-1");
+
+			// let difficulty-specific settings override this
+			limit = campaignInfo->spawnArgs.GetInt(diffPrefix + va("limit_%d", index), va("%d", limit));
+
+			// Item limit of -1 means: no limit
+			if (limit != -1)
+			{
+				continue;
+			}
+
+			CInventoryItemPtr item = Inventory()->GetItem(itemName);
+
+			if (!item)
+			{
+				continue; // no item with that name
+			}
+
+			if (item->IsPersistent() && item->GetCount() > limit)
+			{
+				ChangeInventoryItemCount(item->GetName(), item->Category()->GetName(), limit);
+			}
+		}
 	}
 }
 
