@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4588 $
- * $Date: 2011-02-12 10:43:23 -0500 (Sat, 12 Feb 2011) $
+ * $Revision: 4594 $
+ * $Date: 2011-02-13 10:08:28 -0500 (Sun, 13 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -488,6 +488,13 @@ public:
 	// We pass in a pointer to the data (so the LODE can use shared data) as well as the distance,
 	// so the lode can pre-compute the distance.
 	virtual float			ThinkAboutLOD( const lod_data_t* lod_data, const float deltaSq );
+
+	// Tels: Returns the distance that should be considered for LOD and hiding, depending on:
+	//	* the distance of the origin to the given player origin
+	//	* the lod-bias set in the menu
+	//	* some minimum and maximum distances based on entity size/importance
+	// The returned value is the actual distance squared, and rounded down to an integer.
+	float					GetLODDistance( const idVec3 &playerOrigin, const float lod_bias ) const;
 
 	// Tels: If LOD is enabled on this entity, call ThinkAboutLOD, computing new LOD level and new
 	// alpha value, then do the right things like Hide/Show, SetAlpha, switch models/skin etc.

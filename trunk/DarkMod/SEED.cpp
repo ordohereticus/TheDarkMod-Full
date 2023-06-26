@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4591 $
- * $Date: 2011-02-12 14:44:15 -0500 (Sat, 12 Feb 2011) $
+ * $Revision: 4594 $
+ * $Date: 2011-02-13 10:08:28 -0500 (Sun, 13 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4591 2011-02-12 19:44:15Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4594 2011-02-13 15:08:28Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -3171,6 +3171,7 @@ int SortOffsetsByDistance( const seed_sort_ofs_t *a, const seed_sort_ofs_t *b ) 
 // compute the LOD distance for this delta vector and for this entity
 float Seed::LODDistance( const lod_data_t* m_LOD, idVec3 delta ) const
 {
+	// TODO: Should use idEntity::GetLODDistance
 	if( m_LOD && m_LOD->bDistCheckXYOnly )
 	{
 		// TODO: do this per-entity
