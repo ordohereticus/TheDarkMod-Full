@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4752 $
- * $Date: 2011-04-07 11:07:26 -0400 (Thu, 07 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4811 $
+ * $Date: 2011-04-20 11:26:10 -0400 (Wed, 20 Apr 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4752 2011-04-07 15:07:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4811 2011-04-20 15:26:10Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -483,7 +483,8 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 
 			// ignore myself, my enemy, and dead bodies
 			// TDM: Also ignore ALL enemies
-			if	(obPhys == physics || obEnt == ignore || obEnt->health <= 0 || self->IsEnemy(obEnt))
+			// grayman #2728 - also ignore small AI
+			if	((obPhys == physics) || (obEnt == ignore) || (obEnt->health <= 0) || self->IsEnemy(obEnt) || (obPhys->GetMass() <= 5.0))
 			{
 				continue;
 			}

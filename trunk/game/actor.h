@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4811 $
+ * $Date: 2011-04-20 11:26:10 -0400 (Wed, 20 Apr 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -364,6 +364,11 @@ public:
 	* grayman #2345 - rank for path-finding
 	**/
 	int						m_pathRank;
+
+	/**
+	* grayman #2728 - next time this actor can be kicked by another actor
+	**/
+	int						m_nextKickTime;
 
 public:
 							idActor( void );
