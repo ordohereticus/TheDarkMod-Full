@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 3880 $
- * $Date: 2010-04-18 12:47:18 -0400 (Sun, 18 Apr 2010) $
- * $Author: tels $
+ * $Revision: 4530 $
+ * $Date: 2011-02-02 02:30:58 -0500 (Wed, 02 Feb 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -190,7 +190,7 @@ typedef enum {
 	FC_MELEE_PARRY_STOP,
 	FC_SET_ATTACK_FLAG,   // greebo: enables a certain attack type
 	FC_CLEAR_ATTACK_FLAG, // greebo: disables a certain attack type
-
+	FC_CREATEMISSILE_FROM_DEF,	// greebo: create a specific projectile def for ranged attack
 } frameCommandType_t;
 
 typedef struct {

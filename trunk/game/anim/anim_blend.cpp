@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4512 $
- * $Date: 2011-01-30 12:38:43 -0500 (Sun, 30 Jan 2011) $
+ * $Revision: 4530 $
+ * $Date: 2011-02-02 02:30:58 -0500 (Wed, 02 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4512 2011-01-30 17:38:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4530 2011-02-02 07:30:58Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -540,7 +540,34 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		}
 		fc.type = FC_CREATEMISSILE;
 		fc.string = new idStr( token );
-	} else if ( token == "launch_missile" ) {
+	}
+	else if (token == "create_missile_from_def" )
+	{
+		// Read def name
+		if (!src.ReadTokenOnLine(&token))
+		{
+			return "Unexpected end of line";
+		}
+
+		idStr projectileDefName = token;
+
+		assert(projectileDefName.Length() > 0);
+
+		// Read joint name
+		if( !src.ReadTokenOnLine( &token ) ) {
+			return "Unexpected end of line";
+		}
+
+		if ( !modelDef->FindJoint( token ) ) {
+			return va( "Joint '%s' not found", token.c_str() );
+		}
+
+		fc.type = FC_CREATEMISSILE_FROM_DEF;
+
+		// Connect the projectile def and joint name with a pipe and store that
+		fc.string = new idStr(projectileDefName + "|" + token);
+	}
+	else if ( token == "launch_missile" ) {
 		if( !src.ReadTokenOnLine( &token ) ) {
 			return "Unexpected end of line";
 		}
@@ -1105,6 +1132,19 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 				}
 				case FC_CREATEMISSILE: {
 					ent->ProcessEvent( &AI_CreateMissile, command.string->c_str() );
+					break;
+				}
+				case FC_CREATEMISSILE_FROM_DEF:
+				{
+					// Split the def name and the joint name again
+					int pipePos = command.string->Find('|');
+
+					assert(pipePos != -1);
+
+					idStr defName = command.string->Left(pipePos);
+					idStr jointName = command.string->Mid(pipePos+1, command.string->Length() - pipePos - 1);
+
+					ent->ProcessEvent(&AI_CreateMissileFromDef, defName.c_str(), jointName.c_str());
 					break;
 				}
 				case FC_LAUNCHMISSILE: {
