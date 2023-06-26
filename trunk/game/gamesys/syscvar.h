@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4735 $
- * $Date: 2011-03-29 01:57:20 -0400 (Tue, 29 Mar 2011) $
- * $Author: greebo $
+ * $Revision: 4738 $
+ * $Date: 2011-03-30 08:23:38 -0400 (Wed, 30 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -172,6 +172,7 @@ extern idCVar cv_pm_climb_distance;
 extern idCVar cv_ai_search_show;
 
 extern idCVar cv_force_savegame_load;
+extern idCVar cv_savegame_compress;
 
 // angua: TDM toggle crouch
 extern idCVar cv_tdm_crouch_toggle;

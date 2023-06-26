@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4735 $
- * $Date: 2011-03-29 01:57:20 -0400 (Tue, 29 Mar 2011) $
- * $Author: greebo $
+ * $Revision: 4738 $
+ * $Date: 2011-03-30 08:23:38 -0400 (Wed, 30 Mar 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4735 2011-03-29 05:57:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4738 2011-03-30 12:23:38Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -766,8 +766,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 		f->ForceFlush();
 	}
 
-	savegame.WriteBuildNumber( BUILD_NUMBER );
-	savegame.WriteCodeRevision();
+	savegame.WriteHeader();
 
 	// go through all entities and threads and add them to the object list
 	for (i = 0; i < MAX_GENTITIES; i++)
@@ -1035,6 +1034,9 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	// greebo: Close the savegame, this will invoke a recursive Save on all registered objects
 	savegame.Close();
+
+	// save all accumulated cache to file
+	savegame.FinalizeCache();
 
 	// Send a message to the HUD
 	GetLocalPlayer()->SendHUDMessage("Game Saved");
@@ -1792,14 +1794,16 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	idRestoreGame savegame( saveGameFile );
 
-	savegame.ReadBuildNumber();
-	savegame.ReadCodeRevision();
+	savegame.ReadHeader();
 
 	if (!cv_force_savegame_load.GetBool() && savegame.GetCodeRevision() != RevisionTracker::Instance().GetHighestRevision())
 	{
 		gameLocal.Printf("Can't load this savegame, was saved with an old revision %d\n.", savegame.GetCodeRevision());
 		return false;
 	}
+
+	// Read and initialize  cache from file
+	savegame.InitializeCache();
 
 	// Create the list of all objects in the game
 	savegame.CreateObjects();
