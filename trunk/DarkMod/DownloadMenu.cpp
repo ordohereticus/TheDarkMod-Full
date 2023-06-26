@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4709 $
- * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4837 $
+ * $Date: 2011-05-09 04:30:59 -0400 (Mon, 09 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4837 2011-05-09 08:30:59Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -181,6 +181,7 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 		}
 
 		// Clear data before updating the list
+		_selectedListTop = 0;
 		_selectedMods.Clear();
 		UpdateGUI(gui);
 		UpdateDownloadProgress(gui);
@@ -517,6 +518,15 @@ void CDownloadMenu::UpdateGUI(idUserInterface* gui)
 
 		gui->SetStateBool(va("dl_mission_avail_%d", i), listItemExists);
 		gui->SetStateString(va("dl_mission_name_%d", i), modIndex != -1 ? mods[modIndex]->title : "");
+
+		// Find the download ID and initialise the value to empty if no download is existing yet
+		ActiveDownloads::const_iterator it = _downloads.find(modIndex);
+
+		if (it == _downloads.end())
+		{
+			gui->SetStateString(va("dl_mission_progress_%d", i), "queued ");
+			continue;
+		}
 	}
 
 	gui->SetStateBool("dl_mission_scroll_up_visible", _selectedListTop > 0);
@@ -535,6 +545,21 @@ void CDownloadMenu::UpdateDownloadProgress(idUserInterface* gui)
 	int numSelectedModsPerPage = gui->GetStateInt("selectedPackagesPerPage", "5");
 
 	bool downloadsInProgress = false;
+
+	// Check if we have any mission downloads pending.
+	// Don't use DownloadManager::DownloadInProgress(), as there might be different kind of downloads in progress
+	for (ActiveDownloads::const_iterator it = _downloads.begin(); it != _downloads.end(); ++it)
+	{
+		CDownloadPtr download = gameLocal.m_DownloadManager->GetDownload(it->second);
+
+		if (download == NULL) continue;
+
+		if (download->GetStatus() == CDownload::IN_PROGRESS)
+		{
+			downloadsInProgress = true;
+			break;
+		}
+	}
 
 	// Missions in the download queue
 	for (int i = 0; i < numSelectedModsPerPage; ++i)
@@ -575,7 +600,6 @@ void CDownloadMenu::UpdateDownloadProgress(idUserInterface* gui)
 			break;
 		case CDownload::IN_PROGRESS:
 			gui->SetStateString(va("dl_mission_progress_%d", i), va("%0.0f%s", download->GetProgressFraction()*100, "% "));
-			downloadsInProgress = true;
 			break;
 		case CDownload::SUCCESS:
 			gui->SetStateString(va("dl_mission_progress_%d", i), "100% ");
@@ -583,6 +607,7 @@ void CDownloadMenu::UpdateDownloadProgress(idUserInterface* gui)
 		};
 	}
 
+	// Update the "in progress" state flag 
 	bool prevDownloadsInProgress = gui->GetStateBool("mission_download_in_progress");
 	
 	gui->SetStateBool("mission_download_in_progress", downloadsInProgress);
@@ -676,4 +701,6 @@ void CDownloadMenu::ShowDownloadResult(idUserInterface* gui)
 	{
 		gameLocal.m_DownloadManager->RemoveDownload(i->second);
 	}
+
+	_downloads.clear();
 }
