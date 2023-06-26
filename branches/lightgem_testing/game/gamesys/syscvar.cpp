@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4651 $
+ * $Date: 2011-03-04 13:34:48 -0500 (Fri, 04 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4651 2011-03-04 18:34:48Z stgatilov $", init_version);
 
 #include "../game_local.h"
 
@@ -358,7 +358,6 @@ idCVar cv_lg_velocity_mod_max_velocity("tdm_lg_velocity_mod_max_velocity", "300"
 idCVar cv_lg_velocity_mod_amount("tdm_lg_velocity_mod_amount", "1", CVAR_GAME | CVAR_FLOAT, "The maximum light level increase factor due to player velocity (this will be multiplied when the player velocity is >= tdm_lg_player_velocity_mod_max).");
 
 idCVar cv_lg_fade_delay			("tdm_lg_fade_delay",			"0.09",		CVAR_GAME | CVAR_FLOAT,	"lightgem fade time from previous value to new value in seconds." );		// J.C.Denton
-idCVar cv_lg_timeSlice			("tdm_lg_timeSlice",			"0.0",		CVAR_GAME | CVAR_FLOAT,	"Time Slice in milliseconds given to process lightgem per frame. \n 0 disables time slice based lightgem processing" );		// J.C.Denton
 
 idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo", CVAR_GAME | CVAR_ARCHIVE, "The empty model referenced by the 'waitForRender' script event.");
 

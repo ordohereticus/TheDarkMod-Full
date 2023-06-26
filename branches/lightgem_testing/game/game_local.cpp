@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4651 $
+ * $Date: 2011-03-04 13:34:48 -0500 (Fri, 04 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4651 2011-03-04 18:34:48Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6411,7 +6411,7 @@ EMissionResult idGameLocal::GetMissionResult() const
 
 float idGameLocal::CalcLightgem( idPlayer *a_pPlayer )
 {
-	return m_lightGem.Process( a_pPlayer );
+	return m_lightGem.Calculate( a_pPlayer );
 }
 /*
 ===================

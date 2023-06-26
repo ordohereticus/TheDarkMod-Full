@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4651 $
+ * $Date: 2011-03-04 13:34:48 -0500 (Fri, 04 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -297,7 +297,6 @@ extern idCVar cv_lg_velocity_mod_max_velocity;
 extern idCVar cv_lg_velocity_mod_amount;
 
 extern idCVar cv_lg_fade_delay;						// Added by  J.C.Denton
-extern idCVar cv_lg_timeSlice;						// Added by  J.C.Denton			
 
 extern idCVar cv_empty_model;
 
