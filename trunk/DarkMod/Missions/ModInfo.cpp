@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4709 $
- * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4710 $
+ * $Date: 2011-03-22 04:07:22 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModInfo.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModInfo.cpp 4710 2011-03-22 08:07:22Z greebo $", init_version);
 
 #include "ModInfo.h"
 #include "ModInfoDecl.h"
@@ -18,7 +18,7 @@ static bool init_version = FileVersionList("$Id: ModInfo.cpp 4709 2011-03-22 08:
 
 namespace fs = boost::filesystem;
 
-std::size_t CModInfo::GetMissionFolderSize()
+std::size_t CModInfo::GetModFolderSize()
 {
 	if (_modFolderSizeComputed)
 	{
@@ -31,12 +31,12 @@ std::size_t CModInfo::GetMissionFolderSize()
 	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
 	parentPath = parentPath.remove_leaf().remove_leaf();
 
-	fs::path missionPath = parentPath / modName.c_str();
+	fs::path modPath = parentPath / modName.c_str();
 
-	if (fs::exists(missionPath))
+	if (fs::exists(modPath))
 	{
 		// Iterate over all files in the mod folder
-		for (fs::recursive_directory_iterator i(missionPath); 
+		for (fs::recursive_directory_iterator i(modPath); 
 			i != fs::recursive_directory_iterator(); ++i)
 		{
 			if (fs::is_directory(i->path())) continue;
@@ -48,15 +48,15 @@ std::size_t CModInfo::GetMissionFolderSize()
 	return _modFolderSize;
 }
 
-void CModInfo::ClearMissionFolderSize()
+void CModInfo::ClearModFolderSize()
 {
 	_modFolderSize = 0;
 	_modFolderSizeComputed = false;
 }
 
-idStr CModInfo::GetMissionFolderSizeString()
+idStr CModInfo::GetModFolderSizeString()
 {
-	float size = static_cast<float>(GetMissionFolderSize());
+	float size = static_cast<float>(GetModFolderSize());
 
 	// TODO: i18n
 	idStr str;
@@ -81,7 +81,7 @@ idStr CModInfo::GetMissionFolderSizeString()
 	return str;
 }
 
-bool CModInfo::MissionCompleted(int difficultyLevel)
+bool CModInfo::ModCompleted(int difficultyLevel)
 {
 	bool anyCompleted = false;
 
@@ -101,7 +101,7 @@ bool CModInfo::MissionCompleted(int difficultyLevel)
 	return anyCompleted;
 }
 
-idStr CModInfo::GetMissionCompletedString()
+idStr CModInfo::GetModCompletedString()
 {
 	if (modName == "training_mission")
 	{
@@ -180,17 +180,17 @@ void CModInfo::SaveToFile(idFile* file)
 	_decl->SaveToFile(file);
 }
 
-idStr CModInfo::GetMissionFolderPath()
+idStr CModInfo::GetModFolderPath()
 {
 	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
 	parentPath = parentPath.remove_leaf().remove_leaf();
 
-	fs::path missionPath = parentPath / modName.c_str();
+	fs::path modPath = parentPath / modName.c_str();
 
-	return missionPath.file_string().c_str();
+	return modPath.file_string().c_str();
 }
 
-bool CModInfo::HasMissionNotes()
+bool CModInfo::HasModNotes()
 {
 	// Check for the readme.txt file
 	idStr notesFileName = cv_tdm_fm_path.GetString() + modName + "/" + cv_tdm_fm_notes_file.GetString();
@@ -198,7 +198,7 @@ bool CModInfo::HasMissionNotes()
 	return fileSystem->ReadFile(notesFileName, NULL) != -1;
 }
 
-idStr CModInfo::GetMissionNotes()
+idStr CModInfo::GetModNotes()
 {
 	// Check for the readme.txt file
 	idStr notesFileName = cv_tdm_fm_path.GetString() + modName + "/" + cv_tdm_fm_notes_file.GetString();

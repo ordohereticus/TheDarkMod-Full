@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4709 $
- * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4710 $
+ * $Date: 2011-03-22 04:07:22 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4710 2011-03-22 08:07:22Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -104,7 +104,7 @@ void CMissionManager::EraseModFolder(const idStr& name)
 	}
 
 	// Delete folder contents
-	fs::path missionPath = info->GetMissionFolderPath().c_str();
+	fs::path missionPath = info->GetModFolderPath().c_str();
 
 	if (fs::exists(missionPath))
 	{
@@ -116,7 +116,7 @@ void CMissionManager::EraseModFolder(const idStr& name)
 		return;
 	}
 
-	info->ClearMissionFolderSize();
+	info->ClearModFolderSize();
 }
 
 void CMissionManager::OnMissionStart()
