@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4783 $
- * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4787 $
+ * $Date: 2011-04-15 10:26:46 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4783 2011-04-14 18:12:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4787 2011-04-15 14:26:46Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -565,7 +565,11 @@ const idStr& idGameLocal::GetMapFileName() const
 
 void idGameLocal::AddInterMissionTrigger(int missionNum, const idStr& activatorName, const idStr& targetName)
 {
-	// TODO
+	InterMissionTrigger& trigger = m_InterMissionTriggers.Alloc();
+
+	trigger.missionNum = missionNum;
+	trigger.activatorName = activatorName;
+	trigger.targetName = targetName;
 }
 
 void idGameLocal::CheckTDMVersion()
