@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4719 $
- * $Date: 2011-03-24 05:26:58 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4720 $
+ * $Date: 2011-03-24 08:08:08 -0400 (Thu, 24 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4719 2011-03-24 09:26:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4720 2011-03-24 12:08:08Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -47,6 +47,8 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 4719 2011-03-24 
 
 #include "IL/il.h"
 #include "../DarkMod/randomizer/randomc.h"
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
 #include <iostream>
 
@@ -3424,6 +3426,48 @@ const char* idGameLocal::HandleGuiCommands( const char *menuCommand ) {
 	return mpGame.HandleGuiCommands( menuCommand );
 }
 
+int idGameLocal::AccumulateVideoLength(const char* videosStr)
+{
+	std::vector<std::string> parts;
+	boost::algorithm::split(parts, std::string(videosStr), boost::algorithm::is_any_of(";"));
+
+	if (parts.empty())
+	{
+		return -1;
+	}
+
+	int length = 0;
+
+	// Iterate over each material and sum up the animation length
+	for (std::size_t i = 0; i < parts.size(); ++i)
+	{
+		if (parts[i].empty()) continue; // skip empty strings
+
+		const idMaterial* material = declManager->FindMaterial(parts[i].c_str());
+
+		if (material == NULL) 
+		{
+			return -1;
+		}
+
+		int numStages = material->GetNumStages();
+
+		for (int stage = 0; stage < numStages; ++stage)
+		{
+			const textureStage_t& texStage = material->GetStage(stage)->texture;
+
+			if (texStage.cinematic != NULL)
+			{
+				// Video information found, accumulate length
+				length += texStage.cinematic->AnimationLength();
+				break;
+			}
+		}
+	}
+
+	return length;
+}
+
 void idGameLocal::UpdateScreenResolutionFromGUI(idUserInterface* gui)
 {
 	if (cvarSystem->GetCVarInteger("r_aspectRatio") > 0)
@@ -3760,10 +3804,14 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Check the video defs
 		int missionNum = m_MissionManager->GetCurrentMissionIndex() + 1;
 
-		idStr videoMaterials = gui->GetStateString(va("BriefingVideoMaterials%d", missionNum));
-		idStr videoSoundCmd = gui->GetStateString(va("BriefingVideoSoundCmd%d", missionNum));
+		const char* videoMaterials = gui->GetStateString(va("BriefingVideoMaterials%d", missionNum));
+		const char* videoSoundCmd = gui->GetStateString(va("BriefingVideoSoundCmd%d", missionNum));
 
-		// TODO
+		// Calculate the total length of the video
+		int videoLengthMsec = AccumulateVideoLength(videoMaterials);
+
+		gui->SetStateInt("BriefingVideoLength", videoLengthMsec);
+		gui->SetStateString("BriefingVideoSoundCmd", videoSoundCmd);
 	}
 	else if (cmd == "onSuccessScreenContinueClicked")
 	{

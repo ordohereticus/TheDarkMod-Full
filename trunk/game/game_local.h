@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4719 $
- * $Date: 2011-03-24 05:26:58 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4720 $
+ * $Date: 2011-03-24 08:08:08 -0400 (Thu, 24 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1065,6 +1065,10 @@ private:
 
 	// Sets the video CVARs according to the settings in the given GUI
 	void					UpdateScreenResolutionFromGUI(idUserInterface* gui);
+
+	// Calculates the length of the ROQ videos as defined in the string (each material
+	// is separated by a semicolon) Returns the length in milliseconds, or -1 on failure.
+	int						AccumulateVideoLength(const char* videosStr);
 
 	// Platform-specific implementation to change the D3's title and icon
 	void					ChangeWindowTitleAndIcon();
