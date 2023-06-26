@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4815 $
- * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
+ * $Revision: 4826 $
+ * $Date: 2011-04-30 03:15:26 -0400 (Sat, 30 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4815 2011-04-25 06:26:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4826 2011-04-30 07:15:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4206,7 +4206,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		ClearPersistentInfo();
 	}
 
-	m_Shop->HandleCommands(menuCommand, gui, GetLocalPlayer());
+	m_Shop->HandleCommands(menuCommand, gui);
 	m_ModMenu->HandleCommands(cmd, gui);
 	m_DownloadMenu->HandleCommands(cmd, gui);
 

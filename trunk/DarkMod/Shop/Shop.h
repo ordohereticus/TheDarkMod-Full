@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4825 $
- * $Date: 2011-04-30 03:09:37 -0400 (Sat, 30 Apr 2011) $
+ * $Revision: 4826 $
+ * $Date: 2011-04-30 03:15:26 -0400 (Sat, 30 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -56,11 +56,8 @@ public:
 	void Save(idSaveGame *savefile) const;
 	void Restore(idRestoreGame *savefile);
 
-	// move the current inventory to the Starting Items list
-	void LoadFromInventory(idPlayer *player);
-
 	// handles main menu commands
-	void HandleCommands(const char *menuCommand, idUserInterface *gui, idPlayer *player);
+	void HandleCommands(const char *menuCommand, idUserInterface *gui);
 
 	// how much gold the player has left to spend
 	int GetGold();
