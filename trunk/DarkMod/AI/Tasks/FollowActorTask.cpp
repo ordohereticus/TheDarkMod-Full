@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4863 $
- * $Date: 2011-05-22 08:55:09 -0400 (Sun, 22 May 2011) $
+ * $Revision: 4864 $
+ * $Date: 2011-05-22 10:27:14 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FollowActorTask.cpp 4863 2011-05-22 12:55:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FollowActorTask.cpp 4864 2011-05-22 14:27:14Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "FollowActorTask.h"
@@ -18,6 +18,10 @@ static bool init_version = FileVersionList("$Id: FollowActorTask.cpp 4863 2011-0
 
 namespace ai
 {
+
+#define DISTANCE_FOLLOWER_REACHED						60
+#define DISTANCE_FOLLOWER_CATCHUP_DISTANCE				480
+#define DISTANCE_FOLLOWER_CLOSE_ENOUGH_TO_STOP_RUNNING	180
 
 FollowActorTask::FollowActorTask()
 {}
@@ -56,11 +60,42 @@ bool FollowActorTask::Perform(Subsystem& subsystem)
 		return true; // no actor (anymore, or maybe we never had one)
 	}
 
-	// TODO
+	idAI* owner = _owner.GetEntity();
+	assert(owner != NULL);
 
+	// Classify how far the target actor is away from us
+	float distance = (actor->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin()).LengthSqr();
+
+	if (distance < Square(DISTANCE_FOLLOWER_REACHED))
+	{
+		owner->StopMove(MOVE_STATUS_DONE);
+		owner->TurnToward(actor->GetEyePosition());
+	}
+	else 
+	{
+		if (!owner->MoveToPosition(actor->GetPhysics()->GetOrigin()))
+		{
+			// Can't reach the actor, stop moving
+			owner->StopMove(MOVE_STATUS_DONE);
+			owner->TurnToward(actor->GetEyePosition());
+
+			// Keep trying
+			return false;
+		}
+
+		if (distance > Square(DISTANCE_FOLLOWER_CATCHUP_DISTANCE))
+		{
+			owner->AI_RUN = true;
+		}
+		// We're below catch up distance, but keep running until we've reached about 180 units
+		else if (owner->AI_RUN && distance < Square(DISTANCE_FOLLOWER_CLOSE_ENOUGH_TO_STOP_RUNNING))
+		{
+			owner->AI_RUN = false;
+		}
+	}
+	
 	return false; // not finished yet
 }
-
 
 // Save/Restore methods
 void FollowActorTask::Save(idSaveGame* savefile) const

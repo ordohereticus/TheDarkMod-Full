@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4863 $
- * $Date: 2011-05-22 08:55:09 -0400 (Sun, 22 May 2011) $
+ * $Revision: 4864 $
+ * $Date: 2011-05-22 10:27:14 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,6 +25,7 @@ class FollowActorTask :
 	public Task
 {
 private:
+	// The actor we're following
 	idEntityPtr<idActor> _actor;
 
 	FollowActorTask();
