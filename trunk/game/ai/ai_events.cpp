@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4530 $
- * $Date: 2011-02-02 02:30:58 -0500 (Wed, 02 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4531 $
+ * $Date: 2011-02-02 04:39:50 -0500 (Wed, 02 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 4530 2011-02-02 07:30:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 4531 2011-02-02 09:39:50Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -231,7 +231,7 @@ const idEventDef AI_LookAtAngles ("lookAtAngles", "ffff");
 /*!
 * script callable: spawnThrowableProjectile
 *
-* @param projectileName The name of the prjectile to spawn
+* @param projectileName The name of the projectile to spawn
 *	(as seen in a .def file) Must be descended from idProjectile
 *
 * @param pstr_attachJointName The name of the joint on the model
