@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4586 $
- * $Date: 2011-02-11 11:47:03 -0500 (Fri, 11 Feb 2011) $
+ * $Revision: 4592 $
+ * $Date: 2011-02-12 14:51:25 -0500 (Sat, 12 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -26,7 +26,7 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4586 2011-02-11 16:47:03Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4592 2011-02-12 19:51:25Z tels $", init_version);
 
 #include "ModelGenerator.h"
 
@@ -522,7 +522,7 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 		}
 #ifdef M_DEBUG
 		// print the source model
-		modelStage->source->Print();
+		//modelStage->source->Print();
 #endif
 		if (modelStage->source->NumSurfaces() == 0)
 		{
@@ -533,6 +533,9 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 
 		// false if there are no shadow-casting surfaces at all
 		modelStage->couldCastShadow = ModelHasShadow( modelStage->source );
+#ifdef M_DEBUG
+		gameLocal.Printf("This stage could cast shadow: %s\n", modelStage->couldCastShadow ? "yes" : "no" );
+#endif
 	}
 
 #ifdef M_DEBUG
@@ -639,8 +642,11 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 					// -1 not found, 0 can't happen as we start with 0 and 0 can't be its own backside
 					if (backside > 0)
 					{
+#ifdef M_DEBUG
+						gameLocal.Printf("Surface #%i is a backside for surface #%i.\n", backside, s);
+#endif
 						// set bit 0 to true, so we know this is a backside
-						modelStage->surface_info[backside] &= 1;	// 0b0001
+						modelStage->surface_info[backside] |= 0x1;	// 0b0001
 					}
 				}
 				if (curShader->SurfaceCastsShadow())
@@ -650,7 +656,7 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 					if (shaderName.Left( m_shadowTexturePrefix.Length() ) == m_shadowTexturePrefix )
 					{
 						// yes, mark it
-						modelStage->surface_info[s] &= 2;			// 0b0010
+						modelStage->surface_info[s] |= 0x2;			// 0b0010
 					}
 				}
 			}
@@ -684,10 +690,13 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 				/* case 1a */
 				if ((flags & 0x1) != 0)
 				{
+#ifdef M_DEBUG
+					gameLocal.Printf("Surface #%i is backside, skipping since we need FinishSurfaces().\n", s);
+#endif
 					continue;
 				}
-				/* case 2a */
-				if ((flags & 0x1) != 0)
+				/* case 1b */
+				if ((flags & 0x2) != 0)
 				{
 					pureShadow = true;
 				}
@@ -697,7 +706,10 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 				/* case 2a: need to skip ONLY pure shadow casting surfaces */
 				if ((flags & 0x2) != 0)
 				{
-					// this this is a pure shadow casting surface
+#ifdef M_DEBUG
+					gameLocal.Printf("Surface #%i is pure shadow caster, skipping it.\n", s);
+#endif
+					// this is a pure shadow casting surface
 					continue;
 				}
 			}
