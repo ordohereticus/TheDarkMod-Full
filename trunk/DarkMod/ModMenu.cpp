@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4843 $
- * $Date: 2011-05-14 00:06:42 -0400 (Sat, 14 May 2011) $
+ * $Revision: 4844 $
+ * $Date: 2011-05-14 00:20:19 -0400 (Sat, 14 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4843 2011-05-14 04:06:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4844 2011-05-14 04:20:19Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -379,7 +379,7 @@ void CModMenu::RestartGame()
 {
 	// Path to the parent directory
 	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
-	parentPath = parentPath.remove_leaf().remove_leaf();
+	parentPath = parentPath.remove_filename().remove_filename();
 
 	// Path to the darkmod directory
 	fs::path darkmodPath = g_Global.GetDarkmodPath();
@@ -390,21 +390,44 @@ void CModMenu::RestartGame()
 	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Engine Path: %s\r", enginePath.file_string().c_str());
 
 	// path to tdmlauncher
+	fs::path launcherExe;
+
 #ifdef _WINDOWS
-	fs::path launcherExe(darkmodPath / "tdmlauncher.exe");
+	launcherExe = darkmodPath / "tdmlauncher.exe";
 #elif __linux__
-	fs::path launcherExe(darkmodPath / "tdmlauncher.linux");
+	launcherExe = darkmodPath / "tdmlauncher.linux";
 #elif MACOS_X
-	fs::path launcherExe(darkmodPath / "tdmlauncher.macosx");
+	launcherExe = darkmodPath / "tdmlauncher.macosx";
+
+	if (!fs::exists(launcherExe))
+	{
+		// Did not find tdmlauncher.macosx at the save path (~/Library/Application Support/Doom 3/darkmod)
+		// try to find it next to the engine path
+		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Did not find tdmlauncher.macosx at the save path %s\r", launcherExe.file_string().c_str());
+		
+		launcherExe = enginePath;
+
+		// remove executable
+		enginePath.remove_filename();
+
+		launcherExe /= "../../../darkmod/tdmlauncher.macosx";
+
+		DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Trying to find tdmlauncher.macosx at %s\r", launcherExe.file_string().c_str());
+	}
+
 #else
 #error 'Unsupported platform.'
 #endif
 
 	if (!fs::exists(launcherExe))
 	{
+		DM_LOG(LC_MAINMENU, LT_ERROR)LOGSTRING("Could not find TDM Launcher at %s\r", launcherExe.file_string().c_str());
+
 		gameLocal.Error("Could not find tdmlauncher!");
 		return;
 	}
+
+	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("TDM Launcher Path: %s\r", launcherExe.file_string().c_str());
 
 	// command line to spawn tdmlauncher
 	idStr commandLine(launcherExe.file_string().c_str());
