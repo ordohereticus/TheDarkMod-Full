@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3435 $
- * $Date: 2009-05-08 13:27:20 -0400 (Fri, 08 May 2009) $
- * $Author: greebo $
+ * $Revision: 4606 $
+ * $Date: 2011-02-18 07:58:16 -0500 (Fri, 18 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_import.cpp 3435 2009-05-08 17:27:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_import.cpp 4606 2011-02-18 12:58:16Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../MayaImport/maya_main.h"
@@ -447,10 +447,13 @@ int idModelExport::ParseExportSection( idParser &parser ) {
 
 	lex.SetFlags( LEXFL_NOSTRINGCONCAT | LEXFL_ALLOWPATHNAMES | LEXFL_ALLOWMULTICHARLITERALS | LEXFL_ALLOWBACKSLASHSTRINGCONCAT );
 
+	// Save the command's filename
+	const char* currentFileName = parser.GetFileName();
+
 	while( 1 ) {
 
 		if ( !parser.ReadToken( &command ) ) {
-			parser.Error( "Unexpoected end-of-file" );
+			parser.Error( "Unexpected end-of-file" );
 			break;
 		}
 
@@ -508,7 +511,7 @@ int idModelExport::ParseExportSection( idParser &parser ) {
 			}
 			lex.FreeSource();
 		} else {
-			parser.Error( "Unknown token: %s", command.c_str() );
+			parser.Error( "Unknown token: '%s' on line %i, file '%s'", command.c_str(), command.line, currentFileName );
 			parser.SkipBracedSection( false );
 			break;
 		}

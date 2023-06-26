@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4606 $
+ * $Date: 2011-02-18 07:58:16 -0500 (Fri, 18 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_compiler.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_compiler.cpp 4606 2011-02-18 12:58:16Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -657,7 +657,8 @@ void idCompiler::NextToken( void ) {
 	// Save the token's line number and filename since when we emit opcodes the current 
 	// token is always the next one to be read 
 	currentLineNumber = token.line;
-	currentFileNumber = gameLocal.program.GetFilenum( parserPtr->GetFileName() );
+	const char* currentFileName = parserPtr->GetFileName();
+	currentFileNumber = gameLocal.program.GetFilenum( currentFileName );
 
 	if ( !parserPtr->ReadToken( &token ) ) {
 		eof = true;
@@ -735,14 +736,14 @@ void idCompiler::NextToken( void ) {
 			return;
 		}
 
-		Error( "Unknown punctuation '%s'", token.c_str() );
+		Error( "Unknown punctuation '%s' on line %i, file '%s'", token.c_str(), currentLineNumber, currentFileName );
 		break;
 
 	case TT_NAME:
 		return;
 
 	default:
-		Error( "Unknown token '%s'", token.c_str() );
+		Error( "Unknown token '%s' on line %i, file '%s'", token.c_str(), currentLineNumber, currentFileName );
 	}
 }
 

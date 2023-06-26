@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4530 $
- * $Date: 2011-02-02 02:30:58 -0500 (Wed, 02 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4606 $
+ * $Date: 2011-02-18 07:58:16 -0500 (Fri, 18 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4530 2011-02-02 07:30:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4606 2011-02-18 12:58:16Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -3597,7 +3597,7 @@ bool idDeclModelDef::Parse( const char *text, const int textLength ) {
 			}
 			channelJoints[ channel ].SetNum( num );
 		} else {
-			src.Warning( "unknown token '%s'", token.c_str() );
+			src.Warning( "unknown token '%s' on line %i in '%s'", token.c_str(), token.line, src.GetFileName() );
 			MakeDefault();
 			return false;
 		}
