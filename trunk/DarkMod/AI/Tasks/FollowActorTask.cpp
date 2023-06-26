@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4864 $
- * $Date: 2011-05-22 10:27:14 -0400 (Sun, 22 May 2011) $
+ * $Revision: 4865 $
+ * $Date: 2011-05-22 10:34:34 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FollowActorTask.cpp 4864 2011-05-22 14:27:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FollowActorTask.cpp 4865 2011-05-22 14:34:34Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "FollowActorTask.h"
@@ -55,9 +55,14 @@ bool FollowActorTask::Perform(Subsystem& subsystem)
 
 	idActor* actor = _actor.GetEntity();
 
-	if (actor == NULL)
+	if (actor == NULL || actor->AI_DEAD)
 	{
 		return true; // no actor (anymore, or maybe we never had one)
+	}
+
+	if (actor->IsType(idAI::Type) && static_cast<idAI*>(actor)->AI_KNOCKEDOUT)
+	{
+		return true; // AI got knocked out
 	}
 
 	idAI* owner = _owner.GetEntity();
