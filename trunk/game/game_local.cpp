@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4462 $
- * $Date: 2011-01-23 15:43:53 -0500 (Sun, 23 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4493 $
+ * $Date: 2011-01-29 09:18:59 -0500 (Sat, 29 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4462 2011-01-23 20:43:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4493 2011-01-29 14:18:59Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4308,7 +4308,15 @@ void idGameLocal::RegisterEntity( idEntity *ent ) {
 	spawnIds[ spawn_entnum ] = spawnCount++;
 	ent->entityNumber = spawn_entnum;
 	ent->spawnNode.AddToEnd( spawnedEntities );
-	ent->spawnArgs.TransferKeyValues( spawnArgs );
+
+	// stgatilov: copy all spawnargs except editor spawnargs
+	ent->spawnArgs.Clear();
+	for (int i = 0; i < spawnArgs.GetNumKeyVals(); i++) {
+		const idKeyValue *pkv = spawnArgs.GetKeyVal(i);
+		if (pkv->GetKey().IcmpPrefix("editor_") == 0) continue;
+		ent->spawnArgs.Set(pkv->GetKey(), pkv->GetValue());
+	}
+	spawnArgs.Clear();
 
 	if ( spawn_entnum >= num_entities ) {
 		num_entities++;
