@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4800 $
+ * $Date: 2011-04-17 04:32:34 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4800 2011-04-17 08:32:34Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -229,8 +229,8 @@ idGameLocal::idGameLocal() :
 	postMissionScreenActive(false),
 	briefingVideoInfoLoaded(false),
 	curBriefingVideoPart(-1),
-	m_HighestSRId(0),
-	m_MissionResult(MISSION_NOTEVENSTARTED)
+	m_MissionResult(MISSION_NOTEVENSTARTED),
+	m_HighestSRId(0)
 {
 	Clear();
 }
