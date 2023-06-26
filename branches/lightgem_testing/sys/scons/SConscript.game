@@ -9,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4767 $
-#* $Date: 2011-04-10 11:28:50 -0400 (Sun, 10 Apr 2011) $
+#* $Revision: 4768 $
+#* $Date: 2011-04-10 11:30:08 -0400 (Sun, 10 Apr 2011) $
 #* $Author: stgatilov $
 #*
 #* $Log$
@@ -161,7 +161,6 @@ PVSToAASMapping.cpp \
 rdline.cpp \
 PickableLock.cpp \
 Relations.cpp \
-renderpipeposix.cpp \
 RevisionTracker.cpp \
 sndProp.cpp \
 sndPropLoader.cpp \
