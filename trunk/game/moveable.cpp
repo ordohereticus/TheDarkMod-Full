@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/Objectives/MissionData.h"
@@ -729,7 +729,6 @@ void idMoveable::UpdateSlidingSounds()
 				// We did not really move, despite what the velocity says
 				StopSound(SND_CHANNEL_BODY3, false);
 				BecomeInactive(TH_THINK);
-
 				isPushed = false;
 			}
 			else

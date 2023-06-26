@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4721 $
- * $Date: 2011-03-24 11:45:08 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4721 2011-03-24 15:45:08Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -399,7 +399,7 @@ void CBinaryFrobMover::PostSpawn()
 	m_OpenDir.Normalize();
 	// gameRenderWorld->DebugArrow(colorBlue, GetPhysics()->GetOrigin(), GetPhysics()->GetOrigin() + 20 * m_OpenDir, 2, 200000);
 
-	if(m_Open) 
+	if (m_Open) 
 	{
 		// door starts out partially open, set origin and angles to the values defined in the spawnargs.
 		physicsObj.SetLocalOrigin(m_ClosedOrigin + m_StartPos);
@@ -407,6 +407,22 @@ void CBinaryFrobMover::PostSpawn()
 	}
 
 	UpdateVisuals();
+
+	// grayman #2603 - Process targets. For those that are lights, add yourself
+	// to their switch list.
+
+	for (int i = 0 ; i < targets.Num() ; i++ )
+	{
+		idEntity* e = targets[i].GetEntity();
+		if (e)
+		{
+			if (e->IsType(idLight::Type))
+			{
+				idLight* light = static_cast<idLight*>(e);
+				light->AddSwitch(this);
+			}
+		}
+	}
 
 	// Check if we should auto-open, which could also happen right at the map start
 	if (IsAtClosedPosition())

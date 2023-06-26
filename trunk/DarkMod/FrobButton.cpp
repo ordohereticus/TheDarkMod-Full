@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobButton.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: FrobButton.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -25,7 +25,6 @@ const idEventDef EV_TDM_Button_Operate("Operate", NULL);
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobButton )
 	EVENT( EV_TDM_Button_Operate,	CFrobButton::Operate)
-	EVENT( EV_PostSpawn,			CFrobButton::PostSpawn ) // grayman #2603
 END_CLASS
 
 void CFrobButton::Save(idSaveGame *savefile) const
@@ -55,39 +54,16 @@ void CFrobButton::ApplyImpulse( idEntity *ent, int id, const idVec3 &point, cons
 		return; // button can't be hit, so do nothing
 	}
 
+	// grayman #2603 - ignore impulse from AI
+
+	if (ent->IsType(idAI::Type))
+	{
+		return;
+	}
+
 	// Check if the impulse is applied in the right direction
 	if (impulse * m_Translation >= 0)
 	{
 		Operate();
 	}
 }
-
-/*
-================
-CFrobButton::PostSpawn
-
-In a post-spawn event, provide self to all targeted lights as a switch for those lights.
-================
-*/
-void CFrobButton::PostSpawn( void ) // grayman #2603
-{
-	// Let the base class do its stuff first
-	CBinaryFrobMover::PostSpawn();
-
-	// Process targets. For those that are lights, add yourself
-	// to their switch list.
-
-	for( int i = 0 ; i < targets.Num() ; i++ )
-	{
-		idEntity* e = targets[i].GetEntity();
-		if (e)
-		{
-			if (e->IsType(idLight::Type))
-			{
-				idLight* light = static_cast<idLight*>(e);
-				light->AddSwitch(this);
-			}
-		}
-	}
-}
-

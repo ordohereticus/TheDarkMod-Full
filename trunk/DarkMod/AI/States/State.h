@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -166,6 +166,15 @@ private:
 		EAIuse_Door,
 		ENumMarkers, // invalid index
 	};
+
+	enum SBO_Level // grayman #2603 - "shouldBeOn" levels
+	{
+		ESBO_0,
+		ESBO_1,
+		ESBO_2,
+		ENumSBOLevels,
+	};
+
 };
 typedef boost::shared_ptr<State> StatePtr;
 

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3070 $
- * $Date: 2008-11-30 11:16:13 -0500 (Sun, 30 Nov 2008) $
- * $Author: angua $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Mind.cpp 3070 2008-11-30 16:16:13Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: Mind.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
 
 #include "Mind.h"
 #include "States/IdleState.h"
@@ -189,6 +189,21 @@ void Mind::SwitchState(const StatePtr& state)
 
 void Mind::ClearStates()
 {
+	// grayman #2603 - before clearing the states, check if the AI was relighting
+	// a light. That light has to be marked as no longer being relit.
+
+	idAI* owner = _owner.GetEntity();
+	assert(owner);
+	if (owner->m_RelightingLight)
+	{
+		Memory& memory = owner->GetMemory();
+		idLight* light = memory.relightLight.GetEntity();
+		if (light)
+		{
+			light->SetBeingRelit(false); // this light is no longer being relit
+		}
+	}
+
 	_switchState = true;
 	_stateQueue.clear();
 }

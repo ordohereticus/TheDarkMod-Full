@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4835 $
- * $Date: 2011-05-07 04:02:16 -0400 (Sat, 07 May 2011) $
- * $Author: tels $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -57,8 +57,6 @@ static const int s_MAXACUITIES = 15;
 #define ATTACK_ON_DAMAGE		1
 #define ATTACK_ON_ACTIVATE		2
 #define ATTACK_ON_SIGHT			4
-
-#define DELAY_TO_NEXT_TORCH_CHECK 2000; // grayman #2603
 
 typedef enum {
 	TALK_NEVER,
@@ -1086,10 +1084,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					m_LatchedSearch;
 
 	/**
-	 * grayman #2603: list of doused lights seen recently
+	 * grayman #2603: list of doused lights seen
 	 */
-	idList< idEntityPtr<idEntity> >		m_RecentDousedLightsSeen;
-
+	idList< idEntityPtr<idEntity> >		m_dousedLightsSeen;
 
 	/**
 	 * angua: is set true while the AI is handling an elevator.

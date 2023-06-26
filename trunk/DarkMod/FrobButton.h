@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -33,9 +33,6 @@ public:
 
 	// Override the base class's ApplyImpulse method
 	virtual void			ApplyImpulse(idEntity *ent, int id, const idVec3 &point, const idVec3 &impulse);
-
-	// grayman #2603 - add self to target lights' switch lists
-	void					PostSpawn( void );
 };
 
 #endif /* FROBBUTTON_H */

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -27,6 +27,7 @@ Memory::Memory(idAI* owningAI) :
 	lastTimeFriendlyAISeen(-1000),
 	lastTimeEnemySeen(-1),
 	lastTimeVisualStimBark(-1),
+	nextTimeLightStimBark(-1), // grayman #2603
 	countEvidenceOfIntruders(0),
 	nextHeadTurnCheckTime(0),
 	currentlyHeadTurning(false),
@@ -128,6 +129,8 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteVec3(positionBeforeTakingCover);
 	savefile->WriteBool(resolvingMovementBlock);
 	lastDoorHandled.Save(savefile); // grayman #2712
+	relightLight.Save(savefile);	// grayman #2603
+	savefile->WriteInt(nextTimeLightStimBark);	// grayman #2603
 
 	doorRelated.currentDoor.Save(savefile);
 
@@ -215,7 +218,9 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadBool(fleeingDone);
 	savefile->ReadVec3(positionBeforeTakingCover);
 	savefile->ReadBool(resolvingMovementBlock);
-	lastDoorHandled.Restore(savefile); // grayman #2712
+	lastDoorHandled.Restore(savefile);	// grayman #2712
+	relightLight.Restore(savefile);		// grayman #2603
+	savefile->ReadInt(nextTimeLightStimBark);	// grayman #2603
 
 	doorRelated.currentDoor.Restore(savefile);
 	// Clear the containers before restoring them

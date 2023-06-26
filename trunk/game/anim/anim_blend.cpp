@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4839 $
- * $Date: 2011-05-11 01:15:38 -0400 (Wed, 11 May 2011) $
- * $Author: tels $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4839 2011-05-11 05:15:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1315,6 +1315,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						idVec3 origin = detachedEntity->GetPhysics()->GetOrigin();
 						origin.z -= DROP_DOWN_ADJUSTMENT;
 						detachedEntity->GetPhysics()->SetOrigin( origin );
+						detachedEntity->m_droppedByAI = true; // grayman #1330
 					}
 					break;
 				}
@@ -1389,10 +1390,11 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					}
 
 					// check that there isn't already something attached:
-					idEntity* attEntity = ent->GetAttachment( AttPos.c_str() );
+					// idEntity* attEntity = ent->GetAttachment(AttPos.c_str()); // grayman #2603 - This was wrong. GetAttachment wants the Attach Name ('melee_weapon') not the position ('hand_l')
+					idEntity* attEntity = ent->GetAttachmentByPosition(AttPos.c_str()); // positions now stored in attach info
 					if (attEntity)
 					{
-						gameLocal.Warning("Already got an attachment at %s, skipping frame command.", AttPos.c_str());
+						gameLocal.Warning("Already have an attachment at %s, skipping frame command.", AttPos.c_str());
 					}
 					else
 					{

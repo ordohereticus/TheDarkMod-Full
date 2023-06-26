@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Revision: 4854 $
+ * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3506,8 +3506,15 @@ void idAI::Event_DropTorch() // grayman #2603
 		if (ent->name.Find("torch") >= 0)
 		{
 			DetachInd(i);
+
+			// grayman #2603 - drop the torch a bit to get away from the AI's hand
+
+			idVec3 origin = ent->GetPhysics()->GetOrigin();
+			origin.z -= 20;
+			ent->GetPhysics()->SetOrigin( origin );
+
 			ent->m_droppedByAI = true; // grayman #1330
-			ent->GetPhysics()->Activate();
+//			ent->GetPhysics()->Activate();
 			GetMemory().stopRelight = true; // in case a relight was in progress - try again later w/o torch
 			break;
 		}
