@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4143 $
- * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
+ * $Revision: 4718 $
+ * $Date: 2011-03-24 02:12:44 -0400 (Thu, 24 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_base.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: physics_base.cpp 4718 2011-03-24 06:12:44Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -840,6 +840,7 @@ idPhysics_Base::SetWater
 ================
 */
 void idPhysics_Base::SetWater( idPhysics_Liquid *e, const float m ) {
+/*
 	if (e != this->water)
 	{
 		if (NULL != e)
@@ -851,6 +852,7 @@ void idPhysics_Base::SetWater( idPhysics_Liquid *e, const float m ) {
 			gameLocal.Printf("Leaving water.\n");
 		}
 	}
+*/
 	this->water = e;
 	this->m_fWaterMurkiness = m;
 }
