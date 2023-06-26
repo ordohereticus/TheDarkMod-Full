@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4663 $
- * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -160,6 +160,8 @@ public:
 
 						CModelGenerator( void );
 
+						~CModelGenerator();
+
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
 
@@ -167,7 +169,6 @@ public:
 	* Called by gameLocal.
 	*/
 	void				Init ( void );
-	void				Shutdown ( void );
 	void				Clear ( void );
 
 	/** Given a rendermodel and a surface index, checks if that surface is two-sided,
@@ -240,6 +241,8 @@ public:
 	void					Print( void ) const;
 
 private:
+	// Called by the destructor
+	void					Shutdown();
 
 	void					SaveLOD( idSaveGame *savefile, const lod_data_t * m_LOD ) const;
 	void					RestoreLOD( idRestoreGame *savefile, lod_data_t * m_LOD );

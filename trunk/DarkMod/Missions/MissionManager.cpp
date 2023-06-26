@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4783 $
- * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4783 2011-04-14 18:12:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4831 2011-05-02 17:22:30Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -41,6 +41,8 @@ CMissionManager::~CMissionManager()
 {
 	// Clear contents and the list elements themselves
 	_downloadableMods.DeleteContents(true);
+
+	Shutdown();
 }
 
 void CMissionManager::Init()

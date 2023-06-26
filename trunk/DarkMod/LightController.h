@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4661 $
- * $Date: 2011-03-07 03:14:15 -0500 (Mon, 07 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -45,6 +45,8 @@ public:
 
 						CLightController( void );
 
+						~CLightController();
+
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
 
@@ -52,7 +54,6 @@ public:
 	* Called by gameLocal.
 	*/
 	void				Init ( void );
-	void				Shutdown ( void );
 	void				Clear ( void );
 
 	/**
@@ -79,6 +80,10 @@ public:
 	* Update the local ambient lights because the light has changed.
 	*/
 	void				LightChanged( const int entityNum );
+
+private:
+	// Called by the dtor
+	void				Shutdown();
 
 private:
 

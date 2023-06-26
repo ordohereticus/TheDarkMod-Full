@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4689 $
- * $Date: 2011-03-11 03:51:00 -0500 (Fri, 11 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -26,7 +26,7 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4689 2011-03-11 08:51:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4831 2011-05-02 17:22:30Z greebo $", init_version);
 
 #include "ModelGenerator.h"
 
@@ -51,6 +51,12 @@ CModelGenerator::CModelGenerator( void ) {
 	m_LODList.SetGranularity(32);
 
 //	gameLocal.Printf("Size of LOD data struct: %i bytes\n", sizeof(lod_data_t));
+}
+
+CModelGenerator::~CModelGenerator()
+{
+	Print();
+	Shutdown();
 }
 
 /*

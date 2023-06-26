@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4471 $
- * $Date: 2011-01-24 10:40:30 -0500 (Mon, 24 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -42,6 +42,8 @@ public:
 
 						CImageMapManager( void );
 
+						~CImageMapManager();
+
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
 
@@ -49,7 +51,6 @@ public:
 	* Called by gameLocal.
 	*/
 	void				Init ( void );
-	void				Shutdown ( void );
 	void				Clear ( void );
 
 	/**
@@ -112,6 +113,8 @@ public:
 
 private:
 
+	void				Shutdown();
+
 	/**
 	* Checks that the given map handle is valid. Returns ptr to imagemap_t or NULL.
 	*/
@@ -136,5 +139,5 @@ private:
 
 };
 
-#endif /* !__DARKMOD_MODELGENERATOR_H__ */
+#endif /* !__DARKMOD_IMAGEMAPMANAGER_H__ */
 

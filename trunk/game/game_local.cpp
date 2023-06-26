@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4826 $
- * $Date: 2011-04-30 03:15:26 -0400 (Sat, 30 Apr 2011) $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4826 2011-04-30 07:15:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4831 2011-05-02 17:22:30Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -685,22 +685,16 @@ void idGameLocal::Shutdown( void ) {
 	m_ConversationSystem.reset();
 
 	// Destroy the mission manager
-	m_MissionManager->Shutdown();
-	m_MissionManager = CMissionManagerPtr();
+	m_MissionManager.reset();
 
-	// Print ModelGenerator Statistics
-	m_ModelGenerator->Print();
 	// Destroy the model generator
-	m_ModelGenerator->Shutdown();
-	m_ModelGenerator = CModelGeneratorPtr();
+	m_ModelGenerator.reset();
 
 	// Destroy the image map manager
-	m_ImageMapManager->Shutdown();
-	m_ImageMapManager = CImageMapManagerPtr();
+	m_ImageMapManager.reset();
 
 	// Destroy the light controller
-	m_LightController->Shutdown();
-	m_LightController = CLightControllerPtr();
+	m_LightController.reset();
 
 	// Clear http connection
 	m_HttpConnection.reset();

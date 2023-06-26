@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4661 $
- * $Date: 2011-03-07 03:14:15 -0500 (Mon, 07 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -24,7 +24,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: LightController.cpp 4661 2011-03-07 08:14:15Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: LightController.cpp 4831 2011-05-02 17:22:30Z greebo $", init_version);
 
 #include "LightController.h"
 
@@ -42,6 +42,11 @@ CLightController::CLightController( void ) {
 	m_bActive = true;
 }
 
+CLightController::~CLightController()
+{
+	Shutdown();
+}
+
 /*
 ===============
 CLightController::Init - will be called by game_local
@@ -53,7 +58,7 @@ void CLightController::Init ( void )
 
 /*
 ===============
-CLightController::Shutdown - will be called by game_local
+CLightController::Shutdown
 ===============
 */
 void CLightController::Shutdown ( void )

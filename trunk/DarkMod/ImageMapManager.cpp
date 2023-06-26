@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4685 $
- * $Date: 2011-03-10 09:25:47 -0500 (Thu, 10 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4685 2011-03-10 14:25:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4831 2011-05-02 17:22:30Z greebo $", init_version);
 
 #include "ImageMapManager.h"
 
@@ -33,6 +33,11 @@ CImageMapManager::CImageMapManager
 CImageMapManager::CImageMapManager( void ) {
 	m_imageMaps.Clear();
 	m_lastError = "";
+}
+
+CImageMapManager::~CImageMapManager()
+{
+	Shutdown();
 }
 
 /*

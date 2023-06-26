@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4783 $
- * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4831 $
+ * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -231,9 +231,6 @@ public:
 	void Save(idSaveGame* savefile) const;
 	void Restore(idRestoreGame* savefile);
 
-	// Should be called when the game is shutting down
-	void Shutdown();
-
 	// Returns the number of available mods
 	int GetNumMods();
 
@@ -348,6 +345,9 @@ public:
 	static bool DoMoveFile(const fs::path& fromPath, const fs::path& toPath);
 
 private:
+	// Called by destructor (when the game is shutting down)
+	void Shutdown();
+
 	// Finds out which map is the starting map (must be called after InitCurrentMod)
 	void InitStartingMap();
 
