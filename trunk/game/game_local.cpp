@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4728 $
- * $Date: 2011-03-25 13:48:14 -0400 (Fri, 25 Mar 2011) $
+ * $Revision: 4730 $
+ * $Date: 2011-03-26 02:08:23 -0400 (Sat, 26 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4728 2011-03-25 17:48:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4730 2011-03-26 06:08:23Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3727,6 +3727,14 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			HandleGuiMessages(gui);
 		}
 
+		// Make sure we have a valid mission number in the GUI, the first mission is always 1
+		int curMissionNum = gui->GetStateInt("CurrentMission");
+
+		if (curMissionNum <= 0)
+		{
+			gui->SetStateInt("CurrentMission", 1);
+		}
+
 		// Handle downloads in progress
 		m_DownloadManager->ProcessDownloads();
 
@@ -3887,6 +3895,10 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		if (m_MissionManager->NextMissionAvailable())
 		{
 			m_MissionManager->ProceedToNextMission();
+
+			// Store the new mission number into the GUI state
+			int missionNum = m_MissionManager->GetCurrentMissionIndex() + 1;
+			gui->SetStateInt("CurrentMission", missionNum);
 
 			// Go to the next briefing / video
 			gui->HandleNamedEvent("SuccessProceedToNextMission");
