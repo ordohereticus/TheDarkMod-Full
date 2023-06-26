@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4663 $
- * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
+ * $Revision: 4682 $
+ * $Date: 2011-03-10 08:53:32 -0500 (Thu, 10 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4682 2011-03-10 13:53:32Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -3227,8 +3227,13 @@ void Seed::CombineEntities( void )
 		ofs.angles = m_Entities[i].angles;
 
 		// compute the alpha value and the LOD level
-		const lod_data_t *class_LOD = gameLocal.m_ModelGenerator->GetLODDataPtr( m_Classes[i].m_LODHandle );
-		ThinkAboutLOD( class_LOD, GetLODDistance( class_LOD, playerPos, m_Entities[i].origin, entityClass->size, m_fLODBias ) );
+		m_LODLevel = 0;
+		if (entityClass->m_LODHandle)
+		{
+			gameLocal.Printf("GetLODDataPtr %i\n", entityClass->m_LODHandle);
+			const lod_data_t *class_LOD = gameLocal.m_ModelGenerator->GetLODDataPtr( entityClass->m_LODHandle );
+			ThinkAboutLOD( class_LOD, GetLODDistance( class_LOD, playerPos, m_Entities[i].origin, entityClass->size, m_fLODBias ) );
+		}
 		// 0 => default model, 1 => first stage etc
 		ofs.lod	   = m_LODLevel + 1;
 //		gameLocal.Warning("SEED %s: Using LOD model %i for base entity.\n", GetName(), ofs.lod );
@@ -3300,8 +3305,13 @@ void Seed::CombineEntities( void )
 			ofs.angles = m_Entities[j].angles;
 
 			// compute the alpha value and the LOD level
-			const lod_data_t *class_LOD = gameLocal.m_ModelGenerator->GetLODDataPtr( m_Classes[i].m_LODHandle );
-			ThinkAboutLOD( class_LOD, GetLODDistance( class_LOD, playerPos, m_Entities[i].origin, entityClass->size, m_fLODBias ) );
+			m_LODLevel = 0;
+			if (entityClass->m_LODHandle)
+			{
+				gameLocal.Printf("GetLODDataPtr %i\n", entityClass->m_LODHandle);
+				const lod_data_t *class_LOD = gameLocal.m_ModelGenerator->GetLODDataPtr( entityClass->m_LODHandle );
+				ThinkAboutLOD( class_LOD, GetLODDistance( class_LOD, playerPos, m_Entities[i].origin, entityClass->size, m_fLODBias ) );
+			}
 			// 0 => default model, 1 => level 0 etc.
 			ofs.lod		= m_LODLevel + 1;
 //			gameLocal.Warning("SEED %s: Using LOD model %i for combined entity %i.\n", GetName(), ofs.lod, j );
@@ -3914,8 +3924,16 @@ void Seed::Think( void )
 		{
 			ent = &m_Entities[i];
 			lclass = &(m_Classes[ ent->classIdx ]);
-			const lod_data_t* lod = gameLocal.m_ModelGenerator->GetLODDataPtr( lclass->m_LODHandle );
-		    float deltaSq = GetLODDistance( lod, playerPos, ent->origin, lclass->size, lodBias );
+		   	float deltaSq = 0;
+			if (lclass->m_LODHandle)
+			{
+				const lod_data_t* lod = gameLocal.m_ModelGenerator->GetLODDataPtr( lclass->m_LODHandle );
+		    	deltaSq = GetLODDistance( lod, playerPos, ent->origin, lclass->size, lodBias );
+			}
+			else
+			{
+		    	deltaSq = GetLODDistance( NULL, playerPos, ent->origin, lclass->size, lodBias );
+			}
 
 //			gameLocal.Printf( "SEED %s: In LOD check: Flags for entity %i: 0x%08x, spawndist %i, deltaSq %i.\n", GetName(), i, ent->flags, (int)lclass->spawnDist, (int)deltaSq );
 
