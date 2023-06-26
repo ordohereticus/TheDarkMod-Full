@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4838 $
- * $Date: 2011-05-09 13:50:40 -0400 (Mon, 09 May 2011) $
+ * $Revision: 4839 $
+ * $Date: 2011-05-11 01:15:38 -0400 (Wed, 11 May 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4838 2011-05-09 17:50:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4839 2011-05-11 05:15:38Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1420,7 +1420,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						float delay = spawnedEntity->spawnArgs.GetFloat("remove_delay", "0");
 						if (delay > 0)
 						{
-							// if remove_delay is set, remove that object after so many ms
+							// if remove_delay is set, remove that object after "remove_delay" seconds (* 1000 to get ms)
 							spawnedEntity->PostEventMS( &EV_Remove, delay * 1000 );
 						}
 					}
