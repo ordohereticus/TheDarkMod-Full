@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4651 $
- * $Date: 2011-03-04 13:34:48 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4653 $
+ * $Date: 2011-03-04 14:11:08 -0500 (Fri, 04 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4651 2011-03-04 18:34:48Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4653 2011-03-04 19:11:08Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -296,10 +296,6 @@ void idGameLocal::Clear( void )
 	m_Interleave = 0;
 
 	m_lightGem.Clear();
-// 	m_LightgemSurface = NULL;
-// 	m_LightgemShotSpot = 0;
-// 	for(i = 0; i < DARKMOD_LG_MAX_RENDERPASSES; i++)
-// 		m_LightgemShotValue[i] = 0.0;
 	m_DoLightgem = true;
 	
 	serverInfo.Clear();
@@ -966,15 +962,6 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	savegame.WriteBool( influenceActive );
 	savegame.WriteInt( nextGibTime );
-
-	// Save the lightgem entity spawnId
-// 	m_LightgemSurface.Save(&savegame);
-// 	savegame.WriteBool(m_DoLightgem);
-// 	savegame.WriteInt(m_LightgemShotSpot);
-// 	for (int i = 0; i < DARKMOD_LG_MAX_RENDERPASSES; i++)
-// 	{
-// 		savegame.WriteFloat(m_LightgemShotValue[i]);
-// 	}
 
 	//Save LightGem - J.C.Denton
 	m_lightGem.Save( savegame );
@@ -1852,7 +1839,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	// precache the empty model (used by idEntity::m_renderTrigger)
 	renderModelManager->FindModel( cv_empty_model.GetString() );
 
-	//SpawnLightgemEntity();
 	m_lightGem.SpawnLightGemEntity( mapFile );
 
 	// precache any media specified in the map
@@ -2033,22 +2019,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 
 	// Restore LightGem				- J.C.Denton
 	m_lightGem.Restore( savegame );
-
-// 	// Restore the lightgem entity pointer
-// 	m_LightgemSurface.Restore(&savegame);
-// 	savegame.ReadBool(m_DoLightgem);
-// 	savegame.ReadInt(m_LightgemShotSpot);
-// 	for (int i = 0; i < DARKMOD_LG_MAX_RENDERPASSES; i++)
-// 	{
-// 		savegame.ReadFloat(m_LightgemShotValue[i]);
-// 	}
-// 
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->suppressShadowInViewID = 0;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noDynamicInteractions = false;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noShadow = true;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noSelfShadow = true;
-// 	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface.GetEntity());
 
 	m_sndProp->Restore(&savegame);
 	m_MissionData->Restore(&savegame);
@@ -4631,13 +4601,6 @@ void idGameLocal::SpawnMapEntities( void ) {
 	}
 
 	m_lightGem.InitializeLightGemEntity();
-// 	m_LightgemSurface = gameLocal.FindEntity(DARKMOD_LG_ENTITY_NAME);
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->allowSurfaceInViewID = DARKMOD_LG_VIEWID;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->suppressShadowInViewID = 0;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noDynamicInteractions = false;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noShadow = true;
-// 	m_LightgemSurface.GetEntity()->GetRenderEntity()->noSelfShadow = true;
-// 	DM_LOG(LC_LIGHT, LT_INFO)LOGSTRING("LightgemSurface: [%08lX]\r", m_LightgemSurface.GetEntity());
 
 	Printf( "...%i entities spawned, %i inhibited\n\n", num, inhibit );
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("... %i entities spawned, %i inhibited\r", num, inhibit);
