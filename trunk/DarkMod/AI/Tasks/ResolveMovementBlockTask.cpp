@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4553 $
- * $Date: 2011-02-05 01:50:41 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4670 $
+ * $Date: 2011-03-08 21:55:26 -0500 (Tue, 08 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 4553 2011-02-05 06:50:41Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ResolveMovementBlockTask.cpp 4670 2011-03-09 02:55:26Z grayman $", init_version);
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -166,7 +166,18 @@ void ResolveMovementBlockTask::InitBlockingStatic(idAI* owner, Subsystem& subsys
 	}
 
 	// angua: move the bottom of the bounds up a bit, to avoid finding small objects on the ground that are "in the way"
-	bounds[0][2] += owner->GetAAS()->GetSettings()->maxStepHeight;
+	// grayman #2684 - except for AI whose bounding box height is less than maxStepHeight, otherwise applying the bump up
+	// causes the clipmodel to be "upside-down", which isn't good. In that case, give the bottom a bump up equal to half
+	// of the clipmodel's height so it at least gets a small bump.
+	float ht = owner->GetAAS()->GetSettings()->maxStepHeight;
+	if (bounds[0].z + ht < bounds[1].z)
+	{
+		bounds[0].z += ht;
+	}
+	else
+	{
+		bounds[0].z += (bounds[1].z - bounds[0].z)/2.0;
+	}
 
 	// Set all attachments to nonsolid, temporarily
 	owner->SaveAttachmentContents();
