@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4568 $
+ * $Date: 2011-02-08 10:48:35 -0500 (Tue, 08 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -908,6 +908,8 @@ void UpdaterDialog::OnProgressChange(const ProgressInfo& info)
 
 void UpdaterDialog::OnStartDifferentialUpdate(const DifferentialUpdateInfo& info)
 {
+	_controller->DontPauseAt(DownloadDifferentialUpdate);
+
 	std::string sizeStr = Util::GetHumanReadableBytes(info.filesize);
 	std::string text = (boost::format("Downloading update package for version %s to %s (size: %s)...") % 
 		info.fromVersion % info.toVersion % sizeStr).str();

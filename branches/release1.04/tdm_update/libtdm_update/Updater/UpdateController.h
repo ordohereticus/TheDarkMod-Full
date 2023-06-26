@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4568 $
+ * $Date: 2011-02-08 10:48:35 -0500 (Tue, 08 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -71,6 +71,9 @@ public:
 
 	// Instruct the controller to wait before entering the next step
 	void PauseAt(UpdateStep step);
+
+	// Instruct the controller not to wait before entering the given step
+	void DontPauseAt(UpdateStep step);
 
 	// Main trigger - call this to let the controller continue to the next
 	// step. The thread will drive the update process until it's done or
