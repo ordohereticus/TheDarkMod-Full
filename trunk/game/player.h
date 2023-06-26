@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4815 $
- * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
+ * $Revision: 4816 $
+ * $Date: 2011-04-25 03:15:54 -0400 (Mon, 25 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1348,6 +1348,9 @@ private:
 	// Basically waits for any HUD messages and fades out the screen, afterwards
 	// the Mission Success event is called.
 	void					Event_TriggerMissionEnd();
+
+	// Disconnects the player from the mission, this is the final action during gameplay
+	void					Event_DisconnectFromMission();
 
 	/** Returns to script the current idLocation of the player **/
 	void					Event_GetLocation();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4815 $
- * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
+ * $Revision: 4816 $
+ * $Date: 2011-04-25 03:15:54 -0400 (Mon, 25 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4815 2011-04-25 06:26:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4816 2011-04-25 07:15:54Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -118,6 +118,7 @@ const idEventDef EV_Player_WasDamaged("wasDamaged", NULL, 'd');
 
 const idEventDef EV_Mission_Success("missionSuccess", NULL);
 const idEventDef EV_TriggerMissionEnd("triggerMissionEnd", NULL);
+const idEventDef EV_DisconnectFromMission("_disconnectFromMission", NULL);
 
 // Private event to process intermission triggers
 const idEventDef EV_ProcessInterMissionTriggers("_processInterMissionTriggers");
@@ -221,6 +222,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 
 	EVENT( EV_Mission_Success,				idPlayer::Event_MissionSuccess)
 	EVENT( EV_TriggerMissionEnd,			idPlayer::Event_TriggerMissionEnd )
+	EVENT( EV_DisconnectFromMission,		idPlayer::Event_DisconnectFromMission )
 
 	EVENT( EV_GetLocation,					idPlayer::Event_GetLocation )
 
@@ -11212,6 +11214,16 @@ void idPlayer::Event_MissionSuccess()
 	// Save the item entities of all persistent items
 	gameLocal.persistentPlayerInventory->SaveItemEntities(true);
 	
+	// Schedule the disconnect command, this needs to be done before issuing the save call
+	PostEventMS(&EV_DisconnectFromMission, 0);
+
+	// Issue an automatic save at the end of this mission
+	idStr savegameName = gameLocal.m_MissionManager->GetCurrentModInfo()->displayName + " Final Save";
+	cmdSystem->BufferCommandText(CMD_EXEC_NOW, va("savegame '%s'", savegameName.c_str()));
+}
+
+void idPlayer::Event_DisconnectFromMission()
+{
 	// Set the gamestate
 	gameLocal.SetMissionResult(MISSION_COMPLETE);
 	gameLocal.sessionCommand = "disconnect";
