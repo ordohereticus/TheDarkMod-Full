@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4710 $
- * $Date: 2011-03-22 04:07:22 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4711 $
+ * $Date: 2011-03-22 04:10:49 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4710 2011-03-22 08:07:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4711 2011-03-22 08:10:49Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -42,10 +42,8 @@ CModMenu::CModMenu() :
 namespace fs = boost::filesystem;
 
 // Handle mainmenu commands
-void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
+void CModMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 {
-	idStr cmd = menuCommand;
-
 	if (cmd == "refreshMissionList")
 	{
 		int numNewMods = gameLocal.m_MissionManager->GetNumNewMods();
@@ -155,7 +153,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 			return; // version check failed
 		}
 
-		InstallMission(info, gui);
+		InstallMod(info, gui);
 	}
 	else if (cmd == "darkmodRestart")
 	{
@@ -226,7 +224,7 @@ void CModMenu::UpdateSelectedMod(idUserInterface* gui)
 }
 
 // Displays the current page of briefing text
-void CModMenu::DisplayBriefingPage(idUserInterface *gui)
+void CModMenu::DisplayBriefingPage(idUserInterface* gui)
 {
 	// look up the briefing xdata, which is in "maps/<map name>/mission_briefing"
 	idStr briefingData = idStr("maps/") + gameLocal.m_MissionManager->GetCurrentStartingMap() + "/mission_briefing";
@@ -339,13 +337,13 @@ bool CModMenu::PerformVersionCheck(const CModInfoPtr& mission, idUserInterface* 
 	return true; // version check passed
 }
 
-void CModMenu::InstallMission(const CModInfoPtr& mission, idUserInterface* gui)
+void CModMenu::InstallMod(const CModInfoPtr& mod, idUserInterface* gui)
 {
-	assert(mission != NULL);
+	assert(mod != NULL);
 	assert(gui != NULL);
 
 	// Perform the installation
-	CMissionManager::InstallResult result = gameLocal.m_MissionManager->InstallMod(mission->modName);
+	CMissionManager::InstallResult result = gameLocal.m_MissionManager->InstallMod(mod->modName);
 
 	if (result != CMissionManager::INSTALLED_OK)
 	{
