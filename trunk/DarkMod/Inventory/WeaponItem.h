@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4784 $
- * $Date: 2011-04-15 01:22:03 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4792 $
+ * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -114,6 +114,12 @@ public:
 
 	// Returns the name of the weapon entityDef
 	const idStr& GetWeaponDefName() const;
+
+	// Override CInventoryItem::SaveItemEntityDict(), as weapons don't have entities behind them but still need to have a dict
+	virtual void SaveItemEntityDict();
+
+	// Override CInventoryItem::RestoreItemEntityFromDict, don't do anything but clear the saved dict
+	virtual void RestoreItemEntityFromDict(const idVec3& entPosition);
 };
 typedef boost::shared_ptr<CInventoryWeaponItem> CInventoryWeaponItemPtr;
 

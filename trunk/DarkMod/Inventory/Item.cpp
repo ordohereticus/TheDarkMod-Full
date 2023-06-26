@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4754 $
- * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4792 $
+ * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 4792 2011-04-16 07:42:22Z greebo $", init_version);
 
 #include "Item.h"
 #include "Inventory.h"
@@ -286,6 +286,11 @@ void CInventoryItem::RestoreItemEntityFromDict(const idVec3& entPosition)
 
 	// Finally, remove our saved spawnargs
 	m_ItemDict.reset();
+}
+
+const idDict* CInventoryItem::GetSavedItemEntityDict() const
+{
+	return m_ItemDict ? m_ItemDict.get() : NULL;
 }
 
 void CInventoryItem::SetCount(int n)

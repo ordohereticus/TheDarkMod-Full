@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4771 $
- * $Date: 2011-04-11 01:53:56 -0400 (Mon, 11 Apr 2011) $
+ * $Revision: 4792 $
+ * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -51,11 +51,15 @@ public:
 
 	// Stores the item entity's spawnargs locally - used before ending a mission to prepare an item/entity transfer
 	// Does nothing if the item entity is NULL
-	void					SaveItemEntityDict();
+	virtual void			SaveItemEntityDict();
 
 	// Restores the item entity from the saved dictionary. Does nothing if the saved dictionary is empty.
 	// The position is needed to place the respawned entity somewhere valid
-	void					RestoreItemEntityFromDict(const idVec3& entPosition);
+	virtual void			RestoreItemEntityFromDict(const idVec3& entPosition);
+
+	// Get a reference to the saved item entity dictionary. Returns NULL if the spawnargs didn't get saved
+	// This usually returns non-NULL for items stored in the game's persistent inventory, for inter-mission item transfer
+	const idDict*			GetSavedItemEntityDict() const;
 
 	void					SetType(CInventoryItem::ItemType type) { m_Type = type; };
 	ItemType				GetType() { return m_Type; };

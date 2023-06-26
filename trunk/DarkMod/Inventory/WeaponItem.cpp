@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4784 $
- * $Date: 2011-04-15 01:22:03 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4792 $
+ * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 4784 2011-04-15 05:22:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 4792 2011-04-16 07:42:22Z greebo $", init_version);
 
 #include "WeaponItem.h"
 
@@ -212,4 +212,20 @@ void CInventoryWeaponItem::ResetProjectileDefName()
 const idStr& CInventoryWeaponItem::GetWeaponDefName() const
 {
 	return m_WeaponDefName;
+}
+
+void CInventoryWeaponItem::SaveItemEntityDict()
+{
+	// Don't call the base class, roll our own
+
+	m_ItemDict.reset(new idDict);
+
+	*m_ItemDict = *gameLocal.FindEntityDefDict(m_WeaponDefName);
+}
+
+void CInventoryWeaponItem::RestoreItemEntityFromDict(const idVec3& entPosition)
+{
+	// Don't call the base class, roll our own
+
+	m_ItemDict.reset();
 }

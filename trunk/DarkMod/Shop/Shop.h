@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4774 $
- * $Date: 2011-04-11 15:25:08 -0400 (Mon, 11 Apr 2011) $
+ * $Revision: 4792 $
+ * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -109,8 +109,15 @@ private:
 	// read from defs and map to initialze the shop
 	void LoadShopItemDefinitions();
 
+	// Add the items from the persistent inventory to the starting equipment
+	void AddPersistentStartingEquipment();
+
 	// grayman (#2376) - put inv_map_start entities in the Starting Items list
 	void AddMapItems(idMapFile* mapFile);
+
+	// greebo: Tries to merge the named shopitem (with the given quantity) into the existing starting equipment
+	// Returns TRUE if the quantity was merged into the list, FALSE if the item doesn't exist yet
+	bool MergeIntoStartingEquipment(const idStr& itemName, int quantity, bool isWeapon);
 
 	// grayman (#2376) - check for individual lockpicks
 	void CheckPicks(ShopItemList& list);
