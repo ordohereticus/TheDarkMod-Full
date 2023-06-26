@@ -2,18 +2,18 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4471 $
- * $Date: 2011-01-24 10:40:30 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4507 $
+ * $Date: 2011-01-30 10:01:23 -0500 (Sun, 30 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
 
-// Copyright (C) 2010 Tels (Donated to The Dark Mod Team)
-
 /*
-   ModelGenerator
+	ModelGenerator
 
-   Manipulate, combine or generate models at run time.
+	Manipulate, combine or generate models at run time.
+
+	Copyright (C) 2010-2011 Tels (Donated to The Dark Mod Team)
 
 TODO: implement create-backsides code, that simply merges the front and backside,
 	  this would mean we don't need to call FinishSurfaces(). We could even pre-compute
@@ -30,14 +30,14 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4471 2011-01-24 15:40:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4507 2011-01-30 15:01:23Z tels $", init_version);
 
 #include "ModelGenerator.h"
 
 // uncomment to have debug printouts
 //#define M_DEBUG 1
 
-// uncomment to get the old, slower copy-vet code
+// uncomment to get the old, slower copy-vert code
 //#define M_COPY
 
 // uncomment to get detailed timing info
