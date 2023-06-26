@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4723 $
- * $Date: 2011-03-25 00:49:57 -0400 (Fri, 25 Mar 2011) $
+ * $Revision: 4729 $
+ * $Date: 2011-03-25 14:08:15 -0400 (Fri, 25 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4723 2011-03-25 04:49:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4729 2011-03-25 18:08:15Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2909,7 +2909,21 @@ bool idAI::PathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int g
 	}
 	gameLocal.m_AreaManager.EnableForbiddenAreas(this);
 
-	return returnval;
+	// return returnval;
+	// grayman #2708 - if returnval is true, return, but if false, check whether the AAS area is above
+	// the AI's origin, as it might be if the AI is stuck in an AAS area next to a monster-clipped
+	// table top, where it will be at the plane of the table top. If that's the case, return 'true'
+	// to let the AI escape this type of AAS area. Normal pathfinding will never let him out.
+
+	if (returnval)
+	{
+		return true;
+	}
+
+	idVec3 myOrigin = GetPhysics()->GetOrigin();
+	idBounds areaBounds = aas->GetAreaBounds(areaNum);
+	path.moveGoal = goal;
+	return (myOrigin.z < areaBounds[0].z);
 }
 
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4723 $
- * $Date: 2011-03-25 00:49:57 -0400 (Fri, 25 Mar 2011) $
+ * $Revision: 4729 $
+ * $Date: 2011-03-25 14:08:15 -0400 (Fri, 25 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4723 2011-03-25 04:49:57Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4729 2011-03-25 18:08:15Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2278,7 +2278,7 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 	if (owner->AI_AlertIndex < 3) // grayman #2670
 	{
 		int lastTimeUsed = owner->GetMemory().GetDoorInfo(frobDoor).lastTimeUsed;
-		if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + 10000))
+		if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + 1000))
 		{
 			return;
 		}
