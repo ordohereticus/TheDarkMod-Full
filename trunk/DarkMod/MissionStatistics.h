@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4745 $
- * $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4746 $
+ * $Date: 2011-04-05 11:53:29 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -92,6 +92,11 @@ public:
 	const SMissionStats& operator[] (int index) const
 	{
 		return _stats[index];
+	}
+
+	int Num() const
+	{
+		return _stats.Num();
 	}
 
 	void Save(idSaveGame* savefile) const;
