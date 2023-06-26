@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4764 $
- * $Date: 2011-04-09 08:40:51 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4765 $
+ * $Date: 2011-04-09 09:18:53 -0400 (Sat, 09 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4764 2011-04-09 12:40:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4765 2011-04-09 13:18:53Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -1062,12 +1062,12 @@ void CShop::AddGoldFromPreviousMission()
 		if (!_diffLootRules[difficultyLevel].IsEmpty())
 		{
 			// Non-empty difficulty-specific setting, apply this one
-			_gold += _diffLootRules[difficultyLevel].ApplyToFoundLoot(stats.FoundLoot);	
+			_gold = _diffLootRules[difficultyLevel].ApplyToFoundLoot(stats.FoundLoot, _gold);
 		}
 		else
 		{
 			// No difficulty-specific ruleset, apply the general one
-			_gold += _generalLootRules.ApplyToFoundLoot(stats.FoundLoot);
+			_gold = _generalLootRules.ApplyToFoundLoot(stats.FoundLoot, _gold);
 		}
 	}
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4764 $
- * $Date: 2011-04-09 08:40:51 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4765 $
+ * $Date: 2011-04-09 09:18:53 -0400 (Sat, 09 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: LootRuleSet.cpp 4764 2011-04-09 12:40:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: LootRuleSet.cpp 4765 2011-04-09 13:18:53Z greebo $", init_version);
 
 #include "LootRuleSet.h"
 
@@ -52,7 +52,7 @@ void LootRuleSet::LoadFromDict(const idDict& dict, const idStr& prefix)
 	keepUnspentGold = dict.GetBool(prefix + "keep_unspent_gold", keepUnspentGold ? "1" : "0");
 }
 
-int LootRuleSet::ApplyToFoundLoot(const int foundLoot[LOOT_COUNT])
+int LootRuleSet::ApplyToFoundLoot(const int foundLoot[LOOT_COUNT], int shopStartingGold)
 {
 	int totalGold = 0;
 
@@ -70,7 +70,7 @@ int LootRuleSet::ApplyToFoundLoot(const int foundLoot[LOOT_COUNT])
 	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Gold after conversion: %d\r", totalGold);
 
 	// Percentile loss comes first
-	totalGold -= static_cast<int>(totalGold * goldLossPercent);
+	totalGold -= static_cast<int>(totalGold * goldLossPercent*0.01f);
 
 	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Gold after percentile loss: %d\r", totalGold);
 
@@ -78,6 +78,10 @@ int LootRuleSet::ApplyToFoundLoot(const int foundLoot[LOOT_COUNT])
 	totalGold -= goldLoss;
 
 	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Gold after absolute loss: %d\r", totalGold);
+
+	totalGold += shopStartingGold;
+
+	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Gold after adding shop starting budget: %d\r", totalGold);
 
 	if (goldCap != -1 && totalGold > goldCap)
 	{
