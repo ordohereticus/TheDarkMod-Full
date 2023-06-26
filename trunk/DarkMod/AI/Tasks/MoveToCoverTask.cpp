@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MoveToCoverTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: MoveToCoverTask.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "MoveToCoverTask.h"
@@ -35,6 +35,7 @@ void MoveToCoverTask::Init(idAI* owner, Subsystem& subsystem)
 	//Move to cover position
 	owner->AI_RUN = true;
 	owner->AI_FORWARD = true;
+	owner->m_pathRank = owner->rank; // grayman #2345
 
 	owner->MoveToCover(enemy, owner->lastVisibleEnemyPos);
 }

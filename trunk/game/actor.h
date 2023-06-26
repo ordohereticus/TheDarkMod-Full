@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4063 $
- * $Date: 2010-07-14 23:16:38 -0400 (Wed, 14 Jul 2010) $
- * $Author: greebo $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -359,6 +359,11 @@ public:
 	* Correspondence between melee type and string name suffix of the action
 	**/
 	static const char *		MeleeTypeNames[ NUM_MELEE_TYPES ];
+
+	/**
+	* grayman #2345 - rank for path-finding
+	**/
+	int						m_pathRank;
 
 public:
 							idActor( void );

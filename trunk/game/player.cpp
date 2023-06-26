@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4447 $
- * $Date: 2011-01-18 12:48:22 -0500 (Tue, 18 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4447 2011-01-18 17:48:22Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -744,7 +744,7 @@ void idPlayer::Init( void ) {
 
 	AI_CREEP		= false;
 
-
+	m_pathRank		= 1000; // grayman #2345
 
 	// reset the script object
 	ConstructScriptObject();
@@ -2742,6 +2742,8 @@ void idPlayer::EnterCinematic( void ) {
 	AI_LEAN_FORWARD	= false;
 
 	AI_CREEP		= false;
+
+	m_pathRank		= 1000; // grayman #2345
 }
 
 /*
@@ -2799,6 +2801,8 @@ void idPlayer::UpdateConditions( void )
 		AI_STRAFE_LEFT	= false;
 		AI_STRAFE_RIGHT	= false;
 	}
+
+	m_pathRank = AI_FORWARD ? rank : 1000; // grayman #2345
 
 	// stamina disabled, always run regardless of stamina
 	//AI_RUN			= ( usercmd.buttons & BUTTON_RUN ) && ( ( !pm_stamina.GetFloat() ) || ( stamina > pm_staminathreshold.GetFloat() ) );

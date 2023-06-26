@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
- * $Author: greebo $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -33,11 +33,15 @@ class AnimalPatrolTask :
 		stateMovingToNextPathCorner,
 		stateDoingSomething,
 		stateWaiting,
+		statePreMovingToNextSpot, // grayman #2356 - no path corners, go elsewhere
 		stateCount,
 	} _state;
 
 	// For waiting state
 	int _waitEndTime;
+
+	// grayman #2356 - for 'move to position' state
+	int _moveEndTime;
 
 	// Private constructor
 	AnimalPatrolTask();

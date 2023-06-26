@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4450 $
- * $Date: 2011-01-20 13:33:59 -0500 (Thu, 20 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -1059,6 +1059,9 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	int m_headTurnMinDuration;
 	int m_headTurnMaxDuration;
 
+	bool m_canExtricate;		// grayman #2345 - whether we can use AttemptToExtricate() to stop being stuck
+	idEntity* m_tactileEntity;	// grayman #2345 - something we bumped into this frame, not necessarily an enemy
+
 	// The mind of this AI
 	ai::MindPtr mind;
 
@@ -1404,6 +1407,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					MoveToEnemyHeight( void );
 	bool					MoveOutOfRange( idEntity *entity, float range );
 	const idVec3&			GetMoveDest() const;
+	idEntity*				GetTactileEntity(void); // grayman #2345
+
 	/**
 	 * greebo: Flee from the given entity. Pass the maximum distance this AI should search escape areas in.
 	 */
@@ -1464,6 +1469,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					TurnToward( float yaw );
 	bool					TurnToward( const idVec3 &pos );
 	ID_INLINE float			GetCurrentYaw() { return current_yaw; }
+	ID_INLINE float			GetIdealYaw() { return ideal_yaw; } // grayman #2345
 	ID_INLINE float			GetTurnRate() { return turnRate; }
 	ID_INLINE void			SetTurnRate(float newTurnRate) { turnRate = newTurnRate; }
 

@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4270 $
- * $Date: 2010-11-05 17:17:00 -0400 (Fri, 05 Nov 2010) $
- * $Author: ishtvan $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 4270 $   $Date: 2010-11-05 17:17:00 -0400 (Fri, 05 Nov 2010) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 4472 $   $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3095,6 +3095,15 @@ idPhysics_Player::SetMovementType
 */
 void idPhysics_Player::SetMovementType( const pmtype_t type ) {
 	current.movementType = type;
+}
+
+/*
+================
+idPhysics_Player::GetMovementType - grayman #2345
+================
+*/
+int idPhysics_Player::GetMovementType( void ) {
+	return current.movementType;
 }
 
 /*

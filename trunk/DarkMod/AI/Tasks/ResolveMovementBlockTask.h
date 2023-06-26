@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3644 $
- * $Date: 2009-08-04 11:57:02 -0400 (Tue, 04 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -17,6 +17,7 @@ namespace ai
 
 // Define the name of this task
 #define TASK_RESOLVE_MOVEMENT_BLOCK "ResolveMovementBlock"
+#define RESOLVE_MOVE_DIST 16 // grayman #2345
 
 class ResolveMovementBlockTask;
 typedef boost::shared_ptr<ResolveMovementBlockTask> ResolveMovementBlockTaskPtr;
@@ -64,6 +65,7 @@ private:
 
 	bool PerformBlockingAI(idAI* owner);
 	bool PerformBlockingStatic(idAI* owner);
+	bool Room2Pass(idAI* owner); // grayman #2345
 };
 
 } // namespace ai

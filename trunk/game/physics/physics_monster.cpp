@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3763 $
- * $Date: 2009-11-22 09:15:46 -0500 (Sun, 22 Nov 2009) $
- * $Author: angua $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_monster.cpp 3763 2009-11-22 14:15:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: physics_monster.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -48,9 +48,20 @@ void idPhysics_Monster::CheckGround( monsterPState_t &state ) {
 
 	groundEntityPtr = gameLocal.entities[ groundTrace.c.entityNum ];
 
-	if ( ( groundTrace.c.normal * -gravityNormal ) < minFloorCosine ) {
-		state.onGround = false;
-		return;
+	if ( ( groundTrace.c.normal * -gravityNormal ) < minFloorCosine )
+	{
+		// grayman #2356 - assumed to be sliding down an incline > 45 degrees, but could also
+		// be sitting on an angled piece of a func_static, so check current origin.z against
+		// previous origin.z to see if you're really sliding. This prevents excessive buildup
+		// of gravity-induced vertical velocity, which leads to death once you get free and
+		// fall to the ground, where Crashland() thinks you fell from a great height.
+
+		idVec3 prevMove = static_cast<idAI*>(self)->movementSubsystem->GetLastMove();
+		if (prevMove.z < 0) // are you truly falling?
+		{
+			state.onGround = false;
+			return;
+		}
 	}
 
 	state.onGround = true;

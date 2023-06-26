@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4387 $
- * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4387 2010-12-26 10:44:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -746,11 +746,13 @@ void CBinaryFrobMover::GetRemainingMovement(idVec3& out_deltaPosition, idAngles&
 	// Get remaining translation if translating
 	if (m_bIntentOpen)
 	{
-		out_deltaPosition = (m_StartPos + m_Translation) - physicsObj.GetOrigin();
+		out_deltaPosition = (m_OpenOrigin + m_Translation) - physicsObj.GetOrigin(); // grayman #2345
+//		out_deltaPosition = (m_StartPos + m_Translation) - physicsObj.GetOrigin(); // grayman #2345
 	}
 	else
 	{
-		out_deltaPosition = m_StartPos - physicsObj.GetOrigin();
+		out_deltaPosition = m_ClosedOrigin - physicsObj.GetOrigin(); // grayman #2345
+//		out_deltaPosition = m_StartPos - physicsObj.GetOrigin(); // grayman #2345
 	}
 
 	// Get remaining rotation

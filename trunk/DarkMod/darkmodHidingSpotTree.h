@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1807 $
- * $Date: 2007-11-17 05:57:30 -0500 (Sat, 17 Nov 2007) $
- * $Author: greebo $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 /*!
@@ -78,6 +78,18 @@ protected:
 	unsigned long numAreas;
 
 	unsigned long numSpots;
+
+#if 0
+	// grayman debug - these are for stopping the circling movement when a guard is looking for you
+	//                 beyond a cell door. I haven't coded anything yet to use them.
+
+	int p_prevDist2Spot;	// grayman debug -	how far from where you were to where you want to be
+	int p_searchState;		// grayman debug -	enum these
+							//					0 = start search
+							//					1 = initially moving away from goal spot (origin - goal).length > prevDist2Spot
+							//					2 = moving back toward goal spot (origin - goal).length < prevDist2Spot
+							//					3 = once again moving away from goal spot (origin - goal).length > prevDist2Spot (again)
+#endif
 
 	// The first area
 	TDarkmodHidingSpotAreaNode* p_firstArea;

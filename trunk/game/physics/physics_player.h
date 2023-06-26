@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3938 $
- * $Date: 2010-06-10 10:39:54 -0400 (Thu, 10 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4472 $
+ * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -100,6 +100,8 @@ public:
 	float					GetMaxStepHeight( void ) const;
 	void					SetMaxJumpHeight( const float newMaxJumpHeight );
 	void					SetMovementType( const pmtype_t type );
+	int						GetMovementType( void ); // grayman #2345
+
 	/**
 	* Get/set the movement flags, used to force a crouch externally
 	**/
