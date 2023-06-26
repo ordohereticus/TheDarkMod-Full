@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4542 $
- * $Date: 2011-02-03 15:56:03 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4546 $
+ * $Date: 2011-02-04 01:26:30 -0500 (Fri, 04 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4542 2011-02-03 20:56:03Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4546 2011-02-04 06:26:30Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -2756,7 +2756,7 @@ void Seed::PrepareEntities( void )
 			// precompute bounds for a fast collision check
 			SeedEntityBounds.Append( (idBounds (m_Classes[i].size ) + SeedEntity.origin) * SeedEntity.angles.ToMat3() );
 			// precompute box for slow collision check
-			SeedEntityBoxes.Append( idBox ( SeedEntity.origin, m_Classes[i].size, SeedEntity.angles.ToMat3() ) );
+			SeedEntityBoxes.Append( idBox ( SeedEntity.origin, m_Classes[i].size / 2, SeedEntity.angles.ToMat3() ) );
 			m_Entities.Append( SeedEntity );
 
 			if (m_Entities.Num() >= m_iNumEntities)
