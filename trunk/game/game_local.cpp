@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4613 $
- * $Date: 2011-02-19 15:14:29 -0500 (Sat, 19 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4627 $
+ * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4613 2011-02-19 20:14:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4627 2011-02-24 17:46:17Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6396,7 +6396,7 @@ int idGameLocal::DoResponseAction(const CStimPtr& stim, int numEntities, idEntit
 	for (int i = 0; i < numEntities; i++)
 	{
 		// ignore the original entity because an entity shouldn't respond 
-		// to it's own stims.
+		// to its own stims.
 		if (srEntities[i] == originator || srEntities[i]->GetResponseEntity() == originator)
 			continue;
 
@@ -6408,7 +6408,24 @@ int idGameLocal::DoResponseAction(const CStimPtr& stim, int numEntities, idEntit
 			float radiusSqr = stim->GetRadius();
 			radiusSqr *= radiusSqr; 
 
-			if ((srEntities[i]->GetPhysics()->GetOrigin() - stimOrigin).LengthSqr() > radiusSqr)
+			// grayman #2468 - handle AI with no separate head entities 
+
+			idEntity *ent = srEntities[i];
+			idVec3 entitySpot = ent->GetPhysics()->GetOrigin();
+			if (!(ent->IsType(idAFAttachment::Type))) // is this an attached head?
+			{
+				// no separate head entity, so find the mouth
+
+				if (ent->IsType(idAI::Type))
+				{
+					idAI* entAI = static_cast<idAI*>(ent);
+
+					entitySpot = entAI->GetEyePosition();
+					entitySpot.z += entAI->m_MouthOffset.z;
+				}
+			}
+
+			if ((entitySpot - stimOrigin).LengthSqr() > radiusSqr)
 			{
 				// Too far away
 				continue;

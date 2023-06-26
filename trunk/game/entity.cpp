@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4607 $
- * $Date: 2011-02-19 07:20:05 -0500 (Sat, 19 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4627 $
+ * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4607 2011-02-19 12:20:05Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4627 2011-02-24 17:46:17Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -698,6 +698,8 @@ idEntity::idEntity()
 	cameraTarget	= NULL;
 	health			= 0;
 	maxHealth		= 0;
+
+	m_droppedByAI	= false; // grayman #1330
 
 	m_preHideContents		= -1; // greebo: initialise this to invalid values
 	m_preHideClipMask		= -1;
@@ -1649,6 +1651,8 @@ void idEntity::Save( idSaveGame *savefile ) const
 	savefile->WriteFloat(m_LightQuotient);
 	savefile->WriteInt(m_LightQuotientLastEvalTime);
 
+	savefile->WriteBool(m_droppedByAI); // grayman #1330
+
 	SaveLOD(savefile);
 
 	// grayman #2341 - don't save previous voice and body shaders and indices,
@@ -1957,6 +1961,8 @@ void idEntity::Restore( idRestoreGame *savefile )
 
 	savefile->ReadFloat(m_LightQuotient);
 	savefile->ReadInt(m_LightQuotientLastEvalTime);
+
+	savefile->ReadBool(m_droppedByAI); // grayman #1330
 
 	RestoreLOD( savefile );
 

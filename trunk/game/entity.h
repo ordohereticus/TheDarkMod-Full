@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4595 $
- * $Date: 2011-02-13 11:03:33 -0500 (Sun, 13 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4627 $
+ * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -397,6 +397,8 @@ public:
 	float					m_LightQuotient;
 	// The last time the above value has been calculated
 	int						m_LightQuotientLastEvalTime;
+
+	bool					m_droppedByAI; // grayman #1330
 
 	/**
 	* Tels: Contains (sharable, constant) LOD data if non-NULL.

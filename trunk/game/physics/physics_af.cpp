@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4143 $
- * $Date: 2010-08-22 06:02:39 -0400 (Sun, 22 Aug 2010) $
- * $Author: tels $
+ * $Revision: 4627 $
+ * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 4143 2010-08-22 10:02:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 4627 2011-02-24 17:46:17Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/Grabber.h"
@@ -6301,6 +6301,7 @@ void idPhysics_AF::Rest( void ) {
 
 	self->BecomeInactive( TH_PHYSICS );
 	self->m_SetInMotionByActor = NULL;
+	self->m_droppedByAI = false; // grayman #1330
 }
 
 /*

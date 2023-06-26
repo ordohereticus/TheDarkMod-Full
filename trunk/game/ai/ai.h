@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4540 $
- * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4627 $
+ * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -65,6 +65,13 @@ typedef enum {
 	TALK_BUSY,
 	NUM_TALK_STATES
 } talkState_t;
+
+typedef enum { // grayman #2604 - how the AI was knocked out
+	KO_NOT, // default - not KO'ed
+	KO_BLACKJACK,
+	KO_GAS,
+	NUM_KO_STATES
+} koState_t;
 
 #define	DI_NODIR	-1
 
@@ -1032,6 +1039,16 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					m_bCanBeKnockedOut;
 
 	/**
+	* Set to true if the AI can be gassed (defaults to true)
+	**/
+	bool					m_bCanBeGassed; // grayman #2468
+
+	/**
+	* How the AI was knocked out
+	**/
+	koState_t				m_koState;		// grayman #2604
+
+	/**
 	 * greebo: Is set to TRUE if the AI is able to open/close doors at all.
 	 */
 	bool					m_bCanOperateDoors;
@@ -1314,7 +1331,21 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	
 	/**
 	* Tells the AI to go unconscious.  Called by TestKnockoutBlow if successful,
-	* also can be called by itself and is called by scriptevent Event_Knockout.
+	* also can be called by itself and is called by scriptevent AI_KO_Knockout.
+	*
+	* @inflictor: This is the entity causing the knockout, can be NULL for "unknown originator".
+	**/
+	void					Event_KO_Knockout( idEntity* inflictor );
+
+	/**
+	* grayman #2468 - Tells the AI to go unconscious.  Called by scriptevent AI_Gas_Knockout.
+	*
+	* @inflictor: This is the entity causing the knockout, can be NULL for "unknown originator".
+	**/
+	void					Event_Gas_Knockout( idEntity* inflictor );
+
+	/**
+	* Tells the AI to go unconscious.
 	*
 	* @inflictor: This is the entity causing the knockout, can be NULL for "unknown originator".
 	**/
