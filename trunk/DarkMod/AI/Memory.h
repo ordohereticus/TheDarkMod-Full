@@ -2,9 +2,9 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
- * $Author: grayman $
+ * $Revision: 4856 $
+ * $Date: 2011-05-22 00:03:25 -0400 (Sun, 22 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -118,7 +118,8 @@ enum EAlertType
 };
 
 // The alert index the AI is in
-enum EAlertState {
+enum EAlertState
+{
 	ERelaxed = 0,
 	EObservant,
 	ESuspicious,
@@ -162,9 +163,6 @@ class Memory
 public:
 	// The owning AI
 	idAI* owner;
-
-	// The alert state we're currently in
-	EAlertState	alertState;
 
 	// The path entity we're supposed to be heading to
 	idEntityPtr<idPathCorner> currentPath;
