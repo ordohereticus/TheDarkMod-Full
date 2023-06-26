@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4778 $
- * $Date: 2011-04-13 02:44:41 -0400 (Wed, 13 Apr 2011) $
+ * $Revision: 4779 $
+ * $Date: 2011-04-13 03:07:21 -0400 (Wed, 13 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4778 2011-04-13 06:44:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4779 2011-04-13 07:07:21Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11070,7 +11070,7 @@ void idPlayer::Event_MissionSuccess()
 	gameLocal.persistentPlayerInventory->Clear();
 
 	// Enfore item limits on mission end - drop everything exceeding the limits
-	EnforePersistentItemLimits();
+	EnforcePersistentInventoryItemLimits();
 
 	// Save current inventory into the persistent one
 	Inventory()->CopyTo(*gameLocal.persistentPlayerInventory);
