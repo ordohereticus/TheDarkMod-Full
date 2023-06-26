@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4825 $
+ * $Date: 2011-04-30 03:09:37 -0400 (Sat, 30 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4825 2011-04-30 07:09:37Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -99,6 +99,22 @@ void CInventory::CopyPersistentItemsFrom(const CInventory& sourceInventory, idEn
 					item->GetName().c_str());
 
 				continue; // not marked as persistent
+			}
+
+			// Check if the shop handled that item already
+			const idDict* itemDict = item->GetSavedItemEntityDict();
+
+			if (itemDict != NULL)
+			{
+				CShopItemPtr shopItem = gameLocal.m_Shop->FindShopItemDefByClassName(itemDict->GetString("classname"));
+
+				if (shopItem != NULL && CShop::GetQuantityForItem(item) > 0)
+				{
+					DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING(
+						"Item %s would be handled by the shop, won't add that to player inventory.\r",
+						item->GetName().c_str());
+					continue;
+				}
 			}
 
 			// Is set to true if we should add this item. For weapon items with ammo this will be set to false to prevent double-additions
