@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4448 $
- * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 4659 $
+ * $Date: 2011-03-06 20:04:25 -0500 (Sun, 06 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: tracemodel.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: tracemodel.cpp 4659 2011-03-07 01:04:25Z grayman $", init_version);
 
 #include "tracemodel.h"
 
@@ -1523,8 +1523,9 @@ void idTraceModel::GetMassProperties( const float density, float &mass, idVec3 &
 
 	VolumeIntegrals( integrals );
 
-	// if no volume
-	if ( integrals.T0 == 0.0f ) {
+	// if very small or no volume
+	if ( integrals.T0 < 0.1f ) // grayman #2283 - this was a comparison to 0.0f, which allows very small numbers to wreak havoc
+	{
 	  mass = 1.0f;
 	  centerOfMass.Zero();
 	  inertiaTensor.Identity();

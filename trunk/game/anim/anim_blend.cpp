@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4606 $
- * $Date: 2011-02-18 07:58:16 -0500 (Fri, 18 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4659 $
+ * $Date: 2011-03-06 20:04:25 -0500 (Sun, 06 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4606 2011-02-18 12:58:16Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4659 2011-03-07 01:04:25Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1405,7 +1405,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 							gameLocal.Error("Cannot spawn %s - no such entityDef", EntClass.c_str() );
 						}
 						gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
-						gameLocal.Printf("Attaching '%s' (%s) as '%s' to '%s'\n", EntClass.c_str(), spawnedEntity->GetName(), AttName.c_str(), AttPos.c_str() );
+						// gameLocal.Printf("Attaching '%s' (%s) as '%s' to '%s'\n", EntClass.c_str(), spawnedEntity->GetName(), AttName.c_str(), AttPos.c_str() );
 
 						ent->Attach(spawnedEntity, AttPos, AttName);
 					}
@@ -1447,7 +1447,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 
 						// gameLocal.Warning ( "Found entity %s", attTarget->name.c_str() );
 
-						gameLocal.Printf ( "Attaching '%s' as '%s' to '%s' (in pickup)\n", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
+						// gameLocal.Printf ( "Attaching '%s' as '%s' to '%s' (in pickup)\n", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
 						// first get the origin and rotation of the entity
 						idVec3 origin = attTarget->GetPhysics()->GetOrigin();
 						idAngles ang = attTarget->GetPhysics()->GetAxis().ToAngles();

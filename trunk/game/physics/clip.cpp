@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4436 $
- * $Date: 2011-01-14 05:19:55 -0500 (Fri, 14 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4659 $
+ * $Date: 2011-03-06 20:04:25 -0500 (Sun, 06 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: clip.cpp 4436 2011-01-14 10:19:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: clip.cpp 4659 2011-03-07 01:04:25Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -97,6 +97,10 @@ int idClipModel::AllocTraceModel( const idTraceModel &trm ) {
 
 	entry = new trmCache_t;
 	entry->trm = trm;
+
+	// If density is 1 the volume has the same size as the mass (m = d*v). The calling code wants to know the volume,
+	// and with density equal to 1 it's allowed to use the mass value returned by idTraceModel::GetMassProperties().
+	// That's what's happening here.
 	entry->trm.GetMassProperties( 1.0f, entry->volume, entry->centerOfMass, entry->inertiaTensor );
 	entry->refCount = 1;
 
