@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4497 $
+ * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4497 2011-01-30 00:40:01Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -1426,14 +1426,12 @@ void State::OnMovementBlocked(idAI* owner)
 		}
 
 		// Tell the slave to get out of the way, but only if neither AI is currently resolving a block
-		// grayman #2345 - or waiting for the other to pass or if they're handling a door.
+		// grayman #2345 - or waiting for the other to pass.
 
 		if (!slave->movementSubsystem->IsResolvingBlock() &&
 			!master->movementSubsystem->IsResolvingBlock() &&
 			!slave->movementSubsystem->IsWaiting() &&
-			!master->movementSubsystem->IsWaiting() &&
-			!master->m_HandlingDoor &&
-			!slave->m_HandlingDoor)
+			!master->movementSubsystem->IsWaiting())
 		{
 			slave->movementSubsystem->ResolveBlock(master);
 		}
@@ -1443,7 +1441,7 @@ void State::OnMovementBlocked(idAI* owner)
 		// Blocked by func_static, these are generally not considered by Obstacle Avoidance code.
 		// grayman #2345 - if the AI is bumping into a func_static, that's included.
 
-		if (!owner->movementSubsystem->IsResolvingBlock() && !owner->movementSubsystem->IsWaiting()) // grayman #2345
+		if (!owner->movementSubsystem->IsResolvingBlock()) // grayman #2345
 		{
 			owner->movementSubsystem->ResolveBlock(ent);
 		}

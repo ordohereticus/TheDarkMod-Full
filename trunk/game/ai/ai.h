@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4497 $
+ * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1061,6 +1061,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	bool m_canExtricate;		// grayman #2345 - whether we can use AttemptToExtricate() to stop being stuck
 	idEntity* m_tactileEntity;	// grayman #2345 - something we bumped into this frame, not necessarily an enemy
+	bool m_canResolveBlock;		// grayman #2345 - whether we can resolve a block if asked
 
 	// The mind of this AI
 	ai::MindPtr mind;

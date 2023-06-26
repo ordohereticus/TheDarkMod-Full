@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4497 $
+ * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -66,6 +66,8 @@ private:
 	bool PerformBlockingAI(idAI* owner);
 	bool PerformBlockingStatic(idAI* owner);
 	bool Room2Pass(idAI* owner); // grayman #2345
+	bool ResolveMovementBlockTask::IsSolid(); // grayman #2345
+
 };
 
 } // namespace ai

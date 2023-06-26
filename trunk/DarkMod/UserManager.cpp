@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4497 $
+ * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -91,6 +91,13 @@ void UserManager::InsertUserAtIndex(idActor* actor,const int index) // grayman #
 		actorPtr = actor;
 		m_users.Insert(actorPtr,index);
 	}
+}
+
+int UserManager::GetIndex(idActor* actor) // grayman #2345
+{
+	idEntityPtr<idActor> actorPtr;
+	actorPtr = actor;
+	return (m_users.FindIndex(actorPtr));
 }
 
 void UserManager::Save(idSaveGame* savefile) const

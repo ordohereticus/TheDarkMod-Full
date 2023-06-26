@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4497 $
+ * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4497 2011-01-30 00:40:01Z grayman $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -594,9 +594,11 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 		case EResolvingBlock:
 			// nothing so far
 			break;
-		case EWaiting:	// grayman #2345 - Waiting for passing AI
+		case EWaitingSolid:		// grayman #2345 - Waiting for passing AI and remaining solid
 			break;
-		case EPaused:	// grayman #2345 - stop treadmilling for a few seconds
+		case EWaitingNonSolid:	// grayman #2345 - Waiting for passing AI while non-solid
+			break;
+		case EPaused:			// grayman #2345 - stop treadmilling for a few seconds
 			break;
 		};
 	}
@@ -638,14 +640,31 @@ void MovementSubsystem::SetBlockedState(const BlockedState newState)
 	}
 }
 
-void MovementSubsystem::SetWaiting(void) // grayman #2345
+void MovementSubsystem::SetWaiting(bool solid) // grayman #2345
 {
-	_state = EWaiting;
+	if (solid)
+	{
+		_state = EWaitingSolid;
+	}
+	else
+	{
+		_state = EWaitingNonSolid;
+	}
 }
 
 bool MovementSubsystem::IsWaiting(void) // grayman #2345
 {
-	return (_state == EWaiting);
+	return ((_state == EWaitingSolid) || (_state == EWaitingNonSolid));
+}
+
+bool MovementSubsystem::IsWaitingSolid(void) // grayman #2345
+{
+	return (_state == EWaitingSolid);
+}
+
+bool MovementSubsystem::IsWaitingNonSolid(void) // grayman #2345
+{
+	return (_state == EWaitingNonSolid);
 }
 
 bool MovementSubsystem::IsPaused(void) // grayman #2345
@@ -663,7 +682,7 @@ void MovementSubsystem::ResolveBlock(idEntity* blockingEnt)
 	idAI* owner = _owner.GetEntity();
 	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Asking %s to resolve a block by %s\r", owner->name.c_str(),blockingEnt->name.c_str());
 	
-	if (owner->GetMemory().resolvingMovementBlock)
+	if (owner->GetMemory().resolvingMovementBlock || !owner->m_canResolveBlock) // grayman #2345
 	{
 		return; // Already resolving
 	}
@@ -795,8 +814,12 @@ void MovementSubsystem::DebugDraw(idAI* owner)
 			str = "EResolvingBlock";
 			colour = colorMagenta;
 			break;
-		case EWaiting: // grayman #2345
-			str = "EWaiting";
+		case EWaitingSolid: // grayman #2345
+			str = "EWaitingSolid";
+			colour = colorBlue;
+			break;
+		case EWaitingNonSolid: // grayman #2345
+			str = "EWaitingNonSolid";
 			colour = colorBlue;
 			break;
 		case EPaused: // grayman #2345

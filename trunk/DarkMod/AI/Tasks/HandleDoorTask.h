@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4497 $
+ * $Date: 2011-01-29 19:40:01 -0500 (Sat, 29 Jan 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -33,7 +33,8 @@ class HandleDoorTask :
 private:
 	idVec3 _frontPos;
 	idVec3 _backPos;
-	idVec3 _midPos; // grayman #2345
+	idVec3 _midPos;		// grayman #2345
+	idVec3 _safePos;	// grayman #2345
 
 	idEntityPtr<idEntity> _frontPosEnt;
 	idEntityPtr<idEntity> _backPosEnt;
@@ -41,6 +42,7 @@ private:
 	enum EDoorHandlingState {
 		EStateNone,
 		EStateApproachingDoor,
+		EStateMovingToSafePos, // grayman #2345
 		EStateMovingToFrontPos,
 		EStateWaitBeforeOpen,
 		EStateStartOpen,
@@ -56,6 +58,7 @@ private:
 	bool _wasLocked;
 	bool _doorInTheWay;
 	int _retryCount;
+	int _leaveQueue; // grayman #2345
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;
@@ -108,6 +111,7 @@ private:
 	idEntity* GetRemoteControlEntityForDoor();
 
 	void ResetMaster(CFrobDoor* frobDoor); // grayman #2345
+	void AddUser(idAI* owner, CFrobDoor* frobDoor); // grayman #2345
 };
 
 } // namespace ai
