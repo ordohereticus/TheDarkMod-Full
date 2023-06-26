@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4663 $
- * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
+ * $Revision: 4674 $
+ * $Date: 2011-03-09 15:03:53 -0500 (Wed, 09 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -118,7 +118,7 @@ private:
 	float						m_fHideDistance;
 	bool						m_bDistCheckXYOnly;
 
-	int							m_LODHandle;		//!< to retrieve the LOD Data from the ModelGenerator
+	lod_handle					m_LODHandle;		//!< to retrieve the LOD Data from the ModelGenerator
 };
 
 #endif /* !__DARKMOD_STATICMULTI_H__ */
