@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4691 $
- * $Date: 2011-03-12 00:19:50 -0500 (Sat, 12 Mar 2011) $
- * $Author: greebo $
+ * $Revision: 4696 $
+ * $Date: 2011-03-20 10:01:21 -0400 (Sun, 20 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4691 2011-03-12 05:19:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4696 2011-03-20 14:01:21Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -1182,8 +1182,11 @@ void idEntity::StopLOD( const bool doTeam )
 	//BecomeInactive( TH_THINK );
 
 	// deregister our LOD struct
-	gameLocal.m_ModelGenerator->UnregisterLODData( m_LODHandle );
-	m_LODHandle = 0;
+	if (m_LODHandle)
+	{
+		gameLocal.m_ModelGenerator->UnregisterLODData( m_LODHandle );
+		m_LODHandle = 0;
+	}
 
 	if (!doTeam)
 	{
@@ -2173,6 +2176,10 @@ float idEntity::ThinkAboutLOD( const lod_data_t *m_LOD, const float deltaSq )
 */
 bool idEntity::SwitchLOD( const lod_data_t *m_LOD, const float deltaSq )
 {
+	if (!m_LOD)
+	{
+		gameLocal.Error("SwitchLOD() with NULL called.\n");
+	}
 	// remember the current level
 	int oldLODLevel = m_LODLevel;
 	float fAlpha = ThinkAboutLOD( m_LOD, deltaSq );
