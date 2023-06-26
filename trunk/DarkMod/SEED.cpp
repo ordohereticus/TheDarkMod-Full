@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4541 $
- * $Date: 2011-02-03 15:42:40 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4542 $
+ * $Date: 2011-02-03 15:56:03 -0500 (Thu, 03 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4541 2011-02-03 20:42:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4542 2011-02-03 20:56:03Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1098,10 +1098,15 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch )
 	SeedClass.imgmap = 0;
 	if (!mapName.IsEmpty())
 	{
-		SeedClass.imgmap = gameLocal.m_ImageMapManager->GetImageMap( mapName );
-		if (SeedClass.imgmap < 0)
+		// need int here, as the return value can be -1
+		int img = gameLocal.m_ImageMapManager->GetImageMap( mapName );
+		if (img < 0)
 		{
-			gameLocal.Warning ("SEED %s: Could not load image map mapName: %s", GetName(), gameLocal.m_ImageMapManager->GetLastError() );
+			gameLocal.Warning ("SEED %s: Could not load image map %s: %s", GetName(), mapName.c_str(), gameLocal.m_ImageMapManager->GetLastError() );
+		}
+		else
+		{
+			SeedClass.imgmap = img;
 		}
 	}
 	SeedClass.map_invert = false;

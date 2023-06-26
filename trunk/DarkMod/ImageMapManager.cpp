@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4471 $
- * $Date: 2011-01-24 10:40:30 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4542 $
+ * $Date: 2011-02-03 15:56:03 -0500 (Thu, 03 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4471 2011-01-24 15:40:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4542 2011-02-03 20:56:03Z tels $", init_version);
 
 #include "ImageMapManager.h"
 
@@ -163,6 +163,7 @@ int CImageMapManager::GetImageMap( idStr name ) {
 				if((fl = fileSystem->OpenFileRead(mapName)) == NULL)
 				{
 					// not found at all
+					m_lastError = "File not found.";
 					return -1;
 				}
 			}
