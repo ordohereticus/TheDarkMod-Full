@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4456 $
- * $Date: 2011-01-23 09:40:33 -0500 (Sun, 23 Jan 2011) $
+ * $Revision: 4465 $
+ * $Date: 2011-01-24 07:43:24 -0500 (Mon, 24 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -138,8 +138,9 @@ struct seed_class_t {
 	int						func_f;			//!< 1 => Clamp, 0 => Zeroclamp
 	float					func_min;
 	float					func_max;
-	idStr					map;			//!< name of the image map (greyscale 8-bit TGA)
-	CImage*					img;			//!< if map != "": ptr to the distribution image map
+
+	unsigned int			imgmap;			//!< Handle of the image map (provided by ImageMapManager)
+
 	bool					map_invert;		//!< if map != "": should the image map be inverted?
 	float					map_scale_x;	//!< if map != "": scale the map in x direction
 	float					map_scale_y;	//!< if map != "": scale the map in y direction
@@ -152,7 +153,7 @@ struct seed_class_t {
 	float					z_fadeout;		// depends on z_invert
 	bool					z_invert;		// false => entities spawn between z_min => z_max, otherwise outside
 
-	lod_data_t*				m_LOD;			//!< Contains (sharable, constant) LOD data if non-NULL.
+	lod_data_t*				m_LOD;			//!< Contains (sharable, constant) LOD data if non-NULL
 };
 
 /** Defines one area that inhibits entity spawning */
