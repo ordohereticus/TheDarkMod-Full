@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3948 $
- * $Date: 2010-06-13 03:47:06 -0400 (Sun, 13 Jun 2010) $
- * $Author: tels $
+ * $Revision: 4483 $
+ * $Date: 2011-01-28 05:59:26 -0500 (Fri, 28 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -227,8 +227,10 @@ public:
 									const int location, trace_t *tr = NULL );
 	void					SetCombatModel( void );
 	idClipModel *			GetCombatModel( void ) const;
-							// contents of combatModel can be set to 0 or re-enabled (mp)
-	void					SetCombatContents( bool enable );
+
+	// set contents of combatModel to 0 (if false) or restore proper contents (if true)
+	// returns the contents state before call (false = were disabled, true = were enabled)
+	bool					SetCombatContents( bool enable );
 	virtual void			LinkCombat( void );
 	virtual void			UnlinkCombat( void );
 

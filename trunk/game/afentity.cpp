@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3948 $
- * $Date: 2010-06-13 03:47:06 -0400 (Sun, 13 Jun 2010) $
- * $Author: tels $
+ * $Revision: 4483 $
+ * $Date: 2011-01-28 05:59:26 -0500 (Fri, 28 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: afentity.cpp 3948 2010-06-13 07:47:06Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: afentity.cpp 4483 2011-01-28 10:59:26Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1211,8 +1211,9 @@ idClipModel *idAFEntity_Base::GetCombatModel( void ) const {
 idAFEntity_Base::SetCombatContents
 ================
 */
-void idAFEntity_Base::SetCombatContents( bool enable ) {
+bool idAFEntity_Base::SetCombatContents( bool enable ) {
 	assert( combatModel );
+	bool oldIsEnabled = (combatModel->GetContents() != 0);
 	if ( enable && combatModelContents ) {
 		assert( !combatModel->GetContents() );
 		combatModel->SetContents( combatModelContents );
@@ -1222,6 +1223,7 @@ void idAFEntity_Base::SetCombatContents( bool enable ) {
 		combatModelContents = combatModel->GetContents();
 		combatModel->SetContents( 0 );
 	}
+	return oldIsEnabled;
 }
 
 /*
