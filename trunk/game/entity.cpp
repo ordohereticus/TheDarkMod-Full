@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4588 $
- * $Date: 2011-02-12 10:43:23 -0500 (Sat, 12 Feb 2011) $
+ * $Revision: 4593 $
+ * $Date: 2011-02-13 05:15:32 -0500 (Sun, 13 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4588 2011-02-12 15:43:23Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4593 2011-02-13 10:15:32Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2281,30 +2281,26 @@ void idEntity::Think( void )
 		// If this entity has LOD, let it think about it:
 
 		// Distance dependence checks
-		if ( ( m_LOD->DistCheckInterval <= 0) 
-		  || ( (gameLocal.time - m_DistCheckTimeStamp) <= m_LOD->DistCheckInterval ) )
+		if ( ( m_LOD->DistCheckInterval > 0) 
+		  && ( (gameLocal.time - m_DistCheckTimeStamp) > m_LOD->DistCheckInterval ) )
 		{
-			return;
+			m_DistCheckTimeStamp = gameLocal.time;
+			idVec3 delta = gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin() - GetPhysics()->GetOrigin();
+
+//			gameLocal.Warning("%s: Think called with m_LOD %p, %i, interval %i, origin %s",
+//					GetName(), m_LOD, m_DistCheckTimeStamp, m_LOD->DistCheckInterval, GetPhysics()->GetOrigin().ToString() );
+
+			if( m_LOD->bDistCheckXYOnly )
+			{
+				idVec3 vGravNorm = GetPhysics()->GetGravityNormal();
+				delta -= (vGravNorm * delta) * vGravNorm;
+			}
+
+			// multiply with the user LOD bias setting, and return the result:
+			// floor the value to avoid inaccurancies leading to toggling when the player stands still:
+			float deltaSq = idMath::Floor( delta.LengthSqr() / (cv_lod_bias.GetFloat() * cv_lod_bias.GetFloat()) );
+			SwitchLOD( m_LOD, deltaSq );
 		}
-
-		m_DistCheckTimeStamp = gameLocal.time;
-
-		idVec3 delta = gameLocal.GetLocalPlayer()->GetPhysics()->GetOrigin() - GetPhysics()->GetOrigin();
-
-//		gameLocal.Warning("%s: Think called with m_LOD %p, %i, interval %i, origin %s",
-//				GetName(), m_LOD, m_DistCheckTimeStamp, m_LOD->DistCheckInterval, GetPhysics()->GetOrigin().ToString() );
-
-		if( m_LOD->bDistCheckXYOnly )
-		{
-			idVec3 vGravNorm = GetPhysics()->GetGravityNormal();
-			delta -= (vGravNorm * delta) * vGravNorm;
-		}
-
-		// multiply with the user LOD bias setting, and return the result:
-		// floor the value to avoid inaccurancies leading to toggling when the player stands still:
-		float deltaSq = idMath::Floor( delta.LengthSqr() / (cv_lod_bias.GetFloat() * cv_lod_bias.GetFloat()) );
-
-		SwitchLOD( m_LOD, deltaSq );
 	}
 	Present();
 }
