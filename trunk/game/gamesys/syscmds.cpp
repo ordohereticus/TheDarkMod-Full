@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4754 $
- * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4777 $
+ * $Date: 2011-04-12 11:24:18 -0400 (Tue, 12 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4777 2011-04-12 15:24:18Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -156,6 +156,21 @@ void Cmd_SetMissionCompleted_f(const idCmdArgs& args)
 	}
 
 	gameLocal.Printf("OK");
+}
+
+void Cmd_EndMission_f(const idCmdArgs& args)
+{
+	if (gameLocal.GameState() != GAMESTATE_ACTIVE)
+	{
+		gameLocal.Printf("No map running\n");
+		return;
+	}
+
+	if (gameLocal.GetLocalPlayer() != NULL)
+	{
+		gameLocal.Printf("=== Triggering mission end ===\n");
+		gameLocal.GetLocalPlayer()->PostEventMS(&EV_TriggerMissionEnd, 0);
+	}
 }
 
 /*
@@ -3786,6 +3801,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 	cmdSystem->AddCommand( "tdm_list_missions", Cmd_ListMissions_f, CMD_FL_GAME, "Lists all available missions.");
 	cmdSystem->AddCommand( "tdm_set_mission_completed", Cmd_SetMissionCompleted_f, CMD_FL_GAME, "Sets or clears the 'completed' flag of a named mission.");
+
+	cmdSystem->AddCommand( "tdm_end_mission", Cmd_EndMission_f, CMD_FL_GAME, "Ends this mission and proceeds to the next.");
 
 #ifndef	ID_DEMO_BUILD
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );
