@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4636 $
+ * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -100,7 +100,7 @@ public:
 	 * greebo: Extracts all contained files to the given destination path.
 	 * Files found in the ignore list are not extracted.
 	 *
-	 * @ignreoIfExisting contains the filenames which should not be extracted if their
+	 * @ignoreIfExisting contains the filenames which should not be extracted if their
 	 * destination file already exists.
 	 * @ignoreList contains all the files which should not be extracted whatsoever.
 	 *

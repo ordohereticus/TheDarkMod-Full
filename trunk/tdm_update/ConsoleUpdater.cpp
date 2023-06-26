@@ -1,13 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4636 $
+ * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "ConsoleUpdater.h"
+
+#include "Util.h"
 
 namespace tdm
 {
@@ -374,6 +376,10 @@ void ConsoleUpdater::OnProgressChange(const ProgressInfo& info)
 		// Download progress
 		if (!_info.file.empty() && !info.file.empty() && info.file != _info.file)
 		{
+			// New file, finish the current download
+			_info.progressFraction = 1.0f;
+			PrintProgress();
+
 			// Add a line break when a new file starts
 			TraceLog::WriteLine(LOG_PROGRESS, "");
 
