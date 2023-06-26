@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4763 $
- * $Date: 2011-04-09 05:43:59 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4764 $
+ * $Date: 2011-04-09 08:40:51 -0400 (Sat, 09 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4763 2011-04-09 09:43:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4764 2011-04-09 12:40:51Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -1052,8 +1052,22 @@ void CShop::AddGoldFromPreviousMission()
 {
 	int prevMission = gameLocal.m_MissionManager->GetCurrentMissionIndex() - 1;
 
-	if (prevMission >= 0 && gameLocal.m_CampaignStats->Num() > prevMission)
+	if (prevMission >= 0 && prevMission < gameLocal.m_CampaignStats->Num())
 	{
-		_gold += (*gameLocal.m_CampaignStats)[prevMission].FoundLoot[LOOT_GOLD];	
+		const SMissionStats& stats = (*gameLocal.m_CampaignStats)[prevMission];
+
+		// First, check the difficulty-specific rulesets
+		int difficultyLevel = gameLocal.m_DifficultyManager.GetDifficultyLevel();
+		
+		if (!_diffLootRules[difficultyLevel].IsEmpty())
+		{
+			// Non-empty difficulty-specific setting, apply this one
+			_gold += _diffLootRules[difficultyLevel].ApplyToFoundLoot(stats.FoundLoot);	
+		}
+		else
+		{
+			// No difficulty-specific ruleset, apply the general one
+			_gold += _generalLootRules.ApplyToFoundLoot(stats.FoundLoot);
+		}
 	}
 }
