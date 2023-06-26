@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4733 $
- * $Date: 2011-03-28 03:11:56 -0400 (Mon, 28 Mar 2011) $
+ * $Revision: 4734 $
+ * $Date: 2011-03-28 10:03:44 -0400 (Mon, 28 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4733 2011-03-28 07:11:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4734 2011-03-28 14:03:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3469,7 +3469,7 @@ int idGameLocal::LoadVideosFromString(const char* videosStr, const char* lengthS
 
 		if (part.lengthMsec <= 0)
 		{
-			gameLocal.Warning("The video length %s is invalid or not numeric, must be an integer > 0", lengthParts[i]);
+			gameLocal.Warning("The video length %s is invalid or not numeric, must be an integer > 0", lengthParts[i].c_str());
 			part.lengthMsec = 0;
 		}
 
