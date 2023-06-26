@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4866 $
- * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Revision: 4867 $
+ * $Date: 2011-05-24 13:17:32 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4867 2011-05-24 17:17:32Z grayman $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -190,6 +190,38 @@ bool SwitchOnLightState::GetSwitchGoal(idAI* owner, CBinaryFrobMover* mySwitch, 
 	return true;
 }
 
+// grayman #2603 - check for custom relight position
+
+bool SwitchOnLightState::CheckRelightPosition(idLight* light, idAI* owner, idVec3& pos)
+{
+	idEntity* check4Position = light;
+	bool posFound = false;
+	while (check4Position != NULL)
+	{
+		const idKeyValue* kv = check4Position->spawnArgs.MatchPrefix("relight_position");
+		if (kv != NULL)
+		{
+			idStr posStr = kv->GetValue();
+			idEntity* relightPosition = gameLocal.FindEntity(posStr);
+			if (relightPosition)
+			{
+				pos = relightPosition->GetPhysics()->GetOrigin();
+				int areaNum = owner->PointReachableAreaNum(owner->GetPhysics()->GetOrigin(), 1.0f);
+				int targetAreaNum = owner->PointReachableAreaNum(pos, 1.0f);
+				aasPath_t path;
+				if (owner->PathToGoal(path, areaNum, owner->GetPhysics()->GetOrigin(), targetAreaNum, pos, owner))
+				{
+					posFound = true;
+					break;
+				}
+			}
+		}
+		check4Position = check4Position->GetBindMaster(); // go up the hierarchy
+	}
+
+	return posFound;
+}
+
 void SwitchOnLightState::Init(idAI* owner)
 {
 	// grayman #2603 - a number of changes were made in this method
@@ -258,7 +290,16 @@ void SwitchOnLightState::Init(idAI* owner)
 		CBinaryFrobMover* switchMover = static_cast<CBinaryFrobMover*>(mySwitch);
 		pathToGoal = GetSwitchGoal(owner,switchMover,finalTargetPoint);
 	}
-	else // No switch, so approach the light
+	else if (CheckRelightPosition(light,owner,finalTargetPoint)) // No switch. Does the light have a relight_position?
+	{
+		// Relight position found and there's a path to get to it.
+
+		_goalEnt = light;
+		goalDirection = finalTargetPoint - _goalEnt->GetPhysics()->GetOrigin();
+		goalDirection.z = 0;
+		_standOff = goalDirection.LengthFast();
+	}
+	else
 	{
 		_goalEnt = light;
 		goalOrigin = _goalEnt->GetPhysics()->GetOrigin();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4855 $
- * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
+ * $Revision: 4867 $
+ * $Date: 2011-05-24 13:17:32 -0400 (Tue, 24 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -41,6 +41,8 @@ private:
 		EStatePause,
 		EStateFinal
 	} _relightState;
+
+	bool CheckRelightPosition(idLight* light, idAI* owner, idVec3& pos); // grayman #2603
 
 public:
 	// Constructor using light source as input parameter
