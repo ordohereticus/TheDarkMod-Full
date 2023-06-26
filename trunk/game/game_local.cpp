@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4640 $
- * $Date: 2011-02-27 04:26:18 -0500 (Sun, 27 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4662 $
+ * $Date: 2011-03-07 15:51:20 -0500 (Mon, 07 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4640 2011-02-27 09:26:18Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4662 2011-03-07 20:51:20Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3088,6 +3088,10 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 			for( ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next() ) {
 				if ( g_cinematic.GetBool() && inCinematic && !ent->cinematic ) {
 					ent->GetPhysics()->UpdateTime( time );
+					if (ent->IsType(idAI::Type)) // grayman #2654 - update m_lastThinkTime to keep non-cinematic AI from dying at CrashLand()
+					{
+						static_cast<idAI*>(ent)->m_lastThinkTime = time;
+					}
 					continue;
 				}
 				timer_singlethink.Clear();
@@ -3107,6 +3111,10 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 				for( ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next() ) {
 					if ( g_cinematic.GetBool() && !ent->cinematic ) {
 						ent->GetPhysics()->UpdateTime( time );
+						if (ent->IsType(idAI::Type)) // grayman #2654 - update m_lastThinkTime to keep non-cinematic AI from dying at CrashLand()
+						{
+							static_cast<idAI*>(ent)->m_lastThinkTime = time;
+						}
 						continue;
 					}
 					ent->Think();

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4627 $
- * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
+ * $Revision: 4662 $
+ * $Date: 2011-03-07 15:51:20 -0500 (Mon, 07 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1047,6 +1047,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* How the AI was knocked out
 	**/
 	koState_t				m_koState;		// grayman #2604
+
+	/**
+	* Keep track of initial thinking frame count - important when a cinematic starts the mission
+	**/
+	int						m_earlyThinkCounter;	// grayman #2654
 
 	/**
 	 * greebo: Is set to TRUE if the AI is able to open/close doors at all.

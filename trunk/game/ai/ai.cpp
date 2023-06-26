@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4648 $
- * $Date: 2011-03-04 11:46:51 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4662 $
+ * $Date: 2011-03-07 15:51:20 -0500 (Mon, 07 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4648 2011-03-04 16:46:51Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4662 2011-03-07 20:51:20Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -551,6 +551,7 @@ idAI::idAI()
 
 	m_bCanBeGassed = true;		// grayman #2468
 	m_koState = KO_NOT;			// grayman #2604
+	m_earlyThinkCounter = 5 + gameLocal.random.RandomInt(5);	// grayman #2654
 
 	m_bCanOperateDoors = false;
 
@@ -857,8 +858,9 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat(m_KoAlertDotHoriz);
 	savefile->WriteMat3(m_KoRot);
 
-	savefile->WriteBool(m_bCanBeGassed);	// grayman #2468
-	savefile->WriteInt( m_koState );		// grayman #2604
+	savefile->WriteBool(m_bCanBeGassed);		// grayman #2468
+	savefile->WriteInt( m_koState );			// grayman #2604
+	savefile->WriteInt( m_earlyThinkCounter );	// grayman #2654
 
 	savefile->WriteFloat(thresh_1);
 	savefile->WriteFloat(thresh_2);
@@ -1256,6 +1258,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool(m_bCanBeGassed); // grayman #2468
 	savefile->ReadInt( i ); // grayman #2604
 	m_koState = static_cast<koState_t>( i );
+	savefile->ReadInt(m_earlyThinkCounter); // grayman #2654
 
 	savefile->ReadFloat(thresh_1);
 	savefile->ReadFloat(thresh_2);
@@ -2392,7 +2395,7 @@ void idAI::SetNextThinkFrame()
 	if (thinkFrame > 1)
 	{
 		// Let them think for the first few frames to initialize state and tasks
-		if (frameNum >= (5 + gameLocal.random.RandomInt(5)))
+		if (m_earlyThinkCounter <= 0) // grayman #2654 - keep a separate counter
 		{
 			// grayman #2414 - think more often if
 			//
@@ -2443,6 +2446,10 @@ void idAI::SetNextThinkFrame()
 			{
 				thinkDelta = (thinkFrame < TEMP_THINK_INTERLEAVE ? thinkFrame : TEMP_THINK_INTERLEAVE);
 			}
+		}
+		else
+		{
+			m_earlyThinkCounter--; // grayman #2654
 		}
 	}
 
