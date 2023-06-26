@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4783 $
- * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4784 $
+ * $Date: 2011-04-15 01:22:03 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4783 2011-04-14 18:12:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4784 2011-04-15 05:22:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -2455,7 +2455,7 @@ void idPlayer::UpdateHudAmmo()
 	// If no weapon item there, or the first one is selected, switch off the HUD
 	bool weaponSelected = (curWeapon != NULL && curWeapon->GetWeaponIndex() > 0);
 
-	hud->SetStateBool("WeaponAmmoVisible", weaponSelected && !curWeapon->IsAllowedEmpty());
+	hud->SetStateBool("WeaponAmmoVisible", weaponSelected && curWeapon->NeedsAmmo());
 	
 	if (!weaponSelected) return; // done here
 
@@ -3401,7 +3401,7 @@ bool idPlayer::SelectWeapon( int num, bool force )
 		
 		if (item != NULL && item->GetWeaponIndex() == num)
 		{
-			if (item->GetAmmo() <= 0 && !item->IsAllowedEmpty())
+			if (item->GetAmmo() <= 0 && item->NeedsAmmo())
 			{
 				DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Weapon requires ammo. Cannot select: %d\r", num);
 				break;
@@ -11030,7 +11030,7 @@ void idPlayer::EnforcePersistentInventoryItemLimits()
 				continue; // no limit specified for this weapon
 			}
 
-			bool needsAmmo = !weaponItem->IsAllowedEmpty();
+			bool needsAmmo = weaponItem->NeedsAmmo();
 
 			if (needsAmmo)
 			{

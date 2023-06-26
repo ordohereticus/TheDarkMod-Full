@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3126 $
- * $Date: 2009-01-08 00:22:17 -0500 (Thu, 08 Jan 2009) $
+ * $Revision: 4784 $
+ * $Date: 2011-04-15 01:22:03 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -67,6 +67,9 @@ public:
 
 	// Returns TRUE if this weapon doesn't need ammo and therefore can be selected 
 	bool IsAllowedEmpty() const;
+
+	// Convenience method
+	bool NeedsAmmo() const { return !IsAllowedEmpty(); };
 
 	// Returns TRUE if this weapon is toggleable
 	bool IsToggleable() const;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3126 $
- * $Date: 2009-01-08 00:22:17 -0500 (Thu, 08 Jan 2009) $
+ * $Revision: 4784 $
+ * $Date: 2011-04-15 01:22:03 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 3126 2009-01-08 05:22:17Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 4784 2011-04-15 05:22:03Z greebo $", init_version);
 
 #include "WeaponItem.h"
 
@@ -139,7 +139,7 @@ int CInventoryWeaponItem::GetAmmo() const
 
 void CInventoryWeaponItem::SetAmmo(int newAmount)
 {
-	if (IsAllowedEmpty()) {
+	if (!NeedsAmmo()) {
 		// Don't set ammo of weapons that don't need any
 		return;
 	}
@@ -153,7 +153,7 @@ void CInventoryWeaponItem::SetAmmo(int newAmount)
 
 int CInventoryWeaponItem::HasAmmo()
 {
-	if (IsAllowedEmpty()) {
+	if (!NeedsAmmo()) {
 		// Always return 1 for non-ammo weapons
 		return 1;
 	}
