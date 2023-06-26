@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4468 $
- * $Date: 2011-01-24 09:59:24 -0500 (Mon, 24 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4482 $
+ * $Date: 2011-01-27 14:24:34 -0500 (Thu, 27 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4468 2011-01-24 14:59:24Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4482 2011-01-27 19:24:34Z stgatilov $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -11611,6 +11611,9 @@ void idEntity::ParseAttachPositions( void )
 			pPos->originOffset += trans;
 			// TODO: Prove mathematically that adding the angles is the same as converting
 			// the angles to rotation matrices and multiplying them??
+			// stgatilov: It is wrong. As soon as anyone starts using this spawnarg the proper meaning
+			// of this line should be worked out.
+			gameLocal.Error( "Using spawn attach_posmod_* with uncertain meaning: report to coders.");
 			pPos->angleOffset += ang;
 		}
 	}
