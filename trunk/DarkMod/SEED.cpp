@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4518 $
- * $Date: 2011-02-01 04:12:47 -0500 (Tue, 01 Feb 2011) $
+ * $Revision: 4520 $
+ * $Date: 2011-02-01 07:50:25 -0500 (Tue, 01 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4518 2011-02-01 09:12:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4520 2011-02-01 12:50:25Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1431,7 +1431,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch )
 	SeedClass.avgSize = size / ( fBaseDensity * fImgDensity * fDensity );
 
 	// if the mapper wants a hard limit on this class
-	SeedClass.maxEntities = spawnArgs.GetInt( "seed_max_entities", "0" );
+	SeedClass.maxEntities = ent->spawnArgs.GetInt( "seed_max_entities", spawnArgs.GetString("max_entities", "0") );
 	SeedClass.numEntities = 0;
 
 	// all data setup, append to the list
