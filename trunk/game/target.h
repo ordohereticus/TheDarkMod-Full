@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4216 $
- * $Date: 2010-10-03 01:14:22 -0400 (Sun, 03 Oct 2010) $
- * $Author: tels $
+ * $Revision: 4780 $
+ * $Date: 2011-04-13 13:11:04 -0400 (Wed, 13 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -622,6 +622,19 @@ public:
 
 private:
 	void				Event_Activate( idEntity *activator );
+};
+
+/**
+ * greebo: This target eats incoming triggers and releases them when the next map loads.
+ */
+class CTarget_InterMissionTrigger : 
+	public idTarget
+{
+public:
+	CLASS_PROTOTYPE( CTarget_InterMissionTrigger );
+
+private:
+	void				Event_Activate(idEntity* activator);
 };
 
 #endif /* !__GAME_TARGET_H__ */

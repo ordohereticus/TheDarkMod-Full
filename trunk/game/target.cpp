@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4244 $
- * $Date: 2010-10-13 21:48:45 -0400 (Wed, 13 Oct 2010) $
- * $Author: tels $
+ * $Revision: 4780 $
+ * $Date: 2011-04-13 13:11:04 -0400 (Wed, 13 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,10 +19,11 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 4244 2010-10-14 01:48:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 4780 2011-04-13 17:11:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/MissionData.h"
+#include "../DarkMod/Missions/MissionManager.h"
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 
@@ -2213,5 +2214,37 @@ void CTarget_ChangeTarget::Event_Activate(idEntity *activator)
 			DM_LOG(LC_MISC,LT_DEBUG)LOGSTRING("Target_ChangeTarget: Adding target %s to %s\r", addEnt->name.c_str(), ent->name.c_str());
 			ent->AddTarget(addEnt);
 		}
+	}
+}
+
+CLASS_DECLARATION( idTarget, CTarget_InterMissionTrigger )
+	EVENT( EV_Activate,	CTarget_InterMissionTrigger::Event_Activate )
+END_CLASS
+
+void CTarget_InterMissionTrigger::Event_Activate(idEntity* activator)
+{
+	// greebo: Get the target mission number, defaults to the next mission number (which is current+2 to get the 1-based index, see comment below)
+	// We don't care if this is the last mission.
+	int missionNum = spawnArgs.GetInt("mission", va("%d", gameLocal.m_MissionManager->GetCurrentMissionIndex() + 2));
+
+	// The mission number is 0-based but the mapper can use 1-based indices for convenience => subtract 1 after reading the spawnarg.
+	missionNum--;
+
+	if (missionNum < 0)
+	{
+		return;
+	}
+	
+	// Get the name of the activating entity, can be overridden by the spawnarg, otherwise defaults to the activator passed in
+	idStr activatorName = spawnArgs.GetString("activator", activator != NULL ? activator->name.c_str() : "");
+
+	// Now register an inter-mission trigger for each target spawnarg we find on this entity
+	for (const idKeyValue* kv = spawnArgs.MatchPrefix("target"); kv != NULL; kv = spawnArgs.MatchPrefix("target", kv))
+	{
+		const idStr& targetName = kv->GetValue();
+
+		DM_LOG(LC_MISC,LT_DEBUG)LOGSTRING("Registering Inter-Mission trigger for mission %d, from %s to %s\r", missionNum, activatorName.c_str(), targetName.c_str());
+
+		gameLocal.AddInterMissionTrigger(missionNum, activatorName, targetName);
 	}
 }
