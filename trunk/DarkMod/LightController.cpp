@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4071 $
- * $Date: 2010-07-18 15:57:08 +0200 (Sun, 18 Jul 2010) $
+ * $Revision: 4661 $
+ * $Date: 2011-03-07 03:14:15 -0500 (Mon, 07 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: LightController.cpp 4177 2010-09-17 16:10:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: LightController.cpp 4661 2011-03-07 08:14:15Z tels $", init_version);
 
 #include "LightController.h"
 
