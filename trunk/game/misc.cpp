@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4676 $
- * $Date: 2011-03-09 15:14:38 -0500 (Wed, 09 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,12 +19,12 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4676 2011-03-09 20:14:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
 #include "../DarkMod/EscapePointManager.h"
-#include "../DarkMod/MissionData.h"
+#include "../DarkMod/Objectives/MissionData.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 
 /*

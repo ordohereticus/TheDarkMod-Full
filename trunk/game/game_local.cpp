@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4793 $
- * $Date: 2011-04-16 03:47:10 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4793 2011-04-16 07:47:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -30,7 +30,7 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 4793 2011-04-16 
 #include "../DarkMod/sndProp.h"
 #include "ai/aas_local.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/MissionData.h"
+#include "../DarkMod/Objectives/MissionData.h"
 #include "../DarkMod/MultiStateMover.h"
 #include "../DarkMod/func_shooter.h"
 #include "../DarkMod/Shop/Shop.h"

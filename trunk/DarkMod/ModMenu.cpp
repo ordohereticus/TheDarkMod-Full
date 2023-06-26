@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4759 $
- * $Date: 2011-04-09 05:19:52 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,14 +12,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4759 2011-04-09 09:19:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
 
 #include "ModMenu.h"
 #include "../DarkMod/Shop/Shop.h"
-#include "../DarkMod/MissionData.h"
+#include "../DarkMod/Objectives/MissionData.h"
 #include "../DarkMod/declxdata.h"
 #include "../DarkMod/ZipLoader/ZipLoader.h"
 #include "../DarkMod/Missions/MissionManager.h"

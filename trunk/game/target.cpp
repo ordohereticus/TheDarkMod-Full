@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4788 $
- * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,10 +19,10 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 4788 2011-04-15 17:44:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include "game_local.h"
-#include "../DarkMod/MissionData.h"
+#include "../DarkMod/Objectives/MissionData.h"
 #include "../DarkMod/Missions/MissionManager.h"
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"

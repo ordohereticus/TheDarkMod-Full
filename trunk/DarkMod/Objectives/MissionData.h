@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4755 $
- * $Date: 2011-04-08 10:16:32 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,7 +20,7 @@
 #define MISSIONDATA_H
 
 #include "../idlib/precompiled.h"
-#include "DarkModGlobals.h"
+#include "../DarkModGlobals.h"
 #include <boost/shared_ptr.hpp>
 #include "MissionStatistics.h"
 

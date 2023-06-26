@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4398 $
- * $Date: 2011-01-10 14:50:23 -0500 (Mon, 10 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,11 +13,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: brittlefracture.cpp 4398 2011-01-10 19:50:23Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: brittlefracture.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
-#include "../DarkMod/MissionData.h"
+#include "../DarkMod/Objectives/MissionData.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
 
 const idEventDef EV_UpdateSoundLoss( "updateSoundLoss", NULL );

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4422 $
- * $Date: 2011-01-11 01:28:19 -0500 (Tue, 11 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,13 +13,13 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 4422 2011-01-11 06:28:19Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
 #include "../../DarkMod/Relations.h"
 #include "../../DarkMod/sndProp.h"
-#include "../../DarkMod/MissionData.h"
+#include "../../DarkMod/Objectives/MissionData.h"
 
 class CRelations;
 class CsndProp;

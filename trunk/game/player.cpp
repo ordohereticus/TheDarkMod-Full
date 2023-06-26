@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4795 $
- * $Date: 2011-04-16 10:33:10 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4795 2011-04-16 14:33:10Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -24,7 +24,7 @@ static bool init_version = FileVersionList("$Id: player.cpp 4795 2011-04-16 14:3
 #include "../DarkMod/Relations.h"
 #include "../DarkMod/DarkmodAASHidingSpotFinder.h"
 #include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/MissionData.h"
+#include "../DarkMod/Objectives/MissionData.h"
 #include "../DarkMod/Inventory/Inventory.h"
 #include "../DarkMod/Inventory/WeaponItem.h"
 #include "../DarkMod/Shop/Shop.h"

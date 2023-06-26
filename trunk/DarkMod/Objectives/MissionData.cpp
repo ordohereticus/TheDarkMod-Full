@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4755 $
- * $Date: 2011-04-08 10:16:32 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,16 +12,16 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4755 2011-04-08 14:16:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
 #include "MissionData.h"
-#include "AI/Memory.h"
-#include "DifficultyManager.h"
-#include "../game/player.h"
-#include "StimResponse/StimResponseCollection.h"
-#include "Missions/MissionManager.h"
+#include "../AI/Memory.h"
+#include "../DifficultyManager.h"
+#include "../../game/player.h"
+#include "../StimResponse/StimResponseCollection.h"
+#include "../Missions/MissionManager.h"
 
 /**
 * Add new component type names here.  Must be in exact same order as EComponentType

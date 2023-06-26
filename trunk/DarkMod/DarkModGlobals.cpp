@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4769 $
- * $Date: 2011-04-10 12:43:43 -0400 (Sun, 10 Apr 2011) $
- * $Author: stgatilov $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,14 +19,9 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4769 2011-04-10 16:43:43Z stgatilov $", init_version);
-
-#ifdef _WINDOWS_
-//#include "c:\compiled.h"
-#endif
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
-#include "MissionData.h"
 #include "Misc.h"
 #include "Profile.h"
 #include "sndPropLoader.h"

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4796 $
- * $Date: 2011-04-17 01:27:52 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4797 $
+ * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../idlib/precompiled.h"
 
-#include "Inventory/Item.h" // for loot type enum
+#include "../Inventory/Item.h" // for loot type enum
 
 // Maximum array sizes:
 #define MAX_TEAMS 64
