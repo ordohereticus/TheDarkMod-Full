@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4615 $
- * $Date: 2011-02-19 17:39:19 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4629 $
+ * $Date: 2011-02-25 02:02:32 -0500 (Fri, 25 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4615 2011-02-19 22:39:19Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4629 2011-02-25 07:02:32Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -1587,7 +1587,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 		if (SeedClass.modelname == ent->GetName())
 		{
 			// Make a copy of the already existing model, so we can safely free it anytime:
-			SeedClass.hModel = gameLocal.m_ModelGenerator->DuplicateModel( ent->GetRenderEntity()->hModel, SeedClass.classname, true );
+			SeedClass.hModel = gameLocal.m_ModelGenerator->DuplicateModel( ent->GetRenderEntity()->hModel, SeedClass.classname );
 			// set a dummy model
 			SeedClass.modelname = "models/darkmod/junk/plank_short.lwo";
 
@@ -1609,7 +1609,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 			   		(SeedClass.scale_max.x != 1.0f || SeedClass.scale_min.y != 1.0f || SeedClass.scale_max.y != 1.0f) )
 				{
 				// Make a copy of the already existing model, so we can safely free it anytime:
-				SeedClass.hModel = gameLocal.m_ModelGenerator->DuplicateModel( ent->GetRenderEntity()->hModel, SeedClass.classname, true );
+				SeedClass.hModel = gameLocal.m_ModelGenerator->DuplicateModel( ent->GetRenderEntity()->hModel, SeedClass.classname );
 				}
 			}
 		}
@@ -3725,7 +3725,7 @@ bool Seed::SpawnEntity( const int idx, const bool managed )
 					if (lclass->hModel)
 					{
 						// just duplicate it (for func_statics from map geometry), with a possible rescaling
-						r->hModel = gameLocal.m_ModelGenerator->DuplicateModel( lclass->hModel, lclass->classname, true, NULL, &ent->scale );
+						r->hModel = gameLocal.m_ModelGenerator->DuplicateModel( lclass->hModel, lclass->classname, NULL, &ent->scale );
 						if ( r->hModel )
 						{
 							// take the model bounds and transform them for the renderentity
