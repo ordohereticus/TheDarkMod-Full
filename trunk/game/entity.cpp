@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4701 $
- * $Date: 2011-03-20 18:52:16 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4717 $
+ * $Date: 2011-03-23 15:40:08 -0400 (Wed, 23 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4701 2011-03-20 22:52:16Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4717 2011-03-23 19:40:08Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10983,6 +10983,7 @@ int idEntity::CreateOverlay(const char *guiFile, int layer)
 		return OVERLAYS_INVALID_HANDLE;
 	}
 
+
 	if(!uiManager->CheckGui(guiFile))
 	{
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Unable to load GUI file: [%s]\r", guiFile);
@@ -11009,6 +11010,9 @@ int idEntity::CreateOverlay(const char *guiFile, int layer)
 	gui->Activate(true, gameLocal.time);
 	// Let's set a good default value for whether or not the overlay is interactive.
 	m_overlays.setInteractive(handle, gui->IsInteractive());
+
+	// scale the GUI according to gui_Width/gui_Height/gui_CenterX/gui_CenterY
+	gameLocal.UpdateGUIScaling( gui );
 
 	return handle;
 }

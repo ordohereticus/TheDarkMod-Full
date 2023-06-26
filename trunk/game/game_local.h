@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4705 $
- * $Date: 2011-03-21 03:35:33 -0400 (Mon, 21 Mar 2011) $
+ * $Revision: 4717 $
+ * $Date: 2011-03-23 15:40:08 -0400 (Wed, 23 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -682,6 +682,10 @@ public:
 	virtual idUserInterface	*StartMenu( void );
 	virtual const char *	HandleGuiCommands( const char *menuCommand );
 	virtual void			HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui );
+	/**
+	* Adjusts the size of GUI variables to support stretching/scaling of the GUI.
+    */
+	virtual void			UpdateGUIScaling( idUserInterface *gui );
 	virtual allowReply_t	ServerAllowClient( int numClients, const char *IP, const char *guid, const char *password, char reason[MAX_STRING_CHARS] );
 	virtual void			ServerClientConnect( int clientNum, const char *guid );
 	virtual void			ServerClientBegin( int clientNum );

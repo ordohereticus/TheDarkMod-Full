@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4716 $
- * $Date: 2011-03-23 02:36:24 -0400 (Wed, 23 Mar 2011) $
- * $Author: greebo $
+ * $Revision: 4717 $
+ * $Date: 2011-03-23 15:40:08 -0400 (Wed, 23 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4716 2011-03-23 06:36:24Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4717 2011-03-23 19:40:08Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3575,6 +3575,37 @@ void idGameLocal::HandleGuiMessages(idUserInterface* ui)
 
 /*
 ================
+idGameLocal::UpdateGUIScaling
+================
+*/
+void idGameLocal::UpdateGUIScaling( idUserInterface *gui )
+{
+	float wobble = 1.0f;
+	// this could be turned into a warble-wobble effect f.i. for player poisoned etc.
+	//float wobble = random.RandomFloat() * 0.02 + 0.98;
+
+	float x_mul = cvarSystem->GetCVarFloat("gui_Width") * wobble;
+	if (x_mul < 0.1f) { x_mul = 0.1f; }
+	if (x_mul > 2.0f) { x_mul = 2.0f; }
+	float y_mul = cvarSystem->GetCVarFloat("gui_Height") * wobble;
+	if (y_mul < 0.1f) { y_mul = 0.1f; }
+	if (y_mul > 2.0f) { y_mul = 2.0f; }
+	float x_shift = cvarSystem->GetCVarFloat("gui_CenterX") * 640 * wobble;
+	float y_shift = cvarSystem->GetCVarFloat("gui_CenterY") * 480 * wobble;
+//	Printf("UpdateGUIScaling: width %0.2f height %0.2f centerX %0.02ff centerY %0.02f\n (%p)", x_mul, y_mul, x_shift, y_shift, gui);
+	gui->SetStateFloat("LEFT", x_shift - x_mul * 320);
+	gui->SetStateFloat("CENTERX", x_shift);
+	gui->SetStateFloat("TOP", y_shift - y_mul * 240);
+	gui->SetStateFloat("CENTERY", y_shift);
+	gui->SetStateFloat("WIDTH", x_mul);
+	gui->SetStateFloat("HEIGHT", y_mul);
+	// We have only one scaling factor to scale text, so use the average of X and Y
+	// This will have odd effects if W and H differ greatly, but is better than to not scale the text
+	gui->SetStateFloat("SCALE", (y_mul + x_mul) / 2);
+}
+
+/*
+================
 idGameLocal::HandleMainMenuCommands
 ================
 */
@@ -3652,10 +3683,12 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		// Called when widescreen size selection changes
 		UpdateScreenResolutionFromGUI(gui);
+		UpdateGUIScaling(gui);
 	}
 	else if (cmd == "aspectRatioChanged")
 	{
 		UpdateScreenResolutionFromGUI(gui);
+		UpdateGUIScaling(gui);
 	}
 	else if (cmd == "loadCustomVideoResolution")
 	{
@@ -3696,6 +3729,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			}
 			Printf("Widescreenmode was set to: %i (%ix%i)\n", cv_tdm_widescreenmode.GetInteger(), width, height );
 		}
+		UpdateGUIScaling(gui);
 	}
 	// greebo: the "log" command is used to write stuff to the console
 	else if (cmd == "log")
@@ -3864,6 +3898,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	else if (cmd == "mainmenu_init")
 	{
 		gui->SetStateString("tdmversiontext", va("TDM %d.%02d", TDM_VERSION_MAJOR, TDM_VERSION_MINOR));
+		UpdateGUIScaling(gui);
 	}
 	else if (cmd == "check_tdm_version")
 	{
