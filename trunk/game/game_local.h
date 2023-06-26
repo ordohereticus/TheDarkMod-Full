@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4788 $
- * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4793 $
+ * $Date: 2011-04-16 03:47:10 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -960,6 +960,9 @@ public:
 
 	// For internal use, is public to be callable by the event system
 	void					ProcessInterMissionTriggers();
+
+	// Remove any persistent inventory items, clear inter-mission triggers, etc.
+	void					ClearPersistentInfo();
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;

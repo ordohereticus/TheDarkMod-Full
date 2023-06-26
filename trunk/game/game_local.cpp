@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4788 $
- * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4793 $
+ * $Date: 2011-04-16 03:47:10 -0400 (Sat, 16 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4788 2011-04-15 17:44:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4793 2011-04-16 07:47:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1737,10 +1737,7 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 	// Clear the persistent data if starting a new campaign
 	if (m_MissionManager->CurrentModIsCampaign() && m_MissionManager->GetCurrentMissionIndex() == 0)
 	{
-		persistentPlayerInventory->Clear();
-		persistentLevelInfo.Clear();
-		m_CampaignStats.reset(new CampaignStats);
-		m_InterMissionTriggers.Clear();
+		ClearPersistentInfo();
 	}
 
 	Printf( "----------- Game Map Init ------------\n" );
@@ -4187,6 +4184,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// First mission to be started, reset index
 		m_MissionManager->SetCurrentMissionIndex(0);
 		gui->SetStateInt("CurrentMission", 1);
+
+		ClearPersistentInfo();
 	}
 
 	m_Shop->HandleCommands(menuCommand, gui, GetLocalPlayer());
@@ -6948,6 +6947,14 @@ void idGameLocal::ChangeWindowTitleAndIcon()
 #ifdef WIN32
 	EnumWindows((WNDENUMPROC)ChangeD3WindowTitle, 0);
 #endif
+}
+
+void idGameLocal::ClearPersistentInfo()
+{
+	persistentPlayerInventory->Clear();
+	persistentLevelInfo.Clear();
+	m_CampaignStats.reset(new CampaignStats);
+	m_InterMissionTriggers.Clear();
 }
 
 void idGameLocal::ProcessInterMissionTriggers()
