@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4788 $
- * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4789 $
+ * $Date: 2011-04-15 13:56:10 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4788 2011-04-15 17:44:13Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4789 2011-04-15 17:56:10Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1004,8 +1004,8 @@ void idPlayer::Spawn( void )
 	// Post an event to read the LG modifier from the worldspawn entity
 	PostEventMS(&EV_ReadLightgemModifierFromWorldspawn, 0);
 
-	// Process inter-mission triggers in the first service frame
-	PostEventMS(&EV_ProcessInterMissionTriggers, 0);
+	// Process inter-mission triggers after the first few frames to ensure all entities have acquired their targets
+	PostEventMS(&EV_ProcessInterMissionTriggers, 48);
 
 	// Start the gameplay timer half a second after spawn
 	PostEventMS(&EV_Player_StartGamePlayTimer, 500);
