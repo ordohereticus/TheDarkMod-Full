@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4465 $
- * $Date: 2011-01-24 07:43:24 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4466 $
+ * $Date: 2011-01-24 07:59:19 -0500 (Mon, 24 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -65,7 +65,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output model generation debug info
 //#define M_DEBUG
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4465 2011-01-24 12:43:24Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4466 2011-01-24 12:59:19Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1185,7 +1185,7 @@ float Seed::AddClassFromEntity( idEntity *ent, const int iEntScore )
 		kv = ent->spawnArgs.MatchPrefix( "seed_material_", kv );
 	}
 
-	// store the rendermodel to make func_statics work
+	// store the rendermodel to make func_statics or scaling/combining work
 	SeedClass.hModel = NULL;
 	SeedClass.clip = NULL;
 	if (SeedClass.classname == FUNC_STATIC)
@@ -1213,6 +1213,18 @@ float Seed::AddClassFromEntity( idEntity *ent, const int iEntScore )
 			if ( m_bCombine )
 			{
 				SeedClass.classname = FUNC_DUMMY;
+			}
+			// if we are not combining things, but scale, set hModel so it later gets duplicated
+			else
+			{
+				// if scale_min.x == 0, axis-equal scaling
+			   	if (SeedClass.scale_max.z != 1.0f || SeedClass.scale_min.z != 1.0f ||
+			   		(SeedClass.scale_min.x != 0.0f && SeedClass.scale_min.x != 1.0f) ||
+			   		(SeedClass.scale_max.x != 1.0f || SeedClass.scale_min.y != 1.0f || SeedClass.scale_max.y != 1.0f) )
+				{
+				// simply point to the already existing model, so we can clone it later
+				SeedClass.hModel = ent->GetRenderEntity()->hModel;
+				}
 			}
 		}
 	}
