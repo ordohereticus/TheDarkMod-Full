@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4495 $
+ * $Date: 2011-01-29 13:52:52 -0500 (Sat, 29 Jan 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -132,7 +132,7 @@ bool Util::DarkRadiantIsRunning()
 
 } // namespace
 
-#else
+#elif defined(__linux__)
 // Linux implementation
 
 #include <iostream>
@@ -221,4 +221,26 @@ bool Util::DarkRadiantIsRunning()
 
 } // namespace
 
+#elif defined(MACOS_X)
+// Mac OS X
+
+namespace tdm
+{
+
+bool Util::D3IsRunning()
+{
+	// Not implemented for Mac
+	return false;
+}
+
+bool Util::DarkRadiantIsRunning()
+{
+	// Not implemented for Mac
+	return false;
+}
+
+} // namespace
+
+#else
+#error Unsupported Platform
 #endif
