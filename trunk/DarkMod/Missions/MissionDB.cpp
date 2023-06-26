@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4385 $
- * $Date: 2010-12-25 20:55:28 -0500 (Sat, 25 Dec 2010) $
+ * $Revision: 4707 $
+ * $Date: 2011-03-22 03:38:11 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionDB.cpp 4385 2010-12-26 01:55:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionDB.cpp 4707 2011-03-22 07:38:11Z greebo $", init_version);
 
 #include "MissionDB.h"
 #include "MissionInfoDecl.h"
@@ -121,7 +121,7 @@ void CMissionDB::Save()
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Done saving mission info declarartions\r");
 }
 
-const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
+const CMissionInfoPtr& CMissionDB::GetModInfo(const idStr& name)
 {
 	MissionInfoMap::iterator i = _missionInfo.find(name.c_str());
 	
@@ -143,7 +143,7 @@ const CMissionInfoPtr& CMissionDB::GetMissionInfo(const idStr& name)
 	return result.first->second;
 }
 
-bool CMissionDB::MissionInfoExists(const idStr& name)
+bool CMissionDB::ModInfoExists(const idStr& name)
 {
 	return _missionInfo.find(name.c_str()) != _missionInfo.end();
 }

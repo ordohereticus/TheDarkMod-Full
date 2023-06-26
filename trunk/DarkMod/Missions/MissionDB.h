@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4058 $
- * $Date: 2010-07-13 10:23:30 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 4707 $
+ * $Date: 2011-03-22 03:38:11 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -36,10 +36,10 @@ public:
 	// Returns the mission info structure for this fs_game
 	// Always returns non-NULL, if the name is not existing, 
 	// a new structure will be created
-	const CMissionInfoPtr& GetMissionInfo(const idStr& name);
+	const CMissionInfoPtr& GetModInfo(const idStr& name);
 
-	// Checks whether there is a record for the given mission name
-	bool MissionInfoExists(const idStr& name);
+	// Checks whether there is a record for the given mod name
+	bool ModInfoExists(const idStr& name);
 
 private:
 	void ReloadMissionInfoFile();

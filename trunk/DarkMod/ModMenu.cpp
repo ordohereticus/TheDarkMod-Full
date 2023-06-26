@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4669 $
- * $Date: 2011-03-08 13:05:23 -0500 (Tue, 08 Mar 2011) $
+ * $Revision: 4707 $
+ * $Date: 2011-03-22 03:38:11 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4669 2011-03-08 18:05:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4707 2011-03-22 07:38:11Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -62,7 +62,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 			gameLocal.m_MissionManager->ClearNewMissionList();
 		}
 
-		gameLocal.m_MissionManager->ReloadMissionList();
+		gameLocal.m_MissionManager->ReloadModList();
 
 		// Update the GUI state
 		UpdateGUI(gui);
@@ -76,7 +76,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 		// Get selected mod
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetMissionInfo(modIndex);
+		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		// Load the readme.txt contents, if available
 		gui->SetStateString("ModNotesText", info != NULL ? info->GetMissionNotes() : "");
@@ -89,7 +89,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 	{
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetMissionInfo(modIndex);
+		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		if (info != NULL)
 		{
@@ -134,7 +134,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 		// Get selected mod
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetMissionInfo(modIndex);
+		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		if (info == NULL) return; // sanity check
 
@@ -146,7 +146,7 @@ void CModMenu::HandleCommands(const char *menuCommand, idUserInterface *gui)
 		// Get selected mod
 		int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-		CMissionInfoPtr info = gameLocal.m_MissionManager->GetMissionInfo(modIndex);
+		CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 		if (info == NULL) return; // sanity check
 
@@ -191,11 +191,11 @@ void CModMenu::UpdateSelectedMod(idUserInterface* gui)
 	// Get selected mod
 	int modIndex = gui->GetStateInt("modSelected", "0") + _modTop;
 
-	CMissionInfoPtr info = gameLocal.m_MissionManager->GetMissionInfo(modIndex);
+	CMissionInfoPtr info = gameLocal.m_MissionManager->GetModInfo(modIndex);
 
 	if (info != NULL)
 	{
-		bool missionIsCurrentlyInstalled = gameLocal.m_MissionManager->GetCurrentMissionName() == info->modName;
+		bool missionIsCurrentlyInstalled = gameLocal.m_MissionManager->GetCurrentModName() == info->modName;
 		
 		// Don't display the install button if the mod is already installed
 		gui->SetStateBool("installModButtonVisible", !missionIsCurrentlyInstalled);
@@ -300,7 +300,7 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 		// Retrieve the mission info
 		if (_modTop + modIndex < numMissions)
 		{
-			info = gameLocal.m_MissionManager->GetMissionInfo(missionIndex);
+			info = gameLocal.m_MissionManager->GetModInfo(missionIndex);
 		}
 
 		gui->SetStateInt(guiAvailable,	info != NULL ? 1 : 0);
@@ -315,13 +315,12 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 	gui->SetStateBool("isModsScrollDownVisible", _modTop + modsPerPage < gameLocal.m_MissionManager->GetNumMissions());
 
 	// Update the currently installed mod
-	CMissionInfoPtr curModInfo = gameLocal.m_MissionManager->GetCurrentMissionInfo();
+	CMissionInfoPtr curModInfo = gameLocal.m_MissionManager->GetCurrentModInfo();
 
 	gui->SetStateBool("hasCurrentMod", curModInfo != NULL);
 	gui->SetStateString("currentModName", curModInfo != NULL ? curModInfo->displayName : "<No Mission Installed>");
 	gui->SetStateString("currentModDesc", curModInfo != NULL ? curModInfo->description : "");	
 }
-
 
 bool CModMenu::PerformVersionCheck(const CMissionInfoPtr& mission, idUserInterface* gui)
 {

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4382 $
- * $Date: 2010-12-25 06:34:19 -0500 (Sat, 25 Dec 2010) $
+ * $Revision: 4707 $
+ * $Date: 2011-03-22 03:38:11 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4382 2010-12-25 11:34:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4707 2011-03-22 07:38:11Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -90,7 +90,7 @@ void Cmd_ListMissions_f(const idCmdArgs& args)
 
 	for (int i = 0; i < gameLocal.m_MissionManager->GetNumMissions(); ++i)
 	{
-		CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetMissionInfo(i);
+		CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(i);
 
 		if (missionInfo == NULL) continue;
 
@@ -133,7 +133,7 @@ void Cmd_SetMissionCompleted_f(const idCmdArgs& args)
 		return;
 	}
 
-	CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetMissionInfo(missionName);
+	CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(missionName);
 
 	if (missionInfo == NULL)
 	{
