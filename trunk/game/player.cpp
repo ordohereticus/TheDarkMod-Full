@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4782 $
- * $Date: 2011-04-14 12:10:30 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4783 $
+ * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4782 2011-04-14 16:10:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4783 2011-04-14 18:12:42Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10996,12 +10996,65 @@ void idPlayer::SendInventoryPickedUpMessage(const idStr& text)
 
 void idPlayer::EnforcePersistentInventoryItemLimits()
 {
+	idStr diffPrefix = va("diff_%d_", gameLocal.m_DifficultyManager.GetDifficultyLevel());
+
 	for (int i = 0; i < gameLocal.campaignInfoEntities.Num(); ++i)
 	{
 		idEntity* campaignInfo = gameLocal.campaignInfoEntities[i];
 		assert(campaignInfo != NULL);
 
-		// TODO: Enforce weapon limits
+		// Enforce weapon limits
+		CInventoryCategoryPtr weaponCategory = m_WeaponCursor->GetCurrentCategory();
+
+		idList<CInventoryWeaponItemPtr> itemsToRemove;
+
+		for (int w = 0; w < weaponCategory->GetNumItems(); ++w)
+		{
+			CInventoryWeaponItemPtr weaponItem =  boost::dynamic_pointer_cast<CInventoryWeaponItem>(weaponCategory->GetItem(w));
+
+			if (weaponItem->GetPersistentCount() <= 0)
+			{
+				continue; // not a persistent weapon
+			}
+
+			const idStr& weaponName = weaponItem->GetWeaponName();
+
+			// Get the active limit, check non-difficulty-specific ones first, defaults to no limit
+			int limit = campaignInfo->spawnArgs.GetInt("weapon_limit_" + weaponName, "-1");
+
+			// Let the difficulty-specific limit override the global one
+			limit = campaignInfo->spawnArgs.GetInt(diffPrefix + "weapon_limit_" + weaponName, va("%d", limit));
+
+			if (limit == -1)
+			{
+				continue; // no limit specified for this weapon
+			}
+
+			bool needsAmmo = !weaponItem->IsAllowedEmpty();
+
+			if (needsAmmo)
+			{
+				if (weaponItem->GetAmmo() > limit)
+				{
+					weaponItem->SetAmmo(limit);
+				}
+			}
+			else
+			{
+				// Weapons without ammonition
+				if (limit == 0)
+				{
+					// Limit set to 0, drop this weapon
+					itemsToRemove.Append(weaponItem);
+				}
+			}
+		}
+
+		// Remove all marked items from this category
+		for (int w = 0; w < itemsToRemove.Num(); ++w)
+		{
+			weaponCategory->RemoveItem(itemsToRemove[w]);
+		}
 
 		// TODO: Enforce regular inventory item limits
 	}

@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4781 $
- * $Date: 2011-04-14 01:57:41 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4783 $
+ * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4781 2011-04-14 05:57:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4783 2011-04-14 18:12:42Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4179,6 +4179,12 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		// Add the command to buffer, but no need to issue it immediately. 
 		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "tdm_updateCookedMathData" );
+	}
+	else if (cmd == "onStartMissionClicked")
+	{
+		// First mission to be started, reset index
+		m_MissionManager->SetCurrentMissionIndex(0);
+		gui->SetStateInt("CurrentMission", 1);
 	}
 
 	m_Shop->HandleCommands(menuCommand, gui, GetLocalPlayer());

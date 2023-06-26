@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4759 $
- * $Date: 2011-04-09 05:19:52 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4783 $
+ * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4759 2011-04-09 09:19:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4783 2011-04-14 18:12:42Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -100,6 +100,8 @@ void CInventory::CopyPersistentItemsFrom(const CInventory& sourceInventory, idEn
 
 				continue; // not marked as persistent
 			}
+
+			// TODO: Handle weapons separately, otherwise we might end up with duplicate weapon items
 
 			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING(
 				"Adding persistent item %s to player inventory, quantity: %d.\r",

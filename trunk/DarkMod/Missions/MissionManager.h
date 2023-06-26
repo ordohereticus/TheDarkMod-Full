@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4719 $
- * $Date: 2011-03-24 05:26:58 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4783 $
+ * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -257,6 +257,9 @@ public:
 	// Returns the current mission index (0-based: first mission == 0)
 	// Will always return 0 for non-campaigns
 	int GetCurrentMissionIndex() const;
+
+	// Set the current mission index
+	void SetCurrentMissionIndex(int index);
 
 	// Returns TRUE if the currently installed mod is a campaign
 	bool CurrentModIsCampaign() const;

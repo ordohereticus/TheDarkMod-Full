@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4719 $
- * $Date: 2011-03-24 05:26:58 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4783 $
+ * $Date: 2011-04-14 14:12:42 -0400 (Thu, 14 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4719 2011-03-24 09:26:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4783 2011-04-14 18:12:42Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -726,6 +726,11 @@ int CMissionManager::GetCurrentMissionIndex() const
 	}
 
 	return 0; // single-mission
+}
+
+void CMissionManager::SetCurrentMissionIndex(int index)
+{
+	_curMissionIndex = index;
 }
 
 bool CMissionManager::ProceedToNextMission()
