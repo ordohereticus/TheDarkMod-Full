@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4781 $
- * $Date: 2011-04-14 01:57:41 -0400 (Thu, 14 Apr 2011) $
+ * $Revision: 4788 $
+ * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -957,6 +957,9 @@ public:
 	 * If the activator's name is empty, the local player will be used as activator.
 	 */
 	void					AddInterMissionTrigger(int missionNum, const idStr& activatorName, const idStr& targetName);
+
+	// For internal use, is public to be callable by the event system
+	void					ProcessInterMissionTriggers();
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;

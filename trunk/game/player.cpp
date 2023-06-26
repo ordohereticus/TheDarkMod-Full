@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4785 $
- * $Date: 2011-04-15 01:42:29 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4788 $
+ * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4785 2011-04-15 05:42:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4788 2011-04-15 17:44:13Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -117,6 +117,9 @@ const idEventDef EV_Player_WasDamaged("wasDamaged", NULL, 'd');
 
 const idEventDef EV_Mission_Success("missionSuccess", NULL);
 const idEventDef EV_TriggerMissionEnd("triggerMissionEnd", NULL);
+
+// Private event to process intermission triggers
+const idEventDef EV_ProcessInterMissionTriggers("_processInterMissionTriggers");
 
 const idEventDef EV_GetLocation("getLocation", NULL, 'e');
 
@@ -230,6 +233,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_GetFrobbed,			idPlayer::Event_GetFrobbed )
 	EVENT( EV_Player_SetFrobOnlyUsedByInv,	idPlayer::Event_SetFrobOnlyUsedByInv )
 
+	EVENT( EV_ProcessInterMissionTriggers,	idPlayer::Event_ProcessInterMissionTriggers )
 	EVENT( EV_CheckAAS,						idPlayer::Event_CheckAAS )
 
 END_CLASS
@@ -999,6 +1003,9 @@ void idPlayer::Spawn( void )
 
 	// Post an event to read the LG modifier from the worldspawn entity
 	PostEventMS(&EV_ReadLightgemModifierFromWorldspawn, 0);
+
+	// Process inter-mission triggers in the first service frame
+	PostEventMS(&EV_ProcessInterMissionTriggers, 0);
 
 	// Start the gameplay timer half a second after spawn
 	PostEventMS(&EV_Player_StartGamePlayTimer, 500);
@@ -11235,4 +11242,9 @@ void idPlayer::Event_GetFrobbed()
 void idPlayer::Event_SetFrobOnlyUsedByInv( bool value )
 {
 	m_bFrobOnlyUsedByInv = value;
+}
+
+void idPlayer::Event_ProcessInterMissionTriggers()
+{
+	gameLocal.ProcessInterMissionTriggers();
 }

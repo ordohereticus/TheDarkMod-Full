@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4787 $
- * $Date: 2011-04-15 10:26:46 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4788 $
+ * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4787 2011-04-15 14:26:46Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4788 2011-04-15 17:44:13Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1800,8 +1800,6 @@ void idGameLocal::InitFromNewMap( const char *mapName, idRenderWorld *renderWorl
 
 	// We need an objectives update now that we've loaded the map
 	m_MissionData->ClearGUIState();
-
-	// TODO: Process inter-mission triggers
 
 	Printf( "--------------------------------------\n" );
 }
@@ -4958,9 +4956,23 @@ gameState_t	idGameLocal::GameState( void ) const {
 	return gamestate;
 }
 
-void idGameLocal::PrepareForMissionEnd() {
+void idGameLocal::PrepareForMissionEnd()
+{
 	// Raise the gamestate to "Completed"
 	gamestate = GAMESTATE_COMPLETED;
+
+	// Remove mission triggers now that we're done here
+	for (int i = 0; i < m_InterMissionTriggers.Num(); )
+	{
+		if (m_InterMissionTriggers[i].missionNum == m_MissionManager->GetCurrentMissionIndex())
+		{
+			m_InterMissionTriggers.RemoveIndex(i);
+		}
+		else
+		{
+			++i;
+		}
+	}
 }
 
 /*
@@ -6936,4 +6948,29 @@ void idGameLocal::ChangeWindowTitleAndIcon()
 #ifdef WIN32
 	EnumWindows((WNDENUMPROC)ChangeD3WindowTitle, 0);
 #endif
+}
+
+void idGameLocal::ProcessInterMissionTriggers()
+{
+	for (int i = 0; i < m_InterMissionTriggers.Num(); ++i)
+	{
+		const InterMissionTrigger& trigger = m_InterMissionTriggers[i];
+
+		if (trigger.missionNum == m_MissionManager->GetCurrentMissionIndex())
+		{
+			idEntity* target = FindEntity(trigger.targetName);
+			idEntity* activator = !trigger.activatorName.IsEmpty() ? FindEntity(trigger.activatorName) : GetLocalPlayer();
+
+			if (target != NULL)
+			{
+				target->Activate(activator);
+			}
+			else
+			{
+				gameLocal.Warning("Cannot find intermission trigger target entity %s", trigger.targetName.c_str());
+			}
+
+			// Don't remove the triggers yet, we might need them again when restarting the map
+		}
+	}
 }

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4785 $
- * $Date: 2011-04-15 01:42:29 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4788 $
+ * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1368,6 +1368,9 @@ private:
 	void					Event_GetFrobbed();
 	// enables "frob only ents used by active inventory item" mode
 	void					Event_SetFrobOnlyUsedByInv( bool Value );
+
+	// Call gameLocal.ProcessInterMissionTriggers
+	void					Event_ProcessInterMissionTriggers();
 
 };
 
