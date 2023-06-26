@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4684 $
- * $Date: 2011-03-10 09:06:11 -0500 (Thu, 10 Mar 2011) $
+ * $Revision: 4686 $
+ * $Date: 2011-03-10 09:37:33 -0500 (Thu, 10 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4684 2011-03-10 14:06:11Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4686 2011-03-10 14:37:33Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -802,7 +802,7 @@ void Seed::Spawn( void ) {
     modelAbsBounds.FromTransformedBounds( b, m_origin, axis );
 	m_iNumPVSAreas = gameLocal.pvs.GetPVSAreas( modelAbsBounds, m_iPVSAreas, sizeof( m_iPVSAreas ) / sizeof( m_iPVSAreas[0] ) );
 
-	gameLocal.Printf( "SEED %s: Randseed %i Size %0.2f %0.2f %0.2f Axis %s, PVS count %i.\n", GetName(), m_iSeed, size.x, size.y, size.z, angles.ToString(), m_iNumPVSAreas );
+//	gameLocal.Printf( "SEED %s: Randseed %i Size %0.2f %0.2f %0.2f Axis %s, PVS count %i.\n", GetName(), m_iSeed, size.x, size.y, size.z, angles.ToString(), m_iNumPVSAreas );
 
 /*
 	// how to get the current model (rough outline)
@@ -844,7 +844,7 @@ void Seed::Spawn( void ) {
 	m_DistCheckInterval = (int) (1000.0f * spawnArgs.GetFloat( "dist_check_period", "0.05" ));
 
 	float cullRange = spawnArgs.GetFloat( "cull_range", "150" );
-	gameLocal.Printf ("SEED %s: cull range = %0.2f.\n", GetName(), cullRange );
+//	gameLocal.Printf ("SEED %s: cull range = %0.2f.\n", GetName(), cullRange );
 
 	m_bDistCheckXYOnly = spawnArgs.GetBool( "dist_check_xy", "0" );
 
@@ -1451,12 +1451,12 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 	float fMin = 1.0f;
 	if (SeedClass.size.x < 0.001f)
 	{
-		gameLocal.Warning( "SEED %s: Size.x < 0.001 for class, enforcing minimum size %0.2f.", GetName(), fMin );
+//		gameLocal.Warning( "SEED %s: Size.x < 0.001 for class, enforcing minimum size %0.2f.", GetName(), fMin );
 		SeedClass.size.x = fMin;
 	}
 	if (SeedClass.size.y < 0.001f)
 	{
-		gameLocal.Warning( "SEED %s: Size.y < 0.001 for class, enforcing minimum size %0.2f.", GetName(), fMin );
+//		gameLocal.Warning( "SEED %s: Size.y < 0.001 for class, enforcing minimum size %0.2f.", GetName(), fMin );
 		SeedClass.size.y = fMin;
 	}
 
@@ -3249,7 +3249,10 @@ void Seed::CombineEntities( void )
 		// how many can we combine at most?
 		// use LOD 0 here for an worse-case estimate
 		unsigned int maxModelCount = gameLocal.m_ModelGenerator->GetMaxModelCount( tempModel );
-		gameLocal.Printf("SEED %s: Combining at most %u models for entity %i.\n", GetName(), maxModelCount, i );
+		if (m_iDebug)
+		{
+			gameLocal.Printf("SEED %s: Combining at most %u models for entity %i.\n", GetName(), maxModelCount, i );
+		}
 
 		// try to combine as much entities into this one
 		// O(N*N) performance, but only if we don't combine any entities, otherwise
@@ -3438,7 +3441,10 @@ void Seed::CombineEntities( void )
 				// mark as combined
 				m_Entities[todo].flags |= SEED_ENTITY_COMBINED;
 			}
-			gameLocal.Printf("SEED %s: Combined %i entities.\n", GetName(), sortedOffsets.Num() );
+			if (m_iDebug > 0)
+			{
+				gameLocal.Printf("SEED %s: Combined %i entities.\n", GetName(), sortedOffsets.Num() );
+			}
 			sortedOffsets.Clear();
 
 			// build the combined model
