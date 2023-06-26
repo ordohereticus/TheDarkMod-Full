@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
- * $Author: grayman $
+ * $Revision: 4859 $
+ * $Date: 2011-05-22 01:57:01 -0400 (Sun, 22 May 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,11 +14,10 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4859 2011-05-22 05:57:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
-#include "../../DarkMod/Misc.h"
 #include "../../DarkMod/MeleeWeapon.h"
 #include "../../DarkMod/AI/Tasks/SingleBarkTask.h"
 

@@ -9,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4857 $
-#* $Date: 2011-05-22 01:41:39 -0400 (Sun, 22 May 2011) $
+#* $Revision: 4859 $
+#* $Date: 2011-05-22 01:57:01 -0400 (Sun, 22 May 2011) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -130,7 +130,6 @@ DifficultySettings.cpp \
 DownloadMenu.cpp \
 EscapePointEvaluator.cpp \
 EscapePointManager.cpp \
-fdchar.cpp \
 force_grab.cpp \
 func_shooter.cpp \
 FrobDoor.cpp \
@@ -157,15 +156,12 @@ overlaysys.cpp \
 PositionWithinRangeFinder.cpp \
 ProjectileResult.cpp \
 PVSToAASMapping.cpp \
-rdline.cpp \
 PickableLock.cpp \
 Relations.cpp \
 RevisionTracker.cpp \
 sndProp.cpp \
 sndPropLoader.cpp \
 TimerManager.cpp \
-Strip.cpp \
-ToUpper.cpp \
 UserManager.cpp \
 Inventory/Category.cpp \
 Inventory/Cursor.cpp \
