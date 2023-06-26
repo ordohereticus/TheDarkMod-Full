@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4558 $
- * $Date: 2011-02-05 12:33:01 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4559 $
+ * $Date: 2011-02-05 12:35:07 -0500 (Sat, 05 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,10 +66,8 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4558 2011-02-05 17:33:01Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4559 2011-02-05 17:35:07Z tels $", init_version);
 
-#include "../game/game_local.h"
-#include "../idlib/containers/list.h"
 #include "SEED.h"
 
 // maximum number of tries to place an entity
