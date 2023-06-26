@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4307 $
- * $Date: 2010-11-21 10:26:58 -0500 (Sun, 21 Nov 2010) $
+ * $Revision: 4618 $
+ * $Date: 2011-02-20 13:10:42 -0500 (Sun, 20 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -347,6 +347,7 @@ public:
 	CLASS_PROTOTYPE( idFuncEmitter );
 
 						idFuncEmitter( void );
+						~idFuncEmitter( void );
 
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
@@ -357,9 +358,23 @@ public:
 	virtual void		WriteToSnapshot( idBitMsgDelta &msg ) const;
 	virtual void		ReadFromSnapshot( const idBitMsgDelta &msg );
 
+	virtual void		Think( void );
+	virtual void		Present( void );
+
+	// switch to a new model
+	virtual void		SetModel( const char *modelname );
+
+protected:
+
+	// add an extra model
+	void				SetModel( int id, const idStr &modelName, const idVec3 &offset );
+
 private:
 	bool				hidden;
 
+	idList<int>				m_modelDefHandles;	// modelDefHandle for each extra model
+	idList<idVec3>			m_modelOffsets;		// offset for each extra model (relative to our origin)
+	idList<idRenderModel *>	m_modelHandles;		// handles of the extra models
 };
 
 
