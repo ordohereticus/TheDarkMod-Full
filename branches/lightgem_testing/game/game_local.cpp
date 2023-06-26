@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4462 $
- * $Date: 2011-01-23 15:43:53 -0500 (Sun, 23 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4488 $
+ * $Date: 2011-01-28 13:11:26 -0500 (Fri, 28 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4462 2011-01-23 20:43:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4488 2011-01-28 18:11:26Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -36,7 +36,6 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 4462 2011-01-23 
 #include "../DarkMod/EscapePointManager.h"
 #include "../DarkMod/ModMenu.h"
 #include "../DarkMod/DownloadMenu.h"
-#include "../DarkMod/renderpipe.h"
 #include "../DarkMod/TimerManager.h"
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
 #include "../DarkMod/RevisionTracker.h"
@@ -515,12 +514,8 @@ void idGameLocal::Init( void ) {
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "bank" ), font_bank );
 	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "micro" ), font_micro );
 
-	// Create render pipe
-	m_RenderPipe = new CRenderPipe();
-	if (m_RenderPipe == NULL) {
-		// Out of memory
-		DM_LOG(LC_LIGHT, LT_ERROR)LOGSTRING("Out of memory when allocating render pipe\n");
-	}
+	// Create lightgem render buffer
+	m_LightgemRenderBuffer = new idList<char>();
 
 	// Initialise the mission manager
 	m_MissionManager = CMissionManagerPtr(new CMissionManager);
@@ -646,7 +641,7 @@ void idGameLocal::Shutdown( void ) {
 
 	Printf( "------------ Game Shutdown -----------\n" );
 	
-	delete m_RenderPipe;
+	delete m_LightgemRenderBuffer;
 
 	mpGame.Shutdown();
 
@@ -5922,6 +5917,11 @@ Quit:
 	return;
 }
 
+idList<char> &idGameLocal::GetLightgemRenderBuffer()
+{
+	return *m_LightgemRenderBuffer;
+}
+
 float idGameLocal::CalcLightgem(idPlayer *player)
 {
 	float dist = cv_lg_distance.GetFloat();			// reasonable distance to get a good look at the player/test model
@@ -6081,8 +6081,6 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 		// the first one), or we only show the one that should be shown.
 		if(k == -1 || k == i)
 		{
-			m_RenderPipe->Prepare();
-
 			// We always use a square image, because we render now an overhead shot which
 			// covers all four side of the player at once, using a diamond or pyramid shape.
 			// The result is an image that is split in four triangles with an angle of 
@@ -6090,7 +6088,7 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 			renderSystem->CropRenderSize(dim, dim, true);
 			gameRenderWorld->SetRenderView(&rv);
 			gameRenderWorld->RenderScene(&rv);
-			renderSystem->CaptureRenderToFile(m_RenderPipe->FileName());
+			renderSystem->CaptureRenderToFile(DARKMOD_LG_FILENAME);
 			dp = cv_lg_path.GetString();
 			if(dp != NULL && strlen(dp) != 0)
 			{
@@ -6101,11 +6099,10 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 			else
 				dp = NULL;
 
-			DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Rendering to file [%s]\n", m_RenderPipe->FileName());
+			DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("Rendering to file [%s]\n", DARKMOD_LG_FILENAME);
 			renderSystem->UnCrop();
 
-			AnalyzeRenderImage(m_RenderPipe, fColVal);
-			m_RenderPipe->CleanUp();
+			AnalyzeRenderImage(GetLightgemRenderBuffer(), fColVal);
 
 			// Check which of the images has the brightest value, and this is what we will use.
 			for(l = 0; l < DARKMOD_LG_MAX_IMAGESPLIT; l++)
@@ -6142,22 +6139,22 @@ float idGameLocal::CalcLightgem(idPlayer *player)
 	return(fRetVal);
 }
 
-void idGameLocal::AnalyzeRenderImage(CRenderPipe* pipe, float fColVal[DARKMOD_LG_MAX_IMAGESPLIT])
+void idGameLocal::AnalyzeRenderImage(const idList<char> &imageBuffer, float fColVal[DARKMOD_LG_MAX_IMAGESPLIT])
 {
-	CImage *im = &g_Global.m_RenderImage ;
+	CImage *im = &g_Global.m_RenderImage;
 	unsigned long counter[DARKMOD_LG_MAX_IMAGESPLIT];
 	int i, in, k, kn, h, x;
 	
-	im->LoadImage(pipe);
+	im->LoadImage(imageBuffer);
 	unsigned char *buffer = im->GetImage();
 
 	// This is just an errorhandling to inform the player that something is wrong.
-	// The lightgem will simply blink if the renderpipe doesn't work.
+	// The lightgem will simply blink if the lightgem rendering doesn't work.
 	if(buffer == NULL)
 	{
 		static int indicator = 0;
 		static int lasttime;
-		DM_LOG(LC_SYSTEM, LT_ERROR)LOGSTRING("Unable to read image from renderpipe\r");
+		DM_LOG(LC_SYSTEM, LT_ERROR)LOGSTRING("Unable to read image from render buffer\r");
 		for(i = 0; i < DARKMOD_LG_MAX_IMAGESPLIT; i++)
 			fColVal[i] = indicator;
 

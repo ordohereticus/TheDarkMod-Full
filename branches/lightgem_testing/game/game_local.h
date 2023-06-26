@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4462 $
- * $Date: 2011-01-23 15:43:53 -0500 (Sun, 23 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4488 $
+ * $Date: 2011-01-28 13:11:26 -0500 (Fri, 28 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -33,8 +33,6 @@
 #ifdef __linux__
 #include "framework/usercmdgen.h"
 #endif
-
-class CRenderPipe;
 
 #pragma warning(disable : 4996)
 /**
@@ -71,6 +69,7 @@ bool FileVersionList(const char *str, bool state);
 #define DARKMOD_LG_MAX_IMAGESPLIT			4
 #define DARKMOD_LG_RENDER_MODEL				"models/darkmod/misc/system/lightgem.lwo"
 #define DARKMOD_LG_ENTITY_NAME				"lightgem_surface"
+#define DARKMOD_LG_FILENAME					"$$??!!lightgem_file"
 // The lightgem viewid defines the viewid that is to be used for the lightgem surfacetestmodel
 #define DARKMOD_LG_VIEWID					-1
 #define DARKMOD_LG_RENDER_WIDTH				50
@@ -849,6 +848,9 @@ public:
 	 */
 	void					LoadLightMaterial(const char *Filename, idList<CLightMaterial *> *);
 
+	// Returns render buffer for lightgem rendering
+	idList<char> &			GetLightgemRenderBuffer();
+
 	/**
 	 * SpawnlightgemEntity will create exactly one lightgem entity for the map and ensures
 	 * that no multiple copies of it will exist.
@@ -865,7 +867,7 @@ public:
 	 * AnalyzeRenderImage will analyze the given image and yields an averaged single value
 	 * determining the lightvalue for the given image.
 	 */
-	void					AnalyzeRenderImage(CRenderPipe* pipe, float fColVal[DARKMOD_LG_MAX_IMAGESPLIT]);
+	void					AnalyzeRenderImage(const idList<char> &imageBuffer, float fColVal[DARKMOD_LG_MAX_IMAGESPLIT]);
 	
 	bool					AddStim(idEntity *);
 	void					RemoveStim(idEntity *);
@@ -997,7 +999,8 @@ private:
 	int						m_LightgemShotSpot;
 	float					m_LightgemShotValue[DARKMOD_LG_MAX_RENDERPASSES];
 	
-	CRenderPipe *			m_RenderPipe;
+	// stgatilov: The buffer for captured lightgem image
+	idList<char>			*m_LightgemRenderBuffer;
 	
 	idList<idEntity *>		m_SignalList;
 
