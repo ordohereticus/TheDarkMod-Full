@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4553 $
- * $Date: 2011-02-05 01:50:41 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4645 $
+ * $Date: 2011-03-01 18:29:36 -0500 (Tue, 01 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4553 2011-02-05 06:50:41Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4645 2011-03-01 23:29:36Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -558,7 +558,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 
 		if (p_binaryFrobMover != NULL)
 		{
-			// only execute the translation/rotation code for doors
+			// only "see" doors
 
 			if (p_binaryFrobMover->IsType(CFrobDoor::Type))
 			{
@@ -569,45 +569,9 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 						idAI *selfAI = static_cast<idAI*>(self);
 						if (!selfAI->m_HandlingDoor) // If we're already handling a door, don't include the closed door in the obstacle calculation
 						{
-							// The following calculations are necessary for the AI to see the door in its closed position.
+							// grayman #720 - replace calculations with a capture of the closed box at spawn time
 
-							idBox moveBox = p_binaryFrobMover->GetClosedBox();
-							if (moveBox.IsCleared()) // has the closed position already been calculated?
-							{
-								// Get remaining movement
-
-								idVec3 deltaPosition;
-								idAngles deltaAngles;
-								idRotation rotation;
-
-								p_binaryFrobMover->GetRemainingMovement(deltaPosition, deltaAngles);
-
-								// Make translated version of self and add to bounds
-
-								moveBox = box.Translate (deltaPosition);
-								box.AddBox (moveBox);
-
-								idVec3 o = p_binaryFrobMover->GetPhysics()->GetOrigin();
-
-								// Translate to the world origin, rotate, and transfer back. Using RotateSelf(),
-								// I (grayman) couldn't get the door to rotate in place. It would rotate around the world origin.
-
-								moveBox = moveBox.Translate (-o);
-
-								// Rotate
-
-								rotation = deltaAngles.ToRotation();
-								rotation.SetOrigin(o);
-
-								idMat3 r = rotation.ToMat3();
-								moveBox.RotateSelf(r);
-
-								// Translate back to start position
-
-								moveBox = moveBox.Translate(o);
-								p_binaryFrobMover->SetClosedBox(moveBox); // save for next time
-							}
-							box.AddBox (moveBox);
+							box.AddBox (p_binaryFrobMover->GetClosedBox());
 						}
 					}
 				}

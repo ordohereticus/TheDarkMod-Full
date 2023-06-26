@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4634 $
- * $Date: 2011-02-26 06:42:07 -0500 (Sat, 26 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4645 $
+ * $Date: 2011-03-01 18:29:36 -0500 (Tue, 01 Mar 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4634 2011-02-26 11:42:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4645 2011-03-01 23:29:36Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -287,10 +287,8 @@ void CBinaryFrobMover::PostSpawn()
 
 			if (maxRot.GetAngle() > 0)
 			{
-				idRotation partialRot = (partialAngles - m_ClosedAngles).Normalize360().ToRotation();
-
+				idRotation partialRot = partialAngles.Normalize360().ToRotation(); // grayman #720 - fixed partial rotation value
 				float fraction = partialRot.GetAngle() / maxRot.GetAngle();
-
 				m_StartPos = m_Translation * fraction;
 			}
 			else
@@ -345,6 +343,7 @@ void CBinaryFrobMover::PostSpawn()
 	idBox closedBox(clipModel->GetBounds(), m_ClosedOrigin, m_ClosedAngles.ToMat3());
 	idVec3 closedBoxVerts[8];
 	closedBox.GetVerts(closedBoxVerts);
+	m_closedBox = closedBox; // grayman #720 - save for AI obstacle detection
 
 	float maxDistSquare = 0;
 	for (int i = 0; i < 8; i++)
@@ -356,7 +355,7 @@ void CBinaryFrobMover::PostSpawn()
 			maxDistSquare = distSquare;
 		}
 	}
-	// gameRenderWorld->DebugArrow(colorGreen, GetPhysics()->GetOrigin() + m_ClosedPos, GetPhysics()->GetOrigin() + m_ClosedPos + idVec3(0, 0, 30), 2, 200000);
+	//gameRenderWorld->DebugArrow(colorGreen, GetPhysics()->GetOrigin() + m_ClosedPos, GetPhysics()->GetOrigin() + m_ClosedPos + idVec3(0, 0, 30), 2, 200000);
 
 	idBox openBox(clipModel->GetBounds(), m_OpenOrigin, m_OpenAngles.ToMat3());
 	idVec3 openBoxVerts[8];
@@ -893,10 +892,10 @@ int CBinaryFrobMover::GetAASArea(idAAS* aas)
 		// aasLocal->DrawArea(areaNum);
 	}
 
-	// idStr areatext(areaNum);
-	// gameRenderWorld->DebugLine(colorGreen,center,center + idVec3(0,0,20),10000000);
-	// gameRenderWorld->DebugLine(colorOrange,GetPhysics()->GetOrigin(),GetPhysics()->GetOrigin() + m_ClosedPos,10000000);
-	// gameRenderWorld->DrawText(areatext.c_str(), center + idVec3(0,0,1), 0.2f, colorGreen, mat3_identity, 1, 10000000);
+//	idStr areatext(areaNum);
+//	gameRenderWorld->DebugLine(colorGreen,center,center + idVec3(0,0,20),10000000);
+//	gameRenderWorld->DebugLine(colorOrange,GetPhysics()->GetOrigin(),GetPhysics()->GetOrigin() + m_ClosedPos,10000000);
+//	gameRenderWorld->DrawText(areatext.c_str(), center + idVec3(0,0,1), 0.2f, colorGreen, mat3_identity, 1, 10000000);
 
 	return areaNum;
 }
@@ -1109,15 +1108,20 @@ idVec3 CBinaryFrobMover::GetCurrentPos()
 	closedDir.z = 0;
 	float length = closedDir.LengthFast();
 
-	const idAngles& angles = physicsObj.GetLocalAngles();
-	idAngles deltaAngles = angles - GetClosedAngles();
-	idRotation rot = deltaAngles.ToRotation();
+	// grayman #720 - previous version was giving the wrong result for a
+	// NS door partially opened clockwise. Corrected by normalizing the
+	// closed angle and using abs() on the cos() and sin() calcs and letting
+	// closedDir and m_OpenDir set the signs when calculating currentPos.
 
+	idAngles angles = physicsObj.GetLocalAngles();
+	idAngles closedAngles = GetClosedAngles();
+	idAngles deltaAngles = angles - closedAngles.Normalize360();
+	idRotation rot = deltaAngles.ToRotation();
 	float alpha = idMath::Fabs(rot.GetAngle());
 	
 	idVec3 currentPos = GetPhysics()->GetOrigin() 
-		+ closedDir * idMath::Cos(alpha * idMath::PI / 180)
-		+ m_OpenDir * length * idMath::Sin(alpha* idMath::PI / 180);
+		+ closedDir * idMath::Fabs(idMath::Cos(alpha * idMath::PI / 180))
+		+ m_OpenDir * length * idMath::Fabs(idMath::Sin(alpha * idMath::PI / 180));
 
 	return currentPos;
 }
