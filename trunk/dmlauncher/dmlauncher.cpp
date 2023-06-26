@@ -1,10 +1,17 @@
+/*************************************************************************
+ *
+ * PROJECT: The Dark Mod - Launcher
+ * $Source$
+ * $Revision: 4853 $
+ * $Date: 2011-05-17 02:06:44 -0400 (Tue, 17 May 2011) $
+ * $Author: greebo $
+ *
+ *************************************************************************/
+
 /*
 Darkmod Launcher. Launches doom3. Builds command-line args
 from currentfm.txt and dmargs.txt.
-If the command line that invokes this executable is not blank, then
-pause 2 seconds before spawing doom3.
 */
-
 #include "Launcher.h"
 
 int main(int argc, char* argv[])
