@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4540 $
- * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4553 $
+ * $Date: 2011-02-05 01:50:41 -0500 (Sat, 05 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -63,7 +63,6 @@ protected:
 	
 	int _timeBlockStarted;		// grayman #2345 - When a block started 
 	int _blockTimeShouldEnd;	// grayman #2345 - The amount of time allowed to pass during EBlocked before trying to extricate yourself
-//	int _lastFrameBlockCheck;	// grayman #2345 - the last frame we checked whether we were blocked
 	int _timePauseStarted;		// grayman #2345 - when a treadmill pause started
 	int _pauseTimeOut;			// grayman #2345 - amount of time to pause after treadmilling
 
