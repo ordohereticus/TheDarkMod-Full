@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4741 $
- * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
+ * $Revision: 4778 $
+ * $Date: 2011-04-13 02:44:41 -0400 (Wed, 13 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -1231,6 +1231,10 @@ private:
 	void					UseVehicle( void );
 
 	void					ClearActiveInventoryMap();
+
+	// Considers item limits as defined in atdm:campaign_info entities placed in the map
+	// All items exceeding the defined limits are removed from the player's inventory
+	void					EnforcePersistentInventoryItemLimits();
 
 	void					Event_GetButtons( void );
 	void					Event_GetMove( void );

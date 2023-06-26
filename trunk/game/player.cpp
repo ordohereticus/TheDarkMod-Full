@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4759 $
- * $Date: 2011-04-09 05:19:52 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4778 $
+ * $Date: 2011-04-13 02:44:41 -0400 (Wed, 13 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4759 2011-04-09 09:19:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4778 2011-04-13 06:44:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11049,6 +11049,11 @@ void idPlayer::SendInventoryPickedUpMessage(const idStr& text)
 	inventoryPickedUpMessages.Append(text);
 }
 
+void idPlayer::EnforcePersistentInventoryItemLimits()
+{
+	// TODO
+}
+
 void idPlayer::Event_Pausegame()
 {
 	gameLocal.PauseGame(true);
@@ -11064,7 +11069,8 @@ void idPlayer::Event_MissionSuccess()
 	// Clear the persistent inventory, it might have old data from the previous mission
 	gameLocal.persistentPlayerInventory->Clear();
 
-	// Save loot info
+	// Enfore item limits on mission end - drop everything exceeding the limits
+	EnforePersistentItemLimits();
 
 	// Save current inventory into the persistent one
 	Inventory()->CopyTo(*gameLocal.persistentPlayerInventory);
