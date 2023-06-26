@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4561 $
- * $Date: 2011-02-05 14:33:47 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4583 $
+ * $Date: 2011-02-11 07:25:59 -0500 (Fri, 11 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -87,6 +87,7 @@ struct seed_class_t {
 											//!< the model is still stored in hModel.
 											//!< These classes will be skipped when recreating the entities.
 
+	bool					noshadows;		//!< entities of this class do not have a shadow, even if the model has one
 	bool					watch;			//!< if true, this class is just used to watch over a certain entity
 	idStr					combine_as;		//!< If watch is true, this is the value from "seed_combine_as"
 

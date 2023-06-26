@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4581 $
- * $Date: 2011-02-11 05:24:43 -0500 (Fri, 11 Feb 2011) $
+ * $Revision: 4583 $
+ * $Date: 2011-02-11 07:25:59 -0500 (Fri, 11 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4581 2011-02-11 10:24:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4583 2011-02-11 12:25:59Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -239,6 +239,7 @@ void Seed::Save( idSaveGame *savefile ) const {
 		savefile->WriteBool( m_Classes[i].pseudo );
 		savefile->WriteBool( m_Classes[i].watch );
 		savefile->WriteString( m_Classes[i].combine_as );
+		savefile->WriteBool( m_Classes[i].noshadows );
 
 		if (m_Classes[i].spawnArgs)
 		{
@@ -548,6 +549,7 @@ void Seed::Restore( idRestoreGame *savefile ) {
 		savefile->ReadBool( m_Classes[i].pseudo );
 		savefile->ReadBool( m_Classes[i].watch );
 		savefile->ReadString( m_Classes[i].combine_as );
+		savefile->ReadBool( m_Classes[i].noshadows );
 
 		savefile->ReadBool( bHaveModel );
 		if (bHaveModel)
@@ -1047,6 +1049,12 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 	SeedClass.classname = ent->GetEntityDefName();
 	SeedClass.modelname = ent->spawnArgs.GetString("model","");
 	SeedClass.lowestLOD = "";												// only used for pseudo classes
+
+	SeedClass.noshadows = false;
+	if (ent->spawnArgs.FindKey("noshadows"))
+	{
+		SeedClass.noshadows = ent->spawnArgs.GetBool("noshadows","0");
+	}
 
 	SeedClass.spawnArgs = NULL;
 
@@ -1773,6 +1781,9 @@ void Seed::ComputeEntityCount( void )
 	// over all classes):
 	int numRealClasses = 0;
 
+#ifdef M_DEBUG
+	gameLocal.Printf( "SEED %s: scoreSum %i.\n", GetName(), iScoreSum );
+#endif
 	m_iNumEntities = 0;
 	for( int i = 0; i < n; i++ )
 	{
@@ -3409,6 +3420,7 @@ void Seed::CombineEntities( void )
 				PseudoClass.offset = entityClass->offset;
 				PseudoClass.numEntities = 0;
 				PseudoClass.maxEntities = 0;
+				PseudoClass.noshadows = entityClass->noshadows;
 				// a combined entity must be of this class to get the multi-clipmodel working
 				PseudoClass.classname = FUNC_DUMMY;
 				// in case the combined model needs to be combined from multiple func_statics
@@ -3625,7 +3637,7 @@ bool Seed::SpawnEntity( const int idx, const bool managed )
 		// set floor to 0 to avoid moveables to be floored
 	    args.Set("floor", "0");
 
-		args.Set("solid", lclass->solid ? "1" : "0");
+		args.SetBool("solid", lclass->solid );
 
 		// TODO: spawn as hidden, then later unhide them via LOD code
 		//args.Set("hide", "1");
@@ -3634,6 +3646,8 @@ bool Seed::SpawnEntity( const int idx, const bool managed )
 		{
 			args.Set("dist_check_period", "0");
 		}
+
+		args.SetBool( "noshadows", lclass->noshadows );
 
 		gameLocal.SpawnEntityDef( args, &ent2 );
 		if (ent2)
