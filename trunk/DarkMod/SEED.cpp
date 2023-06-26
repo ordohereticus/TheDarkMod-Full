@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4485 $
- * $Date: 2011-01-28 10:52:12 -0500 (Fri, 28 Jan 2011) $
+ * $Revision: 4506 $
+ * $Date: 2011-01-30 09:30:17 -0500 (Sun, 30 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -65,7 +65,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output model generation debug info
 //#define M_DEBUG
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4485 2011-01-28 15:52:12Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4506 2011-01-30 14:30:17Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1798,12 +1798,7 @@ void Seed::PrepareEntities( void )
 
 	gameLocal.Printf( "SEED %s: Origin %0.2f %0.2f %0.2f\n", GetName(), m_origin.x, m_origin.y, m_origin.z );
 
-// DEBUG:	
-//	idVec4 markerColor (0.7, 0.2, 0.2, 1.0);
-//	idBounds b = idBounds( - size / 2, size / 2 );	
-//	gameRenderWorld->DebugBounds( markerColor, b, m_origin, 5000);
-
-	box = idBox( m_origin, size, axis );
+	box = idBox( m_origin, size / 2, axis );
 
 	float spacing = spawnArgs.GetFloat( "spacing", "0" );
 
