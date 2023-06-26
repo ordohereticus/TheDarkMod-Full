@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4707 $
- * $Date: 2011-03-22 03:38:11 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4708 $
+ * $Date: 2011-03-22 03:54:17 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4707 2011-03-22 07:38:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4708 2011-03-22 07:54:17Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -86,9 +86,9 @@ void Cmd_RestartGuiCmd_UpdateObjectives_f(const idCmdArgs &args)
 
 void Cmd_ListMissions_f(const idCmdArgs& args)
 {
-	gameLocal.Printf("%d missions registered:\n", gameLocal.m_MissionManager->GetNumMissions());
+	gameLocal.Printf("%d missions registered:\n", gameLocal.m_MissionManager->GetNumMods());
 
-	for (int i = 0; i < gameLocal.m_MissionManager->GetNumMissions(); ++i)
+	for (int i = 0; i < gameLocal.m_MissionManager->GetNumMods(); ++i)
 	{
 		CMissionInfoPtr missionInfo = gameLocal.m_MissionManager->GetModInfo(i);
 
