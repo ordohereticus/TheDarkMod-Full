@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4761 $
- * $Date: 2011-04-09 05:30:34 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4763 $
+ * $Date: 2011-04-09 05:43:59 -0400 (Sat, 09 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -17,6 +17,7 @@
 #define LIST_SIZE_STARTING 7
 
 #include "ShopItem.h"
+#include "DifficultyManager.h"
 #include "LootRuleSet.h"
 
 // Represents the Shop
@@ -41,10 +42,10 @@ private:
 	bool			_pickSetStarting;
 
 	// The non-difficulty-specific loot rules, apply if not overridden by diff-specific ones
-	LootRuleSet		generalLootRules;
+	LootRuleSet		_generalLootRules;
 
 	// The difficulty-specific loot rules, will override generalLootRules
-	LootRuleSet		diffLootRules[DIFFICULTY_COUNT];
+	LootRuleSet		_diffLootRules[DIFFICULTY_COUNT];
 
 public:
 	void Init();

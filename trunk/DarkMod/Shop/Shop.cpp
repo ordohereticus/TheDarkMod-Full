@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4761 $
- * $Date: 2011-04-09 05:30:34 -0400 (Sat, 09 Apr 2011) $
+ * $Revision: 4763 $
+ * $Date: 2011-04-09 05:43:59 -0400 (Sat, 09 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4761 2011-04-09 09:30:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4763 2011-04-09 09:43:59Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -341,7 +341,16 @@ void CShop::LoadFromMap(idMapFile* mapFile)
 
 void CShop::LoadLootRules(const idDict& dict)
 {
-	// TODO
+	// Check for general loot rules, without difficulty prefix
+	_generalLootRules.LoadFromDict(dict, "");
+
+	for (int i = 0; i < DIFFICULTY_COUNT; ++i)
+	{
+		// greebo: Assemble the difficulty prefix (e.g. "diff_0_")
+		idStr diffPrefix = "diff_" + idStr(gameLocal.m_DifficultyManager.GetDifficultyLevel()) + "_";
+
+		_diffLootRules[i].LoadFromDict(dict, diffPrefix);
+	}
 }
 
 void CShop::LoadShopItemDefinitions()
