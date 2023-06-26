@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4504 $
- * $Date: 2011-01-30 06:33:51 -0500 (Sun, 30 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4545 $
+ * $Date: 2011-02-04 00:24:36 -0500 (Fri, 04 Feb 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4504 2011-01-30 11:33:51Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4545 2011-02-04 05:24:36Z stgatilov $", init_version);
 
 #ifdef _WINDOWS_
 //#include "c:\compiled.h"
@@ -633,7 +633,7 @@ unsigned char *CLightMaterial::GetFallOffTexture(int &Width, int &Height, int &B
 		if((im = g_Global.GetImage(m_FallOffIndex)) != NULL)
 		{
 			DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("Falloff [%s]\r", im->m_Name.c_str());
-			rc = im->GetImage();
+			rc = im->GetImageData();
 			Width = im->m_Width;
 			Height = im->m_Height;
 			Bpp = im->m_Bpp;
@@ -653,7 +653,7 @@ unsigned char *CLightMaterial::GetImage(int &Width, int &Height, int &Bpp)
 		if((im = g_Global.GetImage(m_MapIndex)) != NULL)
 		{
 			DM_LOG(LC_SYSTEM, LT_DEBUG)LOGSTRING("Image [%s]\r", im->m_Name.c_str());
-			rc = im->GetImage();
+			rc = im->GetImageData();
 			Width = im->m_Width;
 			Height = im->m_Height;
 			Bpp = im->m_Bpp;

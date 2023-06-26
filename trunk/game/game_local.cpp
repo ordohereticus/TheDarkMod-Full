@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4493 $
- * $Date: 2011-01-29 09:18:59 -0500 (Sat, 29 Jan 2011) $
+ * $Revision: 4545 $
+ * $Date: 2011-02-04 00:24:36 -0500 (Fri, 04 Feb 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4493 2011-01-29 14:18:59Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4545 2011-02-04 05:24:36Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6157,7 +6157,7 @@ void idGameLocal::AnalyzeRenderImage(CRenderPipe* pipe, float fColVal[DARKMOD_LG
 	int i, in, k, kn, h, x;
 	
 	im->LoadImage(pipe);
-	unsigned char *buffer = im->GetImage();
+	unsigned char *buffer = im->GetImageData();
 
 	// This is just an errorhandling to inform the player that something is wrong.
 	// The lightgem will simply blink if the renderpipe doesn't work.

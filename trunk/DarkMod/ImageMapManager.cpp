@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4544 $
- * $Date: 2011-02-03 16:05:15 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4545 $
+ * $Date: 2011-02-04 00:24:36 -0500 (Fri, 04 Feb 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4544 2011-02-03 21:05:15Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4545 2011-02-04 05:24:36Z stgatilov $", init_version);
 
 #include "ImageMapManager.h"
 
@@ -232,7 +232,7 @@ unsigned char* CImageMapManager::GetMapData( const unsigned int id )
 
 	if (img)
 	{
-		return img->GetImage();
+		return img->GetImageData();
 	}
 
 	// some error happened
@@ -334,7 +334,7 @@ unsigned int CImageMapManager::GetMapDataAt( const unsigned int id, const float 
 		m_lastError = "X or Y out of range.";
 		return 0;
 	}
-    unsigned char *imgData = img->GetImage();
+    unsigned char *imgData = img->GetImageData();
 
 	if (imgData)
 	{
@@ -430,7 +430,7 @@ bool CImageMapManager::LoadImage( imagemap_t* map ) {
 	}
 
 	map->density = 0.0f;
-	unsigned char* imgData = map->img->GetImage();
+	unsigned char* imgData = map->img->GetImageData();
 	if (!imgData)
 	{
 		return false;
