@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4805 $
- * $Date: 2011-04-19 14:30:26 -0400 (Tue, 19 Apr 2011) $
+ * $Revision: 4807 $
+ * $Date: 2011-04-20 03:50:33 -0400 (Wed, 20 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -170,13 +170,18 @@ public:
 	**/
 	void UnlatchObjectiveComp( int ObjIndex, int CompIndex );
 
-
 	/**
 	* Set whether an objective shows up in the player's objectives screen
+	* The objective index is 0-based.
 	**/
-	void Event_SetObjVisible( int ObjIndex, bool bVal );
-	// self explanatory
-	void Event_SetObjMandatory( int ObjIndex, bool bVal );
+	void SetObjectiveVisibility(int objIndex, bool visible);
+
+	/**
+	* Set whether an objective is mandatory or not.
+	* The objective index is 0-based.
+	**/
+	void SetObjectiveMandatory(int objIndex, bool mandatory);
+
 	void Event_SetObjOngoing( int ObjIndex, bool bVal );
 	/**
 	* Replace an objective's list of enabling components with a new one

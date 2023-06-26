@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4807 $
+ * $Date: 2011-04-20 03:50:33 -0400 (Wed, 20 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4807 2011-04-20 07:50:33Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10137,12 +10137,12 @@ void idPlayer::Event_ObjectiveComponentUnlatch( int ObjIndex, int CompIndex )
 
 void idPlayer::Event_SetObjectiveVisible( int ObjIndex, bool bVal )
 {
-	gameLocal.m_MissionData->Event_SetObjVisible( ObjIndex, bVal );
+	gameLocal.m_MissionData->SetObjectiveVisibility(ObjIndex, bVal);
 }
 
 void idPlayer::Event_SetObjectiveOptional( int ObjIndex, bool bVal )
 {
-	gameLocal.m_MissionData->Event_SetObjMandatory( ObjIndex, !bVal );
+	gameLocal.m_MissionData->SetObjectiveMandatory(ObjIndex, !bVal); // negate the incoming bool
 }
 
 void idPlayer::Event_SetObjectiveOngoing( int ObjIndex, bool bVal )

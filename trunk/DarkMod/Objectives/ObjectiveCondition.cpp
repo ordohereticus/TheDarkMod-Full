@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4805 $
- * $Date: 2011-04-19 14:30:26 -0400 (Tue, 19 Apr 2011) $
+ * $Revision: 4807 $
+ * $Date: 2011-04-20 03:50:33 -0400 (Wed, 20 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "ObjectiveCondition.h"
 #include "CampaignStatistics.h"
 
-static bool init_version = FileVersionList("$Id: ObjectiveCondition.cpp 4805 2011-04-19 18:30:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ObjectiveCondition.cpp 4807 2011-04-20 07:50:33Z greebo $", init_version);
 
 ObjectiveCondition::ObjectiveCondition() :
 	_type(INVALID_TYPE),
@@ -75,11 +75,13 @@ bool ObjectiveCondition::Apply(CMissionData& missionData)
 		break;
 
 	case CHANGE_VISIBILITY:
-		// TODO
+		DM_LOG(LC_OBJECTIVES, LT_DEBUG)LOGSTRING("Objective condition will set the visiblity of objective %d to %d\r", _targetObj, _value);
+		missionData.SetObjectiveVisibility(_targetObj, _value != 0);
 		break;
 
 	case CHANGE_MANDATORY:
-		// TODO
+		DM_LOG(LC_OBJECTIVES, LT_DEBUG)LOGSTRING("Objective condition will set the mandatory flag of objective %d to %d\r", _targetObj, _value);
+		missionData.SetObjectiveMandatory(_targetObj, _value != 0);
 		break;
 
 	case INVALID_TYPE:

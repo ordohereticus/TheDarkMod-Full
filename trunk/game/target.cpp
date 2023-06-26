@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4807 $
+ * $Date: 2011-04-20 03:50:33 -0400 (Wed, 20 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 4807 2011-04-20 07:50:33Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/Objectives/MissionData.h"
@@ -1800,10 +1800,12 @@ void CTarget_SetObjectiveVisibility::Event_Activate( idEntity *activator )
 	{
 		int objId = atoi(keyVal->GetValue().c_str());
 
-		if (objId > 0) {
-			gameLocal.m_MissionData->Event_SetObjVisible(objId - 1, bVisible);
+		if (objId > 0)
+		{
+			gameLocal.m_MissionData->SetObjectiveVisibility(objId - 1, bVisible);
 		}
-		else {
+		else
+		{
 			gameLocal.Warning("Invalid objective ID %s on CTarget_SetObjectiveState %s\n", keyVal->GetValue().c_str(), name.c_str());
 			DM_LOG(LC_OBJECTIVES, LT_ERROR)LOGSTRING("Invalid objective ID %s on CTarget_SetObjectiveState %s\n", keyVal->GetValue().c_str(), name.c_str());
 		}

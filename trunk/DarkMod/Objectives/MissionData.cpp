@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4804 $
- * $Date: 2011-04-19 14:07:26 -0400 (Tue, 19 Apr 2011) $
+ * $Revision: 4807 $
+ * $Date: 2011-04-20 03:50:33 -0400 (Wed, 20 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4804 2011-04-19 18:07:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4807 2011-04-20 07:50:33Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1210,38 +1210,38 @@ void CMissionData::UnlatchObjectiveComp(int ObjIndex, int CompIndex )
 	m_Objectives[ObjIndex].m_Components[CompIndex].m_bLatched = false;
 }
 
-void CMissionData::Event_SetObjVisible( int ObjIndex, bool bVal )
+void CMissionData::SetObjectiveVisibility(int objIndex, bool visible)
 {
-	if( ObjIndex > m_Objectives.Num() || ObjIndex < 0 )
+	if (objIndex > m_Objectives.Num() || objIndex < 0)
 	{
-		DM_LOG(LC_OBJECTIVES, LT_ERROR)LOGSTRING("Event_SetObjVisible: Invalid objective index: %d\r", ObjIndex);
+		DM_LOG(LC_OBJECTIVES, LT_ERROR)LOGSTRING("Event_SetObjVisible: Invalid objective index: %d\r", objIndex);
 		return;
 	}
 
-	CObjective& obj = m_Objectives[ObjIndex];
+	CObjective& obj = m_Objectives[objIndex];
 
 	bool wasVisible = obj.m_bVisible;
 
 	// Set the new state
-	obj.m_bVisible = bVal;
+	obj.m_bVisible = visible;
 
 	// greebo: If we show a previously hidden objective, notify the player
 	// Only do this for applicable objectives
-	if (bVal && !wasVisible && obj.m_bApplies)
+	if (visible && !wasVisible && obj.m_bApplies)
 	{
 		Event_NewObjective(); 
 	}
 }
 
-void CMissionData::Event_SetObjMandatory( int ObjIndex, bool bVal )
+void CMissionData::SetObjectiveMandatory(int objIndex, bool mandatory)
 {
-	if( ObjIndex > m_Objectives.Num() || ObjIndex < 0 )
+	if (objIndex > m_Objectives.Num() || objIndex < 0)
 	{
-		DM_LOG(LC_OBJECTIVES, LT_ERROR)LOGSTRING("Event_SetObjMandatory: Invalid objective index: %d\r", ObjIndex);
+		DM_LOG(LC_OBJECTIVES, LT_ERROR)LOGSTRING("Event_SetObjMandatory: Invalid objective index: %d\r", objIndex);
 		return;
 	}
 
-	m_Objectives[ObjIndex].m_bMandatory = bVal;
+	m_Objectives[objIndex].m_bMandatory = mandatory;
 }
 
 void CMissionData::Event_SetObjOngoing( int ObjIndex, bool bVal )
