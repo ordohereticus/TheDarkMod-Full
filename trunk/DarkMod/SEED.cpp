@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4537 $
- * $Date: 2011-02-02 17:09:13 -0500 (Wed, 02 Feb 2011) $
+ * $Revision: 4541 $
+ * $Date: 2011-02-03 15:42:40 -0500 (Thu, 03 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4537 2011-02-02 22:09:13Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4541 2011-02-03 20:42:40Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -1099,7 +1099,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch )
 	if (!mapName.IsEmpty())
 	{
 		SeedClass.imgmap = gameLocal.m_ImageMapManager->GetImageMap( mapName );
-		if (SeedClass.imgmap == 0)
+		if (SeedClass.imgmap < 0)
 		{
 			gameLocal.Warning ("SEED %s: Could not load image map mapName: %s", GetName(), gameLocal.m_ImageMapManager->GetLastError() );
 		}
@@ -1142,7 +1142,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch )
 		unsigned char *imgData = gameLocal.m_ImageMapManager->GetMapData( SeedClass.imgmap );
 		if (!imgData)
 		{
-			gameLocal.Error("SEED %s: Could not access image data from %s.\n", 
+			gameLocal.Error("SEED %s: Can't access image data from %s, maybe the image file is corrupt?\n", 
 					GetName(), gameLocal.m_ImageMapManager->GetMapName( SeedClass.imgmap ) );
 		}
 
