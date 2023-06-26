@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4627 $
- * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
+ * $Revision: 4647 $
+ * $Date: 2011-03-02 20:39:36 -0500 (Wed, 02 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4627 2011-02-24 17:46:17Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4647 2011-03-03 01:39:36Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -3379,6 +3379,10 @@ bool idAI::Flee(idEntity* entityToFleeFrom, int algorithm, int distanceOption)
 		return false;
 	}
 */
+/* grayman - the section below can't be reached because
+   of the 'return true' above, so I'm commenting it out.
+   The section above this, just below the 'return', was
+   already commented out.
 
 	move.moveDest		= moveDest;
 	move.toAreaNum		= moveAreaNum;
@@ -3395,6 +3399,7 @@ bool idAI::Flee(idEntity* entityToFleeFrom, int algorithm, int distanceOption)
 	m_pathRank			= rank; // grayman #2345
 
 	return true;
+ */
 }
 
 /*

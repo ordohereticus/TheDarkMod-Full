@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4645 $
- * $Date: 2011-03-01 18:29:36 -0500 (Tue, 01 Mar 2011) $
+ * $Revision: 4647 $
+ * $Date: 2011-03-02 20:39:36 -0500 (Wed, 02 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4645 2011-03-01 23:29:36Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4647 2011-03-03 01:39:36Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -1782,6 +1782,7 @@ void HandleDoorTask::AddToForbiddenAreas(idAI* owner, CFrobDoor* frobDoor)
 		int areaNum = frobDoor->GetAASArea(aas);
 		gameLocal.m_AreaManager.AddForbiddenArea(areaNum, owner);
 		owner->PostEventMS(&AI_ReEvaluateArea, owner->doorRetryTime, areaNum);
+		frobDoor->RegisterAI(owner); // grayman #1145 - this AI is interested in this door
 	}
 }
 

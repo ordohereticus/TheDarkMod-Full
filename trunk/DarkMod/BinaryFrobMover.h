@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4540 $
- * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4647 $
+ * $Date: 2011-03-02 20:39:36 -0500 (Wed, 02 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -81,6 +81,8 @@ public:
 	virtual void			FrobAction(bool frobMaster, bool isFrobPeerAction = false);
 	virtual void			FrobHeld(bool frobMaster, bool isFrobPeerAction = false, int holdTime = 0);
 	virtual void			FrobReleased(bool frobMaster, bool isFrobPeerAction = false, int holdTime = 0);
+
+	void					RegisterAI(idAI* ai); // grayman #1145
 		
 	/**
 	* This is the non-script version of GetOpen 
@@ -511,6 +513,12 @@ protected:
 	**/
 
 	idBox						m_closedBox;
+
+	/**
+	* grayman #1145 - list of AI who unsuccessfully tried a locked door
+	**/
+
+	idList<idEntityPtr<idAI>>	m_registeredAI;
 };
 
 #endif /* !BINARYFROBMOVER */
