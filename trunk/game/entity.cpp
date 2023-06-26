@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4602 $
- * $Date: 2011-02-16 17:11:15 -0500 (Wed, 16 Feb 2011) $
+ * $Revision: 4607 $
+ * $Date: 2011-02-19 07:20:05 -0500 (Sat, 19 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4602 2011-02-16 22:11:15Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4607 2011-02-19 12:20:05Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -840,8 +840,13 @@ bool idEntity::ParseLODSpawnargs( const idDict* dict, const float fRandom)
 	// start at 1, since 0 is "the original level" setup already above
 	for (int i = 1; i < LOD_LEVELS; i++)
 	{
-		sprintf(temp, "lod_%i_distance", i);
-		m_LOD->DistLODSq[i] = dict->GetFloat( temp, "0.0" );
+
+		if (i < LOD_LEVELS - 1)
+		{
+			// for i == LOD_LEVELS - 1, we use "hide_distance"
+			sprintf(temp, "lod_%i_distance", i);
+			m_LOD->DistLODSq[i] = dict->GetFloat( temp, "0.0" );
+		}
 
 		// Tels: Fix #2635: if the LOD distance here is < fHideDistance, use hide distance-1 so the
 	   	// entity gets really hidden.
