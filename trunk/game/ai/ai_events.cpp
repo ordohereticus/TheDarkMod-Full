@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3956 $
- * $Date: 2010-06-18 00:06:23 -0400 (Fri, 18 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4480 $
+ * $Date: 2011-01-27 13:25:50 -0500 (Thu, 27 Jan 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 3956 2010-06-18 04:06:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 4480 2011-01-27 18:25:50Z stgatilov $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -2624,12 +2624,8 @@ void idAI::Event_LookAtPosition (const idVec3& lookAtWorldPosition, float durati
 
 void idAI::Event_LookAtAngles (float yawAngleClockwise, float pitchAngleUp, float rollAngle, float durationInSeconds)
 {
-	// Get our physical axis
-	idMat3 physicalAxis = GetPhysics()->GetAxis();
-	idAngles physicalAngles = physicalAxis.ToAngles ();
-
-	// FIX (Ishtvan)
-	physicalAngles.yaw = current_yaw;
+	// Get current physical angles
+	idAngles physicalAngles(0.0f, current_yaw, 0.0f);
 
 	// Now rotate it by the given angles
 	idAngles lookAngles = idAngles(pitchAngleUp, yawAngleClockwise, rollAngle);
