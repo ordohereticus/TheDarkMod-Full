@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4466 $
- * $Date: 2011-01-24 07:59:19 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4467 $
+ * $Date: 2011-01-24 08:11:18 -0500 (Mon, 24 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -65,7 +65,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output model generation debug info
 //#define M_DEBUG
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4466 2011-01-24 12:59:19Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4467 2011-01-24 13:11:18Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -794,6 +794,13 @@ float Seed::AddClassFromEntity( idEntity *ent, const int iEntScore )
 		 ent->IsType( idActor::Type ) ||
 		 ent->IsType( idLight::Type ) )
 	{
+		SeedClass.nocombine = true;
+	}
+    // never combine entities which have a script object (that won't work)
+	idStr scriptobject = ent->spawnArgs.GetString("scriptobject","");
+	if (!scriptobject.IsEmpty())
+	{
+		gameLocal.Printf("Not combining entities of this class because 'scriptobject' is set.\n");
 		SeedClass.nocombine = true;
 	}
 
