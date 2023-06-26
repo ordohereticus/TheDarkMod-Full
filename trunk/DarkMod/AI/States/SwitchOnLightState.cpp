@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4855 $
+ * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4855 2011-05-20 19:05:12Z grayman $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -653,7 +653,6 @@ void SwitchOnLightState::StartSwitchOn(idAI* owner, idLight* light)
 	owner->movementSubsystem->ClearTasks();
 	owner->StopMove(MOVE_STATUS_DONE);
 	idStr torsoAnimation = "";
-	idStr legsAnimation = ""; // if empty, no need to deal with the legs
 	float lightHeight = _goalEnt->GetPhysics()->GetOrigin().z - owner->GetPhysics()->GetOrigin().z;
 	idStr lightType = light->spawnArgs.GetString(AIUSE_LIGHTTYPE_KEY);
 
@@ -692,7 +691,7 @@ void SwitchOnLightState::StartSwitchOn(idAI* owner, idLight* light)
 		torsoAnimation.Append("_Med"); // reach out toward the switch or light
 	}
 
-	owner->SetAnimState(ANIMCHANNEL_TORSO, torsoAnimation.c_str(), 4);
+	owner->SetAnimState(ANIMCHANNEL_TORSO, torsoAnimation.c_str(), 4); // this plays the legs anim also
 }
 
 void SwitchOnLightState::Save(idSaveGame* savefile) const
@@ -704,7 +703,6 @@ void SwitchOnLightState::Save(idSaveGame* savefile) const
 	savefile->WriteObject(_goalEnt);	// grayman #2603
 	savefile->WriteFloat(_standOff);	// grayman #2603
 	savefile->WriteInt(static_cast<int>(_relightState)); // grayman #2603
-	savefile->WriteFloat(_oldTurnRate);	// grayman #2603
 }
 
 void SwitchOnLightState::Restore(idRestoreGame* savefile)
@@ -718,7 +716,6 @@ void SwitchOnLightState::Restore(idRestoreGame* savefile)
 	int temp;
 	savefile->ReadInt(temp);
 	_relightState = static_cast<ERelightState>(temp); // grayman #2603
-	savefile->ReadFloat(_oldTurnRate);	// grayman #2603
 }
 
 StatePtr SwitchOnLightState::CreateInstance()

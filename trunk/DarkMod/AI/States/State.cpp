@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4855 $
+ * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4855 2011-05-20 19:05:12Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -421,11 +421,7 @@ void State::OnVisualStim(idEntity* stimSource)
 	{
 		aiUseType = EAIuse_Lightsource;
 
-		// grayman debug - temporarily ignore what's defined in the AI, and use a CVAR.
-
-		chanceToNotice = cv_ai_chance_notice_light.GetFloat();
-		//chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeLight"); // grayman debug - uncomment when SH decides on a good default #,
-																			// then set that in the base human *.def file.
+		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeLight");
 	}
 	else if (aiUse == AIUSE_PERSON)
 	{

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4855 $
+ * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -69,8 +69,6 @@ extern idCVar cv_ai_opt_noobstacleavoidance;
 extern idCVar cv_ai_hiding_spot_max_light_quotient;
 extern idCVar cv_ai_max_hiding_spot_tests_per_frame;
 extern idCVar cv_ai_debug_anims;
-
-extern idCVar cv_ai_chance_notice_light; // grayman debug - delete after SH decides on a good default value
 
 extern idCVar cv_show_health;
 

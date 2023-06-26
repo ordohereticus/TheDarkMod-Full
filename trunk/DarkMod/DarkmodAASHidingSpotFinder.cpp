@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4269 $
- * $Date: 2010-11-01 23:27:29 -0400 (Mon, 01 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4855 $
+ * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 4269 2010-11-02 03:27:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 4855 2011-05-20 19:05:12Z grayman $", init_version);
 
 #include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
@@ -143,10 +143,10 @@ bool CDarkmodAASHidingSpotFinder::initialize
 	idEntity* in_p_ignoreEntity
 )
 {
-	// Remember the hide form position
+	// Remember the hide from position
 	hideFromPosition = hideFromPos;
 
-	// Get the aas from teh LAS
+	// Get the aas from the LAS
 	p_aas = gameLocal.GetAAS (LAS.getAASName());
 	if (p_aas == NULL)
 	{
@@ -531,7 +531,7 @@ bool CDarkmodAASHidingSpotFinder::testingAASAreas_InNonVisiblePVSArea
 				hidingSpotRedundancyDistance
 			);
 			
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Hiding spot added for PVS non-visible area %d, AAS area %d, quality \r", PVSAreas[numPVSAreasIterated], hidingSpot.goal.areaNum);
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Hiding spot added for PVS non-visible area %d, AAS area %d, quality, goal [%s]\r", PVSAreas[numPVSAreasIterated], hidingSpot.goal.areaNum,hidingSpot.goal.origin.ToString());
 		}
 
 		// This counts as a point tested

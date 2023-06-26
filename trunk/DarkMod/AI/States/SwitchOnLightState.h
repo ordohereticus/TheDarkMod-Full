@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4855 $
+ * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -31,7 +31,6 @@ private:
 
 	idEntity* _goalEnt; // grayman #2603 - entity to walk toward when relighting a light
 	float _standOff;	// grayman #2603 - get this close to relight
-	float _oldTurnRate;	// grayman #2603 - hold old turn rate while turning suspiciously
 
 	enum ERelightState	// grayman #2603
 	{

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4855 $
+ * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4855 2011-05-20 19:05:12Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4552,7 +4552,7 @@ void idAI::Turn(const idVec3& pivotOffset) {
 		return;
 	}
 
-	// check if the animator has marker this anim as non-turning
+	// check if the animator has marked this anim as non-turning
 	if ( !legsAnim.Disabled() && !legsAnim.AnimDone( 0 ) ) {
 		animflags = legsAnim.GetAnimFlags();
 	} else {
