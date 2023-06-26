@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4545 $
- * $Date: 2011-02-04 00:24:36 -0500 (Fri, 04 Feb 2011) $
- * $Author: stgatilov $
+ * $Revision: 4617 $
+ * $Date: 2011-02-20 13:07:06 -0500 (Sun, 20 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -21,7 +21,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4545 2011-02-04 05:24:36Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: ImageMapManager.cpp 4617 2011-02-20 18:07:06Z tels $", init_version);
 
 #include "ImageMapManager.h"
 
@@ -141,7 +141,7 @@ int CImageMapManager::GetImageMap( idStr name ) {
 
 	// If the map name does not start with "textures/seed/", prepend it:
 	idStr mapName = name;
-	if (mapName.Left(14) != "textures/seed/")
+	if (!mapName.Cmpn("textures/seed/", 14))
 	{
 		mapName = "textures/seed/" + name;
 	}
