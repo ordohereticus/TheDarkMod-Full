@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4784 $
- * $Date: 2011-04-15 01:22:03 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4786 $
+ * $Date: 2011-04-15 10:26:28 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4784 2011-04-15 05:22:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4786 2011-04-15 14:26:28Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -129,14 +129,22 @@ void CInventory::CopyPersistentItemsFrom(const CInventory& sourceInventory, idEn
 						{
 							DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING(
 								"Adding persistent ammo %d to player weapon %s.\r",
-								weaponItem->GetAmmo(), thisWeapon->GetWeaponName());
+								weaponItem->GetAmmo(), thisWeapon->GetWeaponName().c_str());
 
 							// Add the persistent ammo count to this item
 							thisWeapon->SetAmmo(thisWeapon->GetAmmo() + weaponItem->GetAmmo());
 						}
-						else
+						else 
 						{
-							// Doesn't need ammo, it exists already, don't do anything	
+							// Doesn't need ammo, check enabled state
+							if (weaponItem->IsEnabled() && !thisWeapon->IsEnabled())
+							{
+								DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING(
+									"Enabling weapon item %s as the persistent inventory contains an enabled one.\r",
+									thisWeapon->GetWeaponName().c_str());
+
+								thisWeapon->SetEnabled(true);
+							}
 						}
 
 						break;
