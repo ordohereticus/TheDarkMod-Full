@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4753 $
- * $Date: 2011-04-08 09:39:58 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4754 $
+ * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4753 2011-04-08 13:39:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10534,7 +10534,7 @@ void idEntity::Event_InitInventory(int callCount)
 	int lootType = spawnArgs.GetInt("inv_loot_type", "0");
 
 	// Check if the loot type is valid
-	if (lootType > CInventoryItem::LT_NONE && lootType < CInventoryItem::LT_COUNT && lootValue != 0) 
+	if (lootType > LOOT_NONE && lootType < LOOT_COUNT && lootValue != 0) 
 	{
 		gameLocal.m_MissionData->AddMissionLoot(lootType, lootValue);
 	}
@@ -10572,17 +10572,17 @@ void idEntity::Event_GetLootAmount(int lootType)
 
 	switch (lootType)
 	{
-		case CInventoryItem::LT_GOLD:
+		case LOOT_GOLD:
 			idThread::ReturnInt(gold);
 			return;
 		break;
 
-		case CInventoryItem::LT_GOODS:
+		case LOOT_GOODS:
 			idThread::ReturnInt(goods);
 			return;
 		break;
 
-		case CInventoryItem::LT_JEWELS:
+		case LOOT_JEWELS:
 			idThread::ReturnInt(jewelry);
 			return;
 		break;
@@ -10693,21 +10693,21 @@ int idEntity::ChangeLootAmount(int lootType, int amount)
 
 	switch(lootType)
 	{
-		case CInventoryItem::LT_GOLD:
+		case LOOT_GOLD:
 			gold += amount;
 			groupTotal = gold;
 			groupname = "loot_gold";
 			rc = gold;
 		break;
 
-		case CInventoryItem::LT_GOODS:
+		case LOOT_GOODS:
 			goods += amount;
 			groupTotal = goods;
 			groupname = "loot_goods";
 			rc = goods;
 		break;
 
-		case CInventoryItem::LT_JEWELS:
+		case LOOT_JEWELS:
 			jewelry += amount;
 			groupTotal = jewelry;
 			groupname = "loot_jewels";

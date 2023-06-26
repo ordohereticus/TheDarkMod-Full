@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4743 $
- * $Date: 2011-04-05 05:02:44 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4754 $
+ * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 4743 2011-04-05 09:02:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
 
 #include "Item.h"
 #include "Inventory.h"
@@ -24,7 +24,7 @@ CInventoryItem::CInventoryItem(idEntity *owner)
 	m_Item = NULL;
 	m_Category = NULL;
 	m_Type = IT_ITEM;
-	m_LootType = LT_NONE;
+	m_LootType = LOOT_NONE;
 	m_Value = 0;
 	m_Stackable = false;
 	m_Count = 1;
@@ -68,18 +68,18 @@ CInventoryItem::CInventoryItem(idEntity* itemEntity, idEntity* owner) {
 	m_Droppable = itemEntity->spawnArgs.GetBool("inv_droppable", "0");
 	m_ItemId = itemEntity->spawnArgs.GetString("inv_item_id", "");
 
-	if (m_Icon.IsEmpty() && m_LootType == LT_NONE)
+	if (m_Icon.IsEmpty() && m_LootType == LOOT_NONE)
 	{
 		DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Information: non-loot item %s has no icon.\r", itemEntity->name.c_str());
 	}
 
-	if (m_LootType != LT_NONE && m_Value <= 0)
+	if (m_LootType != LOOT_NONE && m_Value <= 0)
 	{
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Warning: Value for loot item missing on entity %s\r", itemEntity->name.c_str());
 	}
 
 	// Set the item type according to the loot property
-	m_Type = (m_LootType != LT_NONE) ? IT_LOOT : IT_ITEM;
+	m_Type = (m_LootType != LOOT_NONE) ? IT_LOOT : IT_ITEM;
 
 	m_BindMaster = itemEntity->GetBindMaster();
 	m_Orientated = itemEntity->fl.bindOrientated;
@@ -217,16 +217,16 @@ void CInventoryItem::ParseSpawnargs(const idDict& spawnArgs)
 	m_Icon = spawnArgs.GetString("inv_icon", "");
 }
 
-void CInventoryItem::SetLootType(CInventoryItem::LootType t)
+void CInventoryItem::SetLootType(LootType t)
 {
 	// Only positive values are allowed
-	if (t >= CInventoryItem::LT_NONE && t <= CInventoryItem::LT_COUNT)
+	if (t >= LOOT_NONE && t <= LOOT_COUNT)
 	{
 		m_LootType = t;
 	}
 	else
 	{
-		m_LootType = CInventoryItem::LT_NONE;
+		m_LootType = LOOT_NONE;
 	}
 
 	NotifyItemChanged();
@@ -342,16 +342,22 @@ void CInventoryItem::SetOverlay(const idStr &HudName, int overlay)
 	}
 }
 
-CInventoryItem::LootType CInventoryItem::GetLootTypeFromSpawnargs(const idDict& spawnargs) {
+LootType CInventoryItem::GetLootTypeFromSpawnargs(const idDict& spawnargs)
+{
 	// Determine the loot type
 	int lootTypeInt;
-	LootType returnValue = CInventoryItem::LT_NONE;
+	LootType returnValue = LOOT_NONE;
 
-	if (spawnargs.GetInt("inv_loot_type", "", lootTypeInt) != false) 	{
-		if (lootTypeInt >= LT_NONE && lootTypeInt < LT_COUNT)
+	if (spawnargs.GetInt("inv_loot_type", "", lootTypeInt) != false)
+	{
+		if (lootTypeInt >= LOOT_NONE && lootTypeInt < LOOT_COUNT)
+		{
 			returnValue = static_cast<LootType>(lootTypeInt);
+		}
 		else
+		{
 			DM_LOG(LC_STIM_RESPONSE, LT_ERROR)LOGSTRING("Invalid loot type: %d\r", lootTypeInt);
+		}
 	}
 
 	return returnValue;

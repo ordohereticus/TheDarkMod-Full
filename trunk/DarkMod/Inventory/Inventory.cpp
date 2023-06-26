@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4753 $
- * $Date: 2011-04-08 09:39:58 -0400 (Fri, 08 Apr 2011) $
+ * $Revision: 4754 $
+ * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4753 2011-04-08 13:39:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -22,7 +22,7 @@ static bool init_version = FileVersionList("$Id: Inventory.cpp 4753 2011-04-08 1
 #include "../MissionData.h"
 #include "../DarkMod/shop.h" // grayman (#2376)
 
-static idStr sLootTypeName[CInventoryItem::LT_COUNT] = 
+static idStr sLootTypeName[LOOT_COUNT] = 
 {
 	"loot_none",
 	"loot_jewels",
@@ -198,7 +198,7 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent, const bool gotFromShop
 	int LGroupVal = 0;
 	int dummy1(0), dummy2(0), dummy3(0); // for calling GetLoot
 
-	CInventoryItem::LootType lootType = CInventoryItem::GetLootTypeFromSpawnargs(ent->spawnArgs);
+	LootType lootType = CInventoryItem::GetLootTypeFromSpawnargs(ent->spawnArgs);
 	int value = ent->spawnArgs.GetInt("inv_loot_value", "-1");
 
 	// grayman (#2376) - if anyone ever marks loot "inv_map_start" and it's a valid shop
@@ -209,7 +209,7 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent, const bool gotFromShop
 		value = -1;
 	}
 
-	if (lootType != CInventoryItem::LT_NONE && value > 0)
+	if (lootType != LOOT_NONE && value > 0)
 	{
 		idStr pickedUpMsg = idStr(value);
 
@@ -217,19 +217,19 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent, const bool gotFromShop
 		// store it in the inventory.
 		switch (lootType)
 		{
-			case CInventoryItem::LT_GOLD:
+			case LOOT_GOLD:
 				m_Gold += value;
 				LGroupVal = m_Gold;
 				pickedUpMsg += " in Gold";
 			break;
 
-			case CInventoryItem::LT_GOODS:
+			case LOOT_GOODS:
 				m_Goods += value;
 				LGroupVal = m_Goods;
 				pickedUpMsg += " in Goods";
 			break;
 
-			case CInventoryItem::LT_JEWELS:
+			case LOOT_JEWELS:
 				m_Jewelry += value;
 				LGroupVal = m_Jewelry;
 				pickedUpMsg += " in Jewels";

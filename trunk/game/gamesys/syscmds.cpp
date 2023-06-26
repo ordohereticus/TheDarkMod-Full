@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4709 $
- * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4754 $
+ * $Date: 2011-04-08 09:53:47 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4754 2011-04-08 13:53:47Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -2809,23 +2809,23 @@ void Cmd_ShowLoot_f(const idCmdArgs& args)
 
 		items++;
 
-		CInventoryItem::LootType lootType = CInventoryItem::GetLootTypeFromSpawnargs(ent->spawnArgs);
+		LootType lootType = CInventoryItem::GetLootTypeFromSpawnargs(ent->spawnArgs);
 		
 		idVec4 colour(colorWhite);
 
 		switch(lootType)
 		{
-			case CInventoryItem::LT_GOLD:
+			case LOOT_GOLD:
 				gold += value;
 				colour = idVec4(0.97f, 0.93f, 0.58f, 1);
 			break;
 
-			case CInventoryItem::LT_GOODS:
+			case LOOT_GOODS:
 				goods += value;
 				colour = idVec4(0.3f, 0.91f, 0.3f, 1);
 			break;
 
-			case CInventoryItem::LT_JEWELS:
+			case LOOT_JEWELS:
 				jewels += value;
 				colour = idVec4(0.96f, 0.2f, 0.2f, 1);
 			break;
