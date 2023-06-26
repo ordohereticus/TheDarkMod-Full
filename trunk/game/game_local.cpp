@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4711 $
- * $Date: 2011-03-22 04:10:49 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4716 $
+ * $Date: 2011-03-23 02:36:24 -0400 (Wed, 23 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4711 2011-03-22 08:10:49Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4716 2011-03-23 06:36:24Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3711,7 +3711,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Start the timer again, we're closing the menu
 		m_GamePlayTimer.Start();
 	}
-	else if (cmd == "close_success_screen")
+	else if (cmd == "onSuccessScreenContinueClicked")
 	{
 		// Clear the mission result flag
 		SetMissionResult(MISSION_NOTEVENSTARTED);
@@ -3719,6 +3719,20 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// Set the boolean back to false for the next map start
 		gui->SetStateBool("SuccessScreenActive", false);
 		successScreenActive = false;
+
+		// Switch to the next mission if there is one
+		if (m_MissionManager->NextMissionAvailable())
+		{
+			m_MissionManager->ProceedToNextMission();
+
+			// Go to the next briefing / video
+			gui->HandleNamedEvent("SuccessProceedToNextMission");
+		}
+		else
+		{
+			// Switch back to the main menu
+			gui->HandleNamedEvent("SuccessGoBackToMainMenu");
+		}
 	}
 	else if (cmd == "setLPDifficulty")
 	{

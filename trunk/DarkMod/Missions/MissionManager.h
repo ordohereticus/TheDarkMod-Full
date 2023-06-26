@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4709 $
- * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4716 $
+ * $Date: 2011-03-23 02:36:24 -0400 (Wed, 23 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -256,6 +256,14 @@ public:
 
 	// Returns TRUE if the currently installed mod is a campaign
 	bool CurrentModIsCampaign() const;
+
+	// Returns TRUE if there is another mission available to play
+	bool NextMissionAvailable() const;
+
+	// greebo: Proceeds the current mission index to the next available one. 
+	// Returns TRUE if that was successful, FALSE if the current mod is  
+	// not a campaign or if there is no next mission available
+	bool ProceedToNextMission();
 
 	void EraseModFolder(const idStr& name);
 

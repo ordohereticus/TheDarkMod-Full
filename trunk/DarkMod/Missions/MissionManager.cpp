@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4713 $
- * $Date: 2011-03-22 05:26:43 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4716 $
+ * $Date: 2011-03-23 02:36:24 -0400 (Wed, 23 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4713 2011-03-22 09:26:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4716 2011-03-23 06:36:24Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -691,6 +691,16 @@ void CMissionManager::InitMapSequence()
 		}
 
 		gameLocal.Printf("Parsed map sequence file: %d missions found.\n", _mapSequence.Num());
+
+		// Do some safety checks and emit warnings for easier debugging
+		for (int i = 0; i < _mapSequence.Num(); ++i)
+		{
+			if (_mapSequence[i].mapNames.Num() == 0)
+			{
+				gameLocal.Warning("Mission #%d in %s doesn't define any maps!", i, cv_tdm_fm_mapsequence_file.GetString());
+				DM_LOG(LC_MAINMENU, LT_WARNING)LOGSTRING("Mission #%d in %s doesn't define any maps!\r", i, cv_tdm_fm_mapsequence_file.GetString());
+			}
+		}
 	}
 	else
 	{
@@ -706,6 +716,27 @@ const idStr& CMissionManager::GetCurrentStartingMap() const
 	}
 
 	return _curStartingMap;
+}
+
+bool CMissionManager::ProceedToNextMission()
+{
+	if (NextMissionAvailable())
+	{
+		_curMissionIndex++;
+		return true;
+	}
+
+	return false; // no campaign or no next mission available
+}
+
+bool CMissionManager::NextMissionAvailable() const
+{
+	if (CurrentModIsCampaign())
+	{
+		return _curMissionIndex + 1 < _mapSequence.Num();
+	}
+
+	return false; // no campaign
 }
 
 bool CMissionManager::CurrentModIsCampaign() const
