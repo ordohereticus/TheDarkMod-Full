@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4775 $
- * $Date: 2011-04-11 15:29:21 -0400 (Mon, 11 Apr 2011) $
+ * $Revision: 4790 $
+ * $Date: 2011-04-15 14:05:04 -0400 (Fri, 15 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4775 2011-04-11 19:29:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4790 2011-04-15 18:05:04Z greebo $", init_version);
 
 #include "Shop.h"
 #include "../../game/game_local.h"
@@ -945,6 +945,16 @@ void CShop::UpdateGUI(idUserInterface* gui)
 		gui->SetStateString("gui::forSale0_desc", "");
 		gui->SetStateString("gui::forSale0_image", "");
 		gui->SetStateString("forSaleCost0_cost", "0");
+
+		// Clear out the rest of the GUI
+		for (int i = 1; i < LIST_SIZE_FOR_SALE; i++)
+		{
+			gui->SetStateString(va("forSaleCost%d_cost", i), "");
+			gui->SetStateInt(va("forSaleAvail%d", i), 0);
+			gui->SetStateString(va("forSale%d_name", i), "");
+			gui->SetStateString(va("forSale%d_desc", i), "");
+			gui->SetStateString(va("forSale%d_image", i), "");
+		}
 	}
 	else
 	{
