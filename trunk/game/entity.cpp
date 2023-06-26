@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4447 $
- * $Date: 2011-01-18 12:48:22 -0500 (Tue, 18 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 4468 $
+ * $Date: 2011-01-24 09:59:24 -0500 (Mon, 24 Jan 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4447 2011-01-18 17:48:22Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4468 2011-01-24 14:59:24Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -6204,7 +6204,7 @@ void idEntity::Event_SetName( const char *newname ) {
 
 /*
 ================
-idEntity::Event_GetTypeName
+idEntity::Event_IsType
 ================
 */
 void idEntity::Event_IsType( const char *pstr_typeName ) 
