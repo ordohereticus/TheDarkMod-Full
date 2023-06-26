@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4651 $
- * $Date: 2011-03-04 13:34:48 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4658 $
+ * $Date: 2011-03-05 12:50:35 -0500 (Sat, 05 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -83,6 +83,7 @@ extern idCVar cv_tdm_fm_desc_file;
 extern idCVar cv_tdm_fm_current_file;
 extern idCVar cv_tdm_fm_notes_file;
 extern idCVar cv_tdm_fm_startingmap_file;
+extern idCVar cv_tdm_fm_mapsequence_file;
 extern idCVar cv_tdm_fm_splashimage_file;
 extern idCVar cv_tdm_fm_sync_config_files;
 extern idCVar cv_tdm_fm_restart_delay;

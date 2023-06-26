@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4658 $
+ * $Date: 2011-03-05 12:50:35 -0500 (Sat, 05 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4650 2011-03-04 18:18:20Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4658 2011-03-05 17:50:35Z stgatilov $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -559,11 +559,13 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 					_timeBlockStarted =  gameLocal.time - gameLocal.msec;
 				}
 			}
+/*			grayman #2669 - don't go backwards
 			else if (!torsoCustomIdleAnim && !legsCustomIdleAnim) // Bounds might not be safe yet if you're doing an idle animation
 			{
 				// Bounds are safe, back to green state
 				_state = ENotBlocked;
 			}
+ */
 			break;
 		case EBlocked:
 			if (belowThreshold)
@@ -582,13 +584,14 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 					}
 				}
 			}
+/*			grayman #2669 - don't go backwards
 			else if (!torsoCustomIdleAnim && !legsCustomIdleAnim) // Bounds might not be safe yet if you're doing an idle animation
 			{
 				// grayman #2345 - go back to EPossiblyBlocked, instead of all the way back to ENotBlocked
 				_state = EPossiblyBlocked;
 				_lastTimeNotBlocked =  gameLocal.time - gameLocal.msec;
-//				_state = ENotBlocked; // Threshold exceeded, we're unblocked again
 			}
+ */
 			break;
 		case EResolvingBlock:
 			// nothing so far

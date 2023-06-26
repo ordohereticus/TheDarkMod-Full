@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4650 $
- * $Date: 2011-03-04 13:18:20 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4658 $
+ * $Date: 2011-03-05 12:50:35 -0500 (Sat, 05 Mar 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -518,7 +518,7 @@ protected:
 	* grayman #1145 - list of AI who unsuccessfully tried a locked door
 	**/
 
-	idList<idEntityPtr<idAI>>	m_registeredAI;
+	idList< idEntityPtr<idAI> >	m_registeredAI;
 };
 
 #endif /* !BINARYFROBMOVER */
