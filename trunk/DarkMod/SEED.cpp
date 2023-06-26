@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4506 $
- * $Date: 2011-01-30 09:30:17 -0500 (Sun, 30 Jan 2011) $
+ * $Revision: 4509 $
+ * $Date: 2011-01-30 10:05:24 -0500 (Sun, 30 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -65,7 +65,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output model generation debug info
 //#define M_DEBUG
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4506 2011-01-30 14:30:17Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4509 2011-01-30 15:05:24Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -195,6 +195,7 @@ void Seed::Save( idSaveGame *savefile ) const {
 	{
 		savefile->WriteInt( m_Entities[i].skinIdx );
 		savefile->WriteVec3( m_Entities[i].origin );
+		savefile->WriteVec3( m_Entities[i].scale );
 		savefile->WriteAngles( m_Entities[i].angles );
 		// a dword is "unsigned int"
 		savefile->WriteInt( m_Entities[i].color );
@@ -424,6 +425,7 @@ void Seed::Restore( idRestoreGame *savefile ) {
 	{
 		savefile->ReadInt( m_Entities[i].skinIdx );
 		savefile->ReadVec3( m_Entities[i].origin );
+		savefile->ReadVec3( m_Entities[i].scale );
 		savefile->ReadAngles( m_Entities[i].angles );
 		// a dword is "unsigned int"
 		savefile->ReadInt( clr );
