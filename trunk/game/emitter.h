@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4624 $
- * $Date: 2011-02-23 12:06:34 -0500 (Wed, 23 Feb 2011) $
+ * $Revision: 4683 $
+ * $Date: 2011-03-10 09:03:15 -0500 (Thu, 10 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -67,7 +67,6 @@ protected:
 private:
 	bool						hidden;
 
-	idStr						m_modelName;		//! name of the original particle model
 	idList<emitter_models_t> 	m_models;			//! struct with data for additional models
 };
 
