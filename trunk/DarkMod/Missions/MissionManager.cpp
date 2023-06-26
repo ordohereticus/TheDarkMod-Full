@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4710 $
- * $Date: 2011-03-22 04:07:22 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 4712 $
+ * $Date: 2011-03-22 05:11:08 -0400 (Tue, 22 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4710 2011-03-22 08:07:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4712 2011-03-22 09:11:08Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -147,6 +147,21 @@ void CMissionManager::OnMissionComplete()
 	{
 		DM_LOG(LC_MAINMENU, LT_ERROR)LOGSTRING("Could not find mission info for current mod.\r");
 		return;
+	}
+
+	// Ensure that this was the last mission if in campaign mode, otherwise ignore this call
+	if (CurrentModIsCampaign())
+	{
+		if (_curMissionIndex == -1)
+		{
+			gameLocal.Error("Invalid mission index in OnMissionComplete()");
+		}
+
+		if (_curMissionIndex < _mapSequence.Num() - 1)
+		{
+			// This is not yet the last mission in the campaign, ignore this call
+			return;
+		}
 	}
 
 	// Mark the current difficulty level as completed
