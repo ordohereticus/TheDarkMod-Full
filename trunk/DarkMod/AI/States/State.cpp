@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4553 $
- * $Date: 2011-02-05 01:50:41 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4625 $
+ * $Date: 2011-02-24 12:26:59 -0500 (Thu, 24 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4553 2011-02-05 06:50:41Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4625 2011-02-24 17:26:59Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2258,6 +2258,13 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 {
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
+
+	// grayman #2650 - can we handle doors?
+
+	if (!owner->m_bCanOperateDoors)
+	{
+		return;
+	}
 
 	// grayman #2345 - don't handle this door if we just finished handling it.
 
