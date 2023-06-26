@@ -9,8 +9,8 @@
 #*
 #* PROJECT: The Dark Mod
 #* $Source$
-#* $Revision: 4801 $
-#* $Date: 2011-04-17 05:33:09 -0400 (Sun, 17 Apr 2011) $
+#* $Revision: 4804 $
+#* $Date: 2011-04-19 14:07:26 -0400 (Tue, 19 Apr 2011) $
 #* $Author: greebo $
 #*
 #* $Log$
@@ -182,6 +182,7 @@ Objectives/MissionData.cpp \
 Objectives/MissionStatistics.cpp \
 Objectives/Objective.cpp \
 Objectives/ObjectiveComponent.cpp \
+Objectives/ObjectiveCondition.cpp \
 Objectives/ObjectiveLocation.cpp \
 Http/HttpConnection.cpp \
 Http/HttpRequest.cpp \

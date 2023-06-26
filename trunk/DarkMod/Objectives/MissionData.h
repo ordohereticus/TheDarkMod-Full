@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4802 $
- * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4804 $
+ * $Date: 2011-04-19 14:07:26 -0400 (Tue, 19 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -329,6 +329,14 @@ public:
 	**/
 	int AddObjsFromEnt( idEntity *ent );
 	int AddObjsFromDict(const idDict& dict);
+
+	/**
+	 * greebo: Parse conditional objective spawnargs allowing one objective
+	 * to depend on the objective state in a previous map. The conditions
+	 * are automatically evaluated and applied to the existing ones, so make sure
+	 * to call this after the objectives are parsed.
+	 */
+	void ParseObjectiveConditions(const idDict& dict);
 
     /**
      * Baal: This checks if the entity is referenced by any COMP_LOCATION component of any objective.
