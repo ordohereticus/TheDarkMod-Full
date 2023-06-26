@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4845 $
- * $Date: 2011-05-14 00:53:40 -0400 (Sat, 14 May 2011) $
+ * $Revision: 4851 $
+ * $Date: 2011-05-16 23:56:00 -0400 (Mon, 16 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4845 2011-05-14 04:53:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4851 2011-05-17 03:56:00Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -453,7 +453,7 @@ void CModMenu::RestartGame()
 #else
 	// start tdmlauncher
 	DM_LOG(LC_MAINMENU, LT_DEBUG)LOGSTRING("Starting tdmlauncher %s with argument %s\r", commandLine.c_str(), engineArgument.c_str());
-	if (execlp(commandLine.c_str(), commandLine.c_str(), engineArgument.c_str(), "pause", NULL) == -1)
+	if (execlp(commandLine.c_str(), commandLine.c_str(), engineArgument.c_str(), additionalDelay.c_str(), NULL) == -1)
 	{
 		int errnum = errno;
 		gameLocal.Error("execlp failed with error code %d: %s", errnum, strerror(errnum));
