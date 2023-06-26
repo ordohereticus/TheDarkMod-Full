@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1513 $
- * $Date: 2007-10-21 19:57:17 -0400 (Sun, 21 Oct 2007) $
- * $Author: ishtvan $
+ * $Revision: 4619 $
+ * $Date: 2011-02-22 02:17:58 -0500 (Tue, 22 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,9 +13,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: gameedit.cpp 1513 2007-10-21 23:57:17Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: gameedit.cpp 4619 2011-02-22 07:17:58Z tels $", init_version);
 
 #include "game_local.h"
+#include "emitter.h"
 
 /*
 ===============================================================================

@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4611 $
- * $Date: 2011-02-19 14:28:35 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4619 $
+ * $Date: 2011-02-22 02:17:58 -0500 (Tue, 22 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -37,6 +37,7 @@
 #include "StaticMulti.h"
 #include "MissionData.h"
 #include "func_shooter.h"
+#include "../game/emitter.h"
 #include "../idlib/containers/list.h"
 
 #define SEED_DEBUG_MATERIAL_COUNT 13
