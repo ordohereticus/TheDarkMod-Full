@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4413 $
- * $Date: 2011-01-10 23:09:04 -0500 (Mon, 10 Jan 2011) $
+ * $Revision: 4638 $
+ * $Date: 2011-02-27 03:57:05 -0500 (Sun, 27 Feb 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -145,7 +145,7 @@ private:
 	// The list of new mods
 	idStringList _newFoundMissions;
 
-	// The map which should be the starting point
+	// The map file which should be loaded next (e.g. "patently_dangerous")
 	idStr _curStartingMap;
 
 	DownloadableMissionList _downloadableMissions;
@@ -201,6 +201,11 @@ public:
 
 	// Returns the name of the currently installed mod/mission
 	idStr GetCurrentMissionName();
+
+	// greebo: Returns the (file)name of the current mission (there might be multiple missions 
+	// in a campaign, this method returns the one that should be loaded next).
+	// Example: "patently_dangerous", no file extension, no maps/ prefix.
+	const idStr& GetCurrentStartingMap() const;
 
 	void EraseModFolder(const idStr& name);
 

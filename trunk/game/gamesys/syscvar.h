@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4224 $
- * $Date: 2010-10-04 11:10:19 -0400 (Mon, 04 Oct 2010) $
- * $Author: jcdenton $
+ * $Revision: 4638 $
+ * $Date: 2011-02-27 03:57:05 -0500 (Sun, 27 Feb 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -78,7 +78,6 @@ extern idCVar cv_tdm_widescreenmode;
 extern idCVar cv_tdm_show_trainer_messages;
 
 extern idCVar cv_tdm_default_relations_def;
-extern idCVar cv_tdm_mapName;
 extern idCVar cv_tdm_fm_path;
 extern idCVar cv_tdm_fm_desc_file;
 extern idCVar cv_tdm_fm_current_file;

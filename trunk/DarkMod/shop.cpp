@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4453 $
- * $Date: 2011-01-23 06:18:34 -0500 (Sun, 23 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4638 $
+ * $Date: 2011-02-27 03:57:05 -0500 (Sun, 27 Feb 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -13,11 +13,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4453 2011-01-23 11:18:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4638 2011-02-27 08:57:05Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
 #include "MissionData.h"
+#include "Missions/MissionManager.h"
 #include "./Inventory/Inventory.h"
 
 CShopItem::CShopItem() :
@@ -910,10 +911,12 @@ void CShop::CheckPicks(ShopItemList& list)
 
 void CShop::DisplayShop(idUserInterface *gui)
 {
-	idStr filename = va("maps/%s", cv_tdm_mapName.GetString());
+	const idStr& curStartingMap = gameLocal.m_MissionManager->GetCurrentStartingMap();
+
+	idStr filename = va("maps/%s", curStartingMap.c_str());
 
 	// Let the GUI know which map to load
-	gui->SetStateString("mapStartCmd", va("exec 'map %s'", cv_tdm_mapName.GetString()));
+	gui->SetStateString("mapStartCmd", va("exec 'map %s'", curStartingMap.c_str()));
 
 	// Load the map from the missiondata class (provides cached loading)
 	idMapFile* mapFile = gameLocal.m_MissionData->LoadMap(filename);

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4538 $
- * $Date: 2011-02-02 22:15:03 -0500 (Wed, 02 Feb 2011) $
- * $Author: demagogue $
+ * $Revision: 4638 $
+ * $Date: 2011-02-27 03:57:05 -0500 (Sun, 27 Feb 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4538 2011-02-03 03:15:03Z demagogue $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4638 2011-02-27 08:57:05Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2495,7 +2495,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 		int objStartXPos = -1;
 
 		// Let the GUI know which map to load
-		gui->SetStateString("mapStartCmd", va("exec 'map %s'", cv_tdm_mapName.GetString()));
+		gui->SetStateString("mapStartCmd", va("exec 'map %s'", gameLocal.m_MissionManager->GetCurrentStartingMap().c_str()));
 
 		if (!gui->GetStateBool("ingame"))
 		{
@@ -2504,7 +2504,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 			Clear();
 
 			// Get the starting map file name
-			idStr startingMapfilename = va("maps/%s", cv_tdm_mapName.GetString());
+			idStr startingMapfilename = va("maps/%s", gameLocal.m_MissionManager->GetCurrentStartingMap().c_str());
 
 			// Ensure that the map is loaded
 			idMapFile* map = LoadMap(startingMapfilename);
@@ -2587,7 +2587,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 		// reload and redisplay objectives
 		m_Objectives.Clear();
 
-		idStr startingMapfilename = va("maps/%s", cv_tdm_mapName.GetString());
+		idStr startingMapfilename = va("maps/%s", gameLocal.m_MissionManager->GetCurrentStartingMap().c_str());
 
 		// Ensure that the starting map is loaded
 		LoadMap(startingMapfilename);
