@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4736 $
- * $Date: 2011-03-29 14:23:27 -0400 (Tue, 29 Mar 2011) $
+ * $Revision: 4803 $
+ * $Date: 2011-04-18 13:34:10 -0400 (Mon, 18 Apr 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4736 2011-03-29 18:23:27Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4803 2011-04-18 17:34:10Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -569,18 +569,32 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 					if (owner->CanUnlock(frobDoor) && AllowedToLock(owner) &&
 						(_wasLocked || frobDoor->spawnArgs.GetBool("should_always_be_locked", "0")))
 					{
-						// if the door was locked before, lock it again
-						frobDoor->Lock(false);
+						frobDoor->Lock(false); // lock the door
 					}
 
-					if (doubleDoor != NULL && doubleDoor->IsOpen())
+					if (doubleDoor != NULL)
 					{
-						// the other part of the double door is still open
-						// we want to close this one too
-						ResetDoor(owner, doubleDoor);
-						owner->MoveToPosition(_backPos,HANDLE_DOOR_ACCURACY); // grayman #2345 - need more accurate AI positioning
-						_doorHandlingState = EStateMovingToBackPos;
-						break;
+						// If the other door is open, you need to close it.
+						//
+						// grayman #2732 - If it's closed, and needs to be locked, lock it.
+
+						if (doubleDoor->IsOpen())
+						{
+							// the other part of the double door is still open
+							// we want to close this one too
+							ResetDoor(owner, doubleDoor);
+							owner->MoveToPosition(_backPos,HANDLE_DOOR_ACCURACY); // grayman #2345 - need more accurate AI positioning
+							_doorHandlingState = EStateMovingToBackPos;
+							break;
+						}
+						else
+						{
+							if (owner->CanUnlock(doubleDoor) && AllowedToLock(owner) &&
+								(_wasLocked || doubleDoor->spawnArgs.GetBool("should_always_be_locked", "0")))
+							{
+								doubleDoor->Lock(false); // lock the second door
+							}
+						}
 					}
 				}
 				// continue what we were doing before.
