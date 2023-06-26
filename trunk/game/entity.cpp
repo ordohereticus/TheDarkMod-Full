@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
- * $Author: grayman $
+ * $Revision: 4836 $
+ * $Date: 2011-05-07 12:37:00 -0400 (Sat, 07 May 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4836 2011-05-07 16:37:00Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -4308,7 +4308,7 @@ void idEntity::RemoveBinds( void ) {
 idEntity::RemoveBindsOnAlert
 
 tels: Remove bound children when their "unbindonalertindex" is greater or equal to the given
-alert.
+alert. This is no longer used.
 ================
 */
 void idEntity::RemoveBindsOnAlert( const int alertIndex ) {
@@ -4324,8 +4324,17 @@ void idEntity::RemoveBindsOnAlert( const int alertIndex ) {
 			if( ent->spawnArgs.GetInt( "unbindonalertindex", "6" ) >= alertIndex)
 			{
 				ent->Unbind();
+				// Tels:
+				if ( ent->spawnArgs.GetInt("_spawned_by_anim","0") == 1 )
+				{
+					// gameLocal.Printf("Removing entity %s spanwed by animation\n", ent->GetName() );
+					// this entity was spawned automatically by an animation, remove it
+					// from the game to prevent left-overs from alerted-during-animation guards
+					ent->PostEventMS( &EV_Remove, 0 );
+					// and make inactive in the meantime
+					ent->BecomeInactive(TH_PHYSICS|TH_THINK);
+				}
 			}
-
 			next = teamChain;
 		}
 	}
@@ -4351,6 +4360,16 @@ void idEntity::DetachOnAlert( const int alertIndex )
 			// Crispy: 9999 = "infinity"
 			if( alertIndex >= ent->spawnArgs.GetInt( "unbindonalertindex", "9999" ))
 			{
+				// Tels:
+				if ( ent->spawnArgs.GetInt("_spawned_by_anim","0") == 1 )
+				{
+					// gameLocal.Printf("Removing entity %s spanwed by animation\n", ent->GetName() );
+					// this entity was spawned automatically by an animation, remove it
+					// from the game to prevent left-overs from alerted-during-animation guards
+					ent->PostEventMS( &EV_Remove, 0 );
+					// and make inactive in the meantime
+					ent->BecomeInactive(TH_PHYSICS|TH_THINK);
+				}
 				DetachInd(ind);	
 			}
 		}

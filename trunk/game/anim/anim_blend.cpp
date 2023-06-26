@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4702 $
- * $Date: 2011-03-20 19:07:32 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4836 $
+ * $Date: 2011-05-07 12:37:00 -0400 (Sat, 07 May 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4702 2011-03-20 23:07:32Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4836 2011-05-07 16:37:00Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1406,6 +1406,13 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						}
 						gameLocal.SpawnEntityDef(*entityDef, &spawnedEntity);
 						// gameLocal.Printf("Attaching '%s' (%s) as '%s' to '%s'\n", EntClass.c_str(), spawnedEntity->GetName(), AttName.c_str(), AttPos.c_str() );
+
+						// Tels: Fix for alerted guards dropping entities spawned during animations, 
+						// this is queried during alerted-drop (via unbindOnalertIndex), but not during animation
+						// drop or putdown (as we want an animation be able to create objects out of thin air and let
+						// a tdm_suicide script object take care of removing the object. An example is an AI eating an
+						// apple and dropping an apple core, which will vanish a minute later):
+						spawnedEntity->spawnArgs.Set("_spawned_by_anim", "1");
 
 						ent->Attach(spawnedEntity, AttPos, AttName);
 					}
