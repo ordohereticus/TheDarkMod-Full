@@ -4,8 +4,8 @@
 #############################################################################
 # 
 #  PROJECT: The Dark Mod - Packager
-#  $Revision: 4566 $
-#  $Date: 2011-02-08 03:05:40 -0500 (Tue, 08 Feb 2011) $
+#  $Revision: 4567 $
+#  $Date: 2011-02-08 03:14:32 -0500 (Tue, 08 Feb 2011) $
 #  $Author: greebo $
 # 
 ##############################################################################
@@ -76,7 +76,10 @@ executable_name = 'tdm_package'
 if g_os == 'MacOSX':
 	executable_name = executable_name + '.macosx'
 else:
-	executable_name = executable_name + '.linux'
+	if LINUX_TARGET_ARCH == 'i386':
+		executable_name = executable_name + '.linux'
+	elif LINUX_TARGET_ARCH == 'debian50-amd64':
+		executable_name = executable_name + '.linux.debian50-amd64'
 
 ret = local_env.Program(executable_name, tdm_package_list + minizip_list + libtdm_update_list)
 Return( 'ret' )
