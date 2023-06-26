@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4553 $
- * $Date: 2011-02-05 01:50:41 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4603 $
+ * $Date: 2011-02-16 23:01:24 -0500 (Wed, 16 Feb 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4553 2011-02-05 06:50:41Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4603 2011-02-17 04:01:24Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -366,7 +366,6 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 			case EStateMovingToFrontPos:
 			{
 				owner->m_canResolveBlock = false; // grayman #2345
-				owner->actionSubsystem->ClearTasks(); // grayman #2345 - stop playing an idle animation
 
 				if (doubleDoor != NULL && doubleDoor->IsOpen())
 				{
@@ -764,7 +763,6 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 			
 			case EStateMovingToFrontPos:
 				owner->m_canResolveBlock = false;		// grayman #2345
-				owner->actionSubsystem->ClearTasks();	// grayman #2345 - stop playing an idle animation
 
 				// check if the door was blocked or interrupted
 				if (frobDoor->IsBlocked() || 
