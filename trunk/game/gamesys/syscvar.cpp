@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4776 $
- * $Date: 2011-04-12 11:17:30 -0400 (Tue, 12 Apr 2011) $
+ * $Revision: 4815 $
+ * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4776 2011-04-12 15:17:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4815 2011-04-25 06:26:39Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -47,6 +47,7 @@ idCVar g_version(					"g_version",				gameVersion.string,	CVAR_GAME | CVAR_ROM, 
 * DarkMod Cvars - see text description in declaration below for descriptions
 **/
 idCVar cv_player_spawnclass(		"tdm_player_spawnclass",	"atdm:player_thief",	CVAR_GAME, "The player's classname." );
+idCVar cv_player_waituntilready(	"tdm_player_wait_until_ready",	"1", CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 (default), the player must be ready before the map is started.");
 
 idCVar cv_default_mission_info_file("tdm_default_mission_info_file", "fms/missions.tdminfo",	CVAR_GAME, "The filename relative to darkmod/fms/ where all the persistent mission data is stored." );
 
@@ -293,6 +294,7 @@ idCVar cv_tdm_inv_gui_file(	"tdm_inv_hud_file", "guis/tdm_inv.gui",	CVAR_GAME, "
 idCVar cv_tdm_inv_loot_item_def("tdm_inv_loot_item_def", "atdm:inv_loot_info_item", CVAR_GAME, "The name of the entityDef that defines the player's inventory loot item.");
 
 idCVar cv_tdm_obj_gui_file(	"tdm_obj_hud_file", "guis/tdm_objectives.gui",	CVAR_GAME, "The name of the gui file that defines the in-game objectives.");
+idCVar cv_tdm_waituntilready_gui_file(	"tdm_waituntilready_gui_file", "guis/tdm_waituntilready.gui",	CVAR_GAME, "The name of the gui file that is displayed after loading a map and before starting the gameplay action.");
 
 idCVar cv_tdm_hud_opacity(	"tdm_hud_opacity", "0.7",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"The opacity of the HUD GUIs. [0..1]", 0, 1 );
 idCVar cv_tdm_hud_hide_lightgem(	"tdm_hud_hide_lightgem", "0",	CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT,	"If set to true (=1), the lightgem will be hidden.", 0, 1 );

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4717 $
- * $Date: 2011-03-23 15:40:08 -0400 (Wed, 23 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4815 $
+ * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: overlaysys.cpp 4717 2011-03-23 19:40:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: overlaysys.cpp 4815 2011-04-25 06:26:39Z greebo $", init_version);
 
 #include "../game/game_local.h"
 
@@ -124,7 +124,14 @@ void COverlaySys::drawOverlays()
 		if(gui)
 		{
 			gameLocal.UpdateGUIScaling(gui);
-			gui->Redraw(gameLocal.realClientTime);
+
+			int time = gameLocal.realClientTime;
+
+			// greebo: We have a special GUI that is updated before control is passed to this method 
+			// there is a time offset stored in that GUI, add that to the realClientTime.
+			time += gui->GetStateInt("GuiTimeOffset");
+
+			gui->Redraw(time);
 		}
 		oNode = oNode->NextNode();
 	}

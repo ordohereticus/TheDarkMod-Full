@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4814 $
- * $Date: 2011-04-24 02:00:23 -0400 (Sun, 24 Apr 2011) $
+ * $Revision: 4815 $
+ * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -113,6 +113,7 @@ extern const idEventDef EV_Heal;
 
 extern const idEventDef EV_ResponseAllow;
 
+extern const idEventDef EV_DestroyOverlay;
 
 // Think flags
 enum {

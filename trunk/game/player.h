@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4788 $
- * $Date: 2011-04-15 13:44:13 -0400 (Fri, 15 Apr 2011) $
+ * $Revision: 4815 $
+ * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -467,6 +467,9 @@ public:
 	// The currently active inventory map entity
 	idEntityPtr<idEntity>	m_ActiveInventoryMapEnt;
 
+	int						m_WaitUntilReadyGuiHandle;
+	int						m_WaitUntilReadyGuiTime;
+
 public:
 	CLASS_PROTOTYPE( idPlayer );
 
@@ -928,7 +931,10 @@ public:
 	// Updates the in-game Objectives GUI, if visible (otherwise nothing happens)
 	void			UpdateObjectivesGUI();
 
-	void PrintDebugHUD(void);
+	void			PrintDebugHUD();
+
+	// Runs the "Click when ready" GUI, returns TRUE if the player is ready
+	bool			WaitUntilReady();
 
 	/**
 	* greebo: Sets the time between health "pulses" if the healthPool > 0

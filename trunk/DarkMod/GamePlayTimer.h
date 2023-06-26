@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 4815 $
+ * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -45,6 +45,11 @@ public:
 	void Stop() 
 	{
 		SetEnabled(false);
+	}
+
+	bool IsEnabled() const
+	{
+		return _enabled;
 	}
 
 	void SetEnabled(bool enabled)

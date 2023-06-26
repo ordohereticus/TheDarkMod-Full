@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4738 $
- * $Date: 2011-03-30 08:23:38 -0400 (Wed, 30 Mar 2011) $
- * $Author: stgatilov $
+ * $Revision: 4815 $
+ * $Date: 2011-04-25 02:26:39 -0400 (Mon, 25 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -21,6 +21,7 @@
 * DarkMod cvars - See text description in syscvar.cpp for descriptions
 **/
 extern idCVar cv_player_spawnclass;
+extern idCVar cv_player_waituntilready;
 
 extern idCVar cv_default_mission_info_file;
 
@@ -249,6 +250,7 @@ extern idCVar cv_reverse_grab_control;
 extern idCVar cv_tdm_rope_pull_force_factor;
 
 extern idCVar cv_tdm_obj_gui_file;
+extern idCVar cv_tdm_waituntilready_gui_file;
 
 extern idCVar cv_tdm_hud_opacity;
 extern idCVar cv_tdm_hud_hide_lightgem;
