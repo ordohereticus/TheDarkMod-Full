@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4488 $
- * $Date: 2011-01-28 13:11:26 -0500 (Fri, 28 Jan 2011) $
+ * $Revision: 4489 $
+ * $Date: 2011-01-28 14:19:01 -0500 (Fri, 28 Jan 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4488 2011-01-28 18:11:26Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4489 2011-01-28 19:19:01Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -642,6 +642,7 @@ void idGameLocal::Shutdown( void ) {
 	Printf( "------------ Game Shutdown -----------\n" );
 	
 	delete m_LightgemRenderBuffer;
+	m_LightgemRenderBuffer = NULL;
 
 	mpGame.Shutdown();
 

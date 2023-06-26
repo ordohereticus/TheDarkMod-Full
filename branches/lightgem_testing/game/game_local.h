@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4488 $
- * $Date: 2011-01-28 13:11:26 -0500 (Fri, 28 Jan 2011) $
+ * $Revision: 4489 $
+ * $Date: 2011-01-28 14:19:01 -0500 (Fri, 28 Jan 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -69,7 +69,7 @@ bool FileVersionList(const char *str, bool state);
 #define DARKMOD_LG_MAX_IMAGESPLIT			4
 #define DARKMOD_LG_RENDER_MODEL				"models/darkmod/misc/system/lightgem.lwo"
 #define DARKMOD_LG_ENTITY_NAME				"lightgem_surface"
-#define DARKMOD_LG_FILENAME					"$$??!!lightgem_file"
+#define DARKMOD_LG_FILENAME					"$?!lgf"
 // The lightgem viewid defines the viewid that is to be used for the lightgem surfacetestmodel
 #define DARKMOD_LG_VIEWID					-1
 #define DARKMOD_LG_RENDER_WIDTH				50
