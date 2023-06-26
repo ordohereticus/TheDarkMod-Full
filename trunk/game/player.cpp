@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4830 $
- * $Date: 2011-05-02 03:04:19 -0400 (Mon, 02 May 2011) $
- * $Author: greebo $
+ * $Revision: 4868 $
+ * $Date: 2011-05-25 11:12:57 -0400 (Wed, 25 May 2011) $
+ * $Author: newhorizon $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4830 2011-05-02 07:04:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4868 2011-05-25 15:12:57Z newhorizon $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -7953,7 +7953,7 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	// Dram: Changed so that each axis has it's own fracsin. Now they move independantly of each other
 	scale = xyspeed + 40.0f;
 	fracsin1 = scale * sin( MS2SEC( gameLocal.time * 0.42 ) ) * 0.006f;
-	fracsin2 = scale * sin( MS2SEC( gameLocal.time * 1.63 ) ) * 0.008f;
+	fracsin2 = scale * sin( MS2SEC( gameLocal.time * 1.63 ) ) * 0.01f;
 	fracsin3 = scale * sin( MS2SEC( gameLocal.time * 2 ) ) * 0.01f;
 	angles.roll		+= fracsin1;
 	angles.yaw		+= fracsin2;

@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4855 $
- * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
- * $Author: grayman $
+ * $Revision: 4868 $
+ * $Date: 2011-05-25 11:12:57 -0400 (Wed, 25 May 2011) $
+ * $Author: newhorizon $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4855 2011-05-20 19:05:12Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4868 2011-05-25 15:12:57Z newhorizon $", init_version);
 
 #include "../game_local.h"
 
@@ -383,6 +383,11 @@ idCVar cv_lp_auto_pick("tdm_lp_auto_pick",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARC
 idCVar cv_lp_randomize("tdm_lp_randomize",	"1",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1, the jiggling, while lockpicking, will be randomized, otherwise it is linear." );
 idCVar cv_lp_pawlow("tdm_lp_pawlow",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the sweetspot sound will play at the end of the pattern instead of at the beginning. Thus making it into a reaction game." );
 idCVar cv_lp_debug_hud("tdm_lp_debug_hud",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 the lockpicking debug HUD is shown during lockpicking." );
+
+/**
+ * Variable for bow aimer. -- Dram
+ */
+idCVar cv_bow_aimer("tdm_bow_aimer",	"0",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "Whether the bow has an aimer. 0 = False, 1 = True." );
 
 idCVar cv_door_auto_open_on_unlock("tdm_door_auto_open_on_unlock",	"1",	CVAR_GAME | CVAR_BOOL | CVAR_ARCHIVE, "If set to 1 doors and chests will start to open after being unlocked." );
 

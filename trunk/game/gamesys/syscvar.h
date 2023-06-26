@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4855 $
- * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
- * $Author: grayman $
+ * $Revision: 4868 $
+ * $Date: 2011-05-25 11:12:57 -0400 (Wed, 25 May 2011) $
+ * $Author: newhorizon $
  *
  ***************************************************************************/
 
@@ -321,6 +321,8 @@ extern idCVar cv_lp_randomize;
 extern idCVar cv_lp_pawlow;
 extern idCVar cv_lp_debug_hud;
 
+// Bow type
+extern idCVar cv_bow_aimer;
 // melee difficulty
 extern idCVar cv_melee_difficulty;
 
