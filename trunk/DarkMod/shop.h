@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4453 $
- * $Date: 2011-01-23 06:18:34 -0500 (Sun, 23 Jan 2011) $
- * $Author: tels $
+ * $Revision: 4742 $
+ * $Date: 2011-04-04 08:49:09 -0400 (Mon, 04 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -216,8 +216,9 @@ private:
 	// grayman - Provides max_ammo value
 	int GetMaxAmmo(const idStr& weaponName);
 
+	// Adds the gold from the previous mission
+	void AddGoldFromPreviousMission();
 };
-
 
 #endif	/* !__SHOP_H__ */
 

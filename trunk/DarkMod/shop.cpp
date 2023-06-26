@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4641 $
- * $Date: 2011-02-27 06:45:57 -0500 (Sun, 27 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4742 $
+ * $Date: 2011-04-04 08:49:09 -0400 (Mon, 04 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: shop.cpp 4641 2011-02-27 11:45:57Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: shop.cpp 4742 2011-04-04 12:49:09Z greebo $", init_version);
 
 #include "shop.h"
 #include "../game/game_local.h"
@@ -942,16 +942,20 @@ void CShop::DisplayShop(idUserInterface *gui)
 
 	// grayman (#2376) add "inv_map_start" items to the shop's list of starting items,
 	// then check for lockpick duplications.
-
 	AddMapItems(mapFile);
+
 	if (pickSetShop)
 	{
 		CheckPicks(itemsForSale);
 	}
+
 	if (pickSetStarting)
 	{
 		CheckPicks(startingItems);
 	}
+
+	// greebo: Update the amount of gold to spend based on the loot the player found earlier
+	AddGoldFromPreviousMission();
 
 	UpdateGUI(gui);
 }
@@ -996,7 +1000,8 @@ CShopItemPtr CShop::FindStartingItemByID(const char *id)
 	return FindByID(startingItems, id);
 }
 
-CShopItemPtr CShop::FindForSaleByID(const char *id) {
+CShopItemPtr CShop::FindForSaleByID(const char *id)
+{
 	return FindByID(itemsForSale, id);
 }
 
@@ -1045,6 +1050,7 @@ void CShop::BuyItem(int index)
 void CShop::DropUndropItem(int index)
 {
 	const CShopItemPtr& dropItem = startingItems[startingTop + index];
+
 	if (dropItem->GetDroppedCount() > 0)
 	{
 		dropItem->Undrop();
@@ -1071,9 +1077,6 @@ int CShop::GetGold()
 	return this->gold;
 };
 
-/**
- * Update the GUI variables. This will change when we get the real GUI.
- */
 void CShop::UpdateGUI(idUserInterface* gui)
 {
 	gui->SetStateInt("gold", gold);
@@ -1198,6 +1201,9 @@ void CShop::UpdateGUI(idUserInterface* gui)
 	gui->SetStateInt("boughtItem", -1);
 	gui->SetStateInt("soldItem", -1);
 	gui->SetStateInt("dropItem", -1);
-
 }
 
+void CShop::AddGoldFromPreviousMission()
+{
+	// TODO
+}
