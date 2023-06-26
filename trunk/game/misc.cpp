@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4228 $
- * $Date: 2010-10-07 22:37:38 -0400 (Thu, 07 Oct 2010) $
+ * $Revision: 4608 $
+ * $Date: 2011-02-19 08:18:00 -0500 (Sat, 19 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ Various utility objects and functions.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4228 2010-10-08 02:37:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: misc.cpp 4608 2011-02-19 13:18:00Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/sndProp.h"
@@ -1476,8 +1476,6 @@ void idStaticEntity::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( fadeStart );
 	savefile->WriteInt( fadeEnd );
 	savefile->WriteBool( runGui );
-
-	SaveLOD( savefile );
 }
 
 /*
@@ -1493,8 +1491,6 @@ void idStaticEntity::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( fadeStart );
 	savefile->ReadInt( fadeEnd );
 	savefile->ReadBool( runGui );
-
-	RestoreLOD( savefile );
 }
 
 /*
@@ -1730,6 +1726,7 @@ idFuncEmitter::idFuncEmitter
 */
 idFuncEmitter::idFuncEmitter( void ) {
 	hidden = false;
+	m_LOD = NULL;
 }
 
 /*
