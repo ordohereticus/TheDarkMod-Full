@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4401 $
- * $Date: 2011-01-10 21:26:12 -0500 (Mon, 10 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4596 $
+ * $Date: 2011-02-14 01:07:16 -0500 (Mon, 14 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: fx.cpp 4401 2011-01-11 02:26:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: fx.cpp 4596 2011-02-14 06:07:16Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -688,7 +688,7 @@ idEntityFx *idEntityFx::StartFx( const char *fx, const idVec3 *useOrigin, const 
 	}
 
 	// greebo: Don't call Bind again if a we're bound to a joint
-	if (bind && (nfx->Joint() == NULL || *nfx->Joint() == NULL))
+	if (bind && ((nfx->Joint() == NULL) || (*nfx->Joint() == '\0')))
 	{
 		// never bind to world spawn
 		if (ent != gameLocal.world)
