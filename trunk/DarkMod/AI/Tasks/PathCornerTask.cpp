@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4540 $
- * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4736 $
+ * $Date: 2011-03-29 14:23:27 -0400 (Tue, 29 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 4540 2011-02-03 18:59:49Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: PathCornerTask.cpp 4736 2011-03-29 18:23:27Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "PatrolTask.h"
@@ -109,6 +109,15 @@ bool PathCornerTask::Perform(Subsystem& subsystem)
 
 				// Move is done, fall back to PatrolTask
 				DM_LOG(LC_AI, LT_INFO)LOGSTRING("Move is done.\r");
+
+				// grayman #2712 - clear REUSE timeout on the last door used
+
+				Memory& memory = owner->GetMemory();
+				CFrobDoor* frobDoor = memory.lastDoorHandled.GetEntity();
+				if (frobDoor != NULL)
+				{
+					memory.GetDoorInfo(frobDoor).lastTimeUsed = -1; // reset timeout
+				}
 
 				return true; // finish this task
 			}
