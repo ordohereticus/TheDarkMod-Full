@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4636 $
- * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
+ * $Revision: 4751 $
+ * $Date: 2011-04-07 03:06:49 -0400 (Thu, 07 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -39,6 +39,15 @@ public:
 		time_t						changeTime;
 		unsigned long				uncompressedSize;
 		unsigned long				crc32;
+
+		enum Method
+		{
+			STORED,
+			DEFLATED,
+		};
+
+		Method						compressionMethod;
+		int							compressionLevel;
 
 		std::vector<unsigned char>	extraField;
 		std::vector<char>			comment;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4636 $
- * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
+ * $Revision: 4751 $
+ * $Date: 2011-04-07 03:06:49 -0400 (Thu, 07 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -329,7 +329,11 @@ ZipFileRead::CompressedFilePtr ZipFileRead::ReadCompressedFile(const std::string
 		tdm::TraceLog::WriteLine(LOG_VERBOSE, "[ReadCompressedFile]: Cannot open file info for raw read " + filename + ": " + intToStr(result));
 		return CompressedFilePtr();
 	}
-	
+
+	// Remember the compression method and level
+	output->compressionMethod = method == Z_DEFLATED ? CompressedFile::DEFLATED : CompressedFile::STORED;
+	output->compressionLevel = level;
+
 	// this malloc may fail if the compressed data is very large
 	output->data.resize(info.compressed_size);
 	
@@ -551,10 +555,14 @@ bool ZipFileWrite::CopyFileFromZip(const ZipFileReadPtr& fromZip, const std::str
 	const char* comment = !file->comment.empty() ? &file->comment.front() : NULL;
 	void* localExtraField = !file->localExtraField.empty() ? &file->localExtraField.front() : NULL;
 
+	// Carry over compression method, few-byte files like binary.conf are stored
+	int method = file->compressionMethod == ZipFileRead::CompressedFile::STORED ? 0 : Z_DEFLATED;
+	int level = file->compressionLevel;
+
 	int result = zipOpenNewFileInZip2(_handle, toPath.c_str(), &zfi, 
 									  localExtraField, file->localExtraField.size(), 
 									  extraField, file->extraField.size(), 
-									  comment, Z_DEFLATED, Z_DEFAULT_COMPRESSION, 1);
+									  comment, method, level, 1);
 
 	if (result != UNZ_OK)
 	{
@@ -580,7 +588,7 @@ bool ZipFileWrite::CopyFileFromZip(const ZipFileReadPtr& fromZip, const std::str
 		return false;
 	}
 
-	return false;
+	return true;
 }
 
 // --------------------------------------------------------
