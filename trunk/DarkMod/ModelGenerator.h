@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4543 $
- * $Date: 2011-02-03 15:58:15 -0500 (Thu, 03 Feb 2011) $
+ * $Revision: 4602 $
+ * $Date: 2011-02-16 17:11:15 -0500 (Wed, 16 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -108,6 +108,15 @@ struct lod_data_t
 	float				fLODFadeOutRange;
 	float				fLODFadeInRange;
 
+	/**
+    * If the mapper sets a minimum distance, respect this even when the
+	* menu would try a lower dist. E.g. "lod_normal_distance" "700" means
+	* the entity ignores a lod_bias under 1.0f if it is closer than 700
+	* units. E.g. a "hide_distance" of 800 units will with lod_bias 0.5
+	* not cause the entity to disappear at 400 units, but only from 700
+	* units onwards.
+    */
+	float				fLODNormalDistance;
 };
 
 /** Describes a model stage used at a specific origin. Used internally to figure
