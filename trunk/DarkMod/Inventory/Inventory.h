@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4741 $
- * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
+ * $Revision: 4743 $
+ * $Date: 2011-04-05 05:02:44 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -125,7 +125,7 @@ public:
 	 * possible for the player to drop the item, in which case the entity 
 	 * must stay around.
 	 */
-	void					RemoveEntityFromMap(idEntity *ent, bool bDelete = false);
+	static void				RemoveEntityFromMap(idEntity *ent, bool bDelete = false);
 
 	/**
 	 * Put an item in the inventory. Use the default group if none is specified.
@@ -202,6 +202,12 @@ public:
 	 * as persistent (i.e. have GetPersistentCount() > 0). No items are deleted from the source.
 	 */
 	void					CopyPersistentItemsFrom(const CInventory& sourceInventory);
+
+	// Save the spawnargs of persistent items. This is needed for respawning them in the next mission
+	void					SaveItemEntities(bool persistentOnly = true);
+
+	// Restore the item entities at the given position in the map
+	void					RestoreItemEntities(const idVec3& entPosition);
 
 private:
 

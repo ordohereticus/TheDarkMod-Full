@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4741 $
- * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
+ * $Revision: 4743 $
+ * $Date: 2011-04-05 05:02:44 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4741 2011-04-04 12:16:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4743 2011-04-05 09:02:44Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1387,8 +1387,8 @@ void idPlayer::AddPersistentInventoryItems()
 	// Copy all persistent items into our own inventory
 	Inventory()->CopyPersistentItemsFrom(*gameLocal.persistentPlayerInventory);
 
-	// Finally clear the persistent inventory, it has run its course
-	gameLocal.persistentPlayerInventory->Clear();
+	// We've changed maps, let's respawn our item entities where needed, put them to our own position
+	Inventory()->RestoreItemEntities(GetPhysics()->GetOrigin());
 }
 
 /*
@@ -11061,8 +11061,14 @@ void idPlayer::Event_Unpausegame()
 
 void idPlayer::Event_MissionSuccess()
 {
+	// Clear the persistent inventory, it might have old data from the previous mission
+	gameLocal.persistentPlayerInventory->Clear();
+
 	// Save current inventory into the persistent one
 	Inventory()->CopyTo(*gameLocal.persistentPlayerInventory);
+	
+	// Save the item entities of all persistent items
+	gameLocal.persistentPlayerInventory->SaveItemEntities(true);
 	
 	// Set the gamestate
 	gameLocal.SetMissionResult(MISSION_COMPLETE);

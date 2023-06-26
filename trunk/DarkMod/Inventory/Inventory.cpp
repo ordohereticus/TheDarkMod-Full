@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4741 $
- * $Date: 2011-04-04 08:16:07 -0400 (Mon, 04 Apr 2011) $
+ * $Revision: 4743 $
+ * $Date: 2011-04-05 05:02:44 -0400 (Tue, 05 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4741 2011-04-04 12:16:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4743 2011-04-05 09:02:44Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -107,6 +107,45 @@ void CInventory::CopyPersistentItemsFrom(const CInventory& sourceInventory)
 
 			// Add this item to our inventory
 			PutItem(item, item->Category()->GetName());
+		}
+	}
+}
+
+void CInventory::SaveItemEntities(bool persistentOnly)
+{
+	for (int c = 0; c < GetNumCategories(); ++c)
+	{
+		const CInventoryCategoryPtr& category = GetCategory(c);
+
+		for (int itemIdx = 0; itemIdx < category->GetNumItems(); ++itemIdx)
+		{
+			const CInventoryItemPtr& item = category->GetItem(itemIdx);
+
+			if (persistentOnly && item->GetPersistentCount() <= 0)
+			{
+				continue; // skip non-persistent items
+			}
+
+			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Saving item entity of item %s.\r", item->GetName().c_str());
+
+			item->SaveItemEntityDict();
+		}
+	}
+}
+
+void CInventory::RestoreItemEntities(const idVec3& entPosition)
+{
+	for (int c = 0; c < GetNumCategories(); ++c)
+	{
+		const CInventoryCategoryPtr& category = GetCategory(c);
+
+		for (int itemIdx = 0; itemIdx < category->GetNumItems(); ++itemIdx)
+		{
+			const CInventoryItemPtr& item = category->GetItem(itemIdx);
+
+			DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Restoring item entity of item %s.\r", item->GetName().c_str());
+
+			item->RestoreItemEntityFromDict(entPosition);
 		}
 	}
 }
@@ -540,7 +579,7 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 	return returnValue;
 }
 
-void CInventory::RemoveEntityFromMap(idEntity *ent, bool bDelete)
+void CInventory::RemoveEntityFromMap(idEntity* ent, bool deleteEntity)
 {
 	if (ent == NULL) return;
 
@@ -555,7 +594,7 @@ void CInventory::RemoveEntityFromMap(idEntity *ent, bool bDelete)
 	ent->GetPhysics()->UnlinkClip();
 	ent->Hide();
 
-	if (bDelete == true)
+	if (deleteEntity == true)
 	{
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Deleting entity from game: %s...\r", ent->name.c_str());
 		ent->PostEventMS(&EV_Remove, 0);
