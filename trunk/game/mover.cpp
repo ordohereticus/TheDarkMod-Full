@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4141 $
- * $Date: 2010-08-22 01:07:49 -0400 (Sun, 22 Aug 2010) $
- * $Author: tels $
+ * $Revision: 4643 $
+ * $Date: 2011-03-01 12:09:42 -0500 (Tue, 01 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 4141 2010-08-22 05:07:49Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 4643 2011-03-01 17:09:42Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3083,13 +3083,8 @@ void idRotater::Event_Activate( idEntity *activator )
 {
 	activatedBy = activator;
 
-	// Tels: If "invert_on_trigger" is true (default is "1"), then
-	// rotate the direction on each trigger:
-	if ( spawnArgs.GetBool("invert_on_trigger", "1") )
-	{
-		// greebo: Invert the "rotate" spawnarg
-		spawnArgs.Set("rotate", spawnArgs.GetBool("rotate") ? "0" : "1");
-	}
+	// greebo: Invert the "rotate" spawnarg
+	spawnArgs.Set("rotate", spawnArgs.GetBool("rotate") ? "0" : "1");
 
 	// Start or stop the rotation, based on the spawnargs (forward direction)
 	SetRotationFromSpawnargs(true);
