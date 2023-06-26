@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4611 $
- * $Date: 2011-02-19 14:28:35 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4615 $
+ * $Date: 2011-02-19 17:39:19 -0500 (Sat, 19 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4611 2011-02-19 19:28:35Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4615 2011-02-19 22:39:19Z tels $", init_version);
 
 #include "SEED.h"
 
@@ -1010,9 +1010,9 @@ idDict* Seed::LoadSpawnArgsFromMap(const idMapFile* mapFile, const idStr &entity
 						key == "skin" ||
 						key == "model" ||
 						key == "_color" ||
-						key.Left(7) == "editor_" ||
-						key.Left(5) == "seed_" ||
-						key.Left(6) == "target"
+						key.Cmpn("editor_",7) ||
+						key.Cmpn("seed_",5) ||
+						key.Cmpn("target",6)
 					   )
 					{
 #ifdef M_DEBUG
