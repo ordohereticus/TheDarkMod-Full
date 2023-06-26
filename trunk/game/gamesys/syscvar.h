@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4649 $
- * $Date: 2011-03-04 12:43:43 -0500 (Fri, 04 Mar 2011) $
- * $Author: greebo $
+ * $Revision: 4700 $
+ * $Date: 2011-03-20 16:07:52 -0400 (Sun, 20 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -346,6 +346,10 @@ extern idCVar cv_lod_bias;
 extern idCVar cv_ai_fov_show;
 extern idCVar cv_ai_ko_show;
 
+/**
+* If != 0, use this ratio between FOV X and Y and ignore r_aspectRatio.
+*/
+extern idCVar	cv_r_fovRatio;
 
 /**
 * End DarkMod cvars

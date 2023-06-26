@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4698 $
- * $Date: 2011-03-20 14:03:19 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4700 $
+ * $Date: 2011-03-20 16:07:52 -0400 (Sun, 20 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4698 2011-03-20 18:03:19Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4700 2011-03-20 20:07:52Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3268,7 +3268,8 @@ void idGameLocal::CalcFov( float base_fov, float &fov_x, float &fov_y ) const {
 	float	y;
 	float	ratio_x;
 	float	ratio_y;
-	
+	float	ratio_fov;
+
 	if ( !sys->FPU_StackIsEmpty() ) {
 		Printf( sys->FPU_GetState() );
 		Error( "idGameLocal::CalcFov: FPU stack not empty" );
@@ -3286,35 +3287,46 @@ void idGameLocal::CalcFov( float base_fov, float &fov_x, float &fov_y ) const {
 		Error( "idGameLocal::CalcFov: bad result" );
 	}
 
-	switch( r_aspectRatio.GetInteger() ) {
-	default :
-	case 0 :
-		// 4:3
-		fov_x = base_fov;
-		return;
-		break;
+	// if r_fovRatio != 0, use it directly:
+	ratio_fov = cv_r_fovRatio.GetFloat();
 
-	case 1 :
-		// 16:9
-	case 4 :
-		// TV 16:9
-		ratio_x = 16.0f;
-		ratio_y = 9.0f;
-		break;
-
-	case 2 :
-		// 16:10
-		ratio_x = 16.0f;
-		ratio_y = 10.0f;
-		break;
-
-	case 3 :
-		// 5:4
-		ratio_x = 5.0f;
-		ratio_y = 4.0f;
-		break;
+	if (ratio_fov > 0.01)
+	{
+			ratio_x = ratio_fov;
+			ratio_y = 1.0f;
+	}
+	else
+	{
+		// old code, use r_aspectRatio
+		switch( r_aspectRatio.GetInteger() ) {
+		default :
+		case 0 :
+			// 4:3
+			fov_x = base_fov;
+			return;
+			break;
+		case 1 :
+			// 16:9
+		case 4 :
+			// TV 16:9
+			ratio_x = 16.0f;
+			ratio_y = 9.0f;
+			break;
+		case 2 :
+			// 16:10
+			ratio_x = 16.0f;
+			ratio_y = 10.0f;
+			break;
+		case 3 :
+			// 5:4
+			ratio_x = 5.0f;
+			ratio_y = 4.0f;
+			break;
+		}
 	}
 
+//	Printf( "Using FOV ratio %0.3f:%0.0f\n", ratio_x, ratio_y );
+	
 	y = ratio_y / tan( fov_y / 360.0f * idMath::PI );
 	fov_x = atan2( ratio_x, y ) * 360.0f / idMath::PI;
 
@@ -3516,7 +3528,7 @@ void idGameLocal::UpdateScreenResolutionFromGUI(idUserInterface* gui)
 			break;
 		};
 
-		gameLocal.Printf("Widesreenmode %i, setting r_customWidth=%i, r_customHeight=%i\n", mode, width, height);
+		Printf("Widesreenmode %i, setting r_customWidth=%i, r_customHeight=%i\n", mode, width, height);
 		cvarSystem->SetCVarInteger("r_customWidth", width);
 		cvarSystem->SetCVarInteger("r_customHeight", height);
 	}
@@ -3692,7 +3704,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			case 3840: cv_tdm_widescreenmode.SetInteger( height == 2160 ? 17 : 18); break;
 			default: cv_tdm_widescreenmode.SetInteger(0); break;
 			}
-			gameLocal.Printf("Widescreenmode was set to: %i (%ix%i)\n", cv_tdm_widescreenmode.GetInteger(), width, height );
+			Printf("Widescreenmode was set to: %i (%ix%i)\n", cv_tdm_widescreenmode.GetInteger(), width, height );
 		}
 	}
 	// greebo: the "log" command is used to write stuff to the console
