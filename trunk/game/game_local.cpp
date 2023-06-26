@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4831 $
- * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
- * $Author: greebo $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4831 2011-05-02 17:22:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -6433,7 +6433,6 @@ void idGameLocal::RemoveResponse(idEntity *e)
 int idGameLocal::DoResponseAction(const CStimPtr& stim, int numEntities, idEntity* originator, const idVec3& stimOrigin)
 {
 	int numResponses = 0;
-
 	for (int i = 0; i < numEntities; i++)
 	{
 		// ignore the original entity because an entity shouldn't respond 
@@ -6587,8 +6586,9 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 			{
 				if (timer->Tick(ticks))
 				{
-					//gameLocal.Printf("Timer elapsed!\n");
+					//gameLocal.Printf("Stim timer elapsed! ProcessStimResponse - firing stim\n");
 					// Enable the stim when the timer has expired
+
 					stim->Enable();
 				}
 			}

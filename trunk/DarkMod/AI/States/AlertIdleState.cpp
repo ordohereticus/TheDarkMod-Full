@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3676 $
- * $Date: 2009-08-19 04:00:46 -0400 (Wed, 19 Aug 2009) $
- * $Author: angua $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 3676 2009-08-19 08:00:46Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -44,13 +44,21 @@ void AlertIdleState::Init(idAI* owner)
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("AlertIdleState initialised.\r");
 	assert(owner);
 
+	// grayman #2603 - clear recent alerts, which allows us to see new, lower-weighted, alerts
+	Memory& memory = owner->GetMemory();
+	memory.alertClass = EAlertNone;
+	memory.alertType = EAlertTypeNone;
+
 	_alertLevelDecreaseRate = 0.005f;
 
 	_startSleeping = owner->spawnArgs.GetBool("sleeping", "0");
 	_startSitting = owner->spawnArgs.GetBool("sitting", "0");
 
 	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
+	if (!CheckAlertLevel(owner))
+	{
+		return;
+	}
 
 	InitialiseMovement(owner);
 	InitialiseCommunication(owner);

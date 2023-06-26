@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4832 $
- * $Date: 2011-05-04 08:11:53 -0400 (Wed, 04 May 2011) $
- * $Author: greebo $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -379,7 +379,9 @@ public:
 	// The last time the above value has been calculated
 	int						m_LightQuotientLastEvalTime;
 
-	bool					m_droppedByAI; // grayman #1330
+	bool					m_droppedByAI;	// grayman #1330
+
+	int						m_relightAfter;	// grayman #2603
 
 	/**
 	* Tels: Contains handle to (sharable, constant) LOD data if != 0.
@@ -694,6 +696,8 @@ public:
 
 	void					SetHideUntilTime(int time);	// grayman #597
 	int						GetHideUntilTime(void);		// grayman #597
+
+	void					DropTorch(); // grayman #2603
 
 	enum {
 		EVENT_STARTSOUNDSHADER,

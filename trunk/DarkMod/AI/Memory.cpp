@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4736 $
- * $Date: 2011-03-29 14:23:27 -0400 (Tue, 29 Mar 2011) $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 4736 2011-03-29 18:23:27Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -41,6 +41,7 @@ Memory::Memory(idAI* owningAI) :
 	unconsciousPeopleHaveBeenFound(false),
 	deadPeopleHaveBeenFound(false),
 	alertPos(0,0,0),
+	stopRelight(false), // grayman #2603
 	alertClass(EAlertClassCount),
 	alertType(EAlertTypeCount),
 	alertRadius(-1),
@@ -98,6 +99,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteBool(unconsciousPeopleHaveBeenFound);
 	savefile->WriteBool(deadPeopleHaveBeenFound);
 	savefile->WriteVec3(alertPos);
+	savefile->WriteBool(stopRelight); // grayman #2603
 	savefile->WriteInt(static_cast<int>(alertClass));
 	savefile->WriteInt(static_cast<int>(alertType));
 	savefile->WriteFloat(alertRadius);
@@ -180,6 +182,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadBool(unconsciousPeopleHaveBeenFound);
 	savefile->ReadBool(deadPeopleHaveBeenFound);
 	savefile->ReadVec3(alertPos);
+	savefile->ReadBool(stopRelight); // grayman #2603
 
 	savefile->ReadInt(temp);
 	alertClass = static_cast<EAlertClass>(temp);

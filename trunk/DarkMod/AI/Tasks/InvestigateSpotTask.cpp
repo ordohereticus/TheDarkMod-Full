@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4626 $
- * $Date: 2011-02-24 12:33:07 -0500 (Thu, 24 Feb 2011) $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 4626 2011-02-24 17:33:07Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -97,13 +97,29 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 
 		// greebo: For close investigation, don't step up to the very spot, to prevent the AI
 		// from kneeling into bloodspots or corpses
+		idVec3 direction = owner->GetPhysics()->GetOrigin() - _searchSpot;
 		if (_investigateClosely)
 		{
-			idVec3 direction = owner->GetPhysics()->GetOrigin() - _searchSpot;
-			direction.NormalizeFast();
+			idVec3 dir = direction;
+			dir.NormalizeFast();
 
 			// 20 units before the actual spot
-			destPos += direction * 20;
+			destPos += dir * 20;
+		}
+
+		// grayman #2603 - The fix to #2640 had the AI stopping if he's w/in INVESTIGATE_SPOT_STOP_DIST of the
+		// search spot. This caused sudden jerks if he's closer than that at the start of the
+		// move. To prevent that, check if he's close and--if so--don't start the move.
+
+		if (!_investigateClosely && (direction.LengthFast() < INVESTIGATE_SPOT_STOP_DIST))
+		{
+			// Look at the point to investigate
+			owner->Event_LookAtPosition(_searchSpot, 2.0f);
+
+			// Wait a bit
+			_exitTime = static_cast<int>(
+				gameLocal.time + INVESTIGATE_SPOT_TIME_REMOTE*(1 + gameLocal.random.RandomFloat()) // grayman #2640
+			);
 		}
 
 		// Let's move
@@ -123,7 +139,6 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 			// TravelDistance takes about ~0.1 msec on my 2.2 GHz system.
 			float travelDist = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), _searchSpot);
 
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("TravelDistance is %f.\r", travelDist);
 			owner->AI_RUN = (travelDist > MAX_TRAVEL_DISTANCE_WALKING);
 		}
 

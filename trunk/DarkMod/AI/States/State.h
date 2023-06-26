@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3652 $
- * $Date: 2009-08-06 00:19:43 -0400 (Thu, 06 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -147,8 +147,25 @@ protected:
 	// Get the sound shader name for owner, when responding to a greeting from otherAI
 	virtual idStr GetGreetingResponseSound(idAI* owner, idAI* otherAI);
 
+	bool CheckTorch(idAI* owner,idLight* light); // grayman - check for potential torch drop
+
+
 private:
 	void OnMessageDetectedSomethingSuspicious(CommMessage& message);
+
+	// grayman #2603 - visual stim markers
+	enum StimMarker
+	{
+		EAIuse_Default,
+		EAIuse_Person,
+		EAIuse_Weapon,
+		EAIuse_Blood_Evidence,
+		EAIuse_Lightsource,
+		EAIuse_Missing_Item_Marker,
+		EAIuse_Broken_Item,
+		EAIuse_Door,
+		ENumMarkers, // invalid index
+	};
 };
 typedef boost::shared_ptr<State> StatePtr;
 

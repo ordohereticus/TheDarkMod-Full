@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4812 $
- * $Date: 2011-04-20 18:28:05 -0400 (Wed, 20 Apr 2011) $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 4812 2011-04-20 22:28:05Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -481,6 +481,10 @@ const idEventDef AI_MeleeNameForNum( "meleeNameForNum", "d", 's' );
 const idEventDef AI_SetReplacementAnim( "setReplacementAnim", "ss");
 const idEventDef AI_LookupReplacementAnim( "lookupReplacementAnim", "s", 's');
 const idEventDef AI_RemoveReplacementAnim( "removeReplacementAnim", "s");
+
+// grayman #2603 - deal with doused lights
+const idEventDef AI_PerformRelight("performRelight");
+const idEventDef AI_DropTorch("dropTorch");
 
 
 CLASS_DECLARATION( idAFEntity_Gibbable, idActor )
@@ -2017,11 +2021,36 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const
 	// otherwise just use the origin (for general entities).
 	// Perform a trace from the eye position to the target entity
 	// TracePoint will return FALSE, when the trace.result is >= 1
-	else if (!gameLocal.clip.TracePoint(result, eye, entityOrigin, MASK_OPAQUE, this) || 
-			 gameLocal.GetTraceEntity(result) == ent) 
+	else
 	{
-		// Trace succeeded or hit the target entity itself
-		return true;
+		if (!gameLocal.clip.TracePoint(result, eye, entityOrigin, MASK_OPAQUE, this) || 
+			 gameLocal.GetTraceEntity(result) == ent) 
+		{
+			// Trace succeeded or hit the target entity itself
+			return true;
+		}
+		
+		// grayman #2603 - We can't see the entity itself. If we're trying to see a light source,
+		// however, it might be embedded in a candle and/or a candle holder.
+		// So we have to look up the chain of bindmasters, and if we can see any of them, we'll take it
+		// that we can see the light source itself.
+
+		if (ent->IsType(idLight::Type))
+		{
+			idEntity* bindMaster = ent->GetBindMaster();
+			while (bindMaster != NULL) // exit when bindMaster == NULL or we can see one of them
+			{
+				const idVec3& bindMasterOrigin = bindMaster->GetPhysics()->GetOrigin();
+
+				if (!gameLocal.clip.TracePoint(result, eye, bindMasterOrigin, MASK_OPAQUE, this) || 
+					 gameLocal.GetTraceEntity(result) == bindMaster) 
+				{
+					// Trace succeeded or hit the target entity itself
+					return true;
+				}
+				bindMaster = bindMaster->GetBindMaster(); // go up the hierarchy
+			}
+		}
 	}
 
 	return false;

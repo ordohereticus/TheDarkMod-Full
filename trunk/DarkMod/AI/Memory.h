@@ -2,8 +2,8 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4736 $
- * $Date: 2011-03-29 14:23:27 -0400 (Tue, 29 Mar 2011) $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -225,6 +225,9 @@ public:
 
 	// position of alert causing stimulus
 	idVec3 alertPos;
+
+	// grayman #2603 - abort an ongoing light relight?
+	bool stopRelight;
 
 	// Type of alert (visual, tactile, audio)
 	EAlertClass alertClass;

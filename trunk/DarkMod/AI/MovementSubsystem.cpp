@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4722 $
- * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4834 $
+ * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4722 2011-03-24 18:45:06Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -61,6 +61,8 @@ MovementSubsystem::MovementSubsystem(SubsystemId subsystemId, idAI* owner) :
 
 	_originHistory.SetNum(HISTORY_SIZE);
 	_frameHistory.SetNum(HISTORY_SIZE); // grayman #2345
+
+
 }
 
 // Called regularly by the Mind to run the currently assigned routine.
@@ -402,6 +404,11 @@ void MovementSubsystem::ClearTasks()
 bool MovementSubsystem::AttemptToExtricate()
 {
 	idAI* owner = _owner.GetEntity();
+
+	if (!owner->m_bCanExtricate)
+	{
+		return false;
+	}
 
 	// Look around to see if there's somewhere you can go.
 
