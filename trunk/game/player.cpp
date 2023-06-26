@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4816 $
- * $Date: 2011-04-25 03:15:54 -0400 (Mon, 25 Apr 2011) $
+ * $Revision: 4818 $
+ * $Date: 2011-04-25 03:21:25 -0400 (Mon, 25 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4816 2011-04-25 07:15:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4818 2011-04-25 07:21:25Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11218,7 +11218,7 @@ void idPlayer::Event_MissionSuccess()
 	PostEventMS(&EV_DisconnectFromMission, 0);
 
 	// Issue an automatic save at the end of this mission
-	idStr savegameName = gameLocal.m_MissionManager->GetCurrentModInfo()->displayName + " Final Save";
+	idStr savegameName = va("Mission %d Final Save", gameLocal.m_MissionManager->GetCurrentMissionIndex() + 1);
 	cmdSystem->BufferCommandText(CMD_EXEC_NOW, va("savegame '%s'", savegameName.c_str()));
 }
 
