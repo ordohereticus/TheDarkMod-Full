@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4802 $
- * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 4824 $
+ * $Date: 2011-04-29 10:41:06 -0400 (Fri, 29 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,7 +11,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 4802 2011-04-17 15:56:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 4824 2011-04-29 14:41:06Z greebo $", init_version);
 
 #include "Shop.h"
 #include "../../game/game_local.h"
@@ -661,12 +661,12 @@ void CShop::AddPersistentStartingEquipment()
 				continue;
 			}
 
+			int quantity = item->GetPersistentCount();
+
 			// Check if this is a weapon
 			CInventoryWeaponItemPtr weaponItem = boost::dynamic_pointer_cast<CInventoryWeaponItem>(item);
 
 			bool isWeapon = (weaponItem != NULL);
-
-			int quantity = weaponItem->GetPersistentCount();
 
 			if (isWeapon)
 			{
@@ -690,7 +690,9 @@ void CShop::AddPersistentStartingEquipment()
 				continue;
 			}
 
-			bool itemMerged = MergeIntoStartingEquipment(className, quantity, isWeapon, weaponItem->IsAllowedEmpty());
+			bool weaponIsAllowedEmpty = weaponItem ? weaponItem->IsAllowedEmpty() : false;
+
+			bool itemMerged = MergeIntoStartingEquipment(className, quantity, isWeapon, weaponIsAllowedEmpty);
 
 			// Append the item to the list if it didn't contribute quantity to
 			// an existing list item.
