@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4836 $
- * $Date: 2011-05-07 12:37:00 -0400 (Sat, 07 May 2011) $
+ * $Revision: 4838 $
+ * $Date: 2011-05-09 13:50:40 -0400 (Mon, 09 May 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4836 2011-05-07 16:37:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4838 2011-05-09 17:50:40Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -662,7 +662,7 @@ const char *idAnim::AddFrameCommand( const idDeclModelDef *modelDef, int framenu
 		
 		fc.string->Append(va(" %s", token.c_str() ));
 	}
-	// tels:
+	// tels: spawn and attach a new entity
 	else if ( token == "attach" ) 
 	{
 		// first argument (class of entity to spawn)
@@ -1415,6 +1415,14 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						spawnedEntity->spawnArgs.Set("_spawned_by_anim", "1");
 
 						ent->Attach(spawnedEntity, AttPos, AttName);
+
+						// and another fix for entities spawned, but then either dropped or stuck to the AI forever:
+						float delay = spawnedEntity->spawnArgs.GetFloat("remove_delay", "0");
+						if (delay > 0)
+						{
+							// if remove_delay is set, remove that object after so many ms
+							spawnedEntity->PostEventMS( &EV_Remove, delay * 1000 );
+						}
 					}
 					break;
 				}
