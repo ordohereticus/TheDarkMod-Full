@@ -5,13 +5,14 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4842 $
- * $Date: 2011-05-13 14:34:48 -0400 (Fri, 13 May 2011) $
+ * $Revision: 4852 $
+ * $Date: 2011-05-17 02:04:03 -0400 (Tue, 17 May 2011) $
  * $Author: greebo $
  *
  *************************************************************************/
 
 #include <string>
+#include <vector>
 #include <boost/filesystem.hpp>
 
 namespace fs = boost::filesystem;
@@ -36,7 +37,7 @@ private:
 	std::string _currentFM;
 
 	// The arguments to pass to the engine
-	std::string _arguments;
+	std::vector<std::string> _arguments;
 
 	std::size_t _additionalDelay;
 
@@ -67,6 +68,11 @@ private:
 
 	// Tries to remove as many ../ and ./ from the given path as possible. Only works for absolute input paths
 	static fs::path NormalisePath(const fs::path& p);
+
+	// Adds an argument, automatically trims and sanitises the given string
+	void AddArgument(const std::string& arg, bool insertAtFront = false);
+
+	std::string GetArgumentString();
 };
 
 #endif /* _LAUNCHER_H_ */
