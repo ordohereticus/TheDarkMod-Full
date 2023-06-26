@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4552 $
- * $Date: 2011-02-04 12:43:35 -0500 (Fri, 04 Feb 2011) $
- * $Author: stgatilov $
+ * $Revision: 4555 $
+ * $Date: 2011-02-05 06:05:23 -0500 (Sat, 05 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4552 2011-02-04 17:43:35Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4555 2011-02-05 11:05:23Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -764,28 +764,40 @@ void Seed::Spawn( void ) {
 	// Don't ask my why and don't mention I found this out after several days. Signed, a mellow Tels.
 	m_origin = GetPhysics()->GetOrigin() + renderEntity.bounds.GetCenter();
 
-//	idClipModel *clip = GetPhysics()->GetClipModel();
-//	idVec3 o = clip->GetOrigin();
-//	idVec3 s = clip->GetBounds().GetSize();
-//	idAngles a = clip->GetAxis().ToAngles();
-//	gameLocal.Printf( "SEED %s: Clipmodel origin %0.2f %0.2f %0.2f size %0.2f %0.2f %0.2f axis %s.\n", GetName(), o.x, o.y, o.z, s.x, s.y, s.z, a.ToString() );
+	// Init the seed. 0 means random sequence, otherwise use the specified value
+    // so that we get exactly the same sequence every time:
+	m_iSeed_2 = spawnArgs.GetInt( "randseed", "0" );
+    if (m_iSeed_2 == 0)
+	{
+		// The randseed upon loading a map seems to be always 0, so 
+		// gameLocal.random.RandomInt() always returns 1 hence it is unusable:
+		// add the entity number so that different seeds spawned in the same second
+		// don't display the same pattern
+		unsigned long seconds = (unsigned long) time (NULL) + (unsigned long) entityNumber;
+	    m_iSeed_2 = (int) (1664525L * seconds + 1013904223L) & 0x7FFFFFFFL;
+	}
 
-//	idTraceModel *trace = GetPhysics()->GetClipModel()->GetTraceModel();
-//	idVec3 o = trace->GetOrigin();
-//	idVec3 s = trace->GetBounds().GetSize();
-//	idAngles a = trace->GetAxis().ToAngles();
-
-//	gameLocal.Printf( "SEED %s: Tracemodel origin %0.2f %0.2f %0.2f size %0.2f %0.2f %0.2f axis %s.\n", GetName(), o.x, o.y, o.z, s.x, s.y, s.z, a.ToString() );
+	// to restart the same sequence, f.i. when the user changes level of detail in GUI
+	m_iOrgSeed = m_iSeed_2;
 
 	idVec3 size = renderEntity.bounds.GetSize();
-	idAngles angles = renderEntity.axis.ToAngles();
+	idMat3 axis = renderEntity.axis;
+	idAngles angles = axis.ToAngles();
+
+	// support for random axis (#2608)
+	if ( spawnArgs.GetBool( "random_angle", "0" ) )
+	{
+		float angle = 360.0 * RandomFloat();
+		idAngles tryAngles = idAngles(0,angle,0);
+		axis = tryAngles.ToMat3();
+	}
 
 	// cache in which PVS(s) we are, so we can later check if we are in Player PVS
 	// calculate our bounds
 
 	idBounds b = idBounds( - size / 2, size / 2 );	// a size/2 bunds centered around 0, will below move to m_origin
 	idBounds modelAbsBounds;
-    modelAbsBounds.FromTransformedBounds( b, m_origin, renderEntity.axis );
+    modelAbsBounds.FromTransformedBounds( b, m_origin, axis );
 	m_iNumPVSAreas = gameLocal.pvs.GetPVSAreas( modelAbsBounds, m_iPVSAreas, sizeof( m_iPVSAreas ) / sizeof( m_iPVSAreas[0] ) );
 
 	gameLocal.Printf( "SEED %s: Randseed %i Size %0.2f %0.2f %0.2f Axis %s, PVS count %i.\n", GetName(), m_iSeed, size.x, size.y, size.z, angles.ToString(), m_iNumPVSAreas );
@@ -1171,15 +1183,29 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch )
 	SeedClass.imgmap = 0;
 	if (!mapName.IsEmpty())
 	{
-		// need int here, as the return value can be -1
-		int img = gameLocal.m_ImageMapManager->GetImageMap( mapName );
-		if (img < 0)
+		// if the mapname contains "," it is supposed to be a list of map names,
+		// so pick one map at random:
+		if (mapName.Find(',') >= 0)
 		{
-			gameLocal.Warning ("SEED %s: Could not load image map %s: %s", GetName(), mapName.c_str(), gameLocal.m_ImageMapManager->GetLastError() );
+			mapName = mapName.RandomPart(',', RandomFloat() );			// use our random generator, so a "randseed" spawnarg "fixes" it
+			// one of the parts said "don't use a map"? Ok, we'll do.
+			if (mapName == "''")
+			{
+				mapName = "";
+			}
 		}
-		else
+		if (!mapName.IsEmpty())
 		{
-			SeedClass.imgmap = img;
+			// need int here, as the return value can be -1
+			int img = gameLocal.m_ImageMapManager->GetImageMap( mapName );
+			if (img < 0)
+			{
+				gameLocal.Warning ("SEED %s: Could not load image map %s: %s", GetName(), mapName.c_str(), gameLocal.m_ImageMapManager->GetLastError() );
+			}
+			else
+			{
+				SeedClass.imgmap = img;
+			}
 		}
 	}
 	SeedClass.map_invert = false;
@@ -1948,22 +1974,6 @@ void Seed::Prepare( void )
 	}
 
 	gameLocal.Printf( "SEED %s: Max. entity count: %i\n", GetName(), m_iNumEntities );
-
-	// Init the seed. 0 means random sequence, otherwise use the specified value
-    // so that we get exactly the same sequence every time:
-	m_iSeed_2 = spawnArgs.GetInt( "randseed", "0" );
-    if (m_iSeed_2 == 0)
-	{
-		// The randseed upon loading a map seems to be always 0, so 
-		// gameLocal.random.RandomInt() always returns 1 hence it is unusable:
-		// add the entity number so that different seeds spawned in the same second
-		// don't display the same pattern
-		unsigned long seconds = (unsigned long) time (NULL) + (unsigned long) entityNumber;
-	    m_iSeed_2 = (int) (1664525L * seconds + 1013904223L) & 0x7FFFFFFFL;
-	}
-
-	// to restart the same sequence, f.i. when the user changes level of detail in GUI
-	m_iOrgSeed = m_iSeed_2;
 
 	m_Watched.Clear();
 
