@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4409 $
- * $Date: 2011-01-10 22:40:32 -0500 (Mon, 10 Jan 2011) $
- * $Author: greebo $
+ * $Revision: 4660 $
+ * $Date: 2011-03-07 03:13:49 -0500 (Mon, 07 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -25,7 +25,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 4409 2011-01-11 03:40:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 4660 2011-03-07 08:13:49Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -455,7 +455,7 @@ void CsndProp::Propagate
 	int areaNum = gameRenderWorld->PointInArea(origin);
 	vol0 += (areaNum >= 0) ? m_AreaPropsG[areaNum].VolMod : 0;
 
-	// scale the volume by some amount that is be a cvar for now for tweaking
+	// scale the volume by some amount that is a cvar for now for tweaking
 	// later we will put a permananet value in the def for globals->Vol
 	vol0 += cv_ai_sndvol.GetFloat();
 
@@ -490,6 +490,9 @@ void CsndProp::Propagate
 
 	range = pow(2.0f, ((vol0 - m_SndGlobals.MaxRangeCalVol) / 7.0f) ) * m_SndGlobals.MaxRange * s_METERS_TO_DOOM;
 
+	if( cv_spr_debug.GetBool() )
+		gameLocal.Printf("Propagation volume: %0.02f Range: %0.02f units (%0.02f m)\n", vol0, range, range / s_METERS_TO_DOOM);
+
 	// Debug drawing of the range
 	if (cv_spr_radius_show.GetBool()) 
 	{
@@ -501,17 +504,17 @@ void CsndProp::Propagate
 
 	// get a list of all ents with type idAI's or Listeners
 	
-	int count = 0;
-
 	for (idAI* ai = gameLocal.spawnedAI.Next(); ai != NULL; ai = ai->aiNode.Next())
 	{
 		// TODO: Put in Listeners later
 		validTypeEnts.Append(ai);
-		count++;
 	}
 	
 	if( cv_spr_debug.GetBool() )
+	{
+		gameLocal.Printf("Found %d ents with valid type for propagation\n", validTypeEnts.Num() );
 		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Found %d ents with valid type for propagation\r", validTypeEnts.Num() );
+	}
 
 	timer_Prop.Stop();
 	DM_LOG(LC_SOUND, LT_INFO)LOGSTRING("Timer: Finished finding all AI entities, comptime=%lf [ms]\r", timer_Prop.Milliseconds() );
@@ -532,7 +535,10 @@ void CsndProp::Propagate
 		if( !bounds.ContainsPoint( testAI->GetEyePosition() ) ) 
 		{
 			if( cv_spr_debug.GetBool() )
+			{
 				DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("AI %s is not within propagation cutoff range %f\r", testAI->name.c_str(), range );
+				gameLocal.Printf("AI %s is not within propagation cutoff range %0.2f\n", testAI->name.c_str(), range );
+			}
 			continue;
 		}
 
