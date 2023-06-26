@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4618 $
- * $Date: 2011-02-20 19:10:42 +0100 (Sun, 20 Feb 2011) $
+ * $Revision: 4623 $
+ * $Date: 2011-02-23 11:38:43 -0500 (Wed, 23 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@ func_emitters - have one or more particle models
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: misc.cpp 4618 2011-02-20 18:10:42Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: emitter.cpp 4623 2011-02-23 16:38:43Z tels $", init_version);
 
 //#include "game_local.h"
 #include "emitter.h"
@@ -168,7 +168,7 @@ void idFuncEmitter::Present( void )
 
 	// present additional models to the renderer
 	const int num = m_models.Num();
-//		gameLocal.Printf("%s: Have %i models\n", GetName(), num);
+//		gameLocal.Printf("%s: Have %i models\n", GetName(), num + 1);
 	for (int i = 0; i < num; i++ ) {
 
 		if ( !m_models[i].handle ) {
