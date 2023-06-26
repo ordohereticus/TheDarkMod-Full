@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4532 $
- * $Date: 2011-02-02 11:01:25 -0500 (Wed, 02 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4533 $
+ * $Date: 2011-02-02 11:43:54 -0500 (Wed, 02 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4532 2011-02-02 16:01:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4533 2011-02-02 16:43:54Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -7171,7 +7171,7 @@ idProjectile *idAI::LaunchProjectile( const char *jointname, idEntity *target, b
 	idMat3				axis;
 	idVec3				tmp;
 
-	if (projectileInfo.Num() == NULL)
+	if (projectileInfo.Num() == 0)
 	{
 		gameLocal.Warning( "%s (%s) doesn't have a projectile specified", name.c_str(), GetEntityDefName() );
 		return NULL;
