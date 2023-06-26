@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4507 $
- * $Date: 2011-01-30 10:01:23 -0500 (Sun, 30 Jan 2011) $
+ * $Revision: 4514 $
+ * $Date: 2011-01-30 16:55:31 -0500 (Sun, 30 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -30,7 +30,7 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4507 2011-01-30 15:01:23Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4514 2011-01-30 21:55:31Z tels $", init_version);
 
 #include "ModelGenerator.h"
 
@@ -588,8 +588,19 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 		//gameLocal.Warning(" Offset %0.2f, %0.2f, %0.2f LOD %i.\n", op.offset.x, op.offset.y, op.offset.z, op.lod );
 
 		// precompute these
-		idMat3 a = op.angles.ToMat3();
+		idMat4 a = op.angles.ToMat4();
+		idMat4 at = op.angles.ToRotation().ToMat4();
+		if (at.InverseSelf())
+		{
+			at.TransposeSelf();
+		}
+		else
+		{
+			gameLocal.Warning("Could not inverse matrix based on angles %s", op.angles.ToString() );
+		}
 		idVec3 scale = op.scale;
+
+		idMat4 vMat = idMat4( op.angles.ToRotation().ToMat3(), op.offset );
 
 		const idRenderModel* source = LODs->Ptr()[op.lod];
 
@@ -691,37 +702,36 @@ idRenderModel * CModelGenerator::DuplicateLODModels (const idList<const idRender
 				v->xyz[0] = v->xyz[0] * scale.x;
 				v->xyz[1] = v->xyz[1] * scale.y;
 				v->xyz[2] = v->xyz[2] * scale.z;
-				// rotate
-				v->xyz *= a;
-				// then offset
-				v->xyz += op.offset;
+				// rotate and translate
+				v->xyz *= vMat;
 				// rotate normal and tangents
-				v->normal *= a;
-				v->tangents[0] *= a;
-				v->tangents[1] *= a;
+				v->normal *= at;
+				v->normal += op.offset;
+				v->normal.Normalize();
+				v->tangents[0] *= at;
+				v->tangents[1] *= at;
 				// Set "per-entity" color if we have more than one entity:
 				v->SetColor( newColor );
 #else
 				idDrawVert *vs = &(surf->geometry->verts[j]);
 
-			//		idVec3 * idMat3 = 
-			//mat[ 0 ].x * vec.x + mat[ 1 ].x * vec.y + mat[ 2 ].x * vec.z,
-			//mat[ 0 ].y * vec.x + mat[ 1 ].y * vec.y + mat[ 2 ].y * vec.z,
-			//mat[ 0 ].z * vec.x + mat[ 1 ].z * vec.y + mat[ 2 ].z * vec.z );
-				
 				// copy-and-modify at once
 				// scale - rotate - translate
 				v->xyz[0] = vs->xyz[0] * scale.x;
 				v->xyz[1] = vs->xyz[1] * scale.y;
 				v->xyz[2] = vs->xyz[2] * scale.z;
-				v->xyz *= a;
-				v->xyz += op.offset;
-				v->normal = vs->normal * a;
-				v->tangents[0] = vs->tangents[0] * a;
-				v->tangents[1] = vs->tangents[1] * a;
+				v->xyz *= vMat;
+				//v->normal = vs->normal * at;
+				v->normal = (vs->normal * at) + op.offset;
+				v->normal.Normalize();
+				v->tangents[0] = vs->tangents[0] * at;
+				v->tangents[1] = vs->tangents[1] * at;
 				v->SetColor( newColor );
 				v->st = vs->st;
 #endif
+
+				// seems unnec.?
+				//v->Normalize();
 
 /*				if (o == 1 || o == 2)
 				{
