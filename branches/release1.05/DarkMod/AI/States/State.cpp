@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4737 $
- * $Date: 2011-03-30 01:50:23 -0400 (Wed, 30 Mar 2011) $
+ * $Revision: 4740 $
+ * $Date: 2011-04-01 00:36:37 -0400 (Fri, 01 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4737 2011-03-30 05:50:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4740 2011-04-01 04:36:37Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2269,6 +2269,15 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 	// grayman #2650 - can we handle doors?
 
 	if (!owner->m_bCanOperateDoors)
+	{
+		return;
+	}
+
+	// grayman #2716 - if the door is too high above or too far below, ignore it
+
+	idBounds frobDoorBounds = frobDoor->GetPhysics()->GetAbsBounds();
+	float ownerZ = owner->GetPhysics()->GetOrigin().z;
+	if ((frobDoorBounds[0].z > (ownerZ + 70)) || (frobDoorBounds[1].z < (ownerZ - 30)))
 	{
 		return;
 	}

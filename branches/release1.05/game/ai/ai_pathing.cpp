@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4737 $
- * $Date: 2011-03-30 01:50:23 -0400 (Wed, 30 Mar 2011) $
+ * $Revision: 4740 $
+ * $Date: 2011-04-01 00:36:37 -0400 (Fri, 01 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4737 2011-03-30 05:50:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4740 2011-04-01 04:36:37Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -616,7 +616,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 
 			if (p_binaryFrobMover->IsType(CFrobDoor::Type))
 			{
-				if (selfAI->m_bCanOperateDoors) // grayman #2691 grayman debug 2
+				if (selfAI->m_bCanOperateDoors) // grayman #2691
 				{
 					if (p_binaryFrobMover->IsOpen())
 					{
