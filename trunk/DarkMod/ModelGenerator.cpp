@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4071 $
- * $Date: 2010-07-18 15:57:08 +0200 (Sun, 18 Jul 2010) $
+ * $Revision: 4471 $
+ * $Date: 2011-01-24 10:40:30 -0500 (Mon, 24 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -30,7 +30,7 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4071 2010-07-18 13:57:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4471 2011-01-24 15:40:30Z tels $", init_version);
 
 #include "ModelGenerator.h"
 
