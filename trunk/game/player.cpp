@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4807 $
- * $Date: 2011-04-20 03:50:33 -0400 (Wed, 20 Apr 2011) $
+ * $Revision: 4808 $
+ * $Date: 2011-04-20 04:00:04 -0400 (Wed, 20 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4807 2011-04-20 07:50:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4808 2011-04-20 08:00:04Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -10147,13 +10147,12 @@ void idPlayer::Event_SetObjectiveOptional( int ObjIndex, bool bVal )
 
 void idPlayer::Event_SetObjectiveOngoing( int ObjIndex, bool bVal )
 {
-	gameLocal.m_MissionData->Event_SetObjOngoing( ObjIndex, bVal );
+	gameLocal.m_MissionData->SetObjectiveOngoing(ObjIndex, bVal);
 }
 
 void idPlayer::Event_SetObjectiveEnabling( int ObjIndex, const char *strIn )
 {
-	idStr StrArg = strIn;
-	gameLocal.m_MissionData->Event_SetObjEnabling( ObjIndex, StrArg );
+	gameLocal.m_MissionData->SetEnablingObjectives(ObjIndex, strIn);
 }
 
 void idPlayer::Event_GiveHealthPool( float amount ) {
