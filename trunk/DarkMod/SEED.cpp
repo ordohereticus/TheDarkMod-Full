@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4550 $
- * $Date: 2011-02-04 09:50:35 -0500 (Fri, 04 Feb 2011) $
+ * $Revision: 4551 $
+ * $Date: 2011-02-04 10:50:49 -0500 (Fri, 04 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -60,7 +60,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4550 2011-02-04 14:50:35Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4551 2011-02-04 15:50:49Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -3321,7 +3321,7 @@ void Seed::CombineEntities( void )
 					m_Entities[idx].flags = (m_Entities[idx].flags & ~SEED_ENTITY_COMBINED);
 				}
 				// now truncate to only combine as much as we can:
-				gameLocal.Printf( " merged %i > maxModelCount %i\n", merged, maxModelCount);
+				// gameLocal.Printf( " merged %i > maxModelCount %i\n", merged, maxModelCount);
 				sortedOffsets.SetNum( maxModelCount );
 			}
 			// build the offsets list
