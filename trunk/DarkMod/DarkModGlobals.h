@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4857 $
- * $Date: 2011-05-22 01:41:39 -0400 (Sun, 22 May 2011) $
+ * $Revision: 4860 $
+ * $Date: 2011-05-22 02:19:10 -0400 (Sun, 22 May 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -188,6 +188,7 @@ public:
 private:
 	void LoadINISettings(const IniFilePtr& iniFile);
 
+	void CheckLogArray(const IniFilePtr& iniFile, const char* key, LT_LogType logType);
 	void CheckLogClass(const IniFilePtr& iniFile, const char* key, LC_LogClass logClass);
 
 	// Sets up the surface hardness mapping
