@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4659 $
- * $Date: 2011-03-06 20:04:25 -0500 (Sun, 06 Mar 2011) $
- * $Author: grayman $
+ * $Revision: 4702 $
+ * $Date: 2011-03-20 19:07:32 -0400 (Sun, 20 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4659 2011-03-07 01:04:25Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 4702 2011-03-20 23:07:32Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/DarkModGlobals.h"
@@ -1432,7 +1432,7 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						AttName = AttName.Left( spcind );
 					}
 
-					gameLocal.Warning ( "Picking up '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
+					// gameLocal.Warning ( "Picking up '%s' as '%s' to '%s'", EntityName.c_str(), AttName.c_str(), AttPos.c_str());
 
 					idStr Spawnarg = "pickup_"; Spawnarg.Append( name );
 					// ent is idEntity, but also an idAnimatedEntity (whoever came up with that distinction?)
