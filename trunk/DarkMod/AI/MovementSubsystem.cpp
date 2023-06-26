@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4671 $
- * $Date: 2011-03-09 00:01:10 -0500 (Wed, 09 Mar 2011) $
+ * $Revision: 4687 $
+ * $Date: 2011-03-10 11:29:30 -0500 (Thu, 10 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4671 2011-03-09 05:01:10Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 4687 2011-03-10 16:29:30Z grayman $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -574,15 +574,8 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 				// grayman #2345 - blocked too long w/o moving?
 				if (gameLocal.time >= _timeBlockStarted + _blockTimeShouldEnd)
 				{
-					// Do something to extricate yourself. AttemptToExtricate() returns TRUE if
-					// it found somewhere to go.
-					if (!AttemptToExtricate())
-					{
-						_timePauseStarted =  gameLocal.time - gameLocal.msec;
-						_state = EPaused;
-						owner->PushMove();
-						owner->StopMove(MOVE_STATUS_WAITING);
-					}
+					// Do something to extricate yourself.
+					AttemptToExtricate();
 				}
 			}
 			else if (!torsoCustomIdleAnim && !legsCustomIdleAnim) // Bounds might not be safe yet if you're doing an idle animation
@@ -602,8 +595,6 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 			break;
 		case EWaitingNonSolid:	// grayman #2345 - Waiting for passing AI while non-solid
 			break;
-		case EPaused:			// grayman #2345 - stop treadmilling for a few seconds
-			break;
 		};
 	}
 	else
@@ -612,14 +603,6 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 		if (IsWaiting())
 		{
 			// do nothing
-		}
-		else if (IsPaused()) // grayman #2345
-		{
-			if (gameLocal.time >= _timePauseStarted + _pauseTimeOut)
-			{
-				_state = ENotBlocked;
-				owner->PopMove(); // restore move state
-			}
 		}
 		else
 		{
@@ -680,11 +663,6 @@ bool MovementSubsystem::IsWaitingSolid(void) // grayman #2345
 bool MovementSubsystem::IsWaitingNonSolid(void) // grayman #2345
 {
 	return (_state == EWaitingNonSolid);
-}
-
-bool MovementSubsystem::IsPaused(void) // grayman #2345
-{
-	return (_state == EPaused);
 }
 
 bool MovementSubsystem::IsNotBlocked(void) // grayman #2345
@@ -876,10 +854,6 @@ void MovementSubsystem::DebugDraw(idAI* owner)
 			break;
 		case EWaitingNonSolid: // grayman #2345
 			str = "EWaitingNonSolid";
-			colour = colorBlue;
-			break;
-		case EPaused: // grayman #2345
-			str = "EPaused";
 			colour = colorBlue;
 			break;
 	}

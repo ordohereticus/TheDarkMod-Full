@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4553 $
- * $Date: 2011-02-05 01:50:41 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4687 $
+ * $Date: 2011-03-10 11:29:30 -0500 (Thu, 10 Mar 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -32,7 +32,6 @@ public:
 		EResolvingBlock,	// resolving block
 		EWaitingSolid,		// grayman #2345 - waiting while non-solid for an AI to pass by
 		EWaitingNonSolid,	// grayman #2345 - waiting while solid for an AI to pass by
-		EPaused,			// grayman #2345 - pause treadmilling for a short while
 		ENumBlockedStates,	// grayman #2345 - invalid index - this always has to be the last in the list
 	};
 
@@ -109,8 +108,6 @@ public:
 	bool IsWaitingSolid();	// grayman #2345
 
 	bool IsWaitingNonSolid(); // grayman #2345
-
-	bool IsPaused();		// grayman #2345
 
 	bool IsNotBlocked();	// grayman #2345
 
