@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4511 $
- * $Date: 2011-01-30 10:22:57 -0500 (Sun, 30 Jan 2011) $
+ * $Revision: 4521 $
+ * $Date: 2011-02-01 07:56:26 -0500 (Tue, 01 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -336,9 +336,14 @@ private:
 	int					ParseFalloff(idDict const *dict, idStr defaultName, idStr defaultFactor, float *func_a) const;
 
 	/**
-	* Take the given entity as template and add a class from its values.
+	* Take the given entity as template and add a template class from its values.
 	*/
 	void				AddClassFromEntity( idEntity *ent, const bool watch = false );
+
+	/**
+	* Take the given spawn_class or spawn_model spawnarg and add a template class based on it.
+	*/
+	void				AddTemplateFromEntityDef(idStr base, const idList<idStr> *sa);
 
 	/**
 	* Add an entry to the skin list unless it is there already. Return the index.
