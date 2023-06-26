@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4623 $
- * $Date: 2011-02-23 11:38:43 -0500 (Wed, 23 Feb 2011) $
+ * $Revision: 4624 $
+ * $Date: 2011-02-23 12:06:34 -0500 (Wed, 23 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -54,6 +54,10 @@ public:
 
 	// switch to a new model
 	virtual void		SetModel( const char *modelname );
+
+	// public events
+	void				Event_EmitterGetNumModels( void ) const;
+	void				Event_EmitterAddModel( idStr const &modelName, idVec3 const &modelOffset );
 
 protected:
 
