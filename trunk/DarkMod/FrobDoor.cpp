@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4387 $
- * $Date: 2010-12-26 05:44:56 -0500 (Sun, 26 Dec 2010) $
- * $Author: greebo $
+ * $Revision: 4599 $
+ * $Date: 2011-02-16 10:37:09 -0500 (Wed, 16 Feb 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 4387 2010-12-26 10:44:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 4599 2011-02-16 15:37:09Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -216,7 +216,7 @@ void CFrobDoor::SetDoorTravelFlag()
 
 void CFrobDoor::ClearDoorTravelFlag()
 {
-	// Flag the AAS areas the door is located in with door travel flag
+	// Remove the door travel flag from the AAS areas the door is located in
 	for (int i = 0; i < gameLocal.NumAAS(); i++)
 	{
 		idAAS*	aas = gameLocal.GetAAS(i);
