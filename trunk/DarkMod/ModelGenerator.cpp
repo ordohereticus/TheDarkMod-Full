@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4536 $
- * $Date: 2011-02-02 14:52:07 -0500 (Wed, 02 Feb 2011) $
+ * $Revision: 4539 $
+ * $Date: 2011-02-03 13:06:41 -0500 (Thu, 03 Feb 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -28,7 +28,7 @@ TODO: Use the new strategy/code on DuplicateModel(), too, as it would fail for t
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4536 2011-02-02 19:52:07Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 4539 2011-02-03 18:06:41Z tels $", init_version);
 
 #include "ModelGenerator.h"
 
@@ -96,7 +96,7 @@ void CModelGenerator::Shutdown( void ) {
 }
 
 /* Given a rendermodel and a surface index, checks if that surface is two-sided, and if, tries
-   to find the bakside for this surface, e.g. the surface which was copied and flipped. Returns
+   to find the backside for this surface, e.g. the surface which was copied and flipped. Returns
    either the surface index number, or -1 for "not twosided or not found":
 */
 int CModelGenerator::GetBacksideForSurface( const idRenderModel * source, const int surfaceIdx ) const {
@@ -119,7 +119,7 @@ int CModelGenerator::GetBacksideForSurface( const idRenderModel * source, const 
 	firstShader = firstSurf->shader;
 	if (!firstShader) { return -1; }
 
-	// if this is the last surface, it cannot have a flipped backside, because that
+	// If this is the last surface, it cannot have a flipped backside, because that
 	// should come after it. We will fall through the loop and return -1 at the end:
 
 	// Run through all surfaces, starting with the one we have + 1
@@ -131,7 +131,7 @@ int CModelGenerator::GetBacksideForSurface( const idRenderModel * source, const 
 		// get each surface
 		const modelSurface_t *surf = source->Surface( s );
 
-		// if the original creates backsides, the clone must to, because it uses the same shader
+		// if the original creates backsides, the clone must do so, too, because it uses the same shader
 		if (!surf || !surf->shader->ShouldCreateBackSides()) { continue; }
 
 		// check if they have the same shader
@@ -158,7 +158,7 @@ int CModelGenerator::GetBacksideForSurface( const idRenderModel * source, const 
 bool CModelGenerator::ModelHasShadow( const idRenderModel * source ) const {
 
 	// no source model?
-	if (!source) { return -1; }
+	if (!source) { return false; }
 		
 	int numSurfaces = source->NumSurfaces();
 
