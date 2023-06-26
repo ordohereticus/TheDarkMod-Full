@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4744 $
- * $Date: 2011-04-05 05:44:16 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4753 $
+ * $Date: 2011-04-08 09:39:58 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4744 2011-04-05 09:44:16Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4753 2011-04-08 13:39:58Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -215,7 +215,7 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent, const bool gotFromShop
 
 		// If we have an anonymous loot item, we don't need to 
 		// store it in the inventory.
-		switch(lootType)
+		switch (lootType)
 		{
 			case CInventoryItem::LT_GOLD:
 				m_Gold += value;
@@ -246,7 +246,7 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent, const bool gotFromShop
 
 		// greebo: Update the total loot value in the objectives system BEFORE
 		// the InventoryCallback. Some comparisons rely on a valid total loot value.
-		gameLocal.m_MissionData->ChangeFoundLoot( value );
+		gameLocal.m_MissionData->ChangeFoundLoot(lootType, value);
 
 		// Objective Callback for loot on a specific entity:
 		// Pass the loot type name and the net loot value of that group

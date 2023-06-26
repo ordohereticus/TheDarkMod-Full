@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4745 $
- * $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4753 $
+ * $Date: 2011-04-08 09:39:58 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -644,8 +644,8 @@ public:
 	**/
 	void AlertCallback(idEntity *Alerted, idEntity *Alerter, int AlertVal);
 
-	int GetFoundLoot( void );
-	void ChangeFoundLoot( int amount );
+	int GetFoundLoot();
+	void ChangeFoundLoot(int lootType, int amount);
 
 	/**
 	 * greebo: This adds a given amount of loot to the total amount available in the mission.

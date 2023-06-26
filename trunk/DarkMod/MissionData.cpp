@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4745 $
- * $Date: 2011-04-05 11:45:03 -0400 (Tue, 05 Apr 2011) $
+ * $Revision: 4753 $
+ * $Date: 2011-04-08 09:39:58 -0400 (Fri, 08 Apr 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4745 2011-04-05 15:45:03Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4753 2011-04-08 13:39:58Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1821,12 +1821,12 @@ void CMissionData::AlertCallback(idEntity *Alerted, idEntity *Alerter, int Alert
 	MissionEvent( COMP_ALERT, &Parms1, &Parms2, bPlayerResponsible );
 }
 
-int CMissionData::GetFoundLoot( void )
+int CMissionData::GetFoundLoot()
 {
 	return m_Stats.FoundLoot;
 }
 
-void CMissionData::ChangeFoundLoot(int amount)
+void CMissionData::ChangeFoundLoot(int lootType, int amount)
 {
 	m_Stats.FoundLoot += amount;
 }

@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4717 $
- * $Date: 2011-03-23 15:40:08 -0400 (Wed, 23 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4753 $
+ * $Date: 2011-04-08 09:39:58 -0400 (Fri, 08 Apr 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4717 2011-03-23 19:40:08Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4753 2011-04-08 13:39:58Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -10725,7 +10725,7 @@ int idEntity::ChangeLootAmount(int lootType, int amount)
 	if( rc != 0 )
 	{
 		gameLocal.m_MissionData->InventoryCallback( NULL, groupname, groupTotal, total, bGained );  
-		gameLocal.m_MissionData->ChangeFoundLoot( amount );
+		gameLocal.m_MissionData->ChangeFoundLoot(lootType, amount);
 	}
 
 	return rc;
