@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4470 $
- * $Date: 2011-01-24 10:27:43 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4478 $
+ * $Date: 2011-01-26 16:41:00 -0500 (Wed, 26 Jan 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -65,7 +65,7 @@ TODO: Use a point (at least for nonsolids or vegetation?) instead of a box when 
 // define to output model generation debug info
 //#define M_DEBUG
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4470 2011-01-24 15:27:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4478 2011-01-26 21:41:00Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "../idlib/containers/list.h"
@@ -377,6 +377,7 @@ Seed::Restore
 */
 void Seed::Restore( idRestoreGame *savefile ) {
 	int num;
+	int numClasses;
 	bool bHaveModel;
 
 	savefile->ReadBool( active );
@@ -421,11 +422,11 @@ void Seed::Restore( idRestoreGame *savefile ) {
 		savefile->ReadInt( m_Entities[i].classIdx );
 	}
 
-    savefile->ReadInt( num );
+    savefile->ReadInt( numClasses );
 	// clear m_Classes and free any models in it, too
 	ClearClasses();
-	m_Classes.SetNum( num );
-	for( int i = 0; i < num; i++ )
+	m_Classes.SetNum( numClasses );
+	for( int i = 0; i < numClasses; i++ )
 	{
 		savefile->ReadString( m_Classes[i].classname );
 		savefile->ReadString( m_Classes[i].modelname );
