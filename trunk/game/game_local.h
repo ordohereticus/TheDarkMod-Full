@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4562 $
- * $Date: 2011-02-06 00:10:50 -0500 (Sun, 06 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4705 $
+ * $Date: 2011-03-21 03:35:33 -0400 (Mon, 21 Mar 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -930,7 +930,7 @@ public:
 	void					AddSDKSignal(idEntity *oObject);
 
 	// Checks the TDM version
-	void					CheckTDMVersion(idUserInterface* ui);
+	void					CheckTDMVersion();
 
 	void					AddMainMenuMessage(const GuiMessage& message);
 	void					HandleGuiMessages(idUserInterface* ui);

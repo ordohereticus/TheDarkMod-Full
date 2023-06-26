@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4700 $
- * $Date: 2011-03-20 16:07:52 -0400 (Sun, 20 Mar 2011) $
+ * $Revision: 4705 $
+ * $Date: 2011-03-21 03:35:33 -0400 (Mon, 21 Mar 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4700 2011-03-20 20:07:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4705 2011-03-21 07:35:33Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -553,7 +553,7 @@ const idStr& idGameLocal::GetMapFileName() const
 	return mapFileName;
 }
 
-void idGameLocal::CheckTDMVersion(idUserInterface* ui)
+void idGameLocal::CheckTDMVersion()
 {
 	GuiMessage msg;
 	msg.type = GuiMessage::MSG_OK;
@@ -3863,7 +3863,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	}
 	else if (cmd == "check_tdm_version")
 	{
-		CheckTDMVersion(gui);
+		CheckTDMVersion();
 	}
 	else if (cmd == "close_msg_box")
 	{
