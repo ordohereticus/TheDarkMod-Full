@@ -5,8 +5,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4664 $
- * $Date: 2011-03-07 23:18:12 -0500 (Mon, 07 Mar 2011) $
+ * $Revision: 4842 $
+ * $Date: 2011-05-13 14:34:48 -0400 (Fri, 13 May 2011) $
  * $Author: greebo $
  *
  *************************************************************************/
@@ -22,6 +22,10 @@ namespace fs = boost::filesystem;
  */
 class Launcher
 {
+private:
+	// The path to this launcher
+	fs::path _dmLauncher;
+
 	// The path to the darkmod game base
 	fs::path _darkmodDir;
 
