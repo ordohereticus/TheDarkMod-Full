@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4663 $
- * $Date: 2011-03-07 18:23:20 -0500 (Mon, 07 Mar 2011) $
- * $Author: tels $
+ * $Revision: 4668 $
+ * $Date: 2011-03-08 12:43:37 -0500 (Tue, 08 Mar 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4663 2011-03-07 23:23:20Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4668 2011-03-08 17:43:37Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3599,11 +3599,6 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		gui->SetStateInt("video_aspectratio", cvarSystem->GetCVarInteger("r_aspectRatio"));
 		gui->SetStateBool("confirmQuit", cv_mainmenu_confirmquit.GetBool());
 	}
-	else if (cmd == "loadStatistics")
-	{
-		// Load the statistics into the GUI
-		m_MissionData->UpdateStatisticsGUI(gui, "listStatistics");
-	}
 	else if (cmd == "setVideoResWideScreen")
 	{
 		// Called when widescreen size selection changes
@@ -3795,6 +3790,11 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	else if (cmd == "close_msg_box")
 	{
 		gui->SetStateBool("MsgBoxVisible", false);
+	}
+	else if (cmd == "updateCookedMathData")		// Adding a way to update cooked data from menu - J.C.Denton
+	{
+		// Add the command to buffer, but no need to issue it immediately. 
+		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "tdm_updateCookedMathData" );
 	}
 
 	m_Shop->HandleCommands(menuCommand, gui, GetLocalPlayer());

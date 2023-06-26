@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4649 $
- * $Date: 2011-03-04 12:43:43 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4668 $
+ * $Date: 2011-03-08 12:43:37 -0500 (Tue, 08 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4649 2011-03-04 17:43:43Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4668 2011-03-08 17:43:37Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -684,6 +684,12 @@ void CMissionManager::InitMapSequence()
 const idStr& CMissionManager::GetCurrentStartingMap() const
 {
 	return _curStartingMap;
+}
+
+bool CMissionManager::CurrentModIsCampaign()
+{
+	// A non-empty map sequence indicates we have a campaign
+	return _mapSequence.Num() > 0;
 }
 
 CMissionManager::InstallResult CMissionManager::InstallMission(int index)

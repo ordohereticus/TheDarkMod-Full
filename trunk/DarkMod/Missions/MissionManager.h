@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4649 $
- * $Date: 2011-03-04 12:43:43 -0500 (Fri, 04 Mar 2011) $
+ * $Revision: 4668 $
+ * $Date: 2011-03-08 12:43:37 -0500 (Tue, 08 Mar 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -228,6 +228,9 @@ public:
 	// in a campaign, this method returns the one that should be loaded next).
 	// Example: "patently_dangerous", no file extension, no maps/ prefix.
 	const idStr& GetCurrentStartingMap() const;
+
+	// Returns TRUE if the currently installed mod is a campaign
+	bool CurrentModIsCampaign();
 
 	void EraseModFolder(const idStr& name);
 
