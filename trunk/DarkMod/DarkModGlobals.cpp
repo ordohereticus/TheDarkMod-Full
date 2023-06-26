@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4797 $
- * $Date: 2011-04-17 02:34:47 -0400 (Sun, 17 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4806 $
+ * $Date: 2011-04-19 17:47:06 -0400 (Tue, 19 Apr 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4797 2011-04-17 06:34:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4806 2011-04-19 21:47:06Z grayman $", init_version);
 
 #include "DarkModGlobals.h"
 #include "Misc.h"
@@ -481,6 +481,7 @@ void CGlobal::LoadINISettings(void *p)
 		CheckLogClass(ps, "LogClass_CONVERSATION", LC_CONVERSATION);
 		CheckLogClass(ps, "LogClass_MAINMENU", LC_MAINMENU);
 		CheckLogClass(ps, "LogClass_LOCKPICK", LC_LOCKPICK);
+		CheckLogClass(ps, "LogClass_AAS", LC_AAS); // grayman
 	}
 
 	if(FindSection(pfh, "GlobalParams", &ps) != static_cast<ULONG>(-1))

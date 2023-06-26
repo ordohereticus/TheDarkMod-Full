@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4769 $
- * $Date: 2011-04-10 12:43:43 -0400 (Sun, 10 Apr 2011) $
- * $Author: stgatilov $
+ * $Revision: 4806 $
+ * $Date: 2011-04-19 17:47:06 -0400 (Tue, 19 Apr 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -91,6 +91,7 @@ typedef enum {
 	LC_DIFFICULTY,		// anything difficulty-related
 	LC_CONVERSATION,	// conversation/dialogue stuff
 	LC_MAINMENU,		// main menu logging
+	LC_AAS,				// grayman - AAS area logging
 	LC_COUNT
 } LC_LogClass;
 
