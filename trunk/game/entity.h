@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4908 $
- * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 4955 $
+ * $Date: 2011-08-12 10:07:09 -0400 (Fri, 12 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -393,7 +393,8 @@ public:
 
 	/**
 	* Tels: Info for LOD, per entity. used if m_LODHandle != 0:
-	* Timestamp for next LOD think.
+	* Timestamp for next LOD think. If negative, LOD thinking is
+	* temp. disabled.
 	**/
 	int						m_DistCheckTimeStamp;
 
@@ -440,9 +441,15 @@ public:
 	lod_handle				ParseLODSpawnargs( const idDict* dict, const float fRandom);
 
 	/**
-	 * Tels: Stop LOD changes. If doTeam is true, also disables it on teammembers.
+	 * Tels: Stop LOD changes permanently. If doTeam is true, also disables it on teammembers.
 	 */
 	void					StopLOD( const bool doTeam);
+
+	/**
+	 * Tels: Stop LOD changes temporarily. If doTeam is true, also disables it on teammembers.
+	 */
+	void					DisableLOD( const bool doTeam );
+	void					EnableLOD( const bool doTeam );
 
 	void					Save( idSaveGame *savefile ) const;
 	void					Restore( idRestoreGame *savefile );

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4935 $
- * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Revision: 4955 $
+ * $Date: 2011-08-12 10:07:09 -0400 (Fri, 12 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4955 2011-08-12 14:07:09Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9881,14 +9881,14 @@ bool idPlayer::DropToHands( idEntity *ent, CInventoryItemPtr item )
 
 			// Replace the entity to be dropped with the newly spawned one.
 			ent = spawnedEntity;
-        }
+	        }
             
-        // If the item is referenced by any objective with a item-location component set the flag
-        // so it will be considered by location entities.
-        if ( gameLocal.m_MissionData->MatchLocationObjectives( ent ) )
-        {
-            ent->m_bIsObjective = true;
-        }
+	        // If the item is referenced by any objective with a item-location component set the flag
+	        // so it will be considered by location entities.
+	        if ( gameLocal.m_MissionData->MatchLocationObjectives( ent ) )
+	        {
+	            ent->m_bIsObjective = true;
+	        }
 
 		grabber->PutInHands( ent, dropPoint, dropAxis );
 		DM_LOG(LC_INVENTORY, LT_INFO)LOGSTRING("Item was successfully put in hands: %s\r", ent->name.c_str());
@@ -9899,6 +9899,9 @@ bool idPlayer::DropToHands( idEntity *ent, CInventoryItemPtr item )
 		{
 			grabber->Update( this, false );
 		}
+
+		// Tels: #2826: re-enable LOD again, in case the entity was in the inventory (like a shoulderable body)
+		ent->EnableLOD( true );
 	}
 
 	return rc;

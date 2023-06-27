@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4334 $
- * $Date: 2010-11-26 00:09:35 -0500 (Fri, 26 Nov 2010) $
+ * $Revision: 4955 $
+ * $Date: 2011-08-12 10:07:09 -0400 (Fri, 12 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 4334 2010-11-26 05:09:35Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 4955 2011-08-12 14:07:09Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -348,7 +348,7 @@ void CGrabber::Update( idPlayer *player, bool hold )
 	player->GetViewPos( viewPoint, viewAxis );
 
 	// if no entity is currently selected for dragging, start grabbing the frobbed entity
-    if ( !m_dragEnt.GetEntity() ) 
+	if ( !m_dragEnt.GetEntity() ) 
 		StartDrag( player );
 
 	// if there's still not a valid ent, don't do anything
@@ -535,7 +535,7 @@ void CGrabber::StartDrag( idPlayer *player, idEntity *newEnt, int bodyID )
 	player->GetViewPos( viewPoint, viewAxis );
 
 	// If an entity was not explictly passed in, use the frob entity
-    if ( !newEnt ) 
+	if ( !newEnt ) 
 	{
 		FrobEnt = player->m_FrobEntity.GetEntity();
 		if( !FrobEnt )
@@ -1218,6 +1218,8 @@ bool CGrabber::PutInHandsAtPoint(idEntity *ent, idVec3 point, idMat3 axis, int b
 		orig -= phys->GetOrigin( bodyID ) - phys->GetOrigin( 0 );
 
 	ent->SetOrigin( orig );
+	// Tels: re-enable LOD here, including all possible attachments
+	ent->EnableLOD( true ) ;
 	ent->Show();
 
 	StartDrag( m_player.GetEntity(), ent, bodyID );
@@ -1580,7 +1582,7 @@ bool CGrabber::Dequip( void )
 	if( bDequipped && ent->spawnArgs.GetString("dequip_action_script", "", str))
 	{ 
 		// Call the script
-        idThread* thread = CallScriptFunctionArgs(str.c_str(), true, 0, "e", ent);
+	        idThread* thread = CallScriptFunctionArgs(str.c_str(), true, 0, "e", ent);
 		if (thread != NULL)
 		{
 			// Run the thread at once, the script result might be needed below.
@@ -1665,6 +1667,8 @@ void CGrabber::ShoulderBody( idAFEntity_Base *body )
 	body->Unbind();
 	body->GetPhysics()->PutToRest();
 	body->GetPhysics()->UnlinkClip();
+	// Tels: fix #2826 by stopping LOD temporarily on shouldered bodies, including any attachements
+	body->DisableLOD( true );
 	body->Hide();
 
 	// greebo: prevent this entity from stimming while shouldered
@@ -1691,6 +1695,9 @@ void CGrabber::UnShoulderBody( idEntity *body )
 
 	// greebo: Emit the callback to the owner
 	player->OnStopShoulderingBody(body);
+
+	// Tels: #2826: Enable LOD again, including attachements
+	body->EnableLOD( true );
 
 	// Allow the body to stim again after dropping it
 	gameLocal.LinkStimEntity(body);

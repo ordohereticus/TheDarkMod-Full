@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4935 $
- * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Revision: 4955 $
+ * $Date: 2011-08-12 10:07:09 -0400 (Fri, 12 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4955 2011-08-12 14:07:09Z tels $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -675,6 +675,8 @@ void CInventory::RemoveEntityFromMap(idEntity* ent, bool deleteEntity)
 	ent->Unbind();
 	ent->GetPhysics()->PutToRest();
 	ent->GetPhysics()->UnlinkClip();
+	// Tels: #2826: temp. stop LOD thinking, including all possible things attached to this entity
+	ent->DisableLOD( true );
 	ent->Hide();
 
 	if (deleteEntity == true)
