@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod - Launcher
  * $Source$
- * $Revision: 4945 $
- * $Date: 2011-08-07 13:49:15 -0400 (Sun, 07 Aug 2011) $
- * $Author: tels $
+ * $Revision: 5050 $
+ * $Date: 2011-11-27 13:39:58 -0500 (Sun, 27 Nov 2011) $
+ * $Author: greebo $
  *
  *************************************************************************/
 
@@ -230,13 +230,14 @@ void Launcher::InitArguments()
 {
 	if (!_currentFM.empty())
 	{
-		AddArgument("+set");
-		AddArgument("fs_game_base");
-		AddArgument(GAME_BASE_NAME);
-
+		// greebo: issue #2904 suggests the argument order is important, put fs_game first
 		AddArgument("+set");
 		AddArgument("fs_game");
 		AddArgument(_currentFM);
+
+		AddArgument("+set");
+		AddArgument("fs_game_base");
+		AddArgument(GAME_BASE_NAME);
 	}
 	else
 	{
