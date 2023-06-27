@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,11 +20,11 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Cinematic.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Cinematic.cpp 5189 2012-01-08 10:09:30Z greebo $");
 
 #define JPEG_INTERNALS
 extern "C" {
-#include "jpeg-6/jpeglib.h"
+#include <jpeglib.h>
 }
 
 #include "tr_local.h"
@@ -1327,7 +1327,7 @@ struct jpeg_error_mgr jerr;
  */
 
 
-METHODDEF boolean fill_input_buffer( j_decompress_ptr cinfo )
+static boolean fill_input_buffer( j_decompress_ptr cinfo )
 {
   my_src_ptr src = (my_src_ptr) cinfo->src;
   int nbytes;
@@ -1356,7 +1356,7 @@ METHODDEF boolean fill_input_buffer( j_decompress_ptr cinfo )
  */
 
 
-METHODDEF void init_source (j_decompress_ptr cinfo)
+static void init_source (j_decompress_ptr cinfo)
 {
   my_src_ptr src = (my_src_ptr) cinfo->src;
 
@@ -1379,7 +1379,7 @@ METHODDEF void init_source (j_decompress_ptr cinfo)
  * buffer is the application writer's problem.
  */
 
-METHODDEF void
+static void
 skip_input_data (j_decompress_ptr cinfo, long num_bytes)
 {
   my_src_ptr src = (my_src_ptr) cinfo->src;
@@ -1414,14 +1414,14 @@ skip_input_data (j_decompress_ptr cinfo, long num_bytes)
  * for error exit.
  */
 
-METHODDEF void
+static void
 term_source (j_decompress_ptr cinfo)
 {
 	cinfo = cinfo;
   /* no work necessary here */
 }
 
-GLOBAL void
+static void
 jpeg_memory_src (j_decompress_ptr cinfo, byte *infile, int size)
 {
   my_src_ptr src;

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -25,6 +25,8 @@
 #include "../sound/sound.h"
 #endif
 
+#include "Str.h"
+
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
 
@@ -36,7 +38,7 @@ typedef unsigned int ILuint;
 typedef unsigned int ILenum;
 #endif
 
-class CImage
+class Image
 {
 public:
 	enum Format
@@ -54,10 +56,10 @@ public:
 	static Format GetFormatFromString(const char *format);
 
 
-	CImage();
-	CImage(const idStr& name);
+	Image();
+	Image(const idStr& name);
 	
-	~CImage();
+	~Image();
 	/**
 	 * Unload will set the image to not loaded and deallocate memory.
 	 */
@@ -107,7 +109,7 @@ protected:
 	// DevIL image ID (equal to -1 if image is not loaded)
 	ILuint			m_ImageId;
 
-	// Convert CImage::Format to ILenum
+	// Convert Image::Format to ILenum
 	static ILenum GetILTypeForImageFormat(Format format);
 
 	bool LoadDevILFromLump(const unsigned char *imageBuffer, unsigned int imageLength);

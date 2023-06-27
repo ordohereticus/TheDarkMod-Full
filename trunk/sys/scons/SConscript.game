@@ -18,8 +18,8 @@
 # 
 # Project: The Dark Mod (http://www.thedarkmod.com/)
 # 
-# $Revision: 5174 $ (Revision of last commit) 
-# $Date: 2012-01-07 04:31:10 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+# $Revision: 5189 $ (Revision of last commit) 
+# $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
 # $Author: greebo $ (Author of last commit)
 # 
 #*****************************************************************************
@@ -120,7 +120,6 @@ AIVehicle.cpp \
 BinaryFrobMover.cpp \
 BloodMarker.cpp \
 ButtonStateTracker.cpp \
-CImage.cpp \
 DarkmodAASHidingSpotFinder.cpp \
 DarkModGlobals.cpp \
 darkmodHidingSpotTree.cpp \

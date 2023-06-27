@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -76,7 +76,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5189 2012-01-08 10:09:30Z greebo $");
 
 #include "SEED.h"
 
@@ -773,8 +773,8 @@ Seed::Spawn
 void Seed::Spawn( void ) {
 
 	// DEBUG
-//	gameLocal.Printf( "SEED %s: Sizes: seed_entity_t %i, seed_class_t %i, lod_data_t %i, idEntity %i, idStaticEntity %i, CImage %i.\n", 
-//			GetName(), sizeof(seed_entity_t), sizeof(seed_class_t), sizeof(lod_data_t), sizeof(idEntity), sizeof(idStaticEntity), sizeof(CImage) );
+//	gameLocal.Printf( "SEED %s: Sizes: seed_entity_t %i, seed_class_t %i, lod_data_t %i, idEntity %i, idStaticEntity %i, Image %i.\n", 
+//			GetName(), sizeof(seed_entity_t), sizeof(seed_class_t), sizeof(lod_data_t), sizeof(idEntity), sizeof(idStaticEntity), sizeof(Image) );
 
 	// if we subtract the render entity origin from the physics origin (this is where the mapper places
 	// the origin inside DR), we magically arrive at the true origin of the visible brush placed in DR.

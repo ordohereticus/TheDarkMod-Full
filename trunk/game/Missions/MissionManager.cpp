@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5189 2012-01-08 10:09:30Z greebo $");
 
 #include <time.h>
 #include "MissionManager.h"
@@ -1475,7 +1475,7 @@ const DownloadableModList& CMissionManager::GetDownloadableMods() const
 
 bool CMissionManager::ProcessMissionScreenshot(const fs::path& tempFilename, DownloadableMod& mod, int screenshotNum)
 {
-	CImage image(tempFilename.file_string().c_str());
+	Image image(tempFilename.file_string().c_str());
 
 	if (!image.LoadImageFromFile(tempFilename))
 	{
@@ -1500,7 +1500,7 @@ bool CMissionManager::ProcessMissionScreenshot(const fs::path& tempFilename, Dow
 	targetPath = GetDarkmodPath() / mod.GetLocalScreenshotPath(screenshotNum).c_str();
 	
 	// Save the file locally as JPEG
-	if (!image.SaveImageToFile(targetPath, CImage::JPG))
+	if (!image.SaveImageToFile(targetPath, Image::JPG))
 	{
 		gameLocal.Printf("Could not save image to %s\n", targetPath.file_string().c_str());
 		return false;

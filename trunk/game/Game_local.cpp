@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5189 2012-01-08 10:09:30Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -51,7 +51,6 @@ static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5185 2012-01-
 #include "Http/HttpRequest.h"
 #include "StimResponse/StimType.h" // grayman #2721
 
-#include <IL/il.h>
 #include "randomizer/randomc.h"
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -425,9 +424,6 @@ void idGameLocal::Init( void ) {
 	TestGameAPI();
 
 #else
-	// Initialize the image library, so we can use it later on.
-	ilInit();
-
 	// initialize idLib
 	idLib::Init();
 
@@ -545,7 +541,7 @@ void idGameLocal::Init( void ) {
 	m_ModelGenerator->Init();
 
 	// Initialise the image map manager
-	m_ImageMapManager = CImageMapManagerPtr(new CImageMapManager);
+	m_ImageMapManager = ImageMapManagerPtr(new ImageMapManager);
 	m_ImageMapManager->Init();
 
 	// Initialise the light controller

@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,9 +22,6 @@
 
 #ifndef __DARKMOD_IMAGEMAPMANAGER_H__
 #define __DARKMOD_IMAGEMAPMANAGER_H__
-
-// to get CImage
-#include "CImage.h"
 
 /*
 ===============================================================================
@@ -42,17 +39,17 @@
 // Defines data for one image map
 typedef struct {
 	idStr				name;		//!< the filename from where the image was loaded
-	CImage*				img;		//!< The CImage object that loads and contains the actual data
+	Image*				img;		//!< The Image object that loads and contains the actual data
 	float				density;	//!< average density (0..1.0)
 	unsigned int		users;		//!< How many objects currently use this image? Data can only be freed if users == 0.
 } imagemap_t;
 
-class CImageMapManager {
+class ImageMapManager {
 public:
 
-						CImageMapManager( void );
+						ImageMapManager( void );
 
-						~CImageMapManager();
+						~ImageMapManager();
 
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
@@ -139,7 +136,7 @@ private:
 	/**
 	* Assure that the image was allocated and loaded, then return a ptr to it.
 	*/
-	CImage*				GetImage( unsigned int handle );
+	Image*				GetImage( unsigned int handle );
 
 	/** List of loaded image maps */
 	idList< imagemap_t >	m_imageMaps;

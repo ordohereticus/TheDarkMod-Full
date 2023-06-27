@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5172 $ (Revision of last commit) 
- $Date: 2012-01-07 03:18:21 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -227,6 +227,7 @@ public:
 #include "BitMsg.h"
 #include "MapFile.h"
 #include "Timer.h"
+#include "Image.h"
 #include "RevisionTracker.h"
 
 #endif	/* !__LIB_H__ */

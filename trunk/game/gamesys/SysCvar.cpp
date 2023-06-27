@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5189 2012-01-08 10:09:30Z greebo $");
 
 #include "../Game_local.h"
 
@@ -174,7 +174,6 @@ idCVar cv_mainmenu_confirmquit(		"tdm_mainmenu_confirmquit",      "1", CVAR_ARCH
 idCVar cv_force_savegame_load(		"tdm_force_savegame_load", "0",   CVAR_BOOL|CVAR_ARCHIVE, "Set to 1 to skip code revision check on savegame load." );
 idCVar cv_savegame_compress(		"tdm_savegame_compress", "1",   CVAR_BOOL|CVAR_ARCHIVE, "Set to 0 to disable savegame file compression." );
 
-idCVar cv_screenshot_format(		"tdm_screenshot_format", "jpg",   CVAR_ARCHIVE, "Image format used to store ingame screenshots: png/tga/jpg/bmp." );
 /**
 * Dark Mod player movement
 * Use multipliers instead of setting a speed for each

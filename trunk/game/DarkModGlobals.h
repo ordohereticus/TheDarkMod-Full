@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5155 $ (Revision of last commit) 
- $Date: 2012-01-03 14:36:30 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
+ $Revision: 5189 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -36,7 +36,6 @@
 
 #include <stdio.h>
 #include "Game_local.h"
-#include "CImage.h"
 #include "../framework/Licensee.h"
 
 enum VersionCheckResult
@@ -158,8 +157,8 @@ public:
 	 * The second version will also return the index.
 	 * NULL is returned if the image couldn't be found.
 	 */
-	CImage *GetImage(int Index);
-	CImage *GetImage(idStr const &Name, int &Index);
+	Image* GetImage(int Index);
+	Image* GetImage(idStr const &Name, int &Index);
 
 	/**
 	* Lookup the name of a the surface for a given material
@@ -225,9 +224,9 @@ public:
 	int				m_Linenumber;
 
 	idList<CLightMaterial *>		m_LightMaterial;
-	idList<CImage *>				m_Image;
+	idList<Image*>				m_Image;
 
-	CImage			m_RenderImage;
+	Image			m_RenderImage;
 
 public:
 
