@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4949 $
- * $Date: 2011-08-07 17:05:22 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4958 $
+ * $Date: 2011-08-13 09:05:51 -0400 (Sat, 13 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -82,6 +82,12 @@ public:
 	*/
 	void				MoveArticlesToBack(idStr& title);
 
+	/** 
+	* To Intercepts calls to common->GetLanguageDict():
+	*/
+	const idLangDict*	GetLanguageDict(void) const;
+
+
 private:
 	// Called at the end of the game
 	void				Shutdown();
@@ -89,9 +95,9 @@ private:
 	// current language
 	idStr				m_lang;
 
-	// A ptr to the system dictionary. We manipulate this directly if nec.,
-	// e.g. when we need an unsupported language, or add FM specific strings.
-	const idLangDict	*m_SystemDict;
+	// A dictionary consisting of the current language + the current FM dict.
+	idLangDict			m_Dict;
+
 	// reverse dictionary for TemplateFromEnglish
 	idDict				m_ReverseDict;
 	// dictionary to map "A ..." to "..., A" for MoveArticlesToBack()
