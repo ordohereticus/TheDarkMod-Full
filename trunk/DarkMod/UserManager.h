@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4722 $
- * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -19,6 +19,8 @@ public:
 
 	// Adds user to the list, sorted by alert level
 	void AddUser(idActor*);
+
+	void AppendUser(idActor* actor); // grayman #1327 - append to the list, don't care about alert level
 
 	void RemoveUser(idActor*);
 

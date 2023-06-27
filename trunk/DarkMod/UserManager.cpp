@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4722 $
- * $Date: 2011-03-24 14:45:06 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -48,6 +48,25 @@ void UserManager::AddUser(idActor* actor)
 			}
 			// otherwise, append at the end of the list
 			m_users.Append(actorPtr);
+		}
+	}
+}
+
+// grayman #1327 - need to add a user w/o caring what the alert levels are
+
+void UserManager::AppendUser(idActor* actor)
+{
+	idEntityPtr<idActor> actorPtr;
+	actorPtr = actor;
+
+	int index(m_users.FindIndex(actorPtr));
+	if ( index < 0 )
+	{
+		// Actor is not in users list yet
+
+		if (actor->IsType(idAI::Type))
+		{
+			m_users.Append(actorPtr); // Append at the end of the list
 		}
 	}
 }

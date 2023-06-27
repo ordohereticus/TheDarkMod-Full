@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4982 $
- * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 4988 2011-10-07 15:45:07Z grayman $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -37,6 +37,19 @@ bool ObservantState::CheckAlertLevel(idAI* owner)
 	if (owner->AI_AlertIndex < 1)
 	{
 		// Alert index is too low for this state, fall back
+
+		// grayman #1327 - if you were searching a suspicious
+		// door, let it go, in case you haven't already
+
+		Memory& memory = owner->GetMemory();
+		CFrobDoor* door = memory.closeMe.GetEntity();
+		if ( door )
+		{
+			memory.closeMe = NULL;
+			memory.closeSuspiciousDoor = false;
+			door->SetSearching(NULL);
+		}
+
 		owner->GetMind()->EndState();
 		return false;
 	}

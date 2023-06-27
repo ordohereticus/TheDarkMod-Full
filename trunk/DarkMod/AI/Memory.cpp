@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4982 $
- * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 4988 2011-10-07 15:45:07Z grayman $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -70,7 +70,8 @@ Memory::Memory(idAI* owningAI) :
 	hidingSpotInvestigationInProgress(false),
 	fleeingDone(true),
 	positionBeforeTakingCover(0,0,0),
-	resolvingMovementBlock(false)
+	resolvingMovementBlock(false),
+	closeSuspiciousDoor(false) // grayman #1327
 {}
 
 // Save/Restore routines

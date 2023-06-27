@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4983 $
- * $Date: 2011-09-29 16:56:59 -0400 (Thu, 29 Sep 2011) $
- * $Author: tels $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 4983 2011-09-29 20:56:59Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 4988 2011-10-07 15:45:07Z grayman $", init_version);
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -49,10 +49,18 @@ bool SuspiciousState::CheckAlertLevel(idAI* owner)
 		// compare which side of the door we were on when we first saw
 		// the door with which side we're on now.
 
+		// If, before we put ourselves on the door queue to handle it, we find that
+		// others are on the queue, then we don't need to close the door.
+
 		Memory& memory = owner->GetMemory();
 		CFrobDoor* door = memory.closeMe.GetEntity();
 		if ( door != NULL )
 		{
+			if ( door->GetUserManager().GetNumUsers() > 0 )
+			{
+				return false; // others are queued up to use the door, so quit
+			}
+
 			memory.closeFromAwayPos = false; // close from the side the door swings toward
 			if ( memory.susDoorSameAsCurrentDoor )
 			{

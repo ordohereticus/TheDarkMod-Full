@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2634 $
- * $Date: 2008-07-12 04:20:10 -0400 (Sat, 12 Jul 2008) $
- * $Author: greebo $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -167,11 +167,12 @@ struct CommMessage
 		GetOutOfTheWayOrder_CommType,
 
 		/**
-		 * greebo: These three were defined the script, but not here >> added.
+		 * greebo: These three were defined in the script, but not here >> added.
 		 */
 		ConveyWarning_EvidenceOfIntruders_CommType,
 		ConveyWarning_ItemsHaveBeenStolen_CommType,
 		ConveyWarning_EnemiesHaveBeenSeen_CommType,
+		ConveyWarning_CorpseHasBeenSeen_CommType, // grayman #1327
 
 		NumCommTypes, // invalid type
 	};

@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4982 $
- * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 4988 2011-10-07 15:45:07Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -1091,16 +1091,16 @@ idEntity* CFrobDoor::GetLastUsedBy()
 	return m_lastUsedBy.GetEntity();
 }
 
-// grayman #2866
+// grayman #1327
 
-void CFrobDoor::SetAlerted(bool alerted)
+void CFrobDoor::SetSearching(idEntity* ent)
 {
-	m_alerted = alerted;
+	m_searching = ent;
 }
 
-bool CFrobDoor::GetAlerted()
+idEntity* CFrobDoor::GetSearching()
 {
-	return m_alerted;
+	return m_searching.GetEntity();
 }
 
 // grayman #2866 - GetDoorHandlingEntities() finds the door handling entities when a door uses them.

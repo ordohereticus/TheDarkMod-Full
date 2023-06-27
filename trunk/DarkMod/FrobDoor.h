@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4982 $
- * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
+ * $Revision: 4988 $
+ * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -111,8 +111,8 @@ public:
 
 	void					SetLastUsedBy(idEntity* ent);	// grayman #2859
 	idEntity*				GetLastUsedBy();				// grayman #2859
-	void					SetAlerted(bool alerted);		// grayman #2866
-	bool					GetAlerted();					// grayman #2866
+	void					SetSearching(idEntity* ent);	// grayman #2866
+	idEntity*				GetSearching();					// grayman #2866
 	bool					GetDoorHandlingEntities(idAI* owner, idList< idEntityPtr<idEntity> > &list); // grayman #2866
 
 protected:
