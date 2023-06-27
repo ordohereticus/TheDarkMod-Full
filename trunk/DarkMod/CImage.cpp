@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4910 $
- * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Revision: 4912 $
+ * $Date: 2011-07-13 11:28:33 -0400 (Wed, 13 Jul 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CImage.cpp 4910 2011-07-11 15:57:15Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: CImage.cpp 4912 2011-07-13 15:28:33Z stgatilov $", init_version);
 
 #include <IL/il.h>
 
@@ -211,10 +211,20 @@ const unsigned char* CImage::GetImageData() const
 
 bool CImage::SaveImageToFile(const fs::path& path, Format format) const
 {
+	if (fs::is_directory(path)) {
+		DM_LOG(LC_SYSTEM, LT_ERROR)LOGSTRING("Cannot save image: file [%s] is directory\r", path.file_string().c_str());
+		return false;
+	}
+	//create directories if necessary
+	fs::create_directories(path.branch_path());
+	//write image file
 	return SaveDevILToFile(path.file_string().c_str(), format);
 }
 
 bool CImage::SaveImageToVfs(const char* filename, Format format) const
 {
+	//create directories if necessary
+	fileSystem->CloseFile(fileSystem->OpenFileWrite(filename));
+	//write image file
 	return SaveDevILToFile(fileSystem->RelativePathToOSPath(filename), format);
 }
