@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5026 $
- * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
+ * $Revision: 5028 $
+ * $Date: 2011-11-06 23:21:36 -0500 (Sun, 06 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -123,7 +123,8 @@ public :
 	virtual void			ReadFromSnapshot( const idBitMsgDelta &msg );
 	virtual bool			ClientReceiveEvent( int event, int time, const idBitMsg &msg );
 	void					MineExplode( int entityNumber ); // grayman #2478
-	bool					IsMine(); // grayman #2478
+	bool					IsMine();	// grayman #2478
+	bool					IsArmed();	// grayman #2906
 	void					Event_ActivateProjectile();
 
 protected:
