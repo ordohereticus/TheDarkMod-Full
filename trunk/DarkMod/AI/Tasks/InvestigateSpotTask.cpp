@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5040 $
- * $Date: 2011-11-16 18:15:17 -0500 (Wed, 16 Nov 2011) $
+ * $Revision: 5043 $
+ * $Date: 2011-11-19 10:26:54 -0500 (Sat, 19 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 5040 2011-11-16 23:15:17Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 5043 2011-11-19 15:26:54Z grayman $", init_version);
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -26,7 +26,7 @@ const int INVESTIGATE_SPOT_TIME_CLOSELY = 2500; // ms
 
 const int INVESTIGATE_SPOT_STOP_DIST = 100; // grayman #2640 - even if you can see the spot, keep moving if farther away than this
 const int INVESTIGATE_SPOT_MIN_DIST  =  20;
-const int INVESTIGATE_SPOT_CLOSELY_MAX_DIST = 100; // grayman debug
+const int INVESTIGATE_SPOT_CLOSELY_MAX_DIST = 100; // grayman #2928
 
 const float MAX_TRAVEL_DISTANCE_WALKING = 300; // units?
 
@@ -155,21 +155,9 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 	{
 		DM_LOG(LC_AI, LT_INFO)LOGVECTOR("Hiding spot investigated: \r", _searchSpot);
 
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s origin = (%s)\r", owner->name.c_str(),owner->GetPhysics()->GetOrigin().ToString()); // grayman debug
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s alertSearchCenter = (%s)\r", owner->name.c_str(),owner->GetMemory().alertSearchCenter.ToString()); // grayman debug
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s _searchSpot = (%s)\r", owner->name.c_str(),_searchSpot.ToString()); // grayman debug
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s    alertPos = (%s)\r", owner->name.c_str(),owner->GetMemory().alertPos.ToString()); // grayman debug
-		float distDebug = ( owner->GetPhysics()->GetOrigin() - owner->GetMemory().alertSearchCenter).LengthFast(); // grayman debug
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s dist = %f\r", owner->name.c_str(),distDebug); // grayman debug
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s _investigateClosely = %s\r", owner->name.c_str(),_investigateClosely ? "TRUE" : "FALSE"); // grayman debug
-
-		// grayman debug - don't kneel down if you're too far from the original stim
+		// grayman #2928 - don't kneel down if you're too far from the original stim
 
 		float dist = ( owner->GetPhysics()->GetOrigin() - owner->GetMemory().alertSearchCenter).LengthFast();
-		if ( _investigateClosely && ( dist >= INVESTIGATE_SPOT_CLOSELY_MAX_DIST ) ) // grayman debug
-		{
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s I wanted to kneel, but I'm too far away\r", owner->name.c_str()); // grayman debug
-		}
 
 		if ( _investigateClosely && ( dist < INVESTIGATE_SPOT_CLOSELY_MAX_DIST ) )
 		{
@@ -182,7 +170,6 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 			idVec3 eyePos = owner->GetEyePosition();
 			if ((_searchSpot - origin).LengthSqr() < (_searchSpot - eyePos).LengthSqr())
 			{
-				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- %s KNEELING\r", owner->name.c_str()); // grayman debug
 				// Close to the feet, kneel down and investigate closely
 				owner->SetAnimState(ANIMCHANNEL_TORSO, "Torso_KneelDown", 6);
 				owner->SetAnimState(ANIMCHANNEL_LEGS, "Legs_KneelDown", 6);
@@ -253,7 +240,6 @@ void InvestigateSpotTask::SetNewGoal(const idVec3& newPos)
 
 	// Copy the value
 	_searchSpot = newPos;
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("----- SetNewGoal - %s is given a new _searchSpot at (%s)\r", owner->name.c_str(),_searchSpot.ToString()); // grayman debug
 	// Reset the "move started" flag
 	_moveInitiated = false;
 
