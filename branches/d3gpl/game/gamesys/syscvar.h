@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4996 $
- * $Date: 2011-10-16 15:53:30 -0400 (Sun, 16 Oct 2011) $
- * $Author: tels $
+ * $Revision: 5078 $
+ * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #define __SYS_CVAR_H__
 
 #ifdef __linux__
-#include "framework/cvarsystem.h"
+#include "../../framework/CVarSystem.h"
 #endif
 
 /**

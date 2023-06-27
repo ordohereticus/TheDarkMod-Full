@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5078 $
+ * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #include "game.h"
 
 #ifdef __linux__
-#include "framework/usercmdgen.h"
+#include "../framework/UsercmdGen.h"
 #endif
 
 #pragma warning(disable : 4996)

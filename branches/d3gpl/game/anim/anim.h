@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4530 $
- * $Date: 2011-02-02 02:30:58 -0500 (Wed, 02 Feb 2011) $
+ * $Revision: 5078 $
+ * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #define __ANIM_H__
 
 #ifdef __linux__
-#include "framework/declmanager.h"
+#include "../../framework/DeclManager.h"
 #endif
 
 //

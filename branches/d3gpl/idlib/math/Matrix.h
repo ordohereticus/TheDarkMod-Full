@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5072 $
- * $Date: 2011-12-04 02:38:59 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5078 $
+ * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #define __MATH_MATRIX_H__
 
 #ifdef __linux__
-#include "sys/sys_public.h"
+#include "../../sys/sys_public.h"
 #include <cassert>
 #endif
 

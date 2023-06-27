@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5078 $
+ * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@ Save game related helper classes.
 #include "../RawVector.h"
 
 #ifdef __linux__
-#include "renderer/model.h"
+#include "../../renderer/Model.h"
 #endif
 
 const int INITIAL_RELEASE_BUILD_NUMBER = 1262;

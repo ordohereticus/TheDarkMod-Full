@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5078 $
+ * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -17,13 +17,13 @@
 #include <limits> // before FLT_EPSILON is #undefined
 
 #ifdef __linux__
-#include "sys/sys_public.h"
+#include "../../sys/sys_public.h"
 #include <cassert>
 #endif
 
 #ifdef MACOS_X
 // greebo: Include this for ID_INLINE
-#include "sys/sys_public.h"
+#include "../../sys/sys_public.h"
 
 // for square root estimate instruction
 #include <ppc_intrinsics.h>

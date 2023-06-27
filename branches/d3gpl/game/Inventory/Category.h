@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4905 $
- * $Date: 2011-06-23 13:45:40 -0400 (Thu, 23 Jun 2011) $
- * $Author: tels $
+ * $Revision: 5078 $
+ * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 #ifndef __DARKMOD_INVENTORYCATEGORY_H__
 #define __DARKMOD_INVENTORYCATEGORY_H__
 
-#include "Item.h"
+#include "InventoryItem.h"
 
 /**
  * InventoryCategory is just a container for items that are currently held by an entity.
