@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4961 $
- * $Date: 2011-08-27 11:13:32 -0400 (Sat, 27 Aug 2011) $
+ * $Revision: 4985 $
+ * $Date: 2011-10-03 06:27:52 -0400 (Mon, 03 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 4961 2011-08-27 15:13:32Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 4985 2011-10-03 10:27:52Z tels $", init_version);
 
 #include "I18N.h"
 #include "sourcehook/sourcehook.h"
@@ -112,7 +112,7 @@ void CI18N::Init ( void ) {
 
 /*
 ===============
-CI18N::DM_GetLanguageDict
+CI18N::GetLanguageDict
 
 Returns the language dict, so that D3 can use it instead of the system dict. Should
 not be called directly.
