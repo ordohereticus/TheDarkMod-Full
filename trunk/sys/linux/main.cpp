@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5146 $ (Revision of last commit) 
- $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5152 $ (Revision of last commit) 
+ $Date: 2012-01-03 06:00:02 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -124,7 +124,9 @@ const char *Sys_DefaultSavePath(void) {
  */
 const char* Sys_ModSavePath()
 {
-	sprintf( modSavepath, "%s/%s/%s", Sys_DefaultSavePath(), cvarSystem->GetCVarString("fs_game_base"), "fms" );
+	idStr fsGameBase = cvarSystem->GetCVarString("fs_game_base");
+
+	sprintf( modSavepath, "%s/%s/%s", Sys_DefaultSavePath(), fsGameBase.IsEmpty() ? "darkmod" : fsGameBase.c_str(), "fms" );
 	return modSavepath.c_str();
 }
 

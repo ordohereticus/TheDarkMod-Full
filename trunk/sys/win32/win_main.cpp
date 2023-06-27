@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5146 $ (Revision of last commit) 
- $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5152 $ (Revision of last commit) 
+ $Date: 2012-01-03 06:00:02 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -532,8 +532,10 @@ const char* Sys_ModSavePath()
 	
 	if (modSavePath.IsEmpty())
 	{
+		idStr fsGameBase = cvarSystem->GetCVarString("fs_game_base");
+
 		modSavePath = cvarSystem->GetCVarString("fs_basepath");
-		modSavePath.AppendPath(cvarSystem->GetCVarString("fs_game_base"));
+		modSavePath.AppendPath(fsGameBase.IsEmpty() ? "darkmod" : fsGameBase); // fall back to darkmod if fs_game base is empty
 		modSavePath.AppendPath("fms");
 	}
 
