@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4935 $
- * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Revision: 4954 $
+ * $Date: 2011-08-12 05:16:17 -0400 (Fri, 12 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4954 2011-08-12 09:16:17Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -787,15 +787,22 @@ void idEntity::FixupLocalizedStrings()
 	// Tels: Transform here things like "inv_category" "Maps" back to "#str_02390" so that custom
 	// entities in FMs with hard-coded english inventory categories or names still work even with
 	// the new translation code.
-    idStr categoryName = spawnArgs.GetString( "inv_category", "");
-	if (!categoryName.IsEmpty())
+
+	int c = 2;
+	const char* todo[2] = { "inv_category", "inv_name" };
+
+	for (int i = 0; i < c; i++)
 	{
-		idStr strTemplate = gameLocal.m_I18N->TemplateFromEnglish( categoryName );
-		// "Maps" resulted in "#str_02390"?
-		if (categoryName != strTemplate)
+	    idStr spName = spawnArgs.GetString( todo[i], "");
+		if (!spName.IsEmpty())
 		{
-			gameLocal.Printf("%s: Fixing inv_category from %s to %s.\n", GetName(), categoryName.c_str(), strTemplate.c_str() );
-    	    spawnArgs.Set( "inv_category", strTemplate );
+			idStr strTemplate = gameLocal.m_I18N->TemplateFromEnglish( spName );
+			// "Maps" resulted in "#str_02390"?
+			if (spName != strTemplate)
+			{
+				gameLocal.Printf("%s: Fixing %s from %s to %s.\n", GetName(), todo[i], spName.c_str(), strTemplate.c_str() );
+    		    spawnArgs.Set( todo[i], strTemplate );
+			}
 		}
 	}
 }
