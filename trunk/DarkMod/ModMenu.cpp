@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4851 $
- * $Date: 2011-05-16 23:56:00 -0400 (Mon, 16 May 2011) $
- * $Author: greebo $
+ * $Revision: 4906 $
+ * $Date: 2011-06-23 14:46:59 -0400 (Thu, 23 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4851 2011-05-17 03:56:00Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4906 2011-06-23 18:46:59Z tels $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -133,7 +133,7 @@ void CModMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 		if (info == NULL) return; // sanity check
 
 		// Issue the named command to the GUI
-		gui->SetStateString("modInstallProgressText", "Installing Mission Package\n\n" + info->displayName);
+		gui->SetStateString("modInstallProgressText", common->GetLanguageDict()->GetString( "#str_02504" ) + info->displayName); // "Installing Mission Package\n\n"
 	}
 	else if (cmd == "installSelectedMission")
 	{
