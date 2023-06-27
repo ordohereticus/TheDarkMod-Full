@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -82,13 +82,13 @@ void SearchingState::Init(idAI* owner)
 		// Setup a new hiding spot search
 		StartNewHidingSpotSearch(owner);
 
-		if (memory.alertedDueToCommunication == false && (memory.alertType == EAlertTypeSuspicious || memory.alertType == EAlertTypeEnemy))
+		if ((memory.alertedDueToCommunication == false) && ((memory.alertType == EAlertTypeSuspicious) || (memory.alertType == EAlertTypeEnemy)))
 		{
-			if (memory.alertClass == EAlertVisual_1)
+			if ((memory.alertClass == EAlertVisual_1) || (memory.alertClass == EAlertVisual_2)) // grayman #2603
 			{
 				if ( (MS2SEC(gameLocal.time - memory.lastTimeFriendlyAISeen)) <= MAX_FRIEND_SIGHTING_SECONDS_FOR_ACCOMPANIED_ALERT_BARK )
 				{
-					bark = "snd_alert3cs";
+					bark = "snd_alert3sc";
 				}
 				else
 				{
@@ -138,6 +138,8 @@ void SearchingState::Init(idAI* owner)
 		// Let the AI update their weapons (make them solid)
 		owner->UpdateAttachmentContents(true);
 	}
+
+	memory.searchFlags |= SRCH_WAS_SEARCHING; // grayman #2603
 }
 
 void SearchingState::OnSubsystemTaskFinished(idAI* owner, SubsystemId subSystem)
@@ -401,7 +403,7 @@ bool SearchingState::ChooseNextHidingSpotToSearch(idAI* owner)
 			// Get location
 			memory.chosenHidingSpot = owner->GetNthHidingSpotLocation(spotIndex);
 			memory.currentSearchSpot = memory.chosenHidingSpot;
-			
+
 			DM_LOG(LC_AI, LT_INFO)LOGSTRING(
 				"First spot chosen is index %d of %d spots.\r", 
 				memory.firstChosenHidingSpotIndex, numSpots

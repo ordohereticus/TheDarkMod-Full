@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4834 $
- * $Date: 2011-05-06 18:35:37 -0400 (Fri, 06 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 4834 2011-05-06 22:35:37Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -129,12 +129,12 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 		if (owner->GetMoveStatus() == MOVE_STATUS_DEST_UNREACHABLE)
 		{
 			// Hiding spot not reachable, terminate task in the next round
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("_searchSpot not reachable, terminating task.\r");
+			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("%s - _searchSpot not reachable, terminating task.\r",owner->name.c_str());
 			_exitTime = gameLocal.time;
 		}
 		else
 		{
-			// Run if the point is more than MAX_TRAVEL_DISTANCE_WALKING 
+			// Run if the point is more than MAX_TRAVEL_DISTANCE_WALKING
 			// greebo: This is taxing and can be replaced by a simpler distance check 
 			// TravelDistance takes about ~0.1 msec on my 2.2 GHz system.
 			float travelDist = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), _searchSpot);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1318,6 +1318,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 
 	// grayman #2603 - am I carrying a torch?
 	idEntity*				GetTorch();
+
+	bool					IsSearching(); // grayman #2603
 
 	virtual void			Hide( void );
 	virtual void			Show( void );

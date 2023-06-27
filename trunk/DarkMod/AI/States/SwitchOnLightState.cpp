@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -491,7 +491,7 @@ void SwitchOnLightState::Init(idAI* owner)
 	{
 		owner->actionSubsystem->ClearTasks();
 		owner->movementSubsystem->ClearTasks();
-		owner->movementSubsystem->PushTask(TaskPtr(new MoveToPositionTask(finalTargetPoint,idMath::INFINITY,5)));
+		_relightSpot = finalTargetPoint;
 
 		// Don't allow barks if the Alert Level is 1 or higher.
 
@@ -513,8 +513,20 @@ void SwitchOnLightState::Init(idAI* owner)
 		}
 
 		light->IgnoreResponse(ST_VISUAL, owner);
+
+		// grayman #2603 - if AI is sitting, he has to stand before sending him on his way
+
+		owner->movementSubsystem->PushTask(TaskPtr(new MoveToPositionTask(_relightSpot,idMath::INFINITY,5)));
+		if (owner->GetMoveType() == MOVETYPE_SIT)
+		{
+			_relightState = EStateSitting;
+		}
+		else
+		{
+			_relightState = EStateStarting;
+		}
+
 		_waitEndTime = gameLocal.time + 1000; // allow time for move to begin
-		_relightState = EStateStarting;
 		return;
 	}
 
@@ -593,17 +605,18 @@ void SwitchOnLightState::Think(idAI* owner)
 	{
 		switch (_relightState)
 		{
-			case EStateStarting:
-			case EStateApproaching:
-			case EStateTurningToward:
-				ignoreLight = true;
-				Wrapup(owner,light,ignoreLight);
-				return;
-			case EStateRelight:
-			case EStatePause:
-			case EStateFinal:
-			default:
-				break;
+		case EStateSitting:
+		case EStateStarting:
+		case EStateApproaching:
+		case EStateTurningToward:
+			ignoreLight = true;
+			Wrapup(owner,light,ignoreLight);
+			return;
+		case EStateRelight:
+		case EStatePause:
+		case EStateFinal:
+		default:
+			break;
 		}
 	}
 
@@ -614,6 +627,17 @@ void SwitchOnLightState::Think(idAI* owner)
 
 	switch (_relightState)
 	{
+		case EStateSitting:
+			if (gameLocal.time >= _waitEndTime)
+			{
+				if (owner->AI_MOVE_DONE && (owner->GetMoveType() != MOVETYPE_GET_UP)) // standing yet?
+				{
+					owner->movementSubsystem->PushTask(TaskPtr(new MoveToPositionTask(_relightSpot,idMath::INFINITY,5)));
+					_relightState = EStateStarting;
+					_waitEndTime = gameLocal.time + 1000; // allow time for move to begin
+				}
+			}
+			break;
 		case EStateStarting:
 			if (owner->AI_FORWARD || (gameLocal.time >= _waitEndTime))
 			{
@@ -830,6 +854,7 @@ void SwitchOnLightState::Save(idSaveGame* savefile) const
 	savefile->WriteObject(_goalEnt);	// grayman #2603
 	savefile->WriteFloat(_standOff);	// grayman #2603
 	savefile->WriteInt(static_cast<int>(_relightState)); // grayman #2603
+	savefile->WriteVec3(_relightSpot);	// grayman #2603
 }
 
 void SwitchOnLightState::Restore(idRestoreGame* savefile)
@@ -843,6 +868,7 @@ void SwitchOnLightState::Restore(idRestoreGame* savefile)
 	int temp;
 	savefile->ReadInt(temp);
 	_relightState = static_cast<ERelightState>(temp); // grayman #2603
+	savefile->ReadVec3(_relightSpot);	// grayman #2603
 }
 
 StatePtr SwitchOnLightState::CreateInstance()

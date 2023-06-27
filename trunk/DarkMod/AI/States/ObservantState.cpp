@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObservantState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ObservantState.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -76,9 +76,9 @@ void ObservantState::Init(idAI* owner)
 		// barking
 		idStr soundName("");
 
-		if (owner->AlertIndexIncreased() && memory.alertType != EAlertTypeMissingItem)
+		if (owner->AlertIndexIncreased() && (memory.alertType != EAlertTypeMissingItem))
 		{
-			if (memory.alertClass == EAlertVisual_1)
+			if ((memory.alertClass == EAlertVisual_1) || (memory.alertClass == EAlertVisual_2)) // grayman #2603
 			{
 				soundName = "snd_alert1s";
 			}

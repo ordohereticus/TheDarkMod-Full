@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1198,7 +1198,6 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool(m_canResolveBlock);	// grayman #2345
 	savefile->ReadBool(m_leftQueue);		// grayman #2345
 	savefile->ReadBool(m_performRelight);	// grayman #2603
-
 	savefile->ReadJoint( flashJointWorld );
 	savefile->ReadInt( muzzleFlashEnd );
 
@@ -10597,6 +10596,11 @@ int idAI::StartSearchForHidingSpotsWithExclusionArea
 	}
 }
 
+bool idAI::IsSearching() // grayman #2603
+{
+	return (AI_AlertLevel >= thresh_3);
+}
+
 int idAI::ContinueSearchForHidingSpots()
 {
 	//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("ContinueSearchForHidingSpots called.\r");
@@ -10822,7 +10826,7 @@ bool idAI::ShouldCloseDoor(CBinaryFrobMover *frobMover)
 		// this door should really be closed
 		return true;
 	}
-	if (AI_AlertLevel >= thresh_3)
+	if (IsSearching()) // grayman #2603
 	{
 		// don't close other doors while searching
 		return false;

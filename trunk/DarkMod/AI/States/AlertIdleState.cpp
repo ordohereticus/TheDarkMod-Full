@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -96,8 +96,10 @@ idStr AlertIdleState::GetInitialIdleBark(idAI* owner)
 	idStr soundName("");
 
 	if (!owner->m_RelightingLight && // grayman #2603 - No rampdown bark if relighting a light.
-		(owner->m_lastAlertLevel >= owner->thresh_1) &&
-		(owner->m_lastAlertLevel < owner->thresh_3))
+		(owner->m_maxAlertLevel >= owner->thresh_1) && // grayman #2603 - m_lastAlertLevel can be uninitialized here, so it's not a good thing to check
+		(owner->m_maxAlertLevel < owner->thresh_4))
+//		(owner->m_lastAlertLevel >= owner->thresh_1) &&
+//		(owner->m_lastAlertLevel < owner->thresh_3))
 	{
 		if (memory.alertClass == EAlertVisual_2) // grayman #2603
 		{

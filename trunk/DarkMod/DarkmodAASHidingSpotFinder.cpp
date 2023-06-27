@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
@@ -402,8 +402,6 @@ bool CDarkmodAASHidingSpotFinder::testNewPVSArea
 			return false;
 		}
 
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Testing PVS area %d, which is %d out of %d in the set\r", PVSAreas[numPVSAreasIterated], numPVSAreasIterated+1, numPVSAreas);
-
 		// Make sure we have a valid PVS handle in our hands
 		EnsurePVS();
 
@@ -439,7 +437,6 @@ bool CDarkmodAASHidingSpotFinder::testNewPVSArea
 			// PVS area is visible, get its AAS areas
 			aasAreaIndices.Clear();
 			LAS.pvsToAASMappingTable.getAASAreasForPVSArea (PVSAreas[numPVSAreasIterated], aasAreaIndices);
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Visible PVS area %d contains %d AAS areas\r", PVSAreas[numPVSAreasIterated], aasAreaIndices.Num());
 
 			// None searched yet
 			numAASAreaIndicesSearched = 0;
@@ -587,18 +584,21 @@ bool CDarkmodAASHidingSpotFinder::testingAASAreas_InVisiblePVSArea
 			// Initialize grid search for inside visible AAS area
 			idBounds currentAASAreaBounds = p_aas->GetAreaBounds (aasAreaIndex);
 
-			currentGridSearchBounds = searchLimits.Intersect (currentAASAreaBounds);
-			currentGridSearchAASAreaNum = aasAreaIndex;
-			currentGridSearchBoundMins = currentGridSearchBounds[0];
-			currentGridSearchBoundMaxes = currentGridSearchBounds[1];
-			currentGridSearchPoint = currentGridSearchBoundMins;
-			currentGridSearchPoint.x += WALL_MARGIN_SIZE;
-			
-			// We are now searching for hiding spots inside a visible AAS area
-			searchState = ESubdivideVisibleAASArea;
+			if (searchLimits.IntersectsBounds(currentAASAreaBounds)) // grayman #2603
+			{
+				currentGridSearchBounds = searchLimits.Intersect (currentAASAreaBounds);
+				currentGridSearchAASAreaNum = aasAreaIndex;
+				currentGridSearchBoundMins = currentGridSearchBounds[0];
+				currentGridSearchBoundMaxes = currentGridSearchBounds[1];
+				currentGridSearchPoint = currentGridSearchBoundMins;
+				currentGridSearchPoint.x += WALL_MARGIN_SIZE;
+				
+				// We are now searching for hiding spots inside a visible AAS area
+				searchState = ESubdivideVisibleAASArea;
 
-			// There is more to do
-			return true; 
+				// There is more to do
+				return true;
+			}
 		}
 
 		// See if we have filled our point quota

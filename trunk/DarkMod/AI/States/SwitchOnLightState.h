@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4867 $
- * $Date: 2011-05-24 13:17:32 -0400 (Tue, 24 May 2011) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -29,11 +29,13 @@ private:
 	// time to wait after starting anim before the light is switched on
 	int _waitEndTime;
 
-	idEntity* _goalEnt; // grayman #2603 - entity to walk toward when relighting a light
-	float _standOff;	// grayman #2603 - get this close to relight
+	idEntity* _goalEnt;		// grayman #2603 - entity to walk toward when relighting a light
+	float _standOff;		// grayman #2603 - get this close to relight
+	idVec3 _relightSpot;	// grayman #2603 - where to stand to relight
 
 	enum ERelightState	// grayman #2603
 	{
+		EStateSitting,
 		EStateStarting,
 		EStateApproaching,
 		EStateTurningToward,

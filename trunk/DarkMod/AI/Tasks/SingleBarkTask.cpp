@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4273 $
- * $Date: 2010-11-12 12:08:17 -0500 (Fri, 12 Nov 2010) $
+ * $Revision: 4870 $
+ * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 4273 2010-11-12 17:08:17Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SingleBarkTask.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
 
 #include "SingleBarkTask.h"
 #include "../Memory.h"
@@ -55,8 +55,6 @@ void SingleBarkTask::Init(idAI* owner, Subsystem& subsystem)
 
 bool SingleBarkTask::Perform(Subsystem& subsystem)
 {
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("SingleBarkTask performing.\r");
-
 	if (gameLocal.time < _barkStartTime)
 	{
 		return false; // waiting for start delay to pass
@@ -69,8 +67,6 @@ bool SingleBarkTask::Perform(Subsystem& subsystem)
 		return (gameLocal.time >= _endTime);
 	}
 	
-	// No end time set yet, emit our bark
-
 	if (_soundName.IsEmpty())
 	{
 		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("SingleBarkTask has empty soundname, ending task.\r");
@@ -81,8 +77,11 @@ bool SingleBarkTask::Perform(Subsystem& subsystem)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
+	// No end time set yet, emit our bark
+
 	// grayman #2169 - no barks while underwater
 
+	_barkLength = 0;
 	if (!owner->MouthIsUnderwater())
 	{
 		// Push the message and play the sound
@@ -92,16 +91,12 @@ bool SingleBarkTask::Perform(Subsystem& subsystem)
 		}
 
 		_barkLength = owner->PlayAndLipSync(_soundName, "talk1");
-	
+		
 		// Sanity check the returned length
 		if (_barkLength == 0)
 		{
 			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Received 0 sound length when playing %s.\r", _soundName.c_str());
 		}
-	}
-	else
-	{
-		_barkLength = 0;
 	}
 
 	_barkStartTime = gameLocal.time;
