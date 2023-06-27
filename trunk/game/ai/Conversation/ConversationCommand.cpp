@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5161 $ (Revision of last commit) 
- $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5166 $ (Revision of last commit) 
+ $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
-#include "precompiled.h"
+#include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 5161 2012-01-06 11:18:21Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationCommand.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
 
 #include <climits>
 #include "Conversation.h"

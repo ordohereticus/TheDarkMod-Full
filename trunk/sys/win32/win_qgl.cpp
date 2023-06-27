@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5162 $ (Revision of last commit) 
- $Date: 2012-01-06 06:27:15 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5166 $ (Revision of last commit) 
+ $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -26,7 +26,7 @@
 ** QGL_Init() - loads libraries, assigns function pointers, etc.
 ** QGL_Shutdown() - unloads libraries, NULLs function pointers
 */
-#include "precompiled.h"
+#include "precompiled_engine.h"
 #pragma hdrstop
 
 #include <float.h>

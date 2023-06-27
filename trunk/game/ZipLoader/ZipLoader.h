@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5161 $ (Revision of last commit) 
- $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5166 $ (Revision of last commit) 
+ $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma hdrstop
 
-#include "precompiled.h"
+#include "precompiled_game.h"
 #include <boost/shared_ptr.hpp>
 #include "minizip/unzip.h"
 

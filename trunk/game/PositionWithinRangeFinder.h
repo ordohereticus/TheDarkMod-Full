@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5161 $ (Revision of last commit) 
- $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5166 $ (Revision of last commit) 
+ $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef POSITION_WITHIN_RANGE_FINDER__H
 #define POSITION_WITHIN_RANGE_FINDER__H
 
-#include "precompiled.h"
+#include "precompiled_game.h"
 
 class PositionWithinRangeFinder : 
 	public idAASCallback
