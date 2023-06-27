@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4957 $
- * $Date: 2011-08-13 06:19:47 -0400 (Sat, 13 Aug 2011) $
+ * $Revision: 5034 $
+ * $Date: 2011-11-11 04:14:13 -0500 (Fri, 11 Nov 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModInfo.cpp 4957 2011-08-13 10:19:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModInfo.cpp 5034 2011-11-11 09:14:13Z tels $", init_version);
 
 #include "ModInfo.h"
 #include "ModInfoDecl.h"
@@ -63,19 +63,19 @@ idStr CModInfo::GetModFolderSizeString()
 
 	if (size < 1024)
 	{
-		str = va("%0.2f Bytes", size);
+		str = va("%0.2f %s", size, gameLocal.m_I18N->Translate( "#str_02010" ));	// Bytes
 	}
 	else if (size < 1024*1024)
 	{
-		str = va("%0.0f kB", size/1024.0f);
+		str = va("%0.0f %s", size/1024.0f, gameLocal.m_I18N->Translate( "#str_02014" ));	// kB
 	}
 	else if (size < 1024.0f*1024.0f*1024.0f)
 	{
-		str = va("%0.0f MB", size/(1024.0f*1024.0f));
+		str = va("%0.0f %s", size/(1024.0f*1024.0f), gameLocal.m_I18N->Translate( "#str_02015" ));	// MB
 	}
 	else if (size < 1024.0f*1024.0f*1024.0f*1024.0f)
 	{
-		str = va("%0.2f GB", size/(1024.0f*1024.0f*1024.0f));
+		str = va("%0.2f %s", size/(1024.0f*1024.0f*1024.0f), gameLocal.m_I18N->Translate( "#str_02016" ));	// GB
 	}
 
 	return str;
