@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4904 $
+ * $Date: 2011-06-23 12:18:02 -0400 (Thu, 23 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 #ifndef __DARKMOD_INVENTORYCATEGORY_H__
@@ -19,10 +19,12 @@
 class CInventoryCategory
 {
 public:
-	CInventoryCategory(CInventory* inventory, const idStr& name = "");
+	CInventoryCategory(CInventory* inventory, const idStr& name = "", const idStr& hudname = NULL);
 	~CInventoryCategory();
 
 	const idStr&			GetName() { return m_Name; }
+	// Tels: Return a name (translated) to show on the HUD
+	const idStr			GetHUDName() { return m_HUDName; };
 
 	void					SetInventory(CInventory *Inventory) { m_Inventory = Inventory; };
 
@@ -92,6 +94,11 @@ private:
 
 	// The name of this group.
 	idStr					m_Name;
+
+	// Tels: The name of this group for the HUD. We cannot f.i. translate "Keys", as this
+	// would break the keybind "Cycle through keys". So we store an extra name
+	// that is used only for display in the HUD. Such is life...
+	idStr					m_HUDName;
 
 	// A list of contained items (are deleted on destruction of this object).
 	idList<CInventoryItemPtr>	m_Item;

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4903 $
- * $Date: 2011-06-23 10:15:43 -0400 (Thu, 23 Jun 2011) $
+ * $Revision: 4904 $
+ * $Date: 2011-06-23 12:18:02 -0400 (Thu, 23 Jun 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4903 2011-06-23 14:15:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4904 2011-06-23 16:18:02Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -1334,7 +1334,7 @@ void idPlayer::SetupInventory()
 	// We create a cursor and a category for the weapons, which is then locked
 	// to this category, so we can only cycle within that one group.
 	m_WeaponCursor = inv->CreateCursor();
-	inv->CreateCategory(TDM_PLAYER_WEAPON_CATEGORY, &idx);
+	inv->CreateCategory(TDM_PLAYER_WEAPON_CATEGORY, idStr("#str_02411"), &idx);	// #str_0411 => "Weapons"
 	m_WeaponCursor->SetCurrentCategory(idx);
 	m_WeaponCursor->SetCategoryLock(true);
 
@@ -1357,7 +1357,7 @@ void idPlayer::SetupInventory()
 
 	// greebo: Create the cursor for map/floorplan inventory items.
 	m_MapCursor = inv->CreateCursor();
-	inv->CreateCategory(TDM_PLAYER_MAPS_CATEGORY, &idx);
+	inv->CreateCategory(TDM_PLAYER_MAPS_CATEGORY, idStr("#str_02390"), &idx);	// #str_02390 => "Maps"
 	m_MapCursor->SetCurrentCategory(idx);
 	m_MapCursor->SetCategoryLock(true);
 	m_MapCursor->SetWrapAround(true);
@@ -6656,7 +6656,7 @@ void idPlayer::UpdateInventoryHUD()
 				SetGuiInt(m_InventoryOverlay, "Inventory_ItemVisible", 1);
 
 				SetGuiFloat(m_InventoryOverlay, "Inventory_ItemStackable", curItem->IsStackable() ? 1 : 0);
-				SetGuiString(m_InventoryOverlay, "Inventory_ItemGroup", common->GetLanguageDict()->GetString( curItem->Category()->GetName() ) );
+				SetGuiString(m_InventoryOverlay, "Inventory_ItemGroup", common->GetLanguageDict()->GetString( curItem->Category()->GetHUDName() ) );
 				SetGuiString(m_InventoryOverlay, "Inventory_ItemName", common->GetLanguageDict()->GetString( curItem->GetName() ));
 				SetGuiInt(m_InventoryOverlay, "Inventory_ItemCount", curItem->GetCount());
 				SetGuiString(m_InventoryOverlay, "Inventory_ItemIcon", curItem->GetIcon().c_str());
