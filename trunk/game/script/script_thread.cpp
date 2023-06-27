@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4823 $
- * $Date: 2011-04-29 07:26:34 -0400 (Fri, 29 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_thread.cpp 4823 2011-04-29 11:26:34Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: script_thread.cpp 4908 2011-07-01 03:16:54Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/decltdm_matinfo.h"
@@ -139,6 +139,8 @@ const idEventDef EV_SessionCommand("sessionCommand", "s");
 // Third argument is an optional string parameter
 const idEventDef EV_HandleMissionEvent("handleMissionEvent", "eds");
 
+const idEventDef EV_Thread_CanPlant( "canPlant", "vvEe", 'f' );  // grayman #2787
+
 CLASS_DECLARATION( idClass, idThread )
 	EVENT( EV_Thread_Execute,				idThread::Event_Execute )
 	EVENT( EV_Thread_TerminateThread,		idThread::Event_TerminateThread )
@@ -240,12 +242,16 @@ CLASS_DECLARATION( idClass, idThread )
 
 	EVENT( EV_HandleMissionEvent,			idThread::Event_HandleMissionEvent )
 
-END_CLASS
+	EVENT( EV_Thread_CanPlant,	 			idThread::Event_CanPlant )	// grayman #2787
+
+	END_CLASS
 
 idThread			*idThread::currentThread = NULL;
 int					idThread::threadIndex = 0;
 idList<idThread *>	idThread::threadList;
 trace_t				idThread::trace;
+
+#define VINE_TRACE_CONTENTS 1281 // grayman #2787 - CONTENTS_CORPSE|CONTENTS_BODY|CONTENTS_SOLID
 
 /*
 ================
@@ -2031,3 +2037,46 @@ void idThread::Event_HandleMissionEvent(idEntity* entity, int eventType, const c
 	// Pass on the call
 	gameLocal.m_MissionData->HandleMissionEvent(entity, static_cast<EMissionEventType>(eventType), argument);
 }
+
+// grayman #2787
+
+void idThread::Event_CanPlant( const idVec3 &traceStart, const idVec3 &traceEnd, idEntity *ignore, idEntity *vine )
+{
+	float vineFriendly = 0; // assume the vine can't grow
+	trace_t result;
+	if ( gameLocal.clip.TracePoint( result, traceStart, traceEnd, VINE_TRACE_CONTENTS, ignore ) )
+	{
+		int contents = gameLocal.clip.Contents( result.endpos, NULL, mat3_identity, -1, ignore );
+		if ( !( contents & MASK_WATER ) ) // grow if not in water
+		{
+			if ( abs( result.c.normal.z ) < 0.866 ) // grow if not on a flat surface
+			{
+				idEntity* struckEnt = gameLocal.entities[result.c.entityNum];
+				if ( struckEnt )
+				{
+					if ( ( struckEnt == gameLocal.world ) || struckEnt->IsType( idStaticEntity::Type ) )
+					{
+						// Either we hit a world brush, or a func_static. We can grow on both types.
+
+						const idMaterial* material = result.c.material;
+						if ( material )
+						{
+							idStr description = material->GetDescription();
+							if ( idStr::FindText(description,"vine_friendly") >= 0 )
+							{
+								// We can plant here, so save planting data on the vine entity
+
+								vine->m_VinePlantLoc = result.endpos;
+								vine->m_VinePlantNormal = result.c.normal;
+								vineFriendly = 1;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	idThread::ReturnFloat( vineFriendly );
+}
+

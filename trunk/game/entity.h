@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4895 $
- * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -414,6 +414,10 @@ public:
 	*/
 	int						m_HideUntilTime;
 
+	/* grayman #2787 - planting data needed for vines (vinearrow)
+	*/
+	idVec3					m_VinePlantLoc;
+	idVec3					m_VinePlantNormal;
 
 public:
 	ABSTRACT_PROTOTYPE( idEntity );
@@ -1594,6 +1598,9 @@ public:			// Events should be public, so they can be used from other places as w
 	void 					Event_noShadows( bool noShadow );
 
 	void					Event_CheckMine(); // grayman #2478
+
+	void					Event_GetVinePlantLoc(); // grayman #2787
+	void					Event_GetVinePlantNormal(); // grayman #2787
 
 	void					Event_LoadExternalData( const char *xdFile, const char* prefix );
 

@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4907 $
- * $Date: 2011-06-30 16:53:30 -0400 (Thu, 30 Jun 2011) $
- * $Author: tels $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4907 2011-06-30 20:53:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4908 2011-07-01 03:16:54Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -146,6 +146,9 @@ const idEventDef EV_NoShadows( "noShadows", "d" );
 // tels: Find all lights in the player PVS, then returns their sum.
 const idEventDef EV_GetLightInPVS("getLightInPVS", "ff", 'v');
 
+const idEventDef EV_GetVinePlantLoc("getVinePlantLoc", NULL, 'v');	// grayman #2787
+const idEventDef EV_GetVinePlantNormal("getVinePlantNormal", NULL, 'v');	// grayman #2787
+
 //===============================================================
 //                   TDM GUI interface
 //===============================================================
@@ -259,7 +262,6 @@ const idEventDef EV_IsNeutral( "isNeutral", "E", 'd' );
 
 const idEventDef EV_SetEntityRelation( "setEntityRelation", "Ed");
 const idEventDef EV_ChangeEntityRelation( "changeEntityRelation", "Ed");
-
 
 ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_Thread_SetRenderCallback,	idEntity::Event_WaitForRender )
@@ -443,6 +445,10 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_NoShadows,			idEntity::Event_noShadows )
 
 	EVENT( EV_CheckMine,			idEntity::Event_CheckMine ) // grayman #2478
+
+	EVENT( EV_GetVinePlantLoc,		idEntity::Event_GetVinePlantLoc )		// grayman #2478
+	EVENT( EV_GetVinePlantNormal,	idEntity::Event_GetVinePlantNormal )	// grayman #2478
+
 END_CLASS
 
 /*
@@ -1688,6 +1694,10 @@ void idEntity::Save( idSaveGame *savefile ) const
 	// grayman #597
 
 	savefile->WriteInt(m_HideUntilTime); // arrow-hiding timer
+
+	// grayman #2787
+	savefile->WriteVec3( m_VinePlantLoc );
+	savefile->WriteVec3( m_VinePlantNormal );
 }
 
 /*
@@ -1963,6 +1973,12 @@ void idEntity::Restore( idRestoreGame *savefile )
 	// grayman #597
 
 	savefile->ReadInt(m_HideUntilTime); // arrow-hiding timer
+
+	// grayman #2787
+
+	savefile->ReadVec3( m_VinePlantLoc );
+	savefile->ReadVec3( m_VinePlantNormal );
+
 
 	// Tels #2417: after Restore call RestoreScriptObject() of the scriptObject so the
 	// script object can restore f.i. sounds:
@@ -3138,6 +3154,30 @@ void idEntity::Event_CheckMine()
 		SetFrobable(false);
 		PostEventMS( &EV_Remove, 1 ); // Remove the mine, which has been replaced
 	}
+}
+
+/*
+================
+idEntity::Event_GetVinePlantLoc
+
+grayman #2787: Return the planting location resulting from a trace
+================
+*/
+void idEntity::Event_GetVinePlantLoc()
+{
+	idThread::ReturnVector( m_VinePlantLoc );
+}
+
+/*
+================
+idEntity::Event_GetVinePlantNormal
+
+grayman #2787: Return the planting location surface normal resulting from a trace
+================
+*/
+void idEntity::Event_GetVinePlantNormal()
+{
+	idThread::ReturnVector( m_VinePlantNormal );
 }
 
 /*

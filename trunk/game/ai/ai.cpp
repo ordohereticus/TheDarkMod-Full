@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4895 $
- * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4908 2011-07-01 03:16:54Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -5729,6 +5729,7 @@ void idAI::PlayFootStepSound()
 
 	// start footstep sound based on material type
 	material = const_cast<idMaterial*>(GetPhysics()->GetContact(0).material);
+	localSound = ""; // grayman #2787
 	if (material != NULL) 
 	{
 		DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("AI %s stepped on entity %s, material %s \r", name.c_str(), gameLocal.entities[GetPhysics()->GetContact( 0 ).entityNum]->name.c_str(), material->GetName() );  
@@ -5736,7 +5737,7 @@ void idAI::PlayFootStepSound()
 		localSound = "snd_footstep_" + localSound;
 
 		DM_LOG(LC_SOUND,LT_DEBUG)LOGSTRING("Found surface type sound: %s\r", localSound.c_str() ); 
-		sound = spawnArgs.GetString( localSound.c_str() );
+//		sound = spawnArgs.GetString( localSound.c_str() ); // grayman #2787
 	}
 
 	waterLevel_t waterLevel = static_cast<idPhysics_Actor *>(GetPhysics())->GetWaterLevel();
@@ -5744,34 +5745,37 @@ void idAI::PlayFootStepSound()
 	if (waterLevel == WATERLEVEL_FEET )
 	{
 		localSound = "snd_footstep_puddle";
-		sound = spawnArgs.GetString( localSound.c_str() );
+//		sound = spawnArgs.GetString( localSound.c_str() ); // grayman #2787
 	}
 	else if (waterLevel == WATERLEVEL_WAIST)
 	{
 		localSound = "snd_footstep_wading";
-		sound = spawnArgs.GetString( localSound.c_str() );
+//		sound = spawnArgs.GetString( localSound.c_str() ); // grayman #2787
 	}
 	// greebo: Added this to disable the walking sound when completely underwater
 	// this should be replaced by snd_
 	else if (waterLevel == WATERLEVEL_HEAD)
 	{
 		localSound = "snd_footstep_swim";
-		sound = spawnArgs.GetString( localSound.c_str() );
+//		sound = spawnArgs.GetString( localSound.c_str() ); // grayman #2787
 	}
 
-	if ( sound.IsEmpty() && waterLevel != WATERLEVEL_HEAD ) 
+	if ( localSound.IsEmpty() && ( waterLevel != WATERLEVEL_HEAD ) ) // grayman #2787
 	{
 		localSound = "snd_footstep";
 	}
 	
 	sound = spawnArgs.GetString( localSound.c_str() );
 
+/* grayman #2787 - redundant
+
 	// if a sound was not found for that specific material, use default
-	if( sound.IsEmpty() && waterLevel != WATERLEVEL_HEAD )
+	if ( sound.IsEmpty() && ( waterLevel != WATERLEVEL_HEAD ) )
 	{
 		sound = spawnArgs.GetString( "snd_footstep" );
 		localSound = "snd_footstep";
 	}
+ */
 
 	/***
 	* AI footsteps always propagate as snd_footstep for now

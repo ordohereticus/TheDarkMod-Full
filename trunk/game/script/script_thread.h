@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4823 $
- * $Date: 2011-04-29 07:26:34 -0400 (Fri, 29 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -224,6 +224,8 @@ private:
 
 	// The script interface for raising mission events, like readable callbacks
 	void						Event_HandleMissionEvent(idEntity* entity, int eventType, const char* argument);
+	
+	void						Event_CanPlant( const idVec3 &traceStart, const idVec3 &traceEnd, idEntity *ignore, idEntity *vine ); // grayman #2787
 
 public:							
 								CLASS_PROTOTYPE( idThread );

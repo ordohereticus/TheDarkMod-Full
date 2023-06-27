@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4274 $
- * $Date: 2010-11-13 09:30:01 -0500 (Sat, 13 Nov 2010) $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -82,6 +82,8 @@ protected:
 	void Event_GetIncidenceAngle( void );
 
 	void Event_GetActualStruckEnt( void ); // grayman #837
+
+	void Event_IsVineFriendly( void ); // grayman #2787 
 };
 
 #endif

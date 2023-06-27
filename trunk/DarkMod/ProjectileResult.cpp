@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4274 $
- * $Date: 2010-11-13 09:30:01 -0500 (Sat, 13 Nov 2010) $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 4274 2010-11-13 14:30:01Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ProjectileResult.cpp 4908 2011-07-01 03:16:54Z grayman $", init_version);
 
 #include "ProjectileResult.h"
 #include "../game/game_local.h"
@@ -45,6 +45,7 @@ const idEventDef EV_TDM_GetSurfNormal( "getSurfNormal", NULL, 'v' );
 const idEventDef EV_TDM_GetStruckEnt( "getStruckEnt", NULL, 'e' );
 const idEventDef EV_TDM_GetIncidenceAngle( "getIncidenceAngle", NULL, 'f' );
 const idEventDef EV_TDM_GetActualStruckEnt( "getActualStruckEnt", NULL, 'e' ); // grayman #837
+const idEventDef EV_TDM_IsVineFriendly( "isVineFriendly", NULL, 'f' ); // grayman #2787
 
 CLASS_DECLARATION( idEntity, CProjectileResult )
 	EVENT( EV_TDM_GetFinalVel,				CProjectileResult::Event_GetFinalVel )
@@ -56,6 +57,7 @@ CLASS_DECLARATION( idEntity, CProjectileResult )
 	EVENT( EV_TDM_GetStruckEnt,				CProjectileResult::Event_GetStruckEnt )
 	EVENT( EV_TDM_GetIncidenceAngle,		CProjectileResult::Event_GetIncidenceAngle )
 	EVENT( EV_TDM_GetActualStruckEnt,		CProjectileResult::Event_GetActualStruckEnt ) // grayman #837
+	EVENT( EV_TDM_IsVineFriendly,			CProjectileResult::Event_IsVineFriendly )	// grayman #2787
 END_CLASS
 
 CProjectileResult::CProjectileResult( void )
@@ -234,8 +236,6 @@ void CProjectileResult::Init
 	RunResultScript();
 }
 
-
-
 void CProjectileResult::RunResultScript( void )
 {
 	DM_LOG(LC_WEAPON, LT_DEBUG)LOGSTRING( "Running projectile result script\r" );
@@ -290,6 +290,22 @@ void CProjectileResult::Event_GetSurfType( void )
 void CProjectileResult::Event_GetSurfNormal( void ) 
 {
 	idThread::ReturnVector( m_Collision.c.normal );
+}
+
+void CProjectileResult::Event_IsVineFriendly( void ) 
+{
+	float results = 0;
+	const idMaterial* material = m_Collision.c.material;
+	if ( material )
+	{
+		idStr description = material->GetDescription();
+		if ( idStr::FindText(description,"vine_friendly") >= 0 )
+		{
+			results = 1;
+		}
+	}
+
+	idThread::ReturnFloat( results );
 }
 
 void CProjectileResult::Event_GetStruckEnt( void ) 

@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4619 $
- * $Date: 2011-02-22 02:17:58 -0500 (Tue, 22 Feb 2011) $
- * $Author: tels $
+ * $Revision: 4908 $
+ * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -771,6 +771,43 @@ public:
 	void				Spawn( void );
 	void				Event_PostSpawn();
 	void				Event_Activate( idEntity *activator );
+};
+
+/*
+===============================================================================
+
+  CVine
+
+===============================================================================
+*/
+
+class tdmVine: public idStaticEntity
+{
+public:
+	CLASS_PROTOTYPE( tdmVine);
+	// Constructor
+	tdmVine();
+
+	// Needed on game save/load
+	void	Save( idSaveGame *savefile ) const;
+	void	Restore( idRestoreGame *savefile );
+
+	// Gets called when this entity is actually being spawned
+	void	Spawn();
+
+private:
+	bool	_watered;	// true if a vine piece was watered during this watering event
+	tdmVine* _prime;	// initial, or prime, vine piece
+	idList< idEntityPtr<tdmVine> >_descendants;	// a list of all descendants (kept by prime only)
+
+protected:
+	void	Event_SetPrime( tdmVine* newPrime );
+	void	Event_GetPrime();
+	void	Event_AddDescendant( tdmVine* descendant );
+	void	Event_ClearWatered();
+	void	Event_SetWatered();
+	void	Event_CanWater();
+	void	Event_ScaleVine(float factor);
 };
 
 
