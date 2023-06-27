@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4960 $
- * $Date: 2011-08-17 14:26:17 -0400 (Wed, 17 Aug 2011) $
- * $Author: tels $
+ * $Revision: 5076 $
+ * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,9 +12,9 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 4960 2011-08-17 18:26:17Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: InventoryItem.cpp 5076 2011-12-04 17:05:41Z greebo $", init_version);
 
-#include "Item.h"
+#include "InventoryItem.h"
 #include "Inventory.h"
 #include <algorithm>
 

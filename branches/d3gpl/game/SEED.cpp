@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5075 $
- * $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5076 $
+ * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 5075 2011-12-04 16:10:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 5076 2011-12-04 17:05:41Z greebo $", init_version);
 
 #include "SEED.h"
 
@@ -1699,7 +1699,7 @@ void Seed::ComputeEntityCount( void )
 		fDensity *= LODBIAS();
 	}
 
-	fDensity = std::max( fDensity, 0.00001f);		// at minimum 0.00001f
+	fDensity = Max( fDensity, 0.00001f);		// at minimum 0.00001f
 
 	idBounds bounds = renderEntity.bounds;
 	idVec3 size = bounds.GetSize();
@@ -1749,7 +1749,7 @@ void Seed::ComputeEntityCount( void )
 		if (max_entities > 0)
 		{
 			// max entities is set on the SEED, so use the score to calculate the entities for each class
-			newNum = std::max( 1, (max_entities * m_Classes[i].score) / iScoreSum );	// at least one from each class
+			newNum = Max( 1, (max_entities * m_Classes[i].score) / iScoreSum );	// at least one from each class
 		}
 		else
 		{

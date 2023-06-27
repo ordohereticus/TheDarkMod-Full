@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4792 $
- * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 5076 $
+ * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #ifndef __DARKMOD_INVENTORYWEAPONITEM_H__
 #define __DARKMOD_INVENTORYWEAPONITEM_H__
 
-#include "Item.h"
+#include "InventoryItem.h"
 
 /**
  * WeaponInventoryItem is an item that belongs to a group. This item represents

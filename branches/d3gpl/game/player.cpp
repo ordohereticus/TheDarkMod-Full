@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5007 $
- * $Date: 2011-10-21 12:36:25 -0400 (Fri, 21 Oct 2011) $
+ * $Revision: 5076 $
+ * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,21 +14,21 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 5007 2011-10-21 16:36:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 5076 2011-12-04 17:05:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/Grabber.h"
-#include "../DarkMod/Intersection.h"
-#include "../DarkMod/Relations.h"
-#include "../DarkMod/DarkmodAASHidingSpotFinder.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/Objectives/MissionData.h"
-#include "../DarkMod/Missions/MissionManager.h"
-#include "../DarkMod/Inventory/Inventory.h"
-#include "../DarkMod/Inventory/WeaponItem.h"
-#include "../DarkMod/Shop/Shop.h"
+#include "DarkModGlobals.h"
+#include "Grabber.h"
+#include "Intersection.h"
+#include "Relations.h"
+#include "DarkmodAASHidingSpotFinder.h"
+#include "StimResponse/StimResponseCollection.h"
+#include "Objectives/MissionData.h"
+#include "Missions/MissionManager.h"
+#include "Inventory/Inventory.h"
+#include "Inventory/WeaponItem.h"
+#include "Shop/Shop.h"
 
 /*
 ===============================================================================

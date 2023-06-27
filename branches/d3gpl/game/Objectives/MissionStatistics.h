@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5015 $
- * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5076 $
+ * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 
 #include "Objective.h" // for objective state enum
-#include "../Inventory/Item.h" // for loot type enum
+#include "../Inventory/LootType.h" // for loot type enum
 
 // Maximum array sizes:
 #define MAX_TEAMS 64

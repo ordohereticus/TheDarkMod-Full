@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4926 $
- * $Date: 2011-07-20 15:38:43 -0400 (Wed, 20 Jul 2011) $
- * $Author: tels $
+ * $Revision: 5076 $
+ * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -18,14 +18,14 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 4926 2011-07-20 19:38:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 5076 2011-12-04 17:05:41Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
 #include "game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/AbsenceMarker.h"
+#include "DarkModGlobals.h"
+#include "StimResponse/StimResponseCollection.h"
+#include "AbsenceMarker.h"
 
 /*
 ===============================================================================

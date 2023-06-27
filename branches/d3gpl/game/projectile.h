@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5076 $
+ * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #define __GAME_PROJECTILE_H__
 
 #include "PickableLock.h"
-#include "Inventory/Item.h"
+#include "Inventory/InventoryItem.h"
 #include "Inventory/Category.h"
 
 /**
