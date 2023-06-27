@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2338 $
- * $Date: 2008-05-15 12:23:41 -0400 (Thu, 15 May 2008) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include <list>
 #include <boost/shared_ptr.hpp>
 #include "RouteNode.h"
-#include "../../../game/game_local.h"
+#include "../../Game_local.h"
 
 namespace eas {
 

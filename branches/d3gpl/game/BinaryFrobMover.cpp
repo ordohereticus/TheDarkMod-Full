@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5074 $
- * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,13 +13,13 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 5086 2011-12-05 05:30:50Z greebo $", init_version);
 
-#include "../game/game_local.h"
-#include "../game/ai/aas_local.h"
+#include "Game_local.h"
+#include "ai/AAS_local.h"
 #include "DarkModGlobals.h"
 #include "BinaryFrobMover.h"
-#include "sndProp.h"
+#include "SndProp.h"
 #include "StimResponse/StimResponse.h"
 
 //===============================================================================

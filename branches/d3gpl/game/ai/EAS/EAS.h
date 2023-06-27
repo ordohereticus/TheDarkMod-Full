@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2395 $
- * $Date: 2008-05-27 14:40:03 -0400 (Tue, 27 May 2008) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../../../idlib/precompiled.h"
 #include "../../MultiStateMover.h"
-#include "../../../game/ai/aas_local.h"
+#include "../../../game/ai/AAS_local.h"
 #include <set>
 #include <vector>
 #include <list>

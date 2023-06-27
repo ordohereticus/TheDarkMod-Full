@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,9 +12,7 @@
 
 #pragma hdrstop
 
-// Includes
-#include "../game/entity.h"
-
+#include "Entity.h"
 
 /**
 * The purpose of this entity subclass is to act as a marker for other entities that have
@@ -25,7 +23,7 @@
 * react to the absence.
 *
 * @author SophisticatedZombie
-* @project The Dark Mode
+* @project The Dark Mod
 * @copyright 2006 The Dark Mod team
 *
 */

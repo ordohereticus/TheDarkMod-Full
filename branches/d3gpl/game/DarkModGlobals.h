@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,7 +25,7 @@
 #define DARKMODGLOBALS_H
 
 #include <stdio.h>
-#include "game_local.h"
+#include "Game_local.h"
 #include "CImage.h"
 
 // greebo: Defines the darkmod release version

@@ -1,18 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
 #pragma once
 
-// DarkMod globals (needed for ../game/Light.h)
-#include "../game/light.h"
-
-//#include "../darkmod/darkmodglobals.h"
+#include "../game/Light.h"
 
 //------------------------------------------------------
 

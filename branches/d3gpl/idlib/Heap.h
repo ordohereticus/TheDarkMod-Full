@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5072 $
- * $Date: 2011-12-04 02:38:59 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #ifndef __HEAP_H__
 #define __HEAP_H__
 
-#include "math/math.h" // OrbWeaver: Max() macro
+#include "math/Math.h" // OrbWeaver: Max() macro
 
 #include <cstdlib>
 

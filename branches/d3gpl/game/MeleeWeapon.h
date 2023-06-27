@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,8 +10,8 @@
 #ifndef __MELEEWEAPON_H__
 #define __MELEEWEAPON_H__
 
-#include "../game/entity.h"
-#include "../game/actor.h"
+#include "Entity.h"
+#include "Actor.h"
 
 class idPlayer;
 

@@ -2,8 +2,8 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 #include "../BinaryFrobMover.h"
 #include "../FrobDoor.h"
 #include "DoorInfo.h"
-#include "../../game/ai/ai.h"
+#include "../../game/ai/AI.h"
 
 namespace ai
 {

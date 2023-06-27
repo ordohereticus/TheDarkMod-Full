@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,10 +10,10 @@
 #pragma once
 
 // Required includes
-#include "../game/ai/aas.h"
-#include "../game/pvs.h"
-#include "../game/game_local.h"
-#include "../game/entity.h"
+#include "../game/ai/AAS.h"
+#include "../game/Pvs.h"
+#include "../game/Game_local.h"
+#include "../game/Entity.h"
 #include "PVSToAASMapping.h"
 #include "darkmodHidingSpotTree.h"
 

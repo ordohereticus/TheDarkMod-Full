@@ -1,15 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
-#include "../game/game_local.h"
 #pragma hdrstop
+
+#include "Game_local.h"
 #include "AbsenceMarker.h"
 
 CLASS_DECLARATION( idEntity, CAbsenceMarker )

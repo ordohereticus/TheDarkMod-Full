@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5083 $
- * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5086 $
+ * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,8 +13,8 @@
 #ifndef __AAS_LOCAL_H__
 #define __AAS_LOCAL_H__
 
-#include "aas.h"
-#include "../pvs.h"
+#include "AAS.h"
+#include "../Pvs.h"
 #include "EAS/EAS.h"
 #include <map>
 
