@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5172 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:18:21 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -26,15 +26,3 @@
  * overwriting the .gch file of the previous run.
  */
 #include "../idlib/precompiled.h"
-
-// We need the revision tracker as well
-#include "../idlib/RevisionTracker.h"
-
-// Used to find the highest revision of all .cpp files calling this
-inline bool RegisterVersionedFile(const char* str)
-{
-	// greebo: Add the revision to the RevisionTracker class
-	RevisionTracker::ParseSVNIdString(str);
-
-	return true;
-}

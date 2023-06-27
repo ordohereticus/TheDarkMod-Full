@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5145 $ (Revision of last commit) 
- $Date: 2012-01-02 11:41:27 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5172 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:18:21 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -107,7 +107,6 @@
 #include "../idlib/Lib.h"
 
 // framework
-#include "../framework/BuildVersion.h"
 #include "../framework/BuildDefines.h"
 #include "../framework/Licensee.h"
 #include "../framework/CmdSystem.h"

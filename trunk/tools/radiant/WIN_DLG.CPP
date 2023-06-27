@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5172 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:18:21 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: WIN_DLG.CPP 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: WIN_DLG.CPP 5172 2012-01-07 08:18:21Z greebo $");
 
 #include "qe3.h"
 
@@ -578,7 +578,7 @@ BOOL CALLBACK AboutDlgProc( HWND hwndDlg,
 	case WM_INITDIALOG:
 		{
 			char buffer[1024];
-			idStr::snPrintf(buffer, 1024, "DOOM Radiant Build %d\nCopyright ©1999-2004 Id Software, Inc.\n", BUILD_NUMBER);
+			idStr::snPrintf(buffer, 1024, "DOOM Radiant Build %d\nCopyright ©1999-2004 Id Software, Inc.\n", RevisionTracker::Instance().GetHighestRevision());
 //			SetDlgItemText( hwndDlg, IDC_ABOUT_INFO, buffer);
 
 			idStr::snPrintf( buffer, 1024, "Renderer:\t%s", qglGetString( GL_RENDERER ) );

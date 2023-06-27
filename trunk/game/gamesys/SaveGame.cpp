@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5172 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:18:21 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,10 +20,9 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SaveGame.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SaveGame.cpp 5172 2012-01-07 08:18:21Z greebo $", init_version);
 
 #include "../Game_local.h"
-#include "../RevisionTracker.h"
 
 #include "TypeInfo.h"
 
@@ -547,8 +546,8 @@ void idSaveGame::WriteSoundCommands( void ) {
 	gameSoundWorld->WriteToSaveGame( file );
 }
 
-void idSaveGame::WriteHeader() {
-	file->WriteInt( BUILD_NUMBER );
+void idSaveGame::WriteHeader()
+{
 	file->WriteInt(RevisionTracker::Instance().GetHighestRevision());
 	isCompressed = cv_savegame_compress.GetBool();
 	file->WriteBool(isCompressed);
