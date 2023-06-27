@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5076 $
- * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef MISSIONSTATISTICS_H
 #define MISSIONSTATISTICS_H
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 
 #include "Objective.h" // for objective state enum
 #include "../Inventory/LootType.h" // for loot type enum

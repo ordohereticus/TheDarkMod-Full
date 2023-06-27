@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4798 $
- * $Date: 2011-04-17 04:09:52 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef TDM_OBJECTIVE_H
 #define TDM_OBJECTIVE_H
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 
 #include "BoolParseNode.h"
 #include "ObjectiveComponent.h"

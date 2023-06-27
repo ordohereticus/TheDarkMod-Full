@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4448 $
- * $Date: 2011-01-19 00:29:47 -0500 (Wed, 19 Jan 2011) $
- * $Author: stgatilov $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HttpConnection.cpp 4448 2011-01-19 05:29:47Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: HttpConnection.cpp 5092 2011-12-06 17:30:27Z greebo $", init_version);
 
 #include "HttpConnection.h"
 #include "HttpRequest.h"

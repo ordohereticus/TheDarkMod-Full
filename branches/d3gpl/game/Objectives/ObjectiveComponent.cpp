@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4798 $
- * $Date: 2011-04-17 04:09:52 -0400 (Sun, 17 Apr 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ObjectiveComponent.cpp 4798 2011-04-17 08:09:52Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ObjectiveComponent.cpp 5092 2011-12-06 17:30:27Z greebo $", init_version);
 
 #include "ObjectiveComponent.h"
 

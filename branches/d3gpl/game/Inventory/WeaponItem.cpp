@@ -1,18 +1,18 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4792 $
- * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: WeaponItem.cpp 4792 2011-04-16 07:42:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: WeaponItem.cpp 5092 2011-12-06 17:30:27Z greebo $", init_version);
 
 #include "WeaponItem.h"
 

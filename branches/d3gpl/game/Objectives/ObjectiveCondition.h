@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4805 $
- * $Date: 2011-04-19 14:30:26 -0400 (Tue, 19 Apr 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef TDM_OBJECTIVE_CONDITION_H
 #define TDM_OBJECTIVE_CONDITION_H
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 
 #include "Objective.h"
 

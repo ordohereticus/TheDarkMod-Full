@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5087 $
- * $Date: 2011-12-05 00:34:06 -0500 (Mon, 05 Dec 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 #ifndef MISSIONDATA_H
 #define MISSIONDATA_H
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 
 #include "Objective.h"
 #include "ObjectiveComponent.h"

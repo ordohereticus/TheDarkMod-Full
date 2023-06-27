@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4709 $
- * $Date: 2011-03-22 04:00:54 -0400 (Tue, 22 Mar 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModInfoDecl.cpp 4709 2011-03-22 08:00:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModInfoDecl.cpp 5092 2011-12-06 17:30:27Z greebo $", init_version);
 
 #include "ModInfoDecl.h"
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5086 $
- * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
+ * $Revision: 5092 $
+ * $Date: 2011-12-06 12:30:27 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,8 +11,8 @@
 #define DARKMODCIMAGE_H
 
 #if defined(__linux__) || defined(MACOS_X)
-#include "idlib/Lib.h"
-#include "sound/sound.h"
+#include "../idlib/Lib.h"
+#include "../sound/sound.h"
 #endif
 
 #include <boost/filesystem.hpp>
