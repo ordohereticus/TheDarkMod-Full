@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4911 $
+ * $Date: 2011-07-12 13:30:07 -0400 (Tue, 12 Jul 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: langdict.cpp 1435 2007-10-16 16:53:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: langdict.cpp 4911 2011-07-12 17:30:07Z tels $", init_version);
 
 /*
 ============
@@ -260,7 +260,7 @@ idLangDict::GetNextId
 int idLangDict::GetNextId( void ) const {
 	int c = args.Num();
 
-	//Let and external user supply the base id for this dictionary
+	// Let an external user supply the base id for this dictionary
 	int id = baseID;
 
 	if ( c == 0 ) {
