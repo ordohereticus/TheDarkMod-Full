@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4982 $
- * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
- * $Author: grayman $
+ * $Revision: 4987 $
+ * $Date: 2011-10-03 17:46:47 -0400 (Mon, 03 Oct 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4987 2011-10-03 21:46:47Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9903,9 +9903,8 @@ void idEntity::Event_SetGuiStringFromKey( int handle, const char *key, idEntity 
 		return;
 	}
 
-	gui->SetStateString( key, src->spawnArgs.GetString( spawnArg, "" ) );
+	gui->SetStateString( key, gameLocal.m_I18N->Translate( src->spawnArgs.GetString( spawnArg, "" ) ) );
 	gui->StateChanged( gameLocal.time );
-
 }
 
 void idEntity::CallGui(int handle, const char *namedEvent)
