@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5008 $
- * $Date: 2011-10-22 13:33:20 -0400 (Sat, 22 Oct 2011) $
+ * $Revision: 5012 $
+ * $Date: 2011-10-25 13:18:45 -0400 (Tue, 25 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 5008 2011-10-22 17:33:20Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 5012 2011-10-25 17:18:45Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -206,6 +206,9 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 		gui->SetStateString("av_mission_title", mods[missionIndex]->title);
 		gui->SetStateString("av_mission_author", mods[missionIndex]->author);
 		gui->SetStateString("av_mission_release_date", mods[missionIndex]->releaseDate);
+		gui->SetStateString("av_mission_type", mods[missionIndex]->type == DownloadableMod::Multi ? 
+			gameLocal.m_I18N->Translate("#str_04353") : // Campaign
+			gameLocal.m_I18N->Translate("#str_04352")); // Single Mission
 		gui->SetStateString("av_mission_version", va("%d", mods[missionIndex]->version));
 		gui->SetStateString("av_mission_size", va("%0.1f MB", mods[missionIndex]->sizeMB));
 
