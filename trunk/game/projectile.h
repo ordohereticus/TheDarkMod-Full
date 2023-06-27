@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5028 $
- * $Date: 2011-11-06 23:21:36 -0500 (Sun, 06 Nov 2011) $
+ * $Revision: 5047 $
+ * $Date: 2011-11-21 23:49:18 -0500 (Mon, 21 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -125,6 +125,7 @@ public :
 	void					MineExplode( int entityNumber ); // grayman #2478
 	bool					IsMine();	// grayman #2478
 	bool					IsArmed();	// grayman #2906
+	void					AttackAction(idPlayer* player); // grayman #2934
 	void					Event_ActivateProjectile();
 
 protected:
