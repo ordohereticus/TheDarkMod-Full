@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5151 $ (Revision of last commit) 
- $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
+ $Revision: 5157 $ (Revision of last commit) 
+ $Date: 2012-01-04 00:50:41 -0500 (Wed, 04 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 5151 2012-01-03 06:25:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 5157 2012-01-04 05:50:41Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -34,6 +34,7 @@ static bool init_version = FileVersionList("$Id: MissionManager.cpp 5151 2012-01
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/case_conv.hpp>
 
 namespace
 {
@@ -119,15 +120,34 @@ void CMissionManager::EraseModFolder(const idStr& name)
 	}
 
 	// Delete folder contents
-	fs::path missionPath = info->GetModFolderPath().c_str();
+	fs::path modPath = info->GetModFolderPath().c_str();
 
-	if (fs::exists(missionPath))
+	if (fs::exists(modPath))
 	{
-		fs::remove_all(missionPath);
+		// Iterate over all files in the mod folder
+		for (fs::directory_iterator i(modPath); i != fs::directory_iterator(); ++i)
+		{
+			if (boost::algorithm::to_lower_copy(fs::extension(*i)) == ".pk4")
+			{
+				DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Won't erase PK4 files %s\r", i->string().c_str());
+				continue;
+			}
+
+			if (i->filename() == cv_tdm_fm_desc_file.GetString() || 
+				i->filename() == cv_tdm_fm_notes_file.GetString() || 
+				i->filename() == cv_tdm_fm_splashimage_file.GetString())
+			{
+				DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Won't erase meta data file %s\r", i->string().c_str());
+				continue;
+			}
+
+			DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Will erase recursively: %s\r", i->string().c_str());
+			fs::remove_all(*i);
+		}
 	}
 	else
 	{
-		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Cannot erase mission folder for mod %s, mission folder not found\r", missionPath.file_string().c_str());
+		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Cannot erase mod folder %s, directory not found\r", modPath.file_string().c_str());
 		return;
 	}
 
