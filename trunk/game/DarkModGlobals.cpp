@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5184 $ (Revision of last commit) 
+ $Date: 2012-01-08 00:30:18 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5171 2012-01-07 08:08:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5184 2012-01-08 05:30:18Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -878,8 +878,8 @@ std::string CGlobal::GetDarkmodPath()
 
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Base path is %s\r", cvarSystem->GetCVarString("fs_basePath"));
 
-	// basepath = something like c:\games\doom3, fs_game_base is usually darkmod
-	std::string darkmodPath = fileSystem->BuildOSPath(cvarSystem->GetCVarString("fs_basePath"), cvarSystem->GetCVarString("fs_game_base"), "");
+	// basepath = something like c:\games\doom3, modBaseName is usually darkmod
+	std::string darkmodPath = fileSystem->BuildOSPath(cvarSystem->GetCVarString("fs_basePath"), modBaseName, "");
 
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Resulting darkmod path is %s\r", darkmodPath.c_str());
 
