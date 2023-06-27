@@ -1,9 +1,9 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 4376 $
-* $Date: 2010-12-20 17:22:14 -0500 (Mon, 20 Dec 2010) $
-* $Author: newhorizon $
+* $Revision: 4925 $
+* $Date: 2011-07-20 15:12:14 -0400 (Wed, 20 Jul 2011) $
+* $Author: tels $
 *
 ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 4376 2010-12-20 22:22:14Z newhorizon $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 4925 2011-07-20 19:12:14Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -567,16 +567,6 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 			renderSystem->SetColor4( ( player->health <= 0.0f ) ? MS2SEC( gameLocal.time ) : lastDamageTime, 1.0f, 1.0f, ( player->health <= 0.0f ) ? 0.0f : alpha );
 			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial );
 		}
-
-		/*if ( player->PowerUpActive(BERSERK) ) {
-		int berserkTime = player->inventory.powerupEndTime[ BERSERK ] - gameLocal.time;
-		if ( berserkTime > 0 ) {
-		// start fading if within 10 seconds of going away
-		alpha = (berserkTime < 10000) ? (float)berserkTime / 10000 : 1.0f;
-		renderSystem->SetColor4( 1.0f, 1.0f, 1.0f, alpha );
-		renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, berserkMaterial );
-		}
-		}*/
 
 	}
 
