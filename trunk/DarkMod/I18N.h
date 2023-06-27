@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4943 $
- * $Date: 2011-08-07 08:03:54 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4949 $
+ * $Date: 2011-08-07 17:05:22 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -67,7 +67,7 @@ public:
 	/**
 	* Set a new laguage (example: "english").
 	*/
-	void				SetLanguage( const char* lang );
+	void				SetLanguage( const char* lang, bool firstTime = false );
 
 	/**
 	* Given an English string like "Maps", returns the "#str_xxxxx" template
