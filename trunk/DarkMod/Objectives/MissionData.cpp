@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5015 $
- * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5036 $
+ * $Date: 2011-11-13 09:45:05 -0500 (Sun, 13 Nov 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 5015 2011-10-29 15:50:39Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 5036 2011-11-13 14:45:05Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -1549,7 +1549,7 @@ void CMissionData::ParseObjectiveConditions(const idDict& dict)
 		index++;
 	}
 
-	gameLocal.Printf("Applied %d objective conditions.", index - 1);
+	gameLocal.Printf("Applied %d objective conditions.\n", index - 1);
 }
 
 bool    CMissionData::MatchLocationObjectives( idEntity * entity )
