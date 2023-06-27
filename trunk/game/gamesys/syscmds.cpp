@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4935 $
- * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Revision: 4959 $
+ * $Date: 2011-08-17 13:37:25 -0400 (Wed, 17 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4959 2011-08-17 17:37:25Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -298,7 +298,8 @@ void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 
 	if( args.Argc() == 2)
 	{
-		idStr itemName = args.Argv(1);
+		// support either "#str_02395" or "Lantern" as input
+		idStr itemName = gameLocal.m_I18N->TemplateFromEnglish( args.Argv(1) );
 		player->SelectInventoryItem( itemName );
 	}
 	else if (args.Argc() == 1)
@@ -340,7 +341,8 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 
 	if( args.Argc() == 2)
 	{
-		idStr itemName = args.Argv(1);
+		// support either "#str_02395" or "Lantern" as input
+		idStr itemName = gameLocal.m_I18N->TemplateFromEnglish( args.Argv(1) );
 
 		// Try to lookup the item in the inventory
 		CInventoryItemPtr item = inventory->GetItem( itemName );
@@ -404,7 +406,8 @@ void Cmd_InventoryCycleGroup_f( const idCmdArgs &args )
 
 	if( args.Argc() == 2)
 	{
-		idStr categoryName = args.Argv(1);
+		// support either "#str_02391" or "Readables" as input
+		idStr categoryName = gameLocal.m_I18N->TemplateFromEnglish( args.Argv(1) );
 
 		// Pass the call to the specialised method
 		player->CycleInventoryGroup( categoryName );

@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4958 $
- * $Date: 2011-08-13 09:05:51 -0400 (Sat, 13 Aug 2011) $
+ * $Revision: 4959 $
+ * $Date: 2011-08-17 13:37:25 -0400 (Wed, 17 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -71,8 +71,8 @@ public:
 
 	/**
 	* Given an English string like "Maps", returns the "#str_xxxxx" template
-	* string that iwould result back in "Maps" under English. Can be used to
-	* fix hard-coded strings.
+	* string that would result back in "Maps" under English. Can be used to
+	* make translation work even for hard-coded English strings.
 	*/
 	const char*			TemplateFromEnglish( const char* in);
 
