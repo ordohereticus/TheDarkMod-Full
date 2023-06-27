@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5006 $
- * $Date: 2011-10-21 11:38:54 -0400 (Fri, 21 Oct 2011) $
+ * $Revision: 5014 $
+ * $Date: 2011-10-26 13:41:04 -0400 (Wed, 26 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 5006 2011-10-21 15:38:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 5014 2011-10-26 17:41:04Z greebo $", init_version);
 
 #include "I18N.h"
 #include "sourcehook/sourcehook.h"
@@ -369,12 +369,24 @@ void CI18N::SetLanguage( const char* lang, bool firstTime ) {
 	{
 		// Tell the GUI that it was reloaded, so when it gets initialized the next frame,
 		// it will land in the Video Settings page
-		gameLocal.Printf("Setting reload");
+		gameLocal.Printf("Setting reload\n");
 		gui->SetStateInt("reload", 1);
 	}
 	else
 	{
 		gameLocal.Warning("Cannot find guis/mainmenu.gui");
+	}
+
+	// Cycle through all active entities and call "onLanguageChanged" on them
+	// some scriptobjects may implement this function to react on language switching
+	for (idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next())
+	{
+		idThread* thread = ent->CallScriptFunctionArgs("onLanguageChanged", true, 0, "e", ent);
+
+		if (thread != NULL)
+		{
+			thread->Execute();
+		}
 	}
 }
 
