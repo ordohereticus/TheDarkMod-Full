@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5142 $ (Revision of last commit) 
- $Date: 2011-12-31 10:50:43 -0500 (Sat, 31 Dec 2011) $ (Date of last commit)
+ $Revision: 5147 $ (Revision of last commit) 
+ $Date: 2012-01-02 13:21:57 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -117,7 +117,7 @@ public:
 	virtual void				StartupVariable( const char *match, bool once );
 	virtual void				InitTool( const toolFlag_t tool, const idDict *dict );
 	virtual void				ActivateTool( bool active );
-	virtual void				WriteConfigToFile( const char *filename );
+	virtual void				WriteConfigToFile( const char *filename, const char* basePath = "fs_modSavePath" );
 	virtual void				WriteFlaggedCVarsToFile( const char *filename, int flags, const char *setCmd );
 	virtual void				BeginRedirect( char *buffer, int buffersize, void (*flush)( const char * ) );
 	virtual void				EndRedirect( void );
@@ -1117,7 +1117,7 @@ void idCommonLocal::WriteFlaggedCVarsToFile( const char *filename, int flags, co
 idCommonLocal::WriteConfigToFile
 ==================
 */
-void idCommonLocal::WriteConfigToFile( const char *filename ) {
+void idCommonLocal::WriteConfigToFile( const char *filename, const char* basePath ) {
 	idFile *f;
 #ifdef ID_WRITE_VERSION
 	ID_TIME_T t;
@@ -1127,7 +1127,7 @@ void idCommonLocal::WriteConfigToFile( const char *filename ) {
 	idBase64 out;
 #endif
 
-	f = fileSystem->OpenFileWrite( filename );
+	f = fileSystem->OpenFileWrite( filename, basePath );
 	if ( !f ) {
 		Printf ("Couldn't write %s.\n", filename );
 		return;

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5147 $ (Revision of last commit) 
+ $Date: 2012-01-02 13:21:57 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -141,7 +141,8 @@ public:
 	virtual void				ActivateTool( bool active ) = 0;
 
 								// Writes the user's configuration to a file
-	virtual void				WriteConfigToFile( const char *filename ) = 0;
+								// greebo: Added the basePath option to allow for more control
+	virtual void				WriteConfigToFile( const char *filename, const char* basePath = "fs_modSavePath" ) = 0;
 
 								// Writes cvars with the given flags to a file.
 	virtual void				WriteFlaggedCVarsToFile( const char *filename, int flags, const char *setCmd ) = 0;

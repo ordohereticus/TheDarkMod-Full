@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5146 $ (Revision of last commit) 
- $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5147 $ (Revision of last commit) 
+ $Date: 2012-01-02 13:21:57 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -60,7 +60,7 @@ public:
 	virtual void			StartupVariable( const char *match, bool once ) {}
 	virtual void			InitTool( const toolFlag_t tool, const idDict *dict ) {}
 	virtual void			ActivateTool( bool active ) {}
-	virtual void			WriteConfigToFile( const char *filename ) {}
+	virtual void			WriteConfigToFile( const char *filename, const char* basePath ) {}
 	virtual void			WriteFlaggedCVarsToFile( const char *filename, int flags, const char *setCmd ) {}
 	virtual void			BeginRedirect( char *buffer, int buffersize, void (*flush)( const char * ) ) {}
 	virtual void			EndRedirect( void ) {}

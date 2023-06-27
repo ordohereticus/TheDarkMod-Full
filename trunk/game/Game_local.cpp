@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5146 $ (Revision of last commit) 
- $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5147 $ (Revision of last commit) 
+ $Date: 2012-01-02 13:21:57 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: Game_local.cpp 5146 2012-01-02 17:14:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Game_local.cpp 5147 2012-01-02 18:21:57Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -676,8 +676,9 @@ void idGameLocal::Shutdown( void ) {
 
 		if (!fs_game_base.IsEmpty())
 		{
-			// TODO: This writes the file into darkmod/fms/outpost/..darkmod/ instead of the darkmod/ root.
-			common->WriteConfigToFile("../" + fs_game_base + "/DoomConfig.cfg");
+			// This should write the file into darkmod/ instead of darkmod/fms/outpost/..darkmod/,
+			// therefore use fs_savePath as base.
+			common->WriteConfigToFile("../" + fs_game_base + "/DoomConfig.cfg", "fs_savePath");
 		}
 	}
 
