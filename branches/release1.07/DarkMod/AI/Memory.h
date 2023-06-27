@@ -2,9 +2,9 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5033 $
+ * $Date: 2011-11-11 03:48:07 -0500 (Fri, 11 Nov 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -164,11 +164,11 @@ const char* const AlertStateNames[EAlertStateNum] =
 // grayman #2603 - search flags
 // grayman #1327 - broke single warning flag into specific warning flags
 #define SRCH_WAS_SEARCHING			1	// set when searching occurred while alert
-#define SRCH_WARNED_ENEMY			2	// set when warned by another AI that an enemy was seen
-#define SRCH_WARNED_CORPSE			4	// set when warned by another AI that someone died
-#define SRCH_WARNED_MISSING_ITEM	8	// set when warned by another AI that something was stolen
-#define SRCH_WARNED_EVIDENCE		16	// set when warned by another AI that evidence is mounting
-#define SRCH_WARNED ( SRCH_WARNED_ENEMY | SRCH_WARNED_CORPSE | SRCH_WARNED_MISSING_ITEM | SRCH_WARNED_EVIDENCE )
+//#define SRCH_WARNED_ENEMY			2	// set when warned by another AI that an enemy was seen
+//#define SRCH_WARNED_CORPSE			4	// set when warned by another AI that someone died
+//#define SRCH_WARNED_MISSING_ITEM	8	// set when warned by another AI that something was stolen
+//#define SRCH_WARNED_EVIDENCE		16	// set when warned by another AI that evidence is mounting
+//#define SRCH_WARNED ( SRCH_WARNED_ENEMY | SRCH_WARNED_CORPSE | SRCH_WARNED_MISSING_ITEM | SRCH_WARNED_EVIDENCE )
 
 /**
  * greebo: This class acts as container for all kinds of state variables.
@@ -247,6 +247,18 @@ public:
 
 	// position of alert causing stimulus
 	idVec3 alertPos;
+
+	// grayman #2903 - positions of AI when there's an alert that can lead to warnings between AI
+	idVec3 posEnemySeen;
+	idVec3 posCorpseFound;
+	idVec3 posMissingItem;
+	idVec3 posEvidenceIntruders;
+
+	// grayman #2903 - timestamps of alerts that can lead to warnings between AI
+	int timeEnemySeen;
+	int timeCorpseFound;
+	int timeMissingItem;
+	int timeEvidenceIntruders;
 
 	// grayman #2603 - abort an ongoing light relight?
 	bool stopRelight;

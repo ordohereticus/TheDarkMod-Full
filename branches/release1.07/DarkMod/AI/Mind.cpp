@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4900 $
- * $Date: 2011-06-23 08:24:12 -0400 (Thu, 23 Jun 2011) $
- * $Author: tels $
+ * $Revision: 5033 $
+ * $Date: 2011-11-11 03:48:07 -0500 (Fri, 11 Nov 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Mind.cpp 4900 2011-06-23 12:24:12Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Mind.cpp 5033 2011-11-11 08:48:07Z greebo $", init_version);
 
 #include "Mind.h"
 #include "States/IdleState.h"
@@ -326,6 +326,8 @@ bool Mind::PerformCombatCheck()
 		idActor* enemy = owner->GetEnemy();
 
 		memory.lastEnemyPos = enemy->GetPhysics()->GetOrigin();
+		memory.posEnemySeen = owner->GetPhysics()->GetOrigin();	// grayman #2903
+		memory.timeEnemySeen = gameLocal.time;	// grayman #2903
 		
 		return true; // entered combat mode
 	}

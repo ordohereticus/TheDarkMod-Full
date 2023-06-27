@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5033 $
+ * $Date: 2011-11-11 03:48:07 -0500 (Fri, 11 Nov 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FailedKnockoutState.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: FailedKnockoutState.cpp 5033 2011-11-11 08:48:07Z greebo $", init_version);
 
 #include "FailedKnockoutState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -98,6 +98,8 @@ void FailedKnockoutState::Think(idAI* owner)
 		memory.alertPos = owner->GetPhysics()->GetOrigin() - _attackDirection * 50;
 
 		memory.countEvidenceOfIntruders++;
+		memory.posEvidenceIntruders = owner->GetPhysics()->GetOrigin(); // grayman #2903
+		memory.timeEvidenceIntruders = gameLocal.time; // grayman #2903
 		memory.alertedDueToCommunication = false;
 		memory.stopRelight = true; // grayman #2603
 		memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
