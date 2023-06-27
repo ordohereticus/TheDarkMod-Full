@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5148 $ (Revision of last commit) 
+ $Date: 2012-01-02 13:59:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 5121 2011-12-11 19:12:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 5148 2012-01-02 18:59:28Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -109,6 +109,14 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("HandleElevatorTask performing.\r");
 
 	idAI* owner = _owner.GetEntity();
+
+	// grayman #2948 - leave elevator handling if KO'ed or dead
+
+	if ( owner->AI_KNOCKEDOUT || owner->AI_DEAD )
+	{
+		return true;
+	}
+	
 	//Memory& memory = owner->GetMemory();
 
 	// Grab the first RouteNode

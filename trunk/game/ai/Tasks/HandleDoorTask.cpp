@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5148 $ (Revision of last commit) 
+ $Date: 2012-01-02 13:59:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 5121 2011-12-11 19:12:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 5148 2012-01-02 18:59:28Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -236,6 +236,13 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 		return true;
 	}
 
+	// grayman #2948 - leave door handling if KO'ed or dead
+
+	if ( owner->AI_KNOCKEDOUT || owner->AI_DEAD )
+	{
+		return true;
+	}
+	
 	// grayman #2700 - we get a certain amount of time to complete a move
 	// to the mid position or back position before leaving door handling
 
