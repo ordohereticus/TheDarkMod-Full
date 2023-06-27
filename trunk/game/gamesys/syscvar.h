@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4975 $
- * $Date: 2011-09-23 10:35:43 -0400 (Fri, 23 Sep 2011) $
+ * $Revision: 4996 $
+ * $Date: 2011-10-16 15:53:30 -0400 (Sun, 16 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -100,6 +100,7 @@ extern idCVar cv_tdm_mission_list_urls;
 extern idCVar cv_tdm_mission_details_url;
 extern idCVar cv_tdm_mission_screenshot_url;
 extern idCVar cv_tdm_version_check_url;
+extern idCVar cv_tdm_http_base_url;
 
 extern idCVar cv_debug_aastype;
 

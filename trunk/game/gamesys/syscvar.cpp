@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4975 $
- * $Date: 2011-09-23 10:35:43 -0400 (Fri, 23 Sep 2011) $
+ * $Revision: 4996 $
+ * $Date: 2011-10-16 15:53:30 -0400 (Sun, 16 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4975 2011-09-23 14:35:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 4996 2011-10-16 19:53:30Z tels $", init_version);
 
 #include "../game_local.h"
 
@@ -152,10 +152,14 @@ idCVar cv_tdm_mission_details_url("tdm_mission_details_url", "http://www.thedark
 idCVar cv_tdm_mission_screenshot_url("tdm_mission_screenshot_url", "http://www.thedarkmod.com/%s", CVAR_GAME, "The URL template to download the mission screenshots." );
 idCVar cv_tdm_version_check_url("tdm_version_check_url", "http://bloodgate.com/mirrors/tdm/pub/tdm_version.xml", CVAR_GAME, "The URL to check for the current TDM version." );
 
+/**
+* DarkMod DEBUG related CVARs
+**/
+idCVar cv_tdm_http_base_url( "tdm_http_base_url", "", CVAR_GAME, "If set, this URL will be used instead of the actual download URL when downloading FMs. Useful for testing downloading FMs from temp. servers." );
 
-idCVar cv_debug_aastype(			"tdm_debug_aastype",		"aas32",		CVAR_GAME | CVAR_ARCHIVE, "Sets the AAS type used for visualisation with impulse 27");
+idCVar cv_debug_aastype( "tdm_debug_aastype", "aas32", CVAR_GAME | CVAR_ARCHIVE, "Sets the AAS type used for visualisation with impulse 27");
 
-idCVar cv_las_showtraces(			"tdm_las_showtraces",		"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), traces from light origin to testpoints used for visibility testiung are drawn." );
+idCVar cv_las_showtraces( "tdm_las_showtraces", "0", CVAR_GAME | CVAR_BOOL, "If true (nonzero), traces from light origin to testpoints used for visibility testiung are drawn." );
 
 idCVar cv_show_gameplay_time(		"tdm_show_gameplaytime",	"0",			CVAR_GAME | CVAR_BOOL, "If true (nonzero), the gameplay time is shown in the player HUD." );
 
