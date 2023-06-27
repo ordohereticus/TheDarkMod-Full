@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5146 $ (Revision of last commit) 
+ $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -34,6 +34,7 @@
 
 static idStr	basepath;
 static idStr	savepath;
+static idStr	modSavepath; // greebo: Added for TDM mission handling
 
 /*
 ===========
@@ -115,6 +116,18 @@ const char *Sys_DefaultSavePath(void) {
 #endif
 	return savepath.c_str();
 }
+
+/*
+ ==============
+ Sys_ModSavePath
+ ==============
+ */
+const char* Sys_ModSavePath()
+{
+	sprintf( modSavepath, "%s/%s/%s", Sys_DefaultSavePath(), cvarSystem->GetCVarString("fs_game_base"), "fms" );
+	return modSavepath.c_str();
+}
+
 /*
 ==============
 Sys_EXEPath
