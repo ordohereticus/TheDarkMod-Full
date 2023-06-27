@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4963 $
- * $Date: 2011-08-30 15:26:13 -0400 (Tue, 30 Aug 2011) $
+ * $Revision: 4990 $
+ * $Date: 2011-10-09 17:50:14 -0400 (Sun, 09 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4963 2011-08-30 19:26:13Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4990 2011-10-09 21:50:14Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2225,7 +2225,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 
 		m_MissionDataLoadedIntoGUI = true;
 	}
-	else if (cmd == "loadStatistics")
+	else if (cmd == "loadstatistics")
 	{
 		// Load the statistics into the GUI
 		UpdateStatisticsGUI(gui, "listStatistics");
@@ -2322,7 +2322,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 		// Set the objectives state flag back to dirty
 		ClearGUIState();
 	}
-	else if (cmd == "diffSelect")
+	else if (cmd == "diffselect")
 	{
 		// change the difficulty (skill) level to selected value
 		gameLocal.m_DifficultyManager.SetDifficultyLevel(gui->GetStateInt("diffSelect", "0"));
