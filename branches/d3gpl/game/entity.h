@@ -3,14 +3,11 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 5086 $
- * $Date: 2011-12-05 00:30:50 -0500 (Mon, 05 Dec 2011) $
+ * $Revision: 5121 $
+ * $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
-
-// Copyright (C) 2004 Id Software, Inc.
-//
 
 #ifndef __GAME_ENTITY_H__
 #define __GAME_ENTITY_H__

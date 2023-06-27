@@ -2,14 +2,11 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 5082 $
- * $Date: 2011-12-04 23:40:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5121 $
+ * $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
-// Copyright (C) 2004 Id Software, Inc.
-//
-
 #ifndef __GAME_PLAYER_H__
 #define __GAME_PLAYER_H__
 

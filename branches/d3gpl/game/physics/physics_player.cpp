@@ -2,19 +2,16 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 5088 $
- * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
+ * $Revision: 5121 $
+ * $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 
-// Copyright (C) 2004 Id Software, Inc.
-//
-
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 5088 $   $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 5121 $   $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkModGlobals.h"

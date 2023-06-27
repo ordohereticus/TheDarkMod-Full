@@ -2,21 +2,18 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5088 $
- * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
+ * $Revision: 5121 $
+ * $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
-
-// Copyright (C) 2004 Id Software, Inc.
-//
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: Game_local.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Game_local.cpp 5121 2011-12-11 19:12:26Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"

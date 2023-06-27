@@ -1,12 +1,22 @@
 // vim:ts=4:sw=4:cindent
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Revision: 5076 $
- * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
- * $Author: greebo $
- *
- ***************************************************************************/
+/*****************************************************************************
+                    The Dark Mod GPL Source Code
+ 
+ This file is part of the The Dark Mod Source Code, originally based 
+ on the Doom 3 GPL Source Code as published in 2011.
+ 
+ The Dark Mod Source Code is free software: you can redistribute it 
+ and/or modify it under the terms of the GNU General Public License as 
+ published by the Free Software Foundation, either version 3 of the License, 
+ or (at your option) any later version. For details, see LICENSE.TXT.
+ 
+ Project: The Dark Mod (http://www.thedarkmod.com/)
+ 
+ $Revision: 5121 $ (Revision of last commit) 
+ $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
+ 
+******************************************************************************/
 
 // Copyright (C) 2010-2011 Tels (Donated to The Dark Mod Team)
 
@@ -66,7 +76,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 5076 2011-12-04 17:05:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 5121 2011-12-11 19:12:26Z greebo $", init_version);
 
 #include "SEED.h"
 

@@ -1,11 +1,21 @@
-/***************************************************************************
- *
- * PROJECT: The Dark Mod
- * $Revision: 5094 $
- * $Date: 2011-12-06 14:52:47 -0500 (Tue, 06 Dec 2011) $
- * $Author: greebo $
- *
- ***************************************************************************/
+/*****************************************************************************
+                    The Dark Mod GPL Source Code
+ 
+ This file is part of the The Dark Mod Source Code, originally based 
+ on the Doom 3 GPL Source Code as published in 2011.
+ 
+ The Dark Mod Source Code is free software: you can redistribute it 
+ and/or modify it under the terms of the GNU General Public License as 
+ published by the Free Software Foundation, either version 3 of the License, 
+ or (at your option) any later version. For details, see LICENSE.TXT.
+ 
+ Project: The Dark Mod (http://www.thedarkmod.com/)
+ 
+ $Revision: 5121 $ (Revision of last commit) 
+ $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
+ 
+******************************************************************************/
 /* ======== SourceHook ========
 * Copyright (C) 2004-2008 Metamod:Source Development Team
 * No warranties of any kind
@@ -25,7 +35,7 @@
  * @brief Contains the implementation of the SourceHook API
 */
 
-static bool init_version = FileVersionList("$Id: sourcehook.cpp 5094 2011-12-06 19:52:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sourcehook.cpp 5121 2011-12-11 19:12:26Z greebo $", init_version);
 
 #if defined __GNUC__
 #include <stdint.h>
