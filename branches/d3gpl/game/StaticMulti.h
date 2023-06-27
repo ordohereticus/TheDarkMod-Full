@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,9 +13,9 @@
 #ifndef __DAKRMOD_STATICMULTI_H__
 #define __DARKMOD_STATICMULTI_H__
 
-#include "../game/misc.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/ModelGenerator.h"
+#include "misc.h"
+#include "StimResponse/StimResponseCollection.h"
+#include "ModelGenerator.h"
 
 /*
 ===============================================================================

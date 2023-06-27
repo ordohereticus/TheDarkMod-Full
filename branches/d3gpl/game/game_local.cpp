@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5018 $
- * $Date: 2011-11-04 09:51:45 -0400 (Fri, 04 Nov 2011) $
- * $Author: tels $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,37 +16,37 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 5018 2011-11-04 13:51:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/darkModLAS.h"
-#include "../DarkMod/decltdm_matinfo.h"
-#include "../DarkMod/declxdata.h"
-#include "../DarkMod/Grabber.h"
-#include "../DarkMod/Relations.h"
-#include "../DarkMod/Inventory/Inventory.h"
-#include "../DarkMod/sndProp.h"
+#include "DarkModGlobals.h"
+#include "darkModLAS.h"
+#include "decltdm_matinfo.h"
+#include "declxdata.h"
+#include "Grabber.h"
+#include "Relations.h"
+#include "Inventory/Inventory.h"
+#include "sndProp.h"
 #include "ai/aas_local.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/Objectives/MissionData.h"
-#include "../DarkMod/Objectives/CampaignStatistics.h"
-#include "../DarkMod/MultiStateMover.h"
-#include "../DarkMod/func_shooter.h"
-#include "../DarkMod/Shop/Shop.h"
-#include "../DarkMod/EscapePointManager.h"
-#include "../DarkMod/DownloadMenu.h"
-#include "../DarkMod/TimerManager.h"
-#include "../DarkMod/AI/Conversation/ConversationSystem.h"
-#include "../DarkMod/RevisionTracker.h"
-#include "../DarkMod/Missions/MissionManager.h"
-#include "../DarkMod/Missions/DownloadManager.h"
-#include "../DarkMod/Http/HttpConnection.h"
-#include "../DarkMod/Http/HttpRequest.h"
-#include "../DarkMod/StimResponse/StimType.h" // grayman #2721
+#include "StimResponse/StimResponseCollection.h"
+#include "Objectives/MissionData.h"
+#include "Objectives/CampaignStatistics.h"
+#include "MultiStateMover.h"
+#include "func_shooter.h"
+#include "Shop/Shop.h"
+#include "EscapePointManager.h"
+#include "DownloadMenu.h"
+#include "TimerManager.h"
+#include "AI/Conversation/ConversationSystem.h"
+#include "RevisionTracker.h"
+#include "Missions/MissionManager.h"
+#include "Missions/DownloadManager.h"
+#include "Http/HttpConnection.h"
+#include "Http/HttpRequest.h"
+#include "StimResponse/StimType.h" // grayman #2721
 
-#include "IL/il.h"
-#include "../DarkMod/randomizer/randomc.h"
+#include <IL/il.h>
+#include "randomizer/randomc.h"
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>

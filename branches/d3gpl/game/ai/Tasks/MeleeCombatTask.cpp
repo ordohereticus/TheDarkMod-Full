@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3726 $
- * $Date: 2009-10-25 00:19:02 -0400 (Sun, 25 Oct 2009) $
- * $Author: ishtvan $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 3726 2009-10-25 04:19:02Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: MeleeCombatTask.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "MeleeCombatTask.h"
 #include "SingleBarkTask.h"
@@ -439,7 +439,7 @@ void MeleeCombatTask::StartParry(idAI* owner)
 	else
 		ParType = AttType; // match the attack
 
-	const char *suffix = idActor::MeleeTypeNames[ParType];
+	//const char *suffix = idActor::MeleeTypeNames[ParType];
 
 	// update the melee status
 	owner->Event_MeleeParryStarted( ParType );

@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 5026 $
- * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
- * $Author: grayman $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,22 +14,22 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 5026 2011-11-06 23:19:45Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
 #include "game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/declxdata.h"
-#include "../DarkMod/Objectives/MissionData.h"
-#include "../DarkMod/Objectives/ObjectiveLocation.h"
-#include "../DarkMod/Grabber.h"
-#include "../DarkMod/sndProp.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/Inventory/Inventory.h"
-#include "../DarkMod/Inventory/Cursor.h"
-#include "../DarkMod/AbsenceMarker.h"
-#include "../DarkMod/Objectives/MissionData.h"
+#include "DarkModGlobals.h"
+#include "declxdata.h"
+#include "Objectives/MissionData.h"
+#include "Objectives/ObjectiveLocation.h"
+#include "Grabber.h"
+#include "sndProp.h"
+#include "StimResponse/StimResponseCollection.h"
+#include "Inventory/Inventory.h"
+#include "Inventory/Cursor.h"
+#include "AbsenceMarker.h"
+#include "Objectives/MissionData.h"
 
 /*
 ===============================================================================
@@ -533,7 +533,7 @@ void idGameEdit::ParseSpawnArgsToRenderEntity( const idDict *args, renderEntity_
 	idStr rskin = args->GetString( "random_skin", "" );
 	if ( !rskin.IsEmpty() ) {
 		// found list, select a random skin
-		temp = rskin.RandomPart().c_str();
+		temp = rskin.RandomPart(gameLocal.random.RandomFloat()).c_str();
 	}
 	else {
 		// else just use the "skin" spawnarg

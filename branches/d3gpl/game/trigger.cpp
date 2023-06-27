@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1998 $
- * $Date: 2008-01-18 13:02:26 -0500 (Fri, 18 Jan 2008) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,10 +13,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: trigger.cpp 1998 2008-01-18 18:02:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: trigger.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "game_local.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
+#include "StimResponse/StimResponseCollection.h"
 
 /*
 ===============================================================================

@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5072 $
- * $Date: 2011-12-04 02:38:59 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: LangDict.cpp 5072 2011-12-04 07:38:59Z greebo $", init_version);
+
 
 /*
 ============
@@ -89,7 +89,7 @@ bool idLangDict::Load( const char *fileName, const bool clear /* _D3XP */, const
 				// Tels: fix #2812, some characters like 0xFF ("я" in russian) are not rendered
 				// in the GUI, so replace them (as the font contains the characters elsewhere).
 				// If we were given a replacement table, use it to exchange the characters:
-				for (int i = 0; i < remapcount; i ++)
+				for (unsigned int i = 0; i < remapcount; i ++)
 				{
 					kv.value.Replace( remap[i*2], remap[i*2+1] );
 				}
@@ -314,6 +314,6 @@ idLangDict::Print
 */
 void idLangDict::Print( void ) const {
 	int c = args.Num();
-	gameLocal.Printf("idLangDict: %li KB in %i entries.\n", static_cast<long>(args.Size() + hash.Size()) >> 10l, c);
+	idLib::common->Printf("idLangDict: %li KB in %i entries.\n", static_cast<long>(args.Size() + hash.Size()) >> 10l, c);
 	//hash.Print();
 }

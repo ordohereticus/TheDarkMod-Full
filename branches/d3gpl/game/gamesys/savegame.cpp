@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4738 $
- * $Date: 2011-03-30 08:23:38 -0400 (Wed, 30 Mar 2011) $
- * $Author: stgatilov $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,10 +13,10 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: savegame.cpp 4738 2011-03-30 12:23:38Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: savegame.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "../game_local.h"
-#include "../../DarkMod/RevisionTracker.h"
+#include "../RevisionTracker.h"
 
 #include "typeinfo.h"
 

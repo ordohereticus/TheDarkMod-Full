@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5006 $
- * $Date: 2011-10-21 11:38:54 -0400 (Fri, 21 Oct 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ExamineRopeState.cpp 5006 2011-10-21 15:38:54Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ExamineRopeState.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "ExamineRopeState.h"
 //#include "../Memory.h"
@@ -50,7 +50,7 @@ void ExamineRopeState::Wrapup(idAI* owner)
 
 void ExamineRopeState::Init(idAI* owner)
 {
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	State::Init(owner);
 

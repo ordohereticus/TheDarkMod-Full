@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2959 $
- * $Date: 2008-10-20 11:46:29 -0400 (Mon, 20 Oct 2008) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 2959 2008-10-20 15:46:29Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: HandleElevatorTask.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -59,7 +59,7 @@ void HandleElevatorTask::Init(idAI* owner, Subsystem& subsystem)
 	eas::ElevatorStationInfoPtr stationInfo = 
 		owner->GetAAS()->GetEAS()->GetElevatorStationInfo(node->elevatorStation);
 
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 	CMultiStateMoverPosition* pos = stationInfo->elevatorPosition.GetEntity();
 	CMultiStateMover* elevator = stationInfo->elevator.GetEntity();
 
@@ -99,7 +99,7 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("HandleElevatorTask performing.\r");
 
 	idAI* owner = _owner.GetEntity();
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	// Grab the first RouteNode
 	const eas::RouteNodePtr& node = *_routeInfo.routeNodes.begin();
@@ -445,7 +445,7 @@ bool HandleElevatorTask::IsElevatorStationReachable(CMultiStateMoverPosition* po
 
 void HandleElevatorTask::OnFinish(idAI* owner)
 {
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	owner->m_HandlingElevator = false;
 

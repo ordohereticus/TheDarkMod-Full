@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3745 $
- * $Date: 2009-11-04 23:26:05 -0500 (Wed, 04 Nov 2009) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,10 +19,10 @@ instancing of objects.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: class.cpp 3745 2009-11-05 04:26:05Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: class.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "../game_local.h"
-#include "../DarkMod/Grabber.h"
+#include "../Grabber.h"
 
 #include "typeinfo.h"
 

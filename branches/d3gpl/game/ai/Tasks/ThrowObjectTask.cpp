@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3467 $
- * $Date: 2009-05-24 07:12:58 -0400 (Sun, 24 May 2009) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ThrowObjectTask.cpp 3467 2009-05-24 11:12:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ThrowObjectTask.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "ThrowObjectTask.h"
 #include "../States/TakeCoverState.h"
@@ -46,7 +46,7 @@ bool ThrowObjectTask::Perform(Subsystem& subsystem)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 	
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 	idActor* enemy = owner->GetEnemy();
 
 	if (enemy == NULL)

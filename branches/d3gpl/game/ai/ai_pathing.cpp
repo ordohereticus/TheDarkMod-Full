@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 5073 2011-12-04 08:09:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -400,7 +400,7 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 
 	// TDM: Store our team. const_cast<> is necessary due to GetSelf() not being const
 	idActor* self = static_cast<idActor*>(const_cast<idPhysics*>(physics)->GetSelf()); 
-	int team = self->team;
+	//int team = self->team;
 
 	idVec3 seekDelta = seekPos - startPos;
 	idVec2 expBounds[2];

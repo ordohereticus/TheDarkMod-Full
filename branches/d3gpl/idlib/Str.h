@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5072 $
- * $Date: 2011-12-04 02:38:59 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -167,8 +167,8 @@ public:
 	// Tels: Count how often c occurs between start and end
 	int					Count( const char c, int start = 0, int end = -1 ) const;
 	// Tels: Given a list like "abcXdef" (where X = ',' but can be changed), returns one part of it randomly.
-	// If given an optional random value between 0.0 < x <= 1.0, then this will be used instead of gameLocal.random.RandomFloat()
-	idStr				RandomPart( const char c = ',', const float rand = -1.0f) const;
+	// Needs to be given a random value between 0.0 < x <= 1.0
+	idStr				RandomPart(const float rand, const char c = ',') const;
 	bool				Filter( const char *filter, bool casesensitive ) const;
 	int					Last( const char c ) const;						// return the index to the last occurance of 'c', returns -1 if not found
 	const char *		Left( int len, idStr &result ) const;			// store the leftmost 'len' characters in the result

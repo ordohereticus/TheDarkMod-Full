@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5030 $
- * $Date: 2011-11-09 02:53:14 -0500 (Wed, 09 Nov 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,12 +13,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: mover.cpp 5030 2011-11-09 07:53:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: mover.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/Objectives/MissionData.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
+#include "DarkModGlobals.h"
+#include "Objectives/MissionData.h"
+#include "StimResponse/StimResponseCollection.h"
 
 // a mover will update any gui entities in its target list with 
 // a key/val pair of "mover" "state" from below.. guis can represent

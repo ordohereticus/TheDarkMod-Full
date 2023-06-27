@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
- * $Author: angua $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,15 +13,15 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_routing.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: aas_routing.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for print and error
 
-#include "../../DarkMod/DarkModGlobals.h"
-#include "../../DarkMod/MultiStateMover.h"
-#include "../../DarkMod/MultiStateMoverPosition.h"
-#include "../../DarkMod/TimerManager.h"
+#include "../DarkModGlobals.h"
+#include "../MultiStateMover.h"
+#include "../MultiStateMoverPosition.h"
+#include "../TimerManager.h"
 
 #define CACHETYPE_AREA				1
 #define CACHETYPE_PORTAL			2

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3768 $
- * $Date: 2009-12-01 11:06:50 -0500 (Tue, 01 Dec 2009) $
- * $Author: angua $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 3768 2009-12-01 16:06:50Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeDoneState.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -43,7 +43,7 @@ void FleeDoneState::Init(idAI* owner)
 	assert(owner);
 
 	// Shortcut reference
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	// greebo: At this point we should be at a presumably safe place, 
 	// start looking for allies
@@ -115,7 +115,7 @@ void FleeDoneState::Think(idAI* owner)
 			owner->SetTurnRate(_oldTurnRate);
 
 			owner->TurnToward(friendlyAI->GetPhysics()->GetOrigin());
-			float distanceToFriend = (friendlyAI->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin()).LengthFast();
+			//float distanceToFriend = (friendlyAI->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin()).LengthFast();
 
 			// Cry for help
 			// Create a new help message

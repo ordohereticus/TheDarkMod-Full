@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4959 $
- * $Date: 2011-08-17 13:37:25 -0400 (Wed, 17 Aug 2011) $
- * $Author: tels $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,19 +14,19 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4959 2011-08-17 17:37:25Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
-#include "../../DarkMod/sndPropLoader.h"
-#include "../../DarkMod/Relations.h"
-#include "../../DarkMod/Objectives/MissionData.h"
-#include "../../DarkMod/Inventory/Inventory.h"
-#include "../../DarkMod/Inventory/Item.h"
-#include "../../DarkMod/TimerManager.h"
-#include "../../DarkMod/AI/Conversation/ConversationSystem.h"
-#include "../../DarkMod/Missions/MissionManager.h"
-#include "../../DarkMod/Missions/ModInfo.h"
+#include "../sndPropLoader.h"
+#include "../Relations.h"
+#include "../Objectives/MissionData.h"
+#include "../Inventory/Inventory.h"
+#include "../Inventory/Item.h"
+#include "../TimerManager.h"
+#include "../AI/Conversation/ConversationSystem.h"
+#include "../Missions/MissionManager.h"
+#include "../Missions/ModInfo.h"
 
 #include "typeinfo.h"
 

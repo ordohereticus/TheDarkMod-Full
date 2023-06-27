@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5072 $
- * $Date: 2011-12-04 02:38:59 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Timer.cpp 5072 2011-12-04 07:38:59Z greebo $", init_version);
+
 
 double idTimer::base = -1.0;
 
@@ -136,14 +136,14 @@ void idTimerReport::PrintReport() {
 	assert( timers.Num() == names.Num() );
 	idLib::common->Printf( "Timing Report for %s\n", reportName.c_str() );
 	idLib::common->Printf( "-------------------------------\n" );
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Timing Report for %s\n", reportName.c_str());
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("-------------------------------\n");
+	//DM_LOG(LC_AI, LT_INFO)LOGSTRING("Timing Report for %s\n", reportName.c_str());
+	//DM_LOG(LC_AI, LT_INFO)LOGSTRING("-------------------------------\n");
 	float total = 0.0f;
 	for ( int i = 0; i < names.Num(); i++ ) {
 		idLib::common->Printf( "%s consumed %5.2f seconds\n", names[i].c_str(), timers[i]->Milliseconds() * 0.001f );
-		DM_LOG(LC_AI, LT_INFO)LOGSTRING("%s consumed %5.2f seconds\n", names[i].c_str(), timers[i]->Milliseconds() * 0.001f);
+		//DM_LOG(LC_AI, LT_INFO)LOGSTRING("%s consumed %5.2f seconds\n", names[i].c_str(), timers[i]->Milliseconds() * 0.001f);
 		total += timers[i]->Milliseconds();
 	}
 	idLib::common->Printf( "Total time for report %s was %5.2f\n\n", reportName.c_str(), total * 0.001f );
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Total time for report %s was %5.2f\n\n", reportName.c_str(), total * 0.001f);
+	//DM_LOG(LC_AI, LT_INFO)LOGSTRING("Total time for report %s was %5.2f\n\n", reportName.c_str(), total * 0.001f);
 }

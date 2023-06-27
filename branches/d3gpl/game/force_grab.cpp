@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,11 +10,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: force_grab.cpp 5066 2011-12-03 19:49:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: force_grab.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
-#include "../game/game_local.h"
+#include "game_local.h"
 #include "force_grab.h"
-#include "../DarkMod/Grabber.h"
+#include "Grabber.h"
 
 class CDarkModPlayer;
 

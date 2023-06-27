@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4540 $
- * $Date: 2011-02-03 13:59:49 -0500 (Thu, 03 Feb 2011) $
- * $Author: grayman $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 4540 2011-02-03 18:59:49Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: IdleAnimationTask.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "IdleAnimationTask.h"
 #include "../Memory.h"
@@ -42,7 +42,7 @@ void IdleAnimationTask::Init(idAI* owner, Subsystem& subsystem)
 	// Just init the base class
 	Task::Init(owner, subsystem);
 
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	// Read the animation set and interval from the owner's spawnarg
 	_idleAnimationInterval = SEC2MS(owner->spawnArgs.GetInt("idle_animations_interval", "-1"));

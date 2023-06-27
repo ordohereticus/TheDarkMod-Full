@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4606 $
- * $Date: 2011-02-18 07:58:16 -0500 (Fri, 18 Feb 2011) $
- * $Author: tels $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -11,7 +11,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_import.cpp 4606 2011-02-18 12:58:16Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: anim_import.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../MayaImport/maya_main.h"
@@ -195,8 +195,8 @@ version number has changed.
 =====================
 */
 bool idModelExport::ConvertMayaToMD5( void ) {
-	unsigned	sourceTime;
-	unsigned	destTime;
+	ID_TIME_T	sourceTime;
+	ID_TIME_T	destTime;
 	int			version;
 	idToken		cmdLine;
 	idStr		path;

@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4861 $
- * $Date: 2011-05-22 02:45:07 -0400 (Sun, 22 May 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,12 +14,12 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: anim_blend.cpp 4861 2011-05-22 06:45:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: anim_blend.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "../game_local.h"
-#include "../../DarkMod/DarkModGlobals.h"
-#include "../../DarkMod/MeleeWeapon.h"
-#include "../../DarkMod/AI/Tasks/SingleBarkTask.h"
+#include "../DarkModGlobals.h"
+#include "../MeleeWeapon.h"
+#include "../AI/Tasks/SingleBarkTask.h"
 
 static const char *channelNames[ ANIM_NumAnimChannels ] = {
 	"all", "torso", "legs", "head", "eyelids"

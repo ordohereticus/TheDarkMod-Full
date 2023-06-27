@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
- * $Author: angua $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,10 +13,10 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 3453 $   $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 5074 $   $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $", init_version);
 
 #include "aas_local.h"
-#include "../../DarkMod/TimerManager.h"
+#include "../TimerManager.h"
 
 
 #define SUBSAMPLE_WALK_PATH		1

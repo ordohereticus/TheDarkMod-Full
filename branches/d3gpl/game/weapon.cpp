@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4878 $
- * $Date: 2011-06-05 09:44:24 -0400 (Sun, 05 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,11 +13,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: weapon.cpp 4878 2011-06-05 13:44:24Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: weapon.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/Inventory/WeaponItem.h"
+#include "DarkModGlobals.h"
+#include "Inventory/WeaponItem.h"
 
 /***********************************************************************
 

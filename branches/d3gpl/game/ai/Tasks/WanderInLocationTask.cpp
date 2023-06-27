@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2443 $
- * $Date: 2008-06-07 09:48:49 -0400 (Sat, 07 Jun 2008) $
- * $Author: angua $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: WanderInLocationTask.cpp 2443 2008-06-07 13:48:49Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: WanderInLocationTask.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "WanderInLocationTask.h"
 #include "../Memory.h"
@@ -101,7 +101,7 @@ bool WanderInLocationTask::Perform(Subsystem& subsystem)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	if (owner->AI_MOVE_DONE)
 	{

@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4910 $
- * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
- * $Author: stgatilov $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,12 +14,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 4910 2011-07-11 15:57:15Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../DarkMod/Grabber.h"
+#include "DarkModGlobals.h"
+#include "StimResponse/StimResponseCollection.h"
+#include "Grabber.h"
 
 /*
 ===============================================================================

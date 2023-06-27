@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 5073 2011-12-04 08:09:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -3147,8 +3147,8 @@ void State::OnAICommMessage(CommMessage& message, float psychLoud)
 void State::OnMessageDetectedSomethingSuspicious(CommMessage& message)
 {
 	idEntity* issuingEntity = message.m_p_issuingEntity.GetEntity();
-	idEntity* recipientEntity = message.m_p_recipientEntity.GetEntity();
-	idEntity* directObjectEntity = message.m_p_directObjectEntity.GetEntity();
+	//idEntity* recipientEntity = message.m_p_recipientEntity.GetEntity();
+	//idEntity* directObjectEntity = message.m_p_directObjectEntity.GetEntity();
 	idVec3 directObjectLocation = message.m_directObjectLocation;
 
 	idAI* owner = _owner.GetEntity();

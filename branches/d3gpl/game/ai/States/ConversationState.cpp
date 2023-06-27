@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5074 $
+ * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ConversationState.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ConversationState.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -141,7 +141,7 @@ void ConversationState::Init(idAI* owner)
 // Gets called each time the mind is thinking
 void ConversationState::Think(idAI* owner)
 {
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	UpdateAlertLevel();
 
@@ -737,7 +737,7 @@ void ConversationState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 {
 	assert(stimSource != NULL && owner != NULL); // must be fulfilled
 
-	Memory& memory = owner->GetMemory();
+	//Memory& memory = owner->GetMemory();
 
 	if (!stimSource->IsType(idActor::Type)) return; // No Actor, quit
 
