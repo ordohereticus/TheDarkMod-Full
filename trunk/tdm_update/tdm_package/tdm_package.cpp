@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Packager
- * $Revision: 4999 $
- * $Date: 2011-10-17 03:03:00 -0400 (Mon, 17 Oct 2011) $
+ * $Revision: 5000 $
+ * $Date: 2011-10-17 03:07:26 -0400 (Mon, 17 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -249,6 +249,10 @@ int main(int argc, char* argv[])
 			TraceLog::WriteLine(LOG_STANDARD, "---------------------------------------------------------");
 
 			TraceLog::WriteLine(LOG_STANDARD, "Done.");
+		}
+		else
+		{
+			options.PrintHelp();
 		}
 	}
 	catch (std::runtime_error& ex)
