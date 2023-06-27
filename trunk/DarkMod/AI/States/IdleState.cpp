@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
+ * $Revision: 4991 $
+ * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: IdleState.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: IdleState.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -288,7 +288,8 @@ idStr IdleState::GetInitialIdleBark(idAI* owner)
 	// Decide what sound it is appropriate to play
 	idStr soundName("");
 
-	if (!owner->m_RelightingLight && // grayman #2603 - No rampdown bark if relighting a light.
+	if (!owner->m_RelightingLight &&	// grayman #2603 - No rampdown bark if relighting a light.
+		!owner->m_ExaminingRope &&		// grayman #2872 - No rampdown bark if examining a rope.
 		(owner->m_maxAlertLevel >= owner->thresh_1) &&
 		(owner->m_maxAlertLevel < owner->thresh_4))
 	{

@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4973 $
- * $Date: 2011-09-16 13:08:46 -0400 (Fri, 16 Sep 2011) $
+ * $Revision: 4991 $
+ * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1180,6 +1180,9 @@ public:
 	void					SetStimEnabled(StimType type, bool enabled);
 
 	void					ClearStimIgnoreList(StimType type);
+
+	bool					CheckResponseIgnore(StimType type, idEntity* fromEntity); // grayman #2872
+
 
 	/**
 	 * This triggers a stand-alone response (without an actual Stim) on this entity.

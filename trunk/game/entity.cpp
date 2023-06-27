@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4987 $
- * $Date: 2011-10-03 17:46:47 -0400 (Mon, 03 Oct 2011) $
- * $Author: tels $
+ * $Revision: 4991 $
+ * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4987 2011-10-03 21:46:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9348,6 +9348,20 @@ void idEntity::IgnoreResponse(StimType type, idEntity* fromEntity)
 		stim->AddResponseIgnore(fromEntity);
 	}
 }
+
+// grayman #2872
+
+bool idEntity::CheckResponseIgnore(StimType type, idEntity* fromEntity)
+{
+	CStimPtr stim = m_StimResponseColl->GetStimByType(type);
+
+	if (stim != NULL)
+	{
+		return ( stim->CheckResponseIgnore(fromEntity) );
+	}
+	return true;
+}
+
 
 void idEntity::SetStimEnabled(StimType type, bool enabled)
 {

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 4991 $
+ * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: KnockedOutState.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
 
 #include "KnockedOutState.h"
 #include "../Memory.h"
@@ -45,6 +45,7 @@ void KnockedOutState::Init(idAI* owner)
 	// Stop move!
 	owner->StopMove(MOVE_STATUS_DONE);
 	owner->GetMemory().stopRelight = true; // grayman #2603 - abort a relight in progress
+	owner->GetMemory().stopExaminingRope = true; // grayman #2872 - stop examining rope
 
 	//owner->StopAnim(ANIMCHANNEL_TORSO, 0);
 	//owner->StopAnim(ANIMCHANNEL_LEGS, 0);

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
+ * $Revision: 4991 $
+ * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SearchingState.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SearchingState.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -232,6 +232,7 @@ void SearchingState::Think(idAI* owner)
 			// Stop moving, the algorithm will choose another spot the next round
 			owner->StopMove(MOVE_STATUS_DONE);
 			memory.stopRelight = true; // grayman #2603 - abort a relight in progress
+			memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
 		}
 		else
 		{
@@ -277,6 +278,7 @@ void SearchingState::StartNewHidingSpotSearch(idAI* owner)
 	// Stop moving
 	owner->StopMove(MOVE_STATUS_DONE);
 	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
+	memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
 
 	// If we are supposed to search the stimulus location do that instead 
 	// of just standing around while the search completes

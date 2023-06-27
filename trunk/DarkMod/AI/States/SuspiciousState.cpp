@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4988 $
- * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
+ * $Revision: 4991 $
+ * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 4988 2011-10-07 15:45:07Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -153,6 +153,7 @@ void SuspiciousState::Init(idAI* owner)
 		owner->movementSubsystem->ClearTasks();
 		owner->StopMove(MOVE_STATUS_DONE);
 		memory.stopRelight = true; // grayman #2603 - abort a relight in progress
+		memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
 
 		if (!owner->CheckFOV(memory.alertPos) && owner->GetMoveType() == MOVETYPE_ANIM)
 		{
