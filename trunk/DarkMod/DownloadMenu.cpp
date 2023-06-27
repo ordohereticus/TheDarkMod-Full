@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4894 $
- * $Date: 2011-06-19 12:19:34 -0400 (Sun, 19 Jun 2011) $
+ * $Revision: 4916 $
+ * $Date: 2011-07-15 16:37:46 -0400 (Fri, 15 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4894 2011-06-19 16:19:34Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4916 2011-07-15 20:37:46Z tels $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -134,8 +134,8 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 					gameLocal.Printf("Connection Error.\n");
 
 					GuiMessage msg;
-					msg.title = "Mission Screenshot Download Failed";
-					msg.message = "Failed to download the screenshot file.";
+					msg.title = common->GetLanguageDict()->GetString( "#str_02138" ); // "Mission Screenshot Download Failed"
+					msg.message = common->GetLanguageDict()->GetString( "#str_02139" ); // "Failed to download the screenshot file."
 					msg.type = GuiMessage::MSG_OK;
 					msg.okCmd = "close_msg_box";
 
@@ -172,8 +172,8 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 			GuiMessage msg;
 			msg.type = GuiMessage::MSG_OK;
 			msg.okCmd = "close_msg_box";
-			msg.title = "Unable to contact Mission Archive";
-			msg.message = "HTTP Requests have been disabled,\n cannot check for available missions.";
+			msg.title = common->GetLanguageDict()->GetString( "#str_02140" ); // "Unable to contact Mission Archive"
+			msg.message = common->GetLanguageDict()->GetString( "#str_02141" ); // "HTTP Requests have been disabled,\n cannot check for available missions."
 
 			gameLocal.AddMainMenuMessage(msg);
 
@@ -443,8 +443,8 @@ void CDownloadMenu::UpdateModDetails(idUserInterface* gui)
 		GuiMessage msg;
 		msg.type = GuiMessage::MSG_OK;
 		msg.okCmd = "close_msg_box";
-		msg.title = "Code Logic Error";
-		msg.message = "No mission details loaded.";
+		msg.title = common->GetLanguageDict()->GetString( "#str_02003" ); // "Code Logic Error"
+		msg.message = common->GetLanguageDict()->GetString( "#str_02004" ); // "No mission details loaded."
 
 		gameLocal.AddMainMenuMessage(msg);
 
@@ -674,24 +674,24 @@ void CDownloadMenu::ShowDownloadResult(idUserInterface* gui)
 	GuiMessage msg;
 	msg.type = GuiMessage::MSG_OK;
 	msg.okCmd = "close_msg_box;onDownloadCompleteConfirm";
-	msg.title = "Mission Download Result";
+	msg.title = common->GetLanguageDict()->GetString( "#str_02142" ); // "Mission Download Result"
 	msg.message = "";
 
 	if (successfulDownloads > 0)
 	{
-		msg.message += va("%d %s been successfully downloaded. "
-						  "You'll find the %s in the 'New Mission' page.", 
-						  successfulDownloads, 
-						  GetPlural(successfulDownloads, "mission has", "missions have"),
-						  GetPlural(successfulDownloads, "mission", "missions")); 
+		msg.message += va( common->GetLanguageDict()->GetString( "#str_02143" ), // "%d %s successfully downloaded. You'll find the %s in the 'New Mission' page."
+			successfulDownloads, 
+			// mission, missions
+			GetPlural(successfulDownloads, common->GetLanguageDict()->GetString( "#str_02144" ), common->GetLanguageDict()->GetString( "#str_02145" ) ), 
+			GetPlural(successfulDownloads, common->GetLanguageDict()->GetString( "#str_02144" ), common->GetLanguageDict()->GetString( "#str_02145" ) ) ); 
 	}
 	
 	if (failedDownloads > 0)
 	{
-		msg.message += va("\n%d %s couldn't be downloaded. "
-						  "Please check your disk space (or maybe some file is "
-						  "write protected) and try again.", failedDownloads,
-						  GetPlural(failedDownloads, "mission", "missions"));
+		msg.message += va( common->GetLanguageDict()->GetString( "#str_02146" ), // "\n%d %s couldn't be downloaded. Please check your disk space (or maybe some file is write protected) and try again."
+			failedDownloads, 
+			// mission, missions
+			GetPlural(failedDownloads, common->GetLanguageDict()->GetString( "#str_02144" ), common->GetLanguageDict()->GetString( "#str_02145" ) ) ); 
 	}
 
 	gameLocal.AddMainMenuMessage(msg);
