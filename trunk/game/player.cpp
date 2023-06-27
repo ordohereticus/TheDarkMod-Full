@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4905 $
- * $Date: 2011-06-23 13:45:40 -0400 (Thu, 23 Jun 2011) $
+ * $Revision: 4926 $
+ * $Date: 2011-07-20 15:38:43 -0400 (Wed, 20 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4905 2011-06-23 17:45:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4926 2011-07-20 19:38:43Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -3164,10 +3164,6 @@ bool idPlayer::GivePowerUp( int powerup, int time ) {
 			msg.WriteBits( 1, 1 );
 			ServerSendEvent( EVENT_POWERUP, &msg, false, -1 );
 		}
-
-		/*if ( powerup != MEGAHEALTH ) {
-			inventory.GivePowerUp( this, powerup, time );
-		}*/
 
 		const idDeclEntityDef *def = NULL;
 

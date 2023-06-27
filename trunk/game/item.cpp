@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4616 $
- * $Date: 2011-02-19 17:53:46 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4926 $
+ * $Date: 2011-07-20 15:38:43 -0400 (Wed, 20 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -18,7 +18,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: item.cpp 4616 2011-02-19 22:53:46Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: item.cpp 4926 2011-07-20 19:38:43Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -743,76 +743,6 @@ void idItem::Event_RespawnFx( void ) {
 	if ( sfx && *sfx ) {
 		idEntityFx::StartFx( sfx, NULL, NULL, this, true );
 	}
-}
-
-/*
-===============================================================================
-
-  idItemPowerup
-
-===============================================================================
-*/
-
-/*
-===============
-idItemPowerup
-===============
-*/
-
-CLASS_DECLARATION( idItem, idItemPowerup )
-END_CLASS
-
-/*
-================
-idItemPowerup::idItemPowerup
-================
-*/
-idItemPowerup::idItemPowerup() {
-	time = 0;
-	type = 0;
-}
-
-/*
-================
-idItemPowerup::Save
-================
-*/
-void idItemPowerup::Save( idSaveGame *savefile ) const {
-	savefile->WriteInt( time );
-	savefile->WriteInt( type );
-}
-
-/*
-================
-idItemPowerup::Restore
-================
-*/
-void idItemPowerup::Restore( idRestoreGame *savefile ) {
-	savefile->ReadInt( time );
-	savefile->ReadInt( type );
-}
-
-/*
-================
-idItemPowerup::Spawn
-================
-*/
-void idItemPowerup::Spawn( void ) {
-	time = spawnArgs.GetInt( "time", "30" );
-	type = spawnArgs.GetInt( "type", "0" );
-}
-
-/*
-================
-idItemPowerup::GiveToPlayer
-================
-*/
-bool idItemPowerup::GiveToPlayer( idPlayer *player ) {
-	if ( player->spectating ) {
-		return false;
-	}
-	player->GivePowerUp( type, time * 1000 );
-	return true;
 }
 
 /*
