@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5151 $ (Revision of last commit) 
- $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
+ $Revision: 5158 $ (Revision of last commit) 
+ $Date: 2012-01-04 03:50:27 -0500 (Wed, 04 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -290,7 +290,8 @@ public:
 	// not a campaign or if there is no next mission available
 	bool ProceedToNextMission();
 
-	void EraseModFolder(const idStr& name);
+	// Removes everything except for the mod PK4 and the metadata files from the mod save path
+	void CleanupModFolder(const idStr& name);
 
 	// Called by MissionData when the player completed a mission
 	void OnMissionComplete();

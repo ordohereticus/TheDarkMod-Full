@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5157 $ (Revision of last commit) 
- $Date: 2012-01-04 00:50:41 -0500 (Wed, 04 Jan 2012) $ (Date of last commit)
+ $Revision: 5158 $ (Revision of last commit) 
+ $Date: 2012-01-04 03:50:27 -0500 (Wed, 04 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 5157 2012-01-04 05:50:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 5158 2012-01-04 08:50:27Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -109,7 +109,7 @@ CModInfoPtr CMissionManager::GetModInfo(const idStr& name)
 	return _missionDB->GetModInfo(name);
 }
 
-void CMissionManager::EraseModFolder(const idStr& name)
+void CMissionManager::CleanupModFolder(const idStr& name)
 {
 	CModInfoPtr info = GetModInfo(name);
 
