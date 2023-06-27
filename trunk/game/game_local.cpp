@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5007 $
- * $Date: 2011-10-21 12:36:25 -0400 (Fri, 21 Oct 2011) $
+ * $Revision: 5011 $
+ * $Date: 2011-10-25 03:02:07 -0400 (Tue, 25 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 5007 2011-10-21 16:36:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 5011 2011-10-25 07:02:07Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -591,7 +591,7 @@ void idGameLocal::CheckTDMVersion()
 		return;
 	}
 
-	idStr url = cv_tdm_version_check_url.GetString();		// http://bloodgate.com/mirrors/tdm/pub/tdm_version.xml
+	idStr url = cv_tdm_version_check_url.GetString();
 	Printf("Checking %s\n", url.c_str() );
 	CHttpRequestPtr req = m_HttpConnection->CreateRequest( url.c_str() );
 

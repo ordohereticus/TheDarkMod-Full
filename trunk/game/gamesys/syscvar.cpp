@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4996 $
- * $Date: 2011-10-16 15:53:30 -0400 (Sun, 16 Oct 2011) $
- * $Author: tels $
+ * $Revision: 5011 $
+ * $Date: 2011-10-25 03:02:07 -0400 (Tue, 25 Oct 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 4996 2011-10-16 19:53:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscvar.cpp 5011 2011-10-25 07:02:07Z greebo $", init_version);
 
 #include "../game_local.h"
 
@@ -150,7 +150,7 @@ idCVar cv_tdm_allow_http_access("tdm_allow_http_access",		"1",			CVAR_GAME | CVA
 idCVar cv_tdm_mission_list_urls("tdm_mission_list_urls",	"http://www.thedarkmod.com/missiondb/get_available_missions.php;http://www.thedarkmod.com/missiondb/available_missions.xml", CVAR_GAME, "The URLs to check for the mission list XML." );
 idCVar cv_tdm_mission_details_url("tdm_mission_details_url", "http://www.thedarkmod.com/missiondb/get_mission_details.php?id=%d", CVAR_GAME, "The URLs to check for the mission details XML." );
 idCVar cv_tdm_mission_screenshot_url("tdm_mission_screenshot_url", "http://www.thedarkmod.com/%s", CVAR_GAME, "The URL template to download the mission screenshots." );
-idCVar cv_tdm_version_check_url("tdm_version_check_url", "http://bloodgate.com/mirrors/tdm/pub/tdm_version.xml", CVAR_GAME, "The URL to check for the current TDM version." );
+idCVar cv_tdm_version_check_url("tdm_version_check_url", "http://www.thedarkmod.com/update/tdm_version.xml", CVAR_GAME, "The URL to check for the current TDM version." );
 
 /**
 * DarkMod DEBUG related CVARs
