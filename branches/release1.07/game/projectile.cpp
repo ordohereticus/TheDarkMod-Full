@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5029 $
- * $Date: 2011-11-07 00:14:02 -0500 (Mon, 07 Nov 2011) $
+ * $Revision: 5048 $
+ * $Date: 2011-11-22 01:47:03 -0500 (Tue, 22 Nov 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 5029 2011-11-07 05:14:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 5048 2011-11-22 06:47:03Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1340,6 +1340,18 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 		GetStimResponseCollection()->RemoveStim( ST_VISUAL );
 	}
 }
+
+// grayman #2934
+
+void idProjectile::AttackAction(idPlayer* player)
+{
+	if ( m_Lock != NULL )
+	{
+		m_Lock->AttackAction(player);
+	}
+}
+
+
 
 /*
 ================
