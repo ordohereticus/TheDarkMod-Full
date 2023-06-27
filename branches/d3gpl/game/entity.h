@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5123 $ (Revision of last commit) 
- $Date: 2011-12-12 01:37:40 -0500 (Mon, 12 Dec 2011) $ (Date of last commit)
+ $Revision: 5132 $ (Revision of last commit) 
+ $Date: 2011-12-29 00:41:59 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -1215,6 +1215,7 @@ public:
 	void					Event_SetEntityRelation (idEntity* entity, int relation);
 	void					Event_ChangeEntityRelation(idEntity* entity, int relationChange);
 
+	void					Event_IsLight(); // grayman #2905
 
 	int						team;
 

@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5123 $ (Revision of last commit) 
- $Date: 2011-12-12 01:37:40 -0500 (Mon, 12 Dec 2011) $ (Date of last commit)
+ $Revision: 5132 $ (Revision of last commit) 
+ $Date: 2011-12-29 00:41:59 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Entity.cpp 5123 2011-12-12 06:37:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Entity.cpp 5132 2011-12-29 05:41:59Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -156,6 +156,7 @@ const idEventDef EV_GetLightInPVS("getLightInPVS", "ff", 'v');
 
 const idEventDef EV_GetVinePlantLoc("getVinePlantLoc", NULL, 'v');	// grayman #2787
 const idEventDef EV_GetVinePlantNormal("getVinePlantNormal", NULL, 'v');	// grayman #2787
+const idEventDef EV_IsLight("isLight", NULL, 'd'); // grayman #2905
 
 //===============================================================
 //                   TDM GUI interface
@@ -456,6 +457,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 
 	EVENT( EV_GetVinePlantLoc,		idEntity::Event_GetVinePlantLoc )		// grayman #2478
 	EVENT( EV_GetVinePlantNormal,	idEntity::Event_GetVinePlantNormal )	// grayman #2478
+	EVENT( EV_IsLight,				idEntity::Event_IsLight )				// grayman #2905
 
 END_CLASS
 
@@ -12231,5 +12233,10 @@ void idEntity::Event_ChangeEntityRelation(idEntity* entity, int relationChange)
 	ChangeEntityRelation(entity, relationChange);
 }
 
+// grayman #2905
 
+void idEntity::Event_IsLight()
+{
+	idThread::ReturnInt(static_cast<int>(IsType(idLight::Type)));
+}
 
