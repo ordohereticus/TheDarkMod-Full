@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4981 $
- * $Date: 2011-09-25 06:34:52 -0400 (Sun, 25 Sep 2011) $
+ * $Revision: 4986 $
+ * $Date: 2011-10-03 11:28:45 -0400 (Mon, 03 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4981 2011-09-25 10:34:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4986 2011-10-03 15:28:45Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3813,6 +3813,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		if ( cmd == "log" || cmd == "notime") { m_GUICommandArgs = 1; }
 		// these two take 3 arguments each
 		if ( cmd == "initchoice" || cmd == "stepchoice") { m_GUICommandArgs = 3; }
+		// this takes one argument
+		if ( cmd == "setlang") { m_GUICommandArgs = 1; }
 
 		if ( cmd != "log" && cmd != "mainmenu_heartbeat")
 		{
@@ -4309,6 +4311,10 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		gui->SetStateString("tdmversiontext", va("TDM %d.%02d", TDM_VERSION_MAJOR, TDM_VERSION_MINOR));
 		UpdateGUIScaling(gui);
+		gui->SetStateString( "tdm_lang", m_I18N->GetCurrentLanguage()->c_str() );
+		idStr gui_lang = "lang_"; gui_lang += m_I18N->GetCurrentLanguage()->c_str();
+//		Printf ("Setting %s to 1.\n", gui_lang.c_str() );
+		gui->SetStateInt( gui_lang, 1 );
 	}
 	else if (cmd == "check_tdm_version")
 	{
@@ -4341,12 +4347,26 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 
 		ClearPersistentInfo();
 	}
-	else if (cmd == "languagechanged")
+	else if (cmd == "setlang")
 	{
-		idStr tdm_lang = cv_tdm_lang.GetString();
-		Printf("GUI: Language changed to %s.\n", tdm_lang.c_str() );
-		// get the new language and store it, will also reload the GUI
-		gameLocal.m_I18N->SetLanguage( tdm_lang.c_str() );
+		const idStr *oldLang = m_I18N->GetCurrentLanguage();
+		idStr newLang = m_GUICommandStack[1];
+
+		// reset lang_oldname and enable lang_newname
+		idStr gui_lang = "lang_"; gui_lang += newLang;
+//		Printf ("Setting %s to 1.\n", gui_lang.c_str() );
+		gui->SetStateInt( gui_lang, 1 );
+		gui_lang = "lang_"; gui_lang += oldLang->c_str();
+//		Printf ("Setting %s to 0.\n", gui_lang.c_str() );
+		gui->SetStateInt( gui_lang, 0 );
+
+		// do this after the step above, or oldLang will be incorrect:
+		Printf("GUI: Language changed to %s.\n", newLang.c_str() );
+		// set the new language and store it, will also reload the GUI
+		gameLocal.m_I18N->SetLanguage( newLang.c_str() );
+
+		// store it, so the GUI can access it
+		gui->SetStateString( "tdm_lang", m_I18N->GetCurrentLanguage()->c_str() );
 	}
 	// tels: #2796 build our own "choicedef" as integer/boolean option.
 	else if (cmd == "initchoice" || cmd == "stepchoice")
