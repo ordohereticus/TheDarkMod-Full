@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5197 $ (Revision of last commit) 
+ $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem.cpp 5197 2012-01-09 04:07:49Z greebo $");
 
 #include "tr_local.h"
 
@@ -867,6 +867,14 @@ void	idRenderSystemLocal::CropRenderSize( int width, int height, bool makePowerO
 	rc->height = height;
 }
 
+void idRenderSystemLocal::GetCurrentRenderCropSize(int& width, int& height)
+{
+	renderCrop_t* rc = &renderCrops[currentRenderCrop];
+
+	width = rc->width;
+	height = rc->height;
+}
+
 /*
 ================
 UnCrop
@@ -976,6 +984,22 @@ void idRenderSystemLocal::CaptureRenderToFile( const char *fileName, bool fixAlp
 	R_StaticFree( data2 );
 }
 
+void idRenderSystemLocal::CaptureRenderToBuffer(unsigned char* buffer)
+{
+	if ( !glConfig.isInitialized ) {
+		return;
+	}
+
+	renderCrop_t *rc = &renderCrops[currentRenderCrop];
+
+	guiModel->EmitFullScreen();
+	guiModel->Clear();
+	R_IssueRenderCommands();
+
+	qglReadBuffer( GL_BACK );
+
+	qglReadPixels(rc->x, rc->y, rc->width, rc->height, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+}
 
 /*
 ==============

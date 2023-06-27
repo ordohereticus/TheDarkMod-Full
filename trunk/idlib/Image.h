@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5190 $ (Revision of last commit) 
- $Date: 2012-01-08 05:23:53 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5197 $ (Revision of last commit) 
+ $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -65,6 +65,14 @@ public:
 	void Unload();
 
 	/**
+	 * greebo: Creates a new image with the given dimension and bit depth.
+	 * Discards any previously loaded image, unless the dimensions match.
+	 *
+	 * @returns: true on success, false otherwise.
+	 */
+	bool Init(int width, int height, int bpp);
+
+	/**
 	 * Load the image from the given file (loaded via D3's filesystem) into memory 
 	 * and allow access to it. Any previous image is unloaded.
 	 */
@@ -94,9 +102,10 @@ public:
 
 	/**
 	 * GetImage returns the pointer to the actual image data.
-	 * The image has to be already loaded, otherwise NULL is returned.
+	 * The image has to be already loaded or initialised, otherwise NULL is returned.
 	 */
-	const unsigned char* GetImageData() const;
+	unsigned char* GetImageData();
+
 	/**
 	 * Returns the buffer length of the loaded image data in bytes.
 	 * The data is uncompressed and without header - pure pixel data.

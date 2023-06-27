@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5197 $ (Revision of last commit) 
+ $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -97,7 +97,7 @@ public:
 	float	Calculate		( idPlayer *	a_pPlayer );
 
 private:
-	void AnalyzeRenderImage	(float fColVal[DARKMOD_LG_MAX_IMAGESPLIT]);
+	void AnalyzeRenderImage	(float fColVal[DARKMOD_LG_MAX_IMAGESPLIT], float oldColVal[DARKMOD_LG_MAX_IMAGESPLIT]);
 };
 
 #endif // __LIGHTGEM_H__
