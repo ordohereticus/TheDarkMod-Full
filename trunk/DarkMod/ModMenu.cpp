@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4946 $
- * $Date: 2011-08-07 13:55:30 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4947 $
+ * $Date: 2011-08-07 14:00:38 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4946 2011-08-07 17:55:30Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4947 2011-08-07 18:00:38Z tels $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -441,7 +441,7 @@ void CModMenu::RestartGame()
 	// always use at least 100ms on linux/macos, or the old process might still run while the 
 	// new process is already starting up:
 	restartDelay += 100;
-#else
+#endif
 
 	if (restartDelay > 0)
 	{
