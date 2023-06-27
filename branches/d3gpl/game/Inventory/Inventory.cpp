@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4960 $
- * $Date: 2011-08-17 14:26:17 -0400 (Wed, 17 Aug 2011) $
- * $Author: tels $
+ * $Revision: 5087 $
+ * $Date: 2011-12-05 00:34:06 -0500 (Mon, 05 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -12,12 +12,12 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4960 2011-08-17 18:26:17Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 5087 2011-12-05 05:34:06Z greebo $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
 
-#include "../game/game_local.h"
+#include "Game_local.h"
 
 #include "../Objectives/MissionData.h"
 #include "../Shop/Shop.h" // grayman (#2376)

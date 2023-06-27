@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5080 $
- * $Date: 2011-12-04 14:02:47 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5087 $
+ * $Date: 2011-12-05 00:34:06 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,16 +10,16 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-#include "../game/game_local.h"
+#include "Game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 5080 2011-12-04 19:02:47Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 5087 2011-12-05 05:34:06Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
 #include "MissionData.h"
 #include "../ai/Memory.h"
 #include "../DifficultyManager.h"
-#include "../../game/player.h"
+#include "../Player.h"
 #include "../StimResponse/StimResponseCollection.h"
 #include "../Missions/MissionManager.h"
 

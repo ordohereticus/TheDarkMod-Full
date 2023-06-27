@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5015 $
- * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5087 $
+ * $Date: 2011-12-05 00:34:06 -0500 (Mon, 05 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -48,7 +48,7 @@ enum EMissionEventType
 	EVENT_INVALID,
 };
 
-// TODO: move to game_local.h?
+// TODO: move to Game_local.h?
 struct SObjEntParms
 {
 	idStr	name;
