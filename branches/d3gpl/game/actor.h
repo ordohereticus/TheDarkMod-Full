@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5080 $
+ * $Date: 2011-12-04 14:02:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #define __GAME_ACTOR_H__
 
 #include "MultiStateMoverPosition.h"
-#include "AI/EAS/RouteInfo.h"
+#include "ai/EAS/RouteInfo.h"
 #include <set>
 
 // greebo: Keep the values in scripts/tdm_defs.script in sync with these

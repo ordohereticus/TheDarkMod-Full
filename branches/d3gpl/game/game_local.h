@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5078 $
- * $Date: 2011-12-04 13:45:47 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5080 $
+ * $Date: 2011-12-04 14:02:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -136,7 +136,7 @@ void gameError( const char *fmt, ... );
 
 #include "Objectives/EMissionResult.h"
 #include "DifficultyManager.h"
-#include "AI/AreaManager.h"
+#include "ai/AreaManager.h"
 #include "GamePlayTimer.h"
 #include "ModelGenerator.h"
 #include "ImageMapManager.h"

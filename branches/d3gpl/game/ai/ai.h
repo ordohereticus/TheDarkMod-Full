@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5080 $
+ * $Date: 2011-12-04 14:02:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,9 +14,9 @@
 #define __AI_H__
 
 #include "../Relations.h"
-#include "../AI/Mind.h"
-#include "../AI/CommunicationSubsystem.h"
-#include "../AI/MovementSubsystem.h"
+#include "../ai/Mind.h"
+#include "../ai/CommunicationSubsystem.h"
+#include "../ai/MovementSubsystem.h"
 #include "../HidingSpotSearchCollection.h"
 #include "../darkmodHidingSpotTree.h"
 #include "MoveState.h"

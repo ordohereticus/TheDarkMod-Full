@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5076 $
- * $Date: 2011-12-04 12:05:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5080 $
+ * $Date: 2011-12-04 14:02:47 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 5076 2011-12-04 17:05:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 5080 2011-12-04 19:02:47Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -24,7 +24,7 @@ static bool init_version = FileVersionList("$Id: syscmds.cpp 5076 2011-12-04 17:
 #include "../Inventory/Inventory.h"
 #include "../Inventory/InventoryItem.h"
 #include "../TimerManager.h"
-#include "../AI/Conversation/ConversationSystem.h"
+#include "../ai/Conversation/ConversationSystem.h"
 #include "../Missions/MissionManager.h"
 #include "../Missions/ModInfo.h"
 
