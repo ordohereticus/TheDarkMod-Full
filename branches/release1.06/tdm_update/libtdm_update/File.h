@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4886 $
+ * $Date: 2011-06-14 03:35:25 -0400 (Tue, 14 Jun 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -129,6 +129,9 @@ public:
 			return false;
 		}
 	}
+
+	// Marks the given file as executable (for all groups) - does nothing in Win32
+	static void MarkAsExecutable(const fs::path& path);
 };
 
 }
