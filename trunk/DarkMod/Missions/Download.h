@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4399 $
- * $Date: 2011-01-10 21:22:39 -0500 (Mon, 10 Jan 2011) $
+ * $Revision: 5008 $
+ * $Date: 2011-10-22 13:33:20 -0400 (Sat, 22 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -84,12 +84,15 @@ private:
 
 	UserData _userData;
 
+	// The ID of the related download (mission + l10n)
+	int	_relatedDownload;
+
 public:
 	/** 
 	 * greebo: Construct a new Download using the given URL.
 	 * The download data will be saved to the given destFilename;
 	 */
-	CDownload(const idStr& url, const idStr& destFilename);
+	CDownload(const idStr& url, const idStr& destFilename, bool enablePK4check = false);
 
 	/**
 	 * greebo: Construct a new Download using the given list of 
@@ -97,7 +100,7 @@ public:
 	 * the next one will be tried until no more alternatives are left.
 	 * The result will be saved to destFilename.
 	 */
-	CDownload(const idStringList& urls, const idStr& destFilename);
+	CDownload(const idStringList& urls, const idStr& destFilename, bool enablePK4check = false);
 
 	~CDownload();
 
@@ -115,6 +118,11 @@ public:
 	DownloadStatus GetStatus();
 
 	double GetProgressFraction();
+
+	// Get the ID if the related download (e.g. a mission might have a l10n pack as related download)
+	int GetRelatedDownloadId();
+
+	void SetRelatedDownloadId(int relatedDownloadId);
 
 	// UserData accessors
 	const UserData& GetUserData() const { return _userData; };

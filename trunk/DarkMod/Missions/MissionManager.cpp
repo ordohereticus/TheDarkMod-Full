@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4971 $
- * $Date: 2011-09-15 09:15:59 -0400 (Thu, 15 Sep 2011) $
+ * $Revision: 5008 $
+ * $Date: 2011-10-22 13:33:20 -0400 (Sat, 22 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4971 2011-09-15 13:15:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 5008 2011-10-22 17:33:20Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -1359,6 +1359,7 @@ void CMissionManager::LoadModListFromXml(const XmlDocumentPtr& doc)
 			}
 		}
 
+		// Mission download links
 		pugi::xpath_node_set downloadLocations = node.select_nodes("downloadLocation");
 
 		for (pugi::xpath_node_set::const_iterator loc = downloadLocations.begin(); loc != downloadLocations.end(); ++loc)	
@@ -1368,11 +1369,21 @@ void CMissionManager::LoadModListFromXml(const XmlDocumentPtr& doc)
 			// Only accept English downloadlinks
 			if (idStr::Icmp(locNode.attribute("language").value(), "english") != 0) continue;
 
-			mission.downloadLocations.Append(locNode.attribute("url").value());
+			mission.missionUrls.Append(locNode.attribute("url").value());
+		}
+
+		// Localisation packs
+		pugi::xpath_node_set l10PackNodes = node.select_nodes("localisationPack");
+
+		for (pugi::xpath_node_set::const_iterator loc = l10PackNodes.begin(); loc != l10PackNodes.end(); ++loc)	
+		{
+			pugi::xml_node locNode = loc->node();
+
+			mission.l10nPackUrls.Append(locNode.attribute("url").value());
 		}
 
 		// Only add missions with valid locations
-		if (mission.downloadLocations.Num() > 0)
+		if (mission.missionUrls.Num() > 0)
 		{
 			// Copy-construct the local mission struct into the heap-allocated one
 			_downloadableMods.Append(new DownloadableMod(mission));

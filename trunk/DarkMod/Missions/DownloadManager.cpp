@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4055 $
- * $Date: 2010-07-13 07:17:09 -0400 (Tue, 13 Jul 2010) $
+ * $Revision: 5008 $
+ * $Date: 2011-10-22 13:33:20 -0400 (Sat, 22 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadManager.cpp 4055 2010-07-13 11:17:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadManager.cpp 5008 2011-10-22 17:33:20Z greebo $", init_version);
 
 #include "DownloadManager.h"
 
@@ -82,7 +82,25 @@ void CDownloadManager::ProcessDownloads()
 	{
 		if (i->second->GetStatus() == CDownload::NOT_STARTED_YET)
 		{
+			DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Starting download: %i", i->first);
+
 			i->second->Start();
+
+			// Check if this download has a related one, if yes, launch both at once
+			int relatedId = i->second->GetRelatedDownloadId();
+
+			if (relatedId != -1)
+			{
+				CDownloadPtr related = GetDownload(relatedId);
+
+				if (related)
+				{
+					DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Starting related download: %i", relatedId);
+
+					related->Start();
+				}
+			}
+
 			return;
 		}
 	}

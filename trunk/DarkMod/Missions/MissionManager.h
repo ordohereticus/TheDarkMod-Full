@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4831 $
- * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
+ * $Revision: 5008 $
+ * $Date: 2011-10-22 13:33:20 -0400 (Sat, 22 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -84,8 +84,11 @@ struct DownloadableMod
 	int		version;		// version number, initial release carries version 1
 	bool	isUpdate;		// whether this mission is an update of one already installed
 
+	// The list of mission download URLs
+	idStringList missionUrls;
+
 	// The list of HTTP download URLs
-	idStringList downloadLocations;
+	idStringList l10nPackUrls;
 
 	// Begin Initially empty variables, need to be filled per request by the mission manager
 
