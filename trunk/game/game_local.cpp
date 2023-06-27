@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4986 $
- * $Date: 2011-10-03 11:28:45 -0400 (Mon, 03 Oct 2011) $
+ * $Revision: 5002 $
+ * $Date: 2011-10-20 13:27:46 -0400 (Thu, 20 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4986 2011-10-03 15:28:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 5002 2011-10-20 17:27:46Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3773,6 +3773,8 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		and certain commands might get cut-off. Usually this means that you see a ";" instead
 		of an expected argument, or that commands run together like "initChoicelog". When this
 		happens, the GUI must be adjusted to issue less commands (or issue them later).
+		To work around this issue, we call ExecuteCommandBuffer( void ) whenever we see an
+		initChoice command, in the hopes that the buffer won't overflow until the next one.
 
 		The old code simply watched for certain words, and then issued the command. It was not
 		able to distinguish between commands and arguments.
@@ -4478,10 +4480,15 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 //		Warning("Unknown main menu command '%s'.\n", cmd.c_str());
 //	}
 
-	// TODO: handle here (lowercase) commands with arguments, too
-	m_Shop->HandleCommands( menuCommand, gui);
-	m_ModMenu->HandleCommands( menuCommand, gui);
-	m_DownloadMenu->HandleCommands( menuCommand, gui);
+	// TODO: These routines might want to handle arguments to commands, too, so
+	//		 add support for this here. E.g. instead of passing ("SomeCommand", gui), pass
+	//		 (m_GUICommandStack, gui) to them:
+	if (cmd != "log")
+	{
+		m_Shop->HandleCommands( menuCommand, gui);
+		m_ModMenu->HandleCommands( menuCommand, gui);
+		m_DownloadMenu->HandleCommands( cmd, gui);		// expects commands in lowercase
+	}
 
 	/*if (cv_debug_mainmenu.GetBool())
 	{
