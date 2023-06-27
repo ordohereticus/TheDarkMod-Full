@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5145 $ (Revision of last commit) 
+ $Date: 2012-01-02 11:41:27 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -49,7 +49,9 @@
 
 #else
 
+#ifndef NO_MFC
 #include "../tools/comafx/StdAfx.h"
+#endif
 
 #endif
 
