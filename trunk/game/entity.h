@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
+ * $Revision: 5128 $
+ * $Date: 2011-12-19 17:38:32 -0500 (Mon, 19 Dec 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1210,6 +1210,7 @@ public:
 	void					Event_SetEntityRelation (idEntity* entity, int relation);
 	void					Event_ChangeEntityRelation(idEntity* entity, int relationChange);
 
+	void					Event_IsLight(); // grayman #2905
 
 	int						team;
 

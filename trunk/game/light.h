@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Revision: 5128 $
+ * $Date: 2011-12-19 17:38:32 -0500 (Mon, 19 Dec 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -214,6 +214,12 @@ public:
 
 	bool IsSmoking();
 
+	/*
+	 * grayman #2905 - was the light out at spawn time?
+	 */
+
+	bool GetStartedOff();
+
 private:
 	renderLight_t	renderLight;				// light presented to the renderer
 	idVec3			localLightOrigin;			// light origin relative to the physics origin
@@ -235,6 +241,7 @@ private:
 	float			nextTimeVerticalCheck;		// grayman #2603 - the next time to check if a lit flame is vertical
 	bool			smoking;					// grayman #2603 - the flame model has changed to a smoke partical model; considered "out"
 	int				whenToDouse;				// grayman #2603 - when a non-vertical flame can be doused
+	bool			startedOff;					// grayman #2905 - was the light off at spawn time?
 
 	idVec4			fadeFrom;
 	idVec4			fadeTo;
@@ -312,6 +319,12 @@ private:
 	 */
 
 	void			Event_Smoking(int state);
+
+	/**
+	 * grayman #2905
+	 */
+
+	void			Event_SetStartedOff();
 
 	/**
 	 * Texturename for the falloff image

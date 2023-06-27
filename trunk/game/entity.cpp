@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 5026 $
- * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
+ * $Revision: 5128 $
+ * $Date: 2011-12-19 17:38:32 -0500 (Mon, 19 Dec 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 5026 2011-11-06 23:19:45Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 5128 2011-12-19 22:38:32Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -151,6 +151,7 @@ const idEventDef EV_GetLightInPVS("getLightInPVS", "ff", 'v');
 
 const idEventDef EV_GetVinePlantLoc("getVinePlantLoc", NULL, 'v');	// grayman #2787
 const idEventDef EV_GetVinePlantNormal("getVinePlantNormal", NULL, 'v');	// grayman #2787
+const idEventDef EV_IsLight("isLight", NULL, 'd'); // grayman #2905
 
 //===============================================================
 //                   TDM GUI interface
@@ -451,6 +452,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 
 	EVENT( EV_GetVinePlantLoc,		idEntity::Event_GetVinePlantLoc )		// grayman #2478
 	EVENT( EV_GetVinePlantNormal,	idEntity::Event_GetVinePlantNormal )	// grayman #2478
+	EVENT( EV_IsLight,				idEntity::Event_IsLight )				// grayman #2905
 
 END_CLASS
 
@@ -12224,6 +12226,13 @@ void idEntity::Event_SetEntityRelation(idEntity* entity, int relation)
 void idEntity::Event_ChangeEntityRelation(idEntity* entity, int relationChange)
 {
 	ChangeEntityRelation(entity, relationChange);
+}
+
+// grayman #2905
+
+void idEntity::Event_IsLight()
+{
+	idThread::ReturnInt(static_cast<int>(IsType(idLight::Type)));
 }
 
 
