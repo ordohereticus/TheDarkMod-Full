@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4857 $
- * $Date: 2011-05-22 01:41:39 -0400 (Sun, 22 May 2011) $
- * $Author: greebo $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4857 2011-05-22 05:41:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4809,11 +4809,10 @@ bool idGameLocal::SpawnEntityDef( const idDict &args, idEntity **ent, bool setDe
 	}
 
 	spawnArgs.GetString( "classname", NULL, &classname );
-
 	const idDeclEntityDef *def = FindEntityDef( classname, false );
 
 	if ( !def ) {
-		Warning( "Unknown classname '%s'%s.", classname, error.c_str() );
+		Warning( "Unknown classname '%s'%s.\n", classname, error.c_str() );
 		return false;
 	}
 
@@ -5124,6 +5123,37 @@ int idGameLocal::GetTargets( const idDict &args, idList< idEntityPtr<idEntity> >
 			if ( ent ) {
 				idEntityPtr<idEntity> &entityPtr = list.Alloc();
                 entityPtr = ent;
+			}
+		}
+	}
+
+	return list.Num();
+}
+
+/*
+================
+idGameLocal::GetRelights - grayman #2603 - retrieve relight entities and add them to the target list
+================
+*/
+int idGameLocal::GetRelights( const idDict &args, idList< idEntityPtr<idEntity> > &list, const char *ref ) const
+{
+	int i,num,refLength;
+	const idKeyValue *arg;
+	idEntity *ent;
+
+	refLength = strlen(ref);
+	num = args.GetNumKeyVals();
+	for (i = 0 ; i < num ; i++)
+	{
+		arg = args.GetKeyVal(i);
+		if (arg->GetKey().Icmpn(ref,refLength) == 0)
+		{
+			const idStr name = arg->GetValue();
+			ent = FindEntity(name);
+			if (ent)
+			{
+				idEntityPtr<idEntity> &entityPtr = list.Alloc();
+				entityPtr = ent;
 			}
 		}
 	}

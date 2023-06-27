@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3547 $
- * $Date: 2009-07-18 13:44:57 -0400 (Sat, 18 Jul 2009) $
- * $Author: angua $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FleeState.cpp 3547 2009-07-18 17:44:57Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: FleeState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "FleeState.h"
 #include "../Memory.h"
@@ -47,6 +47,7 @@ void FleeState::Init(idAI* owner)
 
 	// The movement subsystem should wait half a second before starting to run
 	owner->StopMove(MOVE_STATUS_DONE);
+	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 	if (owner->GetEnemy())
 	{
 		owner->FaceEnemy();

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3354 $
- * $Date: 2009-04-04 07:41:43 -0400 (Sat, 04 Apr 2009) $
- * $Author: angua $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StayInCoverState.cpp 3354 2009-04-04 11:41:43Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: StayInCoverState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "StayInCoverState.h"
 #include "FleeState.h"
@@ -49,7 +49,8 @@ void StayInCoverState::Init(idAI* owner)
 	// The movement subsystem should do nothing.
 	owner->StopMove(MOVE_STATUS_DONE);
 	owner->movementSubsystem->ClearTasks();
-	
+	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
+
 	// Calculate the time we should stay in cover
 	int coverDelayMin = SEC2MS(owner->spawnArgs.GetFloat("emerge_from_cover_delay_min"));
 	int coverDelayMax = SEC2MS(owner->spawnArgs.GetFloat("emerge_from_cover_delay_max"));

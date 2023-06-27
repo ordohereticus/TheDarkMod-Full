@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4814 $
- * $Date: 2011-04-24 02:00:23 -0400 (Sun, 24 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -795,6 +795,7 @@ public:
 	void					AddEntityToHash( const char *name, idEntity *ent );
 	bool					RemoveEntityFromHash( const char *name, idEntity *ent );
 	int						GetTargets( const idDict &args, idList< idEntityPtr<idEntity> > &list, const char *ref ) const;
+	int						GetRelights(const idDict &args,idList<idEntityPtr<idEntity>> &list,const char *ref) const; // grayman #2603
 
 							// returns the master entity of a trace.  for example, if the trace entity is the player's head, it will return the player.
 	idEntity *				GetTraceEntity( const trace_t &trace ) const;

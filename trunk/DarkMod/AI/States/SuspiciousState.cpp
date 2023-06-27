@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3856 $
- * $Date: 2010-03-20 11:17:19 -0400 (Sat, 20 Mar 2010) $
- * $Author: greebo $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 3856 2010-03-20 15:17:19Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SuspiciousState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -78,6 +78,8 @@ void SuspiciousState::Init(idAI* owner)
 	{
 		owner->movementSubsystem->ClearTasks();
 		owner->StopMove(MOVE_STATUS_DONE);
+		memory.stopRelight = true; // grayman #2603 - abort a relight in progress
+
 		if (!owner->CheckFOV(memory.alertPos) && owner->GetMoveType() == MOVETYPE_ANIM)
 		{
 			// Search spot is not within FOV, turn towards the position
@@ -94,7 +96,7 @@ void SuspiciousState::Init(idAI* owner)
 
 	if (owner->AlertIndexIncreased())
 	{
-		if (memory.alertClass == EAlertVisual)
+		if (memory.alertClass == EAlertVisual_1)
 		{
 			bark = "snd_alert1s";
 		}

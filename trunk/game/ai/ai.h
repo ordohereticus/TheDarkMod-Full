@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4866 $
- * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1855,7 +1855,6 @@ public:
 
 	void					SetDelayedStimExpiration(idEntityPtr<idEntity> stimPtr);
 	int						GetDelayedStimExpiration(idEntityPtr<idEntity> stimPtr);
-	void					AddDelayedStim(idEntityPtr<idEntity> stimPtr);
 	
 	//
 	// ai/ai_events.cpp

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3628 $
- * $Date: 2009-08-01 00:46:12 -0400 (Sat, 01 Aug 2009) $
- * $Author: greebo $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BlindedState.cpp 3628 2009-08-01 04:46:12Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: BlindedState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "BlindedState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -46,6 +46,7 @@ void BlindedState::Init(idAI* owner)
 	owner->SetWaitState(ANIMCHANNEL_LEGS, "blinded");
 
 	Memory& memory = owner->GetMemory();
+	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 
 	CommMessagePtr message(new CommMessage(
 		CommMessage::RequestForHelp_CommType, 

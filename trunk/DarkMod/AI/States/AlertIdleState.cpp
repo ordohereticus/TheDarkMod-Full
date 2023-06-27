@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4862 $
- * $Date: 2011-05-22 08:41:11 -0400 (Sun, 22 May 2011) $
- * $Author: greebo $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 4862 2011-05-22 12:41:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AlertIdleState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "IdleState.h"
 #include "AlertIdleState.h"
@@ -45,8 +45,8 @@ void AlertIdleState::Init(idAI* owner)
 
 	// grayman #2603 - clear recent alerts, which allows us to see new, lower-weighted, alerts
 	Memory& memory = owner->GetMemory();
-	memory.alertClass = EAlertNone;
-	memory.alertType = EAlertTypeNone;
+//	memory.alertClass = EAlertNone; // grayman #2603 - moved further down, otherwise we don't hear the correct rampdown bark
+//	memory.alertType = EAlertTypeNone;
 
 	_alertLevelDecreaseRate = 0.005f;
 
@@ -61,6 +61,8 @@ void AlertIdleState::Init(idAI* owner)
 
 	InitialiseMovement(owner);
 	InitialiseCommunication(owner);
+	memory.alertClass = EAlertNone;
+	memory.alertType = EAlertTypeNone;
 
 	int idleBarkIntervalMin = SEC2MS(owner->spawnArgs.GetInt("alert_idle_bark_interval_min", "40"));
 	int idleBarkIntervalMax = SEC2MS(owner->spawnArgs.GetInt("alert_idle_bark_interval_max", "120"));
@@ -92,9 +94,16 @@ idStr AlertIdleState::GetInitialIdleBark(idAI* owner)
 
 	// Decide what sound it is appropriate to play
 	idStr soundName("");
-	if (owner->m_lastAlertLevel >= owner->thresh_1 && owner->m_lastAlertLevel < owner->thresh_3)
+
+	if (!owner->m_RelightingLight && // grayman #2603 - No rampdown bark if relighting a light.
+		(owner->m_lastAlertLevel >= owner->thresh_1) &&
+		(owner->m_lastAlertLevel < owner->thresh_3))
 	{
-		if (memory.alertClass == EAlertVisual && memory.alertType != EAlertTypeMissingItem)
+		if (memory.alertClass == EAlertVisual_2) // grayman #2603
+		{
+			soundName = "snd_alertdown0sus";
+		}
+		else if ((memory.alertClass == EAlertVisual_1) && (memory.alertType != EAlertTypeMissingItem))
 		{
 			soundName = "snd_alertdown0s";
 		}

@@ -3,8 +3,8 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4866 $
- * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -689,6 +689,8 @@ public:
 	virtual void			RemoveTarget(idEntity* target);
 	virtual void			AddTarget(idEntity* target);
 
+	// grayman #2603 - relight positions
+	void					FindRelights(void);
 
 	// misc
 	virtual void			Teleport( const idVec3 &origin, const idAngles &angles, idEntity *destination );

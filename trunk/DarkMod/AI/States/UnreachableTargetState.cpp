@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4305 $
- * $Date: 2010-11-21 09:53:11 -0500 (Sun, 21 Nov 2010) $
- * $Author: tels $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 4305 2010-11-21 14:53:11Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: UnreachableTargetState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "UnreachableTargetState.h"
 #include "../Memory.h"
@@ -89,6 +89,7 @@ void UnreachableTargetState::Init(idAI* owner)
 
 	owner->StopMove(MOVE_STATUS_DONE);
 	owner->movementSubsystem->ClearTasks();
+	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 
 	owner->actionSubsystem->ClearTasks();
 

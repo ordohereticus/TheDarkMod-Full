@@ -2,9 +2,9 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4856 $
- * $Date: 2011-05-22 00:03:25 -0400 (Sun, 22 May 2011) $
- * $Author: greebo $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -94,7 +94,8 @@ namespace ai
 enum EAlertClass 
 {
 	EAlertNone,
-	EAlertVisual,
+	EAlertVisual_1,
+	EAlertVisual_2, // grayman #2603
 	EAlertTactile,
 	EAlertAudio,
 	EAlertClassCount

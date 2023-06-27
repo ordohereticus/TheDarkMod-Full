@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3868 $
- * $Date: 2010-03-26 02:18:04 -0400 (Fri, 26 Mar 2010) $
- * $Author: greebo $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CombatState.cpp 3868 2010-03-26 06:18:04Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: CombatState.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -144,6 +144,7 @@ void CombatState::Init(idAI* owner)
 	idActor* enemy = _enemy.GetEntity();
 
 	owner->StopMove(MOVE_STATUS_DONE);
+	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 
 	owner->movementSubsystem->ClearTasks();
 	owner->senseSubsystem->ClearTasks();

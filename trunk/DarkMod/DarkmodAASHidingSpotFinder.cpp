@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4855 $
- * $Date: 2011-05-20 15:05:12 -0400 (Fri, 20 May 2011) $
+ * $Revision: 4869 $
+ * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 4855 2011-05-20 19:05:12Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: DarkmodAASHidingSpotFinder.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
 
 #include "DarkmodAASHidingSpotFinder.h"
 #include "DarkModGlobals.h"
@@ -531,7 +531,7 @@ bool CDarkmodAASHidingSpotFinder::testingAASAreas_InNonVisiblePVSArea
 				hidingSpotRedundancyDistance
 			);
 			
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Hiding spot added for PVS non-visible area %d, AAS area %d, quality, goal [%s]\r", PVSAreas[numPVSAreasIterated], hidingSpot.goal.areaNum,hidingSpot.goal.origin.ToString());
+			//DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Hiding spot added for PVS non-visible area %d, AAS area %d, quality, goal [%s]\r", PVSAreas[numPVSAreasIterated], hidingSpot.goal.areaNum,hidingSpot.goal.origin.ToString());
 		}
 
 		// This counts as a point tested
