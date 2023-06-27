@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4968 $
- * $Date: 2011-09-03 10:20:43 -0400 (Sat, 03 Sep 2011) $
+ * $Revision: 5019 $
+ * $Date: 2011-11-04 13:16:10 -0400 (Fri, 04 Nov 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -34,8 +34,9 @@ public:
 							~idLangDict( void );
 
 	void					Clear( void );
-	// Tels: #2812: replace 0xff by 0xb6 (for correct russian rendering in the GUI, HUD and readables)
-	bool					Load( const char *fileName, const bool clear = true, const char replace_0xff = '\xb6' );
+	// Tels: #2812: if remapcount and remap are given, use these to replace characters (remap containts two entries for
+	//				each "remapcount", the first is the one to replace, the second the replacement.
+	bool					Load( const char *fileName, const bool clear = true, const unsigned int remapcount = 0, const char *remap = NULL );
 	void					Save( const char *fileName );
 
 	const char *			AddString( const char *str );
