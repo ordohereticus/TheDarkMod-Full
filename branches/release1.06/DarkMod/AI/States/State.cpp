@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
- * $Author: grayman $
+ * $Revision: 4877 $
+ * $Date: 2011-06-05 00:25:07 -0400 (Sun, 05 Jun 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4877 2011-06-05 04:25:07Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -32,6 +32,9 @@ static bool init_version = FileVersionList("$Id: State.cpp 4870 2011-05-31 17:59
 
 #include "../../Grabber.h"
 #include "../Tasks/PlayAnimationTask.h"
+
+#include "ConversationState.h" // grayman #2603
+
 
 namespace ai
 {
@@ -484,6 +487,15 @@ void State::OnVisualStim(idEntity* stimSource)
 		{
 			stimSource->IgnoreResponse(ST_VISUAL,owner);
 			return;
+		}
+
+		// grayman #2603 - Let's see if the AI is involved in a conversation.
+		// FIXME: This might not be enough, if the AI has pushed other states on top of the conversation state
+		ConversationStatePtr convState = boost::dynamic_pointer_cast<ConversationState>(owner->GetMind()->GetState());
+
+		if (convState != NULL)
+		{
+			return; // we're in a conversation, so delay processing the rest of the relight
 		}
 
 		// Before we check the odds of noticing this stim, see if it belongs

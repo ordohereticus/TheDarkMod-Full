@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
- * $Author: grayman $
+ * $Revision: 4877 $
+ * $Date: 2011-06-05 00:25:07 -0400 (Sun, 05 Jun 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4877 2011-06-05 04:25:07Z greebo $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -410,10 +410,11 @@ void SwitchOnLightState::Init(idAI* owner)
 		// Use standOffTemp to find the floor near the goal. In case this is a candle sitting
 		// on a table, you have to move out a reasonable distance to clear the table.
 
+		goalDirection.z = 0; // grayman #2603 - ignore vertical component
 		idVec3 startPoint = goalOrigin + goalDirection * standOffTemp;
 		idVec3 bottomPoint = startPoint;
 		bottomPoint.z -= RELIGHT_MAX_HEIGHT;
-		
+
 		idVec3 targetPoint = startPoint;
 		trace_t result;
 		if (gameLocal.clip.TracePoint(result, startPoint, bottomPoint, MASK_OPAQUE, NULL))
