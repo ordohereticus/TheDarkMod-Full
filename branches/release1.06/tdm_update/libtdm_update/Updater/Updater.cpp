@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4636 $
- * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
+ * $Revision: 4874 $
+ * $Date: 2011-06-02 05:14:23 -0400 (Thu, 02 Jun 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -604,7 +604,17 @@ void Updater::PerformDifferentialUpdateStep()
 
 		NotifyFileProgress(pk4->file, CurFileInfo::Add, static_cast<double>(curOperation++) / totalFileOperations);
 
-		package->ExtractFileTo(pk4->file.string(), targetPath / pk4->file.string());
+		fs::path targetPk4Path = targetPath / pk4->file;
+
+		package->ExtractFileTo(pk4->file.string(), targetPk4Path);
+
+		if (File::IsZip(targetPk4Path))
+		{
+			TraceLog::WriteLine(LOG_VERBOSE, (boost::format(" Extracting file after adding package: %s") % pk4->file.string()).str());
+
+			// Extract this ZIP archive after adding it to the local inventory
+			ExtractAndRemoveZip(targetPk4Path);
+		}
 	}
 
 	// Perform in-depth PK4 changes
