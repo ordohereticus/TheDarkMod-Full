@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5002 $
- * $Date: 2011-10-20 13:27:46 -0400 (Thu, 20 Oct 2011) $
+ * $Revision: 5003 $
+ * $Date: 2011-10-20 17:17:36 -0400 (Thu, 20 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 5002 2011-10-20 17:27:46Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 5003 2011-10-20 21:17:36Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4394,7 +4394,11 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			cvar = cvarSystem->Find( cvarName.c_str() );
 			if (!cvar)
 			{
-				Error("initChoice: Cannot find CVAR '%s'.", cvarName.c_str() );
+				// ignore, the GUI command buffer was probably just overrun
+				Warning("initChoice: Cannot find CVAR '%s'.", cvarName.c_str() );
+				m_GUICommandStack.Clear();
+				m_GUICommandArgs = 0;
+				return;
 			}
 		}
 		// split the choices into a listt
