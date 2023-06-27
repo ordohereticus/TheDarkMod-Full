@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4947 $
- * $Date: 2011-08-07 14:00:38 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4952 $
+ * $Date: 2011-08-11 17:15:52 -0400 (Thu, 11 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4947 2011-08-07 18:00:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4952 2011-08-11 21:15:52Z tels $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -437,7 +437,7 @@ void CModMenu::RestartGame()
 	// greebo: Optional delay between restarts to fix sound system release issues in some Linux systems
 	idStr additionalDelay = "";
 	int restartDelay = cv_tdm_fm_restart_delay.GetInteger();
-#ifndef _WINDOWS_
+#ifndef _WINDOWS
 	// always use at least 100ms on linux/macos, or the old process might still run while the 
 	// new process is already starting up:
 	restartDelay += 100;

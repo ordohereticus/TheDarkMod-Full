@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4929 $
- * $Date: 2011-07-21 10:58:14 -0400 (Thu, 21 Jul 2011) $
- * $Author: stgatilov $
+ * $Revision: 4952 $
+ * $Date: 2011-08-11 17:15:52 -0400 (Thu, 11 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4929 2011-07-21 14:58:14Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4952 2011-08-11 21:15:52Z tels $", init_version);
 
 #include "DarkModGlobals.h"
 #include "sndPropLoader.h"
@@ -279,7 +279,7 @@ void CGlobal::Init()
 	// Report the darkmod path for diagnostic purposes
 	LogString("Darkmod path is %s\r", GetDarkmodPath().c_str());
 
-#ifdef _WINDOWS_
+#ifdef _WINDOWS
 
 	std::string iniPath = GetDarkmodPath();
 	iniPath += "\\darkmod.ini";
