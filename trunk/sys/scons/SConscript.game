@@ -18,8 +18,8 @@
 # 
 # Project: The Dark Mod (http://www.thedarkmod.com/)
 # 
-# $Revision: 5127 $ (Revision of last commit) 
-# $Date: 2011-12-14 02:15:19 -0500 (Wed, 14 Dec 2011) $ (Date of last commit)
+# $Revision: 5160 $ (Revision of last commit) 
+# $Date: 2012-01-04 12:20:16 -0500 (Wed, 04 Jan 2012) $ (Date of last commit)
 # $Author: greebo $ (Author of last commit)
 # 
 #*****************************************************************************
@@ -304,6 +304,9 @@ local_env.Append( CPPFLAGS = [ '-Wno-unused', '-Wno-deprecated' ] )
 local_env.Append( LINKFLAGS = [ '-lrt', '-ljpeg', '-lpng' ] )
 
 local_env.Append(LIBS = [
+	# Uncomment these if you're on a x64 system - there is no libjpeg.a on Ubuntu x64 for instance
+	#File('/usr/lib32/libjpeg.so'),
+	#File('/usr/lib32/libpng.so'),
 	File('#/linux/libcurl/libcurl.a'),
 	File('#/linux/boost/lib/libboost_filesystem.a'),
 	File('#/linux/boost/lib/libboost_system.a'),
