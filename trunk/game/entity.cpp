@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4908 $
- * $Date: 2011-06-30 23:16:54 -0400 (Thu, 30 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 4920 $
+ * $Date: 2011-07-18 17:14:23 -0400 (Mon, 18 Jul 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4908 2011-07-01 03:16:54Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4920 2011-07-18 21:14:23Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -784,12 +784,21 @@ idEntity::FixupLocalizedStrings
 */
 void idEntity::FixupLocalizedStrings()
 {
-	for ( int i = 0; i < spawnArgs.GetNumKeyVals(); i++ ) {
-		const idKeyValue *kv = spawnArgs.GetKeyVal( i );
-		if ( idStr::Cmpn( kv->GetValue(), STRTABLE_ID, STRTABLE_ID_LENGTH ) == 0 ){
-			spawnArgs.Set( kv->GetKey(), common->GetLanguageDict()->GetString( kv->GetValue() ) );
-		}
-	}
+	// Tels: Removed, because if we convert "#str_12345" to "Maps" at spawn time, then
+	// later a compare "#str_12345" to "Maps" will fail.
+    return;
+
+	// TODO: Transform here things like "inv_category" "Maps" back to "#str_1234" so that custom
+	// entities in FMs with hard-coded english inventory categories or names still work even with
+	// the new translation code.
+
+//	for ( int i = 0; i < spawnArgs.GetNumKeyVals(); i++ ) {
+//		const idKeyValue *kv = spawnArgs.GetKeyVal( i );
+//		if ( idStr::Cmpn( kv->GetValue(), STRTABLE_ID, STRTABLE_ID_LENGTH ) == 0 )
+//			{
+//			spawnArgs.Set( kv->GetKey(), common->GetLanguageDict()->GetString( kv->GetValue() ) );
+//			}
+//	}
 }
 
 /*
@@ -9034,6 +9043,11 @@ bool idEntity::CanBeUsedBy(idEntity* entity, const bool isFrobUse)
 	
 	if( bMatchName || bMatchClassname )
 		return true;
+
+	// Tels: TODO: Try here also English names instead of "#str_12345"
+//	gameLocal.Printf("canUsedBy name %s category %s\n", 
+//				entity->spawnArgs.GetString("inv_name"),
+//				entity->spawnArgs.GetString("inv_category") );
 
 	// This may be called when the entity is not in the inventory, so have to read from spawnargs
 	bMatchInvName = ( m_UsedByInvName.FindIndex(entity->spawnArgs.GetString("inv_name")) != -1 );

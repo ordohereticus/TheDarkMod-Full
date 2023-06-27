@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4909 $
- * $Date: 2011-07-01 11:15:01 -0400 (Fri, 01 Jul 2011) $
+ * $Revision: 4920 $
+ * $Date: 2011-07-18 17:14:23 -0400 (Mon, 18 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4909 2011-07-01 15:15:01Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4920 2011-07-18 21:14:23Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -299,8 +299,7 @@ void Cmd_InventoryHotkey_f( const idCmdArgs &args )
 	if( args.Argc() == 2)
 	{
 		idStr itemName = args.Argv(1);
-
-		player->SelectInventoryItem( common->GetLanguageDict()->GetString(itemName) );
+		player->SelectInventoryItem( itemName );
 	}
 	else if (args.Argc() == 1)
 	{
@@ -344,7 +343,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		idStr itemName = args.Argv(1);
 
 		// Try to lookup the item in the inventory
-		CInventoryItemPtr item = inventory->GetItem( common->GetLanguageDict()->GetString(itemName) );
+		CInventoryItemPtr item = inventory->GetItem( itemName );
 
 		if (item != NULL)
 		{
@@ -408,7 +407,7 @@ void Cmd_InventoryCycleGroup_f( const idCmdArgs &args )
 		idStr categoryName = args.Argv(1);
 
 		// Pass the call to the specialised method
-		player->CycleInventoryGroup( common->GetLanguageDict()->GetString(categoryName) );
+		player->CycleInventoryGroup( categoryName );
 	}
 }
 

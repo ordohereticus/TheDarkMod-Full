@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4905 $
- * $Date: 2011-06-23 13:45:40 -0400 (Thu, 23 Jun 2011) $
+ * $Revision: 4920 $
+ * $Date: 2011-07-18 17:14:23 -0400 (Mon, 18 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4905 2011-06-23 17:45:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4920 2011-07-18 21:14:23Z tels $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -259,7 +259,7 @@ void CInventory::NotifyOwnerAboutPickup(const idStr& pickedUpStr, const CInvento
 	idPlayer* player = static_cast<idPlayer*>(m_Owner.GetEntity());
 
 	// Prepend the "acquired" text
-	idStr pickedUpMsg = idStr(common->GetLanguageDict()->GetString("#str_07215")) + pickedUpStr;
+	idStr pickedUpMsg = idStr(common->GetLanguageDict()->GetString("#str_07215")) + pickedUpStr;	// Acquired: 
 
 	// Now actually send the message
 	player->SendInventoryPickedUpMessage(pickedUpMsg);
@@ -601,7 +601,7 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 		// Notify the player, if appropriate
 		if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
 		{
-			idStr msg = name;
+			idStr msg = common->GetLanguageDict()->GetString( name );
 
 			if (count > 0) 
 			{
@@ -645,7 +645,7 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 
 			if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
 			{
-				NotifyOwnerAboutPickup(name, item);
+				NotifyOwnerAboutPickup( common->GetLanguageDict()->GetString( name ), item);
 			}
 
 			// Hide the entity from the map (don't delete the entity)
@@ -1079,7 +1079,7 @@ CInventoryItemPtr CInventory::ValidateWeapon(idEntity* ent, const bool gotFromSh
 
 			if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
 			{
-				NotifyOwnerAboutPickup(ent->spawnArgs.GetString("inv_name"), weaponItem);
+				NotifyOwnerAboutPickup( common->GetLanguageDict()->GetString( ent->spawnArgs.GetString("inv_name") ), weaponItem);
 			}
 			
 			// We're done

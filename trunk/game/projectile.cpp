@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4919 $
- * $Date: 2011-07-17 14:08:39 -0400 (Sun, 17 Jul 2011) $
+ * $Revision: 4920 $
+ * $Date: 2011-07-18 17:14:23 -0400 (Mon, 18 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 4919 2011-07-17 18:08:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 4920 2011-07-18 21:14:23Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1693,7 +1693,7 @@ bool idProjectile::CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobU
 
 	// FIXME: Move this to idEntity to some sort of "usable_by_inv_category" list?
 	const idStr& categoryName = item->Category()->GetName();
-	if (categoryName == common->GetLanguageDict()->GetString( "#str_02389" ))		// Lockpicks
+	if (categoryName == "#str_02389" )				// Lockpicks
 	{
 		if (!m_Lock->IsPickable())
 		{
@@ -1733,7 +1733,7 @@ bool idProjectile::UseBy(EImpulseState impulseState, const CInventoryItemPtr& it
 	// Get the name of this inventory category
 	const idStr& categoryName = item->Category()->GetName();
 
-	if (categoryName == common->GetLanguageDict()->GetString( "#str_02389" ))		// Lockpicks
+	if (categoryName == "#str_02389" )				// Lockpicks
 	{
 		if (!m_Lock->IsPickable())
 		{
