@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4408 $
- * $Date: 2011-01-10 21:41:14 -0500 (Mon, 10 Jan 2011) $
+ * $Revision: 5094 $
+ * $Date: 2011-12-06 14:52:47 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -17,7 +17,7 @@
 * ============================
 */
 
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
 /**
@@ -25,7 +25,7 @@
  * @brief Contains the implementation of the SourceHook API
 */
 
-static bool init_version = FileVersionList("$Id: sourcehook.cpp 4408 2011-01-11 02:41:14Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sourcehook.cpp 5094 2011-12-06 19:52:47Z greebo $", init_version);
 
 #if defined __GNUC__
 #include <stdint.h>
