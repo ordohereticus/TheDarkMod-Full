@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2423 $
- * $Date: 2008-06-02 12:22:52 -0400 (Mon, 02 Jun 2008) $
- * $Author: dram $
+ * $Revision: 4941 $
+ * $Date: 2011-08-06 13:19:51 -0400 (Sat, 06 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ Event are used for scheduling tasks and for linking script commands.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: event.cpp 2423 2008-06-02 16:22:52Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: event.cpp 4941 2011-08-06 17:19:51Z tels $", init_version);
 
 #include "event.h"
 #include "../game_local.h"
@@ -589,7 +589,7 @@ void idEvent::Shutdown( void ) {
 	
 	eventDataAllocator.Shutdown();
 
-	// say it is now shutdown
+	// say it is now shut down
 	initialized = false;
 }
 
