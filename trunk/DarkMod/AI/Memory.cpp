@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
 
 #include "Memory.h"
 #include "../../game/ai/ai.h"
@@ -153,6 +153,17 @@ void Memory::Save(idSaveGame* savefile) const
 		savefile->WriteInt(i->second.lastGreetingTime);
 		savefile->WriteInt(i->second.lastConsiderTime);
 	}
+
+	// grayman #2866 - start of changes
+	closeMe.Save(savefile);
+	frontPos.Save(savefile);
+	backPos.Save(savefile);
+	savefile->WriteBool(closeSuspiciousDoor);
+	savefile->WriteBool(doorSwingsToward);
+	savefile->WriteBool(closeFromAwayPos);
+	savefile->WriteBool(susDoorSameAsCurrentDoor);
+	savefile->WriteFloat(savedAlertLevelDecreaseRate);
+	// end of #2866 changes
 }
 
 void Memory::Restore(idRestoreGame* savefile)
@@ -267,6 +278,17 @@ void Memory::Restore(idRestoreGame* savefile)
 		savefile->ReadInt(result.first->second.lastGreetingTime);
 		savefile->ReadInt(result.first->second.lastConsiderTime);
 	}
+
+	// grayman #2866 - start of changes
+	closeMe.Restore(savefile);
+	frontPos.Restore(savefile);
+	backPos.Restore(savefile);
+	savefile->ReadBool(closeSuspiciousDoor);
+	savefile->ReadBool(doorSwingsToward);
+	savefile->ReadBool(closeFromAwayPos);
+	savefile->ReadBool(susDoorSameAsCurrentDoor);
+	savefile->ReadFloat(savedAlertLevelDecreaseRate);
+	// end of #2866 changes
 }
 
 DoorInfo& Memory::GetDoorInfo(CFrobDoor* door)

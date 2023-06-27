@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4974 $
- * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -524,10 +524,16 @@ protected:
 	idList< idEntityPtr<idAI> >	m_registeredAI;
 
 	/**
-	* grayman #2859 - the last AI or player to open or close this door
+	* grayman #2859 - the last AI to open or close this door, otherwise NULL
 	**/
 
 	idEntityPtr<idEntity>		m_lastUsedBy;
+
+	/**
+	* grayman #2866 - has this door alerted an AI?
+	**/
+
+	bool						m_alerted;
 };
 
 #endif /* !BINARYFROBMOVER */

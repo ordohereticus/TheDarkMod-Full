@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4736 $
- * $Date: 2011-03-29 14:23:27 -0400 (Tue, 29 Mar 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -65,6 +65,7 @@ private:
 	bool _triedFitting;		// grayman #2345
 	bool _wasRunning;		// grayman #2694
 	bool _canHandleDoor;	// grayman #2712
+	bool _doorShouldBeClosed; // grayman #2866
 public:
 	// Get the name of this task
 	virtual const idStr& GetName() const;

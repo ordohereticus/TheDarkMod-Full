@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4974 $
- * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -4525,7 +4525,7 @@ bool idAI::CanSeeTargetPoint( idVec3 point, idEntity* target )
 	float maxDistanceToObserve = GetMaximumObservationDistanceForPoints(point, topPoint);
 	idVec3 ownOrigin = physicsObj.GetOrigin();
 
-	return ( ( ( point - ownOrigin).LengthFast() ) < maxDistanceToObserve );
+	return ( ( ( point - ownOrigin).LengthSqr() ) < ( maxDistanceToObserve * maxDistanceToObserve ) ); // grayman #2866
 }
 
 /*

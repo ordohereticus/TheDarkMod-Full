@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4974 $
- * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9070,12 +9070,6 @@ void idEntity::FrobAction(bool frobMaster, bool isFrobPeerAction)
 	else
 	{
 		DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("(%08lX->[%s]) FrobAction has been triggered with empty FrobActionScript!\r", this, name.c_str());
-	}
-
-	if ( IsType(CFrobDoor::Type) ) // grayman #2859
-	{
-		CFrobDoor* door = static_cast<CFrobDoor*>(this);
-		door->SetLastUsedBy(gameLocal.GetLocalPlayer());
 	}
 
 	// Play the (optional) acquire sound (greebo: What's this? Isn't this the wrong place here?)

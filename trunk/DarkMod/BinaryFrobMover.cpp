@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4974 $
- * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -79,6 +79,7 @@ CBinaryFrobMover::CBinaryFrobMover()
 	m_closedBox.Clear();	// grayman #2345
 	m_registeredAI.Clear();	// grayman #1145
 	m_lastUsedBy = NULL;	// grayman #2859
+	m_alerted = false;		// grayman #2866 - has this door alerted an AI?
 }
 
 CBinaryFrobMover::~CBinaryFrobMover()
@@ -155,7 +156,7 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 	}
 
 	m_lastUsedBy.Save(savefile); // grayman #2859
-
+	savefile->WriteBool(m_alerted); // grayman #2866
 }
 
 void CBinaryFrobMover::Restore( idRestoreGame *savefile )
@@ -213,6 +214,7 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 	}
 
 	m_lastUsedBy.Restore(savefile); // grayman #2859
+	savefile->ReadBool(m_alerted);  // grayman #2866
 }
 
 void CBinaryFrobMover::Spawn()
@@ -1326,7 +1328,20 @@ void CBinaryFrobMover::RegisterAI(idAI* ai)
 
 idVec3 CBinaryFrobMover::GetRotationAxis()
 {
-	return m_Rotate.ToRotation().GetVec();
+	// grayman #2866 - ToRotation() defaults to rotation about the x axis for sliding doors with m_Rotate = (0,0,0),
+	// so check for that special case. I don't want to change ToRotation() unless this proves
+	// to be a general problem.
+
+	idVec3 axis;
+	if ( ( m_Rotate.yaw == 0 ) && ( m_Rotate.pitch == 0 ) && ( m_Rotate.roll == 0 ) )
+	{
+		axis.Zero();
+	}
+	else
+	{
+		axis = m_Rotate.ToRotation().GetVec(); 
+	}
+	return axis;
 }
 
 // grayman #2861 - get the closed origin

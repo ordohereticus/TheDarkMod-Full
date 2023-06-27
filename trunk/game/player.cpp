@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4974 $
- * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -9590,18 +9590,6 @@ bool idPlayer::UseInventoryItem(EImpulseState impulseState, const CInventoryItem
 		// Pass the use call
 		if (highlightedEntity->UseBy(impulseState, item))
 		{
-			// grayman #2859 - if this is a door, and item is a key, register that the player used the door
-
-			if ( highlightedEntity->IsType(CFrobDoor::Type) )
-			{
-				const idStr& itemName = item->Category()->GetName();
-				if (itemName == "#str_02392" ) // Keys
-				{
-					CFrobDoor* door = static_cast<CFrobDoor*>(highlightedEntity);
-					door->SetLastUsedBy(this);
-				}
-			}
-
 			// Item could be used, return TRUE, we're done
 			return true;
 		}

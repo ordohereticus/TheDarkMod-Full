@@ -2,8 +2,8 @@
  *
  * vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
+ * $Revision: 4982 $
+ * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -200,7 +200,7 @@ public:
 	int nextTimeLightStimBark;
 
 	// grayman #2603 - flags relevant to searching
-	int searchFlags;		
+	int searchFlags;
 
 	/*!
 	* This variable indicates the number of out of place things that the
@@ -351,6 +351,17 @@ public:
 
 	// grayman #2712 - last door handled
 	idEntityPtr<CFrobDoor> lastDoorHandled;
+
+	// grayman #2866 - start of changes
+	idEntityPtr<CFrobDoor> closeMe;	// a door that should be closed
+	idEntityPtr<idEntity> frontPos;	// the door handling position closest to the AI
+	idEntityPtr<idEntity> backPos;	// the door handling position closest to the AI
+	bool closeSuspiciousDoor;		// need to close a suspicious door
+	bool doorSwingsToward;			// does the door swing toward me?
+	bool closeFromAwayPos;			// do we close a suspicious door from the near side or far side? 
+	bool susDoorSameAsCurrentDoor;	// the door you're handling sends you a visual stim
+	float savedAlertLevelDecreaseRate; // used w/door handling in Observant state
+	// end of #2866 changes
 
 	// Maps doors to info structures
 	typedef std::map<CFrobDoor*, DoorInfoPtr> DoorInfoMap;
