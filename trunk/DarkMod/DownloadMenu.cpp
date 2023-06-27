@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4971 $
- * $Date: 2011-09-15 09:15:59 -0400 (Thu, 15 Sep 2011) $
- * $Author: greebo $
+ * $Revision: 4975 $
+ * $Date: 2011-09-23 10:35:43 -0400 (Fri, 23 Sep 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4971 2011-09-15 13:15:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4975 2011-09-23 14:35:43Z tels $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -58,8 +58,8 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 					gameLocal.Printf("Connection Error.\n");
 
 					GuiMessage msg;
-					msg.title = "Unable to contact Mission Archive";
-					msg.message = "Cannot connect to server.";
+					msg.title = gameLocal.m_I18N->Translate( "#str_02140" );	// Unable to contact Mission Archive
+					msg.message = gameLocal.m_I18N->Translate( "#str_02007" );	// Cannot connect to server.
 					msg.type = GuiMessage::MSG_OK;
 					msg.okCmd = "close_msg_box";
 
@@ -96,8 +96,8 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 					gameLocal.Printf("Connection Error.\n");
 
 					GuiMessage msg;
-					msg.title = "Mission Details Download Failed";
-					msg.message = "Failed to download the details XML file.";
+					msg.title = gameLocal.m_I18N->Translate( "#str_02008" );	// Mission Details Download Failed
+					msg.message = gameLocal.m_I18N->Translate( "#str_02009" );	// Failed to download the details XML file.
 					msg.type = GuiMessage::MSG_OK;
 					msg.okCmd = "close_msg_box";
 
