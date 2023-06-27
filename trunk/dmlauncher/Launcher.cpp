@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod - Launcher
  * $Source$
- * $Revision: 4913 $
- * $Date: 2011-07-15 11:44:13 -0400 (Fri, 15 Jul 2011) $
+ * $Revision: 4945 $
+ * $Date: 2011-08-07 13:49:15 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  *************************************************************************/
@@ -187,15 +187,15 @@ Launcher::Launcher(int argc, char* argv[]) :
 		std::string delayStr = argv[i];
 		if (delayStr.find("--delay=") != std::string::npos)
 		{
-			TraceLog::WriteLine("Additional delay before starting D3: " + delayStr.substr(8) + " milliseconds.");
+			TraceLog::WriteLine("Additional delay before starting D3: " + delayStr.substr(9) + " milliseconds.");
 
 			try
 			{
-				_additionalDelay = boost::lexical_cast<std::size_t>(delayStr.substr(8));
+				_additionalDelay = boost::lexical_cast<std::size_t>(delayStr.substr(9));
 			}
 			catch (boost::bad_lexical_cast&)
 			{
-				TraceLog::WriteLine("Invalid delay string, reset delay to 0: " + delayStr.substr(8));
+				TraceLog::WriteLine("Invalid delay string, reset delay to 0: " + delayStr.substr(9));
 				_additionalDelay = 0;
 			}
 
