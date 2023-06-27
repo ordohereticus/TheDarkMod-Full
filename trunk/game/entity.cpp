@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
+ * $Revision: 5026 $
+ * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 5026 2011-11-06 23:19:45Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -3253,6 +3253,7 @@ void idEntity::Event_CheckMine()
 		projPhysics->SetAngularVelocity( vec3_origin );
 		projPhysics->PutToRest();
 		projectile->UpdateVisuals();
+		projectile->SetReplaced(); // grayman #2908 - note that this mine replaced an author-placed armed mine 
 
 		SetFrobable(false);
 		PostEventMS( &EV_Remove, 1 ); // Remove the mine, which has been replaced

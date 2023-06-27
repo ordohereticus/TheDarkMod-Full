@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4895 $
- * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
+ * $Revision: 5026 $
+ * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -100,6 +100,7 @@ public :
 	virtual void			FreeLightDef( void );
 
 	idEntity *				GetOwner( void ) const;
+	void					SetReplaced(); // grayman #2908
 
 	virtual void			Think( void );
 	virtual void			Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location );
@@ -165,9 +166,9 @@ protected:
 	
 	projectileState_t		state;
 	
-	PickableLock*			m_Lock; // grayman #2478 - A lock implementation for this mover
-
-	bool					isMine; // grayman #2478 - true if this is a mine
+	PickableLock*			m_Lock;		// grayman #2478 - A lock implementation for this mover
+	bool					isMine;		// grayman #2478 - true if this is a mine
+	bool					replaced;	// grayman #2908 - true if this is a projectile mine that replaced a map author-placed armed mine
 
 protected:
 	/**

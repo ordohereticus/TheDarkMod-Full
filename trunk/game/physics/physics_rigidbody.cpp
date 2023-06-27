@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4895 $
- * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
+ * $Revision: 5026 $
+ * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: physics_rigidbody.cpp 5026 2011-11-06 23:19:45Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/Grabber.h"
@@ -1207,7 +1207,20 @@ void idPhysics_RigidBody::Rest( void )
 	current.i.linearMomentum.Zero();
 	current.i.angularMomentum.Zero();
 	self->BecomeInactive( TH_PHYSICS );
-	self->m_SetInMotionByActor = NULL;
+
+	// grayman #2908 - if this is a mine, we can't NULL m_SetInMotionByActor
+	// because we need that if the mine ever kills someone
+
+	if ( self->IsType(idProjectile::Type) )
+	{
+		idProjectile* proj = static_cast<idProjectile*>(self);
+		if ( !proj->IsMine() )
+		{
+			self->m_SetInMotionByActor = NULL;
+		}
+	}
+
+//	self->m_SetInMotionByActor = NULL;
 	self->m_droppedByAI = false; // grayman #1330
 }
 

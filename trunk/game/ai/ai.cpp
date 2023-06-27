@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5015 $
- * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
+ * $Revision: 5026 $
+ * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 5015 2011-10-29 15:50:39Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 5026 2011-11-06 23:19:45Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -6178,16 +6178,33 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	// drop items
 	DropOnRagdoll();
 
-	if ( attacker && (attacker == gameLocal.GetLocalPlayer()) && inflictor)
+	if ( attacker && (attacker == gameLocal.GetLocalPlayer()) && inflictor )
 	{
 		bPlayerResponsible = true;
 	}
-	else if( attacker && attacker->m_SetInMotionByActor.GetEntity() )
+	else if ( attacker && attacker->m_SetInMotionByActor.GetEntity() )
 	{
-		bPlayerResponsible = (attacker != gameLocal.world &&
-			attacker->m_SetInMotionByActor.GetEntity() == gameLocal.GetLocalPlayer());
+		bPlayerResponsible = ( ( attacker != gameLocal.world ) &&
+			( attacker->m_SetInMotionByActor.GetEntity() == gameLocal.GetLocalPlayer() ) );
 	}
 
+	// grayman #2908 - we need to know if the AI stepped on a player-tossed mine.
+	// So that we don't interfere with existing situations, check specifically
+	// for the mine. The previous two checked to determine player responsibility
+	// say the player is NOT responsible, when the inflictor is a mine.
+
+	if ( !bPlayerResponsible )
+	{
+		if ( inflictor && inflictor->IsType(idProjectile::Type) )
+		{
+			idProjectile* proj = static_cast<idProjectile*>(inflictor);
+			if ( proj->IsMine() )
+			{
+				bPlayerResponsible = ( inflictor->m_SetInMotionByActor.GetEntity() == gameLocal.GetLocalPlayer() );
+			}
+		}
+	}
+	
 	// Update TDM objective system
 	gameLocal.m_MissionData->MissionEvent( COMP_KILL, this, attacker, bPlayerResponsible );
 	// Mark the body as last moved by the player
