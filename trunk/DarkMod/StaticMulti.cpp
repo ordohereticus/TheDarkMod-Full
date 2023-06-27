@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4678 $
- * $Date: 2011-03-09 15:44:55 -0500 (Wed, 09 Mar 2011) $
+ * $Revision: 4901 $
+ * $Date: 2011-06-23 09:50:38 -0400 (Thu, 23 Jun 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -23,7 +23,7 @@ TODO: track skin changes on the different LOD stages
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StaticMulti.cpp 4678 2011-03-09 20:44:55Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: StaticMulti.cpp 4901 2011-06-23 13:50:38Z tels $", init_version);
 
 #include "StaticMulti.h"
 
@@ -77,6 +77,9 @@ CStaticMulti::CStaticMulti( void )
 
 CStaticMulti::~CStaticMulti()
 {
+#ifdef M_DEBUG
+	gameLocal.Printf("~%s\n", GetName());
+#endif
 	if (m_LODHandle)
 	{
 		gameLocal.m_ModelGenerator->UnregisterLODData( m_LODHandle );
@@ -139,7 +142,7 @@ void CStaticMulti::Spawn( void )
 		m_DistCheckTimeStamp = gameLocal.time - (int) (m_DistCheckInterval * (1.0f + gameLocal.random.RandomFloat()) );
 		m_fHideDistance = spawnArgs.GetFloat( "hide_distance", "0.0" );
 #ifdef M_DEBUG
-		gameLocal.Printf("%s: hide_distance %0.0f", m_fHideDistance);
+		gameLocal.Printf("%s: hide_distance %0.2f\n", GetName(),m_fHideDistance);
 #endif
 	}
 }
