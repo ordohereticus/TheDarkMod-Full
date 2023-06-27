@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5007 $
- * $Date: 2011-10-21 12:36:25 -0400 (Fri, 21 Oct 2011) $
- * $Author: greebo $
+ * $Revision: 5013 $
+ * $Date: 2011-10-25 16:30:00 -0400 (Tue, 25 Oct 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -693,6 +693,7 @@ public:
 	virtual escReply_t		HandleESC( idUserInterface **gui );
 	virtual idUserInterface	*StartMenu( void );
 	virtual const char *	HandleGuiCommands( const char *menuCommand );
+	virtual bool			InitGUIChoice( idUserInterface *gui, const char *varName, const char *inChoices, const char *inValues, const bool step = false );
 	virtual void			HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui );
 	/**
 	* Adjusts the size of GUI variables to support stretching/scaling of the GUI.
