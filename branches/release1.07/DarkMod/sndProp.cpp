@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5029 $
- * $Date: 2011-11-07 00:14:02 -0500 (Mon, 07 Nov 2011) $
+ * $Revision: 5039 $
+ * $Date: 2011-11-15 11:04:06 -0500 (Tue, 15 Nov 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,7 +25,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 5029 2011-11-07 05:14:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 5039 2011-11-15 16:04:06Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -336,7 +336,14 @@ void CsndProp::SetupFromLoader( const CsndPropLoader *in )
 		m_sndAreas[i].portalDists = new CMatRUT<float>;
 
 		// Copy the values
-		*m_sndAreas[i].portalDists = *(in->m_sndAreas[i].portalDists);
+		if (in->m_sndAreas[i].portalDists->size() > 0)
+		{
+			*m_sndAreas[i].portalDists = *(in->m_sndAreas[i].portalDists);
+		}
+		else
+		{
+			m_sndAreas[i].portalDists->Clear();
+		}
 	}
 
 
