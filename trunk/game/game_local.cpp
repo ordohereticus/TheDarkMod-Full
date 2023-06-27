@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4899 $
- * $Date: 2011-06-20 16:12:22 -0400 (Mon, 20 Jun 2011) $
+ * $Revision: 4914 $
+ * $Date: 2011-07-15 11:45:58 -0400 (Fri, 15 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4899 2011-06-20 20:12:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4914 2011-07-15 15:45:58Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -615,25 +615,29 @@ void idGameLocal::CheckTDMVersion()
 		int major = node.node().attribute("major").as_int();
 		int minor = node.node().attribute("minor").as_int();
 
-		msg.title = va("Most recent TDM Version is: %d.%02d\n", major, minor);
+		msg.title = va( common->GetLanguageDict()->GetString( "#str_02132" ), major, minor );
 
 		switch (CompareVersion(TDM_VERSION_MAJOR, TDM_VERSION_MINOR, major, minor))
 		{
 		case EQUAL:
-			msg.message = va("Your version %d.%02d is up to date.", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			// "Your version %d.%02d is up to date."
+			msg.message = va( common->GetLanguageDict()->GetString( "#str_02133"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
 			break;
 		case OLDER:
-			msg.message = va("Your version %d.%02d needs updating.", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			// "Your version %d.%02d needs updating."
+			msg.message = va( common->GetLanguageDict()->GetString( "#str_02134"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
 			break;
 		case NEWER:
-			msg.message = va("Your version %d.%02d is newer than the most recently published one.", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			// "Your version %d.%02d is newer than the most recently published one."
+			msg.message = va( common->GetLanguageDict()->GetString( "#str_02135"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
 			break;
 		};
 	}
 	else
 	{
-		msg.title = "Version Check Failed";
-		msg.message = va("Couldn't find current version tag.");
+		msg.title = common->GetLanguageDict()->GetString( "#str_02135" );	// "Version Check Failed"
+		msg.message = common->GetLanguageDict()->GetString( "#str_02136" );	// "Couldn't find current version tag."
+
 	}
 
 	AddMainMenuMessage(msg);
