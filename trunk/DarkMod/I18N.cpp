@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4959 $
- * $Date: 2011-08-17 13:37:25 -0400 (Wed, 17 Aug 2011) $
+ * $Revision: 4961 $
+ * $Date: 2011-08-27 11:13:32 -0400 (Sat, 27 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 4959 2011-08-17 17:37:25Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 4961 2011-08-27 15:13:32Z tels $", init_version);
 
 #include "I18N.h"
 #include "sourcehook/sourcehook.h"
@@ -46,6 +46,7 @@ CI18N::CI18N
 CI18N::CI18N ( void ) {
 	// some default values, the object becomes only fully usable after Init(), tho:
 	m_lang = cvarSystem->GetCVarString( "tdm_lang" );
+	m_bMoveArticles = (m_lang != "polish" && m_lang != "italian") ? true : false;
 
 	m_Dict.Clear();
 
@@ -175,6 +176,7 @@ CI18N::Print
 */
 void CI18N::Print( void ) const {
 	common->Printf("I18N: Current language: %s\n", m_lang.c_str() );
+	common->Printf("I18N: Move articles to back: %s\n", m_bMoveArticles ? "Yes" : "No");
 	common->Printf(" Main " );
 	m_Dict.Print();
 	common->Printf(" Reverse dict   : " );
@@ -254,6 +256,7 @@ void CI18N::SetLanguage( const char* lang, bool firstTime ) {
 
 	// set sysvar tdm_lang
 	cv_tdm_lang.SetString( lang );
+	m_bMoveArticles = (m_lang != "polish" && m_lang != "italian") ? true : false;
 
 	// For some reason, "english", "german", "french" and "spanish" share
 	// the same font, but "polish" and "russian" get their own font. But
@@ -382,6 +385,12 @@ like English, German, French etc.
 */
 void CI18N::MoveArticlesToBack(idStr& title)
 {
+	// Do not move articles if the language is italian or polish:
+	if ( !m_bMoveArticles )
+	{
+		return;
+	}
+
 	// find index of first " "
 	int spaceIdx = title.Find(' ');
 	// no space, nothing to do

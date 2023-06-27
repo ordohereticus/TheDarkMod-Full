@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4959 $
- * $Date: 2011-08-17 13:37:25 -0400 (Wed, 17 Aug 2011) $
+ * $Revision: 4961 $
+ * $Date: 2011-08-27 11:13:32 -0400 (Sat, 27 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -94,6 +94,8 @@ private:
 
 	// current language
 	idStr				m_lang;
+	// depending on current language, move articles to back of Fm name for display?
+	bool				m_bMoveArticles;
 
 	// A dictionary consisting of the current language + the current FM dict.
 	idLangDict			m_Dict;
