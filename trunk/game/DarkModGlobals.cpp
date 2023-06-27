@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5151 $ (Revision of last commit) 
- $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
+ $Revision: 5155 $ (Revision of last commit) 
+ $Date: 2012-01-03 14:36:30 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5151 2012-01-03 06:25:37Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5155 2012-01-03 19:36:30Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -917,50 +917,6 @@ std::string CGlobal::GetDarkmodPath()
 
 	return darkmodPath.file_string();
 #endif
-}
-
-std::string CGlobal::GetEnginePath()
-{
-	std::string enginePath;
-
-#ifdef _WINDOWS
-
-	// Get the command line of the current process
-	idStr cmdLine = GetCommandLine();
-
-	int d3Pos = cmdLine.Find("DOOM3.exe", false);
-	cmdLine = cmdLine.Mid(0, d3Pos + 9);
-	cmdLine.StripLeadingOnce("\"");
-	cmdLine.StripLeading(" ");
-	cmdLine.StripLeading("\t");
-
-	enginePath = cmdLine.c_str();
-
-#elif defined(__linux__)
-
-	// TDM launcher needs to know where the engine is located, pass this as first argument
-	char exepath[PATH_MAX] = {0};
-	readlink("/proc/self/exe", exepath, sizeof(exepath));
-
-	enginePath = exepath;
-
-#elif defined (MACOS_X)
-
-	char exepath[4096] = {0};
-	uint32_t size = sizeof(exepath);
-	
-	if (_NSGetExecutablePath(exepath, &size) != 0)
-	{
-		DM_LOG(LC_MAINMENU, LT_ERROR)LOGSTRING("Cannot read executable path, buffer too small\r");
-	}
-	
-	enginePath = exepath;
-
-#else
-#error Unsupported Platform
-#endif
-
-	return enginePath;
 }
 
 LC_LogClass CGlobal::GetLogClassForString(const char* str)
