@@ -20,6 +20,8 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
+static bool versioned = RegisterVersionedFile("$Id: PropTreeItemButton.cpp 5171 2012-01-07 08:08:06Z greebo $");
+
 #include "proptree.h"
 #include "PropTreeItemButton.h"
 

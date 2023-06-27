@@ -11,18 +11,14 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5171 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
-#include "precompiled_game.h"
+#include "precompiled.h"
 #pragma hdrstop
-
-#pragma warning(disable : 4533 4800)
-
-static bool init_version = FileVersionList("$Id: RevisionTracker.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
 
 #include "RevisionTracker.h"
 

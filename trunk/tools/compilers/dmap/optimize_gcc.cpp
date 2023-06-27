@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5171 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -25,6 +25,8 @@ see dmap.gcc.zip test map and .proc outputs
 
 #include "precompiled_engine.h"
 #pragma hdrstop
+
+static bool versioned = RegisterVersionedFile("$Id: optimize_gcc.cpp 5171 2012-01-07 08:08:06Z greebo $");
 
 #include "dmap.h"
 

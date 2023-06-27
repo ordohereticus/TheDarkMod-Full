@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5171 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SysCvar.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SysCvar.cpp 5171 2012-01-07 08:08:06Z greebo $", init_version);
 
 #include "../Game_local.h"
 
@@ -42,13 +42,6 @@ const char *si_spectateArgs[]		= { "Play", "Spectate", NULL };
 
 const char *ui_skinArgs[]			= { "skins/characters/player/marine_mp", "skins/characters/player/marine_mp_red", "skins/characters/player/marine_mp_blue", "skins/characters/player/marine_mp_green", "skins/characters/player/marine_mp_yellow", NULL };
 const char *ui_teamArgs[]			= { "Red", "Blue", NULL }; 
-
-struct gameVersion_s {
-	gameVersion_s( void ) { sprintf( string, "%s.%d%s %s %s %s", ENGINE_VERSION, BUILD_NUMBER, BUILD_DEBUG, BUILD_STRING, __DATE__, __TIME__ ); }
-	char	string[256];
-} gameVersion;
-
-idCVar g_version(					"g_version",				gameVersion.string,	CVAR_GAME | CVAR_ROM, "game version" );
 
 /**
 * DarkMod Cvars - see text description in declaration below for descriptions

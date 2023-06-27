@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5171 $ (Revision of last commit) 
+ $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5171 2012-01-07 08:08:06Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -39,7 +39,7 @@ static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5166 2012-01
 #include "ai/AI.h"
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
-#include "RevisionTracker.h"
+#include "../idlib/RevisionTracker.h"
 #include "IniFile.h"
 #include <boost/filesystem.hpp>
 
