@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4942 $
- * $Date: 2011-08-06 13:21:22 -0400 (Sat, 06 Aug 2011) $
+ * $Revision: 4946 $
+ * $Date: 2011-08-07 13:55:30 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4942 2011-08-06 17:21:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4946 2011-08-07 17:55:30Z tels $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -436,10 +436,16 @@ void CModMenu::RestartGame()
 
 	// greebo: Optional delay between restarts to fix sound system release issues in some Linux systems
 	idStr additionalDelay = "";
-	if (cv_tdm_fm_restart_delay.GetInteger() > 0)
+	int restartDelay = cv_tdm_fm_restart_delay.GetInteger();
+#ifndef _WINDOWS_
+	// always use at least 100ms on linux/macos, or the old process might still run while the 
+	// new process is already starting up:
+	restartDelay += 100;
+#else
+
+	if (restartDelay > 0)
 	{
-		additionalDelay = " --delay=";
-		additionalDelay += cv_tdm_fm_restart_delay.GetString();
+		additionalDelay = va(" --delay=%i", restartDelay);
 	}
 
 #ifdef _WINDOWS
@@ -461,9 +467,9 @@ void CModMenu::RestartGame()
 	{
 		int errnum = errno;
 		gameLocal.Error("execlp failed with error code %d: %s", errnum, strerror(errnum));
+		_exit(EXIT_FAILURE);
 	}
 
-	_exit(EXIT_FAILURE);
 #endif
 
 	// Issue the quit command to the game
