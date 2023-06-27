@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4846 $
- * $Date: 2011-05-14 02:40:39 -0400 (Sat, 14 May 2011) $
- * $Author: greebo $
+ * $Revision: 4894 $
+ * $Date: 2011-06-19 12:19:34 -0400 (Sun, 19 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4846 2011-05-14 06:40:39Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4894 2011-06-19 16:19:34Z tels $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -524,7 +524,7 @@ void CDownloadMenu::UpdateGUI(idUserInterface* gui)
 
 		if (it == _downloads.end())
 		{
-			gui->SetStateString(va("dl_mission_progress_%d", i), listItemExists ? "queued " : "");
+			gui->SetStateString(va("dl_mission_progress_%d", i), listItemExists ? common->GetLanguageDict()->GetString( "#str_02180" ) : "");	// "queued"
 			continue;
 		}
 	}
@@ -582,7 +582,7 @@ void CDownloadMenu::UpdateDownloadProgress(idUserInterface* gui)
 
 		if (it == _downloads.end())
 		{
-			gui->SetStateString(va("dl_mission_progress_%d", i), "queued ");
+			gui->SetStateString(va("dl_mission_progress_%d", i), common->GetLanguageDict()->GetString( "#str_02180" ));	// "queued "
 			continue;
 		}
 		
@@ -593,10 +593,10 @@ void CDownloadMenu::UpdateDownloadProgress(idUserInterface* gui)
 		switch (download->GetStatus())
 		{
 		case CDownload::NOT_STARTED_YET:
-			gui->SetStateString(va("dl_mission_progress_%d", i), "queued ");
+			gui->SetStateString(va("dl_mission_progress_%d", i), common->GetLanguageDict()->GetString( "#str_02180" ));	// "queued "
 			break;
 		case CDownload::FAILED:
-			gui->SetStateString(va("dl_mission_progress_%d", i), "failed ");
+			gui->SetStateString(va("dl_mission_progress_%d", i), common->GetLanguageDict()->GetString( "#str_02181" ));	// "failed "
 			break;
 		case CDownload::IN_PROGRESS:
 			gui->SetStateString(va("dl_mission_progress_%d", i), va("%0.0f%s", download->GetProgressFraction()*100, "% "));
