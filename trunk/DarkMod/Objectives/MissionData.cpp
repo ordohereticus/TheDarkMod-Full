@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4962 $
- * $Date: 2011-08-27 18:28:41 -0400 (Sat, 27 Aug 2011) $
+ * $Revision: 4963 $
+ * $Date: 2011-08-30 15:26:13 -0400 (Tue, 30 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4962 2011-08-27 22:28:41Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4963 2011-08-30 19:26:13Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2192,8 +2192,8 @@ void CMissionData::UpdateGUIState(idUserInterface* ui)
 		// Get a shortcut to the target objective
 		CObjective& obj = m_Objectives[index];
 
-		// Set the text
-		ui->SetStateString(prefix + "_text", obj.m_text);
+		// Set the text (in translated form if the original is "#str_xxxxx")
+		ui->SetStateString(prefix + "_text", gameLocal.m_I18N->Translate( obj.m_text ));
 
 		// Set the state, this requires some logic
 		EObjCompletionState state = obj.m_state;
