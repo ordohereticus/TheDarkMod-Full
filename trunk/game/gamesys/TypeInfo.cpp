@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5169 $ (Revision of last commit) 
- $Date: 2012-01-06 14:47:56 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5185 $ (Revision of last commit) 
+ $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: TypeInfo.cpp 5169 2012-01-06 19:47:56Z greebo $", init_version);
+static bool versioned = RegisterVersionedFile("$Id: TypeInfo.cpp 5185 2012-01-08 05:59:48Z greebo $");
 
 #include "../Game_local.h"
 

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5179 $ (Revision of last commit) 
- $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5185 $ (Revision of last commit) 
+ $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SysCmds.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5185 2012-01-08 05:59:48Z greebo $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
