@@ -8,9 +8,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4952 $
- * $Date: 2011-08-11 17:15:52 -0400 (Thu, 11 Aug 2011) $
- * $Author: tels $
+ * $Revision: 4969 $
+ * $Date: 2011-09-08 16:42:09 -0400 (Thu, 08 Sep 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4952 2011-08-11 21:15:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4969 2011-09-08 20:42:09Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "sndPropLoader.h"
@@ -411,7 +411,7 @@ void CGlobal::LoadINISettings(const IniFilePtr& iniFile)
 	struct tm* t = localtime(&timer);
 
 	DM_LOG(LC_INIT, LT_INIT)LOGSTRING("LogFile created at %04u.%02u.%02u %02u:%02u:%02u\r",
-		t->tm_year+1900, t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+		t->tm_year+1900, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
 
 	DM_LOG(LC_INIT, LT_INIT)LOGSTRING("DLL compiled on " __DATE__ " " __TIME__ "\r");
 
