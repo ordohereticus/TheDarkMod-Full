@@ -11,13 +11,13 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5151 $ (Revision of last commit) 
- $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
+ $Revision: 5162 $ (Revision of last commit) 
+ $Date: 2012-01-06 06:27:15 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "precompiled.h"
 #pragma hdrstop
 
 #include "../renderer/Image.h"
