@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4761 $
- * $Date: 2011-04-09 05:30:34 -0400 (Sat, 09 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4896 $
+ * $Date: 2011-06-20 12:50:09 -0400 (Mon, 20 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -54,11 +54,11 @@ public:
 	// unique identifier for this item
 	const idStr& GetID() const;
 
-	// name of the item (for display)
-	const idStr& GetName() const;
+	// name of the item (for display), possible translated
+	const idStr GetName() const;
 
-	// description of the item (for display)
-	const idStr& GetDescription() const;
+	// description of the item (for display), possible translated
+	const idStr GetDescription() const;
 
 	// Get the list of classnames of entities to spawn for this shop item
 	const idStringList& GetClassnames() const;
