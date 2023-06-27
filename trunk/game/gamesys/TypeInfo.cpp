@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5169 $ (Revision of last commit) 
+ $Date: 2012-01-06 14:47:56 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: TypeInfo.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: TypeInfo.cpp 5169 2012-01-06 19:47:56Z greebo $", init_version);
 
 #include "../Game_local.h"
 
@@ -869,7 +869,7 @@ int idTypeInfoTools::WriteVariable_r( const void *varPtr, const char *varName, c
 		}
 
 	} else if ( token == "idExtrapolate" ) {
-
+#ifndef MACOS_X // greebo: Hack to get precompiled headers working, where the private==public hack won't work
 		const idExtrapolate<float> *interpolate = ((idExtrapolate<float> *)varPtr);
 		Write( varName, varType, scope, prefix, ".extrapolationType", idStr( interpolate->GetExtrapolationType() ).c_str(), &interpolate->extrapolationType, sizeof( interpolate->extrapolationType ) );
 		Write( varName, varType, scope, prefix, ".startTime", idStr( interpolate->GetStartTime() ).c_str(), &interpolate->startTime, sizeof( interpolate->startTime ) );
@@ -974,7 +974,7 @@ int idTypeInfoTools::WriteVariable_r( const void *varPtr, const char *varName, c
 				Write( varName, varType, scope, prefix, "", va( "<unknown template argument type '%s' for idInterpolateAccelDecelSine>", templateArgs.c_str() ), NULL, 0 );
 			}
 		}
-
+#endif
 	} else if ( token == "idUserInterface" ) {
 
 		typeSize = sizeof( idUserInterface );
