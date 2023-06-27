@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4901 $
- * $Date: 2011-06-23 09:50:38 -0400 (Thu, 23 Jun 2011) $
- * $Author: tels $
+ * $Revision: 5006 $
+ * $Date: 2011-10-21 11:38:54 -0400 (Fri, 21 Oct 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -23,7 +23,7 @@ TODO: track skin changes on the different LOD stages
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StaticMulti.cpp 4901 2011-06-23 13:50:38Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: StaticMulti.cpp 5006 2011-10-21 15:38:54Z greebo $", init_version);
 
 #include "StaticMulti.h"
 

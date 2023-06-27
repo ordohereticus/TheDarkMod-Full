@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2693 $
- * $Date: 2008-07-18 12:28:56 -0400 (Fri, 18 Jul 2008) $
+ * $Revision: 5006 $
+ * $Date: 2011-10-21 11:38:54 -0400 (Fri, 21 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PlayAnimationTask.cpp 2693 2008-07-18 16:28:56Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PlayAnimationTask.cpp 5006 2011-10-21 15:38:54Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "PlayAnimationTask.h"

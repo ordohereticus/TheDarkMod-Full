@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4997 $
- * $Date: 2011-10-16 17:29:22 -0400 (Sun, 16 Oct 2011) $
- * $Author: tels $
+ * $Revision: 5006 $
+ * $Date: 2011-10-21 11:38:54 -0400 (Fri, 21 Oct 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 4997 2011-10-16 21:29:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 5006 2011-10-21 15:38:54Z greebo $", init_version);
 
 #include "I18N.h"
 #include "sourcehook/sourcehook.h"
