@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4955 $
- * $Date: 2011-08-12 10:07:09 -0400 (Fri, 12 Aug 2011) $
+ * $Revision: 4956 $
+ * $Date: 2011-08-12 10:56:25 -0400 (Fri, 12 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4955 2011-08-12 14:07:09Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4956 2011-08-12 14:56:25Z tels $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -259,7 +259,9 @@ void CInventory::NotifyOwnerAboutPickup(const idStr& pickedUpStr, const CInvento
 	idPlayer* player = static_cast<idPlayer*>(m_Owner.GetEntity());
 
 	// Prepend the "acquired" text
-	idStr pickedUpMsg = idStr( gameLocal.m_I18N->Translate( "#str_07215" ) ) + pickedUpStr;	// Acquired: 
+	idStr pickedUpMsg = gameLocal.m_I18N->Translate( "#str_07215" ) + pickedUpStr;	// Acquired: 
+	// and remove any newlines from the message
+	pickedUpMsg.Replace("\n","");
 
 	// Now actually send the message
 	player->SendInventoryPickedUpMessage(pickedUpMsg);
