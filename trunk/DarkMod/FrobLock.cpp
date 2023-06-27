@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4919 $
- * $Date: 2011-07-17 14:08:39 -0400 (Sun, 17 Jul 2011) $
+ * $Revision: 4921 $
+ * $Date: 2011-07-18 17:59:43 -0400 (Mon, 18 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobLock.cpp 4919 2011-07-17 18:08:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: FrobLock.cpp 4921 2011-07-18 21:59:43Z tels $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -183,13 +183,13 @@ bool CFrobLock::CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse)
 
 	const idStr& name = item->Category()->GetName();
 
-	if (name == common->GetLanguageDict()->GetString( "#str_02392" ) ) 	// Keys
+	if (name == "#str_02392" ) 			// Keys
 	{
 		// Keys can always be used on doors
 		// Exception: for "frob use" this only applies when the mover is locked
 		return (isFrobUse) ? IsLocked() : true;
 	}
-	else if (name == common->GetLanguageDict()->GetString( "#str_02389" ) ) 	// Lockpicks
+	else if (name == "#str_02389" ) 		// Lockpicks
 	{
 		if (!m_Lock->IsPickable())
 		{
@@ -224,7 +224,7 @@ bool CFrobLock::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 	// Get the name of this inventory category
 	const idStr& itemName = item->Category()->GetName();
 	
-	if (name == common->GetLanguageDict()->GetString( "#str_02392" ) && impulseState == EPressed ) 	// Keys
+	if (name == "#str_02392" && impulseState == EPressed ) 			// Keys
 	{
 		// Keys can be used on button PRESS event, let's see if the key matches
 		if (m_UsedByName.FindIndex(itemEntity->name) != -1)
@@ -239,7 +239,7 @@ bool CFrobLock::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 			return false;
 		}
 	}
-	else if (name == common->GetLanguageDict()->GetString( "#str_02389" ) ) 	// Lockpicks
+	else if (name == "#str_02389" ) 					// Lockpicks
 	{
 		if (!m_Lock->IsPickable())
 		{
