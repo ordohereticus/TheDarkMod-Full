@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod - Launcher
  * $Source$
- * $Revision: 4893 $
- * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
- * $Author: greebo $
+ * $Revision: 4913 $
+ * $Date: 2011-07-15 11:44:13 -0400 (Fri, 15 Jul 2011) $
+ * $Author: tels $
  *
  *************************************************************************/
 
@@ -170,7 +170,8 @@ Launcher::Launcher(int argc, char* argv[]) :
 		// Check if this is an optional dmargs file
 		fs::path optionalArgsFileName(_darkmodDir / argv[i]);
 
-		if (fs::exists(optionalArgsFileName))
+		// Tels: fix #2803: check that both source and destination are regular files
+		if (fs::exists(optionalArgsFileName) && fs::is_regular_file(optionalArgsFileName) && fs::is_regular_file(argFileName))
 		{
 			if (fs::exists(argFileName))
 			{
