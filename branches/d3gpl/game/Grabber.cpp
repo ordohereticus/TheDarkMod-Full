@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5126 $ (Revision of last commit) 
+ $Date: 2011-12-14 01:59:51 -0500 (Wed, 14 Dec 2011) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -24,7 +24,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 5121 2011-12-11 19:12:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 5126 2011-12-14 06:59:51Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -990,13 +990,13 @@ void CGrabber::Event_CheckClipList( void )
 		if( !ListEnt )
 		{
 			// not sure how this is happening, but fix it
-			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Removing NULL entity from cliplist\r" );
+			//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Removing NULL entity from cliplist\r" );
 			keep = false;
 		}
 		// We keep an entity if it is the one we're dragging 
 		else if( GetSelected() == ListEnt || (ListEnt->GetBindMaster() && GetSelected() == ListEnt->GetBindMaster()) ) 
 		{
-			DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Keeping entity %s in cliplist as it is currently selected\r", ListEnt->name.c_str() );
+			//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Keeping entity %s in cliplist as it is currently selected\r", ListEnt->name.c_str() );
 			keep = true;
 		}
 		else 
@@ -1007,7 +1007,7 @@ void CGrabber::Event_CheckClipList( void )
 			if( m_player.GetEntity() 
 				&& (EntClip = ListEnt->GetPhysics()->GetClipModel()) != NULL )
 			{
-				DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Testing entity %s for player clipping\r", ListEnt->name.c_str() );
+				//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Testing entity %s for player clipping\r", ListEnt->name.c_str() );
 				PlayerClip = m_player.GetEntity()->GetPhysics()->GetClipModel();
 				idVec3 PlayerOrigin = PlayerClip->GetOrigin();
 				
@@ -1023,11 +1023,11 @@ void CGrabber::Event_CheckClipList( void )
 				if( tr.fraction < 1.0 )
 				{
 					keep = true;
-					DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Keeping entity %s in cliplist since it is still clipping player\r", ListEnt->name.c_str() );
+					//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Keeping entity %s in cliplist since it is still clipping player\r", ListEnt->name.c_str() );
 				}
 				else
 				{
-					DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Entity %s removed from cliplist since it is not selected or clipping player\r", ListEnt->name.c_str() );
+					//DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("GRABBER CLIPLIST: Entity %s removed from cliplist since it is not selected or clipping player\r", ListEnt->name.c_str() );
 				}
 
 			}
