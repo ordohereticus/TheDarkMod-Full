@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4902 $
- * $Date: 2011-06-23 10:03:39 -0400 (Thu, 23 Jun 2011) $
+ * $Revision: 4903 $
+ * $Date: 2011-06-23 10:15:43 -0400 (Thu, 23 Jun 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4902 2011-06-23 14:03:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4903 2011-06-23 14:15:43Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -4101,20 +4101,19 @@ void idPlayer::OnStartShoulderingBody(idEntity* body)
 	SetHinderance( "ShoulderedBody", 1.0f, maxSpeed );
 	SetJumpHinderance( "ShoulderedBody", 1.0f, SHOULDER_JUMP_HINDERANCE );
 
-	// greebo: Determine which icon to display on the HUD
-	idStr iconName;
-
+	// greebo: Determine which text to display on the HUD
+	idStr itemName;
 	if( body->health > 0 )
 	{
-		iconName = body->spawnArgs.GetString("shouldered_name", "#str_02410" ); 	// Body
+		itemName = body->spawnArgs.GetString("shouldered_name", "#str_02410" ); 	// Body
 	}
 	else
 	{
-		iconName = body->spawnArgs.GetString("shouldered_name_dead", "#str_02409" );	// Corpse
+		itemName = body->spawnArgs.GetString("shouldered_name_dead", "#str_02409" );	// Corpse
 	}
 
 	// Send the name to the inventory HUD
-	SetGuiString(m_InventoryOverlay, "GrabbedItemName", iconName);
+	SetGuiString(m_InventoryOverlay, "GrabbedItemName", common->GetLanguageDict()->GetString( itemName ) );
 
 	// Notify all GUIs about the event
 	m_overlays.broadcastNamedEvent("OnStartShoulderingBody");
