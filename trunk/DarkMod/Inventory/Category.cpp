@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4904 $
- * $Date: 2011-06-23 12:18:02 -0400 (Thu, 23 Jun 2011) $
+ * $Revision: 4905 $
+ * $Date: 2011-06-23 13:45:40 -0400 (Thu, 23 Jun 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,21 +12,18 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Category.cpp 4904 2011-06-23 16:18:02Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Category.cpp 4905 2011-06-23 17:45:40Z tels $", init_version);
 
 #include "Category.h"
 #include "WeaponItem.h"
 #include "Inventory.h"
 
 // Constructor
-CInventoryCategory::CInventoryCategory(CInventory* inventory, const idStr& name, const idStr& hudname) :
+CInventoryCategory::CInventoryCategory(CInventory* inventory, const idStr& name) :
 	m_Inventory(inventory),
 	m_Name(name)
 {
 	m_Owner = (inventory != NULL) ? inventory->GetOwner() : NULL;
-	// Tels: If not given, just use name
-	m_HUDName = (hudname) ? hudname : name;
-//	gameLocal.Printf("Creating category %s (%s)\n", m_Name.c_str(), m_HUDName.c_str());
 }
 
 // Destructor
@@ -44,7 +41,6 @@ void CInventoryCategory::Save(idSaveGame *savefile) const
 {
 	m_Owner.Save(savefile);
 	savefile->WriteString(m_Name.c_str());
-	savefile->WriteString(m_HUDName.c_str());
 
 	savefile->WriteInt(m_Item.Num());
 	for (int i = 0; i < m_Item.Num(); i++)
@@ -59,7 +55,6 @@ void CInventoryCategory::Restore(idRestoreGame *savefile)
 {
 	m_Owner.Restore(savefile);
 	savefile->ReadString(m_Name);
-	savefile->ReadString(m_HUDName);
 
 	int num;
 	savefile->ReadInt(num);
