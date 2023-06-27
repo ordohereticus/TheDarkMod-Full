@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4809 $
- * $Date: 2011-04-20 05:20:06 -0400 (Wed, 20 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 5015 $
+ * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -335,6 +335,9 @@ public:
 	 * see how much loot he/she missed.
 	 */
 	void AddMissionLoot(LootType lootType, int amount);
+
+	void IncrementPlayerSeen(); // grayman #2887
+	void Add2TimePlayerSeen( int amount ); // grayman #2887
 
 	/**
 	* Parse the objective data on an entity and add it to the objectives system

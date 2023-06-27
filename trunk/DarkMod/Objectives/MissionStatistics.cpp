@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4802 $
- * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 5015 $
+ * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionStatistics.cpp 4802 2011-04-17 15:56:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionStatistics.cpp 5015 2011-10-29 15:50:39Z grayman $", init_version);
 
 #include "MissionStatistics.h"
 
@@ -59,6 +59,9 @@ void MissionStatistics::Clear()
 	TotalGamePlayTime = 0;
 
 	ObjectiveStates.Clear();
+
+	totalTimePlayerSeen = 0;	// grayman #2887
+	numberTimesPlayerSeen = 0;	// grayman #2887
 }
 
 void MissionStatistics::Save(idSaveGame* savefile) const
@@ -113,6 +116,8 @@ void MissionStatistics::Save(idSaveGame* savefile) const
 	}
 
 	savefile->WriteUnsignedInt(TotalGamePlayTime);
+	savefile->WriteInt(numberTimesPlayerSeen);	// grayman #2887
+	savefile->WriteInt(totalTimePlayerSeen);	// grayman #2887
 
 	savefile->WriteInt(ObjectiveStates.Num());
 	for (int i = 0; i < ObjectiveStates.Num(); ++i)
@@ -173,6 +178,8 @@ void MissionStatistics::Restore(idRestoreGame* savefile)
 	}
 
 	savefile->ReadUnsignedInt(TotalGamePlayTime);
+	savefile->ReadInt(numberTimesPlayerSeen);	// grayman #2887
+	savefile->ReadInt(totalTimePlayerSeen);		// grayman #2887
 
 	int num;
 	savefile->ReadInt(num);

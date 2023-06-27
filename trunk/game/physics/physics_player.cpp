@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 5001 $
- * $Date: 2011-10-18 17:11:08 -0400 (Tue, 18 Oct 2011) $
+ * $Revision: 5015 $
+ * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 5001 $   $Date: 2011-10-18 17:11:08 -0400 (Tue, 18 Oct 2011) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 5015 $   $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -2141,8 +2141,7 @@ void idPhysics_Player::CheckClimbable( void )
 					m_vClimbNormal = trace.c.normal;
 					if ( isVineHigher ) // grayman #2787 - if climbing a vine, flatten out the normal
 					{
-						idVec3 vineNormal = testEntHigher->GetPhysics()->GetAxis().ToAngles().ToForward();
-						m_vClimbNormal = vineNormal;
+						m_vClimbNormal = testEntHigher->GetPhysics()->GetAxis().ToAngles().ToForward();
 					}
 					m_ClimbingOnEnt = testEntHigher;
 					

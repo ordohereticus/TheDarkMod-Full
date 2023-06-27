@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
+ * $Revision: 5015 $
+ * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -789,6 +789,11 @@ public: // greebo: Made these public
 	bool					enemyReachable;
 	bool					wakeOnFlashlight;
 	int						lastUpdateEnemyPositionTime;
+
+	// grayman #2887 - next 2 are used to determine amount of "busted" time
+
+	int						lastTimePlayerSeen;
+	int						lastTimePlayerLost;
 
 public: // greebo: Made these public for now, I didn't want to write an accessor for EVERYTHING
 	// script variables

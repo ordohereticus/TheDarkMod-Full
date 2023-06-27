@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4802 $
- * $Date: 2011-04-17 11:56:32 -0400 (Sun, 17 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 5015 $
+ * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -67,6 +67,10 @@ public:
 	// We need the historic state data to handle conditional objectives.
 	// This list will be empty throughout the mission, and is filled on mission complete
 	idList<EObjCompletionState> ObjectiveStates;
+
+	// grayman #2887 - for tracking how often and for how long the player was seen
+	int numberTimesPlayerSeen;
+	int totalTimePlayerSeen;
 
 	MissionStatistics() 
 	{
