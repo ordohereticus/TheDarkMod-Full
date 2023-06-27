@@ -18,8 +18,8 @@
 # 
 # Project: The Dark Mod (http://www.thedarkmod.com/)
 # 
-# $Revision: 5166 $ (Revision of last commit) 
-# $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+# $Revision: 5174 $ (Revision of last commit) 
+# $Date: 2012-01-07 04:31:10 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
 # $Author: greebo $ (Author of last commit)
 # 
 #*****************************************************************************
@@ -160,7 +160,6 @@ ProjectileResult.cpp \
 PVSToAASMapping.cpp \
 PickableLock.cpp \
 Relations.cpp \
-RevisionTracker.cpp \
 SndProp.cpp \
 SndPropLoader.cpp \
 TimerManager.cpp \
