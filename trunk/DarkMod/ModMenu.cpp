@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5037 $
- * $Date: 2011-11-13 10:24:07 -0500 (Sun, 13 Nov 2011) $
- * $Author: tels $
+ * $Revision: 5130 $
+ * $Date: 2011-12-19 20:53:52 -0500 (Mon, 19 Dec 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 5037 2011-11-13 15:24:07Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 5130 2011-12-20 01:53:52Z grayman $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -177,6 +177,10 @@ void CModMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 	else if (cmd == "uninstallMod")
 	{
 		UninstallMod(gui);
+	}
+	else if (cmd == "startSelect") // grayman #2933 - save mission start position
+	{
+		gameLocal.m_StartPosition = gui->GetStateString("startSelect", "");
 	}
 }
 

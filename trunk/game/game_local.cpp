@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5018 $
- * $Date: 2011-11-04 09:51:45 -0400 (Fri, 04 Nov 2011) $
- * $Author: tels $
+ * $Revision: 5130 $
+ * $Date: 2011-12-19 20:53:52 -0500 (Mon, 19 Dec 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 5018 2011-11-04 13:51:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 5130 2011-12-20 01:53:52Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -272,6 +272,8 @@ void idGameLocal::Clear( void )
 	m_Shop.reset();
 
 	m_TriggerFinalSave = false;
+
+	m_StartPosition = ""; // grayman #2933
 
 	m_GUICommandStack.Clear();
 	m_GUICommandArgs = 0;
@@ -6309,10 +6311,28 @@ idEntity *idGameLocal::SelectInitialSpawnPoint( idPlayer *player ) {
 	float			dist;
 	bool			alone;
 
-	if ( !isMultiplayer || !spawnSpots.Num() ) {
-		spot.ent = FindEntityUsingDef( NULL, "info_player_start" );
-		if ( !spot.ent ) {
-			Error( "No info_player_start on map.\n" );
+	if ( !isMultiplayer || !spawnSpots.Num() )
+	{
+		// grayman #2933 - Did the player specify
+		// a starting point in the briefing?
+
+		bool foundSpot = false;
+		if ( m_StartPosition != "" )
+		{
+			spot.ent = FindEntity( m_StartPosition );
+			if ( spot.ent != NULL )
+			{
+				foundSpot = true;
+			}
+		}
+		
+		if ( !foundSpot )
+		{
+			spot.ent = FindEntityUsingDef( NULL, "info_player_start" );
+			if ( !spot.ent )
+			{
+				Error( "No info_player_start on map.\n" );
+			}
 		}
 		return spot.ent;
 	}

@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5013 $
- * $Date: 2011-10-25 16:30:00 -0400 (Tue, 25 Oct 2011) $
- * $Author: tels $
+ * $Revision: 5130 $
+ * $Date: 2011-12-19 20:53:52 -0500 (Mon, 19 Dec 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -660,7 +660,10 @@ public:
 	idList<int>				musicSpeakers;
 
 	// A flag set by the player to fire a "final save" which must occur at the end of this frame
-	bool						m_TriggerFinalSave;
+	bool					m_TriggerFinalSave;
+
+	// grayman #2933 - store the start position selected during the mission briefing, if any
+	const char *			m_StartPosition;
 
 	// ---------------------- Public idGame Interface -------------------
 
