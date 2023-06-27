@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5176 $ (Revision of last commit) 
+ $Date: 2012-01-07 06:34:09 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: Game_local.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Game_local.cpp 5176 2012-01-07 11:34:09Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -44,7 +44,7 @@ static bool init_version = FileVersionList("$Id: Game_local.cpp 5166 2012-01-06 
 #include "DownloadMenu.h"
 #include "TimerManager.h"
 #include "ai/Conversation/ConversationSystem.h"
-#include "RevisionTracker.h"
+#include "../idlib/RevisionTracker.h"
 #include "Missions/MissionManager.h"
 #include "Missions/DownloadManager.h"
 #include "Http/HttpConnection.h"
