@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1435 $
- * $Date: 2007-10-16 12:53:28 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4934 $
+ * $Date: 2011-08-05 12:48:35 -0400 (Fri, 05 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -37,8 +37,12 @@ public:
 	void					Save( const char *fileName );
 
 	const char *			AddString( const char *str );
-	const char *			GetString( const char *str ) const;
+	const char *			GetString( const char *str, bool dowarn = true ) const;
 
+	/**
+	* Tels: Print some statistics about memory usage.
+	*/
+	void				Print( void ) const;
 							// adds the value and key as passed (doesn't generate a "#str_xxxxx" key or ensure the key/value pair is unique)
 	void					AddKeyVal( const char *key, const char *val );
 

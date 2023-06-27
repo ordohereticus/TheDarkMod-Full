@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4610 $
- * $Date: 2011-02-19 12:54:01 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4934 $
+ * $Date: 2011-08-05 12:48:35 -0400 (Fri, 05 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -136,6 +136,7 @@ public:
 	static void			Shutdown( void );
 
 	static void			ShowMemoryUsage_f( const idCmdArgs &args );
+	void				PrintMemory( void ) const;
 	static void			ListKeys_f( const idCmdArgs &args );
 	static void			ListValues_f( const idCmdArgs &args );
 

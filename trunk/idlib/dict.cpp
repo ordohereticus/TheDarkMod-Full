@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4614 $
- * $Date: 2011-02-19 17:32:11 -0500 (Sat, 19 Feb 2011) $
+ * $Revision: 4934 $
+ * $Date: 2011-08-05 12:48:35 -0400 (Fri, 05 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: dict.cpp 4614 2011-02-19 22:32:11Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: dict.cpp 4934 2011-08-05 16:48:35Z tels $", init_version);
 
 
 idStrPool		idDict::globalKeys;
@@ -663,6 +663,16 @@ idDict::ShowMemoryUsage_f
 void idDict::ShowMemoryUsage_f( const idCmdArgs &args ) {
 	idLib::common->Printf( "%5d KB in %d keys\n", globalKeys.Size() >> 10, globalKeys.Num() );
 	idLib::common->Printf( "%5d KB in %d values\n", globalValues.Size() >> 10, globalValues.Num() );
+}
+
+/*
+================
+idDict::PrintMemory
+================
+*/
+void idDict::PrintMemory( void ) const {
+	idLib::common->Printf( "%d KB in %d keys, %d KB in %d values.\n", 
+		globalKeys.Size() >> 10, globalKeys.Num(), globalValues.Size() >> 10, globalValues.Num() );
 }
 
 /*

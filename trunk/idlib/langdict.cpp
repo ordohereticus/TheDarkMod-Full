@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4911 $
- * $Date: 2011-07-12 13:30:07 -0400 (Tue, 12 Jul 2011) $
+ * $Revision: 4934 $
+ * $Date: 2011-08-05 12:48:35 -0400 (Fri, 05 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: langdict.cpp 4911 2011-07-12 17:30:07Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: langdict.cpp 4934 2011-08-05 16:48:35Z tels $", init_version);
 
 /*
 ============
@@ -130,7 +130,7 @@ void idLangDict::Save( const char *fileName ) {
 idLangDict::GetString
 ============
 */
-const char *idLangDict::GetString( const char *str ) const {
+const char *idLangDict::GetString( const char *str, bool dowarn ) const {
 
 	if ( str == NULL || str[0] == '\0' ) {
 		return "";
@@ -147,7 +147,10 @@ const char *idLangDict::GetString( const char *str ) const {
 		}
 	}
 
-	idLib::common->Warning( "Unknown string id %s", str );
+	if (dowarn)
+	{
+		idLib::common->Warning( "Unknown string id %s", str );
+	}
 	return str;
 }
 
@@ -291,4 +294,15 @@ int idLangDict::GetHashKey( const char *str ) const {
 		hashKey = hashKey * 10 + str[0] - '0';
 	}
 	return hashKey;
+}
+
+/*
+============
+idLangDict::Print
+============
+*/
+void idLangDict::Print( void ) const {
+	int c = args.Num();
+	gameLocal.Printf("idLangDict: %li KB in %i entries.\n", static_cast<long>(args.Size() + hash.Size()) >> 10l, c);
+	//hash.Print();
 }
