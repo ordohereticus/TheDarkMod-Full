@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5008 $
- * $Date: 2011-10-22 13:33:20 -0400 (Sat, 22 Oct 2011) $
+ * $Revision: 5009 $
+ * $Date: 2011-10-22 14:22:47 -0400 (Sat, 22 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -87,7 +87,7 @@ struct DownloadableMod
 	// The list of mission download URLs
 	idStringList missionUrls;
 
-	// The list of HTTP download URLs
+	// The list of Localisation pack download URLs
 	idStringList l10nPackUrls;
 
 	// Begin Initially empty variables, need to be filled per request by the mission manager
