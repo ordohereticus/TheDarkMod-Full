@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4989 $
- * $Date: 2011-10-09 15:32:11 -0400 (Sun, 09 Oct 2011) $
- * $Author: tels $
+ * $Revision: 5038 $
+ * $Date: 2011-11-13 10:31:04 -0500 (Sun, 13 Nov 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4989 2011-10-09 19:32:11Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 5038 2011-11-13 15:31:04Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -252,9 +252,10 @@ void CModMenu::DisplayBriefingPage(idUserInterface* gui)
 		// load up page text
 		idStr page = va("page%d_body", _briefingPage);
 
-		gameLocal.Printf("DisplayBriefingPage: current page is %d", _briefingPage);
+		gameLocal.Printf("DisplayBriefingPage: current page is %d\n", _briefingPage);
 
-		briefing = xd->m_data.GetString(page);
+		// Tels: Translate it properly
+		briefing = gameLocal.m_I18N->Translate( xd->m_data.GetString(page) );
 
 		// set scroll button visibility
 		scrollDown = numPages > _briefingPage;
