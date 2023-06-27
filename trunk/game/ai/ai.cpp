@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5044 $
- * $Date: 2011-11-19 10:38:36 -0500 (Sat, 19 Nov 2011) $
+ * $Revision: 5045 $
+ * $Date: 2011-11-19 10:52:18 -0500 (Sat, 19 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 5044 2011-11-19 15:38:36Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 5045 2011-11-19 15:52:18Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -6251,7 +6251,7 @@ void idAI::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir,
 
 void idAI::DropBlood(idEntity *inflictor)
 {
-	if (inflictor)
+	if ( inflictor && spawnArgs.GetBool("bleed","0") ) // grayman #2931
 	{
 		idStr damageDefName = inflictor->spawnArgs.RandomPrefix("def_damage", gameLocal.random);
 
