@@ -20,7 +20,7 @@
  * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY
  * KIND, either express or implied.
  *
- * $Id: polarssl.h,v 1.10 2009-02-12 20:48:43 danf Exp $
+ * $Id: polarssl.h 5122 2011-12-11 19:47:31Z greebo $
  ***************************************************************************/
 
 #ifdef USE_POLARSSL

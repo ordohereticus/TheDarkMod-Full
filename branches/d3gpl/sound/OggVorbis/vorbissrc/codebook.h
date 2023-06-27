@@ -11,7 +11,7 @@
  ********************************************************************
 
  function: basic shared codebook operations
- last mod: $Id: codebook.h,v 1.13 2002/06/28 22:19:35 xiphmont Exp $
+ last mod: $Id: codebook.h 5122 2011-12-11 19:47:31Z greebo $
 
  ********************************************************************/
 
