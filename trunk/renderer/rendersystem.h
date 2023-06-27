@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 1436 $
- * $Date: 2007-10-16 13:12:36 -0400 (Tue, 16 Oct 2007) $
- * $Author: greebo $
+ * $Revision: 4944 $
+ * $Date: 2011-08-07 08:53:31 -0400 (Sun, 07 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -256,10 +256,6 @@ void R_LightProjectionMatrix( const idVec3 &origin, const idPlane &rearPlane, id
 
 // used by the view shot taker
 void R_ScreenshotFilename( int &lastNumber, const char *base, idStr &fileName );
-
-extern fontInfoEx_t font_an;
-extern fontInfoEx_t font_bank;
-extern fontInfoEx_t font_micro;
 
 void PrintMessage( int x, int y, const char *szMessage, idVec4 colour, fontInfoEx_t &font );
 #endif /* !__RENDERER_H__ */

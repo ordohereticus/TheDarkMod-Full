@@ -1,8 +1,8 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 4925 $
-* $Date: 2011-07-20 15:12:14 -0400 (Wed, 20 Jul 2011) $
+* $Revision: 4944 $
+* $Date: 2011-08-07 08:53:31 -0400 (Sun, 07 Aug 2011) $
 * $Author: tels $
 *
 ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 4925 2011-07-20 19:12:14Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 4944 2011-08-07 12:53:31Z tels $", init_version);
 
 #include "game_local.h"
 
@@ -534,10 +534,6 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 		{
 			player->DrawHUD( hud );
 		}
-
-		//PrintMessage( 100, 20, strText, idVec4( 1, 1, 1, 1 ), font_an );
-		//PrintMessage( 100, 120, strText, idVec4( 1, 1, 1, 1 ), font_bank );
-		//PrintMessage( 100, 140, strText, idVec4( 1, 1, 1, 1 ), font_micro );
 
 		// armor impulse feedback
 		float	armorPulse = ( gameLocal.time - player->lastArmorPulse ) / 250.0f;

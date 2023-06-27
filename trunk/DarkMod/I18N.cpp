@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4943 $
- * $Date: 2011-08-07 08:03:54 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4944 $
+ * $Date: 2011-08-07 08:53:31 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -24,7 +24,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 4943 2011-08-07 12:03:54Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 4944 2011-08-07 12:53:31Z tels $", init_version);
 
 #include "I18N.h"
 
@@ -340,7 +340,23 @@ void CI18N::SetLanguage( const char* lang ) {
 		gameLocal.Warning("Cannot find guis/mainmenu.gui");
 	}
 
-	// TODO: register here the fonts so that switching f.i. to russian works
+	// Registering fonts here does not help to display Russian (or English
+	// after starting with Russian, so we need to find a way to restart the game)
+
+	/*
+	// Register here the fonts so that switching f.i. to russian works
+	const char* szLang = m_lang == "russian" ? "russian" : "english";
+
+	fontInfoEx_t font_carleton;
+	fontInfoEx_t font_carleton_bold;
+	fontInfoEx_t font_carleton_glow;
+	renderSystem->RegisterFont( va( "fonts/%s/carleton", szLang ), font_carleton );
+	renderSystem->RegisterFont( va( "fonts/%s/carleton_bold", szLang ), font_carleton_bold );
+	renderSystem->RegisterFont( va( "fonts/%s/carleton_glow", szLang ), font_carleton_glow );
+	//renderSystem->RegisterFont( va( "fonts/%s/an", szLang ), font_an );
+	//renderSystem->RegisterFont( va( "fonts/%s/bank", szLang ), font_bank );
+	//renderSystem->RegisterFont( va( "fonts/%s/micro", szLang ), font_micro );
+	*/
 }
 
 /*

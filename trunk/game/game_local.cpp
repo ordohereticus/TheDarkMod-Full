@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4937 $
- * $Date: 2011-08-05 17:14:37 -0400 (Fri, 05 Aug 2011) $
+ * $Revision: 4944 $
+ * $Date: 2011-08-07 08:53:31 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4937 2011-08-05 21:14:37Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4944 2011-08-07 12:53:31Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -110,10 +110,6 @@ const char *idGameLocal::m_NewSurfaceTypes[ MAX_SURFACE_TYPES * 2 + 1] = {
 	"brokeglass", "snow", "ice", "squeakboard", "puddle", "moss", "cloth", "ceramic", "slate",
 	"straw", "armor_leath", "armor_chain", "armor_plate", "climbable", "paper","hardwood"
 };
-
-fontInfoEx_t font_an;
-fontInfoEx_t font_bank;
-fontInfoEx_t font_micro;
 
 void PrintMessage( int x, int y, const char *szMessage, idVec4 colour, fontInfoEx_t &font )
 {
@@ -523,11 +519,6 @@ void idGameLocal::Init( void ) {
 	//FIX: pm_walkspeed keeps getting reset whenever a map loads.
 	// Copy the old value here and set it when the map starts up.
 	m_walkSpeed = pm_walkspeed.GetFloat();
-
-	const char *szLang = cvarSystem->GetCVarString( "sys_lang" );
-	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "an" ), font_an );
-	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "bank" ), font_bank );
-	renderSystem->RegisterFont( va( "fonts/%s/%s", szLang, "micro" ), font_micro );
 
 	// Initialize the LightGem - J.C.Denton
 	m_lightGem.Initialize();
