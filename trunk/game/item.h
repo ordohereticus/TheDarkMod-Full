@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3908 $
- * $Date: 2010-05-27 00:48:24 -0400 (Thu, 27 May 2010) $
- * $Author: greebo $
+ * $Revision: 4927 $
+ * $Date: 2011-07-20 16:20:42 -0400 (Wed, 20 Jul 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -95,22 +95,6 @@ private:
 	void					Event_RespawnFx( void );
 };
 
-class idItemPowerup : public idItem {
-public:
-	CLASS_PROTOTYPE( idItemPowerup );
-
-							idItemPowerup();
-
-	void					Save( idSaveGame *savefile ) const;
-	void					Restore( idRestoreGame *savefile );
-
-	void					Spawn();
-	virtual bool			GiveToPlayer( idPlayer *player );
-
-private:
-	int						time;
-	int						type;
-};
 
 class idMoveableItem : public idItem {
 public:
