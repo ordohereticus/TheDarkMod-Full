@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4896 $
- * $Date: 2011-06-20 12:50:09 -0400 (Mon, 20 Jun 2011) $
+ * $Revision: 4935 $
+ * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ShopItem.cpp 4896 2011-06-20 16:50:09Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ShopItem.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
 
 #include "ShopItem.h"
 
@@ -61,12 +61,12 @@ const idStr& CShopItem::GetID() const {
 
 const idStr CShopItem::GetName() const {
 	// Tels: If nec., translate the name
-	return common->GetLanguageDict()->GetString( this->name );
+	return gameLocal.m_I18N->Translate( this->name );
 }
 
 const idStr CShopItem::GetDescription() const {
 	// Tels: If nec., translate the description
-	return common->GetLanguageDict()->GetString( this->description );
+	return gameLocal.m_I18N->Translate( this->description );
 }
 
 const idStringList& CShopItem::GetClassnames() const

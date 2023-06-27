@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4915 $
- * $Date: 2011-07-15 12:23:42 -0400 (Fri, 15 Jul 2011) $
+ * $Revision: 4935 $
+ * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 4915 2011-07-15 16:23:42Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -2277,7 +2277,7 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 					const char* diffName = worldspawnDict.GetString(va("difficulty%dName",diffLevel),
 						diffDef->dict.GetString(va("diff%ddefault",diffLevel), ""));
 					// Tels: Make sure we translate the name for the GUI
-					gui->SetStateString(va("diff%dName",diffLevel), common->GetLanguageDict()->GetString( diffName) );
+					gui->SetStateString(va("diff%dName",diffLevel), gameLocal.m_I18N->Translate( diffName) );
 				}
 
 				gui->SetStateBool("SkipShop", worldspawnDict.GetBool("shop_skip", "0"));

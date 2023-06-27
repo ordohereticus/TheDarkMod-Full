@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4920 $
- * $Date: 2011-07-18 17:14:23 -0400 (Mon, 18 Jul 2011) $
+ * $Revision: 4935 $
+ * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4920 2011-07-18 21:14:23Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -352,7 +352,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		}
 		else
 		{
-			gameLocal.Printf( "%s: Can't find item in player inventory: %s (%s)\n", args.Argv(0), args.Argv(1), common->GetLanguageDict()->GetString(itemName) );
+			gameLocal.Printf( "%s: Can't find item in player inventory: %s (%s)\n", args.Argv(0), args.Argv(1), gameLocal.m_I18N->Translate(itemName) );
 		}
 	}
 }
@@ -2637,7 +2637,7 @@ void Cmd_TestId_f( const idCmdArgs &args ) {
 	if ( idStr::Cmpn( id, STRTABLE_ID, STRTABLE_ID_LENGTH ) != 0 ) {
 		id = STRTABLE_ID + id;
 	}
-	gameLocal.mpGame.AddChatLine( common->GetLanguageDict()->GetString( id ), "<nothing>", "<nothing>", "<nothing>" );	
+	gameLocal.mpGame.AddChatLine( gameLocal.m_I18N->Translate( id ), "<nothing>", "<nothing>", "<nothing>" );	
 }
 
 void Cmd_SetClipMask(const idCmdArgs& args)

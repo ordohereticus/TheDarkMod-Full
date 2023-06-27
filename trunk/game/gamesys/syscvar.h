@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4910 $
- * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
- * $Author: stgatilov $
+ * $Revision: 4935 $
+ * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -81,6 +81,7 @@ extern idCVar cv_tdm_menu_music;
 extern idCVar cv_tdm_show_trainer_messages;
 
 extern idCVar cv_tdm_default_relations_def;
+extern idCVar cv_tdm_lang;
 extern idCVar cv_tdm_fm_path;
 extern idCVar cv_tdm_fm_desc_file;
 extern idCVar cv_tdm_fm_current_file;

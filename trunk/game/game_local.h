@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4910 $
- * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
- * $Author: stgatilov $
+ * $Revision: 4935 $
+ * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -156,6 +156,7 @@ void gameError( const char *fmt, ... );
 #include "../DarkMod/ModelGenerator.h"
 #include "../DarkMod/ImageMapManager.h"
 #include "../DarkMod/LightController.h"
+#include "../DarkMod/I18N.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -194,6 +195,8 @@ class CImageMapManager;
 typedef boost::shared_ptr<CImageMapManager> CImageMapManagerPtr;
 class CLightController;
 typedef boost::shared_ptr<CLightController> CLightControllerPtr;
+class CI18N;
+typedef boost::shared_ptr<CI18N> CI18NPtr;
 
 // Forward declare the Conversation System
 namespace ai { 
@@ -551,6 +554,11 @@ public:
 	 * tels: The light controller instance, used to control local ambient lights.
 	 */
 	CLightControllerPtr		m_LightController;
+
+	/**
+	 * tels: The I18N object (for translation etc.)
+	 */
+	CI18NPtr				m_I18N;
 
 	/**
 	 * greebo: The class handling the main menu's shop GUI.
