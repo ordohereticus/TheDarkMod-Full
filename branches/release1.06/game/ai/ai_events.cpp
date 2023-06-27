@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4866 $
- * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
- * $Author: grayman $
+ * $Revision: 4881 $
+ * $Date: 2011-06-06 02:10:23 -0400 (Mon, 06 Jun 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 4881 2011-06-06 06:10:23Z greebo $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -3513,6 +3513,7 @@ void idAI::Event_DropTorch() // grayman #2603
 
 			ent->m_droppedByAI = true; // grayman #1330
 			GetMemory().stopRelight = true; // in case a relight was in progress - try again later w/o torch
+			m_DroppingTorch = false;
 			break;
 		}
 	}
