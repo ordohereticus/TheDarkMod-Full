@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
+ * $Revision: 4993 $
+ * $Date: 2011-10-11 16:38:14 -0400 (Tue, 11 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4993 2011-10-11 20:38:14Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -9230,20 +9230,37 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 	{
 		if ( idStr::FindText( tactEnt->name, "env_rope" ) >= 0 )
 		{
-			// Find the bindMaster for this rope, then see if there's a CProjectileResult bound to it.
+			// Ignore the rope if you have an enemy.
 
-			idEntity* bindMaster = tactEnt->GetBindMaster();
-			if ( bindMaster != NULL )
+			if ( GetEnemy() == NULL )
 			{
-				idEntity* stimSource = bindMaster->FindMatchingTeamEntity( CProjectileResult::Type );
-				if ( stimSource != NULL )
+				// Find the bindMaster for this rope, then see if there's a CProjectileResult bound to it.
+
+				idEntity* bindMaster = tactEnt->GetBindMaster();
+				if ( bindMaster != NULL )
 				{
-					if ( !stimSource->CheckResponseIgnore(ST_VISUAL,this) )	// only react if you haven't encountered this rope before,
-																			// either by bumping it or receiving its stim
+					idEntity* stimSource = bindMaster->FindMatchingTeamEntity( CProjectileResult::Type );
+					if ( stimSource != NULL )
 					{
-						if ( mind->GetState()->ShouldProcessAlert(ai::EAlertTypeRope) )
+						if ( !stimSource->CheckResponseIgnore(ST_VISUAL,this) )	// only react if you haven't encountered this rope before,
+																				// either by bumping it or receiving its stim
 						{
-							mind->GetState()->OnVisualStimRope(stimSource,this,GetEyePosition());
+							// What's the chance of noticing this rope? If it's zero, you're to ignore the rope.
+							// If it's greater than zero, and even if it's less than 1.0, you walked into the
+							// rope, so we expect you to notice it.
+
+							float chanceToNotice = spawnArgs.GetFloat("chanceNoticeRope","0.0");
+							if ( chanceToNotice > 0.0 )
+							{
+								if ( mind->GetState()->ShouldProcessAlert(ai::EAlertTypeRope) )
+								{
+									mind->GetState()->OnVisualStimRope(stimSource,this,GetEyePosition());
+								}
+							}
+							else // This rope stim should stop sending me stims
+							{
+								stimSource->IgnoreResponse(ST_VISUAL, this);
+							}
 						}
 					}
 				}
