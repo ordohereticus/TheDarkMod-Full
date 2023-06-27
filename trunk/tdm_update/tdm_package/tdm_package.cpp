@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Packager
- * $Revision: 4893 $
- * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
+ * $Revision: 4999 $
+ * $Date: 2011-10-17 03:03:00 -0400 (Mon, 17 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -20,6 +20,7 @@
 
 #include <boost/bind.hpp>
 #include <boost/format.hpp>
+#include <svn_version.h>
 
 #include <map>
 
@@ -31,7 +32,8 @@ int main(int argc, char* argv[])
 	// Start logging
 	RegisterLogWriters();
 
-	TraceLog::WriteLine(LOG_STANDARD, "TDM Packager v0.02 (c) 2010 by greebo & Tels. Part of The Dark Mod (http://www.thedarkmod.com).");
+	TraceLog::WriteLine(LOG_STANDARD, "TDM Packager v0.03 (c) 2010 by greebo & Tels. Part of The Dark Mod (http://www.thedarkmod.com).");
+	TraceLog::WriteLine(LOG_STANDARD, "Linked against libsvn " + std::string(SVN_VER_NUM));
 	TraceLog::WriteLine(LOG_STANDARD, "");
 
 	// Parse the command line
