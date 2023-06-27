@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4866 $
- * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Revision: 4939 $
+ * $Date: 2011-08-06 12:09:52 -0400 (Sat, 06 Aug 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: moveable.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: moveable.cpp 4939 2011-08-06 16:09:52Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/Objectives/MissionData.h"
@@ -243,7 +243,17 @@ void idMoveable::Spawn( void ) {
 		BecomeActive( TH_THINK );
 		}
 
-	PostEventMS( &EV_SetOwnerFromSpawnArgs, 0 );
+	// grayman #2820 - don't queue EV_SetOwnerFromSpawnArgs if it's going to
+	// end up doing nothing. Queuing this for every moveable causes a lot
+	// of event posting during frame 0. If extra work is added to
+	// EV_SetOwnerFromSpawnArgs, then that must be accounted for here, to
+	// make sure it has a chance of getting done.
+
+	idStr owner;
+	if ( spawnArgs.GetString( "owner", "", owner ) )
+	{
+		PostEventMS( &EV_SetOwnerFromSpawnArgs, 0 );
+	}
 }
 
 /*
@@ -810,10 +820,17 @@ void idMoveable::Event_Activate( idEntity *activator ) {
 idMoveable::Event_SetOwnerFromSpawnArgs
 ================
 */
-void idMoveable::Event_SetOwnerFromSpawnArgs( void ) {
-	idStr owner;
+void idMoveable::Event_SetOwnerFromSpawnArgs( void )
+{
+	// grayman #2820 - At the time of this writing, this routine ONLY checks
+	// whether this moveable has its 'owner' spawnarg set. If anything else is
+	// added here, the pre-check in moveable.cpp that wraps around "PostEventMS( &EV_SetOwnerFromSpawnArgs, 0 )"
+	// must account for that. That pre-check is needed to prevent unnecessary
+	// event posting that leads to doing nothing here. (I.e. the moveable has no owner.)
 
-	if ( spawnArgs.GetString( "owner", "", owner ) ) {
+	idStr owner;
+	if ( spawnArgs.GetString( "owner", "", owner ) )
+	{
 		ProcessEvent( &EV_SetOwner, gameLocal.FindEntity( owner ) );
 	}
 }
