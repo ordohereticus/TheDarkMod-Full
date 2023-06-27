@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5143 $ (Revision of last commit) 
+ $Date: 2012-01-01 13:11:56 -0500 (Sun, 01 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -25,9 +25,13 @@
 ===============================================================================
 */
 
-#define GAME_NAME						"DOOM 3"		// appears on window titles and errors
+#define GAME_NAME						"The Dark Mod"		// appears on window titles and errors
 
-#define ENGINE_VERSION					"DOOM 1.3.1"	// printed in console
+// greebo: Defines the darkmod release version
+#define TDM_VERSION_MAJOR 1
+#define TDM_VERSION_MINOR 8
+
+#define ENGINE_VERSION					"Doom 1.3.1"	// printed in console
 
 // paths
 #define	CD_BASEDIR						"Doom"

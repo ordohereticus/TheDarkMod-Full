@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5143 $ (Revision of last commit) 
+ $Date: 2012-01-01 13:11:56 -0500 (Sun, 01 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -37,10 +37,7 @@
 #include <stdio.h>
 #include "Game_local.h"
 #include "CImage.h"
-
-// greebo: Defines the darkmod release version
-#define TDM_VERSION_MAJOR 1
-#define TDM_VERSION_MINOR 7
+#include "../framework/Licensee.h"
 
 enum VersionCheckResult
 {

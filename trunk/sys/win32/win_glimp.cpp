@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5143 $ (Revision of last commit) 
+ $Date: 2012-01-01 13:11:56 -0500 (Sun, 01 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -596,10 +596,12 @@ static bool GLW_CreateWindow( glimpParms_t parms ) {
 		}
 	}
 
+	idStr title = va( "%s %d.%02d", GAME_NAME, TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+
 	win32.hWnd = CreateWindowEx (
 		 exstyle, 
 		 WIN32_WINDOW_CLASS_NAME,
-		 GAME_NAME,
+		 title.c_str(),
 		 stylebits,
 		 x, y, w, h,
 		 NULL,

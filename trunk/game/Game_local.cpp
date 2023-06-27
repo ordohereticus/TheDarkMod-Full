@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5134 $ (Revision of last commit) 
- $Date: 2011-12-29 00:45:50 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
+ $Revision: 5143 $ (Revision of last commit) 
+ $Date: 2012-01-01 13:11:56 -0500 (Sun, 01 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: Game_local.cpp 5134 2011-12-29 05:45:50Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Game_local.cpp 5143 2012-01-01 18:11:56Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -425,9 +425,6 @@ void idGameLocal::Init( void ) {
 	TestGameAPI();
 
 #else
-	// Attempt to change the D3 window title and icon
-	ChangeWindowTitleAndIcon();
-
 	// Initialize the image library, so we can use it later on.
 	ilInit();
 
@@ -7241,53 +7238,6 @@ idLight * idGameLocal::FindMainAmbientLight( bool a_bCreateNewIfNotFound /*= fal
 
 	return pLightEntMainAmbient;
 
-}
-
-#ifdef WIN32
-namespace
-{
-	// greebo: This little snippet is changing the window title to something more appropriate.
-	BOOL CALLBACK ChangeD3WindowTitle(HWND hwnd,LPARAM lParam)
-	{
-		// Find the window of our process
-		DWORD procId;
-		if (GetWindowThreadProcessId(hwnd, &procId) && procId == GetCurrentProcessId())
-		{
-			if (!GetWindow(hwnd, GW_OWNER))
-			{
-				char title[256];
-				GetWindowText(hwnd, title, 255);
-				
-				if (std::string(title) == "DOOM 3")
-				{
-					std::string newTitle = va("%s %d.%02d", GAME_VERSION, TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
-					SetWindowText(hwnd, newTitle.c_str());
-
-					fs::path darkmodPath = g_Global.GetDarkmodPath();
-					darkmodPath /= "darkmod.ico";
-
-					HICON hIcon = (HICON)LoadImage(NULL, darkmodPath.file_string().c_str(), IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
-
-					if (hIcon)
-					{
-						SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
-					}
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-}
-#endif
-
-void idGameLocal::ChangeWindowTitleAndIcon()
-{
-#ifdef WIN32
-	EnumWindows((WNDENUMPROC)ChangeD3WindowTitle, 0);
-#endif
 }
 
 void idGameLocal::ClearPersistentInfo()

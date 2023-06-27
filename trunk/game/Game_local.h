@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5134 $ (Revision of last commit) 
- $Date: 2011-12-29 00:45:50 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
+ $Revision: 5143 $ (Revision of last commit) 
+ $Date: 2012-01-01 13:11:56 -0500 (Sun, 01 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -1100,9 +1100,6 @@ private:
 	// The lengthStr corresponds to the videosStr, but contains the lengths of the clips
 	static int				LoadVideosFromString(const char* videosStr, const char* lengthStr, 
 												 idList<BriefingVideoPart>& targetList);
-
-	// Platform-specific implementation to change the D3's title and icon
-	void					ChangeWindowTitleAndIcon();
 };
 
 //============================================================================
