@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4636 $
- * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
+ * $Revision: 4887 $
+ * $Date: 2011-06-14 04:06:50 -0400 (Tue, 14 Jun 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -489,6 +489,7 @@ void Packager::CheckRepository()
 	{
 		if (!fs::exists(darkmodPath / i->sourceFile))
 		{
+			TraceLog::WriteLine(LOG_STANDARD, (boost::format("Could not find file %s in your darkmod path: ") % i->sourceFile.file_string()).str());
 			missingFiles++;
 		}
 	}
