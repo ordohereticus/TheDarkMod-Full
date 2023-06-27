@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4420 $
- * $Date: 2011-01-11 01:23:39 -0500 (Tue, 11 Jan 2011) $
- * $Author: tels $
+ * $Revision: 5010 $
+ * $Date: 2011-10-23 06:06:28 -0400 (Sun, 23 Oct 2011) $
+ * $Author: angua $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: liquid.cpp 4420 2011-01-11 06:23:39Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: liquid.cpp 5010 2011-10-23 10:06:28Z angua $", init_version);
 
 #include "StimResponse/StimResponseCollection.h"
 
@@ -80,7 +80,7 @@ idLiquid::~idLiquid()
 	// Traverse all spawned entities and remove ourselves as water if necessary
 	for (idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next())
 	{
-		if (ent->GetPhysics()->GetWater() == &physicsObj)
+		if (ent->GetPhysics() != NULL && ent->GetPhysics()->GetWater() == &physicsObj)
 		{
 			ent->GetPhysics()->SetWater(NULL, 0.0f);
 		}
