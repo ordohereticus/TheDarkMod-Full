@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4827 $
- * $Date: 2011-05-01 02:08:08 -0400 (Sun, 01 May 2011) $
- * $Author: greebo $
+ * $Revision: 4899 $
+ * $Date: 2011-06-20 16:12:22 -0400 (Mon, 20 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4827 2011-05-01 06:08:08Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4899 2011-06-20 20:12:22Z tels $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -293,19 +293,19 @@ CInventoryItemPtr CInventory::ValidateLoot(idEntity *ent, const bool gotFromShop
 			case LOOT_GOLD:
 				m_Gold += value;
 				LGroupVal = m_Gold;
-				pickedUpMsg += " in Gold";
+				pickedUpMsg += common->GetLanguageDict()->GetString("#str_07320");	// " in Gold"
 			break;
 
 			case LOOT_GOODS:
 				m_Goods += value;
 				LGroupVal = m_Goods;
-				pickedUpMsg += " in Goods";
+				pickedUpMsg += common->GetLanguageDict()->GetString("#str_07321");	// " in Goods"
 			break;
 
 			case LOOT_JEWELS:
 				m_Jewelry += value;
 				LGroupVal = m_Jewelry;
-				pickedUpMsg += " in Jewels";
+				pickedUpMsg += common->GetLanguageDict()->GetString("#str_07322");	// " in Jewels"
 			break;
 			
 			default: break;

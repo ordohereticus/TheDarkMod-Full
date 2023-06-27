@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
- * $Author: grayman $
+ * $Revision: 4899 $
+ * $Date: 2011-06-20 16:12:22 -0400 (Mon, 20 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4899 2011-06-20 20:12:22Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1058,7 +1058,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 	savegame.FinalizeCache();
 
 	// Send a message to the HUD
-	GetLocalPlayer()->SendHUDMessage("Game Saved");
+	GetLocalPlayer()->SendHUDMessage("#str_02916");	// "Game Saved"
 }
 
 /*
