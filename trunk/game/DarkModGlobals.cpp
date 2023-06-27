@@ -18,18 +18,18 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5155 $ (Revision of last commit) 
- $Date: 2012-01-03 14:36:30 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
+ $Revision: 5161 $ (Revision of last commit) 
+ $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "precompiled.h"
 #pragma hdrstop
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5155 2012-01-03 19:36:30Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5161 2012-01-06 11:18:21Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"

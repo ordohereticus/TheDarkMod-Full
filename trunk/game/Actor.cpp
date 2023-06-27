@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5123 $ (Revision of last commit) 
- $Date: 2011-12-12 01:37:40 -0500 (Mon, 12 Dec 2011) $ (Date of last commit)
+ $Revision: 5161 $ (Revision of last commit) 
+ $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Actor.cpp 5123 2011-12-12 06:37:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Actor.cpp 5161 2012-01-06 11:18:21Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"

@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5132 $ (Revision of last commit) 
- $Date: 2011-12-29 00:41:59 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
+ $Revision: 5161 $ (Revision of last commit) 
+ $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
-#include "../idlib/precompiled.h"
+#include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Entity.cpp 5132 2011-12-29 05:41:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Entity.cpp 5161 2012-01-06 11:18:21Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 

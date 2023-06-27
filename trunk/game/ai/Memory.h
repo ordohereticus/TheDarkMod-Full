@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5123 $ (Revision of last commit) 
- $Date: 2011-12-12 01:37:40 -0500 (Mon, 12 Dec 2011) $ (Date of last commit)
+ $Revision: 5161 $ (Revision of last commit) 
+ $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #ifndef __AI_MEMORY_H__
 #define __AI_MEMORY_H__
 
-#include "../../idlib/precompiled.h"
+#include "precompiled.h"
 #include "../BinaryFrobMover.h"
 #include "../FrobDoor.h"
 #include "DoorInfo.h"

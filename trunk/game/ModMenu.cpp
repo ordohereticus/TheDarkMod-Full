@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5158 $ (Revision of last commit) 
- $Date: 2012-01-04 03:50:27 -0500 (Wed, 04 Jan 2012) $ (Date of last commit)
+ $Revision: 5161 $ (Revision of last commit) 
+ $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
-#include "../idlib/precompiled.h"
+#include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 5158 2012-01-04 08:50:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 5161 2012-01-06 11:18:21Z greebo $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>

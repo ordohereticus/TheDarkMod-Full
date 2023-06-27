@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5150 $ (Revision of last commit) 
- $Date: 2012-01-02 14:39:00 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5161 $ (Revision of last commit) 
+ $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
-#include "../../idlib/precompiled.h"
+#include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: AI.cpp 5150 2012-01-02 19:39:00Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: AI.cpp 5161 2012-01-06 11:18:21Z greebo $", init_version);
 
 #include "../Game_local.h"
 #include "Mind.h"
