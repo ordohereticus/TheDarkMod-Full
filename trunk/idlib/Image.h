@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5189 $ (Revision of last commit) 
- $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5190 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:23:53 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,8 +21,7 @@
 #define DARKMODCIMAGE_H
 
 #if defined(__linux__) || defined(MACOS_X)
-#include "../idlib/Lib.h"
-#include "../sound/sound.h"
+#include "Lib.h"
 #endif
 
 #include "Str.h"
