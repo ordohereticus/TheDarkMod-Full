@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4868 $
- * $Date: 2011-05-25 11:12:57 -0400 (Wed, 25 May 2011) $
- * $Author: newhorizon $
+ * $Revision: 4885 $
+ * $Date: 2011-06-13 04:43:26 -0400 (Mon, 13 Jun 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4868 2011-05-25 15:12:57Z newhorizon $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4885 2011-06-13 08:43:26Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -572,7 +572,7 @@ void idPlayer::Init( void ) {
 	oldFlags				= 0;
 
 	currentWeapon			= -1;
-	idealWeapon				= -1;
+	idealWeapon				= 0;
 	previousWeapon			= -1;
 	weaponSwitchTime		= 0;
 	weaponEnabled			= true;
@@ -2397,8 +2397,13 @@ void idPlayer::SavePersistantInfo( void ) {
 	idDict &playerInfo = gameLocal.persistentPlayerInfo[entityNumber];
 
 	playerInfo.Clear();
+
+	// greebo: Don't persist current weapon when switching maps (issue #2774)
+	// Keep writing the health value to the dict, the engine is using that to query the player's health
 	playerInfo.SetInt( "health", health );
+#if 0
 	playerInfo.SetInt( "current_weapon", currentWeapon );
+#endif
 }
 
 /*
@@ -2413,12 +2418,16 @@ void idPlayer::RestorePersistantInfo( void ) {
 		gameLocal.persistentPlayerInfo[entityNumber].Clear();
 	}
 
+	// greebo: TDM doesn't need to load health or weapon from the dict, that is not (yet) intended since
+	// map switching within missions is not yet planned or fleshed out
+#if 0
 	spawnArgs.Copy( gameLocal.persistentPlayerInfo[entityNumber] );
 
 	health = spawnArgs.GetInt( "health", "100" );
 	if ( !gameLocal.isClient ) {
 		idealWeapon = spawnArgs.GetInt( "current_weapon", "0" );
 	}
+#endif
 }
 
 /*
