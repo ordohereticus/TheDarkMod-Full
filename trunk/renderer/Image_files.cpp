@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5189 $ (Revision of last commit) 
- $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5191 $ (Revision of last commit) 
+ $Date: 2012-01-08 05:32:34 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5189 2012-01-08 10:09:30Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5191 2012-01-08 10:32:34Z greebo $");
 
 #include "tr_local.h"
 
@@ -864,7 +864,11 @@ static void LoadJPG( const char *filename, unsigned char **pic, int *width, int 
 
   /* Step 2: specify data source (eg, a file) */
 
+#if JPEG_LIB_VERSION >= 80
   jpeg_mem_src(&cinfo, fbuffer, len);
+#else
+  jpeg_stdio_src(&cinfo, fbuffer);
+#endif
 
   /* Step 3: read file parameters with jpeg_read_header() */
 
