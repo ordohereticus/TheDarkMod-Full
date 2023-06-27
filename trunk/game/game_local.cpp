@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 5003 $
- * $Date: 2011-10-20 17:17:36 -0400 (Thu, 20 Oct 2011) $
- * $Author: tels $
+ * $Revision: 5007 $
+ * $Date: 2011-10-21 12:36:25 -0400 (Fri, 21 Oct 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 5003 2011-10-20 21:17:36Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 5007 2011-10-21 16:36:25Z greebo $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -270,6 +270,9 @@ void idGameLocal::Clear( void )
 	m_DownloadMenu.reset();
 	m_DownloadManager.reset();
 	m_Shop.reset();
+
+	m_TriggerFinalSave = false;
+
 	m_GUICommandStack.Clear();
 	m_GUICommandArgs = 0;
 
@@ -3276,6 +3279,15 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 				if ( player->lastHitTime > 0 && time < player->lastHitTime + 10000 ) {
 					ret.combat += int(50.0f * (float) ( time - player->lastHitTime ) / 10000);
 				}
+			}
+
+			// Check for final save trigger - the player PVS is freed at this point, so we can go ahead and save the game
+			if (m_TriggerFinalSave)
+			{
+				m_TriggerFinalSave = false;
+
+				idStr savegameName = va("Mission %d Final Save", m_MissionManager->GetCurrentMissionIndex() + 1);
+				cmdSystem->BufferCommandText(CMD_EXEC_NOW, va("savegame '%s'", savegameName.c_str()));
 			}
 
 			// see if a target_sessionCommand has forced a changelevel

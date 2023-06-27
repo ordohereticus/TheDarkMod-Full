@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4965 $
- * $Date: 2011-09-03 07:38:54 -0400 (Sat, 03 Sep 2011) $
- * $Author: tels $
+ * $Revision: 5007 $
+ * $Date: 2011-10-21 12:36:25 -0400 (Fri, 21 Oct 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -659,6 +659,9 @@ public:
 	// tels: a list of all speaker entities with s_music set, these are affected by s_vol_music:
 	idList<int>				musicSpeakers;
 
+	// A flag set by the player to fire a "final save" which must occur at the end of this frame
+	bool						m_TriggerFinalSave;
+
 	// ---------------------- Public idGame Interface -------------------
 
 							idGameLocal();
@@ -1015,6 +1018,8 @@ private:
 		idStr	targetName;
 	};
 
+	idList<InterMissionTrigger>	m_InterMissionTriggers;
+
 	// Tels: For each part in a GUI command in 'set "cmd" "command arg1 arg2;" the game will
 	//		 call HandleMainMenuCommand(), sometimes with a final call with the ";".
 	//		 This list here keeps all these parts so we can execute the command
@@ -1022,8 +1027,6 @@ private:
 	idList<idStr>				m_GUICommandStack;
 	// how many arguments do we expect for the current command (m_GUICommandStack[0]):
 	int							m_GUICommandArgs;
-
-	idList<InterMissionTrigger>	m_InterMissionTriggers;
 
 	void					Clear( void );
 							// returns true if the entity shouldn't be spawned at all in this game type or difficulty level

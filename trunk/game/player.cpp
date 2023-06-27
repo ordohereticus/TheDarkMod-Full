@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4982 $
- * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
- * $Author: grayman $
+ * $Revision: 5007 $
+ * $Date: 2011-10-21 12:36:25 -0400 (Fri, 21 Oct 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 5007 2011-10-21 16:36:25Z greebo $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11320,8 +11320,8 @@ void idPlayer::Event_MissionSuccess()
 	PostEventMS(&EV_DisconnectFromMission, 0);
 
 	// Issue an automatic save at the end of this mission
-	idStr savegameName = va("Mission %d Final Save", gameLocal.m_MissionManager->GetCurrentMissionIndex() + 1);
-	cmdSystem->BufferCommandText(CMD_EXEC_NOW, va("savegame '%s'", savegameName.c_str()));
+	// greebo: Don't do this immediately, the player PVS must be freed before saving!
+	gameLocal.m_TriggerFinalSave = true;
 }
 
 void idPlayer::Event_DisconnectFromMission()
