@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4893 $
- * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
- * $Author: greebo $
+ * $Revision: 4895 $
+ * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4893 2011-06-19 07:18:58Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -4068,11 +4068,26 @@ bool idPlayer::IsPushing()
 
 void idPlayer::OnStartShoulderingBody(idEntity* body)
 {
+	// grayman #2478 - shouldering light bodies, like rats, shouldn't elicit shouldering sounds
+
+	idStr sound = "snd_shoulder_body";
+
 	// Check if the other body is at least 30 kg heavier than us
-	bool isHeavy = body->GetPhysics()->GetMass() > GetPhysics()->GetMass() + 30;
+
+	if ( body->GetPhysics()->GetMass() >= ( GetPhysics()->GetMass() + 30 ) )
+	{
+		sound = "snd_shoulder_body_heavy";
+	}
+	else if ( body->GetPhysics()->GetMass() <= 10 ) // very light?
+	{
+		sound = "";
+	}
 
 	// play the sound on the player, not the body (that was creating inconsistent volume)
-	StartSound( isHeavy ? "snd_shoulder_body_heavy" : "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
+	if ( sound.Length() > 0 )
+	{
+		StartSound( sound.c_str(), SND_CHANNEL_ITEM, 0, false, NULL );
+	}
 
 	// set immobilizations
 	int immob = SHOULDER_IMMOBILIZATIONS;
@@ -4117,8 +4132,12 @@ void idPlayer::OnStopShoulderingBody(idEntity* body)
 	SetHinderance( "ShoulderedBody", 1.0f, 1.0f );
 	SetJumpHinderance( "ShoulderedBody", 1.0f, 1.0f );
 
-	// same sound for unshouldering as shouldering
-	StartSound( "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
+	// grayman #2478 - unshouldering light bodies, like rats, shouldn't elicit unshouldering sounds
+
+	if ( body->GetPhysics()->GetMass() > 10 )
+	{
+		StartSound( "snd_shoulder_body", SND_CHANNEL_ITEM, 0, false, NULL );
+	}
 
 	m_overlays.broadcastNamedEvent("OnStopShoulderingBody");
 
@@ -9135,12 +9154,15 @@ bool idPlayer::CanShowWeaponViewmodel( void ) const {
 
 void idPlayer::UpdateWeaponEncumbrance()
 {
-	// Get the currently selected weapon
-	CInventoryItemPtr weapon = m_WeaponCursor->GetCurrentItem();
-
-	if (weapon != NULL)
+	if (m_WeaponCursor != NULL) // grayman #2773
 	{
-		SetHinderance("weapon", weapon->GetMovementModifier(), 1.0f);
+		// Get the currently selected weapon
+		CInventoryItemPtr weapon = m_WeaponCursor->GetCurrentItem();
+
+		if (weapon != NULL)
+		{
+			SetHinderance("weapon", weapon->GetMovementModifier(), 1.0f);
+		}
 	}
 }
 
@@ -10324,17 +10346,22 @@ void idPlayer::PerformFrobCheck()
 	// Do frob trace first, along view axis, record distance traveled
 	// Frob collision mask:
 	int cm = CONTENTS_SOLID|CONTENTS_OPAQUE|CONTENTS_BODY
-		|CONTENTS_CORPSE|CONTENTS_RENDERMODEL
-		|CONTENTS_FROBABLE;
+		|CONTENTS_CORPSE|CONTENTS_RENDERMODEL|CONTENTS_FROBABLE;
 
 	trace_t trace;
 	gameLocal.clip.TracePoint(trace, start, end, cm, this);
 
 	float traceDist = g_Global.m_MaxFrobDistance * trace.fraction;
 
-	if( trace.fraction < 1.0f )
+	if ( trace.fraction < 1.0f )
 	{
 		idEntity *ent = gameLocal.entities[ trace.c.entityNum ];
+
+		float extraSpace = 0; // grayman #2478 - a little extra room to disarm a mine
+		if ( ent->IsType(idProjectile::Type) && static_cast<idProjectile*>(ent)->IsMine() )
+		{
+			extraSpace = 8;
+		}
 
 		DM_LOG(LC_FROBBING, LT_INFO)LOGSTRING("Frob: Direct hit on entity %s\r", ent->name.c_str());
 		
@@ -10347,29 +10374,29 @@ void idPlayer::PerformFrobCheck()
 		bool isRopeMaster = physicsObj.OnRope() && physicsObj.GetRopeEntity()->GetBindMaster() == ent;
 
 		// ishtvan: Check if the frobbed entity is a dynamically added AF body linked to another entity
-		if( ent->IsType(idAFEntity_Base::Type) )
+		if ( ent->IsType(idAFEntity_Base::Type) )
 		{
 			idAFEntity_Base *afEnt = static_cast<idAFEntity_Base *>(ent);
 			idAFBody *AFbod = afEnt->GetAFPhysics()->GetBody( afEnt->BodyForClipModelId(trace.c.id) );
 
-			if( AFbod->GetRerouteEnt() && AFbod->GetRerouteEnt()->m_bFrobable )
+			if ( AFbod->GetRerouteEnt() && AFbod->GetRerouteEnt()->m_bFrobable )
 			{
 				ent = AFbod->GetRerouteEnt();
 			}
 		}
 
 		// Inventory items might impose a reduction of the frob distance to some entities
-		if (curItem != NULL) 
+		if ( curItem != NULL ) 
 		{
 			bool bCanBeUsed = ent->CanBeUsedBy(curItem, true);
 
-			if( bCanBeUsed && traceDist > curItem->GetFrobDistanceCap())
+			if ( bCanBeUsed && ( traceDist > curItem->GetFrobDistanceCap() + extraSpace ) )
 			{
 				// Failed the distance check for locked items, disable this entity
 				lockedItemCheck = false;
 			}
 
-			if( m_bFrobOnlyUsedByInv && !bCanBeUsed )
+			if ( m_bFrobOnlyUsedByInv && !bCanBeUsed )
 			{
 				// frob only used by is active and ent can't be used, failed check
 				bUsedByCheck = false;
@@ -10381,11 +10408,11 @@ void idPlayer::PerformFrobCheck()
 	
 		// only frob frobable, non-hidden entities within their frobdistance
 		// also, do not frob the ent we are currently holding in our hands
-		if( ent->m_bFrobable && frobAllowed && lockedItemCheck && bUsedByCheck && !isRopeMaster 
-			&& !ent->IsHidden() && traceDist < ent->m_FrobDistance 
-			&& ent != gameLocal.m_Grabber->GetSelected() )
+		if ( ent->m_bFrobable && frobAllowed && lockedItemCheck && bUsedByCheck && !isRopeMaster 
+			 && !ent->IsHidden() && ( traceDist < ent->m_FrobDistance )
+			 && ( ent != gameLocal.m_Grabber->GetSelected() ) )
 		{
-			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("Entity %s was within frobdistance\r", ent->name.c_str());
+			DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("     Entity %s was within frobdistance\r", ent->name.c_str());
 
 			// Mark as frobbed for this frame
 			ent->SetFrobbed(true);
@@ -10408,7 +10435,9 @@ void idPlayer::PerformFrobCheck()
 
 	// Optional debug drawing of frob bounds
 	if( cv_frob_debug_bounds.GetBool() )
+	{
 		gameRenderWorld->DebugBounds( colorBlue, frobBounds );
+	}
 
 	static idEntity* frobRangeEnts[MAX_GENTITIES];
 
@@ -10418,16 +10447,25 @@ void idPlayer::PerformFrobCheck()
 	float bestDot = 0;
 	idEntity* bestEnt = NULL;
 
-	for( int i=0; i < numFrobEnt; i++ )
+	for ( int i = 0 ; i < numFrobEnt ; i++ )
 	{
 		idEntity *ent = frobRangeEnts[i];
 
-		if (ent == NULL) continue;
+		if (ent == NULL)
+		{
+			continue;
+		}
 
-		if (!ent->m_FrobDistance || ent->IsHidden() || !ent->m_bFrobable) continue;
+		if (!ent->m_FrobDistance || ent->IsHidden() || !ent->m_bFrobable)
+		{
+			continue;
+		}
 
 		// If shouldering a body, we only allow "simple" frobs
-		if (m_bShoulderingBody && !ent->m_bFrobSimple) continue;
+		if (m_bShoulderingBody && !ent->m_bFrobSimple)
+		{
+			continue;
+		}
 
 		// Get the frob distance from the entity candidate
 		float frobDist = ent->m_FrobDistance;
@@ -10435,37 +10473,54 @@ void idPlayer::PerformFrobCheck()
 		
 		float entDistance = delta.LengthFast();
 
-		if (entDistance > frobDist) continue; // too far
-
-		// Inventory items might impose a reduction of the frob distance to some entities
-		if (curItem != NULL && ent->CanBeUsedBy(curItem, true) && 
-			entDistance > curItem->GetFrobDistanceCap())
+		if (entDistance > frobDist)
 		{
-			// Failed inventory item distance check, disable this entity
-			continue;
+			continue; // too far
 		}
 
-		// Frob only used by inv. item is active, and this entity cannot be used by it
-		if( curItem != NULL && m_bFrobOnlyUsedByInv && !ent->CanBeUsedBy(curItem, true) )
+		if (curItem != NULL) // grayman #2478 - rearranged code
 		{
-			continue;
+			bool canBeUsed = ent->CanBeUsedBy(curItem, true);
+
+			// Inventory items might impose a reduction of the frob distance to some entities.
+			// grayman #2478 - If the frobbed entity is a mine, increase the distance.
+
+			// Special case for armed mine and lockpick.
+
+			bool isMine = ( ent->IsType(idProjectile::Type) && static_cast<idProjectile*>(ent)->IsMine() );
+			if ( isMine )
+			{
+				if ( !canBeUsed || ( entDistance > ( curItem->GetFrobDistanceCap() + 8 ) ) )
+				{
+					continue;
+				}
+			}
+			else if ( canBeUsed && ( entDistance > curItem->GetFrobDistanceCap() ) )
+			{
+				// Failed inventory item distance check, ignore this entity
+				continue;
+			}
+
+			// Frob only used by inv. item is active, and this entity cannot be used by it
+			if ( m_bFrobOnlyUsedByInv && !canBeUsed )
+			{
+				continue;
+			}
 		}
 
 		delta.NormalizeFast();
 		float currentDot = delta * vecForward;
 		currentDot *= ent->m_FrobBias;
 
-		if( currentDot > bestDot )
+		if ( currentDot > bestDot )
 		{
 			bestDot = currentDot;
 			bestEnt = ent;
 		}
 	}
 
-	if( bestEnt != NULL && bestEnt != gameLocal.m_Grabber->GetSelected() )
+	if ( ( bestEnt != NULL ) && ( bestEnt != gameLocal.m_Grabber->GetSelected() ) )
 	{
-		DM_LOG(LC_FROBBING,LT_INFO)LOGSTRING("Frob radius expansion found best entity %s\r", bestEnt->name.c_str() );
-
 		// Mark the entity as frobbed this frame
 		bestEnt->SetFrobbed(true);
 		// Store the frob entity

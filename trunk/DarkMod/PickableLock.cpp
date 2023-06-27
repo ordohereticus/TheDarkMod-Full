@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3694 $
- * $Date: 2009-09-06 04:51:32 -0400 (Sun, 06 Sep 2009) $
- * $Author: greebo $
+ * $Revision: 4895 $
+ * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PickableLock.cpp 3694 2009-09-06 08:51:32Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PickableLock.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -234,10 +234,10 @@ void PickableLock::OnLockpickPinSuccess()
 		// Move the handle back to its original position
 		m_Owner->ProcessEvent(&EV_TDM_Lock_StatusUpdate);
 
-		// And unlock the door after a small delay
+		// And unlock the entity after a small delay
 		m_Owner->PostEventMS(&EV_TDM_Lock_OnLockPicked, 150);
 
-		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] successfully picked!\r", m_Owner->name.c_str());
+		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Entity [%s] successfully picked!\r", m_Owner->name.c_str());
 	}
 	else
 	{
@@ -254,7 +254,7 @@ void PickableLock::OnLockpickPinSuccess()
 		// Fall back to LOCKED state after the sound
 		PropPickSound("snd_lockpick_pin_success", LOCKED);
 
-		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Door [%s] successfully picked!\r", m_Owner->name.c_str());
+		DM_LOG(LC_LOCKPICK, LT_DEBUG)LOGSTRING("Entity [%s] successfully picked!\r", m_Owner->name.c_str());
 	}
 }
 

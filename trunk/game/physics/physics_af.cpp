@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4627 $
- * $Date: 2011-02-24 12:46:17 -0500 (Thu, 24 Feb 2011) $
+ * $Revision: 4895 $
+ * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 4627 2011-02-24 17:46:17Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../DarkMod/Grabber.h"
@@ -7825,6 +7825,7 @@ idPhysics_AF::ApplyImpulse
 ================
 */
 void idPhysics_AF::ApplyImpulse( const int id, const idVec3 &point, const idVec3 &impulse ) {
+
 	if ( id < 0 || id >= bodies.Num() ) {
 		return;
 	}

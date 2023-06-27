@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
+ * $Revision: 4895 $
+ * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_monster.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: physics_monster.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
 
 #include "../game_local.h"
 
@@ -80,11 +80,30 @@ void idPhysics_Monster::CheckGround( monsterPState_t &state ) {
 		groundEnt->GetImpactInfo( self, groundTrace.c.id, groundTrace.c.point, &info );
 
 		// greebo: Don't push entities that already have a velocity towards the ground.
-		if ( groundPhysics && info.invMass != 0.0f ) {
-			// greebo: Apply a force to the entity below the player
-			//gameRenderWorld->DebugArrow(colorCyan, current.origin, current.origin + gravityNormal*20, 1, 16);
-			groundPhysics->AddForce(0, current.origin, gravityNormal);
-			groundPhysics->Activate();
+		if ( groundPhysics && info.invMass != 0.0f )
+		{
+			// grayman #2478 - is this a mine? if so, blow it up now instead of waiting
+			// for the Collide() code to blow it up. Waiting allows the physics engine
+			// to sink the mine into the floor before it blows. If the mine is not
+			// armed yet, nothing happens, but at least the mine isn't pushed into the floor.
+
+			if ( groundEnt->IsType(idProjectile::Type) && static_cast<idProjectile*>(groundEnt)->IsMine() )
+			{
+				static_cast<idProjectile*>(groundEnt)->MineExplode( self->entityNumber );
+			}
+			else
+			{
+				// greebo: Apply a force to the entity below the player
+				//gameRenderWorld->DebugArrow(colorCyan, current.origin, current.origin + gravityNormal*20, 1, 16);
+
+				// grayman TODO: When an AI steps on something and applies this force, it's
+				// possible that physics will cause the thing to fall through the floor.
+				// gameLocal.clip.Motion() might have a problem with something sitting flat
+				// on a world brush.
+
+				groundPhysics->AddForce(0, current.origin, gravityNormal);
+				groundPhysics->Activate();
+			}
 		}
 	}
 }

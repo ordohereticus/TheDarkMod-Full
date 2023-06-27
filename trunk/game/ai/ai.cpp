@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4880 $
- * $Date: 2011-06-05 22:12:51 -0400 (Sun, 05 Jun 2011) $
+ * $Revision: 4895 $
+ * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4880 2011-06-06 02:12:51Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -6100,6 +6100,15 @@ void idAI::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir,
 
 	idActor::Damage(inflictor, attacker, dir, damageDefName, damageScale, location, collision);
 
+	// grayman #2478 - allowed idActor::Damage if dead, for physics reasons.
+	// Nothing beyond here is needed for AI that were dead when idAI::Damage()
+	// was called.
+
+	if (preHitHealth <= 0)
+	{
+		return;
+	}
+
 	if (inflictor != NULL && inflictor->IsType(idProjectile::Type))
 	{
 		int damageTaken = preHitHealth - health;
@@ -8546,7 +8555,7 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 {
 	if (m_bIgnoreAlerts) return;
 
-	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("AI Hear Sound called\r");
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("idAI::HearSound: %s - AI Hear Sound called\r",name.c_str());
 	// TODO:
 	// Modify loudness by propVol/noise ratio,
 	// looking up a selectivity spawnarg on the AI to
@@ -8626,10 +8635,12 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 				colorGreen, gameLocal.GetLocalPlayer()->viewAngles.ToMat3(), 1, gameLocal.msec * 30);
 		}
 
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("AI %s HEARD a sound\r", name.c_str() );
+		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idAI::HearSound: AI %s HEARD a sound\r",name.c_str());
 
-		if( cv_ai_debug.GetBool() )
-			gameLocal.Printf("AI %s HEARD a sound\n", name.c_str() );
+		if ( cv_ai_debug.GetBool() )
+		{
+			gameLocal.Printf("AI %s HEARD a sound\n", name.c_str());
+		}
 	}
 }
 

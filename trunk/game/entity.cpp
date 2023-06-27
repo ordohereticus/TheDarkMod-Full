@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4884 $
- * $Date: 2011-06-12 13:41:29 -0400 (Sun, 12 Jun 2011) $
- * $Author: tels $
+ * $Revision: 4895 $
+ * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4884 2011-06-12 17:41:29Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -188,6 +188,9 @@ const idEventDef EV_GetCurInvIcon("getCurInvIcon", NULL, 's');
 
 // greebo: "Private" event which runs right after spawn time to check the inventory-related spawnargs.
 const idEventDef EV_InitInventory("initInventory", "d");
+
+// grayman #2478 - event which runs after spawn time to see if a mine is armed
+const idEventDef EV_CheckMine("checkMine");
 
 // The Dark Mod Stim/Response interface functions for scripting
 // Normally I don't like names, which are "the other way around"
@@ -439,6 +442,7 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 
 	EVENT( EV_NoShadows,			idEntity::Event_noShadows )
 
+	EVENT( EV_CheckMine,			idEntity::Event_CheckMine ) // grayman #2478
 END_CLASS
 
 /*
@@ -1166,6 +1170,16 @@ void idEntity::Spawn( void )
 	// after the entity has fully spawned (including subclasses), otherwise
 	// the clipmodel and things like that are not initialised (>> crash).
 	PostEventMS(&EV_InitInventory, 0, 0);
+
+	// grayman #2478 - If this is a mine or flashmine, it can be armed
+	// at spawn time. Post an event to replace the mine with its
+	// projectile counterpart, which handles arming/disarming. Wait a
+	// bit before replacing so the mine has time to settle.
+
+	if ( idStr::Cmp(spawnArgs.GetString("toolclass"), "mine") == 0 )
+	{
+		PostEventSec(&EV_CheckMine, 1.0f);
+	}
 
 	LoadTDMSettings();
 
@@ -3075,6 +3089,45 @@ void idEntity::Event_noShadows( bool noShadow )
 {
 	renderEntity.noShadow = ( noShadow ? 1 : 0 );
 	UpdateVisuals();
+}
+
+/*
+================
+idEntity::Event_CheckMine
+
+grayman #2478: Replace an armed mine with its projectile counterpart
+================
+*/
+void idEntity::Event_CheckMine()
+{
+	if ( !spawnArgs.GetBool( "armed", "0" ) )
+	{
+		return; // not armed, nothing to do
+	}
+
+	const char* replaceWith = spawnArgs.GetString( "def_armed" ); // get replacement entity def
+
+	const idDict *resultDef = gameLocal.FindEntityDefDict( replaceWith, false );
+	if ( resultDef )
+	{
+		idEntity *newMine;
+		gameLocal.SpawnEntityDef( *resultDef, &newMine, false );
+		idProjectile* projectile = static_cast<idProjectile*>(newMine);
+		projectile->Launch( GetPhysics()->GetOrigin(), idVec3( 0,0,1 ), vec3_origin );
+
+		// Undo the launch parameters to keep the mine from flying away.
+
+		idPhysics* projPhysics = projectile->GetPhysics();
+		projPhysics->SetOrigin( GetPhysics()->GetOrigin() );
+		projPhysics->SetAxis( GetPhysics()->GetAxis() );
+		projPhysics->SetLinearVelocity( vec3_origin );
+		projPhysics->SetAngularVelocity( vec3_origin );
+		projPhysics->PutToRest();
+		projectile->UpdateVisuals();
+
+		SetFrobable(false);
+		PostEventMS( &EV_Remove, 1 ); // Remove the mine, which has been replaced
+	}
 }
 
 /*
@@ -5027,11 +5080,10 @@ bool idEntity::RunPhysics( void ) {
 	// move the whole team
 	for ( part = this; part != NULL; part = part->teamChain ) {
 
-		if ( part->physics ) {
-
+		if ( part->physics )
+		{
 			// run physics
 			moved = part->physics->Evaluate( endTime - startTime, endTime );
-
 			// check if the object is blocked
 			blockingEntity = part->physics->GetBlockingEntity();
 			if ( blockingEntity ) {

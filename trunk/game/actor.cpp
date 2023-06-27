@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4866 $
- * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
+ * $Revision: 4895 $
+ * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: actor.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3067,6 +3067,13 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	}
 
 	if ( !fl.takedamage ) {
+		return;
+	}
+
+	// grayman #2478 - why take more damage if you're already dead?
+
+	if (health <= 0)
+	{
 		return;
 	}
 
