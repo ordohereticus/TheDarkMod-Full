@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4975 $
- * $Date: 2011-09-23 10:35:43 -0400 (Fri, 23 Sep 2011) $
+ * $Revision: 4989 $
+ * $Date: 2011-10-09 15:32:11 -0400 (Sun, 09 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4975 2011-09-23 14:35:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4989 2011-10-09 19:32:11Z tels $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -682,19 +682,17 @@ void CDownloadMenu::ShowDownloadResult(idUserInterface* gui)
 
 	if (successfulDownloads > 0)
 	{
-		msg.message += va( gameLocal.m_I18N->Translate( "#str_02143" ), // "%d %s successfully downloaded. You'll find the %s in the 'New Mission' page."
-			successfulDownloads, 
-			// mission, missions
-			GetPlural(successfulDownloads, gameLocal.m_I18N->Translate( "#str_02144" ), gameLocal.m_I18N->Translate( "#str_02145" ) ), 
-			GetPlural(successfulDownloads, gameLocal.m_I18N->Translate( "#str_02144" ), gameLocal.m_I18N->Translate( "#str_02145" ) ) ); 
+		msg.message += va( 
+			// "%d mission/missions successfully downloaded. You'll find it/them in the 'New Mission' page."
+			GetPlural(successfulDownloads, gameLocal.m_I18N->Translate( "#str_02144" ), gameLocal.m_I18N->Translate( "#str_02145" ) ),
+			successfulDownloads ); 
 	}
 	
 	if (failedDownloads > 0)
 	{
-		msg.message += va( gameLocal.m_I18N->Translate( "#str_02146" ), // "\n%d %s couldn't be downloaded. Please check your disk space (or maybe some file is write protected) and try again."
-			failedDownloads, 
-			// mission, missions
-			GetPlural(failedDownloads, gameLocal.m_I18N->Translate( "#str_02144" ), gameLocal.m_I18N->Translate( "#str_02145" ) ) ); 
+		// "\n%d mission(s) couldn't be downloaded. Please check your disk space (or maybe some file is write protected) and try again."
+		msg.message += va( gameLocal.m_I18N->Translate( "#str_02146" ),
+			failedDownloads ); 
 	}
 
 	gameLocal.AddMainMenuMessage(msg);
