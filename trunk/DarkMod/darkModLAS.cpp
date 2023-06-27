@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4973 $
- * $Date: 2011-09-16 13:08:46 -0400 (Fri, 16 Sep 2011) $
+ * $Revision: 5021 $
+ * $Date: 2011-11-05 15:15:21 -0400 (Sat, 05 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 4973 2011-09-16 17:08:46Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 5021 2011-11-05 19:15:21Z grayman $", init_version);
 
 #include "./darkModLAS.h"
 #include "../game/pvs.h"
@@ -254,6 +254,13 @@ bool darkModLAS::traceLightPath( idVec3 from, idVec3 to, idEntity* ignore )
 		if ( trace.fraction == 1.0f )
 		{
 			results = true; // completed the path
+			break;
+		}
+
+		 // grayman #2902 - prevent infinite loops where we get stuck inside the intersection of 2 entities
+
+		if ( trace.fraction < VECTOR_EPSILON )
+		{
 			break;
 		}
 
