@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5186 $ (Revision of last commit) 
+ $Date: 2012-01-08 01:03:23 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5186 2012-01-08 06:03:23Z greebo $");
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -138,35 +138,6 @@ SH_DECL_HOOK4(idFileSystem, WriteFile, SH_NOATTRIB, 0, int, const char *, const 
 // declare various global objects
 CsndPropLoader	g_SoundPropLoader;
 CsndProp		g_SoundProp;
-
-static idList<const char *> *s_FileVersion = NULL;
-
-bool FileVersionList(const char *str, bool state)
-{
-	if (s_FileVersion == NULL)
-	{
-		s_FileVersion = new idList<const char *>;
-	}
-
-	if (state == false)
-	{
-		s_FileVersion->AddUnique(str);
-
-		// greebo: Add the revision to the RevisionTracker class
-		RevisionTracker::ParseSVNIdString(str);
-	}
-
-	return true;
-}
-
-void FileVersionDump(void)
-{
-	int i, n;
-
-	n = s_FileVersion->Num();
-	for(i = 0; i < n; i++)
-		DM_LOG(LC_INIT, LT_INIT)LOGSTRING("%s\r", (*s_FileVersion)[i]);
-}
 
 #ifdef MACOS_X
 // Platform-specific method to expand the ~ in a path with a full path
@@ -314,11 +285,6 @@ void CGlobal::Init()
 	if (darkmodIni)
 	{
 		LoadINISettings(darkmodIni);
-
-		if (darkmodIni->GetValue(INI_DEBUG_SECTION, "LogFileVersions") == "1")
-		{
-			FileVersionDump();
-		}
 	}
 	else
 	{
