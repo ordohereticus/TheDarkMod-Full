@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5032 $
- * $Date: 2011-11-10 20:18:49 -0500 (Thu, 10 Nov 2011) $
- * $Author: grayman $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 5032 2011-11-11 01:18:49Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 5073 2011-12-04 08:09:41Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -35,7 +35,7 @@ static bool init_version = FileVersionList("$Id: State.cpp 5032 2011-11-11 01:18
 #include "../Tasks/PlayAnimationTask.h"
 
 #include "ConversationState.h" // grayman #2603
-#include "../../DarkMod/ProjectileResult.h" // grayman #2872
+#include "../../ProjectileResult.h" // grayman #2872
 
 namespace ai
 {

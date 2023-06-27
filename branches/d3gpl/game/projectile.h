@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5047 $
- * $Date: 2011-11-21 23:49:18 -0500 (Mon, 21 Nov 2011) $
- * $Author: grayman $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,9 +13,9 @@
 #ifndef __GAME_PROJECTILE_H__
 #define __GAME_PROJECTILE_H__
 
-#include "../DarkMod/PickableLock.h"
-#include "../DarkMod/Inventory/Item.h"
-#include "../DarkMod/Inventory/Category.h"
+#include "PickableLock.h"
+#include "Inventory/Item.h"
+#include "Inventory/Category.h"
 
 /**
 * SFinalProjData: Structure storing the final projectile data at impact

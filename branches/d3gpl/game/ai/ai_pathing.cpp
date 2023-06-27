@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4988 $
- * $Date: 2011-10-07 11:45:07 -0400 (Fri, 07 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,14 +13,14 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_pathing.cpp 4988 2011-10-07 15:45:07Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_pathing.cpp 5073 2011-12-04 08:09:41Z greebo $", init_version);
 
 #include "../game_local.h"
 
-#include "../../DarkMod/BinaryFrobMover.h"
-#include "../../DarkMod/FrobDoor.h"
-#include "../../DarkMod/TimerManager.h"
-#include "../../DarkMod/AI/Memory.h"
+#include "../BinaryFrobMover.h"
+#include "../FrobDoor.h"
+#include "../TimerManager.h"
+#include "../AI/Memory.h"
 
 /*
 ===============================================================================

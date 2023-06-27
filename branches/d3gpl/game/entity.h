@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,10 +15,10 @@
 #ifndef __GAME_ENTITY_H__
 #define __GAME_ENTITY_H__
 
-#include "../DarkMod/StimResponse/StimType.h"
-#include "../DarkMod/overlaySys.h"
-#include "../DarkMod/UserManager.h"
-#include "../DarkMod/ModelGenerator.h"
+#include "StimResponse/StimType.h"
+#include "overlaySys.h"
+#include "UserManager.h"
+#include "ModelGenerator.h"
 
 class CStimResponseCollection;
 class CStim;

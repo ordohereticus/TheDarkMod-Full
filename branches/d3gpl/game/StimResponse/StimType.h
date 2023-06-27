@@ -1,13 +1,18 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3911 $
- * $Date: 2010-06-06 06:30:18 -0400 (Sun, 06 Jun 2010) $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #ifndef _STIMTYPE_H_
 #define _STIMTYPE_H_
+
+// greebo: RichEdit.h defines the same symbol
+#ifdef ST_DEFAULT
+#undef ST_DEFAULT
+#endif
 
 // If default stims are to be added here, the static array in the StimResponse.cpp file
 // also must be updated. USER and UNDEFINED are not to be added though, as

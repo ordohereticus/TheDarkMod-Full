@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,8 +25,8 @@
 #define DARKMODGLOBALS_H
 
 #include <stdio.h>
-#include "../game/game_local.h"
-#include "../DarkMod/CImage.h"
+#include "game_local.h"
+#include "CImage.h"
 
 // greebo: Defines the darkmod release version
 #define TDM_VERSION_MAJOR 1
@@ -46,7 +46,7 @@ VersionCheckResult CompareVersion(int major, int minor, int toMajor, int toMinor
 /*!
 Darkmod LAS
 */
-#include "../DarkMod/darkModLAS.h"
+#include "darkModLAS.h"
 #include <boost/filesystem.hpp>
 
 class IniFile;

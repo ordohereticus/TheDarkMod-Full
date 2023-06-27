@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5015 $
- * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,12 +13,12 @@
 #ifndef __AI_H__
 #define __AI_H__
 
-#include "../../DarkMod/Relations.h"
-#include "../../DarkMod/AI/Mind.h"
-#include "../../DarkMod/AI/CommunicationSubsystem.h"
-#include "../../DarkMod/AI/MovementSubsystem.h"
-#include "../../DarkMod/HidingSpotSearchCollection.h"
-#include "../../DarkMod/darkmodHidingSpotTree.h"
+#include "../Relations.h"
+#include "../AI/Mind.h"
+#include "../AI/CommunicationSubsystem.h"
+#include "../AI/MovementSubsystem.h"
+#include "../HidingSpotSearchCollection.h"
+#include "../darkmodHidingSpotTree.h"
 #include "MoveState.h"
 
 #include <list>

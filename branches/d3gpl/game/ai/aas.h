@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
- * $Author: angua $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -15,7 +15,7 @@
 
 // Need linked list
 #include "../../idlib/containers/list.h"
-#include "../../DarkMod/AI/EAS/RouteInfo.h"
+#include "EAS/RouteInfo.h"
 
 class CFrobDoor;
 

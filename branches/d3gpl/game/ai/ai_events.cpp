@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,16 +13,16 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 5073 2011-12-04 08:09:41Z greebo $", init_version);
 
 #include "../game_local.h"
-#include "../../DarkMod/Relations.h"
-#include "../../DarkMod/DarkModGlobals.h"
-#include "../../DarkMod/DarkmodAASHidingSpotFinder.h"
-#include "../../DarkMod/StimResponse/StimResponseCollection.h"
-#include "../../DarkMod/AbsenceMarker.h"
-#include "../../DarkMod/AI/Memory.h"
-#include "../../DarkMod/AI/States/State.h"
+#include "../Relations.h"
+#include "../DarkModGlobals.h"
+#include "../DarkmodAASHidingSpotFinder.h"
+#include "../StimResponse/StimResponseCollection.h"
+#include "../AbsenceMarker.h"
+#include "Memory.h"
+#include "States/State.h"
 
 #include <vector>
 #include <string>

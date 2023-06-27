@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 4919 $
- * $Date: 2011-07-17 14:08:39 -0400 (Sun, 17 Jul 2011) $
- * $Author: tels $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -13,7 +13,7 @@
 #ifndef __GAME_PLAYER_H__
 #define __GAME_PLAYER_H__
 
-#include "../DarkMod/ButtonStateTracker.h"
+#include "ButtonStateTracker.h"
 class CInventoryItem;
 typedef boost::shared_ptr<CInventoryItem> CInventoryItemPtr;
 

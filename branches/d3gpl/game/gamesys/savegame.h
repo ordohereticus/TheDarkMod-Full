@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4738 $
- * $Date: 2011-03-30 08:23:38 -0400 (Wed, 30 Mar 2011) $
- * $Author: stgatilov $
+ * $Revision: 5073 $
+ * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ Save game related helper classes.
 
 */
 
-#include "../../DarkMod/RawVector.h"
+#include "../RawVector.h"
 
 #ifdef __linux__
 #include "renderer/model.h"
