@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3931 $
- * $Date: 2010-06-10 03:52:31 -0400 (Thu, 10 Jun 2010) $
- * $Author: greebo $
+ * $Revision: 4915 $
+ * $Date: 2011-07-15 12:23:42 -0400 (Fri, 15 Jul 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -84,14 +84,16 @@ idStr DifficultyManager::GetDifficultyName(int level)
 
 	if (_difficultyNames[level].Length() > 0)
 	{
-		return _difficultyNames[level];
+		// Tels: Attempt to translate the name, in case the mapper used something like "#str_01234"
+		return common->GetLanguageDict()->GetString( _difficultyNames[level] );
 	}
 	else // return default names from entityDef
 	{
 		const idDecl* diffDecl = declManager->FindType(DECL_ENTITYDEF, "difficultyMenu", false);
 		const idDeclEntityDef* diffDef = static_cast<const idDeclEntityDef*>(diffDecl);
 
-		return diffDef->dict.GetString(va("diff%ddefault", level), "");
+		// Tels: Translate default difficulty names
+		return common->GetLanguageDict()->GetString( diffDef->dict.GetString(va("diff%ddefault", level), "") );
 	}
 }
 
