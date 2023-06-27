@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4991 $
- * $Date: 2011-10-11 13:49:38 -0400 (Tue, 11 Oct 2011) $
+ * $Revision: 4994 $
+ * $Date: 2011-10-15 14:29:01 -0400 (Sat, 15 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4991 2011-10-11 17:49:38Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4994 2011-10-15 18:29:01Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -35,6 +35,7 @@ static bool init_version = FileVersionList("$Id: State.cpp 4991 2011-10-11 17:49
 #include "../Tasks/PlayAnimationTask.h"
 
 #include "ConversationState.h" // grayman #2603
+#include "../../DarkMod/ProjectileResult.h" // grayman #2872
 
 
 namespace ai
@@ -441,6 +442,16 @@ void State::OnVisualStim(idEntity* stimSource)
 		aiUseType = EAIuse_Door;
 		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeDoor");
 	}
+	else if (aiUse == AIUSE_SUSPICIOUS) // grayman #1327
+	{
+		aiUseType = EAIuse_Suspicious;
+		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeSuspiciousItem");
+	}
+	else if (aiUse == AIUSE_ROPE) // grayman #2872
+	{
+		aiUseType = EAIuse_Rope;
+		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeRope","0.0");
+	}
 	else if (aiUse == AIUSE_BLOOD_EVIDENCE)
 	{
 		aiUseType = EAIuse_Blood_Evidence;
@@ -456,15 +467,10 @@ void State::OnVisualStim(idEntity* stimSource)
 		aiUseType = EAIuse_Broken_Item;
 		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeBrokenItem");
 	}
-	else if (aiUse == AIUSE_SUSPICIOUS) // grayman #1327
+	else // grayman #2885 - no AIUse spawnarg, so we don't know what it is
 	{
-		aiUseType = EAIuse_Suspicious;
-		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeSuspiciousItem");
-	}
-	else if (aiUse == AIUSE_ROPE) // grayman #2872
-	{
-		aiUseType = EAIuse_Rope;
-		chanceToNotice = owner->spawnArgs.GetFloat("chanceNoticeRope","0.0");
+		stimSource->IgnoreResponse(ST_VISUAL, owner);
+		return;
 	}
 
 	// If chanceToNotice for this stim type is zero, ignore it in the future

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4984 $
- * $Date: 2011-09-29 18:19:30 -0400 (Thu, 29 Sep 2011) $
+ * $Revision: 4994 $
+ * $Date: 2011-10-15 14:29:01 -0400 (Sat, 15 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,11 +13,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 4984 2011-09-29 22:19:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 4994 2011-10-15 18:29:01Z grayman $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
 #include "../DarkMod/ProjectileResult.h"
+#include "../DarkMod/StimResponse/StimResponseCollection.h" // grayman #2885
 
 /*
 ===============================================================================
@@ -1283,6 +1284,13 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 
 	CancelEvents( &EV_Explode );
 	PostEventMS( &EV_Remove, removeTime );
+
+	// grayman #2885 - turn off any visual stims this projectile is generating
+	
+	if ( GetStimResponseCollection()->HasStim() )
+	{
+		GetStimResponseCollection()->RemoveStim( ST_VISUAL );
+	}
 }
 
 /*
