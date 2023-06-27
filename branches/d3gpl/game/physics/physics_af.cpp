@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4895 $
- * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 5075 $
+ * $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,10 +13,10 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_af.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: physics_af.cpp 5075 2011-12-04 16:10:27Z greebo $", init_version);
 
 #include "../game_local.h"
-#include "../DarkMod/Grabber.h"
+#include "../Grabber.h"
 
 CLASS_DECLARATION( idPhysics_Base, idPhysics_AF )
 END_CLASS

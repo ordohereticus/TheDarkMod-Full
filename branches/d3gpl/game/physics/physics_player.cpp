@@ -2,9 +2,9 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 5015 $
- * $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $
- * $Author: grayman $
+ * $Revision: 5075 $
+ * $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -14,13 +14,13 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 5015 $   $Date: 2011-10-29 11:50:39 -0400 (Sat, 29 Oct 2011) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 5075 $   $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $", init_version);
 
 #include "../game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/Grabber.h"
-#include "../DarkMod/BinaryFrobMover.h"
-#include "../DarkMod/FrobDoor.h"
+#include "../DarkModGlobals.h"
+#include "../Grabber.h"
+#include "../BinaryFrobMover.h"
+#include "../FrobDoor.h"
 #include "force_push.h"
 
 CLASS_DECLARATION( idPhysics_Actor, idPhysics_Player )

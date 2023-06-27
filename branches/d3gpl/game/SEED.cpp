@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5075 $
+ * $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 5066 2011-12-03 19:49:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 5075 2011-12-04 16:10:27Z greebo $", init_version);
 
 #include "SEED.h"
 
@@ -1615,7 +1615,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 	// consisting of a flat plane get 0 as size:
 //	gameLocal.Printf( "SEED %s: size %0.2f x %0.2f.\n", GetName(), fmax( 0.1, SeedClass.size.x), fmax( 0.1, SeedClass.size.y ) );
 
-	float size = (std::max(0.1f, SeedClass.size.x) + SeedClass.spacing) * (std::max( 0.1f, SeedClass.size.y) + SeedClass.spacing);
+	float size = (Max(0.1f, SeedClass.size.x) + SeedClass.spacing) * (Max( 0.1f, SeedClass.size.y) + SeedClass.spacing);
 
 	// if falloff != none, correct the density, because the ellipse-shape is smaller then the rectangle
 	if ( SeedClass.falloff >= 1 && SeedClass.falloff <= 3)
@@ -1631,9 +1631,9 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 	fMin = 0.000001f;
 
 	// scale the per-class size by the per-class density
-	float fDensity = std::max( fMin, ent->spawnArgs.GetFloat( "seed_density", "1.0" ) );
+	float fDensity = Max( fMin, ent->spawnArgs.GetFloat( "seed_density", "1.0" ) );
 	// scale the per-class size by the per-class density multiplied by the base density
-	float fBaseDensity = std::max( fMin, ent->spawnArgs.GetFloat( "seed_base_density", "1.0" ) );
+	float fBaseDensity = Max( fMin, ent->spawnArgs.GetFloat( "seed_base_density", "1.0" ) );
 
 //	gameLocal.Printf( "SEED %s: Scaling class size by %0.4f (%0.6f * %0.6f).\n", GetName(), fDensity*fBaseDensity, fDensity, fBaseDensity);
 //	gameLocal.Printf( "SEED %s: size = %0.6f fImgDensity = %0.6f\n", GetName(), size, fImgDensity );
@@ -1846,7 +1846,7 @@ void Seed::AddTemplateFromEntityDef( idStr base, const idList<idStr> *sa )
 		// templateX_skin = "abc, def, '', abc"
 		idStr skin = spawnArgs.GetString( base + "_skin", "" );
 		// select one at random
-		skin = skin.RandomPart();
+		skin = skin.RandomPart(gameLocal.random.RandomFloat());
 
 		//gameLocal.Printf("Using random skin '%s'.\n", skin.c_str() );
 		args.Set( "skin", skin );

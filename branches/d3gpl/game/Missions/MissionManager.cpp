@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5012 $
- * $Date: 2011-10-25 13:18:45 -0400 (Tue, 25 Oct 2011) $
+ * $Revision: 5075 $
+ * $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 5012 2011-10-25 17:18:45Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 5075 2011-12-04 16:10:27Z greebo $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -19,8 +19,8 @@ static bool init_version = FileVersionList("$Id: MissionManager.cpp 5012 2011-10
 #include "../Inventory/Inventory.h"
 
 #include "DownloadManager.h"
-#include "../DarkMod/Http/HttpConnection.h"
-#include "../DarkMod/Http/HttpRequest.h"
+#include "../Http/HttpConnection.h"
+#include "../Http/HttpRequest.h"
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/classification.hpp>

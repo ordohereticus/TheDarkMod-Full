@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5047 $
- * $Date: 2011-11-21 23:49:18 -0500 (Mon, 21 Nov 2011) $
- * $Author: grayman $
+ * $Revision: 5075 $
+ * $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,12 +13,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: projectile.cpp 5047 2011-11-22 04:49:18Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: projectile.cpp 5075 2011-12-04 16:10:27Z greebo $", init_version);
 
 #include "game_local.h"
-#include "../DarkMod/DarkModGlobals.h"
-#include "../DarkMod/ProjectileResult.h"
-#include "../DarkMod/StimResponse/StimResponseCollection.h" // grayman #2885
+#include "DarkModGlobals.h"
+#include "ProjectileResult.h"
+#include "StimResponse/StimResponseCollection.h" // grayman #2885
 
 /*
 ===============================================================================

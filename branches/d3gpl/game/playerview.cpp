@@ -1,9 +1,9 @@
 /***************************************************************************
 *
 * PROJECT: The Dark Mod
-* $Revision: 4944 $
-* $Date: 2011-08-07 08:53:31 -0400 (Sun, 07 Aug 2011) $
-* $Author: tels $
+* $Revision: 5075 $
+* $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
+* $Author: greebo $
 *
 ***************************************************************************/
 
@@ -13,11 +13,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: playerview.cpp 4944 2011-08-07 12:53:31Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: playerview.cpp 5075 2011-12-04 16:10:27Z greebo $", init_version);
 
 #include "game_local.h"
 
-#include "../DarkMod/sourcehook/sourcehook.h"
+#include "sourcehook/sourcehook.h"
 
 extern SourceHook::ISourceHook *g_SHPtr;
 extern int g_PLID;
