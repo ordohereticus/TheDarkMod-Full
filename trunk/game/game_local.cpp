@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4935 $
- * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Revision: 4937 $
+ * $Date: 2011-08-05 17:14:37 -0400 (Fri, 05 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4935 2011-08-05 16:51:53Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4937 2011-08-05 21:14:37Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -532,6 +532,12 @@ void idGameLocal::Init( void ) {
 	// Initialize the LightGem - J.C.Denton
 	m_lightGem.Initialize();
 
+	// Initialise the I18N (internationalization) code (before the Mission Manager!)
+	m_I18N = CI18NPtr(new CI18N);
+	m_I18N->Init();
+	const idStr *tdm_lang = m_I18N->GetCurrentLanguage();
+	Printf("Current language: %s\n", tdm_lang->c_str() );
+
 	// Initialise the mission manager
 	m_MissionManager = CMissionManagerPtr(new CMissionManager);
 	m_MissionManager->Init();
@@ -547,12 +553,6 @@ void idGameLocal::Init( void ) {
 	// Initialise the light controller
 	m_LightController = CLightControllerPtr(new CLightController);
 	m_LightController->Init();
-
-	// Initialise the I18N (internationalization) code
-	m_I18N = CI18NPtr(new CI18N);
-	m_I18N->Init();
-	const idStr *tdm_lang = m_I18N->GetCurrentLanguage();
-	Printf("Current language: %s\n", tdm_lang->c_str() );
 
 	// greebo: Create the persistent inventory - will be handled by game state changing code
 	persistentPlayerInventory.reset(new CInventory);
