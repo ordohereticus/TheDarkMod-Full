@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5151 $ (Revision of last commit) 
+ $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -755,7 +755,7 @@ idCmdSystemLocal::SetupReloadEngine
 ============
 */
 void idCmdSystemLocal::SetupReloadEngine( const idCmdArgs &args ) {
-	BufferCommandText( CMD_EXEC_APPEND, "reloadEngine\n" );
+	BufferCommandText( CMD_EXEC_APPEND, "reloadEngine menu\n" ); // greebo: disable the system console during reloadEngine
 	postReload = args;
 }
 

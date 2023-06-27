@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5135 $ (Revision of last commit) 
- $Date: 2011-12-29 00:47:27 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
+ $Revision: 5151 $ (Revision of last commit) 
+ $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModInfo.cpp 5135 2011-12-29 05:47:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModInfo.cpp 5151 2012-01-03 06:25:37Z greebo $", init_version);
 
 #include "ModInfo.h"
 #include "ModInfoDecl.h"
@@ -38,10 +38,7 @@ std::size_t CModInfo::GetModFolderSize()
 	_modFolderSizeComputed = true;
 	_modFolderSize = 0;
 
-	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
-	parentPath = parentPath.remove_leaf().remove_leaf();
-
-	fs::path modPath = parentPath / modName.c_str();
+	fs::path modPath = g_Global.GetModPath(modName.c_str());
 
 	if (fs::exists(modPath))
 	{
@@ -190,12 +187,7 @@ void CModInfo::SaveToFile(idFile* file)
 
 idStr CModInfo::GetModFolderPath()
 {
-	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));
-	parentPath = parentPath.remove_leaf().remove_leaf();
-
-	fs::path modPath = parentPath / modName.c_str();
-
-	return modPath.file_string().c_str();
+	return g_Global.GetModPath(modName.c_str()).c_str();
 }
 
 bool CModInfo::HasModNotes()

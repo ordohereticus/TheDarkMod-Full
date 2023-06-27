@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5151 $ (Revision of last commit) 
+ $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -64,7 +64,7 @@ private:
 	void UninstallMod(idUserInterface* gui);
 
 	// Restarts the game after mod installation
-	void RestartGame();
+	void RestartGame(bool restartProcess);
 };
 
 #endif	/* _MOD_MENU_H_ */

@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5146 $ (Revision of last commit) 
- $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5151 $ (Revision of last commit) 
+ $Date: 2012-01-03 01:25:37 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5146 2012-01-02 17:14:28Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5151 2012-01-03 06:25:37Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -844,6 +844,15 @@ void CGlobal::InitSurfaceHardness()
 	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("straw"), soft );
 	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("armor_leath"), soft );
 	m_SurfaceHardnessHash.Add( m_SurfaceHardnessHash.GenerateKey("paper"), soft );
+}
+
+std::string CGlobal::GetModPath(const std::string& modName)
+{
+	fs::path path = GetDarkmodPath();	// c:\games\doom3\darkmod
+	path /= cv_tdm_fm_path.GetString();	// fms/
+	path /= modName;					// <fs_game>
+
+	return path.string();
 }
 
 std::string CGlobal::GetDarkmodPath()
