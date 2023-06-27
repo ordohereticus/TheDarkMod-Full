@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 5082 $
+ * $Date: 2011-12-04 23:40:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: game_network.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Game_network.cpp 5082 2011-12-05 04:40:41Z greebo $", init_version);
 
 #include "game_local.h"
 

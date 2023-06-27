@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod
  * $Source$
- * $Revision: 5073 $
- * $Date: 2011-12-04 03:09:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5082 $
+ * $Date: 2011-12-04 23:40:41 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,7 +15,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: actor.cpp 5073 2011-12-04 08:09:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Actor.cpp 5082 2011-12-05 04:40:41Z greebo $", init_version);
 
 #include "game_local.h"
 #include "DarkModGlobals.h"

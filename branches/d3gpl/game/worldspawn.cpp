@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2589 $
- * $Date: 2008-06-30 01:09:36 -0400 (Mon, 30 Jun 2008) $
- * $Author: dram $
+ * $Revision: 5082 $
+ * $Date: 2011-12-04 23:40:41 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ Worldspawn class.  Each map has one worldspawn which handles global spawnargs.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: worldspawn.cpp 2589 2008-06-30 05:09:36Z dram $", init_version);
+static bool init_version = FileVersionList("$Id: WorldSpawn.cpp 5082 2011-12-05 04:40:41Z greebo $", init_version);
 
 #include "game_local.h"
 
