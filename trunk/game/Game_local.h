@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5189 $ (Revision of last commit) 
- $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5198 $ (Revision of last commit) 
+ $Date: 2012-01-08 23:30:02 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -852,11 +852,6 @@ public:
 	 * to determine the lightvalue for the lightgem.
 	 */
 	float					CalcLightgem(idPlayer*);
-
-	ID_INLINE idList<unsigned char> &GetLightgemRenderBuffer(void)
-	{
-		return m_lightGem.GetLightgemRenderBuffer();
-	}
 
 	bool					AddStim(idEntity *);
 	void					RemoveStim(idEntity *);
