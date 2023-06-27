@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4880 $
- * $Date: 2011-06-05 22:12:51 -0400 (Sun, 05 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 4965 $
+ * $Date: 2011-09-03 07:38:54 -0400 (Sat, 03 Sep 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai_events.cpp 4880 2011-06-06 02:12:51Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai_events.cpp 4965 2011-09-03 11:38:54Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/Relations.h"
@@ -41,7 +41,6 @@ const idEventDef AI_FindEnemy( "findEnemy", "d", 'e' );
 const idEventDef AI_FindEnemyAI( "findEnemyAI", "d", 'e' );
 const idEventDef AI_FindEnemyInCombatNodes( "findEnemyInCombatNodes", NULL, 'e' );
 const idEventDef AI_ClosestReachableEnemyOfEntity( "closestReachableEnemyOfEntity", "E", 'e' );
-const idEventDef AI_HeardSound( "heardSound", "d", 'e' );
 // greebo: TDM Event: Try to find a visible AI of the given team
 const idEventDef AI_FindFriendlyAI( "findFriendlyAI", "d", 'e' );
 const idEventDef AI_ProcessBlindStim( "processBlindStim", "ed" );
@@ -377,7 +376,6 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT( AI_FindFriendlyAI,					idAI::Event_FindFriendlyAI )
 	EVENT( AI_ProcessBlindStim,					idAI::Event_ProcessBlindStim )
 	EVENT( AI_ProcessVisualStim,				idAI::Event_ProcessVisualStim )
-	EVENT( AI_HeardSound,						idAI::Event_HeardSound )
 	EVENT( AI_SetEnemy,							idAI::Event_SetEnemy )
 	EVENT( AI_ClearEnemy,						idAI::Event_ClearEnemy )
 	EVENT( AI_MuzzleFlash,						idAI::Event_MuzzleFlash )
@@ -754,42 +752,6 @@ void idAI::Event_ClosestReachableEnemyOfEntity( idEntity *team_mate ) {
 
 	idThread::ReturnEntity( bestEnt );
 }
-
-/*
-=====================
-idAI::Event_HeardSound
-=====================
-*/
-void idAI::Event_HeardSound( int ignore_team ) {
-
-	// check if we heard any sounds in the last frame
-
-	idActor	*actor = gameLocal.GetAlertEntity();
-
-	if ( actor && ( !ignore_team || ( ReactionTo( actor ) & ATTACK_ON_SIGHT ) ) && gameLocal.InPlayerPVS( this ) ) {
-
-		idVec3 pos = actor->GetPhysics()->GetOrigin();
-
-		idVec3 org = physicsObj.GetOrigin();
-
-		float dist = ( pos - org ).LengthSqr();
-
-		if ( dist < Square( AI_HEARING_RANGE ) ) {
-
-			idThread::ReturnEntity( actor );
-
-			return;
-
-		}
-
-	}
-
-
-
-	idThread::ReturnEntity( NULL );
-
-}
-
 
 /*
 =====================

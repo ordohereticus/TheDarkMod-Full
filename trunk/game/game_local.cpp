@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4964 $
- * $Date: 2011-09-02 13:01:36 -0400 (Fri, 02 Sep 2011) $
+ * $Revision: 4965 $
+ * $Date: 2011-09-03 07:38:54 -0400 (Sat, 03 Sep 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4964 2011-09-02 17:01:36Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4965 2011-09-03 11:38:54Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -358,8 +358,6 @@ void idGameLocal::Clear( void )
 	camera = NULL;
 	aasList.Clear();
 	aasNames.Clear();
-	lastAIAlertEntity = NULL;
-	lastAIAlertTime = 0;
 	spawnArgs.Clear();
 	gravity.Set( 0, 0, -1 );
 	playerPVS.h = (unsigned int)-1;
@@ -987,9 +985,6 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	savegame.WriteMaterial( globalMaterial );
 
-	lastAIAlertEntity.Save( &savegame );
-	savegame.WriteInt( lastAIAlertTime );
-
 	savegame.WriteDict( &spawnArgs );
 
 	savegame.WriteInt( playerPVS.i );
@@ -1406,9 +1401,6 @@ void idGameLocal::LoadMap( const char *mapName, int randseed ) {
 	testmodel		= NULL;
 	testFx			= NULL;
 
-	lastAIAlertEntity = NULL;
-	lastAIAlertTime = 0;
-	
 	previousTime	= 0;
 	time			= 0;
 	framenum		= 0;
@@ -2079,9 +2071,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	savegame.ReadObject( reinterpret_cast<idClass *&>( camera ) );
 
 	savegame.ReadMaterial( globalMaterial );
-
-	lastAIAlertEntity.Restore( &savegame );
-	savegame.ReadInt( lastAIAlertTime );
 
 	savegame.ReadDict( &spawnArgs );
 
@@ -5519,32 +5508,6 @@ bool idGameLocal::RequirementMet( idEntity *activator, const idStr &requires, in
 	}
 
 	return true;
-}
-
-/*
-============
-idGameLocal::AlertAI
-============
-*/
-void idGameLocal::AlertAI( idEntity *ent ) {
-	if ( ent && ent->IsType( idActor::Type ) ) {
-		// alert them for the next frame
-		lastAIAlertTime = time + msec;
-		lastAIAlertEntity = static_cast<idActor *>( ent );
-	}
-}
-
-/*
-============
-idGameLocal::GetAlertEntity
-============
-*/
-idActor *idGameLocal::GetAlertEntity( void ) {
-	if ( lastAIAlertTime >= time ) {
-		return lastAIAlertEntity.GetEntity();
-	}
-
-	return NULL;
 }
 
 /*

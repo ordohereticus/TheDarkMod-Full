@@ -2,28 +2,13 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4964 $
- * $Date: 2011-09-02 13:01:36 -0400 (Fri, 02 Sep 2011) $
+ * $Revision: 4965 $
+ * $Date: 2011-09-03 07:38:54 -0400 (Sat, 03 Sep 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
 
 // Copyright (C) 2004 Id Software, Inc.
-//
-
-/** DarkMod AI Note:
-* The following members in class idGameLocal:
-* lastAIAlertEntity, lastAIAlertTime and idGameLocal::AlertAI
-* ALL have nothing to do with DarkMod AI.
-*
-* DarkMod AI alerts are handled in class idAI
-*
-* AIAlertEntity alerts ALL AI to the entity in vanilla D3
-*
-* Unfortunately idGameLocal::AlertAI has the same name as
-* our DarkMod alert function, idAI::AlertAI.  DarkMod
-* alerts do not directly make use of idGameLocal::AlertAI.
-**/
 
 #ifndef __GAME_LOCAL_H__
 #define	__GAME_LOCAL_H__
@@ -786,12 +771,6 @@ public:
 
 	bool					RequirementMet( idEntity *activator, const idStr &requires, int removeItem );
 
-/**
-* The following are vanilla D3 functions that have nothing to do with TDM's AI alert system
-**/
-	void					AlertAI( idEntity *ent );
-	idActor *				GetAlertEntity( void );
-
 	bool					InPlayerPVS( idEntity *ent ) const;
 	bool					InPlayerConnectedArea( idEntity *ent ) const;
 
@@ -987,9 +966,6 @@ private:
 
 	idList<idAAS *>			aasList;				// area system
 	idStrList				aasNames;
-
-	idEntityPtr<idActor>	lastAIAlertEntity;
-	int						lastAIAlertTime;
 
 	idDict					spawnArgs;				// spawn args used during entity spawning  FIXME: shouldn't be necessary anymore
 
