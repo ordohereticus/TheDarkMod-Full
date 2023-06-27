@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4940 $
- * $Date: 2011-08-06 12:17:28 -0400 (Sat, 06 Aug 2011) $
+ * $Revision: 4967 $
+ * $Date: 2011-09-03 09:30:49 -0400 (Sat, 03 Sep 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -189,6 +189,7 @@ public:
 	void				StripTrailingWhitespace( void );				// strip trailing white space characters (c <= 0x20)
 	idStr &				StripQuotes( void );							// strip quotes around string
 	void				Replace( const char *old, const char *nw );
+	void				Replace( const char old, const char nw );		// faster version of Repace() if you want to swap only one char
 
 	// file name methods
 	int					FileNameHash( void ) const;						// hash key for the filename (skips extension)

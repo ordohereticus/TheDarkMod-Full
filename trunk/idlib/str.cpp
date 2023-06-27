@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4956 $
- * $Date: 2011-08-12 10:56:25 -0400 (Fri, 12 Aug 2011) $
+ * $Revision: 4967 $
+ * $Date: 2011-09-03 09:30:49 -0400 (Sat, 03 Sep 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: str.cpp 4956 2011-08-12 14:56:25Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: str.cpp 4967 2011-09-03 13:30:49Z tels $", init_version);
 
 #if !defined( ID_REDIRECT_NEWDELETE ) && !defined( MACOS_X )
 	#define USE_STRING_DATA_ALLOCATOR
@@ -690,6 +690,21 @@ void idStr::Replace( const char *old, const char *nw ) {
 		}
 		data[j] = 0;
 		len = strlen( data );
+	}
+}
+
+/*
+============
+idStr::Replace
+============
+*/
+void idStr::Replace( const char old, const char nw ) {
+	// cannot replace 0x00 or swap 0xXX to 0x00
+	assert(old);
+	assert(nw);
+
+	for( int i = 0; i < len; i++ ) {
+		if (data[i] == old) { data[i] = nw; }
 	}
 }
 
