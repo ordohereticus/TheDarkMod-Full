@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4949 $
- * $Date: 2011-08-07 17:05:22 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4950 $
+ * $Date: 2011-08-11 10:31:46 -0400 (Thu, 11 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 4949 2011-08-07 21:05:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 4950 2011-08-11 14:31:46Z tels $", init_version);
 
 #include "I18N.h"
 
@@ -52,7 +52,7 @@ CI18N::CI18N ( void ) {
 
 	// The article prefixes, with the suffix to use instead
 	m_ArticlesDict.Set( "A ",	", A" );	// English, Portuguese
-	m_ArticlesDict.Set( "An ",	", An" );
+	m_ArticlesDict.Set( "An ",	", An" );	// English
 	m_ArticlesDict.Set( "Der ",	", Der" );	// German
 	m_ArticlesDict.Set( "Die ",	", Die" );	// German
 	m_ArticlesDict.Set( "Das ",	", Das" );	// German
@@ -235,6 +235,8 @@ void CI18N::SetLanguage( const char* lang, bool firstTime ) {
 	{
 		newLang = "english";
 	}
+	idStr oldSysLang = cvarSystem->GetCVarString( "sys_lang" );
+	
 	// set sysvar sys_lang (if not possible, D3 will revert to english)
 	cvarSystem->SetCVarString( "sys_lang", newLang.c_str() );
 
@@ -250,20 +252,28 @@ void CI18N::SetLanguage( const char* lang, bool firstTime ) {
 
 	if (m_forcedDict != NULL)
 	{
-		// Always forcefully reload the language
-		idStr file = "strings/"; file += m_lang + ".lang";
-		if ( fileSystem->FindFile( file ) != FIND_NO )
+		// Always forcefully reload the language, unless it was loaded already
+		if (oldSysLang != newLang)
 		{
-			// can load the language (we expect this, actually), so do sneakily force reload it
-			m_forcedDict->Load( file, true );
+			idStr file = "strings/"; file += m_lang + ".lang";
+			idLib::common->Printf("I18N: Reloading '%s'.\n", file.c_str() );
+			if ( fileSystem->FindFile( file ) != FIND_NO )
+			{
+				// can load the language (we expect this, actually), so do sneakily force reload it
+				m_forcedDict->Load( file, true );
+			}
+			else
+			{
+				idLib::common->Printf("I18N: '%s' not found.\n", file.c_str() );
+			}
 		}
 		else
 		{
-			idLib::common->Printf("I18N: '%s' not found.\n", file.c_str() );
+			idLib::common->Printf("I18N: Skipping reloading of %s dict.\n", m_lang.c_str() );
 		}
 
 		idLangDict *FMDict = new idLangDict;
-		file = "strings/fm/"; file += m_lang + ".lang";
+		idStr file = "strings/fm/"; file += m_lang + ".lang";
 		if ( !FMDict->Load( file, false ) )
 		{
 			idLib::common->Printf("I18N: '%s' not found.\n", file.c_str() );
