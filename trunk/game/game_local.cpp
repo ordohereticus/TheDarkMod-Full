@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4977 $
- * $Date: 2011-09-24 07:38:01 -0400 (Sat, 24 Sep 2011) $
+ * $Revision: 4978 $
+ * $Date: 2011-09-24 09:09:59 -0400 (Sat, 24 Sep 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4977 2011-09-24 11:38:01Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4978 2011-09-24 13:09:59Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -3802,7 +3802,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// "log" and "notime" take one argument
 		if ( cmd == "log" || cmd == "notime") { m_GUICommandArgs = 1; }
 		// these two take 3 arguments each
-		if ( cmd == "initchoice" || cmd == "advancechoice") { m_GUICommandArgs = 3; }
+		if ( cmd == "initchoice" || cmd == "stepchoice") { m_GUICommandArgs = 3; }
 
 //		if ( cmd != "log" && cmd != "mainmenu_heartbeat")
 //		{
@@ -4328,7 +4328,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		gameLocal.m_I18N->SetLanguage( tdm_lang.c_str() );
 	}
 	// tels: #2796 build our own "choicedef" as integer/boolean option.
-	else if (cmd == "initchoice" || cmd == "advancechoice")
+	else if (cmd == "initchoice" || cmd == "stepchoice")
 	{
 		// DEBUG
 //		Printf("GUI: %s\n", cmd.c_str());
@@ -4389,7 +4389,7 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 			else
 			{
 				// should we advance the setting?
-				if (cmd == "advancechoice")
+				if (cmd == "stepchoice")
 				{
 					iSelected ++;
 					if ( (unsigned int)iSelected >= valuesParts.size())
