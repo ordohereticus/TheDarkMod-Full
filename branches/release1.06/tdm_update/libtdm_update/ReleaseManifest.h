@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4481 $
- * $Date: 2011-01-27 13:56:48 -0500 (Thu, 27 Jan 2011) $
+ * $Revision: 4873 $
+ * $Date: 2011-06-02 05:08:29 -0400 (Thu, 02 Jun 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -11,13 +11,13 @@
 
 #include <list>
 #include <fstream>
-#include <boost/spirit.hpp>
+#include <boost/spirit/include/classic.hpp>
 #include <boost/bind.hpp>
 
 #include "PackageInstructions.h"
 #include "SvnClient.h"
 
-namespace bs = boost::spirit;
+namespace bs = boost::spirit::classic;
 
 namespace tdm
 {
