@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4978 $
- * $Date: 2011-09-24 09:09:59 -0400 (Sat, 24 Sep 2011) $
+ * $Revision: 4979 $
+ * $Date: 2011-09-24 09:24:18 -0400 (Sat, 24 Sep 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4978 2011-09-24 13:09:59Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4979 2011-09-24 13:24:18Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -4398,12 +4398,12 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 						iSelected = 0;
 					}
 					// set the new value
-					// Printf("Setting new value: %s (index: %i)\n", valuesParts[ iSelected ].c_str(), iSelected);
+					Printf("Setting %s to %s (index: %i, label %s)\n", cvarName.c_str(), valuesParts[ iSelected ].c_str(), iSelected, choiceParts[iSelected].c_str());
 					cvar->SetString( valuesParts[ iSelected ].c_str() );
 				}
 				// and set it as text label
 				idStr GUIVar = cvarName + "_text";		// f.i.: tdm_menu_music_text
-				Printf( "Setting %s to %s\n", GUIVar.c_str(), valuesParts[iSelected].c_str() );
+				// Printf( "Setting %s to %s\n", GUIVar.c_str(), choiceParts[iSelected].c_str() );
 				gui->SetStateString( GUIVar.c_str(), choiceParts[iSelected].c_str() );
 			}
 		}
