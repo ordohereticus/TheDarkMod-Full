@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4895 $
- * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 4898 $
+ * $Date: 2011-06-20 15:25:07 -0400 (Mon, 20 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: player.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: player.cpp 4898 2011-06-20 19:25:07Z tels $", init_version);
 
 #include "game_local.h"
 #include "ai/aas_local.h"
@@ -11178,7 +11178,7 @@ void idPlayer::SendHUDMessage(const idStr& text)
 		return;
 	}
 
-	hudMessages.Append(text);
+	hudMessages.Append( common->GetLanguageDict()->GetString( text ) );
 }
 
 void idPlayer::SendInventoryPickedUpMessage(const idStr& text)
