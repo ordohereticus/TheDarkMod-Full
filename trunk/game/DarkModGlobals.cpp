@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5186 $ (Revision of last commit) 
- $Date: 2012-01-08 01:03:23 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5187 $ (Revision of last commit) 
+ $Date: 2012-01-08 01:08:01 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -27,9 +27,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-#pragma warning(disable : 4996 4800)
-
-static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5186 2012-01-08 06:03:23Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5187 2012-01-08 06:08:01Z greebo $");
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -39,7 +37,6 @@ static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5186 2012
 #include "ai/AI.h"
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
-#include "../idlib/RevisionTracker.h"
 #include "IniFile.h"
 #include <boost/filesystem.hpp>
 
@@ -122,11 +119,7 @@ static const char *LCString[LC_COUNT+1] = {
 SourceHook::CSourceHookImpl g_SourceHook;
 SourceHook::ISourceHook *g_SHPtr = NULL;
 int g_PLID = 0;
-void DM_Frame();
 //void DM_Printf(const char* fmt, ...);
-
-// Intercept declarations
-SH_DECL_HOOK0_void(idCommon, Frame, SH_NOATTRIB, 0);
 
 // stgatilov: Intercepts output of CaptureRenderToFile
 int DM_WriteFile(const char *relativePath, const void *buffer, int size, const char *basePath);
