@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3453 $
- * $Date: 2009-05-21 23:31:58 -0400 (Thu, 21 May 2009) $
- * $Author: angua $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas_debug.cpp 3453 2009-05-22 03:31:58Z angua $", init_version);
+static bool init_version = FileVersionList("$Id: AAS_debug.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "aas_local.h"
 #include "../game_local.h"		// for cvars and debug drawing

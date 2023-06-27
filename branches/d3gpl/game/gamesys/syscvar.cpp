@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5011 $
- * $Date: 2011-10-25 03:02:07 -0400 (Tue, 25 Oct 2011) $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscvar.cpp 5011 2011-10-25 07:02:07Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SysCvar.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "../game_local.h"
 

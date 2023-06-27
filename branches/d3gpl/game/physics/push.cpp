@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2147 $
- * $Date: 2008-03-28 16:48:42 -0400 (Fri, 28 Mar 2008) $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: push.cpp 2147 2008-03-28 20:48:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Push.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "../game_local.h"
 

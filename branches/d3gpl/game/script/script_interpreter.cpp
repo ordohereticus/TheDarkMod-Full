@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3771 $
- * $Date: 2009-12-23 23:27:59 -0500 (Wed, 23 Dec 2009) $
- * $Author: crispy $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: script_interpreter.cpp 3771 2009-12-24 04:27:59Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: Script_Interpreter.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "../game_local.h"
 

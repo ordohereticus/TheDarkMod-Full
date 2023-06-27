@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3261 $
- * $Date: 2009-03-17 05:45:40 -0400 (Tue, 17 Mar 2009) $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: aas.cpp 3261 2009-03-17 09:45:40Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: AAS.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "aas_local.h"
 

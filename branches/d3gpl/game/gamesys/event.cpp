@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4941 $
- * $Date: 2011-08-06 13:19:51 -0400 (Sat, 06 Aug 2011) $
- * $Author: tels $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ Event are used for scheduling tasks and for linking script commands.
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: event.cpp 4941 2011-08-06 17:19:51Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Event.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "event.h"
 #include "../game_local.h"

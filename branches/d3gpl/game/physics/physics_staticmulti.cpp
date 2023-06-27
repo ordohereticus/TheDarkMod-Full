@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4444 $
- * $Date: 2011-01-17 15:34:45 -0500 (Mon, 17 Jan 2011) $
- * $Author: tels $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: physics_staticmulti.cpp 4444 2011-01-17 20:34:45Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Physics_StaticMulti.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "../game_local.h"
 

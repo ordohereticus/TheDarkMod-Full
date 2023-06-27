@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4283 $
- * $Date: 2010-11-18 23:52:24 -0500 (Thu, 18 Nov 2010) $
- * $Author: tels $
+ * $Revision: 5083 $
+ * $Date: 2011-12-04 23:50:26 -0500 (Sun, 04 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -17,7 +17,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: typeinfo.cpp 4283 2010-11-19 04:52:24Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: TypeInfo.cpp 5083 2011-12-05 04:50:26Z greebo $", init_version);
 
 #include "../game_local.h"
 
