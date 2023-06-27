@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4856 $
- * $Date: 2011-05-22 00:03:25 -0400 (Sun, 22 May 2011) $
- * $Author: greebo $
+ * $Revision: 4900 $
+ * $Date: 2011-06-23 08:24:12 -0400 (Thu, 23 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Mind.cpp 4856 2011-05-22 04:03:25Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Mind.cpp 4900 2011-06-23 12:24:12Z tels $", init_version);
 
 #include "Mind.h"
 #include "States/IdleState.h"
@@ -221,7 +221,7 @@ bool Mind::SetTarget()
 	// Done if we already have a target
 	if (owner->GetEnemy() != NULL)
 	{
-		//DEBUG_PRINT ("Target already assigned, using that one");
+		// gameLocal.Printf ("%s: Target already assigned, using that one.", owner->GetName() );
 		return true;
 	}
 
