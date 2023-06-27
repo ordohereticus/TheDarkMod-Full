@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4710 $
- * $Date: 2011-03-22 04:07:22 -0400 (Tue, 22 Mar 2011) $
- * $Author: greebo $
+ * $Revision: 4942 $
+ * $Date: 2011-08-06 13:21:22 -0400 (Sat, 06 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -29,6 +29,11 @@ private:
 	// The cached size of the fs_game folder, in KB
 	std::size_t _modFolderSize;
 	bool		_modFolderSizeComputed;
+
+	/**
+	* Turn "Title:   Some  " into "Some". Example: Strip("Title:", displayName);
+	*/
+	void		Strip(const char* fieldname, idStr &field);
 
 public:
 	// Public Properties - these aren't stored in the mod info declaration
@@ -100,8 +105,6 @@ public:
 	// Load stuff from darkmod.txt, returns FALSE if the file couldn't be read
 	bool	LoadMetaData();
 
-	// Moves articles from the front of the string to its back "The Alchemist" => "Alchemist, The"
-	static void MoveArticlesToBack(idStr& title);
 };
 typedef boost::shared_ptr<CModInfo> CModInfoPtr;
 

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4910 $
- * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
- * $Author: stgatilov $
+ * $Revision: 4942 $
+ * $Date: 2011-08-06 13:21:22 -0400 (Sat, 06 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MissionManager.cpp 4910 2011-07-11 15:57:15Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: MissionManager.cpp 4942 2011-08-06 17:21:22Z tels $", init_version);
 
 #include <time.h>
 #include "MissionManager.h"
@@ -200,7 +200,7 @@ idStr CMissionManager::GetCurrentModName()
 {
 	CModInfoPtr info = GetCurrentModInfo();
 
-	return (info != NULL) ? info->modName : "";
+	return (info != NULL) ? idStr( gameLocal.m_I18N->Translate( info->modName ) ) : "";
 }
 
 int CMissionManager::GetNumNewMods()
@@ -485,7 +485,13 @@ int CMissionManager::ModSortCompare(const int* a, const int* b)
 
 	if (aInfo == NULL || bInfo == NULL) return 0;
 
-	return aInfo->displayName.Icmp(bInfo->displayName);
+	idStr aName = gameLocal.m_I18N->Translate( aInfo->displayName );
+	idStr bName = gameLocal.m_I18N->Translate( bInfo->displayName );
+
+	gameLocal.m_I18N->MoveArticlesToBack( aName );
+	gameLocal.m_I18N->MoveArticlesToBack( bName );
+
+	return aName.Icmp(bName);
 }
 
 void CMissionManager::SortModList()
@@ -1291,9 +1297,6 @@ void CMissionManager::LoadModListFromXml(const XmlDocumentPtr& doc)
 		DownloadableMod mission;
 
 		mission.title = node.attribute("title").value();
-
-		// Remove articles from mission titles
-		CModInfo::MoveArticlesToBack(mission.title);
 
 		mission.id = node.attribute("id").as_int();
 		mission.sizeMB = node.attribute("size").as_float();

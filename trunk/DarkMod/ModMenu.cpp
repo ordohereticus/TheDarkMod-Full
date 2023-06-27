@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4917 $
- * $Date: 2011-07-17 08:42:40 -0400 (Sun, 17 Jul 2011) $
+ * $Revision: 4942 $
+ * $Date: 2011-08-06 13:21:22 -0400 (Sat, 06 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModMenu.cpp 4917 2011-07-17 12:42:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModMenu.cpp 4942 2011-08-06 17:21:22Z tels $", init_version);
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -299,8 +299,10 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 		}
 
 		gui->SetStateInt(guiAvailable,	info != NULL ? 1 : 0);
-		gui->SetStateString(guiName,	info != NULL ? info->displayName : "");
-		gui->SetStateString(guiDesc,	info != NULL ? info->description : "");
+		idStr name = gameLocal.m_I18N->Translate( info != NULL ? info->displayName : "");
+		gameLocal.m_I18N->MoveArticlesToBack( name );
+		gui->SetStateString(guiName,	name );
+		gui->SetStateString(guiDesc,	gameLocal.m_I18N->Translate( info != NULL ? info->description : "") );
 		gui->SetStateString(guiAuthor,	info != NULL ? info->author : "");
 		gui->SetStateString(guiImage,	info != NULL ? info->image : "");
 		gui->SetStateBool(guiCompleted,	info != NULL ? info->ModCompleted() : false);
@@ -313,8 +315,8 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 	CModInfoPtr curModInfo = gameLocal.m_MissionManager->GetCurrentModInfo();
 
 	gui->SetStateBool("hasCurrentMod", curModInfo != NULL);
-	gui->SetStateString("currentModName", curModInfo != NULL ? curModInfo->displayName : idStr( common->GetLanguageDict()->GetString( "#str_02189" ))); // <No Mission Installed>
-	gui->SetStateString("currentModDesc", curModInfo != NULL ? curModInfo->description : "");	
+	gui->SetStateString("currentModName", gameLocal.m_I18N->Translate( curModInfo != NULL ? curModInfo->displayName : "#str_02189" )); // <No Mission Installed>
+	gui->SetStateString("currentModDesc", gameLocal.m_I18N->Translate( curModInfo != NULL ? curModInfo->description : "" ));	
 }
 
 bool CModMenu::PerformVersionCheck(const CModInfoPtr& mission, idUserInterface* gui)
