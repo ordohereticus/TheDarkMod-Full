@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
- * $Author: grayman $
+ * $Revision: 4884 $
+ * $Date: 2011-06-12 13:41:29 -0400 (Sun, 12 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4884 2011-06-12 17:41:29Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -11839,6 +11839,7 @@ void idEntity::Event_GetTeam()
 
 void idEntity::Event_SetTeam(int newTeam)
 {
+	gameLocal.Printf("%s: Changing to team %i.\n", GetName(), newTeam);
 	// greebo: No validity checking so far - todo?
 	team = newTeam;
 }

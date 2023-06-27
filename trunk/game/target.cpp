@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4807 $
- * $Date: 2011-04-20 03:50:33 -0400 (Wed, 20 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4884 $
+ * $Date: 2011-06-12 13:41:29 -0400 (Sun, 12 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -19,7 +19,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: target.cpp 4807 2011-04-20 07:50:33Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: target.cpp 4884 2011-06-12 17:41:29Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/Objectives/MissionData.h"
@@ -2233,3 +2233,32 @@ void CTarget_InterMissionTrigger::Event_Activate(idEntity* activator)
 		gameLocal.AddInterMissionTrigger(missionNum, activatorName, targetName);
 	}
 }
+
+/* ************************************** Target setTeam ********************************* */
+
+// Tels: Can be targetted from a trigger and changes the team of all of its targets to the
+// 		 team according to the spawnarg "team". Will also cause the affected actors to re-
+//		 evaluate their targets (so if they "see" someone, they might consider them an
+//		 enemy, or friend now):
+
+CLASS_DECLARATION( idEntity, CTarget_SetTeam )
+	EVENT( EV_Activate,	CTarget_SetTeam::Event_Activate )
+END_CLASS
+
+void CTarget_SetTeam::Event_Activate(idEntity* activator)
+{
+	float newTeam = spawnArgs.GetFloat("team", 0);
+
+	// for all targets
+	int t = targets.Num();
+	for( int i = 0; i < t; i++ )
+	{
+		idEntity *ent = targets[ i ].GetEntity();
+		if ( ent )
+		//if ( ent &&  ent->IsType(idActor::Type) )
+		{
+		//	idActor* actor = static_cast<idActor*>(ent);
+			ent->Event_SetTeam( newTeam );
+		}
+	}
+}	

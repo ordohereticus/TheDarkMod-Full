@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4782 $
- * $Date: 2011-04-14 12:10:30 -0400 (Thu, 14 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4884 $
+ * $Date: 2011-06-12 13:41:29 -0400 (Sun, 12 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -621,6 +621,22 @@ public:
 
 private:
 	void				Event_Activate(idEntity* activator);
+};
+
+/*
+===============================================================================
+
+Tels: set the team of its targets.
+
+===============================================================================
+*/
+
+class CTarget_SetTeam : public idTarget {
+public:
+	CLASS_PROTOTYPE( CTarget_SetTeam );
+
+private:
+	void				Event_Activate( idEntity *activator );
 };
 
 #endif /* !__GAME_TARGET_H__ */
