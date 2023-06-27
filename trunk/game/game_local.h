@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4948 $
- * $Date: 2011-08-07 14:10:00 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4964 $
+ * $Date: 2011-09-02 13:01:36 -0400 (Fri, 02 Sep 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -1038,6 +1038,14 @@ private:
 		// The name of the target entity to be triggered. Is resolved immediately after spawn time.
 		idStr	targetName;
 	};
+
+	// Tels: For each part in a GUI command in 'set "cmd" "command arg1 arg2;" the game will
+	//		 call HandleMainMenuCommand(), sometimes with a final call with the ";".
+	//		 This list here keeps all these parts so we can execute the command
+	//		 and have all the arguments, too.
+	idList<idStr>				m_GUICommandStack;
+	// how many arguments do we expect for the current command (m_GUICommandStack[0]):
+	int							m_GUICommandArgs;
 
 	idList<InterMissionTrigger>	m_InterMissionTriggers;
 
