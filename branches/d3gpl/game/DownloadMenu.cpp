@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5135 $ (Revision of last commit) 
+ $Date: 2011-12-29 00:47:27 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 5121 2011-12-11 19:12:26Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 5135 2011-12-29 05:47:27Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -141,7 +141,7 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 					gameLocal.Printf("Connection Error.\n");
 
 					GuiMessage msg;
-					msg.title = gameLocal.m_I18N->Translate( "#str_02138" ); // "Mission Screenshot Download Failed"
+					msg.title = gameLocal.m_I18N->Translate( "#str_02002" ); // "Connection Error"
 					msg.message = gameLocal.m_I18N->Translate( "#str_02139" ); // "Failed to download the screenshot file."
 					msg.type = GuiMessage::MSG_OK;
 					msg.okCmd = "close_msg_box";
@@ -217,7 +217,7 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 			gameLocal.m_I18N->Translate("#str_04353") : // Campaign
 			gameLocal.m_I18N->Translate("#str_04352")); // Single Mission
 		gui->SetStateString("av_mission_version", va("%d", mods[missionIndex]->version));
-		gui->SetStateString("av_mission_size", va("%0.1f %s", mods[missionIndex]->sizeMB, gameLocal.m_I18N->Translate( "#str_02015" )));	// MB
+		gui->SetStateString("av_mission_size", va("%0.1f %s", mods[missionIndex]->sizeMB, gameLocal.m_I18N->Translate( "#str_02055" )));	// MB
 
 		gui->SetStateBool("av_mission_details_visible", true);
 
@@ -488,7 +488,7 @@ void CDownloadMenu::UpdateModDetails(idUserInterface* gui)
 	gui->SetStateString("av_mission_author", mods[modIndex]->author);
 	gui->SetStateString("av_mission_release_date", mods[modIndex]->releaseDate);
 	gui->SetStateString("av_mission_version", va("%d", mods[modIndex]->version));
-	gui->SetStateString("av_mission_size", va("%0.1f %s", mods[modIndex]->sizeMB, gameLocal.m_I18N->Translate( "#str_02015" )));	// MB
+	gui->SetStateString("av_mission_size", va("%0.1f %s", mods[modIndex]->sizeMB, gameLocal.m_I18N->Translate( "#str_02055" )));	// MB
 
 	gui->SetStateString("av_mission_description", mods[modIndex]->description);
 }
