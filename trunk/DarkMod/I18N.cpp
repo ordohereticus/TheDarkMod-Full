@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4985 $
- * $Date: 2011-10-03 06:27:52 -0400 (Mon, 03 Oct 2011) $
+ * $Revision: 4997 $
+ * $Date: 2011-10-16 17:29:22 -0400 (Sun, 16 Oct 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 4985 2011-10-03 10:27:52Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 4997 2011-10-16 21:29:22Z tels $", init_version);
 
 #include "I18N.h"
 #include "sourcehook/sourcehook.h"
@@ -121,6 +121,7 @@ not be called directly.
 const idLangDict* CI18N::GetLanguageDict ( void ) const {
 	RETURN_META_VALUE(MRES_OVERRIDE, &m_Dict);
 }
+
 /*
 ===============
 CI18N::Save
@@ -347,6 +348,8 @@ void CI18N::SetLanguage( const char* lang, bool firstTime ) {
 		// So instead just pop-up a message box:
 		gui->SetStateBool("MsgBoxVisible", true);
 
+		// TODO: Switching to Russian will show these strings in Russian, but the font is not yet there
+		//		 So translate these before loading the new dictionary, and the display them?
 		gui->SetStateString("MsgBoxTitle", Translate("#str_02206") );	// Language changed
 		gui->SetStateString("MsgBoxText", Translate("#str_02207") );	// You might need to manually restart the game to see the right characters.
 
