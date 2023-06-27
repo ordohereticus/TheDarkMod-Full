@@ -2,9 +2,9 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 4895 $
- * $Date: 2011-06-19 15:07:40 -0400 (Sun, 19 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 4907 $
+ * $Date: 2011-06-30 16:53:30 -0400 (Thu, 30 Jun 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: entity.cpp 4895 2011-06-19 19:07:40Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: entity.cpp 4907 2011-06-30 20:53:30Z tels $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -2733,6 +2733,10 @@ void idEntity::SetShaderParm( int parmnum, float value )
 	}
 
 	renderEntity.shaderParms[ parmnum ] = value;
+	// tels: TODO: UpdateVisuals does stuff like updating the Model Transform,
+	// calling updating the MD5 animation, clear the PVS areas, calling updateSound()
+	// etc. All these things might be unnec. for just modifying a shaderParm, see if
+	// we can optimize this.
 	UpdateVisuals();
 }
 
@@ -2745,6 +2749,7 @@ void idEntity::SetColor( const float red, const float green, const float blue ) 
 	renderEntity.shaderParms[ SHADERPARM_RED ]		= red;
 	renderEntity.shaderParms[ SHADERPARM_GREEN ]	= green;
 	renderEntity.shaderParms[ SHADERPARM_BLUE ]		= blue;
+	// tels: TODO: See note in idEntity::SetShaderParm about optimizing this.
 	UpdateVisuals();
 }
 
@@ -2755,6 +2760,7 @@ idEntity::SetColor
 */
 void idEntity::SetColor( const idVec3 &color ) {
 	SetColor( color[ 0 ], color[ 1 ], color[ 2 ] );
+	// tels: TODO: See note in idEntity::SetShaderParm about optimizing this.
 	UpdateVisuals();
 }
 
@@ -2779,6 +2785,7 @@ void idEntity::SetColor( const idVec4 &color ) {
 	renderEntity.shaderParms[ SHADERPARM_GREEN ]	= color[ 1 ];
 	renderEntity.shaderParms[ SHADERPARM_BLUE ]		= color[ 2 ];
 	renderEntity.shaderParms[ SHADERPARM_ALPHA ]	= color[ 3 ];
+	// tels: TODO: See note in idEntity::SetShaderParm about optimizing this.
 	UpdateVisuals();
 }
 
@@ -2796,6 +2803,7 @@ Tels: Just set the alpha value. Note: Due to the D3 engine not being
 */
 void idEntity::SetAlpha( const float alpha ) {
 	renderEntity.shaderParms[ SHADERPARM_ALPHA ]	= alpha;
+	// tels: TODO: See note in idEntity::SetShaderParm about optimizing this.
 	UpdateVisuals();
 }
 
@@ -2812,6 +2820,7 @@ void idEntity::SetAlpha( const float alpha, const bool bound ) {
 
 	if (!bound)
 	{
+	    // tels: TODO: See note in idEntity::SetShaderParm about optimizing this.
 		UpdateVisuals();
 		return;
 	}
@@ -2828,6 +2837,7 @@ void idEntity::SetAlpha( const float alpha, const bool bound ) {
 			ent->SetAlpha( alpha );
 		}
 	}
+	// tels: TODO: See note in idEntity::SetShaderParm about optimizing this.
 	UpdateVisuals();
 }
 
