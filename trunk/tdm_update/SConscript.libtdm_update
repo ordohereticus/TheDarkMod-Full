@@ -4,8 +4,8 @@
 #############################################################################
 # 
 #  PROJECT: The Dark Mod - Updater
-#  $Revision: 4487 $
-#  $Date: 2011-01-28 11:39:29 -0500 (Fri, 28 Jan 2011) $
+#  $Revision: 4893 $
+#  $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
 #  $Author: greebo $
 # 
 ##############################################################################
@@ -22,6 +22,7 @@ Import( 'GLOBALS' )
 Import( GLOBALS )
 
 libtdm_update_string = ' \
+	File.cpp \
 	IniFile.cpp \
 	SvnClient.cpp \
 	SvnClientImpl.cpp \

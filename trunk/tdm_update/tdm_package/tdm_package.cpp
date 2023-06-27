@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Packager
- * $Revision: 4438 $
- * $Date: 2011-01-17 01:28:00 -0500 (Mon, 17 Jan 2011) $
+ * $Revision: 4893 $
+ * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -197,6 +197,28 @@ int main(int argc, char* argv[])
 			TraceLog::WriteLine(LOG_STANDARD, "---------------------------------------------------------");
 
 			packager.CreatePackage();
+
+			TraceLog::WriteLine(LOG_STANDARD, "---------------------------------------------------------");
+
+			TraceLog::WriteLine(LOG_STANDARD, "Done.");
+		}
+		else if (options.IsSet("check-repository"))
+		{
+			if (options.Get("darkmoddir").empty())
+			{
+				options.PrintHelp();
+				return EXIT_SUCCESS;
+			}
+
+			Packager packager(options);
+
+			TraceLog::WriteLine(LOG_STANDARD, "---------------------------------------------------------");
+
+			packager.LoadManifest();
+
+			TraceLog::WriteLine(LOG_STANDARD, "---------------------------------------------------------");
+
+			packager.CheckRepository();
 
 			TraceLog::WriteLine(LOG_STANDARD, "---------------------------------------------------------");
 

@@ -2,8 +2,8 @@
  *
  * PROJECT: The Dark Mod - Launcher
  * $Source$
- * $Revision: 4853 $
- * $Date: 2011-05-17 02:06:44 -0400 (Tue, 17 May 2011) $
+ * $Revision: 4893 $
+ * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
  * $Author: greebo $
  *
  *************************************************************************/
@@ -502,9 +502,9 @@ bool Launcher::Launch()
 		boost::algorithm::split(parts, STEAM_ARGS, boost::algorithm::is_any_of(" \t"));
 
 		// Pre-pend the steam argument list
-		for (std::size_t i = 0; i < parts.size(); ++i)
+		for (std::vector<std::string>::reverse_iterator i = parts.rbegin(); i != parts.rend(); ++i)
 		{
-			AddArgument(parts[i], true);
+			AddArgument(*i, true);
 		}
 	}
 

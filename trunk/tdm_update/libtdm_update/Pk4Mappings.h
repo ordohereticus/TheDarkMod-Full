@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4379 $
- * $Date: 2010-12-22 09:49:40 -0500 (Wed, 22 Dec 2010) $
+ * $Revision: 4893 $
+ * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -13,11 +13,11 @@
 #include <list>
 #include <fstream>
 #include <boost/filesystem.hpp>
-#include <boost/spirit.hpp>
+#include <boost/spirit/include/classic.hpp>
 #include <boost/bind.hpp>
 #include <boost/regex.hpp>
 
-namespace bs = boost::spirit;
+namespace bs = boost::spirit::classic;
 
 namespace tdm
 {
