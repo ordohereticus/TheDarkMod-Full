@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Grabber.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Grabber.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1470,7 +1470,6 @@ bool CGrabber::ToggleEquip( void )
 
 bool CGrabber::Equip( void )
 {
-	bool rc(false);
 	idStr str;
 	idEntity *ent = m_dragEnt.GetEntity();
 
@@ -1672,7 +1671,7 @@ void CGrabber::ShoulderBody( idAFEntity_Base *body )
 	player->OnStartShoulderingBody(body);
 
 	// hide the body for now
-	idEntity *ent = m_EquippedEnt.GetEntity();
+	//idEntity *ent = m_EquippedEnt.GetEntity();
 
 	body->Unbind();
 	body->GetPhysics()->PutToRest();

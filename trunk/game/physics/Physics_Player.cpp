@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Source$  $Revision: 5166 $   $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $", init_version);
+static bool init_version = FileVersionList("$Source$  $Revision: 5179 $   $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $", init_version);
 
 #include "../Game_local.h"
 #include "../DarkModGlobals.h"
@@ -333,7 +333,7 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 
 				// This is the max. distance we can move forward in this frame
 				idVec3 forward = time_left * current.velocity;
-				float forwardDist = forward.LengthFast();
+				//float forwardDist = forward.LengthFast();
 
 				// step down
 				idVec3 topStartPoint = downTrace.endpos + forward;
@@ -1099,7 +1099,7 @@ void idPhysics_Player::RopeMove( void )
 			if (topMostBody != NULL)
 			{
 				// Correct the pull direction using the orientation of the topmost body.
-				const idMat3& axis = topMostBody->GetWorldAxis();
+				//const idMat3& axis = topMostBody->GetWorldAxis();
 				direction = topMostBody->GetWorldAxis() * ropeShaft;
 			}
 

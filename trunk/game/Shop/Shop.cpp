@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Shop.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Shop.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "Shop.h"
 #include "../Game_local.h"
@@ -355,7 +355,7 @@ void CShop::LoadShopItemDefinitions()
 
 			const char* displayName = dict.GetString("displayName", "");
 			const char* displayDesc = dict.GetString("displayDesc", "");
-			const char* itemClassname = dict.GetString("itemClassname", "");
+			//const char* itemClassname = dict.GetString("itemClassname", "");
 			const char* image = dict.GetString("image", "");
 			int cost = dict.GetInt("price", "0");
 			bool stackable = dict.GetBool("stackable","0"); // grayman (#2376)

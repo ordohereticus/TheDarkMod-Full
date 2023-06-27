@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@ func_emitters - have one or more particle models
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Emitter.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Emitter.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "Emitter.h"
 
@@ -291,7 +291,7 @@ void idFuncEmitter::Think( void )
 	idEntity::Think();
 
 	// extra models? Do LOD thinking for them:
-	const int num = m_models.Num();
+	//const int num = m_models.Num();
 	// start with 1
 /*	for (int i = 1; i < num; i++)
 	{

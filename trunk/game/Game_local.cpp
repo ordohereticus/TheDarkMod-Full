@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5178 $ (Revision of last commit) 
- $Date: 2012-01-07 07:21:56 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: Game_local.cpp 5178 2012-01-07 12:21:56Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Game_local.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -5683,7 +5683,7 @@ idGameLocal::RequirementMet
 bool idGameLocal::RequirementMet( idEntity *activator, const idStr &requires, int removeItem ) {
 	if ( requires.Length() ) {
 		if ( activator->IsType( idPlayer::Type ) ) {
-			idPlayer *player = static_cast<idPlayer *>(activator);
+			//idPlayer *player = static_cast<idPlayer *>(activator);
 			idDict *item = NULL;//player->FindInventoryItem( requires );
 			if ( item ) {
 				if ( removeItem ) {
@@ -6322,7 +6322,7 @@ idEntity *idGameLocal::SelectInitialSpawnPoint( idPlayer *player ) {
 		// a starting point in the briefing?
 
 		bool foundSpot = false;
-		if ( m_StartPosition != NULL && m_StartPosition[0] != 0x00 )
+		if ( m_StartPosition != NULL && m_StartPosition[0] != '\0' )
 		{
 			spot.ent = FindEntity( m_StartPosition );
 			if ( spot.ent != NULL )
@@ -7206,7 +7206,7 @@ idLight * idGameLocal::FindMainAmbientLight( bool a_bCreateNewIfNotFound /*= fal
 
 	idLight *pLightEntMainAmbient = NULL;
 	float fMaxRadius = 0.0f;
-	int j=1;
+
 	for (int i = 0; i < MAX_GENTITIES; i++)
 	{
 		// Find the ambient light with greatest radius.

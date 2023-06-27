@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #include "../Game_local.h"
 
-static bool init_version = FileVersionList("$Id: MissionData.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MissionData.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -388,7 +388,7 @@ bool	CMissionData::EvaluateObjective
 			)
 {
 	bool bReturnVal(false);
-	int value(0), index(0);
+	int value(0);
 
 	EComponentType CompType = pComp->m_Type;
 	ESpecificationMethod SpecMeth = pComp->m_SpecMethod[0];
@@ -2276,9 +2276,6 @@ void CMissionData::HandleMainMenuCommands(const idStr& cmd, idUserInterface* gui
 	else if (cmd == "objective_open_request")
 	{
 		gui->HandleNamedEvent("GetObjectivesInfo");
-
-		// Holds the X start position for the objectives
-		int objStartXPos = -1;
 
 		// Let the GUI know which map to load
 		gui->SetStateString("mapStartCmd", va("exec 'map %s'", gameLocal.m_MissionManager->GetCurrentStartingMap().c_str()));

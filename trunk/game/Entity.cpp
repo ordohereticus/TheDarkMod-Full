@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Entity.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Entity.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -9188,7 +9188,7 @@ bool idEntity::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 		const idKeyValue *kv = spawnArgs.FindKey( scriptName.c_str() );
 		if( kv != NULL && kv->GetValue().Length() > 0 )
 		{
-			idThread* thread = CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
+			CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
 			bFoundKey = true;
 			break;
 		}
@@ -9200,7 +9200,7 @@ bool idEntity::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 		const idKeyValue *kv = spawnArgs.FindKey( "used_action_script" );
 		if( kv != NULL && kv->GetValue().Length() > 0 )
 		{
-			idThread* thread = CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
+			CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
 		}
 	}
 
@@ -10821,25 +10821,17 @@ void idEntity::Event_GetLootAmount(int lootType)
 		case LOOT_GOLD:
 			idThread::ReturnInt(gold);
 			return;
-		break;
 
 		case LOOT_GOODS:
 			idThread::ReturnInt(goods);
 			return;
-		break;
 
 		case LOOT_JEWELS:
 			idThread::ReturnInt(jewelry);
 			return;
-		break;
-
-		default:
-			idThread::ReturnInt(total);
-			return;
-		break;
 	}
 
-	idThread::ReturnInt(0);
+	idThread::ReturnInt(total);
 }
 
 void idEntity::Event_ChangeLootAmount(int lootType, int amount)
@@ -11093,7 +11085,6 @@ void idEntity::OnInventorySelectionChanged(const CInventoryItemPtr& prevItem)
 void idEntity::ChangeInventoryItemCount(const char* invName, const char* invCategory, int amount) 
 {
 	const CInventoryPtr& inventory = Inventory();
-	bool bIsLoot( false );
 
 	CInventoryCategoryPtr category = inventory->GetCategory(invCategory);
 	if (category == NULL) 

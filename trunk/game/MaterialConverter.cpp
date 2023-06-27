@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -53,7 +53,7 @@ MaterialConversionStatusReport::MaterialConversionStatusReport()
 //-------------------------------------------------------------
 bool MaterialParsingHelper::GetValidStageExpression( idLexer &a_lexSource, idStr & a_strStageTextureName )
 {
-	int iOffset, nBrackets;
+	int iOffset;
 	a_strStageTextureName.Empty();
 
 	std::vector< idStr > arrStrInvalidTokens;
@@ -66,8 +66,8 @@ bool MaterialParsingHelper::GetValidStageExpression( idLexer &a_lexSource, idStr
 	// 	gameLocal.Printf("Entering loop. \n" );
 
 	idToken tknParsedLine;
-	int i=0;
-	for( nBrackets = 0 ; !a_lexSource.EndOfFile() ; )
+
+	for(int nBrackets = 0 ; !a_lexSource.EndOfFile() ; )
 	{
 		while(a_lexSource.ReadToken( &tknParsedLine )) 
 		{

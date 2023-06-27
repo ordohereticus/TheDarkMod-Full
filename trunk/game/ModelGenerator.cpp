@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -36,7 +36,7 @@ TODO: Call FinishSurfaces() for all orginal models, then cache their shadow vert
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModelGenerator.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "ModelGenerator.h"
 
@@ -345,7 +345,7 @@ lod_handle CModelGenerator::RegisterLODData( const lod_handle handle ) {
 	{
 		// handle out of range
 		gameLocal.Error("ModelGenerator::RegisterLODData: Handle %i out of range 1..%i.", handle, n);
-		return -1;
+		return static_cast<lod_handle>(-1);
 	}
 
 	int h = handle - 1;
@@ -353,7 +353,7 @@ lod_handle CModelGenerator::RegisterLODData( const lod_handle handle ) {
 	{
 		// not registered
 		gameLocal.Error("ModelGenerator::RegisterLODData: LOD data %i has no users.", handle);
-		return -1;
+		return static_cast<lod_handle>(-1);
 	}
 	m_LODList[h].users ++;
 

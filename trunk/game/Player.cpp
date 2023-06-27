@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool init_version = FileVersionList("$Id: Player.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Player.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -1210,7 +1210,6 @@ bool idPlayer::WaitUntilReady()
 	oldButtons = usercmd.buttons;
 
 	// grab out usercmd
-	usercmd_t oldCmd = usercmd;
 	usercmd = gameLocal.usercmds[ entityNumber ];
 	buttonMask &= usercmd.buttons;
 	usercmd.buttons &= ~buttonMask;
@@ -4092,9 +4091,6 @@ void idPlayer::OnStartShoulderingBody(idEntity* body)
 		StartSound( sound.c_str(), SND_CHANNEL_ITEM, 0, false, NULL );
 	}
 
-	// set immobilizations
-	int immob = SHOULDER_IMMOBILIZATIONS;
-
 	// TODO: Also make sure you can't grab anything else (hands are full)
 	// requires a new EIM flag?
 	SetImmobilization( "ShoulderedBody", SHOULDER_IMMOBILIZATIONS );
@@ -5915,7 +5911,6 @@ void idPlayer::StartMouseGesture( int impulse, int thresh, EMouseTest test, bool
 
 void idPlayer::UpdateMouseGesture( void )
 {
-	bool bStop( false );
 	float mag(0.0f);
 	EMouseDir CurrentDir;
 
@@ -6087,7 +6082,6 @@ void idPlayer::AdjustSpeed( void )
 {
 	float speed(0.0f);
 	float crouchspeed(0.0f);
-	float rate(0.0f);
 	
 	float maxSpeed = pm_walkspeed.GetFloat() * cv_pm_runmod.GetFloat() * GetHinderance();
 

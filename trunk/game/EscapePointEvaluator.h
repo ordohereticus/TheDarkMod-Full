@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -51,6 +51,10 @@ protected:
 	int _distanceMultiplier;
 
 	idVec3 _threatPosition;
+
+private:
+	// Silence compiler warning about assignment operators
+	EscapePointEvaluator& operator=(const EscapePointEvaluator& other) {}
 
 public:
 	// Default Constructor

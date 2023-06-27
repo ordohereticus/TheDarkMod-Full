@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: MovementSubsystem.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -456,7 +456,7 @@ bool MovementSubsystem::AttemptToExtricate()
 	float extricateDistance = 1.5*(bnds[1][0] + bnds[1][1]); // 1.5 x (x_size/2 + y_size/2)
 	idAngles angles = owner->viewAxis.ToAngles();
 	float forward = angles.yaw;
-	float moveFraction = 0;		 // fractional distance from your origin to moveTo
+	//float moveFraction = 0;		 // fractional distance from your origin to moveTo
 
 	for (int i = 0 ; i < 3 ; i++)
 	{

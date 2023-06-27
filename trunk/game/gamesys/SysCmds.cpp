@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SysCmds.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SysCmds.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -207,7 +207,7 @@ void Cmd_AttachmentOffset_f( const idCmdArgs &args )
 	idStr attName = args.Argv(1);
 	idStr attPosName = args.Argv(2);
 
-	int attIndex = actor->GetAttachmentIndex(attName);
+	//int attIndex = actor->GetAttachmentIndex(attName);
 
 	SAttachPosition* pos = actor->GetAttachPosition(attPosName);
 	if (pos == NULL)
@@ -253,7 +253,7 @@ void Cmd_AttachmentRot_f( const idCmdArgs &args )
 	idStr attName = args.Argv(1);
 	idStr attPosName = args.Argv(2);
 
-	int attIndex = actor->GetAttachmentIndex(attName);
+	//int attIndex = actor->GetAttachmentIndex(attName);
 
 	SAttachPosition* pos = actor->GetAttachPosition(attPosName);
 	if (pos == NULL)
@@ -2958,7 +2958,7 @@ bool GetValidStageExpression( idLexer &a_lexSource, idStr & a_strStageTextureNam
 // 	gameLocal.Printf("Entering loop. \n" );
 
 	idToken tknParsedLine;
-	int i=0;
+	
 	for( nBrackets = 0 ; !a_lexSource.EndOfFile() ; )
 	{
 		while(a_lexSource.ReadToken( &tknParsedLine )) 

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: EAS.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: EAS.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "EAS.h"
 
@@ -68,7 +68,7 @@ void tdmEAS::SetupClusterInfoStructures()
 
 	for (std::size_t i = 0; i < _clusterInfo.size(); i++)
 	{
-		const aasCluster_t& cluster = _aas->file->GetCluster(static_cast<int>(i));
+		//const aasCluster_t& cluster = _aas->file->GetCluster(static_cast<int>(i));
 		
 		_clusterInfo[i] = ClusterInfoPtr(new ClusterInfo);
 		_clusterInfo[i]->clusterNum = i;

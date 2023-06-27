@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
+ $Revision: 5179 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -32,7 +32,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 5166 2012-01-06 18:35:53Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 5179 2012-01-07 12:46:31Z greebo $", init_version);
 
 #include "I18N.h"
 #include "sourcehook/sourcehook.h"
@@ -291,7 +291,7 @@ int CI18N::LoadCharacterMapping( idStr& lang ) {
 		"ff"	"b2"			// remap character 0xff to 0xb2
 	}
 	*/
-	int i = 0;
+	
 	src.ExpectTokenString( "{" );
 	while ( src.ReadToken( &tok ) ) {
 		if ( tok == "}" ) {
