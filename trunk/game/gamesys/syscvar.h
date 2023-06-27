@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4935 $
- * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
- * $Author: tels $
+ * $Revision: 4971 $
+ * $Date: 2011-09-15 09:15:59 -0400 (Thu, 15 Sep 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
@@ -96,6 +96,9 @@ extern idCVar cv_tdm_proxy;
 extern idCVar cv_tdm_proxy_user;
 extern idCVar cv_tdm_proxy_pass;
 extern idCVar cv_tdm_allow_http_access;
+extern idCVar cv_tdm_mission_list_urls;
+extern idCVar cv_tdm_mission_details_url;
+extern idCVar cv_tdm_mission_screenshot_url;
 
 extern idCVar cv_debug_aastype;
 

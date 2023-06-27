@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4957 $
- * $Date: 2011-08-13 06:19:47 -0400 (Sat, 13 Aug 2011) $
- * $Author: tels $
+ * $Revision: 4971 $
+ * $Date: 2011-09-15 09:15:59 -0400 (Thu, 15 Sep 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 // Copyright (C) 2004 Id Software, Inc.
@@ -12,7 +12,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4957 2011-08-13 10:19:47Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: DownloadMenu.cpp 4971 2011-09-15 13:15:59Z greebo $", init_version);
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -187,7 +187,10 @@ void CDownloadMenu::HandleCommands(const idStr& cmd, idUserInterface* gui)
 		UpdateDownloadProgress(gui);
 
 		// Start refreshing the list, will be handled in mainmenu_heartbeat
-		gameLocal.m_MissionManager->StartReloadDownloadableMods();
+		if (gameLocal.m_MissionManager->StartReloadDownloadableMods() == -1)
+		{
+			gameLocal.Error("No URLs specified to download the mission list XML.");
+		}
 	}
 	else if (cmd == "onDownloadableMissionSelected")
 	{
