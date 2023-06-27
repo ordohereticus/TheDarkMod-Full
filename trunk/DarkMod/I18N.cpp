@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4951 $
- * $Date: 2011-08-11 11:03:43 -0400 (Thu, 11 Aug 2011) $
+ * $Revision: 4953 $
+ * $Date: 2011-08-11 17:44:09 -0400 (Thu, 11 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -22,7 +22,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: I18N.cpp 4951 2011-08-11 15:03:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: I18N.cpp 4953 2011-08-11 21:44:09Z tels $", init_version);
 
 #include "I18N.h"
 
@@ -255,6 +255,7 @@ void CI18N::SetLanguage( const char* lang, bool firstTime ) {
 		idLib::common->Printf("I18N: Language '%s' not supported by D3, forcing it.\n", lang);
 	}
 
+#ifndef _WINDOWS
 	// to get around the const preventing changing the system dictionary
 	idLangDict *forcedDict = const_cast<idLangDict*> (common->GetLanguageDict());
 
@@ -332,6 +333,10 @@ void CI18N::SetLanguage( const char* lang, bool firstTime ) {
 	{
 		idLib::common->Printf("I18N: System dictionary is NULL!\n" );
 	}
+#else
+		idLib::common->Printf("I18N: System dictionary modifying on Windows is not yet supported.\n" );
+
+#endif
 
 	idUserInterface *gui = NULL;
 	if ( !firstTime && (oldLang != m_lang && (oldLang == "russian" || m_lang == "russian")))
