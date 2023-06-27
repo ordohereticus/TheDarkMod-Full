@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4893 $
- * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
- * $Author: greebo $
+ * $Revision: 4910 $
+ * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -874,7 +874,7 @@ public:
 	 */
 	float					CalcLightgem(idPlayer*);
 
-	ID_INLINE idList<char> &GetLightgemRenderBuffer(void)
+	ID_INLINE idList<unsigned char> &GetLightgemRenderBuffer(void)
 	{
 		return m_lightGem.GetLightgemRenderBuffer();
 	}

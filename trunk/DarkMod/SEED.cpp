@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4883 $
- * $Date: 2011-06-12 08:38:27 -0400 (Sun, 12 Jun 2011) $
- * $Author: tels $
+ * $Revision: 4910 $
+ * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -66,7 +66,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool init_version = FileVersionList("$Id: SEED.cpp 4883 2011-06-12 12:38:27Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: SEED.cpp 4910 2011-07-11 15:57:15Z stgatilov $", init_version);
 
 #include "SEED.h"
 
@@ -1367,7 +1367,7 @@ void Seed::AddClassFromEntity( idEntity *ent, const bool watch, const bool getSp
 						   	spawnArgs.GetString( "map_ofs",				// and if that isn't set either, try SEED::map_scale
 						   	"0" ) ) ) );								// finally fallback to 0
 
-		unsigned char *imgData = gameLocal.m_ImageMapManager->GetMapData( SeedClass.imgmap );
+		const unsigned char *imgData = gameLocal.m_ImageMapManager->GetMapData( SeedClass.imgmap );
 		if (!imgData)
 		{
 			gameLocal.Error("SEED %s: Can't access image data from %s, maybe the image file is corrupt?\n", 

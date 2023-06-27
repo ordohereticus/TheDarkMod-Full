@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4772 $
- * $Date: 2011-04-11 02:18:42 -0400 (Mon, 11 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4910 $
+ * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 #ifndef __LIGHTGEM_H__
@@ -49,10 +49,10 @@ private:
 	idEntityPtr<idEntity>	m_LightgemSurface;
 
 	// stgatilov: The buffer for captured lightgem image
-	idList<char>			m_LightgemRenderBuffer;
+	idList<unsigned char>	m_LightgemRenderBuffer;
 
 public:
-	ID_INLINE idList<char> &	GetLightgemRenderBuffer ( void ) { return m_LightgemRenderBuffer; }
+	ID_INLINE idList<unsigned char> &GetLightgemRenderBuffer ( void ) { return m_LightgemRenderBuffer; }
 	
 	//---------------------------------
 	// Construction/Destruction

@@ -2,9 +2,9 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4869 $
- * $Date: 2011-05-28 15:43:34 -0400 (Sat, 28 May 2011) $
- * $Author: grayman $
+ * $Revision: 4910 $
+ * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: light.cpp 4869 2011-05-28 19:43:34Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: light.cpp 4910 2011-07-11 15:57:15Z stgatilov $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -1681,8 +1681,8 @@ float idLight::GetDistanceColor(float fDistance, float fx, float fy)
 {
 	float fColVal(0), fImgVal(0);
 	int fw(0), fh(0), iw(0), ih(0), i(0), fbpp(0), ibpp(0);
-	unsigned char *img = NULL;
-	unsigned char *fot = NULL;
+	const unsigned char *img = NULL;
+	const unsigned char *fot = NULL;
 
 	if(m_LightMaterial == NULL)
 	{

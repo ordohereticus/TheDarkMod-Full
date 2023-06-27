@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4772 $
- * $Date: 2011-04-11 02:18:42 -0400 (Mon, 11 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4910 $
+ * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: lightgem.cpp 4772 2011-04-11 06:18:42Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: lightgem.cpp 4910 2011-07-11 15:57:15Z stgatilov $", init_version);
 
 #include "lightgem.h"
 
@@ -397,8 +397,8 @@ void LightGem::AnalyzeRenderImage(float fColVal[DARKMOD_LG_MAX_IMAGESPLIT])
 	unsigned long counter[DARKMOD_LG_MAX_IMAGESPLIT];
 	int i, in, k, kn, h, x;
 
-	im->LoadImage(m_LightgemRenderBuffer);
-	unsigned char *buffer = im->GetImageData();
+	im->LoadImageFromMemory(&m_LightgemRenderBuffer[0], m_LightgemRenderBuffer.Num(), DARKMOD_LG_FILENAME);
+	const unsigned char *buffer = im->GetImageData();
 
 	// This is just an errorhandling to inform the player that something is wrong.
 	// The lightgem will simply blink if the renderbuffer doesn't work.

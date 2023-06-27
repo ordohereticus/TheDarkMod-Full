@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4868 $
- * $Date: 2011-05-25 11:12:57 -0400 (Wed, 25 May 2011) $
- * $Author: newhorizon $
+ * $Revision: 4910 $
+ * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -175,6 +175,8 @@ extern idCVar cv_ai_search_show;
 
 extern idCVar cv_force_savegame_load;
 extern idCVar cv_savegame_compress;
+
+extern idCVar cv_screenshot_format;
 
 // angua: TDM toggle crouch
 extern idCVar cv_tdm_crouch_toggle;

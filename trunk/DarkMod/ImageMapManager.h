@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4831 $
- * $Date: 2011-05-02 13:22:30 -0400 (Mon, 02 May 2011) $
- * $Author: greebo $
+ * $Revision: 4910 $
+ * $Date: 2011-07-11 11:57:15 -0400 (Mon, 11 Jul 2011) $
+ * $Author: stgatilov $
  *
  ***************************************************************************/
 
@@ -65,7 +65,7 @@ public:
 	* Given the id of a formerly loaded map, returns a ptr to the given raw image data.
 	* If the map was previously freed, or never loaded, returns NULL.
 	*/
-	unsigned char*		GetMapData( const unsigned int id );
+	const unsigned char*GetMapData( const unsigned int id );
 
 	/**
 	* Returns the width in pixels of the image map. Returns 0 in case of error.
