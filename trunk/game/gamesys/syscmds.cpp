@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4905 $
- * $Date: 2011-06-23 13:45:40 -0400 (Thu, 23 Jun 2011) $
+ * $Revision: 4909 $
+ * $Date: 2011-07-01 11:15:01 -0400 (Fri, 01 Jul 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: syscmds.cpp 4905 2011-06-23 17:45:40Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: syscmds.cpp 4909 2011-07-01 15:15:01Z tels $", init_version);
 
 #include "../game_local.h"
 #include "../ai/aas_local.h"
@@ -353,7 +353,7 @@ void Cmd_InventoryUse_f( const idCmdArgs &args )
 		}
 		else
 		{
-			gameLocal.Printf( "%s: Could not find item in player inventory: %s\n", args.Argv(0), args.Argv(1) );
+			gameLocal.Printf( "%s: Can't find item in player inventory: %s (%s)\n", args.Argv(0), args.Argv(1), common->GetLanguageDict()->GetString(itemName) );
 		}
 	}
 }
