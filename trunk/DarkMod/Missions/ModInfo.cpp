@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4710 $
- * $Date: 2011-03-22 04:07:22 -0400 (Tue, 22 Mar 2011) $
- * $Author: greebo $
+ * $Revision: 4918 $
+ * $Date: 2011-07-17 09:31:04 -0400 (Sun, 17 Jul 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModInfo.cpp 4710 2011-03-22 08:07:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ModInfo.cpp 4918 2011-07-17 13:31:04Z tels $", init_version);
 
 #include "ModInfo.h"
 #include "ModInfoDecl.h"
@@ -105,7 +105,7 @@ idStr CModInfo::GetModCompletedString()
 {
 	if (modName == "training_mission")
 	{
-		return "Not completable";
+		return common->GetLanguageDict()->GetString( "#str_02511" );	// Not completable
 	}
 
 	idStr diffStr;
@@ -127,11 +127,11 @@ idStr CModInfo::GetModCompletedString()
 
 	if (anyCompleted)
 	{
-		return va("Yes (%s)", diffStr.c_str());
+		return va( common->GetLanguageDict()->GetString( "#str_02513" ), diffStr.c_str());	// "Yes (%s)"
 	}
 	else
 	{
-		return "Not yet";
+		return common->GetLanguageDict()->GetString( "#str_02512" );	// Not yet
 	}
 }
 
