@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3323 $
- * $Date: 2009-03-27 19:44:04 -0400 (Fri, 27 Mar 2009) $
- * $Author: ishtvan $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 3323 2009-03-27 23:44:04Z ishtvan $", init_version);
+static bool init_version = FileVersionList("$Id: ChaseEnemyTask.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "ChaseEnemyTask.h"
 #include "InteractionTask.h"

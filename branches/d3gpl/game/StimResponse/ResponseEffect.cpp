@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2612 $
- * $Date: 2008-07-05 16:20:02 -0400 (Sat, 05 Jul 2008) $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ResponseEffect.cpp 2612 2008-07-05 20:20:02Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: ResponseEffect.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "ResponseEffect.h"
 

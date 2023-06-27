@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5043 $
- * $Date: 2011-11-19 10:26:54 -0500 (Sat, 19 Nov 2011) $
- * $Author: grayman $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 5043 2011-11-19 15:26:54Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: InvestigateSpotTask.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"

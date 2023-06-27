@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 2458 $
- * $Date: 2008-06-08 08:35:44 -0400 (Sun, 08 Jun 2008) $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: StimResponseTimer.cpp 2458 2008-06-08 12:35:44Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: StimResponseTimer.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "StimResponseTimer.h"
 

@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4472 $
- * $Date: 2011-01-24 20:49:21 -0500 (Mon, 24 Jan 2011) $
- * $Author: grayman $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: MoveToCoverTask.cpp 4472 2011-01-25 01:49:21Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: MoveToCoverTask.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "../Memory.h"
 #include "MoveToCoverTask.h"

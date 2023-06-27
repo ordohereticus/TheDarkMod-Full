@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3782 $
- * $Date: 2010-01-03 18:28:38 -0500 (Sun, 03 Jan 2010) $
- * $Author: crispy $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PainState.cpp 3782 2010-01-03 23:28:38Z crispy $", init_version);
+static bool init_version = FileVersionList("$Id: PainState.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "PainState.h"
 #include "../Tasks/SingleBarkTask.h"

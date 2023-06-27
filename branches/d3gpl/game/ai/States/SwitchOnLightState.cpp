@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4876 $
- * $Date: 2011-06-04 16:52:35 -0400 (Sat, 04 Jun 2011) $
- * $Author: grayman $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
-#include "../idlib/precompiled.h"
+#include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 4876 2011-06-04 20:52:35Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: SwitchOnLightState.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"

@@ -1,15 +1,15 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4866 $
- * $Date: 2011-05-24 10:57:30 -0400 (Tue, 24 May 2011) $
- * $Author: grayman $
+ * $Revision: 5093 $
+ * $Date: 2011-12-06 12:34:56 -0500 (Tue, 06 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
-#include "../idlib/precompiled.h"
+#include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Response.cpp 4866 2011-05-24 14:57:30Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: Response.cpp 5093 2011-12-06 17:34:56Z greebo $", init_version);
 
 #include "Response.h"
 #include "Stim.h"
