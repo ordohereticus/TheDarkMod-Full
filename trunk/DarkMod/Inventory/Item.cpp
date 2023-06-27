@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4792 $
- * $Date: 2011-04-16 03:42:22 -0400 (Sat, 16 Apr 2011) $
- * $Author: greebo $
+ * $Revision: 4960 $
+ * $Date: 2011-08-17 14:26:17 -0400 (Wed, 17 Aug 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Item.cpp 4792 2011-04-16 07:42:22Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Item.cpp 4960 2011-08-17 18:26:17Z tels $", init_version);
 
 #include "Item.h"
 #include "Inventory.h"
@@ -59,6 +59,8 @@ CInventoryItem::CInventoryItem(idEntity* itemEntity, idEntity* owner) {
 
 	// Read the spawnargs into the member variables
 	m_Name = itemEntity->spawnArgs.GetString("inv_name", "");
+	// Tels: Replace "\n" with \x0a, otherwise multiline names set inside DR do not work
+	m_Name.Replace( "\\n", "\n" );
 	m_Value	= itemEntity->spawnArgs.GetInt("inv_loot_value", "-1");
 	m_Stackable	= itemEntity->spawnArgs.GetBool("inv_stackable", "0");
 	m_UseOnFrob = itemEntity->spawnArgs.GetBool("inv_use_on_frob", "0");

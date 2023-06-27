@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4956 $
- * $Date: 2011-08-12 10:56:25 -0400 (Fri, 12 Aug 2011) $
+ * $Revision: 4960 $
+ * $Date: 2011-08-17 14:26:17 -0400 (Wed, 17 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -12,7 +12,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool init_version = FileVersionList("$Id: Inventory.cpp 4956 2011-08-12 14:56:25Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: Inventory.cpp 4960 2011-08-17 18:26:17Z tels $", init_version);
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -539,6 +539,9 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 	// Not a loot or ammo item, determine name and category to check for existing item of same name/category
 	idStr name = ent->spawnArgs.GetString("inv_name", "");
 	idStr category = ent->spawnArgs.GetString("inv_category", "");
+	// Tels: Replace "\n" with \x0a, otherwise multiline spawnargs set inside DR do not work
+	name.Replace( "\\n", "\n" );
+	category.Replace( "\\n", "\n" );
 
 	if (name.IsEmpty() || category.IsEmpty())
 	{
