@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4636 $
- * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
- * $Author: greebo $
+ * $Revision: 4973 $
+ * $Date: 2011-09-16 13:08:46 -0400 (Fri, 16 Sep 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -38,6 +38,8 @@ bool CAbsenceMarker::initAbsenceReference(idEntity* owner, idBounds& startBounds
 	referenced_entityDefNumber = owner->entityDefNumber;
 	referenced_entityName = owner->name;
 	referenced_entityDefName = owner->GetEntityDefName();
+
+	GetPhysics()->SetClipBox( owner->GetPhysics()->GetBounds(), 1.0f ); // grayman #2853 - set marker's bounds to missing item's bounds
 
 	// Fill with spawnargs of referenced entity
 	referenced_spawnArgs = owner->spawnArgs;

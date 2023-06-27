@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3631 $
- * $Date: 2009-08-02 11:03:59 -0400 (Sun, 02 Aug 2009) $
- * $Author: angua $
+ * $Revision: 4973 $
+ * $Date: 2011-09-16 13:08:46 -0400 (Fri, 16 Sep 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -82,6 +82,7 @@ protected:
    */ 
    bool moveLightBetweenAreas (darkModLightRecord_t* p_light, int oldAreaNum, int newAreaNum );
 
+   bool traceLightPath( idVec3 to, idVec3 from, idEntity* ignore ); // grayman #2853
 
    /*!
    * This method is used to add up all the light intensities contributed from

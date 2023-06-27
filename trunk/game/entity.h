@@ -3,9 +3,9 @@
  *
  * PROJECT: The Dark Mod
  * $HeadURL$
- * $Revision: 4955 $
- * $Date: 2011-08-12 10:07:09 -0400 (Fri, 12 Aug 2011) $
- * $Author: tels $
+ * $Revision: 4973 $
+ * $Date: 2011-09-16 13:08:46 -0400 (Fri, 16 Sep 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -713,8 +713,6 @@ public:
 	void					SetHideUntilTime(int time);	// grayman #597
 	int						GetHideUntilTime(void);		// grayman #597
 	
-	void					DropTorch(); // grayman #2603
-
 	idEntity*				GetAttachmentByPosition(idStr AttPos); // grayman #2603
 
 	enum {
