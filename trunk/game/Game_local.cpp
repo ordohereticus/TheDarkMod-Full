@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5176 $ (Revision of last commit) 
- $Date: 2012-01-07 06:34:09 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5178 $ (Revision of last commit) 
+ $Date: 2012-01-07 07:21:56 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: Game_local.cpp 5176 2012-01-07 11:34:09Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Game_local.cpp 5178 2012-01-07 12:21:56Z tels $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -6322,7 +6322,7 @@ idEntity *idGameLocal::SelectInitialSpawnPoint( idPlayer *player ) {
 		// a starting point in the briefing?
 
 		bool foundSpot = false;
-		if ( m_StartPosition != "" )
+		if ( m_StartPosition != NULL && m_StartPosition[0] != 0x00 )
 		{
 			spot.ent = FindEntity( m_StartPosition );
 			if ( spot.ent != NULL )
