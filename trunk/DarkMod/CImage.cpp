@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4912 $
- * $Date: 2011-07-13 11:28:33 -0400 (Wed, 13 Jul 2011) $
+ * $Revision: 4923 $
+ * $Date: 2011-07-20 10:34:02 -0400 (Wed, 20 Jul 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: CImage.cpp 4912 2011-07-13 15:28:33Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: CImage.cpp 4923 2011-07-20 14:34:02Z stgatilov $", init_version);
 
 #include <IL/il.h>
 
@@ -151,7 +151,7 @@ bool CImage::LoadImageFromVfs(const char* filename)
 
 	//read the whole file to buffer
 	idList<unsigned char> fileData;
-	fileData.Resize(file->Length());
+	fileData.SetNum(file->Length());
 	file->Read(&fileData[0], fileData.Num());
 	//close file
 	fileSystem->CloseFile(file);
@@ -178,7 +178,7 @@ bool CImage::LoadImageFromFile(const fs::path& path)
 
 	//read the whole file to buffer
 	idList<unsigned char> fileData;
-	fileData.Resize(fs::file_size(path));
+	fileData.SetNum(fs::file_size(path));
 	fread(&fileData[0], 1, fileData.Num(), file);
 	//close file
 	fclose(file);
