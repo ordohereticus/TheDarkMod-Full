@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4928 $
- * $Date: 2011-07-21 10:51:04 -0400 (Thu, 21 Jul 2011) $
+ * $Revision: 4929 $
+ * $Date: 2011-07-21 10:58:14 -0400 (Thu, 21 Jul 2011) $
  * $Author: stgatilov $
  *
  ***************************************************************************/
@@ -19,7 +19,7 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4928 2011-07-21 14:51:04Z stgatilov $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 4929 2011-07-21 14:58:14Z stgatilov $", init_version);
 
 #include "DarkModGlobals.h"
 #include "sndPropLoader.h"
@@ -643,10 +643,10 @@ void Screenshot_ChangeFilename(idStr &filename, const char *extension) {
 
 		//get sorted list of all files in this directory
 		idStrList allFiles;
-		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), "png");
-		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), "bmp");
-		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), "jpg");
-		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), "tga");
+		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), ".png");
+		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), ".bmp");
+		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), ".jpg");
+		Screenshot_AppendFileListForExtension(allFiles, directory.c_str(), ".tga");
 		for (int i = 0; i<allFiles.Num(); i++)
 			DM_LOG(LC_MISC,LT_INFO)LOGSTRING("Screenshot:    \"%s\"\r", allFiles[i].c_str());
 		idStrListSortPaths(allFiles);
