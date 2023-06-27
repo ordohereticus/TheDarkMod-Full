@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4721 $
- * $Date: 2011-03-24 11:45:08 -0400 (Thu, 24 Mar 2011) $
+ * $Revision: 4972 $
+ * $Date: 2011-09-16 11:54:07 -0400 (Fri, 16 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -85,6 +85,7 @@ public:
 	void					RegisterAI(idAI* ai);	// grayman #1145
 	void					TellRegisteredUsers();	// grayman #1145
 	idVec3					GetRotationAxis();		// grayman #2691
+	idVec3					GetClosedOrigin();		// grayman #2861
 
 	/**
 	* This is the non-script version of GetOpen 

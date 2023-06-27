@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4854 $
- * $Date: 2011-05-19 19:52:52 -0400 (Thu, 19 May 2011) $
+ * $Revision: 4972 $
+ * $Date: 2011-09-16 11:54:07 -0400 (Fri, 16 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4854 2011-05-19 23:52:52Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4972 2011-09-16 15:54:07Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -1317,3 +1317,11 @@ idVec3 CBinaryFrobMover::GetRotationAxis()
 {
 	return m_Rotate.ToRotation().GetVec();
 }
+
+// grayman #2861 - get the closed origin
+
+idVec3 CBinaryFrobMover::GetClosedOrigin()
+{
+	return m_ClosedOrigin;
+}
+
