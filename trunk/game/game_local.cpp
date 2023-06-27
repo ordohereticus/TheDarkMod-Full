@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4948 $
- * $Date: 2011-08-07 14:10:00 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4957 $
+ * $Date: 2011-08-13 06:19:47 -0400 (Sat, 13 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4948 2011-08-07 18:10:00Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4957 2011-08-13 10:19:47Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -614,28 +614,28 @@ void idGameLocal::CheckTDMVersion()
 		int major = node.node().attribute("major").as_int();
 		int minor = node.node().attribute("minor").as_int();
 
-		msg.title = va( common->GetLanguageDict()->GetString( "#str_02132" ), major, minor );
+		msg.title = va( m_I18N->Translate( "#str_02132" ), major, minor );
 
 		switch (CompareVersion(TDM_VERSION_MAJOR, TDM_VERSION_MINOR, major, minor))
 		{
 		case EQUAL:
 			// "Your version %d.%02d is up to date."
-			msg.message = va( common->GetLanguageDict()->GetString( "#str_02133"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			msg.message = va( m_I18N->Translate( "#str_02133"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
 			break;
 		case OLDER:
 			// "Your version %d.%02d needs updating."
-			msg.message = va( common->GetLanguageDict()->GetString( "#str_02134"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			msg.message = va( m_I18N->Translate( "#str_02134"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
 			break;
 		case NEWER:
 			// "Your version %d.%02d is newer than the most recently published one."
-			msg.message = va( common->GetLanguageDict()->GetString( "#str_02135"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+			msg.message = va( m_I18N->Translate( "#str_02135"), TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
 			break;
 		};
 	}
 	else
 	{
-		msg.title = common->GetLanguageDict()->GetString( "#str_02135" );	// "Version Check Failed"
-		msg.message = common->GetLanguageDict()->GetString( "#str_02136" );	// "Couldn't find current version tag."
+		msg.title = m_I18N->Translate( "#str_02135" );	// "Version Check Failed"
+		msg.message = m_I18N->Translate( "#str_02136" );	// "Couldn't find current version tag."
 
 	}
 

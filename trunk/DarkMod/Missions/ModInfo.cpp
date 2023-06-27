@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4942 $
- * $Date: 2011-08-06 13:21:22 -0400 (Sat, 06 Aug 2011) $
+ * $Revision: 4957 $
+ * $Date: 2011-08-13 06:19:47 -0400 (Sat, 13 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ModInfo.cpp 4942 2011-08-06 17:21:22Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: ModInfo.cpp 4957 2011-08-13 10:19:47Z tels $", init_version);
 
 #include "ModInfo.h"
 #include "ModInfoDecl.h"
@@ -105,7 +105,7 @@ idStr CModInfo::GetModCompletedString()
 {
 	if (modName == "training_mission")
 	{
-		return common->GetLanguageDict()->GetString( "#str_02511" );	// Not completable
+		return gameLocal.m_I18N->Translate( "#str_02511" );	// Not completable
 	}
 
 	idStr diffStr;
@@ -127,11 +127,11 @@ idStr CModInfo::GetModCompletedString()
 
 	if (anyCompleted)
 	{
-		return va( common->GetLanguageDict()->GetString( "#str_02513" ), diffStr.c_str());	// "Yes (%s)"
+		return va( gameLocal.m_I18N->Translate( "#str_02513" ), diffStr.c_str());	// "Yes (%s)"
 	}
 	else
 	{
-		return common->GetLanguageDict()->GetString( "#str_02512" );	// Not yet
+		return gameLocal.m_I18N->Translate( "#str_02512" );	// Not yet
 	}
 }
 
