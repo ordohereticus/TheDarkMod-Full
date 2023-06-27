@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4893 $
- * $Date: 2011-06-19 03:18:58 -0400 (Sun, 19 Jun 2011) $
+ * $Revision: 4998 $
+ * $Date: 2011-10-17 02:52:25 -0400 (Mon, 17 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -91,7 +91,7 @@ void Updater::UpdateMirrors()
 	std::string mirrorsUrl = TDM_MIRRORS_SERVER;
 	mirrorsUrl += TDM_MIRRORS_FILE;
 
-	TraceLog::Write(LOG_VERBOSE, " Downloading mirror list from bloodgate.com...");
+	TraceLog::Write(LOG_VERBOSE, " Downloading mirror list from thedarkmod.com...");
 
 	fs::path mirrorPath = GetTargetPath() / TDM_MIRRORS_FILE;
 

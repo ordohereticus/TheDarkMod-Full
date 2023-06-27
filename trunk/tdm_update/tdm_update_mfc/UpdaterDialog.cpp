@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod - Updater
- * $Revision: 4636 $
- * $Date: 2011-02-26 13:03:16 -0500 (Sat, 26 Feb 2011) $
+ * $Revision: 4998 $
+ * $Date: 2011-10-17 02:52:25 -0400 (Mon, 17 Oct 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -398,7 +398,7 @@ void UpdaterDialog::OnStartStep(UpdateStep step)
 		// Update header title in this step
 		_subTitle.SetWindowText(CString("Updating Mirrors and checking installation"));
 
-		_statusText.SetWindowText(CString("Downloading mirror information from bloodgate.com..."));
+		_statusText.SetWindowText(CString("Downloading mirror information from thedarkmod.com..."));
 		_step1Text.SetWindowText(CString("Downloading mirror information..."));
 		_step1State.SetWindowText(CString("--"));
 		_progressMain.SetPos(0);
