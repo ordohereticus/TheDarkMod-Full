@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4982 $
- * $Date: 2011-09-29 15:27:56 -0400 (Thu, 29 Sep 2011) $
- * $Author: grayman $
+ * $Revision: 4983 $
+ * $Date: 2011-09-29 16:56:59 -0400 (Thu, 29 Sep 2011) $
+ * $Author: tels $
  *
  ***************************************************************************/
 
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4982 2011-09-29 19:27:56Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4983 2011-09-29 20:56:59Z tels $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2385,7 +2385,7 @@ void State::OnVisualStimDoor(idEntity* stimSource, idAI* owner)
 
 	// grayman #2866 - Handle sliding doors.
 
-	idList<idEntityPtr<idEntity>> list;
+	idList< idEntityPtr<idEntity> > list;
 	if ( door->GetDoorHandlingEntities( owner, list ) ) // for doors that use door handling positions
 	{
 		memory.frontPos = list[0];
