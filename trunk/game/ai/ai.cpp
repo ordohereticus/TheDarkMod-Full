@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4993 $
- * $Date: 2011-10-11 16:38:14 -0400 (Tue, 11 Oct 2011) $
+ * $Revision: 5004 $
+ * $Date: 2011-10-20 23:32:43 -0400 (Thu, 20 Oct 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4993 2011-10-11 20:38:14Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 5004 2011-10-21 03:32:43Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -2411,7 +2411,7 @@ bool idAI::ThinkingIsAllowed()
 	if (frameNum < m_nextThinkFrame)
 	{
 		// Ragdolls think every frame to avoid physics weirdness.
-		if (health <= 0)
+		if ( ( health <= 0 ) || IsKnockedOut() ) // grayman #2840 - you're also a ragdoll if you're KO'ed
 		{
 			return true;
 		}
