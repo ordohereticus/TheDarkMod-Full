@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5027 $
- * $Date: 2011-11-06 18:28:39 -0500 (Sun, 06 Nov 2011) $
+ * $Revision: 5032 $
+ * $Date: 2011-11-10 20:18:49 -0500 (Thu, 10 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 5027 2011-11-06 23:28:39Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 5032 2011-11-11 01:18:49Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -1905,8 +1905,8 @@ void idAI::Spawn( void )
 
 	m_bCanOperateDoors = spawnArgs.GetBool("canOperateDoors", "0");
 	m_HandlingDoor = false;
-	m_RestoreMove = false;				// grayman #2706
-	m_LatchedSearch = false;			// grayman #2603
+	m_RestoreMove = false;		// grayman #2706
+	m_LatchedSearch = false;	// grayman #2603
 	m_dousedLightsSeen.Clear();	// grayman #2603
 
 	m_HandlingElevator = false;
@@ -9908,8 +9908,32 @@ void idAI::CheckTactile()
 			if (blockingEnt->name != "world") // ignore bumping into the world
 			{
 				m_tactileEntity = blockingEnt;
+				
+				if ( blockingEnt->IsType(idAI::Type) )
+				{
+					idAI* blockingAI = static_cast<idAI*>(blockingEnt);
+
+					// grayman #2903 - if both AI are examining a rope, it's possible that
+					// they're both trying to reach the same examination spot. If one is not
+					// moving, he's examining, so the other has to stop where he is. This
+					// prevents the one standing from turning non-solid and allowing the other
+					// to merge with him. Looks bad.
+
+					if ( m_ExaminingRope && blockingAI->m_ExaminingRope )
+					{
+						if ( AI_FORWARD && !blockingAI->AI_FORWARD )
+						{
+							StopMove(MOVE_STATUS_DONE);
+						}
+						else if ( !AI_FORWARD && blockingAI->AI_FORWARD )
+						{
+							blockingAI->StopMove(MOVE_STATUS_DONE);
+						}
+					}
+				}
 			}
 		}
+
 		if (blockingEnt && blockingEnt->IsType(idPlayer::Type)) // player has no movement subsystem
 		{
 			// aesthetics: Dont react to dead player?
