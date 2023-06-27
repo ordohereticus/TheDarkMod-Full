@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4554 $
- * $Date: 2011-02-05 06:04:17 -0500 (Sat, 05 Feb 2011) $
+ * $Revision: 4940 $
+ * $Date: 2011-08-06 12:17:28 -0400 (Sat, 06 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: str.cpp 4554 2011-02-05 11:04:17Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: str.cpp 4940 2011-08-06 16:17:28Z tels $", init_version);
 
 #if !defined( ID_REDIRECT_NEWDELETE ) && !defined( MACOS_X )
 	#define USE_STRING_DATA_ALLOCATOR
@@ -552,6 +552,22 @@ void idStr::StripLeading( const char c ) {
 	memmove( &data[ 0 ], &data[ remove ], len + 1 );
 }
 
+/*
+============
+idStr::StripLeadingWhitespace
+============
+*/
+void idStr::StripLeadingWhitespace( void ) {
+	// Tels: first count how many chars to remove, then move the data only once
+	int remove = 0;
+	// cast to unsigned char to prevent stripping off high-ASCII characters
+	while( (unsigned char)data[ remove ] <= ' ' ) {
+		remove ++;
+	}
+	len -= remove;
+	// +1 to copy the 0x00 at the end
+	memmove( &data[ 0 ], &data[ remove ], len + 1 );
+}
 /*
 ============
 idStr::StripLeading

@@ -2,8 +2,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4938 $
- * $Date: 2011-08-06 10:09:13 -0400 (Sat, 06 Aug 2011) $
+ * $Revision: 4940 $
+ * $Date: 2011-08-06 12:17:28 -0400 (Sat, 06 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -180,12 +180,13 @@ public:
 	void				StripLeading( const char c );					// strip char from front as many times as the char occurs
 	void				StripLeading( const char *string );				// strip string from front as many times as the string occurs
 	bool				StripLeadingOnce( const char *string );			// strip string from front just once if it occurs
+	void				StripLeadingWhitespace( void );					// tels: strip leading white space characters (c <= 0x20)
 	void				StripTrailing( const char c );					// strip char from end as many times as the char occurs
 	void				StripTrailing( const char *string );			// strip string from end as many times as the string occurs
 	bool				StripTrailingOnce( const char *string );		// strip string from end just once if it occurs
 	void				Strip( const char c );							// strip char from front and end as many times as the char occurs
 	void				Strip( const char *string );					// strip string from front and end as many times as the string occurs
-	void				StripTrailingWhitespace( void );				// strip trailing white space characters
+	void				StripTrailingWhitespace( void );				// strip trailing white space characters (c <= 0x20)
 	idStr &				StripQuotes( void );							// strip quotes around string
 	void				Replace( const char *old, const char *nw );
 
