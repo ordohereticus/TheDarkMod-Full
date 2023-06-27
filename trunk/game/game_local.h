@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4935 $
- * $Date: 2011-08-05 12:51:53 -0400 (Fri, 05 Aug 2011) $
+ * $Revision: 4948 $
+ * $Date: 2011-08-07 14:10:00 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -156,6 +156,7 @@ void gameError( const char *fmt, ... );
 #include "../DarkMod/ModelGenerator.h"
 #include "../DarkMod/ImageMapManager.h"
 #include "../DarkMod/LightController.h"
+#include "../DarkMod/ModMenu.h"
 #include "../DarkMod/I18N.h"
 
 #include <boost/shared_ptr.hpp>
@@ -189,6 +190,9 @@ typedef boost::shared_ptr<CHttpConnection> CHttpConnectionPtr;
 class CInventory;
 typedef boost::shared_ptr<CInventory> CInventoryPtr;
 
+class CModMenu;
+typedef boost::shared_ptr<CModMenu> CModMenuPtr;
+
 class CModelGenerator;
 typedef boost::shared_ptr<CModelGenerator> CModelGeneratorPtr;
 class CImageMapManager;
@@ -204,8 +208,6 @@ namespace ai {
 	typedef boost::shared_ptr<ConversationSystem> ConversationSystemPtr;
 } // namespace
 
-class CModMenu;
-typedef boost::shared_ptr<CModMenu> CModMenuPtr;
 class CDownloadMenu;
 typedef boost::shared_ptr<CDownloadMenu> CDownloadMenuPtr;
 class CDownloadManager;

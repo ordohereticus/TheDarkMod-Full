@@ -2,8 +2,8 @@
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  *
  * PROJECT: The Dark Mod
- * $Revision: 4944 $
- * $Date: 2011-08-07 08:53:31 -0400 (Sun, 07 Aug 2011) $
+ * $Revision: 4948 $
+ * $Date: 2011-08-07 14:10:00 -0400 (Sun, 07 Aug 2011) $
  * $Author: tels $
  *
  ***************************************************************************/
@@ -16,7 +16,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool init_version = FileVersionList("$Id: game_local.cpp 4944 2011-08-07 12:53:31Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: game_local.cpp 4948 2011-08-07 18:10:00Z tels $", init_version);
 
 #include "game_local.h"
 #include "../DarkMod/DarkModGlobals.h"
@@ -35,7 +35,6 @@ static bool init_version = FileVersionList("$Id: game_local.cpp 4944 2011-08-07 
 #include "../DarkMod/func_shooter.h"
 #include "../DarkMod/Shop/Shop.h"
 #include "../DarkMod/EscapePointManager.h"
-#include "../DarkMod/ModMenu.h"
 #include "../DarkMod/DownloadMenu.h"
 #include "../DarkMod/TimerManager.h"
 #include "../DarkMod/AI/Conversation/ConversationSystem.h"
@@ -3670,23 +3669,23 @@ void idGameLocal::HandleGuiMessages(idUserInterface* ui)
 		ui->SetStateBool("MsgBoxLeftButtonVisible", false);
 		ui->SetStateBool("MsgBoxRightButtonVisible", false);
 		ui->SetStateBool("MsgBoxMiddleButtonVisible", true);
-		ui->SetStateString("MsgBoxMiddleButtonText", "OK");
+		ui->SetStateString("MsgBoxMiddleButtonText", m_I18N->Translate("#str_04339"));	// OK
 		break;
 	case GuiMessage::MSG_OK_CANCEL:
 		ui->SetStateBool("MsgBoxLeftButtonVisible", true);
 		ui->SetStateBool("MsgBoxRightButtonVisible", true);
 		ui->SetStateBool("MsgBoxMiddleButtonVisible", false);
 
-		ui->SetStateString("MsgBoxLeftButtonText", "OK");
-		ui->SetStateString("MsgBoxRightButtonText", "Cancel");
+		ui->SetStateString("MsgBoxLeftButtonText", m_I18N->Translate("#str_04339"));	// OK
+		ui->SetStateString("MsgBoxRightButtonText", m_I18N->Translate("#str_07203"));	// Cancel
 		break;
 	case GuiMessage::MSG_YES_NO:
 		ui->SetStateBool("MsgBoxLeftButtonVisible", true);
 		ui->SetStateBool("MsgBoxRightButtonVisible", true);
 		ui->SetStateBool("MsgBoxMiddleButtonVisible", false);
 
-		ui->SetStateString("MsgBoxLeftButtonText", "Yes");
-		ui->SetStateString("MsgBoxRightButtonText", "No");
+		ui->SetStateString("MsgBoxLeftButtonText", m_I18N->Translate("#str_02501"));	// Yes
+		ui->SetStateString("MsgBoxRightButtonText", m_I18N->Translate("#str_02502"));	// No
 		break;
 	};
 
