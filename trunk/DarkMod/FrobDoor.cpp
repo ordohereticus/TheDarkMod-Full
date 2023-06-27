@@ -2,9 +2,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4921 $
- * $Date: 2011-07-18 17:59:43 -0400 (Mon, 18 Jul 2011) $
- * $Author: tels $
+ * $Revision: 4974 $
+ * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: FrobDoor.cpp 4921 2011-07-18 21:59:43Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: FrobDoor.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "DarkModGlobals.h"
@@ -640,6 +640,8 @@ void CFrobDoor::Event_Lock_StatusUpdate()
 
 void CFrobDoor::Event_Lock_OnLockPicked()
 {
+	SetLastUsedBy(gameLocal.GetLocalPlayer());
+
 	// "Lock is picked" signal, unlock in master mode
 	Unlock(true);
 }
@@ -1073,4 +1075,17 @@ void CFrobDoor::Event_ClearPlayerImmobilization(idEntity* player)
 
 	// Release the immobilization imposed on the player by Lockpicking
 	static_cast<idPlayer*>(player)->SetImmobilization("Lockpicking", 0);
+}
+
+
+// grayman #2859
+
+void CFrobDoor::SetLastUsedBy(idEntity* ent)
+{
+	m_lastUsedBy = ent;
+}
+
+idEntity* CFrobDoor::GetLastUsedBy()
+{
+	return m_lastUsedBy.GetEntity();
 }

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4880 $
- * $Date: 2011-06-05 22:12:51 -0400 (Sun, 05 Jun 2011) $
+ * $Revision: 4974 $
+ * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1490,6 +1490,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	virtual bool			CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting );
 
 	bool					EntityCanSeePos( idActor *actor, const idVec3 &actorOrigin, const idVec3 &pos );
+
+	bool					CanSeeTargetPoint( idVec3 point, idEntity* target ); // grayman #2859
 
 	// angua: if the focusTime > gameLocal.time, the AI is currently looking at a specified entity or location
 	ID_INLINE int			GetFocusTime()

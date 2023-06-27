@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4972 $
- * $Date: 2011-09-16 11:54:07 -0400 (Fri, 16 Sep 2011) $
+ * $Revision: 4974 $
+ * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4972 2011-09-16 15:54:07Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: HandleDoorTask.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -1052,10 +1052,11 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 							// something else is blocking the door
 							// possibly the player, another AI or an object
 							// try closing the door and opening it again
+							frobDoor->SetLastUsedBy(owner); // grayman #2859
 							frobDoor->Close(true);
 							_waitEndTime = gameLocal.time + 300;
 							_doorHandlingState = EStateWaitBeforeOpen;
-							_retryCount ++;
+							_retryCount++;
 						}
 					}
 				}
@@ -1274,6 +1275,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 				if (gameLocal.time >= _waitEndTime && (numUsers < 2 || _doorInTheWay))
 				{
+					frobDoor->SetLastUsedBy(owner); // grayman #2859
 					frobDoor->Close(true);
 					_doorHandlingState = EStateClosingDoor;
 				}
@@ -1717,6 +1719,7 @@ bool HandleDoorTask::OpenDoor()
 		}
 	}
 
+	frobDoor->SetLastUsedBy(owner); // grayman #2859
 	owner->StopMove(MOVE_STATUS_DONE);
 	frobDoor->Open(true);
 	_doorHandlingState = EStateOpeningDoor;

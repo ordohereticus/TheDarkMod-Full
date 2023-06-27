@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4889 $
- * $Date: 2011-06-14 22:50:29 -0400 (Tue, 14 Jun 2011) $
+ * $Revision: 4974 $
+ * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4889 2011-06-15 02:50:29Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -600,6 +600,17 @@ void State::OnVisualStim(idEntity* stimSource)
 		// Now do the LOS check.
 
 		if (!owner->CanSeeExt(stimSource, false, false))
+		{
+			return;
+		}
+	}
+	else if (aiUseType == EAIuse_Door)
+	{
+		// grayman #2859 - check visibility of door's center instead of its origin
+
+		idVec3 origin = stimSource->GetPhysics()->GetAbsBounds().GetCenter();
+
+		if ( !owner->CanSeeTargetPoint( origin, stimSource ) )
 		{
 			return;
 		}
@@ -2270,12 +2281,31 @@ void State::OnVisualStimDoor(idEntity* stimSource, idAI* owner)
 		return;
 	}
 
-	// Vocalize that see something out of place
+	// grayman #2859 - Check who last used the door. If lastUsedBy is NULL, become suspicious
+
+	idEntity* lastUsedBy = door->GetLastUsedBy();
+	if ( lastUsedBy == owner )
+	{
+		return; // owner opened the door, so all is well
+	}
+
+	// grayman #2859 - owner didn't open the door, so find out if whoever
+	// did is friendly and in sight. CanSeeExt( lastUsedBy, false, false )
+	// doesn't care about FOV (lastUsedBy can be behind owner) and we don't care
+	// how bright it is.
+
+	if ( ( lastUsedBy != NULL ) && owner->IsFriend( lastUsedBy ) && owner->CanSeeExt( lastUsedBy, false, false ) )
+	{
+		return; // a friend I can see opened the door, so all is well
+	}
+
+	// Vocalize that I see something out of place
+
 	memory.lastTimeVisualStimBark = gameLocal.time;
 	owner->commSubsystem->AddCommTask(
 		CommunicationTaskPtr(new SingleBarkTask("snd_foundOpenDoor"))
 	);
-	gameLocal.Printf("That door isn't supposed to be open!\n");
+	gameLocal.Printf("%s: That door (%s) isn't supposed to be open!\n",owner->name.c_str(),door->name.c_str());
 	
 	// One more piece of evidence of something out of place
 	memory.countEvidenceOfIntruders++;

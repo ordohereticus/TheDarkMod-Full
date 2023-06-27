@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3486 $
- * $Date: 2009-06-01 10:56:59 -0400 (Mon, 01 Jun 2009) $
- * $Author: greebo $
+ * $Revision: 4974 $
+ * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 
@@ -108,6 +108,9 @@ public:
 	 * of a closed portal. This method gets applied to doors without handles, usually.
 	 */
 	virtual bool			GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis);
+
+	void					SetLastUsedBy(idEntity* ent);	// grayman #2859
+	idEntity*				GetLastUsedBy();				// grayman #2859
 
 protected:
 

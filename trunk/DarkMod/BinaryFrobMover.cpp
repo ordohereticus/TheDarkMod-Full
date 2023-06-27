@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4972 $
- * $Date: 2011-09-16 11:54:07 -0400 (Fri, 16 Sep 2011) $
+ * $Revision: 4974 $
+ * $Date: 2011-09-19 20:42:14 -0400 (Mon, 19 Sep 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4972 2011-09-16 15:54:07Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: BinaryFrobMover.cpp 4974 2011-09-20 00:42:14Z grayman $", init_version);
 
 #include "../game/game_local.h"
 #include "../game/ai/aas_local.h"
@@ -78,6 +78,7 @@ CBinaryFrobMover::CBinaryFrobMover()
 	m_closedBox = box_zero; // grayman #2345 - holds closed position
 	m_closedBox.Clear();	// grayman #2345
 	m_registeredAI.Clear();	// grayman #1145
+	m_lastUsedBy = NULL;	// grayman #2859
 }
 
 CBinaryFrobMover::~CBinaryFrobMover()
@@ -152,6 +153,9 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 	{
 		m_registeredAI[i].Save(savefile);
 	}
+
+	m_lastUsedBy.Save(savefile); // grayman #2859
+
 }
 
 void CBinaryFrobMover::Restore( idRestoreGame *savefile )
@@ -207,6 +211,8 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 	{
 		m_registeredAI[i].Restore(savefile);
 	}
+
+	m_lastUsedBy.Restore(savefile); // grayman #2859
 }
 
 void CBinaryFrobMover::Spawn()
@@ -960,11 +966,16 @@ int CBinaryFrobMover::GetAASArea(idAAS* aas)
 	return areaNum;
 }
 
-void CBinaryFrobMover::OnMoveStart(bool open)
+void CBinaryFrobMover::OnMoveStart(bool opening)
 {
-	// Clear this door from the ignore list so AI can react to it again	
-	ClearStimIgnoreList(ST_VISUAL);
-	EnableStim(ST_VISUAL);
+	// Clear this door from the ignore list so AI can react to it again
+	// grayman #2859 - but only if the door was closed and is now opening
+
+	if ( opening )
+	{
+		ClearStimIgnoreList(ST_VISUAL);
+		EnableStim(ST_VISUAL);
+	}
 }
 
 bool CBinaryFrobMover::PreOpen() 
@@ -1324,4 +1335,3 @@ idVec3 CBinaryFrobMover::GetClosedOrigin()
 {
 	return m_ClosedOrigin;
 }
-
