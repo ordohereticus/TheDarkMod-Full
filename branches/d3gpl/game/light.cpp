@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5132 $ (Revision of last commit) 
- $Date: 2011-12-29 00:41:59 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
+ $Revision: 5133 $ (Revision of last commit) 
+ $Date: 2011-12-29 00:43:46 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Light.cpp 5132 2011-12-29 05:41:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Light.cpp 5133 2011-12-29 05:43:46Z greebo $", init_version);
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -470,11 +470,12 @@ void idLight::Spawn( void )
 		renderLight.prelightModel = renderModelManager->CheckModel( va( "_prelight_%s", name.c_str() ) );
 	}
 
-	// grayman #2905 - remember if the light started off (startedOff), because it's important during relighting attempts
+	// grayman #2905 - remember if the light started off because it's important during relighting attempts
 
-	spawnArgs.GetBool( "start_off", "0", startedOff );
-	if ( startedOff )
+	bool startOff = spawnArgs.GetBool( "start_off", "0" );
+	if ( startOff )
 	{
+		Event_SetStartedOff();
 		Off();
 	}
 
@@ -760,8 +761,7 @@ void idLight::On( void ) {
 	}
 
 	aiBarks.Clear(); // grayman #2603 - let the AI comment again
-
-
+	
 //	grayman #2603 - let script change skins, plus set the vis stim.
 
 /*	const char *skinName;
@@ -778,33 +778,6 @@ void idLight::On( void ) {
  */	
 	SetLightLevel();
 	BecomeActive( TH_UPDATEVISUALS );
-
-	// grayman #2905 - if the light started off, and it's a shouldBeOn > 0 light,
-	// clear startedOff, because once the light comes back on, it should no longer be ignored.
-	// Lights marked shouldBeOn = 0 can continue to be ignored.
-
-	if ( startedOff )
-	{
-		int shouldBeOn = spawnArgs.GetInt("shouldBeOn","0");
-		if ( shouldBeOn > 0 )
-		{
-			startedOff = false;
-		}
-		else // check shouldBeOn values on bindmasters, if any
-		{
-			idEntity* bindMaster = GetBindMaster();
-			while ( bindMaster != NULL )
-			{
-				shouldBeOn = bindMaster->spawnArgs.GetInt("shouldBeOn","0");
-				if ( shouldBeOn > 0 )
-				{
-					startedOff = false;
-					break;
-				}
-				bindMaster = bindMaster->GetBindMaster(); // go up the hierarchy
-			}
-		}
-	}
 }
 
 /*
@@ -2055,7 +2028,29 @@ bool idLight::IsSmoking() // grayman #2603
 
 void idLight::Event_SetStartedOff() // grayman #2905 - the light was out at spawn time
 {
-	startedOff = true;
+	// Set startedOff to TRUE if this light and all of any bindmasters have shouldBeOn values == 0.
+
+	startedOff = true; // default assumes shouldBeOn == 0
+
+	int shouldBeOn = spawnArgs.GetInt("shouldBeOn","0");
+	if ( shouldBeOn > 0 )
+	{
+		startedOff = false;
+	}
+	else // check for bindmasters
+	{
+		idEntity* bindMaster = GetBindMaster();
+		while ( bindMaster != NULL )
+		{
+			shouldBeOn = bindMaster->spawnArgs.GetInt("shouldBeOn","0");
+			if ( shouldBeOn > 0 )
+			{
+				startedOff = false;
+				break;
+			}
+			bindMaster = bindMaster->GetBindMaster(); // go up the hierarchy
+		}
+	}
 }
 
 bool idLight::GetStartedOff() // grayman #2905 - was the light out at spawn time?

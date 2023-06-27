@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5132 $ (Revision of last commit) 
- $Date: 2011-12-29 00:41:59 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
+ $Revision: 5133 $ (Revision of last commit) 
+ $Date: 2011-12-29 00:43:46 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "../../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 5132 2011-12-29 05:41:59Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 5133 2011-12-29 05:43:46Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -529,15 +529,11 @@ void State::OnVisualStim(idEntity* stimSource)
 			return;
 		}
 
-		// grayman #2905 - AI shouldn't relight or bark about lights that were spawned off
-		// at map start. Once the light is turned on, then off again, AI can once again
-		// bark and relight.
+		// grayman #2905 - AI should never relight or bark about lights that were spawned off
+		// at map start and have a shouldBeOn value of 0.
 
 		if ( light->GetStartedOff() )
 		{
-			// the light was spawned off and hasn't been turned back on yet
-			// OR it's been turned back on, but is a shouldBeOn = 0 light
-
 			stimSource->IgnoreResponse(ST_VISUAL,owner);
 			return;
 		}
