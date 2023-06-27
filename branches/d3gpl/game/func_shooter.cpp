@@ -1,17 +1,17 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5082 $
- * $Date: 2011-12-04 23:40:41 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Func_Shooter.cpp 5082 2011-12-05 04:40:41Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Func_Shooter.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
 
-#include "func_shooter.h"
+#include "Func_Shooter.h"
 #include "StimResponse/StimResponseCollection.h"
 
 // Script event interface

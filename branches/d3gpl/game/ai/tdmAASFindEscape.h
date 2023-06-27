@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5006 $
- * $Date: 2011-10-21 11:38:54 -0400 (Fri, 21 Oct 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef __tdmAASFindEscape_H__
 #define __tdmAASFindEscape_H__
 
-#include "aas.h"
+#include "AAS.h"
 
 /**
  * greebo: This evaluator is designed to find escape routes

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5074 $
- * $Date: 2011-12-04 09:58:01 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -15,11 +15,11 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: darkModLAS.cpp 5074 2011-12-04 14:58:01Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: darkModLAS.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
 
 #include "darkModLAS.h"
-#include "pvs.h"
-#include "../renderer/renderworld.h"
+#include "Pvs.h"
+#include "../renderer/RenderWorld.h"
 #include "DarkModGlobals.h"
 #include "Intersection.h"
 #include "TimerManager.h"

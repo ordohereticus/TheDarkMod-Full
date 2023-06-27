@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,8 +10,8 @@
 #ifndef __GRABBER_H__
 #define __GRABBER_H__
 
-#include "../game/entity.h"
-#include "force_grab.h"
+#include "Entity.h"
+#include "Force_Grab.h"
 
 class idPlayer;
 

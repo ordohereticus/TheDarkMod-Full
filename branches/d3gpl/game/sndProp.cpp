@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5087 $
- * $Date: 2011-12-05 00:34:06 -0500 (Mon, 05 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -25,16 +25,16 @@
 
 #include "Game_local.h"
 
-static bool init_version = FileVersionList("$Id: SndProp.cpp 5087 2011-12-05 05:34:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: SndProp.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
 
 #pragma warning(disable : 4996)
 
-#include "sndPropLoader.h"
-#include "sndProp.h"
+#include "SndPropLoader.h"
+#include "SndProp.h"
 #include "MatrixSq.h"
 #include "DarkModGlobals.h"
 #include "Relations.h"
-#include "../game/ai/ai.h"
+#include "ai/AI.h"
 
 // NOTES:
 // ALL LOSSES ARE POSITIVE (ie, loss of +10dB subtracts 10dB from vol)

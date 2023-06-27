@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5075 $
- * $Date: 2011-12-04 11:10:27 -0500 (Sun, 04 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,12 +10,12 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 5075 2011-12-04 16:10:27Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: PVSToAASMapping.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
 
 #include "PVSToAASMapping.h"
 #include "DarkModGlobals.h"
-#include "pvs.h"
-#include "../renderer/renderworld.h"
+#include "Pvs.h"
+#include "../renderer/RenderWorld.h"
 #include "Intersection.h"
 
 //----------------------------------------------------------------------------

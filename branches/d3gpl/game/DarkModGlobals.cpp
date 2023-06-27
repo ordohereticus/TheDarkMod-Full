@@ -8,8 +8,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -19,14 +19,14 @@
 
 #pragma warning(disable : 4996 4800)
 
-static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5066 2011-12-03 19:49:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: DarkModGlobals.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
 
 #include "DarkModGlobals.h"
-#include "sndPropLoader.h"
-#include "sndProp.h"
+#include "SndPropLoader.h"
+#include "SndProp.h"
 #include "Relations.h"
 #include "ModMenu.h"
-#include "../game/ai/ai.h"
+#include "ai/AI.h"
 #include "sourcehook/sourcehook.h"
 #include "sourcehook/sourcehook_impl.h"
 #include "RevisionTracker.h"

@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3868 $
- * $Date: 2010-03-26 02:18:04 -0400 (Fri, 26 Mar 2010) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef __AI_COMBAT_STATE_H__
 #define __AI_COMBAT_STATE_H__
 
-#include "../../../game/ai/ai.h"
+#include "../AI.h"
 #include "State.h"
 
 namespace ai

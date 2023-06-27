@@ -1,16 +1,16 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4336 $
- * $Date: 2010-11-26 03:38:27 -0500 (Fri, 26 Nov 2010) $
- * $Author: tels $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
+ * $Author: greebo $
  *
  ***************************************************************************/
 
 #ifndef __AI_BLINDED_STATE_H__
 #define __AI_BLINDED_STATE_H__
 
-#include "../../../game/ai/ai.h"
+#include "../AI.h"
 #include "State.h"
 
 namespace ai

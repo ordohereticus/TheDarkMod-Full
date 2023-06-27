@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 3865 $
- * $Date: 2010-03-21 07:06:10 -0400 (Sun, 21 Mar 2010) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #ifndef _AGITATED_SEARCHING_STATE_LANTERN_BOT_H_
 #define _AGITATED_SEARCHING_STATE_LANTERN_BOT_H_
 
-#include "../../../game/ai/ai.h"
+#include "../AI.h"
 #include "AgitatedSearchingState.h"
 
 namespace ai

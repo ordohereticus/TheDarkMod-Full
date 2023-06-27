@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5066 $
- * $Date: 2011-12-03 14:49:11 -0500 (Sat, 03 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,10 +10,10 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Memory.cpp 5066 2011-12-03 19:49:11Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Memory.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
 
 #include "Memory.h"
-#include "../../game/ai/ai.h"
+#include "AI.h"
 
 namespace ai
 {

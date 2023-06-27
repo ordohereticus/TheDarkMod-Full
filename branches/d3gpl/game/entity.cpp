@@ -2,8 +2,8 @@
  *
  * For VIM users, do not remove: vim:ts=4:sw=4:cindent
  * PROJECT: The Dark Mod
- * $Revision: 5087 $
- * $Date: 2011-12-05 00:34:06 -0500 (Mon, 05 Dec 2011) $
+ * $Revision: 5088 $
+ * $Date: 2011-12-05 02:07:27 -0500 (Mon, 05 Dec 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -14,7 +14,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: Entity.cpp 5087 2011-12-05 05:34:06Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: Entity.cpp 5088 2011-12-05 07:07:27Z greebo $", init_version);
 
 #pragma warning(disable : 4533 4800)
 
@@ -24,7 +24,7 @@ static bool init_version = FileVersionList("$Id: Entity.cpp 5087 2011-12-05 05:3
 #include "Objectives/MissionData.h"
 #include "Objectives/ObjectiveLocation.h"
 #include "Grabber.h"
-#include "sndProp.h"
+#include "SndProp.h"
 #include "StimResponse/StimResponseCollection.h"
 #include "Inventory/Inventory.h"
 #include "Inventory/Cursor.h"
