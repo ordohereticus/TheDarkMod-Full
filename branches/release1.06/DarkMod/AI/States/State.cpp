@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4881 $
- * $Date: 2011-06-06 02:10:23 -0400 (Mon, 06 Jun 2011) $
+ * $Revision: 4890 $
+ * $Date: 2011-06-15 01:14:21 -0400 (Wed, 15 Jun 2011) $
  * $Author: greebo $
  *
  ***************************************************************************/
@@ -10,7 +10,7 @@
 #include "../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: State.cpp 4881 2011-06-06 06:10:23Z greebo $", init_version);
+static bool init_version = FileVersionList("$Id: State.cpp 4890 2011-06-15 05:14:21Z greebo $", init_version);
 
 #include "State.h"
 #include "../Memory.h"
@@ -2024,7 +2024,6 @@ void State::OnVisualStimLightSource(idEntity* stimSource, idAI* owner)
 				inHand = owner->GetAttachmentByPosition("hand_l");
 				if (inHand)
 				{
-					gameLocal.Printf("%s: holding %s in my left hand, so I can't use my tinderbox\n",owner->name.c_str(),inHand->name.c_str()); // grayman debug
 					// Something in the left hand, so can't use tinderbox
 
 					turnLightOn = false;
@@ -2042,13 +2041,8 @@ void State::OnVisualStimLightSource(idEntity* stimSource, idAI* owner)
 						inHand = owner->GetAttachmentByPosition("hand_r");
 						if (inHand && (idStr::Cmp(inHand->spawnArgs.GetString("AIUse"), AIUSE_WEAPON) != 0))
 						{
-							gameLocal.Printf("%s: holding %s in my right hand, so I can't use my tinderbox\n",owner->name.c_str(),inHand->name.c_str()); // grayman debug
 							turnLightOn = false;
 						}
-					}
-					else // grayman debug
-					{
-						gameLocal.Printf("%s: holding %s in my left hand, so I can use my tinderbox\n",owner->name.c_str(),inHand->name.c_str()); // grayman debug
 					}
 				}
 			}
@@ -2068,7 +2062,6 @@ void State::OnVisualStimLightSource(idEntity* stimSource, idAI* owner)
 			inHand = owner->GetAttachmentByPosition("hand_r");
 			if (inHand && (idStr::Cmp(inHand->spawnArgs.GetString("AIUse"), AIUSE_WEAPON) != 0))
 			{
-				gameLocal.Printf("%s: holding %s in my right hand, so I can't relight an electric light\n",owner->name.c_str(),inHand->name.c_str()); // grayman debug
 				turnLightOn = false;
 			}
 		}
