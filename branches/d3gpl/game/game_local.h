@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5134 $ (Revision of last commit) 
+ $Date: 2011-12-29 00:45:50 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -667,7 +667,10 @@ public:
 	idList<int>				musicSpeakers;
 
 	// A flag set by the player to fire a "final save" which must occur at the end of this frame
-	bool						m_TriggerFinalSave;
+	bool					m_TriggerFinalSave;
+
+	// grayman #2933 - store the start position selected during the mission briefing, if any
+	const char *			m_StartPosition;
 
 	// ---------------------- Public idGame Interface -------------------
 
