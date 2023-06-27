@@ -1,9 +1,9 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4660 $
- * $Date: 2011-03-07 03:13:49 -0500 (Mon, 07 Mar 2011) $
- * $Author: tels $
+ * $Revision: 5027 $
+ * $Date: 2011-11-06 18:28:39 -0500 (Sun, 06 Nov 2011) $
+ * $Author: grayman $
  *
  ***************************************************************************/
 /******************************************************************************/
@@ -25,7 +25,7 @@
 
 #include "../game/game_local.h"
 
-static bool init_version = FileVersionList("$Id: sndProp.cpp 4660 2011-03-07 08:13:49Z tels $", init_version);
+static bool init_version = FileVersionList("$Id: sndProp.cpp 5027 2011-11-06 23:28:39Z grayman $", init_version);
 
 #pragma warning(disable : 4996)
 
@@ -439,6 +439,14 @@ void CsndProp::Propagate
 
 	// clear the old populated areas list
 	m_PopAreasInd.Clear();
+	
+	// grayman #2907 - Initialize the timestamp in Populated Areas. This
+	// becomes important if more than one sound propagates in the same frame.
+
+	for ( int k = 0 ; k < m_numAreas ; k++ )
+	{
+		m_PopAreas[k].addedTime = 0;
+	}
 
 	// initialize the comparison team mask
 	compMask.m_field = 0;

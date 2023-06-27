@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 5026 $
- * $Date: 2011-11-06 18:19:45 -0500 (Sun, 06 Nov 2011) $
+ * $Revision: 5027 $
+ * $Date: 2011-11-06 18:28:39 -0500 (Sun, 06 Nov 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 5026 2011-11-06 23:19:45Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 5027 2011-11-06 23:28:39Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -8770,6 +8770,8 @@ void idAI::HearSound(SSprParms *propParms, float noise, const idVec3& origin)
 	{
 		AI_HEARDSOUND = true;
 		m_SoundDir = origin;
+
+		m_AlertedByActor = NULL; // grayman #2907 - needs to be cleared, otherwise it can be leftover from a previous sound this frame
 
 		if (propParms->maker->IsType(idActor::Type))
 		{
