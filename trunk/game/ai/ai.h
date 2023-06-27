@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
+ * $Revision: 4880 $
+ * $Date: 2011-06-05 22:12:51 -0400 (Sun, 05 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -1114,6 +1114,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	 * grayman #2603: is set true while the AI is relighting a light.
 	 */
 	bool					m_RelightingLight;
+
+	/**
+	 * grayman #2603: is set true while the AI is dropping a torch.
+	 */
+	bool					m_DroppingTorch;
 
 	/**
 	* Head center offset in head joint coordinates, relative to head joint

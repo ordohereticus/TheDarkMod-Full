@@ -1,8 +1,8 @@
 /***************************************************************************
  *
  * PROJECT: The Dark Mod
- * $Revision: 4870 $
- * $Date: 2011-05-31 13:59:19 -0400 (Tue, 31 May 2011) $
+ * $Revision: 4880 $
+ * $Date: 2011-06-05 22:12:51 -0400 (Sun, 05 Jun 2011) $
  * $Author: grayman $
  *
  ***************************************************************************/
@@ -13,7 +13,7 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-static bool init_version = FileVersionList("$Id: ai.cpp 4870 2011-05-31 17:59:19Z grayman $", init_version);
+static bool init_version = FileVersionList("$Id: ai.cpp 4880 2011-06-06 02:12:51Z grayman $", init_version);
 
 #include "../game_local.h"
 #include "../../DarkMod/AI/Mind.h"
@@ -948,6 +948,7 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool(m_HandlingDoor);
 	savefile->WriteBool(m_HandlingElevator);
 	savefile->WriteBool(m_RelightingLight);	// grayman #2603
+	savefile->WriteBool(m_DroppingTorch);	// grayman #2603
 	savefile->WriteBool(m_RestoreMove);		// grayman #2706
 	savefile->WriteBool(m_LatchedSearch);	// grayman #2603
 
@@ -1375,6 +1376,7 @@ void idAI::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool(m_HandlingDoor);
 	savefile->ReadBool(m_HandlingElevator);
 	savefile->ReadBool(m_RelightingLight);	// grayman #2603
+	savefile->ReadBool(m_DroppingTorch);	// grayman #2603
 	savefile->ReadBool(m_RestoreMove);		// grayman #2706
 	savefile->ReadBool(m_LatchedSearch);	// grayman #2603
 
@@ -1893,7 +1895,8 @@ void idAI::Spawn( void )
 	m_dousedLightsSeen.Clear();	// grayman #2603
 
 	m_HandlingElevator = false;
-	m_RelightingLight = false; // grayman #2603
+	m_RelightingLight = false;	// grayman #2603
+	m_DroppingTorch = false;	// grayman #2603
 
 	// =============== Set up KOing and FOV ==============
 	const char *HeadJointName = spawnArgs.GetString("head_jointname", "Head");
