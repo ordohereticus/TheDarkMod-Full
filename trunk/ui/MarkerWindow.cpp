@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5390 $ (Revision of last commit) 
+ $Date: 2012-04-15 14:36:22 -0400 (Sun, 15 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MarkerWindow.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MarkerWindow.cpp 5390 2012-04-15 18:36:22Z tels $");
 
 // included for image uploading for player stat graph
 #include "../renderer/Image.h"
@@ -314,7 +314,6 @@ void idMarkerWindow::Activate(bool activate, idStr &act) {
 			fileSystem->FreeFileList( markers );
 			memset(imageBuff, 0, 512*64*4);
 			float step = 511.0f / (numStats - 1);
-			float startX = 0;
 			float x1, y1, x2, y2;
 			x1 = 0 - step;
 			for (i = 0; i < numStats-1; i++) {
