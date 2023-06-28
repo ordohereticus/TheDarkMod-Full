@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5308 $ (Revision of last commit) 
- $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Revision: 5320 $ (Revision of last commit) 
+ $Date: 2012-03-07 19:35:50 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MultiStateMover.cpp 5308 2012-02-26 18:09:58Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MultiStateMover.cpp 5320 2012-03-08 00:35:50Z grayman $");
 
 #include "MultiStateMover.h"
 
@@ -37,6 +37,9 @@ void CMultiStateMover::Spawn()
 {
 	forwardDirection = spawnArgs.GetVector("forward_direction", "0 0 1");
 	forwardDirection.Normalize();
+
+	// grayman #3050 - to help reduce jostling on the elevator
+	masterAtRideButton = false; // is the master in position to push the ride button?
 
 	// Schedule a post-spawn event to analyse the targets
 	PostEventMS(&EV_PostSpawn, 1);
@@ -232,6 +235,9 @@ void CMultiStateMover::Save(idSaveGame *savefile) const
 
 	savefile->WriteVec3(forwardDirection);
 
+	savefile->WriteBool(masterAtRideButton);	// grayman #3050
+	riderManager.Save(savefile);				// grayman #3050
+	
 	savefile->WriteInt(fetchButtons.Num());
 	for (int i = 0; i < fetchButtons.Num(); i++)
 	{
@@ -258,6 +264,9 @@ void CMultiStateMover::Restore(idRestoreGame *savefile)
 
 	savefile->ReadVec3(forwardDirection);
 
+	savefile->ReadBool(masterAtRideButton);	// grayman #3050
+	riderManager.Restore(savefile);			// grayman #3050
+
 	savefile->ReadInt(num);
 	fetchButtons.SetNum(num);
 	for (int i = 0; i < num; i++)
@@ -278,7 +287,10 @@ void CMultiStateMover::Activate(idEntity* activator)
 	// Fire the TRIGGER response
 	TriggerResponse(activator, ST_TRIGGER);
 
-	if (activator == NULL) return;
+	if (activator == NULL)
+	{
+		return;
+	}
 
 	// Get the "position" spawnarg from the activator
 	idStr targetPosition;
@@ -424,6 +436,16 @@ int CMultiStateMover::GetPositionInfoIndex(const idVec3& pos) const
 	}
 
 	return -1; // not found
+}
+
+void CMultiStateMover::SetMasterAtRideButton(bool atButton) // grayman #3050
+{
+	masterAtRideButton = atButton;
+}
+
+bool CMultiStateMover::IsMasterAtRideButton() // grayman #3050
+{
+	return masterAtRideButton;
 }
 
 void CMultiStateMover::Event_Activate(idEntity* activator)

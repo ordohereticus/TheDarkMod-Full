@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5308 $ (Revision of last commit) 
- $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Revision: 5320 $ (Revision of last commit) 
+ $Date: 2012-03-07 19:35:50 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5308 2012-02-26 18:09:58Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5320 2012-03-08 00:35:50Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -3382,10 +3382,42 @@ bool idAI::MoveToEntity( idEntity *ent ) {
 
 CMultiStateMover* idAI::OnElevator(bool mustBeMoving) const
 {
-	idEntity* ent = physicsObj.GetGroundEntity();
+	idEntity* ent = physicsObj.GetGroundEntity(); // grayman #3050 - this MIGHT return a false NULL
+
+	if ( ent == NULL )
+	{
+		// grayman #3050 - when an elevator is moving down, out from under
+		// the feet of this AI, it MIGHT be the case that tracing down 0.25,
+		// the normal criteria for finding the ground, isn't enough.
+		// So let's try to search a bit farther to see if we're on an elevator.
+
+		trace_t t;
+		idVec3 down;
+		idVec3 gravityNormal = physicsObj.GetGravityNormal();
+
+		if ( gravityNormal == vec3_zero )
+		{
+			return NULL;
+		}
+
+		idVec3 org = physicsObj.GetOrigin();
+		idClipModel* clipModel = physicsObj.GetClipModel();
+		down = org + gravityNormal * 4;
+		gameLocal.clip.Translation( t, org, down, clipModel, clipModel->GetAxis(), physicsObj.GetClipMask(), this );
+
+		if ( t.fraction == 1.0f )
+		{
+			return NULL;
+		}
+
+		ent = gameLocal.entities[t.c.entityNum];
+	}
 
 	// Return false if ground entity is not a mover
-	if (ent == NULL || !ent->IsType(CMultiStateMover::Type)) return NULL;
+	if ( ( ent == NULL ) || !ent->IsType(CMultiStateMover::Type) )
+	{
+		return NULL;
+	}
 
 	CMultiStateMover* mover = static_cast<CMultiStateMover*>(ent);
 	if (mustBeMoving)
@@ -11007,7 +11039,7 @@ int idAI::ContinueSearchForHidingSpots()
 
 		m_hidingSpots.clear();
 		// greebo: Now retrieve our share from the completed hiding spot search
-		// Given that three other AI are referencing this hiding spot finder, this AI draws a third.
+		// Given that two other AI are referencing this hiding spot finder, this AI draws a third.
 		p_hidingSpotFinder->hidingSpotList.getOneNth(refCount, m_hidingSpots);
 
 		// Done with search object, dereference so other AIs know how many

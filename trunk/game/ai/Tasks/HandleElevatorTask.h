@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5320 $ (Revision of last commit) 
+ $Date: 2012-03-07 19:35:50 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -45,11 +45,13 @@ private:
 		EPressFetchButton,
 		EWaitForElevator,
 		EMoveOntoElevator,
+		EPause, // grayman #3050
 		EInitiateMoveToRideButton,
 		EMovingToRideButton,
 		EPressRideButton,
 		ERideOnElevator,
 		EGetOffElevator,
+		EWrapUp, // grayman #3050
 		ENumStates,
 	} _state;
 
@@ -60,6 +62,9 @@ private:
 
 	// Is TRUE if this task has finished successfully
 	bool _success;
+
+	// grayman #3050 - max elevator riders
+	int _maxRiders;
 	
 	// Private constructor
 	HandleElevatorTask();
@@ -76,7 +81,9 @@ public:
 
 	virtual void OnFinish(idAI* owner);
 
-	void ReorderElevQueue(CMultiStateMover* elevator); // grayman #3029
+	void ReorderQueue(UserManager &um, idVec3 point); // grayman #3050
+
+	virtual bool CanAbort(); // grayman #3050
 
 #if 0 // grayman - for debugging an elevator queue
 	void PrintElevQueue(CMultiStateMover* elevator);

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5320 $ (Revision of last commit) 
+ $Date: 2012-03-07 19:35:50 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -45,6 +45,10 @@ class CMultiStateMover :
 	// The lists of buttons, AI entities need them to get the elevator moving
 	idList< idEntityPtr<CMultiStateMoverButton> > fetchButtons;
 	idList< idEntityPtr<CMultiStateMoverButton> > rideButtons;
+
+	// grayman #3050 - to help reduce jostling on the elevator
+	bool masterAtRideButton; // is the master in position to push the ride button?
+	UserManager riderManager; // manage a list of riders (which is different than users)
 
 public:
 	CLASS_PROTOTYPE( CMultiStateMover );
@@ -88,6 +92,14 @@ public:
 	 * @returns: NULL if nothing found.
 	 */
 	CMultiStateMoverButton* GetButton(CMultiStateMoverPosition* toPosition, CMultiStateMoverPosition* fromPosition, EMMButtonType type, idVec3 riderOrg); // grayman #3029
+
+	// grayman #3050 - for ride management
+	bool IsMasterAtRideButton();
+	void SetMasterAtRideButton(bool atButton);
+	inline UserManager& GetRiderManager()
+	{
+		return riderManager;
+	}
 
 protected:
 	// override idMover's DoneMoving() to trigger targets

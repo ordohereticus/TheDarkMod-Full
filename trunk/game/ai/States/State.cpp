@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5298 $ (Revision of last commit) 
- $Date: 2012-02-24 20:07:32 -0500 (Fri, 24 Feb 2012) $ (Date of last commit)
+ $Revision: 5320 $ (Revision of last commit) 
+ $Date: 2012-03-07 19:35:50 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5298 2012-02-25 01:07:32Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5320 2012-03-08 00:35:50Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -3447,13 +3447,24 @@ void State::NeedToUseElevator(const eas::RouteInfoPtr& routeInfo)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	if (!owner->m_HandlingDoor && !owner->m_HandlingElevator && owner->CanUseElevators()) // grayman #3029
+	// grayman #3050 - can't handle a new elevator if you're resolving a block
+
+	if (owner->movementSubsystem->IsResolvingBlock() || owner->movementSubsystem->IsWaiting())
 	{
-		// Prevent more ElevatorTasks from being pushed
-//		owner->m_HandlingElevator = true; // grayman #3029 - this is too early; moved to Init of task
-		owner->m_CanSetupDoor = true; // grayman #3029
-		owner->movementSubsystem->PushTask(TaskPtr(new HandleElevatorTask(routeInfo)));
+		return;
 	}
+
+	// grayman #3050 - can't handle a new elevator if you're currently using a door or an elevator or you can't use elevators
+
+	if ( owner->m_HandlingDoor || owner->m_HandlingElevator || !owner->CanUseElevators())
+	{
+		return;
+	}
+
+	// Prevent more ElevatorTasks from being pushed
+//	owner->m_HandlingElevator = true; // grayman #3029 - this is too early; moved to Init of task
+	owner->m_CanSetupDoor = true; // grayman #3029
+	owner->movementSubsystem->PushTask(TaskPtr(new HandleElevatorTask(routeInfo)));
 }
 
 } // namespace ai
