@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5444 $ (Revision of last commit) 
- $Date: 2012-05-11 09:32:29 -0400 (Fri, 11 May 2012) $ (Date of last commit)
+ $Revision: 5445 $ (Revision of last commit) 
+ $Date: 2012-05-11 09:38:38 -0400 (Fri, 11 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -38,7 +38,6 @@
 #define BASE_TDM		"darkmod"
 
 // filenames
-#define	CD_EXE							"doom.exe"
 #define CONFIG_FILE						"Darkmod.cfg"
 
 // base folder where the source code lives
