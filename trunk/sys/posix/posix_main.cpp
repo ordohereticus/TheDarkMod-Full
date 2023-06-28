@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5331 $ (Revision of last commit) 
- $Date: 2012-03-11 05:34:19 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5384 $ (Revision of last commit) 
+ $Date: 2012-04-11 06:23:14 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #include "../../idlib/precompiled.h"
@@ -342,14 +342,6 @@ Sys_GetMemoryStatus
 */
 void Sys_GetMemoryStatus( sysMemoryStats_t &stats ) {
 	common->Printf( "FIXME: Sys_GetMemoryStatus stub\n" );
-}
-
-void Sys_GetCurrentMemoryStatus( sysMemoryStats_t &stats ) {
-	common->Printf( "FIXME: Sys_GetCurrentMemoryStatus\n" );
-}
-
-void Sys_GetExeLaunchMemoryStatus( sysMemoryStats_t &stats ) {
-	common->Printf( "FIXME: Sys_GetExeLaunchMemoryStatus\n" );
 }
 
 /*

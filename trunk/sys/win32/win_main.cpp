@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5354 $ (Revision of last commit) 
- $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5384 $ (Revision of last commit) 
+ $Date: 2012-04-11 06:23:14 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: win_main.cpp 5354 2012-03-22 19:18:15Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: win_main.cpp 5384 2012-04-11 10:23:14Z serpentine $");
 
 #include <errno.h>
 #include <float.h>
@@ -68,19 +68,8 @@ xthreadInfo *g_threads[MAX_THREADS];
 
 int g_thread_count = 0;
 
-static sysMemoryStats_t exeLaunchMemoryStats;
-
 static	xthreadInfo	threadInfo;
 static	HANDLE		hTimer;
-
-/*
-================
-Sys_GetExeLaunchMemoryStatus
-================
-*/
-void Sys_GetExeLaunchMemoryStatus( sysMemoryStats_t &stats ) {
-	stats = exeLaunchMemoryStats;
-}
 
 /*
 ==================
@@ -1425,8 +1414,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	const HCURSOR hcurSave = ::SetCursor( LoadCursor( 0, IDC_WAIT ) );
 
 	Sys_SetPhysicalWorkMemory( 192 << 20, 1024 << 20 );
-
-	Sys_GetCurrentMemoryStatus( exeLaunchMemoryStats );
 
 #if 0
     DWORD handler = (DWORD)_except_handler;

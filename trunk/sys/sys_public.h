@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5146 $ (Revision of last commit) 
- $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5384 $ (Revision of last commit) 
+ $Date: 2012-04-11 06:23:14 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -211,17 +211,6 @@ typedef struct sysEvent_s {
 	void *			evPtr;				// this must be manually freed if not NULL
 } sysEvent_t;
 
-typedef struct sysMemoryStats_s {
-	int memoryLoad;
-	int totalPhysical;
-	int availPhysical;
-	int totalPageFile;
-	int availPageFile;
-	int totalVirtual;
-	int availVirtual;
-	int availExtendedVirtual;
-} sysMemoryStats_t;
-
 typedef unsigned long address_t;
 
 template<class type> class idList;		// for Sys_ListFiles
@@ -297,10 +286,6 @@ int				Sys_GetVideoRam( void );
 
 // returns amount of drive space in path
 int				Sys_GetDriveFreeSpace( const char *path );
-
-// returns memory stats
-void			Sys_GetCurrentMemoryStatus( sysMemoryStats_t &stats );
-void			Sys_GetExeLaunchMemoryStatus( sysMemoryStats_t &stats );
 
 // lock and unlock memory
 bool			Sys_LockMemory( void *ptr, int bytes );
