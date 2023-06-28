@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5263 $ (Revision of last commit) 
- $Date: 2012-02-10 06:30:33 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5264 $ (Revision of last commit) 
+ $Date: 2012-02-10 07:05:40 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -219,7 +219,6 @@ public:
 	idUserInterface *	guiLoading;
 	idUserInterface *	guiIntro;
 	idUserInterface *	guiTest;
-	idUserInterface *	guiTakeNotes;
 	
 	idUserInterface *	guiMsg;
 	idUserInterface *	guiMsgRestore;				// store the calling GUI for restore
@@ -297,9 +296,7 @@ public:
 	void				HandleIntroMenuCommands( const char *menuCommand );
 	void				HandleRestartMenuCommands( const char *menuCommand );
 	void				HandleMsgCommands( const char *menuCommand );
-	void				HandleNoteCommands( const char *menuCommand );
 	void				GetSaveGameList( idStrList &fileList, idList<fileTIME_T> &fileTimes );
-	void				TakeNotes( const char * p, bool extended = false );
 	void				UpdateMPLevelShot( void );
 
 	void				SetSaveGameGuiVars( void );

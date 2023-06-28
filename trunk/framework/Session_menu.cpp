@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5225 $ (Revision of last commit) 
- $Date: 2012-01-21 07:51:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Revision: 5264 $ (Revision of last commit) 
+ $Date: 2012-02-10 07:05:40 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5225 2012-01-21 12:51:47Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5264 2012-02-10 12:05:40Z tels $");
 
 #include "Session_local.h"
 
@@ -1091,8 +1091,6 @@ void idSessionLocal::DispatchCommand( idUserInterface *gui, const char *menuComm
 		HandleIntroMenuCommands( menuCommand );
 	} else if ( gui == guiMsg ) {
 		HandleMsgCommands( menuCommand );
-	} else if ( gui == guiTakeNotes ) {
-		HandleNoteCommands( menuCommand );
 	} else if ( gui == guiRestartMenu ) {
 		HandleRestartMenuCommands( menuCommand );
 	} else if ( game && guiActive && guiActive->State().GetBool( "gameDraw" ) ) {
@@ -1437,123 +1435,5 @@ void idSessionLocal::HandleMsgCommands( const char *menuCommand ) {
 		msgRunning = false;
 		msgRetIndex = 1;
 		DispatchCommand( guiActive, msgFireBack[ 1 ].c_str() );
-	}
-}
-
-/*
-=================
-idSessionLocal::HandleNoteCommands
-=================
-*/
-#define NOTEDATFILE "C:/notenumber.dat"
-
-void idSessionLocal::HandleNoteCommands( const char *menuCommand ) {
-	guiActive = NULL;
-
-	if ( idStr::Icmp( menuCommand,  "note" ) == 0 && mapSpawned ) {
-
-		idFile *file = NULL;
-		for ( int tries = 0; tries < 10; tries++ ) {
-			file = fileSystem->OpenExplicitFileRead( NOTEDATFILE );
-			if ( file != NULL ) {
-				break;
-			}
-			Sys_Sleep( 500 );
-		}
-		int noteNumber = 1000;
-		if ( file ) {
-			file->Read( &noteNumber, 4 );
-			fileSystem->CloseFile( file );
-		}
-
-		int i;
-		idStr str, noteNum, shotName, workName, fileName = "viewnotes/";
-		idStrList fileList;
-
-		const char *severity = NULL;
-		const char *p = guiTakeNotes->State().GetString( "notefile" );
-		if ( p == NULL || *p == '\0' ) {
-			p = cvarSystem->GetCVarString( "ui_name" );
-		}
-
-		bool extended = guiTakeNotes->State().GetBool( "extended" );
-		if ( extended ) {
-			if ( guiTakeNotes->State().GetInt( "severity" ) == 1 ) {
-				severity = "WishList_Viewnotes/";
-			} else {
-				severity = "MustFix_Viewnotes/";
-			}
-			fileName += severity;
-
-			const idDecl *mapDecl = declManager->FindType(DECL_ENTITYDEF, mapSpawnData.serverInfo.GetString( "si_map" ), false );
-			const idDeclEntityDef *mapInfo = static_cast<const idDeclEntityDef *>(mapDecl);
-
-			if ( mapInfo ) {
-				fileName += mapInfo->dict.GetString( "devname" );
-			} else {
-				fileName += mapSpawnData.serverInfo.GetString( "si_map" );
-				fileName.StripFileExtension();
-			}
-
-			int count = guiTakeNotes->State().GetInt( "person_numsel" );
-			if ( count == 0 ) {
-				fileList.Append( fileName + "/Nobody" );
-			} else {
-				for ( i = 0; i < count; i++ ) {
-					int person = guiTakeNotes->State().GetInt( va( "person_sel_%i", i ) );
-					workName = fileName + "/";
-					workName += guiTakeNotes->State().GetString( va( "person_item_%i", person ), "Nobody" );
-					fileList.Append( workName );
-				}
-			}
-		} else {
-			fileName += "maps/";
-			fileName += mapSpawnData.serverInfo.GetString( "si_map" );
-			fileName.StripFileExtension();
-			fileList.Append( fileName );
-		}
-
-		bool bCon = cvarSystem->GetCVarBool( "con_noPrint" );
-		cvarSystem->SetCVarBool( "con_noPrint", true );
-		for ( i = 0; i < fileList.Num(); i++ ) {
-			workName = fileList[i];
-			workName += "/";
-			workName += p;
-			int workNote = noteNumber;
-			R_ScreenshotFilename( workNote, workName, shotName );
-
-			noteNum = shotName;
-			noteNum.StripPath();
-			noteNum.StripFileExtension();
-
-			if ( severity && *severity ) {
-				workName = severity;
-				workName += "viewNotes";
-			}
-
-			sprintf( str, "recordViewNotes \"%s\" \"%s\" \"%s\"\n", workName.c_str(), noteNum.c_str(), guiTakeNotes->State().GetString( "note" ) );
-			
-			cmdSystem->BufferCommandText( CMD_EXEC_NOW, str );
-			cmdSystem->ExecuteCommandBuffer();
-
-			UpdateScreen();
-			renderSystem->TakeScreenshot( renderSystem->GetScreenWidth(), renderSystem->GetScreenHeight(), shotName, 1, NULL );
-		}
-		noteNumber++;
-
-		for ( int tries = 0; tries < 10; tries++ ) {
-			file = fileSystem->OpenExplicitFileWrite( "p:/viewnotes/notenumber.dat" );
-			if ( file != NULL ) {
-				break;
-			}
-			Sys_Sleep( 500 );
-		}
-		if ( file ) {
-			file->Write( &noteNumber, 4 );
-			fileSystem->CloseFile( file );
-		}
-
-		cmdSystem->BufferCommandText( CMD_EXEC_NOW, "closeViewNotes\n" );
-		cvarSystem->SetCVarBool( "con_noPrint", bCon );
 	}
 }
