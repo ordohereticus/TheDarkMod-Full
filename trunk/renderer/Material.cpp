@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5451 $ (Revision of last commit) 
- $Date: 2012-05-13 05:12:29 -0400 (Sun, 13 May 2012) $ (Date of last commit)
+ $Revision: 5454 $ (Revision of last commit) 
+ $Date: 2012-05-21 13:12:42 -0400 (Mon, 21 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5451 2012-05-13 09:12:29Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5454 2012-05-21 17:12:42Z tels $");
 
 #include "tr_local.h"
 
@@ -2034,7 +2034,7 @@ void idMaterial::ParseMaterial( idLexer &src ) {
 			SetMaterialFlag( MF_POLYGONOFFSET );
 			polygonOffset = 1;
 
-			// discrete
+			// discrete and nonsolid
 			surfaceFlags |= SURF_DISCRETE;
 			contentFlags &= ~CONTENTS_SOLID;
 
