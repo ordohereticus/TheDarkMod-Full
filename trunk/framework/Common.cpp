@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5302 $ (Revision of last commit) 
- $Date: 2012-02-26 07:09:32 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Revision: 5307 $ (Revision of last commit) 
+ $Date: 2012-02-26 12:46:18 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5302 2012-02-26 12:09:32Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5307 2012-02-26 17:46:18Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -3029,9 +3029,6 @@ void idCommonLocal::InitGame( void )
 
 	// Init the i18n manager
 	i18n->Init();
-
-	// initialize string database right off so we can use it for loading messages
-	InitLanguageDict();
 
 	PrintLoadingMessage( Translate( "#str_04344" ) );
 
