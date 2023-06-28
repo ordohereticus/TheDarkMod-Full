@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5212 $ (Revision of last commit) 
- $Date: 2012-01-13 18:21:17 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5236 $ (Revision of last commit) 
+ $Date: 2012-01-27 02:05:58 -0500 (Fri, 27 Jan 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5212 2012-01-13 23:21:17Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5236 2012-01-27 07:05:58Z angua $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -9196,7 +9196,7 @@ bool idEntity::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 		const idKeyValue *kv = spawnArgs.FindKey( scriptName.c_str() );
 		if( kv != NULL && kv->GetValue().Length() > 0 )
 		{
-			CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
+			thread = CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
 			bFoundKey = true;
 			break;
 		}
@@ -9208,7 +9208,7 @@ bool idEntity::UseBy(EImpulseState impulseState, const CInventoryItemPtr& item)
 		const idKeyValue *kv = spawnArgs.FindKey( "used_action_script" );
 		if( kv != NULL && kv->GetValue().Length() > 0 )
 		{
-			CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
+			thread = CallScriptFunctionArgs(kv->GetValue().c_str(), true, 0, "e", this);
 		}
 	}
 
