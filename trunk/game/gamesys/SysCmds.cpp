@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5222 $ (Revision of last commit) 
- $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5265 $ (Revision of last commit) 
+ $Date: 2012-02-10 07:08:03 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5222 2012-01-20 03:27:39Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5265 2012-02-10 12:08:03Z tels $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -2357,113 +2357,6 @@ static void Cmd_TestSave_f( const idCmdArgs &args ) {
 }
 
 /*
-==================
-Cmd_RecordViewNotes_f
-==================
-*/
-static void Cmd_RecordViewNotes_f( const idCmdArgs &args ) {
-	idPlayer *player;
-	idVec3 origin;
-	idMat3 axis;
-
-	if ( args.Argc() <= 3 ) {
-		return;
-	}
-
-	player = gameLocal.GetLocalPlayer();
-	if ( !player ) {
-		return;
-	}
-
-	player->GetViewPos( origin, axis );
-
-	// Argv(1) = filename for map (viewnotes/mapname/person)
-	// Argv(2) = note number (person0001)
-	// Argv(3) = comments
-
-	idStr str = args.Argv(1);
-	str.SetFileExtension( ".txt" );
-	idFile *file = fileSystem->OpenFileAppend( str );
-	if ( file ) {
-		file->WriteFloatString( "\"view\"\t( %s )\t( %s )\r\n", origin.ToString(), axis.ToString() );
-		file->WriteFloatString( "\"comments\"\t\"%s: %s\"\r\n\r\n", args.Argv(2), args.Argv(3) );
-		fileSystem->CloseFile( file );
-	}
-
-	idStr viewComments = args.Argv(1);
-	viewComments.StripLeading("viewnotes/");
-	viewComments += " -- Loc: ";
-	viewComments += origin.ToString();
-	viewComments += "\n";
-	viewComments += args.Argv(3);
-	player->hud->SetStateString( "viewcomments", viewComments );
-	player->hud->HandleNamedEvent( "showViewComments" );
-}
-
-/*
-==================
-Cmd_CloseViewNotes_f
-==================
-*/
-static void Cmd_CloseViewNotes_f( const idCmdArgs &args ) {
-	idPlayer *player = gameLocal.GetLocalPlayer();
-
-	if ( !player ) {
-		return;
-	}
-	
-	player->hud->SetStateString( "viewcomments", "" );
-	player->hud->HandleNamedEvent( "hideViewComments" );
-}
-
-/*
-==================
-Cmd_ShowViewNotes_f
-==================
-*/
-static void Cmd_ShowViewNotes_f( const idCmdArgs &args ) {
-	static idLexer parser( LEXFL_ALLOWPATHNAMES | LEXFL_NOSTRINGESCAPECHARS | LEXFL_NOSTRINGCONCAT | LEXFL_NOFATALERRORS );
-	idToken	token;
-	idPlayer *player;
-	idVec3 origin;
-	idMat3 axis;
-
-	player = gameLocal.GetLocalPlayer();
-
-	if ( !player ) {
-		return;
-	}
-
-	if ( !parser.IsLoaded() ) {
-		idStr str = "viewnotes/";
-		str += gameLocal.GetMapName();
-		str.StripFileExtension();
-		str += "/";
-		if ( args.Argc() > 1 ) {
-			str += args.Argv( 1 );
-		} else {
-			str += "comments";
-		}
-		str.SetFileExtension( ".txt" );
-		if ( !parser.LoadFile( str ) ) {
-			gameLocal.Printf( "No view notes for %s\n", gameLocal.GetMapName() );
-			return;
-		}
-	}
-
-	if ( parser.ExpectTokenString( "view" ) && parser.Parse1DMatrix( 3, origin.ToFloatPtr() ) && 
-		parser.Parse1DMatrix( 9, axis.ToFloatPtr() ) && parser.ExpectTokenString( "comments" ) && parser.ReadToken( &token ) ) {
-		player->hud->SetStateString( "viewcomments", token );
-		player->hud->HandleNamedEvent( "showViewComments" );
-		player->Teleport( origin, axis.ToAngles(), NULL );
-	} else {
-		parser.FreeSource();
-		player->hud->HandleNamedEvent( "hideViewComments" );
-		return;
-	}
-}
-
-/*
 =================
 FindEntityGUIs
 
@@ -3815,9 +3708,6 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );
-	cmdSystem->AddCommand( "recordViewNotes",		Cmd_RecordViewNotes_f,		CMD_FL_GAME|CMD_FL_CHEAT,	"record the current view position with notes" );
-	cmdSystem->AddCommand( "showViewNotes",			Cmd_ShowViewNotes_f,		CMD_FL_GAME|CMD_FL_CHEAT,	"show any view notes for the current map, successive calls will cycle to the next note" );
-	cmdSystem->AddCommand( "closeViewNotes",		Cmd_CloseViewNotes_f,		CMD_FL_GAME|CMD_FL_CHEAT,	"close the view showing any notes for this map" );
 	cmdSystem->AddCommand( "exportmodels",			Cmd_ExportModels_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"exports models", ArgCompletion_DefFile );
 
 	// multiplayer client commands ( replaces old impulses stuff )
