@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5471 $ (Revision of last commit) 
- $Date: 2012-06-04 00:27:36 -0400 (Mon, 04 Jun 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5477 $ (Revision of last commit) 
+ $Date: 2012-06-15 04:40:49 -0400 (Fri, 15 Jun 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5471 2012-06-04 04:27:36Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5477 2012-06-15 08:40:49Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -166,6 +166,8 @@ extern "C" gameExport_t *GetGameAPI( gameImport_t *import ) {
 	else {
 		// Wrong game version, throw a meaningful error rather than leaving
 		// stuff initialised and getting segfaults.
+		// The old dll (pre v1.08) will output something like:
+		// "Ensure the correct Doom 3 patches are installed." which is misleading.
 		std::cerr << "FATAL: Incorrect game version: required " 
 			<< GAME_API_VERSION << ", got " << import->version << "\n"
 			<< "Use the latest TheDarkMod executable with the latest game DLL." << std::endl;
