@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5413 $ (Revision of last commit) 
- $Date: 2012-05-01 11:06:08 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5452 $ (Revision of last commit) 
+ $Date: 2012-05-13 14:03:32 -0400 (Sun, 13 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5413 2012-05-01 15:06:08Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5452 2012-05-13 18:03:32Z tels $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -6520,11 +6520,24 @@ void idPlayer::UpdateInventoryHUD()
 				idStr itemName = common->Translate( curItem->GetName() );
 
 				// Tels: translated names can have two lines, so tell the GUI about it
-				SetGuiInt(m_InventoryOverlay, "Inventory_ItemNameMultiline", itemName.Find( '\n' ) != -1 ? 1 : 0 );
+				int newline_index = itemName.Find( '\n' );
+				if (newline_index != -1)
+				{
+					// two lines
+					SetGuiInt(m_InventoryOverlay, "Inventory_ItemNameMultiline", 1 );
+					SetGuiString(m_InventoryOverlay, "Inventory_ItemName", itemName.Left( newline_index) );
+					SetGuiString(m_InventoryOverlay, "Inventory_ItemName_2", itemName.Mid( newline_index + 1, itemName.Length() - newline_index - 1 ) );
+				}
+				else
+				{
+					// only one line
+					SetGuiInt(m_InventoryOverlay, "Inventory_ItemNameMultiline", 0 );
+					SetGuiString(m_InventoryOverlay, "Inventory_ItemName", itemName );
+					SetGuiString(m_InventoryOverlay, "Inventory_ItemName_2", "");
+				}
 
 				SetGuiFloat(m_InventoryOverlay, "Inventory_ItemStackable", curItem->IsStackable() ? 1 : 0);
 				SetGuiString(m_InventoryOverlay, "Inventory_ItemGroup", common->Translate( curItem->Category()->GetName() ) );
-				SetGuiString(m_InventoryOverlay, "Inventory_ItemName", itemName );
 				SetGuiInt(m_InventoryOverlay, "Inventory_ItemCount", curItem->GetCount());
 				SetGuiString(m_InventoryOverlay, "Inventory_ItemIcon", curItem->GetIcon().c_str());
 			}
