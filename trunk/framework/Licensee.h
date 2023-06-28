@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5479 $ (Revision of last commit) 
- $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Revision: 5483 $ (Revision of last commit) 
+ $Date: 2012-06-25 15:06:36 -0400 (Mon, 25 Jun 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -95,3 +95,5 @@
 
 // Linux info
 #define LINUX_DEFAULT_PATH			"/usr/local/games/doom3"
+
+#define CONFIG_SPEC						"config.spec"
