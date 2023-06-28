@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5375 $ (Revision of last commit) 
- $Date: 2012-04-09 08:03:09 -0400 (Mon, 09 Apr 2012) $ (Date of last commit)
+ $Revision: 5376 $ (Revision of last commit) 
+ $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -1025,7 +1025,7 @@ public:
 	* Returns an entity pointer for a given index of the attachment array.
 	* Returns NULL if no such named attachment exists directly on this entity.
 	**/
-	virtual idEntity *GetAttachment( const int ind ) const;
+	virtual idEntity *GetAttachment( const int ind );
 
 	/**
 	* Helper function that looks up the attachment index from the name->index map

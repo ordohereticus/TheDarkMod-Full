@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5376 $ (Revision of last commit) 
+ $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -47,8 +47,8 @@ public:
 	/**
 	 * Functions that must be forwarded to the master.
 	 */
-	virtual void			SetFrobbed(bool val);
-	bool					IsFrobbed();
+	virtual void			SetFrobbed(const bool val);
+	bool					IsFrobbed() const;
 
 	// Action function, these are re-routed to the frobmaster entity
 	virtual bool			CanBeUsedBy(const CInventoryItemPtr& item, const bool isFrobUse);	// Overrides idEntity::CanBeUsedBy

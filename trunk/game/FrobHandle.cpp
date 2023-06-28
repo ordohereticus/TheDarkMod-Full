@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5376 $ (Revision of last commit) 
+ $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobHandle.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FrobHandle.cpp 5376 2012-04-10 06:01:50Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -70,7 +70,7 @@ void CFrobHandle::Event_Tap()
 	Tap();
 }
 
-void CFrobHandle::SetFrobbed(bool val)
+void CFrobHandle::SetFrobbed(const bool val)
 {
 	if (m_FrobLock) return; // Prevent an infinite loop here.
 
@@ -88,7 +88,7 @@ void CFrobHandle::SetFrobbed(bool val)
 	m_FrobLock = false;
 }
 
-bool CFrobHandle::IsFrobbed()
+bool CFrobHandle::IsFrobbed() const
 {
 	return (m_FrobMaster != NULL) ? m_FrobMaster->IsFrobbed() : idEntity::IsFrobbed();
 }

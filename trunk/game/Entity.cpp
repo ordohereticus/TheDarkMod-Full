@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5375 $ (Revision of last commit) 
- $Date: 2012-04-09 08:03:09 -0400 (Mon, 09 Apr 2012) $ (Date of last commit)
+ $Revision: 5376 $ (Revision of last commit) 
+ $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5375 2012-04-09 12:03:09Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5376 2012-04-10 06:01:50Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -10397,7 +10397,7 @@ idEntity *idEntity::GetAttachment( const char *AttName )
 		return NULL;*/
 }
 
-idEntity *idEntity::GetAttachment( const int ind ) const
+idEntity *idEntity::GetAttachment( const int ind )
 {
 	if( ind < 0 || ind >= m_Attachments.Num() )
 	{

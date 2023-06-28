@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5376 $ (Revision of last commit) 
+ $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5376 2012-04-10 06:01:50Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -580,7 +580,7 @@ void CFrobDoor::ClosePortal()
 	}
 }
 
-void CFrobDoor::SetFrobbed(bool val)
+void CFrobDoor::SetFrobbed(const bool val)
 {
 	DM_LOG(LC_FROBBING, LT_DEBUG)LOGSTRING("door_body [%s] %08lX is frobbed\r", name.c_str(), this);
 
@@ -598,7 +598,7 @@ void CFrobDoor::SetFrobbed(bool val)
 	m_Lock->OnFrobbedStatusChange(val);
 }
 
-bool CFrobDoor::IsFrobbed()
+bool CFrobDoor::IsFrobbed() const
 {
 	// If the door has a handle and it is frobbed, then we are also considered 
 	// to be frobbed.
