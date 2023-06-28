@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5441 $ (Revision of last commit) 
+ $Date: 2012-05-08 16:18:33 -0400 (Tue, 08 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5441 2012-05-08 20:18:33Z tels $");
 
 #include "tr_local.h"
 
@@ -2044,6 +2044,34 @@ void idMaterial::ParseMaterial( idLexer &src ) {
 			// noShadows
 			SetMaterialFlag( MF_NOSHADOWS );
 			continue;
+		}
+		// PARTICLE_MACRO to shorten some definitions
+		else if ( !token.Icmp( "PARTICLE_MACRO" ) ) {
+			// discrete
+			surfaceFlags |= SURF_DISCRETE;
+			// noimpact
+			surfaceFlags |= SURF_NOIMPACT;
+			// nonsolid
+			contentFlags &= ~CONTENTS_SOLID;
+			// noShadows
+			SetMaterialFlag( MF_NOSHADOWS );
+			// noSelfShadows
+			SetMaterialFlag( MF_NOSELFSHADOW );
+			// translucent
+			coverage = MC_TRANSLUCENT;
+		}
+		// GLASS_MACRO to shorten some definitions
+		else if ( !token.Icmp( "GLASS_MACRO" ) ) {
+			cullType = CT_TWO_SIDED;
+			// twoSided implies no-shadows, because the shadow
+			// volume would be coplanar with the surface, giving depth fighting
+			// we could make this no-self-shadows, but it may be more important
+			// to receive shadows from no-self-shadow monsters
+			SetMaterialFlag( MF_NOSHADOWS );
+			// noSelfShadows
+			SetMaterialFlag( MF_NOSELFSHADOW );
+			// translucent
+			coverage = MC_TRANSLUCENT;
 		}
 		else if ( token == "{" ) {
 			// create the new stage
