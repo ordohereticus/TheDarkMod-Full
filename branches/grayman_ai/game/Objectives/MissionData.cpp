@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5341 $ (Revision of last commit) 
+ $Date: 2012-03-16 11:06:06 -0400 (Fri, 16 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5341 2012-03-16 15:06:06Z grayman $");
 
 #include "../Game_local.h"
 
@@ -1743,11 +1743,13 @@ void CMissionData::AddMissionLoot(LootType lootType, int amount)
 void CMissionData::IncrementPlayerSeen()
 {
 	m_Stats.numberTimesPlayerSeen++;
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("CMissionData::IncrementPlayerSeen\r"); // grayman debug
 }
 
 void CMissionData::Add2TimePlayerSeen( int amount )
 {
 	m_Stats.totalTimePlayerSeen += amount;
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("CMissionData::Add2TimePlayerSeen adding %d\r",amount); // grayman debug
 }
 
 /**

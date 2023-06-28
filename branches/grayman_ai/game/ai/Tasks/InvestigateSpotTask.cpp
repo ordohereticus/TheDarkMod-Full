@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5341 $ (Revision of last commit) 
+ $Date: 2012-03-16 11:06:06 -0400 (Fri, 16 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5341 2012-03-16 15:06:06Z grayman $");
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -148,9 +148,10 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 			// Run if the point is more than MAX_TRAVEL_DISTANCE_WALKING
 			// greebo: This is taxing and can be replaced by a simpler distance check 
 			// TravelDistance takes about ~0.1 msec on my 2.2 GHz system.
-			float travelDist = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), _searchSpot);
 
-			owner->AI_RUN = (travelDist > MAX_TRAVEL_DISTANCE_WALKING);
+			// grayman debug - don't run during investigations
+//			float travelDist = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), _searchSpot);
+//			owner->AI_RUN = (travelDist > MAX_TRAVEL_DISTANCE_WALKING);
 		}
 
 		return false;

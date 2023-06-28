@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5341 $ (Revision of last commit) 
+ $Date: 2012-03-16 11:06:06 -0400 (Fri, 16 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5341 2012-03-16 15:06:06Z grayman $");
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -44,8 +44,10 @@ const idStr& SearchingState::GetName() const
 
 bool SearchingState::CheckAlertLevel(idAI* owner)
 {
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("%d: SearchingState::CheckAlertLevel - %s - checking alert level; are we in the correct state?\r",gameLocal.time,owner->name.c_str()); // grayman debug
 	if (owner->AI_AlertIndex < 3)
 	{
+		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("     %s - alert level too low, dropping back to Suspicious\r",owner->name.c_str()); // grayman debug
 		// Alert index is too low for this state, fall back
 		owner->Event_CloseHidingSpotSearch();
 		owner->GetMind()->EndState();
@@ -53,6 +55,7 @@ bool SearchingState::CheckAlertLevel(idAI* owner)
 	}
 	else if (owner->AI_AlertIndex > 3)
 	{
+		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("     %s - alert level too high, bumping up to Agitated Searching\r",owner->name.c_str()); // grayman debug
 		// Alert index is too high, switch to the higher State
 		owner->GetMind()->PushState(owner->backboneStates[EAgitatedSearching]);
 		return false;
@@ -67,6 +70,7 @@ void SearchingState::Init(idAI* owner)
 	// Init base class first
 	State::Init(owner);
 
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("SearchingState::Init: %s is starting a regular search\r",owner->name.c_str()); // grayman debug
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("SearchingState initialised.\r");
 	assert(owner);
 

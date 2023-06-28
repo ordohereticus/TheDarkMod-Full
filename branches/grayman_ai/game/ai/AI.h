@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5341 $ (Revision of last commit) 
+ $Date: 2012-03-16 11:06:06 -0400 (Fri, 16 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1087,6 +1087,11 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	int						m_earlyThinkCounter;	// grayman #2654
 
 	/**
+	* grayman debug - flag for ignoring a player sighting prior to entering Combat mode. For mission statistics purposes.
+	**/
+	bool					m_ignorePlayer;
+
+	/**
 	* grayman #2603 - if TRUE, don't allow movement extrication
 	**/
 
@@ -1765,7 +1770,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	* by addition of the CVAR tdm_ai_sight_mag. The current alert level is taken 
 	* as reference value and the difference in logarithmic alert units is returned.
 	*/
-	float GetPlayerVisualStimulusAmount() const;
+//	float GetPlayerVisualStimulusAmount() const; // grayman debug - commented out, so not used
 
 	// attacks
 

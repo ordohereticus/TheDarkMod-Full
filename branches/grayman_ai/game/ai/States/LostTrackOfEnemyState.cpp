@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5341 $ (Revision of last commit) 
+ $Date: 2012-03-16 11:06:06 -0400 (Fri, 16 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: LostTrackOfEnemyState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: LostTrackOfEnemyState.cpp 5341 2012-03-16 15:06:06Z grayman $");
 
 #include "LostTrackOfEnemyState.h"
 #include "../Memory.h"
@@ -42,6 +42,7 @@ void LostTrackOfEnemyState::Init(idAI* owner)
 	// Init base class first
 	State::Init(owner);
 
+	DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("LostTrackOfEnemyState initialised\r"); // grayman debug
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("LostTrackOfEnemyState initialised.\r");
 	assert(owner);
 

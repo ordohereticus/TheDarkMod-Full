@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5320 $ (Revision of last commit) 
- $Date: 2012-03-07 19:35:50 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
+ $Revision: 5341 $ (Revision of last commit) 
+ $Date: 2012-03-16 11:06:06 -0400 (Fri, 16 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5320 2012-03-08 00:35:50Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5341 2012-03-16 15:06:06Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -431,6 +431,7 @@ void State::OnVisualStim(idEntity* stimSource)
 	// Get AI use of the stim
 	idStr aiUse = stimSource->spawnArgs.GetString("AIUse");
 
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("%d: State::OnVisualStim: %s is stimmed by %s at a distance of %f\r",gameLocal.time,owner->name.c_str(),stimSource->name.c_str(),(stimSource->GetPhysics()->GetOrigin() - owner->GetPhysics()->GetOrigin()).Length()); // grayman debug
 	// grayman #2603
 
 	// First check the chance of seeing a particular AIUSE type. For AI that have zero chance
@@ -1111,12 +1112,14 @@ void State::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 			// Only do this if we don't have an enemy already
 			if (owner->GetEnemy() == NULL)
 			{
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("OnPersonEncounter: %s sees an enemy!!!!\r",owner->name.c_str()); // grayman debug
 				// Living enemy
 				gameLocal.Printf("I see a living enemy!\n");
 				owner->SetEnemy(other);
 				owner->AI_VISALERT = true;
 				
 				owner->SetAlertLevel(owner->thresh_5*2);
+				DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("     %s's alert level = %f\r",owner->name.c_str(),owner->thresh_5*2); // grayman debug
 				memory.alertClass = EAlertVisual_1;
 				memory.alertType = EAlertTypeEnemy;
 				// An enemy should not be ignored in the future
