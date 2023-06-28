@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5198 $ (Revision of last commit) 
- $Date: 2012-01-08 23:30:02 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5348 $ (Revision of last commit) 
+ $Date: 2012-03-19 15:30:24 -0400 (Mon, 19 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __LIGHTGEM_H__
@@ -32,19 +32,22 @@
 #define DARKMOD_LG_ENTITY_NAME				"lightgem_surface"
 // The lightgem viewid defines the viewid that is to be used for the lightgem surfacetestmodel
 #define DARKMOD_LG_VIEWID					-1
-#define DARKMOD_LG_RENDER_WIDTH				50
 
-// The colour is converted to a grayscale value which determines the state
-// of the lightgem.
+#define DARKMOD_LG_RENDER_WIDTH				64 // LG render resolution - keep it a PoT
+#define DARKMOD_LG_RENDER_FOV				70.0f
+#define DARKMOD_LG_BPP						3 // 3 Channels of 8 bits
+
+// The colour is converted to a grayscale value which determines the state of the lightgem.
 // LightGem = (0.29900*R+0.58700*G+0.11400*B) * 0.0625
 
 #define DARKMOD_LG_MIN						1
 #define DARKMOD_LG_MAX						32
-#define DARKMOD_LG_FRACTION					(1.0f/32.0f)
+#define DARKMOD_LG_FRACTION					(1.0f/32.0f)		// Do we use this?
 #define DARKMOD_LG_RED						0.29900f
 #define DARKMOD_LG_GREEN					0.58700f
 #define DARKMOD_LG_BLUE						0.11400f
 #define DARKMOD_LG_SCALE					(1.0/255.0)			// scaling factor for grayscale value
+#define DARKMOD_LG_TRIRATIO					(1.0f/((DARKMOD_LG_RENDER_WIDTH*DARKMOD_LG_RENDER_WIDTH)/4.0f))
 
 //----------------------------------
 // Class Declarations.
@@ -56,6 +59,10 @@ private:
 	int						m_LightgemShotSpot;
 	float					m_LightgemShotValue[DARKMOD_LG_MAX_RENDERPASSES];
 	idEntityPtr<idEntity>	m_LightgemSurface;
+
+	unsigned char*			m_LightgemImgBuffer;
+	renderView_t			m_Lightgem_rv;
+	float 					m_fColVal[DARKMOD_LG_MAX_IMAGESPLIT];
 
 public:
 	//---------------------------------
@@ -91,7 +98,7 @@ public:
 	float	Calculate		( idPlayer *	a_pPlayer );
 
 private:
-	void AnalyzeRenderImage	(float fColVal[DARKMOD_LG_MAX_IMAGESPLIT]);
+	void AnalyzeRenderImage	( );
 };
 
 #endif // __LIGHTGEM_H__
