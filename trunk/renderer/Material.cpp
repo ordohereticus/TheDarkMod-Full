@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5463 $ (Revision of last commit) 
- $Date: 2012-05-29 21:50:05 -0400 (Tue, 29 May 2012) $ (Date of last commit)
+ $Revision: 5467 $ (Revision of last commit) 
+ $Date: 2012-05-31 01:00:50 -0400 (Thu, 31 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5463 2012-05-30 01:50:05Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5467 2012-05-31 05:00:50Z serpentine $");
 
 #include "tr_local.h"
 
@@ -2493,7 +2493,7 @@ void idMaterial::EvaluateRegisters( float *registers, const float shaderParms[MA
 			if ( soundEmitter ) {
 				registers[op->c] = soundEmitter->CurrentAmplitude();
 			} else {
-				registers[op->c] = 0.0f;
+				registers[op->c] = 1.0f;
 			}
 			break;
 		default:
