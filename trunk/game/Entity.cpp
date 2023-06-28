@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5322 $ (Revision of last commit) 
- $Date: 2012-03-08 13:32:58 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
+ $Revision: 5323 $ (Revision of last commit) 
+ $Date: 2012-03-08 14:11:51 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5322 2012-03-08 18:32:58Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5323 2012-03-08 19:11:51Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -8721,7 +8721,7 @@ idEntity* idAnimatedEntity::GetEntityClosestToJoint( const char* posName, const 
 				float distance = diff.LengthSqr();
 				if (distance < closest_distance && distance < max_dist_sqr) {
 					// closer and close enough
-					gameLocal.Printf ( " distance %f < closest_distance %f and < max_dist_sqr %f ", distance, closest_distance, max_dist_sqr );
+					// gameLocal.Printf ( " distance %f < closest_distance %f and < max_dist_sqr %f ", distance, closest_distance, max_dist_sqr );
 					closest_distance = distance;
 					closest = target;
 				}
