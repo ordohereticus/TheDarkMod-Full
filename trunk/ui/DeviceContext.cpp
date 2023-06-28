@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5262 $ (Revision of last commit) 
- $Date: 2012-02-10 06:24:08 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5297 $ (Revision of last commit) 
+ $Date: 2012-02-24 16:21:03 -0500 (Fri, 24 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5262 2012-02-10 11:24:08Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5297 2012-02-24 21:21:03Z tels $");
 
 #include "DeviceContext.h"
 
@@ -58,10 +58,10 @@ int idDeviceContext::FindFont( const char *name ) {
 		if ( renderSystem->RegisterFont( fileName, fonts[index] ) ){
 		idStr::Copynz( fonts[index].name, name, sizeof( fonts[index].name ) );
 		return index;
-		} else {
+	} else {
 		common->Printf( "Could not register font %s [%s]\n", name, fileName.c_str() );
 		return -1;
-}
+	}
 }
 
 void idDeviceContext::SetupFonts() {
