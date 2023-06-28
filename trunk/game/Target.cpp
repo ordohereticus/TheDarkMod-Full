@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5225 $ (Revision of last commit) 
- $Date: 2012-01-21 07:51:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5278 $ (Revision of last commit) 
+ $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5225 2012-01-21 12:51:47Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5278 2012-02-13 23:35:44Z serpentine $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -244,7 +244,7 @@ void idTarget_WaitForButton::Think( void ) {
 
 	if ( thinkFlags & TH_THINK ) {
 		player = gameLocal.GetLocalPlayer();
-		if ( player && ( !player->oldButtons & BUTTON_ATTACK ) && ( player->usercmd.buttons & BUTTON_ATTACK ) ) {
+		if ( player && ( ! ( player->oldButtons & BUTTON_ATTACK ) ) && ( player->usercmd.buttons & BUTTON_ATTACK ) ) {
 			player->usercmd.buttons &= ~BUTTON_ATTACK;
 			BecomeInactive( TH_THINK );
 			ActivateTargets( player );

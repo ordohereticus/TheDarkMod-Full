@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5161 $ (Revision of last commit) 
- $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5278 $ (Revision of last commit) 
+ $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -53,7 +53,7 @@ void idSurface_Polytope::FromPlanes( const idPlane *planes, const int numPlanes 
 		}
 
 		for ( j = 0; j < w.GetNumPoints(); j++ ) {
-			for ( k = 0; k < verts.Num(); j++ ) {
+			for ( k = 0; k < verts.Num(); k++ ) {
 				if ( verts[k].xyz.Compare( w[j].ToVec3(), POLYTOPE_VERTEX_EPSILON ) ) {
 					break;
 				}

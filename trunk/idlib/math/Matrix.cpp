@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5161 $ (Revision of last commit) 
- $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5278 $ (Revision of last commit) 
+ $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -3118,9 +3118,9 @@ bool idMatX::IsOrthonormal( const float epsilon ) const {
 
 		ptr2 = mat + i;
 		sum = ptr2[0] * ptr2[0] - 1.0f;
-		for ( i = 1; i < numRows; i++ ) {
+		for ( int k = 1; k < numRows; k++ ) {
 			ptr2 += numColumns;
-			sum += ptr2[i] * ptr2[i];
+			sum += ptr2[k] * ptr2[k];
 		}
 		if ( idMath::Fabs( sum ) > epsilon ) {
 			return false;

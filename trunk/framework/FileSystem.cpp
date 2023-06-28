@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5242 $ (Revision of last commit) 
- $Date: 2012-02-01 15:05:14 -0500 (Wed, 01 Feb 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5278 $ (Revision of last commit) 
+ $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5242 2012-02-01 20:05:14Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5278 2012-02-13 23:35:44Z serpentine $");
 
 #include "Unzip.h"
 
@@ -1724,7 +1724,7 @@ int	idFileSystemLocal::ListOSFiles( const char *directory, const char *extension
 
 	// push a new entry
 	dir_cache[dir_cache_index].Init( directory, extension, list );
-	dir_cache_index = (++dir_cache_index) % MAX_CACHED_DIRS;
+	dir_cache_index = (dir_cache_index + 1) % MAX_CACHED_DIRS;
 	if ( dir_cache_count < MAX_CACHED_DIRS ) {
 		dir_cache_count++;
 	}
