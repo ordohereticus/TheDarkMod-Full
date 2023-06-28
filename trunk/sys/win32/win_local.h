@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5214 $ (Revision of last commit) 
- $Date: 2012-01-15 19:55:04 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Revision: 5219 $ (Revision of last commit) 
+ $Date: 2012-01-17 14:13:07 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -80,8 +80,6 @@ void	IN_Frame( void );
 
 int		IN_DIMapKey( int key );
 
-void	DisableTaskKeys( BOOL bDisable, BOOL bBeep, BOOL bTaskMgr );
-
 
 // window procedure
 LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -129,8 +127,6 @@ typedef struct {
 	static idCVar	sys_arch;
 	static idCVar	sys_cpustring;
 	static idCVar	in_mouse;
-	static idCVar	win_allowAltTab;
-	static idCVar	win_notaskkeys;
 	static idCVar	win_username;
 	static idCVar	win_xpos;			// archived X coordinate of window position
 	static idCVar	win_ypos;			// archived Y coordinate of window position
