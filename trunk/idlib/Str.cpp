@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5382 $ (Revision of last commit) 
- $Date: 2012-04-11 05:39:19 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5404 $ (Revision of last commit) 
+ $Date: 2012-04-30 19:02:14 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -757,7 +757,7 @@ const char *idStr::Mid( const int start, const int len, idStr &result ) const {
 
 	int l = ( start + len >= i ) ? i - start : len;
 
-	result.Append( &data[ start ], len );
+	result.Append( &data[ start ], l );
 	return result;
 }
 
