@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5244 $ (Revision of last commit) 
+ $Date: 2012-02-03 14:05:10 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5244 2012-02-03 19:05:10Z grayman $");
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -427,7 +427,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 
 			case EStateMovingToSafePos: // grayman #2345
 			{
-				if (owner->ReachedPos(_safePos, MOVE_TO_POSITION) || (owner->GetTactileEntity() != NULL))
+				if ( owner->AI_MOVE_DONE || owner->ReachedPos(_safePos, MOVE_TO_POSITION) || (owner->GetTactileEntity() != NULL)) // grayman #3004 - leave this state if you're not moving
 				{
 					owner->StopMove(MOVE_STATUS_WAITING);
 					owner->TurnToward(centerPos); // grayman #1327
@@ -928,7 +928,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 			
 			case EStateMovingToSafePos: // grayman #2345
 			{
-				if (owner->ReachedPos(_safePos, MOVE_TO_POSITION) || (owner->GetTactileEntity() != NULL))
+				if (owner->AI_MOVE_DONE || owner->ReachedPos(_safePos, MOVE_TO_POSITION) || (owner->GetTactileEntity() != NULL)) // grayman #3004 - leave this state if you're not moving
 				{
 					owner->StopMove(MOVE_STATUS_WAITING);
 					owner->TurnToward(centerPos); // grayman #1327
