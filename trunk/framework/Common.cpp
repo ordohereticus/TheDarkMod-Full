@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5351 $ (Revision of last commit) 
- $Date: 2012-03-21 11:46:03 -0400 (Wed, 21 Mar 2012) $ (Date of last commit)
+ $Revision: 5354 $ (Revision of last commit) 
+ $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5351 2012-03-21 15:46:03Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5354 2012-03-22 19:18:15Z taaaki $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -896,7 +896,7 @@ void idCommonLocal::InitGameArguments()
 	bool fsBasePathDefined = false;
 
 	idStr basePath = Sys_DefaultBasePath(); // might be overridden by the arguments below
-	idStr fsGameBase = "darkmod";
+	idStr fsGameBase = BASE_TDM;
 
 	// Search the command line arguments for certain override parameters
 	for (int line = 0; line < com_numConsoleLines; ++line)
@@ -948,7 +948,7 @@ void idCommonLocal::InitGameArguments()
 	// If we still don't have no fs_game nor fs_game_base, fall back to "darkmod"
 	if (!fsGameDefined && !fsGameBaseDefined)
 	{
-		cvarSystem->SetCVarString("fs_game", "darkmod");
+		cvarSystem->SetCVarString("fs_game", BASE_TDM);
 		fsGameDefined = true;
 	}
 }

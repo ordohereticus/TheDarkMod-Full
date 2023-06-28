@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Revision: 5354 $ (Revision of last commit) 
+ $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5342 2012-03-17 16:38:30Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5354 2012-03-22 19:18:15Z taaaki $");
 
 #include <time.h>
 #include "MissionManager.h"
@@ -220,7 +220,7 @@ CModInfoPtr CMissionManager::GetCurrentModInfo()
 	// We only have a mod if game_base is set correctly, otherwise we're in "darkmod".
 	idStr curMission = (!gameBase.IsEmpty()) ? cvarSystem->GetCVarString("fs_game") : "";
 
-	if (curMission.IsEmpty() || curMission == "darkmod") 
+	if (curMission.IsEmpty() || curMission == BASE_TDM) 
 	{
 		// return NULL when no mission is installed or "darkmod"
 		return CModInfoPtr();

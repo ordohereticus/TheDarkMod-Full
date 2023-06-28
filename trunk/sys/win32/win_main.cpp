@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5219 $ (Revision of last commit) 
- $Date: 2012-01-17 14:13:07 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5354 $ (Revision of last commit) 
+ $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: win_main.cpp 5219 2012-01-17 19:13:07Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: win_main.cpp 5354 2012-03-22 19:18:15Z taaaki $");
 
 #include <errno.h>
 #include <float.h>
@@ -535,7 +535,7 @@ const char* Sys_ModSavePath()
 		idStr fsGameBase = cvarSystem->GetCVarString("fs_game_base");
 
 		modSavePath = cvarSystem->GetCVarString("fs_basepath");
-		modSavePath.AppendPath(fsGameBase.IsEmpty() ? "darkmod" : fsGameBase); // fall back to darkmod if fs_game base is empty
+		modSavePath.AppendPath(fsGameBase.IsEmpty() ? BASE_TDM : fsGameBase); // fall back to darkmod if fs_game base is empty
 		modSavePath.AppendPath("fms");
 	}
 

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5352 $ (Revision of last commit) 
- $Date: 2012-03-21 12:27:21 -0400 (Wed, 21 Mar 2012) $ (Date of last commit)
+ $Revision: 5354 $ (Revision of last commit) 
+ $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5352 2012-03-21 16:27:21Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5354 2012-03-22 19:18:15Z taaaki $");
 
 #include "Unzip.h"
 
@@ -3525,7 +3525,7 @@ const char* idFileSystemLocal::DarkModPath() const
 
 		if (modBaseName.IsEmpty())
 		{
-			modBaseName = "darkmod"; // last resort: hardcoded
+			modBaseName = BASE_TDM; // last resort: semi-hardcoded
 
 			common->Printf("idFileSystemLocal::DarkModPath: Falling back to 'darkmod'\n");
 		}

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Revision: 5354 $ (Revision of last commit) 
+ $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -36,6 +36,7 @@
 // paths
 #define	CD_BASEDIR						"Doom"
 #define	BASE_GAMEDIR					"base"
+#define BASE_TDM                        "darkmod"
 
 // filenames
 #define	CD_EXE							"doom.exe"

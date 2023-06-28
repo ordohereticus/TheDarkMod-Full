@@ -18,16 +18,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5216 $ (Revision of last commit) 
- $Date: 2012-01-17 11:23:04 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5354 $ (Revision of last commit) 
+ $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5216 2012-01-17 16:23:04Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5354 2012-03-22 19:18:15Z taaaki $");
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -726,9 +726,9 @@ std::string CGlobal::GetDarkmodPath()
 
 		if (modBaseName.IsEmpty())
 		{
-			modBaseName = "darkmod"; // last resort: hardcoded
+			modBaseName = BASE_TDM; // last resort: semi-hardcoded
 
-			DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Falling back to 'darkmod'\r");
+			DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Falling back to " + BASE_TDM + "\r");
 		}
 	}
 
@@ -762,9 +762,9 @@ std::string CGlobal::GetDarkmodPath()
 
 		if (modBaseName.IsEmpty())
 		{
-			modBaseName = "darkmod"; // last resort: hardcoded
+			modBaseName = BASE_TDM; // last resort: semi-hardcoded
 
-			DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Falling back to 'darkmod'\r");
+			DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Falling back to " + BASE_TDM + "\r");
 		}
 	}
 
