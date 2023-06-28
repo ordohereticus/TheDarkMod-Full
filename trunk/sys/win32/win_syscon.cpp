@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5423 $ (Revision of last commit) 
+ $Date: 2012-05-04 22:46:57 -0400 (Fri, 04 May 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: win_syscon.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: win_syscon.cpp 5423 2012-05-05 02:46:57Z serpentine $");
 
 #include <errno.h>
 #include <float.h>
@@ -31,7 +31,6 @@ static bool versioned = RegisterVersionedFile("$Id: win_syscon.cpp 5171 2012-01-
 #include <conio.h>
 
 #include "win_local.h"
-#include "rc/AFEditor_resource.h"
 #include "rc/doom_resource.h"
 
 #define COPY_ID			1
