@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5314 $ (Revision of last commit) 
+ $Date: 2012-03-04 06:04:52 -0500 (Sun, 04 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: renderbump.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: renderbump.cpp 5314 2012-03-04 11:04:52Z tels $");
 
 #ifdef WIN32
 #include <windows.h>
@@ -95,7 +95,6 @@ typedef struct {
 	triHash_t	*hash;	
 } renderBump_t;
 
-static float traceFraction;
 static int rayNumber;		// for avoiding retests of bins and faces
 
 static int oldWidth, oldHeight;
