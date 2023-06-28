@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5300 $ (Revision of last commit) 
- $Date: 2012-02-25 13:17:25 -0500 (Sat, 25 Feb 2012) $ (Date of last commit)
+ $Revision: 5326 $ (Revision of last commit) 
+ $Date: 2012-03-09 15:48:40 -0500 (Fri, 09 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AAS_debug.cpp 5300 2012-02-25 18:17:25Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AAS_debug.cpp 5326 2012-03-09 20:48:40Z grayman $");
 
 #include "AAS_local.h"
 #include "../Game_local.h"		// for cvars and debug drawing
@@ -559,7 +559,7 @@ void idAASLocal::DrawAreas(const idVec3& playerOrigin)
 		idVec3 areaCenter = AreaCenter(i);
 
 		// angua: only draw areas near the player, no need to see them at the other end of the map
-		if ( (areaCenter - playerOrigin).LengthFast() < 300 )
+		if ( (areaCenter - playerOrigin).LengthFast() < 150 )
 		{
 			idBounds areaBounds = GetAreaBounds(i);
 			int clusterNum = file->GetArea(i).cluster;
