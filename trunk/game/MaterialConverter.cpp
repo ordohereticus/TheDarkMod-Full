@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MaterialConverter.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MaterialConverter.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "Game_local.h"
 #include "MaterialConverter.h"
@@ -765,7 +765,7 @@ void MaterialConverter::Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 
 	const unsigned long uiTotalMats = declManager->GetNumDecls( DECL_MATERIAL );
 
-	gameLocal.Printf("Parsing %d materials, this may take few minutes...\n", uiTotalMats );
+	gameLocal.Printf("Parsing %lu materials, this may take few minutes...\n", uiTotalMats );
 
 	unsigned long i = uiStartIndex > (uiTotalMats - 1) ? uiTotalMats : uiStartIndex;
 	const unsigned uiMaxMaterialsToProcess = i + uiMaterialsToProcess;
@@ -796,7 +796,7 @@ void MaterialConverter::Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 		// Update the statistics for material conversion report.
 		matStatusReport[matConversionStatus]++;
 	}
-	gameLocal.Printf( "Total materials processed: %u\n", i );
+	gameLocal.Printf( "Total materials processed: %lu\n", i );
 
 	// Print the material conversion status report to console. 
 	gameLocal.Printf( matStatusReport[eMaterialConversionStatus_SuccessFullyConverted].m_strStatusReport, matStatusReport[eMaterialConversionStatus_SuccessFullyConverted].m_uiCount );

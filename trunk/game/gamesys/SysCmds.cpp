@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5278 $ (Revision of last commit) 
- $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5278 2012-02-13 23:35:44Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -3308,7 +3308,7 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 
 	const unsigned long uiTotalMats = declManager->GetNumDecls( DECL_MATERIAL );
 
-	gameLocal.Printf("Parsing %d materials, this may take few minutes...\n", uiTotalMats );
+	gameLocal.Printf("Parsing %lu materials, this may take few minutes...\n", uiTotalMats );
 
 	unsigned long ulMaterialsProcessed = 0;
 	unsigned long i = uiStartIndex > (uiTotalMats - 1) ? uiTotalMats : uiStartIndex;
@@ -3545,7 +3545,7 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 		mat->Invalidate();
 		mat->FreeData();
 	}
-	gameLocal.Printf(" %d Materials processed and changed in total.\n", ulMaterialsProcessed );
+	gameLocal.Printf(" %lu Materials processed and changed in total.\n", ulMaterialsProcessed );
 }
 
 

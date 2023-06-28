@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_emitter.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: snd_emitter.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "snd_local.h"
 
@@ -504,15 +504,12 @@ Called once each sound frame by the main thread from idSoundWorldLocal::PlaceOri
 ===================
 */
 void idSoundEmitterLocal::Spatialize( idVec3 listenerPos, int listenerArea, idRenderWorld *rw ) {
-	int			i;
-	bool		hasActive = false;
-
 	//
 	// work out the maximum distance of all the playing channels
 	//
 	maxDistance = 0;
 
-	for ( i = 0; i < SOUND_MAX_CHANNELS; i++ ) {
+	for ( int i = 0; i < SOUND_MAX_CHANNELS; i++ ) {
 		idSoundChannel	*chan = &channels[i];
 
 		if ( !chan->triggerState ) {

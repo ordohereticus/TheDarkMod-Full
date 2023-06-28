@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: WaitTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: WaitTask.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "../Memory.h"
 #include "WaitTask.h"
@@ -56,10 +56,8 @@ bool WaitTask::Perform(Subsystem& subsystem)
 {
 	DM_LOG(LC_AI, LT_INFO)LOGSTRING("WaitTask performing.\r");
 
-	idAI* owner = _owner.GetEntity();
-
 	// This task may not be performed with empty entity pointer
-	assert(owner != NULL);
+	assert(_owner.GetEntity() != NULL);
 
 	// This task does nothing but wait until the time is over.
 	 if (_waitEndTime <= gameLocal.time)

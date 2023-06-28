@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5226 $ (Revision of last commit) 
- $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5226 2012-01-21 13:43:47Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "tr_local.h"
 
@@ -2594,7 +2594,6 @@ maps are constant, but 2/3 of the surface references are.
 This is probably an optimization of dubious value.
 ==================
 */
-static int	c_constant, c_variable;
 void idMaterial::CheckForConstantRegisters() {
 	if ( !pd->registersAreConstant ) {
 		return;

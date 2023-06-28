@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -57,11 +57,6 @@ typedef struct {
 	int size;
 	const classVariableInfo_t * variables;
 } classTypeInfo_t;
-
-
-static constantInfo_t constantInfo[] = {
-	{ NULL, NULL, NULL }
-};
 
 static enumTypeInfo_t enumTypeInfo[] = {
 	{ NULL, NULL }

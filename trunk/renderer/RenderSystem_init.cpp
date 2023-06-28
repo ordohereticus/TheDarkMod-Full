@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5284 $ (Revision of last commit) 
- $Date: 2012-02-16 07:52:18 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5284 2012-02-16 12:52:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "tr_local.h"
 
@@ -1446,8 +1446,6 @@ void R_ScreenShot_f( const idCmdArgs &args ) {
 
 	int width = glConfig.vidWidth;
 	int height = glConfig.vidHeight;
-	int	x = 0;
-	int y = 0;
 	int	blends = 0;
 
 	switch ( args.Argc() ) {
@@ -1692,8 +1690,7 @@ void R_MakeAmbientMap_f( const idCmdArgs &args ) {
 	renderView_t	ref;
 	viewDef_t	primary;
 	int			downSample;
-	char	*extensions[6] =  { "_px.tga", "_nx.tga", "_py.tga", "_ny.tga", 
-		"_pz.tga", "_nz.tga" };
+	const char	*extensions[6] =  { "_px.tga", "_nx.tga", "_py.tga", "_ny.tga", "_pz.tga", "_nz.tga" };
 	int			outSize;
 	byte		*buffers[6];
 	int			width, height;

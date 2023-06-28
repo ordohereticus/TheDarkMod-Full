@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5211 $ (Revision of last commit) 
- $Date: 2012-01-13 18:20:44 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5211 2012-01-13 23:20:44Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -828,7 +828,7 @@ void idAI::Event_SpawnThrowableProjectile(const char* projectileName, const char
 	EnsureActiveProjectileInfo();
 
 	// Bind to joint
-	if ((jointName == NULL) || (jointName[0] == NULL))
+	if ( !jointName || jointName[0] == 0x0)
 	{
 		// No valid joint name
 		activeProjectile.projEnt.GetEntity()->Bind(this, true);

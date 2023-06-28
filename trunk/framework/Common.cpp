@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5286 $ (Revision of last commit) 
+ $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5286 2012-02-16 17:11:33Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -46,14 +46,14 @@ class EngineVersion
 public:
 	EngineVersion()
 	{
-		memset(string, 0, 256);
+		memset(string, 0, sizeof(string));
 	}
 
 	const char* Get()
 	{
-		if (string[0] == NULL)
+		if (string[0] == 0x0)
 		{
-			sprintf( string, "%srev%d%s %s %s %s", ENGINE_VERSION, RevisionTracker::Instance().GetHighestRevision(), BUILD_DEBUG, BUILD_STRING, __DATE__, __TIME__ );
+			snprintf( string, sizeof(string) - 1, "%srev%d%s %s %s %s", ENGINE_VERSION, RevisionTracker::Instance().GetHighestRevision(), BUILD_DEBUG, BUILD_STRING, __DATE__, __TIME__ );
 		}
 
 		return string;
