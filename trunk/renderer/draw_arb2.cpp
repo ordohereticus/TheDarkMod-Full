@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5439 $ (Revision of last commit) 
- $Date: 2012-05-08 15:12:22 -0400 (Tue, 08 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5453 $ (Revision of last commit) 
+ $Date: 2012-05-17 07:09:07 -0400 (Thu, 17 May 2012) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5439 2012-05-08 19:12:22Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5453 2012-05-17 11:09:07Z rebb $");
 
 #include "tr_local.h"
 
@@ -435,7 +435,8 @@ void R_LoadARBProgram( int progIndex ) {
 	qglProgramStringARB( progs[progIndex].target, GL_PROGRAM_FORMAT_ASCII_ARB,
 		strlen( start ), (unsigned char *)start );
 
-#ifdef _DEBUG
+// this is pretty important for quick shader debugging, better have it in always
+//#ifdef _DEBUG
 	int err = qglGetError();
 	int		ofs;
 	qglGetIntegerv( GL_PROGRAM_ERROR_POSITION_ARB, (GLint *)&ofs );
@@ -456,7 +457,7 @@ void R_LoadARBProgram( int progIndex ) {
 		common->Printf( "\nGL_PROGRAM_ERROR_POSITION_ARB != -1 without error\n" );
 		return;
 	}
-#endif
+//#endif
 
 	common->Printf( "\n" );
 }
