@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5414 $ (Revision of last commit) 
- $Date: 2012-05-01 11:06:52 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5422 $ (Revision of last commit) 
+ $Date: 2012-05-04 07:01:12 -0400 (Fri, 04 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -175,7 +175,6 @@ private:
 
 	const idMaterial *	tunnelMaterial;		// health tunnel vision
 	const idMaterial *	armorMaterial;		// armor damage view effect
-	const idMaterial *	irGogglesMaterial;	// ir effect
 	const idMaterial *	bloodSprayMaterial; // blood spray
 	const idMaterial *	lagoMaterial;		// lagometer drawing
 	float				lastDamageTime;		// accentuate the tunnel effect for a while
