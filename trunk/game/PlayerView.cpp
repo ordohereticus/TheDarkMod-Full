@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5414 $ (Revision of last commit) 
+ $Date: 2012-05-01 11:06:52 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5414 2012-05-01 15:06:52Z tels $");
 
 #include "Game_local.h"
 
@@ -50,7 +50,6 @@ m_postProcessManager()			// Invoke the postprocess Manager Constructor - J.C.Den
 	dvMaterial = declManager->FindMaterial( "_scratch" );
 	tunnelMaterial = declManager->FindMaterial( "textures/decals/tunnel" );
 	armorMaterial = declManager->FindMaterial( "armorViewEffect" );
-	berserkMaterial = declManager->FindMaterial( "textures/decals/berserk" );
 	irGogglesMaterial = declManager->FindMaterial( "textures/decals/irblend" );
 	bloodSprayMaterial = declManager->FindMaterial( "textures/decals/bloodspray" );
 	lagoMaterial = declManager->FindMaterial( LAGO_MATERIAL, false );
@@ -117,7 +116,6 @@ void idPlayerView::Save( idSaveGame *savefile ) const {
 
 	savefile->WriteMaterial( tunnelMaterial );
 	savefile->WriteMaterial( armorMaterial );
-	savefile->WriteMaterial( berserkMaterial );
 	savefile->WriteMaterial( irGogglesMaterial );
 	savefile->WriteMaterial( bloodSprayMaterial );
 	savefile->WriteFloat( lastDamageTime );
@@ -169,7 +167,6 @@ void idPlayerView::Restore( idRestoreGame *savefile ) {
 
 	savefile->ReadMaterial( tunnelMaterial );
 	savefile->ReadMaterial( armorMaterial );
-	savefile->ReadMaterial( berserkMaterial );
 	savefile->ReadMaterial( irGogglesMaterial );
 	savefile->ReadMaterial( bloodSprayMaterial );
 	savefile->ReadFloat( lastDamageTime );

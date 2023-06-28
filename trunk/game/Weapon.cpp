@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5414 $ (Revision of last commit) 
+ $Date: 2012-05-01 11:06:52 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Weapon.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Weapon.cpp 5414 2012-05-01 15:06:52Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -141,7 +141,6 @@ idWeapon::idWeapon() {
 	nozzleGlowHandle		= -1;
 	modelDefHandle			= -1;
 
-	berserk					= 2;
 	brassDelay				= 0;
 
 	allowDrop				= true;
@@ -281,8 +280,6 @@ void idWeapon::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( hide );
 	savefile->WriteBool( disabled );
 
-	savefile->WriteInt( berserk );
-
 	savefile->WriteVec3( playerViewOrigin );
 	savefile->WriteMat3( playerViewAxis );
 
@@ -419,8 +416,6 @@ void idWeapon::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( hideOffset );
 	savefile->ReadBool( hide );
 	savefile->ReadBool( disabled );
-
-	savefile->ReadInt( berserk );
 
 	savefile->ReadVec3( playerViewOrigin );
 	savefile->ReadMat3( playerViewAxis );
@@ -1040,7 +1035,6 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 	}
 
 	zoomFov = weaponDef->dict.GetInt( "zoomFov", "70" );
-	berserk = weaponDef->dict.GetInt( "berserk", "2" );
 
 	weaponAngleOffsetAverages = weaponDef->dict.GetInt( "weaponAngleOffsetAverages", "10" );
 	weaponAngleOffsetScale = weaponDef->dict.GetFloat( "weaponAngleOffsetScale", "0.25" );

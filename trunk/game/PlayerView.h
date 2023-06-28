@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5200 $ (Revision of last commit) 
- $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5414 $ (Revision of last commit) 
+ $Date: 2012-05-01 11:06:52 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -175,7 +175,6 @@ private:
 
 	const idMaterial *	tunnelMaterial;		// health tunnel vision
 	const idMaterial *	armorMaterial;		// armor damage view effect
-	const idMaterial *	berserkMaterial;	// berserk effect
 	const idMaterial *	irGogglesMaterial;	// ir effect
 	const idMaterial *	bloodSprayMaterial; // blood spray
 	const idMaterial *	lagoMaterial;		// lagometer drawing
