@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5123 $ (Revision of last commit) 
- $Date: 2011-12-12 01:37:40 -0500 (Mon, 12 Dec 2011) $ (Date of last commit)
+ $Revision: 5200 $ (Revision of last commit) 
+ $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/#ifndef __GAME_PLAYER_H__
@@ -490,6 +490,8 @@ public:
 
 	virtual void			Hide( void );
 	virtual void			Show( void );
+
+	idPlayerView&			GetPlayerView() { return playerView; }
 
 	void					Init( void );
 	void					PrepareForRestart( void );

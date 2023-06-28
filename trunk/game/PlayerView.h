@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5199 $ (Revision of last commit) 
- $Date: 2012-01-09 01:12:39 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
+ $Revision: 5200 $ (Revision of last commit) 
+ $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -70,6 +70,10 @@ public:
 	void				Flash( idVec4 color, int time );
 
 	void				AddBloodSpray( float duration );
+
+	// Events invoked by the engine on reloadImages or vid_restart
+	void				OnReloadImages();
+	void				OnVidRestart();
 
 private:
 	void				SingleView( idUserInterface *hud, const renderView_t *view, bool drawHUD = true);
@@ -153,6 +157,9 @@ private:
 		void Initialize	();						// This method should be invoked when idPlayerView::Restore is called.
 		void Update		();						// Called Every Frame. 
 
+		// Lets the cooked data update the next frame (if activated)
+		void ScheduleCookedDataUpdate	();
+
 	private:
 		// Following methods should not be called by any other object, but itself.
 		void UpdateBackBufferParameters	();		
@@ -162,8 +169,6 @@ private:
 		void Hook_BufferCommandText( cmdExecution_t a_eType, const char *a_pcText );	// Source Hook for idCmdSystem::BufferCommandText - JC.
 
 		void OnImageAnisotropyChanged	();	// gets called when the image_Anisotropy CVAR changes
-
-		void ScheduleCookedDataUpdate	();
 	};
 
 	dnPostProcessManager m_postProcessManager;

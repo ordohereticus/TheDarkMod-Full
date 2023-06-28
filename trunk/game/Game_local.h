@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5198 $ (Revision of last commit) 
- $Date: 2012-01-08 23:30:02 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5200 $ (Revision of last commit) 
+ $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -932,6 +932,10 @@ public:
 
 	// Remove any persistent inventory items, clear inter-mission triggers, etc.
 	void					ClearPersistentInfo();
+
+	// Events invoked by the engine on reloadImages or vid_restart
+	void					OnReloadImages();
+	void					OnVidRestart();
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;

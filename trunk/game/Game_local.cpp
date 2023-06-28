@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5189 $ (Revision of last commit) 
- $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5200 $ (Revision of last commit) 
+ $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5189 2012-01-08 10:09:30Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5200 2012-01-09 07:19:56Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -7268,5 +7268,25 @@ void idGameLocal::ProcessInterMissionTriggers()
 
 			// Don't remove the triggers yet, we might need them again when restarting the map
 		}
+	}
+}
+
+void idGameLocal::OnReloadImages()
+{
+	idPlayer* player = GetLocalPlayer();
+
+	if (player != NULL)
+	{
+		player->GetPlayerView().OnReloadImages();
+	}
+}
+
+void idGameLocal::OnVidRestart()
+{
+	idPlayer* player = GetLocalPlayer();
+
+	if (player != NULL)
+	{
+		player->GetPlayerView().OnVidRestart();
 	}
 }
