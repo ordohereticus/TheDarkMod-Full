@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5278 $ (Revision of last commit) 
- $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5280 $ (Revision of last commit) 
+ $Date: 2012-02-14 18:18:56 -0500 (Tue, 14 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BrushBSP.cpp 5278 2012-02-13 23:35:44Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: BrushBSP.cpp 5280 2012-02-14 23:18:56Z tels $");
 
 #include "Brush.h"
 #include "BrushBSP.h"
@@ -1411,17 +1411,11 @@ void idBrushBSP::FloodThroughPortals_r( idBrushBSPNode *node, int contents, int 
 	idBrushBSPPortal *p;
 	int s;
 
-	// PVS-Studio diagnostic message: V595 The 'node' pointer was utilized before it was verified
-	// against nullptr. Check lines: 1421, 1424. DoomDLL brushbsp.cpp 1421
-	// The 'node' pointer is dereferenced first: node->occupied. And then it is suddenly checked if it is not equal to NULL.
-	// This is a very suspicious code. I do not know how to fix it because I do not know the logic of the function operation.
-	// Perhaps it is just enough to write it that way:
-	// if ( node && node->occupied ) {
-	if ( node->occupied ) {
-		common->Error( "FloodThroughPortals_r: node already occupied\n" );
-	}
 	if ( !node ) {
 		common->Error( "FloodThroughPortals_r: NULL node\n" );
+	}
+	if ( node->occupied ) {
+		common->Error( "FloodThroughPortals_r: node already occupied\n" );
 	}
 
 	node->occupied = depth;
