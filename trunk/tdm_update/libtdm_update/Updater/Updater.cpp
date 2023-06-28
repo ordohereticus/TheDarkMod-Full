@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5409 $ (Revision of last commit) 
- $Date: 2012-05-01 09:08:44 -0400 (Tue, 01 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5475 $ (Revision of last commit) 
+ $Date: 2012-06-10 11:53:44 -0400 (Sun, 10 Jun 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -101,7 +101,8 @@ void Updater::UpdateMirrors()
 	std::string mirrorsUrl = TDM_MIRRORS_SERVER;
 	mirrorsUrl += TDM_MIRRORS_FILE;
 
-	TraceLog::Write(LOG_VERBOSE, " Downloading mirror list from %s...", mirrorsUrl.c_str() );
+//	TraceLog::Write(LOG_VERBOSE, " Downloading mirror list from %s...", mirrorsUrl.c_str() ); // grayman - NG: too many args
+	TraceLog::WriteLine(LOG_VERBOSE, (boost::format("Downloading mirror list from %s...") % mirrorsUrl).str()); // grayman - fixed
 
 	fs::path mirrorPath = GetTargetPath() / TDM_MIRRORS_FILE;
 
@@ -111,7 +112,7 @@ void Updater::UpdateMirrors()
 
 	if (request->GetStatus() == HttpRequest::OK)
 	{
-		TraceLog::Write(LOG_VERBOSE, "done. ");
+		TraceLog::Write(LOG_VERBOSE, "Done. ");
 
 		// Load the mirrors from the file
 		LoadMirrors();
