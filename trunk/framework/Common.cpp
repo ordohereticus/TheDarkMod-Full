@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5486 $ (Revision of last commit) 
- $Date: 2012-07-02 17:14:11 -0400 (Mon, 02 Jul 2012) $ (Date of last commit)
+ $Revision: 5494 $ (Revision of last commit) 
+ $Date: 2012-07-08 15:10:32 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5486 2012-07-02 21:14:11Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5494 2012-07-08 19:10:32Z taaaki $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -888,7 +888,11 @@ void idCommonLocal::InitGameArguments() {
 	}
 
 	// Construct the darkmod path - use fs_mod, if specified
+#ifdef _WIN32
 	idStr darkmodPath = basePath;
+#else
+    idStr darkmodPath = Sys_HomeSavePath();
+#endif
 	darkmodPath.AppendPath(fsGameBase);
 	
 	if ( !fsGameDefined ) {
