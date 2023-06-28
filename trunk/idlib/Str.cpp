@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5404 $ (Revision of last commit) 
- $Date: 2012-04-30 19:02:14 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
+ $Revision: 5490 $ (Revision of last commit) 
+ $Date: 2012-07-07 06:54:12 -0400 (Sat, 07 Jul 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -607,6 +607,25 @@ bool idStr::StripLeadingOnce( const char *string ) {
 
 /*
 ============
+idStr::StripLeadingOnce(char)
+
+tels - more efficient than StripLeadingOnce(*char)
+============
+*/
+bool idStr::StripLeadingOnce( const char c ) {
+	// Tels: The string is zero-terminated, so ignore if trying to remove zeros
+	if (c != 0x00 && len > 0 && data[0] == c)
+	{
+		// len => copy the 0x00 at the end
+		memmove( &data[ 0 ], &data[ 1 ], len );
+		len--;
+		return true;
+	}
+	return false;
+}
+
+/*
+============
 idStr::StripTrailing
 ============
 */
@@ -794,6 +813,18 @@ void idStr::StripTrailingWhitespace( void ) {
 		data[ i - 1 ] = '\0';
 		len--;
 	}
+}
+
+/*
+============
+idStr::StripWhitespace
+
+tels: Convenience is king.
+============
+*/
+void idStr::StripWhitespace( void ) {
+	StripLeadingWhitespace();
+	StripTrailingWhitespace();
 }
 
 /*
