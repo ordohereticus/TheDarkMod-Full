@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5482 $ (Revision of last commit) 
+ $Date: 2012-06-25 07:25:31 -0400 (Mon, 25 Jun 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_backend.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: tr_backend.cpp 5482 2012-06-25 11:25:31Z angua $");
 
 #include "tr_local.h"
 
@@ -221,7 +221,7 @@ This routine is responsible for setting the most commonly changed state
 */
 void GL_State( const int stateBits ) {
 
-#if 0
+#if 1
 	int diff;
 	if ( !r_useStateCaching.GetBool() || backEnd.glState.forceGlState ) {
 		// make sure everything is set all the time, so we
@@ -235,6 +235,8 @@ void GL_State( const int stateBits ) {
 		}
 	}
 #else
+	// angua: this caused light gem problems (lg changed based on view angle)
+	// it's important to set diff to -1 if force gl state is true
 	const int diff = stateBits ^ backEnd.glState.glStateBits;
 
 	if ( !diff ) {
