@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5354 $ (Revision of last commit) 
- $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5430 $ (Revision of last commit) 
+ $Date: 2012-05-05 10:23:19 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5354 2012-03-22 19:18:15Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5430 2012-05-05 14:23:19Z grayman $");
 
 #include <time.h>
 #include "MissionManager.h"
@@ -536,6 +536,8 @@ void CMissionManager::GenerateModList()
 	SortModList();
 }
 
+// grayman #3110 - rewritten due to freed memory crashes
+
 // Compare functor to sort missions by title
 int CMissionManager::ModSortCompare(const int* a, const int* b)
 {
@@ -543,13 +545,32 @@ int CMissionManager::ModSortCompare(const int* a, const int* b)
 	CModInfoPtr aInfo = gameLocal.m_MissionManager->GetModInfo(*a);
 	CModInfoPtr bInfo = gameLocal.m_MissionManager->GetModInfo(*b);
 
-	if (aInfo == NULL || bInfo == NULL) return 0;
+	if ( ( aInfo == NULL ) || ( bInfo == NULL) )
+	{
+		return 0;
+	}
 
 	idStr aName = common->Translate( aInfo->displayName );
-	idStr bName = common->Translate( bInfo->displayName );
+	idStr prefix = "";
+	idStr suffix = "";
+	common->GetI18N()->MoveArticlesToBack( aName, prefix, suffix );
+	if ( !suffix.IsEmpty() )
+	{
+		// found, remove prefix and append suffix
+		aName.StripLeadingOnce( prefix.c_str() );
+		aName += suffix;
+	}
 
-	common->GetI18N()->MoveArticlesToBack( aName );
-	common->GetI18N()->MoveArticlesToBack( bName );
+	idStr bName = common->Translate( bInfo->displayName );
+	prefix = "";
+	suffix = "";
+	common->GetI18N()->MoveArticlesToBack( bName, prefix, suffix );
+	if ( !suffix.IsEmpty() )
+	{
+		// found, remove prefix and append suffix
+		bName.StripLeadingOnce( prefix.c_str() );
+		bName += suffix;
+	}
 
 	return aName.Icmp(bName);
 }

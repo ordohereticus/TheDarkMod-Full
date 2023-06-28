@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5303 $ (Revision of last commit) 
- $Date: 2012-02-26 09:20:37 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5430 $ (Revision of last commit) 
+ $Date: 2012-05-05 10:23:19 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ModMenu.cpp 5303 2012-02-26 14:20:37Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: ModMenu.cpp 5430 2012-05-05 14:23:19Z grayman $");
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -309,8 +309,19 @@ void CModMenu::UpdateGUI(idUserInterface* gui)
 
 		gui->SetStateInt(guiAvailable,	info != NULL ? 1 : 0);
 		idStr name = common->Translate( info != NULL ? info->displayName : "");
-		common->GetI18N()->MoveArticlesToBack( name );
-		gui->SetStateString(guiName,	name );
+
+		// grayman #3110
+		idStr prefix = "";
+		idStr suffix = "";
+		common->GetI18N()->MoveArticlesToBack( name, prefix, suffix );
+		if ( !suffix.IsEmpty() )
+		{
+			// found, remove prefix and append suffix
+			name.StripLeadingOnce( prefix.c_str() );
+			name += suffix;
+		}
+
+		gui->SetStateString(guiName,	name);
 		gui->SetStateString(guiDesc,	common->Translate( info != NULL ? info->description : "") );
 		gui->SetStateString(guiAuthor,	info != NULL ? info->author : "");
 		gui->SetStateString(guiImage,	info != NULL ? info->image : "");
