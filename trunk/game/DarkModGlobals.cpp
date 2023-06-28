@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5203 $ (Revision of last commit) 
- $Date: 2012-01-10 01:37:25 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
+ $Revision: 5216 $ (Revision of last commit) 
+ $Date: 2012-01-17 11:23:04 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -27,7 +27,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5203 2012-01-10 06:37:25Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5216 2012-01-17 16:23:04Z greebo $");
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -706,6 +706,13 @@ std::string CGlobal::GetModPath(const std::string& modName)
 
 std::string CGlobal::GetDarkmodPath()
 {
+	std::string darkmodPath = fileSystem->DarkModPath();
+
+	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Resulting darkmod path is %s\r", darkmodPath.c_str());
+
+	return darkmodPath.c_str();
+
+#if 0
 	idStr modBaseName = cvarSystem->GetCVarString("fs_game_base");
 
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("fs_game_base is %s\r", modBaseName.c_str());
@@ -733,6 +740,8 @@ std::string CGlobal::GetDarkmodPath()
 	DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Resulting darkmod path is %s\r", darkmodPath.c_str());
 
 	return darkmodPath;
+#endif
+
 #if 0
 	// Path to the parent directory
 	fs::path parentPath(fileSystem->RelativePathToOSPath("", "fs_savepath"));

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5213 $ (Revision of last commit) 
- $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5216 $ (Revision of last commit) 
+ $Date: 2012-01-17 11:23:04 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5213 2012-01-15 17:53:26Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5216 2012-01-17 16:23:04Z greebo $");
 
 #include "Unzip.h"
 
@@ -386,6 +386,8 @@ public:
 	virtual const idDict *	GetMapDecl( int i );
 	virtual void			FindMapScreenshot( const char *path, char *buf, int len );
 	virtual bool			FilenameCompare( const char *s1, const char *s2 ) const;
+
+	virtual const char*		DarkModPath() const;
 
 	static void				Dir_f( const idCmdArgs &args );
 	static void				DirTree_f( const idCmdArgs &args );
@@ -3897,20 +3899,37 @@ void idFileSystemLocal::FindDLL( const char *name, char _dllPath[ MAX_OSPATH ], 
 		dllPath.StripFilename( );
 		dllPath.AppendPath( dllName );
 		dllFile = OpenExplicitFileRead( dllPath );
+
+		if (dllFile)
+		{
+			common->Printf( "Found DLL in EXE path: %s\n", dllFile->GetFullPath() );
+		}
 	}
 	if ( !dllFile ) {
 		if ( !serverPaks.Num() ) {
 			// not running in pure mode, try to extract from a pak file first
 			dllFile = OpenFileReadFlags( dllName, FSFLAG_SEARCH_PAKS | FSFLAG_PURE_NOREF | FSFLAG_BINARY_ONLY, &inPak );
-			if ( dllFile ) {
-				common->Printf( "found DLL in pak file: %s\n", dllFile->GetFullPath() );
-				dllPath = RelativePathToOSPath( dllName, "fs_savepath" );
+
+			if (dllFile)
+			{
+				common->Printf( "found DLL in pak file: %s, extracting to darkmod path\n", dllFile->GetFullPath() );
+				
+				dllPath = DarkModPath();
+				dllPath.Append(dllName);
+
+				//dllPath = RelativePathToOSPath( dllName, "fs_savepath" );
 				CopyFile( dllFile, dllPath );
+
 				CloseFile( dllFile );
+
 				dllFile = OpenFileReadFlags( dllName, FSFLAG_SEARCH_DIRS );
-				if ( !dllFile ) {
-					common->Error( "DLL extraction to fs_savepath failed\n" );
-				} else if ( updateChecksum ) {
+
+				if ( !dllFile )
+				{
+					common->Error( "DLL extraction to darkmod path failed\n" );
+				} 
+				else if ( updateChecksum )
+				{
 					gameDLLChecksum = GetFileChecksum( dllFile );
 					gamePakChecksum = inPak->checksum;
 					updateChecksum = false;	// don't try again below
@@ -4228,4 +4247,36 @@ void idFileSystemLocal::FindMapScreenshot( const char *path, char *buf, int len 
 			idStr::Copynz( buf, "guis/assets/splash/pdtempa", len );
 		}
 	}
+}
+
+
+const char* idFileSystemLocal::DarkModPath() const
+{
+	idStr modBaseName = cvarSystem->GetCVarString("fs_game_base");
+
+	if (modBaseName.IsEmpty())
+	{
+		// Fall back to fs_game if no game_base is set
+		modBaseName = cvarSystem->GetCVarString("fs_game");
+
+		if (modBaseName.IsEmpty())
+		{
+			modBaseName = "darkmod"; // last resort: hardcoded
+
+			common->Printf("idFileSystemLocal::DarkModPath: Falling back to 'darkmod'\n");
+		}
+	}
+
+	// basepath = something like c:\games\doom3, modBaseName is usually darkmod
+	static char path[MAX_STRING_CHARS];
+	path[0] = '\0';
+
+	const char* darkmodPath = fileSystem->BuildOSPath(cvarSystem->GetCVarString("fs_basePath"), modBaseName, "");
+
+	if (darkmodPath != NULL && darkmodPath[0] != '\0')
+	{
+		idStr::Copynz(path, darkmodPath, sizeof(path));
+	}
+
+	return path;
 }

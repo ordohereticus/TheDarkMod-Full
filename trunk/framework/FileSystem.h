@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5146 $ (Revision of last commit) 
- $Date: 2012-01-02 12:14:28 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5216 $ (Revision of last commit) 
+ $Date: 2012-01-17 11:23:04 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -274,6 +274,9 @@ public:
 
 							// ignore case and seperator char distinctions
 	virtual bool			FilenameCompare( const char *s1, const char *s2 ) const = 0;
+
+	// greebo: Returns the full path to the darkmod/ folder.
+	virtual const char*		DarkModPath() const = 0;
 };
 
 extern idFileSystem *		fileSystem;
