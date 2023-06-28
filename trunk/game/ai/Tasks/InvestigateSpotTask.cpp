@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -88,12 +88,32 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
+	// grayman #3075 - if we've entered combat mode, we want to
+	// end this task. But first, if we're kneeling, kill the
+	// kneeling animation
+
+	if ( owner->AI_AlertIndex == ECombat )
+	{
+		idStr torsoString = "Torso_KneelDown";
+		idStr legsString = "Legs_KneelDown";
+		bool torsoKneelingAnim = (torsoString.Cmp(owner->GetAnimState(ANIMCHANNEL_TORSO)) == 0);
+		bool legsKneelingAnim = (legsString.Cmp(owner->GetAnimState(ANIMCHANNEL_LEGS)) == 0);
+
+		if ( torsoKneelingAnim && legsKneelingAnim )
+		{
+			// Reset anims
+			owner->StopAnim(ANIMCHANNEL_TORSO, 0);
+			owner->StopAnim(ANIMCHANNEL_LEGS, 0);
+		}
+		return true;
+	}
+	
 	if (_exitTime > 0)
 	{
 		// Return TRUE if the time is over, else FALSE (continue)
 		return (gameLocal.time > _exitTime);
 	}
-	
+
 	// No exit time set, continue with ordinary process
 
 	if (owner->m_HandlingDoor || owner->m_HandlingElevator)

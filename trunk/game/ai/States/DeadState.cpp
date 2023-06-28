@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeadState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DeadState.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -122,7 +122,7 @@ void DeadState::Init(idAI* owner)
 		}
 	}
 
-	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Death state entered for AI: %s, frame %d\n", owner->name.c_str(), gameLocal.framenum);
+	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("Death state entered for AI: %s, frame %d\r", owner->name.c_str(), gameLocal.framenum);
 
 	_waitingForDeath = true;
 }

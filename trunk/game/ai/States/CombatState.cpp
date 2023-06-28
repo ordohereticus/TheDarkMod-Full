@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5367 2012-04-04 02:09:55Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -146,6 +146,22 @@ void CombatState::Init(idAI* owner)
 	if ( ( owner->GetMoveType() == MOVETYPE_SIT ) || ( owner->GetMoveType() == MOVETYPE_SLEEP) )
 	{
 		owner->GetUp();
+	}
+
+	// grayman #3075 - if we're kneeling, doing close inspection of
+	// a spot, stop the animation. Otherwise, the kneeling animation gets
+	// restarted a few moments later.
+
+	idStr torsoString = "Torso_KneelDown";
+	idStr legsString = "Legs_KneelDown";
+	bool torsoKneelingAnim = (torsoString.Cmp(owner->GetAnimState(ANIMCHANNEL_TORSO)) == 0);
+	bool legsKneelingAnim = (legsString.Cmp(owner->GetAnimState(ANIMCHANNEL_LEGS)) == 0);
+
+	if ( torsoKneelingAnim || legsKneelingAnim )
+	{
+		// Reset anims
+		owner->StopAnim(ANIMCHANNEL_TORSO, 0);
+		owner->StopAnim(ANIMCHANNEL_LEGS, 0);
 	}
 
 	// say something along the lines of "huh?"

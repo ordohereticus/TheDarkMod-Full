@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BloodMarker.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: BloodMarker.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "Game_local.h"
 #include "BloodMarker.h"
@@ -58,11 +58,20 @@ void CBloodMarker::Event_GenerateBloodSplat()
 		// We're fading, just spawn one last decal and schedule our removal
 		gameLocal.ProjectDecal(GetPhysics()->GetOrigin(), dir, 3, false, _size, _bloodSplatFading, _angle);
 
+		// grayman #3075 - notify the AI who spilled the blood that
+		// we're going away.
+
+		if ( _spilledBy != NULL )
+		{
+			_spilledBy->SetBlood(NULL);
+			_spilledBy = NULL;
+		}
+
 		PostEventMS(&EV_Remove, 1000);
 	}
 }
 
-void CBloodMarker::Init(const idStr& splat, const idStr& splatFading, float size)
+void CBloodMarker::Init(const idStr& splat, const idStr& splatFading, float size, idAI* bleeder) // grayman #3075 - add who bled
 {
 	_bloodSplat = splat;
 	_bloodSplatFading = splatFading;
@@ -71,6 +80,10 @@ void CBloodMarker::Init(const idStr& splat, const idStr& splatFading, float size
 	_angle = gameLocal.random.RandomFloat() * idMath::TWO_PI;
 	_size = size;
 	_isFading = false;
+
+	// grayman #3075 - note who spilled this blood
+	_spilledBy = bleeder;
+	bleeder->SetBlood(this);
 
 	AddResponse(ST_WATER);
 	EnableResponse(ST_WATER);
@@ -87,6 +100,13 @@ void CBloodMarker::OnStim(const CStimPtr& stim, idEntity* stimSource)
 	}
 }
 
+// grayman #3075
+
+idAI* CBloodMarker::GetSpilledBy(void)
+{
+	return _spilledBy;
+}
+
 //-----------------------------------------------------------------------------------
 
 void CBloodMarker::Save( idSaveGame *savefile ) const
@@ -96,6 +116,7 @@ void CBloodMarker::Save( idSaveGame *savefile ) const
 	savefile->WriteFloat(_angle);
 	savefile->WriteFloat(_size);
 	savefile->WriteBool(_isFading);
+	savefile->WriteObject(_spilledBy); // grayman #3075
 }
 
 //-----------------------------------------------------------------------------------
@@ -107,4 +128,5 @@ void CBloodMarker::Restore( idRestoreGame *savefile )
 	savefile->ReadFloat(_angle);
 	savefile->ReadFloat(_size);
 	savefile->ReadBool(_isFading);
+	savefile->ReadObject(reinterpret_cast<idClass *&>(_spilledBy)); // grayman #3075
 }

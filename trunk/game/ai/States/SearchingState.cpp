@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5367 2012-04-04 02:09:55Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -77,7 +77,10 @@ void SearchingState::Init(idAI* owner)
 	assert(owner);
 
 	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
+	if ( !CheckAlertLevel(owner) )
+	{
+		return;
+	}
 
 	if (owner->GetMoveType() == MOVETYPE_SIT || owner->GetMoveType() == MOVETYPE_SLEEP)
 	{
@@ -140,7 +143,7 @@ void SearchingState::Init(idAI* owner)
 	}
 	else if (memory.alertType == EAlertTypeEnemy)
 	{
-		// clear the alert type, so we can react to other alert types (such as a dead person)
+		// reduce the alert type, so we can react to other alert types (such as a dead person)
 		memory.alertType = EAlertTypeSuspicious;
 	}
 	

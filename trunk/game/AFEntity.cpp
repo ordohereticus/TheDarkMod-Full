@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5369 $ (Revision of last commit) 
- $Date: 2012-04-07 14:53:44 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5369 2012-04-07 18:53:44Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -412,10 +412,10 @@ void idAFAttachment::DropOnRagdoll( void )
 	int mask(0);
 
 	// Drop TDM attachments
-	for( int i=0; i<m_Attachments.Num(); i++ )
+	for ( int i = 0 ; i < m_Attachments.Num() ; i++ )
 	{
 		ent = m_Attachments[i].ent.GetEntity();
-		if( !ent || !m_Attachments[i].ent.IsValid() )
+		if ( !ent || !m_Attachments[i].ent.IsValid() )
 			continue;
 		
 		// greebo: Check if we should set some attachments to nonsolid
@@ -449,7 +449,8 @@ void idAFAttachment::DropOnRagdoll( void )
 
 		bool bDrop = ent->spawnArgs.GetBool( "drop_when_ragdoll" );
 		
-		if( !bDrop ) {
+		if ( !bDrop )
+		{
 			continue;
 		}
 
@@ -487,6 +488,10 @@ void idAFAttachment::DropOnRagdoll( void )
 
 		ent->GetPhysics()->Activate();
 		ent->m_droppedByAI = true; // grayman #1330
+
+		// grayman #3075 - set m_SetInMotionByActor here
+		ent->m_SetInMotionByActor = NULL;
+		ent->m_MovedByActor = NULL;
 	}
 }
 

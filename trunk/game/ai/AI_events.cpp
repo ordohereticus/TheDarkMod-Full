@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -3489,6 +3489,11 @@ void idAI::Event_DropTorch() // grayman #2603
 			GetMemory().stopRelight = true; // in case a relight was in progress - try again later w/o torch
 			GetMemory().stopExaminingRope = true; // grayman #2872 - stop examining a rope
 			m_DroppingTorch = false;
+
+			// grayman #3075 - set m_SetInMotionByActor here
+			ent->m_SetInMotionByActor = this;
+			ent->m_MovedByActor = this;
+
 			break;
 		}
 	}

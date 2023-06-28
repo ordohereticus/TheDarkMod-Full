@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1225,6 +1225,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool m_canResolveBlock;		// grayman #2345 - whether we can resolve a block if asked
 	bool m_leftQueue;			// grayman #2345 - if we timed out waiting in a door queue
 	bool m_performRelight;		// grayman #2603 - set to TRUE by a script function when it's time to relight a light
+	idEntity* m_bloodMarker;	// grayman #3075
 
 	// The mind of this AI
 	ai::MindPtr mind;
@@ -1906,7 +1907,12 @@ public:
 
 	void					SetDelayedStimExpiration(idEntityPtr<idEntity> stimPtr);
 	int						GetDelayedStimExpiration(idEntityPtr<idEntity> stimPtr);
-	
+
+	// grayman #3075 - set and get an AI's blood marker
+
+	void					SetBlood(idEntity *marker);
+	idEntity*				GetBlood(void);
+		
 	//
 	// ai/ai_events.cpp
 	//

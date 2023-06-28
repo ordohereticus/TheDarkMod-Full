@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -38,8 +38,10 @@ protected:
 	// True if this bloodsplat is in the process of disappearing
 	bool					_isFading;
 
+	idAI*					_spilledBy; // grayman #3075
+
 public:
-	void					Init(const idStr& splat, const idStr& splatFading, float size);
+	void					Init(const idStr& splat, const idStr& splatFading, float size, idAI* bleeder); // grayman #3075 - note who bled
 	void					Event_GenerateBloodSplat();
 
 	/**
@@ -47,6 +49,11 @@ public:
 	 * for water stims.
 	 */
 	void					OnStim(const CStimPtr& stim, idEntity* stimSource);
+
+	/**
+	 * grayman #3075: get the AI that spilled this blood
+	 */
+	idAI*					GetSpilledBy(void);
 
 	// Save and restore
 	void					Save( idSaveGame *savefile ) const;

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5373 $ (Revision of last commit) 
- $Date: 2012-04-08 15:41:08 -0400 (Sun, 08 Apr 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SwitchOnLightState.cpp 5373 2012-04-08 19:41:08Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SwitchOnLightState.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "SwitchOnLightState.h"
 #include "../Memory.h"
@@ -35,7 +35,7 @@ namespace ai
 
 // grayman #2603 - heights for determining whether a light or switch is high/med/low off the floor
 
-#define RELIGHT_HEIGHT_HIGH 66 // grayman debug - bump up 1 to accomodate light origin change in desk lamp
+#define RELIGHT_HEIGHT_HIGH 66 // grayman #3077 - bump up 1 to accomodate light origin change in desk lamp
 #define RELIGHT_HEIGHT_LOW  30
 #define RELIGHT_MAX_HEIGHT 100 // grayman #2603 - AI can't reach a light or switch higher than this
 
@@ -592,7 +592,7 @@ void SwitchOnLightState::Think(idAI* owner)
 	const bool lightOn = ((light->GetLightLevel() > 0) && !light->IsSmoking());
 	bool ignoreLight;
 
-	if ( owner->m_DroppingTorch ) // grayman debug - delay processing the rest of the relight if the torch is getting dropped
+	if ( owner->m_DroppingTorch ) // grayman #3077 - delay processing the rest of the relight if the torch is getting dropped
 	{
 		return;
 	}

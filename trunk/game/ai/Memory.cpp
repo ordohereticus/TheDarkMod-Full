@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Memory.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Memory.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "Memory.h"
 #include "AI.h"
@@ -73,7 +73,7 @@ Memory::Memory(idAI* owningAI) :
 	stimulusLocationItselfShouldBeSearched(false),
 	investigateStimulusLocationClosely(false),
 	alertedDueToCommunication(false),
-	lastAlertPosSearched(0,0,0),
+//	lastAlertPosSearched(0,0,0), // grayman #3075 - not being used
 	alertSearchCenter(idMath::INFINITY, idMath::INFINITY, idMath::INFINITY),
 	alertSearchVolume(0,0,0),
 	alertSearchExclusionVolume(0,0,0),
@@ -144,7 +144,7 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteBool(stimulusLocationItselfShouldBeSearched);
 	savefile->WriteBool(investigateStimulusLocationClosely);
 	savefile->WriteBool(alertedDueToCommunication);
-	savefile->WriteVec3(lastAlertPosSearched);
+//	savefile->WriteVec3(lastAlertPosSearched); // grayman #3075 - not being used
 	savefile->WriteVec3(alertSearchCenter);
 	savefile->WriteVec3(alertSearchVolume);
 	savefile->WriteVec3(alertSearchExclusionVolume);
@@ -257,7 +257,7 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadBool(stimulusLocationItselfShouldBeSearched);
 	savefile->ReadBool(investigateStimulusLocationClosely);
 	savefile->ReadBool(alertedDueToCommunication);
-	savefile->ReadVec3(lastAlertPosSearched);
+//	savefile->ReadVec3(lastAlertPosSearched); // grayman #3075 - not being used
 	savefile->ReadVec3(alertSearchCenter);
 	savefile->ReadVec3(alertSearchVolume);
 	savefile->ReadVec3(alertSearchExclusionVolume);

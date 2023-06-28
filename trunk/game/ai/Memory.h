@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -307,7 +307,9 @@ public:
 	// Position of the last alert causing stimulus which was searched.
     // This is used to compare new stimuli to the previous stimuli searched
     // to determine if a new search is necessary
-	idVec3 lastAlertPosSearched;
+	// grayman #3075 - this wasn't being used, and was causing errors because
+	// it was always (0,0,0)
+//	idVec3 lastAlertPosSearched;
 
 	// greebo: This is the position of the alert that was used to set up a hiding spot search.
 	idVec3 alertSearchCenter;

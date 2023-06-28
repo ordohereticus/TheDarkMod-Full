@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Anim_Blend.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Anim_Blend.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "../Game_local.h"
 #include "../DarkModGlobals.h"
@@ -1321,6 +1321,10 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 						origin.z -= DROP_DOWN_ADJUSTMENT;
 						detachedEntity->GetPhysics()->SetOrigin( origin );
 						detachedEntity->m_droppedByAI = true; // grayman #1330
+
+						// grayman #3075 - set m_SetInMotionByActor here
+						detachedEntity->m_SetInMotionByActor = NULL;
+						detachedEntity->m_MovedByActor = NULL;
 					}
 					break;
 				}

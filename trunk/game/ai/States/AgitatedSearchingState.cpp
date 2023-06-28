@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5378 $ (Revision of last commit) 
+ $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AgitatedSearchingState.cpp 5367 2012-04-04 02:09:55Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AgitatedSearchingState.cpp 5378 2012-04-10 18:21:04Z grayman $");
 
 #include "AgitatedSearchingState.h"
 #include "../Memory.h"
@@ -84,7 +84,10 @@ void AgitatedSearchingState::Init(idAI* owner)
 	assert(owner);
 
 	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
+	if ( !CheckAlertLevel(owner) )
+	{
+		return;
+	}
 
 	// Shortcut reference
 	Memory& memory = owner->GetMemory();
@@ -106,10 +109,8 @@ void AgitatedSearchingState::Init(idAI* owner)
 		memory.alertPos
 	));
 
-
 	if (owner->AlertIndexIncreased())
 	{
-
 		if (memory.alertedDueToCommunication == false && (memory.alertType == EAlertTypeSuspicious || memory.alertType == EAlertTypeEnemy))
 		{
 			owner->commSubsystem->AddCommTask(
@@ -140,6 +141,8 @@ void AgitatedSearchingState::Init(idAI* owner)
 
 	// Let the AI update their weapons (make them solid)
 	owner->UpdateAttachmentContents(true);
+
+	memory.searchFlags |= SRCH_WAS_SEARCHING; // grayman #3075
 }
 
 // Gets called each time the mind is thinking
