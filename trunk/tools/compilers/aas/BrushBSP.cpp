@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5328 $ (Revision of last commit) 
- $Date: 2012-03-10 13:20:32 -0500 (Sat, 10 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BrushBSP.cpp 5328 2012-03-10 18:20:32Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: BrushBSP.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 #include "Brush.h"
 #include "BrushBSP.h"
@@ -1369,7 +1369,7 @@ void idBrushBSP::LeakFile( const idStr &fileName ) {
 
 	common->Printf( "writing %s...\n", qpath.c_str() );
 
-	lineFile = fileSystem->OpenFileWrite( qpath, "fs_devpath" );
+	lineFile = fileSystem->OpenFileWrite( qpath, "fs_devpath", "" );
 	if ( !lineFile ) {
 		common->Error( "Couldn't open %s\n", qpath.c_str() );
 		return;

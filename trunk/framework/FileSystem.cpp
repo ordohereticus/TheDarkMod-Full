@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5485 $ (Revision of last commit) 
- $Date: 2012-07-02 16:40:33 -0400 (Mon, 02 Jul 2012) $ (Date of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5485 2012-07-02 20:40:33Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 #include "Unzip.h"
 
@@ -2368,11 +2368,7 @@ void idFileSystemLocal::Init( void ) {
 	}
 
 	if ( fs_devpath.GetString()[0] == '\0' ) {
-#ifdef WIN32
-		fs_devpath.SetString( fs_cdpath.GetString()[0] ? fs_cdpath.GetString() : Sys_ModSavePath() );
-#else
-		fs_devpath.SetString( Sys_ModSavePath() );
-#endif
+        fs_devpath.SetString( Sys_DefaultSavePath() ); // taaaki - TODO - check if this actually works in linux
 	}
 
 	// greebo: By default, set the mod save path to BASE_TDM/fms/.

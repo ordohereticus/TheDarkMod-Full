@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeclManager.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DeclManager.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 /*
 
@@ -1982,7 +1982,7 @@ bool idDeclLocal::ReplaceSourceFileText( void ) {
 	memcpy( buffer + sourceTextOffset, declText, textLength );
 
 	// write out new file
-	file = fileSystem->OpenFileWrite( GetFileName(), "fs_devpath" );
+	file = fileSystem->OpenFileWrite( GetFileName(), "fs_devpath", "" );
 	if ( !file ) {
 		Mem_Free( buffer );
 		common->Warning( "Couldn't open %s for writing.", GetFileName() );

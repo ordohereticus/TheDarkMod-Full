@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -190,7 +190,7 @@ public:
 							// get the name without file extension
 	const char *			GetName( void ) const { return name; }
 							// get the file time
-	ID_TIME_T					GetFileTime( void ) const { return fileTime; }
+	ID_TIME_T				GetFileTime( void ) const { return fileTime; }
 							// get CRC for the map geometry
 							// texture coordinates and entity key/value pairs are not taken into account
 	unsigned int			GetGeometryCRC( void ) const { return geometryCRC; }
@@ -207,7 +207,7 @@ public:
 
 protected:
 	float					version;
-	ID_TIME_T					fileTime;
+	ID_TIME_T				fileTime;
 	unsigned int			geometryCRC;
 	idList<idMapEntity *>	entities;
 	idStr					name;

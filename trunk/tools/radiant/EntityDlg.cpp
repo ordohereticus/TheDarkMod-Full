@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: EntityDlg.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: EntityDlg.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 #include "qe3.h"
 #include "Radiant.h"
@@ -1029,7 +1029,7 @@ void CEntityDlg::OnLbnDblclkListkeyval()
 		Value = "script/" + Key;
 		if ( fileSystem->ReadFile( Value, NULL, NULL ) == -1) {
 			sprintf( work, "// Script for %s\n// \n\nvoid main() {\n\n}\n\n", currentmap );
-			fileSystem->WriteFile( Value, work.c_str(), work.Length(), "fs_devpath" );
+			fileSystem->WriteFile( Value, work.c_str(), work.Length(), "fs_devpath", "" );
 		}
 		work = fileSystem->RelativePathToOSPath( Value );
 		WinExec( va( "notepad.exe %s", work.c_str() ), SW_SHOW );

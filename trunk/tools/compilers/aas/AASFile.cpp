@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5278 $ (Revision of last commit) 
- $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AASFile.cpp 5278 2012-02-13 23:35:44Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: AASFile.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 #include "AASFile.h"
 #include "AASFile_local.h"
@@ -628,7 +628,7 @@ bool idAASFileLocal::Write( const idStr &fileName, unsigned int mapFileCRC ) {
 	name = fileName;
 	crc = mapFileCRC;
 
-	aasFile = fileSystem->OpenFileWrite( fileName, "fs_devpath" );
+	aasFile = fileSystem->OpenFileWrite( fileName, "fs_devpath", "" );
 	if ( !aasFile ) {
 		common->Error( "Error opening %s", fileName.c_str() );
 		return false;

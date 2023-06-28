@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -28,7 +28,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CollisionModel_files.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: CollisionModel_files.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 #include "CollisionModel_local.h"
 
@@ -234,7 +234,7 @@ void idCollisionModelManagerLocal::WriteCollisionModelsToFile( const char *filen
 
 	common->Printf( "writing %s\n", name.c_str() );
 	// _D3XP was saving to fs_cdpath TODO: Check this is still relevant
-	fp = fileSystem->OpenFileWrite( name, "fs_devpath" );
+	fp = fileSystem->OpenFileWrite( name, "fs_devpath", "" );
 	if ( !fp ) {
 		common->Warning( "idCollisionModelManagerLocal::WriteCollisionModelsToFile: Error opening file %s", name.c_str() );
 		return;
@@ -271,7 +271,7 @@ bool idCollisionModelManagerLocal::WriteCollisionModelForMapEntity( const idMapE
 	name.SetFileExtension( CM_FILE_EXT );
 
 	common->Printf( "writing %s\n", name.c_str() );
-	fp = fileSystem->OpenFileWrite( name, "fs_devpath" );
+	fp = fileSystem->OpenFileWrite( name, "fs_devpath", "" );
 	if ( !fp ) {
 		common->Printf( "idCollisionModelManagerLocal::WriteCollisionModelForMapEntity: Error opening file %s\n", name.c_str() );
 		FreeModel( model );

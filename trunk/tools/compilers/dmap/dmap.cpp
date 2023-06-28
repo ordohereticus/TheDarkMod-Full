@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: dmap.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: dmap.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 #include "dmap.h"
 
@@ -295,7 +295,17 @@ void Dmap( const idCmdArgs &args ) {
 		passedName = "maps/" + passedName;
 	}
 
-	idStr stripped = passedName;
+    // taaaki - support map files from darkmod/fms/<mission>/maps as well as darkmod/maps
+    //          this is done by opening the file to get the true full path, then converting
+    //          the path back to a RelativePath based off fs_devpath
+    passedName.SetFileExtension( "map" );
+    idFile *fp = idLib::fileSystem->OpenFileRead( passedName, false, "" );
+    if ( fp ) {
+        passedName = idLib::fileSystem->OSPathToRelativePath(fp->GetFullPath());
+        idLib::fileSystem->CloseFile( fp );
+    }
+
+    idStr stripped = passedName;
 	stripped.StripFileExtension();
 	idStr::Copynz( dmapGlobals.mapFileBase, stripped, sizeof(dmapGlobals.mapFileBase) );
 

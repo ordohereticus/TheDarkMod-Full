@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5315 $ (Revision of last commit) 
- $Date: 2012-03-04 06:05:17 -0500 (Sun, 04 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Brush.cpp 5315 2012-03-04 11:05:17Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Brush.cpp 5493 2012-07-08 17:01:21Z taaaki $");
 
 #include "Brush.h"
 
@@ -1505,7 +1505,7 @@ idBrushMap::idBrushMap( const idStr &fileName, const idStr &ext ) {
 
 	common->Printf( "writing %s...\n", qpath.c_str() );
 
-	fp = fileSystem->OpenFileWrite( qpath, "fs_devpath" );
+	fp = fileSystem->OpenFileWrite( qpath, "fs_devpath", "" );
 	if ( !fp ) {
 		common->Error( "Couldn't open %s\n", qpath.c_str() );
 		return;

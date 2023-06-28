@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5493 $ (Revision of last commit) 
+ $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -832,7 +832,7 @@ bool idMapFile::Write( const char *fileName, const char *ext, bool fromBasePath 
 	idLib::common->Printf( "writing %s...\n", qpath.c_str() );
 
 	if ( fromBasePath ) {
-		fp = idLib::fileSystem->OpenFileWrite( qpath, "fs_devpath" );
+		fp = idLib::fileSystem->OpenFileWrite( qpath, "fs_devpath", "" );
 	}
 	else {
 		fp = idLib::fileSystem->OpenExplicitFileWrite( qpath );
