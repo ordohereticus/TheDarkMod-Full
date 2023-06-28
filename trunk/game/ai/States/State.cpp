@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5207 $ (Revision of last commit) 
- $Date: 2012-01-10 11:02:15 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
+ $Revision: 5209 $ (Revision of last commit) 
+ $Date: 2012-01-12 20:08:01 -0500 (Thu, 12 Jan 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5207 2012-01-10 16:02:15Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5209 2012-01-13 01:08:01Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -3327,6 +3327,14 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 	if ((frobDoorBounds[0].z > (ownerZ + 70)) || (frobDoorBounds[1].z < (ownerZ - 30)))
 	{
 		return;
+	}
+
+	// grayman #2695 - don't set up to handle a door you can't see
+
+	idVec3 doorCenter = frobDoor->GetClosedBox().GetCenter(); // use center of closed door, regardless of whether it's open or closed
+	if ( !owner->CanSeeTargetPoint( doorCenter, frobDoor, false ) ) // 'false' = don't consider illumination
+	{
+		return; // we have no LOS yet
 	}
 
 	if (cv_ai_door_show.GetBool()) 
