@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5303 $ (Revision of last commit) 
+ $Date: 2012-02-26 09:20:37 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ModMenu.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: ModMenu.cpp 5303 2012-02-26 14:20:37Z tels $");
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -361,10 +361,10 @@ void CModMenu::InstallMod(const CModInfoPtr& mod, idUserInterface* gui)
 		switch (result)
 		{
 		case CMissionManager::COPY_FAILURE:
-			msg = "Could not copy files. Maybe the target files are write protected or you're running out of disk space or lacking the required permissions?";
+			msg = common->Translate( "#str_02010" ); // Could not copy files...
 			break;
 		default:
-			msg = "No further explanation available. Well, this was kind of unexpected.";
+			msg = common->Translate( "#str_02011" ); // No further explanation available. Well, this was kind of unexpected.
 		};
 
 		// Feed error messages to GUI
