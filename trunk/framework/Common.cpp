@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5289 $ (Revision of last commit) 
- $Date: 2012-02-17 18:58:39 -0500 (Fri, 17 Feb 2012) $ (Date of last commit)
+ $Revision: 5302 $ (Revision of last commit) 
+ $Date: 2012-02-26 07:09:32 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5289 2012-02-17 23:58:39Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5302 2012-02-26 12:09:32Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -1725,6 +1725,8 @@ void idCommonLocal::InitLanguageDict( void ) {
 
 	StartupVariable( "sys_lang", false );	// let it be set on the command line - this is needed because this init happens very early
 
+	i18n->SetLanguage( cvarSystem->GetCVarString( "sys_lang" ), false );	// false => not the first time
+
 	Sys_InitScanTable();
 }
 
@@ -3047,7 +3049,7 @@ void idCommonLocal::InitGame( void )
 
 	// skip the config file if "safe" is on the command line
 	if ( !SafeMode() ) {
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "exec " CONFIG_FILE "\n" );
+		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "exec " CONFIG_FILE "\n" );		// DoomConfig.cfg
 	}
 	cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "exec autoexec.cfg\n" );
 
