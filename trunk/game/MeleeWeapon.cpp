@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5365 $ (Revision of last commit) 
+ $Date: 2012-04-03 16:52:18 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MeleeWeapon.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: MeleeWeapon.cpp 5365 2012-04-03 20:52:18Z grayman $");
 
 #include "Game_local.h"
 #include "Grabber.h"
@@ -245,11 +245,14 @@ void CMeleeWeapon::ActivateAttack( idActor *ActOwner, const char *AttName )
 				return;
 			}
 		}
-		
+
 		// otherwise, we still don't have a valid collision, just an instanced clipmodel already inside something
 		// fill in best guesses for collision data
 
-		// the point is also inaccruate sometimes, set to origin of the weapon object
+		// grayman #3071 - replace line deleted as part of the solution to #1151
+		tr.c.material = NULL;
+		
+		// the point is also inaccurate sometimes, set to origin of the weapon object
 		// ishtvan 1/2010: This should be more accurate, to use center of clipmodel
 		// tr.c.point = m_OldOrigin;
 		tr.c.point = pClip->GetBounds().GetCenter();
