@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5354 $ (Revision of last commit) 
- $Date: 2012-03-22 15:18:15 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5444 $ (Revision of last commit) 
+ $Date: 2012-05-11 09:32:29 -0400 (Fri, 11 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -25,18 +25,17 @@
 ===============================================================================
 */
 
-#define GAME_NAME						"The Dark Mod"		// appears on window titles and errors
+#define GAME_NAME		"The Dark Mod"	// appears on window titles and errors
 
 // greebo: Defines the darkmod release version
-#define TDM_VERSION_MAJOR 1
-#define TDM_VERSION_MINOR 8
-
-#define ENGINE_VERSION					"Doom 1.3.1"	// printed in console
+#define TDM_VERSION_MAJOR	1
+#define TDM_VERSION_MINOR	8
+#define ENGINE_VERSION		"TDM 1.08"	// printed in console
 
 // paths
-#define	CD_BASEDIR						"Doom"
-#define	BASE_GAMEDIR					"base"
-#define BASE_TDM                        "darkmod"
+#define	CD_BASEDIR		"Doom"
+#define	BASE_GAMEDIR		"base"
+#define BASE_TDM		"darkmod"
 
 // filenames
 #define	CD_EXE							"doom.exe"

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5406 $ (Revision of last commit) 
- $Date: 2012-05-01 08:00:22 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5444 $ (Revision of last commit) 
+ $Date: 2012-05-11 09:32:29 -0400 (Fri, 11 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Console.cpp 5406 2012-05-01 12:00:22Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Console.cpp 5444 2012-05-11 13:32:29Z tels $");
 
 void SCR_DrawTextLeftAlign ( int &y, const char *text, ... ) id_attribute((format(printf,2,3)));
 void SCR_DrawTextRightAlign( int &y, const char *text, ... ) id_attribute((format(printf,2,3)));
@@ -1028,11 +1028,9 @@ void idConsoleLocal::DrawSolidConsole( float frac ) {
 	//renderSystem->SetColor( colorWhite );
 
 	// draw the version number
-
 	renderSystem->SetColor( idStr::ColorForIndex( C_COLOR_CYAN ) );
-
 	{
-		const idStr version = va("%srev%d", ENGINE_VERSION, RevisionTracker::Instance().GetHighestRevision());
+		const idStr version = va("%s #%d", ENGINE_VERSION, RevisionTracker::Instance().GetHighestRevision());
 		const int vlen = version.Length();
 
 		for ( x = 0; x < vlen; x++ ) {
