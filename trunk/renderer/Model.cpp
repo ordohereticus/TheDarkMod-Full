@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5429 $ (Revision of last commit) 
- $Date: 2012-05-05 09:08:39 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Revision: 5433 $ (Revision of last commit) 
+ $Date: 2012-05-06 09:31:04 -0400 (Sun, 06 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Model.cpp 5429 2012-05-05 13:08:39Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Model.cpp 5433 2012-05-06 13:31:04Z tels $");
 
 #include "tr_local.h"
 #include "Model_local.h"
@@ -308,7 +308,7 @@ void idRenderModelStatic::InitFromFile( const char *fileName ) {
 		if (fallback.IsEmpty()) {
 			common->Warning( "Couldn't load model: '%s'", name.c_str() );
 		} else {
-			common->Warning( "Couldn't load model: '%s' (nor the fallback to %s)", name.c_str(), fallback.c_str() );
+			common->Warning( "Couldn't load model: '%s' (nor the fallback to %s)", fileName, fallback.c_str() );
 		}
 		MakeDefaultModel();
 		return;
