@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5441 $ (Revision of last commit) 
- $Date: 2012-05-08 16:18:33 -0400 (Tue, 08 May 2012) $ (Date of last commit)
+ $Revision: 5442 $ (Revision of last commit) 
+ $Date: 2012-05-09 02:20:35 -0400 (Wed, 09 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5441 2012-05-08 20:18:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5442 2012-05-09 06:20:35Z tels $");
 
 #include "tr_local.h"
 
@@ -2059,6 +2059,7 @@ void idMaterial::ParseMaterial( idLexer &src ) {
 			SetMaterialFlag( MF_NOSELFSHADOW );
 			// translucent
 			coverage = MC_TRANSLUCENT;
+			continue;
 		}
 		// GLASS_MACRO to shorten some definitions
 		else if ( !token.Icmp( "GLASS_MACRO" ) ) {
@@ -2072,6 +2073,7 @@ void idMaterial::ParseMaterial( idLexer &src ) {
 			SetMaterialFlag( MF_NOSELFSHADOW );
 			// translucent
 			coverage = MC_TRANSLUCENT;
+			continue;
 		}
 		else if ( token == "{" ) {
 			// create the new stage
