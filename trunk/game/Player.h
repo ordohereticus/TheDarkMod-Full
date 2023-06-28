@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5412 $ (Revision of last commit) 
- $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5413 $ (Revision of last commit) 
+ $Date: 2012-05-01 11:06:08 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -403,8 +403,6 @@ public:
 	float					healthPool;			// amount of health to give over time
 	int						nextHealthPulse;
 	bool					healthPulse;
-	bool					healthTake;
-	int						nextHealthTake;
 	// greebo: added these to make the interval customisable
 	int						healthPoolStepAmount;			// The amount of healing in each pulse
 	int						healthPoolTimeInterval;			// The time between health pulses

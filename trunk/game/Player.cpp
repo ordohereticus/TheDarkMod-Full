@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5412 $ (Revision of last commit) 
- $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5413 $ (Revision of last commit) 
+ $Date: 2012-05-01 11:06:08 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5412 2012-05-01 14:45:14Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5413 2012-05-01 15:06:08Z tels $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -305,8 +305,6 @@ idPlayer::idPlayer() :
 	healthPool				= 0.0f;
 	nextHealthPulse			= 0;
 	healthPulse				= false;
-	nextHealthTake			= 0;
-	healthTake				= false;
 	healthPoolTimeInterval	= HEALTHPULSE_TIME;
 	healthPoolTimeIntervalFactor = 1.0f;
 	healthPoolStepAmount	= 5;
@@ -635,8 +633,6 @@ void idPlayer::Init( void ) {
 	healthPool		= 0.0f;
 	nextHealthPulse = 0;
 	healthPulse		= false;
-	nextHealthTake	= 0;
-	healthTake		= false;
 
 	SetupWeaponEntity();
 	currentWeapon = -1;
@@ -1577,8 +1573,6 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteFloat( healthPool );
 	savefile->WriteInt( nextHealthPulse );
 	savefile->WriteBool( healthPulse );
-	savefile->WriteInt( nextHealthTake );
-	savefile->WriteBool( healthTake );
 
 	savefile->WriteInt(healthPoolStepAmount);
 	savefile->WriteInt(healthPoolTimeInterval);
@@ -1890,8 +1884,6 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadFloat( healthPool );
 	savefile->ReadInt( nextHealthPulse );
 	savefile->ReadBool( healthPulse );
-	savefile->ReadInt( nextHealthTake );
-	savefile->ReadBool( healthTake );
 
 	savefile->ReadInt(healthPoolStepAmount);
 	savefile->ReadInt(healthPoolTimeInterval);
@@ -2613,12 +2605,6 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud )
 		_hud->HandleNamedEvent( "healthPulse" );
 		StartSound( "snd_healthpulse", SND_CHANNEL_ITEM, 0, false, NULL );
 		healthPulse = false;
-	}
-
-	if ( healthTake ) {
-		_hud->HandleNamedEvent( "healthPulse" );
-		StartSound( "snd_healthtake", SND_CHANNEL_ITEM, 0, false, NULL );
-		healthTake = false;
 	}
 
 	UpdateHudAmmo();
