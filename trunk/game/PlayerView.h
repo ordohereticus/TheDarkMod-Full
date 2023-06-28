@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5199 $ (Revision of last commit) 
+ $Date: 2012-01-09 01:12:39 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -143,6 +143,8 @@ private:
 
 		const idMaterial *m_matFinalScenePass;
 
+		int					m_ImageAnisotropyHandle;
+
 	public:
 		dnPostProcessManager();
 		~dnPostProcessManager();
@@ -158,6 +160,10 @@ private:
 		void UpdateCookedData			();
 		void UpdateInteractionShader	(); 	// Chooses between the various VFP files according to the CVAR settings. Only call this if settings got changed.
 		void Hook_BufferCommandText( cmdExecution_t a_eType, const char *a_pcText );	// Source Hook for idCmdSystem::BufferCommandText - JC.
+
+		void OnImageAnisotropyChanged	();	// gets called when the image_Anisotropy CVAR changes
+
+		void ScheduleCookedDataUpdate	();
 	};
 
 	dnPostProcessManager m_postProcessManager;

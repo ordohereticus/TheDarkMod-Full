@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5199 $ (Revision of last commit) 
+ $Date: 2012-01-09 01:12:39 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CVarSystem.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: CVarSystem.cpp 5199 2012-01-09 06:12:39Z greebo $");
 
 idCVar * idCVar::staticVars = NULL;
 
@@ -53,11 +53,19 @@ private:
 	idStr					valueString;			// value
 	idStr					descriptionString;		// description
 
+	idList<OnModifiedFunc>	modifiedCallbacks;		// functions to call when this CVAR is modified
+
 	virtual void			InternalSetString( const char *newValue );
 	virtual void			InternalServerSetString( const char *newValue );
 	virtual void			InternalSetBool( const bool newValue );
 	virtual void			InternalSetInteger( const int newValue );
 	virtual void			InternalSetFloat( const float newValue );
+
+	virtual int				InternalAddOnModifiedCallback(const OnModifiedFunc& callback);
+	virtual void			InternalRemoveOnModifiedCallback(int handle);
+
+	// Invokes all the callbacks
+	void					NotifyModifiedCallbacks();
 };
 
 /*
@@ -343,6 +351,8 @@ void idInternalCVar::Set( const char *newValue, bool force, bool fromServer ) {
 
 	SetModified();
 	cvarSystem->SetModifiedFlags( flags );
+
+	NotifyModifiedCallbacks();
 }
 
 /*
@@ -401,6 +411,26 @@ void idInternalCVar::InternalSetFloat( const float newValue ) {
 	Set( idStr( newValue ), true, false );
 }
 
+int idInternalCVar::InternalAddOnModifiedCallback(const idCVar::OnModifiedFunc& callback)
+{
+	return modifiedCallbacks.Append(callback);
+}
+
+void idInternalCVar::InternalRemoveOnModifiedCallback(int handle)
+{
+	modifiedCallbacks[handle] = OnModifiedFunc();
+}
+
+void idInternalCVar::NotifyModifiedCallbacks()
+{
+	for (int i = 0; i < modifiedCallbacks.Num(); ++i)
+	{
+		if (modifiedCallbacks[i])
+		{
+			modifiedCallbacks[i]();
+		}
+	}
+}
 
 /*
 ===============================================================================
