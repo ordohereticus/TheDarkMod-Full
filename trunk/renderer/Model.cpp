@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5426 $ (Revision of last commit) 
- $Date: 2012-05-04 23:07:59 -0400 (Fri, 04 May 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5429 $ (Revision of last commit) 
+ $Date: 2012-05-05 09:08:39 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Model.cpp 5426 2012-05-05 03:07:59Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Model.cpp 5429 2012-05-05 13:08:39Z tels $");
 
 #include "tr_local.h"
 #include "Model_local.h"
@@ -266,19 +266,32 @@ idRenderModelStatic::InitFromFile
 */
 void idRenderModelStatic::InitFromFile( const char *fileName ) {
 	bool loaded;
+	idStr fallback = "";
 	idStr extension;
 
+	// set name = fileName
 	InitEmpty( fileName );
 
 	// FIXME: load new .proc map format
-
 	name.ExtractFileExtension( extension );
 
 	if ( extension.Icmp( "ase" ) == 0 ) {
 		loaded		= LoadASE( name );
+		// Tels: #3111 try to load LWO as a fallback
+		if (!loaded) {
+			name.Replace(".ase",".lwo");
+			fallback 	= "LWO";
+			loaded		= LoadLWO( name );
+		}
 		reloadable	= true;
 	} else if ( extension.Icmp( "lwo" ) == 0 ) {
 		loaded		= LoadLWO( name );
+		// Tels: #3111 try to load ASE as a fallback
+		if (!loaded) {
+			name.Replace(".lwo",".ase");
+			fallback 	= "ASE";
+			loaded		= LoadASE( name );
+		}
 		reloadable	= true;
 	} else if ( extension.Icmp( "flt" ) == 0 ) {
 		loaded		= LoadFLT( name );
@@ -292,7 +305,11 @@ void idRenderModelStatic::InitFromFile( const char *fileName ) {
 	}
 
 	if ( !loaded ) {
-		common->Warning( "Couldn't load model: '%s'", name.c_str() );
+		if (fallback.IsEmpty()) {
+			common->Warning( "Couldn't load model: '%s'", name.c_str() );
+		} else {
+			common->Warning( "Couldn't load model: '%s' (nor the fallback to %s)", name.c_str(), fallback.c_str() );
+		}
 		MakeDefaultModel();
 		return;
 	}
