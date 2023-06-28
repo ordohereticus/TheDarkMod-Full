@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5274 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:33:41 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5274 2012-02-12 12:33:41Z taaaki $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -2723,7 +2723,7 @@ void idCommonLocal::LoadGameDLL( void ) {
 	GetGameAPI = (GetGameAPI_t) Sys_DLL_GetProcAddress( gameDLL, "GetGameAPI" );
 	if ( !GetGameAPI ) {
 		Sys_DLL_Unload( gameDLL );
-		gameDLL = NULL;
+		gameDLL = 0;
 		common->FatalError( "couldn't find game DLL API" );
 		return;
 	}
@@ -2747,7 +2747,7 @@ void idCommonLocal::LoadGameDLL( void ) {
 
 	if ( gameExport.version != GAME_API_VERSION ) {
 		Sys_DLL_Unload( gameDLL );
-		gameDLL = NULL;
+		gameDLL = 0;
 		common->FatalError( "wrong game DLL API version" );
 		return;
 	}
@@ -2779,7 +2779,7 @@ void idCommonLocal::UnloadGameDLL( void ) {
 
 	if ( gameDLL ) {
 		Sys_DLL_Unload( gameDLL );
-		gameDLL = NULL;
+		gameDLL = 0;
 	}
 	game = NULL;
 	gameEdit = NULL;

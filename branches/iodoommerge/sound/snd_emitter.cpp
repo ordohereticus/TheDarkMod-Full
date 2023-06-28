@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5274 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:33:41 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_emitter.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: snd_emitter.cpp 5274 2012-02-12 12:33:41Z taaaki $");
 
 #include "snd_local.h"
 
@@ -178,7 +178,7 @@ void idSoundChannel::Clear( void ) {
 	memset( &parms, 0, sizeof(parms) );
 
 	triggered = false;
-	openalSource = NULL;
+	openalSource = 0;
 	openalStreamingOffset = 0;
 	openalStreamingBuffer[0] = openalStreamingBuffer[1] = openalStreamingBuffer[2] = 0;
 	lastopenalStreamingBuffer[0] = lastopenalStreamingBuffer[1] = lastopenalStreamingBuffer[2] = 0;

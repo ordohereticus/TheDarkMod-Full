@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5274 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:33:41 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_world.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: snd_world.cpp 5274 2012-02-12 12:33:41Z taaaki $");
 
 #include "snd_local.h"
 
@@ -1756,7 +1756,7 @@ void idSoundWorldLocal::AddChannelContribution( idSoundEmitterLocal *sound, idSo
 
 				// handle streaming sounds (decode on the fly) both single shot AND looping
 				if ( chan->triggered ) {
-					alSourcei( chan->openalSource, AL_BUFFER, NULL );
+					alSourcei( chan->openalSource, AL_BUFFER, 0 );
 					alDeleteBuffers( 3, &chan->lastopenalStreamingBuffer[0] );
 					chan->lastopenalStreamingBuffer[0] = chan->openalStreamingBuffer[0];
 					chan->lastopenalStreamingBuffer[1] = chan->openalStreamingBuffer[1];
