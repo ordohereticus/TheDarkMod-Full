@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5313 $ (Revision of last commit) 
+ $Date: 2012-03-04 05:43:11 -0500 (Sun, 04 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Window.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Window.cpp 5313 2012-03-04 10:43:11Z tels $");
 
 #include "DeviceContext.h"
 #include "Window.h"
@@ -33,10 +33,6 @@ static bool versioned = RegisterVersionedFile("$Id: Window.cpp 5171 2012-01-07 0
 #include "RenderWindow.h"
 #include "MarkerWindow.h"
 #include "FieldWindow.h"
-
-#include "GameSSDWindow.h"
-#include "GameBearShootWindow.h"
-#include "GameBustOutWindow.h"
 
 // 
 //  gui editor is more integrated into the window now
@@ -2271,39 +2267,6 @@ bool idWindow::Parse( idParser *src, bool rebuild) {
 		  	SaveExpressionParseState();
 			win->Parse(src, rebuild);	
 		  	RestoreExpressionParseState();
-			AddChild(win);
-			win->SetParent(this);
-			dwt.simp = NULL;
-			dwt.win = win;
-			drawWindows.Append(dwt);
-		}
-		else if ( token == "gameSSDDef" ) {
-			idGameSSDWindow *win = new idGameSSDWindow(dc, gui);
-			SaveExpressionParseState();
-			win->Parse(src, rebuild);	
-			RestoreExpressionParseState();
-			AddChild(win);
-			win->SetParent(this);
-			dwt.simp = NULL;
-			dwt.win = win;
-			drawWindows.Append(dwt);
-		}
-		else if ( token == "gameBearShootDef" ) {
-			idGameBearShootWindow *win = new idGameBearShootWindow(dc, gui);
-			SaveExpressionParseState();
-			win->Parse(src, rebuild);	
-			RestoreExpressionParseState();
-			AddChild(win);
-			win->SetParent(this);
-			dwt.simp = NULL;
-			dwt.win = win;
-			drawWindows.Append(dwt);
-		}
-		else if ( token == "gameBustOutDef" ) {
-			idGameBustOutWindow *win = new idGameBustOutWindow(dc, gui);
-			SaveExpressionParseState();
-			win->Parse(src, rebuild);	
-			RestoreExpressionParseState();
 			AddChild(win);
 			win->SetParent(this);
 			dwt.simp = NULL;
