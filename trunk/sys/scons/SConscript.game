@@ -18,8 +18,8 @@
 # 
 # Project: The Dark Mod (http://www.thedarkmod.com/)
 # 
-# $Revision: 5203 $ (Revision of last commit) 
-# $Date: 2012-01-10 01:37:25 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
+# $Revision: 5206 $ (Revision of last commit) 
+# $Date: 2012-01-10 05:33:21 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
 # $Author: greebo $ (Author of last commit)
 # 
 #*****************************************************************************
@@ -312,11 +312,12 @@ local_env.Append(LIBS = [
 	File('#/linux/boost/lib/libboost_thread.a')
 ])
 
-# greebo: Set up our precompiled header
-GCH_CPPFLAGS = local_env['CPPFLAGS']
-GCH_CPPFLAGS += ['-fPIC']
+if NO_GCH == '0':
+	# greebo: Set up our precompiled header
+	GCH_CPPFLAGS = local_env['CPPFLAGS']
+	GCH_CPPFLAGS += ['-fPIC']
 
-local_env['GchSh'] = local_env.GchSh('#game/precompiled_game.h', CPPFLAGS = GCH_CPPFLAGS)[0]
+	local_env['GchSh'] = local_env.GchSh('#game/precompiled_game.h', CPPFLAGS = GCH_CPPFLAGS)[0]
 
 # greebo: Use custom compiled devIL in Linux
 devil_list = SConscript( '../../sys/scons/SConscript.devil' )
