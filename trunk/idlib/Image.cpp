@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5197 $ (Revision of last commit) 
- $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5352 $ (Revision of last commit) 
+ $Date: 2012-03-21 12:27:21 -0400 (Wed, 21 Mar 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -285,7 +285,8 @@ bool Image::SaveImageToFile(const fs::path& path, Format format) const
 bool Image::SaveImageToVfs(const char* filename, Format format) const
 {
 	//create directories if necessary
-	fileSystem->CloseFile(fileSystem->OpenFileWrite(filename));
+    const char *gamedir = cvarSystem->GetCVarString( "fs_game_base" );
+	fileSystem->CloseFile(fileSystem->OpenFileWrite(filename, "fs_basepath", gamedir));
 	//write image file
-	return SaveDevILToFile(fileSystem->RelativePathToOSPath(filename, "fs_modSavePath"), format);
+	return SaveDevILToFile(fileSystem->RelativePathToOSPath(filename, "fs_basepath", gamedir), format);
 }

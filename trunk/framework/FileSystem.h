@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Revision: 5352 $ (Revision of last commit) 
+ $Date: 2012-03-21 12:27:21 -0400 (Wed, 21 Mar 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -164,7 +164,7 @@ public:
 							// Converts a relative path to a full OS path.
 	virtual const char *	OSPathToRelativePath( const char *OSPath ) = 0;
 							// Converts a full OS path to a relative path.
-	virtual const char *	RelativePathToOSPath( const char *relativePath, const char *basePath = "fs_devpath" ) = 0;
+	virtual const char *	RelativePathToOSPath( const char *relativePath, const char *basePath = "fs_devpath", const char *gamedir = NULL ) = 0;
 							// Builds a full OS path from the given components.
 	virtual const char *	BuildOSPath( const char *base, const char *game, const char *relativePath ) = 0;
 							// Creates the given OS path for as far as it doesn't exist already.
@@ -186,7 +186,7 @@ public:
 							// Writes a complete file, will create any needed subdirectories.
 							// Returns the length of the file, or -1 on failure. 
 							// greebo: By default use the mod save path to write stuff
-	virtual int				WriteFile( const char *relativePath, const void *buffer, int size, const char *basePath = "fs_modSavePath" ) = 0;
+	virtual int				WriteFile( const char *relativePath, const void *buffer, int size, const char *basePath = "fs_modSavePath", const char *gamedir = NULL ) = 0;
 							// Removes the given file.
 	virtual void			RemoveFile( const char *relativePath ) = 0;
 							// Opens a file for reading.
