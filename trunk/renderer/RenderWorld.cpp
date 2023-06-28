@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5223 $ (Revision of last commit) 
- $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5284 $ (Revision of last commit) 
+ $Date: 2012-02-16 07:52:18 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5223 2012-01-20 23:35:17Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5284 2012-02-16 12:52:18Z tels $");
 
 #include "tr_local.h"
 
@@ -992,10 +992,6 @@ guiPoint_t	idRenderWorldLocal::GuiTrace( qhandle_t entityHandle, const idVec3 st
 	// transform the points into local space
 	R_GlobalPointToLocal( def->modelMatrix, start, localStart );
 	R_GlobalPointToLocal( def->modelMatrix, end, localEnd );
-
-
-	float best = 99999.0;
-	const modelSurface_t *bestSurf = NULL;
 
 	for ( j = 0 ; j < model->NumSurfaces() ; j++ ) {
 		const modelSurface_t *surf = model->Surface( j );

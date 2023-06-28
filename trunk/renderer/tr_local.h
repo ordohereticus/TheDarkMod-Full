@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5281 $ (Revision of last commit) 
- $Date: 2012-02-15 09:47:37 -0500 (Wed, 15 Feb 2012) $ (Date of last commit)
- $Author: rebb $ (Author of last commit)
+ $Revision: 5284 $ (Revision of last commit) 
+ $Date: 2012-02-16 07:52:18 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -1049,7 +1049,7 @@ void R_SetColorMappings( void );
 void R_ScreenShot_f( const idCmdArgs &args );
 void R_StencilShot( void );
 
-bool R_CheckExtension( char *name );
+bool R_CheckExtension( const char *name );
 
 
 /*

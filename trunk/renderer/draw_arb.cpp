@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5284 $ (Revision of last commit) 
+ $Date: 2012-02-16 07:52:18 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb.cpp 5284 2012-02-16 12:52:18Z tels $");
 
 #include "tr_local.h"
 
@@ -71,7 +71,7 @@ it is set to lessThan for blended transparent surfaces
 ==================
 */
 static void RB_ARB_DrawInteraction( const drawInteraction_t *din ) {
-	const drawSurf_t *surf = din->surf;
+//	const drawSurf_t *surf = din->surf;
 	const srfTriangles_t	*tri = din->surf->geo;
 
 	// set the vertex arrays, which may not all be enabled on a given pass
@@ -271,7 +271,7 @@ it is set to lessThan for blended transparent surfaces
 ==================
 */
 static void RB_ARB_DrawThreeTextureInteraction( const drawInteraction_t *din ) {
-	const drawSurf_t *surf = din->surf;
+//	const drawSurf_t *surf = din->surf;
 	const srfTriangles_t	*tri = din->surf->geo;
 
 	// set the vertex arrays, which may not all be enabled on a given pass
