@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5384 $ (Revision of last commit) 
- $Date: 2012-04-11 06:23:14 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5386 $ (Revision of last commit) 
+ $Date: 2012-04-11 17:06:27 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "../../idlib/precompiled.h"
@@ -333,15 +333,6 @@ const char *Posix_Cwd( void ) {
 	cwd[MAX_OSPATH-1] = 0;
 
 	return cwd;
-}
-
-/*
-=================
-Sys_GetMemoryStatus
-=================
-*/
-void Sys_GetMemoryStatus( sysMemoryStats_t &stats ) {
-	common->Printf( "FIXME: Sys_GetMemoryStatus stub\n" );
 }
 
 /*
