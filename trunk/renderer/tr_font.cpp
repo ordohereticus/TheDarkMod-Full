@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5297 $ (Revision of last commit) 
- $Date: 2012-02-24 16:21:03 -0500 (Fri, 24 Feb 2012) $ (Date of last commit)
+ $Revision: 5299 $ (Revision of last commit) 
+ $Date: 2012-02-25 05:35:42 -0500 (Sat, 25 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_font.cpp 5297 2012-02-24 21:21:03Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: tr_font.cpp 5299 2012-02-25 10:35:42Z tels $");
 
 #include "tr_local.h"
 
@@ -380,7 +380,7 @@ bool idRenderSystemLocal::RegisterFont( const char *fontName, fontInfoEx_t &font
 
 		int mw = 0;
 		int mh = 0;
-		for (i = GLYPH_START; i <= GLYPH_END; i++) {
+		for (int i = GLYPH_START; i <= GLYPH_END; i++) {
 			idStr::snPrintf(name, sizeof(name), "%s/%s", fontName, outFont->glyphs[i].shaderName);
 			outFont->glyphs[i].glyph = declManager->FindMaterial(name);
 			outFont->glyphs[i].glyph->SetSort( SS_GUI );
