@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5467 $ (Revision of last commit) 
- $Date: 2012-05-31 01:00:50 -0400 (Thu, 31 May 2012) $ (Date of last commit)
+ $Revision: 5473 $ (Revision of last commit) 
+ $Date: 2012-06-04 22:20:08 -0400 (Mon, 04 Jun 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5467 2012-05-31 05:00:50Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5473 2012-06-05 02:20:08Z serpentine $");
 
 #include "tr_local.h"
 
@@ -2404,6 +2404,13 @@ void idMaterial::EvaluateRegisters( float *registers, const float shaderParms[MA
 									const viewDef_t *view, idSoundEmitter *soundEmitter ) const {
 	int		i, b;
 
+	expOp_t	*op = ops;
+
+	if ( !op && numOps ) {
+		common->FatalError( "R_EvaluateExpression: NULL operators pointer" );
+		return;
+	}
+
 	// copy the material constants
 	for ( i = EXP_REG_NUM_PREDEFINED ; i < numRegisters ; i++ ) {
 		registers[i] = expressionRegisters[i];
@@ -2432,14 +2439,6 @@ void idMaterial::EvaluateRegisters( float *registers, const float shaderParms[MA
 	registers[EXP_REG_GLOBAL6] = view->renderView.shaderParms[6];
 	registers[EXP_REG_GLOBAL7] = view->renderView.shaderParms[7];
 
-
-	expOp_t	*op = ops;
-
-	if ( !op && numOps ) {
-		common->FatalError( "R_EvaluateExpression: NULL operators pointer" );
-		return;
-	}
-
 	for ( i = 0 ; i < numOps ; i++, op++ ) {
 		switch( op->opType ) {
 		case OP_TYPE_ADD:
@@ -2452,7 +2451,7 @@ void idMaterial::EvaluateRegisters( float *registers, const float shaderParms[MA
 			registers[op->c] = registers[op->a] * registers[op->b];
 			break;
 		case OP_TYPE_DIVIDE:
-			registers[op->c] = registers[op->a] / registers[op->b];
+			registers[op->c] = ( registers[op->b] != 0.0f ) ? registers[op->a] / registers[op->b] : 0.0f;
 			break;
 		case OP_TYPE_MOD:
 			b = (int)registers[op->b];
@@ -2490,10 +2489,10 @@ void idMaterial::EvaluateRegisters( float *registers, const float shaderParms[MA
 			registers[op->c] = registers[ op->a ] || registers[op->b];
 			break;
 		case OP_TYPE_SOUND:
-			if ( soundEmitter ) {
+			if ( soundEmitter && soundEmitter->CurrentlyPlaying() ) {
 				registers[op->c] = soundEmitter->CurrentAmplitude();
 			} else {
-				registers[op->c] = 1.0f;
+				registers[op->c] = 0.0f;
 			}
 			break;
 		default:
