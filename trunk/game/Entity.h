@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5371 $ (Revision of last commit) 
- $Date: 2012-04-07 19:22:04 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Revision: 5373 $ (Revision of last commit) 
+ $Date: 2012-04-08 15:41:08 -0400 (Sun, 08 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -1052,7 +1052,7 @@ public:
 	* Returns a pointer to the attachment position with this name. 
 	* Returns NULL if no attachment position exists with this name.
 	**/
-	virtual SAttachPosition *GetAttachPosition( const char *AttachName ) const;
+	virtual SAttachPosition *GetAttachPosition( const char *AttachName );
 
 	/**
 	* Store the attachment info in the argument references given.

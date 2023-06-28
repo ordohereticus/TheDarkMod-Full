@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5371 $ (Revision of last commit) 
- $Date: 2012-04-07 19:22:04 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Revision: 5373 $ (Revision of last commit) 
+ $Date: 2012-04-08 15:41:08 -0400 (Sun, 08 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5371 2012-04-07 23:22:04Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5373 2012-04-08 19:41:08Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -10345,7 +10345,7 @@ void idEntity::ShowAttachmentInd( const int ind, const bool bShow )
 		return;
 	}
 
-	const idEntity *ent = m_Attachments[ind].ent.GetEntity();
+	idEntity *ent = m_Attachments[ind].ent.GetEntity();
 
 	if( !ent || !m_Attachments[ind].ent.IsValid() )
 	{
@@ -10405,7 +10405,7 @@ idEntity *idEntity::GetAttachment( const int ind ) const
 		return NULL;
 	}
 
-	const idEntity *ent = m_Attachments[ind].ent.GetEntity();
+	idEntity *ent = m_Attachments[ind].ent.GetEntity();
 
 	if( !ent || !m_Attachments[ind].ent.IsValid() )
 	{
@@ -12062,7 +12062,7 @@ void idEntity::ParseAttachPositions( void )
 idEntity::GetAttachPosition
 ================
 */
-SAttachPosition *idEntity::GetAttachPosition( const char *AttachName ) const
+SAttachPosition *idEntity::GetAttachPosition( const char *AttachName )
 {
 	idStr AttName = AttachName;
 	SAttachPosition *returnVal = NULL;
