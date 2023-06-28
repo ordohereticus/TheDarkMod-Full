@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5455 $ (Revision of last commit) 
+ $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SuspiciousState.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SuspiciousState.cpp 5455 2012-05-21 22:01:45Z grayman $");
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -69,6 +69,24 @@ bool SuspiciousState::CheckAlertLevel(idAI* owner)
 			if ( door->GetUserManager().GetNumUsers() > 0 )
 			{
 				return false; // others are queued up to use the door, so quit
+			}
+
+			// grayman #3104 - if I'm handling a door now, I won't be able to initiate
+			// handling of the suspicious door in order to close it. So I'll forget about
+			// doing that, and let the suspicious door stim me again. Perhaps I'll see it
+			// later.
+
+			if ( owner->m_HandlingDoor )
+			{
+				CFrobDoor* currentDoor = owner->GetMemory().doorRelated.currentDoor.GetEntity();
+				if ( currentDoor && ( currentDoor != door ) )
+				{
+					memory.closeMe = NULL;
+					memory.closeSuspiciousDoor = false;
+					door->SetSearching(NULL);
+					door->AllowResponse(ST_VISUAL,owner); // respond to the next stim
+					return false;
+				}
 			}
 
 			memory.closeFromAwayPos = false; // close from the side the door swings toward

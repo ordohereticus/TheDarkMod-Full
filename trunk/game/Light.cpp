@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5326 $ (Revision of last commit) 
- $Date: 2012-03-09 15:48:40 -0500 (Fri, 09 Mar 2012) $ (Date of last commit)
+ $Revision: 5455 $ (Revision of last commit) 
+ $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5326 2012-03-09 20:48:40Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5455 2012-05-21 22:01:45Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -787,8 +787,8 @@ void idLight::On( void ) {
 idLight::Off
 ================
 */
-void idLight::Off( const bool stopSound ) {
-
+void idLight::Off( const bool stopSound )
+{
 	currentLevel = 0;
 
 	if ( stopSound && refSound.referenceSound && refSound.referenceSound->CurrentlyPlaying() ) {
@@ -1370,15 +1370,19 @@ void idLight::Event_ToggleOnOff( idEntity *activator ) {
 		return;
 	}
 
-	if ( !currentLevel ) {
+	if ( !currentLevel )
+	{
 		On();
 	}
-	else {
+	else
+	{
 		currentLevel--;
-		if ( !currentLevel ) {
+		if ( !currentLevel )
+		{
 			Off();
 		}
-		else {
+		else
+		{
 			SetLightLevel();
 		}
 	}

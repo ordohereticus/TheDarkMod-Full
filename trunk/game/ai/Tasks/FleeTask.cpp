@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5455 $ (Revision of last commit) 
+ $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FleeTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FleeTask.cpp 5455 2012-05-21 22:01:45Z grayman $");
 
 #include "FleeTask.h"
 #include "../Memory.h"
@@ -144,7 +144,7 @@ bool FleeTask::Perform(Subsystem& subsystem)
 			// Get the distance to the enemy
 			float enemyDistance = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), enemy->GetPhysics()->GetOrigin());
 
-			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Enemy is as near as %d", enemyDistance);
+			DM_LOG(LC_AI, LT_INFO)LOGSTRING("Enemy is as near as %f\r", enemyDistance);
 			if (enemyDistance < 500)
 			{
 				// Increase the fleeRadius (the nearer the enemy, the more)

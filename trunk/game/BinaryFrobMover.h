@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5455 $ (Revision of last commit) 
+ $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -550,6 +550,12 @@ protected:
 	**/
 
 	bool						m_targetingOff;
+
+	/**
+	* grayman #3104 - when an AI needs to use this door, was it locked?
+	**/
+
+	bool						m_wasFoundLocked;
 };
 
 #endif /* !BINARYFROBMOVER */

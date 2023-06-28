@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5376 $ (Revision of last commit) 
- $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5455 $ (Revision of last commit) 
+ $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -123,6 +123,8 @@ public:
 	idEntity*				GetLastUsedBy();				// grayman #2859
 	void					SetSearching(idEntity* ent);	// grayman #2866
 	idEntity*				GetSearching();					// grayman #2866
+	void					SetWasFoundLocked(bool state);	// grayman #3104
+	bool					GetWasFoundLocked();			// grayman #3104
 	bool					GetDoorHandlingEntities(idAI* owner, idList< idEntityPtr<idEntity> > &list); // grayman #2866
 
 protected:

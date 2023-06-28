@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5455 $ (Revision of last commit) 
+ $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -160,8 +160,9 @@ protected:
 	// Get the sound shader name for owner, when responding to a greeting from otherAI
 	virtual idStr GetGreetingResponseSound(idAI* owner, idAI* otherAI);
 
-	bool CheckTorch(idAI* owner,idLight* light); // grayman - check for potential torch drop
+	bool CheckTorch(idAI* owner, idLight* light); // grayman - check for potential torch drop
 
+	bool SomeoneNearDoor(idAI* owner, CFrobDoor* door); // grayman #3104
 
 private:
 	void OnMessageDetectedSomethingSuspicious(CommMessage& message);
