@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5212 $ (Revision of last commit) 
+ $Date: 2012-01-13 18:21:17 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5212 2012-01-13 23:21:17Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1152,12 +1152,50 @@ bool idAFEntity_Base::Collide( const trace_t &collision, const idVec3 &velocity 
 		v = -( velocity * collision.c.normal );
 		if ( v > BOUNCE_SOUND_MIN_VELOCITY && gameLocal.time > nextSoundTime ) {
 			f = v > BOUNCE_SOUND_MAX_VELOCITY ? 1.0f : idMath::Sqrt( v - BOUNCE_SOUND_MIN_VELOCITY ) * ( 1.0f / idMath::Sqrt( BOUNCE_SOUND_MAX_VELOCITY - BOUNCE_SOUND_MIN_VELOCITY ) );
-			if ( StartSound( "snd_bounce", SND_CHANNEL_ANY, 0, false, NULL ) ) {
+			// tels: #2953: support snd_bounce_material (like snd_bounce_carpet) here, too
+			idStr sndNameLocal;
+			const idMaterial *material = collision.c.material;
+			idStr surfaceName;
+			if (material != NULL)
+			{
+				// Prepend the snd_bounce_ prefix to check for a surface-specific sound
+				surfaceName = g_Global.GetSurfName(material);
+				idStr sndNameWithSurface = idStr("snd_bounce_") + surfaceName;
+
+				if (spawnArgs.FindKey(sndNameWithSurface) != NULL)
+				{
+					sndNameLocal = sndNameWithSurface;
+				}
+				else
+				{
+					sndNameLocal = "snd_bounce";
+				}
+			}
+
+			const char* sound = spawnArgs.GetString(sndNameLocal);
+			const idSoundShader* sndShader = declManager->FindSound(sound);
+
+			// don't set the volume unless there is a bounce sound as it overrides the entire channel
+			// which causes footsteps on ai's to not honor their shader parms
+			if (sndShader) {
+				float volume = sndShader->GetParms()->volume + f;
+
+				SetSoundVolume(volume);
+
+				// greebo: We don't use StartSound() here, we want to do the sound propagation call manually
+				StartSoundShader(sndShader, SND_CHANNEL_ANY, 0, false, NULL);
+
+				idStr sndPropName = GetSoundPropNameForMaterial(surfaceName);
+				// Propagate a suspicious sound, using the "group" convention (soft, hard, small, med, etc.)
+				PropSoundS( NULL, sndPropName, f );
+
+//			if ( StartSound( "snd_bounce", SND_CHANNEL_ANY, 0, false, NULL ) ) {
 				// don't set the volume unless there is a bounce sound as it overrides the entire channel
 				// which causes footsteps on ai's to not honor their shader parms
-				SetSoundVolume( f );
+//				SetSoundVolume( f );
+//			}
+				nextSoundTime = gameLocal.time + 500;
 			}
-			nextSoundTime = gameLocal.time + 500;
 		}
 	}
 

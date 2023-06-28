@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5212 $ (Revision of last commit) 
+ $Date: 2012-01-13 18:21:17 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5212 2012-01-13 23:21:17Z tels $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -516,14 +516,6 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 	}
 
 	return false;
-}
-
-idStr idMoveable::GetSoundPropNameForMaterial(const idStr& materialName)
-{
-	// Object type defaults to "medium" and "hard"
-	return idStr("bounce_") + spawnArgs.GetString("spr_object_size", "medium") + 
-		"_" + spawnArgs.GetString("spr_object_hardness", "hard") + 
-		"_on_" + g_Global.GetSurfaceHardness(materialName);
 }
 
 /*

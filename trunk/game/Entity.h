@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5132 $ (Revision of last commit) 
- $Date: 2011-12-29 00:41:59 -0500 (Thu, 29 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5212 $ (Revision of last commit) 
+ $Date: 2012-01-13 18:21:17 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ENTITY_H__
@@ -575,6 +575,9 @@ public:
 	int						GetListenerId( void ) const;
 	idSoundEmitter *		GetSoundEmitter( void ) const;
 	void					FreeSoundEmitter( bool immediate );
+
+	// Returns the soundprop name for the given material (e.g. "sprS_bounce_small_hard_on_soft")
+	idStr					GetSoundPropNameForMaterial(const idStr& materialName);
 
 	// entity binding
 	virtual void			PreBind( void );

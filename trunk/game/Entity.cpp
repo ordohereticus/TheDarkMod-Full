@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5212 $ (Revision of last commit) 
+ $Date: 2012-01-13 18:21:17 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5212 2012-01-13 23:21:17Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -3684,6 +3684,14 @@ Used for playing chatter sounds on monsters.
 */
 bool idEntity::CanPlayChatterSounds( void ) const {
 	return true;
+}
+
+idStr idEntity::GetSoundPropNameForMaterial(const idStr& materialName)
+{
+	// Object type defaults to "medium" and "hard"
+	return idStr("bounce_") + spawnArgs.GetString("spr_object_size", "medium") + 
+		"_" + spawnArgs.GetString("spr_object_hardness", "hard") + 
+		"_on_" + g_Global.GetSurfaceHardness(materialName);
 }
 
 /*
