@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5225 $ (Revision of last commit) 
- $Date: 2012-01-21 07:51:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: GuiScript.cpp 5225 2012-01-21 12:51:47Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: GuiScript.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include "Window.h"
 #include "Winvar.h"
@@ -476,7 +476,7 @@ void idGuiScript::FixupParms(idWindow *win) {
 					parms[i].own = false;
 				}
 			} else if ( idStr::Cmpn( str->c_str(), STRTABLE_ID, STRTABLE_ID_LENGTH ) == 0 ) {
-				str->Set( common->GetLanguageDict()->GetString( str->c_str() ) );
+				str->Set( common->Translate( str->c_str() ) );
 			} else if ( precacheBackground ) {
 				const idMaterial *mat = declManager->FindMaterial( str->c_str() );
 				mat->SetSort( SS_GUI );

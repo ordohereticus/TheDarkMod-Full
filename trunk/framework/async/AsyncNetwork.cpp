@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5223 $ (Revision of last commit) 
- $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncNetwork.cpp 5223 2012-01-20 23:35:17Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncNetwork.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include "AsyncNetwork.h"
 
@@ -490,9 +490,9 @@ idAsyncNetwork::BuildInvalidKeyMsg
 */
 void idAsyncNetwork::BuildInvalidKeyMsg( idStr &msg, bool valid[ 2 ] ) {
 	if ( !valid[ 0 ] ) {
-		msg += common->GetLanguageDict()->GetString( "#str_07194" );
+		msg += common->Translate( "#str_07194" );
 	}
 	msg += "\n";
-	msg += common->GetLanguageDict()->GetString( "#str_04304" );	
+	msg += common->Translate( "#str_04304" );	
 }
 

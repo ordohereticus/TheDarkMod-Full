@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5243 $ (Revision of last commit) 
- $Date: 2012-02-03 09:28:06 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -190,11 +190,12 @@ public:
 								// static internal errors or cases where the system may be corrupted.
 	virtual void				FatalError( const char *fmt, ... ) id_attribute((format(printf,2,3))) = 0;
 
-								// DEPRECATED Returns a pointer to the dictionary with language specific strings.
-	virtual const idLangDict *	GetLanguageDict( void ) = 0;
-
 								// greebo: Provides access to I18N-related methods
 	virtual I18N*				GetI18N() = 0;
+
+						// take a string like "#str_12345" and return a translated version of it.
+						// Shortcut to GetI18N()->Translate()
+	virtual const char *			Translate( const char * str ) = 0;
 
 								// Returns key bound to the command
 	virtual const char *		KeysFromBinding( const char *bind ) = 0;

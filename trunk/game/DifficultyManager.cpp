@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DifficultyManager.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DifficultyManager.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include "DifficultyManager.h"
 
@@ -97,7 +97,7 @@ idStr DifficultyManager::GetDifficultyName(int level)
 	if (_difficultyNames[level].Length() > 0)
 	{
 		// Tels: Attempt to translate the name, in case the mapper used something like "#str_01234"
-		return common->GetLanguageDict()->GetString( _difficultyNames[level] );
+		return common->Translate( _difficultyNames[level] );
 	}
 	else // return default names from entityDef
 	{
@@ -105,7 +105,7 @@ idStr DifficultyManager::GetDifficultyName(int level)
 		const idDeclEntityDef* diffDef = static_cast<const idDeclEntityDef*>(diffDecl);
 
 		// Tels: Translate default difficulty names
-		return common->GetLanguageDict()->GetString( diffDef->dict.GetString(va("diff%ddefault", level), "") );
+		return common->Translate( diffDef->dict.GetString(va("diff%ddefault", level), "") );
 	}
 }
 

@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5262 $ (Revision of last commit) 
- $Date: 2012-02-10 06:24:08 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -98,10 +98,6 @@ public:
 	*/
 	virtual void				MoveArticlesToBack(idStr& title) = 0;
 
-	/** 
-	* Replaces the legacy common->GetLanguageDict():
-	*/
-	virtual const idLangDict*	GetLanguageDict() const = 0;
 };
 
 #endif /* !__DARKMOD_I18N_H__ */

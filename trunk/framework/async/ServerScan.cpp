@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5235 $ (Revision of last commit) 
- $Date: 2012-01-26 15:16:22 -0500 (Thu, 26 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ServerScan.cpp 5235 2012-01-26 20:16:22Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: ServerScan.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 idCVar gui_filter_password( "gui_filter_password", "0", CVAR_GUI | CVAR_INTEGER | CVAR_ARCHIVE, "Password filter" );
 idCVar gui_filter_players( "gui_filter_players", "0", CVAR_GUI | CVAR_INTEGER | CVAR_ARCHIVE, "Players filter" );
@@ -155,7 +155,7 @@ int idServerScan::InfoResponse( networkServer_t &server ) {
 	const idDecl *mapDecl = declManager->FindType( DECL_MAPDEF, si_map, false );
 	const idDeclEntityDef *mapDef = static_cast< const idDeclEntityDef * >( mapDecl );
 	if ( mapDef ) {
-		const char *mapName = common->GetLanguageDict()->GetString( mapDef->dict.GetString( "name", si_map ) );
+		const char *mapName = common->Translate( mapDef->dict.GetString( "name", si_map ) );
 		server.serverInfo.Set( "si_mapName", mapName );
 	} else {
 		server.serverInfo.Set( "si_mapName", si_map );

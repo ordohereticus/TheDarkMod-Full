@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ModInfo.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: ModInfo.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include "ModInfo.h"
 #include "ModInfoDecl.h"
@@ -68,19 +68,19 @@ idStr CModInfo::GetModFolderSizeString()
 	idStr str;
 	if (size < 1024)
 	{
-		str = va("%0.2f %s", size, common->GetLanguageDict()->GetString( "#str_02050" ));	// Bytes
+		str = va("%0.2f %s", size, common->Translate( "#str_02050" ));	// Bytes
 	}
 	else if (size < 1024*1024)
 	{
-		str = va("%0.0f %s", size/1024.0f, common->GetLanguageDict()->GetString( "#str_02054" ));	// kB
+		str = va("%0.0f %s", size/1024.0f, common->Translate( "#str_02054" ));	// kB
 	}
 	else if (size < 1024.0f*1024.0f*1024.0f)
 	{
-		str = va("%0.0f %s", size/(1024.0f*1024.0f), common->GetLanguageDict()->GetString( "#str_02055" ));	// MB
+		str = va("%0.0f %s", size/(1024.0f*1024.0f), common->Translate( "#str_02055" ));	// MB
 	}
 	else if (size < 1024.0f*1024.0f*1024.0f*1024.0f)
 	{
-		str = va("%0.2f %s", size/(1024.0f*1024.0f*1024.0f), common->GetLanguageDict()->GetString( "#str_02056" ));	// GB
+		str = va("%0.2f %s", size/(1024.0f*1024.0f*1024.0f), common->Translate( "#str_02056" ));	// GB
 	}
 
 	return str;
@@ -110,7 +110,7 @@ idStr CModInfo::GetModCompletedString()
 {
 	if (modName == "training_mission")
 	{
-		return common->GetLanguageDict()->GetString( "#str_02511" );	// Not completable
+		return common->Translate( "#str_02511" );	// Not completable
 	}
 
 	idStr diffStr;
@@ -132,11 +132,11 @@ idStr CModInfo::GetModCompletedString()
 
 	if (anyCompleted)
 	{
-		return va( common->GetLanguageDict()->GetString( "#str_02513" ), diffStr.c_str());	// "Yes (%s)"
+		return va( common->Translate( "#str_02513" ), diffStr.c_str());	// "Yes (%s)"
 	}
 	else
 	{
-		return common->GetLanguageDict()->GetString( "#str_02512" );	// Not yet
+		return common->Translate( "#str_02512" );	// Not yet
 	}
 }
 

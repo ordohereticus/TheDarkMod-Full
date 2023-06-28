@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5260 $ (Revision of last commit) 
- $Date: 2012-02-09 12:55:52 -0500 (Thu, 09 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5260 2012-02-09 17:55:52Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -9995,7 +9995,7 @@ void idEntity::Event_SetGuiStringFromKey( int handle, const char *key, idEntity 
 		return;
 	}
 
-	gui->SetStateString( key, common->GetLanguageDict()->GetString( src->spawnArgs.GetString( spawnArg, "" ) ) );
+	gui->SetStateString( key, common->Translate( src->spawnArgs.GetString( spawnArg, "" ) ) );
 	gui->StateChanged( gameLocal.time );
 }
 

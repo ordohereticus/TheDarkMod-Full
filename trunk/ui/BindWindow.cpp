@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BindWindow.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: BindWindow.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include "DeviceContext.h"
 #include "Window.h"
@@ -99,11 +99,11 @@ void idBindWindow::Draw(int time, float x, float y) {
 
 	idStr str;
 	if ( waitingOnKey ) {
-		str = common->GetLanguageDict()->GetString( "#str_07000" );
+		str = common->Translate( "#str_07000" );
 	} else if ( bindName.Length() ) {
 		str = bindName.c_str();
 	} else {
-		str = common->GetLanguageDict()->GetString( "#str_07001" );
+		str = common->Translate( "#str_07001" );
 	}
 
 	if ( waitingOnKey || ( hover && !noEvents && Contains(gui->CursorX(), gui->CursorY()) ) ) {

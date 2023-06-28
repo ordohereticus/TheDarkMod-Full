@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include <time.h>
 #include "MissionManager.h"
@@ -233,7 +233,7 @@ idStr CMissionManager::GetCurrentModName()
 {
 	CModInfoPtr info = GetCurrentModInfo();
 
-	return (info != NULL) ? idStr( common->GetLanguageDict()->GetString( info->modName ) ) : "";
+	return (info != NULL) ? idStr( common->Translate( info->modName ) ) : "";
 }
 
 int CMissionManager::GetNumNewMods()
@@ -545,8 +545,8 @@ int CMissionManager::ModSortCompare(const int* a, const int* b)
 
 	if (aInfo == NULL || bInfo == NULL) return 0;
 
-	idStr aName = common->GetLanguageDict()->GetString( aInfo->displayName );
-	idStr bName = common->GetLanguageDict()->GetString( bInfo->displayName );
+	idStr aName = common->Translate( aInfo->displayName );
+	idStr bName = common->Translate( bInfo->displayName );
 
 	common->GetI18N()->MoveArticlesToBack( aName );
 	common->GetI18N()->MoveArticlesToBack( bName );

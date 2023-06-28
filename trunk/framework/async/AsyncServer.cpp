@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5235 $ (Revision of last commit) 
- $Date: 2012-01-26 15:16:22 -0500 (Thu, 26 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncServer.cpp 5235 2012-01-26 20:16:22Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncServer.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include "AsyncNetwork.h"
 
@@ -736,7 +736,7 @@ void idAsyncServer::DropClient( int clientNum, const char *reason ) {
 		}
 	}
 
-	reason = common->GetLanguageDict()->GetString( reason );
+	reason = common->Translate( reason );
 	common->Printf( "client %d %s\n", clientNum, reason );
 	cmdSystem->BufferCommandText( CMD_EXEC_NOW, va( "addChatLine \"%s^0 %s\"", sessLocal.mapSpawnData.userInfo[ clientNum ].GetString( "ui_name" ), reason ) );
 
@@ -1414,7 +1414,7 @@ void idAsyncServer::ProcessAuthMessage( const idBitMsg &msg ) {
 			msg = replyPrintMsg.c_str();
 		}
 		// maybe localize it
-		const char *l_msg = common->GetLanguageDict()->GetString( msg );
+		const char *l_msg = common->Translate( msg );
 		common->DPrintf( "auth: client %s %s - %s %s\n", Sys_NetAdrToString( client_from ), client_guid, authReplyStr[ reply ], l_msg );
 		challenges[ i ].authReply = reply;
 		challenges[ i ].authReplyMsg = replyMsg;
@@ -1592,7 +1592,7 @@ void idAsyncServer::ProcessConnectMessage( const netadr_t from, const idBitMsg &
 			} else {
 				msg = challenges[ ichallenge ].authReplyPrint.c_str();
 			}
-			l_msg = common->GetLanguageDict()->GetString( msg );
+			l_msg = common->Translate( msg );
 			
 			common->DPrintf( "%s: %s\n", Sys_NetAdrToString( from ), l_msg );
 

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5237 $ (Revision of last commit) 
- $Date: 2012-01-28 22:51:35 -0500 (Sat, 28 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5237 2012-01-29 03:51:35Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 #include "tr_local.h"
 
@@ -517,7 +517,7 @@ static void R_CheckPortableExtensions( void ) {
 	// check for minimum set
 	if ( !glConfig.multitextureAvailable || !glConfig.textureEnvCombineAvailable || !glConfig.cubeMapAvailable
 		|| !glConfig.envDot3Available ) {
-			common->Error( common->GetLanguageDict()->GetString( "#str_06780" ) );
+			common->Error( common->Translate( "#str_06780" ) );
 	}
 
  	// GL_EXT_depth_bounds_test

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5229 $ (Revision of last commit) 
- $Date: 2012-01-21 17:56:30 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Revision: 5266 $ (Revision of last commit) 
+ $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5229 2012-01-21 22:56:30Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5266 2012-02-10 14:40:18Z tels $");
 
 typedef struct {
 	const char	*name;
@@ -339,10 +339,10 @@ const char *idKeyInput::KeyNumToString( int keynum, bool localized ) {
 						return OSX_GetLocalizedString( kn->name );
 						break;
 					default :
-						return common->GetLanguageDict()->GetString( kn->strId ); break;
+						return common->Translate( kn->strId ); break;
 				}
 #else
-				return common->GetLanguageDict()->GetString( kn->strId );
+				return common->Translate( kn->strId );
 #endif
 			}
 		}
@@ -574,14 +574,14 @@ const char *idKeyInput::KeysFromBinding( const char *bind ) {
 		for ( i = 0; i < MAX_KEYS; i++ ) {
 			if ( keys[i].binding.Icmp( bind ) == 0 ) {
 				if ( keyName[0] != '\0' ) {
-					idStr::Append( keyName, sizeof( keyName ), common->GetLanguageDict()->GetString( "#str_07183" ) );
+					idStr::Append( keyName, sizeof( keyName ), common->Translate( "#str_07183" ) );
 				} 
 				idStr::Append( keyName, sizeof( keyName ), KeyNumToString( i, true ) );
 			}
 		}
 	}
 	if ( keyName[0] == '\0' ) {
-		idStr::Copynz( keyName, common->GetLanguageDict()->GetString( "#str_07133" ), sizeof( keyName ) );
+		idStr::Copynz( keyName, common->Translate( "#str_07133" ), sizeof( keyName ) );
 	}
 	idStr::ToLower( keyName );
 	return keyName;
