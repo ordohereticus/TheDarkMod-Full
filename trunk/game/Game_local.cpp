@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5460 $ (Revision of last commit) 
- $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5471 $ (Revision of last commit) 
+ $Date: 2012-06-04 00:27:36 -0400 (Mon, 04 Jun 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5460 2012-05-26 14:05:45Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5471 2012-06-04 04:27:36Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -2978,6 +2978,7 @@ gameReturn_t idGameLocal::RunFrame( const usercmd_t *clientCmds ) {
 	const renderView_t *view;
 	int curframe = framenum;
 
+	ret.sessionCommand[0] = 0; // grayman #3139 - must be cleared here, to handle the "player waiting" time
 	g_Global.m_Frame = curframe;
 	DM_LOG(LC_FRAME, LT_INFO)LOGSTRING("Frame start\r");
 
