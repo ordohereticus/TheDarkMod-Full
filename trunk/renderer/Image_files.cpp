@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5193 $ (Revision of last commit) 
- $Date: 2012-01-08 06:07:18 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5226 $ (Revision of last commit) 
+ $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5193 2012-01-08 11:07:18Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5226 2012-01-21 13:43:47Z tels $");
 
 #include "tr_local.h"
 
@@ -1123,9 +1123,9 @@ Loads six files with proper extensions
 */
 bool R_LoadCubeImages( const char *imgName, cubeFiles_t extensions, byte *pics[6], int *outSize, ID_TIME_T *timestamp ) {
 	int		i, j;
-	char	*cameraSides[6] =  { "_forward.tga", "_back.tga", "_left.tga", "_right.tga", 
+	const char	*cameraSides[6] =  { "_forward.tga", "_back.tga", "_left.tga", "_right.tga", 
 		"_up.tga", "_down.tga" };
-	char	*axisSides[6] =  { "_px.tga", "_nx.tga", "_py.tga", "_ny.tga", 
+	const char	*axisSides[6] =  { "_px.tga", "_nx.tga", "_py.tga", "_ny.tga", 
 		"_pz.tga", "_nz.tga" };
 	char	**sides;
 	char	fullName[MAX_IMAGE_NAME];

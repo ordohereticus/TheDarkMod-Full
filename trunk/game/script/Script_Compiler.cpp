@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5226 $ (Revision of last commit) 
+ $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Compiler.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Compiler.cpp 5226 2012-01-21 13:43:47Z tels $");
 
 #include "../Game_local.h"
 
@@ -31,7 +31,7 @@ static bool versioned = RegisterVersionedFile("$Id: Script_Compiler.cpp 5185 201
 #define TOP_PRIORITY		7
 
 bool idCompiler::punctuationValid[ 256 ];
-char *idCompiler::punctuation[] = {
+const char *idCompiler::punctuation[] = {
 	"+=", "-=", "*=", "/=", "%=", "&=", "|=", "++", "--",
 	"&&", "||", "<=", ">=", "==", "!=", "::", ";",  ",",
 	"~",  "!",  "*",  "/",  "%",  "(",   ")",  "-", "+",

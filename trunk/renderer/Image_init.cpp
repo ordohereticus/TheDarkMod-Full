@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5200 $ (Revision of last commit) 
- $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5226 $ (Revision of last commit) 
+ $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_init.cpp 5200 2012-01-09 07:19:56Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Image_init.cpp 5226 2012-01-21 13:43:47Z tels $");
 
 #include "tr_local.h"
 
@@ -904,7 +904,7 @@ void R_QuadraticImage( idImage *image ) {
 
 
 typedef struct {
-	char *name;
+	const char *name;
 	int	minimize, maximize;
 } filterName_t;
 

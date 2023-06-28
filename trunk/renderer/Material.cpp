@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5226 $ (Revision of last commit) 
+ $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5226 2012-01-21 13:43:47Z tels $");
 
 #include "tr_local.h"
 
@@ -217,7 +217,7 @@ idImage *idMaterial::GetEditorImage( void ) const {
 
 // info parms
 typedef struct {
-	char	*name;
+	const char	*name;
 	int		clearSolid, surfaceFlags, contents;
 } infoParm_t;
 
@@ -2318,7 +2318,7 @@ bool idMaterial::Parse( const char *text, const int textLength ) {
 idMaterial::Print
 ===================
 */
-char *opNames[] = {
+const char *opNames[] = {
 	"OP_TYPE_ADD",
 	"OP_TYPE_SUBTRACT",
 	"OP_TYPE_MULTIPLY",

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5226 $ (Revision of last commit) 
+ $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -191,7 +191,7 @@ enum {
 class idCompiler {
 private:
 	static bool		punctuationValid[ 256 ];
-	static char		*punctuation[];
+	static const char	*punctuation[];
 
 	idParser		parser;
 	idParser		*parserPtr;
