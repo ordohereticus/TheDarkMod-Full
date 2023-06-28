@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5384 $ (Revision of last commit) 
- $Date: 2012-04-11 06:23:14 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5485 $ (Revision of last commit) 
+ $Date: 2012-07-02 16:40:33 -0400 (Mon, 02 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -349,6 +349,7 @@ ID_TIME_T			Sys_FileTimeStamp( FILE *fp );
 const char *	Sys_TimeStampToStr( ID_TIME_T timeStamp );
 const char *	Sys_DefaultCDPath( void );
 const char *	Sys_DefaultBasePath( void );
+const char *	Sys_HomeSavePath( void );
 const char *	Sys_DefaultSavePath( void );
 const char *	Sys_ModSavePath( void ); // greebo: added this for TDM mission handling
 const char *	Sys_EXEPath( void );
