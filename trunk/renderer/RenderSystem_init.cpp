@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5392 $ (Revision of last commit) 
+ $Date: 2012-04-15 15:06:54 -0400 (Sun, 15 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5392 2012-04-15 19:06:54Z tels $");
 
 #include "tr_local.h"
 
@@ -1315,55 +1315,6 @@ void idRenderSystemLocal::TakeScreenshot( int width, int height, const char *fil
 
 }
 
-// taaaki: no need for two screenshot naming functions
-#if 0
-/* 
-================== 
-R_ScreenshotFilename
-
-Returns a filename with digits appended
-if we have saved a previous screenshot, don't scan
-from the beginning, because recording demo avis can involve
-thousands of shots
-================== 
-*/  
-void R_ScreenshotFilename( int &lastNumber, const char *base, idStr &fileName ) {
-	int	a,b,c,d,e;
-
-    // taaaki: include the fan mission name, but strip unwanted characters
-    idStr mapname = idStr( cvarSystem->GetCVarString( "fs_game" ) );
-    mapname.ToLower();
-
-	lastNumber++;
-	if ( lastNumber > 99999 ) {
-		lastNumber = 99999;
-	}
-	for ( ; lastNumber < 99999 ; lastNumber++ ) {
-		int	frac = lastNumber;
-
-		a = frac / 10000;
-		frac -= a*10000;
-		b = frac / 1000;
-		frac -= b*1000;
-		c = frac / 100;
-		frac -= c*100;
-		d = frac / 10;
-		frac -= d*10;
-		e = frac;
-
-        sprintf( fileName, "%s%s-shot%i%i%i%i%i.tga", base, mapname.c_str(), a, b, c, d, e );
-		if ( lastNumber == 99999 ) {
-			break;
-		}
-		int len = fileSystem->ReadFile( fileName, NULL, NULL );
-		if ( len <= 0 ) {
-			break;
-		}
-		// check again...
-	}
-}
-#endif
-
 /*
 ================== 
 R_BlendedScreenShot
@@ -1376,7 +1327,6 @@ screenshot [width] [height] [samples]
 */ 
 #define	MAX_BLENDS	256	// to keep the accumulation in shorts
 void R_ScreenShot_f( const idCmdArgs &args ) {
-	static int lastNumber = 0;
 	idStr checkname;
 
 	int width = glConfig.vidWidth;
@@ -1388,7 +1338,6 @@ void R_ScreenShot_f( const idCmdArgs &args ) {
 		width = glConfig.vidWidth;
 		height = glConfig.vidHeight;
 		blends = 1;
-		//R_ScreenshotFilename( lastNumber, "screenshots/", checkname );
 		break;
 	case 2:
 		width = glConfig.vidWidth;
@@ -1400,7 +1349,6 @@ void R_ScreenShot_f( const idCmdArgs &args ) {
 		width = atoi( args.Argv( 1 ) );
 		height = atoi( args.Argv( 2 ) );
 		blends = 1;
-		//R_ScreenshotFilename( lastNumber, "screenshots/", checkname );
 		break;
 	case 4:
 		width = atoi( args.Argv( 1 ) );
@@ -1412,7 +1360,6 @@ void R_ScreenShot_f( const idCmdArgs &args ) {
 		if ( blends > MAX_BLENDS ) {
 			blends = MAX_BLENDS;
 		}
-		//R_ScreenshotFilename( lastNumber, "screenshots/", checkname );
 		break;
 	default:
 		common->Printf( "usage: screenshot\n       screenshot <filename>\n       screenshot <width> <height>\n       screenshot <width> <height> <blends>\n" );
