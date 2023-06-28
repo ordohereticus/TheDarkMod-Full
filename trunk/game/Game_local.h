@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5305 $ (Revision of last commit) 
+ $Date: 2012-02-26 11:18:33 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -671,7 +671,6 @@ public:
 	virtual escReply_t		HandleESC( idUserInterface **gui );
 	virtual idUserInterface	*StartMenu( void );
 	virtual const char *	HandleGuiCommands( const char *menuCommand );
-	virtual bool			InitGUIChoice( idUserInterface *gui, const char *varName, const char *inChoices, const char *inValues, const bool step = false );
 	virtual void			HandleMainMenuCommands( const char *menuCommand, idUserInterface *gui );
 	/**
 	* Adjusts the size of GUI variables to support stretching/scaling of the GUI.
