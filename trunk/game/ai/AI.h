@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5385 $ (Revision of last commit) 
+ $Date: 2012-04-11 17:06:04 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -1900,7 +1900,7 @@ public:
 	// greebo: Contains all the checks for CVAR-dependent debug info
 	void					ShowDebugInfo();
 
-	const idStr&			GetNextIdleAnim();
+	const idStr&			GetNextIdleAnim() const;
 	void					SetNextIdleAnim(const idStr& nextIdleAnim);
 
 	// grayman #2603 - work with the list of delayed visual stims
@@ -1911,7 +1911,7 @@ public:
 	// grayman #3075 - set and get an AI's blood marker
 
 	void					SetBlood(idEntity *marker);
-	idEntity*				GetBlood(void);
+	idEntity*				GetBlood(void) const;
 		
 	//
 	// ai/ai_events.cpp

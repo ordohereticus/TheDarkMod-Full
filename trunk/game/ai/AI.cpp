@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5385 $ (Revision of last commit) 
+ $Date: 2012-04-11 17:06:04 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5378 2012-04-10 18:21:04Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5385 2012-04-11 21:06:04Z tels $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -11599,7 +11599,7 @@ void idAI::ShowDebugInfo()
 	}
 }
 
-const idStr& idAI::GetNextIdleAnim()
+const idStr& idAI::GetNextIdleAnim() const
 {
 	return m_NextIdleAnim;
 }
@@ -11649,7 +11649,7 @@ void idAI::SetBlood(idEntity *marker)
 	m_bloodMarker = marker;
 }
 
-idEntity* idAI::GetBlood(void)
+idEntity* idAI::GetBlood(void) const
 {
 	return m_bloodMarker;
 }
