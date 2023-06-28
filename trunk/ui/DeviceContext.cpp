@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5249 $ (Revision of last commit) 
- $Date: 2012-02-06 16:10:12 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Revision: 5262 $ (Revision of last commit) 
+ $Date: 2012-02-10 06:24:08 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5249 2012-02-06 21:10:12Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5262 2012-02-10 11:24:08Z tels $");
 
 #include "DeviceContext.h"
 
@@ -51,7 +51,7 @@ int idDeviceContext::FindFont( const char *name ) {
 
 	// If the font was not found, try to register it
 	idStr fileName = name;
-	fileName.Replace("fonts", va("fonts/%s", fontLang.c_str()) );
+	fileName.Replace("fonts", common->GetI18N()->GetCurrentFontPath().c_str() );
 
 	fontInfoEx_t fontInfo;
 		int index = fonts.Append( fontInfo );
@@ -66,13 +66,6 @@ int idDeviceContext::FindFont( const char *name ) {
 
 void idDeviceContext::SetupFonts() {
 	fonts.SetGranularity( 1 );
-
-	fontLang = cvarSystem->GetCVarString( "sys_lang" );
-	
-	// western european languages can use the english font
-	if ( fontLang == "french" || fontLang == "german" || fontLang == "spanish" || fontLang == "italian" || fontLang == "polish") {
-		fontLang = "english";
-	}
 
 	// Default font has to be added first
 	FindFont( "fonts" );

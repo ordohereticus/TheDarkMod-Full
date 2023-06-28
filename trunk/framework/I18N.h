@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5262 $ (Revision of last commit) 
+ $Date: 2012-02-10 06:24:08 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -62,6 +62,11 @@ public:
 	* Returns the current active language.
 	*/
 	virtual const idStr&		GetCurrentLanguage() const = 0;
+
+	/**
+	* Returns the path to the fonts for the current active language.
+	*/
+	virtual const idStr&		GetCurrentFontPath() const = 0;
 
 	/**
 	* Print memory usage info.
