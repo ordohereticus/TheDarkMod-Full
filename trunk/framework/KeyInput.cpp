@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5228 $ (Revision of last commit) 
- $Date: 2012-01-21 11:05:00 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Revision: 5229 $ (Revision of last commit) 
+ $Date: 2012-01-21 17:56:30 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,12 +20,12 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5228 2012-01-21 16:05:00Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5229 2012-01-21 22:56:30Z tels $");
 
 typedef struct {
 	const char	*name;
 	int		keynum;
-	char	*strId;	// localized string id
+	const char	*strId;	// localized string id
 } keyname_t;
 
 // keys that can be set without a special name
