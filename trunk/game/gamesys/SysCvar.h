@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5366 $ (Revision of last commit) 
+ $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -39,6 +39,7 @@ extern idCVar cv_ai_sight_prob;
 extern idCVar cv_ai_sight_mag;
 extern idCVar cv_ai_sightmaxdist;
 extern idCVar cv_ai_sightmindist;
+extern idCVar cv_ai_sight_combat_cutoff; // grayman #3063
 extern idCVar cv_ai_tactalert;
 extern idCVar cv_ai_task_show;
 extern idCVar cv_ai_alertlevel_show;

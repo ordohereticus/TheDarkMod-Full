@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5365 $ (Revision of last commit) 
- $Date: 2012-04-03 16:52:18 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5366 $ (Revision of last commit) 
+ $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MeleeWeapon.cpp 5365 2012-04-03 20:52:18Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MeleeWeapon.cpp 5366 2012-04-03 21:40:47Z grayman $");
 
 #include "Game_local.h"
 #include "Grabber.h"
@@ -1163,9 +1163,13 @@ void CMeleeWeapon::MeleeCollision( idEntity *other, idVec3 dir, trace_t *tr, int
 	// get type of material hit (armor, etc)
 	int type;
 	if( tr->c.material != NULL )
+	{
 		type = tr->c.material->GetSurfaceType();
+	}
 	else
+	{
 		type = SURFTYPE_NONE;
+	}
 
 	if ( type == SURFTYPE_NONE )
 	{

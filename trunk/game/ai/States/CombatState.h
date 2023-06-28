@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5366 $ (Revision of last commit) 
+ $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -43,6 +43,16 @@ protected:
 	// When end time is set, the state is just waiting to be finished
 	// and is not performing any routines anymore
 	int _endTime;
+
+	int _reactionEndTime; // grayman #3063
+
+	// grayman #3063 - break Combat State into smaller bits
+
+	enum ECombatSubState {
+		EStateReaction,
+		EStateInit,
+		EStateThink
+	} _combatSubState;
 
 public:
 	// Get the name of this state

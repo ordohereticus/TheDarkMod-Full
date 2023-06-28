@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5366 $ (Revision of last commit) 
+ $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5366 2012-04-03 21:40:47Z grayman $");
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -186,6 +186,11 @@ void SearchingState::Think(idAI* owner)
 		return;
 	}
 
+	// grayman #3063 - move up so it gets done each time,
+	// regardless of what state the hiding spot search is in.
+	// Let the AI check its senses
+	owner->PerformVisualScan();
+
 	Memory& memory = owner->GetMemory();
 
 	// Do we have an ongoing hiding spot search?
@@ -195,7 +200,7 @@ void SearchingState::Think(idAI* owner)
 		PerformHidingSpotSearch(owner);
 
 		// Let the AI check its senses
-		owner->PerformVisualScan();
+//		owner->PerformVisualScan(); // grayman #3063 - moved to front
 /*
 		// angua: commented this out, problems with getting up from sitting
 		idStr waitState(owner->WaitState());
@@ -316,13 +321,13 @@ void SearchingState::Think(idAI* owner)
 		// Setup a new hiding spot search
 		StartNewHidingSpotSearch(owner);
 	}
-	else
-	{
+//	else // grayman #3063 - moved to front
+//	{
 		// Move to Hiding spot is ongoing, do additional sensory tasks here
 
 		// Let the AI check its senses
-		owner->PerformVisualScan();
-	}
+//		owner->PerformVisualScan();
+//	}
 }
 
 void SearchingState::StartNewHidingSpotSearch(idAI* owner)
