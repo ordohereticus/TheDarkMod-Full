@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5257 $ (Revision of last commit) 
+ $Date: 2012-02-07 23:13:58 -0500 (Tue, 07 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SaveGame.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SaveGame.cpp 5257 2012-02-08 04:13:58Z taaaki $");
 
 #include "../Game_local.h"
 
@@ -1117,7 +1117,10 @@ void idRestoreGame::ReadSoundCommands( void ) {
 }
 
 void idRestoreGame::ReadHeader( void ) {
-	file->ReadInt( buildNumber );
+	// taaaki: final fix for bug #2997. The WriteHeader() call does not save
+    //         a buildNumber to the file, so reading it out was causing things
+    //         to break.
+    // file->ReadInt( buildNumber );
 	file->ReadInt( codeRevision );
 	file->ReadBool(isCompressed);
 }
