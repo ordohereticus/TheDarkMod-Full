@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5455 $ (Revision of last commit) 
- $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
+ $Revision: 5495 $ (Revision of last commit) 
+ $Date: 2012-07-10 16:19:14 -0400 (Tue, 10 Jul 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SuspiciousState.cpp 5455 2012-05-21 22:01:45Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SuspiciousState.cpp 5495 2012-07-10 20:19:14Z grayman $");
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -224,9 +224,14 @@ void SuspiciousState::Init(idAI* owner)
 			bark = "snd_alert1";
 		}
 
-		owner->commSubsystem->AddCommTask(
-			CommunicationTaskPtr(new SingleBarkTask(bark))
-		);
+		if ( !memory.alertedDueToCommunication ) // grayman #2920
+		{
+			owner->commSubsystem->AddCommTask(CommunicationTaskPtr(new SingleBarkTask(bark)));
+		}
+		else
+		{
+			memory.alertedDueToCommunication = false; // reset
+		}
 	}
 	else
 	{

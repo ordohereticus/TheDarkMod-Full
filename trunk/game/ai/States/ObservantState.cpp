@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5394 $ (Revision of last commit) 
- $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
+ $Revision: 5495 $ (Revision of last commit) 
+ $Date: 2012-07-10 16:19:14 -0400 (Tue, 10 Jul 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ObservantState.cpp 5394 2012-04-17 22:36:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ObservantState.cpp 5495 2012-07-10 20:19:14Z grayman $");
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -145,14 +145,23 @@ void ObservantState::Init(idAI* owner)
 
 		if ( ( memory.alertType != EAlertTypeMissingItem) && ( !soundName.IsEmpty() ) ) // grayman #2816 - don't set up empty sounds
 		{
-			CommunicationTaskPtr barkTask(new SingleBarkTask(soundName));
+			// grayman #2920 - only bark if this isn't in response to having been warned
 
-			owner->commSubsystem->AddCommTask(barkTask);
+			if ( !memory.alertedDueToCommunication )
+			{
+				CommunicationTaskPtr barkTask(new SingleBarkTask(soundName));
 
-			// Push a wait task (1 sec) with the bark priority -1, to have it queued
-			owner->commSubsystem->AddCommTask(
-				CommunicationTaskPtr(new CommWaitTask(1000, barkTask->GetPriority() - 1))
-			);
+				owner->commSubsystem->AddCommTask(barkTask);
+
+				// Push a wait task (1 sec) with the bark priority -1, to have it queued
+				owner->commSubsystem->AddCommTask(
+					CommunicationTaskPtr(new CommWaitTask(1000, barkTask->GetPriority() - 1))
+				);
+			}
+			else
+			{
+				memory.alertedDueToCommunication = false; // reset
+			}
 		}
 	}
 

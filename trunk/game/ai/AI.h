@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5469 $ (Revision of last commit) 
- $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
+ $Revision: 5495 $ (Revision of last commit) 
+ $Date: 2012-07-10 16:19:14 -0400 (Tue, 10 Jul 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -170,6 +170,8 @@ extern const idEventDef AI_GetObservationPosition;
 extern const idEventDef AI_IssueCommunication;
 
 extern const idEventDef AI_Bark; // grayman #2816
+
+extern const idEventDef AI_RestartPatrol; // grayman #2920
 
 class idPathCorner;
 
@@ -2210,6 +2212,9 @@ public:
 
 	// grayman #3154
 	void Event_EmptyHand(const char* hand);
+
+	// grayman #2920
+	void Event_RestartPatrol();
 
 #ifdef TIMING_BUILD
 private:

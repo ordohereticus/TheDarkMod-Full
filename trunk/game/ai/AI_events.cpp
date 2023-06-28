@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5469 $ (Revision of last commit) 
- $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
+ $Revision: 5495 $ (Revision of last commit) 
+ $Date: 2012-07-10 16:19:14 -0400 (Tue, 10 Jul 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5469 2012-06-02 01:02:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5495 2012-07-10 20:19:14Z grayman $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -370,6 +370,8 @@ const idEventDef AI_GetNextIdleAnim( "getNextIdleAnim", NULL, 's' );
 
 const idEventDef AI_HasSeenEvidence( "hasSeenEvidence", NULL, 'd' );
 
+const idEventDef AI_RestartPatrol( "restartPatrol" ); // grayman #2920
+
 /*
 * This is the AI event table class for a generic NPC actor.
 *
@@ -557,6 +559,7 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT ( AI_DropTorch,						idAI::Event_DropTorch)		// grayman #2603
 	EVENT ( AI_Bark,							idAI::Event_Bark)			// grayman #2816
 	EVENT ( AI_EmptyHand,						idAI::Event_EmptyHand)		// grayman #3154
+	EVENT ( AI_RestartPatrol,					idAI::Event_RestartPatrol)	// grayman #2920
 
 END_CLASS
 
@@ -3487,6 +3490,11 @@ void idAI::Event_EmptyHand(const char* hand) // grayman #3154
 			}
 		}
 	}
+}
+
+void idAI::Event_RestartPatrol() // grayman #2920
+{
+	movementSubsystem->StartPatrol();
 }
 
 void idAI::Event_DropTorch() // grayman #2603
