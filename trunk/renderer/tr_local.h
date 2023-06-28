@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5291 $ (Revision of last commit) 
- $Date: 2012-02-22 12:28:29 -0500 (Wed, 22 Feb 2012) $ (Date of last commit)
+ $Revision: 5337 $ (Revision of last commit) 
+ $Date: 2012-03-11 12:03:48 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
  $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
@@ -982,6 +982,7 @@ extern idCVar r_debugRenderToTexture;
 
 // rebb: dedicated ambient
 extern idCVar r_dedicatedAmbient;
+extern idCVar r_stencilShadowMode;
 
 /*
 ====================================================================

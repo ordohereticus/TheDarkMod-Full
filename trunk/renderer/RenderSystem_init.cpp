@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5296 $ (Revision of last commit) 
- $Date: 2012-02-24 09:36:34 -0500 (Fri, 24 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5337 $ (Revision of last commit) 
+ $Date: 2012-03-11 12:03:48 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5296 2012-02-24 14:36:34Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5337 2012-03-11 16:03:48Z rebb $");
 
 #include "tr_local.h"
 
@@ -219,6 +219,7 @@ idCVar r_screenshot_format(		"r_screenshot_format", "jpg",   CVAR_RENDERER | CVA
 
 // rebb: toggle for dedicated ambient light shader use, mainly for performance testing
 idCVar r_dedicatedAmbient( "r_dedicatedAmbient", "1", CVAR_RENDERER | CVAR_BOOL, "enable dedicated ambientLight shader" );
+idCVar r_stencilShadowMode( "r_stencilShadowMode", "0", CVAR_RENDERER | CVAR_INTEGER, "choose stencil shadow algorithm. 0 - default" );
 
 void ( APIENTRY * qglMultiTexCoord2fARB )( GLenum texture, GLfloat s, GLfloat t );
 void ( APIENTRY * qglMultiTexCoord2fvARB )( GLenum texture, GLfloat *st );

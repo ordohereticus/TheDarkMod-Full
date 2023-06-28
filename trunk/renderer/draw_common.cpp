@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5241 $ (Revision of last commit) 
- $Date: 2012-02-01 13:19:38 -0500 (Wed, 01 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5337 $ (Revision of last commit) 
+ $Date: 2012-03-11 12:03:48 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_common.cpp 5241 2012-02-01 18:19:38Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: draw_common.cpp 5337 2012-03-11 16:03:48Z rebb $");
 
 #include "tr_local.h"
 
@@ -1132,40 +1132,88 @@ static void RB_T_Shadow( const drawSurf_t *surf ) {
 		return;
 	}
 
-	// patent-free work around
-	if ( !external ) {
-		// depth-fail stencil shadows
-		if( r_useTwoSidedStencil.GetBool() && glConfig.twoSidedStencilAvailable ) {
-			qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_FRONT : GL_BACK, GL_KEEP, tr.stencilDecr, GL_KEEP );
-			qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_BACK : GL_FRONT, GL_KEEP, tr.stencilIncr, GL_KEEP );
-			GL_Cull( CT_TWO_SIDED );
-			RB_DrawShadowElementsWithCounters( tri, numIndexes );
-		} else {
-			// "preload" the stencil buffer with the number of volumes
-			// that get clipped by the near or far clip plane
-			qglStencilOp( GL_KEEP, tr.stencilDecr, tr.stencilDecr );
-			GL_Cull( CT_FRONT_SIDED );
-			RB_DrawShadowElementsWithCounters( tri, numIndexes );
+	//rebb : mainly for testing different implementations
+	switch( r_stencilShadowMode.GetInteger() ) {
+		case 1:
+		{
+			// patent-free work around
+			if ( !external ) {
+				// depth-fail stencil shadows
+				if( r_useTwoSidedStencil.GetBool() && glConfig.twoSidedStencilAvailable ) {
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_FRONT : GL_BACK, GL_KEEP, tr.stencilDecr, GL_KEEP );
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_BACK : GL_FRONT, GL_KEEP, tr.stencilIncr, GL_KEEP );
+					GL_Cull( CT_TWO_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				} else {
+					// "preload" the stencil buffer with the number of volumes
+					// that get clipped by the near or far clip plane
+					qglStencilOp( GL_KEEP, tr.stencilIncr, GL_KEEP );
+					GL_Cull( CT_BACK_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
 	
-			qglStencilOp( GL_KEEP, tr.stencilIncr, tr.stencilIncr );
-			GL_Cull( CT_BACK_SIDED );
-			RB_DrawShadowElementsWithCounters( tri, numIndexes );
-		}
-	} else {
-		// traditional depth-pass stencil shadows
-		if( r_useTwoSidedStencil.GetBool() && glConfig.twoSidedStencilAvailable ) {
-			qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_FRONT : GL_BACK, GL_KEEP, GL_KEEP, tr.stencilIncr );
-			qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_BACK : GL_FRONT, GL_KEEP, GL_KEEP, tr.stencilDecr );
-			GL_Cull( CT_TWO_SIDED );
-			RB_DrawShadowElementsWithCounters( tri, numIndexes );
-		} else {	
-			qglStencilOp( GL_KEEP, GL_KEEP, tr.stencilIncr );
-			GL_Cull( CT_FRONT_SIDED );
-			RB_DrawShadowElementsWithCounters( tri, numIndexes );
+					qglStencilOp( GL_KEEP, tr.stencilDecr, GL_KEEP );
+					GL_Cull( CT_FRONT_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				}
+			} else {
+				// traditional depth-pass stencil shadows
+				if( r_useTwoSidedStencil.GetBool() && glConfig.twoSidedStencilAvailable ) {
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_FRONT : GL_BACK, GL_KEEP, GL_KEEP, tr.stencilIncr );
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_BACK : GL_FRONT, GL_KEEP, GL_KEEP, tr.stencilDecr );
+					GL_Cull( CT_TWO_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				} else {	
+					// doom3 shadowelements seem to be inverted, so render frontculled backculled instead of the other way around
+					qglStencilOp( GL_KEEP, GL_KEEP, tr.stencilIncr );
+					GL_Cull( CT_FRONT_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
 		
-			qglStencilOp( GL_KEEP, GL_KEEP, tr.stencilDecr );
-			GL_Cull( CT_BACK_SIDED );
-			RB_DrawShadowElementsWithCounters( tri, numIndexes );
+					qglStencilOp( GL_KEEP, GL_KEEP, tr.stencilDecr );
+					GL_Cull( CT_BACK_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				}
+			}
+			break;
+		}
+
+		default:
+		{
+			// patent-free work around
+			if ( !external ) {
+				// depth-fail stencil shadows
+				if( r_useTwoSidedStencil.GetBool() && glConfig.twoSidedStencilAvailable ) {
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_FRONT : GL_BACK, GL_KEEP, tr.stencilDecr, GL_KEEP );
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_BACK : GL_FRONT, GL_KEEP, tr.stencilIncr, GL_KEEP );
+					GL_Cull( CT_TWO_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				} else {
+					// "preload" the stencil buffer with the number of volumes
+					// that get clipped by the near or far clip plane
+					qglStencilOp( GL_KEEP, tr.stencilDecr, tr.stencilDecr );
+					GL_Cull( CT_FRONT_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+	
+					qglStencilOp( GL_KEEP, tr.stencilIncr, tr.stencilIncr );
+					GL_Cull( CT_BACK_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				}
+			} else {
+				// traditional depth-pass stencil shadows
+				if( r_useTwoSidedStencil.GetBool() && glConfig.twoSidedStencilAvailable ) {
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_FRONT : GL_BACK, GL_KEEP, GL_KEEP, tr.stencilIncr );
+					qglStencilOpSeparate( backEnd.viewDef->isMirror ? GL_BACK : GL_FRONT, GL_KEEP, GL_KEEP, tr.stencilDecr );
+					GL_Cull( CT_TWO_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				} else {	
+					qglStencilOp( GL_KEEP, GL_KEEP, tr.stencilIncr );
+					GL_Cull( CT_FRONT_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+		
+					qglStencilOp( GL_KEEP, GL_KEEP, tr.stencilDecr );
+					GL_Cull( CT_BACK_SIDED );
+					RB_DrawShadowElementsWithCounters( tri, numIndexes );
+				}
+			}
 		}
 	}
 }
