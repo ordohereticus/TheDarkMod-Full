@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5450 $ (Revision of last commit) 
+ $Date: 2012-05-13 04:52:30 -0400 (Sun, 13 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Cursor.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Cursor.cpp 5450 2012-05-13 08:52:30Z tels $");
 
 #include "Cursor.h"
 
@@ -37,7 +37,7 @@ CInventoryCursor::CInventoryCursor(CInventory* inventory, int id) :
 	m_CursorId(id)
 {}
 
-int	CInventoryCursor::GetId()
+int	CInventoryCursor::GetId() const
 {
 	return m_CursorId;
 }
@@ -353,12 +353,12 @@ bool CInventoryCursor::IsCategoryIgnored(const CInventoryCategoryPtr& category) 
 	return (m_CategoryIgnore.FindIndex(categoryIndex) != -1);
 }
 
-CInventoryCategoryPtr CInventoryCursor::GetCurrentCategory()
+CInventoryCategoryPtr CInventoryCursor::GetCurrentCategory() const
 {
 	return (m_Inventory != NULL) ? m_Inventory->GetCategory(m_CurrentCategory) : CInventoryCategoryPtr();
 }
 
-bool CInventoryCursor::IsLastItemInCategory()
+bool CInventoryCursor::IsLastItemInCategory() const
 {
 	if (m_Inventory == NULL) return true; // no inventory => last item
 
