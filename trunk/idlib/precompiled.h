@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5172 $ (Revision of last commit) 
- $Date: 2012-01-07 03:18:21 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5201 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -112,6 +112,7 @@
 #include "../framework/CmdSystem.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
+#include "../framework/I18N.h"
 #include "../framework/File.h"
 #include "../framework/FileSystem.h"
 #include "../framework/UsercmdGen.h"

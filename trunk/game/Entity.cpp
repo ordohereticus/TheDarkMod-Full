@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5201 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5201 2012-01-10 06:00:07Z greebo $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -806,7 +806,7 @@ void idEntity::FixupLocalizedStrings()
 	    idStr spName = spawnArgs.GetString( todo[i], "");
 		if (!spName.IsEmpty())
 		{
-			idStr strTemplate = gameLocal.m_I18N->TemplateFromEnglish( spName );
+			idStr strTemplate = common->GetI18N()->TemplateFromEnglish( spName );
 			// "Maps" resulted in "#str_02390"?
 			if (spName != strTemplate)
 			{
@@ -9925,7 +9925,7 @@ void idEntity::Event_SetGuiStringFromKey( int handle, const char *key, idEntity 
 		return;
 	}
 
-	gui->SetStateString( key, gameLocal.m_I18N->Translate( src->spawnArgs.GetString( spawnArg, "" ) ) );
+	gui->SetStateString( key, common->GetLanguageDict()->GetString( src->spawnArgs.GetString( spawnArg, "" ) ) );
 	gui->StateChanged( gameLocal.time );
 }
 

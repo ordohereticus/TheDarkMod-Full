@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5189 $ (Revision of last commit) 
- $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5201 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5189 2012-01-08 10:09:30Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5201 2012-01-10 06:00:07Z greebo $");
 
 #include "../Game_local.h"
 
@@ -127,9 +127,6 @@ idCVar cv_tdm_default_relations_def( "tdm_default_relations_def", "atdm:team_rel
 /**
 * DarkMod GUI CVARs
 **/
-// Tels: can be removed when D3 is open source and we can access sys_lang properly
-idCVar cv_tdm_lang("tdm_lang",	"english",	CVAR_GUI | CVAR_ARCHIVE, "The current used language. Possible values are 'english', 'german', 'russian' etc." );
-
 idCVar cv_tdm_fm_path( "tdm_fm_path", "fms/", CVAR_GUI, "(internal) The path where the fan mission packages are stored.");
 idCVar cv_tdm_fm_desc_file( "tdm_fm_desc_file", "darkmod.txt", CVAR_GUI, "(internal) The description file name of FM packages.");
 idCVar cv_tdm_fm_notes_file( "tdm_fm_notes_file", "readme.txt", CVAR_GUI, "(internal) The readme file name of FM packages.");

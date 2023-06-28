@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5201 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5201 2012-01-10 06:00:07Z greebo $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -99,6 +99,10 @@ idCVar com_videoRam( "com_videoRam", "64", CVAR_INTEGER | CVAR_SYSTEM | CVAR_NOC
 
 idCVar com_product_lang_ext( "com_product_lang_ext", "1", CVAR_INTEGER | CVAR_SYSTEM | CVAR_ARCHIVE, "Extension to use when creating language files." );
 
+// Tels: can be removed when D3 is open source and we can access sys_lang properly
+idCVar cv_tdm_lang("tdm_lang",	"english",	CVAR_GUI | CVAR_ARCHIVE, "The current used language. Possible values are 'english', 'german', 'russian' etc." );
+
+
 // com_speeds times
 int				time_gameFrame;
 int				time_gameDraw;
@@ -154,6 +158,8 @@ public:
 	virtual void				Error( const char *fmt, ... ) id_attribute((format(printf,2,3)));
 	virtual void				FatalError( const char *fmt, ... ) id_attribute((format(printf,2,3)));
 	virtual const idLangDict *	GetLanguageDict( void );
+
+	virtual I18N*				GetI18N();
 
 	virtual const char *		KeysFromBinding( const char *bind );
 	virtual const char *		BindingFromKey( const char *key );
@@ -212,7 +218,7 @@ private:
 
 	int							gameDLL;
 
-	idLangDict					languageDict;
+	idLangDict					languageDict; // legacy
 
 #ifdef ID_WRITE_VERSION
 	idCompressor *				config_compressor;
@@ -222,6 +228,8 @@ private:
 idCommonLocal	commonLocal;
 idCommon *		common = &commonLocal;
 
+// The instance is located in I18N.cpp
+extern I18N* i18n;
 
 /*
 ==================
@@ -1703,8 +1711,23 @@ void Com_ReloadEngine_f( const idCmdArgs &args ) {
 idCommonLocal::GetLanguageDict
 ===============
 */
-const idLangDict *idCommonLocal::GetLanguageDict( void ) {
+const idLangDict *idCommonLocal::GetLanguageDict( void )
+{
+#ifdef _DEBUG
+	common->Printf("Deprecated call to idCommon::GetLanguageDict");
+#endif
+
+#if 0
 	return &languageDict;
+#endif
+
+	// Redirect the call to I18N
+	return GetI18N()->GetLanguageDict();
+}
+
+I18N* idCommonLocal::GetI18N()
+{
+	return i18n;
 }
 
 /*
@@ -3076,6 +3099,9 @@ void idCommonLocal::InitGame( void )
 	// initialize the renderSystem data structures, but don't start OpenGL yet
 	renderSystem->Init();
 
+	// Init the i18n manager
+	i18n->Init();
+
 	// initialize string database right off so we can use it for loading messages
 	InitLanguageDict();
 
@@ -3210,6 +3236,9 @@ void idCommonLocal::ShutdownGame( bool reloading ) {
 
 	// shut down the renderSystem
 	renderSystem->Shutdown();
+
+	// destroy the i18n manager
+	i18n->Shutdown();
 
 	// shutdown the decl manager
 	declManager->Shutdown();

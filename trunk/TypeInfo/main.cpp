@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5147 $ (Revision of last commit) 
- $Date: 2012-01-02 13:21:57 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5201 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -75,6 +75,7 @@ public:
 	virtual void			Error( const char *fmt, ... ) { STDIO_PRINT( "ERROR: ", "\n" ); exit(0); }
 	virtual void			FatalError( const char *fmt, ... ) { STDIO_PRINT( "FATAL ERROR: ", "\n" ); exit(0); }
 	virtual const idLangDict *GetLanguageDict() { return NULL; }
+	virtual I18N*			GetI18N() { return NULL; }
 	virtual const char *	KeysFromBinding( const char *bind ) { return NULL; }
 	virtual const char *	BindingFromKey( const char *key ) { return NULL; }
 	virtual int				ButtonState( int key ) { return 0; }

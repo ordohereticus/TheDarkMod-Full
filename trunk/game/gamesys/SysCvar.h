@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5189 $ (Revision of last commit) 
- $Date: 2012-01-08 05:09:30 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5201 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -88,7 +88,6 @@ extern idCVar cv_tdm_menu_music;
 extern idCVar cv_tdm_show_trainer_messages;
 
 extern idCVar cv_tdm_default_relations_def;
-extern idCVar cv_tdm_lang;
 extern idCVar cv_tdm_fm_path;
 extern idCVar cv_tdm_fm_desc_file;
 extern idCVar cv_tdm_fm_current_file;

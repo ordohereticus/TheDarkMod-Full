@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5147 $ (Revision of last commit) 
- $Date: 2012-01-02 13:21:57 -0500 (Mon, 02 Jan 2012) $ (Date of last commit)
+ $Revision: 5201 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -100,6 +100,8 @@ struct MemInfo_t {
 	int				soundAssetsTotal;
 };
 
+class I18N;
+
 class idCommon {
 public:
 	virtual						~idCommon( void ) {}
@@ -186,8 +188,11 @@ public:
 								// static internal errors or cases where the system may be corrupted.
 	virtual void				FatalError( const char *fmt, ... ) id_attribute((format(printf,2,3))) = 0;
 
-								// Returns a pointer to the dictionary with language specific strings.
+								// DEPRECATED Returns a pointer to the dictionary with language specific strings.
 	virtual const idLangDict *	GetLanguageDict( void ) = 0;
+
+								// greebo: Provides access to I18N-related methods
+	virtual I18N*				GetI18N() = 0;
 
 								// Returns key bound to the command
 	virtual const char *		KeysFromBinding( const char *bind ) = 0;
