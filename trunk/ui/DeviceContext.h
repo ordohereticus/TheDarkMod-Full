@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5407 $ (Revision of last commit) 
- $Date: 2012-05-01 08:22:34 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5408 $ (Revision of last commit) 
+ $Date: 2012-05-01 08:23:07 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -64,8 +64,6 @@ public:
 	idRegion			*GetTextRegion(const char *text, float textScale, idRectangle rectDraw, float xStart, float yStart);
 
 	void				SetSize(float width, float height);
-
-	const idMaterial	*GetScrollBarImage(int index);
 
 	void				DrawCursor(float *x, float *y, float size);
 	void				SetCursor(int n);
