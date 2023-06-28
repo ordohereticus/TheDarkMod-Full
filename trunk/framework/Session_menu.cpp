@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5301 $ (Revision of last commit) 
- $Date: 2012-02-26 06:13:14 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5318 $ (Revision of last commit) 
+ $Date: 2012-03-05 21:47:05 -0500 (Mon, 05 Mar 2012) $ (Date of last commit)
+ $Author: aluminiumhaste $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5301 2012-02-26 11:13:14Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5318 2012-03-06 02:47:05Z aluminiumhaste $");
 
 #include "Session_local.h"
 
@@ -461,11 +461,18 @@ void idSessionLocal::HandleRestartMenuCommands( const char *menuCommand ) {
 			continue;
 		}
 
-		if ( !idStr::Icmp( cmd, "restart" ) ) {
-			if ( !LoadGame( GetAutoSaveName( mapSpawnData.serverInfo.GetString("si_map") ) ) ) {
+		//if ( !idStr::Icmp( cmd, "restart" ) ) {
+		//	if ( !LoadGame( GetAutoSaveName( mapSpawnData.serverInfo.GetString("si_map") ) ) ) {
 				// If we can't load the autosave then just restart the map
-				MoveToNewMap( mapSpawnData.serverInfo.GetString("si_map") );
-			}
+		//		MoveToNewMap( mapSpawnData.serverInfo.GetString("si_map") );
+		//	}
+		//	continue;
+		//}
+		
+		if ( !idStr::Icmp( cmd, "restart" ) ) {
+		//	if ( !LoadGame( GetAutoSaveName( mapSpawnData.serverInfo.GetString("si_map") ) ) ) {
+		//		// If we can't load the autosave then just restart the map
+			MoveToNewMap( mapSpawnData.serverInfo.GetString("si_map") );
 			continue;
 		}
 
@@ -748,6 +755,12 @@ void idSessionLocal::HandleMainMenuCommands( const char *menuCommand ) {
 			if ( mapSpawned ) {
 				ExitMenu();
 			}
+			continue;
+		}
+		if ( !idStr::Icmp( cmd, "restart" ) ) {
+		//	if ( !LoadGame( GetAutoSaveName( mapSpawnData.serverInfo.GetString("si_map") ) ) ) {
+		//		// If we can't load the autosave then just restart the map
+			MoveToNewMap( mapSpawnData.serverInfo.GetString("si_map") );
 			continue;
 		}
 
