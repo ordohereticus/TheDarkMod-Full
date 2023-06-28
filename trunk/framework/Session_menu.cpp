@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5223 $ (Revision of last commit) 
- $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5225 $ (Revision of last commit) 
+ $Date: 2012-01-21 07:51:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5223 2012-01-20 23:35:17Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5225 2012-01-21 12:51:47Z tels $");
 
 #include "Session_local.h"
 
@@ -297,7 +297,6 @@ void idSessionLocal::SetMainMenuGuiVars( void ) {
 		guiMainMenu->SetStateString( "inGame", "0" );
 	}
 
-	guiMainMenu->SetStateString( "nightmare", cvarSystem->GetCVarBool( "g_nightmare" ) ? "1" : "0" );
 	guiMainMenu->SetStateString( "browser_levelshot", "guis/assets/splash/pdtempa" );
 
 	SetMainMenuSkin();

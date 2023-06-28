@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5225 $ (Revision of last commit) 
+ $Date: 2012-01-21 07:51:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: GuiScript.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: GuiScript.cpp 5225 2012-01-21 12:51:47Z tels $");
 
 #include "Window.h"
 #include "Winvar.h"
@@ -135,7 +135,6 @@ Script_EndGame
 =========================
 */
 void Script_EndGame( idWindow *window, idList<idGSWinVar> *src ) {
-	cvarSystem->SetCVarBool( "g_nightmare", true );
 	cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "disconnect\n" );
 }
 

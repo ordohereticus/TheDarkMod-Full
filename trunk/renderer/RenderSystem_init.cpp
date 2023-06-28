@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5208 $ (Revision of last commit) 
- $Date: 2012-01-12 12:22:39 -0500 (Thu, 12 Jan 2012) $ (Date of last commit)
- $Author: rebb $ (Author of last commit)
+ $Revision: 5224 $ (Revision of last commit) 
+ $Date: 2012-01-20 20:19:28 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5208 2012-01-12 17:22:39Z rebb $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5224 2012-01-21 01:19:28Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1411,9 +1411,6 @@ thousands of shots
 void R_ScreenshotFilename( int &lastNumber, const char *base, idStr &fileName ) {
 	int	a,b,c,d, e;
 
-	bool restrict = cvarSystem->GetCVarBool( "fs_restrict" );
-	cvarSystem->SetCVarBool( "fs_restrict", false );
-
 	lastNumber++;
 	if ( lastNumber > 99999 ) {
 		lastNumber = 99999;
@@ -1441,7 +1438,6 @@ void R_ScreenshotFilename( int &lastNumber, const char *base, idStr &fileName ) 
 		}
 		// check again...
 	}
-	cvarSystem->SetCVarBool( "fs_restrict", restrict );
 }
 
 /*

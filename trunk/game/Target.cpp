@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5222 $ (Revision of last commit) 
- $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5225 $ (Revision of last commit) 
+ $Date: 2012-01-21 07:51:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5222 2012-01-20 03:27:39Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5225 2012-01-21 12:51:47Z tels $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -188,7 +188,6 @@ void idTarget_EndLevel::Event_Activate( idEntity *activator ) {
 	idStr nextMap;
 
 	if ( spawnArgs.GetBool( "endOfGame" ) ) {
-		cvarSystem->SetCVarBool( "g_nightmare", true );
 		gameLocal.sessionCommand = "disconnect";
 		return;
 	}
