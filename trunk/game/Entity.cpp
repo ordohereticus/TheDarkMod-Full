@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5434 $ (Revision of last commit) 
- $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5435 $ (Revision of last commit) 
+ $Date: 2012-05-06 14:31:23 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5434 2012-05-06 13:52:22Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5435 2012-05-06 18:31:23Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -1868,10 +1868,12 @@ void idEntity::Save( idSaveGame *savefile ) const
 	// grayman #2341 - don't save previous voice and body shaders and indices,
 	// since they're irrelevant across saved games
 
-	savefile->WriteSoundShader(NULL);	// previousVoiceShader
-	savefile->WriteInt(0);				// previousVoiceIndex
-	savefile->WriteSoundShader(NULL);	// previousBodyShader
-	savefile->WriteInt(0);				// previousBodyIndex
+	// removed, since there's no point in saving variables that aren't necessary
+
+	//savefile->WriteSoundShader(NULL);	// previousVoiceShader
+	//savefile->WriteInt(0);			// previousVoiceIndex
+	//savefile->WriteSoundShader(NULL);	// previousBodyShader
+	//savefile->WriteInt(0);			// previousBodyIndex
 
 	// grayman #597
 
@@ -2150,10 +2152,11 @@ void idEntity::Restore( idRestoreGame *savefile )
 
 	// grayman #2341 - restore previous voice and body shaders and indices
 
-	savefile->ReadSoundShader((const idSoundShader *&)previousVoiceShader);
-	savefile->ReadInt(previousVoiceIndex);
-	savefile->ReadSoundShader((const idSoundShader *&)previousBodyShader);
-	savefile->ReadInt(previousBodyIndex);
+	// restoring is unnecessary; simply set to NULL and 0
+	previousVoiceShader = NULL;
+	previousVoiceIndex = 0;
+	previousBodyShader = NULL;
+	previousBodyIndex = 0;
 
 	// grayman #597
 
