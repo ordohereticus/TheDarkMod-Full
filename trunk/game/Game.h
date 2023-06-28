@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5200 $ (Revision of last commit) 
- $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5447 $ (Revision of last commit) 
+ $Date: 2012-05-11 10:35:42 -0400 (Fri, 11 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -331,7 +331,7 @@ extern idGameEdit *				gameEdit;
 ===============================================================================
 */
 
-const int GAME_API_VERSION		= 8;
+const int GAME_API_VERSION		= 108;
 
 class idCmdSystem;
 class idNetworkSystem;

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5434 $ (Revision of last commit) 
- $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Revision: 5447 $ (Revision of last commit) 
+ $Date: 2012-05-11 10:35:42 -0400 (Fri, 11 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5434 2012-05-06 13:52:22Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5447 2012-05-11 14:35:42Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -168,12 +168,12 @@ extern "C" gameExport_t *GetGameAPI( gameImport_t *import ) {
 		// stuff initialised and getting segfaults.
 		std::cerr << "FATAL: Incorrect game version: required " 
 			<< GAME_API_VERSION << ", got " << import->version << "\n"
-			<< "Ensure the correct Doom 3 patches are installed." << std::endl;
+			<< "Use the latest TheDarkMod executable with the latest game DLL." << std::endl;
 		abort();
 	}
 
 	// set interface pointers used by idLib
-	idLib::sys					= sys;
+	idLib::sys				= sys;
 	idLib::common				= common;
 	idLib::cvarSystem			= cvarSystem;
 	idLib::fileSystem			= fileSystem;
