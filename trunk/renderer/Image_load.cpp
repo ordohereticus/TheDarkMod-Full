@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5294 $ (Revision of last commit) 
- $Date: 2012-02-23 23:43:50 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5309 $ (Revision of last commit) 
+ $Date: 2012-02-28 16:33:03 -0500 (Tue, 28 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_load.cpp 5294 2012-02-24 04:43:50Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Image_load.cpp 5309 2012-02-28 21:33:03Z tels $");
 
 #include "tr_local.h"
 
@@ -972,18 +972,12 @@ void idImage::ImageProgramStringToCompressedFileName( const char *imageProg, cha
 	strcpy( fileName, "dds/" );
 	f = fileName + strlen( fileName );
 
-	int depth = 0;
-
 	// convert all illegal characters to underscores
 	// this could conceivably produce a duplicated mapping, but we aren't going to worry about it
 	for ( s = imageProg ; *s ; s++ ) {
+		// tels: TODO: Why the strange difference between "/ ", ')', ',' and all the other special characters?
 		if ( *s == '/' || *s == '\\' || *s == '(') {
-			if ( depth < 4 ) {
-				*f = '/';
-				depth ++;
-			} else {
-				*f = ' ';
-			}
+			*f = '/';
 			f++;
 		} else if ( *s == '<' || *s == '>' || *s == ':' || *s == '|' || *s == '"' || *s == '.' ) {
 			*f = '_';
