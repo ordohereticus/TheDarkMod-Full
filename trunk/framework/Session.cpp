@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5282 $ (Revision of last commit) 
- $Date: 2012-02-15 17:54:15 -0500 (Wed, 15 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5321 $ (Revision of last commit) 
+ $Date: 2012-03-07 21:47:19 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
+ $Author: aluminiumhaste $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5282 2012-02-15 22:54:15Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5321 2012-03-08 02:47:19Z aluminiumhaste $");
 
 #include "Session_local.h"
 
@@ -1091,10 +1091,10 @@ void idSessionLocal::MoveToNewMap( const char *mapName ) {
 
 	ExecuteMapChange();
 
-	if ( !mapSpawnData.serverInfo.GetBool("devmap") ) {
+	//if ( !mapSpawnData.serverInfo.GetBool("devmap") ) {
 		// Autosave at the beginning of the level
-		SaveGame( GetAutoSaveName( mapName ), true );
-	}
+	//	SaveGame( GetAutoSaveName( mapName ), true );
+	//}
 
 	SetGUI( NULL, NULL );
 }
