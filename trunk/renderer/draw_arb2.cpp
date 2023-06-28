@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5424 $ (Revision of last commit) 
- $Date: 2012-05-04 22:51:09 -0400 (Fri, 04 May 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5428 $ (Revision of last commit) 
+ $Date: 2012-05-05 06:07:42 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5424 2012-05-05 02:51:09Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5428 2012-05-05 10:07:42Z tels $");
 
 #include "tr_local.h"
 
@@ -331,7 +331,7 @@ typedef struct {
 	char			name[64];
 } progDef_t;
 
-#define MAX_GLPROGS			64 // Serp [05/05/2012] - Was 200 - Do we use anything near that many? 64 sounds like plenty.
+#define MAX_GLPROGS			200
 
 // a single file can have both a vertex program and a fragment program
 static progDef_t	progs[MAX_GLPROGS] = {
@@ -351,8 +351,8 @@ static progDef_t	progs[MAX_GLPROGS] = {
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_NV20_DIFFUSE_AND_SPECULAR_COLOR, "nv20_diffuseAndSpecularColor.vp" },
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_ENVIRONMENT, "environment.vfp" },
 	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_ENVIRONMENT, "environment.vfp" },
-	//{ GL_VERTEX_PROGRAM_ARB, VPROG_GLASSWARP, "arbVP_glasswarp.txt" },		// Missing from release? Remove if that is the case
-	//{ GL_FRAGMENT_PROGRAM_ARB, FPROG_GLASSWARP, "arbFP_glasswarp.txt" },		// Missing from release? Remove if that is the case
+	{ GL_VERTEX_PROGRAM_ARB, VPROG_GLASSWARP, "arbVP_glasswarp.txt" },		// Missing from release? Remove if that is the case
+	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_GLASSWARP, "arbFP_glasswarp.txt" },		// Missing from release? Remove if that is the case
 
 	// rebb: direct light interaction files for performance testing
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_TEST_DIRECT, "test_direct.vfp" },
