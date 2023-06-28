@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5436 $ (Revision of last commit) 
- $Date: 2012-05-06 15:49:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5476 $ (Revision of last commit) 
+ $Date: 2012-06-11 20:56:19 -0400 (Mon, 11 Jun 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ENTITY_H__
@@ -1290,6 +1290,8 @@ public:
 
 	// Restores all CONTENTS values, previously saved with SaveAttachmentContents()
 	void RestoreAttachmentContents();
+
+	void SetCinematicOnTeam( idEntity* ent ); // grayman #3156
 
 protected:
 	/**
