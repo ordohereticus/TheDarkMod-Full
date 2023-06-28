@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5413 $ (Revision of last commit) 
- $Date: 2012-05-01 11:06:08 -0400 (Tue, 01 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5489 $ (Revision of last commit) 
+ $Date: 2012-07-06 11:44:16 -0400 (Fri, 06 Jul 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_PLAYER_H__
@@ -1368,6 +1368,8 @@ private:
 	// Sets the currently active map (feedback method for inventory map scripts)
 	void					Event_SetActiveInventoryMapEnt(idEntity* mapEnt);
 
+	void					Event_ClearActiveInventoryMapEnt(); // grayman #3164
+	
 	// return the frobbed entity
 	void					Event_GetFrobbed();
 	// enables "frob only ents used by active inventory item" mode
