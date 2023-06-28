@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5220 $ (Revision of last commit) 
+ $Date: 2012-01-17 21:05:11 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -39,7 +39,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CollisionModel_load.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: CollisionModel_load.cpp 5220 2012-01-18 02:05:11Z serpentine $");
 
 #include "CollisionModel_local.h"
 
@@ -3060,7 +3060,7 @@ cm_model_t *idCollisionModelManagerLocal::LoadRenderModel( const char *fileName 
 	// shutdown the hash
 	ShutdownHash();
 
-	common->Printf( "loaded collision model %s\n", model->name.c_str() );
+	//common->Printf( "loaded collision model %s\n", model->name.c_str() );
 
 	return model;
 }
