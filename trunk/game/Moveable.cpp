@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5400 $ (Revision of last commit) 
- $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5403 $ (Revision of last commit) 
+ $Date: 2012-04-30 18:56:30 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5400 2012-04-29 22:28:15Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5403 2012-04-30 22:56:30Z tels $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -502,7 +502,6 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 
 	if ( ent && ( ent != gameLocal.world ) )
 	{
-		idEntity* reroute = NULL;
 		idActor* entActor = NULL;
 
 		if ( ent->IsType(idActor::Type) )
