@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5240 $ (Revision of last commit) 
- $Date: 2012-01-30 15:22:05 -0500 (Mon, 30 Jan 2012) $ (Date of last commit)
+ $Revision: 5242 $ (Revision of last commit) 
+ $Date: 2012-02-01 15:05:14 -0500 (Wed, 01 Feb 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5240 2012-01-30 20:22:05Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5242 2012-02-01 20:05:14Z taaaki $");
 
 #include "Unzip.h"
 
@@ -829,7 +829,7 @@ void idFileSystemLocal::RemoveFile( const char *relativePath ) {
 		remove( OSPath );
 	}
 
-	OSPath = BuildOSPath( fs_savepath.GetString(), gameFolder, relativePath );
+	OSPath = BuildOSPath( fs_modSavePath.GetString(), gameFolder, relativePath );
 	remove( OSPath );
 
 	ClearDirCache();
