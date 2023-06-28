@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Revision: 5416 $ (Revision of last commit) 
+ $Date: 2012-05-01 22:48:11 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -46,6 +46,7 @@ typedef struct glconfig_s {
 	int					maxTextureCoords;
 	int					maxTextureImageUnits;
 	float				maxTextureAnisotropy;
+	int					maxSamples;
 
 	int					colorBits, depthBits, stencilBits;
 
