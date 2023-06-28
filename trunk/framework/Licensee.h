@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5222 $ (Revision of last commit) 
- $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5342 $ (Revision of last commit) 
+ $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -39,7 +39,7 @@
 
 // filenames
 #define	CD_EXE							"doom.exe"
-#define CONFIG_FILE						"DoomConfig.cfg"
+#define CONFIG_FILE						"Darkmod.cfg"
 
 // base folder where the source code lives
 #define SOURCE_CODE_BASE_FOLDER			"neo"

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5278 $ (Revision of last commit) 
- $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5342 $ (Revision of last commit) 
+ $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5278 2012-02-13 23:35:44Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5342 2012-03-17 16:38:30Z taaaki $");
 
 #include "Unzip.h"
 
@@ -249,7 +249,7 @@ public:
 	virtual void			RemoveFile( const char *relativePath );	
 	virtual idFile *		OpenFileReadFlags( const char *relativePath, int searchFlags, pack_t **foundInPak = NULL, bool allowCopyFiles = true, const char* gamedir = NULL );
 	virtual idFile *		OpenFileRead( const char *relativePath, bool allowCopyFiles = true, const char* gamedir = NULL );
-	virtual idFile *		OpenFileWrite( const char *relativePath, const char *basePath = "fs_modSavePath" );
+	virtual idFile *		OpenFileWrite( const char *relativePath, const char *basePath = "fs_modSavePath", const char *gamedir = NULL );
 	virtual idFile *		OpenFileAppend( const char *relativePath, bool sync = false, const char *basePath = "fs_basepath"   );
 	virtual idFile *		OpenFileByMode( const char *relativePath, fsMode_t mode );
 	virtual idFile *		OpenExplicitFileRead( const char *OSPath );
@@ -2792,7 +2792,7 @@ idFile *idFileSystemLocal::OpenFileRead( const char *relativePath, bool allowCop
 idFileSystemLocal::OpenFileWrite
 ===========
 */
-idFile *idFileSystemLocal::OpenFileWrite( const char *relativePath, const char *basePath ) {
+idFile *idFileSystemLocal::OpenFileWrite( const char *relativePath, const char *basePath, const char *gamedir) {
 	const char *path;
 	idStr OSpath;
 	idFile_Permanent *f;
@@ -2806,7 +2806,7 @@ idFile *idFileSystemLocal::OpenFileWrite( const char *relativePath, const char *
 		path = fs_savepath.GetString();
 	}
 
-	OSpath = BuildOSPath( path, gameFolder, relativePath );
+	OSpath = BuildOSPath( path, gamedir ? gamedir : gameFolder.c_str(), relativePath );
 
 	if ( fs_debug.GetInteger() ) {
 		common->Printf( "idFileSystem::OpenFileWrite: %s\n", OSpath.c_str() );

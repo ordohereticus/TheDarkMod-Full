@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5305 $ (Revision of last commit) 
- $Date: 2012-02-26 11:18:33 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5342 $ (Revision of last commit) 
+ $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5305 2012-02-26 16:18:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5342 2012-03-17 16:38:30Z taaaki $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -650,20 +650,6 @@ idGameLocal::Shutdown
 void idGameLocal::Shutdown( void ) {
 	if ( !common ) {
 		return;
-	}
-
-	if (cv_tdm_fm_sync_config_files.GetBool())
-	{
-		// greebo: Check if we have a game base. If yes, write the current configuration back to the
-		// "darkmod" game base folder, to preserve any settings made while an FM is installed.
-		idStr fs_game_base(cvarSystem->GetCVarString("fs_game_base"));
-
-		if (!fs_game_base.IsEmpty())
-		{
-			// This should write the file into darkmod/ instead of darkmod/fms/outpost/..darkmod/,
-			// therefore use fs_savePath as base.
-			common->WriteConfigToFile("../" + fs_game_base + "/DoomConfig.cfg", "fs_savePath");
-		}
 	}
 
 	Printf( "------------ Game Shutdown -----------\n" );

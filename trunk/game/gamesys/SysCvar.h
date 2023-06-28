@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5342 $ (Revision of last commit) 
+ $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -95,7 +95,6 @@ extern idCVar cv_tdm_fm_notes_file;
 extern idCVar cv_tdm_fm_startingmap_file;
 extern idCVar cv_tdm_fm_mapsequence_file;
 extern idCVar cv_tdm_fm_splashimage_file;
-extern idCVar cv_tdm_fm_sync_config_files;
 extern idCVar cv_tdm_fm_restart_delay;
 
 extern idCVar cv_tdm_proxy;
