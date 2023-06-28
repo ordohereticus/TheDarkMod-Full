@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5434 $ (Revision of last commit) 
+ $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5434 2012-05-06 13:52:22Z tels $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -3544,6 +3544,22 @@ void Cmd_updateCookedMathData_f( const idCmdArgs& args )
 	r_postprocess_colorCurveBias.SetModified();
 }
 
+void Cmd_LODBiasChanged_f( const idCmdArgs& args )
+{
+	// gameLocal.Printf("LOD Bias (Object Detail) changed, checking %i entities.\n", gameLocal.num_entities);
+	// Run through all entities and Hide()/Show() them according to their MinLODBias and
+	// MaxLODBias values.
+	float lodbias = cv_lod_bias.GetFloat();
+	for (int j = 0; j < gameLocal.num_entities; j++)
+	{
+		idEntity *c_ent = gameLocal.entities[ j ];
+		if (c_ent)
+		{
+			c_ent->HideByLODBias(lodbias);
+		}
+	}
+}
+
 #ifdef TIMING_BUILD
 void Cmd_ListTimers_f(const idCmdArgs& args) 
 {
@@ -3641,6 +3657,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "reloadScript",			Cmd_ReloadScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"reloads scripts" );
 
 	cmdSystem->AddCommand( "tdm_updateCookedMathData",	Cmd_updateCookedMathData_f,		CMD_FL_RENDERER,	"Updates lookup textures" );
+	cmdSystem->AddCommand( "tdm_lod_bias_changed",		Cmd_LODBiasChanged_f,			CMD_FL_RENDERER,	"Updates entity visibility according to tdm_lod_bias." );
 
 	cmdSystem->AddCommand( "script",				Cmd_Script_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"executes a line of script" );
 	cmdSystem->AddCommand( "listCollisionModels",	Cmd_ListCollisionModels_f,	CMD_FL_GAME,				"lists collision models" );

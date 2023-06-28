@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5403 $ (Revision of last commit) 
- $Date: 2012-04-30 18:56:30 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
+ $Revision: 5434 $ (Revision of last commit) 
+ $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5403 2012-04-30 22:56:30Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5434 2012-05-06 13:52:22Z tels $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -636,7 +636,7 @@ void idMoveable::Killed( idEntity *inflictor, idEntity *attacker, int damage, co
 
 	if ( explode )
 	{
-		if ( brokenModel == "" )
+		if ( brokenModel.IsEmpty() )
 		{
 			PostEventMS( &EV_Remove, 1000 );
 		}

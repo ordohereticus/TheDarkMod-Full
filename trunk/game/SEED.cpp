@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5434 $ (Revision of last commit) 
+ $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -76,7 +76,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5434 2012-05-06 13:52:22Z tels $");
 
 #include "SEED.h"
 
@@ -3898,6 +3898,7 @@ void Seed::Think( void )
 
 			PrepareEntities();
 		}
+
 		// save the new value
 		m_fLODBias = cv_lod_bias.GetFloat();
 	}

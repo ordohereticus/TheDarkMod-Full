@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5419 $ (Revision of last commit) 
- $Date: 2012-05-02 17:32:37 -0400 (Wed, 02 May 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5434 $ (Revision of last commit) 
+ $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5419 2012-05-02 21:32:37Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5434 2012-05-06 13:52:22Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -4277,6 +4277,11 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 	{
 		// Add the command to buffer, but no need to issue it immediately. 
 		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "tdm_updateCookedMathData" );
+	}
+	else if (cmd == "lod_bias_changed")		// Adding a way to update cooked data from menu - J.C.Denton
+	{
+		// Add the command to buffer, but no need to issue it immediately. 
+		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "tdm_lod_bias_changed" );
 	}
 	else if (cmd == "resetbrightness")
 	{
