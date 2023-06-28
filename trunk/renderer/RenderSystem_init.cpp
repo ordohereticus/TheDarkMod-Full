@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5294 $ (Revision of last commit) 
- $Date: 2012-02-23 23:43:50 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5296 $ (Revision of last commit) 
+ $Date: 2012-02-24 09:36:34 -0500 (Fri, 24 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5294 2012-02-24 04:43:50Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5296 2012-02-24 14:36:34Z tels $");
 
 #include "tr_local.h"
 
@@ -1937,7 +1937,7 @@ extern	PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT;
 	if ( !r_useTwoSidedStencil.GetBool() && glConfig.twoSidedStencilAvailable ) {
 		common->Printf( "Two sided stencil available but disabled\n" );
 	} else if ( glConfig.twoSidedStencilAvailable ) {
-		common->Printf( "Two sided stencil enabled and enabled\n" );
+		common->Printf( "Two sided stencil available and enabled\n" );
 	} else if ( !glConfig.twoSidedStencilAvailable ) {
 		common->Printf( "Two sided stencil not available\n" );
 	}
