@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5179 $ (Revision of last commit) 
- $Date: 2012-01-07 07:46:31 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5333 $ (Revision of last commit) 
+ $Date: 2012-03-11 05:37:24 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef ESCAPE_POINT_EVALUATOR__H
@@ -54,7 +54,7 @@ protected:
 
 private:
 	// Silence compiler warning about assignment operators
-	EscapePointEvaluator& operator=(const EscapePointEvaluator& other) {}
+	EscapePointEvaluator& operator=(const EscapePointEvaluator& other);
 
 public:
 	// Default Constructor
