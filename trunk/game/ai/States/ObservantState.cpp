@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5394 $ (Revision of last commit) 
+ $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ObservantState.cpp 5367 2012-04-04 02:09:55Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ObservantState.cpp 5394 2012-04-17 22:36:35Z grayman $");
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -127,6 +127,10 @@ void ObservantState::Init(idAI* owner)
 				soundName = "snd_alert1";
 			}
 		}
+		else if ( owner->m_justKilledSomeone ) // grayman #2816 - no bark if we barked about the death when it happened
+		{
+			owner->m_justKilledSomeone = false; // but turn off the flag
+		}
 		else if (owner->HasSeenEvidence())
 		{
 			if (owner->m_lastAlertLevel >= owner->thresh_3)
@@ -139,7 +143,7 @@ void ObservantState::Init(idAI* owner)
 			soundName = "snd_alertdown0SeenNoEvidence";
 		}
 
-		if (memory.alertType != EAlertTypeMissingItem)
+		if ( ( memory.alertType != EAlertTypeMissingItem) && ( !soundName.IsEmpty() ) ) // grayman #2816 - don't set up empty sounds
 		{
 			CommunicationTaskPtr barkTask(new SingleBarkTask(soundName));
 

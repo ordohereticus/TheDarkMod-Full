@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5394 $ (Revision of last commit) 
+ $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5378 2012-04-10 18:21:04Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5394 2012-04-17 22:36:35Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1695,10 +1695,14 @@ void idAFEntity_Base::Damage( idEntity *inflictor, idEntity *attacker, const idV
 	}
 	
 	// check for reroute entity on the AF body and damage this instead
-	if( reroute != NULL )
+	if ( reroute != NULL )
+	{
 		reroute->Damage( inflictor, attacker, dir, damageDefName, damageScale, location, tr );
+	}
 	else
+	{
 		idEntity::Damage( inflictor, attacker, dir, damageDefName, damageScale, location, tr );
+	}
 }
 
 /*

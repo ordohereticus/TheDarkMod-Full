@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5394 $ (Revision of last commit) 
+ $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Mind.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Mind.cpp 5394 2012-04-17 22:36:35Z grayman $");
 
 #include "Mind.h"
 #include "States/IdleState.h"
@@ -244,6 +244,7 @@ bool Mind::SetTarget()
 		{
 			// Invalid enemy type, todo?
 			//DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Tactile entity is of wrong type: %s\r", tactEnt->name.c_str());
+			// grayman: a tactile entity can be objects other than actors, so not being an actor isn't illegal
 			return false;
 		}
 

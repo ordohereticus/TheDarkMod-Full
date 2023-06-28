@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5379 $ (Revision of last commit) 
- $Date: 2012-04-10 20:28:42 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5394 $ (Revision of last commit) 
+ $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5379 2012-04-11 00:28:42Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5394 2012-04-17 22:36:35Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -248,21 +248,39 @@ void State::OnTactileAlert(idEntity* tactEnt)
 		* TODO later: Predict where the thrown object might have come from, and search
 		* in that direction (requires a "directed search" algorithm)
 		*/
-		if (owner->IsEnemy(tactEnt)) // also checks for NULL pointers
-		{
-			owner->Event_SetEnemy(tactEnt);
 
+		// grayman #2816 - this was assuming tactEnt is an actor,
+		// when it might not be. Execute the alert if this is an actor
+		// who is an enemy, or if this isn't an actor (you were hit by something
+		// other than a projectile).
+
+		bool isActor = tactEnt->IsType(idActor::Type);
+		bool isEnemy = ( isActor && owner->IsEnemy(tactEnt) );
+		if ( !isActor || isEnemy )
+		{
 			Memory& memory = owner->GetMemory();
+
+			if ( isEnemy )
+			{
+				owner->Event_SetEnemy(tactEnt);
+				memory.alertType = EAlertTypeEnemy;
+			}
+			else
+			{
+				memory.alertType = EAlertTypeSuspicious;
+			}
+
 			memory.alertClass = EAlertTactile;
-			memory.alertType = EAlertTypeEnemy;
 			memory.alertPos = owner->GetPhysics()->GetOrigin();
 			memory.alertRadius = TACTILE_ALERT_RADIUS;
 			memory.alertSearchVolume = TACTILE_SEARCH_VOLUME;
 			memory.alertSearchExclusionVolume.Zero();
 			memory.visualAlert = false; // grayman #2422
 
-			// execute the turn manually here
-			owner->TurnToward(memory.alertPos);
+			// grayman #2816 - turn toward what hit you, not toward your origin
+
+			owner->TurnToward(tactEnt->GetPhysics()->GetOrigin());
+//			owner->TurnToward(memory.alertPos);
 			
 			owner->AI_TACTALERT = false;
 		}

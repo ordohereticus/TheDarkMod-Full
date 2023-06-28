@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5394 $ (Revision of last commit) 
+ $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Physics_RigidBody.cpp 5378 2012-04-10 18:21:04Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Physics_RigidBody.cpp 5394 2012-04-17 22:36:35Z grayman $");
 
 #include "../Game_local.h"
 #include "../Grabber.h"
@@ -1282,6 +1282,10 @@ void idPhysics_RigidBody::Rest( void )
 		{
 			self->m_SetInMotionByActor = NULL;
 		}
+	}
+	else // grayman #2816
+	{
+		self->m_SetInMotionByActor = NULL;
 	}
 
 //	self->m_SetInMotionByActor = NULL;
