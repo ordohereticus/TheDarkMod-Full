@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5253 $ (Revision of last commit) 
+ $Date: 2012-02-06 23:45:44 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -66,6 +66,10 @@ public:
 	void				SetMonsterOnly( bool set ) { monsterOnly = set; }
 						// clip model describing the extents of the force field
 	void				SetClipModel( idClipModel *clipModel );
+						// grayman #2975 - set the player mass for reduced force effect when version == 1
+	void				SetPlayerMass( float mass) { playerMass = mass; }
+						// grayman #2975 - set the version ( 0 = default behavior, 1 = reduced force behavior )
+	void				SetVersion( int newVersion ) { version = newVersion; }
 
 public: // common force interface
 	virtual void		Evaluate( int time );
@@ -80,6 +84,8 @@ private:
 	bool				playerOnly;
 	bool				monsterOnly;
 	idClipModel *		clipModel;
+	float				playerMass; // grayman #2975
+	int					version;	// grayman #2975
 };
 
 #endif /* !__FORCE_FIELD_H__ */

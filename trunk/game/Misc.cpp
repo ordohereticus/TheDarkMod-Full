@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5253 $ (Revision of last commit) 
+ $Date: 2012-02-06 23:45:44 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -29,7 +29,7 @@ Various utility objects and functions.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5253 2012-02-07 04:45:44Z grayman $");
 
 #include "Game_local.h"
 #include "SndProp.h"
@@ -926,6 +926,20 @@ void idForceField::Spawn( void ) {
 
 	forceField.SetPlayerOnly( spawnArgs.GetBool( "playerOnly", "0" ) );
 	forceField.SetMonsterOnly( spawnArgs.GetBool( "monsterOnly", "0" ) );
+
+	// grayman #2975 - for version == 1, use the player mass in a calculation
+	// that reduces force on small objects. Provides more realistic behavior
+	// when the same force field is used on small objects and the player.
+
+	idPlayer *player = gameLocal.GetLocalPlayer();
+	float mass = 70;
+	if ( player )
+	{
+		mass = player->spawnArgs.GetFloat("mass","70");
+	}
+
+	forceField.SetPlayerMass( mass );
+	forceField.SetVersion( spawnArgs.GetInt("version","0") ); // identify when to apply reduced force
 
 	// set the collision model on the force field
 	forceField.SetClipModel( new idClipModel( GetPhysics()->GetClipModel() ) );
