@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5197 $ (Revision of last commit) 
- $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5334 $ (Revision of last commit) 
+ $Date: 2012-03-11 05:47:57 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -36,10 +36,10 @@
 	combination. The index of a decl in the per type list also stays the
 	same throughout the lifetime of the engine. Although the pointer to
 	a decl always stays the same, one should never maintain pointers to
-	data inside decls. The data stored in a decl is not garranteed to stay
+	data inside decls. The data stored in a decl is not guaranteed to stay
 	the same for more than one engine frame.
 
-	The decl indexes of explicitely defined decls are garrenteed to be
+	The decl indexes of explicitely defined decls are guaranteed to be
 	consistent based on the parsed decl files. However, the indexes of
 	implicit decls may be different based on the order in which levels
 	are loaded.
