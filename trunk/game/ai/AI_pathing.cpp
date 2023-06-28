@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5308 $ (Revision of last commit) 
+ $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_pathing.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AI_pathing.cpp 5308 2012-02-26 18:09:58Z grayman $");
 
 #include "../Game_local.h"
 
@@ -197,7 +197,8 @@ int PointInsideObstacle( const obstacle_t *obstacles, const int numObstacles, co
 GetPointOutsideObstacles
 ============
 */
-void GetPointOutsideObstacles( const obstacle_t *obstacles, const int numObstacles, idVec2 &point, int *obstacle, int *edgeNum ) {
+void GetPointOutsideObstacles( const obstacle_t *obstacles, const int numObstacles, idVec2 &point, int *obstacle, int *edgeNum, idActor* owner )
+{
 	int i, j, k, n, bestObstacle, bestEdgeNum, queueStart, queueEnd, edgeNums[2];
 	float d, bestd, scale[2];
 	idVec3 plane, bestPlane;
@@ -310,7 +311,7 @@ void GetPointOutsideObstacles( const obstacle_t *obstacles, const int numObstacl
 			return;
 		}
 	}
-	gameLocal.Warning( "GetPointOutsideObstacles: no valid point found" ); 
+	gameLocal.Warning( "GetPointOutsideObstacles: %s - no valid point found",owner->name.c_str() ); 
 }
 
 /*
@@ -1333,13 +1334,13 @@ bool idAI::FindPathAroundObstacles(const idPhysics *physics, const idAAS *aas, c
 
 	// get a source position outside the obstacles
 	int insideObstacle;
-	GetPointOutsideObstacles( obstacles, numObstacles, path.startPosOutsideObstacles.ToVec2(), &insideObstacle, NULL );
+	GetPointOutsideObstacles( obstacles, numObstacles, path.startPosOutsideObstacles.ToVec2(), &insideObstacle, NULL, owner );
 	if ( insideObstacle != -1 ) {
 		path.startPosObstacle = obstacles[insideObstacle].entity;
 	}
 
 	// get a goal position outside the obstacles
-	GetPointOutsideObstacles( obstacles, numObstacles, path.seekPosOutsideObstacles.ToVec2(), &insideObstacle, NULL );
+	GetPointOutsideObstacles( obstacles, numObstacles, path.seekPosOutsideObstacles.ToVec2(), &insideObstacle, NULL, owner );
 	if ( insideObstacle != -1 ) {
 		path.seekPosObstacle = obstacles[insideObstacle].entity;
 	}

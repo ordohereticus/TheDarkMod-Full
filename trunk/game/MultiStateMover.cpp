@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5308 $ (Revision of last commit) 
+ $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MultiStateMover.cpp 5292 2012-02-23 16:17:34Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MultiStateMover.cpp 5308 2012-02-26 18:09:58Z grayman $");
 
 #include "MultiStateMover.h"
 
@@ -291,7 +291,7 @@ void CMultiStateMover::Activate(idEntity* activator)
 
 	if (targetPositionIndex == -1) 
 	{
-		gameLocal.Warning("Multistate mover is targetted by an entity with unknown 'position': %s", targetPosition.c_str());
+		gameLocal.Warning("Multistate mover '%s' is targetted by entity '%s' with unknown 'position': %s", name.c_str(),activator->name.c_str(),targetPosition.c_str());
 		return;
 	}
 

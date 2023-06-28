@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5250 $ (Revision of last commit) 
- $Date: 2012-02-06 19:24:05 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Revision: 5308 $ (Revision of last commit) 
+ $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5250 2012-02-07 00:24:05Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5308 2012-02-26 18:09:58Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -3452,8 +3452,8 @@ void idActor::LoadVocalSet()
 
 	if (def == NULL)
 	{
-		gameLocal.Warning("Could not find def_vocal_set %s!", vocalSet.c_str());
-		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Could not find def_vocal_set %s!", vocalSet.c_str());
+		gameLocal.Warning("%s - Could not find def_vocal_set %s!", name.c_str(),vocalSet.c_str());
+		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("%s - Could not find def_vocal_set %s!", name.c_str(),vocalSet.c_str());
 		return;
 	}
 
@@ -3489,8 +3489,8 @@ void idActor::LoadMeleeSet()
 
 	if (def == NULL)
 	{
-		gameLocal.Warning("Could not find def_melee_set %s!", MeleeSet.c_str());
-		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("Could not find def_melee_set %s!", MeleeSet.c_str());
+		gameLocal.Warning("%s - Could not find def_melee_set %s!", name.c_str(),MeleeSet.c_str());
+		DM_LOG(LC_AI, LT_ERROR)LOGSTRING("%s - Could not find def_melee_set %s!", name.c_str(), MeleeSet.c_str());
 		return;
 	}
 
@@ -4915,7 +4915,7 @@ void idActor::Event_SetAttackFlag(int combatType, int enabled)
 	if (combatType < COMBAT_NONE || combatType >= NUM_COMBAT_TYPES) 
 	{
 		// do nothing
-		gameLocal.Warning("Script is trying to set invalid combatType %d", combatType);
+		gameLocal.Warning("%s - Script is trying to set invalid combatType %d", name.c_str(),combatType);
 		return;
 	}
 

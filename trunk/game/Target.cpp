@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5278 $ (Revision of last commit) 
- $Date: 2012-02-13 18:35:44 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5308 $ (Revision of last commit) 
+ $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5278 2012-02-13 23:35:44Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5308 2012-02-26 18:09:58Z grayman $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -2060,7 +2060,7 @@ void CTarget_CallScriptFunction::Event_Activate( idEntity *activator )
 	if (scriptFunction == NULL)
 	{
 		// script function not found!
-		gameLocal.Warning("Target %s specifies non-existent script function!", funcName.c_str());
+		gameLocal.Warning("Target '%s' specifies non-existent script function '%s'!", name.c_str(),funcName.c_str());
 		return;
 	}
 

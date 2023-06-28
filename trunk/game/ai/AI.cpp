@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5293 $ (Revision of last commit) 
- $Date: 2012-02-23 19:47:52 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5308 $ (Revision of last commit) 
+ $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5293 2012-02-24 00:47:52Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5308 2012-02-26 18:09:58Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -2571,7 +2571,7 @@ int idAI::GetThinkInterleave() const // grayman 2414 - add 'const'
 
 	if (maxDist < minDist)
 	{
-		gameLocal.Warning("Minimum distance for interleaved thinking is larger than maximum distance, switching optimization off.");
+		gameLocal.Warning("%s - Minimum distance for interleaved thinking (%f) is larger than maximum distance (%f), switching optimization off.",name.c_str(),minDist,maxDist);
 		return 0;
 	}
 
