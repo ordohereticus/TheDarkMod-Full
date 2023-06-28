@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5371 $ (Revision of last commit) 
- $Date: 2012-04-07 19:22:04 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5465 $ (Revision of last commit) 
+ $Date: 2012-05-31 00:00:38 -0400 (Thu, 31 May 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __LIGHTGEM_H__
@@ -46,7 +46,7 @@
 #define DARKMOD_LG_RED						0.29900f
 #define DARKMOD_LG_GREEN					0.58700f
 #define DARKMOD_LG_BLUE						0.11400f
-#define DARKMOD_LG_SCALE					(1.0/255.0)			// scaling factor for grayscale value
+#define DARKMOD_LG_SCALE					(1.0f/255.0f)			// scaling factor for grayscale value
 #define DARKMOD_LG_TRIRATIO					(1.0f/((DARKMOD_LG_RENDER_WIDTH*DARKMOD_LG_RENDER_WIDTH)/4.0f))
 
 //----------------------------------

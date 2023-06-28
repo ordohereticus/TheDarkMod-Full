@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5419 $ (Revision of last commit) 
- $Date: 2012-05-02 17:32:37 -0400 (Wed, 02 May 2012) $ (Date of last commit)
+ $Revision: 5465 $ (Revision of last commit) 
+ $Date: 2012-05-31 00:00:38 -0400 (Thu, 31 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5419 2012-05-02 21:32:37Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5465 2012-05-31 04:00:38Z serpentine $");
 
 #include "LightGem.h"
 
@@ -278,7 +278,7 @@ float LightGem::Calculate(idPlayer *player)
 			// 45 degree, thus the square shape.
 			PROFILE_BLOCK_START	( LightGem_Calculate_ForLoop_RenderScene );
 
-			//gameRenderWorld->SetRenderView(&m_Lightgem_rv); // most likely not needed
+			gameRenderWorld->SetRenderView(&m_Lightgem_rv); // most likely not needed
 			gameRenderWorld->RenderScene(&m_Lightgem_rv);
 
 			PROFILE_BLOCK_END	( LightGem_Calculate_ForLoop_RenderScene );
@@ -289,7 +289,7 @@ float LightGem::Calculate(idPlayer *player)
 			renderSystem->CaptureRenderToBuffer(m_LightgemImgBuffer);
 			PROFILE_BLOCK_END	( LightGem_Calculate_ForLoop_CaptureRenderToBuffer );
 
-#ifdef _DEBUG
+#if 0
 			{ // Save render if we have a path specified (for debugging)
 				const char* dp = cv_lg_path.GetString();
 				if ( dp[0] ) {
