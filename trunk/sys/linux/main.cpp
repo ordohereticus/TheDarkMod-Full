@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5152 $ (Revision of last commit) 
- $Date: 2012-01-03 06:00:02 -0500 (Tue, 03 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5285 $ (Revision of last commit) 
+ $Date: 2012-02-16 08:13:06 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "../../idlib/precompiled.h"
@@ -145,7 +145,7 @@ const char *Sys_EXEPath( void ) {
 	len = readlink( linkpath.c_str(), buf, sizeof( buf ) );
 	if ( len == -1 ) {
 		Sys_Printf("couldn't stat exe path link %s\n", linkpath.c_str());
-		buf[ len ] = '\0';
+		buf[ 0 ] = '\0';
 	}
 	return buf;
 }
