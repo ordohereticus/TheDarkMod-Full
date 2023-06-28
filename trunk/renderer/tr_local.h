@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Revision: 5395 $ (Revision of last commit) 
+ $Date: 2012-04-18 12:59:26 -0400 (Wed, 18 Apr 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,6 +22,8 @@
 
 #include "Image.h"
 #include "MegaTexture.h"
+
+#define RENDERTOOLS_SKIP_ID			-1 // DARKMOD_LG_VIEWID
 
 class idRenderWorldLocal;
 

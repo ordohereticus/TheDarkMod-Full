@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5393 $ (Revision of last commit) 
- $Date: 2012-04-16 14:00:11 -0400 (Mon, 16 Apr 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5395 $ (Revision of last commit) 
+ $Date: 2012-04-18 12:59:26 -0400 (Wed, 18 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5393 2012-04-16 18:00:11Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5395 2012-04-18 16:59:26Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1131,14 +1131,13 @@ idRenderWorldLocal::Trace
 */
 // FIXME: _D3XP added those.
 const char* playerModelExcludeList[] = {
-	"models/md5/characters/player/d3xp_spplayer.md5mesh",
-	"models/md5/characters/player/head/d3xp_head.md5mesh",
-	"models/md5/weapons/pistol_world/worldpistol.md5mesh",
+	"models/md5/chars/thief/thief_head.md5mesh",
+	"models/md5/chars/thief/tdm_ai_thief.md5mesh",
 	NULL
 };
 
 const char* playerMaterialExcludeList[] = {
-	"muzzlesmokepuff",
+	"models/props/misc/lightgem_surface",
 	NULL
 };
 

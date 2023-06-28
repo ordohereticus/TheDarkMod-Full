@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5393 $ (Revision of last commit) 
- $Date: 2012-04-16 14:00:11 -0400 (Mon, 16 Apr 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5395 $ (Revision of last commit) 
+ $Date: 2012-04-18 12:59:26 -0400 (Wed, 18 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5393 2012-04-16 18:00:11Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5395 2012-04-18 16:59:26Z serpentine $");
 
 #include "tr_local.h"
 
@@ -770,14 +770,21 @@ Reload the material displayed by r_showSurfaceInfo
 =====================
 */
 static void R_ReloadSurface_f( const idCmdArgs &args ) {
-	modelTrace_t mt;
-	idVec3 start, end;
-	
-	// start far enough away that we don't hit the player model
-	start = tr.primaryView->renderView.vieworg + tr.primaryView->renderView.viewaxis[0] * 16;
-	end = start + tr.primaryView->renderView.viewaxis[0] * 1000.0f;
-	if ( !tr.primaryWorld->Trace( mt, start, end, 0.0f, false ) ) {
+
+	// Skip if the current render is the lightgem render (default RENDERTOOLS_SKIP_ID)
+	if ( tr.primaryView->renderView.viewID == RENDERTOOLS_SKIP_ID ) {
 		return;
+	}
+	
+	modelTrace_t mt;
+
+	// start far enough away that we don't hit the player model
+	{
+		const idVec3 start = tr.primaryView->renderView.vieworg + tr.primaryView->renderView.viewaxis[0] * 16;
+		const idVec3 end = start + tr.primaryView->renderView.viewaxis[0] * 1000.0f;
+		if ( !tr.primaryWorld->Trace( mt, start, end, 0.0f, false, true) ) {
+			return;
+		}
 	}
 
 	common->Printf( "Reloading %s\n", mt.material->GetName() );
