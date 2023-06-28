@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5235 $ (Revision of last commit) 
- $Date: 2012-01-26 15:16:22 -0500 (Thu, 26 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5243 $ (Revision of last commit) 
+ $Date: 2012-02-03 09:28:06 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5235 2012-01-26 20:16:22Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5243 2012-02-03 14:28:06Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -64,8 +64,6 @@ TRandomCombined<TRanrotWGenerator,TRandomMersenne> rnd(time(0));
 extern CMissionData		g_MissionData;
 extern CsndPropLoader	g_SoundPropLoader;
 extern CsndProp			g_SoundProp;
-
-#define BUFFER_LEN 4096
 
 #ifdef GAME_DLL
 

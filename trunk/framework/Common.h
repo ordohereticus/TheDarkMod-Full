@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5243 $ (Revision of last commit) 
+ $Date: 2012-02-03 09:28:06 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 
 ==============================================================
 */
+
+#define	MAX_PRINT_MSG_SIZE	16 * 1024
 
 typedef enum {
 	EDITOR_NONE					= 0,

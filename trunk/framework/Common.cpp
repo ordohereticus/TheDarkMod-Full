@@ -11,22 +11,21 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5239 $ (Revision of last commit) 
- $Date: 2012-01-30 15:03:29 -0500 (Mon, 30 Jan 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5243 $ (Revision of last commit) 
+ $Date: 2012-02-03 09:28:06 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5239 2012-01-30 20:03:29Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5243 2012-02-03 14:28:06Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
 #include <iostream>
 
-#define	MAX_PRINT_MSG_SIZE	4096
 #define MAX_WARNING_LIST	256
 
 typedef enum {

@@ -11,20 +11,18 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5243 $ (Revision of last commit) 
+ $Date: 2012-02-03 09:28:06 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: File.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: File.cpp 5243 2012-02-03 14:28:06Z tels $");
 
 #include "Unzip.h"
-
-#define	MAX_PRINT_MSG		4096
 
 /*
 =================
@@ -251,12 +249,12 @@ idFile::Printf
 =================
 */
 int idFile::Printf( const char *fmt, ... ) {
-	char buf[MAX_PRINT_MSG];
+	char buf[MAX_PRINT_MSG_SIZE];
 	int length;
 	va_list argptr;
 
 	va_start( argptr, fmt );
-	length = idStr::vsnPrintf( buf, MAX_PRINT_MSG-1, fmt, argptr );
+	length = idStr::vsnPrintf( buf, MAX_PRINT_MSG_SIZE-1, fmt, argptr );
 	va_end( argptr );
 
 	// so notepad formats the lines correctly
@@ -272,10 +270,10 @@ idFile::VPrintf
 =================
 */
 int idFile::VPrintf( const char *fmt, va_list args ) {
-	char buf[MAX_PRINT_MSG];
+	char buf[MAX_PRINT_MSG_SIZE];
 	int length;
 
-	length = idStr::vsnPrintf( buf, MAX_PRINT_MSG-1, fmt, args );
+	length = idStr::vsnPrintf( buf, MAX_PRINT_MSG_SIZE-1, fmt, args );
 	return Write( buf, length );
 }
 
@@ -285,7 +283,7 @@ idFile::WriteFloatString
 =================
 */
 int idFile::WriteFloatString( const char *fmt, ... ) {
-	char buf[MAX_PRINT_MSG];
+	char buf[MAX_PRINT_MSG_SIZE];
 	int len;
 	va_list argPtr;
 
