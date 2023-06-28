@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5197 $ (Revision of last commit) 
- $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5237 $ (Revision of last commit) 
+ $Date: 2012-01-28 22:51:35 -0500 (Sat, 28 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -70,9 +70,6 @@ typedef struct glconfig_s {
 
 	// ati r200 extensions
 	bool				atiFragmentShaderAvailable;
-
-	// ati r300
-	bool				atiTwoSidedStencilAvailable;
 
 	int					vidWidth, vidHeight;	// passed to R_BeginFrame
 
