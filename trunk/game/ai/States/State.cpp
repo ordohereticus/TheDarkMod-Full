@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5370 $ (Revision of last commit) 
+ $Date: 2012-04-07 18:09:12 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5367 2012-04-04 02:09:55Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5370 2012-04-07 22:09:12Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -2282,13 +2282,16 @@ bool State::CheckTorch(idAI* owner, idLight* light)
 					owner->m_DroppingTorch = true;
 				}
 
-				// If you're in the middle of lighting a light, stop
+				// grayman debug - aborting a relight this way kills the
+				// PlayAnimationTask() request, causing the AI to never drop
+				// his torch
 
+/*				// If you're in the middle of lighting a light, stop
 				if (owner->m_RelightingLight)
 				{
 					owner->GetMemory().stopRelight = true;
 				}
-
+*/
 				return false; // My torch is out, so don't start a relight
 			}
 		}
