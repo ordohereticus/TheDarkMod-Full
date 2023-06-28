@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5237 $ (Revision of last commit) 
- $Date: 2012-01-28 22:51:35 -0500 (Sat, 28 Jan 2012) $ (Date of last commit)
+ $Revision: 5241 $ (Revision of last commit) 
+ $Date: 2012-02-01 13:19:38 -0500 (Wed, 01 Feb 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_common.cpp 5237 2012-01-29 03:51:35Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: draw_common.cpp 5241 2012-02-01 18:19:38Z serpentine $");
 
 #include "tr_local.h"
 
@@ -302,8 +302,6 @@ void RB_FinishStageTexturing( const shaderStage_t *pStage, const drawSurf_t *sur
 			qglDisableClientState( GL_NORMAL_ARRAY );
 			qglDisable( GL_FRAGMENT_PROGRAM_ARB );
 			qglDisable( GL_VERTEX_PROGRAM_ARB );
-			// Fixme: Hack to get around an apparent bug in ATI drivers.  Should remove as soon as it gets fixed.
-			qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, 0 );
 		} else {
 			qglDisable( GL_TEXTURE_GEN_S );
 			qglDisable( GL_TEXTURE_GEN_T );
@@ -843,8 +841,6 @@ void RB_STD_T_RenderShaderPasses( const drawSurf_t *surf ) {
 
 			qglDisable( GL_VERTEX_PROGRAM_ARB );
 			qglDisable( GL_FRAGMENT_PROGRAM_ARB );
-			// Fixme: Hack to get around an apparent bug in ATI drivers.  Should remove as soon as it gets fixed.
-			qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, 0 );
 
 			qglDisableClientState( GL_COLOR_ARRAY );
 			qglDisableVertexAttribArrayARB( 9 );
