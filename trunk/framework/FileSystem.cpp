@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Revision: 5344 $ (Revision of last commit) 
+ $Date: 2012-03-18 07:40:54 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5342 2012-03-17 16:38:30Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5344 2012-03-18 11:40:54Z taaaki $");
 
 #include "Unzip.h"
 
@@ -303,7 +303,7 @@ private:
 	static idCVar			fs_caseSensitiveOS;
 	static idCVar			fs_searchAddons;
 
-	// greebo: For regular TDM missions, all savegames/screenshots/etc. should be written to darkmod/fms/<fs_game>/... 
+	// greebo: For regular TDM missions, all savegames/demos/etc. should be written to darkmod/fms/<fs_game>/... 
 	// instead of creating a folder in fs_basePath. So, use "fs_modSavePath" as argument to filesystem->OpenFileWrite()
 	// The value of modSavePath is something like C:\Games\Doom3\darkmod\fms\ in Win32, or ~/.doom3/darkmod/fms/ in Linux.
 	static idCVar			fs_modSavePath;
@@ -2018,7 +2018,10 @@ void idFileSystemLocal::SetupGameDirectories( const char *gameName ) {
     // taaaki: setup fm save path -- this should fix the savegame loading while keeping the following logic:
     // greebo: In between fs_game and fs_game_base, there is the mission folder, which is fms/<missionName>/
     // fs_game still overrides that one, but the the mission folder should still override fs_game_base
-    if ( fs_modSavePath.GetString()[0] && idStr::Cmp (gameName, "base") != 0 ) {
+    if ( fs_modSavePath.GetString()[0] && 
+         idStr::Cmp (gameName, BASE_GAMEDIR) != 0 &&
+         idStr::Cmp (gameName, fs_game_base.GetString()) != 0 )
+    {
         AddGameDirectory( fs_modSavePath.GetString(), gameName );
     }
 
