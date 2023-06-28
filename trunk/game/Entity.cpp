@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5316 $ (Revision of last commit) 
- $Date: 2012-03-05 13:09:59 -0500 (Mon, 05 Mar 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5317 $ (Revision of last commit) 
+ $Date: 2012-03-05 17:45:52 -0500 (Mon, 05 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5316 2012-03-05 18:09:59Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5317 2012-03-05 22:45:52Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -11838,10 +11838,18 @@ void idEntity::ParseAttachments( void )
 			if (Source_Entity.Length() > 0)
 			{
 				// "Name:attached:flame" => entity name, so use "Name"
-				gameLocal.Printf(" Link source: '%s'\n", Source_Entity.c_str() );
+				// gameLocal.Printf(" Link source: '%s'\n", Source_Entity.c_str() );
 				
 				Source = Source_Entity;
-				source_ent = gameLocal.FindEntity( Source );
+				// Tels: #3048 - support linking from/to the entity we just created when the name is "self:attached:flame"
+				if (Source == "self")
+					{
+					source_ent = this;
+					}
+					else
+					{
+					source_ent = gameLocal.FindEntity( Source );
+					}
 				if (!source_ent)
 					{
 					gameLocal.Warning( "Cannot find entity '%s'.", Source.c_str() );
@@ -11864,7 +11872,15 @@ void idEntity::ParseAttachments( void )
 		else
 		{
 			// source is just an entity name
-			source_ent = gameLocal.FindEntity( Source );
+			// Tels: #3048 - support linking from/to the entity we just created when the name is "self:attached:flame"
+			if (Source == "self")
+				{
+				source_ent = this;
+				}
+				else
+				{
+				source_ent = gameLocal.FindEntity( Source );
+				}
 			//if (source_ent)
 			//		gameLocal.Printf(" Link source entity (Entity): '%s'\n", source_ent->name.c_str() );
 		}
@@ -11883,10 +11899,18 @@ void idEntity::ParseAttachments( void )
 			if (Target_Entity.Length() > 0)
 			{
 				// "Name:attached:flame" => entity name, so use "Name"
-				gameLocal.Printf(" Link target: '%s'\n", Target_Entity.c_str() );
+				// gameLocal.Printf(" Link target: '%s'\n", Target_Entity.c_str() );
 				
 				Target = Target_Entity;
-				target_ent = gameLocal.FindEntity( Target );
+				// Tels: #3048 - support linking from/to the entity we just created when the name is "self:attached:flame"
+				if (Target == "self")
+					{
+					target_ent = this;
+					}
+					else
+					{
+					target_ent = gameLocal.FindEntity( Target );
+					}
 				if (!target_ent)
 					{
 					gameLocal.Warning( "Cannot find entity '%s'.", Target.c_str() );
@@ -11910,7 +11934,15 @@ void idEntity::ParseAttachments( void )
 		else
 		{
 			// target is just an entity name
-			target_ent = gameLocal.FindEntity( Target );
+			// Tels: #3048 - support linking from/to the entity we just created when the name is "self:attached:flame"
+			if (Target == "self")
+				{
+				target_ent = this;
+				}
+				else
+				{
+				target_ent = gameLocal.FindEntity( Target );
+				}
 			//if (target_ent)
 			//	gameLocal.Printf(" Link target entity (Entity): '%s'\n", target_ent->name.c_str() );
 		}
@@ -11918,7 +11950,7 @@ void idEntity::ParseAttachments( void )
 		// now that we have entities for source and target, add the link
 		if ( source_ent && target_ent )
 		{
-			//gameLocal.Printf(" add_link from '%s' to '%s'\n", source_ent->name.c_str(), target_ent->name.c_str() );
+			// gameLocal.Printf(" add_link from '%s' to '%s'\n", source_ent->name.c_str(), target_ent->name.c_str() );
 			source_ent->AddTarget( target_ent );
 		}
 		else
