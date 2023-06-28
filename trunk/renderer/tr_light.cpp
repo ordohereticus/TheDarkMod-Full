@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Revision: 5419 $ (Revision of last commit) 
+ $Date: 2012-05-02 17:32:37 -0400 (Wed, 02 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_light.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: tr_light.cpp 5419 2012-05-02 21:32:37Z serpentine $");
 
 #include "tr_local.h"
 
@@ -992,7 +992,7 @@ void R_AddLightSurfaces( void ) {
 			}
 
 			// Serp : Pretty sure this wont be possible
-#if DEBUG
+#ifdef _DEBUG
 			if ( !light->parms.prelightModel->NumSurfaces() ) {
 				common->Error( "no surfs in prelight model '%s'", light->parms.prelightModel->Name() );
 			}

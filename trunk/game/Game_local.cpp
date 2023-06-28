@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5412 $ (Revision of last commit) 
- $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5419 $ (Revision of last commit) 
+ $Date: 2012-05-02 17:32:37 -0400 (Wed, 02 May 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5412 2012-05-01 14:45:14Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5419 2012-05-02 21:32:37Z serpentine $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -4887,7 +4887,7 @@ idGameLocal::SpawnEntityType
 idEntity *idGameLocal::SpawnEntityType( const idTypeInfo &classdef, const idDict *args, bool bIsClientReadSnapshot ) {
 	idClass *obj;
 
-#if _DEBUG
+#ifdef _DEBUG
 	if ( isClient ) {
 		assert( bIsClientReadSnapshot );
 	}

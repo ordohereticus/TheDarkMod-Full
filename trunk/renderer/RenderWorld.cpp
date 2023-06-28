@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5395 $ (Revision of last commit) 
- $Date: 2012-04-18 12:59:26 -0400 (Wed, 18 Apr 2012) $ (Date of last commit)
+ $Revision: 5419 $ (Revision of last commit) 
+ $Date: 2012-05-02 17:32:37 -0400 (Wed, 02 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5395 2012-04-18 16:59:26Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5419 2012-05-02 21:32:37Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1437,7 +1437,7 @@ void idRenderWorldLocal::GenerateAllInteractions() {
 		return;
 	}
 
-#if DEBUG
+#ifdef _DEBUG
 	int start = Sys_Milliseconds();
 #endif
 
@@ -1458,7 +1458,7 @@ void idRenderWorldLocal::GenerateAllInteractions() {
 		this->CreateLightDefInteractions( ldef );
 	}
 
-#if DEBUG
+#ifdef _DEBUG
 	int end = Sys_Milliseconds();
 	int	msec = end - start;
 
@@ -1500,7 +1500,7 @@ void idRenderWorldLocal::GenerateAllInteractions() {
 			}
 		}
 		common->Printf( "interactionTable generated of size: %i bytes\n", size );
-#if DEBUG
+#ifdef _DEBUG
 		common->Printf( "%i interactions take %i bytes\n", count, count * sizeof( idInteraction ) );
 #endif
 	}

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Revision: 5419 $ (Revision of last commit) 
+ $Date: 2012-05-02 17:32:37 -0400 (Wed, 02 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5419 2012-05-02 21:32:37Z serpentine $");
 
 #include "tr_local.h"
 
@@ -436,7 +436,7 @@ void R_LoadARBProgram( int progIndex ) {
 
 	qglProgramStringARB( progs[progIndex].target, GL_PROGRAM_FORMAT_ASCII_ARB,
 		strlen( start ), (unsigned char *)start );
-#if DEBUG
+#ifdef _DEBUG
 	int err = qglGetError();
 	int		ofs;
 	qglGetIntegerv( GL_PROGRAM_ERROR_POSITION_ARB, (GLint *)&ofs );

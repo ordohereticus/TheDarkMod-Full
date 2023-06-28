@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5401 $ (Revision of last commit) 
- $Date: 2012-04-30 17:24:17 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
+ $Revision: 5419 $ (Revision of last commit) 
+ $Date: 2012-05-02 17:32:37 -0400 (Wed, 02 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5401 2012-04-30 21:24:17Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5419 2012-05-02 21:32:37Z serpentine $");
 
 #include "LightGem.h"
 
@@ -289,7 +289,7 @@ float LightGem::Calculate(idPlayer *player)
 			renderSystem->CaptureRenderToBuffer(m_LightgemImgBuffer);
 			PROFILE_BLOCK_END	( LightGem_Calculate_ForLoop_CaptureRenderToBuffer );
 
-#if _DEBUG
+#ifdef _DEBUG
 			{ // Save render if we have a path specified (for debugging)
 				const char* dp = cv_lg_path.GetString();
 				if ( dp[0] ) {
