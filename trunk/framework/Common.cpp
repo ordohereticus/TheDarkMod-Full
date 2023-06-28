@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5464 $ (Revision of last commit) 
- $Date: 2012-05-30 20:18:24 -0400 (Wed, 30 May 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5470 $ (Revision of last commit) 
+ $Date: 2012-06-03 12:09:13 -0400 (Sun, 03 Jun 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5464 2012-05-31 00:18:24Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5470 2012-06-03 16:09:13Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -911,6 +911,7 @@ void idCommonLocal::InitGameArguments()
 
 					buf[len] = 0;
 					mod = buf;
+					mod.StripTrailingWhitespace();
 
 					free(buf);
 					fclose(file);
