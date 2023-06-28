@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5301 $ (Revision of last commit) 
- $Date: 2012-02-26 06:13:14 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Revision: 5304 $ (Revision of last commit) 
+ $Date: 2012-02-26 09:43:00 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5301 2012-02-26 11:13:14Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5304 2012-02-26 14:43:00Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -2542,15 +2542,6 @@ void idGameLocal::CacheDictionaryMedia( const idDict *dict ) {
 			declManager->FindType( DECL_MATERIAL, kv->GetValue() );
 		}
 		kv = dict->MatchPrefix( "inv_icon", kv );
-	}
-
-	// handles teleport fx.. this is not ideal but the actual decision on which fx to use
-	// is handled by script code based on the teleport number
-	kv = dict->MatchPrefix( "teleport", NULL );
-	if ( kv && kv->GetValue().Length() ) {
-		int teleportType = atoi( kv->GetValue() );
-		const char *p = ( teleportType ) ? va( "fx/teleporter%i.fx", teleportType ) : "fx/teleporter.fx";
-		declManager->FindType( DECL_FX, p );
 	}
 
 	kv = dict->MatchPrefix( "fx", NULL );
