@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
+ $Revision: 5351 $ (Revision of last commit) 
+ $Date: 2012-03-21 11:46:03 -0400 (Wed, 21 Mar 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5342 2012-03-17 16:38:30Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5351 2012-03-21 15:46:03Z taaaki $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -1159,7 +1159,7 @@ void idCommonLocal::WriteConfigToFile( const char *filename, const char* basePat
 	idBase64 out;
 #endif
 
-	f = fileSystem->OpenFileWrite( filename, basePath, "darkmod" );
+	f = fileSystem->OpenFileWrite( filename, basePath, cvarSystem->GetCVarString( "fs_game_base" ) );
 	if ( !f ) {
 		Printf ("Couldn't write %s.\n", filename );
 		return;
