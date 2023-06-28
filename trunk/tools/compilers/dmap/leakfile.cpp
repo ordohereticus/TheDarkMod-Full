@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5432 $ (Revision of last commit) 
+ $Date: 2012-05-06 08:46:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: leakfile.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: leakfile.cpp 5432 2012-05-06 12:46:55Z tels $");
 
 #include "dmap.h"
 
@@ -64,7 +64,7 @@ void LeakFile (tree_t *tree)
 	ospath = fileSystem->RelativePathToOSPath( filename );
 	linefile = fopen( ospath, "w" );
 	if ( !linefile ) {
-		common->Error( "Couldn't open %s\n", filename.c_str() );
+		common->Error( "Couldn't open %s\n", ospath.c_str() );
 	}
 
 	count = 0;
