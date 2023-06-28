@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5349 $ (Revision of last commit) 
- $Date: 2012-03-19 20:07:25 -0400 (Mon, 19 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5431 $ (Revision of last commit) 
+ $Date: 2012-05-05 11:36:49 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeclSkin.cpp 5349 2012-03-20 00:07:25Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: DeclSkin.cpp 5431 2012-05-05 15:36:49Z tels $");
 
 
 /*
@@ -64,6 +64,9 @@ bool idDeclSkin::Parse( const char *text, const int textLength ) {
 			MakeDefault();
 			return false;
 		} else if ( !token.Icmp( "model" ) ) {
+			// The list of models associated with this skin is only to guide the
+			// user selection in the editor. The skin will be applied for any model
+			// the entity has, regardless on whether it is in this list, or not.
 			associatedModels.Append( token2 );
 		} else {
 			skinMapping_t	map;
@@ -127,7 +130,7 @@ const int idDeclSkin::GetNumModelAssociations(void ) const {
 idDeclSkin::GetAssociatedModel
 ================
 */
-const char *idDeclSkin::GetAssociatedModel( int index ) const {
+const char *idDeclSkin::GetAssociatedModel( const int index ) const {
 	if ( index >= 0 && index < associatedModels.Num() ) {
 		return associatedModels[ index ];
 	} else {

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5431 $ (Revision of last commit) 
+ $Date: 2012-05-05 11:36:49 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -45,10 +45,13 @@ public:
 
 							// model associations are just for the preview dialog in the editor
 	const int				GetNumModelAssociations() const;
-	const char *			GetAssociatedModel( int index ) const;
+	const char *			GetAssociatedModel( const int index ) const;
 
 private:
 	idList<skinMapping_t>	mappings;
+	// The list of models associated with this skin is only to guide the
+	// user selection in the editor. The skin will be applied for any model
+	// the entity has, regardless on whether it is in this list, or not.
 	idStrList				associatedModels;
 };
 
