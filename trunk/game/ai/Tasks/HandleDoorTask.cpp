@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5459 $ (Revision of last commit) 
- $Date: 2012-05-24 17:43:16 -0400 (Thu, 24 May 2012) $ (Date of last commit)
+ $Revision: 5472 $ (Revision of last commit) 
+ $Date: 2012-06-04 15:11:37 -0400 (Mon, 04 Jun 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5459 2012-05-24 21:43:16Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5472 2012-06-04 19:11:37Z grayman $");
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -318,15 +318,18 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 			return true;
 		}
 
-		// grayman #2866 - If we're handling a door that's supposed
+/*		// grayman #2866 - If we're handling a door that's supposed
 		// to be closed, and we were going to close it, and we find
 		// it closed, we're done.
+
+		// grayman - Later on, found out that a door marked should_always_be_locked wasn't
+		// getting relocked with the following code in place, so now it's no longer used.
 
 		if ( _doorShouldBeClosed )
 		{
 			return true; // ends the task
 		}
-
+*/
 		switch (_doorHandlingState)
 		{
 			case EStateNone:
