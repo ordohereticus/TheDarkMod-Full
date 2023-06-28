@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5239 $ (Revision of last commit) 
- $Date: 2012-01-30 15:03:29 -0500 (Mon, 30 Jan 2012) $ (Date of last commit)
+ $Revision: 5240 $ (Revision of last commit) 
+ $Date: 2012-01-30 15:22:05 -0500 (Mon, 30 Jan 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5239 2012-01-30 20:03:29Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5240 2012-01-30 20:22:05Z taaaki $");
 
 #include "Unzip.h"
 
@@ -2018,7 +2018,7 @@ void idFileSystemLocal::SetupGameDirectories( const char *gameName ) {
     // taaaki: setup fm save path -- this should fix the savegame loading while keeping the following logic:
     // greebo: In between fs_game and fs_game_base, there is the mission folder, which is fms/<missionName>/
     // fs_game still overrides that one, but the the mission folder should still override fs_game_base
-    if ( fs_modSavePath.GetString()[0] && idStr(gameName) != idStr("base") ) {
+    if ( fs_modSavePath.GetString()[0] && idStr::Cmp (gameName, "base") != 0 ) {
         AddGameDirectory( fs_modSavePath.GetString(), gameName );
     }
 
