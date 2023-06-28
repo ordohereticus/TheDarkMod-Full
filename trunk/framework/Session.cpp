@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5222 $ (Revision of last commit) 
- $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
+ $Revision: 5223 $ (Revision of last commit) 
+ $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5222 2012-01-20 03:27:39Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5223 2012-01-20 23:35:17Z serpentine $");
 
 #include "Session_local.h"
 
@@ -420,7 +420,6 @@ void idSessionLocal::ShowLoadingGui() {
 	console->Close();
 
 	// introduced in D3XP code. don't think it actually fixes anything, but doesn't hurt either
-#if 1
 	// Try and prevent the while loop from being skipped over (long hitch on the main thread?)
 	int stop = Sys_Milliseconds() + 1000;
 	int force = 10;
@@ -429,14 +428,6 @@ void idSessionLocal::ShowLoadingGui() {
 		session->Frame();
 		session->UpdateScreen( false );
 	}
-#else
-	int stop = com_ticNumber + 1000.0f / USERCMD_MSEC * 1.0f;
-	while ( com_ticNumber < stop ) {
-		com_frameTime = com_ticNumber * USERCMD_MSEC;
-		session->Frame();
-		session->UpdateScreen( false );
-	}
-#endif
 }
 
 

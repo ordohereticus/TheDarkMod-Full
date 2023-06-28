@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5222 $ (Revision of last commit) 
- $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
+ $Revision: 5223 $ (Revision of last commit) 
+ $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5222 2012-01-20 03:27:39Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5223 2012-01-20 23:35:17Z serpentine $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -2260,10 +2260,8 @@ void Com_LocalizeGuis_f( const idCmdArgs &args ) {
 
 		if(game.Length()) {
 			files = fileSystem->ListFilesTree( "guis", "*.pd", true, game );
-		} else {
-			files = fileSystem->ListFilesTree( "guis", "*.pd", true, "d3xp" );
 		}
-		
+
 		for ( int i = 0; i < files->GetNumFiles(); i++ ) {
 			commonLocal.LocalizeGui( files->GetFile( i ), strTable );
 		}

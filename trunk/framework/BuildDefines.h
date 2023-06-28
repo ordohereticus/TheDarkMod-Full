@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5222 $ (Revision of last commit) 
- $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
+ $Revision: 5223 $ (Revision of last commit) 
+ $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -103,12 +103,3 @@
 #		define ID_OPENAL 0
 #	endif
 #endif
-
-#ifndef ID_ALLOW_D3XP
-#	if defined( MACOS_X )
-#		define ID_ALLOW_D3XP 0
-#	else
-#		define ID_ALLOW_D3XP 1
-#	endif
-#endif
-

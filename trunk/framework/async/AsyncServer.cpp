@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5223 $ (Revision of last commit) 
+ $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncServer.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncServer.cpp 5223 2012-01-20 23:35:17Z serpentine $");
 
 #include "AsyncNetwork.h"
 
@@ -1539,7 +1539,7 @@ void idAsyncServer::ProcessChallengeMessage( const netadr_t from, const idBitMsg
 			outMsg.WriteNetadr( from );
 			outMsg.WriteLong( -1 ); // this identifies "challenge" auth vs "connect" auth
 			// protocol 1.37 addition
-			outMsg.WriteByte( fileSystem->RunningD3XP() );
+			// might expect : outMsg.WriteByte( fileSystem->RunningD3XP() );
 			serverPort.SendPacket( idAsyncNetwork::GetMasterAddress(), outMsg.GetData(), outMsg.GetSize() );
 		}
 	}
@@ -1749,7 +1749,7 @@ void idAsyncServer::ProcessConnectMessage( const netadr_t from, const idBitMsg &
 				outMsg.WriteLong( clientId );
 				outMsg.WriteString( guid );	
 				// protocol 1.37 addition
-				outMsg.WriteByte( fileSystem->RunningD3XP() );
+				// might expect : outMsg.WriteByte( fileSystem->RunningD3XP() );
 				serverPort.SendPacket( idAsyncNetwork::GetMasterAddress(), outMsg.GetData(), outMsg.GetSize() );
 			}
 			return;

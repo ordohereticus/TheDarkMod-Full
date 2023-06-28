@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5223 $ (Revision of last commit) 
+ $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: output.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: output.cpp 5223 2012-01-20 23:35:17Z serpentine $");
 
 #include "dmap.h"
 
@@ -637,7 +637,7 @@ void WriteOutputFile( void ) {
 	sprintf( qpath, "%s." PROC_FILE_EXT, dmapGlobals.mapFileBase );
 
 	common->Printf( "writing %s\n", qpath.c_str() );
-	// _D3XP used fs_cdpath
+
 	procFile = fileSystem->OpenFileWrite( qpath, "fs_devpath" );
 	if ( !procFile ) {
 		common->Error( "Error opening %s", qpath.c_str() );
