@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5470 $ (Revision of last commit) 
- $Date: 2012-06-03 12:09:13 -0400 (Sun, 03 Jun 2012) $ (Date of last commit)
+ $Revision: 5478 $ (Revision of last commit) 
+ $Date: 2012-06-15 05:20:50 -0400 (Fri, 15 Jun 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5470 2012-06-03 16:09:13Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5478 2012-06-15 09:20:50Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -2614,6 +2614,7 @@ void idCommonLocal::LoadGameDLL( void ) {
 
 	gameExport							= *GetGameAPI( &gameImport );
 
+	// Tels: The game DLL does its own check, and exits, so this check is is probably never run.
 	if ( gameExport.version != GAME_API_VERSION ) {
 		Sys_DLL_Unload( gameDLL );
 		gameDLL = NULL;
