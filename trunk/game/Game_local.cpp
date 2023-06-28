@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5282 $ (Revision of last commit) 
- $Date: 2012-02-15 17:54:15 -0500 (Wed, 15 Feb 2012) $ (Date of last commit)
+ $Revision: 5301 $ (Revision of last commit) 
+ $Date: 2012-02-26 06:13:14 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5282 2012-02-15 22:54:15Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5301 2012-02-26 11:13:14Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -3669,14 +3669,14 @@ void idGameLocal::HandleGuiMessages(idUserInterface* ui)
 		ui->SetStateBool("MsgBoxLeftButtonVisible", false);
 		ui->SetStateBool("MsgBoxRightButtonVisible", false);
 		ui->SetStateBool("MsgBoxMiddleButtonVisible", true);
-		ui->SetStateString("MsgBoxMiddleButtonText", common->Translate("#str_04339"));	// OK
+		ui->SetStateString("MsgBoxMiddleButtonText", common->Translate("#str_07188"));	// OK
 		break;
 	case GuiMessage::MSG_OK_CANCEL:
 		ui->SetStateBool("MsgBoxLeftButtonVisible", true);
 		ui->SetStateBool("MsgBoxRightButtonVisible", true);
 		ui->SetStateBool("MsgBoxMiddleButtonVisible", false);
 
-		ui->SetStateString("MsgBoxLeftButtonText", common->Translate("#str_04339"));	// OK
+		ui->SetStateString("MsgBoxLeftButtonText", common->Translate("#str_07188"));	// OK
 		ui->SetStateString("MsgBoxRightButtonText", common->Translate("#str_07203"));	// Cancel
 		break;
 	case GuiMessage::MSG_YES_NO:

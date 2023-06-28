@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5290 $ (Revision of last commit) 
- $Date: 2012-02-19 11:25:13 -0500 (Sun, 19 Feb 2012) $ (Date of last commit)
+ $Revision: 5301 $ (Revision of last commit) 
+ $Date: 2012-02-26 06:13:14 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5290 2012-02-19 16:25:13Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5301 2012-02-26 11:13:14Z tels $");
 
 #include "I18N.h"
 
@@ -471,7 +471,7 @@ void I18NLocal::SetLanguage( const char* lang, bool firstTime ) {
 		gui->SetStateBool("MsgBoxLeftButtonVisible", false);
 		gui->SetStateBool("MsgBoxRightButtonVisible", false);
 		gui->SetStateBool("MsgBoxMiddleButtonVisible", true);
-		gui->SetStateString("MsgBoxMiddleButtonText", Translate("#str_04339"));
+		gui->SetStateString("MsgBoxMiddleButtonText", Translate("#str_07188"));
 
 		gui->SetStateString("MsgBoxMiddleButtonCmd", "close_msg_box");
 	}

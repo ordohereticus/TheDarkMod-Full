@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5282 $ (Revision of last commit) 
- $Date: 2012-02-15 17:54:15 -0500 (Wed, 15 Feb 2012) $ (Date of last commit)
+ $Revision: 5301 $ (Revision of last commit) 
+ $Date: 2012-02-26 06:13:14 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5282 2012-02-15 22:54:15Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5301 2012-02-26 11:13:14Z tels $");
 
 #include "Session_local.h"
 
@@ -1182,7 +1182,7 @@ const char* idSessionLocal::MessageBox( msgBoxType_t type, const char *message, 
 			guiMsg->SetStateString( "visible_right", "0" );
 			break;
 		case MSG_OK:
-			guiMsg->SetStateString( "mid", common->Translate( "#str_04339" ) );
+			guiMsg->SetStateString( "mid", common->Translate( "#str_07188" ) );
 			guiMsg->SetStateString( "visible_mid", "1" );
 			guiMsg->SetStateString( "visible_left", "0" );
 			guiMsg->SetStateString( "visible_right", "0" );
@@ -1194,7 +1194,7 @@ const char* idSessionLocal::MessageBox( msgBoxType_t type, const char *message, 
 			guiMsg->SetStateString( "visible_right", "0" );
 			break;
 		case MSG_OKCANCEL:
-			guiMsg->SetStateString( "left", common->Translate( "#str_04339" ) );
+			guiMsg->SetStateString( "left", common->Translate( "#str_07188" ) );
 			guiMsg->SetStateString( "right", common->Translate( "#str_04340" ) );
 			guiMsg->SetStateString( "visible_mid", "0" );
 			guiMsg->SetStateString( "visible_left", "1" );
@@ -1208,7 +1208,7 @@ const char* idSessionLocal::MessageBox( msgBoxType_t type, const char *message, 
 			guiMsg->SetStateString( "visible_right", "1" );
 			break;
 		case MSG_PROMPT:
-			guiMsg->SetStateString( "left", common->Translate( "#str_04339" ) );
+			guiMsg->SetStateString( "left", common->Translate( "#str_07188" ) );
 			guiMsg->SetStateString( "right", common->Translate( "#str_04340" ) );
 			guiMsg->SetStateString( "visible_mid", "0" );
 			guiMsg->SetStateString( "visible_left", "1" );
