@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5425 $ (Revision of last commit) 
- $Date: 2012-05-04 23:06:27 -0400 (Fri, 04 May 2012) $ (Date of last commit)
+ $Revision: 5427 $ (Revision of last commit) 
+ $Date: 2012-05-05 02:49:02 -0400 (Sat, 05 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MegaTexture.cpp 5425 2012-05-05 03:06:27Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: MegaTexture.cpp 5427 2012-05-05 06:49:02Z serpentine $");
 
 #include "tr_local.h"
 
@@ -30,7 +30,9 @@ idCVar idMegaTexture::r_skipMegaTexture( "r_skipMegaTexture", "0", CVAR_RENDERER
 idCVar idMegaTexture::r_terrainScale( "r_terrainScale", "3", CVAR_RENDERER | CVAR_INTEGER, "vertically scale USGS data" );
 
 /*
+
 allow sparse population of the upper detail tiles
+
 */
 
 static union {
@@ -451,6 +453,15 @@ void idTextureLevel::Invalidate() {
 }
 
 //===================================================================================================
+
+
+typedef struct _TargaHeader {
+	unsigned char 	id_length, colormap_type, image_type;
+	unsigned short	colormap_index, colormap_length;
+	unsigned char	colormap_size;
+	unsigned short	x_origin, y_origin, width, height;
+	unsigned char	pixel_size, attributes;
+} TargaHeader;
 
 
 static byte ReadByte( idFile *f ) {
