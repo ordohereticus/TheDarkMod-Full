@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5275 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:46:26 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: GameSSDWindow.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: GameSSDWindow.cpp 5275 2012-02-12 12:46:26Z taaaki $");
 
 #include "../framework/Session_local.h"
 
@@ -1001,12 +1001,12 @@ void SSDProjectile::ReadProjectiles(idFile* savefile, idGameSSDWindow* _game) {
 */
 
 const char* powerupMaterials[][2] = {
-	"game/SSD/powerupHealthClosed",			"game/SSD/powerupHealthOpen",
-	"game/SSD/powerupSuperBlasterClosed",	"game/SSD/powerupSuperBlasterOpen",
-	"game/SSD/powerupNukeClosed",			"game/SSD/powerupNukeOpen",
-	"game/SSD/powerupRescueClosed",			"game/SSD/powerupRescueOpen",
-	"game/SSD/powerupBonusPointsClosed",	"game/SSD/powerupBonusPointsOpen",
-	"game/SSD/powerupDamageClosed",			"game/SSD/powerupDamageOpen",
+    { "game/SSD/powerupHealthClosed",		"game/SSD/powerupHealthOpen" },
+    { "game/SSD/powerupSuperBlasterClosed",	"game/SSD/powerupSuperBlasterOpen" },
+    { "game/SSD/powerupNukeClosed",			"game/SSD/powerupNukeOpen" },
+    { "game/SSD/powerupRescueClosed",		"game/SSD/powerupRescueOpen" },
+    { "game/SSD/powerupBonusPointsClosed",	"game/SSD/powerupBonusPointsOpen" },
+    { "game/SSD/powerupDamageClosed",		"game/SSD/powerupDamageOpen" },
 };
 
 #define POWERUP_MATERIAL_COUNT 6
