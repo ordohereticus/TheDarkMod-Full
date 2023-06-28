@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5233 $ (Revision of last commit) 
- $Date: 2012-01-22 12:01:08 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
+ $Revision: 5235 $ (Revision of last commit) 
+ $Date: 2012-01-26 15:16:22 -0500 (Thu, 26 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -30,7 +30,6 @@
 
 typedef enum {
 	CS_DISCONNECTED,
-	CS_PURERESTART,
 	CS_CHALLENGING,
 	CS_CONNECTING,
 	CS_CONNECTED,
@@ -191,9 +190,6 @@ private:
 	void				ConnectionlessMessage( const netadr_t from, const idBitMsg &msg );
 	void				ProcessMessage( const netadr_t from, idBitMsg &msg );
 	void				SetupConnection( void );
-	void				ProcessPureMessage( const netadr_t from, const idBitMsg &msg );
-	bool				ValidatePureServerChecksums( const netadr_t from, const idBitMsg &msg );
-	void				ProcessReliableMessagePure( const idBitMsg &msg );
 	static const char*	HandleGuiCommand( const char *cmd );
 	const char*			HandleGuiCommandInternal( const char *cmd );
 	void				SendVersionDLUpdate( int state );
