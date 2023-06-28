@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5235 $ (Revision of last commit) 
- $Date: 2012-01-26 15:16:22 -0500 (Thu, 26 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5239 $ (Revision of last commit) 
+ $Date: 2012-01-30 15:03:29 -0500 (Mon, 30 Jan 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -186,13 +186,13 @@ public:
 							// Writes a complete file, will create any needed subdirectories.
 							// Returns the length of the file, or -1 on failure. 
 							// greebo: By default use the mod save path to write stuff
-	virtual int				WriteFile( const char *relativePath, const void *buffer, int size, const char *basePath = "fs_modSavepath" ) = 0;
+	virtual int				WriteFile( const char *relativePath, const void *buffer, int size, const char *basePath = "fs_modSavePath" ) = 0;
 							// Removes the given file.
 	virtual void			RemoveFile( const char *relativePath ) = 0;
 							// Opens a file for reading.
 	virtual idFile *		OpenFileRead( const char *relativePath, bool allowCopyFiles = true, const char* gamedir = NULL ) = 0;
 							// Opens a file for writing, will create any needed subdirectories.
-	virtual idFile *		OpenFileWrite( const char *relativePath, const char *basePath = "fs_modSavepath" ) = 0;
+	virtual idFile *		OpenFileWrite( const char *relativePath, const char *basePath = "fs_modSavePath" ) = 0;
 							// Opens a file for writing at the end.
 	virtual idFile *		OpenFileAppend( const char *filename, bool sync = false, const char *basePath = "fs_basepath" ) = 0;
 							// Opens a file for reading, writing, or appending depending on the value of mode.

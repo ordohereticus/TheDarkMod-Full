@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5235 $ (Revision of last commit) 
- $Date: 2012-01-26 15:16:22 -0500 (Thu, 26 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5239 $ (Revision of last commit) 
+ $Date: 2012-01-30 15:03:29 -0500 (Mon, 30 Jan 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5235 2012-01-26 20:16:22Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5239 2012-01-30 20:03:29Z taaaki $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -616,7 +616,7 @@ void idCommonLocal::DumpWarnings( void ) {
 		return;
 	}
 
-	warningFile = fileSystem->OpenFileWrite( "warnings.txt", "fs_savepath" );
+	warningFile = fileSystem->OpenFileWrite( "warnings.txt", "fs_modSavePath" );
 	if ( warningFile ) {
 
 		warningFile->Printf( "------------- Warnings ---------------\n\n" );
@@ -645,7 +645,7 @@ void idCommonLocal::DumpWarnings( void ) {
 
 #if defined(_WIN32) && !defined(_DEBUG)
 		idStr	osPath;
-		osPath = fileSystem->RelativePathToOSPath( "warnings.txt", "fs_savepath" );
+		osPath = fileSystem->RelativePathToOSPath( "warnings.txt", "fs_modSavePath" );
 		WinExec( va( "Notepad.exe %s", osPath.c_str() ), SW_SHOW );
 #endif
 	}
@@ -3069,7 +3069,7 @@ void idCommonLocal::InitGame( void )
 	CheckToolMode();
 
 	// greebo: the config.spec file is saved to the mod save path in darkmod/fms/<fs_game>/
-	idFile *file = fileSystem->OpenExplicitFileRead( fileSystem->RelativePathToOSPath( CONFIG_SPEC, "fs_modSavepath" ) );
+	idFile *file = fileSystem->OpenExplicitFileRead( fileSystem->RelativePathToOSPath( CONFIG_SPEC, "fs_modSavePath" ) );
 	bool sysDetect = ( file == NULL );
 	if ( file ) {
 		fileSystem->CloseFile( file );
