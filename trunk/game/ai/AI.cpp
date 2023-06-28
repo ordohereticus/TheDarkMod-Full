@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5443 $ (Revision of last commit) 
- $Date: 2012-05-10 00:24:25 -0400 (Thu, 10 May 2012) $ (Date of last commit)
+ $Revision: 5458 $ (Revision of last commit) 
+ $Date: 2012-05-22 19:39:37 -0400 (Tue, 22 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5443 2012-05-10 04:24:25Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5458 2012-05-22 23:39:37Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -9512,16 +9512,16 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 		if ( tactEnt->m_droppedByAI )
 		{
 			TactileIgnore(tactEnt);
+			return;
 		}
 
 		// If we put this object in motion, ignore it
 
 		if ( tactEnt->m_SetInMotionByActor.GetEntity() == this )
 		{
+			TactileIgnore(tactEnt);
 			return;
 		}
-
-//		TactileIgnore(tactEnt); // ignore further contacts with this object
 	}
 	else // actors
 	{
@@ -9551,28 +9551,20 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 
 	// grayman #2816 - Do we need to react to getting hit by a moveable?
 
-	if ( !m_ReactingToHit )
+	if ( tactEnt->IsType(idMoveable::Type) )
 	{
-		if ( !tactEnt->IsType(idActor::Type) )
+		if ( !m_ReactingToHit )
 		{
-			// Wait a bit to turn toward and look at what hit you (other than another AI).
+			// Wait a bit to turn toward and look at what hit you.
 			// Then turn back in the direction the object came from.
 
 			mind->GetState()->OnHitByMoveable(this, tactEnt); // sets m_ReactingToHit to TRUE
-			return;
 		}
-	}
-	else
-	{
-		if ( GetMemory().hitByThisMoveable.GetEntity() != tactEnt ) // hit by something different?
+		else if ( GetMemory().hitByThisMoveable.GetEntity() != tactEnt ) // hit by something different?
 		{
 			GetMemory().stopReactingToHit = true; // stop the current reaction
 		}
-		
-		if ( !tactEnt->IsType(idActor::Type) )
-		{
-			return; // process moveable hit next time around
-		}
+		return; // process moveable hit next time around
 	}
 
 	// grayman #2816 - if this is the last AI you killed, ignore it
@@ -9581,7 +9573,7 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 		return;
 	}
 
-	// Set the alert amount to the according tactile alert value
+	// Set the alert amount according to the tactile alert value
 	if ( amount == -1 )
 	{
 		amount = cv_ai_tactalert.GetFloat();

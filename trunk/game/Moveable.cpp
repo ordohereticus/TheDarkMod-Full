@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5434 $ (Revision of last commit) 
- $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5458 $ (Revision of last commit) 
+ $Date: 2012-05-22 19:39:37 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5434 2012-05-06 13:52:22Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5458 2012-05-22 23:39:37Z grayman $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -594,8 +594,12 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 					attacker = m_SetInMotionByActor.GetEntity();
 				}
 				
+				int preHealth = ent->health;
 				ent->Damage( this, attacker, dir, damage, f, location, const_cast<trace_t *>(&newCollision) );
-				nextDamageTime = gameLocal.time + 1000;
+				if ( ent->health < preHealth ) // only set the timer if there was damage
+				{
+					nextDamageTime = gameLocal.time + 1000;
+				}
 			}
 		}
 
