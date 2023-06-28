@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5254 $ (Revision of last commit) 
- $Date: 2012-02-07 00:24:12 -0500 (Tue, 07 Feb 2012) $ (Date of last commit)
+ $Revision: 5256 $ (Revision of last commit) 
+ $Date: 2012-02-07 22:51:13 -0500 (Tue, 07 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Source$  $Revision: 5254 $   $Date: 2012-02-07 00:24:12 -0500 (Tue, 07 Feb 2012) $");
+static bool versioned = RegisterVersionedFile("$Source$  $Revision: 5256 $   $Date: 2012-02-07 22:51:13 -0500 (Tue, 07 Feb 2012) $");
 
 #include "../Game_local.h"
 #include "../DarkModGlobals.h"
@@ -3660,7 +3660,7 @@ void idPhysics_Player::UpdateMantleTimers()
 			case hang_DarkModMantlePhase:
 				DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING ("MantleMod: Pulling up...\r");
 				m_mantlePhase = pull_DarkModMantlePhase;
-				player->StartSound("snd_player_mantle_pull", SND_CHANNEL_ANY, 0, false, NULL); // grayman #3010
+				player->StartSound("snd_player_mantle_pull", SND_CHANNEL_VOICE, 0, false, NULL); // grayman #3010
 				break;
 
 			case pull_DarkModMantlePhase:
@@ -3675,7 +3675,7 @@ void idPhysics_Player::UpdateMantleTimers()
 				// Go into crouch
 				current.movementFlags |= PMF_DUCKED;
 
-				player->StartSound("snd_player_mantle_push", SND_CHANNEL_ANY, 0, false, NULL); // grayman #3010
+				player->StartSound("snd_player_mantle_push", SND_CHANNEL_VOICE, 0, false, NULL); // grayman #3010
 				break;
 
 			case push_DarkModMantlePhase:
@@ -3810,7 +3810,7 @@ void idPhysics_Player::StartMantle
 	else if (initialMantlePhase == pull_DarkModMantlePhase)
 	{
 		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("Mantle starting with pull upward\r");
-		player->StartSound("snd_player_mantle_pull", SND_CHANNEL_ANY, 0, false, NULL); // grayman #3010
+		player->StartSound("snd_player_mantle_pull", SND_CHANNEL_VOICE, 0, false, NULL); // grayman #3010
 	}
 	else if (initialMantlePhase == shiftHands_DarkModMantlePhase)
 	{
@@ -3823,7 +3823,7 @@ void idPhysics_Player::StartMantle
 
 		// Start with push upward
 		DM_LOG(LC_MOVEMENT, LT_DEBUG)LOGSTRING("Mantle starting with push upward\r");
-		player->StartSound("snd_player_mantle_push", SND_CHANNEL_ANY, 0, false, NULL); // grayman #3010
+		player->StartSound("snd_player_mantle_push", SND_CHANNEL_VOICE, 0, false, NULL); // grayman #3010
 	}
 
 	m_mantlePhase = initialMantlePhase;
