@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Revision: 5402 $ (Revision of last commit) 
+ $Date: 2012-04-30 18:21:35 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_render.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: tr_render.cpp 5402 2012-04-30 22:21:35Z serpentine $");
 
 #include "tr_local.h"
 
@@ -325,10 +325,7 @@ void RB_GetShaderTextureMatrix( const float *shaderRegisters,
 	// we attempt to keep scrolls from generating incredibly large texture values, but
 	// center rotations and center scales can still generate offsets that need to be > 1
 	if ( matrix[12] < -40.0f || matrix[12] > 40.0f ) {
-		//Serp - casting float-int can be expensive, I dont really see why it's needed here
-		// it might actually be better to remove it to help smoother transitions etc anyway.
-		//matrix[12] -= (int)matrix[12];
-		matrix[12] -= matrix[12];
+		matrix[12] -= (int)matrix[12];
 	}
 
 	matrix[1] = shaderRegisters[ texture->matrix[1][0] ];
@@ -337,7 +334,7 @@ void RB_GetShaderTextureMatrix( const float *shaderRegisters,
 	matrix[13] = shaderRegisters[ texture->matrix[1][2] ];
 	if ( matrix[13] < -40.0f || matrix[13] > 40.0f ) {
 		// same with this
-		matrix[13] -= matrix[13];
+		matrix[13] -= (int)matrix[13];
 	}
 
 	matrix[2] = 0;
@@ -614,11 +611,11 @@ void R_SetDrawInteraction( const shaderStage_t *surfaceStage, const float *surfa
 
 		// we attempt to keep scrolls from generating incredibly large texture values, but
 		// center rotations and center scales can still generate offsets that need to be > 1
-		if ( matrix[0][3] < -40 || matrix[0][3] > 40 ) {
-			matrix[0][3] -= matrix[0][3];
+		if ( matrix[0][3] < -40.0f || matrix[0][3] > 40.0f ) {
+			matrix[0][3] -= (int)matrix[0][3];
 		}
-		if ( matrix[1][3] < -40 || matrix[1][3] > 40 ) {
-			matrix[1][3] -= matrix[1][3];
+		if ( matrix[1][3] < -40.0f || matrix[1][3] > 40.0f ) {
+			matrix[1][3] -= (int)matrix[1][3];
 		}
 	} else {
 		matrix[0][0] = 1;
