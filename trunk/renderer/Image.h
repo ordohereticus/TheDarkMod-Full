@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5350 $ (Revision of last commit) 
+ $Date: 2012-03-20 00:07:50 -0400 (Tue, 20 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -133,6 +133,7 @@ typedef enum {
 } cubeFiles_t;
 
 #define	MAX_IMAGE_NAME	256
+#define MIN_IMAGE_NAME  4
 
 class idImage {
 public:
