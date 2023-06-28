@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5230 $ (Revision of last commit) 
+ $Date: 2012-01-21 19:14:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_font.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: tr_font.cpp 5230 2012-01-22 00:14:47Z tels $");
 
 #include "tr_local.h"
 
@@ -366,7 +366,7 @@ bool idRenderSystemLocal::RegisterFont( const char *fontName, fontInfoEx_t &font
 
 		int mw = 0;
 		int mh = 0;
-		for (i = GLYPH_START; i < GLYPH_END; i++) {
+		for (i = GLYPH_START; i <= GLYPH_END; i++) {
 			idStr::snPrintf(name, sizeof(name), "%s/%s", fontName, outFont->glyphs[i].shaderName);
 			outFont->glyphs[i].glyph = declManager->FindMaterial(name);
 			outFont->glyphs[i].glyph->SetSort( SS_GUI );
@@ -435,7 +435,7 @@ bool idRenderSystemLocal::RegisterFont( const char *fontName, fontInfoEx_t &font
 
 	maxHeight = 0;
 
-	for (i = GLYPH_START; i < GLYPH_END; i++) {
+	for (i = GLYPH_START; i <= GLYPH_END; i++) {
 		glyph = RE_ConstructGlyphInfo(out, &xOut, &yOut, &maxHeight, face, (unsigned char)i, qtrue);
 	}
 
@@ -449,7 +449,7 @@ bool idRenderSystemLocal::RegisterFont( const char *fontName, fontInfoEx_t &font
 
 		glyph = RE_ConstructGlyphInfo(out, &xOut, &yOut, &maxHeight, face, (unsigned char)i, qfalse);
 
-		if (xOut == -1 || yOut == -1 || i == GLYPH_END)  {
+		if (xOut == -1 || yOut == -1)  {
 			// ran out of room
 			// we need to create an image from the bitmap, set all the handles in the glyphs to this point
 			// 
