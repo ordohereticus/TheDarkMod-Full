@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5295 $ (Revision of last commit) 
+ $Date: 2012-02-23 23:45:03 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_cache.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: snd_cache.cpp 5295 2012-02-24 04:45:03Z serpentine $");
 
 #include "snd_local.h"
 
@@ -263,6 +263,7 @@ void idSoundCache::PrintMemInfo( MemInfo_t *mi ) {
 
 	f->Printf( "\nTotal sound bytes allocated: %s\n", idStr::FormatNumber( total ).c_str() );
 	fileSystem->CloseFile( f );
+	delete[] sortIndex;
 }
 
 
