@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5456 $ (Revision of last commit) 
+ $Date: 2012-05-22 14:02:19 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -233,6 +233,7 @@ private:
 	void						Event_HandleMissionEvent(idEntity* entity, int eventType, const char* argument);
 	
 	void						Event_CanPlant( const idVec3 &traceStart, const idVec3 &traceEnd, idEntity *ignore, idEntity *vine ); // grayman #2787
+	void						Event_GetMainAmbientLight(); // grayman #3132
 
 public:							
 								CLASS_PROTOTYPE( idThread );

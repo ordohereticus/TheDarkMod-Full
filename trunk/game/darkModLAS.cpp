@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5319 $ (Revision of last commit) 
- $Date: 2012-03-06 15:19:28 -0500 (Tue, 06 Mar 2012) $ (Date of last commit)
+ $Revision: 5456 $ (Revision of last commit) 
+ $Date: 2012-05-22 14:02:19 -0400 (Tue, 22 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -25,7 +25,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: darkModLAS.cpp 5319 2012-03-06 20:19:28Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: darkModLAS.cpp 5456 2012-05-22 18:02:19Z grayman $");
 
 #include "darkModLAS.h"
 #include "Pvs.h"
@@ -318,9 +318,13 @@ void darkModLAS::accumulateEffectOfLightsInArea
 		gameRenderWorld->DebugArrow(colorBlue, testPoint1, testPoint2, 2, 1000);
 	}
 
-	assert(areaIndex >= 0 && areaIndex < m_numAreas);
+	assert( ( areaIndex >= 0 ) && ( areaIndex < m_numAreas ) );
 	idLinkList<darkModLightRecord_t>* p_cursor = m_pp_areaLightLists[areaIndex];
 
+	// grayman #3132 - factor in the ambient light, if any
+
+	inout_totalIllumination += gameLocal.GetAmbientIllumination(testPoint1);
+	
 	// Iterate lights in this area
 	while (p_cursor != NULL)
 	{
@@ -430,7 +434,6 @@ void darkModLAS::accumulateEffectOfLightsInArea
 			}
 			else if (b_useShadows && p_LASLight->p_idLight->CastsShadow()) 
 			{
-
 				// grayman #2853 - If the trace hits something before completing, that thing has to be checked to see if
 				// it casts shadows. If it doesn't, then it has to be ignored and the trace must be run again from the struck
 				// point to the end. This has to be done iteratively, since there might be several non-shadow-casting entities

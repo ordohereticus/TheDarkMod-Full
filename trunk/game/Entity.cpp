@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5436 $ (Revision of last commit) 
- $Date: 2012-05-06 15:49:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5456 $ (Revision of last commit) 
+ $Date: 2012-05-22 14:02:19 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5436 2012-05-06 19:49:55Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5456 2012-05-22 18:02:19Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -461,13 +461,13 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_NoShadows,			idEntity::Event_noShadows )
 	EVENT( EV_NoShadowsDelayed,		idEntity::Event_noShadowsDelayed )
 
-	EVENT( EV_CheckMine,			idEntity::Event_CheckMine )				// grayman #2478
-	EVENT( EV_GetVinePlantLoc,		idEntity::Event_GetVinePlantLoc )		// grayman #2478
-	EVENT( EV_GetVinePlantNormal,	idEntity::Event_GetVinePlantNormal )	// grayman #2478
-	EVENT( EV_IsLight,				idEntity::Event_IsLight )				// grayman #2905
-	EVENT( EV_ActivateContacts,		idEntity::Event_ActivateContacts )		// grayman #3011
-	EVENT( EV_GetLocation,			idEntity::Event_GetLocation )			// grayman #3013
-	EVENT( EV_HideByLODBias,		idEntity::Event_HideByLODBias )			// tels #3113
+	EVENT( EV_CheckMine,			idEntity::Event_CheckMine )					// grayman #2478
+	EVENT( EV_GetVinePlantLoc,		idEntity::Event_GetVinePlantLoc )			// grayman #2478
+	EVENT( EV_GetVinePlantNormal,	idEntity::Event_GetVinePlantNormal )		// grayman #2478
+	EVENT( EV_IsLight,				idEntity::Event_IsLight )					// grayman #2905
+	EVENT( EV_ActivateContacts,		idEntity::Event_ActivateContacts )			// grayman #3011
+	EVENT( EV_GetLocation,			idEntity::Event_GetLocation )				// grayman #3013
+	EVENT( EV_HideByLODBias,		idEntity::Event_HideByLODBias )				// tels #3113
 	
 END_CLASS
 
@@ -10900,8 +10900,10 @@ float idEntity::RangedThreatTo(idEntity* target)
 
 void idEntity::GetTeamChildren( idList<idEntity *> *list )
 {
-// ishtvan: TODO: I think this is WRONG and can go up and across the team hierarchy when called on bind children
-// It only works as advertised when called on bindmasters
+	// ishtvan: TODO: I think this is WRONG and can go up and across the team hierarchy when called on bind children
+	// It only works as advertised when called on bindmasters.
+	// grayman - ABSOLUTELY!!! This routine can wrongly tell you that your brothers and sisters are your children.
+
 	idEntity *NextEnt = NULL;
 	
 	list->Clear();

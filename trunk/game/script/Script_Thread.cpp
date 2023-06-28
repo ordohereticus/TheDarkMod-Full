@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5456 $ (Revision of last commit) 
+ $Date: 2012-05-22 14:02:19 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5456 2012-05-22 18:02:19Z grayman $");
 
 #include "../Game_local.h"
 #include "../decltdm_matinfo.h"
@@ -148,6 +148,9 @@ const idEventDef EV_HandleMissionEvent("handleMissionEvent", "eds");
 
 const idEventDef EV_Thread_CanPlant( "canPlant", "vvEe", 'f' );  // grayman #2787
 
+// grayman #3132 - get main ambient light
+const idEventDef EV_GetMainAmbientLight("getMainAmbientLight", NULL, 'e');
+
 CLASS_DECLARATION( idClass, idThread )
 	EVENT( EV_Thread_Execute,				idThread::Event_Execute )
 	EVENT( EV_Thread_TerminateThread,		idThread::Event_TerminateThread )
@@ -250,6 +253,8 @@ CLASS_DECLARATION( idClass, idThread )
 	EVENT( EV_HandleMissionEvent,			idThread::Event_HandleMissionEvent )
 
 	EVENT( EV_Thread_CanPlant,	 			idThread::Event_CanPlant )	// grayman #2787
+
+	EVENT( EV_GetMainAmbientLight,			idThread::Event_GetMainAmbientLight ) // grayman #3132
 
 	END_CLASS
 
@@ -2085,5 +2090,13 @@ void idThread::Event_CanPlant( const idVec3 &traceStart, const idVec3 &traceEnd,
 	}
 
 	idThread::ReturnFloat( vineFriendly );
+}
+
+// grayman #3132
+
+void idThread::Event_GetMainAmbientLight()
+{
+	idLight* light = gameLocal.FindMainAmbientLight(false);
+	idThread::ReturnEntity(light);
 }
 
