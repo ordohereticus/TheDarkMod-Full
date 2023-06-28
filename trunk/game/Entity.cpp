@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5369 $ (Revision of last commit) 
+ $Date: 2012-04-07 14:53:44 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5369 2012-04-07 18:53:44Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -4232,7 +4232,7 @@ bool idEntity::InitBind( idEntity *master )
 idEntity::FinishBind
 ================
 */
-void idEntity::FinishBind( void )
+void idEntity::FinishBind( const char *jointName ) // grayman #3074
 {
 	// set the master on the physics object
 	physics->SetMaster( bindMaster, fl.bindOrientated );
@@ -4251,7 +4251,7 @@ void idEntity::FinishBind( void )
 	teamMaster->BecomeActive( TH_PHYSICS );
 	
 	// Notify bindmaster of this binding
-	bindMaster->BindNotify( this );
+	bindMaster->BindNotify( this, jointName ); // grayman #3074
 }
 
 /*
@@ -4290,7 +4290,7 @@ void idEntity::Bind( idEntity *master, bool orientated )
 	bindMaster = master;
 	fl.bindOrientated = orientated;
 
-	FinishBind();
+	FinishBind(NULL); // grayman #3074
 
 	PostBind( );
 }
@@ -4349,7 +4349,7 @@ void idEntity::BindToJoint( idEntity *master, const char *jointname, bool orient
 	bindMaster = master;
 	fl.bindOrientated = orientated;
 
-	FinishBind();
+	FinishBind(jointname); // grayman #3074
 
 	PostBind();
 }
@@ -4393,7 +4393,9 @@ void idEntity::BindToJoint( idEntity *master, jointHandle_t jointnum, bool orien
 	bindMaster = master;
 	fl.bindOrientated = orientated;
 
-	FinishBind();
+	idAnimator *masterAnimator = master->GetAnimator();
+	const char *jointName = masterAnimator->GetJointName( jointnum );
+	FinishBind(jointName); // grayman #3074
 
 	PostBind();
 }
@@ -4439,7 +4441,7 @@ void idEntity::BindToBody( idEntity *master, int bodyId, bool orientated )
 	bindMaster = master;
 	fl.bindOrientated = orientated;
 
-	FinishBind();
+	FinishBind(NULL); // grayman #3074
 
 	PostBind();
 }
@@ -10474,7 +10476,7 @@ idEntity *idEntity::GetAttachmentFromTeam( const char *AttName )
 	return NULL;
 }
 
-void idEntity::BindNotify( idEntity *ent )
+void idEntity::BindNotify( idEntity *ent , const char *jointName) // grayman #3074
 {
 }
 

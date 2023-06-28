@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5123 $ (Revision of last commit) 
- $Date: 2011-12-12 01:37:40 -0500 (Mon, 12 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5369 $ (Revision of last commit) 
+ $Date: 2012-04-07 14:53:44 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ACTOR_H__
@@ -521,7 +521,7 @@ public:
 	/**
 	* Called when the given ent is about to be bound/attached to this actor.
 	**/
-	void					BindNotify( idEntity *ent );
+	void					BindNotify( idEntity *ent, const char *jointName ); // grayman #3074
 	
 	/**
 	* Called when the given ent is about to be unbound/detached from this actor.
@@ -566,7 +566,7 @@ public:
 	idAnimator*				GetAnimatorForChannel(int channel);
 
 	// greebo: Searches the given dictionary for animation replacement spawnargs and applies them to this actor
-	void					LoadReplacementAnims(const idDict& spawnArgs);
+	void					LoadReplacementAnims(const idDict& spawnArgs, const char *jointName); // grayman #3074
 
 	const char*				LookupReplacementAnim( const char *name );
 

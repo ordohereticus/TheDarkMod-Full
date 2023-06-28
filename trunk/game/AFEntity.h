@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5369 $ (Revision of last commit) 
+ $Date: 2012-04-07 14:53:44 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -147,7 +147,7 @@ public:
 	* Overload bind notify so that when another idAFAttachment is
 	* bound to us, we copy over our data on the actor we're bound to
 	**/
-	virtual void BindNotify( idEntity *ent );
+	virtual void BindNotify( idEntity *ent , const char *jointName); // grayman #3074
 
 	/**
 	* Also overload UnbindNotify to update the clipmodel physics on the AF we're attacehd to

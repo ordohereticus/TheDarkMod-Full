@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5212 $ (Revision of last commit) 
- $Date: 2012-01-13 18:21:17 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5369 $ (Revision of last commit) 
+ $Date: 2012-04-07 14:53:44 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5212 2012-01-13 23:21:17Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5369 2012-04-07 18:53:44Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -381,7 +381,7 @@ bool idAFAttachment::IsMantleable()
 /**
 * idAFAttachment::BindNotify
 **/
-void idAFAttachment::BindNotify( idEntity *ent )
+void idAFAttachment::BindNotify( idEntity *ent , const char *jointName) // grayman #3074
 {
 	// copy information over to a bound idAfAttachment
 	if( ent->IsType(idAFAttachment::Type) )

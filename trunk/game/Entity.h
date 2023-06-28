@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5322 $ (Revision of last commit) 
- $Date: 2012-03-08 13:32:58 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5369 $ (Revision of last commit) 
+ $Date: 2012-04-07 14:53:44 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ENTITY_H__
@@ -1064,7 +1064,7 @@ public:
 	* Called when the given entity is about to attach (bind) to this entity.
 	* Does not actually bind it.
 	**/
-	virtual void BindNotify( idEntity *ent );
+	virtual void BindNotify( idEntity *ent , const char *jointName); // grayman #3074
 	
 	/**
 	* Called when the given entity is about to detach (unbind) from this entity.
@@ -1482,7 +1482,7 @@ private:
 
 	// entity binding
 	bool					InitBind( idEntity *master );	// initialize an entity binding
-	void					FinishBind( void );				// finish an entity binding
+	void					FinishBind( const char *jointnum ); // finish an entity binding - grayman #3074
 	void					RemoveBinds( void );			// deletes any entities bound to this object
 	void					QuitTeam( void );				// leave the current team
 
