@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5393 $ (Revision of last commit) 
+ $Date: 2012-04-16 14:00:11 -0400 (Mon, 16 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Model_prt.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Model_prt.cpp 5393 2012-04-16 18:00:11Z tels $");
 
 #include "tr_local.h"
 #include "Model_local.h"
@@ -126,7 +126,6 @@ idRenderModel *idRenderModelPrt::InstantiateDynamicModel( const struct renderEnt
 
 		int stageAge = g.renderView->time + renderEntity->shaderParms[SHADERPARM_TIMEOFFSET] * 1000 - stage->timeOffset * 1000;
 		int	stageCycle = stageAge / stage->cycleMsec;
-		int	inCycleTime = stageAge - stageCycle * stage->cycleMsec;
 
 		// some particles will be in this cycle, some will be in the previous cycle
 		steppingRandom.SetSeed( (( stageCycle << 10 ) & idRandom::MAX_RAND) ^ (int)( renderEntity->shaderParms[SHADERPARM_DIVERSITY] * idRandom::MAX_RAND )  );

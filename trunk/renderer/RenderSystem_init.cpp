@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5392 $ (Revision of last commit) 
- $Date: 2012-04-15 15:06:54 -0400 (Sun, 15 Apr 2012) $ (Date of last commit)
+ $Revision: 5393 $ (Revision of last commit) 
+ $Date: 2012-04-16 14:00:11 -0400 (Mon, 16 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5392 2012-04-15 19:06:54Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5393 2012-04-16 18:00:11Z tels $");
 
 #include "tr_local.h"
 
@@ -32,8 +32,6 @@ static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5392 2
 // functions that are not called every frame
 
 glconfig_t	glConfig;
-
-static void GfxInfo_f( void );
 
 const char *r_rendererArgs[] = { "best", "arb", "arb2", "Cg", "exp", "nv10", "nv20", "r200", NULL };
 

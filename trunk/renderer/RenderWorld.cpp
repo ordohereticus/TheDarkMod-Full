@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5393 $ (Revision of last commit) 
+ $Date: 2012-04-16 14:00:11 -0400 (Mon, 16 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5393 2012-04-16 18:00:11Z tels $");
 
 #include "tr_local.h"
 
@@ -1438,7 +1438,9 @@ void idRenderWorldLocal::GenerateAllInteractions() {
 		return;
 	}
 
+#if DEBUG
 	int start = Sys_Milliseconds();
+#endif
 
 	generateAllInteractionsCalled = false;
 
