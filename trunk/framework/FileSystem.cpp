@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5362 $ (Revision of last commit) 
+ $Date: 2012-04-01 03:28:25 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5362 2012-04-01 07:28:25Z greebo $");
 
 #include "Unzip.h"
 
@@ -2603,7 +2603,7 @@ idFile *idFileSystemLocal::OpenFileReadFlags( const char *relativePath, int sear
 	}
 
 	if ( foundInPak ) {
-		foundInPak = NULL;
+		*foundInPak = NULL;
 	}
 
 	// make absolutely sure that it can't back up the path.
