@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5283 $ (Revision of last commit) 
+ $Date: 2012-02-16 06:42:25 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_shader.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: snd_shader.cpp 5283 2012-02-16 11:42:25Z tels $");
 
 #include "snd_local.h"
 
@@ -206,13 +206,15 @@ bool idSoundShader::ParseShader( idLexer &src ) {
 		}
 		// reverb
 		else if ( !token.Icmp( "reverb" ) ) {
-			int reg0 = src.ParseFloat();
+			/*int reg0 = src.ParseFloat();
 			if ( !src.ExpectTokenString( "," ) ) {
 				src.FreeSource();
 				return false;
 			}
 			int reg1 = src.ParseFloat();
+			*/
 			// no longer supported
+			src.Warning( "reverb is no longer supported on sound shaders" );
 		}
 		// volume
 		else if ( !token.Icmp( "volume" ) ) {
