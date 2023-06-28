@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5394 $ (Revision of last commit) 
- $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
+ $Revision: 5396 $ (Revision of last commit) 
+ $Date: 2012-04-19 16:43:43 -0400 (Thu, 19 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5394 2012-04-17 22:36:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5396 2012-04-19 20:43:43Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -3173,7 +3173,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 
 	bool hitByMelee = false;
 	bool hitByMoveable = false;
-	if ( inflictor->IsType(CMeleeWeapon::Type) )
+	if ( inflictor->IsType(CMeleeWeapon::Type) && ( attacker != gameLocal.world ) && ( inflictor->GetBindMaster() != NULL ) )
 	{
 		hitByMelee = true;
 	}
@@ -3189,6 +3189,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 	if ( hitByMoveable )
 	{
 		mass = inflictor->spawnArgs.GetFloat("mass","1");
+		velocity = inflictor->GetPhysics()->GetLinearVelocity();
 		float velocityHorz = velocity.ToVec2().LengthFast();
 		falling = ( ( velocity.z < 0 ) && ( abs(velocity.z) > velocityHorz ) );
 	}
