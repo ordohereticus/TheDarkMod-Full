@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5310 $ (Revision of last commit) 
- $Date: 2012-03-02 13:27:07 -0500 (Fri, 02 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5353 $ (Revision of last commit) 
+ $Date: 2012-03-22 08:48:35 -0400 (Thu, 22 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -930,10 +930,13 @@ public:
 	void					OnReloadImages();
 	void					OnVidRestart();
 
+	idLight*				GetMainAmbient(); // grayman debug - retrieve main ambient light entity
+
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;
 
 	idStr					m_strMainAmbientLightName;	// The name of main ambient light, default is: "ambient_world". - J.C.Denton
+	idLight*				m_mainAmbientLight;		// grayman debug - The main ambient light
 	idStr					mapFileName;			// name of the map, empty string if no map loaded
 	idMapFile *				mapFile;				// will be NULL during the game unless in-game editing is used
 	bool					mapCycleLoaded;
