@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5459 $ (Revision of last commit) 
+ $Date: 2012-05-24 17:43:16 -0400 (Thu, 24 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5378 2012-04-10 18:21:04Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5459 2012-05-24 21:43:16Z grayman $");
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -181,7 +181,9 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 		{
 			owner->GetAAS()->PushPointIntoAreaNum( toAreaNum, goal ); // if this point is outside this area, it will be moved to one of the area's edges
 		
-			if ( owner->IsSearching() && !owner->movementSubsystem->IsResolvingBlock() )
+			if ( owner->IsSearching() &&
+				!owner->movementSubsystem->IsResolvingBlock() &&
+				( owner->AI_AlertIndex < ECombat ) ) // grayman #3070 - point is valid if in combat mode
 			{
 				if ( !owner->m_searchLimits.ContainsPoint(goal) )
 				{

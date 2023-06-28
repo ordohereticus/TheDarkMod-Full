@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5458 $ (Revision of last commit) 
- $Date: 2012-05-22 19:39:37 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Revision: 5459 $ (Revision of last commit) 
+ $Date: 2012-05-24 17:43:16 -0400 (Thu, 24 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5458 2012-05-22 23:39:37Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5459 2012-05-24 21:43:16Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -11241,7 +11241,7 @@ int idAI::StartSearchForHidingSpotsWithExclusionArea
 
 bool idAI::IsSearching() // grayman #2603
 {
-	return (AI_AlertLevel >= thresh_3);
+	return (AI_AlertLevel >= thresh_3); // note that this also returns TRUE if in combat mode
 }
 
 int idAI::ContinueSearchForHidingSpots()

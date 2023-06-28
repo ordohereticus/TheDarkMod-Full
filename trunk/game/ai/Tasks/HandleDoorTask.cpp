@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5455 $ (Revision of last commit) 
- $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
+ $Revision: 5459 $ (Revision of last commit) 
+ $Date: 2012-05-24 17:43:16 -0400 (Thu, 24 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5455 2012-05-21 22:01:45Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5459 2012-05-24 21:43:16Z grayman $");
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -1189,7 +1189,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				// grayman #3104 - when searching, an AI can get far from the
 				// door as he searches, but he still thinks he's handling a door
 				// because he hasn't yet reached the mid position. If he wanders
-				// too far while searching, quit door handling
+				// too far while searching or in combat mode, quit door handling
 
 				if ( owner->IsSearching() )
 				{
@@ -1265,7 +1265,7 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 				// grayman #3104 - when searching, an AI can get far from the
 				// door as he searches, but he still thinks he's handling a door
 				// because he hasn't yet reached the back position. If he wanders
-				// too far while searching, quit door handling
+				// too far while searching or in combat mode, quit door handling
 
 				if ( owner->IsSearching() )
 				{
