@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5279 $ (Revision of last commit) 
+ $Date: 2012-02-13 18:41:51 -0500 (Mon, 13 Feb 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5279 2012-02-13 23:41:51Z serpentine $");
 
 #include "Session_local.h"
 
@@ -855,7 +855,7 @@ void idSessionLocal::HandleMainMenuCommands( const char *menuCommand ) {
 				cmdSystem->BufferCommandText( CMD_EXEC_NOW, "s_restart\n" );
 				if ( old != cvarSystem->GetCVarInteger( "s_numberOfSpeakers" ) ) {
 #ifdef _WIN32
-					MessageBox( MSG_OK, common->Tranlate( "#str_04142" ), common->Translate( "#str_04141" ), true );
+					MessageBox( MSG_OK, common->Translate( "#str_04142" ), common->Translate( "#str_04141" ), true );
 #else
 					// a message that doesn't mention the windows control panel
 					MessageBox( MSG_OK, common->Translate( "#str_07230" ), common->Translate( "#str_04141" ), true );
