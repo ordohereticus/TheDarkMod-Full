@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5311 $ (Revision of last commit) 
- $Date: 2012-03-02 13:32:27 -0500 (Fri, 02 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -126,7 +126,7 @@ public:
 	//-----------------------
 
 	idStr					mapName;				// ie: maps/tim_dm2.proc, written to demoFile
-	ID_TIME_T					mapTimeStamp;			// for fast reloads of the same level
+	ID_TIME_T				mapTimeStamp;			// for fast reloads of the same level
 
 	areaNode_t *			areaNodes;
 	int						numAreaNodes;

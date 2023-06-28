@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5234 $ (Revision of last commit) 
- $Date: 2012-01-23 01:45:30 -0500 (Mon, 23 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5234 2012-01-23 06:45:30Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5383 2012-04-11 09:46:32Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1121,12 +1121,12 @@ R_LoadCubeImages
 Loads six files with proper extensions
 =======================
 */
+
+const static char *cameraSides[6] = { "_forward.tga", "_back.tga", "_left.tga", "_right.tga", "_up.tga", "_down.tga" };
+const static char *cubeExtensions[6] = { "_px.tga", "_nx.tga", "_py.tga", "_ny.tga", "_pz.tga", "_nz.tga" };
+
 bool R_LoadCubeImages( const char *imgName, cubeFiles_t extensions, byte *pics[6], int *outSize, ID_TIME_T *timestamp ) {
 	int		i, j;
-	const char	*cameraSides[6] =  { "_forward.tga", "_back.tga", "_left.tga", "_right.tga", 
-		"_up.tga", "_down.tga" };
-	const char	*axisSides[6] =  { "_px.tga", "_nx.tga", "_py.tga", "_ny.tga", 
-		"_pz.tga", "_nz.tga" };
 	const char	**sides;
 	char	fullName[MAX_IMAGE_NAME];
 	int		width, height, size = 0;
@@ -1134,7 +1134,7 @@ bool R_LoadCubeImages( const char *imgName, cubeFiles_t extensions, byte *pics[6
 	if ( extensions == CF_CAMERA ) {
 		sides = cameraSides;
 	} else {
-		sides = axisSides;
+		sides = cubeExtensions;
 	}
 
 	// FIXME: precompressed cube map files

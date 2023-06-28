@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_subview.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: tr_subview.cpp 5383 2012-04-11 09:46:32Z serpentine $");
 
 #include "tr_local.h"
 
@@ -103,7 +103,6 @@ bool R_PreciseCullSurface( const drawSurf_t *drawSurf, idBounds &ndcBounds ) {
 	const srfTriangles_t *tri;
 	int numTriangles;
 	idPlane clip, eye;
-	int i, j;
 	unsigned int pointOr;
 	unsigned int pointAnd;
 	idVec3 localView;
@@ -117,15 +116,14 @@ bool R_PreciseCullSurface( const drawSurf_t *drawSurf, idBounds &ndcBounds ) {
 	// get an exact bounds of the triangles for scissor cropping
 	ndcBounds.Clear();
 
-	for ( i = 0; i < tri->numVerts; i++ ) {
-		int j;
+	for ( int i = 0; i < tri->numVerts; i++ ) {
 		unsigned int pointFlags;
 
 		R_TransformModelToClip( tri->verts[i].xyz, drawSurf->space->modelViewMatrix,
 			tr.viewDef->projectionMatrix, eye, clip );
 
 		pointFlags = 0;
-		for ( j = 0; j < 3; j++ ) {
+		for ( int j = 0; j < 3; j++ ) {
 			if ( clip[j] >= clip[3] ) {
 				pointFlags |= (1 << (j*2));
 			} else if ( clip[j] <= -clip[3] ) {
@@ -147,7 +145,7 @@ bool R_PreciseCullSurface( const drawSurf_t *drawSurf, idBounds &ndcBounds ) {
 
 	R_GlobalPointToLocal( drawSurf->space->modelMatrix, tr.viewDef->renderView.vieworg, localView );
 
-	for ( i = 0; i < tri->numIndexes; i += 3 ) {
+	for ( int i = 0; i < tri->numIndexes; i += 3 ) {
 		idVec3	dir, normal;
 		float	dot;
 		idVec3	d1, d2;
@@ -181,12 +179,12 @@ bool R_PreciseCullSurface( const drawSurf_t *drawSurf, idBounds &ndcBounds ) {
 		R_LocalPointToGlobal( drawSurf->space->modelMatrix, v3, w[2].ToVec3() );
 		w[0].s = w[0].t = w[1].s = w[1].t = w[2].s = w[2].t = 0.0f;
 
-		for ( j = 0; j < 4; j++ ) {
+		for ( int j = 0; j < 4; j++ ) {
 			if ( !w.ClipInPlace( -tr.viewDef->frustum[j], 0.1f ) ) {
 				break;
 			}
 		}
-		for ( j = 0; j < w.GetNumPoints(); j++ ) {
+		for ( int j = 0; j < w.GetNumPoints(); j++ ) {
 			idVec3	screen;
 
 			R_GlobalToNormalizedDeviceCoordinates( w[j].ToVec3(), screen );

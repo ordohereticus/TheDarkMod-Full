@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5337 $ (Revision of last commit) 
- $Date: 2012-03-11 12:03:48 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
- $Author: rebb $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -278,8 +278,8 @@ public:
 	idInteraction *			lastInteraction;
 
 	bool					needsPortalSky;
-};
 
+};
 
 // viewLights are allocated on the frame temporary stack memory
 // a viewLight contains everything that the back end needs out of an idRenderLightLocal,
@@ -770,6 +770,9 @@ public:
 	// many console commands need to know which world they should operate on
 
 	const idMaterial *		defaultMaterial;
+	const idMaterial *		defaultShaderPoint;
+	const idMaterial *		defaultShaderProj;
+
 	idImage *				testImage;
 	idCinematic *			testVideo;
 	float					testVideoStartTime;
@@ -999,8 +1002,8 @@ void	GL_State( int stateVector );
 void	GL_TexEnv( int env );
 void	GL_Cull( int cullType );
 
-const int GLS_SRCBLEND_ZERO						= 0x00000001;
 const int GLS_SRCBLEND_ONE						= 0x0;
+const int GLS_SRCBLEND_ZERO						= 0x00000001;
 const int GLS_SRCBLEND_DST_COLOR				= 0x00000003;
 const int GLS_SRCBLEND_ONE_MINUS_DST_COLOR		= 0x00000004;
 const int GLS_SRCBLEND_SRC_ALPHA				= 0x00000005;
@@ -1193,7 +1196,6 @@ LIGHTRUN
 
 ============================================================
 */
-
 void R_RegenerateWorld_f( const idCmdArgs &args );
 
 void R_ModulateLights_f( const idCmdArgs &args );

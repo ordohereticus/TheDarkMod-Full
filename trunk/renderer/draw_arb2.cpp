@@ -11,27 +11,18 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5291 $ (Revision of last commit) 
- $Date: 2012-02-22 12:28:29 -0500 (Wed, 22 Feb 2012) $ (Date of last commit)
- $Author: rebb $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5291 2012-02-22 17:28:29Z rebb $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5383 2012-04-11 09:46:32Z serpentine $");
 
 #include "tr_local.h"
-
-#include "cg_explicit.h"
-
-CGcontext cg_context;
-
-static void cg_error_callback( void ) {
-	CGerror i = cgGetError();
-	common->Printf( "Cg error (%d): %s\n", i, cgGetErrorString(i) );
-}
 
 /*
 =========================================================================================
@@ -192,6 +183,7 @@ void RB_ARB2_CreateDrawInteractions( const drawSurf_t *surf ) {
 	} else {
 		globalImages->specularTableImage->Bind();
 	}
+
 
 	for ( ; surf ; surf=surf->nextOnLight ) {
 		// perform setup here that will not change over multiple interaction passes
@@ -377,8 +369,6 @@ R_LoadARBProgram
 =================
 */
 void R_LoadARBProgram( int progIndex ) {
-	int		ofs;
-	int		err;
 	idStr	fullPath = "glprogs/";
 	fullPath += progs[progIndex].name;
 	char	*fileBuffer;
@@ -414,7 +404,7 @@ void R_LoadARBProgram( int progIndex ) {
 
 	// vertex and fragment programs can both be present in a single file, so
 	// scan for the proper header to be the start point, and stamp a 0 in after the end
-
+	start = NULL;
 	if ( progs[progIndex].target == GL_VERTEX_PROGRAM_ARB ) {
 		if ( !glConfig.ARBVertexProgramAvailable ) {
 			common->Printf( ": GL_VERTEX_PROGRAM_ARB not available\n" );
@@ -442,12 +432,13 @@ void R_LoadARBProgram( int progIndex ) {
 	end[3] = 0;
 
 	qglBindProgramARB( progs[progIndex].target, progs[progIndex].ident );
-	qglGetError();
+	//qglGetError();
 
 	qglProgramStringARB( progs[progIndex].target, GL_PROGRAM_FORMAT_ASCII_ARB,
 		strlen( start ), (unsigned char *)start );
-
-	err = qglGetError();
+#if DEBUG
+	int err = qglGetError();
+	int		ofs;
 	qglGetIntegerv( GL_PROGRAM_ERROR_POSITION_ARB, (GLint *)&ofs );
 	if ( err == GL_INVALID_OPERATION ) {
 		const GLubyte *str = qglGetString( GL_PROGRAM_ERROR_STRING_ARB );
@@ -461,11 +452,12 @@ void R_LoadARBProgram( int progIndex ) {
 		}
 		return;
 	}
+
 	if ( ofs != -1 ) {
 		common->Printf( "\nGL_PROGRAM_ERROR_POSITION_ARB != -1 without error\n" );
 		return;
 	}
-
+#endif
 	common->Printf( "\n" );
 }
 

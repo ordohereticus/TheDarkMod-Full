@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_polytope.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: tr_polytope.cpp 5383 2012-04-11 09:46:32Z serpentine $");
 
 #include "tr_local.h"
 
@@ -55,8 +55,7 @@ srfTriangles_t *R_PolytopeSurface( int numPlanes, const idPlane *planes, idWindi
 			const idPlane &plane2 = planes[j];
 			if ( j == i ) {
 				continue;
-			}
-			if ( !w.ClipInPlace( -plane2, ON_EPSILON ) ) {
+			} else if ( !w.ClipInPlace( -plane2, ON_EPSILON ) ) {
 				break;
 			}
 		}

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -292,7 +292,7 @@ ID_INLINE idMat2 idMat2::Inverse( void ) const {
 
 	invMat = *this;
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseSelf();
 	assert( r );
 #else
@@ -307,7 +307,7 @@ ID_INLINE idMat2 idMat2::InverseFast( void ) const {
 
 	invMat = *this;
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseFastSelf();
 	assert( r );
 #else
@@ -711,7 +711,7 @@ ID_INLINE idMat3 idMat3::Inverse( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseSelf();
 	assert( r );
 #else
@@ -726,7 +726,7 @@ ID_INLINE idMat3 idMat3::InverseFast( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseFastSelf();
 	assert( r );
 #else
@@ -1131,7 +1131,7 @@ ID_INLINE idMat4 idMat4::Inverse( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseSelf();
 	assert( r );
 #else
@@ -1146,7 +1146,7 @@ ID_INLINE idMat4 idMat4::InverseFast( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseFastSelf();
 	assert( r );
 #else
@@ -1448,7 +1448,7 @@ ID_INLINE idMat5 idMat5::Inverse( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseSelf();
 	assert( r );
 #else
@@ -1463,7 +1463,7 @@ ID_INLINE idMat5 idMat5::InverseFast( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseFastSelf();
 	assert( r );
 #else
@@ -1787,7 +1787,7 @@ ID_INLINE idMat6 idMat6::Inverse( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseSelf();
 	assert( r );
 #else
@@ -1802,7 +1802,7 @@ ID_INLINE idMat6 idMat6::InverseFast( void ) const {
 
 	invMat = *this;
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseFastSelf();
 	assert( r );
 #else
@@ -2643,7 +2643,7 @@ ID_INLINE idMatX idMatX::Inverse( void ) const {
 	invMat.SetTempSize( numRows, numColumns );
 	memcpy( invMat.mat, mat, numRows * numColumns * sizeof( float ) );
 	
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseSelf();
 	assert( r );
 #else
@@ -2685,7 +2685,7 @@ ID_INLINE idMatX idMatX::InverseFast( void ) const {
 	invMat.SetTempSize( numRows, numColumns );
 	memcpy( invMat.mat, mat, numRows * numColumns * sizeof( float ) );
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	int r = invMat.InverseFastSelf();
 	assert( r );
 #else

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -324,7 +324,7 @@ idCurve::SetConstantSpeed
 */
 template< class type >
 ID_INLINE void idCurve<type>::SetConstantSpeed( const float totalTime ) {
-	int i, j;
+	int i;
 	float *length, totalLength, scale, t;
 
 	length = (float *) _alloca16( values.Num() * sizeof( float ) );
@@ -768,7 +768,7 @@ idCurve_QuadraticBezier::BasisSecondDerivative
 */
 template< class type >
 ID_INLINE void idCurve_QuadraticBezier<type>::BasisSecondDerivative( const float t, float *bvals ) const {
-	float s1 = (float) ( t - this->times[0] ) / ( this->times[2] - this->times[0] );
+	//float s1 = (float) ( t - this->times[0] ) / ( this->times[2] - this->times[0] ); Unused
 	bvals[0] = 2.0f;
 	bvals[1] = -4.0f;
 	bvals[2] = 2.0f;

@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5337 $ (Revision of last commit) 
- $Date: 2012-03-11 12:03:48 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
- $Author: rebb $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_common.cpp 5337 2012-03-11 16:03:48Z rebb $");
+static bool versioned = RegisterVersionedFile("$Id: draw_common.cpp 5383 2012-04-11 09:46:32Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1651,24 +1651,20 @@ a floating point value
 void RB_STD_LightScale( void ) {
 	float	v, f;
 
-	if ( backEnd.overBright == 1.0f ) {
+	if ( backEnd.overBright == 1.0f || r_skipLightScale.GetBool() ) {
 		return;
 	}
-
-	if ( r_skipLightScale.GetBool() ) {
-		return;
-	}
-
-	RB_LogComment( "---------- RB_STD_LightScale ----------\n" );
 
 	// the scissor may be smaller than the viewport for subviews
-	if ( r_useScissor.GetBool() ) {
+	else if ( r_useScissor.GetBool() ) {
 		qglScissor( backEnd.viewDef->viewport.x1 + backEnd.viewDef->scissor.x1, 
 			backEnd.viewDef->viewport.y1 + backEnd.viewDef->scissor.y1, 
 			backEnd.viewDef->scissor.x2 - backEnd.viewDef->scissor.x1 + 1,
 			backEnd.viewDef->scissor.y2 - backEnd.viewDef->scissor.y1 + 1 );
 		backEnd.currentScissor = backEnd.viewDef->scissor;
 	}
+
+	RB_LogComment( "---------- RB_STD_LightScale ----------\n" );
 
 	// full screen blends
 	qglLoadIdentity();
@@ -1718,7 +1714,7 @@ RB_STD_DrawView
 */
 void	RB_STD_DrawView( void ) {
 	drawSurf_t	 **drawSurfs;
-	int			numDrawSurfs;
+	int			numDrawSurfs, processed;
 
 	RB_LogComment( "---------- RB_STD_DrawView ----------\n" );
 
@@ -1731,7 +1727,9 @@ void	RB_STD_DrawView( void ) {
 	RB_BeginDrawingView();
 
 	// decide how much overbrighting we are going to do
-	RB_DetermineLightScale();
+	//RB_DetermineLightScale();
+	backEnd.lightScale = r_lightScale.GetFloat();
+	backEnd.overBright = 1.0f;
 
 	// fill the depth buffer and clear color buffer to black except on
 	// subviews
@@ -1763,7 +1761,7 @@ void	RB_STD_DrawView( void ) {
 	RB_STD_LightScale();
 
 	// now draw any non-light dependent shading passes
-	int	processed = RB_STD_DrawShaderPasses( drawSurfs, numDrawSurfs );
+	processed = RB_STD_DrawShaderPasses( drawSurfs, numDrawSurfs );
 
 	// fob and blend lights
 	RB_STD_FogAllLights();

@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5197 $ (Revision of last commit) 
- $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5383 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem.cpp 5197 2012-01-09 04:07:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem.cpp 5383 2012-04-11 09:46:32Z serpentine $");
 
 #include "tr_local.h"
 
@@ -723,8 +723,10 @@ void idRenderSystemLocal::EndFrame( int *frontEndMsec, int *backEndMsec ) {
 	// check for dynamic changes that require some initialization
 	R_CheckCvars();
 
+#ifdef DEBUG
     // check for errors
 	GL_CheckErrors();
+#endif
 
 	// add the swapbuffers command
 	cmd = (emptyCommand_t *)R_GetCommandBuffer( sizeof( *cmd ) );
