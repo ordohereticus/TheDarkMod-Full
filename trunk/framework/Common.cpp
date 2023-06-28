@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
+ $Revision: 5205 $ (Revision of last commit) 
+ $Date: 2012-01-10 02:21:39 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5205 2012-01-10 07:21:39Z greebo $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -1713,10 +1713,6 @@ idCommonLocal::GetLanguageDict
 */
 const idLangDict *idCommonLocal::GetLanguageDict( void )
 {
-#ifdef _DEBUG
-	common->Printf("Deprecated call to idCommon::GetLanguageDict");
-#endif
-
 #if 0
 	return &languageDict;
 #endif

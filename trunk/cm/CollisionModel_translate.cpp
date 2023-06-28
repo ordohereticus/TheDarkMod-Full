@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5205 $ (Revision of last commit) 
+ $Date: 2012-01-10 02:21:39 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -28,7 +28,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CollisionModel_translate.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: CollisionModel_translate.cpp 5205 2012-01-10 07:21:39Z greebo $");
 
 #include "CollisionModel_local.h"
 
@@ -311,7 +311,12 @@ void idCollisionModelManagerLocal::TranslateTrmEdgeThroughPolygon( cm_traceWork_
 			dist = normal * trmEdge->start;
 			d1 = normal * start - dist;
 			d2 = normal * end - dist;
-			f1 = d1 / ( d1 - d2 );
+			if (d1 == d2) {
+				f1 = 0.0f;
+			}
+			else {
+				f1 = d1 / ( d1 - d2 );
+			}
 			//assert( f1 >= 0.0f && f1 <= 1.0f );
 			tw->trace.c.point = start + f1 * ( end - start );
 			// if retrieving contacts
@@ -770,9 +775,9 @@ void idCollisionModelManagerLocal::Translation( trace_t *results, const idVec3 &
 	cm_trmVertex_t *vert;
 	ALIGN16( static cm_traceWork_t tw );
 
-	assert( ((byte *)&start) < ((byte *)results) || ((byte *)&start) >= (((byte *)results) + sizeof( trace_t )) );
-	assert( ((byte *)&end) < ((byte *)results) || ((byte *)&end) >= (((byte *)results) + sizeof( trace_t )) );
-	assert( ((byte *)&trmAxis) < ((byte *)results) || ((byte *)&trmAxis) >= (((byte *)results) + sizeof( trace_t )) );
+	assert( ((byte *)&start) < ((byte *)results) || ((byte *)&start) > (((byte *)results) + sizeof( trace_t )) );
+	assert( ((byte *)&end) < ((byte *)results) || ((byte *)&end) > (((byte *)results) + sizeof( trace_t )) );
+	assert( ((byte *)&trmAxis) < ((byte *)results) || ((byte *)&trmAxis) > (((byte *)results) + sizeof( trace_t )) );
 
 	memset( results, 0, sizeof( *results ) );
 
@@ -811,6 +816,8 @@ void idCollisionModelManagerLocal::Translation( trace_t *results, const idVec3 &
 	tw.trace.fraction = 1.0f;
 	tw.trace.c.contents = 0;
 	tw.trace.c.type = CONTACT_NONE;
+	tw.trace.c.id = 0;			// TDM: Don't leave things uninitialised
+	tw.trace.c.material = NULL; // TDM: Don't leave things uninitialised
 	tw.contents = contentMask;
 	tw.isConvex = true;
 	tw.rotation = false;
