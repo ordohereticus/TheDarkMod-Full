@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5447 $ (Revision of last commit) 
- $Date: 2012-05-11 10:35:42 -0400 (Fri, 11 May 2012) $ (Date of last commit)
+ $Revision: 5448 $ (Revision of last commit) 
+ $Date: 2012-05-11 11:15:21 -0400 (Fri, 11 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -23,6 +23,7 @@
 #if defined(__linux__) || defined(MACOS_X)
 #include "../idlib/Lib.h"
 #include "../sound/sound.h"
+#include "../framework/Licensee.h"
 #endif
 
 /*
@@ -330,8 +331,6 @@ extern idGameEdit *				gameEdit;
 
 ===============================================================================
 */
-
-const int GAME_API_VERSION		= 108;
 
 class idCmdSystem;
 class idNetworkSystem;

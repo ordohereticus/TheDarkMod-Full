@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5445 $ (Revision of last commit) 
- $Date: 2012-05-11 09:38:38 -0400 (Fri, 11 May 2012) $ (Date of last commit)
+ $Revision: 5448 $ (Revision of last commit) 
+ $Date: 2012-05-11 11:15:21 -0400 (Fri, 11 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -30,6 +30,7 @@
 // greebo: Defines the darkmod release version
 #define TDM_VERSION_MAJOR	1
 #define TDM_VERSION_MINOR	8
+#define GAME_API_VERSION	TDM_VERSION_MAJOR * 100 + TDM_VERSION_MINOR	// e.g. 108
 #define ENGINE_VERSION		"TDM 1.08"	// printed in console
 
 // paths
