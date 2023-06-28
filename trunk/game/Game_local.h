@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5305 $ (Revision of last commit) 
- $Date: 2012-02-26 11:18:33 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Revision: 5310 $ (Revision of last commit) 
+ $Date: 2012-03-02 13:27:07 -0500 (Fri, 02 Mar 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -88,6 +88,8 @@ class idEditEntities;
 class idLocationEntity;
 
 #define	MAX_CLIENTS				32
+// Tels: If you change this value, make sure that LUDICROUS_INDEX 
+// in renderer/RenderWorld_local.h is higher than MAX_GENTITIES:
 #define	GENTITYNUM_BITS			13
 #define	MAX_GENTITIES			(1<<GENTITYNUM_BITS)
 #define	ENTITYNUM_NONE			(MAX_GENTITIES-1)
