@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5255 $ (Revision of last commit) 
- $Date: 2012-02-07 12:38:52 -0500 (Tue, 07 Feb 2012) $ (Date of last commit)
+ $Revision: 5260 $ (Revision of last commit) 
+ $Date: 2012-02-09 12:55:52 -0500 (Thu, 09 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1192,6 +1192,7 @@ public:
 	void					ClearStimIgnoreList(StimType type);
 
 	bool					CheckResponseIgnore(StimType type, idEntity* fromEntity); // grayman #2872
+	idLocationEntity*		GetLocation( void ); // grayman #3013
 
 
 	/**
@@ -1220,9 +1221,13 @@ public:
 	void					Event_SetEntityRelation (idEntity* entity, int relation);
 	void					Event_ChangeEntityRelation(idEntity* entity, int relationChange);
 
-	void					Event_IsLight(); // grayman #2905
+	/**
+	 * grayman - misc. events
+	 */
 
-	void					Event_ActivateContacts(); // grayman #3011
+	void					Event_IsLight();			// grayman #2905
+	void					Event_ActivateContacts();	// grayman #3011
+	void					Event_GetLocation();		// grayman #3013
 
 	int						team;
 
