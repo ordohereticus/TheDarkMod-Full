@@ -18,9 +18,9 @@
 # 
 # Project: The Dark Mod (http://www.thedarkmod.com/)
 # 
-# $Revision: 5312 $ (Revision of last commit) 
-# $Date: 2012-03-04 05:13:28 -0500 (Sun, 04 Mar 2012) $ (Date of last commit)
-# $Author: tels $ (Author of last commit)
+# $Revision: 5398 $ (Revision of last commit) 
+# $Date: 2012-04-24 13:25:48 -0400 (Tue, 24 Apr 2012) $ (Date of last commit)
+# $Author: grayman $ (Author of last commit)
 # 
 #*****************************************************************************
 
@@ -237,6 +237,7 @@ ai/States/SwitchOnLightState.cpp \
 ai/States/ExamineRopeState.cpp \
 ai/States/TakeCoverState.cpp \
 ai/States/UnreachableTargetState.cpp \
+ai/States/HitByMoveable.cpp \
 ai/Tasks/ChaseEnemyRangedTask.cpp \
 ai/Tasks/ChaseEnemyTask.cpp \
 ai/Tasks/CombatTask.cpp \
