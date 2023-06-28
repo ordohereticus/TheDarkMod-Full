@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5251 $ (Revision of last commit) 
- $Date: 2012-02-06 19:50:31 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Revision: 5255 $ (Revision of last commit) 
+ $Date: 2012-02-07 12:38:52 -0500 (Tue, 07 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5251 2012-02-07 00:50:31Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5255 2012-02-07 17:38:52Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -157,6 +157,7 @@ const idEventDef EV_GetLightInPVS("getLightInPVS", "ff", 'v');
 const idEventDef EV_GetVinePlantLoc("getVinePlantLoc", NULL, 'v');	// grayman #2787
 const idEventDef EV_GetVinePlantNormal("getVinePlantNormal", NULL, 'v');	// grayman #2787
 const idEventDef EV_IsLight("isLight", NULL, 'd'); // grayman #2905
+const idEventDef EV_ActivateContacts("activateContacts"); // grayman #3011
 
 //===============================================================
 //                   TDM GUI interface
@@ -458,7 +459,8 @@ ABSTRACT_DECLARATION( idClass, idEntity )
 	EVENT( EV_GetVinePlantLoc,		idEntity::Event_GetVinePlantLoc )		// grayman #2478
 	EVENT( EV_GetVinePlantNormal,	idEntity::Event_GetVinePlantNormal )	// grayman #2478
 	EVENT( EV_IsLight,				idEntity::Event_IsLight )				// grayman #2905
-
+	EVENT( EV_ActivateContacts,		idEntity::Event_ActivateContacts )		// grayman #3011
+	
 END_CLASS
 
 /*
@@ -5614,6 +5616,16 @@ void idEntity::RemoveContactEntity( idEntity *ent ) {
 // entities sitting on this entity.
 
 // This could be extended in the future to activate all contact entities.
+
+/*
+================
+idEntity::Event_ActivateContacts
+================
+*/
+void idEntity::Event_ActivateContacts()
+{
+	ActivateContacts();
+}
 
 /*
 ================

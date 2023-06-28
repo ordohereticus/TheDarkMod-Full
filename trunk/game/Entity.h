@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5251 $ (Revision of last commit) 
- $Date: 2012-02-06 19:50:31 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Revision: 5255 $ (Revision of last commit) 
+ $Date: 2012-02-07 12:38:52 -0500 (Tue, 07 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1221,6 +1221,8 @@ public:
 	void					Event_ChangeEntityRelation(idEntity* entity, int relationChange);
 
 	void					Event_IsLight(); // grayman #2905
+
+	void					Event_ActivateContacts(); // grayman #3011
 
 	int						team;
 
