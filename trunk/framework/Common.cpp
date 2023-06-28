@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5480 $ (Revision of last commit) 
- $Date: 2012-06-17 12:31:39 -0400 (Sun, 17 Jun 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5481 $ (Revision of last commit) 
+ $Date: 2012-06-22 03:56:47 -0400 (Fri, 22 Jun 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5480 2012-06-17 16:31:39Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5481 2012-06-22 07:56:47Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -857,7 +857,6 @@ void idCommonLocal::ParseCommandLine( int argc, const char **argv ) {
 }
 
 void idCommonLocal::InitGameArguments() {
-    int i;
 	bool fsGameDefined = false;
 	bool fsGameBaseDefined = false;
 	bool fsBasePathDefined = false;
