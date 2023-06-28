@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5428 $ (Revision of last commit) 
- $Date: 2012-05-05 06:07:42 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Revision: 5439 $ (Revision of last commit) 
+ $Date: 2012-05-08 15:12:22 -0400 (Tue, 08 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5428 2012-05-05 10:07:42Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5439 2012-05-08 19:12:22Z tels $");
 
 #include "tr_local.h"
 
@@ -351,8 +351,6 @@ static progDef_t	progs[MAX_GLPROGS] = {
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_NV20_DIFFUSE_AND_SPECULAR_COLOR, "nv20_diffuseAndSpecularColor.vp" },
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_ENVIRONMENT, "environment.vfp" },
 	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_ENVIRONMENT, "environment.vfp" },
-	{ GL_VERTEX_PROGRAM_ARB, VPROG_GLASSWARP, "arbVP_glasswarp.txt" },		// Missing from release? Remove if that is the case
-	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_GLASSWARP, "arbFP_glasswarp.txt" },		// Missing from release? Remove if that is the case
 
 	// rebb: direct light interaction files for performance testing
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_TEST_DIRECT, "test_direct.vfp" },
