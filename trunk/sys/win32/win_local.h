@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5214 $ (Revision of last commit) 
+ $Date: 2012-01-15 19:55:04 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -49,7 +49,7 @@ extern	PFNWGLSETPBUFFERATTRIBARBPROC	wglSetPbufferAttribARB;
 
 #define	MAX_OSPATH			256
 
-#define	WINDOW_STYLE	(WS_OVERLAPPED|WS_BORDER|WS_CAPTION|WS_VISIBLE | WS_THICKFRAME)
+#define	WINDOW_STYLE	(WS_OVERLAPPED | WS_BORDER | WS_CAPTION | WS_VISIBLE | WS_THICKFRAME)
 
 void	Sys_QueEvent( int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr );
 
@@ -109,12 +109,12 @@ typedef struct {
 
 	WNDPROC			wndproc;
 
-	HDC				hDC;							// handle to device context
-	HGLRC			hGLRC;						// handle to GL rendering context
+	HDC				hDC;				// handle to device context
+	HGLRC			hGLRC;				// handle to GL rendering context
 	PIXELFORMATDESCRIPTOR pfd;		
 	int				pixelformat;
 
-	HINSTANCE		hinstOpenGL;	// HINSTANCE for the OpenGL library
+	HINSTANCE		hinstOpenGL;		// HINSTANCE for the OpenGL library
 
 	int				desktopBitsPixel;
 	int				desktopWidth, desktopHeight;

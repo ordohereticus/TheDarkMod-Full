@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5214 $ (Revision of last commit) 
+ $Date: 2012-01-15 19:55:04 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: win_wndproc.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: win_wndproc.cpp 5214 2012-01-16 00:55:04Z serpentine $");
 
 #include "win_local.h"
 #include "../../renderer/tr_local.h"
@@ -73,7 +73,7 @@ void WIN_Sizing(WORD side, RECT *rect)
 
 	// Adjust width/height for window decoration
 	RECT decoRect = { 0, 0, 0, 0 };
-	AdjustWindowRect( &decoRect, WINDOW_STYLE|WS_SYSMENU, FALSE );
+	AdjustWindowRect( &decoRect, WINDOW_STYLE | WS_SYSMENU, FALSE );
 	int decoWidth = decoRect.right - decoRect.left;
 	int decoHeight = decoRect.bottom - decoRect.top;
 
@@ -81,8 +81,10 @@ void WIN_Sizing(WORD side, RECT *rect)
 	height -= decoHeight;
 
 	// Clamp to a minimum size
-	int minWidth = 160;
-	int minHeight = minWidth * SCREEN_HEIGHT / SCREEN_WIDTH;
+	int currentHeight = cvarSystem->GetCVarInteger("r_customHeight");
+	int currentWidth = cvarSystem->GetCVarInteger("r_customWidth");
+	int minWidth = 256;
+	int minHeight = minWidth * currentHeight / currentWidth;
 
 	if ( width < minWidth ) {
 		width = minWidth;
@@ -95,29 +97,29 @@ void WIN_Sizing(WORD side, RECT *rect)
 	switch ( side ) {
 	case WMSZ_LEFT:
 		rect->left = rect->right - width - decoWidth;
-		rect->bottom = rect->top + ( width * SCREEN_HEIGHT / SCREEN_WIDTH ) + decoHeight;
+		rect->bottom = rect->top + ( width * currentHeight / currentWidth ) + decoHeight;
 		break;
 	case WMSZ_RIGHT:
 		rect->right = rect->left + width + decoWidth;
-		rect->bottom = rect->top + ( width * SCREEN_HEIGHT / SCREEN_WIDTH ) + decoHeight;
+		rect->bottom = rect->top + ( width * currentHeight / currentWidth ) + decoHeight;
 		break;
 	case WMSZ_BOTTOM:
 	case WMSZ_BOTTOMRIGHT:
 		rect->bottom = rect->top + height + decoHeight;
-		rect->right = rect->left + ( height * SCREEN_WIDTH / SCREEN_HEIGHT ) + decoWidth;
+		rect->right = rect->left + ( height * currentWidth / currentHeight ) + decoWidth;
 		break;
 	case WMSZ_TOP:
 	case WMSZ_TOPRIGHT:
 		rect->top = rect->bottom - height - decoHeight;
-		rect->right = rect->left + ( height * SCREEN_WIDTH / SCREEN_HEIGHT ) + decoWidth;
+		rect->right = rect->left + ( height * currentWidth / currentHeight ) + decoWidth;
 		break;
 	case WMSZ_BOTTOMLEFT:
 		rect->bottom = rect->top + height + decoHeight;
-		rect->left = rect->right - ( height * SCREEN_WIDTH / SCREEN_HEIGHT ) - decoWidth;
+		rect->left = rect->right - ( height * currentWidth / currentHeight ) - decoWidth;
 		break;
 	case WMSZ_TOPLEFT:
 		rect->top = rect->bottom - height - decoHeight;
-		rect->left = rect->right - ( height * SCREEN_WIDTH / SCREEN_HEIGHT ) - decoWidth;
+		rect->left = rect->right - ( height * currentWidth / currentHeight ) - decoWidth;
 		break;
 	}
 }

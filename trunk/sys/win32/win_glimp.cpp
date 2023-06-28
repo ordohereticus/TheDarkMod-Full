@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5214 $ (Revision of last commit) 
+ $Date: 2012-01-15 19:55:04 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 /*
@@ -34,7 +34,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: win_glimp.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: win_glimp.cpp 5214 2012-01-16 00:55:04Z serpentine $");
 
 #include "win_local.h"
 #include "rc/AFEditor_resource.h"
@@ -557,7 +557,7 @@ static bool GLW_CreateWindow( glimpParms_t parms ) {
 	//
 	if ( parms.fullScreen ) {
 		exstyle = WS_EX_TOPMOST;
-		stylebits = WS_POPUP|WS_VISIBLE|WS_SYSMENU;
+		stylebits = WS_POPUP | WS_VISIBLE | WS_SYSMENU;
 
 		x = 0;
 		y = 0;
@@ -573,7 +573,7 @@ static bool GLW_CreateWindow( glimpParms_t parms ) {
 		r.right = parms.width;
 
 		exstyle = 0;
-		stylebits = WINDOW_STYLE|WS_SYSMENU;
+		stylebits = WINDOW_STYLE | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
 		AdjustWindowRect (&r, stylebits, FALSE);
 
 		w = r.right - r.left;
@@ -878,7 +878,7 @@ bool GLimp_SetScreenParms( glimpParms_t parms ) {
 
 	if ( parms.fullScreen ) {
 		exstyle = WS_EX_TOPMOST;
-		stylebits = WS_POPUP|WS_VISIBLE|WS_SYSMENU;
+		stylebits = WS_POPUP | WS_VISIBLE | WS_SYSMENU;
 		SetWindowLong( win32.hWnd, GWL_STYLE, stylebits );
 		SetWindowLong( win32.hWnd, GWL_EXSTYLE, exstyle );
 		dm.dmPelsWidth  = parms.width;
@@ -918,7 +918,7 @@ bool GLimp_SetScreenParms( glimpParms_t parms ) {
 		dm.dmPelsHeight = win32.desktopHeight;
 		dm.dmBitsPerPel = win32.desktopBitsPixel;
 		exstyle = 0;
-		stylebits = WINDOW_STYLE|WS_SYSMENU;
+		stylebits = WINDOW_STYLE | WS_SYSMENU;
 		AdjustWindowRect (&r, stylebits, FALSE);
 		SetWindowLong( win32.hWnd, GWL_STYLE, stylebits );
 		SetWindowLong( win32.hWnd, GWL_EXSTYLE, exstyle );
