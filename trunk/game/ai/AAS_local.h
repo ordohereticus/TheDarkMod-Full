@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5300 $ (Revision of last commit) 
+ $Date: 2012-02-25 13:17:25 -0500 (Sat, 25 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -201,6 +201,8 @@ private:	// routing data
 
 	// greebo: This is TDM's EAS "Elevator Awareness System" :)
 	eas::tdmEAS*				elevatorSystem;
+
+	idList<idVec4>				aasColors;				// grayman #3032 - colors of AAS areas for debugging - no need to save/restore
 
 private:	// routing
 	bool						SetupRouting( void );
