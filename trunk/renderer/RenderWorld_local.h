@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5310 $ (Revision of last commit) 
- $Date: 2012-03-02 13:27:07 -0500 (Fri, 02 Mar 2012) $ (Date of last commit)
+ $Revision: 5311 $ (Revision of last commit) 
+ $Date: 2012-03-02 13:32:27 -0500 (Fri, 02 Mar 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 #define __RENDERWORLDLOCAL_H__
 
 // assume any lightDef or entityDef index above this is an internal error
-const int LUDICROUS_INDEX	= 50000;
+#define LUDICROUS_INDEX	65537		// (2 ** 16) + 1;
 
 
 typedef struct portal_s {
