@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5418 $ (Revision of last commit) 
+ $Date: 2012-05-02 00:03:18 -0400 (Wed, 02 May 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_system.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: snd_system.cpp 5418 2012-05-02 04:03:18Z serpentine $");
 
 #include "snd_local.h"
 
@@ -156,9 +156,6 @@ void ListSounds_f( const idCmdArgs &args ) {
 	common->Printf( "%8d total sounds\n", totalSounds );
 	common->Printf( "%8d total samples loaded\n", totalSamples );
 	common->Printf( "%8d kB total system memory used\n", totalMemory >> 10 );
-#if ID_OPENAL
-	common->Printf( "%8d kB total OpenAL audio memory used\n", ( alGetInteger( alGetEnumValue( (ALubyte*)"AL_EAX_RAM_SIZE" ) ) - alGetInteger( alGetEnumValue( (ALubyte*)"AL_EAX_RAM_FREE" ) ) ) >> 10 );
-#endif
 }
 
 /*
