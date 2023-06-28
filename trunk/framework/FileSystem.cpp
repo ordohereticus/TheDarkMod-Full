@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5479 $ (Revision of last commit) 
- $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Revision: 5484 $ (Revision of last commit) 
+ $Date: 2012-07-01 11:37:30 -0400 (Sun, 01 Jul 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5479 2012-06-16 18:51:25Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5484 2012-07-01 15:37:30Z taaaki $");
 
 #include "Unzip.h"
 
@@ -2021,16 +2021,6 @@ void idFileSystemLocal::SetupGameDirectories( const char *gameName ) {
 	// setup basepath
 	if ( fs_basepath.GetString()[0] ) {
 		AddGameDirectory( fs_basepath.GetString(), gameName );
-	}
-
-	// setup devpath
-	if ( fs_devpath.GetString()[0] ) {
-		AddGameDirectory( fs_devpath.GetString(), gameName );
-	}
-
-	// setup savepath
-	if ( fs_savepath.GetString()[0] ) {
-		AddGameDirectory( fs_savepath.GetString(), gameName );
 	}
 }
 
