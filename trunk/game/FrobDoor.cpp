@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5455 $ (Revision of last commit) 
- $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5457 $ (Revision of last commit) 
+ $Date: 2012-05-22 18:59:37 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5455 2012-05-21 22:01:45Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5457 2012-05-22 22:59:37Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -681,7 +681,7 @@ void CFrobDoor::ClosePeers()
 	OpenClosePeers(false);
 }
 
-void CFrobDoor::OpenClosePeers(bool open)
+void CFrobDoor::OpenClosePeers(const bool open)
 {
 	// Cycle through our "open peers" list and issue the call to them
 	for (int i = 0; i < m_OpenPeers.Num(); i++)
@@ -733,7 +733,7 @@ void CFrobDoor::UnlockPeers()
 	LockUnlockPeers(false);
 }
 
-void CFrobDoor::LockUnlockPeers(bool lock)
+void CFrobDoor::LockUnlockPeers(const bool lock)
 {
 	// Go through the list and issue the call
 	for (int i = 0; i < m_LockPeers.Num(); i++)
@@ -968,7 +968,7 @@ bool CFrobDoor::AllLockPeersAtClosedPosition()
 	return true;
 }
 
-CFrobDoorHandle* CFrobDoor::GetNearestHandle(const idVec3& pos)
+CFrobDoorHandle* CFrobDoor::GetNearestHandle(const idVec3& pos) const
 {
 	// Skip calculation if only one doorhandle present in the first place
 	if (m_Doorhandles.Num() == 1) 
@@ -998,7 +998,7 @@ CFrobDoorHandle* CFrobDoor::GetNearestHandle(const idVec3& pos)
 	return returnValue;
 }
 
-bool CFrobDoor::GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis)
+bool CFrobDoor::GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis) const
 {
 	// This will kick in for doors without any handles, these are playing their
 	// sounds from the nearest point to the player's eyes, mid-bounding-box.
@@ -1096,7 +1096,7 @@ void CFrobDoor::SetLastUsedBy(idEntity* ent)
 	m_lastUsedBy = ent;
 }
 
-idEntity* CFrobDoor::GetLastUsedBy()
+idEntity* CFrobDoor::GetLastUsedBy() const
 {
 	return m_lastUsedBy.GetEntity();
 }
@@ -1108,7 +1108,7 @@ void CFrobDoor::SetSearching(idEntity* ent)
 	m_searching = ent;
 }
 
-idEntity* CFrobDoor::GetSearching()
+idEntity* CFrobDoor::GetSearching() const
 {
 	return m_searching.GetEntity();
 }
@@ -1120,7 +1120,7 @@ void CFrobDoor::SetWasFoundLocked(bool state)
 	m_wasFoundLocked = state;
 }
 
-bool CFrobDoor::GetWasFoundLocked()
+bool CFrobDoor::GetWasFoundLocked() const
 {
 	return m_wasFoundLocked;
 }
