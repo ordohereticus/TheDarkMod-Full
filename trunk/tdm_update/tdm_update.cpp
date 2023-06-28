@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5410 $ (Revision of last commit) 
+ $Date: 2012-05-01 09:11:35 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 	RegisterLogWriters();
 
 	TraceLog::WriteLine(LOG_STANDARD, 
-		(boost::format("TDM Updater v%s (c) 2009-2011 by tels & greebo. Part of The Dark Mod (http://www.thedarkmod.com).") % LIBTDM_UPDATE_VERSION).str());
+		(boost::format("TDM Updater v%s (c) 2009-2012 by tels & greebo. Part of The Dark Mod (http://www.thedarkmod.com).") % LIBTDM_UPDATE_VERSION).str());
 	TraceLog::WriteLine(LOG_STANDARD, "");
 
 	ConsoleUpdater updater(argc, argv);
