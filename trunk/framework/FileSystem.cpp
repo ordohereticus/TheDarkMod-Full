@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5213 $ (Revision of last commit) 
+ $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5213 2012-01-15 17:53:26Z serpentine $");
 
 #include "Unzip.h"
 
@@ -3035,7 +3035,7 @@ bool idFileSystemLocal::FileAllowedFromDir( const char *path ) {
 		 || !strcmp( path + l - 4, ".dds" )
 #endif
 		 ) {
-		// note: cd and xp keys, as well as config.spec are opened through an explicit OS path and don't hit this
+		// note: config.spec are opened through an explicit OS path and don't hit this
 		return true;
 	}
 	// savegames
@@ -3199,16 +3199,7 @@ idFile *idFileSystemLocal::OpenFileReadFlags( const char *relativePath, int sear
 		return NULL;
 	}
 
-	// make sure the doomkey file is only readable by game at initialization
-	// any other time the key should only be accessed in memory using the provided functions
-	if( common->IsInitialized() && ( idStr::Icmp( relativePath, CDKEY_FILE ) == 0 || idStr::Icmp( relativePath, XPKEY_FILE ) == 0 ) ) {
-		return NULL;
-	}
-
-	//
 	// search through the path, one element at a time
-	//
-
 	hash = HashFileName( relativePath );
 
 	for ( search = searchPaths; search; search = search->next ) {

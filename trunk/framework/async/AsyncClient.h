@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5213 $ (Revision of last commit) 
+ $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -101,7 +101,7 @@ public:
 	void				SendVersionCheck( bool fromMenu = false );
 	// pass NULL for the keys you don't care to auth for
 	// returns false if internet link doesn't appear to be available
-	bool				SendAuthCheck( const char *cdkey, const char *xpkey );
+	//bool				SendAuthCheck( const char *cdkey, const char *xpkey );
 
 	void				PacifierUpdate( void );
 
@@ -186,7 +186,7 @@ private:
 	void				ProcessInfoResponseMessage( const netadr_t from, const idBitMsg &msg );
 	void				ProcessPrintMessage( const netadr_t from, const idBitMsg &msg );
 	void				ProcessServersListMessage( const netadr_t from, const idBitMsg &msg );
-	void				ProcessAuthKeyMessage( const netadr_t from, const idBitMsg &msg );
+	//void				ProcessAuthKeyMessage( const netadr_t from, const idBitMsg &msg );
 	void				ProcessVersionMessage( const netadr_t from, const idBitMsg &msg );
 	void				ConnectionlessMessage( const netadr_t from, const idBitMsg &msg );
 	void				ProcessMessage( const netadr_t from, idBitMsg &msg );

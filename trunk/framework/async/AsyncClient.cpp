@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5213 $ (Revision of last commit) 
+ $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncClient.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncClient.cpp 5213 2012-01-15 17:53:26Z serpentine $");
 
 #include "AsyncNetwork.h"
 
@@ -1259,7 +1259,7 @@ void idAsyncClient::ProcessServersListMessage( const netadr_t from, const idBitM
 idAsyncClient::ProcessAuthKeyMessage
 ==================
 */
-void idAsyncClient::ProcessAuthKeyMessage( const netadr_t from, const idBitMsg &msg ) {
+/*void idAsyncClient::ProcessAuthKeyMessage( const netadr_t from, const idBitMsg &msg ) {
 	authKeyMsg_t		authMsg;
 	char				read_string[ MAX_STRING_CHARS ];
 	const char			*retkey;
@@ -1339,7 +1339,7 @@ void idAsyncClient::ProcessAuthKeyMessage( const netadr_t from, const idBitMsg &
 		common->Printf( "guid set to %s\n", read_string );
 		session->CDKeysAuthReply( true, NULL );
 	}
-}
+}*/
 
 /*
 ==================
@@ -1533,11 +1533,13 @@ void idAsyncClient::ConnectionlessMessage( const netadr_t from, const idBitMsg &
 			ProcessServersListMessage( from, msg );
 			return;
 		}
-	
+		
+		/*
 		if ( idStr::Icmp( string, "authKey" ) == 0 ) {
 			ProcessAuthKeyMessage( from, msg );
 			return;
 		}
+		*/
 
 		if ( idStr::Icmp( string, "newVersion" ) == 0 ) {
 			ProcessVersionMessage( from, msg );
@@ -1681,7 +1683,7 @@ void idAsyncClient::SetupConnection( void ) {
 		
 		if ( idAsyncNetwork::LANServer.GetBool() ) {
 			common->Printf( "net_LANServer is set, connecting in LAN mode\n" );
-		} else {
+		}/* else {
 			// emit a cd key authorization request
 			// modified at protocol 1.37 for XP key addition
 			msg.BeginWriting();
@@ -1699,7 +1701,7 @@ void idAsyncClient::SetupConnection( void ) {
 				msg.WriteString( xpkey );
 			}
 			clientPort.SendPacket( idAsyncNetwork::GetMasterAddress(), msg.GetData(), msg.GetSize() );
-		}
+		}*/
 	} else {
 		return;
 	}
@@ -2146,7 +2148,7 @@ void idAsyncClient::HandleDownloads( void ) {
 idAsyncClient::SendAuthCheck
 ===============
 */
-bool idAsyncClient::SendAuthCheck( const char *cdkey, const char *xpkey ) {
+/*bool idAsyncClient::SendAuthCheck( const char *cdkey, const char *xpkey ) {
 	idBitMsg	msg;
 	byte		msgBuf[MAX_MESSAGE_SIZE];
 
@@ -2161,7 +2163,7 @@ bool idAsyncClient::SendAuthCheck( const char *cdkey, const char *xpkey ) {
 	InitPort();
 	clientPort.SendPacket( idAsyncNetwork::GetMasterAddress(), msg.GetData(), msg.GetSize() );
 	return true;
-}
+}/*
 
 /*
 ===============

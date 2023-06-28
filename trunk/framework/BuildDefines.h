@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5213 $ (Revision of last commit) 
+ $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -98,14 +98,6 @@
 	#else
 		#define ID_BT_STUB
 	#endif
-#endif
-
-#ifndef ID_ENFORCE_KEY
-#	if !defined( ID_DEDICATED ) && !defined( ID_DEMO_BUILD )
-#		define ID_ENFORCE_KEY 1
-#	else
-#		define ID_ENFORCE_KEY 0
-#	endif
 #endif
 
 #ifndef ID_OPENAL

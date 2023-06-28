@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5213 $ (Revision of last commit) 
+ $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -105,16 +105,6 @@ public:
 
 	virtual void		TimeHitch( int msec );
 
-	virtual void		ReadCDKey( void );
-	virtual void		WriteCDKey( void );
-	virtual const char *GetCDKey( bool xp );
-	virtual bool		CheckKey( const char *key, bool netConnect, bool offline_valid[ 2 ] );
-	virtual bool		CDKeysAreValid( bool strict );
-	virtual void		ClearCDKey( bool valid[ 2 ] );
-	virtual void		SetCDKeyGuiVars( void );
-	virtual bool		WaitingForGameAuth( void );
-	virtual void		CDKeysAuthReply( bool valid, const char *auth_msg );
-
 	virtual int			GetSaveGameVersion( void );
 
 	virtual const char *GetCurrentMapName();
@@ -145,8 +135,6 @@ public:
 
 	bool				LoadGame(const char *saveName);
 	bool				SaveGame(const char *saveName, bool autosave = false);
-
-	const char			*GetAuthMsg( void );
 
 	//=====================================
 
@@ -293,9 +281,6 @@ public:
 	void				ExecuteMapChange( bool noFadeWipe = false );
 	void				UnloadMap();
 
-	// return true if we actually waiting on an auth reply
-	bool				MaybeWaitOnCDKey( void );
-
 	//------------------
 	// Session_menu.cpp
 
@@ -326,26 +311,6 @@ public:
 	
 private:
 	bool				BoxDialogSanityCheck( void );
-	void				EmitGameAuth( void );
-	
-	typedef enum {
-		CDKEY_UNKNOWN,	// need to perform checks on the key
-		CDKEY_INVALID,	// that key is wrong
-		CDKEY_OK,		// valid
-		CDKEY_CHECKING, // sent a check request ( gameAuth only )
-		CDKEY_NA		// does not apply, xp key when xp is not present
-	} cdKeyState_t;
-
-	static const int	CDKEY_BUF_LEN = 17;
-	static const int	CDKEY_AUTH_TIMEOUT = 5000;
-
-	char				cdkey[ CDKEY_BUF_LEN ];
-	cdKeyState_t		cdkey_state;
-	char				xpkey[ CDKEY_BUF_LEN ];
-	cdKeyState_t		xpkey_state;
-	int					authEmitTimeout;
-	bool				authWaitBox;
-
 	idStr				authMsg;
 };
 

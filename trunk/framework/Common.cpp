@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5205 $ (Revision of last commit) 
- $Date: 2012-01-10 02:21:39 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5213 $ (Revision of last commit) 
+ $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5205 2012-01-10 07:21:39Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5213 2012-01-15 17:53:26Z serpentine $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -1213,7 +1213,6 @@ void idCommonLocal::WriteConfiguration( void ) {
 	com_developer.SetBool( false );
 
 	WriteConfigToFile( CONFIG_FILE );
-	session->WriteCDKey( );
 
 	// restore the developer cvar
 	com_developer.SetBool( developer );
@@ -2972,12 +2971,8 @@ void idCommonLocal::Init( int argc, const char **argv, const char *cmdline )
 		// game specific initialization
 		InitGame();
 
-		// don't add startup commands if no CD key is present
-#if ID_ENFORCE_KEY
-		if ( !session->CDKeysAreValid( false ) || !AddStartupCommands() ) {
-#else
+		// add startup commands eg: game.exe +r_fullscreen 0
 		if ( !AddStartupCommands() ) {
-#endif
 			// if the user didn't give any commands, run default action
 			session->StartMenu( true );
 		}

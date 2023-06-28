@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5143 $ (Revision of last commit) 
- $Date: 2012-01-01 13:11:56 -0500 (Sun, 01 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5213 $ (Revision of last commit) 
+ $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -98,13 +98,5 @@
 #else
 	#define LINUX_DEFAULT_PATH			"/usr/local/games/doom3"
 #endif
-
-// CD Key file info
-// goes into BASE_GAMEDIR whatever the fs_game is set to
-// two distinct files for easier win32 installer job
-#define CDKEY_FILE						"doomkey"
-#define XPKEY_FILE						"xpkey"
-#define CDKEY_TEXT						"\n// Do not give this file to ANYONE.\n" \
-										"// id Software or Zenimax will NEVER ask you to send this file to them.\n"
 
 #define CONFIG_SPEC						"config.spec"
