@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5243 $ (Revision of last commit) 
- $Date: 2012-02-03 09:28:06 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Revision: 5249 $ (Revision of last commit) 
+ $Date: 2012-02-06 16:10:12 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5243 2012-02-03 14:28:06Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5249 2012-02-06 21:10:12Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -97,9 +97,6 @@ idCVar com_updateLoadSize( "com_updateLoadSize", "0", CVAR_BOOL | CVAR_SYSTEM | 
 idCVar com_videoRam( "com_videoRam", "64", CVAR_INTEGER | CVAR_SYSTEM | CVAR_NOCHEAT | CVAR_ARCHIVE, "holds the last amount of detected video ram" );
 
 idCVar com_product_lang_ext( "com_product_lang_ext", "1", CVAR_INTEGER | CVAR_SYSTEM | CVAR_ARCHIVE, "Extension to use when creating language files." );
-
-// Tels: can be removed when D3 is open source and we can access sys_lang properly
-idCVar cv_tdm_lang("tdm_lang",	"english",	CVAR_GUI | CVAR_ARCHIVE, "The current used language. Possible values are 'english', 'german', 'russian' etc." );
 
 
 // com_speeds times
@@ -216,8 +213,6 @@ private:
 	idStrList					errorList;
 
 	int							gameDLL;
-
-	idLangDict					languageDict; // legacy
 
 #ifdef ID_WRITE_VERSION
 	idCompressor *				config_compressor;
@@ -1711,12 +1706,8 @@ idCommonLocal::GetLanguageDict
 */
 const idLangDict *idCommonLocal::GetLanguageDict( void )
 {
-#if 0
-	return &languageDict;
-#endif
-
 	// Redirect the call to I18N
-	return GetI18N()->GetLanguageDict();
+	return i18n->GetLanguageDict();
 }
 
 I18N* idCommonLocal::GetI18N()
@@ -1749,39 +1740,8 @@ idCommonLocal::InitLanguageDict
 ===============
 */
 void idCommonLocal::InitLanguageDict( void ) {
-	idStr fileName;
-	languageDict.Clear();
-
-	//D3XP: Instead of just loading a single lang file for each language
-	//we are going to load all files that begin with the language name
-	//similar to the way pak files work. So you can place english001.lang
-	//to add new strings to the english language dictionary
-	idFileList*	langFiles;
-	langFiles =  fileSystem->ListFilesTree( "strings", ".lang", true );
-	
-	idStrList langList = langFiles->GetList();
 
 	StartupVariable( "sys_lang", false );	// let it be set on the command line - this is needed because this init happens very early
-	idStr langName = cvarSystem->GetCVarString( "sys_lang" );
-
-	//Loop through the list and filter
-	idStrList currentLangList = langList;
-	FilterLangList(&currentLangList, langName);
-	
-	if ( currentLangList.Num() == 0 ) {
-		// reset cvar to default and try to load again
-		cmdSystem->BufferCommandText( CMD_EXEC_NOW, "reset sys_lang" );
-		langName = cvarSystem->GetCVarString( "sys_lang" );
-		currentLangList = langList;
-		FilterLangList(&currentLangList, langName);
-	}
-
-	for( int i = 0; i < currentLangList.Num(); i++ ) {
-		//common->Printf("%s\n", currentLangList[i].c_str());
-		languageDict.Load( currentLangList[i], false );
-	}
-
-	fileSystem->FreeFileList(langFiles);
 
 	Sys_InitScanTable();
 }
@@ -3036,9 +2996,6 @@ void idCommonLocal::Shutdown( void ) {
 	ClearWarnings( GAME_NAME " shutdown" );
 	warningCaption.Clear();
 	errorList.Clear();
-
-	// free language dictionary
-	languageDict.Clear();
 
 	// enable leak test
 	Mem_EnableLeakTest( "doom" );

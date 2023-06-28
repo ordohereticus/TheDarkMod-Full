@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5249 $ (Revision of last commit) 
+ $Date: 2012-02-06 16:10:12 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5249 2012-02-06 21:10:12Z tels $");
 
 #include "DeviceContext.h"
 
@@ -70,7 +70,7 @@ void idDeviceContext::SetupFonts() {
 	fontLang = cvarSystem->GetCVarString( "sys_lang" );
 	
 	// western european languages can use the english font
-	if ( fontLang == "french" || fontLang == "german" || fontLang == "spanish" || fontLang == "italian" ) {
+	if ( fontLang == "french" || fontLang == "german" || fontLang == "spanish" || fontLang == "italian" || fontLang == "polish") {
 		fontLang = "english";
 	}
 

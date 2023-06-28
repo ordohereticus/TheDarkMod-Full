@@ -11,24 +11,19 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5249 $ (Revision of last commit) 
+ $Date: 2012-02-06 16:10:12 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: sys_local.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: sys_local.cpp 5249 2012-02-06 21:10:12Z tels $");
 #include "sys_local.h"
 
-const char * sysLanguageNames[] = {
-	"english", "spanish", "italian", "german", "french", "russian", 
-	"polish", "korean", "japanese", "chinese", NULL
-};
-
-idCVar sys_lang( "sys_lang", "english", CVAR_SYSTEM | CVAR_ARCHIVE,  "", sysLanguageNames, idCmdSystem::ArgCompletion_String<sysLanguageNames> );
+idCVar sys_lang( "sys_lang", "english", CVAR_SYSTEM | CVAR_ARCHIVE,  "The current used language. Possible values are 'english', 'german', 'russian' etc." );
 
 idSysLocal			sysLocal;
 idSys *				sys = &sysLocal;
