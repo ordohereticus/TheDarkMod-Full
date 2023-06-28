@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5376 $ (Revision of last commit) 
- $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5377 $ (Revision of last commit) 
+ $Date: 2012-04-10 02:34:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -723,7 +723,7 @@ public:
 	void					SetHideUntilTime(const int time);	// grayman #597
 	int						GetHideUntilTime(void) const;		// grayman #597
 	
-	idEntity*				GetAttachmentByPosition(const idStr AttPos) const; // grayman #2603
+	idEntity*				GetAttachmentByPosition(const idStr AttPos); // grayman #2603
 
 	enum {
 		EVENT_STARTSOUNDSHADER,

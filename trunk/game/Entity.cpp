@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5376 $ (Revision of last commit) 
- $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5377 $ (Revision of last commit) 
+ $Date: 2012-04-10 02:34:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5376 2012-04-10 06:01:50Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5377 2012-04-10 06:34:04Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -10427,7 +10427,7 @@ CAttachInfo *idEntity::GetAttachInfo( const char *AttName )
 
 // Tels: Get the entity attached at the position given by the attachment position
 // grayman #2603 - resurrected and spruced up for relight work
-idEntity* idEntity::GetAttachmentByPosition( const idStr PosName ) const
+idEntity* idEntity::GetAttachmentByPosition( const idStr PosName )
 {
 	const int num = m_Attachments.Num();
 
@@ -10459,7 +10459,7 @@ idEntity *idEntity::GetAttachmentFromTeam( const char *AttName )
 	}
 
 	/* tels: not found, look at entities bound to this entity */
-	const idEntity* NextEnt = this;
+	idEntity* NextEnt = this;
 
 	if ( bindMaster )
 		{
@@ -11357,16 +11357,15 @@ idUserInterface* idEntity::GetOverlay(int handle)
 **/
 bool idEntity::IsMantleable() const
 {
-	idEntity* ent = this;
-
-	while (ent!=NULL)
+	// the entity itself
+	if (!m_bIsMantleable)
 	{
-		if (!ent->m_bIsMantleable)
-		{
-			return false;
-		}
-		// else continue with the bind master
-		ent = ent->GetBindMaster();
+		return false;
+	}
+	// else continue with the bind master (there is only one bind master per team)
+	if (bindMaster && (! bindMaster->m_bIsMantleable))
+	{
+		return false;
 	}
 	return true;
 }
