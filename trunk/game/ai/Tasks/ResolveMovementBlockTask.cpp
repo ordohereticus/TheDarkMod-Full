@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5437 $ (Revision of last commit) 
+ $Date: 2012-05-06 21:01:40 -0400 (Sun, 06 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ResolveMovementBlockTask.cpp 5367 2012-04-04 02:09:55Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ResolveMovementBlockTask.cpp 5437 2012-05-07 01:01:40Z grayman $");
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -466,7 +466,18 @@ bool ResolveMovementBlockTask::PerformBlockingStatic(idAI* owner) // grayman #23
 
 	if (owner->movementSubsystem->GetPrevTraveled() < 0.1)
 	{
-		owner->movementSubsystem->AttemptToExtricate();
+		// grayman #3119 - if searching, and you're going nowhere,
+		// restart the search, in the hope that you'll be sent
+		// somewhere new
+
+		if ( owner->IsSearching() )
+		{
+			owner->GetMemory().restartSearchForHidingSpots = true;
+		}
+		else
+		{
+			owner->movementSubsystem->AttemptToExtricate();
+		}
 		owner->movementSubsystem->SetBlockedState(ai::MovementSubsystem::EResolvingBlock); // grayman #2706 - stay in EResolvingBlock
 	}
 
