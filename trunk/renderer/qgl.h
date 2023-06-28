@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5237 $ (Revision of last commit) 
- $Date: 2012-01-28 22:51:35 -0500 (Sat, 28 Jan 2012) $ (Date of last commit)
+ $Revision: 5294 $ (Revision of last commit) 
+ $Date: 2012-02-23 23:43:50 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -103,9 +103,6 @@ extern	void ( APIENTRY *qglFinalCombinerInputNV )( GLenum variable, GLenum input
 
 // 3D textures
 extern void ( APIENTRY *qglTexImage3D)(GLenum, GLint, GLint, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid *);
-
-// shared texture palette
-extern	void ( APIENTRY *qglColorTableEXT)( int, int, int, int, int, const void * );
 
 // ATI_fragment_shader
 extern	PFNGLGENFRAGMENTSHADERSATIPROC	qglGenFragmentShadersATI;

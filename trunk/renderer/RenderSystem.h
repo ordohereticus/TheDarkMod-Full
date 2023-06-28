@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5237 $ (Revision of last commit) 
- $Date: 2012-01-28 22:51:35 -0500 (Sat, 28 Jan 2012) $ (Date of last commit)
+ $Revision: 5294 $ (Revision of last commit) 
+ $Date: 2012-02-23 23:43:50 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -60,7 +60,6 @@ typedef struct glconfig_s {
 	bool				cubeMapAvailable;
 	bool				envDot3Available;
 	bool				texture3DAvailable;
-	bool				sharedTexturePaletteAvailable;
 	bool				ARBVertexBufferObjectAvailable;
 	bool				ARBVertexProgramAvailable;
 	bool				ARBFragmentProgramAvailable;

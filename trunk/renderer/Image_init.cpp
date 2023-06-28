@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5226 $ (Revision of last commit) 
- $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5294 $ (Revision of last commit) 
+ $Date: 2012-02-23 23:43:50 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_init.cpp 5226 2012-01-21 13:43:47Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Image_init.cpp 5294 2012-02-24 04:43:50Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1376,19 +1376,6 @@ void idImageManager::SetNormalPalette( void ) {
 	temptable[255*3+0] =
 	temptable[255*3+1] =
 	temptable[255*3+2] = 128;
-
-	if ( !glConfig.sharedTexturePaletteAvailable ) {
-		return;
-	}
-
-	qglColorTableEXT( GL_SHARED_TEXTURE_PALETTE_EXT,
-					   GL_RGB,
-					   256,
-					   GL_RGB,
-					   GL_UNSIGNED_BYTE,
-					   temptable );
-
-	qglEnable( GL_SHARED_TEXTURE_PALETTE_EXT );
 }
 
 /*
