@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5300 $ (Revision of last commit) 
- $Date: 2012-02-25 13:17:25 -0500 (Sat, 25 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5346 $ (Revision of last commit) 
+ $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5300 2012-02-25 18:17:25Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5346 2012-03-18 16:13:46Z tels $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -363,7 +363,6 @@ idPlayer::idPlayer() :
 	showWeaponViewModel		= true;
 
 	skin					= NULL;
-	powerUpSkin				= NULL;
 	baseSkinName			= "";
 
 	numProjectilesFired		= 0;
@@ -1680,7 +1679,6 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( showWeaponViewModel );
 
 	savefile->WriteSkin( skin );
-	savefile->WriteSkin( powerUpSkin );
 	savefile->WriteString( baseSkinName );
 
 	savefile->WriteInt( numProjectilesFired );
@@ -1999,7 +1997,6 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadBool( showWeaponViewModel );
 
 	savefile->ReadSkin( skin );
-	savefile->ReadSkin( powerUpSkin );
 	savefile->ReadString( baseSkinName );
 
 	savefile->ReadInt( numProjectilesFired );
@@ -3150,95 +3147,13 @@ float idPlayer::PowerUpModifier( int type ) {
 }
 
 /*
-===============
-idPlayer::GivePowerUp
-===============
-*/
-bool idPlayer::GivePowerUp( int powerup, int time ) {
-	const char *sound;
-	const char *skin;
-
-	if ( powerup >= 0 && powerup < MAX_POWERUPS ) {
-
-		if ( gameLocal.isServer ) {
-			idBitMsg	msg;
-			byte		msgBuf[MAX_EVENT_PARAM_SIZE];
-
-			msg.Init( msgBuf, sizeof( msgBuf ) );
-			msg.WriteShort( powerup );
-			msg.WriteBits( 1, 1 );
-			ServerSendEvent( EVENT_POWERUP, &msg, false, -1 );
-		}
-
-		const idDeclEntityDef *def = NULL;
-
-		switch( powerup ) {
-			case BERSERK: {
-				if ( spawnArgs.GetString( "snd_berserk_third", "", &sound ) ) {
-					StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_DEMONIC, 0, false, NULL );
-				}
-				if ( baseSkinName.Length() ) {
-					powerUpSkin = declManager->FindSkin( baseSkinName + "_berserk" );
-				}
-				if ( !gameLocal.isClient ) {
-					idealWeapon = 0;
-				}
-				break;
-			}
-			case INVISIBILITY: {
-				spawnArgs.GetString( "skin_invisibility", "", &skin );
-				powerUpSkin = declManager->FindSkin( skin );
-				// remove any decals from the model
-				if ( modelDefHandle != -1 ) {
-					gameRenderWorld->RemoveDecals( modelDefHandle );
-				}
-				if ( weapon.GetEntity() ) {
-					weapon.GetEntity()->UpdateSkin();
-				}
-				if ( spawnArgs.GetString( "snd_invisibility", "", &sound ) ) {
-					StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_ANY, 0, false, NULL );
-				}
-				break;
-			}
-			case ADRENALINE: {
-				stamina = 100.0f;
-				break;
-			 }
-			case MEGAHEALTH: {
-				if ( spawnArgs.GetString( "snd_megahealth", "", &sound ) ) {
-					StartSoundShader( declManager->FindSound( sound ), SND_CHANNEL_ANY, 0, false, NULL );
-				}
-				def = gameLocal.FindEntityDef( "powerup_megahealth", false );
-				if ( def ) {
-					health = def->dict.GetInt( "inv_health" );
-				}
-				break;
-			 }
-		}
-
-		if ( hud ) {
-			hud->HandleNamedEvent( "itemPickup" );
-		}
-
-		return true;
-	} else {
-		gameLocal.Warning( "Player given power up %i\n which is out of range", powerup );
-	}
-	return false;
-}
-
-/*
 ==============
 idPlayer::UpdatePowerUps
 ==============
 */
 void idPlayer::UpdatePowerUps( void ) {
 	if ( health > 0 ) {
-		if ( powerUpSkin ) {
-			renderEntity.customSkin = powerUpSkin;
-		} else {
-			renderEntity.customSkin = skin;
-		}
+		renderEntity.customSkin = skin;
 	}
 
 	if ( healthPool && gameLocal.time > nextHealthPulse && !AI_DEAD && health > 0 ) {
@@ -7389,7 +7304,6 @@ callback function for when another entity recieved damage from this entity.  dam
 */
 void idPlayer::DamageFeedback( idEntity *victim, idEntity *inflictor, int &damage ) {
 	assert( !gameLocal.isClient );
-	damage = static_cast<int>(damage * PowerUpModifier( BERSERK ));
 	if ( damage && ( victim != this ) && victim->IsType( idActor::Type ) ) {
 		SetLastHitTime( gameLocal.time );
 	}
@@ -9077,10 +8991,6 @@ bool idPlayer::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
 		case EVENT_ABORT_TELEPORTER:
 			SetPrivateCameraView( NULL );
 			return true;
-		case EVENT_POWERUP: {
-			// greebo: No EVENT_POWERUP handling at the moment
-			return true;
-		}
 		case EVENT_SPECTATE: {
 			bool spectate = ( msg.ReadBits( 1 ) != 0 );
 			Spectate( spectate );

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5346 $ (Revision of last commit) 
+ $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MultiplayerGame.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: MultiplayerGame.cpp 5346 2012-03-18 16:13:46Z tels $");
 
 #include "Game_local.h"
 
@@ -3345,7 +3345,6 @@ void idMultiplayerGame::ServerWriteInitialReliableMessages( int clientNum ) {
 		ent = gameLocal.entities[ i ]; 
 		if ( i != clientNum && ent && ent->IsType( idPlayer::Type ) ) {
 			outMsg.WriteShort( i );
-//			outMsg.WriteShort( static_cast< idPlayer * >( ent )->inventory.powerups );
 			outMsg.WriteBits( static_cast< idPlayer * >( ent )->spectating, 1 );
 		}
 	}
@@ -3373,7 +3372,7 @@ idMultiplayerGame::ClientReadStartState
 ================
 */
 void idMultiplayerGame::ClientReadStartState( const idBitMsg &msg ) {
-	int i, client, powerup;
+	int i, client;
 
 	// read the state in preparation for reading snapshot updates
 	gameState = (idMultiplayerGame::gameState_t)msg.ReadByte();
@@ -3381,12 +3380,6 @@ void idMultiplayerGame::ClientReadStartState( const idBitMsg &msg ) {
 	startFragLimit = msg.ReadShort( );
 	while ( ( client = msg.ReadShort() ) != MAX_CLIENTS ) {
 		assert( gameLocal.entities[ client ] && gameLocal.entities[ client ]->IsType( idPlayer::Type ) );
-		powerup = msg.ReadShort();
-		for ( i = 0; i < MAX_POWERUPS; i++ ) {
-			if ( powerup & ( 1 << i ) ) {
-				static_cast< idPlayer * >( gameLocal.entities[ client ] )->GivePowerUp( i, 0 );
-			}
-		}
 		bool spectate = ( msg.ReadBits( 1 ) != 0 );
 		static_cast< idPlayer * >( gameLocal.entities[ client ] )->Spectate( spectate );
 	}

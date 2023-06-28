@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5286 $ (Revision of last commit) 
- $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Revision: 5346 $ (Revision of last commit) 
+ $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5286 2012-02-16 17:11:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5346 2012-03-18 16:13:46Z tels $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -700,16 +700,6 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 		if ( !give_all ) {
 			return;
 		}
-	}
-
-	if ( idStr::Icmp( name, "berserk" ) == 0 ) {
-		player->GivePowerUp( BERSERK, SEC2MS( 30.0f ) );
-		return;
-	}
-
-	if ( idStr::Icmp( name, "invis" ) == 0 ) {
-		player->GivePowerUp( INVISIBILITY, SEC2MS( 30.0f ) );
-		return;
 	}
 
 	if ( !give_all && !player->Give( args.Argv(1), args.Argv(2) ) ) {

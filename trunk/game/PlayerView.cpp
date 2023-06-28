@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5200 $ (Revision of last commit) 
- $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5346 $ (Revision of last commit) 
+ $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5200 2012-01-09 07:19:56Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5346 2012-03-18 16:13:46Z tels $");
 
 #include "Game_local.h"
 
@@ -621,12 +621,7 @@ void idPlayerView::DoubleVision( idUserInterface *hud, const renderView_t *view,
 	renderSystem->CaptureRenderToImage( "_scratch" );
 	renderSystem->UnCrop();
 
-	// carry red tint if in berserk mode
 	idVec4 color(1, 1, 1, 1);
-	/*if ( gameLocal.time < player->inventory.powerupEndTime[ BERSERK ] ) {
-	color.y = 0;
-	color.z = 0;
-	}*/
 
 	renderSystem->SetColor4( color.x, color.y, color.z, 1.0f );
 	renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, shift, 1-shift, 1, 0, dvMaterial );
