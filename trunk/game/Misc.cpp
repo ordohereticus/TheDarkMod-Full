@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5253 $ (Revision of last commit) 
- $Date: 2012-02-06 23:45:44 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Revision: 5258 $ (Revision of last commit) 
+ $Date: 2012-02-08 10:02:20 -0500 (Wed, 08 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@ Various utility objects and functions.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5253 2012-02-07 04:45:44Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5258 2012-02-08 15:02:20Z grayman $");
 
 #include "Game_local.h"
 #include "SndProp.h"
@@ -927,7 +927,7 @@ void idForceField::Spawn( void ) {
 	forceField.SetPlayerOnly( spawnArgs.GetBool( "playerOnly", "0" ) );
 	forceField.SetMonsterOnly( spawnArgs.GetBool( "monsterOnly", "0" ) );
 
-	// grayman #2975 - for version == 1, use the player mass in a calculation
+	// grayman #2975 - for scaleImpulse == 1, use the player mass in a calculation
 	// that reduces force on small objects. Provides more realistic behavior
 	// when the same force field is used on small objects and the player.
 
@@ -939,7 +939,7 @@ void idForceField::Spawn( void ) {
 	}
 
 	forceField.SetPlayerMass( mass );
-	forceField.SetVersion( spawnArgs.GetInt("version","0") ); // identify when to apply reduced force
+	forceField.SetScale( spawnArgs.GetBool("scale_impulse","0") ); // identify when to apply scaled force
 
 	// set the collision model on the force field
 	forceField.SetClipModel( new idClipModel( GetPhysics()->GetClipModel() ) );
