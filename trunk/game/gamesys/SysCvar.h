@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5412 $ (Revision of last commit) 
- $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5460 $ (Revision of last commit) 
+ $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -318,11 +318,6 @@ extern idCVar cv_lg_fade_delay;						// Added by  J.C.Denton
 
 extern idCVar cv_empty_model;
 
-extern idCVar cv_tdm_s_doorDistanceAdd;
-extern idCVar cv_tdm_gui_smallFontLimit;
-extern idCVar cv_tdm_gui_mediumFontLimit;
-extern idCVar cv_tdm_s_maxSoundsPerShader;
-
 // Lockpicking
 extern idCVar cv_lp_pin_base_count;
 extern idCVar cv_lp_sample_delay;
@@ -607,7 +602,6 @@ extern idCVar	si_spectators;
 extern idCVar	net_clientSelfSmoothing;
 
 extern idCVar	net_clientLagOMeter;
-
 
 extern const char *si_gameTypeArgs[];
 

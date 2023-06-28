@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5456 $ (Revision of last commit) 
- $Date: 2012-05-22 14:02:19 -0400 (Tue, 22 May 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5460 $ (Revision of last commit) 
+ $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5456 2012-05-22 18:02:19Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5460 2012-05-26 14:05:45Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -463,16 +463,6 @@ void idGameLocal::Init( void ) {
 
 	InitConsoleCommands();
 
-	// greebo: Let the proxy CVARs overwrite the closed source counter-part
-	cvarSystem->SetCVarInteger("s_doorDistanceAdd", cv_tdm_s_doorDistanceAdd.GetInteger());
-	cvarSystem->SetCVarFloat("gui_mediumFontLimit", cv_tdm_gui_mediumFontLimit.GetFloat());
-	cvarSystem->SetCVarFloat("gui_smallFontLimit", cv_tdm_gui_smallFontLimit.GetFloat());
-
-	if (cv_tdm_s_maxSoundsPerShader.GetInteger() != -1)
-	{
-		cvarSystem->SetCVarInteger("s_maxSoundsPerShader", cv_tdm_s_maxSoundsPerShader.GetInteger());
-	}
-	
 	// load default scripts
 	program.Startup( SCRIPT_DEFAULT );
 	

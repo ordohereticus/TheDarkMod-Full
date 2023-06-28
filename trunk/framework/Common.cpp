@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5444 $ (Revision of last commit) 
- $Date: 2012-05-11 09:32:29 -0400 (Fri, 11 May 2012) $ (Date of last commit)
+ $Revision: 5460 $ (Revision of last commit) 
+ $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5444 2012-05-11 13:32:29Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5460 2012-05-26 14:05:45Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -1520,7 +1520,6 @@ void Com_ExecMachineSpec_f( const idCmdArgs &args ) {
 
 	if ( Sys_GetSystemRam() < 512 ) {
 		cvarSystem->SetCVarBool( "image_ignoreHighQuality", true, CVAR_ARCHIVE );
-		cvarSystem->SetCVarInteger( "s_maxSoundsPerShader", 1, CVAR_ARCHIVE );
 		cvarSystem->SetCVarInteger( "image_downSize", 1, CVAR_ARCHIVE );
 		cvarSystem->SetCVarInteger( "image_downSizeLimit", 256, CVAR_ARCHIVE );
 		cvarSystem->SetCVarInteger( "image_downSizeSpecular", 1, CVAR_ARCHIVE );

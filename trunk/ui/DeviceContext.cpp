@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5438 $ (Revision of last commit) 
- $Date: 2012-05-07 15:28:29 -0400 (Mon, 07 May 2012) $ (Date of last commit)
+ $Revision: 5460 $ (Revision of last commit) 
+ $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5438 2012-05-07 19:28:29Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5460 2012-05-26 14:05:45Z tels $");
 
 #include "DeviceContext.h"
 
@@ -34,10 +34,8 @@ idVec4 idDeviceContext::colorBlack;
 idVec4 idDeviceContext::colorWhite;
 idVec4 idDeviceContext::colorNone;
 
-
-idCVar gui_smallFontLimit( "gui_smallFontLimit", "0.30", CVAR_GUI | CVAR_ARCHIVE, "" );
-idCVar gui_mediumFontLimit( "gui_mediumFontLimit", "0.60", CVAR_GUI | CVAR_ARCHIVE, "" );
-
+idCVar gui_smallFontLimit( "gui_smallFontLimit", "0.15", CVAR_GUI | CVAR_ARCHIVE, "Fonts up to this scale will use the small font size (12 px)" );
+idCVar gui_mediumFontLimit( "gui_mediumFontLimit", "0.30", CVAR_GUI | CVAR_ARCHIVE, "Fonts up to this scale will use the medium font size (24 px)" );
 
 idList<fontInfoEx_t> idDeviceContext::fonts;
 

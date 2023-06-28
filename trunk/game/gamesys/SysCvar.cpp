@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5412 $ (Revision of last commit) 
- $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5460 $ (Revision of last commit) 
+ $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5412 2012-05-01 14:45:14Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5460 2012-05-26 14:05:45Z tels $");
 
 #include "../Game_local.h"
 
@@ -376,12 +376,6 @@ idCVar cv_lg_velocity_mod_amount("tdm_lg_velocity_mod_amount", "1", CVAR_GAME | 
 idCVar cv_lg_fade_delay			("tdm_lg_fade_delay",			"0.09",		CVAR_GAME | CVAR_FLOAT,	"lightgem fade time from previous value to new value in seconds." );		// J.C.Denton
 
 idCVar cv_empty_model("tdm_empty_model", "models/darkmod/misc/system/empty.lwo", CVAR_GAME | CVAR_ARCHIVE, "The empty model referenced by the 'waitForRender' script event.");
-
-// Proxy CVARs
-idCVar cv_tdm_s_doorDistanceAdd("tdm_s_doorDistanceAdd", "450", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite s_doorDistanceAdd at game startup.");
-idCVar cv_tdm_gui_smallFontLimit("tdm_gui_smallFontLimit", "0.15", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite gui_smallFontLimit at game startup.");
-idCVar cv_tdm_gui_mediumFontLimit("tdm_gui_mediumFontLimit", "0.30", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite gui_mediumFontLimit at game startup.");
-idCVar cv_tdm_s_maxSoundsPerShader("tdm_s_maxSoundsPerShader", "0", CVAR_GAME | CVAR_ARCHIVE, "This value will overwrite s_maxSoundsPerShader at game startup (unless this set to -1).");
 
 /**
  * Variables needed for lockpicking.
