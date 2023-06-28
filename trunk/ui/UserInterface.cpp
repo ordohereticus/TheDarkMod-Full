@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5227 $ (Revision of last commit) 
+ $Date: 2012-01-21 11:02:48 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: UserInterface.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: UserInterface.cpp 5227 2012-01-21 16:02:48Z tels $");
 
 #include "ListGUILocal.h"
 #include "DeviceContext.h"
@@ -179,11 +179,11 @@ idUserInterface *idUserInterfaceManagerLocal::FindGui( const char *qpath, bool a
 
 	for ( int i = 0; i < c; i++ ) {
 		idUserInterfaceLocal *gui = guis[i];
-		if ( !idStr::Icmp( guis[i]->GetSourceFile(), qpath ) ) {
-			if ( !forceNOTUnique && ( needUnique || guis[i]->IsInteractive() ) ) {
+		if ( !idStr::Icmp( gui->GetSourceFile(), qpath ) ) {
+			if ( !forceNOTUnique && ( needUnique || gui->IsInteractive() ) ) {
 				break;
 			}
-			guis[i]->AddRef();
+			gui->AddRef();
 			return guis[i];
 		}
 	}
