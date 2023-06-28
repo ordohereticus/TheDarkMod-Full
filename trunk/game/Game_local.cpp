@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5282 $ (Revision of last commit) 
+ $Date: 2012-02-15 17:54:15 -0500 (Wed, 15 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5282 2012-02-15 22:54:15Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -3754,7 +3754,7 @@ bool idGameLocal::InitGUIChoice( idUserInterface *gui, const char *varName, cons
 			return false;
 		}
 	}
-	// split the choices into a listt
+	// split the choices into a list
 	std::vector<std::string> choiceParts;
 	std::vector<std::string> valuesParts;
 	boost::algorithm::split(choiceParts, choices, boost::algorithm::is_any_of(";"));

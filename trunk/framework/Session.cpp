@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5282 $ (Revision of last commit) 
+ $Date: 2012-02-15 17:54:15 -0500 (Wed, 15 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5282 2012-02-15 22:54:15Z tels $");
 
 #include "Session_local.h"
 
@@ -262,7 +262,7 @@ idSessionLocal::idSessionLocal
 ===============
 */
 idSessionLocal::idSessionLocal() {
-	guiInGame = guiMainMenu = guiIntro = guiRestartMenu = guiLoading = guiActive = guiTest = guiMsg = guiMsgRestore = NULL;	
+	guiInGame = guiMainMenu = guiRestartMenu = guiLoading = guiActive = guiTest = guiMsg = guiMsgRestore = NULL;	
 
 	menuSoundWorld = NULL;
 	
@@ -2666,7 +2666,6 @@ void idSessionLocal::Init() {
 	idAsyncNetwork::client.serverList.GUIConfig( guiMainMenu, "serverList" );
 	guiRestartMenu = uiManager->FindGui( "guis/restart.gui", true, false, true );
 	guiMsg = uiManager->FindGui( "guis/msg.gui", true, false, true );
-	guiIntro = uiManager->FindGui( "guis/intro.gui", true, false, true );
 
 	whiteMaterial = declManager->FindMaterial( "_white" );
 
@@ -2707,7 +2706,7 @@ idSessionLocal::SetPlayingSoundWorld
 ===============
 */
 void idSessionLocal::SetPlayingSoundWorld() {
-	if ( guiActive && ( guiActive == guiMainMenu || guiActive == guiIntro || guiActive == guiLoading || ( guiActive == guiMsg && !mapSpawned ) ) ) {
+	if ( guiActive && ( guiActive == guiMainMenu || guiActive == guiLoading || ( guiActive == guiMsg && !mapSpawned ) ) ) {
 		soundSystem->SetPlayingSoundWorld( menuSoundWorld );
 	} else {
 		soundSystem->SetPlayingSoundWorld( sw );
