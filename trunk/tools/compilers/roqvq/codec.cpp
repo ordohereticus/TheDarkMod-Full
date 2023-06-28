@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5405 $ (Revision of last commit) 
+ $Date: 2012-04-30 19:22:12 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: codec.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: codec.cpp 5405 2012-04-30 23:22:12Z tels $");
 
 #include "codec.h"
 
@@ -829,7 +829,6 @@ void codec::FvqData( byte *bitmap, int size, int realx, int realy,  quadcel *pqu
 		return;
 	}
 
-	int sPsQ = -1;
 	for( sX=(((realx-xxMean)-searchX)+depthx); sX<=((realx-xxMean)+searchX) && !fabort; sX+=depthx ) {
 	for( sY=(((realy-yyMean)-searchY)+depthy); sY<=((realy-yyMean)+searchY) && breakHigh; sY+=depthy ) {
 	temp1 = xLen*sY+sX;
