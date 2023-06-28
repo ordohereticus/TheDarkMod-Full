@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5223 $ (Revision of last commit) 
- $Date: 2012-01-20 18:35:17 -0500 (Fri, 20 Jan 2012) $ (Date of last commit)
+ $Revision: 5231 $ (Revision of last commit) 
+ $Date: 2012-01-22 00:52:35 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5223 2012-01-20 23:35:17Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5231 2012-01-22 05:52:35Z serpentine $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -2446,7 +2446,6 @@ void Com_Help_f( const idCmdArgs &args ) {
 	common->Printf( "  si_fragLimit     - max kills to win (or lives in Last Man Standing).\n" );
 	common->Printf( "  si_timeLimit     - maximum time a game will last.\n" );
 	common->Printf( "  si_warmup        - do pre-game warmup.\n" );
-	common->Printf( "  si_pure          - pure server.\n" );
 	common->Printf( "  g_mapCycle       - name of .scriptcfg file for cycling maps.\n" );
 	common->Printf( "See mapcycle.scriptcfg for an example of a mapcyle script.\n\n" );
 }

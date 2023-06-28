@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5231 $ (Revision of last commit) 
+ $Date: 2012-01-22 00:52:35 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MultiplayerGame.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MultiplayerGame.cpp 5231 2012-01-22 05:52:35Z serpentine $");
 
 #include "Game_local.h"
 
@@ -224,7 +224,6 @@ void idMultiplayerGame::Clear() {
 	currentMenu = 0;
 	bCurrentMenuMsg = false;
 	nextMenu = 0;
-	pureReady = false;
 	scoreBoard = NULL;
 	spectateGui = NULL;
 	guiChat = NULL;
@@ -1310,8 +1309,6 @@ void idMultiplayerGame::Run() {
 
 	assert( gameLocal.isMultiplayer );
 	assert( !gameLocal.isClient );
-
-	pureReady = true;
 
 	if ( gameState == INACTIVE ) {
 		lastGameType = gameLocal.gameType;
