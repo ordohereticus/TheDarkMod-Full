@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5360 $ (Revision of last commit) 
- $Date: 2012-03-25 22:39:35 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5406 $ (Revision of last commit) 
+ $Date: 2012-05-01 08:00:22 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Console.cpp 5360 2012-03-26 02:39:35Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Console.cpp 5406 2012-05-01 12:00:22Z tels $");
 
 void SCR_DrawTextLeftAlign ( int &y, const char *text, ... ) id_attribute((format(printf,2,3)));
 void SCR_DrawTextRightAlign( int &y, const char *text, ... ) id_attribute((format(printf,2,3)));
@@ -175,7 +175,7 @@ SCR_DrawFPS
 */
 int SCR_DrawFPS( int y ) {
 	char	*s;
-	static unsigned int t , w, 
+	static unsigned int t , 
 		frameTime, index, total, fps,
 		previous, previousTimes[FPS_FRAMES];
 
