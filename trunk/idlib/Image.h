@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5197 $ (Revision of last commit) 
- $Date: 2012-01-08 23:07:49 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5218 $ (Revision of last commit) 
+ $Date: 2012-01-17 13:05:52 -0500 (Tue, 17 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -67,6 +67,9 @@ public:
 	/**
 	 * greebo: Creates a new image with the given dimension and bit depth.
 	 * Discards any previously loaded image, unless the dimensions match.
+	 *
+	 * @width/height: dimensions in pixels.
+	 * @bpp: this is bytes per pixel, 3 = RGB, 4 = RGBA
 	 *
 	 * @returns: true on success, false otherwise.
 	 */
