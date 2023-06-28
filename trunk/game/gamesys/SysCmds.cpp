@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5434 $ (Revision of last commit) 
- $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Revision: 5436 $ (Revision of last commit) 
+ $Date: 2012-05-06 15:49:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5434 2012-05-06 13:52:22Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5436 2012-05-06 19:49:55Z tels $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -3549,13 +3549,12 @@ void Cmd_LODBiasChanged_f( const idCmdArgs& args )
 	// gameLocal.Printf("LOD Bias (Object Detail) changed, checking %i entities.\n", gameLocal.num_entities);
 	// Run through all entities and Hide()/Show() them according to their MinLODBias and
 	// MaxLODBias values.
-	float lodbias = cv_lod_bias.GetFloat();
 	for (int j = 0; j < gameLocal.num_entities; j++)
 	{
 		idEntity *c_ent = gameLocal.entities[ j ];
 		if (c_ent)
 		{
-			c_ent->HideByLODBias(lodbias);
+			c_ent->Event_HideByLODBias();
 		}
 	}
 }

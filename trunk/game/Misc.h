@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5436 $ (Revision of last commit) 
+ $Date: 2012-05-06 15:49:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -641,6 +641,9 @@ public:
 	void				Save( idSaveGame *savefile ) const;
 	void				Restore( idRestoreGame *savefile );
 	void				Think( void );
+
+	void				OpenPortal( void );
+	void				ClosePortal( void );
 
 private:
 	qhandle_t			portal;

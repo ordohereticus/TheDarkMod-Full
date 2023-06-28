@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5434 $ (Revision of last commit) 
- $Date: 2012-05-06 09:52:22 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Revision: 5436 $ (Revision of last commit) 
+ $Date: 2012-05-06 15:49:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -424,6 +424,13 @@ public:
 	float					m_MinLODBias;
 	float					m_MaxLODBias;
 
+	/* If "lod_hidden_skin" is set, use this to switch the skin instead
+	*  of hiding the entity. mVisibleSkin stores the skin when the entity
+	*  was visible, so we can restore it when the menu setting changes.
+	*/
+	idStr					m_HiddenSkin;
+	idStr					m_VisibleSkin;
+
 	/* grayman #597 - hide until this timer expires. For
 	*  hiding arrows when they're first nocked.
 	*/
@@ -460,10 +467,9 @@ public:
 	void					StopLOD( const bool doTeam);
 
 	/**
-	 * Tels: Hide the entity if tdm_lod_bias is outside MinLODBias .. MaxLODBias. later is
-	 * true during entity spawn to delay the Hide() a bit to prevent crashes.
+	 * Tels: Hide the entity if tdm_lod_bias is outside MinLODBias .. MaxLODBias.
 	*/
-	bool					HideByLODBias( const float lodbias, const bool later = false );
+	void					Event_HideByLODBias( void );
 
 	/**
 	 * Tels: Stop LOD changes temporarily. If doTeam is true, also disables it on teammembers.

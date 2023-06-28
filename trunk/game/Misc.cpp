@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5436 $ (Revision of last commit) 
+ $Date: 2012-05-06 15:49:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -29,7 +29,7 @@ Various utility objects and functions.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5436 2012-05-06 19:49:55Z tels $");
 
 #include "Game_local.h"
 #include "SndProp.h"
@@ -2790,7 +2790,6 @@ void idFuncPortal::Spawn( void )
 		state = spawnArgs.GetBool( "start_on" );
 		gameLocal.SetPortalState( portal, state ? PS_BLOCK_ALL : PS_BLOCK_NONE );
 	}
-
 	if( (m_Distance = spawnArgs.GetFloat( "portal_dist", "0.0" )) <= 0 )
 		goto Quit;
 
@@ -2826,6 +2825,34 @@ void idFuncPortal::Event_Activate( idEntity *activator )
 
 	// activate our targets
 	PostEventMS( &EV_ActivateTargets, 0, activator );
+}
+
+/*
+================
+idFuncPortal::ClosePortal
+================
+*/
+void idFuncPortal::ClosePortal( void )
+{
+	if ( portal > 0 ) 
+	{
+		state = true;
+		gameLocal.SetPortalState( portal, PS_BLOCK_ALL );
+	}
+}
+
+/*
+================
+idFuncPortal::OpenPortal
+================
+*/
+void idFuncPortal::OpenPortal( void ) 
+{
+	if ( portal > 0 ) 
+	{
+		state = false;
+		gameLocal.SetPortalState( portal, PS_BLOCK_NONE );
+	}
 }
 
 void idFuncPortal::Think( void )
