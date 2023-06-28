@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5324 $ (Revision of last commit) 
- $Date: 2012-03-08 17:38:38 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -268,11 +268,17 @@ public:
 	int timeMissingItem;
 	int timeEvidenceIntruders;
 
+	// grayman #2422 - alert level is rising by checking player visibility
+	bool visualAlert;
+
 	// grayman #2603 - abort an ongoing light relight?
 	bool stopRelight;
 
 	// grayman #2872 - abort a rope examination?
 	bool stopExaminingRope;
+
+	// grayman #2422 - next time to generate a random search spot
+	int nextTime2GenRandomSpot;
 
 	// grayman #2603 - a light that's being relit
 	idEntityPtr<idLight> relightLight;

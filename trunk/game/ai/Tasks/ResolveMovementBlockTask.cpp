@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ResolveMovementBlockTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: ResolveMovementBlockTask.cpp 5363 2012-04-01 18:08:35Z grayman $");
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -430,14 +430,18 @@ bool ResolveMovementBlockTask::PerformBlockingAI(idAI* owner)
 			}
 
 			// If we're EWaitingSolid, change to EWaitingNonSolid if the other AI is barely moving.
+			// grayman #2422 - but not if the other AI is searching
 
-			if (owner->movementSubsystem->IsWaitingSolid())
+			if ( !_blockingEntAI->IsSearching() )
 			{
-				float traveledPrev = _blockingEntAI->movementSubsystem->GetPrevTraveled();
-				if (traveledPrev < 0.1) // grayman #2345
+				if (owner->movementSubsystem->IsWaitingSolid())
 				{
-					BecomeNonSolid(owner);
-				} 
+					float traveledPrev = _blockingEntAI->movementSubsystem->GetPrevTraveled();
+					if (traveledPrev < 0.1) // grayman #2345
+					{
+						BecomeNonSolid(owner);
+					} 
+				}
 			}
 		}
 

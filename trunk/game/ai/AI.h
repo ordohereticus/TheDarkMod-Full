@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1093,6 +1093,12 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool					m_bCanExtricate;
 
 	/**
+	* grayman #2422 - search volume when searching
+	 **/
+	 
+	idBounds				m_searchLimits;
+	
+	/**
 	 * greebo: Is set to TRUE if the AI is able to open/close doors at all.
 	 */
 	bool					m_bCanOperateDoors;
@@ -1272,6 +1278,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 		int hidingSpotTypesAllowed, 
 		idEntity* p_ignoreEntity
 	);
+
+	void AdjustSearchLimits(idBounds& bounds); // grayman #2422
 
 	/*
 	* This method continues searching for hiding spots. It will only find so many before

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: InvestigateSpotTask.cpp 5363 2012-04-01 18:08:35Z grayman $");
 
 #include "InvestigateSpotTask.h"
 #include "WaitTask.h"
@@ -131,16 +131,54 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 			_exitTime = static_cast<int>(
 				gameLocal.time + INVESTIGATE_SPOT_TIME_REMOTE*(1 + gameLocal.random.RandomFloat()) // grayman #2640
 			);
+
+			return false; // grayman #2422
 		}
 
 		// Let's move
-		owner->MoveToPosition(destPos);
-		_moveInitiated = true;
 
-		if (owner->GetMoveStatus() == MOVE_STATUS_DEST_UNREACHABLE)
+		// grayman #2422
+		// Here's the root of the problem. PointReachableAreaNum()
+		// doesn't always look to the side to find the nearest AAS
+		// area at the point's z position. It can move the point to
+		// the AAS area above, or the AAS area below. This makes the AI
+		// run upstairs or downstairs when all we really want him to do
+		// is stay on the same floor.
+
+		// If the AI is searching and not handling a door or handling
+		// an elevator or resolving a block: If the spot PointReachableAreaNum()/PushPointIntoAreaNum()
+		// wants to move us to is outside the vertical boundaries of the
+		// search volume, consider the point bad.
+		
+		bool pointValid = true;
+		idVec3 goal = destPos;
+		int toAreaNum = owner->PointReachableAreaNum( goal );
+		if ( toAreaNum == 0 )
+		{
+			pointValid =  false;
+		}
+		else
+		{
+			owner->GetAAS()->PushPointIntoAreaNum( toAreaNum, goal ); // if this point is outside this area, it will be moved to one of the area's edges
+		
+			if ( owner->IsSearching() && !owner->movementSubsystem->IsResolvingBlock() )
+			{
+				if ( !owner->m_searchLimits.ContainsPoint(goal) )
+				{
+					pointValid =  false;
+				}
+			}
+		}
+
+		if ( pointValid )
+		{
+			pointValid = owner->MoveToPosition(goal);
+			_moveInitiated = true;
+		}
+
+		if ( !pointValid || ( owner->GetMoveStatus() == MOVE_STATUS_DEST_UNREACHABLE) )
 		{
 			// Hiding spot not reachable, terminate task in the next round
-			DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("%s - _searchSpot (%s) not reachable, terminating task.\r",owner->name.c_str(),destPos.ToString());
 			_exitTime = gameLocal.time;
 		}
 		else
@@ -148,9 +186,32 @@ bool InvestigateSpotTask::Perform(Subsystem& subsystem)
 			// Run if the point is more than MAX_TRAVEL_DISTANCE_WALKING
 			// greebo: This is taxing and can be replaced by a simpler distance check 
 			// TravelDistance takes about ~0.1 msec on my 2.2 GHz system.
-			float travelDist = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), _searchSpot);
 
-			owner->AI_RUN = (travelDist > MAX_TRAVEL_DISTANCE_WALKING);
+			// grayman #2422 - not the player = walk, player & combat = run, everything else = run
+			// Also, travelDist is inaccurate when an AAS area is large, so compare
+			// it to the actual distance and use the larger of the two.
+
+			float travelDist = owner->TravelDistance(owner->GetPhysics()->GetOrigin(), _searchSpot);
+			float actualDist = (owner->GetPhysics()->GetOrigin() - _searchSpot).LengthFast();
+			if ( actualDist > travelDist )
+			{
+				travelDist = actualDist;
+			}
+
+			if ( travelDist <= MAX_TRAVEL_DISTANCE_WALKING ) // close enough to walk?
+			{
+				owner->AI_RUN = false;
+			}
+			else if ( owner->GetMemory().visualAlert ) // spotted the player by testing his visibility?
+			{
+				owner->AI_RUN = false; // when AI's alert index enters Combat mode, that code will get him running
+			}
+			else // searching for some other reason, and we're far away, so run
+			{
+				owner->AI_RUN = true;
+			}
+
+			//owner->AI_RUN = (travelDist > MAX_TRAVEL_DISTANCE_WALKING); // grayman #2422 - old way
 		}
 
 		return false;

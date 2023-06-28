@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FailedKnockoutState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FailedKnockoutState.cpp 5363 2012-04-01 18:08:35Z grayman $");
 
 #include "FailedKnockoutState.h"
 #include "../Tasks/SingleBarkTask.h"
@@ -113,6 +113,7 @@ void FailedKnockoutState::Think(idAI* owner)
 		memory.alertedDueToCommunication = false;
 		memory.stopRelight = true; // grayman #2603
 		memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
+		memory.visualAlert = false; // grayman #2422
 
 		// Alert the AI
 		owner->AlertAI("tact", owner->thresh_5*2);

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5286 $ (Revision of last commit) 
- $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5286 2012-02-16 17:11:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5363 2012-04-01 18:08:35Z grayman $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -3219,6 +3219,13 @@ void idAI::Event_StartSearchForHidingSpots
 	idBounds searchExclusionBounds;
 	searchExclusionBounds.Clear(); // no exclusion bounds
 
+	// grayman #2422 - to prevent AI from going upstairs or downstairs
+	// to search spots over/under where they should be searching,
+	// limit the search to the floor where the alert occurred.
+
+	AdjustSearchLimits(searchBounds);
+	m_searchLimits = searchBounds;
+
 	// greebo: Remember the initial alert position
 	GetMemory().alertSearchCenter = hideFromLocation;
 
@@ -3255,8 +3262,6 @@ void idAI::Event_StartSearchForHidingSpots
 		// Search is done since there is no search
 		idThread::ReturnInt(0);
 	}
-
-
 }
 
 //-----------------------------------------------------------------------------------------------------

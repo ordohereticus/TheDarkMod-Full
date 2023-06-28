@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5363 2012-04-01 18:08:35Z grayman $");
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -610,6 +610,14 @@ void MovementSubsystem::CheckBlocked(idAI* owner)
 			if (!torsoCustomIdleAnim && !legsCustomIdleAnim)
 			{
 				belowThreshold = true;
+
+				// grayman #2422
+				// if traveledPrev == 0, and you're bumping against something, go straight to EBlocked
+				if ( ( traveledPrev == 0 ) && tactileEntity )
+				{
+					_state = EPossiblyBlocked;
+					_lastTimeNotBlocked = gameLocal.time - _blockTimeOut; // in EPossiblyBlocked, don't delay
+				}
 			}
 		}
 		else if (((traveledPrev < 0.3) || (idMath::Fabs(yawDiff) > 45)) && tactileEntity)  // movement is low or you're not heading toward your goal, and you bumped into something

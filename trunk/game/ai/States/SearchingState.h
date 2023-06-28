@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5363 $ (Revision of last commit) 
+ $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -43,6 +43,7 @@ namespace ai
 {
 
 #define STATE_SEARCHING "Searching"
+#define DELAY_RANDOM_SPOT_GEN 3000 // grayman #2422 - don't generate random search spots more often than this (in ms)
 
 class SearchingState :
 	public State
