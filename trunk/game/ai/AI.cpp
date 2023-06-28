@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5364 $ (Revision of last commit) 
+ $Date: 2012-04-01 21:13:01 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5364 2012-04-02 01:13:01Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -9019,20 +9019,13 @@ void idAI::SetAlertLevel(float newAlertLevel)
 		{
 			if (GetEnemy() != NULL) 
 			{
-				// We have an enemy, raise the index
-				if ( AI_AlertIndex != ai::ECombat ) // grayman #2422 - only reset m_prevAlertIndex if the current AI_AlertIndex isn't the new AI_AlertIndex
-				{
-					m_prevAlertIndex = AI_AlertIndex;
-				}
+				m_prevAlertIndex = AI_AlertIndex;
 				AI_AlertIndex = ai::ECombat;
 			}
 			else
 			{
 				// No enemy, can't switch to Combat mode
-				if ( AI_AlertIndex != ai::EAgitatedSearching ) // grayman #2422 - only reset m_prevAlertIndex if the current AI_AlertIndex isn't the new AI_AlertIndex
-				{
-					m_prevAlertIndex = AI_AlertIndex;
-				}
+				m_prevAlertIndex = AI_AlertIndex;
 				AI_AlertIndex = ai::EAgitatedSearching;
 				// Set the alert level back to just below combat threshold
 				AI_AlertLevel = thresh_5 - 0.01;
@@ -9040,10 +9033,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 		}
 		else
 		{
-			if ( AI_AlertIndex != ai::EAgitatedSearching ) // grayman #2422 - only reset m_prevAlertIndex if the current AI_AlertIndex isn't the new AI_AlertIndex
-			{
-				m_prevAlertIndex = AI_AlertIndex;
-			}
+			m_prevAlertIndex = AI_AlertIndex;
 			AI_AlertIndex = ai::EAgitatedSearching;
 		}
 		grace_time = m_gracetime_4;
@@ -9052,10 +9042,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	}
 	else if (newAlertLevel >= thresh_3)
 	{
-		if ( AI_AlertIndex != ai::EInvestigating ) // grayman #2422 - only reset m_prevAlertIndex if the current AI_AlertIndex isn't the new AI_AlertIndex
-		{
-			m_prevAlertIndex = AI_AlertIndex;
-		}
+		m_prevAlertIndex = AI_AlertIndex;
 		AI_AlertIndex = ai::EInvestigating;
 		grace_time = m_gracetime_3;
 		grace_frac = m_gracefrac_3;
@@ -9063,10 +9050,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	}
 	else if (newAlertLevel >= thresh_2)
 	{
-		if ( AI_AlertIndex != ai::ESuspicious ) // grayman #2422 - only reset m_prevAlertIndex if the current AI_AlertIndex isn't the new AI_AlertIndex
-		{
-			m_prevAlertIndex = AI_AlertIndex;
-		}
+		m_prevAlertIndex = AI_AlertIndex;
 		AI_AlertIndex = ai::ESuspicious;
 		grace_time = m_gracetime_2;
 		grace_frac = m_gracefrac_2;
@@ -9074,10 +9058,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	}
 	else if (newAlertLevel >= thresh_1)
 	{
-		if ( AI_AlertIndex != ai::EObservant ) // grayman #2422 - only reset m_prevAlertIndex if the current AI_AlertIndex isn't the new AI_AlertIndex
-		{
-			m_prevAlertIndex = AI_AlertIndex;
-		}
+		m_prevAlertIndex = AI_AlertIndex;
 		AI_AlertIndex = ai::EObservant;
 		grace_time = m_gracetime_1;
 		grace_frac = m_gracefrac_1;
@@ -9085,10 +9066,7 @@ void idAI::SetAlertLevel(float newAlertLevel)
 	}
 	else
 	{
-		if ( AI_AlertIndex != ai::ERelaxed ) // grayman #2422 - only reset m_prevAlertIndex if the current AI_AlertIndex isn't the new AI_AlertIndex
-		{
-			m_prevAlertIndex = AI_AlertIndex;
-		}
+		m_prevAlertIndex = AI_AlertIndex;
 		AI_AlertIndex = ai::ERelaxed;
 		grace_time = 0.0;
 		grace_frac = 0.0;
