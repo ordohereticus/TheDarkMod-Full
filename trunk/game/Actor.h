@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5400 $ (Revision of last commit) 
+ $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -125,8 +125,7 @@ public:
 */
 
 // grayman #2816 - constants for moveables striking AI
-const float	MIN_MASS_FOR_KO   = 20.0f;
-const float MIN_VEL_FOR_KO    = 15.0f;
+const float	MIN_MASS_FOR_KO = 5.0f;
 
 extern const idEventDef AI_EnableEyeFocus;
 extern const idEventDef AI_DisableEyeFocus;

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5400 $ (Revision of last commit) 
+ $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5400 2012-04-29 22:28:15Z grayman $");
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -235,13 +235,19 @@ void CombatState::Think(idAI* owner)
 		if ( gameLocal.time >= _reactionEndTime )
 		{
 			// Check to see if the enemy is still visible.
+			// grayman #2816 - Visibility doesn't matter if you're in combat because
+			// you bumped into your enemy.
 
-			if ( !owner->CanSee(enemy, true) )
+			idEntity* tactEnt = owner->GetTactEnt();
+			if ( ( tactEnt == NULL ) || !tactEnt->IsType(idActor::Type) || ( tactEnt != enemy ) || !owner->AI_TACTALERT ) 
 			{
-				owner->ClearEnemy();
-				owner->SetAlertLevel(owner->thresh_5 - 0.1); // reset alert level just under Combat
-				owner->GetMind()->EndState();
-				return;
+				if ( !owner->CanSee(enemy, true) )
+				{
+					owner->ClearEnemy();
+					owner->SetAlertLevel(owner->thresh_5 - 0.1); // reset alert level just under Combat
+					owner->GetMind()->EndState();
+					return;
+				}
 			}
 
 			// Can still see the enemy, so proceed with Combat
@@ -258,7 +264,7 @@ void CombatState::Think(idAI* owner)
 	{
 		owner->m_ignorePlayer = false; // grayman #3063 - clear flag that prevents mission statistics on player sightings
 
-		// The AI has processed his reaction, and need to move into combat, or flee.
+		// The AI has processed his reaction, and needs to move into combat, or flee.
 
 		// Handle the things you were doing in Init() ...
 

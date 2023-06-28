@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5394 $ (Revision of last commit) 
- $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
+ $Revision: 5400 $ (Revision of last commit) 
+ $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5394 2012-04-17 22:36:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5400 2012-04-29 22:28:15Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -608,8 +608,8 @@ void idAFAttachment::Damage( idEntity *inflictor, idEntity *attacker, const idVe
 
 	if ( body ) 
 	{
+		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("AF Attachment %s passing along damage to actor %s at attachjoint %d \r", name.c_str(), body->name.c_str(), (int) attachJoint );
 		body->Damage( inflictor, attacker, dir, damageDefName, damageScale, attachJoint, pTrace );
-		DM_LOG(LC_AI,LT_DEBUG)LOGSTRING("AF Attachment %s passed along damage to actor %s at attachjoint %d \r", name.c_str(), body->name.c_str(), (int) attachJoint );
 	}
 }
 

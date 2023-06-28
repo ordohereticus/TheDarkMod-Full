@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5400 $ (Revision of last commit) 
+ $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5400 2012-04-29 22:28:15Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -9585,12 +9585,12 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 
 	if ( !m_ReactingToHit )
 	{
-		if ( !tactEnt->IsType(idAI::Type) )
+		if ( !tactEnt->IsType(idActor::Type) )
 		{
 			// Wait a bit to turn toward and look at what hit you (other than another AI).
 			// Then turn back in the direction the object came from.
 
-			mind->GetState()->OnHitByMoveable(this, tactEnt);
+			mind->GetState()->OnHitByMoveable(this, tactEnt); // sets m_ReactingToHit to TRUE
 			return;
 		}
 	}
@@ -9601,7 +9601,7 @@ void idAI::TactileAlert(idEntity* tactEnt, float amount)
 			GetMemory().stopReactingToHit = true; // stop the current reaction
 		}
 		
-		if ( !tactEnt->IsType(idAI::Type) )
+		if ( !tactEnt->IsType(idActor::Type) )
 		{
 			return; // process moveable hit next time around
 		}
