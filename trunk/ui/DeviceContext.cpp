@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5407 $ (Revision of last commit) 
- $Date: 2012-05-01 08:22:34 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5438 $ (Revision of last commit) 
+ $Date: 2012-05-07 15:28:29 -0400 (Mon, 07 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5407 2012-05-01 12:22:34Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5438 2012-05-07 19:28:29Z tels $");
 
 #include "DeviceContext.h"
 
@@ -69,13 +69,10 @@ int idDeviceContext::FindFont( const char *name ) {
 void idDeviceContext::SetupFonts() {
 	fonts.SetGranularity( 1 );
 
-	// Default font has to be added first
-	if (FindFont( "fonts" ) == -1) {
-		// Could not find default font, try "fonts/stone" as replacement
-		// Happens for instance if D3 assets are not available
-		if (FindFont( "fonts/stone" ) == -1) {
-			common->Warning( "Could not find font 'fonts' nor 'fonts/stone', have no default font!\n" );
-		}
+	// Try fonts/stone as the first font, so that any fallback occurs to it, instead
+	// of the D3-only "default font":
+	if (FindFont( "fonts/stone" ) == -1) {
+		common->Warning( "Could not find 'fonts/stone', have no default font!\n" );
 	}
 }
 
