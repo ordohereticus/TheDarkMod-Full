@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5324 $ (Revision of last commit) 
+ $Date: 2012-03-08 17:38:38 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Memory.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Memory.cpp 5324 2012-03-08 22:38:38Z grayman $");
 
 #include "Memory.h"
 #include "AI.h"
@@ -93,7 +93,8 @@ Memory::Memory(idAI* owningAI) :
 	fleeingDone(true),
 	positionBeforeTakingCover(0,0,0),
 	resolvingMovementBlock(false),
-	closeSuspiciousDoor(false) // grayman #1327
+	closeSuspiciousDoor(false), // grayman #1327
+	issueMoveToPositionTask(false) // grayman #3052
 {}
 
 // Save/Restore routines
@@ -199,6 +200,8 @@ void Memory::Save(idSaveGame* savefile) const
 	savefile->WriteBool(susDoorSameAsCurrentDoor);
 	savefile->WriteFloat(savedAlertLevelDecreaseRate);
 	// end of #2866 changes
+
+	savefile->WriteBool(issueMoveToPositionTask); // grayman #3052
 }
 
 void Memory::Restore(idRestoreGame* savefile)
@@ -336,6 +339,8 @@ void Memory::Restore(idRestoreGame* savefile)
 	savefile->ReadBool(susDoorSameAsCurrentDoor);
 	savefile->ReadFloat(savedAlertLevelDecreaseRate);
 	// end of #2866 changes
+
+	savefile->ReadBool(issueMoveToPositionTask); // grayman #3052
 }
 
 DoorInfo& Memory::GetDoorInfo(CFrobDoor* door)

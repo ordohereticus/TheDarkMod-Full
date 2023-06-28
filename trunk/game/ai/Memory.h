@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5324 $ (Revision of last commit) 
+ $Date: 2012-03-08 17:38:38 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -383,6 +383,9 @@ public:
 
 	// grayman #2712 - last door handled
 	idEntityPtr<CFrobDoor> lastDoorHandled;
+
+	// grayman #3052 - need to move to the idle map start spot before performing a PathWaitForTrigger task
+	bool issueMoveToPositionTask;
 
 	// grayman #2866 - start of changes
 	idEntityPtr<CFrobDoor> closeMe;	// a door that should be closed
