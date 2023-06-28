@@ -18,8 +18,8 @@
 # 
 # Project: The Dark Mod (http://www.thedarkmod.com/)
 # 
-# $Revision: 5201 $ (Revision of last commit) 
-# $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
+# $Revision: 5203 $ (Revision of last commit) 
+# $Date: 2012-01-10 01:37:25 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
 # $Author: greebo $ (Author of last commit)
 # 
 #*****************************************************************************
@@ -284,8 +284,7 @@ ModelGenerator.cpp \
 ImageMapManager.cpp \
 LightController.cpp \
 StaticMulti.cpp \
-RawVector.cpp \
-sourcehook/sourcehook.cpp'
+RawVector.cpp'
 
 darkModList = scons_utils.BuildList('../../game/', darkModSrc)
 

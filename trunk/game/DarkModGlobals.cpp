@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5198 $ (Revision of last commit) 
- $Date: 2012-01-08 23:30:02 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5203 $ (Revision of last commit) 
+ $Date: 2012-01-10 01:37:25 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -27,7 +27,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5198 2012-01-09 04:30:02Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5203 2012-01-10 06:37:25Z greebo $");
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -35,8 +35,6 @@ static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5198 2012
 #include "Relations.h"
 #include "ModMenu.h"
 #include "ai/AI.h"
-#include "sourcehook/sourcehook.h"
-#include "sourcehook/sourcehook_impl.h"
 #include "IniFile.h"
 #include <boost/filesystem.hpp>
 
@@ -115,10 +113,6 @@ static const char *LCString[LC_COUNT+1] = {
 };
 
 #define INI_DEBUG_SECTION "Debug"
-
-SourceHook::CSourceHookImpl g_SourceHook;
-SourceHook::ISourceHook *g_SHPtr = NULL;
-int g_PLID = 0;
 
 // declare various global objects
 CsndPropLoader	g_SoundPropLoader;
@@ -224,9 +218,6 @@ CGlobal::CGlobal()
 	{
 		m_AcuityHash.Add( m_AcuityHash.GenerateKey( m_AcuityNames[i].c_str(), false ), i );
 	}
-
-	/* initialize Sourcehook required global */
-	g_SHPtr = static_cast<SourceHook::ISourceHook*>(&g_SourceHook); 
 }
 
 CGlobal::~CGlobal()
