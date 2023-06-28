@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -38,12 +38,13 @@ struct RouteNode
 	int toCluster;			// the target AAS cluster number
 	int elevator;			// the elevator number (is -1 if no elevator to be used in this node)
 	int elevatorStation;	// The elevator station number of this position (-1 if unused)
+	int nodeTravelTime;		// grayman #3029 - walking time or time to travel from elevator station to elevator station
 
 	// Default constructor
 	RouteNode();
 
 	// Specialised constructor
-	RouteNode(ActionType t, int goalArea, int goalCluster, int elevatorNum = -1, int elevatorStationNum = -1);
+	RouteNode(ActionType t, int goalArea, int goalCluster, int elevatorNum = -1, int elevatorStationNum = -1, int nodeTravelTime = 0); // grayman #3029
 
 	// Copy constructor
 	RouteNode(const RouteNode& other);

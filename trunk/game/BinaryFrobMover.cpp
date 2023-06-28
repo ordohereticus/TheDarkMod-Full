@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5292 2012-02-23 16:17:34Z grayman $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -90,6 +90,7 @@ CBinaryFrobMover::CBinaryFrobMover()
 	m_registeredAI.Clear();	// grayman #1145
 	m_lastUsedBy = NULL;	// grayman #2859
 	m_searching = NULL;		// grayman #1327 - someone searching around this door
+	m_targetingOff = false; // grayman #3029
 }
 
 CBinaryFrobMover::~CBinaryFrobMover()
@@ -165,8 +166,9 @@ void CBinaryFrobMover::Save(idSaveGame *savefile) const
 		m_registeredAI[i].Save(savefile);
 	}
 
-	m_lastUsedBy.Save(savefile); // grayman #2859
-	m_searching.Save(savefile);	 // grayman #1327
+	m_lastUsedBy.Save(savefile);			// grayman #2859
+	m_searching.Save(savefile);				// grayman #1327
+	savefile->WriteBool(m_targetingOff);	// grayman #3029
 }
 
 void CBinaryFrobMover::Restore( idRestoreGame *savefile )
@@ -223,8 +225,9 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 		m_registeredAI[i].Restore(savefile);
 	}
 
-	m_lastUsedBy.Restore(savefile); // grayman #2859
-	m_searching.Restore(savefile);  // grayman #1327
+	m_lastUsedBy.Restore(savefile);		// grayman #2859
+	m_searching.Restore(savefile);		// grayman #1327
+	savefile->ReadBool(m_targetingOff);	// grayman #3029
 }
 
 void CBinaryFrobMover::Spawn()

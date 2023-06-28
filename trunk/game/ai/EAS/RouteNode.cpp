@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RouteNode.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: RouteNode.cpp 5292 2012-02-23 16:17:34Z grayman $");
 
 #include "RouteNode.h"
 
@@ -31,15 +31,17 @@ RouteNode::RouteNode() :
 	toArea(0),
 	toCluster(0),
 	elevator(-1),
-	elevatorStation(-1)
+	elevatorStation(-1),
+	nodeTravelTime(0) // grayman #3029
 {}
 
-RouteNode::RouteNode(ActionType t, int goalArea, int goalCluster, int elevatorNum, int elevatorStationNum) :
+RouteNode::RouteNode(ActionType t, int goalArea, int goalCluster, int elevatorNum, int elevatorStationNum, int nodeTravelTimeAmount) : // grayman #3029
 	type(t),
 	toArea(goalArea),
 	toCluster(goalCluster),
 	elevator(elevatorNum),
-	elevatorStation(elevatorStationNum)
+	elevatorStation(elevatorStationNum),
+	nodeTravelTime(nodeTravelTimeAmount) // grayman #3029
 {}
 
 // Copy constructor
@@ -48,13 +50,18 @@ RouteNode::RouteNode(const RouteNode& other) :
 	toArea(other.toArea),
 	toCluster(other.toCluster),
 	elevator(other.elevator),
-	elevatorStation(other.elevatorStation)
+	elevatorStation(other.elevatorStation),
+	nodeTravelTime(other.nodeTravelTime) // grayman #3029
 {}
 
 bool RouteNode::operator==(const RouteNode& other) const
 {
-	return (type == other.type && toArea == other.toArea && toCluster == other.toCluster && 
-		     elevator == other.elevator && elevatorStation == other.elevatorStation);
+	return ( ( type == other.type ) &&
+			 ( toArea == other.toArea ) &&
+			 ( toCluster == other.toCluster ) && 
+			 ( elevator == other.elevator ) &&
+			 ( elevatorStation == other.elevatorStation) &&
+			 ( nodeTravelTime == other.nodeTravelTime) ); // grayman #3029
 }
 
 bool RouteNode::operator!=(const RouteNode& other) const
@@ -69,6 +76,7 @@ void RouteNode::Save(idSaveGame* savefile) const
 	savefile->WriteInt(toCluster);
 	savefile->WriteInt(elevator);
 	savefile->WriteInt(elevatorStation);
+	savefile->WriteInt(nodeTravelTime); // grayman #3029
 }
 
 void RouteNode::Restore(idRestoreGame* savefile)
@@ -80,6 +88,7 @@ void RouteNode::Restore(idRestoreGame* savefile)
 	savefile->ReadInt(toCluster);
 	savefile->ReadInt(elevator);
 	savefile->ReadInt(elevatorStation);
+	savefile->ReadInt(nodeTravelTime); // grayman #3029
 }
 
 } // namespace eas

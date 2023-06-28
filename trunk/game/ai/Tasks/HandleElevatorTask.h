@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -76,6 +76,12 @@ public:
 
 	virtual void OnFinish(idAI* owner);
 
+	void ReorderElevQueue(CMultiStateMover* elevator); // grayman #3029
+
+#if 0 // grayman - for debugging an elevator queue
+	void PrintElevQueue(CMultiStateMover* elevator);
+#endif
+
 	void Save(idSaveGame* savefile) const;
 	void Restore(idRestoreGame* savefile);
 
@@ -86,7 +92,7 @@ private:
 	// Checks if the elevator station is reachable, returns TRUE if this is the case
 	bool IsElevatorStationReachable(CMultiStateMoverPosition* pos);
 
-	void DebugDraw(idAI* owner);
+	void DebugDraw(idAI* owner, CMultiStateMoverPosition* pos, CMultiStateMover* elevator);
 
 	// Lets the AI move towards the position entity (is slightly more complicated than just idAI::MoveToPos)
 	bool MoveToPositionEntity(idAI* owner, CMultiStateMoverPosition* pos);

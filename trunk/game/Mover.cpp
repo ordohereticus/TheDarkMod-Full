@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5292 2012-02-23 16:17:34Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1048,6 +1048,17 @@ void idMover::Event_SetMoveSpeed( float speed ) {
 
 	move_speed = speed;
 	move_time = 0;			// move_time is calculated for each move when move_speed is non-0
+}
+
+// grayman #3029 - EAS needs this for station-to-station travel times
+/*
+================
+idMover::GetMoveSpeed
+================
+*/
+float idMover::GetMoveSpeed()
+{
+	return move_speed;
 }
 
 /*

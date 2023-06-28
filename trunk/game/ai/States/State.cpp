@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5209 $ (Revision of last commit) 
- $Date: 2012-01-12 20:08:01 -0500 (Thu, 12 Jan 2012) $ (Date of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5209 2012-01-13 01:08:01Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5292 2012-02-23 16:17:34Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -3313,6 +3313,13 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 		return;
 	}
 
+	// grayman #3029 - can handle doors if you're approaching an elevator
+
+	if ( owner->m_HandlingElevator && !owner->m_CanSetupDoor )
+	{
+		return;
+	}
+
 	// grayman #2650 - can we handle doors?
 
 	if (!owner->m_bCanOperateDoors)
@@ -3362,6 +3369,20 @@ void State::OnFrobDoorEncounter(CFrobDoor* frobDoor)
 		if ((lastTimeUsed > -1) && (gameLocal.time < lastTimeUsed + 3000)) // grayman #2712 - delay time should match REUSE_DOOR_DELAY
 		{
 			return; // ignore this door
+		}
+
+		// grayman #3029 - all clear to handle the door, but if you're handling
+		// an elevator, you have to terminate that first.
+
+		if (owner->m_HandlingElevator)
+		{
+			const SubsystemPtr& subsys = owner->movementSubsystem;
+			TaskPtr task = subsys->GetCurrentTask();
+
+			if (boost::dynamic_pointer_cast<HandleElevatorTask>(task) != NULL)
+			{
+				subsys->FinishTask();
+			}
 		}
 
 		memory.doorRelated.currentDoor = frobDoor;
@@ -3416,10 +3437,11 @@ void State::NeedToUseElevator(const eas::RouteInfoPtr& routeInfo)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	if (!owner->m_HandlingElevator && owner->CanUseElevators())
+	if (!owner->m_HandlingDoor && !owner->m_HandlingElevator && owner->CanUseElevators()) // grayman #3029
 	{
 		// Prevent more ElevatorTasks from being pushed
-		owner->m_HandlingElevator = true;
+//		owner->m_HandlingElevator = true; // grayman #3029 - this is too early; moved to Init of task
+		owner->m_CanSetupDoor = true; // grayman #3029
 		owner->movementSubsystem->PushTask(TaskPtr(new HandleElevatorTask(routeInfo)));
 	}
 }

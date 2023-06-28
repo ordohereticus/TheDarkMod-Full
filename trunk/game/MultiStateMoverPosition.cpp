@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MultiStateMoverPosition.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MultiStateMoverPosition.cpp 5292 2012-02-23 16:17:34Z grayman $");
 
 #include "MultiStateMoverPosition.h"
 #include "MultiStateMoverButton.h"
@@ -61,12 +61,15 @@ void CMultiStateMoverPosition::SetMover(CMultiStateMover* newMover)
 	mover = newMover;
 }
 
-CMultiStateMoverButton*	CMultiStateMoverPosition::GetFetchButton()
+CMultiStateMoverButton*	CMultiStateMoverPosition::GetFetchButton( idVec3 riderOrg ) // grayman #3029
 {
 	CMultiStateMover* m = mover.GetEntity();
-	if (m == NULL) return NULL;
+	if (m == NULL)
+	{
+		return NULL;
+	}
 
-	return m->GetButton(this, NULL, BUTTON_TYPE_FETCH);
+	return m->GetButton(this, NULL, BUTTON_TYPE_FETCH, riderOrg); // grayman #3029
 }
 
 CMultiStateMoverButton*	CMultiStateMoverPosition::GetRideButton(CMultiStateMoverPosition* toPosition)
@@ -74,7 +77,7 @@ CMultiStateMoverButton*	CMultiStateMoverPosition::GetRideButton(CMultiStateMover
 	CMultiStateMover* m = mover.GetEntity();
 	if (m == NULL) return NULL;
 
-	return m->GetButton(toPosition, this, BUTTON_TYPE_RIDE);
+	return m->GetButton(toPosition, this, BUTTON_TYPE_RIDE, vec3_zero); // grayman #3029
 }
 
 void CMultiStateMoverPosition::Save(idSaveGame *savefile) const

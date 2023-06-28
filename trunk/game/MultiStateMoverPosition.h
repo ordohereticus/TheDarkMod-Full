@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef _MULTI_STATE_MOVER_POSITION_H_
@@ -50,11 +50,11 @@ public:
 	void	SetMover(CMultiStateMover* newMover);
 
 	/**
-	 * greebo: Returns the button entity which can be used to fetch the elevator to this position.
+	 * greebo: Returns the closest button entity which can be used to fetch the elevator to this position.
 	 * 
 	 * @returns: NULL if no suitable button found.
 	 */
-	CMultiStateMoverButton*	GetFetchButton();
+	CMultiStateMoverButton*	GetFetchButton( idVec3 riderOrg ); // grayman #3029
 
 	/** 
 	 * greebo: Returns the button entity which can be used to move the associated elevator to 

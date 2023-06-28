@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5292 $ (Revision of last commit) 
+ $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: InteractionTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: InteractionTask.cpp 5292 2012-02-23 16:17:34Z grayman $");
 
 #include "InteractionTask.h"
 #include "../Memory.h"
@@ -78,13 +78,39 @@ bool InteractionTask::Perform(Subsystem& subsystem)
 	idAI* owner = _owner.GetEntity();
 	assert(owner != NULL);
 
-	if (_waitEndTime > 0 && gameLocal.time >= _waitEndTime)
+	// grayman #3029 - special case for elevator fetch buttons: we don't
+	// want an AI to fetch a moving elevator. He has to wait for it to come to rest.
+
+	if (_interactEnt->spawnArgs.GetBool("fetch","0"))
+	{
+		for ( int i = 0 ; i < _interactEnt->targets.Num() ; i++ )
+		{
+			idEntity* ent = _interactEnt->targets[i].GetEntity();
+
+			if (ent == NULL)
+			{
+				continue;
+			}
+
+			const char *classname;
+			ent->spawnArgs.GetString("classname", NULL, &classname);
+			if (idStr::Cmp(classname, "atdm:mover_elevator") == 0)
+			{
+				if (!ent->IsAtRest())
+				{
+					return false; // wait for the elevator to come to rest
+				}
+			}
+		}
+	}
+
+	if ( ( _waitEndTime > 0 ) && ( gameLocal.time >= _waitEndTime) )
 	{
 		// Trigger the frob action script
 		_interactEnt->FrobAction(true);
 		return true;
 	}
-	else if (_waitEndTime < 0 && owner->GetMoveStatus() == MOVE_STATUS_DONE)
+	else if ( ( _waitEndTime < 0 ) && ( owner->GetMoveStatus() == MOVE_STATUS_DONE) )
 	{
 		// We've reached our target, turn and look
 		owner->TurnToward(_interactEnt->GetPhysics()->GetOrigin());
@@ -108,7 +134,7 @@ bool InteractionTask::Perform(Subsystem& subsystem)
 		}
 	}
 	
-	return false; // finish this task
+	return false; // continue this task
 }
 
 void InteractionTask::OnFinish(idAI* owner)
