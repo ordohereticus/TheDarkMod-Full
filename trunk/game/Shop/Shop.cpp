@@ -12,16 +12,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5440 $ (Revision of last commit) 
+ $Date: 2012-05-08 15:28:07 -0400 (Tue, 08 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Shop.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Shop.cpp 5440 2012-05-08 19:28:07Z tels $");
 
 #include "Shop.h"
 #include "../Game_local.h"
@@ -1050,7 +1050,7 @@ void CShop::UpdateGUI(idUserInterface* gui)
 	{
 		// nothing for sale, let the user know
 		gui->SetStateInt("forSaleAvail0", 0);
-		gui->SetStateString("forSale0_name", "<no items for sale>");
+		gui->SetStateString("forSale0_name", common->Translate( "#str_02314" )); 		// "<no items for sale>"
 		// Tels: Fix #2661: do not show a description if nothing is for sale
 		gui->SetStateString("gui::forSale0_desc", "");
 		gui->SetStateString("gui::forSale0_image", "");
