@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5377 $ (Revision of last commit) 
- $Date: 2012-04-10 02:34:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5379 $ (Revision of last commit) 
+ $Date: 2012-04-10 20:28:42 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5377 2012-04-10 06:34:04Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5379 2012-04-11 00:28:42Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -12272,23 +12272,22 @@ bool idEntity::IsNeutral(const idEntity *other) const
 	{
 		return false;
 	}
-	else if (other->team == -1)
+
+	if (other->team == -1)
 	{
 		// entities with team -1 (not set) are neutral
 		return true;
 	}
-	else
-	{
-		// angua: look up entity specific relation
-		EntityRelationsMap::const_iterator found = m_EntityRelations.find(other);
-		if (found != m_EntityRelations.end())
-		{
-			return (found->second == 0);
-		}
 
-		// angua: no specific relation found, fall back to standard team relations
-		return gameLocal.m_RelationsManager->IsNeutral(team, other->team);
+	// angua: look up entity specific relation
+	EntityRelationsMap::const_iterator found = m_EntityRelations.find(other);
+	if (found != m_EntityRelations.end())
+	{
+		return (found->second == 0);
 	}
+
+	// angua: no specific relation found, fall back to standard team relations
+	return gameLocal.m_RelationsManager->IsNeutral(team, other->team);
 }
 
 bool idEntity::IsEnemy(const idEntity *other ) const
