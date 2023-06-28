@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Revision: 5426 $ (Revision of last commit) 
+ $Date: 2012-05-04 23:07:59 -0400 (Fri, 04 May 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Model.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Model.cpp 5426 2012-05-05 03:07:59Z serpentine $");
 
 #include "tr_local.h"
 #include "Model_local.h"
@@ -1234,7 +1234,7 @@ bool idRenderModelStatic::ConvertLWOToModelSurfaces( const struct st_lwObject *l
 			}
 
 			if ( poly->nverts != 3 ) {
-				common->Warning( "ConvertLWOToModelSurfaces: model %s has too many verts for a poly! Make sure you triplet it down", name.c_str() );
+				common->Warning( "ConvertLWOToModelSurfaces: model \'%s\' has too many verts for a poly! Make sure you triplet it down", name.c_str() );
 				continue;
 			}
 
@@ -1463,7 +1463,7 @@ struct aseModel_s *idRenderModelStatic::ConvertLWOToASE( const struct st_lwObjec
 			}
 
 			if ( poly->nverts != 3 ) {
-				common->Warning( "ConvertLWOToASE: model %s has too many verts for a poly! Make sure you triplet it down", fileName );
+				common->Warning( "ConvertLWOToASE: model \'%s\' has too many verts for a poly! Make sure you triplet it down", fileName );
 				continue;
 			}
 	
