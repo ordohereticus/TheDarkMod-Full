@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5443 $ (Revision of last commit) 
+ $Date: 2012-05-10 00:24:25 -0400 (Thu, 10 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5443 2012-05-10 04:24:25Z grayman $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -3495,6 +3495,18 @@ void idAI::Event_DropTorch() // grayman #2603
 			// grayman #3075 - set m_SetInMotionByActor here
 			ent->m_SetInMotionByActor = this;
 			ent->m_MovedByActor = this;
+
+			// grayman #3123 - this could be happening to a lit torch,
+			// so douse the torch once it's dropped
+
+			int delay = SEC2MS(ent->spawnArgs.GetInt("extinguish_on_drop_delay", "3"));
+			if (delay < 0)
+			{
+				delay = 0;
+			}
+
+			// Schedule the extinguish event
+			ent->PostEventMS(&EV_ExtinguishLights, delay);
 
 			break;
 		}
