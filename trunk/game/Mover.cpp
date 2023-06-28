@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5292 2012-02-23 16:17:34Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -309,7 +309,7 @@ void idMover::Event_PostRestore( int start, int total, int accel, int decel, int
 	idEntity *splineEntity = splineEnt.GetEntity();
 	if ( !splineEntity ) {
 		// We should never get this event if splineEnt is invalid
-		common->Warning( "Invalid spline entity during restore\n" );
+		common->Warning( "Invalid spline entity during restore" );
 		return;
 	}
 

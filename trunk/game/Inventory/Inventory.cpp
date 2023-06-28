@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Inventory.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Inventory.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -749,7 +749,7 @@ bool CInventory::ReplaceItem(idEntity* oldItemEnt, idEntity* newItemEnt)
 
 	if (oldItem == NULL)
 	{
-		gameLocal.Warning("Could not find old inventory item for %s\n", oldItemEnt->name.c_str());
+		gameLocal.Warning("Could not find old inventory item for %s", oldItemEnt->name.c_str());
 		DM_LOG(LC_INVENTORY, LT_DEBUG)LOGSTRING("Could not find old inventory item for %s\n", oldItemEnt->name.c_str());
 		return false;
 	}
@@ -991,7 +991,7 @@ CInventoryItemPtr CInventory::ValidateAmmo(idEntity* ent, const bool gotFromShop
 	if (weaponName.IsEmpty())
 	{
 		DM_LOG(LC_INVENTORY, LT_ERROR)LOGSTRING("Could not find 'inv_weapon_name' on item %s.\r", ent->name.c_str());
-		gameLocal.Warning("Could not find 'inv_weapon_name' on item %s.\r", ent->name.c_str());
+		gameLocal.Warning("Could not find 'inv_weapon_name' on item %s.", ent->name.c_str());
 		return returnValue;
 	}
 

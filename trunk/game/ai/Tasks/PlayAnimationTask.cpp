@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5308 $ (Revision of last commit) 
- $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: PlayAnimationTask.cpp 5308 2012-02-26 18:09:58Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: PlayAnimationTask.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "../Memory.h"
 #include "PlayAnimationTask.h"
@@ -57,7 +57,7 @@ void PlayAnimationTask::Init(idAI* owner, Subsystem& subsystem)
 	// Parse animation spawnargs here
 	if (_animName.IsEmpty())
 	{
-		gameLocal.Warning("%s cannot start PlayAnimationTask with empty animation name.\n",owner->name.c_str());
+		gameLocal.Warning("%s cannot start PlayAnimationTask with empty animation name.",owner->name.c_str());
 		subsystem.FinishTask();
 	}
 

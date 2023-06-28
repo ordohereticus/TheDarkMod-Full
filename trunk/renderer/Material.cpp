@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5286 $ (Revision of last commit) 
- $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5286 2012-02-16 17:11:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Material.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "tr_local.h"
 
@@ -870,7 +870,7 @@ void idMaterial::ParseVertexParm( idLexer &src, newShaderStage_t *newStage ) {
 	src.ReadTokenOnLine( &token );
 	int	parm = token.GetIntValue();
 	if ( !token.IsNumeric() || parm < 0 || parm >= MAX_VERTEX_PARMS ) {
-		common->Warning( "bad vertexParm number\n" );
+		common->Warning( "bad vertexParm number" );
 		SetMaterialFlag( MF_DEFAULTED );
 		return;
 	}
@@ -932,7 +932,7 @@ void idMaterial::ParseFragmentMap( idLexer &src, newShaderStage_t *newStage ) {
 	src.ReadTokenOnLine( &token );
 	int	unit = token.GetIntValue();
 	if ( !token.IsNumeric() || unit < 0 || unit >= MAX_FRAGMENT_IMAGES ) {
-		common->Warning( "bad fragmentMap number\n" );
+		common->Warning( "bad fragmentMap number" );
 		SetMaterialFlag( MF_DEFAULTED );
 		return;
 	}

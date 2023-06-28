@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5258 $ (Revision of last commit) 
- $Date: 2012-02-08 10:02:20 -0500 (Wed, 08 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -29,7 +29,7 @@ Various utility objects and functions.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5258 2012-02-08 15:02:20Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Misc.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Game_local.h"
 #include "SndProp.h"
@@ -148,7 +148,7 @@ void idPlayerStart::Event_TeleportStage( idEntity *_player ) {
 
 	if ( !_player->IsType( idPlayer::Type ) ) {
 
-		common->Warning( "idPlayerStart::Event_TeleportStage: entity is not an idPlayer\n" );
+		common->Warning( "idPlayerStart::Event_TeleportStage: entity is not an idPlayer" );
 
 		return;
 

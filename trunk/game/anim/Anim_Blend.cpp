@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Anim_Blend.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Anim_Blend.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "../Game_local.h"
 #include "../DarkModGlobals.h"
@@ -1267,12 +1267,12 @@ void idAnim::CallFrameCommands( idEntity *ent, int from, int to, idAnimBlend *ca
 					{
 						ent->Detach( command.string->c_str() );
 						// and now remove it from the game world
-						// gameLocal.Warning ( "Going to remove attachment '%s' from '%s'\n", command.string->c_str(), ent->getName().c_str() );
+						// gameLocal.Warning ( "Going to remove attachment '%s' from '%s'", command.string->c_str(), ent->getName().c_str() );
 						attEntity->PostEventMS( &EV_Remove, 0 );
 					}
 					else
 					{
-						gameLocal.Warning ( "Cannot find attachment '%s' to destroy in animation.\n", command.string->c_str() );
+						gameLocal.Warning ( "Cannot find attachment '%s' to destroy in animation.", command.string->c_str() );
 					}
 					break;
 				}

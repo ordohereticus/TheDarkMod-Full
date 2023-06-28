@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncClient.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncClient.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "AsyncNetwork.h"
 
@@ -1359,7 +1359,7 @@ void idAsyncClient::ConnectionlessMessage( const netadr_t from, const idBitMsg &
 	if ( idStr::Icmp( string, "authrequired" ) == 0 ) {
 		// server telling us that he's expecting an auth mode connect, just in case we're trying to connect in LAN mode
 		if ( idAsyncNetwork::LANServer.GetBool() ) {
-			common->Warning( "server %s requests master authorization for this client. Turning off LAN mode\n", Sys_NetAdrToString( from ) );
+			common->Warning( "server %s requests master authorization for this client. Turning off LAN mode", Sys_NetAdrToString( from ) );
 			idAsyncNetwork::LANServer.SetBool( false );
 		}
 	}

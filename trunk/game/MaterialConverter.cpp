@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5286 $ (Revision of last commit) 
- $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MaterialConverter.cpp 5286 2012-02-16 17:11:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: MaterialConverter.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Game_local.h"
 #include "MaterialConverter.h"
@@ -177,7 +177,7 @@ void MaterialParsingHelper::GetMaterialStageInfo( const char* a_strMatStageName,
 					{
 						if( !a_lexSource.ReadToken( &tknMatStage ) )
 						{
-							gameLocal.Warning( "Unexpected end of material when trying to obtain scale. \n");
+							gameLocal.Warning( "Unexpected end of material when trying to obtain scale. ");
 							break;
 						}
 						// Not using expectTokenString anymore since "Map" is treated as different token than "map". 
@@ -241,7 +241,7 @@ bool MaterialParsingHelper::FindBlockContainingWords(  const char *a_text, std::
 
 		if( uiSearchIndex < 0 )
 		{
-			//  			gameLocal.Warning( " Could not find search word %s\n", (*iter).c_str() );
+			//  			gameLocal.Warning( " Could not find search word %s", (*iter).c_str() );
 			return false;
 		}
 
@@ -252,7 +252,7 @@ bool MaterialParsingHelper::FindBlockContainingWords(  const char *a_text, std::
 		{
 			if( uiSearchIndex != uiSearchOffset )
 			{
-				//  				gameLocal.Warning( " Could not find search word %s in the expected order\n", (*iter).c_str() );
+				//  				gameLocal.Warning( " Could not find search word %s in the expected order", (*iter).c_str() );
 
 				//Start the search from the first word again, since all of the search words are important.
 				bAreAllWordsFound = false;
@@ -311,11 +311,11 @@ bool MaterialParsingHelper::FindBlockContainingWords(  const char *a_text, std::
 				return true;
 			}
 		}
-		// 		gameLocal.Warning( " Block start found:%d Block End Found:%d, Returning false.\n", (int)bIsStartOffsetFound, (int)bIsEndOffsetFound );
+		// 		gameLocal.Warning( " Block start found:%d Block End Found:%d, Returning false.", (int)bIsStartOffsetFound, (int)bIsEndOffsetFound );
 	}
 
 	// 	if( !bAreAllWordsFound )
-	//  		gameLocal.Warning( " Returning false since given words can't be found in the exact given order.\n" );
+	//  		gameLocal.Warning( " Returning false since given words can't be found in the exact given order." );
 	return false;
 }
 
@@ -711,7 +711,7 @@ eMaterialConversionStatus MaterialConverter::ConvertMaterial( idMaterial *a_pMat
 	}
 	else
 	{
-		gameLocal.Warning( "Could not determine end of the material block. Skipping this material.\n" );
+		gameLocal.Warning( "Could not determine end of the material block. Skipping this material." );
 		// 				a_pMaterial->Invalidate();
 		// 				a_pMaterial->FreeData();
 		return eMaterialConversionStatus_Skipped_CouldNotFindEndOfBlock;

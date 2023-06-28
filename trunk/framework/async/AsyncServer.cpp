@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncServer.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncServer.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "AsyncNetwork.h"
 
@@ -907,7 +907,7 @@ void idAsyncServer::UpdateUI( int clientNum ) {
 	const idDict	*info = game->GetUserInfo( clientNum );
 
 	if ( !info ) {
-		common->Warning( "idAsyncServer::UpdateUI: no info from game\n" );
+		common->Warning( "idAsyncServer::UpdateUI: no info from game" );
 		return;
 	}
 
@@ -1747,7 +1747,7 @@ bool idAsyncServer::VerifyChecksumMessage( int clientNum, const netadr_t *from, 
 		checksums[ numChecksums++ ] = i;
 		// just to make sure a broken client doesn't crash us
 		if ( numChecksums >= MAX_PURE_PAKS ) {
-			common->Warning( "MAX_PURE_PAKS ( %d ) exceeded\n", MAX_PURE_PAKS );
+			common->Warning( "MAX_PURE_PAKS ( %d ) exceeded", MAX_PURE_PAKS );
 			sprintf( reply, "#str_07144" );
 			return false;
 		}

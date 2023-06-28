@@ -12,16 +12,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5301 $ (Revision of last commit) 
- $Date: 2012-02-26 06:13:14 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5301 2012-02-26 11:13:14Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "I18N.h"
 
@@ -342,7 +342,7 @@ int I18NLocal::LoadCharacterMapping( idStr& lang ) {
 				break;
 			}
 			// add the two numbers
-			//	common->Warning("got '%s' '%s'\n", tok.c_str(), tok2.c_str() );
+			//	common->Warning("got '%s' '%s'", tok.c_str(), tok2.c_str() );
 			m_Remap.Append( (char) tok.GetIntValue() );
 			m_Remap.Append( (char) tok2.GetIntValue() );
 //			common->Printf("I18N: Mapping %i (0x%02x) to %i (0x%02x)\n", tok.GetIntValue(), tok.GetIntValue(), tok2.GetIntValue(), tok2.GetIntValue() );

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 /******************************************************************************/
@@ -35,7 +35,7 @@
 
 #include "Game_local.h"
 
-static bool versioned = RegisterVersionedFile("$Id: SndPropLoader.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SndPropLoader.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #pragma warning(disable : 4996)
 
@@ -811,7 +811,7 @@ void CsndPropBase::SetPortalLoss( int handle, float value )
 	if( handle < 1 || handle > gameRenderWorld->NumPortals() )
 	{
 		DM_LOG(LC_SOUND, LT_WARNING)LOGSTRING("SetPortalLoss called with invalid portal handle %d.\r", handle );
-		gameLocal.Warning( "SetPortalLoss called with invalid portal handle %d.\n", handle );
+		gameLocal.Warning( "SetPortalLoss called with invalid portal handle %d.", handle );
 
 		goto Quit;
 	}
@@ -830,7 +830,7 @@ float CsndPropBase::GetPortalLoss( int handle )
 	if( handle < 1 || handle > gameRenderWorld->NumPortals() )
 	{
 		DM_LOG(LC_SOUND, LT_WARNING)LOGSTRING("GetPortalLoss called with invalid portal handle %d, returning zero loss.\r", handle );
-		gameLocal.Warning( "GetPortalLoss called with invalid portal handle %d, returning zero loss.\n", handle );
+		gameLocal.Warning( "GetPortalLoss called with invalid portal handle %d, returning zero loss.", handle );
 
 		returnval = 0.0;
 		goto Quit;

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5313 $ (Revision of last commit) 
- $Date: 2012-03-04 05:43:11 -0500 (Sun, 04 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Window.cpp 5313 2012-03-04 10:43:11Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Window.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "DeviceContext.h"
 #include "Window.h"
@@ -2015,7 +2015,7 @@ bool idWindow::ParseInternalVar(const char *_name, idParser *src) {
 		return true;
 	}
 	if (idStr::Icmp(_name, "play") == 0) {
-		common->Warning( "play encountered during gui parse.. see Robert\n" );
+		common->Warning( "play encountered during gui parse.. see Robert" );
 		idStr playStr;
 		ParseString(src, playStr);
 		return true;

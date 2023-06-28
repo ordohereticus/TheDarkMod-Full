@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5360 $ (Revision of last commit) 
- $Date: 2012-03-25 22:39:35 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5360 2012-03-26 02:39:35Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Unzip.h"
 
@@ -1258,7 +1258,7 @@ int idFileSystemLocal::AddZipFile( const char *path ) {
 	fullpath.AppendPath( path );
 	pak = LoadZipFile( fullpath );
 	if ( !pak ) {
-		common->Warning( "AddZipFile %s failed\n", path );
+		common->Warning( "AddZipFile %s failed", path );
 		return 0;
 	}
 

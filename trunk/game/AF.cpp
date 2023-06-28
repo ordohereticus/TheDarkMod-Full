@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AF.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AF.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Game_local.h"
 
@@ -921,7 +921,7 @@ bool idAF::Load( idEntity *ent, const char *fileName ) {
 	physicsObj.SetSelf( self );
 
 	if ( animator == NULL ) {
-		gameLocal.Warning( "Couldn't load af '%s' for entity '%s' at (%s): NULL animator\n", name.c_str(), ent->name.c_str(), ent->GetPhysics()->GetOrigin().ToString(0) );
+		gameLocal.Warning( "Couldn't load af '%s' for entity '%s' at (%s): NULL animator", name.c_str(), ent->name.c_str(), ent->GetPhysics()->GetOrigin().ToString(0) );
 		return false;
 	}
 
@@ -930,7 +930,7 @@ bool idAF::Load( idEntity *ent, const char *fileName ) {
 
 	file = static_cast<const idDeclAF *>( declManager->FindType( DECL_AF, name ) );
 	if ( !file ) {
-		gameLocal.Warning( "Couldn't load af '%s' for entity '%s' at (%s)\n", name.c_str(), ent->name.c_str(), ent->GetPhysics()->GetOrigin().ToString(0) );
+		gameLocal.Warning( "Couldn't load af '%s' for entity '%s' at (%s)", name.c_str(), ent->name.c_str(), ent->GetPhysics()->GetOrigin().ToString(0) );
 		return false;
 	}
 

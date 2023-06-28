@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5345 $ (Revision of last commit) 
- $Date: 2012-03-18 12:12:15 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -1618,7 +1618,7 @@ int idStr::snPrintf( char *dest, int size, const char *fmt, ...) {
 		idLib::common->Error( "idStr::snPrintf: overflowed buffer" );
 	}
 	if ( len >= (unsigned int) size ) {
-		idLib::common->Warning( "idStr::snPrintf: overflow of %i in %i\n", len, size );
+		idLib::common->Warning( "idStr::snPrintf: overflow of %i in %i", len, size );
 		len = size;
 	}
 	idStr::Copynz( dest, buffer, size );

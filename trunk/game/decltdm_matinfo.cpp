@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: decltdm_matinfo.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: decltdm_matinfo.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "decltdm_matinfo.h"
 
@@ -156,7 +156,7 @@ void tdmDeclTDM_MatInfo::precacheMap( idMapFile *map ) {
 				declManager->MediaPrint( "Precaching TDM_MatInfo %s\n", patch->GetMaterial() );
 				declManager->FindType( DECL_TDM_MATINFO, patch->GetMaterial() );
 			} else {
-				gameLocal.Warning( "tdmDeclTDM_MatInfo(): unknown primitive type: %d\n", prim->GetType() );
+				gameLocal.Warning( "tdmDeclTDM_MatInfo(): unknown primitive type: %d", prim->GetType() );
 			}
 		}
 	}

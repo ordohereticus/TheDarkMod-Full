@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5309 $ (Revision of last commit) 
- $Date: 2012-02-28 16:33:03 -0500 (Tue, 28 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_load.cpp 5309 2012-02-28 21:33:03Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Image_load.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1471,7 +1471,7 @@ void idImage::UploadPrecompressedImage( byte *data, int len ) {
 			internalFormat = GL_COMPRESSED_LUMINANCE_ALPHA_LATC2_EXT;
 			break;
         default:
-            common->Warning( "Invalid compressed internal format: %s\n", imgName.c_str() );
+            common->Warning( "Invalid compressed internal format: %s", imgName.c_str() );
             return;
         }
     } else if ( ( header->ddspf.dwFlags & DDSF_RGBA ) && header->ddspf.dwRGBBitCount == 32 ) {
@@ -1492,7 +1492,7 @@ void idImage::UploadPrecompressedImage( byte *data, int len ) {
 		externalFormat = GL_ALPHA;
 		internalFormat = GL_ALPHA8;
 	} else {
-		common->Warning( "Invalid uncompressed internal format: %s\n", imgName.c_str() );
+		common->Warning( "Invalid uncompressed internal format: %s", imgName.c_str() );
 		return;
 	}
 

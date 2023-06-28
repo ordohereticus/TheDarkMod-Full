@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -33,7 +33,7 @@ TODO: track skin changes on the different LOD stages
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: StaticMulti.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: StaticMulti.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "StaticMulti.h"
 
@@ -367,7 +367,7 @@ bool CStaticMulti::UpdateRenderModel( const bool force )
 			hModel = renderModelManager->FindModel( m );
 			if (!hModel)
 			{
-				gameLocal.Warning("Could not load model %s.\n", m.c_str() );
+				gameLocal.Warning("Could not load model %s.", m.c_str() );
 			}
 		}
 		LODs.Append(hModel);
@@ -393,7 +393,7 @@ bool CStaticMulti::UpdateRenderModel( const bool force )
 			hModel = renderModelManager->FindModel( m );
 			if (!hModel)
 			{
-				gameLocal.Warning("Could not load model %s.\n", m.c_str() );
+				gameLocal.Warning("Could not load model %s.", m.c_str() );
 			}
 		}
 		LODs.Append(hModel);

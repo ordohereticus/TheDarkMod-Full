@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5235 $ (Revision of last commit) 
- $Date: 2012-01-26 15:16:22 -0500 (Thu, 26 Jan 2012) $ (Date of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Game_network.cpp 5235 2012-01-26 20:16:22Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Game_network.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Game_local.h"
 
@@ -1042,7 +1042,7 @@ void idGameLocal::ClientReadSnapshot( int clientNum, int sequence, const int gam
 
 			if ( i < MAX_CLIENTS && ent ) {
 				// SPAWN_PLAYER should be taking care of spawning the entity with the right spawnId
-				common->Warning( "ClientReadSnapshot: recycling client entity %d\n", i );
+				common->Warning( "ClientReadSnapshot: recycling client entity %d", i );
 			}
 
 			delete ent;

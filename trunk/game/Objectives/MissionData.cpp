@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "../Game_local.h"
 
@@ -2390,7 +2390,7 @@ void CMissionData::ClearGUIState()
 void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDefName)
 {
 	if (gui == NULL) {
-		gameLocal.Warning("Can't update statistics GUI, invalid handle.\n");
+		gameLocal.Warning("Can't update statistics GUI, invalid handle.");
 		return; // invalid handle, do nothing
 	}
 

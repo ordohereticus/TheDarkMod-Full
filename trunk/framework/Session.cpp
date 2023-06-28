@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5325 $ (Revision of last commit) 
- $Date: 2012-03-09 11:51:25 -0500 (Fri, 09 Mar 2012) $ (Date of last commit)
- $Author: aluminiumhaste $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5325 2012-03-09 16:51:25Z aluminiumhaste $");
+static bool versioned = RegisterVersionedFile("$Id: Session.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Session_local.h"
 
@@ -1735,7 +1735,7 @@ bool idSessionLocal::SaveGame( const char *saveName, bool autosave ) {
 	// Open savegame file
 	idFile *fileOut = fileSystem->OpenFileWrite( gameFile );
 	if ( fileOut == NULL ) {
-		common->Warning( "Failed to open save file '%s'\n", gameFile.c_str() );
+		common->Warning( "Failed to open save file '%s'", gameFile.c_str() );
 		if ( pauseWorld ) {
 			soundSystem->SetPlayingSoundWorld( pauseWorld );
 			pauseWorld->UnPause();
@@ -1781,7 +1781,7 @@ bool idSessionLocal::SaveGame( const char *saveName, bool autosave ) {
 	// the unclean save name on line 1, map name on line 2, screenshot on line 3
 	idFile *fileDesc = fileSystem->OpenFileWrite( descriptionFile );
 	if ( fileDesc == NULL ) {
-		common->Warning( "Failed to open description file '%s'\n", descriptionFile.c_str() );
+		common->Warning( "Failed to open description file '%s'", descriptionFile.c_str() );
 		if ( pauseWorld ) {
 			soundSystem->SetPlayingSoundWorld( pauseWorld );
 			pauseWorld->UnPause();

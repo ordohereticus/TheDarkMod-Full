@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Conversation.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Conversation.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include <climits>
 #include "Conversation.h"
@@ -444,7 +444,7 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 	if (_actors.Num() == 0)
 	{
 		_isValid = false; // no actors, no conversation
-		gameLocal.Warning("Ignoring conversation %s as it has no actors.\n", _name.c_str());
+		gameLocal.Warning("Ignoring conversation %s as it has no actors.", _name.c_str());
 		return;
 	}
 
@@ -481,7 +481,7 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 	{
 		// No commands, what kind of conversation is this?
 		_isValid = false;
-		gameLocal.Warning("Ignoring conversation %s as it has no commands.\n", _name.c_str());
+		gameLocal.Warning("Ignoring conversation %s as it has no commands.", _name.c_str());
 		return;
 	}
 
@@ -489,7 +489,7 @@ void Conversation::InitFromSpawnArgs(const idDict& dict, int index)
 	if (_talkDistance <= 0.0f)
 	{
 		_isValid = false;
-		gameLocal.Warning("Ignoring conversation %s as it has a talk distance <= 0.\n", _name.c_str());
+		gameLocal.Warning("Ignoring conversation %s as it has a talk distance <= 0.", _name.c_str());
 		return;
 	}
 

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncNetwork.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncNetwork.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "AsyncNetwork.h"
 
@@ -472,11 +472,11 @@ idAsyncNetwork::UpdateUI_f
 */
 void idAsyncNetwork::UpdateUI_f( const idCmdArgs &args ) {
 	if ( args.Argc() != 2 ) {
-		common->Warning( "idAsyncNetwork::UpdateUI_f: wrong arguments\n" );
+		common->Warning( "idAsyncNetwork::UpdateUI_f: wrong arguments" );
 		return;
 	}
 	if ( !server.IsActive() ) {
-		common->Warning( "idAsyncNetwork::UpdateUI_f: server is not active\n" );
+		common->Warning( "idAsyncNetwork::UpdateUI_f: server is not active" );
 		return;
 	}
 	int clientNum = atoi( args.Args( 1 ) );

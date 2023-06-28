@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5346 $ (Revision of last commit) 
- $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5346 2012-03-18 16:13:46Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -2950,7 +2950,7 @@ void GetMaterialStageInfo ( const char* a_strMatStageName, idLexer &a_lexSource,
 					{
 						if( !a_lexSource.ReadToken( &tknMatStage ) )
 						{
-							gameLocal.Warning( "Unexpected end of material when trying to obtain scale. \n");
+							gameLocal.Warning( "Unexpected end of material when trying to obtain scale. ");
 							break;
 						}
 						// Not using expectTokenString anymore since "Map" is treated as different token than "map". 
@@ -3016,7 +3016,7 @@ bool FindBlockContainingWords(  const char *a_text, std::vector<idStr>& a_arrSea
 
 		if( uiSearchIndex < 0 )
 		{
-			gameLocal.Warning( " Could not find search word %s\n", (*iter).c_str() );
+			gameLocal.Warning( " Could not find search word %s", (*iter).c_str() );
 			return false;
 		}
 
@@ -3027,7 +3027,7 @@ bool FindBlockContainingWords(  const char *a_text, std::vector<idStr>& a_arrSea
 		{
 			if( uiSearchIndex != uiSearchOffset )
 			{
-				gameLocal.Warning( " Could not find search word %s in the expected order\n", (*iter).c_str() );
+				gameLocal.Warning( " Could not find search word %s in the expected order", (*iter).c_str() );
 
 				//Start the search from the first word again, since all of the search words are important.
 				bAreAllWordsFound = false;
@@ -3086,11 +3086,11 @@ bool FindBlockContainingWords(  const char *a_text, std::vector<idStr>& a_arrSea
 				return true;
 			}
 		}
-		// 		gameLocal.Warning( " Block start found:%d Block End Found:%d, Returning false.\n", (int)bIsStartOffsetFound, (int)bIsEndOffsetFound );
+		// 		gameLocal.Warning( " Block start found:%d Block End Found:%d, Returning false.", (int)bIsStartOffsetFound, (int)bIsEndOffsetFound );
 	}
 
 	// 	if( !bAreAllWordsFound )
-	//  		gameLocal.Warning( " Returning false since given words can't be found in the exact given order.\n" );
+	//  		gameLocal.Warning( " Returning false since given words can't be found in the exact given order." );
 	return false;
 }
 
@@ -3506,7 +3506,7 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 		}
 		else
 		{
-			gameLocal.Warning( "Could not determine end of the material block. Skipping this material.\n" );
+			gameLocal.Warning( "Could not determine end of the material block. Skipping this material." );
 			// 				mat->Invalidate();
 			// 				mat->FreeData();
 			continue;
@@ -3528,7 +3528,7 @@ void Cmd_BatchConvertMaterials_f( const idCmdArgs& args )
 
 		if( !mat->Parse( strMatTextWithNewBlock.c_str(), strMatTextWithNewBlock.Length() ) )
 		{
-		  gameLocal.Warning( "Material %s had error in the newly inserted text %s. \n Aborting.\n", mat->GetName(), &arrCharNewAmbientBlock[0] );
+		  gameLocal.Warning( "Material %s had error in the newly inserted text %s. \n Aborting.", mat->GetName(), &arrCharNewAmbientBlock[0] );
 		  break;
 		}
 		mat->ReplaceSourceFileText();

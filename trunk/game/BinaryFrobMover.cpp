@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5361 $ (Revision of last commit) 
+ $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5292 2012-02-23 16:17:34Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5361 2012-03-26 03:03:21Z serpentine $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -332,7 +332,7 @@ void CBinaryFrobMover::PostSpawn()
 			}
 			else
 			{
-				gameLocal.Warning("Mover '%s' has start_rotate set, but rotation angles are zero.\r", name.c_str());
+				gameLocal.Warning("Mover '%s' has start_rotate set, but rotation angles are zero.", name.c_str());
 				DM_LOG(LC_SYSTEM, LT_ERROR)LOGSTRING("[%s] has start_rotate set, but rotation angles are zero.\r", name.c_str());
 			}
 		}
@@ -352,7 +352,7 @@ void CBinaryFrobMover::PostSpawn()
 			}
 			else
 			{
-				gameLocal.Warning("Mover '%s' has start_position set, but translation is zero.\r", name.c_str());
+				gameLocal.Warning("Mover '%s' has start_position set, but translation is zero.", name.c_str());
 				DM_LOG(LC_SYSTEM, LT_ERROR)LOGSTRING("[%s] has partial translation set, but translation is zero?\r", name.c_str());
 			}
 		}
