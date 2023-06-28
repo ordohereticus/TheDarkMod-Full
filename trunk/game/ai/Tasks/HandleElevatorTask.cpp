@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5320 $ (Revision of last commit) 
- $Date: 2012-03-07 19:35:50 -0500 (Wed, 07 Mar 2012) $ (Date of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: HandleElevatorTask.cpp 5320 2012-03-08 00:35:50Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: HandleElevatorTask.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "../Memory.h"
 #include "HandleElevatorTask.h"
@@ -166,6 +166,13 @@ bool HandleElevatorTask::Perform(Subsystem& subsystem)
 	// grayman #2948 - leave elevator handling if KO'ed or dead
 
 	if ( owner->AI_KNOCKEDOUT || owner->AI_DEAD )
+	{
+		return true;
+	}
+	
+	// grayman #2816 - stop elevator handling for various reasons
+
+	if ( owner->GetMemory().stopHandlingElevator )
 	{
 		return true;
 	}
@@ -707,6 +714,7 @@ void HandleElevatorTask::OnFinish(idAI* owner)
 
 	owner->m_HandlingElevator = false;
 	owner->m_CanSetupDoor = true; // grayman #3029
+	owner->GetMemory().stopHandlingElevator = false; // grayman #2816
 
 	// grayman #3029 - restore from the first push, regardless of success or failure
 	owner->PopMove();

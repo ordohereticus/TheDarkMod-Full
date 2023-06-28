@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -7326,7 +7326,21 @@ void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const 
 	int		damage;
 	int		armorSave;
 
-	damageDef->GetInt( "damage", "20", damage );
+	// grayman #2816 - calculate damage differently if hit by a moveable
+	bool scaleDamage = damageDef->GetBool( "scale_damage", "0" );
+	float f = 1.0f;
+	if ( scaleDamage ) // Moveable
+	{
+		float mass = inflictor->spawnArgs.GetFloat("mass","1");
+		f = mass/5.0f;
+		damage = 1;
+	}
+	else // Melee or not a Moveable
+	{
+		damageDef->GetInt( "damage", "20", damage );
+	}
+
+	damage *= f*damageScale;
 	damage = GetDamageForLocation( damage, location );
 
 	idPlayer *player = attacker->IsType( idPlayer::Type ) ? static_cast<idPlayer*>(attacker) : NULL;
@@ -7350,8 +7364,6 @@ void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const 
 			}
 		}
 	}
-
-	damage *= damageScale;
 
 	// always give half damage if hurting self
 	if ( attacker == this ) {
@@ -7523,14 +7535,15 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 	// add to the damage inflicted on a player this frame
 	// the total will be turned into screen blends and view angle kicks
 	// at the end of the frame
-	if ( health > 0 ) {
+	// grayman #2816 - only if there's damage
+	if ( ( health > 0 ) && ( damage > 0 ) )
+	{
 		playerView.DamageImpulse( localDamageVector, &damageDef->dict );
 	}
 
 	// do the damage
 	if ( damage > 0 ) 
 	{
-
 		if ( !gameLocal.isMultiplayer ) 
 		{
 			float scale = g_damageScale.GetFloat();
@@ -7561,11 +7574,12 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		// ishtvan bugfix: set m_bDamagedThisFrame here, rather than in ::Think
 		// compare against pain threshold so that things like low-grade poison gas don't prevent player actions
 		if ( damage > pain_threshold )
+		{
 			m_bDamagedThisFrame = true;
+		}
 
 		if ( health <= 0 ) 
 		{
-
 			if ( health < -999 ) 
 			{
 				health = -999;
@@ -7576,7 +7590,8 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			lastDmgTime = gameLocal.time;
 			Killed( inflictor, attacker, damage, dir, location );
 
-		} else 
+		}
+		else 
 		{
 			// force a blink
 			blink_time = 0;
@@ -7602,7 +7617,8 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 				lastDmgTime = gameLocal.time;
 			}
 		}
-	} else 
+	}
+	else 
 	{
 		// don't accumulate impulses
 		if ( af.IsLoaded() ) 

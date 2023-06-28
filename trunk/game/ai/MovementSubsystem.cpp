@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -784,6 +784,7 @@ void MovementSubsystem::ResolveBlock(idEntity* blockingEnt)
 			frobDoor->GetUserManager().ResetMaster(frobDoor); // redefine which AI is the master door user
 		}
 		owner->m_HandlingDoor = false;
+		owner->GetMemory().stopHandlingDoor = false; // grayman #2816
 		if (owner->m_RestoreMove) // AI run toward where they saw you last. Don't save that location when handling doors.
 		{
 			SetBlockedState(EResolvingBlock); // preset this so PopMove() calling RestoreMove() doesn't start handling another door 

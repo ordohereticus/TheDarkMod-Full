@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5378 2012-04-10 18:21:04Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -289,6 +289,7 @@ void SearchingState::Think(idAI* owner)
 					owner->StopMove(MOVE_STATUS_DONE);
 					memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 					memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
+					memory.stopReactingToHit = true; // grayman #2816
 
 					// grayman #2422 - at least turn toward and look at the last invalid point some of the time
 					if ( gameLocal.random.RandomFloat() < 0.5 )
@@ -310,6 +311,7 @@ void SearchingState::Think(idAI* owner)
 			owner->StopMove(MOVE_STATUS_DONE);
 			memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 			memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
+			memory.stopReactingToHit = true; // grayman #2816
 		}
 		else
 		{
@@ -356,6 +358,7 @@ void SearchingState::StartNewHidingSpotSearch(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 	memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
+	memory.stopReactingToHit = true; // grayman #2816
 
 	// If we are supposed to search the stimulus location do that instead 
 	// of just standing around while the search completes

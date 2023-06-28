@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeadState.cpp 5378 2012-04-10 18:21:04Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: DeadState.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -48,6 +48,7 @@ void DeadState::Init(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 	owner->GetMemory().stopRelight = true; // grayman #2603 - abort a relight in progress
 	owner->GetMemory().stopExaminingRope = true; // grayman #2872 - stop examining rope
+	owner->GetMemory().stopReactingToHit = true; // grayman #2816
 
 	// Clear all the subsystems, this might cause animstate changes
 	owner->movementSubsystem->ClearTasks();

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5394 $ (Revision of last commit) 
- $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5394 2012-04-17 22:36:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -285,6 +285,7 @@ void CombatState::Think(idAI* owner)
 		owner->StopMove(MOVE_STATUS_DONE);
 		memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 		memory.stopExaminingRope = true; // grayman #2872 - stop examining a rope
+		memory.stopReactingToHit = true; // grayman #2816
 
 		owner->movementSubsystem->ClearTasks();
 		owner->senseSubsystem->ClearTasks();

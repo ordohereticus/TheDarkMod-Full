@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5346 $ (Revision of last commit) 
- $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5346 2012-03-18 16:13:46Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "Game_local.h"
 
@@ -545,27 +545,43 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 			renderSystem->DrawStretchPic( 0, 0, 640, 480, 0, 0, 1, 1, armorMaterial );
 		}
 
-
 		// tunnel vision
-		float	health = 0.0f;
-		if ( g_testHealthVision.GetFloat() != 0.0f ) {
+
+		// grayman - This is where the red screen overlay is
+		// applied for player damage. The red overlay's alpha is
+		// the player's current health divided by his max health.
+		// Less health when damaged means more overlay is visible.
+		// The amount of alpha is also used to determine how long
+		// the overlay is visible, its alpha climbing to 1.0
+		// over the duration of the effect. Less health means a longer
+		// duration. Some key words for search purposes:
+		// damage dealt, damage hud, hurt hud, blood overlay
+
+		float health = 0.0f;
+		if ( g_testHealthVision.GetFloat() != 0.0f )
+		{
 			health = g_testHealthVision.GetFloat();
-		} else {
+		}
+		else
+		{
 			health = player->health;
 		}
+
 		float alpha = health / 100.0f;
-		if ( alpha < 0.0f ) {
+		if ( alpha < 0.0f )
+		{
 			alpha = 0.0f;
 		}
-		if ( alpha > 1.0f ) {
+		else if ( alpha > 1.0f )
+		{
 			alpha = 1.0f;
 		}
 
-		if ( alpha < 1.0f  ) {
+		if ( alpha < 1.0f  )
+		{
 			renderSystem->SetColor4( ( player->health <= 0.0f ) ? MS2SEC( gameLocal.time ) : lastDamageTime, 1.0f, 1.0f, ( player->health <= 0.0f ) ? 0.0f : alpha );
 			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial );
 		}
-
 	}
 
 	// Rotoscope (Cartoon-like) rendering - (Rotoscope Shader v1.0 by Hellborg) - added by Dram

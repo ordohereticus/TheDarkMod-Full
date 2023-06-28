@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5244 $ (Revision of last commit) 
- $Date: 2012-02-03 14:05:10 -0500 (Fri, 03 Feb 2012) $ (Date of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5244 2012-02-03 19:05:10Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: HandleDoorTask.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "../Memory.h"
 #include "HandleDoorTask.h"
@@ -239,6 +239,13 @@ bool HandleDoorTask::Perform(Subsystem& subsystem)
 	// grayman #2948 - leave door handling if KO'ed or dead
 
 	if ( owner->AI_KNOCKEDOUT || owner->AI_DEAD )
+	{
+		return true;
+	}
+
+	// grayman #2816 - stop door handling for various reasons
+
+	if ( memory.stopHandlingDoor )
 	{
 		return true;
 	}
@@ -2212,6 +2219,7 @@ void HandleDoorTask::OnFinish(idAI* owner)
 	_leaveDoor = -1; // reset timeout for leaving the door
 	_doorHandlingState = EStateNone;
 	owner->m_canResolveBlock = true; // grayman #2345
+	memory.stopHandlingDoor = false; // grayman #2816
 }
 
 bool HandleDoorTask::CanAbort() // grayman #2706

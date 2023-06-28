@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5367 $ (Revision of last commit) 
- $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ConversationState.cpp 5367 2012-04-04 02:09:55Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ConversationState.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -107,6 +107,7 @@ void ConversationState::Init(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 	memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
+	memory.stopReactingToHit = true; // grayman #2816
 
 	ConversationPtr conversation = gameLocal.m_ConversationSystem->GetConversation(_conversation);
 	if (conversation == NULL)

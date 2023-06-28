@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: KnockedOutState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: KnockedOutState.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "KnockedOutState.h"
 #include "../Memory.h"
@@ -56,6 +56,7 @@ void KnockedOutState::Init(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 	owner->GetMemory().stopRelight = true; // grayman #2603 - abort a relight in progress
 	owner->GetMemory().stopExaminingRope = true; // grayman #2872 - stop examining rope
+	owner->GetMemory().stopReactingToHit = true; // grayman #2816
 
 	//owner->StopAnim(ANIMCHANNEL_TORSO, 0);
 	//owner->StopAnim(ANIMCHANNEL_LEGS, 0);

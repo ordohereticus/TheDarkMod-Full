@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FleeState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FleeState.cpp 5397 2012-04-23 23:49:35Z grayman $");
 
 #include "FleeState.h"
 #include "../Memory.h"
@@ -59,6 +59,7 @@ void FleeState::Init(idAI* owner)
 	owner->StopMove(MOVE_STATUS_DONE);
 	memory.stopRelight = true; // grayman #2603 - abort a relight in progress
 	memory.stopExaminingRope = true; // grayman #2872 - stop examining rope
+	memory.stopReactingToHit = true; // grayman #2816
 
 	if (owner->GetEnemy())
 	{

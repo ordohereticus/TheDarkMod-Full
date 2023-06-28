@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5397 $ (Revision of last commit) 
+ $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -107,6 +107,7 @@ public:
 	virtual void OnVisualStimMissingItem(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimBrokenItem(idEntity* stimSource, idAI* owner);
 	virtual void OnVisualStimDoor(idEntity* stimSource, idAI* owner);
+	virtual void OnHitByMoveable(idAI* owner, idEntity* tactEnt); // grayman #2816
 
 	// greebo: Gets called by OnPersonEncounter on finding a dead body
 	// returns TRUE when the stim should be ignored from now on, FALSE otherwise
