@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5366 $ (Revision of last commit) 
- $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5366 2012-04-03 21:40:47Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -44,14 +44,20 @@ const idStr& SearchingState::GetName() const
 
 bool SearchingState::CheckAlertLevel(idAI* owner)
 {
-	if (owner->AI_AlertIndex < 3)
+	if (!owner->m_canSearch) // grayman #3069 - AI that can't search shouldn't be here
+	{
+		owner->SetAlertLevel(owner->thresh_3 - 0.1);
+	}
+
+	if (owner->AI_AlertIndex < EInvestigating)
 	{
 		// Alert index is too low for this state, fall back
 		owner->Event_CloseHidingSpotSearch();
 		owner->GetMind()->EndState();
 		return false;
 	}
-	else if (owner->AI_AlertIndex > 3)
+
+	if (owner->AI_AlertIndex > EInvestigating)
 	{
 		// Alert index is too high, switch to the higher State
 		owner->GetMind()->PushState(owner->backboneStates[EAgitatedSearching]);

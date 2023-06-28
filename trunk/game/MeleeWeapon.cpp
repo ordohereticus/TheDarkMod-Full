@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5366 $ (Revision of last commit) 
- $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MeleeWeapon.cpp 5366 2012-04-03 21:40:47Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MeleeWeapon.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "Game_local.h"
 #include "Grabber.h"
@@ -1473,7 +1473,7 @@ void CMeleeWeapon::CheckAICMSwaps( )
 		if( !pEnt->IsType(idAI::Type) )
 			continue;
 		idAI *pAI = static_cast<idAI *>(pEnt);
-		if( pAI->IsKnockedOut() || pAI->health < 0 || pAI->AI_AlertIndex >= 5 )
+		if( pAI->IsKnockedOut() || pAI->health < 0 || ( pAI->AI_AlertIndex >= ai::ECombat ) )
 			continue;
 		
 		// do the swap

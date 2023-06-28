@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SuspiciousState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SuspiciousState.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "SuspiciousState.h"
 #include "../Memory.h"
@@ -42,7 +42,7 @@ const idStr& SuspiciousState::GetName() const
 
 bool SuspiciousState::CheckAlertLevel(idAI* owner)
 {
-	if (owner->AI_AlertIndex < 2)
+	if (owner->AI_AlertIndex < ESuspicious)
 	{
 		// Alert index is too low for this state, fall back
 		owner->GetMind()->EndState();
@@ -122,11 +122,19 @@ bool SuspiciousState::CheckAlertLevel(idAI* owner)
 		return false;
 	}
 
-	if (owner->AI_AlertIndex > 2)
+	if (owner->AI_AlertIndex > ESuspicious)
 	{
-		// Alert index is too high, switch to the higher State
-		owner->GetMind()->PushState(owner->backboneStates[EInvestigating]);
-		return false;
+		// grayman #3069 - some AI don't search, so don't allow
+		// them to rise into higher alert indices
+
+		if ( owner->m_canSearch )
+		{
+			// Alert index is too high, switch to the higher State
+			owner->GetMind()->PushState(owner->backboneStates[EInvestigating]);
+			return false;
+		}
+
+		owner->SetAlertLevel(owner->thresh_3 - 0.1); // set alert level to just under EInvestigating
 	}
 
 	// Alert Index is matching, return OK
@@ -142,7 +150,10 @@ void SuspiciousState::Init(idAI* owner)
 	assert(owner);
 
 	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
+	if (!CheckAlertLevel(owner))
+	{
+		return;
+	}
 
 	float alertTime = owner->atime2 + owner->atime2_fuzzyness * (gameLocal.random.RandomFloat() - 0.5);
 	_alertLevelDecreaseRate = (owner->thresh_3 - owner->thresh_2) / alertTime;
@@ -212,7 +223,10 @@ void SuspiciousState::Think(idAI* owner)
 {
 	UpdateAlertLevel();
 	// Ensure we are in the correct alert level
-	if (!CheckAlertLevel(owner)) return;
+	if (!CheckAlertLevel(owner))
+	{
+		return;
+	}
 	
 	// Let the AI check its senses
 	owner->PerformVisualScan();

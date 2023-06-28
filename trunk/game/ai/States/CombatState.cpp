@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5366 $ (Revision of last commit) 
- $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5366 2012-04-03 21:40:47Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -53,7 +53,12 @@ const idStr& CombatState::GetName() const
 
 bool CombatState::CheckAlertLevel(idAI* owner)
 {
-	if (owner->AI_AlertIndex < 5)
+	if (!owner->m_canSearch) // grayman #3069 - AI that can't search shouldn't be here
+	{
+		owner->SetAlertLevel(owner->thresh_3 - 0.1);
+	}
+
+	if (owner->AI_AlertIndex < ECombat)
 	{
 		// Alert index is too low for this state, fall back
 		owner->GetMind()->EndState();

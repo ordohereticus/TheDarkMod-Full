@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FleeDoneState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FleeDoneState.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "FleeDoneState.h"
 #include "../Memory.h"
@@ -187,8 +187,8 @@ void FleeDoneState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 
 bool FleeDoneState::CheckAlertLevel(idAI* owner)
 {
-	// FleeDoneState terminates itself when the AI reaches Suspicious
-	if (owner->AI_AlertIndex < 3)
+	// FleeDoneState terminates itself when the AI reaches Suspicious (aka Investigating)
+	if (owner->AI_AlertIndex < EInvestigating)
 	{
 		// Alert index is too low for this state, fall back
 		owner->movementSubsystem->ClearTasks();

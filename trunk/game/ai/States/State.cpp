@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -2734,7 +2734,7 @@ void State::OnVisualStimDoor(idEntity* stimSource, idAI* owner)
 
 	// grayman #2866 - Delay dealing with this door until my alert level comes down.
 
-	if ( owner->AI_AlertIndex >= 2 )
+	if ( owner->AI_AlertIndex >= ESuspicious )
 	{
 		return;
 	}
@@ -2928,7 +2928,7 @@ void State::OnAICommMessage(CommMessage& message, float psychLoud)
 			memory.lastTimeFriendlyAISeen = gameLocal.time;
 
 			// If not too upset, look at them
-			if (owner->AI_AlertIndex < EObservant && owner->greetingState != ECannotGreet &&
+			if ( ( owner->AI_AlertIndex < EObservant ) && ( owner->greetingState != ECannotGreet ) &&
 				issuingEntity->IsType(idAI::Type))
 			{
 				idAI* otherAI = static_cast<idAI*>(issuingEntity);

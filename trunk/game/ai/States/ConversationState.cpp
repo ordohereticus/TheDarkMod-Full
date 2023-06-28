@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ConversationState.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: ConversationState.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -61,8 +61,8 @@ const idStr& ConversationState::GetName() const
 
 bool ConversationState::CheckAlertLevel(idAI* owner)
 {
-	// Alert index is too high for index > 0
-	return (owner->AI_AlertIndex <= 0);
+	// Alert index is too high for index > ERelaxed
+	return (owner->AI_AlertIndex <= ERelaxed);
 }
 
 void ConversationState::SetConversation(int index)

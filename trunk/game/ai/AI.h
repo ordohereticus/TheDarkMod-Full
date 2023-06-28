@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5366 $ (Revision of last commit) 
- $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1207,6 +1207,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	int m_gracecount_1, m_gracecount_2, m_gracecount_3, m_gracecount_4;
 	// De-alert times for each alert level
 	float atime1, atime2, atime3, atime4, atime_fleedone;
+
+	bool m_canSearch; // grayman #3069
 
 	float atime1_fuzzyness, atime2_fuzzyness, atime3_fuzzyness, atime4_fuzzyness, atime_fleedone_fuzzyness;
 

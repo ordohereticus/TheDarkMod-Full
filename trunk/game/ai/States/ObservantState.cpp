@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ObservantState.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: ObservantState.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "ObservantState.h"
 #include "../Memory.h"
@@ -44,7 +44,7 @@ const idStr& ObservantState::GetName() const
 
 bool ObservantState::CheckAlertLevel(idAI* owner)
 {
-	if (owner->AI_AlertIndex < 1)
+	if (owner->AI_AlertIndex < EObservant)
 	{
 		// Alert index is too low for this state, fall back
 
@@ -64,7 +64,7 @@ bool ObservantState::CheckAlertLevel(idAI* owner)
 		return false;
 	}
 	
-	if (owner->AI_AlertIndex > 1)
+	if (owner->AI_AlertIndex > EObservant)
 	{
 		// Alert index is too high, switch to the higher State
 		owner->GetMind()->PushState(owner->backboneStates[ESuspicious]);

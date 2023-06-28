@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5363 $ (Revision of last commit) 
- $Date: 2012-04-01 14:08:35 -0400 (Sun, 01 Apr 2012) $ (Date of last commit)
+ $Revision: 5367 $ (Revision of last commit) 
+ $Date: 2012-04-03 22:09:55 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ResolveMovementBlockTask.cpp 5363 2012-04-01 18:08:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ResolveMovementBlockTask.cpp 5367 2012-04-04 02:09:55Z grayman $");
 
 #include "ResolveMovementBlockTask.h"
 #include "../Memory.h"
@@ -389,13 +389,13 @@ bool ResolveMovementBlockTask::PerformBlockingAI(idAI* owner)
 
 		if (owner->FacingIdeal() && _preTaskContents == -1)
 		{
-			// grayman #2345 - don't become non-solid if your alert index is > 0. This is because
+			// grayman #2345 - don't become non-solid if your alert index is > ERelaxed. This is because
 			// AI tend to bunch together when agitated, and it doesn't look good if one goes non-solid
 			// and the others repeatedly walk through it.
 
 			// If there's no room to get around you, become non-solid
 
-			if ((owner->AI_AlertIndex == 0) && !Room2Pass(owner))
+			if ((owner->AI_AlertIndex == ERelaxed) && !Room2Pass(owner))
 			{
 				BecomeNonSolid(owner);
 			}
