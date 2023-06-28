@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5245 $ (Revision of last commit) 
- $Date: 2012-02-05 14:16:23 -0500 (Sun, 05 Feb 2012) $ (Date of last commit)
+ $Revision: 5254 $ (Revision of last commit) 
+ $Date: 2012-02-07 00:24:12 -0500 (Tue, 07 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Source$  $Revision: 5245 $   $Date: 2012-02-05 14:16:23 -0500 (Sun, 05 Feb 2012) $");
+static bool versioned = RegisterVersionedFile("$Source$  $Revision: 5254 $   $Date: 2012-02-07 00:24:12 -0500 (Tue, 07 Feb 2012) $");
 
 #include "../Game_local.h"
 #include "../DarkModGlobals.h"
@@ -418,16 +418,12 @@ bool idPhysics_Player::SlideMove( bool gravity, bool stepUp, bool stepDown, bool
 				m_PushForce->SetContactInfo(trace, current.velocity);
 
 				totalMass = pushedEnt->GetPhysics()->GetMass();
-			//	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idPhysics_Player::SlideMove: pushedEnt is %s \r", pushedEnt->name.c_str()); // grayman debug
-			//	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idPhysics_Player::SlideMove: its mass is %f \r", totalMass); // grayman debug
 			}
 
 			if ( totalMass > 0.0f ) {
 				// decrease velocity based on the total mass of the objects being pushed ?
-			//	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idPhysics_Player::SlideMove: current.velocity before hit is (%s) \r", current.velocity.ToString()); // grayman debug
 				current.velocity *= 1.0f - idMath::ClampFloat( 0.0f, 1000.0f, totalMass - 20.0f ) * ( 1.0f / 950.0f );
 				pushed = true;
-			//	DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idPhysics_Player::SlideMove: current.velocity after hit is (%s) \r", current.velocity.ToString()); // grayman debug
 			}
 	
 			current.origin = trace.endpos;
