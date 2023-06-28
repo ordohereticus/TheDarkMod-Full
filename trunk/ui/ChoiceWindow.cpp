@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5287 $ (Revision of last commit) 
- $Date: 2012-02-16 13:59:09 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
+ $Revision: 5288 $ (Revision of last commit) 
+ $Date: 2012-02-16 15:22:13 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ChoiceWindow.cpp 5287 2012-02-16 18:59:09Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: ChoiceWindow.cpp 5288 2012-02-16 20:22:13Z tels $");
 
 #include "DeviceContext.h"
 #include "Window.h"
@@ -340,9 +340,6 @@ void idChoiceWindow::Draw(int time, float x, float y) {
 
 	UpdateChoicesAndVals();
 	UpdateChoice();
-
-	// FIXME: It'd be really cool if textAlign worked, but a lot of the guis have it set wrong because it used to not work
-	textAlign = 0;
 
 	if ( textShadow ) {
 		idStr shadowText = choices[currentChoice];
