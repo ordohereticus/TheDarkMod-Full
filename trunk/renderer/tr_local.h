@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5284 $ (Revision of last commit) 
- $Date: 2012-02-16 07:52:18 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5291 $ (Revision of last commit) 
+ $Date: 2012-02-22 12:28:29 -0500 (Wed, 22 Feb 2012) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -980,6 +980,9 @@ extern idCVar r_materialOverride;		// override all materials
 
 extern idCVar r_debugRenderToTexture;
 
+// rebb: dedicated ambient
+extern idCVar r_dedicatedAmbient;
+
 /*
 ====================================================================
 
@@ -1324,6 +1327,12 @@ typedef enum {
 	FPROG_AMBIENT,
 	VPROG_GLASSWARP,
 	FPROG_GLASSWARP,
+	// rebb: direct light interactions, related to r_dedicatedAmbient
+	VPROG_TEST_DIRECT,
+	FPROG_TEST_DIRECT,
+	VPROG_INTERACTION_DIRECT,
+	FPROG_INTERACTION_DIRECT,
+	//
 	PROG_USER
 } program_t;
 

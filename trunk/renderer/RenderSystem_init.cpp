@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5286 $ (Revision of last commit) 
- $Date: 2012-02-16 12:11:33 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5291 $ (Revision of last commit) 
+ $Date: 2012-02-22 12:28:29 -0500 (Wed, 22 Feb 2012) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5286 2012-02-16 17:11:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: RenderSystem_init.cpp 5291 2012-02-22 17:28:29Z rebb $");
 
 #include "tr_local.h"
 
@@ -216,6 +216,9 @@ idCVar r_debugRenderToTexture( "r_debugRenderToTexture", "0", CVAR_RENDERER | CV
 
 // greebo: screenshot format CVAR, by default convert the generated TGA to JPG
 idCVar r_screenshot_format(		"r_screenshot_format", "jpg",   CVAR_RENDERER | CVAR_ARCHIVE, "Image format used to store ingame screenshots: png/tga/jpg/bmp." );
+
+// rebb: toggle for dedicated ambient light shader use, mainly for performance testing
+idCVar r_dedicatedAmbient( "r_dedicatedAmbient", "1", CVAR_RENDERER | CVAR_BOOL, "enable dedicated ambientLight shader" );
 
 void ( APIENTRY * qglMultiTexCoord2fARB )( GLenum texture, GLfloat s, GLfloat t );
 void ( APIENTRY * qglMultiTexCoord2fvARB )( GLenum texture, GLfloat *st );

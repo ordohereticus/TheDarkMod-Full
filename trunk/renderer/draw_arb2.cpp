@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5281 $ (Revision of last commit) 
- $Date: 2012-02-15 09:47:37 -0500 (Wed, 15 Feb 2012) $ (Date of last commit)
+ $Revision: 5291 $ (Revision of last commit) 
+ $Date: 2012-02-22 12:28:29 -0500 (Wed, 22 Feb 2012) $ (Date of last commit)
  $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5281 2012-02-15 14:47:37Z rebb $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5291 2012-02-22 17:28:29Z rebb $");
 
 #include "tr_local.h"
 
@@ -143,10 +143,20 @@ void RB_ARB2_CreateDrawInteractions( const drawSurf_t *surf ) {
 	GL_State( GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE | GLS_DEPTHMASK | backEnd.depthFunc );
 
 	// bind the vertex program
-	// rebb: support dedicated ambient shading
-	if( backEnd.vLight->lightShader->IsAmbientLight() ) {
-		qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_AMBIENT );
-		qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_AMBIENT );
+	// rebb: support dedicated ambient - CVar and direct interactions can probably be removed, they're there mainly for performance testing
+	if( r_dedicatedAmbient.GetBool() ) {
+		if( backEnd.vLight->lightShader->IsAmbientLight() ) {
+			qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_AMBIENT );
+			qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_AMBIENT );
+		} else {
+			if ( r_testARBProgram.GetBool() ) {
+				qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_TEST_DIRECT );
+				qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_TEST_DIRECT );
+			} else {
+				qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_INTERACTION_DIRECT );
+				qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_INTERACTION_DIRECT );
+			}
+		}
 	} else {
 		if ( r_testARBProgram.GetBool() ) {
 			qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_TEST );
@@ -350,7 +360,14 @@ static progDef_t	progs[MAX_GLPROGS] = {
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_ENVIRONMENT, "environment.vfp" },
 	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_ENVIRONMENT, "environment.vfp" },
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_GLASSWARP, "arbVP_glasswarp.txt" },
-	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_GLASSWARP, "arbFP_glasswarp.txt" }
+	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_GLASSWARP, "arbFP_glasswarp.txt" },
+
+	// rebb: direct light interaction files for performance testing
+	{ GL_VERTEX_PROGRAM_ARB, VPROG_TEST_DIRECT, "test_direct.vfp" },
+	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_TEST_DIRECT, "test_direct.vfp" },
+	{ GL_VERTEX_PROGRAM_ARB, VPROG_INTERACTION_DIRECT, "interaction_direct.vfp" },
+	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_INTERACTION_DIRECT, "interaction_direct.vfp" },
+
 	// additional programs can be dynamically specified in materials
 };
 
