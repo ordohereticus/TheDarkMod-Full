@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5366 $ (Revision of last commit) 
- $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5412 $ (Revision of last commit) 
+ $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -393,7 +393,6 @@ extern idCVar	r_aspectRatio;
 extern idCVar	g_monsters;
 extern idCVar	g_decals;
 extern idCVar	g_knockback;
-extern idCVar	g_skill;
 extern idCVar	g_gravity;
 extern idCVar	g_skipFX;
 extern idCVar	g_skipParticles;
@@ -416,10 +415,6 @@ extern idCVar	g_stopTime;
 extern idCVar	g_armorProtection;
 extern idCVar	g_armorProtectionMP;
 extern idCVar	g_damageScale;
-extern idCVar	g_useDynamicProtection;
-extern idCVar	g_healthTakeTime;
-extern idCVar	g_healthTakeAmt;
-extern idCVar	g_healthTakeLimit;
 
 extern idCVar	g_showPVS;
 extern idCVar	g_showTargets;

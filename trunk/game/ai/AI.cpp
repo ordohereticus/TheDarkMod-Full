@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5400 $ (Revision of last commit) 
- $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5412 $ (Revision of last commit) 
+ $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5400 2012-04-29 22:28:15Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5412 2012-05-01 14:45:14Z tels $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -7999,38 +7999,6 @@ bool idAI::AttackMelee( const char *meleeDefName ) {
 		}
 		return false;
 	}
-
-	// check for the "saving throw" automatic melee miss on lethal blow
-	// stupid place for this.
-
-/**
-* Saving throws removed.  Uncomment the following for saving throws.
-**/
-
-/*** BEGIN SAVING THROWS SECTION *****
-	bool forceMiss = false;
-	if ( enemyEnt->IsType( idPlayer::Type ) && g_skill.GetInteger() < 2 ) {
-		int	damage, armor;
-		idPlayer *player = static_cast<idPlayer*>( enemyEnt );
-		player->CalcDamagePoints( this, this, meleeDef, 1.0f, INVALID_JOINT, &damage, &armor );
-
-		if ( enemyEnt->health <= damage ) {
-			int	t = gameLocal.time - player->lastSavingThrowTime;
-			if ( t > SAVING_THROW_TIME ) {
-				player->lastSavingThrowTime = gameLocal.time;
-				t = 0;
-			}
-			if ( t < 1000 ) {
-				gameLocal.Printf( "Saving throw.\n" );
-				forceMiss = true;
-			}
-		}
-	}
-
-
-	// make sure the trace can actually hit the enemy
-	if ( forceMiss || !TestMelee() ) {
-****** END SAVING THROWS SECTION *******/
 
 	if ( !TestMelee() )
 	{

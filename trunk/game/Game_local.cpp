@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5412 $ (Revision of last commit) 
+ $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5342 2012-03-17 16:38:30Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5412 2012-05-01 14:45:14Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -833,8 +833,6 @@ void idGameLocal::SaveGame( idFile *f ) {
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Save(&savegame);
 #endif
-
-	savegame.WriteInt( g_skill.GetInteger() );
 
 	savegame.WriteDict( &serverInfo );
 
@@ -1865,9 +1863,6 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 #ifdef TIMING_BUILD
 	debugtools::TimerManager::Instance().Restore(&savegame);
 #endif
-
-	savegame.ReadInt( i );
-	g_skill.SetInteger( i );
 
 	// precache the player
 	FindEntityDef( cv_player_spawnclass.GetString(), false );
@@ -5042,53 +5037,8 @@ idGameLocal::InhibitEntitySpawn
 */
 bool idGameLocal::InhibitEntitySpawn( idDict &spawnArgs ) {
 	
-	bool result = false;
-
-	/* greebo: Disabled vanilla D3 stuff, will be handled by our DifficultyManager 
-	if ( isMultiplayer ) {
-		spawnArgs.GetBool( "not_multiplayer", "0", result );
-	} else if ( g_skill.GetInteger() == 0 ) {
-		spawnArgs.GetBool( "not_easy", "0", result );
-	} else if ( g_skill.GetInteger() == 1 ) {
-		spawnArgs.GetBool( "not_medium", "0", result );
-	} else {
-		spawnArgs.GetBool( "not_hard", "0", result );
-	}
-
-	const char *name;
-
-	if ( g_skill.GetInteger() == 3 ) { 
-		name = spawnArgs.GetString( "classname" );
-		if ( idStr::Icmp( name, "item_medkit" ) == 0 || idStr::Icmp( name, "item_medkit_small" ) == 0 ) {
-			result = true;
-		}
-	}
-
-	}*/
-
 	// Consult the difficulty manager, whether this entity should be prevented from being spawned.
-	result = m_DifficultyManager.InhibitEntitySpawn(spawnArgs);
-
-	return result;
-}
-
-/*
-================
-idGameLocal::SetSkill
-================
-*/
-void idGameLocal::SetSkill( int value ) {
-	int skill_level;
-
-	if ( value < 0 ) {
-		skill_level = 0;
-	} else if ( value > 3 ) {
-		skill_level = 3;
-	} else {
-		skill_level = value;
-	}
-
-	g_skill.SetInteger( skill_level );
+	return m_DifficultyManager.InhibitEntitySpawn(spawnArgs);
 }
 
 /*
@@ -5142,8 +5092,6 @@ void idGameLocal::SpawnMapEntities( void ) {
 		Printf("No mapfile present\n");
 		return;
 	}
-
-	SetSkill( g_skill.GetInteger() );
 
 	// Add the lightgem to the map before anything else happened
 	// so it will be included as if it were a regular map entity.

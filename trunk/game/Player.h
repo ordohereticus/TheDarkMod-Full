@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5346 $ (Revision of last commit) 
- $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
+ $Revision: 5412 $ (Revision of last commit) 
+ $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -252,7 +252,6 @@ public:
 
 	int						lastHitTime;			// last time projectile fired by player hit target
 	int						lastSndHitTime;			// MP hit sound - != lastHitTime because we throttle
-	int						lastSavingThrowTime;	// for the "free miss" effect
 
 	// The GUI of the lockpick visualisation HUD
 	int						lockpickHUD;

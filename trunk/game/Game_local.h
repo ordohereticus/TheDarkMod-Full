@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5310 $ (Revision of last commit) 
- $Date: 2012-03-02 13:27:07 -0500 (Fri, 02 Mar 2012) $ (Date of last commit)
+ $Revision: 5412 $ (Revision of last commit) 
+ $Date: 2012-05-01 10:45:14 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -729,7 +729,6 @@ public:
 	void					SetupEAS();
 
 	bool					CheatsOk( bool requirePlayer = true );
-	void					SetSkill( int value );
 	gameState_t				GameState( void ) const;
 
 	/**
