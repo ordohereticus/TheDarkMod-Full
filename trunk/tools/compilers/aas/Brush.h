@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5315 $ (Revision of last commit) 
+ $Date: 2012-03-04 06:05:17 -0500 (Sun, 04 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -37,7 +37,7 @@
 class idBrush;
 class idBrushList;
 
-void DisplayRealTimeString( char *string, ... ) id_attribute((format(printf,1,2)));
+void DisplayRealTimeString( const char *string, ... ) id_attribute((format(printf,1,2)));
 
 
 //===============================================================
