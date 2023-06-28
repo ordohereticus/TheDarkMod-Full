@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: debugger.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: debugger.cpp 5479 2012-06-16 18:51:25Z taaaki $");
 
 #include "../../sys/win32/rc/debugger_resource.h"
 #include "DebuggerApp.h"
@@ -99,7 +99,7 @@ void DebuggerClientLaunch ( void )
 	GetCurrentDirectory ( MAX_PATH, curDir );
 
 	GetModuleFileName ( NULL, exeFile, MAX_PATH );
-	const char* s = va("%s +set fs_game %s +set fs_cdpath %s +debugger", exeFile, cvarSystem->GetCVarString( "fs_game" ), cvarSystem->GetCVarString( "fs_cdpath" ) );
+	const char* s = va("%s +set fs_currentfm %s +set fs_cdpath %s +debugger", exeFile, cvarSystem->GetCVarString( "fs_currentfm" ), cvarSystem->GetCVarString( "fs_cdpath" ) );
 	CreateProcess ( NULL, (LPSTR)s,
 					NULL, NULL, FALSE, 0, NULL, curDir, &startup, &process );
 

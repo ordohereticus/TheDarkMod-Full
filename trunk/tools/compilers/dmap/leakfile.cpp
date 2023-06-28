@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5446 $ (Revision of last commit) 
- $Date: 2012-05-11 10:19:58 -0400 (Fri, 11 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: leakfile.cpp 5446 2012-05-11 14:19:58Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: leakfile.cpp 5479 2012-06-16 18:51:25Z taaaki $");
 
 #include "dmap.h"
 
@@ -61,7 +61,7 @@ void LeakFile (tree_t *tree)
 	// write the points to the file
 	//
 	sprintf( filename, "%s.lin", dmapGlobals.mapFileBase );
-	ospath = fileSystem->RelativePathToOSPath( filename, "fs_basepath" );
+	ospath = fileSystem->RelativePathToOSPath( filename, "fs_devpath" );
 	linefile = fopen( ospath, "w" );
 	if ( !linefile ) {
 		common->Error( "Couldn't open %s\n", ospath.c_str() );

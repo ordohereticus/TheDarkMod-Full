@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5158 $ (Revision of last commit) 
- $Date: 2012-01-04 03:50:27 -0500 (Wed, 04 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -192,7 +192,7 @@ class CMissionManager
 private:
 	CMissionDBPtr _missionDB;
 
-	// A plain list of available fs_game names
+	// A plain list of available fs_currentfm names
 	idStringList _availableMods;
 
 	// A list of path => path associations for moving files around
@@ -315,7 +315,7 @@ public:
 	// Installs mod (by index)
 	InstallResult InstallMod(int index);
 
-	// Installs mod (by fs_game name)
+	// Installs mod (by fs_currentfm name)
 	InstallResult InstallMod(const idStr& name);
 
 	// Writes the given mod name to the currentfm.txt file

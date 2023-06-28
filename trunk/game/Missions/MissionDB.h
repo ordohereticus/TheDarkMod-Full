@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -31,7 +31,7 @@
 class CMissionDB
 {
 private:
-	// Named mission info structures (fs_game => info)
+	// Named mission info structures (fs_currentfm => info)
 	typedef std::map<std::string, CModInfoPtr> MissionInfoMap;
 	MissionInfoMap _missionInfo;
 
@@ -43,7 +43,7 @@ public:
 	// Saves changed data to disk
 	void Save();
 
-	// Returns the mission info structure for this fs_game
+	// Returns the mission info structure for this fs_currentfm
 	// Always returns non-NULL, if the name is not existing, 
 	// a new structure will be created
 	const CModInfoPtr& GetModInfo(const idStr& name);

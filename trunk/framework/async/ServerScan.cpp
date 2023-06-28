@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ServerScan.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: ServerScan.cpp 5479 2012-06-16 18:51:25Z taaaki $");
 
 idCVar gui_filter_password( "gui_filter_password", "0", CVAR_GUI | CVAR_INTEGER | CVAR_ARCHIVE, "Password filter" );
 idCVar gui_filter_players( "gui_filter_players", "0", CVAR_GUI | CVAR_INTEGER | CVAR_ARCHIVE, "Players filter" );
@@ -428,7 +428,7 @@ void idServerScan::GUIAdd( int id, const networkServer_t server ) {
 	idStr name = server.serverInfo.GetString( "si_name", GAME_NAME " Server" );
 	bool mod = false;
 
-	if ( server.serverInfo.GetString( "fs_game" )[ 0 ] != '\0' ) {
+	if ( server.serverInfo.GetString( "fs_mod" )[ 0 ] != '\0' ) {
 		mod = true;
 	}
 
@@ -535,7 +535,7 @@ bool idServerScan::IsFiltered( const networkServer_t server ) {
 
 	// filter based on the game doom or XP
 	if(gui_filter_game.GetInteger() == 1) { //Only Doom
-		if(idStr::Icmp(server.serverInfo.GetString("fs_game"), "")) {
+		if(idStr::Icmp(server.serverInfo.GetString("fs_mod"), "")) {
 			return true;
 		}
 	}
@@ -576,8 +576,8 @@ int idServerScan::Cmp( const int *a, const int *b ) {
 			serv2.serverInfo.GetString( "si_mapName", "", s2 );
 			return s1.Icmp( s2 );
 		case SORT_GAME:
-			serv1.serverInfo.GetString( "fs_game", "", s1 );
-			serv2.serverInfo.GetString( "fs_game", "", s2 );
+			serv1.serverInfo.GetString( "fs_mod", "", s1 );
+			serv2.serverInfo.GetString( "fs_mod", "", s2 );
 			return s1.Icmp( s2 );
 	}
 	return 0;

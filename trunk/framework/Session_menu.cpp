@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5318 $ (Revision of last commit) 
- $Date: 2012-03-05 21:47:05 -0500 (Mon, 05 Mar 2012) $ (Date of last commit)
- $Author: aluminiumhaste $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5318 2012-03-06 02:47:05Z aluminiumhaste $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5479 2012-06-16 18:51:25Z taaaki $");
 
 #include "Session_local.h"
 
@@ -137,8 +137,8 @@ void idSessionLocal::GetSaveGameList( idStrList &fileList, idList<fileTIME_T> &f
 	int i;
 	idFileList *files;
 
-	// NOTE: no fs_game_base for savegames
-	idStr game = cvarSystem->GetCVarString( "fs_game" );
+	// NOTE: no fs_mod for savegames -- fan mission name stored in fs_currentfm
+	idStr game = cvarSystem->GetCVarString( "fs_currentfm" );
 	if( game.Length() ) {
 		files = fileSystem->ListFiles( "savegames", ".save", false, false, game );
 	} else {
@@ -340,7 +340,7 @@ bool idSessionLocal::HandleSaveGameMenuCommand( idCmdArgs &args, int &icmd ) {
 				saveFileName = "savegames/" + saveFileName;
 				saveFileName.SetFileExtension(".save");
 
-				idStr game = cvarSystem->GetCVarString( "fs_game" );
+				idStr game = cvarSystem->GetCVarString( "fs_currentfm" );
 				idFile *file;
 				if(game.Length()) {
 					file = fileSystem->OpenFileRead( saveFileName, true, game );
@@ -543,7 +543,7 @@ void idSessionLocal::HandleMainMenuCommands( const char *menuCommand ) {
 		if ( !idStr::Icmp( cmd, "loadMod" ) ) {
 			int choice = guiActive->State().GetInt( "modsList_sel_0" );
 			if ( choice >= 0 && choice < modsList.Num() ) {
-				cvarSystem->SetCVarString( "fs_game", modsList[ choice ] );
+				cvarSystem->SetCVarString( "fs_mod", modsList[ choice ] );
 				cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "reloadEngine menu\n" );
 			}
 		}

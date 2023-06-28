@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AsyncClient.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: AsyncClient.cpp 5479 2012-06-16 18:51:25Z taaaki $");
 
 #include "AsyncNetwork.h"
 
@@ -379,7 +379,7 @@ void idAsyncClient::GetNETServers( void ) {
 	msg.WriteShort( CONNECTIONLESS_MESSAGE_ID );
 	msg.WriteString( "getServers" );
 	msg.WriteLong( ASYNC_PROTOCOL_VERSION );
-	msg.WriteString( cvarSystem->GetCVarString( "fs_game" ) );
+	msg.WriteString( cvarSystem->GetCVarString( "fs_mod" ) );
 	msg.WriteBits( cvarSystem->GetCVarInteger( "gui_filter_password" ), 2 );
 	msg.WriteBits( cvarSystem->GetCVarInteger( "gui_filter_players" ), 2 );
 	msg.WriteBits( cvarSystem->GetCVarInteger( "gui_filter_gameType" ), 2 );
@@ -986,12 +986,12 @@ void idAsyncClient::ProcessChallengeResponseMessage( const netadr_t from, const 
 	msg.ReadString( serverGameBase, MAX_STRING_CHARS );
 	msg.ReadString( serverGame, MAX_STRING_CHARS );
 
-	// the server is running a different game... we need to reload in the correct fs_game
+	// the server is running a different game... we need to reload in the correct fs_mod
 	// NOTE: if the client can restart directly with the right pak order, then we avoid an extra reloadEngine later..
-	if ( idStr::Icmp( cvarSystem->GetCVarString( "fs_game_base" ), serverGameBase ) || idStr::Icmp( cvarSystem->GetCVarString( "fs_game" ), serverGame ) ) {
+	if ( idStr::Icmp( cvarSystem->GetCVarString( "fs_mod" ), serverGameBase ) || idStr::Icmp( cvarSystem->GetCVarString( "fs_currentfm" ), serverGame ) ) {
 		common->Printf( "The server is running a different mod (%s-%s). Restarting..\n", serverGameBase, serverGame );
-		cvarSystem->SetCVarString( "fs_game_base", serverGameBase );
-		cvarSystem->SetCVarString( "fs_game", serverGame );
+		cvarSystem->SetCVarString( "fs_mod", serverGameBase );
+		cvarSystem->SetCVarString( "fs_currentfm", serverGame );
 		cmdSystem->BufferCommandText( CMD_EXEC_NOW, "reloadEngine" );
 		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "reconnect\n" );
 		return;

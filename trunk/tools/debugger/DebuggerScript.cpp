@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5479 $ (Revision of last commit) 
+ $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DebuggerScript.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DebuggerScript.cpp 5479 2012-06-16 18:51:25Z taaaki $");
 
 #include "DebuggerApp.h"
 #include "DebuggerScript.h"
@@ -121,7 +121,7 @@ bool rvDebuggerScript::Load ( const char* filename )
 		mProgram->CompileFile ( SCRIPT_DEFAULT );
 		
 		//BSM Nerve: Loads a game specific main script file
-		idStr gamedir = cvarSystem->GetCVarString( "fs_game" );
+		idStr gamedir = cvarSystem->GetCVarString( "fs_currentfm" );
 		if(gamedir.Length() > 0) {
 
 			idStr scriptFile = va("script/%s_main.script", gamedir.c_str());
