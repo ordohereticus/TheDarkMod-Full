@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5262 $ (Revision of last commit) 
- $Date: 2012-02-10 06:24:08 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5271 $ (Revision of last commit) 
+ $Date: 2012-02-12 05:13:43 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5262 2012-02-10 11:24:08Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5271 2012-02-12 10:13:43Z taaaki $");
 
 #include "DeviceContext.h"
 
@@ -915,7 +915,7 @@ void idDeviceContext::DrawEditCursor( float x, float y, float scale ) {
 	}
 	SetFontByScale(scale);
 	float useScale = scale * useFont->glyphScale;
-	const glyphInfo_t *glyph2 = &useFont->glyphs[(overStrikeMode) ? '_' : '|'];
+	const glyphInfo_t *glyph2 = &useFont->glyphs[overStrikeMode ? int('_') : int('|')];
 	float	yadj = useScale * glyph2->top;
  	PaintChar(x, y - yadj,glyph2->imageWidth,glyph2->imageHeight,useScale,glyph2->s,glyph2->t,glyph2->s2,glyph2->t2,glyph2->glyph);
 }
