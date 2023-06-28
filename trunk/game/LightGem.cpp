@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5348 $ (Revision of last commit) 
- $Date: 2012-03-19 15:30:24 -0400 (Mon, 19 Mar 2012) $ (Date of last commit)
+ $Revision: 5401 $ (Revision of last commit) 
+ $Date: 2012-04-30 17:24:17 -0400 (Mon, 30 Apr 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5348 2012-03-19 19:30:24Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5401 2012-04-30 21:24:17Z serpentine $");
 
 #include "LightGem.h"
 
@@ -188,6 +188,11 @@ float LightGem::Calculate(idPlayer *player)
 {
 	PROFILE_BLOCK( LightGem_Calculate );
 	PROFILE_BLOCK_START( LightGem_Calculate_Setup);
+
+	// If player is hidden (i.e the whole player entity is actually hidden)
+	if ( player->GetModelDefHandle() == -1 ) {
+		return 0.0f;
+	}
 
 	{ // Get position for lg
 		idEntity* lg = m_LightgemSurface.GetEntity();
