@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5409 $ (Revision of last commit) 
+ $Date: 2012-05-01 09:08:44 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -55,7 +55,7 @@ Updater::Updater(const UpdaterOptions& options, const fs::path& executable) :
 	_options.CheckProxy(_conn);
 
 	_ignoreList.insert("doomconfig.cfg");
-	_ignoreList.insert("dmargs.txt");
+	_ignoreList.insert("darkmod.cfg");
 
 	MirrorDownload::InitRandomizer();
 
@@ -101,7 +101,7 @@ void Updater::UpdateMirrors()
 	std::string mirrorsUrl = TDM_MIRRORS_SERVER;
 	mirrorsUrl += TDM_MIRRORS_FILE;
 
-	TraceLog::Write(LOG_VERBOSE, " Downloading mirror list from thedarkmod.com...");
+	TraceLog::Write(LOG_VERBOSE, " Downloading mirror list from %s...", mirrorsUrl.c_str() );
 
 	fs::path mirrorPath = GetTargetPath() / TDM_MIRRORS_FILE;
 
