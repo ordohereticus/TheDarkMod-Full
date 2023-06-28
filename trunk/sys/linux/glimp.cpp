@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5336 $ (Revision of last commit) 
+ $Date: 2012-03-11 08:13:16 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "../../idlib/precompiled.h"
@@ -210,11 +210,10 @@ GLX_TestDGA
 Check for DGA	- update in_dgamouse if needed
 */
 void GLX_TestDGA() {
-	int dga_MajorVersion = 0, dga_MinorVersion = 0;
-
-	assert( dpy );
 
 #if defined( ID_ENABLE_DGA )
+	int dga_MajorVersion = 0, dga_MinorVersion = 0;
+	assert( dpy );
 	if ( !XF86DGAQueryVersion( dpy, &dga_MajorVersion, &dga_MinorVersion ) ) {
 		// unable to query, probalby not supported
 		common->Printf( "Failed to detect DGA DirectVideo Mouse\n" );
