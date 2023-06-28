@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5319 $ (Revision of last commit) 
- $Date: 2012-03-06 15:19:28 -0500 (Tue, 06 Mar 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5322 $ (Revision of last commit) 
+ $Date: 2012-03-08 13:32:58 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ENTITY_H__
@@ -1191,9 +1191,9 @@ public:
 
 	void					ClearStimIgnoreList(StimType type);
 
-	bool					CheckResponseIgnore(StimType type, idEntity* fromEntity); // grayman #2872
-	idLocationEntity*		GetLocation( void );	// grayman #3013
-	bool					CastsShadows( void );	// grayman #3047
+	bool					CheckResponseIgnore(const StimType type, const idEntity* fromEntity) const; // grayman #2872
+	idLocationEntity*		GetLocation( void ) const;	// grayman #3013
+	bool					CastsShadows( void ) const;	// grayman #3047
 	
 	/**
 	 * This triggers a stand-alone response (without an actual Stim) on this entity.

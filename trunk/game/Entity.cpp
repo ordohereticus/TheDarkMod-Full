@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5319 $ (Revision of last commit) 
- $Date: 2012-03-06 15:19:28 -0500 (Tue, 06 Mar 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5322 $ (Revision of last commit) 
+ $Date: 2012-03-08 13:32:58 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5319 2012-03-06 20:19:28Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5322 2012-03-08 18:32:58Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -6384,6 +6384,8 @@ void idEntity::ActivateTargets( idEntity *activator ) const
 
 		if (ent == NULL) continue;
 
+		// gameLocal.Printf( "Activating entity '%s' (from %s)", name.c_str(), activator == NULL ? "" : activator->GetName() );
+		
 		// Call the virtual function
 		ent->Activate(activator);
 		 		
@@ -9429,7 +9431,7 @@ void idEntity::IgnoreResponse(StimType type, idEntity* fromEntity)
 
 // grayman #2872
 
-bool idEntity::CheckResponseIgnore(StimType type, idEntity* fromEntity)
+bool idEntity::CheckResponseIgnore(const StimType type, const idEntity* fromEntity) const
 {
 	CStimPtr stim = m_StimResponseColl->GetStimByType(type);
 
@@ -12340,14 +12342,14 @@ void idEntity::Event_GetLocation()
 	idThread::ReturnEntity( GetLocation() );
 }
 
-idLocationEntity *idEntity::GetLocation( void )
+idLocationEntity *idEntity::GetLocation( void ) const
 {
 	return gameLocal.LocationForPoint( GetPhysics()->GetOrigin() );
 }
 
 // grayman #3047
 
-bool idEntity::CastsShadows()
+bool idEntity::CastsShadows() const
 {
 	return !renderEntity.noShadow;
 }

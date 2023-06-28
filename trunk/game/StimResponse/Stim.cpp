@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5322 $ (Revision of last commit) 
+ $Date: 2012-03-08 13:32:58 -0500 (Thu, 08 Mar 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Stim.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Stim.cpp 5322 2012-03-08 18:32:58Z tels $");
 
 #include "Stim.h"
 
@@ -145,7 +145,7 @@ void CStim::RemoveResponseIgnore(idEntity *e)
 	}
 }
 
-bool CStim::CheckResponseIgnore(idEntity* e)
+bool CStim::CheckResponseIgnore(const idEntity* e) const
 {
 	int n = m_ResponseIgnore.Num();
 
