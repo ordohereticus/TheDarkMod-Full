@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5316 $ (Revision of last commit) 
- $Date: 2012-03-05 13:09:59 -0500 (Mon, 05 Mar 2012) $ (Date of last commit)
+ $Revision: 5319 $ (Revision of last commit) 
+ $Date: 2012-03-06 15:19:28 -0500 (Tue, 06 Mar 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1193,7 +1193,7 @@ public:
 
 	bool					CheckResponseIgnore(StimType type, idEntity* fromEntity); // grayman #2872
 	idLocationEntity*		GetLocation( void );	// grayman #3013
-	bool					CastsShadows( void );	// grayman debug
+	bool					CastsShadows( void );	// grayman #3047
 	
 	/**
 	 * This triggers a stand-alone response (without an actual Stim) on this entity.

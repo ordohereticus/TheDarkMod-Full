@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5317 $ (Revision of last commit) 
- $Date: 2012-03-05 17:45:52 -0500 (Mon, 05 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5319 $ (Revision of last commit) 
+ $Date: 2012-03-06 15:19:28 -0500 (Tue, 06 Mar 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5317 2012-03-05 22:45:52Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5319 2012-03-06 20:19:28Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -3205,7 +3205,6 @@ float idEntity::GetLightQuotient()
 		// Get the bounds and move it upwards a tiny bit
 		idBounds bounds = physics->GetAbsBounds() + physics->GetGravityNormal() * 0.1f; // Tweak to stay out of floors
 
-		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("idEntity::GetLightQuotient - marker bounds = (%s)\r",bounds.ToString()); // grayman debug
 		// A single point doesn't work with ellipse intersection
 		bounds.ExpandSelf(0.1f); 
 
@@ -12346,7 +12345,7 @@ idLocationEntity *idEntity::GetLocation( void )
 	return gameLocal.LocationForPoint( GetPhysics()->GetOrigin() );
 }
 
-// grayman debug
+// grayman #3047
 
 bool idEntity::CastsShadows()
 {
