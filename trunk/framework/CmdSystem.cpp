@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5497 $ (Revision of last commit) 
+ $Date: 2012-07-14 16:42:42 -0400 (Sat, 14 Jul 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CmdSystem.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: CmdSystem.cpp 5497 2012-07-14 20:42:42Z taaaki $");
 
 /*
 ===============================================================================
@@ -683,9 +683,18 @@ void idCmdSystemLocal::ArgCompletion_FolderExtension( const idCmdArgs &args, voi
 	string += " ";
 	string += args.Argv( 1 );
 
-	if ( string.Icmp( completionString ) != 0 ) {
+    // taaaki: ensure that we clear the auto-complete list for the (d)map commands in case missions are
+    //         installed/uninstalled while the game is running
+	if ( string.Icmp( completionString ) != 0 || string.Icmp( "map " ) == 0 || string.Icmp( "dmap " ) == 0 ) {
 		idStr parm, path;
 		idFileList *names;
+        const char* gamedir = NULL;
+
+        // check if a fan mission has been set and that the "map" or "dmap" command is being used
+        idStr currFm = cvarSystem->GetCVarString("fs_currentfm");
+        if ( currFm.Icmp( "darkmod" ) != 0 && ( string.Icmp( "map " ) == 0 || string.Icmp( "dmap " ) == 0 ) ) {
+            gamedir = currFm.c_str();
+        }
 
 		completionString = string;
 		completionParms.Clear();
@@ -697,24 +706,28 @@ void idCmdSystemLocal::ArgCompletion_FolderExtension( const idCmdArgs &args, voi
 		}
 		path.StripTrailing( '/' );
 
-		// list folders
-		names = fileSystem->ListFiles( path, "/", true, true );
-		for ( i = 0; i < names->GetNumFiles(); i++ ) {
-			idStr name = names->GetFile( i );
-			if ( stripFolder ) {
-				name.Strip( folder );
-			} else {
-				name.Strip( "/" );
-			}
-			name = args.Argv( 0 ) + ( " " + name ) + "/";
-			completionParms.Append( name );
-		}
-		fileSystem->FreeFileList( names );
+        // taaaki: don't include folders if we are looking for the currentfm .map file
+        //         this is a bit of a hack :/
+        if ( !gamedir ) {
+            names = fileSystem->ListFiles( path, "/", true, true, gamedir );
+
+		    for ( i = 0; i < names->GetNumFiles(); i++ ) {
+			    idStr name = names->GetFile( i );
+			    if ( stripFolder ) {
+				    name.Strip( folder );
+			    } else {
+				    name.Strip( "/" );
+			    }
+			    name = args.Argv( 0 ) + ( " " + name ) + "/";
+			    completionParms.Append( name );
+		    }
+		    fileSystem->FreeFileList( names );
+        }
 
 		// list files
 		va_start( argPtr, stripFolder );
 		for ( extension = va_arg( argPtr, const char * ); extension; extension = va_arg( argPtr, const char * ) ) {
-			names = fileSystem->ListFiles( path, extension, true, true );
+			names = fileSystem->ListFiles( path, extension, true, true, gamedir );
 			for ( i = 0; i < names->GetNumFiles(); i++ ) {
 				idStr name = names->GetFile( i );
 				if ( stripFolder ) {
