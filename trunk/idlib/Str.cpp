@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
+ $Revision: 5382 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:39:19 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -734,8 +734,7 @@ void idStr::Remap( const unsigned int count, const char *table ) {
 		for (unsigned int i = 0; i < num; i += 2) {
 			if (data[c] == table[i]) {
 				data[c] = table[i+1];
-				// abord the search a soon as we find the replacement
-				i = num;
+				break; // abort the search once we find the replacement
 			}
 		}
 	}

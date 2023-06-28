@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5352 $ (Revision of last commit) 
- $Date: 2012-03-21 12:27:21 -0400 (Wed, 21 Mar 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5382 $ (Revision of last commit) 
+ $Date: 2012-04-11 05:39:19 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -181,8 +181,9 @@ bool Image::LoadImageFromMemory(const unsigned char *imageBuffer, unsigned int i
 {
 	//unload previous image
 	Unload();
-	if (!imageBuffer)
+	if ( !imageBuffer ) {
 		return false;
+	}
 
 	//set name to user-specified string
 	m_Name = name;
@@ -195,15 +196,16 @@ bool Image::LoadImageFromVfs(const char* filename)
 {
 	//unload previous image
 	Unload();
-	if (!filename)
+	if ( !filename ) {
 		return false;
+	}
 
 	//set name to vfs filename
 	m_Name = filename;
 
 	//try to open file
 	idFile *file = fileSystem->OpenFileRead(m_Name);
-	if (file == NULL)
+	if ( !file )
 	{
 		common->Warning("Unable to load imagefile [%s]", m_Name.c_str());
 		return false;
@@ -229,8 +231,8 @@ bool Image::LoadImageFromFile(const fs::path& path)
 	m_Name = path.file_string().c_str();
 
 	//try to open file
-	FILE* file = NULL;
-	if (!fs::exists(path) || !(file = fopen(path.file_string().c_str(), "rb")))
+	FILE* file = fopen(path.file_string().c_str(), "rb");
+	if ( !file || !fs::exists(path) )
 	{
 		common->Warning("Unable to load imagefile [%s]", m_Name.c_str());
 		return false;
@@ -276,6 +278,7 @@ bool Image::SaveImageToFile(const fs::path& path, Format format) const
 		common->Warning("Cannot save image: file [%s] is directory", path.file_string().c_str());
 		return false;
 	}
+
 	//create directories if necessary
 	fs::create_directories(path.branch_path());
 	//write image file
