@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5380 $ (Revision of last commit) 
+ $Date: 2012-04-10 23:44:24 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ObjectiveLocation.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: ObjectiveLocation.cpp 5380 2012-04-11 03:44:24Z grayman $");
 
 #include "ObjectiveLocation.h"
 #include "ObjectiveComponent.h"
@@ -150,9 +150,15 @@ void CObjectiveLocation::Think()
 				continue;
 			}
 
+			// ClipModelsTouchingBounds() will count each clip model in a multiple
+			// clip model entity as a separate entity. This will fill 'current' with
+			// repeated entries for the same entity. When the list is used below to
+			// register entities using OnAddToLocationEntity(), that routine needs to
+			// filter out the extra instances so only one is added.
+
 			if (entity->m_bIsObjective)
 			{
-				DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objective location %s found entity %s during clock tick. \r", name.c_str(), entity->name.c_str() );
+				DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objective location 1 %s found entity %s during clock tick. \r", name.c_str(), entity->name.c_str() );
 				current.Alloc() = entity;
 			}
 		}
@@ -168,7 +174,7 @@ void CObjectiveLocation::Think()
 		{
 			if( Ents[i] && Ents[i]->m_bIsObjective )
 			{
-				DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objective location %s found entity %s during clock tick. \r", name.c_str(), Ents[i]->name.c_str() );
+				DM_LOG(LC_OBJECTIVES,LT_DEBUG)LOGSTRING("Objective location 2 %s found entity %s during clock tick. \r", name.c_str(), Ents[i]->name.c_str() );
 				current.Alloc() = Ents[i];
 			}
 		}
