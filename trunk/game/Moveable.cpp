@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5458 $ (Revision of last commit) 
- $Date: 2012-05-22 19:39:37 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Revision: 5488 $ (Revision of last commit) 
+ $Date: 2012-07-06 11:37:20 -0400 (Fri, 06 Jul 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5458 2012-05-22 23:39:37Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5488 2012-07-06 15:37:20Z grayman $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -499,8 +499,9 @@ bool idMoveable::Collide( const trace_t &collision, const idVec3 &velocity )
 	trace_t newCollision = collision; // grayman #2816 - in case we need to modify collision
 
 	// grayman #2816 - if we hit the world, skip all the damage work
+	// grayman #3168 - if this moveable isn't pushable, skip all the damage work
 
-	if ( ent && ( ent != gameLocal.world ) )
+	if ( ent && ( ent != gameLocal.world ) && GetPhysics()->IsPushable() )
 	{
 		idActor* entActor = NULL;
 
