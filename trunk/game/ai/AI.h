@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5469 $ (Revision of last commit) 
+ $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -2207,6 +2207,9 @@ public:
 
 	// grayman #2816 - bark
 	void Event_Bark(const char* soundName);
+
+	// grayman #3154
+	void Event_EmptyHand(const char* hand);
 
 #ifdef TIMING_BUILD
 private:

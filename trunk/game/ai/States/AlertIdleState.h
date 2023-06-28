@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5469 $ (Revision of last commit) 
+ $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -47,6 +47,8 @@ public:
 	// Think is inherited from IdleState::Think
 
 	static StatePtr CreateInstance();
+
+	virtual void ForgetSittingSleeping() { _startSitting = _startSleeping = false; };   // grayman #3154
 
 protected:
 	// Returns the initial idle bark sound, depending on the alert level 

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5455 $ (Revision of last commit) 
- $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
+ $Revision: 5469 $ (Revision of last commit) 
+ $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -135,6 +135,8 @@ public:
 
 	// Invoked when the movement subsystem considers this AI as blocked
 	virtual void OnMovementBlocked(idAI* owner);
+
+	virtual void ForgetSittingSleeping() {}; // grayman #3154
 
 protected:
 	/**

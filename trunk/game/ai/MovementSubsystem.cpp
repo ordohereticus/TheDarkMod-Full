@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5469 $ (Revision of last commit) 
+ $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5469 2012-06-02 01:02:35Z grayman $");
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -459,6 +459,13 @@ void MovementSubsystem::StartPathTask()
 		gameLocal.Warning("Unknown path corner classname '%s' on %s", classname.c_str(),path->name.c_str());
 		return;
 	}
+
+	// grayman #3154 - forget that you started the map sitting or sleeping, if you did
+
+	idAI* owner = _owner.GetEntity();
+	owner->GetMind()->GetState()->ForgetSittingSleeping();
+	owner->spawnArgs.SetBool("sitting",false);
+	owner->spawnArgs.SetBool("sleeping",false);
 	
 	// Push the (rest of the) tasks to the subsystem
 	for (std::list<TaskPtr>::iterator i = tasks.begin(); i != tasks.end(); ++i)
