@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5161 $ (Revision of last commit) 
- $Date: 2012-01-06 06:18:21 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5290 $ (Revision of last commit) 
+ $Date: 2012-02-19 11:25:13 -0500 (Sun, 19 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -708,7 +708,14 @@ idBox::FromPointTranslation
 ============
 */
 void idBox::FromPointTranslation( const idVec3 &point, const idVec3 &translation ) {
-	// FIXME: implement
+/*	idVec3 points;
+
+	// tels: take a line between A and A + translation, compute the box that covers these
+	//	 two points, and assume the box will always cover the entire line
+	points[0] = point;
+	points[1] = point + translation;
+	FromPoints(points, 2);
+*/
 }
 
 /*

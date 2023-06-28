@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5290 $ (Revision of last commit) 
+ $Date: 2012-02-19 11:25:13 -0500 (Sun, 19 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -708,6 +708,36 @@ void idStr::Replace( const char old, const char nw ) {
 
 	for( int i = 0; i < len; i++ ) {
 		if (data[i] == old) { data[i] = nw; }
+	}
+}
+
+/*
+============
+idStr::Remap
+
+Tels: table-driven remap (replace A w/ B, and B w/ C etc.) many chars simultanously. Used by I18N
+to convert ISO 8859-1 etc. to our specific character set.
+============
+*/
+void idStr::Remap( const unsigned int count, const char *table ) {
+	assert(table);
+	assert(count < 256);
+
+	// ignore tables larger than that
+	int num = count > 256 ? 512 : 2 * count;
+
+	// this nested loop is still faster than calling Replace() "count" times when
+	// count is large, esp. as this is correct, while repeated Replace() are not,
+	// as you cannot then swap A and B (replacing in "AB" first all A with B and
+	// then all B with A will end you up with "AA" instead of "BA").
+	for (int c = 0; c < len; c++) {
+		for (unsigned int i = 0; i < num; i += 2) {
+			if (data[c] == table[i]) {
+				data[c] = table[i+1];
+				// abord the search a soon as we find the replacement
+				i = num;
+			}
+		}
 	}
 }
 
@@ -1579,9 +1609,11 @@ idStr::snPrintf
 ================
 */
 int idStr::snPrintf( char *dest, int size, const char *fmt, ...) {
-	int len;
+	unsigned int len;
 	va_list argptr;
 	char buffer[32000];	// big, but small enough to fit in PPC stack
+
+	assert(size > 0);
 
 	va_start( argptr, fmt );
 	len = vsprintf( buffer, fmt, argptr );
@@ -1589,7 +1621,7 @@ int idStr::snPrintf( char *dest, int size, const char *fmt, ...) {
 	if ( len >= sizeof( buffer ) ) {
 		idLib::common->Error( "idStr::snPrintf: overflowed buffer" );
 	}
-	if ( len >= size ) {
+	if ( len >= (unsigned int) size ) {
 		idLib::common->Warning( "idStr::snPrintf: overflow of %i in %i\n", len, size );
 		len = size;
 	}
@@ -1617,6 +1649,8 @@ or returns -1 on failure or if the buffer would be overflowed.
 */
 int idStr::vsnPrintf( char *dest, int size, const char *fmt, va_list argptr ) {
 	int ret;
+
+	assert(size > 0);
 
 #ifdef _WIN32
 #undef _vsnprintf

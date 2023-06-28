@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5290 $ (Revision of last commit) 
+ $Date: 2012-02-19 11:25:13 -0500 (Sun, 19 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -197,6 +197,7 @@ public:
 	idStr &				StripQuotes( void );							// strip quotes around string
 	void				Replace( const char *old, const char *nw );
 	void				Replace( const char old, const char nw );		// faster version of Repace() if you want to swap only one char
+	void				Remap( const unsigned int tablesize, const char *table );	// Table-driven remap (replace A w/ B, and B w/ C etc.) many chars simultanously
 
 	// file name methods
 	int					FileNameHash( void ) const;						// hash key for the filename (skips extension)

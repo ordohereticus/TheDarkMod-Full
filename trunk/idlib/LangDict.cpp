@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5290 $ (Revision of last commit) 
+ $Date: 2012-02-19 11:25:13 -0500 (Sun, 19 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -91,15 +91,12 @@ bool idLangDict::Load( const char *fileName, const bool clear /* _D3XP */, const
 			idLangKeyValue kv;
 			kv.key = tok;
 			kv.value = tok2;
-			if (NULL != remap && remapcount > 0)
+			if (remap && remapcount > 0)
 			{
 				// Tels: fix #2812, some characters like 0xFF ("я" in russian) are not rendered
 				// in the GUI, so replace them (as the font contains the characters elsewhere).
 				// If we were given a replacement table, use it to exchange the characters:
-				for (unsigned int i = 0; i < remapcount; i ++)
-				{
-					kv.value.Replace( remap[i*2], remap[i*2+1] );
-				}
+				kv.value.Remap( remapcount, remap );
 			}
 			assert( kv.key.Cmpn( STRTABLE_ID, STRTABLE_ID_LENGTH ) == 0 );
 			hash.Add( GetHashKey( kv.key ), args.Append( kv ) );
