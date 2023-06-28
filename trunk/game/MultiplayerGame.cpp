@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5346 $ (Revision of last commit) 
- $Date: 2012-03-18 12:13:46 -0400 (Sun, 18 Mar 2012) $ (Date of last commit)
+ $Revision: 5389 $ (Revision of last commit) 
+ $Date: 2012-04-15 14:01:47 -0400 (Sun, 15 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MultiplayerGame.cpp 5346 2012-03-18 16:13:46Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: MultiplayerGame.cpp 5389 2012-04-15 18:01:47Z tels $");
 
 #include "Game_local.h"
 
@@ -3372,7 +3372,7 @@ idMultiplayerGame::ClientReadStartState
 ================
 */
 void idMultiplayerGame::ClientReadStartState( const idBitMsg &msg ) {
-	int i, client;
+	int client;
 
 	// read the state in preparation for reading snapshot updates
 	gameState = (idMultiplayerGame::gameState_t)msg.ReadByte();
