@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5491 $ (Revision of last commit) 
+ $Date: 2012-07-07 06:54:32 -0400 (Sat, 07 Jul 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ModInfo.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: ModInfo.cpp 5491 2012-07-07 10:54:32Z tels $");
 
 #include "ModInfo.h"
 #include "ModInfoDecl.h"
@@ -279,7 +279,9 @@ bool CModInfo::LoadMetaData()
 	if (versionPos >= 0)
 	{
 		requiredVersionStr = idStr(modFileContent, versionPos, len);
+		
 		Strip("Required TDM Version:", requiredVersionStr);
+		requiredVersionStr.StripLeadingOnce('v');	// tels: "v1.07" => "1.07"		(#3170)
 
 		// Parse version
 		int dotPos = requiredVersionStr.Find('.');
@@ -305,6 +307,5 @@ bool CModInfo::LoadMetaData()
 
 void CModInfo::Strip( const char *fieldname, idStr &input) {
 	input.StripLeadingOnce(fieldname);
-	input.StripLeadingWhitespace();
-	input.StripTrailingWhitespace();
+	input.StripWhitespace();
 }
