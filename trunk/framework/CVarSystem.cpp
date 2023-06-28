@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5479 $ (Revision of last commit) 
- $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
+ $Revision: 5480 $ (Revision of last commit) 
+ $Date: 2012-06-17 12:31:39 -0400 (Sun, 17 Jun 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CVarSystem.cpp 5479 2012-06-16 18:51:25Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: CVarSystem.cpp 5480 2012-06-17 16:31:39Z taaaki $");
 
 idCVar * idCVar::staticVars = NULL;
 
@@ -574,7 +574,7 @@ void idCVarSystemLocal::SetInternal( const char *name, const char *value, int fl
 		    internal->flags |= flags & ~CVAR_STATIC;
 		    internal->UpdateCheat();
         } else {
-            common->Warning("Attempt to modify read-only CVAR, %s, failed.", name);
+            common->Warning("Attempt to modify read-only %s CVAR failed.", name);
         }
 	} else {
 		internal = new idInternalCVar( name, value, flags );
