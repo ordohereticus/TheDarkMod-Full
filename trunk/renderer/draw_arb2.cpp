@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5208 $ (Revision of last commit) 
+ $Date: 2012-01-12 12:22:39 -0500 (Thu, 12 Jan 2012) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: draw_arb2.cpp 5208 2012-01-12 17:22:39Z rebb $");
 
 #include "tr_local.h"
 
@@ -143,12 +143,28 @@ void RB_ARB2_CreateDrawInteractions( const drawSurf_t *surf ) {
 	GL_State( GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE | GLS_DEPTHMASK | backEnd.depthFunc );
 
 	// bind the vertex program
-	if ( r_testARBProgram.GetBool() ) {
-		qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_TEST );
-		qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_TEST );
+	// rebb: support dedicated ambient - CVar and direct interactions can probably be removed, they're there mainly for performance testing
+	if( r_dedicatedAmbient.GetBool() ) {
+		if( backEnd.vLight->lightShader->IsAmbientLight() ) {
+			qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_AMBIENT );
+			qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_AMBIENT );
+		} else {
+			if ( r_testARBProgram.GetBool() ) {
+				qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_TEST_DIRECT );
+				qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_TEST_DIRECT );
+			} else {
+				qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_INTERACTION_DIRECT );
+				qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_INTERACTION_DIRECT );
+			}
+		}
 	} else {
-		qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_INTERACTION );
-		qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_INTERACTION );
+		if ( r_testARBProgram.GetBool() ) {
+			qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_TEST );
+			qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_TEST );
+		} else {
+			qglBindProgramARB( GL_VERTEX_PROGRAM_ARB, VPROG_INTERACTION );
+			qglBindProgramARB( GL_FRAGMENT_PROGRAM_ARB, FPROG_INTERACTION );
+		}
 	}
 
 	qglEnable(GL_VERTEX_PROGRAM_ARB);
@@ -176,7 +192,6 @@ void RB_ARB2_CreateDrawInteractions( const drawSurf_t *surf ) {
 	} else {
 		globalImages->specularTableImage->Bind();
 	}
-
 
 	for ( ; surf ; surf=surf->nextOnLight ) {
 		// perform setup here that will not change over multiple interaction passes
@@ -346,6 +361,12 @@ static progDef_t	progs[MAX_GLPROGS] = {
 	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_ENVIRONMENT, "environment.vfp" },
 	{ GL_VERTEX_PROGRAM_ARB, VPROG_GLASSWARP, "arbVP_glasswarp.txt" },
 	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_GLASSWARP, "arbFP_glasswarp.txt" },
+
+	// rebb: direct light interaction files for performance testing
+	{ GL_VERTEX_PROGRAM_ARB, VPROG_TEST_DIRECT, "test_direct.vfp" },
+	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_TEST_DIRECT, "test_direct.vfp" },
+	{ GL_VERTEX_PROGRAM_ARB, VPROG_INTERACTION_DIRECT, "interaction_direct.vfp" },
+	{ GL_FRAGMENT_PROGRAM_ARB, FPROG_INTERACTION_DIRECT, "interaction_direct.vfp" },
 
 	// additional programs can be dynamically specified in materials
 };

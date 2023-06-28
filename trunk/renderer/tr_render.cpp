@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5208 $ (Revision of last commit) 
+ $Date: 2012-01-12 12:22:39 -0500 (Thu, 12 Jan 2012) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: tr_render.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: tr_render.cpp 5208 2012-01-12 17:22:39Z rebb $");
 
 #include "tr_local.h"
 
@@ -652,7 +652,8 @@ static void RB_SubmittInteraction( drawInteraction_t *din, void (*DrawInteractio
 	if ( !din->diffuseImage || r_skipDiffuse.GetBool() ) {
 		din->diffuseImage = globalImages->blackImage;
 	}
-	if ( !din->specularImage || r_skipSpecular.GetBool() || din->ambientLight ) {
+	// rebb: even ambient light has some specularity
+	if ( !din->specularImage || r_skipSpecular.GetBool() /* || din->ambientLight */ ) {
 		din->specularImage = globalImages->blackImage;
 	}
 	if ( !din->bumpImage || r_skipBump.GetBool() ) {
