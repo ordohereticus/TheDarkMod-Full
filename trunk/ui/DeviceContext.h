@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5262 $ (Revision of last commit) 
- $Date: 2012-02-10 06:24:08 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5407 $ (Revision of last commit) 
+ $Date: 2012-05-01 08:22:34 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -99,17 +99,6 @@ public:
 		ALIGN_RIGHT
 	};
 
-	enum {
-		SCROLLBAR_HBACK,
-		SCROLLBAR_VBACK,
-		SCROLLBAR_THUMB,
-		SCROLLBAR_RIGHT,
-		SCROLLBAR_LEFT,
-		SCROLLBAR_UP,
-		SCROLLBAR_DOWN,
-		SCROLLBAR_COUNT
-	};
-
 	static idVec4 colorPurple;
 	static idVec4 colorOrange;
 	static idVec4 colorYellow;
@@ -127,7 +116,6 @@ private:
 	void				Clear( void );
 
 	const idMaterial	*cursorImages[CURSOR_COUNT];
-	const idMaterial	*scrollBarImages[SCROLLBAR_COUNT];
 	const idMaterial	*whiteImage;
 	fontInfoEx_t		*activeFont;
 	fontInfo_t			*useFont;
