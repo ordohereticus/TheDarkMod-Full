@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5297 $ (Revision of last commit) 
- $Date: 2012-02-24 16:21:03 -0500 (Fri, 24 Feb 2012) $ (Date of last commit)
+ $Revision: 5332 $ (Revision of last commit) 
+ $Date: 2012-03-11 05:36:20 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5297 2012-02-24 21:21:03Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5332 2012-03-11 09:36:20Z tels $");
 
 #include "DeviceContext.h"
 
@@ -53,9 +53,10 @@ int idDeviceContext::FindFont( const char *name ) {
 	idStr fileName = name;
 	fileName.Replace("fonts", common->GetI18N()->GetCurrentFontPath().c_str() );
 
+	// TODO: #3060: This will leak fontInfo entries if the same font cannot be registered multiple times
 	fontInfoEx_t fontInfo;
-		int index = fonts.Append( fontInfo );
-		if ( renderSystem->RegisterFont( fileName, fonts[index] ) ){
+	int index = fonts.Append( fontInfo );
+	if ( renderSystem->RegisterFont( fileName, fonts[index] ) ){
 		idStr::Copynz( fonts[index].name, name, sizeof( fonts[index].name ) );
 		return index;
 	} else {
