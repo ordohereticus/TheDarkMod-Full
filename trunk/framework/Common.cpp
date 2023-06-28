@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5485 $ (Revision of last commit) 
- $Date: 2012-07-02 16:40:33 -0400 (Mon, 02 Jul 2012) $ (Date of last commit)
+ $Revision: 5486 $ (Revision of last commit) 
+ $Date: 2012-07-02 17:14:11 -0400 (Mon, 02 Jul 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5485 2012-07-02 20:40:33Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5486 2012-07-02 21:14:11Z taaaki $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -949,7 +949,12 @@ void idCommonLocal::InitGameArguments() {
     // folder exists in <fs_mod>/fms/
     if ( fsGameDefined ) {
         idStrList fmList;
+#ifdef _WIN32
+        idStr fmPath = darkmodPath;
+        fmPath.AppendPath("fms");
+#else
         idStr fmPath = Sys_ModSavePath();
+#endif
         idStr curFm = idStr( cvarSystem->GetCVarString("fs_currentfm") );
 
         Sys_ListFiles( fmPath.c_str(), "/", fmList );
