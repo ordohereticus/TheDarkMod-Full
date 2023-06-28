@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5306 $ (Revision of last commit) 
+ $Date: 2012-02-26 12:43:34 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ModelOverlay.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: ModelOverlay.cpp 5306 2012-02-26 17:43:34Z tels $");
 
 #include "Model_local.h"
 #include "tr_local.h"
@@ -96,7 +96,6 @@ may extend well past the 0.0 to 1.0 texture range
 */
 void idRenderModelOverlay::CreateOverlay( const idRenderModel *model, const idPlane localTextureAxis[2], const idMaterial *mtr ) {
 	int i, maxVerts, maxIndexes, surfNum;
-	idRenderModelOverlay *overlay = NULL;
 
 	// count up the maximum possible vertices and indexes per surface
 	maxVerts = 0;
