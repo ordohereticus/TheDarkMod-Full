@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5236 $ (Revision of last commit) 
- $Date: 2012-01-27 02:05:58 -0500 (Fri, 27 Jan 2012) $ (Date of last commit)
- $Author: angua $ (Author of last commit)
+ $Revision: 5251 $ (Revision of last commit) 
+ $Date: 2012-02-06 19:50:31 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5236 2012-01-27 07:05:58Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5251 2012-02-07 00:50:31Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -5610,7 +5610,56 @@ void idEntity::RemoveContactEntity( idEntity *ent ) {
 	GetPhysics()->RemoveContactEntity( ent );
 }
 
+// grayman #3011 - Activate physics thinking for any
+// entities sitting on this entity.
 
+// This could be extended in the future to activate all contact entities.
+
+/*
+================
+idEntity::ActivateContacts
+================
+*/
+void idEntity::ActivateContacts()
+{
+	idList<contactInfo_t> contacts;
+	contacts.SetNum( 10, false );
+
+	idVec6 dir;
+	int num;
+
+	dir.SubVec3(0) = -GetPhysics()->GetGravityNormal(); // look up
+	dir.SubVec3(1) = vec3_origin; // ignore angular velocity
+	idClipModel *clipModel = GetPhysics()->GetClipModel();
+
+	if ( clipModel->IsTraceModel() )
+	{
+		num = gameLocal.clip.Contacts( &contacts[0], 10, GetPhysics()->GetOrigin(),dir, CONTACT_EPSILON, clipModel, mat3_identity, CONTENTS_SOLID, this );
+	}
+	else
+	{
+		// this entity has no trace model, so create a new clip model
+		// and give it a trace model that can be used for the search
+	
+		idTraceModel trm(GetPhysics()->GetBounds());
+		idClipModel clip(trm);
+		num = gameLocal.clip.Contacts( &contacts[0], 10, GetPhysics()->GetOrigin(),dir, CONTACT_EPSILON, &clip, mat3_identity, CONTENTS_SOLID, this );
+	}
+	
+	contacts.SetNum( num, false );
+
+	for ( int i = 0 ; i < num ; i++ )
+	{
+		idEntity* found = gameLocal.entities[contacts[i].entityNum];
+		if ( found != gameLocal.world )
+		{
+			if ( found && found->IsType(idMoveable::Type) )
+			{
+				found->ActivatePhysics( this ); // let this object find that it's sitting on air
+			}
+		}
+	}
+}
 
 /***********************************************************************
 

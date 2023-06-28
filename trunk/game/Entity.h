@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5212 $ (Revision of last commit) 
- $Date: 2012-01-13 18:21:17 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5251 $ (Revision of last commit) 
+ $Date: 2012-02-06 19:50:31 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ENTITY_H__
@@ -665,7 +665,9 @@ public:
 	virtual void			AddContactEntity( idEntity *ent );
 							// remove a touching entity
 	virtual void			RemoveContactEntity( idEntity *ent );
-
+							// grayman #3011 - check if objects are sitting on this entity
+	virtual void			ActivateContacts( void );
+	
 	// damage
 							// returns true if this entity can be damaged from the given origin
 	virtual bool			CanDamage( const idVec3 &origin, idVec3 &damagePoint ) const;

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5248 $ (Revision of last commit) 
- $Date: 2012-02-06 14:07:52 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Revision: 5251 $ (Revision of last commit) 
+ $Date: 2012-02-06 19:50:31 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5248 2012-02-06 19:07:52Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5251 2012-02-07 00:50:31Z grayman $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -4579,7 +4579,6 @@ void idPlayer::CrashLand( const idVec3 &savedOrigin, const idVec3 &savedVelocity
 		( (!AI_CROUCH && savedVelocity.z < -300) || savedVelocity.z < -600) )
 	{
 		hasLanded = true;
-
 		PlayFootStepSound();
 	}
 	else
@@ -10883,50 +10882,6 @@ CInventoryItemPtr idPlayer::AddToInventory(idEntity *ent)
 	return returnValue;
 }
 
-// grayman #3011 - If anything's sitting on an item that was just put into inventory, it
-// needs to learn that the item is no longer holding it up.
-
-void idPlayer::CheckForStackedObjects(idEntity* ent)
-{
-	idList<contactInfo_t> contacts;
-	contacts.SetNum( 10, false );
-
-	idVec6 dir;
-	int num;
-
-	dir.SubVec3(0) = -ent->GetPhysics()->GetGravityNormal(); // look up
-	dir.SubVec3(1) = vec3_origin; // ignore angular velocity
-	idClipModel *clipModel = ent->GetPhysics()->GetClipModel();
-
-	if ( clipModel->IsTraceModel() )
-	{
-		num = gameLocal.clip.Contacts( &contacts[0], 10, ent->GetPhysics()->GetOrigin(),dir, CONTACT_EPSILON, clipModel, mat3_identity, CONTENTS_SOLID, ent );
-	}
-	else
-	{
-		// this entity has no trace model, so create a new clip model
-		// and give it a trace model that can be used for the search
-	
-		idTraceModel trm(ent->GetPhysics()->GetBounds());
-		idClipModel clip(trm);
-		num = gameLocal.clip.Contacts( &contacts[0], 10, ent->GetPhysics()->GetOrigin(),dir, CONTACT_EPSILON, &clip, mat3_identity, CONTENTS_SOLID, ent );
-	}
-	
-	contacts.SetNum( num, false );
-
-	for ( int i = 0 ; i < num ; i++ )
-	{
-		idEntity* found = gameLocal.entities[contacts[i].entityNum];
-		if ( found != gameLocal.world )
-		{
-			if ( found && found->IsType(idMoveable::Type) )
-			{
-				found->ActivatePhysics( ent ); // let this object find that it's sitting on air
-			}
-		}
-	}
-}
-
 void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 {
 	// greebo: Don't perform frobs on hidden or NULL entities
@@ -11005,7 +10960,7 @@ void idPlayer::PerformFrob(EImpulseState impulseState, idEntity* target)
 			m_FrobEntity = NULL;
 
 			// grayman #3011 - is anything sitting on this inventory item?
-			CheckForStackedObjects(target);
+			target->ActivateContacts();
 		}
 
 		// Grab it if it's a grabable class
