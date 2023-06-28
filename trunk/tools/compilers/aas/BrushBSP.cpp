@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5280 $ (Revision of last commit) 
- $Date: 2012-02-14 18:18:56 -0500 (Tue, 14 Feb 2012) $ (Date of last commit)
+ $Revision: 5328 $ (Revision of last commit) 
+ $Date: 2012-03-10 13:20:32 -0500 (Sat, 10 Mar 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BrushBSP.cpp 5280 2012-02-14 23:18:56Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: BrushBSP.cpp 5328 2012-03-10 18:20:32Z tels $");
 
 #include "Brush.h"
 #include "BrushBSP.h"
@@ -1286,7 +1286,6 @@ void idBrushBSP::MakeOutsidePortals( void ) {
 	idBounds bounds;
 	idBrushBSPPortal *p, *portals[6];
 	idVec3 normal;
-	idPlane planes[6];
 
 	// pad with some space so there will never be null volume leaves
 	bounds = treeBounds.Expand( 32 );
