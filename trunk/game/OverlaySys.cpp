@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5210 $ (Revision of last commit) 
+ $Date: 2012-01-13 07:08:40 -0500 (Fri, 13 Jan 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: OverlaySys.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: OverlaySys.cpp 5210 2012-01-13 12:08:40Z greebo $");
 
 #include "Game_local.h"
 
@@ -32,10 +32,6 @@ static inline idUserInterface* newGui(const char* file)
 {
 	//return uiManager->FindGui( file, true, false, true );
 	return uiManager->FindGui(file, true, true);
-}
-static inline void delGui(idUserInterface* gui)
-{
-	uiManager->DeAlloc(gui);
 }
 
 COverlaySys::COverlaySys()
@@ -57,9 +53,6 @@ COverlaySys::~COverlaySys()
 	{
 		overlay = oNode->Owner();
 		oNode = oNode->NextNode();
-
-		if (!overlay->m_external)
-			delGui(overlay->m_gui);
 
 		delete overlay;
 	}
@@ -296,9 +289,6 @@ void COverlaySys::destroyOverlay( int handle )
 	if (overlay->m_interactive)
 		m_updateInteractive = true;
 
-	if (!overlay->m_external)
-		delGui(overlay->m_gui);
-
 	delete overlay;
 
 Quit:
@@ -317,12 +307,7 @@ void COverlaySys::setGui(int handle, idUserInterface* gui)
 	SOverlay* overlay = findOverlay(handle);
 	if(overlay)
 	{
-		if(!overlay->m_external)
-		{
-			delGui( overlay->m_gui );
-			overlay->m_external = true;
-		}
-
+		overlay->m_external = true;
 		overlay->m_gui = gui;
 	}
 	else
@@ -339,9 +324,6 @@ bool COverlaySys::setGui( int handle, const char* file )
 		idUserInterface* gui = newGui(file);
 		if(gui)
 		{
-			if(!overlay->m_external)
-				delGui(overlay->m_gui);
-
 			overlay->m_gui = gui;
 			overlay->m_external = false;
 			retVal = true;
