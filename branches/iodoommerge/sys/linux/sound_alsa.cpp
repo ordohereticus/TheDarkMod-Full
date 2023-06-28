@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5277 $ (Revision of last commit) 
+ $Date: 2012-02-12 08:07:23 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 #include "../../idlib/precompiled.h"
@@ -128,9 +128,9 @@ bool idAudioHardwareALSA::Initialize( void ) {
 	// set hardware parameters ----------------------------------------------------------------------
 
 	// init hwparams with the full configuration space
-	snd_pcm_hw_params_t *hwparams;
-	// this one is a define
-	id_snd_pcm_hw_params_alloca( &hwparams );
+	snd_pcm_hw_params_t *hwparams = (snd_pcm_hw_params_t *) alloca(id_snd_pcm_hw_params_sizeof());
+	memset(hwparams, 0, id_snd_pcm_hw_params_sizeof());
+
 	if ( ( err = id_snd_pcm_hw_params_any( m_pcm_handle, hwparams ) ) < 0 ) {
 		common->Printf( "cannot configure the PCM device: %s\n", id_snd_strerror( err ) );
 		InitFailed();

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5277 $ (Revision of last commit) 
+ $Date: 2012-02-12 08:07:23 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef ID_SND_BACKENDS
@@ -79,8 +79,6 @@ private:
 #define ALSA_PCM_NEW_HW_PARAMS_API
 #define ALSA_PCM_NEW_SW_PARAMS_API
 #include <alsa/asoundlib.h>
-
-#define id_snd_pcm_hw_params_alloca(ptr) do { assert(ptr); *ptr = (snd_pcm_hw_params_t *) alloca(id_snd_pcm_hw_params_sizeof()); memset(*ptr, 0, id_snd_pcm_hw_params_sizeof()); } while (0)
 
 typedef const char * ( *pfn_snd_asoundlib_version )( void );
 typedef snd_pcm_sframes_t ( *pfn_snd_pcm_avail_update )( snd_pcm_t *pcm );
