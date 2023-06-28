@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5200 $ (Revision of last commit) 
- $Date: 2012-01-09 02:19:56 -0500 (Mon, 09 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5248 $ (Revision of last commit) 
+ $Date: 2012-02-06 14:07:52 -0500 (Mon, 06 Feb 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/#ifndef __GAME_PLAYER_H__
 #define __GAME_PLAYER_H__
@@ -810,8 +810,9 @@ public:
 	// Gets repeatedly called when the player holds down the frob button
 	void					PerformFrobKeyRepeat(int holdTime);
 	// Gets called when the player releases the frob button
-	void					PerformFrobKeyRelease(int holdTime);				
-
+	void					PerformFrobKeyRelease(int holdTime);
+	// grayman #3011 - check if objects are stacked on top of a frobbed inventory item
+	void					CheckForStackedObjects(idEntity* ent);
 
 	// angua: Set ideal crouch state
 	void					EvaluateCrouch();
