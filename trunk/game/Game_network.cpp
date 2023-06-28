@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5231 $ (Revision of last commit) 
- $Date: 2012-01-22 00:52:35 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
+ $Revision: 5233 $ (Revision of last commit) 
+ $Date: 2012-01-22 12:01:08 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Game_network.cpp 5231 2012-01-22 05:52:35Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Game_network.cpp 5233 2012-01-22 17:01:08Z serpentine $");
 
 #include "Game_local.h"
 
@@ -237,6 +237,11 @@ idGameLocal::ServerAllowClient
 */
 allowReply_t idGameLocal::ServerAllowClient( int numClients, const char *IP, const char *guid, const char *password, char reason[ MAX_STRING_CHARS ] ) {
 	reason[0] = '\0';
+
+	if ( serverInfo.GetInt( "si_pure" ) && !mpGame.IsPureReady() ) {
+		idStr::snPrintf( reason, MAX_STRING_CHARS, "#str_07139" );
+		return ALLOW_NOTYET;
+	}
 
 	if ( !serverInfo.GetInt( "si_maxPlayers" ) ) {
 		idStr::snPrintf( reason, MAX_STRING_CHARS, "#str_07140" );

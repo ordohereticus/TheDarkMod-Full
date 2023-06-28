@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5231 $ (Revision of last commit) 
- $Date: 2012-01-22 00:52:35 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
+ $Revision: 5233 $ (Revision of last commit) 
+ $Date: 2012-01-22 12:01:08 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -76,7 +76,8 @@ enum {
 
 // reliable server -> client messages
 enum {
-	SERVER_RELIABLE_MESSAGE_RELOAD = 0,
+	SERVER_RELIABLE_MESSAGE_PURE = 0,
+	SERVER_RELIABLE_MESSAGE_RELOAD,
 	SERVER_RELIABLE_MESSAGE_CLIENTINFO,
 	SERVER_RELIABLE_MESSAGE_SYNCEDCVARS,
 	SERVER_RELIABLE_MESSAGE_PRINT,
@@ -95,7 +96,8 @@ enum {
 
 // reliable client -> server messages
 enum {
-	CLIENT_RELIABLE_MESSAGE_CLIENTINFO = 0,
+	CLIENT_RELIABLE_MESSAGE_PURE = 0,
+	CLIENT_RELIABLE_MESSAGE_CLIENTINFO,
 	CLIENT_RELIABLE_MESSAGE_PRINT,
 	CLIENT_RELIABLE_MESSAGE_DISCONNECT,
 	CLIENT_RELIABLE_MESSAGE_GAME

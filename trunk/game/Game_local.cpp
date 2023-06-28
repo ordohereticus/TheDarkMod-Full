@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5231 $ (Revision of last commit) 
- $Date: 2012-01-22 00:52:35 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
+ $Revision: 5233 $ (Revision of last commit) 
+ $Date: 2012-01-22 12:01:08 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5231 2012-01-22 05:52:35Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5233 2012-01-22 17:01:08Z serpentine $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1554,7 +1554,8 @@ void idGameLocal::MapRestart( ) {
 				break;
 			}
 			// a select set of si_ changes will cause a full restart of the server
-			if ( keyval->GetValue().Cmp( keyval2->GetValue() ) && ( !keyval->GetKey().Cmp( "si_map" ) ) ) {
+			if ( keyval->GetValue().Cmp( keyval2->GetValue() ) &&
+				( !keyval->GetKey().Cmp( "si_pure" ) || !keyval->GetKey().Cmp( "si_map" ) ) ) {
 				break;
 			}
 		}
@@ -6503,7 +6504,7 @@ bool idGameLocal::NeedRestart() {
 		}
 
 		// a select set of si_ changes will cause a full restart of the server
-		if ( keyval->GetValue().Cmp( keyval2->GetValue() ) && ( !keyval->GetKey().Cmp( "si_map" ) ) ) {
+		if ( keyval->GetValue().Cmp( keyval2->GetValue() ) && ( !keyval->GetKey().Cmp( "si_pure" ) || !keyval->GetKey().Cmp( "si_map" ) ) ) {
 			return true;
 		}
 	}

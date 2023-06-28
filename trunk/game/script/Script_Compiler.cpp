@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5232 $ (Revision of last commit) 
- $Date: 2012-01-22 02:29:09 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
+ $Revision: 5233 $ (Revision of last commit) 
+ $Date: 2012-01-22 12:01:08 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Compiler.cpp 5232 2012-01-22 07:29:09Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Compiler.cpp 5233 2012-01-22 17:01:08Z serpentine $");
 
 #include "../Game_local.h"
 
@@ -200,7 +200,7 @@ idCompiler::idCompiler()
 ================
 */
 idCompiler::idCompiler() {
-	const char	**ptr;
+	char	**ptr;
 	int		id;
 
 	// make sure we have the right # of opcodes in the table

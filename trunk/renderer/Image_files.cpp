@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5232 $ (Revision of last commit) 
- $Date: 2012-01-22 02:29:09 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
+ $Revision: 5233 $ (Revision of last commit) 
+ $Date: 2012-01-22 12:01:08 -0500 (Sun, 22 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5232 2012-01-22 07:29:09Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5233 2012-01-22 17:01:08Z serpentine $");
 
 #include "tr_local.h"
 
@@ -1127,7 +1127,7 @@ bool R_LoadCubeImages( const char *imgName, cubeFiles_t extensions, byte *pics[6
 		"_up.tga", "_down.tga" };
 	const char	*axisSides[6] =  { "_px.tga", "_nx.tga", "_py.tga", "_ny.tga", 
 		"_pz.tga", "_nz.tga" };
-	const char	**sides;
+	char	**sides;
 	char	fullName[MAX_IMAGE_NAME];
 	int		width, height, size = 0;
 
