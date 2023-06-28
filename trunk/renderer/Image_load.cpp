@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5241 $ (Revision of last commit) 
- $Date: 2012-02-01 13:19:38 -0500 (Wed, 01 Feb 2012) $ (Date of last commit)
+ $Revision: 5259 $ (Revision of last commit) 
+ $Date: 2012-02-08 15:11:41 -0500 (Wed, 08 Feb 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_load.cpp 5241 2012-02-01 18:19:38Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Image_load.cpp 5259 2012-02-08 20:11:41Z serpentine $");
 
 #include "tr_local.h"
 
@@ -93,7 +93,7 @@ int idImage::BitsForInternalFormat( int internalFormat ) const {
 	case GL_COMPRESSED_RGBA_ARB:
 		return 8;			// not sure
 	default:
-		common->Error( "R_BitsForInternalFormat: BAD FORMAT:%i", internalFormat );
+		common->Warning( "\nR_BitsForInternalFormat: bad internalFormat:%i", internalFormat );
 	}
 	return 0;
 }
@@ -263,7 +263,7 @@ GLenum idImage::SelectInternalFormat( const byte **dataPtrs, int numDataPtrs, in
 		needAlpha = true;
 	}
 
-	// catch normal maps first
+	// catch normal maps first 
 	if ( minimumDepth == TD_BUMP ) {
 		if ( globalImages->image_useCompression.GetBool() && globalImages->image_useNormalCompression.GetInteger() == 1 && glConfig.sharedTexturePaletteAvailable ) {
 			// image_useNormalCompression should only be set to 1 on nv_10 and nv_20 paths
@@ -1478,7 +1478,10 @@ void idImage::UploadPrecompressedImage( byte *data, int len ) {
             break;
         case DDS_MAKEFOURCC( 'D', 'X', 'T', '5' ):
             internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-            break;
+			break;
+		case DDS_MAKEFOURCC( 'R', 'X', 'G', 'B' ):
+			internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+			break;
 		case DDS_MAKEFOURCC( 'A', 'T', 'I', '1' ):
 			internalFormat = GL_COMPRESSED_LUMINANCE_LATC1_EXT;
 			break;
