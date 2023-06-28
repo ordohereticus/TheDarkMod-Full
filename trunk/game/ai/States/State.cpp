@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
+ $Revision: 5298 $ (Revision of last commit) 
+ $Date: 2012-02-24 20:07:32 -0500 (Fri, 24 Feb 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5292 2012-02-23 16:17:34Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5298 2012-02-25 01:07:32Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -1879,10 +1879,20 @@ void State::OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bo
 {
 	idAI* owner = _owner.GetEntity();
 
-	if (owner == NULL) return;
+	if (owner == NULL)
+	{
+		return;
+	}
 
-	// Switch to failed knockout state
-	owner->GetMind()->PushState(StatePtr(new FailedKnockoutState(attacker, direction, hitHead)));
+	// grayman #3025 - if we're already in the failed KO state,
+	// we have to let the failed KO animation finish before
+	// we allow another failed KO.
+
+	if ( owner->GetMind()->GetState()->GetName() != "FailedKnockout" )
+	{
+		// Switch to failed knockout state
+		owner->GetMind()->PushState(StatePtr(new FailedKnockoutState(attacker, direction, hitHead)));
+	}
 }
 
 void State::OnProjectileHit(idProjectile* projectile, idEntity* attacker, int damageTaken)
