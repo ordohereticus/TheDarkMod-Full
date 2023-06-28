@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5213 $ (Revision of last commit) 
- $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Revision: 5222 $ (Revision of last commit) 
+ $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5213 2012-01-15 17:53:26Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5222 2012-01-20 03:27:39Z serpentine $");
 
 #include "Session_local.h"
 
@@ -302,11 +302,7 @@ void idSessionLocal::SetMainMenuGuiVars( void ) {
 		guiMainMenu->SetStateString( "inGame", "0" );
 	}
 
-#ifdef ID_DEMO_BUILD
-	guiMainMenu->SetStateString( "nightmare", "0" );
-#else
 	guiMainMenu->SetStateString( "nightmare", cvarSystem->GetCVarBool( "g_nightmare" ) ? "1" : "0" );
-#endif
 	guiMainMenu->SetStateString( "browser_levelshot", "guis/assets/splash/pdtempa" );
 
 	SetMainMenuSkin();
@@ -577,11 +573,7 @@ void idSessionLocal::HandleMainMenuCommands( const char *menuCommand ) {
 			if ( icmd < args.Argc() ) {
 				StartNewGame( args.Argv( icmd++ ) );
 			} else {
-#ifndef ID_DEMO_BUILD
 				StartNewGame( "game/mars_city1" );
-#else
-				StartNewGame( "game/demo_mars_city1" );
-#endif
 			}
 			// need to do this here to make sure com_frameTime is correct or the gui activates with a time that 
 			// is "however long map load took" time in the past

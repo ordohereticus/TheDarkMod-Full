@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5222 $ (Revision of last commit) 
+ $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5222 2012-01-20 03:27:39Z serpentine $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -989,13 +989,11 @@ void idPlayer::Spawn( void )
 		{
 			g_damageScale.SetFloat( 1.0f );
 			g_armorProtection.SetFloat( ( g_skill.GetInteger() < 2 ) ? 0.4f : 0.2f );
-#ifndef ID_DEMO_BUILD
 			if ( g_skill.GetInteger() == 3 )
 			{
 				healthTake = true;
 				nextHealthTake = gameLocal.time + g_healthTakeTime.GetInteger() * 1000;
 			}
-#endif
 		}
 	}
 
@@ -3273,7 +3271,6 @@ void idPlayer::UpdatePowerUps( void ) {
 
 		healthPulse = true;
 	}
-#ifndef ID_DEMO_BUILD
 	if ( !gameLocal.inCinematic && influenceActive == 0 && g_skill.GetInteger() == 3 && gameLocal.time > nextHealthTake && !AI_DEAD && health > g_healthTakeLimit.GetInteger() ) {
 		assert( !gameLocal.isClient );	// healthPool never be set on client
 		health -= g_healthTakeAmt.GetInteger();
@@ -3283,7 +3280,6 @@ void idPlayer::UpdatePowerUps( void ) {
 		nextHealthTake = gameLocal.time + g_healthTakeTime.GetInteger() * 1000;
 		healthTake = true;
 	}
-#endif
 }
 
 /*

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5213 $ (Revision of last commit) 
- $Date: 2012-01-15 12:53:26 -0500 (Sun, 15 Jan 2012) $ (Date of last commit)
+ $Revision: 5222 $ (Revision of last commit) 
+ $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
  $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
@@ -35,11 +35,7 @@
 
 // paths
 #define	CD_BASEDIR						"Doom"
-#ifdef ID_DEMO_BUILD
-	#define BASE_GAMEDIR					"demo"
-#else
-	#define	BASE_GAMEDIR					"base"
-#endif
+#define	BASE_GAMEDIR					"base"
 
 // filenames
 #define	CD_EXE							"doom.exe"
@@ -93,10 +89,6 @@
 #define	WIN32_FAKE_WINDOW_CLASS_NAME	"DOOM3_WGL_FAKE"
 
 // Linux info
-#ifdef ID_DEMO_BUILD
-	#define LINUX_DEFAULT_PATH			"/usr/local/games/doom3-demo"
-#else
-	#define LINUX_DEFAULT_PATH			"/usr/local/games/doom3"
-#endif
+#define LINUX_DEFAULT_PATH			"/usr/local/games/doom3"
 
 #define CONFIG_SPEC						"config.spec"

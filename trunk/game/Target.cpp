@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5222 $ (Revision of last commit) 
+ $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5222 2012-01-20 03:27:39Z serpentine $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -187,19 +187,12 @@ idTarget_EndLevel::Event_Activate
 void idTarget_EndLevel::Event_Activate( idEntity *activator ) {
 	idStr nextMap;
 
-#ifdef ID_DEMO_BUILD
-	if ( spawnArgs.GetBool( "endOfGame" ) ) {
-		cvarSystem->SetCVarBool( "g_nightmare", true );
-		gameLocal.sessionCommand = "endofDemo";
-		return;
-	}
-#else
 	if ( spawnArgs.GetBool( "endOfGame" ) ) {
 		cvarSystem->SetCVarBool( "g_nightmare", true );
 		gameLocal.sessionCommand = "disconnect";
 		return;
 	}
-#endif
+
 	if ( !spawnArgs.GetString( "nextMap", "", nextMap ) ) {
 		gameLocal.Printf( "idTarget_SessionCommand::Event_Activate: no nextMap key\n" );
 		return;

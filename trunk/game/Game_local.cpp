@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5201 $ (Revision of last commit) 
- $Date: 2012-01-10 01:00:07 -0500 (Tue, 10 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5222 $ (Revision of last commit) 
+ $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
+ $Author: serpentine $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5201 2012-01-10 06:00:07Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5222 2012-01-20 03:27:39Z serpentine $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -5215,14 +5215,13 @@ bool idGameLocal::InhibitEntitySpawn( idDict &spawnArgs ) {
 	}
 
 	const char *name;
-#ifndef ID_DEMO_BUILD
+
 	if ( g_skill.GetInteger() == 3 ) { 
 		name = spawnArgs.GetString( "classname" );
 		if ( idStr::Icmp( name, "item_medkit" ) == 0 || idStr::Icmp( name, "item_medkit_small" ) == 0 ) {
 			result = true;
 		}
 	}
-#endif
 
 	}*/
 
