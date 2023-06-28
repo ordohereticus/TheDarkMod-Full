@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5335 $ (Revision of last commit) 
- $Date: 2012-03-11 08:10:11 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
+ $Revision: 5391 $ (Revision of last commit) 
+ $Date: 2012-04-15 15:06:31 -0400 (Sun, 15 Apr 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5335 2012-03-11 12:10:11Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5391 2012-04-15 19:06:31Z tels $");
 
 #include "DeviceContext.h"
 
@@ -77,7 +77,10 @@ void idDeviceContext::SetFont( int num ) {
 	if ( num >= 0 && num < fonts.Num() ) {
 		activeFont = &fonts[num];
 	} else {
-		activeFont = &fonts[0];
+		// only if we have at least one font
+		if (fonts.Num() > 0) {
+			activeFont = &fonts[0];
+		}
 	}
 }
 
@@ -89,7 +92,11 @@ void idDeviceContext::Init() {
 	whiteImage->SetSort( SS_GUI );
 	mbcs = false;
 	SetupFonts();
-	activeFont = &fonts[0];
+	if (fonts.Num() > 0) {
+		activeFont = &fonts[0];
+	} else {
+		common->Warning( "idDeviceContext::Init: Need at least one font as the default font." );
+	}
 	colorPurple = idVec4(1, 0, 1, 1);
 	colorOrange = idVec4(1, 1, 0, 1);
 	colorYellow = idVec4(0, 1, 1, 1);
