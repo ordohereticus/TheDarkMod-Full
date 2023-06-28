@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5348 $ (Revision of last commit) 
- $Date: 2012-03-19 15:30:24 -0400 (Mon, 19 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5371 $ (Revision of last commit) 
+ $Date: 2012-04-07 19:22:04 -0400 (Sat, 07 Apr 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __LIGHTGEM_H__
@@ -33,7 +33,7 @@
 // The lightgem viewid defines the viewid that is to be used for the lightgem surfacetestmodel
 #define DARKMOD_LG_VIEWID					-1
 
-#define DARKMOD_LG_RENDER_WIDTH				64 // LG render resolution - keep it a PoT
+#define DARKMOD_LG_RENDER_WIDTH				64 // LG render resolution - keep it a power-of-two!
 #define DARKMOD_LG_RENDER_FOV				70.0f
 #define DARKMOD_LG_BPP						3 // 3 Channels of 8 bits
 
