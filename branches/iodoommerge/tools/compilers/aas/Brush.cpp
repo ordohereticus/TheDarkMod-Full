@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5273 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:13:13 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Brush.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Brush.cpp 5273 2012-02-12 12:13:13Z taaaki $");
 
 #include "Brush.h"
 
@@ -37,7 +37,7 @@ static bool versioned = RegisterVersionedFile("$Id: Brush.cpp 5171 2012-01-07 08
 DisplayRealTimeString
 ============
 */
-void DisplayRealTimeString( char *string, ... ) {
+void DisplayRealTimeString( const char *string, ... ) {
 	va_list argPtr;
 	char buf[MAX_STRING_CHARS];
 	static int lastUpdateTime;

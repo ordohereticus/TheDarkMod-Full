@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5226 $ (Revision of last commit) 
- $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5273 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:13:13 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -25,8 +25,8 @@
 const char * const RESULT_STRING = "<RESULT>";
 
 typedef struct opcode_s {
-	const char		*name;
-	const char		*opname;
+	const char	*name;
+	const char	*opname;
 	int			priority;
 	bool		rightAssociative;
 	idVarDef	*type_a;
@@ -263,7 +263,7 @@ private:
 	void			ParseNamespace( idVarDef *newScope );
 
 public :
-	static opcode_t	opcodes[];
+	static const opcode_t	opcodes[];
 
 					idCompiler();
 	void			CompileFile( const char *text, const char *filename, bool console );

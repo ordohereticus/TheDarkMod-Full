@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5273 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:13:13 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -120,7 +120,7 @@ typedef enum {
 // punctuation
 typedef struct punctuation_s
 {
-	const char *p;						// punctuation character(s)
+	const char *p;					// punctuation character(s)
 	int n;							// punctuation id
 } punctuation_t;
 

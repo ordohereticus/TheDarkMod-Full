@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5273 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:13:13 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5273 2012-02-12 12:13:13Z taaaki $");
 
 typedef struct {
 	const char	*name;
@@ -36,7 +36,7 @@ const char* OSX_GetLocalizedString( const char* );
 #endif
 
 // names not in this list can either be lowercase ascii, or '0xnn' hex sequences
-keyname_t keynames[] =
+static const keyname_t keynames[] =
 {
 	{"TAB",				K_TAB,				"#str_07018"},
 	{"ENTER",			K_ENTER,			"#str_07019"},
@@ -194,7 +194,7 @@ idKeyInput::ArgCompletion_KeyName
 ===================
 */
 void idKeyInput::ArgCompletion_KeyName( const idCmdArgs &args, void(*callback)( const char *s ) ) {
-	keyname_t *kn;
+	const keyname_t *kn;
 	int i;
 
 	for( i = 0; i < sizeof( unnamedkeys ) - 1; i++ ) {
@@ -250,7 +250,7 @@ to be configured even if they don't have defined names.
 ===================
 */
 int idKeyInput::StringToKeyNum( const char *str ) {
-	keyname_t	*kn;
+	const keyname_t	*kn;
 	
 	if ( !str || !str[0] ) {
 		return -1;
@@ -303,7 +303,7 @@ given keynum.
 ===================
 */
 const char *idKeyInput::KeyNumToString( int keynum, bool localized ) {
-	keyname_t	*kn;	
+	const keyname_t	*kn;	
 	static	char	tinystr[5];
 	int			i, j;
 

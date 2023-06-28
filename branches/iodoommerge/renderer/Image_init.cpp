@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5226 $ (Revision of last commit) 
- $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5273 $ (Revision of last commit) 
+ $Date: 2012-02-12 07:13:13 -0500 (Sun, 12 Feb 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_init.cpp 5226 2012-01-21 13:43:47Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Image_init.cpp 5273 2012-02-12 12:13:13Z taaaki $");
 
 #include "tr_local.h"
 
@@ -922,7 +922,7 @@ void idImageManager::ChangeTextureFilter( void ) {
 	int		i;
 	idImage	*glt;
 	const char	*string;
-static filterName_t textureFilters[] = {
+static const filterName_t textureFilters[] = {
 	{"GL_LINEAR_MIPMAP_NEAREST", GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR},
 	{"GL_LINEAR_MIPMAP_LINEAR", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR},
 	{"GL_NEAREST", GL_NEAREST, GL_NEAREST},
