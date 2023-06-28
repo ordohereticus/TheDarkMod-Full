@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5400 $ (Revision of last commit) 
- $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
+ $Revision: 5415 $ (Revision of last commit) 
+ $Date: 2012-05-01 12:56:28 -0400 (Tue, 01 May 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5400 2012-04-29 22:28:15Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5415 2012-05-01 16:56:28Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -1128,12 +1128,15 @@ void State::OnVisualStimRope( idEntity* stimSource, idAI* owner, idVec3 ropeStim
 	}
 }
 
+// grayman #2816
+
 void State::OnHitByMoveable(idAI* owner, idEntity* tactEnt)
 {
 	// Vocalize that something hit me
 	if ( owner->AI_AlertLevel < owner->thresh_5 )
 	{
 		gameLocal.Printf("Something hit me!\n");
+		owner->commSubsystem->AddCommTask(CommunicationTaskPtr(new SingleBarkTask("snd_notice_generic")));
 	}
 
 	owner->GetMemory().hitByThisMoveable = tactEnt;
