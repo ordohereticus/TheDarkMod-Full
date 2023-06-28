@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5422 $ (Revision of last commit) 
- $Date: 2012-05-04 07:01:12 -0400 (Fri, 04 May 2012) $ (Date of last commit)
+ $Revision: 5468 $ (Revision of last commit) 
+ $Date: 2012-06-01 06:38:33 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5422 2012-05-04 11:01:12Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5468 2012-06-01 10:38:33Z tels $");
 
 #include "Game_local.h"
 
@@ -48,7 +48,7 @@ m_postProcessManager()			// Invoke the postprocess Manager Constructor - J.C.Den
 	memset( &view, 0, sizeof( view ) );
 	player = NULL;
 	dvMaterial = declManager->FindMaterial( "_scratch" );
-	tunnelMaterial = declManager->FindMaterial( "textures/decals/tunnel" );
+	tunnelMaterial = declManager->FindMaterial( "textures/darkmod/decals/tunnel" );	// damage overlay
 	armorMaterial = declManager->FindMaterial( "armorViewEffect" );
 	bloodSprayMaterial = declManager->FindMaterial( "textures/decals/bloodspray" );
 	lagoMaterial = declManager->FindMaterial( LAGO_MATERIAL, false );
@@ -573,6 +573,10 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 
 		if ( alpha < 1.0f  )
 		{
+			// Tels: parm0: when the last damage occured
+			// Tels: parm1: TODO: set here f.i. to color the material different when in gas cloud
+			// Tels: parm2: TODO: set here f.i. to color the material different when poisened
+			// Tels: parm3: alpha value, depending on health
 			renderSystem->SetColor4( ( player->health <= 0.0f ) ? MS2SEC( gameLocal.time ) : lastDamageTime, 1.0f, 1.0f, ( player->health <= 0.0f ) ? 0.0f : alpha );
 			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial );
 		}
