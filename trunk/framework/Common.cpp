@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5494 $ (Revision of last commit) 
- $Date: 2012-07-08 15:10:32 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5517 $ (Revision of last commit) 
+ $Date: 2012-08-10 08:53:31 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5494 2012-07-08 19:10:32Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5517 2012-08-10 12:53:31Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -2998,21 +2998,15 @@ void idCommonLocal::InitGame( void )
 	}
 #endif
 
-	PrintLoadingMessage( Translate( "#str_04349" ) );
-
 	// initialize the user interfaces
 	uiManager->Init();
 
 	// startup the script debugger
 	// DebuggerServerInit();
 
-	PrintLoadingMessage( Translate( "#str_04350" ) );
-
 	// load the game dll
 	LoadGameDLL();
 	
-	PrintLoadingMessage( Translate( "#str_04351" ) );
-
 	// init the session
 	session->Init();
 
