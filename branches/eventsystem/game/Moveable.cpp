@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5615 $ (Revision of last commit) 
- $Date: 2012-10-28 02:24:31 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5622 $ (Revision of last commit) 
+ $Date: 2012-10-28 05:32:08 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5615 2012-10-28 06:24:31Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5622 2012-10-28 09:32:08Z angua $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -1154,8 +1154,8 @@ idExplodingBarrel
 
 ===============================================================================
 */
-const idEventDef EV_Respawn( "<respawn>" );
-const idEventDef EV_TriggerTargets( "<triggertargets>" );
+const idEventDef EV_Respawn( "<respawn>" , EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_TriggerTargets( "<triggertargets>", EventArgs(), EV_RETURNS_VOID, "internal" );
 
 CLASS_DECLARATION( idBarrel, idExplodingBarrel )
 	EVENT( EV_Activate,					idExplodingBarrel::Event_Activate )
