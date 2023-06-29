@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5508 $ (Revision of last commit) 
- $Date: 2012-07-31 15:13:19 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
+ $Revision: 5510 $ (Revision of last commit) 
+ $Date: 2012-08-01 10:36:23 -0400 (Wed, 01 Aug 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1272,9 +1272,9 @@ void Updater::ExtractAndRemoveZip(const fs::path& zipFilePath)
 			// Set the executable bit on the TDM binary
 			File::MarkAsExecutable(binaryFileName);
 
-			// Copy it up one level
+			// Move it up one level
 
-			File::Copy(destPath / ("../" + TDM_BINARY_NAME), binaryFileName);
+			File::Move(destPath / ("../" + TDM_BINARY_NAME), binaryFileName);
 		}
 		else
 		{
