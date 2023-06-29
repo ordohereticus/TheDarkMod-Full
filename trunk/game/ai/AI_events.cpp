@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5657 $ (Revision of last commit) 
+ $Date: 2012-12-10 07:05:07 -0500 (Mon, 10 Dec 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5657 2012-12-10 12:05:07Z tels $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -89,8 +89,8 @@ const idEventDef AI_CanBecomeSolid( "canBecomeSolid", EventArgs(), 'f', "no desc
 const idEventDef AI_BecomeSolid( "becomeSolid", EventArgs(), EV_RETURNS_VOID, "no description" );
 const idEventDef AI_BecomeRagdoll( "becomeRagdoll", EventArgs(), 'd', "enables the ragdoll if the entity has one");
 const idEventDef AI_StopRagdoll( "stopRagdoll", EventArgs(), EV_RETURNS_VOID, "turns off the ragdoll" );
-const idEventDef AI_AllowDamage( "allowDamage", EventArgs(), EV_RETURNS_VOID, "no description" );
-const idEventDef AI_IgnoreDamage( "ignoreDamage", EventArgs(), EV_RETURNS_VOID, "no description" );
+const idEventDef AI_AllowDamage( "allowDamage", EventArgs(), EV_RETURNS_VOID, "The AI can take damage again." );
+const idEventDef AI_IgnoreDamage( "ignoreDamage", EventArgs(), EV_RETURNS_VOID, "The AI can no longer take damage." );
 const idEventDef AI_GetCurrentYaw( "getCurrentYaw", EventArgs(), 'f', "no description");
 const idEventDef AI_TurnTo( "turnTo", EventArgs('f', "yaw", ""), EV_RETURNS_VOID, "no description");
 const idEventDef AI_TurnToPos( "turnToPos", EventArgs('v', "pos", ""), EV_RETURNS_VOID, "no description");
