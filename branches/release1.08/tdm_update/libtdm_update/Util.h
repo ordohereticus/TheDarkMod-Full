@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5521 $ (Revision of last commit) 
- $Date: 2012-08-11 21:36:33 -0400 (Sat, 11 Aug 2012) $ (Date of last commit)
+ $Revision: 5581 $ (Revision of last commit) 
+ $Date: 2012-10-02 10:37:19 -0400 (Tue, 02 Oct 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -90,10 +90,10 @@ public:
 		Sleep(millisecs);
 	}
 
-	// Platform-dependent process check routine (grayman - searches for TheDarkMod.exe)
+	// Platform-dependent process check routine (grayman - searches for TheDarkMod executable among active processes)
 	static bool TDMIsRunning();
 
-	// Platform-dependent process check routine (searches for DarkRadiant)
+	// Platform-dependent process check routine (searches for the DarkRadiant executable among active processes)
 	static bool DarkRadiantIsRunning();
 };
 
