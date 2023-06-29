@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5400 $ (Revision of last commit) 
- $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5584 $ (Revision of last commit) 
+ $Date: 2012-10-03 10:47:56 -0400 (Wed, 03 Oct 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5400 2012-04-29 22:28:15Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5584 2012-10-03 14:47:56Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -3620,7 +3620,7 @@ void idActor::LoadVocalSet()
 		return;
 	}
 
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Copying vocal set %s to actor %s", vocalSet.c_str(), name.c_str());
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Copying vocal set %s to actor %s\r", vocalSet.c_str(), name.c_str());
 
 	int i = 0;
 
@@ -3636,7 +3636,7 @@ void idActor::LoadVocalSet()
 		spawnArgs.Set(kv->GetKey(), kv->GetValue());
 	}
 
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Copied %d vocal set spawnargs to actor %s", i, name.c_str());
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("Copied %d vocal set spawnargs to actor %s\r", i, name.c_str());
 }
 
 void idActor::LoadMeleeSet()
