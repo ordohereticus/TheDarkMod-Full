@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5617 $ (Revision of last commit) 
- $Date: 2012-10-28 02:30:39 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5620 $ (Revision of last commit) 
+ $Date: 2012-10-28 04:33:06 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5617 2012-10-28 06:30:39Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5620 2012-10-28 08:33:06Z angua $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -93,7 +93,7 @@ const idEventDef EV_Player_StartMouseGesture( "startMouseGesture",
 							"A DecideTime of -1 means wait forever until the button is released.",
 					'd', "deadTime", "how long after attack is pressed that mouse control remains dampened by the fraction turnHinderance."),
 		EV_RETURNS_VOID,
-		"*Ishtvan: Start tracking a mouse gesture that started when the key impulse was pressed.\n" \
+		"Start tracking a mouse gesture that started when the key impulse was pressed.\n" \
 		"Discretizes analog mouse movement into a few different gesture possibilities.\n" \
 		"Impulse arg can also be a button, see the UB_* enum in usercmdgen.h.\n" \
 		"For now, only one mouse gesture check at a time.");

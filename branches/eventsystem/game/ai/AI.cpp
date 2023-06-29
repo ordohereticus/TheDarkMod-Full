@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5459 $ (Revision of last commit) 
- $Date: 2012-05-24 17:43:16 -0400 (Thu, 24 May 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5620 $ (Revision of last commit) 
+ $Date: 2012-10-28 04:33:06 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5459 2012-05-24 21:43:16Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5620 2012-10-28 08:33:06Z angua $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -8557,7 +8557,7 @@ idCombatNode
 
 ***********************************************************************/
 
-const idEventDef EV_CombatNode_MarkUsed( "markUsed" );
+const idEventDef EV_CombatNode_MarkUsed( "markUsed", EventArgs(), EV_RETURNS_VOID, "Disables the combat node if \"use_once\" is set on the entity." );
 
 CLASS_DECLARATION( idEntity, idCombatNode )
 	EVENT( EV_CombatNode_MarkUsed,				idCombatNode::Event_MarkUsed )

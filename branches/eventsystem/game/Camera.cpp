@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5620 $ (Revision of last commit) 
+ $Date: 2012-10-28 04:33:06 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Camera.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Camera.cpp 5620 2012-10-28 08:33:06Z angua $");
 
 #include "Game_local.h"
 
@@ -61,7 +61,7 @@ renderView_t *idCamera::GetRenderView() {
   idCameraView
 
 ***********************************************************************/
-const idEventDef EV_Camera_SetAttachments( "<getattachments>", NULL );
+const idEventDef EV_Camera_SetAttachments( "<getattachments>", EventArgs(), EV_RETURNS_VOID, "internal" );
 
 CLASS_DECLARATION( idCamera, idCameraView )
 	EVENT( EV_Activate,				idCameraView::Event_Activate )
@@ -220,8 +220,8 @@ void idCameraView::GetViewParms( renderView_t *view ) {
 ===============================================================================
 */
 
-const idEventDef EV_Camera_Start( "start", NULL );
-const idEventDef EV_Camera_Stop( "stop", NULL );
+const idEventDef EV_Camera_Start( "start", EventArgs(), EV_RETURNS_VOID, "Starts a spline or anim camera moving.");
+const idEventDef EV_Camera_Stop( "stop", EventArgs(), EV_RETURNS_VOID, "Stops a spline or anim camera moving." );
 
 CLASS_DECLARATION( idCamera, idCameraAnim )
 	EVENT( EV_Thread_SetCallback,	idCameraAnim::Event_SetCallback )
