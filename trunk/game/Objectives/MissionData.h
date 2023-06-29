@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5547 $ (Revision of last commit) 
- $Date: 2012-09-02 08:36:28 -0400 (Sun, 02 Sep 2012) $ (Date of last commit)
+ $Revision: 5553 $ (Revision of last commit) 
+ $Date: 2012-09-07 05:19:17 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -210,7 +210,7 @@ public:
 	/**
 	* Tels #3217: Change the text of an objective.
 	**/
-	void CMissionData::SetObjectiveText(int objIndex, const char *descr);
+	void SetObjectiveText(int objIndex, const char *descr);
 
 	/**
 	* Getters for the mission stats.  Takes an objective component event type,
