@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5460 $ (Revision of last commit) 
- $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5558 $ (Revision of last commit) 
+ $Date: 2012-09-07 17:36:16 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5460 2012-05-26 14:05:45Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5558 2012-09-07 21:36:16Z grayman $");
 
 #include "../Game_local.h"
 
@@ -401,8 +401,7 @@ idCVar cv_dm_distance("tdm_distance",		"",	CVAR_GAME,	"Shows the distance from t
 /**
  * Ambient light method variable
  */
-idCVar cv_ambient_method("tdm_ambient_method",	"0",	CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "Method used for ambient light rendering.\n\n0 = Ambient Light method (uses the ambient light for the ambient brightness) \n1 = Texture Brightness method (uses texture brightness instead of light. This is faster but looks worse)" );
-
+idCVar cv_ambient_method("tdm_ambient_method", "0",    CVAR_GAME | CVAR_INTEGER | CVAR_ARCHIVE, "Method used for ambient light rendering.\n\n0 = Enhanced, ambient light method (uses the ambient light for the ambient brightness)\n1 = Texture Brightness method (uses texture brightness instead of light. This is faster but looks worse)", 0, 1 );
 /**
  * Volume of speakers with s_music set
  */
