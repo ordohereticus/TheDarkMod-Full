@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5479 $ (Revision of last commit) 
- $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5555 $ (Revision of last commit) 
+ $Date: 2012-09-07 10:02:33 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ServerScan.cpp 5479 2012-06-16 18:51:25Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: ServerScan.cpp 5555 2012-09-07 14:02:33Z tels $");
 
 idCVar gui_filter_password( "gui_filter_password", "0", CVAR_GUI | CVAR_INTEGER | CVAR_ARCHIVE, "Password filter" );
 idCVar gui_filter_players( "gui_filter_players", "0", CVAR_GUI | CVAR_INTEGER | CVAR_ARCHIVE, "Players filter" );
@@ -433,10 +433,6 @@ void idServerScan::GUIAdd( int id, const networkServer_t server ) {
 	}
 
 	name += "\t";
-	if ( server.serverInfo.GetString( "sv_punkbuster" )[ 0 ] == '1' ) {
-		name += "mtr_PB";
-	}
-
 	name += "\t";
 	if ( mod ) {
 		name += "mtr_doom3Mod";

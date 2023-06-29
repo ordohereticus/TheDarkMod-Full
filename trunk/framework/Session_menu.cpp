@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5500 $ (Revision of last commit) 
- $Date: 2012-07-30 07:43:30 -0400 (Mon, 30 Jul 2012) $ (Date of last commit)
+ $Revision: 5555 $ (Revision of last commit) 
+ $Date: 2012-09-07 10:02:33 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5500 2012-07-30 11:43:30Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5555 2012-09-07 14:02:33Z tels $");
 
 #include "Session_local.h"
 
@@ -955,18 +955,6 @@ void idSessionLocal::HandleMainMenuCommands( const char *menuCommand ) {
 
 		if ( !idStr::Icmp( cmd, "CheckUpdate2" ) ) {
 			idAsyncNetwork::client.SendVersionCheck( true );
-			continue;
-		}
-
-		// triggered from mainmenu or mpmain
-		if ( !idStr::Icmp( cmd, "punkbuster" ) ) {
-			idStr vcmd;
-			if ( args.Argc() - icmd >= 1 ) {
-				vcmd = args.Argv( icmd++ );
-			}
-			// filtering PB based on enabled/disabled
-			idAsyncNetwork::client.serverList.ApplyFilter( );
-			SetPbMenuGuiVars();
 			continue;
 		}
 	}

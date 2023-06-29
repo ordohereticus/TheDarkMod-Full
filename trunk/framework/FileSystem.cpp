@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5539 $ (Revision of last commit) 
- $Date: 2012-08-25 17:18:32 -0400 (Sat, 25 Aug 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5555 $ (Revision of last commit) 
+ $Date: 2012-09-07 10:02:33 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5539 2012-08-25 21:18:32Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5555 2012-09-07 14:02:33Z tels $");
 
 #include "Unzip.h"
 
@@ -1545,6 +1545,8 @@ void idFileSystemLocal::FreeFileList( idFileList *fileList ) {
 ===============
 idFileSystemLocal::ListMods
 ===============
+
+Tels: Could entirely be removed unless we want to have "mods to darkmod".
 */
 #define MAX_DESCRIPTION		256
 idModList *idFileSystemLocal::ListMods( void ) {
@@ -1573,7 +1575,7 @@ idModList *idFileSystemLocal::ListMods( void ) {
 		dirs.Remove( ".." );
 		dirs.Remove( "base" );
 		dirs.Remove( "pb" ); // Not needed in TDM - punkbuster - remove when standalone
-        /*dirs.Remove( "darkmod" ); // taaaki - not sure if this is needed, but darkmod isn't a mod*/
+	        /*dirs.Remove( "darkmod" ); // taaaki - not sure if this is needed, but darkmod isn't a mod*/
 
 		// see if there are any pk4 files in each directory
 		for( int i = 0; i < dirs.Num(); i++ ) {
