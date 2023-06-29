@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5480 $ (Revision of last commit) 
- $Date: 2012-06-17 12:31:39 -0400 (Sun, 17 Jun 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5541 $ (Revision of last commit) 
+ $Date: 2012-08-27 17:31:34 -0400 (Mon, 27 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5480 2012-06-17 16:31:39Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5541 2012-08-27 21:31:34Z tels $");
 
 #include <time.h>
 #include "MissionManager.h"
@@ -706,6 +706,8 @@ void CMissionManager::InitStartingMap()
 	{
 		// We have a startingmap
 		_curStartingMap = buffer;
+		// Tels: Avoid that startingmap containing a line-feed leads to errors
+		_curStartingMap.StripWhitespace();
 		fileSystem->FreeFile(reinterpret_cast<void*>(buffer));
 	}
 	else
