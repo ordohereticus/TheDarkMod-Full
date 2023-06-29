@@ -18,8 +18,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5543 $ (Revision of last commit) 
- $Date: 2012-08-31 06:06:36 -0400 (Fri, 31 Aug 2012) $ (Date of last commit)
+ $Revision: 5544 $ (Revision of last commit) 
+ $Date: 2012-08-31 07:43:22 -0400 (Fri, 31 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -27,7 +27,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5543 2012-08-31 10:06:36Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5544 2012-08-31 11:43:22Z tels $");
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -245,8 +245,8 @@ void CGlobal::Init()
 
 #else   // LINUX
 	
-	std::string iniPath = 
-		std::string(getenv("HOME")) + "/.doom3/darkmod/darkmod.ini";
+	std::string iniPath = GetDarkmodPath();
+	iniPath += "/darkmod.ini";
 	
 #endif
 
@@ -698,7 +698,7 @@ void CGlobal::InitSurfaceHardness()
 
 std::string CGlobal::GetModPath(const std::string& modName)
 {
-	fs::path path = GetDarkmodPath();	// c:\games\doom3\darkmod
+	fs::path path = GetDarkmodPath();	// f.i. c:\games\doom3\darkmod
 	path /= cv_tdm_fm_path.GetString();	// fms/
 	path /= modName;					// <fs_currentfm>
     
