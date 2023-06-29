@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5515 $ (Revision of last commit) 
+ $Date: 2012-08-09 00:43:08 -0400 (Thu, 09 Aug 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -32,7 +32,7 @@
 #define CM_MAX_POLYGON_EDGES				64
 #define CIRCLE_APPROXIMATION_LENGTH			64.0f
 
-#define	MAX_SUBMODELS						2048
+#define	MAX_SUBMODELS						4096 // grayman #3187
 #define	TRACE_MODEL_HANDLE					MAX_SUBMODELS
 
 #define VERTEX_HASH_BOXSIZE					(1<<6)	// must be power of 2

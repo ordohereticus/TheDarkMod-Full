@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5456 $ (Revision of last commit) 
- $Date: 2012-05-22 14:02:19 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Revision: 5515 $ (Revision of last commit) 
+ $Date: 2012-08-09 00:43:08 -0400 (Thu, 09 Aug 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -73,6 +73,7 @@ extern const idEventDef EV_AI_SetRelation;
 extern const idEventDef EV_AI_OffsetRelation;
 
 extern const idEventDef EV_PointInLiquid;
+extern const idEventDef EV_Translate;
 
 extern const idEventDef EV_TDM_SetPortSoundLoss;
 extern const idEventDef EV_TDM_GetPortSoundLoss;
@@ -205,6 +206,11 @@ private:
 
 	// Emits the string to the session command variable in gameLocal.
 	void						Event_SessionCommand(const char* cmd);
+
+	/**
+	* Tels: #3193 - translate a string template into the current language.
+	*/
+	void						Event_Translate(const char* input);
 
 	// For test purposes only.
 	void						Event_DebugTDM_MatInfo( const char *mat );

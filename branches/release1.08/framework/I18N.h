@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5430 $ (Revision of last commit) 
- $Date: 2012-05-05 10:23:19 -0400 (Sat, 05 May 2012) $ (Date of last commit)
+ $Revision: 5515 $ (Revision of last commit) 
+ $Date: 2012-08-09 00:43:08 -0400 (Thu, 09 Aug 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -83,7 +83,7 @@ public:
 	/**
 	* Set a new laguage (example: "english").
 	*/
-	virtual void				SetLanguage( const char* lang, bool firstTime = false ) = 0;
+	virtual bool				SetLanguage( const char* lang, bool firstTime = false ) = 0;
 
 	/**
 	* Given an English string like "Maps", returns the "#str_xxxxx" template
