@@ -11,18 +11,19 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5525 $ (Revision of last commit) 
- $Date: 2012-08-15 12:27:31 -0400 (Wed, 15 Aug 2012) $ (Date of last commit)
- $Author: angua $ (Author of last commit)
+ $Revision: 5671 $ (Revision of last commit) 
+ $Date: 2013-01-10 21:03:44 -0500 (Thu, 10 Jan 2013) $ (Date of last commit)
+ $Author: rebb $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5525 2012-08-15 16:27:31Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5671 2013-01-11 02:03:44Z rebb $");
 
 #include "LightGem.h"
+#include "Grabber.h"
 
 // Temporary profiling related macros
 
@@ -245,6 +246,21 @@ float LightGem::Calculate(idPlayer *player)
 	gameRenderWorld->UpdateEntityDef(pdef, prent); 
 	gameRenderWorld->UpdateEntityDef(hdef, hrent);
 
+	// Currently grabbed entities should not cast a shadow on the lightgem to avoid exploits
+	int heldDef, heldSurfID, heldShadID;
+	renderEntity_t *heldRE;
+	idEntity	*heldEnt	= gameLocal.m_Grabber->GetSelected();
+	if( heldEnt ) {
+		heldRE = heldEnt->GetRenderEntity();
+		heldDef = heldEnt->GetModelDefHandle();
+		heldSurfID = heldRE->suppressSurfaceInViewID;
+		heldShadID = heldRE->suppressShadowInViewID;
+		heldRE->suppressShadowInViewID = DARKMOD_LG_VIEWID;
+		heldRE->suppressSurfaceInViewID = DARKMOD_LG_VIEWID;
+
+		gameRenderWorld->UpdateEntityDef( heldDef, heldRE );
+	}
+
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("RenderTurn %u", m_LightgemShotSpot);
 	PROFILE_BLOCK_END( LightGem_Calculate_Setup);
 
@@ -333,6 +349,13 @@ float LightGem::Calculate(idPlayer *player)
 	hrent->suppressShadowInViewID = hsid;
 	gameRenderWorld->UpdateEntityDef(pdef, prent);
 	gameRenderWorld->UpdateEntityDef(hdef, hrent);
+
+	// switch back currently grabbed entity settings
+	if( heldEnt ) {
+		heldRE->suppressSurfaceInViewID = heldSurfID;
+		heldRE->suppressShadowInViewID = heldShadID;
+		gameRenderWorld->UpdateEntityDef( heldDef, heldRE );
+	}
 
 	m_LightgemShotSpot++;
 	if( m_LightgemShotSpot >= nRenderPasses ) {
