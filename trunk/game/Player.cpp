@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5674 $ (Revision of last commit) 
- $Date: 2013-01-11 13:43:44 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
+ $Revision: 5675 $ (Revision of last commit) 
+ $Date: 2013-01-11 13:47:12 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5674 2013-01-11 18:43:44Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5675 2013-01-11 18:47:12Z tels $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -112,7 +112,7 @@ const idEventDef EV_Player_ExitTeleporter( "exitTeleporter", EventArgs(), EV_RET
 const idEventDef EV_SpectatorTouch( "spectatorTouch", EventArgs('e', "", "", 't', "", ""), EV_RETURNS_VOID, "");
 const idEventDef EV_Player_GetIdealWeapon( "getIdealWeapon",EventArgs(), 's', "");
 
-const idEventDef EV_Player_GetEyePos( "getEyePos", EventArgs(), 'v', "get eye position of the player and the AI");
+const idEventDef EV_Player_GetEyePos( "getEyePos", EventArgs(), 'v', "Get eye position of the player and the AI.");
 
 const idEventDef EV_Player_SetImmobilization( "setImmobilization", EventArgs('s', "source", "", 'd', "type", ""), EV_RETURNS_VOID, 
 		"Used to set immobilization from a source.\n" \
