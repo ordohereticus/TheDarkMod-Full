@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5528 $ (Revision of last commit) 
- $Date: 2012-08-17 13:19:19 -0400 (Fri, 17 Aug 2012) $ (Date of last commit)
+ $Revision: 5568 $ (Revision of last commit) 
+ $Date: 2012-09-14 08:00:12 -0400 (Fri, 14 Sep 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5528 2012-08-17 17:19:19Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5568 2012-09-14 12:00:12Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -482,7 +482,8 @@ void UpdateGuiParms( idUserInterface *gui, const idDict *args ) {
 	}
 	const idKeyValue *kv = args->MatchPrefix( "gui_parm", NULL );
 	while( kv ) {
-		gui->SetStateString( kv->GetKey(), kv->GetValue() );
+		// tels: Fix #3230
+		gui->SetStateString( kv->GetKey(), common->Translate( kv->GetValue() ) );
 		kv = args->MatchPrefix( "gui_parm", kv );
 	}
 	gui->SetStateBool( "noninteractive",  args->GetBool( "gui_noninteractive" ) ) ;

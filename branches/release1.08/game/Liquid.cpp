@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5568 $ (Revision of last commit) 
+ $Date: 2012-09-14 08:00:12 -0400 (Fri, 14 Sep 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Liquid.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Liquid.cpp 5568 2012-09-14 12:00:12Z grayman $");
 
 #include "StimResponse/StimResponseCollection.h"
 
@@ -187,14 +187,6 @@ idLiquid::Event_Touch
 ================
 */
 void idLiquid::Event_Touch( idEntity *other, trace_t *trace ) {
-// FIXME: for QuakeCon
-/*
-	idVec3 pos;
-
-	pos = other->GetPhysics()->GetOrigin() - GetPhysics()->GetOrigin();
-	model->IntersectBounds( other->GetPhysics()->GetBounds().Translate( pos ), -10.0f );
-*/
-
 	idPhysics_Liquid *liquid;
 	idPhysics_Actor *phys;
 
