@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5460 $ (Revision of last commit) 
- $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
+ $Revision: 5516 $ (Revision of last commit) 
+ $Date: 2012-08-10 07:55:24 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -407,8 +407,6 @@ extern idCVar	g_debugMover;
 extern idCVar	g_debugTriggers;
 extern idCVar	g_debugCinematic;
 extern idCVar	g_stopTime;
-extern idCVar	g_armorProtection;
-extern idCVar	g_armorProtectionMP;
 extern idCVar	g_damageScale;
 
 extern idCVar	g_showPVS;

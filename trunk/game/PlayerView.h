@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5422 $ (Revision of last commit) 
- $Date: 2012-05-04 07:01:12 -0400 (Fri, 04 May 2012) $ (Date of last commit)
+ $Revision: 5516 $ (Revision of last commit) 
+ $Date: 2012-08-10 07:55:24 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -174,7 +174,6 @@ private:
 	dnPostProcessManager m_postProcessManager;
 
 	const idMaterial *	tunnelMaterial;		// health tunnel vision
-	const idMaterial *	armorMaterial;		// armor damage view effect
 	const idMaterial *	bloodSprayMaterial; // blood spray
 	const idMaterial *	lagoMaterial;		// lagometer drawing
 	float				lastDamageTime;		// accentuate the tunnel effect for a while

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5489 $ (Revision of last commit) 
- $Date: 2012-07-06 11:44:16 -0400 (Fri, 06 Jul 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5516 $ (Revision of last commit) 
+ $Date: 2012-08-10 07:55:24 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_PLAYER_H__
@@ -398,7 +398,6 @@ public:
 	int						lastDmgTime;
 	int						deathClearContentsTime;
 	bool					doingDeathSkin;
-	int						lastArmorPulse;		// lastDmgTime if we had armor at time of hit
 	float					stamina;
 	float					healthPool;			// amount of health to give over time
 	int						nextHealthPulse;
@@ -568,7 +567,7 @@ public:
 	virtual void			GetAIAimTargets( const idVec3 &lastSightPos, idVec3 &headPos, idVec3 &chestPos );
 	virtual void			DamageFeedback( idEntity *victim, idEntity *inflictor, int &damage );
 	void					CalcDamagePoints(  idEntity *inflictor, idEntity *attacker, const idDict *damageDef,
-							   const float damageScale, const int location, int *health, int *armor );
+							   const float damageScale, const int location, int *health );
 	virtual	void			Damage
 							( 
 							idEntity *inflictor, idEntity *attacker, const idVec3 &dir,

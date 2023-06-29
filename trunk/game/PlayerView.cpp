@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5468 $ (Revision of last commit) 
- $Date: 2012-06-01 06:38:33 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
+ $Revision: 5516 $ (Revision of last commit) 
+ $Date: 2012-08-10 07:55:24 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5468 2012-06-01 10:38:33Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: PlayerView.cpp 5516 2012-08-10 11:55:24Z tels $");
 
 #include "Game_local.h"
 
@@ -49,7 +49,6 @@ m_postProcessManager()			// Invoke the postprocess Manager Constructor - J.C.Den
 	player = NULL;
 	dvMaterial = declManager->FindMaterial( "_scratch" );
 	tunnelMaterial = declManager->FindMaterial( "textures/darkmod/decals/tunnel" );	// damage overlay
-	armorMaterial = declManager->FindMaterial( "armorViewEffect" );
 	bloodSprayMaterial = declManager->FindMaterial( "textures/decals/bloodspray" );
 	lagoMaterial = declManager->FindMaterial( LAGO_MATERIAL, false );
 
@@ -114,7 +113,6 @@ void idPlayerView::Save( idSaveGame *savefile ) const {
 	savefile->WriteAngles( kickAngles );
 
 	savefile->WriteMaterial( tunnelMaterial );
-	savefile->WriteMaterial( armorMaterial );
 	savefile->WriteMaterial( bloodSprayMaterial );
 	savefile->WriteFloat( lastDamageTime );
 
@@ -164,7 +162,6 @@ void idPlayerView::Restore( idRestoreGame *savefile ) {
 	savefile->ReadAngles( kickAngles );			
 
 	savefile->ReadMaterial( tunnelMaterial );
-	savefile->ReadMaterial( armorMaterial );
 	savefile->ReadMaterial( bloodSprayMaterial );
 	savefile->ReadFloat( lastDamageTime );
 
@@ -529,14 +526,6 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, b
 		if (drawHUD)
 		{
 			player->DrawHUD( hud );
-		}
-
-		// armor impulse feedback
-		float	armorPulse = ( gameLocal.time - player->lastArmorPulse ) / 250.0f;
-
-		if ( armorPulse > 0.0f && armorPulse < 1.0f ) {
-			renderSystem->SetColor4( 1, 1, 1, 1.0 - armorPulse );
-			renderSystem->DrawStretchPic( 0, 0, 640, 480, 0, 0, 1, 1, armorMaterial );
 		}
 
 		// tunnel vision
