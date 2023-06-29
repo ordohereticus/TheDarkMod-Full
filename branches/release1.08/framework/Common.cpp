@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5532 $ (Revision of last commit) 
- $Date: 2012-08-21 19:10:54 -0400 (Tue, 21 Aug 2012) $ (Date of last commit)
+ $Revision: 5574 $ (Revision of last commit) 
+ $Date: 2012-09-22 12:39:26 -0400 (Sat, 22 Sep 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5532 2012-08-21 23:10:54Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5574 2012-09-22 16:39:26Z grayman $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -967,6 +967,20 @@ void idCommonLocal::InitGameArguments() {
             // didn't find the mission in the list
             fsGameDefined = false;
             common->Warning("Fan mission path does not exist for installed fm: %s", curFm.c_str());
+        } else {
+            idStrList pk4List, mapList;
+
+            fmPath.AppendPath(curFm);
+            Sys_ListFiles( fmPath.c_str(), ".pk4", pk4List );
+
+            fmPath.AppendPath("maps");
+            Sys_ListFiles( fmPath.c_str(), ".map", mapList );
+
+            if ( pk4List.Num() == 0 && mapList.Num() == 0 ) {
+                // fanmission folder exists, but didn't find a pk4 or map file
+                fsGameDefined = false;
+                common->Warning("Fan mission map does not exist for installed fm: %s", curFm.c_str());
+            }
         }
     }
 

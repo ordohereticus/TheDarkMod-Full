@@ -12,16 +12,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5440 $ (Revision of last commit) 
- $Date: 2012-05-08 15:28:07 -0400 (Tue, 08 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5574 $ (Revision of last commit) 
+ $Date: 2012-09-22 12:39:26 -0400 (Sat, 22 Sep 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Shop.cpp 5440 2012-05-08 19:28:07Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Shop.cpp 5574 2012-09-22 16:39:26Z grayman $");
 
 #include "Shop.h"
 #include "../Game_local.h"
@@ -860,7 +860,12 @@ void CShop::CheckPicks(ShopItemList& list)
 	for (int i = 0; i < list.Num(); i++) // regrab list size each iteration because it can change
 	{
 		idStr itemName = list[i]->GetName();
-		if ((idStr::Icmp(itemName,"Snake Lockpick") == 0) ||
+		// tels: #3198: compare agains the translated string templates (itemName here migth be
+		//			    something like "Schlange"), and to be save, also against the English names
+		//			    to catch all cases
+		if ((idStr::Icmp(itemName, common->Translate("#str_02201")) == 0) ||
+			(idStr::Icmp(itemName, common->Translate("#str_02200")) == 0) ||
+			(idStr::Icmp(itemName,"Snake Lockpick") == 0) ||
 			(idStr::Icmp(itemName,"Triangle Lockpick") == 0))
 		{
 			list.RemoveIndex(i--); // decrement index to account for removed item

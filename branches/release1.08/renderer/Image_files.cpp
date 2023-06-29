@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5574 $ (Revision of last commit) 
+ $Date: 2012-09-22 12:39:26 -0400 (Sat, 22 Sep 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5383 2012-04-11 09:46:32Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Image_files.cpp 5574 2012-09-22 16:39:26Z grayman $");
 
 #include "tr_local.h"
 
@@ -888,6 +888,11 @@ static void LoadJPG( const char *filename, unsigned char **pic, int *width, int 
 			fileSystem->CloseFile( f );
 			return;	// just getting timestamp
 		}
+	  	if ( len == 0 ) {
+			fileSystem->CloseFile( f );
+			return;	// angua: image file is empty, just getting timestamp
+		}
+
 		fbuffer = (byte *)Mem_ClearedAlloc( len + 4096 );
 		f->Read( fbuffer, len );
 		fileSystem->CloseFile( f );
