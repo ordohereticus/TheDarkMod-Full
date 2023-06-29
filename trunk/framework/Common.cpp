@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5522 $ (Revision of last commit) 
- $Date: 2012-08-12 04:27:06 -0400 (Sun, 12 Aug 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5531 $ (Revision of last commit) 
+ $Date: 2012-08-21 16:20:02 -0400 (Tue, 21 Aug 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5522 2012-08-12 08:27:06Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5531 2012-08-21 20:20:02Z taaaki $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -2950,6 +2950,13 @@ void idCommonLocal::InitGame( void )
 
 	// skip the config file if "safe" is on the command line
 	if ( !SafeMode() ) {
+        if ( !fileSystem->FindFile("Darkmod.cfg") ) {
+            // if the user has just updated to TDM 1.08 or has lost Darkmod.cfg, the settings from
+            // DoomConfig are used (if DoomConfig.cfg actually exists - don't need to check for
+            // DoomConfig.cfg though. if it doesn't exist, defaults will just be used).
+            cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "exec DoomConfig.cfg\n" );
+        }
+
 		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "exec " CONFIG_FILE "\n" );		// Darkmod.cfg
 	}
 	cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "exec autoexec.cfg\n" );
