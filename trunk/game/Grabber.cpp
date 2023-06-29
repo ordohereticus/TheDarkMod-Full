@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5667 $ (Revision of last commit) 
- $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5674 $ (Revision of last commit) 
+ $Date: 2013-01-11 13:43:44 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Grabber.cpp 5667 2013-01-01 01:46:51Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Grabber.cpp 5674 2013-01-11 18:43:44Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -328,7 +328,6 @@ void CGrabber::StopDrag( void )
 	idPlayer* player = m_player.GetEntity();
 	if (player != NULL)
 	{
-		player->m_bDraggingBody = false;
 		player->m_bGrabberActive = false;
 		player->SetImmobilization( "Grabber", 0 );
 		player->SetHinderance( "Grabber", 1.0f, 1.0f );
@@ -1780,3 +1779,16 @@ void CGrabber::Forget( idEntity* ent )
 			RemoveFromClipList( ent );
 	}
 }
+
+/*
+Tels: Return the shouldered entity for #3282
+*/
+idEntity* CGrabber::GetShouldered( void ) const
+{
+	idEntity* ent = m_EquippedEnt.GetEntity();
+
+	// we can only shoulder AF entities, so if the equipped entity is one of these, it is shouldered
+	return (ent && ent->spawnArgs.GetBool("shoulderable") && ent->IsType(idAFEntity_Base::Type)) ? ent : NULL;
+}
+	
+

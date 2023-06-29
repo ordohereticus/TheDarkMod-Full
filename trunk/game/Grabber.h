@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5674 $ (Revision of last commit) 
+ $Date: 2013-01-11 13:43:44 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -61,6 +61,11 @@ public:
 
 		idEntity *				GetEquipped( void ) const { return m_EquippedEnt.GetEntity(); }
 
+		/**
+		* Tels: Return the shouldered entity for #3282
+		**/
+		idEntity*				GetShouldered( void ) const;
+	
 		bool					IsInClipList( idEntity *ent ) const;
 		bool					HasClippedEntity( void ) const;
 
@@ -181,7 +186,6 @@ public:
 		**/
 		void					SetPlayer( idPlayer *player ) { m_player = player; };
 
-public:
 		/**
 		* Set to true if the grabbed entity is colliding this frame
 		**/
