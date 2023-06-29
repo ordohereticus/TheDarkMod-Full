@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5455 $ (Revision of last commit) 
- $Date: 2012-05-21 18:01:45 -0400 (Mon, 21 May 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5575 $ (Revision of last commit) 
+ $Date: 2012-09-23 04:36:22 -0400 (Sun, 23 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5455 2012-05-21 22:01:45Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5575 2012-09-23 08:36:22Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -41,6 +41,7 @@ const idEventDef EV_Light_SetLightParm( "setLightParm", "df" );
 const idEventDef EV_Light_SetLightParms( "setLightParms", "ffff" );
 const idEventDef EV_Light_SetRadiusXYZ( "setRadiusXYZ", "fff" );
 const idEventDef EV_Light_SetRadius( "setRadius", "f" );
+const idEventDef EV_Light_GetRadius( "getRadius", NULL, 'v' );
 const idEventDef EV_Light_On( "On", NULL );
 const idEventDef EV_Light_Off( "Off", NULL );
 const idEventDef EV_Light_FadeOut( "fadeOutLight", "f" );
@@ -63,6 +64,7 @@ CLASS_DECLARATION( idEntity, idLight )
 	EVENT( EV_Light_SetLightParms,	idLight::Event_SetLightParms )
 	EVENT( EV_Light_SetRadiusXYZ,	idLight::Event_SetRadiusXYZ )
 	EVENT( EV_Light_SetRadius,		idLight::Event_SetRadius )
+	EVENT( EV_Light_GetRadius,		idLight::Event_GetRadius )
 	EVENT( EV_Hide,					idLight::Event_Hide )
 	EVENT( EV_Show,					idLight::Event_Show )
 	EVENT( EV_Light_On,				idLight::Event_On )
@@ -1307,6 +1309,15 @@ idLight::Event_SetRadius
 */
 void idLight::Event_SetRadius( float radius ) {
 	SetRadius( radius );
+}
+
+/*
+================
+tels: idLight::Event_GetRadius
+================
+*/
+void idLight::Event_GetRadius( ) const {
+	idThread::ReturnVector( GetRadius() );
 }
 
 /*
