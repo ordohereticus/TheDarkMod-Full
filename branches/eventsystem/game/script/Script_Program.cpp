@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5632 $ (Revision of last commit) 
- $Date: 2012-10-29 00:51:54 -0400 (Mon, 29 Oct 2012) $ (Date of last commit)
+ $Revision: 5633 $ (Revision of last commit) 
+ $Date: 2012-10-29 01:03:09 -0400 (Mon, 29 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5632 2012-10-29 04:51:54Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5633 2012-10-29 05:03:09Z greebo $");
 
 #include "../Game_local.h"
 #include <boost/algorithm/string/predicate.hpp>
@@ -2434,6 +2434,11 @@ namespace
 		return finalList;
 	}
 
+	int SortTypesByClassname(idTypeInfo* const* a, idTypeInfo* const* b)
+	{
+		return idStr::Cmp((*a)->classname, (*b)->classname);
+	}
+
 	void WriteMediaWikiDoc(const Eventmap& events, idFile& out, const idStr& dateStr)
 	{
 		Writeln(out, "This page has been generated automatically by the tdm_gen_script_event_doc console command.");
@@ -2468,6 +2473,7 @@ namespace
 
 			// Get type response info
 			idList<idTypeInfo*> list = GetRespondingTypes(ev);
+			list.Sort(SortTypesByClassname);
 
 			idStr typeInfoStr;
 
