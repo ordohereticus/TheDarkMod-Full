@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5603 $ (Revision of last commit) 
- $Date: 2012-10-27 01:21:53 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Revision: 5604 $ (Revision of last commit) 
+ $Date: 2012-10-27 10:43:03 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5603 2012-10-27 05:21:53Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5604 2012-10-27 14:43:03Z greebo $");
 
 #include "../Game_local.h"
 #include <boost/algorithm/string/predicate.hpp>
@@ -2217,6 +2217,9 @@ namespace
 	{
 		idStr out;
 
+		static const char* gen = "abcdefghijklmnopqrstuvwxyz";
+		int g = 0;
+
 		const EventArgs& args = ev.GetArgs();
 
 		for (EventArgs::const_iterator i = args.begin(); i != args.end(); ++i)
@@ -2225,7 +2228,8 @@ namespace
 
 			idTypeDef* type = idCompiler::GetTypeForEventArg(i->type);
 
-			out += va("%s %s", type->Name(), i->name);
+			// Use a generic variable name "a", "b", "c", etc. if no name present
+			out += va("%s %s", type->Name(), strlen(i->name) > 0 ? i->name : idStr(gen[g++]));
 		}
 
 		return out;
@@ -2286,8 +2290,8 @@ void idProgram::WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format
 		Write(outputFile, "/**\n");
 		Write(outputFile, " * The Dark Mod Script Event Documentation\n");
 		Write(outputFile, " * \n");
-		Write(outputFile, " * This file has been generated automatically through tdm_gen_script_event_doc\n");
-		Write(outputFile, " * Date: " + dateStr + "\n");
+		Write(outputFile, " * This file has been generated automatically by the tdm_gen_script_event_doc console command.\n");
+		Write(outputFile, " * Last update: " + dateStr + "\n");
 		Write(outputFile, " */\n");
 		break;
 	};

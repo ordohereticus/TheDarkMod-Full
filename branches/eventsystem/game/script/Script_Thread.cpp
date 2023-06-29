@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5571 $ (Revision of last commit) 
- $Date: 2012-09-15 11:02:38 -0400 (Sat, 15 Sep 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5604 $ (Revision of last commit) 
+ $Date: 2012-10-27 10:43:03 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5571 2012-09-15 15:02:38Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5604 2012-10-27 14:43:03Z greebo $");
 
 #include "../Game_local.h"
 #include "../decltdm_matinfo.h"
@@ -147,11 +147,12 @@ const idEventDef EV_LogString("logString", "dds");
 // Propagates the string to the sessioncommand variable in gameLocal
 const idEventDef EV_SessionCommand("sessionCommand", "s");
 
-// Generic interface for passing on mission events from scripts to the SDK
-// First argument is the entity which has triggered this event (e.g. a readable)
-// Second argument is a numeric identifier (enumerated both in MissionData.h and tdm_defs.script) specifying the type of event
-// Third argument is an optional string parameter
-const idEventDef EV_HandleMissionEvent("handleMissionEvent", "eds");
+const idEventDef EV_HandleMissionEvent("handleMissionEvent", 
+	EventArgs('e', "objEnt", "the entity that triggered this event (e.g. a readable)", 
+			  'd', "eventType", "a numeric identifier (enumerated both in MissionData.h and tdm_defs.script) specifying the type of event", 
+			  's', "argument", "an optional string parameter, eventtype-specific."), 
+			  EV_RETURNS_VOID, 
+			  "Generic interface for passing on mission events from scripts to the SDK. Available since TDM 1.02");
 
 const idEventDef EV_Thread_CanPlant( "canPlant", "vvEe", 'f' );  // grayman #2787
 

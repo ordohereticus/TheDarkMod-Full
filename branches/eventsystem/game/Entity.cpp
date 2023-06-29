@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5602 $ (Revision of last commit) 
- $Date: 2012-10-27 01:08:41 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Revision: 5604 $ (Revision of last commit) 
+ $Date: 2012-10-27 10:43:03 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5602 2012-10-27 05:08:41Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5604 2012-10-27 14:43:03Z greebo $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -55,7 +55,8 @@ static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5602 2012-10-27 0
 const idEventDef EV_PostSpawn( "<postspawn>", NULL );
 const idEventDef EV_FindTargets( "<findTargets>", NULL );
 const idEventDef EV_Touch( "<touch>", "et" );
-const idEventDef EV_GetName( "getName", NULL, 's' );
+
+const idEventDef EV_GetName("getName", EventArgs(), 's', "Returns the name of this entity.");
 const idEventDef EV_SetName( "setName", "s" );
 const idEventDef EV_IsType ( "isType", "s" , 'd' );
 const idEventDef EV_Activate( "activate", "e" );
