@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5610 $ (Revision of last commit) 
- $Date: 2012-10-27 15:00:43 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Revision: 5626 $ (Revision of last commit) 
+ $Date: 2012-10-28 05:50:10 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5610 2012-10-27 19:00:43Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5626 2012-10-28 09:50:10Z greebo $");
 
 #include "../Game_local.h"
 #include "../decltdm_matinfo.h"
@@ -49,7 +49,7 @@ const idEventDef EV_Thread_PrintLn( "println", EventArgs('s', "text", ""), EV_RE
 const idEventDef EV_Thread_Say( "say", EventArgs('s', "text", ""), EV_RETURNS_VOID, "Multiplayer - Print this line on the network");
 const idEventDef EV_Thread_Assert( "assert", EventArgs('f', "condition", ""), EV_RETURNS_VOID, "Breaks if the condition is zero. (Only works in debug builds.)");
 const idEventDef EV_Thread_Trigger( "trigger", EventArgs('e', "entityToTrigger", ""), EV_RETURNS_VOID, "Triggers the given entity.");
-const idEventDef EV_Thread_SetCvar( "setcvar", EventArgs('s', "name", "", 's', "", "value"), EV_RETURNS_VOID, "Sets a cvar.");
+const idEventDef EV_Thread_SetCvar( "setcvar", EventArgs('s', "name", "", 's', "value", ""), EV_RETURNS_VOID, "Sets a cvar.");
 const idEventDef EV_Thread_GetCvar( "getcvar", EventArgs('s', "name", ""), 's', "Returns the string for a cvar.");
 const idEventDef EV_Thread_Random( "random", EventArgs('f', "range", ""), 'f', "Returns a random value X where 0 <= X < range.");
 const idEventDef EV_Thread_GetTime( "getTime", EventArgs(), 'f', "Returns the current game time in seconds." );

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5601 $ (Revision of last commit) 
- $Date: 2012-10-26 15:01:14 -0400 (Fri, 26 Oct 2012) $ (Date of last commit)
+ $Revision: 5626 $ (Revision of last commit) 
+ $Date: 2012-10-28 05:50:10 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@ Event are used for scheduling tasks and for linking script commands.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Event.cpp 5601 2012-10-26 19:01:14Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Event.cpp 5626 2012-10-28 09:50:10Z greebo $");
 
 #include "Event.h"
 #include "../Game_local.h"
@@ -126,6 +126,11 @@ void idEventDef::Construct()
 		eventError = true;
 		sprintf( eventErrorMsg, "idEventDef::idEventDef : Too many args for '%s' event.", name );
 		return;
+	}
+
+	if (idStr::Length(description) == 0)
+	{
+		description = "No description";
 	}
 
 	// make sure the format for the args is valid, calculate the formatspecindex, and the offsets for each arg
