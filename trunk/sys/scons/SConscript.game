@@ -18,9 +18,9 @@
 # 
 # Project: The Dark Mod (http://www.thedarkmod.com/)
 # 
-# $Revision: 5640 $ (Revision of last commit) 
-# $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
-# $Author: greebo $ (Author of last commit)
+# $Revision: 5659 $ (Revision of last commit) 
+# $Date: 2012-12-10 11:12:31 -0500 (Mon, 10 Dec 2012) $ (Date of last commit)
+# $Author: tels $ (Author of last commit)
 # 
 #*****************************************************************************
 
@@ -262,6 +262,7 @@ ai/Tasks/PathHideTask.cpp \
 ai/Tasks/PathInteractTask.cpp \
 ai/Tasks/PathLookatTask.cpp \
 ai/Tasks/PathShowTask.cpp \
+ai/Tasks/PathSetMovetypeTask.cpp \
 ai/Tasks/PathSitTask.cpp \
 ai/Tasks/PathSleepTask.cpp \
 ai/Tasks/PathTask.cpp \
