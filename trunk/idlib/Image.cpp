@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5479 $ (Revision of last commit) 
- $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5596 $ (Revision of last commit) 
+ $Date: 2012-10-19 02:16:57 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -228,10 +228,10 @@ bool Image::LoadImageFromFile(const fs::path& path)
 	Unload();
 
 	//set name to boost filename
-	m_Name = path.file_string().c_str();
+	m_Name = path.string().c_str();
 
 	//try to open file
-	FILE* file = fopen(path.file_string().c_str(), "rb");
+	FILE* file = fopen(path.string().c_str(), "rb");
 	if ( !file || !fs::exists(path) )
 	{
 		common->Warning("Unable to load imagefile [%s]", m_Name.c_str());
@@ -275,14 +275,14 @@ bool Image::SaveImageToFile(const fs::path& path, Format format) const
 {
 	if (fs::is_directory(path))
 	{
-		common->Warning("Cannot save image: file [%s] is directory", path.file_string().c_str());
+		common->Warning("Cannot save image: file [%s] is directory", path.string().c_str());
 		return false;
 	}
 
 	//create directories if necessary
 	fs::create_directories(path.branch_path());
 	//write image file
-	return SaveDevILToFile(path.file_string().c_str(), format);
+	return SaveDevILToFile(path.string().c_str(), format);
 }
 
 bool Image::SaveImageToVfs(const char* filename, Format format) const

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5596 $ (Revision of last commit) 
+ $Date: 2012-10-19 02:16:57 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: IniFile.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: IniFile.cpp 5596 2012-10-19 06:16:57Z greebo $");
 
 #include "IniFile.h"
 
@@ -54,7 +54,7 @@ IniFilePtr IniFile::Create()
 IniFilePtr IniFile::ConstructFromFile(const fs::path& filename)
 {
 	// Start parsing
-	std::ifstream iniFile(filename.file_string().c_str());
+	std::ifstream iniFile(filename.string().c_str());
 
 	if (!iniFile)
     {
@@ -178,7 +178,7 @@ void IniFile::ForeachSection(SectionVisitor& visitor) const
 
 void IniFile::ExportToFile(const fs::path& file, const std::string& headerComments) const
 {
-	std::ofstream stream(file.file_string().c_str());
+	std::ofstream stream(file.string().c_str());
 
 	if (!headerComments.empty())
 	{
