@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5585 $ (Revision of last commit) 
+ $Date: 2012-10-03 10:52:09 -0400 (Wed, 03 Oct 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ConversationState.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ConversationState.cpp 5585 2012-10-03 14:52:09Z tels $");
 
 #include "ConversationState.h"
 #include "../Memory.h"
@@ -392,6 +392,7 @@ void ConversationState::StartCommand(ConversationCommand& command, Conversation&
 		if (ent != NULL)
 		{
 			// Post a trigger event
+			gameLocal.Warning("Conversation Command: 'ActivateTarget' activating entity %s", command.GetArgument(0).c_str());
 			ent->PostEventMS(&EV_Activate, 0, owner);
 			// We're done
 			_state = EReady;

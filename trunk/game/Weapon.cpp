@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5414 $ (Revision of last commit) 
- $Date: 2012-05-01 11:06:52 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5585 $ (Revision of last commit) 
+ $Date: 2012-10-03 10:52:09 -0400 (Wed, 03 Oct 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Weapon.cpp 5414 2012-05-01 15:06:52Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Weapon.cpp 5585 2012-10-03 14:52:09Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -58,7 +58,6 @@ const idEventDef EV_Weapon_EjectBrass( "ejectBrass" );
 const idEventDef EV_Weapon_Melee( "melee", NULL, 'd' );
 const idEventDef EV_Weapon_GetWorldModel( "getWorldModel", NULL, 'e' );
 const idEventDef EV_Weapon_AllowDrop( "allowDrop", "d" );
-const idEventDef EV_Weapon_AutoReload( "autoReload", NULL, 'f' );
 const idEventDef EV_Weapon_NetReload( "netReload" );
 const idEventDef EV_Weapon_IsInvisible( "isInvisible", NULL, 'f' );
 const idEventDef EV_Weapon_NetEndReload( "netEndReload" );
@@ -105,7 +104,6 @@ CLASS_DECLARATION( idAnimatedEntity, idWeapon )
 	EVENT( EV_Weapon_Melee,						idWeapon::Event_Melee )
 	EVENT( EV_Weapon_GetWorldModel,				idWeapon::Event_GetWorldModel )
 	EVENT( EV_Weapon_AllowDrop,					idWeapon::Event_AllowDrop )
-	EVENT( EV_Weapon_AutoReload,				idWeapon::Event_AutoReload )
 	EVENT( EV_Weapon_NetReload,					idWeapon::Event_NetReload )
 	EVENT( EV_Weapon_IsInvisible,				idWeapon::Event_IsInvisible )
 	EVENT( EV_Weapon_NetEndReload,				idWeapon::Event_NetEndReload )
@@ -2801,20 +2799,6 @@ idWeapon::Event_ClipSize
 */
 void idWeapon::Event_ClipSize( void ) {
 	idThread::ReturnFloat( clipSize );	
-}
-
-/*
-===============
-idWeapon::Event_AutoReload
-===============
-*/
-void idWeapon::Event_AutoReload( void ) {
-	assert( owner );
-	if ( gameLocal.isClient ) {
-		idThread::ReturnFloat( 0.0f );
-		return;
-	}
-	idThread::ReturnFloat( gameLocal.userInfo[ owner->entityNumber ].GetBool( "ui_autoReload" ) );
 }
 
 /*

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5414 $ (Revision of last commit) 
- $Date: 2012-05-01 11:06:52 -0400 (Tue, 01 May 2012) $ (Date of last commit)
+ $Revision: 5585 $ (Revision of last commit) 
+ $Date: 2012-10-03 10:52:09 -0400 (Wed, 03 Oct 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -370,7 +370,6 @@ private:
 	void					Event_Melee( void );
 	void					Event_GetWorldModel( void );
 	void					Event_AllowDrop( int allow );
-	void					Event_AutoReload( void );
 	void					Event_NetReload( void );
 	void					Event_IsInvisible( void );
 	void					Event_NetEndReload( void );
