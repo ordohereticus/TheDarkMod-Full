@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5613 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:34:20 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobLock.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FrobLock.cpp 5613 2012-10-28 05:34:20Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -28,12 +28,13 @@ static bool versioned = RegisterVersionedFile("$Id: FrobLock.cpp 5185 2012-01-08
 #include "Inventory/InventoryItem.h"
 #include "Inventory/Category.h"
 
-const idEventDef EV_TDM_FrobLock_TriggerTargets("EV_TDM_FrobLock_TriggerTargets", NULL); // triggers general targets
-const idEventDef EV_TDM_FrobLock_TriggerLockTargets("EV_TDM_FrobLock_TriggerLockTargets", NULL); // triggers lock targets
-const idEventDef EV_TDM_FrobLock_TriggerUnlockTargets("EV_TDM_FrobLock_TriggerUnlockTargets", NULL); // triggers unlock targets
-const idEventDef EV_TDM_FrobLock_ClearPlayerImmobilization("EV_TDM_FrobLock_ClearPlayerImmobilization", "e"); // allows player to handle weapons again
+const idEventDef EV_TDM_FrobLock_TriggerTargets("_EV_TDM_FrobLock_TriggerTargets", EventArgs(), EV_RETURNS_VOID, "internal"); // triggers general targets
+const idEventDef EV_TDM_FrobLock_TriggerLockTargets("_EV_TDM_FrobLock_TriggerLockTargets", EventArgs(), EV_RETURNS_VOID, "internal"); // triggers lock targets
+const idEventDef EV_TDM_FrobLock_TriggerUnlockTargets("_EV_TDM_FrobLock_TriggerUnlockTargets", EventArgs(), EV_RETURNS_VOID, "internal"); // triggers unlock targets
+const idEventDef EV_TDM_FrobLock_ClearPlayerImmobilization("_EV_TDM_FrobLock_ClearPlayerImmobilization", 
+	EventArgs('e', "", ""), EV_RETURNS_VOID, "internal"); // allows player to handle weapons again
 
-const idEventDef EV_TDM_FrobLock_Open("Open", NULL); // attempts to open the lock
+const idEventDef EV_TDM_FrobLock_Open("Open", EventArgs(), EV_RETURNS_VOID, ""); // attempts to open the lock
 
 CLASS_DECLARATION( idStaticEntity, CFrobLock )
 	EVENT( EV_PostSpawn,							CFrobLock::PostSpawn )

@@ -11,25 +11,25 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5613 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:34:20 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Func_Shooter.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Func_Shooter.cpp 5613 2012-10-28 05:34:20Z greebo $");
 
 #include "Func_Shooter.h"
 #include "StimResponse/StimResponseCollection.h"
 
 // Script event interface
-const idEventDef EV_ShooterSetState( "shooterSetState", "d" );
-const idEventDef EV_ShooterFireProjectile( "shooterFireProjectile", NULL );
-const idEventDef EV_ShooterGetState( "shooterGetState", NULL, 'd' );
-const idEventDef EV_ShooterSetAmmo( "shooterSetAmmo", "d" );
-const idEventDef EV_ShooterGetAmmo( "shooterGetAmmo", NULL, 'd' );
+const idEventDef EV_ShooterSetState( "shooterSetState", EventArgs('d', "state", "1 = active, 0 = inactive"), EV_RETURNS_VOID, "Activates / deactivates the shooter entity." );
+const idEventDef EV_ShooterFireProjectile( "shooterFireProjectile", EventArgs(), EV_RETURNS_VOID, "Fires a projectile." );
+const idEventDef EV_ShooterGetState( "shooterGetState", EventArgs(), 'd', "Returns the current state of this shooter." );
+const idEventDef EV_ShooterSetAmmo( "shooterSetAmmo", EventArgs('d', "newAmmo", ""), EV_RETURNS_VOID, "Set the ammonition");
+const idEventDef EV_ShooterGetAmmo( "shooterGetAmmo", EventArgs(), 'd', "Get the ammonition" );
 
 // Event definitions
 CLASS_DECLARATION( idStaticEntity, tdmFuncShooter )

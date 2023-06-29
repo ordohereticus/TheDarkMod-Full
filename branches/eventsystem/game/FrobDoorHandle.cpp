@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5613 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:34:20 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -23,7 +23,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobDoorHandle.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FrobDoorHandle.cpp 5613 2012-10-28 05:34:20Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -33,7 +33,7 @@ static bool versioned = RegisterVersionedFile("$Id: FrobDoorHandle.cpp 5185 2012
 //===============================================================================
 // CFrobDoorHandle
 //===============================================================================
-const idEventDef EV_TDM_Handle_GetDoor( "GetDoor", NULL, 'e' );
+const idEventDef EV_TDM_Handle_GetDoor( "GetDoor", EventArgs(), 'e', "Returns the associated door entity for this handle." );
 
 CLASS_DECLARATION( CFrobHandle, CFrobDoorHandle )
 	EVENT( EV_TDM_Handle_GetDoor,		CFrobDoorHandle::Event_GetDoor )

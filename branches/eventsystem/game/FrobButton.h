@@ -11,14 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5613 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:34:20 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #ifndef FROBBUTTON_H
 #define FROBBUTTON_H
+
+extern const idEventDef EV_TDM_Operate;
 
 /** 
  * angua: This class is designed specifically for buttons.

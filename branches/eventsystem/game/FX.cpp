@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5613 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:34:20 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FX.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FX.cpp 5613 2012-10-28 05:34:20Z greebo $");
 
 #include "Game_local.h"
 
@@ -32,8 +32,8 @@ static bool versioned = RegisterVersionedFile("$Id: FX.cpp 5185 2012-01-08 05:59
 ===============================================================================
 */
 
-const idEventDef EV_Fx_KillFx( "_killfx" );
-const idEventDef EV_Fx_Action( "_fxAction", "e" );		// implemented by subclasses
+const idEventDef EV_Fx_KillFx( "_killfx", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_Fx_Action( "_fxAction", EventArgs('e', "", ""), EV_RETURNS_VOID, "internal" );		// implemented by subclasses
 
 CLASS_DECLARATION( idEntity, idEntityFx )
 EVENT( EV_Activate,	   	idEntityFx::Event_Trigger )

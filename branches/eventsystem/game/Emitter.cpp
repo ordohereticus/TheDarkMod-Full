@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5613 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:34:20 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,12 +29,14 @@ func_emitters - have one or more particle models
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Emitter.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Emitter.cpp 5613 2012-10-28 05:34:20Z greebo $");
 
 #include "Emitter.h"
 
-const idEventDef EV_EmitterAddModel( "emitterAddModel", "sv" );
-const idEventDef EV_EmitterGetNumModels( "emitterGetNumModels", NULL, 'f' );
+const idEventDef EV_EmitterAddModel( "emitterAddModel", EventArgs('s', "modelName", "", 'v', "modelOffset", ""), EV_RETURNS_VOID, 
+	"Adds a new particle (or regular, if you wish) model to the emitter,\n" \
+	"located at modelOffset units away from the emitter's origin." );
+const idEventDef EV_EmitterGetNumModels( "emitterGetNumModels", EventArgs(), 'f', "Returns the number of models/particles this emitter has. Always >= 1." );
 
 CLASS_DECLARATION( idStaticEntity, idFuncEmitter )
 	EVENT( EV_Activate,				idFuncEmitter::Event_Activate )
