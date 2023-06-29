@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5462 $ (Revision of last commit) 
- $Date: 2012-05-27 23:21:09 -0400 (Sun, 27 May 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5512 $ (Revision of last commit) 
+ $Date: 2012-08-06 14:31:59 -0400 (Mon, 06 Aug 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5462 2012-05-28 03:21:09Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5512 2012-08-06 18:31:59Z grayman $");
 
 #include "tr_local.h"
 
@@ -1471,7 +1471,7 @@ void idRenderWorldLocal::GenerateAllInteractions() {
 		// This is temp, and should be changed to better represent the map ent/light count,
 		// Note : Should allocate a nice PoT of 67108864 - try to preserve a PoT in fixed version.
 		const int BUFFER = 4096;
-		interactionTableWidth = BUFFER; // this->entityDefs.Num() + padding
+		interactionTableWidth = 2*BUFFER; // this->entityDefs.Num() + padding // grayman #3192 - double this dimension
 		interactionTableHeight = BUFFER; // this->lightDefs.Num() + padding
 		const int size = (interactionTableWidth * interactionTableHeight) * sizeof( interactionTable ); 
 		interactionTable = (idInteraction **)R_ClearedStaticAlloc( size );
