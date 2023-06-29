@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5635 $ (Revision of last commit) 
- $Date: 2012-10-31 01:33:37 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Revision: 5636 $ (Revision of last commit) 
+ $Date: 2012-10-31 02:14:18 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5635 2012-10-31 05:33:37Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5636 2012-10-31 06:14:18Z greebo $");
 
 #include "../Game_local.h"
 #include "Script_Doc_Export.h"
@@ -2216,6 +2216,12 @@ void idProgram::WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format
 	case FORMAT_MEDIAWIKI:
 		{
 			ScriptEventDocGeneratorMediaWiki generator;
+			generator.WriteDoc(outputFile);
+		}
+		break;
+	case FORMAT_XML:
+		{
+			ScriptEventDocGeneratorXml generator;
 			generator.WriteDoc(outputFile);
 		}
 		break;

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5635 $ (Revision of last commit) 
- $Date: 2012-10-31 01:33:37 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Revision: 5636 $ (Revision of last commit) 
+ $Date: 2012-10-31 02:14:18 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,9 +20,10 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Doc_Export.cpp 5635 2012-10-31 05:33:37Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Doc_Export.cpp 5636 2012-10-31 06:14:18Z greebo $");
 
 #include "Script_Doc_Export.h"
+#include "../pugixml/pugixml.hpp"
 
 namespace
 {
@@ -145,7 +146,7 @@ ScriptEventDocGenerator::ScriptEventDocGenerator()
 	time_t timer = time(NULL);
 	struct tm* t = localtime(&timer);
 
-	_dateStr = va("%04u-%02u-%02u %02u:%02u\r", t->tm_year+1900, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min);
+	_dateStr = va("%04u-%02u-%02u %02u:%02u", t->tm_year+1900, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min);
 }
 
 // --------- D3 Script -----------
@@ -380,4 +381,75 @@ void ScriptEventDocGeneratorMediaWiki::WriteDoc(idFile& out)
 	}
 
 	Writeln(out, "[[Category:Scripting]]");
+}
+
+// -------- XML -----------
+
+void ScriptEventDocGeneratorXml::WriteDoc(idFile& out)
+{
+	pugi::xml_document doc;
+
+	idStr version = va("%d.%02d", TDM_VERSION_MAJOR, TDM_VERSION_MINOR);
+
+	time_t timer = time(NULL);
+	struct tm* t = localtime(&timer);
+
+	idStr isoDateStr = va("%04u-%02u-%02u", t->tm_year+1900, t->tm_mon+1, t->tm_mday);
+
+	pugi::xml_node eventDocNode = doc.append_child("eventDocumentation");
+	
+	pugi::xml_node eventDocVersion = eventDocNode.append_child("info");
+	eventDocVersion.append_attribute("game").set_value(GAME_VERSION);
+	eventDocVersion.append_attribute("tdmversion").set_value(version.c_str());
+	eventDocVersion.append_attribute("coderevision").set_value(RevisionTracker::Instance().GetHighestRevision());
+	eventDocVersion.append_attribute("date").set_value(isoDateStr.c_str());
+
+	for (EventMap::const_iterator i = _events.begin(); i != _events.end(); ++i)
+	{
+		const idEventDef* ev = i->second;
+
+		if (!EventIsPublic(*ev)) continue;
+
+		pugi::xml_node eventNode = eventDocNode.append_child("event");
+		
+		eventNode.append_attribute("name").set_value(ev->GetName());
+
+		// Description
+		pugi::xml_node evDescNode = eventNode.append_child("description");
+
+		idStr desc(ev->GetDescription());
+		desc.Replace("\n", " "); // no artificial line breaks
+
+		evDescNode.append_attribute("value").set_value(desc.c_str());
+
+		static const char* gen = "abcdefghijklmnopqrstuvwxyz";
+		int g = 0;
+
+		const EventArgs& args = ev->GetArgs();
+
+		for (EventArgs::const_iterator i = args.begin(); i != args.end(); ++i)
+		{
+			idTypeDef* type = idCompiler::GetTypeForEventArg(i->type);
+
+			// Use a generic variable name "a", "b", "c", etc. if no name present
+			pugi::xml_node argNode = eventNode.append_child("argument");
+			argNode.append_attribute("name").set_value(strlen(i->name) > 0 ? i->name : idStr(gen[g++]).c_str());
+			argNode.append_attribute("type").set_value(type->Name());
+
+			idStr desc(i->desc);
+			desc.Replace("\n", " "); // no artificial line breaks
+
+			argNode.append_attribute("description").set_value(desc.c_str());
+		}
+
+		idList<idTypeInfo*> list = GetRespondingTypes(*ev);
+		list.Sort(SortTypesByClassname);
+
+		// TODO
+	}
+
+	std::stringstream stream;
+	doc.save(stream);
+
+	out.Write(stream.str().c_str(), stream.str().length());
 }

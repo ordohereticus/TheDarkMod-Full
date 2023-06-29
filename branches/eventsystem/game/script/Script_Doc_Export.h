@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5635 $ (Revision of last commit) 
- $Date: 2012-10-31 01:33:37 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Revision: 5636 $ (Revision of last commit) 
+ $Date: 2012-10-31 02:14:18 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -65,6 +65,18 @@ private:
 
 // Mediawiki exporter
 class ScriptEventDocGeneratorMediaWiki :
+	public ScriptEventDocGenerator
+{
+public:
+	void WriteDoc(idFile& outputFile);
+
+private:
+	idStr GetEventDescription(const idEventDef& ev);
+	idStr GetEventDoc(const idEventDef* ev, bool includeSpawnclassInfo);
+};
+
+// XML exporter
+class ScriptEventDocGeneratorXml :
 	public ScriptEventDocGenerator
 {
 public:
