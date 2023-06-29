@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5684 $ (Revision of last commit) 
- $Date: 2013-01-12 17:42:12 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5686 $ (Revision of last commit) 
+ $Date: 2013-01-12 20:58:47 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5684 2013-01-12 22:42:12Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5686 2013-01-13 01:58:47Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -11869,7 +11869,7 @@ void idAI::GetUp()
 		SetMoveType(MOVETYPE_GET_UP);
 		SetWaitState("get_up");
 	}
-	else if ( ( moveType == MOVETYPE_SLEEP ) || ( moveType == MOVETYPE_LAY_DOWN ) ) // this is probably what it was meant to be
+	else if ( ( moveType == MOVETYPE_SLEEP ) || ( moveType == MOVETYPE_LAY_DOWN ) ) // grayman #3290 - corrected logic
 	{
 		SetMoveType(MOVETYPE_GET_UP_FROM_LYING);
 		SetWaitState("get_up_from_lying_down");
