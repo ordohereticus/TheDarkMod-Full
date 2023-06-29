@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5658 $ (Revision of last commit) 
+ $Date: 2012-12-10 10:58:38 -0500 (Mon, 10 Dec 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -428,7 +428,7 @@ private:
 	idStr 										filename;
 	int											filenum;
 
-	int											numVariables;
+	unsigned int									numVariables;
 	byte										variables[ MAX_GLOBALS ];
 	idStaticList<byte,MAX_GLOBALS>				variableDefaults;
 	idStaticList<function_t,MAX_FUNCS>			functions;
