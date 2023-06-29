@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5678 $ (Revision of last commit) 
- $Date: 2013-01-12 06:34:41 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Revision: 5684 $ (Revision of last commit) 
+ $Date: 2013-01-12 17:42:12 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5678 2013-01-12 11:34:41Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5684 2013-01-12 22:42:12Z tels $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -4660,7 +4660,7 @@ idAI::CanSeePositionExt
 This method can ignore lighting conditions and/or field of vision.
 =====================
 */
-bool idAI::CanSeePositionExt( idVec3 position, const bool useFOV, const bool useLighting ) const
+bool idAI::CanSeePositionExt( idVec3 position, const bool useFOV, const bool useLighting )
 {
 	if ( useFOV && !CheckFOV( position ) )
 	{

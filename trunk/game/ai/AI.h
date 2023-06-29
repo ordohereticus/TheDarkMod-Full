@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5678 $ (Revision of last commit) 
- $Date: 2013-01-12 06:34:41 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Revision: 5684 $ (Revision of last commit) 
+ $Date: 2013-01-12 17:42:12 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -1535,7 +1535,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	/**
 	* This tests if a position is visible.  it can optionally use lighting and fov.
 	*/
-	virtual bool			CanSeePositionExt( idVec3 position, const bool useFOV, const bool useLighting ) const;
+	virtual bool			CanSeePositionExt( idVec3 position, const bool useFOV, const bool useLighting );
 
 	bool					EntityCanSeePos( idActor *actor, const idVec3 &actorOrigin, const idVec3 &pos );
 
