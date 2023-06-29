@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5430 $ (Revision of last commit) 
- $Date: 2012-05-05 10:23:19 -0400 (Sat, 05 May 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5514 $ (Revision of last commit) 
+ $Date: 2012-08-08 15:04:24 -0400 (Wed, 08 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ModMenu.cpp 5430 2012-05-05 14:23:19Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ModMenu.cpp 5514 2012-08-08 19:04:24Z tels $");
 
 #include <string>
 #include <boost/filesystem.hpp>
@@ -251,25 +251,33 @@ void CModMenu::DisplayBriefingPage(idUserInterface* gui)
 	{
 		gameLocal.Printf("DisplayBriefingPage: xdata found.\n");
 
-		// get page count from xdata
-		int numPages = xd->m_data.GetInt("num_pages");
+		// get page count from xdata (tels: and if nec., translate it #3193)
+		idStr strNumPages = common->Translate( xd->m_data.GetString("num_pages") );
+		if (!strNumPages.IsNumeric())
+		{
+			gameLocal.Warning("DisplayBriefingPage: num_pages '%s' is not numeric!", strNumPages.c_str());
+		}
+		else
+		{
+			int numPages = atoi(strNumPages.c_str());
 
-		gameLocal.Printf("DisplayBriefingPage: numPages is %d\n", numPages);
+			gameLocal.Printf("DisplayBriefingPage: numPages is %d\n", numPages);
 
-		// ensure current page is between 1 and page count, inclusive
-		_briefingPage = idMath::ClampInt(1, numPages, _briefingPage);
+			// ensure current page is between 1 and page count, inclusive
+			_briefingPage = idMath::ClampInt(1, numPages, _briefingPage);
 
-		// load up page text
-		idStr page = va("page%d_body", _briefingPage);
+			// load up page text
+			idStr page = va("page%d_body", _briefingPage);
 
-		gameLocal.Printf("DisplayBriefingPage: current page is %d\n", _briefingPage);
+			gameLocal.Printf("DisplayBriefingPage: current page is %d\n", _briefingPage);
 
-		// Tels: Translate it properly
-		briefing = common->Translate( xd->m_data.GetString(page) );
+			// Tels: Translate it properly
+			briefing = common->Translate( xd->m_data.GetString(page) );
 
-		// set scroll button visibility
-		scrollDown = numPages > _briefingPage;
-		scrollUp = _briefingPage > 1;
+			// set scroll button visibility
+			scrollDown = numPages > _briefingPage;
+			scrollUp = _briefingPage > 1;
+		}
 	}
 	else
 	{

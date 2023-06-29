@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5477 $ (Revision of last commit) 
- $Date: 2012-06-15 04:40:49 -0400 (Fri, 15 Jun 2012) $ (Date of last commit)
+ $Revision: 5514 $ (Revision of last commit) 
+ $Date: 2012-08-08 15:04:24 -0400 (Wed, 08 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5477 2012-06-15 08:40:49Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5514 2012-08-08 19:04:24Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -4310,10 +4310,20 @@ void idGameLocal::HandleMainMenuCommands( const char *menuCommand, idUserInterfa
 		// do this after the step above, or oldLang will be incorrect:
 		Printf("GUI: Language changed to %s.\n", newLang.c_str() );
 		// set the new language and store it, will also reload the GUI
-		common->GetI18N()->SetLanguage( newLang.c_str() );
-
-		// store it, so the GUI can access it
 		gui->SetStateString( "tdm_lang", common->GetI18N()->GetCurrentLanguage().c_str() );
+		if (common->GetI18N()->SetLanguage( newLang.c_str() ))
+		{
+			// Tels: #3193: Cycle through all active entities and call "onLanguageChanged" on them
+			// some scriptobjects (like for readables) may implement this function to react on language switching
+			for (idEntity* ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next())
+			{
+				idThread* thread = ent->CallScriptFunctionArgs("onLanguageChanged", true, 0, "e", ent);
+				if (thread != NULL)
+				{
+					thread->Execute();
+				}
+			}
+		}
 	}
 //	else
 //	{
