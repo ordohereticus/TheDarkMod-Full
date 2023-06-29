@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5547 $ (Revision of last commit) 
+ $Date: 2012-09-02 08:36:28 -0400 (Sun, 02 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -206,6 +206,11 @@ public:
 	* Takes a string list of space-delimited ints and parses it in.
 	**/
 	void SetEnablingObjectives(int objIndex, const idStr& enablingStr);
+
+	/**
+	* Tels #3217: Change the text of an objective.
+	**/
+	void CMissionData::SetObjectiveText(int objIndex, const char *descr);
 
 	/**
 	* Getters for the mission stats.  Takes an objective component event type,

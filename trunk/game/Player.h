@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5516 $ (Revision of last commit) 
- $Date: 2012-08-10 07:55:24 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
+ $Revision: 5547 $ (Revision of last commit) 
+ $Date: 2012-09-02 08:36:28 -0400 (Sun, 02 Sep 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -1314,6 +1314,7 @@ private:
 	void					Event_SetObjectiveOptional( int ObjIndex, bool bVal );
 	void					Event_SetObjectiveOngoing( int ObjIndex, bool bVal );
 	void					Event_SetObjectiveEnabling( int ObjIndex, const char *strIn );
+	void					Event_SetObjectiveText( int ObjIndex, const char *descr );
 
 	/**
 	* greebo: This scriptevent routes the call to the member method "GiveHealthPool".

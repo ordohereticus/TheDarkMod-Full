@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5547 $ (Revision of last commit) 
+ $Date: 2012-09-02 08:36:28 -0400 (Sun, 02 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5547 2012-09-02 12:36:28Z tels $");
 
 #include "../Game_local.h"
 
@@ -1287,6 +1287,23 @@ void CMissionData::SetObjectiveOngoing(int objIndex, bool ongoing)
 	}
 
 	m_Objectives[objIndex].m_bOngoing = ongoing;
+}
+
+void CMissionData::SetObjectiveText(int objIndex, const char *descr)
+{
+	if (objIndex > m_Objectives.Num() || objIndex < 0)
+	{
+		DM_LOG(LC_OBJECTIVES, LT_ERROR)LOGSTRING("SetObjectiveText: Invalid objective index: %d\r", objIndex);
+		return;
+	}
+	m_Objectives[objIndex].m_text = descr;
+	// make the GUI update itself
+	idPlayer* player = gameLocal.GetLocalPlayer();
+	if (player == NULL)
+	{
+		gameLocal.Error("No player at SetObjectiveText!\n");
+	}
+	player->UpdateObjectivesGUI();
 }
 
 void CMissionData::SetEnablingObjectives(int objIndex, const idStr& enablingStr)
