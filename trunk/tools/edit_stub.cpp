@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5652 $ (Revision of last commit) 
+ $Date: 2012-11-06 17:24:46 -0500 (Tue, 06 Nov 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -62,8 +62,6 @@ bool	DebuggerServerInit( void ) { return false; }
 void	DebuggerServerShutdown( void ) {}
 void	DebuggerServerPrint( const char *text ) {}
 void	DebuggerServerCheckBreakpoint( idInterpreter *interpreter, idProgram *program, int instructionPointer ) {}
-
-void	PDAEditorInit( const idDict *spawnArgs ) { common->Printf( "The PDA editor only runs on Win32\n" ); }
 
 void	MaterialEditorInit() { common->Printf( "The Material editor only runs on Win32\n" ); }
 void	MaterialEditorPrintConsole( const char *text ) {}

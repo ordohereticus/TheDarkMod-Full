@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5123 $ (Revision of last commit) 
- $Date: 2011-12-12 01:37:40 -0500 (Mon, 12 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5652 $ (Revision of last commit) 
+ $Date: 2012-11-06 17:24:46 -0500 (Tue, 06 Nov 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -216,7 +216,7 @@ const int IMPULSE_15			= 15;			// weap prev
 const int IMPULSE_16			= 16;			// <unused>
 const int IMPULSE_17			= 17;			// ready to play ( toggles ui_ready )
 const int IMPULSE_18			= 18;			// center view
-const int IMPULSE_19			= 19;			// show PDA/INV/MAP
+const int IMPULSE_19			= 19;			// show INV/MAP
 const int IMPULSE_20			= 20;			// toggle team ( toggles ui_team )
 const int IMPULSE_21			= 21;			// <unused>
 const int IMPULSE_22			= 22;			// spectate
