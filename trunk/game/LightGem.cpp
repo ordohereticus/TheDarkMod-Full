@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5671 $ (Revision of last commit) 
- $Date: 2013-01-10 21:03:44 -0500 (Thu, 10 Jan 2013) $ (Date of last commit)
- $Author: rebb $ (Author of last commit)
+ $Revision: 5680 $ (Revision of last commit) 
+ $Date: 2013-01-12 07:53:37 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5671 2013-01-11 02:03:44Z rebb $");
+static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5680 2013-01-12 12:53:37Z tels $");
 
 #include "LightGem.h"
 #include "Grabber.h"
@@ -251,14 +251,18 @@ float LightGem::Calculate(idPlayer *player)
 	renderEntity_t *heldRE;
 	idEntity	*heldEnt	= gameLocal.m_Grabber->GetSelected();
 	if( heldEnt ) {
-		heldRE = heldEnt->GetRenderEntity();
 		heldDef = heldEnt->GetModelDefHandle();
-		heldSurfID = heldRE->suppressSurfaceInViewID;
-		heldShadID = heldRE->suppressShadowInViewID;
-		heldRE->suppressShadowInViewID = DARKMOD_LG_VIEWID;
-		heldRE->suppressSurfaceInViewID = DARKMOD_LG_VIEWID;
 
-		gameRenderWorld->UpdateEntityDef( heldDef, heldRE );
+		// tels: #3286: Only update the entityDef if it is valid
+		if (heldDef >= 0)
+		{
+			heldRE = heldEnt->GetRenderEntity();
+			heldSurfID = heldRE->suppressSurfaceInViewID;
+			heldShadID = heldRE->suppressShadowInViewID;
+			heldRE->suppressShadowInViewID = DARKMOD_LG_VIEWID;
+			heldRE->suppressSurfaceInViewID = DARKMOD_LG_VIEWID;
+			gameRenderWorld->UpdateEntityDef( heldDef, heldRE );
+		}
 	}
 
 	DM_LOG(LC_LIGHT, LT_DEBUG)LOGSTRING("RenderTurn %u", m_LightgemShotSpot);
@@ -352,9 +356,13 @@ float LightGem::Calculate(idPlayer *player)
 
 	// switch back currently grabbed entity settings
 	if( heldEnt ) {
-		heldRE->suppressSurfaceInViewID = heldSurfID;
-		heldRE->suppressShadowInViewID = heldShadID;
-		gameRenderWorld->UpdateEntityDef( heldDef, heldRE );
+		// tels: #3286: Only update the entityDef if it is valid
+		if (heldDef >= 0)
+		{
+			heldRE->suppressSurfaceInViewID = heldSurfID;
+			heldRE->suppressShadowInViewID = heldShadID;
+			gameRenderWorld->UpdateEntityDef( heldDef, heldRE );
+		}
 	}
 
 	m_LightgemShotSpot++;
