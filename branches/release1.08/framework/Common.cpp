@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5494 $ (Revision of last commit) 
- $Date: 2012-07-08 15:10:32 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5523 $ (Revision of last commit) 
+ $Date: 2012-08-12 17:38:28 -0400 (Sun, 12 Aug 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5494 2012-07-08 19:10:32Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5523 2012-08-12 21:38:28Z grayman $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -3026,6 +3026,10 @@ void idCommonLocal::InitGame( void )
 		cmdSystem->BufferCommandText( CMD_EXEC_NOW, "s_restart\n" );
 		cmdSystem->ExecuteCommandBuffer();
 	}
+
+	// tels: #3199: now that the game DLL is loaded, we can execute another config, this
+	// enables it to run f.i. dmap (dmap before DLL load produces no AAS):
+	cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "exec autocommands.cfg\n" );
 }
 
 /*
