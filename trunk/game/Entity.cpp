@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5656 $ (Revision of last commit) 
+ $Date: 2012-11-26 13:30:28 -0500 (Mon, 26 Nov 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5656 2012-11-26 18:30:28Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -2738,7 +2738,7 @@ bool idEntity::SwitchLOD( const lod_data_t *m_LOD, const float deltaSq )
 			m_SkinLODCur = m_LODLevel;
 		}
 		// level 0 is the default
-		renderEntity.noShadow = (m_LOD->noshadowsLOD & (1 << (m_LODLevel + 1))) > 0 ? 1 : 0;
+		renderEntity.noShadow = (m_LOD->noshadowsLOD & (1 << m_LODLevel)) > 0 ? 1 : 0;
 
 		// switched LOD
 		return true;
