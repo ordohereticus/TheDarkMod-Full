@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5667 $ (Revision of last commit) 
- $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5668 $ (Revision of last commit) 
+ $Date: 2013-01-01 11:43:51 -0500 (Tue, 01 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ResponseEffect.cpp 5667 2013-01-01 01:46:51Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: ResponseEffect.cpp 5668 2013-01-01 16:43:51Z tels $");
 
 #include "ResponseEffect.h"
 
@@ -65,7 +65,7 @@ void CResponseEffect::runScript(idEntity* owner, idEntity* stimEntity, float mag
 		return;
 	}
 
-	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Running ResponseEffect Script %s, effectPostfix = %s...\r", _effectPostfix.c_str(),_scriptFunction->Name());
+	DM_LOG(LC_STIM_RESPONSE, LT_DEBUG)LOGSTRING("Running ResponseEffect Script %s, effectPostfix = %s...\r", _scriptFunction->Name(), _effectPostfix.c_str());
 
 	idThread *pThread = new idThread(_scriptFunction);
 	int n = pThread->GetThreadNum();
