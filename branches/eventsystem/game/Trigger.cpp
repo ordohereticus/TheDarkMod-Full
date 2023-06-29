@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5618 $ (Revision of last commit) 
- $Date: 2012-10-28 03:22:36 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5624 $ (Revision of last commit) 
+ $Date: 2012-10-28 05:40:47 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Trigger.cpp 5618 2012-10-28 07:22:36Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Trigger.cpp 5624 2012-10-28 09:40:47Z angua $");
 
 #include "Game_local.h"
 #include "StimResponse/StimResponseCollection.h"
@@ -245,7 +245,7 @@ void idTrigger::Spawn( void )
 ===============================================================================
 */
 
-const idEventDef EV_TriggerAction( "<triggerAction>", "e" );
+const idEventDef EV_TriggerAction( "<triggerAction>", EventArgs('e', "", ""), EV_RETURNS_VOID, "internal");
 
 CLASS_DECLARATION( idTrigger, idTrigger_Multi )
 	EVENT( EV_Touch,			idTrigger_Multi::Event_Touch )
@@ -710,7 +710,7 @@ void idTrigger_EntityName::Event_Touch( idEntity *other, trace_t *trace ) {
 ===============================================================================
 */
 
-const idEventDef EV_Timer( "<timer>", NULL );
+const idEventDef EV_Timer( "<timer>", EventArgs(), EV_RETURNS_VOID, "internal");
 
 CLASS_DECLARATION( idTrigger, idTrigger_Timer )
 	EVENT( EV_Timer,		idTrigger_Timer::Event_Timer )
