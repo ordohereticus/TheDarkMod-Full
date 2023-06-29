@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5625 $ (Revision of last commit) 
- $Date: 2012-10-28 05:42:58 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5625 2012-10-28 09:42:58Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5627 2012-10-28 14:37:33Z greebo $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -429,7 +429,7 @@ const idEventDef EV_TDM_RangedThreatTo( "rangedThreatTo", EventArgs('e', "target
 	"Could this entity threaten the given (target) entity from a distance?" );
 
 // Tels: #3113 after spawning all entities, decide if they need to be hidden
-const idEventDef EV_HideByLODBias( "hideByLODBias" );
+const idEventDef EV_HideByLODBias( "hideByLODBias", EventArgs(), EV_RETURNS_VOID, "internal" );
 
 #ifdef MOD_WATERPHYSICS
 

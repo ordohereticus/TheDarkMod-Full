@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5626 $ (Revision of last commit) 
- $Date: 2012-10-28 05:50:10 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@ Event are used for scheduling tasks and for linking script commands.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Event.cpp 5626 2012-10-28 09:50:10Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Event.cpp 5627 2012-10-28 14:37:33Z greebo $");
 
 #include "Event.h"
 #include "../Game_local.h"
@@ -48,33 +48,6 @@ int idEventDef::numEventDefs = 0;
 
 static bool eventError = false;
 static char eventErrorMsg[ 128 ];
-
-/*
-================
-idEventDef::idEventDef
-================
-*/
-idEventDef::idEventDef(const char *command, const char *formatspec, char returnType_) :
-	name(command),
-	description("no description"),
-	returnType(returnType_)
-{
-	// Convert the legacy format string to an argument vector
-	if (formatspec != NULL)
-	{
-		int argCount = strlen(formatspec);
-
-		for (int i = 0; i < argCount; ++i)
-		{
-			args.push_back(EventArg());
-			args.back().type = formatspec[i];
-			args.back().name = "";
-			args.back().desc = "";
-		}
-	}
-
-	Construct();
-}
 
 idEventDef::idEventDef(const char* name_, const EventArgs& args_, char returnType_, const char* description_) :
 	name(name_),

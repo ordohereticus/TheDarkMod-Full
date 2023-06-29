@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5623 $ (Revision of last commit) 
- $Date: 2012-10-28 05:37:52 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5623 2012-10-28 09:37:52Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5627 2012-10-28 14:37:33Z greebo $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -115,7 +115,7 @@ const idEventDef AI_MoveToEntity( "moveToEntity", EventArgs('e', "destination", 
 const idEventDef AI_MoveToPosition( "moveToPosition", EventArgs('v', "position", ""), EV_RETURNS_VOID, "");
 const idEventDef AI_SlideTo( "slideTo", EventArgs('v', "position", "", 'f', "time", ""), EV_RETURNS_VOID, "");
 const idEventDef AI_FacingIdeal( "facingIdeal", EventArgs(), 'd', "");
-const idEventDef AI_FaceEnemy( "faceEnemy" );
+const idEventDef AI_FaceEnemy( "faceEnemy", EventArgs(), EV_RETURNS_VOID, "" );
 const idEventDef AI_FaceEntity( "faceEntity", EventArgs('E', "ent", ""), EV_RETURNS_VOID, "");
 const idEventDef AI_GetCombatNode( "getCombatNode", EventArgs(), 'e', "");
 const idEventDef AI_EnemyInCombatCone( "enemyInCombatCone", EventArgs('E', "combatNode", "", 'd', "use_current_enemy_location", ""), 'd', "no description");

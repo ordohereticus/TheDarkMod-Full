@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@ instancing of objects.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Class.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Class.cpp 5627 2012-10-28 14:37:33Z greebo $");
 
 #include "../Game_local.h"
 #include "../Grabber.h"
@@ -223,8 +223,8 @@ void idTypeInfo::Shutdown() {
 
 ***********************************************************************/
 
-const idEventDef EV_Remove( "<immediateremove>", NULL );
-const idEventDef EV_SafeRemove( "remove", NULL );
+const idEventDef EV_Remove( "<immediateremove>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_SafeRemove( "remove", EventArgs(), EV_RETURNS_VOID, "internal" );
 
 ABSTRACT_DECLARATION( NULL, idClass )
 	EVENT( EV_Remove,				idClass::Event_Remove )

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5624 $ (Revision of last commit) 
- $Date: 2012-10-28 05:40:47 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
- $Author: angua $ (Author of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5624 2012-10-28 09:40:47Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5627 2012-10-28 14:37:33Z greebo $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -1639,7 +1639,7 @@ idTarget_FadeSoundClass
 ===============================================================================
 */
 
-const idEventDef EV_RestoreVolume( "<RestoreVolume>" );
+const idEventDef EV_RestoreVolume( "<RestoreVolume>", EventArgs(), EV_RETURNS_VOID, "internal" );
 CLASS_DECLARATION( idTarget, idTarget_FadeSoundClass )
 EVENT( EV_Activate,	idTarget_FadeSoundClass::Event_Activate )
 EVENT( EV_RestoreVolume, idTarget_FadeSoundClass::Event_RestoreVolume )

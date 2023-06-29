@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5613 $ (Revision of last commit) 
- $Date: 2012-10-28 01:34:20 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -29,7 +29,7 @@ func_emitters - have one or more particle models
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Emitter.cpp 5613 2012-10-28 05:34:20Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Emitter.cpp 5627 2012-10-28 14:37:33Z greebo $");
 
 #include "Emitter.h"
 
@@ -414,7 +414,7 @@ idFuncSplat
 */
 
 
-const idEventDef EV_Splat( "<Splat>" );
+const idEventDef EV_Splat( "<Splat>", EventArgs(), EV_RETURNS_VOID, "internal" );
 CLASS_DECLARATION( idFuncEmitter, idFuncSplat )
 EVENT( EV_Activate,		idFuncSplat::Event_Activate )
 EVENT( EV_Splat,		idFuncSplat::Event_Splat )

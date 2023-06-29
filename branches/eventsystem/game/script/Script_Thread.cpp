@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5626 $ (Revision of last commit) 
- $Date: 2012-10-28 05:50:10 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5626 2012-10-28 09:50:10Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5627 2012-10-28 14:37:33Z greebo $");
 
 #include "../Game_local.h"
 #include "../decltdm_matinfo.h"
@@ -39,8 +39,8 @@ const idEventDef EV_Thread_SetRenderCallback( "<script_setrendercallback>", Even
 // script callable events
 const idEventDef EV_Thread_TerminateThread( "terminate", EventArgs('d', "threadNumber", ""), EV_RETURNS_VOID, "Terminates a thread.");
 const idEventDef EV_Thread_Pause( "pause", EventArgs(), EV_RETURNS_VOID, "Pauses the current thread." );
-const idEventDef EV_Thread_Wait( "wait", EventArgs('f', "", ""), EV_RETURNS_VOID, "");
-const idEventDef EV_Thread_WaitFrame( "waitFrame" );
+const idEventDef EV_Thread_Wait( "wait", EventArgs('f', "time", ""), EV_RETURNS_VOID, "Suspends execution of the current thread for the given number of seconds.");
+const idEventDef EV_Thread_WaitFrame( "waitFrame", EventArgs(), EV_RETURNS_VOID, "Suspends execution of current thread for one game frame." );
 const idEventDef EV_Thread_WaitFor( "waitFor", EventArgs('e', "mover", ""), EV_RETURNS_VOID, "Waits for the given entity to complete it's move.");
 const idEventDef EV_Thread_WaitForThread( "waitForThread", EventArgs('d', "threadNumber", ""), EV_RETURNS_VOID, "Waits for the given thread to terminate.");
 const idEventDef EV_Thread_WaitForRender( "waitForRender", EventArgs('e', "", ""), EV_RETURNS_VOID, "");

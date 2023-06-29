@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5602 $ (Revision of last commit) 
- $Date: 2012-10-27 01:08:41 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Revision: 5627 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:37:33 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -76,9 +76,6 @@ private:
 	static int					numEventDefs;
 
 public:
-
-	// Deprecated: the "old-style" event declaration, no documentation available
-	idEventDef( const char *command, const char *formatspec = NULL, char returnType = EV_RETURNS_VOID );
 
 	// Define a named event with the given arguments, return type and documentation
 	idEventDef(const char* command, const EventArgs& args, char returnType, const char* description);
