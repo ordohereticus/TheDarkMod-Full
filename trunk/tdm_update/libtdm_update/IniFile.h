@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5564 $ (Revision of last commit) 
+ $Date: 2012-09-11 00:31:27 -0400 (Tue, 11 Sep 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -56,14 +56,14 @@ private:
 	{
 		bool operator()(const KeyValuePair& kvp1, const KeyValuePair& kvp2) const
 		{
-			return boost::algorithm::ilexicographical_compare(kvp1.first, kvp2.first);
+			return boost::algorithm::lexicographical_compare(kvp1.first, kvp2.first);
 		}
 	};
 
 	typedef std::set<KeyValuePair, KeyCompareFunctor> KeyValues;
 
-	// Settings map: the key is a composite of <ConfigSection>.<key>
-	// Keys are compared case-insensitively
+	// KeyValuePairs are compared key-wise, case-sensitively
+	// Settings names are compared case-insensitively
 	typedef std::map<std::string, KeyValues, SectionCompareFunctor> SettingMap;
 	SettingMap _settings;
 
