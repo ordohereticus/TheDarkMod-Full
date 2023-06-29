@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5618 $ (Revision of last commit) 
- $Date: 2012-10-28 03:22:36 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5619 $ (Revision of last commit) 
+ $Date: 2012-10-28 03:27:24 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Weapon.cpp 5618 2012-10-28 07:22:36Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Weapon.cpp 5619 2012-10-28 07:27:24Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -38,9 +38,9 @@ static bool versioned = RegisterVersionedFile("$Id: Weapon.cpp 5618 2012-10-28 0
 const idEventDef EV_Weapon_Clear( "<clear>", EventArgs(), EV_RETURNS_VOID, "internal" );
 const idEventDef EV_Weapon_GetOwner( "getOwner", EventArgs(), 'e', "Returns the owning entity" );
 const idEventDef EV_Weapon_Next( "nextWeapon", EventArgs(), EV_RETURNS_VOID, "" );
-const idEventDef EV_Weapon_State( "weaponState", EventArgs('s', "stateFunction", "", 'd', "blendFrames", ""), EV_RETURNS_VOID, "" );
+const idEventDef EV_Weapon_State( "weaponState", EventArgs('s', "stateFunction", "", 'd', "blendFrames", ""), EV_RETURNS_VOID, "no description" );
 const idEventDef EV_Weapon_UseAmmo( "useAmmo", EventArgs('d', "amount", ""), EV_RETURNS_VOID, "Eats the specified amount of ammo" );
-const idEventDef EV_Weapon_AddToClip( "addToClip", EventArgs('d', "ammount", ""), EV_RETURNS_VOID, "" );
+const idEventDef EV_Weapon_AddToClip( "addToClip", EventArgs('d', "amount", ""), EV_RETURNS_VOID, "" );
 const idEventDef EV_Weapon_AmmoInClip( "ammoInClip", EventArgs(), 'f', "" );
 const idEventDef EV_Weapon_AmmoAvailable( "ammoAvailable", EventArgs(), 'f', "Number of shots left in inventory" );
 const idEventDef EV_Weapon_TotalAmmoCount( "totalAmmoCount", EventArgs(), 'f', 

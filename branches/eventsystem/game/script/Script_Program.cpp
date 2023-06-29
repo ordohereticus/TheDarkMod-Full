@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5605 $ (Revision of last commit) 
- $Date: 2012-10-27 11:33:57 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Revision: 5619 $ (Revision of last commit) 
+ $Date: 2012-10-28 03:27:24 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5605 2012-10-27 15:33:57Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5619 2012-10-28 07:27:24Z greebo $");
 
 #include "../Game_local.h"
 #include <boost/algorithm/string/predicate.hpp>
@@ -2255,6 +2255,11 @@ namespace
 
 		for (EventArgs::const_iterator i = args.begin(); i != args.end(); ++i)
 		{
+			if (idStr::Length(i->desc) == 0)
+			{
+				continue;
+			}
+
 			// Format line breaks in the description
 			idStr desc(i->desc);
 			desc.Replace("\n", "\n * ");
