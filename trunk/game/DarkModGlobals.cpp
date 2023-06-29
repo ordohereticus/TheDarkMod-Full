@@ -18,16 +18,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5479 $ (Revision of last commit) 
- $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5543 $ (Revision of last commit) 
+ $Date: 2012-08-31 06:06:36 -0400 (Fri, 31 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5479 2012-06-16 18:51:25Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: DarkModGlobals.cpp 5543 2012-08-31 10:06:36Z tels $");
 
 #include "DarkModGlobals.h"
 #include "SndPropLoader.h"
@@ -394,6 +394,7 @@ void CGlobal::LoadINISettings(const IniFilePtr& iniFile)
 	CheckLogClass(iniFile, "LogClass_MAINMENU", LC_MAINMENU);
 	CheckLogClass(iniFile, "LogClass_LOCKPICK", LC_LOCKPICK);
 	CheckLogClass(iniFile, "LogClass_AAS", LC_AAS); // grayman
+	// Tels: LogClass_INIT and LogClass_FORCE are always on
 }
 
 void CGlobal::CheckLogArray(const IniFilePtr& iniFile, const char* key, LT_LogType logType)
