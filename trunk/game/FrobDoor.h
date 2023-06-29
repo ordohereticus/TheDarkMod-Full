@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5457 $ (Revision of last commit) 
- $Date: 2012-05-22 18:59:37 -0400 (Tue, 22 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5529 $ (Revision of last commit) 
+ $Date: 2012-08-21 12:37:04 -0400 (Tue, 21 Aug 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -118,7 +118,7 @@ public:
 	 * to the player instead of the bounding box center, which might be on the far side
 	 * of a closed portal. This method gets applied to doors without handles, usually.
 	 */
-	virtual bool			GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis) const;
+	virtual bool			GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis);
 
 	void					SetLastUsedBy(idEntity* ent);	// grayman #2859
 	idEntity*				GetLastUsedBy() const;			// grayman #2859

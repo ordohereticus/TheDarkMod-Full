@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5457 $ (Revision of last commit) 
- $Date: 2012-05-22 18:59:37 -0400 (Tue, 22 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5529 $ (Revision of last commit) 
+ $Date: 2012-08-21 12:37:04 -0400 (Tue, 21 Aug 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5457 2012-05-22 22:59:37Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5529 2012-08-21 16:37:04Z angua $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -998,7 +998,7 @@ CFrobDoorHandle* CFrobDoor::GetNearestHandle(const idVec3& pos) const
 	return returnValue;
 }
 
-bool CFrobDoor::GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis) const
+bool CFrobDoor::GetPhysicsToSoundTransform(idVec3 &origin, idMat3 &axis)
 {
 	// This will kick in for doors without any handles, these are playing their
 	// sounds from the nearest point to the player's eyes, mid-bounding-box.
