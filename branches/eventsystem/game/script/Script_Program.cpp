@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5604 $ (Revision of last commit) 
- $Date: 2012-10-27 10:43:03 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Revision: 5605 $ (Revision of last commit) 
+ $Date: 2012-10-27 11:33:57 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5604 2012-10-27 14:43:03Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5605 2012-10-27 15:33:57Z greebo $");
 
 #include "../Game_local.h"
 #include <boost/algorithm/string/predicate.hpp>
@@ -2239,7 +2239,12 @@ namespace
 	{
 		idStr out = "/**\n";
 		out += " * ";
-		out += ev.GetDescription();
+
+		// Format line breaks in the description
+		idStr desc(ev.GetDescription());
+		desc.Replace("\n", "\n * ");
+
+		out += desc;
 		
 		const EventArgs& args = ev.GetArgs();
 
@@ -2250,7 +2255,11 @@ namespace
 
 		for (EventArgs::const_iterator i = args.begin(); i != args.end(); ++i)
 		{
-			out += va("\n * @%s: %s", i->name, i->desc);
+			// Format line breaks in the description
+			idStr desc(i->desc);
+			desc.Replace("\n", "\n * ");
+
+			out += va("\n * @%s: %s", i->name, desc.c_str());
 		}
 
 		out += "\n */";
