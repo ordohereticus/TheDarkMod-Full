@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5563 $ (Revision of last commit) 
+ $Date: 2012-09-10 13:16:31 -0400 (Mon, 10 Sep 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -162,9 +162,36 @@ bool ZipFileRead::ExtractFileTo(const std::string& filename, const fs::path& des
 
 	if (outFile == NULL) 
 	{
-		// couldn't open file for writing
-		tdm::TraceLog::WriteLine(LOG_VERBOSE, "[ExtractFileTo]: Cannot open destination file " + destPath.file_string());
-		return false; 
+		// grayman - Couldn't open the file. Perhaps the directory doesn't exist.
+		// Try creating it if not.
+
+		bool success = false;
+
+		fs::path directory = fs::path(destPath).branch_path();
+
+		if (!fs::exists(directory))
+		{
+			// Directory isn't there. Try to create it.
+
+			if (fs::create_directories(directory))
+			{
+				// Directory now exists. Try fopen() again.
+
+				outFile = fopen(destPath.file_string().c_str(), "wb");
+
+				if (outFile != NULL)
+				{
+					success = true;
+				}
+			}
+		}
+
+		if (!success)
+		{
+			// couldn't open file for writing
+			tdm::TraceLog::WriteLine(LOG_VERBOSE, "[ExtractFileTo]: Cannot open destination file " + destPath.file_string());
+			return false;
+		}
 	}
 
 	unz_file_info info;
