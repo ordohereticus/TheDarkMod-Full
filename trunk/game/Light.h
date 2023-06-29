@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5575 $ (Revision of last commit) 
- $Date: 2012-09-23 04:36:22 -0400 (Sun, 23 Sep 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5593 $ (Revision of last commit) 
+ $Date: 2012-10-19 01:16:45 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -90,7 +90,7 @@ public:
 	 * Tels: return the current light radius.
 	 */
 	void			GetRadius( idVec3 &out ) const;
-	const idVec3 &		GetRadius( void ) const { return idVec3(renderLight.lightRadius[0], renderLight.lightRadius[1], renderLight.lightRadius[2] ); }
+	idVec3			GetRadius( void ) const { return idVec3(renderLight.lightRadius[0], renderLight.lightRadius[1], renderLight.lightRadius[2] ); }
 
 	virtual void	ShowEditingDialog( void );
 
