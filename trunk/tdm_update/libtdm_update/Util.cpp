@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5508 $ (Revision of last commit) 
- $Date: 2012-07-31 15:13:19 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
+ $Revision: 5579 $ (Revision of last commit) 
+ $Date: 2012-09-29 15:48:21 -0400 (Sat, 29 Sep 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -305,7 +305,7 @@ bool FindProcessByName(const char* processName)
 
 bool Util::TDMIsRunning()
 {
-	return FindProcessByName("TheDarkMod"); // grayman - look for TDM instead of "Doom 3". Is "TheDarkMod" the correct process name?
+	return FindProcessByName("thedarkmod"); // grayman - look for TDM instead of "Doom 3".
 }
 
 bool Util::DarkRadiantIsRunning()
