@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5517 $ (Revision of last commit) 
- $Date: 2012-08-10 08:53:31 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
+ $Revision: 5518 $ (Revision of last commit) 
+ $Date: 2012-08-10 08:54:35 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5517 2012-08-10 12:53:31Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Common.cpp 5518 2012-08-10 12:54:35Z tels $");
 
 #include "../idlib/RevisionTracker.h"
 #include "../renderer/Image.h"
@@ -2375,7 +2375,6 @@ void idCommonLocal::InitRenderSystem( void ) {
 		return;
 	} else {
 		renderSystem->InitOpenGL();
-		PrintLoadingMessage( Translate( "#str_04343" ) );
 	}
 }
 
