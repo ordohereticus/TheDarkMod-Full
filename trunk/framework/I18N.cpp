@@ -12,16 +12,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5514 $ (Revision of last commit) 
- $Date: 2012-08-08 15:04:24 -0400 (Wed, 08 Aug 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5651 $ (Revision of last commit) 
+ $Date: 2012-11-05 00:43:19 -0500 (Mon, 05 Nov 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5514 2012-08-08 19:04:24Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5651 2012-11-05 05:43:19Z greebo $");
 
 #include "I18N.h"
 
@@ -493,11 +493,7 @@ bool I18NLocal::SetLanguage( const char* lang, bool firstTime ) {
 		// it will land in the Video Settings page
 		gui->SetStateInt("reload", 1);
 	}
-	else
-	{
-		common->Warning("Cannot find guis/mainmenu.gui");
-	}
-
+	
 	return (oldLang != m_lang) ? true : false;
 }
 
