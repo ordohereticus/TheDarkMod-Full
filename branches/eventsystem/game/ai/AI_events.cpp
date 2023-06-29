@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5495 $ (Revision of last commit) 
- $Date: 2012-07-10 16:19:14 -0400 (Tue, 10 Jul 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5602 $ (Revision of last commit) 
+ $Date: 2012-10-27 01:08:41 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5495 2012-07-10 20:19:14Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5602 2012-10-27 05:08:41Z greebo $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -191,7 +191,7 @@ const idEventDef AI_EndState("endState", NULL, 'd');
 
 // DarkMod AI Relations Events
 const idEventDef AI_GetRelationEnt( "getRelationEnt", "E", 'd' );
-const idEventDef AI_IsEnemy( "isEnemy", "E", 'd' );
+//const idEventDef AI_IsEnemy( "isEnemy", "E", 'd' );
 const idEventDef AI_IsFriend( "isFriend", "E", 'd' );
 const idEventDef AI_IsNeutral( "isNeutral", "E", 'd' );
 

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5601 $ (Revision of last commit) 
- $Date: 2012-10-26 15:01:14 -0400 (Fri, 26 Oct 2012) $ (Date of last commit)
+ $Revision: 5602 $ (Revision of last commit) 
+ $Date: 2012-10-27 01:08:41 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5601 2012-10-26 19:01:14Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5602 2012-10-27 05:08:41Z greebo $");
 
 #include "../Game_local.h"
 #include <boost/algorithm/string/predicate.hpp>
@@ -2212,6 +2212,47 @@ namespace
 			return boost::algorithm::ilexicographical_compare(s1, s2);
 		}
 	};
+
+	idStr GetEventArgumentString(const idEventDef& ev)
+	{
+		idStr out;
+
+		const EventArgs& args = ev.GetArgs();
+
+		for (EventArgs::const_iterator i = args.begin(); i != args.end(); ++i)
+		{
+			out += out.IsEmpty() ? "" : ", ";
+
+			idTypeDef* type = idCompiler::GetTypeForEventArg(i->type);
+
+			out += va("%s %s", type->Name(), i->name);
+		}
+
+		return out;
+	}
+
+	idStr GetEventDocumentation(const idEventDef& ev)
+	{
+		idStr out = "/**\n";
+		out += " * ";
+		out += ev.GetDescription();
+		
+		const EventArgs& args = ev.GetArgs();
+
+		if (!args.empty())
+		{
+			out += "\n * ";
+		}
+
+		for (EventArgs::const_iterator i = args.begin(); i != args.end(); ++i)
+		{
+			out += va("\n * @%s: %s", i->name, i->desc);
+		}
+
+		out += "\n */";
+
+		return out;
+	}
 }
 
 void idProgram::WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format)
@@ -2238,10 +2279,11 @@ void idProgram::WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format
 			continue; // ignore all event names starting with '<', these mark internal events
 		}
 
-		//const char* argFormat = ev.GetArgFormat();
-		//int numArgs = strlen(argFormat);
+		const char* argFormat = ev.GetArgFormat();
+		int numArgs = strlen(argFormat);
+		bool argumentsValid = true;
 
-		/*// Check if any of the argument types is invalid before allocating anything
+		// Check if any of the argument types is invalid before allocating anything
 		for (int arg = 0; arg < numArgs; ++arg)
 		{
 			idTypeDef* argType = idCompiler::GetTypeForEventArg(argFormat[arg]);
@@ -2251,15 +2293,20 @@ void idProgram::WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format
 				argumentsValid = false;
 				break;
 			}
-		}*/
+		}
+
+		if (!argumentsValid) continue; // skip this event;
 
 		idTypeDef* returnType = idCompiler::GetTypeForEventArg(ev.GetReturnType());
 
 		switch (format)
 		{
 		case FORMAT_D3_SCRIPT:
-			const char* out = va("scriptEvent %s\t\t%s\n", returnType->Name(), eventName);
-			outputFile.Write(out, strlen(out));
+			idStr signature = GetEventArgumentString(ev);
+			idStr documentation = GetEventDocumentation(ev);
+			idStr out = va("\n%s\nscriptEvent %s\t\t%s(%s);\n", 
+				documentation.c_str(), returnType->Name(), eventName, signature.c_str());
+			outputFile.Write(out.c_str(), out.Length());
 			break;
 		};
 

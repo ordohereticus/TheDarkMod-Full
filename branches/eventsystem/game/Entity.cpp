@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5601 $ (Revision of last commit) 
- $Date: 2012-10-26 15:01:14 -0400 (Fri, 26 Oct 2012) $ (Date of last commit)
+ $Revision: 5602 $ (Revision of last commit) 
+ $Date: 2012-10-27 01:08:41 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5601 2012-10-26 19:01:14Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5602 2012-10-27 05:08:41Z greebo $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -273,7 +273,7 @@ const idEventDef EV_GetTeam("getTeam", NULL, 'd');
 const idEventDef EV_SetTeam("setTeam", "d");
 
 //const idEventDef EV_IsEnemy( "isEnemy", "E", 'd' );
-const idEventDef EV_IsEnemy( "isEnemy", EventArgs('E', "entity", "The entity in question"), 'd', "Extensive description");
+const idEventDef EV_IsEnemy( "isEnemy", EventArgs('E', "ent", "The entity in question"), 'd', "Returns true if the given entity is an enemy.");
 
 const idEventDef EV_IsFriend( "isFriend", "E", 'd' );
 const idEventDef EV_IsNeutral( "isNeutral", "E", 'd' );

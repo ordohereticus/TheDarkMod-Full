@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5601 $ (Revision of last commit) 
- $Date: 2012-10-26 15:01:14 -0400 (Fri, 26 Oct 2012) $ (Date of last commit)
+ $Revision: 5602 $ (Revision of last commit) 
+ $Date: 2012-10-27 01:08:41 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -86,11 +86,14 @@ public:
 	~idEventDef();
 
 	const char*					GetName() const;
+	const char*					GetDescription() const;
 	const char*					GetArgFormat() const;
 	unsigned int				GetFormatspecIndex() const;
 	char						GetReturnType() const;
 	int							GetEventNum() const;
 	int							GetNumArgs() const;
+	const EventArg&				GetArg(int argIndex) const;
+	const EventArgs&			GetArgs() const;
 	size_t						GetArgSize() const;
 	int							GetArgOffset(int arg) const;
 
@@ -165,6 +168,11 @@ ID_INLINE const char *idEventDef::GetName( void ) const {
 	return name;
 }
 
+ID_INLINE const char* idEventDef::GetDescription() const
+{
+	return description;
+}
+
 /*
 ================
 idEventDef::GetArgFormat
@@ -199,6 +207,16 @@ idEventDef::GetNumArgs
 */
 ID_INLINE int idEventDef::GetNumArgs( void ) const {
 	return numargs;
+}
+
+ID_INLINE const EventArg& idEventDef::GetArg(int argIndex) const
+{
+	return args[argIndex];
+}
+
+ID_INLINE const EventArgs& idEventDef::GetArgs() const
+{
+	return args;
 }
 
 /*
