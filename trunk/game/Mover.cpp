@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5576 $ (Revision of last commit) 
+ $Date: 2012-09-23 07:07:42 -0400 (Sun, 23 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5576 2012-09-23 11:07:42Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -57,6 +57,8 @@ const idEventDef EV_StopMoving( "stopMoving", NULL );
 const idEventDef EV_StopRotating( "stopRotating", NULL );
 const idEventDef EV_Speed( "speed", "f" );
 const idEventDef EV_Time( "time", "f" );
+const idEventDef EV_GetMoveSpeed( "getMoveSpeed", NULL, 'f' );
+const idEventDef EV_GetMoveTime( "getMoveTime", NULL, 'f' );
 const idEventDef EV_AccelTime( "accelTime", "f" );
 const idEventDef EV_DecelTime( "decelTime", "f" );
 const idEventDef EV_MoveTo( "moveTo", "e" );
@@ -97,6 +99,8 @@ CLASS_DECLARATION( idEntity, idMover )
 	EVENT( EV_StopRotating,			idMover::Event_StopRotating )
 	EVENT( EV_Speed,				idMover::Event_SetMoveSpeed )
 	EVENT( EV_Time,					idMover::Event_SetMoveTime )
+	EVENT( EV_GetMoveSpeed,				idMover::Event_GetMoveSpeed )
+	EVENT( EV_GetMoveTime,				idMover::Event_GetMoveTime )
 	EVENT( EV_AccelTime,			idMover::Event_SetAccellerationTime )
 	EVENT( EV_DecelTime,			idMover::Event_SetDecelerationTime )
 	EVENT( EV_MoveTo,				idMover::Event_MoveTo )
@@ -1048,6 +1052,26 @@ void idMover::Event_SetMoveSpeed( float speed ) {
 
 	move_speed = speed;
 	move_time = 0;			// move_time is calculated for each move when move_speed is non-0
+}
+
+/*
+================
+idMover::Event_GetMoveSpeed
+================
+*/
+void idMover::Event_GetMoveSpeed( void ) const {
+	// tels #3209
+	idThread::ReturnFloat( move_speed );
+}
+
+/*
+================
+idMover::Event_GetMoveTime
+================
+*/
+void idMover::Event_GetMoveTime( void ) const {
+	// tels #3209
+	idThread::ReturnFloat( move_time );
 }
 
 // grayman #3029 - EAS needs this for station-to-station travel times

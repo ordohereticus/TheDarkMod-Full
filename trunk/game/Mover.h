@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5576 $ (Revision of last commit) 
+ $Date: 2012-09-23 07:07:42 -0400 (Sun, 23 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -183,6 +183,8 @@ public:
 	void					Event_UpdateRotation( void );
 	void					Event_SetMoveSpeed( float speed );
 	void					Event_SetMoveTime( float time );
+	void					Event_GetMoveSpeed( void ) const;
+	void					Event_GetMoveTime( void ) const;
 	void					Event_SetDecelerationTime( float time );
 	void					Event_SetAccellerationTime( float time );
 	void					Event_MoveTo( idEntity *ent );
