@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5670 $ (Revision of last commit) 
- $Date: 2013-01-02 06:57:42 -0500 (Wed, 02 Jan 2013) $ (Date of last commit)
+ $Revision: 5682 $ (Revision of last commit) 
+ $Date: 2013-01-12 10:14:50 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5670 2013-01-02 11:57:42Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5682 2013-01-12 15:14:50Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -6824,6 +6824,9 @@ void idEntity::AddTarget(idEntity* target)
 /*
 ================
 idEntity::Teleport
+
+TODO: This does not set the view angles, so if you teleport the player, he will
+	  not copy the view from the target, e.g. still look at the same direction.
 ================
 */
 void idEntity::Teleport( const idVec3 &origin, const idAngles &angles, idEntity *destination ) {
