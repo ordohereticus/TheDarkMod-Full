@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5551 $ (Revision of last commit) 
- $Date: 2012-09-06 08:47:49 -0400 (Thu, 06 Sep 2012) $ (Date of last commit)
- $Author: newhorizon $ (Author of last commit)
+ $Revision: 5583 $ (Revision of last commit) 
+ $Date: 2012-10-03 10:39:08 -0400 (Wed, 03 Oct 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5551 2012-09-06 12:47:49Z newhorizon $");
+static bool versioned = RegisterVersionedFile("$Id: SysCvar.cpp 5583 2012-10-03 14:39:08Z tels $");
 
 #include "../Game_local.h"
 
@@ -216,7 +216,7 @@ idCVar cv_tdm_footfalls_movetype_specific( "tdm_footfall_sounds_movetype_specifi
 
 // Dark Mod crouching
 idCVar cv_tdm_crouch_toggle(			"tdm_toggle_crouch",			"1",			CVAR_GAME | CVAR_ARCHIVE | CVAR_BOOL, "Set to 1 to make crouching toggleable." );
-idCVar cv_tdm_crouch_toggle_hold_time(	"tdm_crouch_toggle_hold_time",	"400",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The time to hold crouch while on a rope/ladder for starting to slide down." );
+idCVar cv_tdm_crouch_toggle_hold_time(	"tdm_crouch_toggle_hold_time",	"400",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "The time in milliseconds to hold crouch while on a rope/ladder for starting to slide down." );
 idCVar cv_tdm_reattach_delay(			"tdm_reattach_delay",			"100",			CVAR_GAME | CVAR_ARCHIVE | CVAR_FLOAT, "Delay (in ms) for reattaching to ropes/ladders after detaching using crouch." );
 
 
