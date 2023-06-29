@@ -12,16 +12,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5430 $ (Revision of last commit) 
- $Date: 2012-05-05 10:23:19 -0400 (Sat, 05 May 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5505 $ (Revision of last commit) 
+ $Date: 2012-07-31 13:28:39 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5430 2012-05-05 14:23:19Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5505 2012-07-31 17:28:39Z tels $");
 
 #include "I18N.h"
 
@@ -155,6 +155,9 @@ void I18NLocal::Init()
 	m_ReverseDict.Set( "Readables",	"#str_02391" );
 	m_ReverseDict.Set( "Keys",		"#str_02392" );
 	m_ReverseDict.Set( "Potions",	"#str_02393" );
+	m_ReverseDict.Set( "Tools",		"#str_02394" );
+	// Do not add "Weapons", these do not have an inv_category (as it is invisible anyway). FIXME later?
+	// m_ReverseDict.Set( "Weapons",		"#str_02411" );
 
 	// inventory item names used in keybindings
 	m_ReverseDict.Set( "Mine",			"#str_02202" );
@@ -164,6 +167,8 @@ void I18NLocal::Init()
 	m_ReverseDict.Set( "Health Potion",	"#str_02398" );
 	m_ReverseDict.Set( "Breath Potion",	"#str_02399" );
 	m_ReverseDict.Set( "Holy Water",	"#str_02400" );
+	m_ReverseDict.Set( "Corpse",		"#str_02409" );
+	m_ReverseDict.Set( "Body",			"#str_02410" );
 	m_ReverseDict.Set( "Flashbomb",		"#str_02438" );
 	m_ReverseDict.Set( "Flashmine",		"#str_02439" );
 	m_ReverseDict.Set( "Explosive Mine","#str_02440" );
