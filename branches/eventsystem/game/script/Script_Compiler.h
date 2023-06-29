@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5226 $ (Revision of last commit) 
- $Date: 2012-01-21 08:43:47 -0500 (Sat, 21 Jan 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5601 $ (Revision of last commit) 
+ $Date: 2012-10-26 15:01:14 -0400 (Fri, 26 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -246,7 +246,6 @@ private:
 	idVarDef		*GetTerm( void );
 	bool			TypeMatches( etype_t type1, etype_t type2 ) const;
 	idVarDef		*GetExpression( int priority );
-	idTypeDef		*GetTypeForEventArg( char argType );
 	void			PatchLoop( int start, int continuePos );
 	void			ParseReturnStatement( void );
 	void			ParseWhileStatement( void );
@@ -267,6 +266,8 @@ public :
 
 					idCompiler();
 	void			CompileFile( const char *text, const char *filename, bool console );
+
+	static idTypeDef		*GetTypeForEventArg( char argType );
 };
 
 #endif /* !__SCRIPT_COMPILER_H__ */
