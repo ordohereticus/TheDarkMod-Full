@@ -11,22 +11,22 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5378 $ (Revision of last commit) 
- $Date: 2012-04-10 14:21:04 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5612 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:12:59 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BloodMarker.cpp 5378 2012-04-10 18:21:04Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: BloodMarker.cpp 5612 2012-10-28 05:12:59Z greebo $");
 
 #include "Game_local.h"
 #include "BloodMarker.h"
 #include "StimResponse/Stim.h"
 
-const idEventDef EV_GenerateBloodSplat("TDM_GenerateBloodSplat", NULL);
+const idEventDef EV_GenerateBloodSplat("_TDM_GenerateBloodSplat", EventArgs(), EV_RETURNS_VOID, "internal");
 
 CLASS_DECLARATION( idEntity, CBloodMarker )
 	EVENT( EV_GenerateBloodSplat, CBloodMarker::Event_GenerateBloodSplat )

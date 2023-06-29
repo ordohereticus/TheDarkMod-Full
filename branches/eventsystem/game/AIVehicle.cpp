@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5612 $ (Revision of last commit) 
+ $Date: 2012-10-28 01:12:59 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -23,7 +23,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AIVehicle.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AIVehicle.cpp 5612 2012-10-28 05:12:59Z greebo $");
 
 #include "AIVehicle.h"
 #include "Game_local.h"
@@ -33,10 +33,14 @@ static bool versioned = RegisterVersionedFile("$Id: AIVehicle.cpp 5185 2012-01-0
 //CAIVehicle
 //===============================================================================
 
-const idEventDef EV_SetController( "setController", "e" );
-const idEventDef EV_ClearController( "clearController" );
-const idEventDef EV_FrobRidable( "frobRidable", "e" );
-const idEventDef EV_GetMoveAnim( "getMoveAnim", NULL, 's' );
+const idEventDef EV_SetController( "setController", EventArgs('e', "playerController", ""), EV_RETURNS_VOID, 
+	"Let a player assume movement control of an AI vehicle\n" \
+	"(may be remote control as in a player on a coach pulled by a horse)");
+const idEventDef EV_ClearController( "clearController", EventArgs(), EV_RETURNS_VOID, 
+	"Need separate clearController because scripting doesn't like passing in $null_entity?\n" \
+	"(greebo: one could remove this function and set the argument type of setController to 'E'.");
+const idEventDef EV_FrobRidable( "frobRidable", EventArgs('e', "playerController", ""), EV_RETURNS_VOID, "Called when a player directly mounts or dismounts a ridable AI." );
+const idEventDef EV_GetMoveAnim( "getMoveAnim", EventArgs(), 's', "Returns the name of the player-requested movement anim for a player controlled AI vehicle" );
 
 CLASS_DECLARATION( idAI, CAIVehicle )
 	EVENT( EV_SetController,	CAIVehicle::Event_SetController )
