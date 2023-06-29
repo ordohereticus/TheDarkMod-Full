@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5591 $ (Revision of last commit) 
+ $Date: 2012-10-18 15:48:23 -0400 (Thu, 18 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -215,7 +215,7 @@ private:
 
 		// Construct the starting path
 		fs::path inclusionPath = repositoryRoot;
-		inclusionPath /= inclusion.value;
+		inclusionPath /= boost::algorithm::trim_copy(inclusion.value);
 
 		// Add the inclusion path itself
 		std::string relativeInclusionPath = inclusionPath.string().substr(repositoryRoot.string().length() + 1);
@@ -256,6 +256,8 @@ private:
 			}
 		}
 		
+		//TraceLog::WriteLine(LOG_PROGRESS, "Inclusion path: " + inclusionPath.string() + "---");
+
 		if (!fs::is_directory(inclusionPath))
 		{
 			TraceLog::WriteLine(LOG_PROGRESS, "Skipping non-file and non-folder: " + inclusionPath.string());

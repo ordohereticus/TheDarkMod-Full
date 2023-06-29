@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5591 $ (Revision of last commit) 
+ $Date: 2012-10-18 15:48:23 -0400 (Thu, 18 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 	// Start logging
 	RegisterLogWriters();
 
-	TraceLog::WriteLine(LOG_STANDARD, "TDM Packager v0.03 (c) 2010 by greebo & Tels. Part of The Dark Mod (http://www.thedarkmod.com).");
+	TraceLog::WriteLine(LOG_STANDARD, "TDM Packager v0.04 (c) 2012 by greebo & Tels. Part of The Dark Mod (http://www.thedarkmod.com).");
 	TraceLog::WriteLine(LOG_STANDARD, "Linked against libsvn " + std::string(SVN_VER_NUM));
 	TraceLog::WriteLine(LOG_STANDARD, "");
 

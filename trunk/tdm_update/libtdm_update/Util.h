@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5579 $ (Revision of last commit) 
- $Date: 2012-09-29 15:48:21 -0400 (Sat, 29 Sep 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5591 $ (Revision of last commit) 
+ $Date: 2012-10-18 15:48:23 -0400 (Thu, 18 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -67,17 +67,19 @@ public:
 	 * greebo: Checks if the current path is the one Doom3.exe is located in.
 	 * This is used to determine whether this is a clean installation attempt
 	 * and the user downloaded the tdm_update.exe into the wrong folder.
+
+	 * grayman - check for The Dark Mod, not D3
 	 */
-	static bool PathIsDoom3EnginePath(const fs::path& path)
+	static bool PathIsTDMEnginePath(const fs::path& path)
 	{
 
 #if WIN32
-		std::string d3ExecutableName = "DOOM3.exe";
+		std::string tdmExecutableName = "TheDarkMod.exe";
 #else 
-		std::string d3ExecutableName = "base/gamex86.so";
+		std::string tdmExecutableName = "base/gamex86.so";
 #endif
 
-		if (fs::exists(path / d3ExecutableName))
+		if (fs::exists(path / tdmExecutableName))
 		{
 			return true;
 		}
