@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5520 $ (Revision of last commit) 
- $Date: 2012-08-11 21:29:55 -0400 (Sat, 11 Aug 2012) $ (Date of last commit)
+ $Revision: 5538 $ (Revision of last commit) 
+ $Date: 2012-08-25 16:07:27 -0400 (Sat, 25 Aug 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -784,8 +784,6 @@ void Updater::PerformDifferentialUpdateStep()
 		package->ExtractFileTo(f->file.string(), targetPath / f->file);
 	}
 
-	// grayman debug - if TDM executable exists at this point, move it up one level
-
 #if WIN32
 	std::string tdmExecutableName = "TheDarkMod.exe";
 #else 
@@ -796,18 +794,6 @@ void Updater::PerformDifferentialUpdateStep()
 	{
 		// Set the executable bit on the TDM binary
 		File::MarkAsExecutable(targetPath / tdmExecutableName);
-
-		// Move it up one level
-
-		if (File::Move(targetPath / tdmExecutableName, targetPath / ("../" + tdmExecutableName)))
-		{
-			TraceLog::WriteLine(LOG_VERBOSE, "1 - Successfully moved binary " + tdmExecutableName + " up one level to " + targetPath.string() + "/../"); // grayman debug
-		}
-		else
-		{
-			// Move failed
-			TraceLog::WriteLine(LOG_VERBOSE, "1 - Failed to move binary " + tdmExecutableName + " up one level to " + targetPath.string() + "/../"); // grayman debug
-		}
 	}
 
 	// Close the ZIP file before removing it
@@ -1297,20 +1283,6 @@ void Updater::ExtractAndRemoveZip(const fs::path& zipFilePath)
 
 			// Set the executable bit on the TDM binary
 			File::MarkAsExecutable(binaryFileName);
-
-			// Move it up one level
-
-			if (File::Move(binaryFileName, destPath / ("../" + TDM_BINARY_NAME)))
-			{
-				TraceLog::WriteLine(LOG_VERBOSE, "2 - Successfully moved binary " + binaryFileName.string() + " up one level to " + destPath.string() + "/../"); // grayman debug
-				TraceLog::WriteLine(LOG_VERBOSE, "2 - zipFilePath = " + zipFilePath.file_string()); // grayman debug
-			}
-			else
-			{
-				// Move failed
-				TraceLog::WriteLine(LOG_VERBOSE, "2 - Failed to move binary " + binaryFileName.string() + " up one level to " + destPath.string() + "/../"); // grayman debug
-				TraceLog::WriteLine(LOG_VERBOSE, "2 - zipFilePath = " + zipFilePath.file_string()); // grayman debug
-			}
 		}
 		else
 		{
@@ -1376,7 +1348,21 @@ void Updater::PrepareUpdateBatchFile(const fs::path& temporaryUpdater)
 
 	batch << "@start " << updater.file_string() << " " << arguments;
 #else // POSIX
-	
+	// grayman debug - new way, to accomodate spaces in pathnames
+	tempUpdater = GetTargetPath() / tempUpdater;
+	updater = GetTargetPath() / updater;
+
+	batch << "#!/bin/bash" << std::endl;
+	batch << "echo \"Upgrading TDM Updater executable...\"" << std::endl;
+	batch << "cd \"" << GetTargetPath().file_string() << "\"" << std::endl; 
+	batch << "sleep 2s" << std::endl;
+	batch << "mv -f \"" << tempUpdater.file_string() << "\" \"" << updater.file_string() << "\"" << std::endl;
+	batch << "chmod +x \"" << updater.file_string() << "\"" << std::endl;
+	batch << "echo \"TDM Updater executable has been updated.\"" << std::endl;
+	batch << "echo \"Re-launching TDM Updater executable.\"" << std::endl;
+
+	batch << "\"" << updater.file_string() << "\" " << arguments;
+	/* previous way
 	tempUpdater = GetTargetPath() / tempUpdater;
 	updater = GetTargetPath() / updater;
 
@@ -1390,6 +1376,7 @@ void Updater::PrepareUpdateBatchFile(const fs::path& temporaryUpdater)
 	batch << "echo \"Re-launching TDM Updater executable.\"" << std::endl;
 
 	batch << updater.file_string() << " " << arguments;
+	*/
 #endif
 
 	batch.close();
