@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5626 $ (Revision of last commit) 
- $Date: 2012-10-28 05:50:10 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5629 $ (Revision of last commit) 
+ $Date: 2012-10-28 11:00:53 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5626 2012-10-28 09:50:10Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Program.cpp 5629 2012-10-28 15:00:53Z greebo $");
 
 #include "../Game_local.h"
 #include <boost/algorithm/string/predicate.hpp>
@@ -2310,6 +2310,12 @@ void idProgram::WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format
 		Write(outputFile, " * This file has been generated automatically by the tdm_gen_script_event_doc console command.\n");
 		Write(outputFile, " * Last update: " + dateStr + "\n");
 		Write(outputFile, " */\n");
+		Write(outputFile, "\n");
+		Write(outputFile, "// ===== THIS FILE ONLY SERVES FOR DOCUMENTATION PURPOSES, IT'S NOT ACTUALLY READ BY THE GAME =======\n");
+		Write(outputFile, "// ===== If you want to force this file to be loaded, change the line below to #if 1 ================\n");
+		Write(outputFile, "#if 0\n");
+		Write(outputFile, "\n");
+		Write(outputFile, "\n");
 		break;
 	};
 
@@ -2359,6 +2365,9 @@ void idProgram::WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format
 	switch (format)
 	{
 	case FORMAT_D3_SCRIPT:
+		Write(outputFile, "\n");
+		Write(outputFile, "#endif\n");
+		Write(outputFile, "\n");
 		Write(outputFile, "\n\n#endif\n");
 		break;
 	};
