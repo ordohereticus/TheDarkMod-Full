@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5492 $ (Revision of last commit) 
- $Date: 2012-07-07 08:12:47 -0400 (Sat, 07 Jul 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5615 $ (Revision of last commit) 
+ $Date: 2012-10-28 02:24:31 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5492 2012-07-07 12:12:47Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5615 2012-10-28 06:24:31Z greebo $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -34,10 +34,10 @@ static bool versioned = RegisterVersionedFile("$Id: Moveable.cpp 5492 2012-07-07
 ===============================================================================
 */
 
-const idEventDef EV_BecomeNonSolid( "becomeNonSolid" );
-const idEventDef EV_SetOwnerFromSpawnArgs( "<setOwnerFromSpawnArgs>" );
-const idEventDef EV_IsAtRest( "isAtRest", NULL, 'd' );
-const idEventDef EV_EnableDamage( "enableDamage", "f" );
+const idEventDef EV_BecomeNonSolid( "becomeNonSolid", EventArgs(), EV_RETURNS_VOID, "Makes the moveable non-solid for other entities." );
+const idEventDef EV_SetOwnerFromSpawnArgs( "<setOwnerFromSpawnArgs>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_IsAtRest( "isAtRest", EventArgs(), 'd', "Returns true if object is not moving" );
+const idEventDef EV_EnableDamage( "enableDamage", EventArgs('f', "enable", ""), EV_RETURNS_VOID, "enable/disable damage" );
 
 CLASS_DECLARATION( idEntity, idMoveable )
 	EVENT( EV_Activate,					idMoveable::Event_Activate )
