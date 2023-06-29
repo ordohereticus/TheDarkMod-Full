@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5295 $ (Revision of last commit) 
- $Date: 2012-02-23 23:45:03 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5552 $ (Revision of last commit) 
+ $Date: 2012-09-06 13:11:51 -0400 (Thu, 06 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_cache.cpp 5295 2012-02-24 04:45:03Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: snd_cache.cpp 5552 2012-09-06 17:11:51Z tels $");
 
 #include "snd_local.h"
 
@@ -358,8 +358,9 @@ void idSoundSample::MakeDefault( void ) {
 		
 		alGetError();
 		alBufferData( openalBuffer, objectInfo.nChannels==1?AL_FORMAT_MONO16:AL_FORMAT_STEREO16, nonCacheData, objectMemSize, objectInfo.nSamplesPerSec );
-		if ( alGetError() != AL_NO_ERROR ) {
-			common->Error( "idSoundCache: error loading data into OpenAL hardware buffer" );
+		int alError = alGetError();
+		if ( alError != AL_NO_ERROR ) {
+			common->Error( "idSoundCache (MakeDefault): error %i loading data into OpenAL hardware buffer", alError );
 		} else {
 			hardwareBuffer = true;
 		}
@@ -490,8 +491,9 @@ void idSoundSample::Load( void ) {
 			if ( alIsBuffer( openalBuffer ) ) {
 				alGetError();
 				alBufferData( openalBuffer, objectInfo.nChannels==1?AL_FORMAT_MONO16:AL_FORMAT_STEREO16, nonCacheData, objectMemSize, objectInfo.nSamplesPerSec );
-				if ( alGetError() != AL_NO_ERROR ) {
-					common->Error( "idSoundCache: error loading data into OpenAL hardware buffer" );
+				int alError = alGetError();
+				if ( alError != AL_NO_ERROR ) {
+					common->Error( "idSoundCache Load: error %i loading data into OpenAL hardware buffer", alError );
 				} else {
 					// Compute amplitude block size
 					int blockSize = 512 * objectInfo.nSamplesPerSec / 44100 ;
@@ -570,8 +572,9 @@ void idSoundSample::Load( void ) {
 
 					alGetError();
 					alBufferData( openalBuffer, objectInfo.nChannels==1?AL_FORMAT_MONO16:AL_FORMAT_STEREO16, destData, objectSize * sizeof( short ), objectInfo.nSamplesPerSec );
-					if ( alGetError() != AL_NO_ERROR )
-						common->Error( "idSoundCache: error loading data into OpenAL hardware buffer" );
+					int alError = alGetError();
+					if ( alError != AL_NO_ERROR )
+						common->Error( "idSoundCache Load OGG: error %i loading data into OpenAL hardware buffer", alError );
 					else {
 						// Compute amplitude block size
 						int blockSize = 512 * objectInfo.nSamplesPerSec / 44100 ;
