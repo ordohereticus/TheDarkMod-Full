@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5667 $ (Revision of last commit) 
- $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5670 $ (Revision of last commit) 
+ $Date: 2013-01-02 06:57:42 -0500 (Wed, 02 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ENTITY_H__
@@ -1576,11 +1576,12 @@ public:			// Events should be public, so they can be used from other places as w
 	void					Event_Touches( idEntity *ent );
 	void					Event_GetNextKey( const char *prefix, const char *lastMatch );
 	void					Event_SetKey( const char *key, const char *value );
-	void					Event_GetKey( const char *key );
-	void					Event_GetIntKey( const char *key );
-	void					Event_GetFloatKey( const char *key );
-	void					Event_GetVectorKey( const char *key );
-	void					Event_GetEntityKey( const char *key );
+	void					Event_GetKey( const char *key ) const;
+	void					Event_GetIntKey( const char *key ) const;
+	void					Event_GetBoolKey( const char *key ) const;
+	void					Event_GetFloatKey( const char *key ) const;
+	void					Event_GetVectorKey( const char *key ) const;
+	void					Event_GetEntityKey( const char *key ) const;
 	void					Event_RemoveKey( const char *key );
 	void					Event_RestorePosition( void );
 	void					Event_UpdateCameraTarget( void );
