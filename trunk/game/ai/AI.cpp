@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5676 $ (Revision of last commit) 
- $Date: 2013-01-11 20:34:52 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5678 $ (Revision of last commit) 
+ $Date: 2013-01-12 06:34:41 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5676 2013-01-12 01:34:52Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5678 2013-01-12 11:34:41Z tels $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -4660,7 +4660,7 @@ idAI::CanSeePositionExt
 This method can ignore lighting conditions and/or field of vision.
 =====================
 */
-bool idAI::CanSeePositionExt( idVec3 position, bool useFOV, bool useLighting )
+bool idAI::CanSeePositionExt( idVec3 position, const bool useFOV, const bool useLighting ) const
 {
 	if ( useFOV && !CheckFOV( position ) )
 	{
@@ -11869,7 +11869,6 @@ void idAI::GetUp()
 		SetMoveType(MOVETYPE_GET_UP);
 		SetWaitState("get_up");
 	}
-//	else if ( moveType == MOVETYPE_SLEEP || MOVETYPE_LAY_DOWN ) // grayman - this logic makes no sense, even though the compiler likes it
 	else if ( ( moveType == MOVETYPE_SLEEP ) || ( moveType == MOVETYPE_LAY_DOWN ) ) // this is probably what it was meant to be
 	{
 		SetMoveType(MOVETYPE_GET_UP_FROM_LYING);
