@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5527 $ (Revision of last commit) 
- $Date: 2012-08-17 13:16:16 -0400 (Fri, 17 Aug 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5556 $ (Revision of last commit) 
+ $Date: 2012-09-07 10:51:59 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5527 2012-08-17 17:16:16Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5556 2012-09-07 14:51:59Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -1354,7 +1354,7 @@ void idEntity::Spawn( void )
 	m_StartBounds = GetPhysics()->GetAbsBounds();
 	m_AbsenceStatus = false;
 
-	if (renderEntity.customSkin && spawnArgs.GetString("lod_hidden_skin") != "")
+	if (renderEntity.customSkin && !idStr(spawnArgs.GetString("lod_hidden_skin")).IsEmpty())
 	{
 		m_VisibleSkin = renderEntity.customSkin->GetName();
 //		gameLocal.Printf ("%s: Storing current skin %s.\n", GetName(), m_VisibleSkin.c_str() );
