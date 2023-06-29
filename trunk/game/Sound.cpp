@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5673 $ (Revision of last commit) 
+ $Date: 2013-01-11 08:52:13 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Sound.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Sound.cpp 5673 2013-01-11 13:52:13Z tels $");
 
 #include "Game_local.h"
 
@@ -33,7 +33,7 @@ static bool versioned = RegisterVersionedFile("$Id: Sound.cpp 5640 2012-10-31 14
 */
 
 const idEventDef EV_Speaker_On( "On", EventArgs(), EV_RETURNS_VOID, "Turns the entity on." );
-const idEventDef EV_Speaker_Off( "Off", EventArgs(), EV_RETURNS_VOID, "Turns the entity on." );
+const idEventDef EV_Speaker_Off( "Off", EventArgs(), EV_RETURNS_VOID, "Turns the entity off." );
 const idEventDef EV_Speaker_Timer( "<timer>", EventArgs(), EV_RETURNS_VOID, "internal" );
 
 CLASS_DECLARATION( idEntity, idSound )
