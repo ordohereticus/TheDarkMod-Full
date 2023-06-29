@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5283 $ (Revision of last commit) 
- $Date: 2012-02-16 06:42:25 -0500 (Thu, 16 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5644 $ (Revision of last commit) 
+ $Date: 2012-11-03 14:41:28 -0400 (Sat, 03 Nov 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_shader.cpp 5283 2012-02-16 11:42:25Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: snd_shader.cpp 5644 2012-11-03 18:41:28Z angua $");
 
 #include "snd_local.h"
 
@@ -185,6 +185,10 @@ bool idSoundShader::ParseShader( idLexer &src ) {
 		else if ( !token.Icmp( "description" ) ) {
 			src.ReadTokenOnLine( &token );
 			desc = token.c_str();
+		}
+		else if ( !token.Icmp( "editor_displayFolder" ) ) {
+			// angua: the display folder for sorting the sounds in the editor, this can be ignored here
+			src.SkipRestOfLine();
 		}
 		// mindistance
 		else if ( !token.Icmp( "mindistance" ) ) {
