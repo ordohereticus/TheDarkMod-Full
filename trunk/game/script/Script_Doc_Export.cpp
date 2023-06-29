@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Revision: 5642 $ (Revision of last commit) 
+ $Date: 2012-11-01 07:05:54 -0400 (Thu, 01 Nov 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Doc_Export.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Doc_Export.cpp 5642 2012-11-01 11:05:54Z greebo $");
 
 #include "Script_Doc_Export.h"
 #include "../pugixml/pugixml.hpp"
@@ -53,7 +53,7 @@ namespace
 			idTypeDef* type = idCompiler::GetTypeForEventArg(i->type);
 
 			// Use a generic variable name "a", "b", "c", etc. if no name present
-			out += va("%s %s", type->Name(), strlen(i->name) > 0 ? i->name : idStr(gen[g++]));
+			out += va("%s %s", type->Name(), strlen(i->name) > 0 ? i->name : idStr(gen[g++]).c_str());
 		}
 
 		return out;
