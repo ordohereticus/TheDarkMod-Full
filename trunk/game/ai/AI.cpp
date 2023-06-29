@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5667 $ (Revision of last commit) 
- $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
+ $Revision: 5676 $ (Revision of last commit) 
+ $Date: 2013-01-11 20:34:52 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5667 2013-01-01 01:46:51Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5676 2013-01-12 01:34:52Z grayman $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -11864,13 +11864,13 @@ void idAI::GetUp()
 {
 	moveType_t moveType = GetMoveType();
 
-	if (moveType == MOVETYPE_SIT || moveType == MOVETYPE_SIT_DOWN)
+	if ( ( moveType == MOVETYPE_SIT ) || ( moveType == MOVETYPE_SIT_DOWN ) )
 	{
 		SetMoveType(MOVETYPE_GET_UP);
 		SetWaitState("get_up");
-
 	}
-	else if (moveType == MOVETYPE_SLEEP || MOVETYPE_LAY_DOWN)
+//	else if ( moveType == MOVETYPE_SLEEP || MOVETYPE_LAY_DOWN ) // grayman - this logic makes no sense, even though the compiler likes it
+	else if ( ( moveType == MOVETYPE_SLEEP ) || ( moveType == MOVETYPE_LAY_DOWN ) ) // this is probably what it was meant to be
 	{
 		SetMoveType(MOVETYPE_GET_UP_FROM_LYING);
 		SetWaitState("get_up_from_lying_down");
