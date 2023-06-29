@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5465 $ (Revision of last commit) 
- $Date: 2012-05-31 00:00:38 -0400 (Thu, 31 May 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5526 $ (Revision of last commit) 
+ $Date: 2012-08-15 12:59:57 -0400 (Wed, 15 Aug 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5465 2012-05-31 04:00:38Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: LightGem.cpp 5526 2012-08-15 16:59:57Z grayman $");
 
 #include "LightGem.h"
 
@@ -221,6 +221,9 @@ float LightGem::Calculate(idPlayer *player)
 	m_Lightgem_rv.shaderParms[2] = gameLocal.globalShaderParms[2]; // Ambient R
 	m_Lightgem_rv.shaderParms[3] = gameLocal.globalShaderParms[3]; // Ambient G
 	m_Lightgem_rv.shaderParms[4] = gameLocal.globalShaderParms[4]; // Ambient B
+
+	// angua: render view needs current time, otherwise it will be unable to see time-dependent changes in light shaders such as flickering torches
+	m_Lightgem_rv.time = gameLocal.GetTime();
 
 	// Make sure the player model is hidden in the lightgem renders
 	renderEntity_t* prent = player->GetRenderEntity();
