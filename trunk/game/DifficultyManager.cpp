@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5557 $ (Revision of last commit) 
- $Date: 2012-09-07 11:52:15 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
+ $Revision: 5660 $ (Revision of last commit) 
+ $Date: 2012-12-11 15:32:21 -0500 (Tue, 11 Dec 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DifficultyManager.cpp 5557 2012-09-07 15:52:15Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DifficultyManager.cpp 5660 2012-12-11 20:32:21Z tels $");
 
 #include "DifficultyManager.h"
 
@@ -80,7 +80,7 @@ void DifficultyManager::Init(idMapFile* mapFile)
 	LoadMapDifficultySettings(mapFile);
 }
 
-void DifficultyManager::SetDifficultyLevel(int difficulty)
+void DifficultyManager::SetDifficultyLevel(const int difficulty)
 {
 	_difficulty = difficulty;
 }
@@ -156,7 +156,7 @@ bool DifficultyManager::InhibitEntitySpawn(const idDict& target) {
 	// The entity is allowed to spawn by default, must be set to 1 by the mapper
 	isAllowed = !target.GetBool(key, "0");
 
-	DM_LOG(LC_DIFFICULTY, LT_INFO)LOGSTRING("Entity %s is allowed to spawn: %s.\r", target.GetString("name"), isAllowed ? "YES" : "NO");
+	DM_LOG(LC_DIFFICULTY, LT_INFO)LOGSTRING("Entity %s is allowed to spawn on difficulty %i: %s.\r", target.GetString("name"), _difficulty, isAllowed ? "YES" : "NO");
 
 	// Tels: #3223: See if this entity should spawn this time
 	float random_remove = target.GetFloat( "random_remove", "1.1");

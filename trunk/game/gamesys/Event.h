@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5660 $ (Revision of last commit) 
+ $Date: 2012-12-11 15:32:21 -0500 (Tue, 11 Dec 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -47,7 +47,7 @@ Event are used for scheduling tasks and for linking script commands.
 #define	D_EVENT_ENTITY_NULL			'E'			// event can handle NULL entity pointers
 #define D_EVENT_TRACE				't'
 
-#define MAX_EVENTS					8192
+#define MAX_EVENTS					8192		// we can have so many different events (functions) overall
 
 #define EV_RETURNS_VOID				D_EVENT_VOID
 

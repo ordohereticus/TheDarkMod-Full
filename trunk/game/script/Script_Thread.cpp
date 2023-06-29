@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5660 $ (Revision of last commit) 
+ $Date: 2012-12-11 15:32:21 -0500 (Tue, 11 Dec 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5660 2012-12-11 20:32:21Z tels $");
 
 #include "../Game_local.h"
 #include "../decltdm_matinfo.h"
@@ -216,7 +216,10 @@ const idEventDef EV_Thread_CanPlant( "canPlant",
 	EventArgs('v', "traceStart", "", 'v', "traceEnd", "", 'E', "ignore", "", 'e', "vine", ""), 'f', "" );  // grayman #2787
 
 // grayman #3132 - get main ambient light
-const idEventDef EV_GetMainAmbientLight("getMainAmbientLight", EventArgs(), 'e', "");
+const idEventDef EV_GetMainAmbientLight("getMainAmbientLight", EventArgs(), 'e', "Returns the entity of the main ambient light.");
+
+// tels #3271 - get the difficulty level during this mission
+const idEventDef EV_GetDifficultyLevel("getDifficultyLevel", EventArgs(), 'd', "Returns 0 (Easy), 1 (Medium) or 2 (Hard), depending on the difficulty level of the current mission.");
 
 CLASS_DECLARATION( idClass, idThread )
 	EVENT( EV_Thread_Execute,				idThread::Event_Execute )
@@ -323,7 +326,8 @@ CLASS_DECLARATION( idClass, idThread )
 
 	EVENT( EV_Thread_CanPlant,	 			idThread::Event_CanPlant )	// grayman #2787
 
-	EVENT( EV_GetMainAmbientLight,			idThread::Event_GetMainAmbientLight ) // grayman #3132
+	EVENT( EV_GetMainAmbientLight,			idThread::Event_GetMainAmbientLight )	// grayman #3132
+	EVENT( EV_GetDifficultyLevel,			idThread::Event_GetDifficultyLevel )	// tels	   #3271
 
 	END_CLASS
 
@@ -2173,10 +2177,15 @@ void idThread::Event_CanPlant( const idVec3 &traceStart, const idVec3 &traceEnd,
 }
 
 // grayman #3132
-
 void idThread::Event_GetMainAmbientLight()
 {
 	idLight* light = gameLocal.FindMainAmbientLight(false);
 	idThread::ReturnEntity(light);
 }
 
+// tels #3271
+void idThread::Event_GetDifficultyLevel()
+{
+	int level = gameLocal.m_DifficultyManager.GetDifficultyLevel();
+	idThread::ReturnInt(level);
+}
