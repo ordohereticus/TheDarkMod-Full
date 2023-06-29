@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5620 $ (Revision of last commit) 
- $Date: 2012-10-28 04:33:06 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
- $Author: angua $ (Author of last commit)
+ $Revision: 5628 $ (Revision of last commit) 
+ $Date: 2012-10-28 10:53:36 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5620 2012-10-28 08:33:06Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5628 2012-10-28 14:53:36Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1841,7 +1841,7 @@ idAFEntity_Gibbable
 ===============================================================================
 */
 
-const idEventDef EV_Gib( "gib", EventArgs('s', "", ""), EV_RETURNS_VOID, "" );
+const idEventDef EV_Gib( "gib", EventArgs('s', "damageDefName", ""), EV_RETURNS_VOID, "" );
 const idEventDef EV_Gibbed( "<gibbed>", EventArgs(), EV_RETURNS_VOID, "internal");
 
 CLASS_DECLARATION( idAFEntity_Base, idAFEntity_Gibbable )
