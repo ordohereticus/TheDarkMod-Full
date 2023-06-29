@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5222 $ (Revision of last commit) 
- $Date: 2012-01-19 22:27:39 -0500 (Thu, 19 Jan 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5646 $ (Revision of last commit) 
+ $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -125,7 +125,6 @@
 #include "../framework/DeclFX.h"
 #include "../framework/DeclParticle.h"
 #include "../framework/DeclAF.h"
-#include "../framework/DeclPDA.h"
 
 // We have expression parsing and evaluation code in multiple places:
 // materials, sound shaders, and guis. We should unify them.

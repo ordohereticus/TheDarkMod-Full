@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5514 $ (Revision of last commit) 
- $Date: 2012-08-08 15:04:24 -0400 (Wed, 08 Aug 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5646 $ (Revision of last commit) 
+ $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5514 2012-08-08 19:04:24Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5646 2012-11-04 08:54:21Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -2554,22 +2554,6 @@ void idGameLocal::CacheDictionaryMedia( const idDict *dict ) {
 			FindEntityDef( kv->GetValue().c_str(), false );
 		}
 		kv = dict->MatchPrefix( "def", kv );
-	}
-
-	kv = dict->MatchPrefix( "video", NULL );
-	while( kv ) {
-		if ( kv->GetValue().Length() ) {
-			declManager->FindType( DECL_VIDEO, kv->GetValue().c_str(), false );
-		}
-		kv = dict->MatchPrefix( "video", kv );
-	}
-
-	kv = dict->MatchPrefix( "audio", NULL );
-	while( kv ) {
-		if ( kv->GetValue().Length() ) {
-			declManager->FindType( DECL_AUDIO, kv->GetValue().c_str(), false );
-		}
-		kv = dict->MatchPrefix( "audio", kv );
 	}
 
 	kv = dict->MatchPrefix( "xdata", NULL );

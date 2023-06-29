@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5342 $ (Revision of last commit) 
- $Date: 2012-03-17 12:38:30 -0400 (Sat, 17 Mar 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5646 $ (Revision of last commit) 
+ $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -41,7 +41,7 @@ typedef enum {
 	EDITOR_DECL					= BIT(7),
 	EDITOR_AF					= BIT(8),
 	EDITOR_PARTICLE				= BIT(9),
-	EDITOR_PDA					= BIT(10),
+	//EDITOR_PDA					= BIT(10),
 	EDITOR_AAS					= BIT(11),
 	EDITOR_MATERIAL				= BIT(12)
 } toolFlag_t;

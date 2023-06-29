@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5334 $ (Revision of last commit) 
- $Date: 2012-03-11 05:47:57 -0400 (Sun, 11 Mar 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5646 $ (Revision of last commit) 
+ $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -63,10 +63,6 @@ typedef enum {
 	DECL_FX,
 	DECL_PARTICLE,
 	DECL_AF,
-	DECL_PDA,
-	DECL_VIDEO,
-	DECL_AUDIO,
-	DECL_EMAIL,
 	DECL_MODELEXPORT,
 	DECL_MAPDEF,
 

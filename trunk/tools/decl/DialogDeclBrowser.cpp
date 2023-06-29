@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
+ $Revision: 5646 $ (Revision of last commit) 
+ $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DialogDeclBrowser.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: DialogDeclBrowser.cpp 5646 2012-11-04 08:54:21Z greebo $");
 
 #include "../../sys/win32/rc/DeclEditor_resource.h"
 #include "../../sys/win32/rc/ScriptEditor_resource.h"
@@ -306,12 +306,6 @@ void DialogDeclBrowser::EditSelected( void ) const {
 			decl = declManager->DeclByIndex( type, index, false );
 			spawnArgs.Set( "model", decl->GetName() );
 			ParticleEditorInit( &spawnArgs );
-			break;
-		}
-		case DECL_PDA: {
-			decl = declManager->DeclByIndex( type, index, false );
-			spawnArgs.Set( "pda", decl->GetName() );
-			PDAEditorInit( &spawnArgs );
 			break;
 		}
 		case DECLTYPE_SCRIPT:

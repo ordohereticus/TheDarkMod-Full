@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5536 $ (Revision of last commit) 
- $Date: 2012-08-25 14:25:48 -0400 (Sat, 25 Aug 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5646 $ (Revision of last commit) 
+ $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: win_main.cpp 5536 2012-08-25 18:25:48Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: win_main.cpp 5646 2012-11-04 08:54:21Z greebo $");
 
 #include <errno.h>
 #include <float.h>
@@ -1539,10 +1539,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 				if ( com_editors & EDITOR_SCRIPT ) {
 					// in-game Script Editor
 					ScriptEditorRun();
-				}
-				if ( com_editors & EDITOR_PDA ) {
-					// in-game PDA Editor
-					PDAEditorRun();
 				}
 			}
 		}

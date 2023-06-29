@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5646 $ (Revision of last commit) 
+ $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -63,12 +63,6 @@ void	AFEditorRun( void );
 void	ParticleEditorInit( const idDict *spawnArgs );
 void	ParticleEditorShutdown( void );
 void	ParticleEditorRun( void );
-
-
-// in-game PDA Editor
-void	PDAEditorInit( const idDict *spawnArgs );
-void	PDAEditorShutdown( void );
-void	PDAEditorRun( void );
 
 
 // in-game Script Editor
