@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5460 $ (Revision of last commit) 
- $Date: 2012-05-26 10:05:45 -0400 (Sat, 26 May 2012) $ (Date of last commit)
+ $Revision: 5677 $ (Revision of last commit) 
+ $Date: 2013-01-12 06:26:44 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5460 2012-05-26 14:05:45Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DeviceContext.cpp 5677 2013-01-12 11:26:44Z tels $");
 
 #include "DeviceContext.h"
 
@@ -962,7 +962,7 @@ int idDeviceContext::DrawText( const char *text, float textScale, int textAlign,
 		}
 
 		int nextCharWidth = ( idStr::CharIsPrintable(*p) ? CharWidth( *p, textScale ) : cursorSkip );
-		// FIXME: this is a temp hack until the guis can be fixed not not overflow the bounding rectangles
+		// FIXME: this is a temp hack until the guis can be fixed to not overflow the bounding rectangles
 		//		  the side-effect is that list boxes and edit boxes will draw over their scroll bars
 		//	The following line and the !linebreak in the if statement below should be removed
 		nextCharWidth = 0;
@@ -1064,6 +1064,7 @@ char *idRectangle::String( void ) const {
 	char	*s;
 
 	// use an array so that multiple toString's won't collide
+	// TODO: This is not thread-safe and can still collide!
 	s = str[ index ];
 	index = (index + 1)&7;
 
