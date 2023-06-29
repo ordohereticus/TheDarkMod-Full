@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5503 $ (Revision of last commit) 
+ $Date: 2012-07-30 11:02:50 -0400 (Mon, 30 Jul 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -138,4 +138,5 @@ public:
 	CButton _advOptionsButton;
 	CButton _showLogButton;
 	afx_msg void OnBnClickedShowLogButton();
+	afx_msg void OnNMCustomdrawProgress1(NMHDR *pNMHDR, LRESULT *pResult);
 };

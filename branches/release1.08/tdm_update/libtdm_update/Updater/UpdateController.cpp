@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5503 $ (Revision of last commit) 
+ $Date: 2012-07-30 11:02:50 -0400 (Mon, 30 Jul 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -175,15 +175,16 @@ void UpdateController::PerformStep(UpdateStep step)
 	switch (step)
 	{
 	case Init:
-		// Check if D3 is active
-		if (Util::D3IsRunning())
+		// Check if TDM is active
+		if (Util::TDMIsRunning())
 		{
-			_view.OnWarning("The Doom 3 process was found to be active.\nThe updater will not be able to update any Dark Mod PK4s.\nPlease exit Doom 3 before continuing.");
+			// grayman - change "Doom3" to "The Dark Mod"
+			_view.OnWarning("The Dark Mod was found to be active.\nThe updater will not be able to update any Dark Mod PK4s.\nPlease exit The Dark Mod before continuing.");
 		}
 
 		if (Util::DarkRadiantIsRunning())
 		{
-			_view.OnWarning("DarkRadiant was found to be in the list of active processes.\nThe updater will not be able to update any Dark Mod PK4s.\nPlease exit DarkRadiant before continuing.");
+			_view.OnWarning("DarkRadiant was found to be active.\nThe updater will not be able to update any Dark Mod PK4s.\nPlease exit DarkRadiant before continuing.");
 		}
 
 		break;
