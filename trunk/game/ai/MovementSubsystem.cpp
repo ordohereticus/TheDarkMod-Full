@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5469 $ (Revision of last commit) 
- $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5655 $ (Revision of last commit) 
+ $Date: 2012-11-24 13:33:02 -0500 (Sat, 24 Nov 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5469 2012-06-02 01:02:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5655 2012-11-24 18:33:02Z angua $");
 
 #include "MovementSubsystem.h"
 #include "Library.h"
@@ -40,6 +40,7 @@ static bool versioned = RegisterVersionedFile("$Id: MovementSubsystem.cpp 5469 2
 #include "Tasks/PathLookatTask.h"
 #include "Tasks/PathInteractTask.h"
 #include "Tasks/MoveToPositionTask.h"
+#include "Tasks/PathSetMovetypeTask.h"
 #include "Tasks/FollowActorTask.h"
 #include "Tasks/HandleElevatorTask.h" // grayman #3050
 
@@ -453,6 +454,11 @@ void MovementSubsystem::StartPathTask()
 		// Add a new task, even if the actor is NULL - the task will deal with that
 		tasks.push_back(FollowActorTaskPtr(new FollowActorTask(actor)));
 	}
+	else if (classname == "path_set_movetype")
+	{
+		tasks.push_back(PathSetMovetypeTaskPtr(new PathSetMovetypeTask(path)));
+	}
+
 	else
 	{
 		// Finish this task

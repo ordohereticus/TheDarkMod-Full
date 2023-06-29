@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5655 $ (Revision of last commit) 
+ $Date: 2012-11-24 13:33:02 -0500 (Sat, 24 Nov 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 
 // defined in script/ai_base.script.  please keep them up to date.
 // greebo: also be sure to update the ai::setMoveTypeFromSpawnargs() script method in the same file.
+// angua: and don't forget to update idAI::SetMoveType( idStr moveType ) 
+
 enum moveType_t {
 	MOVETYPE_DEAD,
 	MOVETYPE_ANIM,

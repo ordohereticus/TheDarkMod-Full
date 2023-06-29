@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5527 $ (Revision of last commit) 
- $Date: 2012-08-17 13:16:16 -0400 (Fri, 17 Aug 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5655 $ (Revision of last commit) 
+ $Date: 2012-11-24 13:33:02 -0500 (Sat, 24 Nov 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5527 2012-08-17 17:16:16Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SearchingState.cpp 5655 2012-11-24 18:33:02Z angua $");
 
 #include "SearchingState.h"
 #include "../Memory.h"
@@ -189,16 +189,21 @@ void SearchingState::Think(idAI* owner)
 		return;
 	}
 
-	if (owner->GetMoveType() != MOVETYPE_ANIM)
+	// grayman #3063 - move up so it gets done each time,
+	// regardless of what state the hiding spot search is in.
+	// Let the AI check its senses
+	owner->PerformVisualScan();
+
+
+	if (owner->GetMoveType() == MOVETYPE_SIT 
+		|| owner->GetMoveType() == MOVETYPE_SLEEP
+		|| owner->GetMoveType() == MOVETYPE_SIT_DOWN
+		|| owner->GetMoveType() == MOVETYPE_LAY_DOWN)
 	{
 		owner->GetUp();
 		return;
 	}
 
-	// grayman #3063 - move up so it gets done each time,
-	// regardless of what state the hiding spot search is in.
-	// Let the AI check its senses
-	owner->PerformVisualScan();
 
 	Memory& memory = owner->GetMemory();
 

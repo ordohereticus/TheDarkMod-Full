@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5400 $ (Revision of last commit) 
- $Date: 2012-04-29 18:28:15 -0400 (Sun, 29 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5655 $ (Revision of last commit) 
+ $Date: 2012-11-24 13:33:02 -0500 (Sat, 24 Nov 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5400 2012-04-29 22:28:15Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5655 2012-11-24 18:33:02Z angua $");
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -383,7 +383,10 @@ void CombatState::Think(idAI* owner)
 			return;
 		}
 
-		if (owner->GetMoveType() != MOVETYPE_ANIM)
+	if (owner->GetMoveType() == MOVETYPE_SIT 
+		|| owner->GetMoveType() == MOVETYPE_SLEEP
+		|| owner->GetMoveType() == MOVETYPE_SIT_DOWN
+		|| owner->GetMoveType() == MOVETYPE_LAY_DOWN)
 		{
 			owner->GetUp();
 			return;

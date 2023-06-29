@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5495 $ (Revision of last commit) 
- $Date: 2012-07-10 16:19:14 -0400 (Tue, 10 Jul 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5655 $ (Revision of last commit) 
+ $Date: 2012-11-24 13:33:02 -0500 (Sat, 24 Nov 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -1516,6 +1516,8 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	}
 
 	void					SetMoveType( int moveType );
+	void					SetMoveType( idStr moveType );
+
 
 	
 	/**
