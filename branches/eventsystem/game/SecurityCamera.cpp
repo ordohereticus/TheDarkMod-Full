@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5618 $ (Revision of last commit) 
+ $Date: 2012-10-28 03:22:36 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -30,7 +30,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SecurityCamera.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SecurityCamera.cpp 5618 2012-10-28 07:22:36Z greebo $");
 
 #include "Game_local.h"
 #include "StimResponse/StimResponseCollection.h"
@@ -42,11 +42,11 @@ static bool versioned = RegisterVersionedFile("$Id: SecurityCamera.cpp 5185 2012
 	
 ***********************************************************************/
 
-const idEventDef EV_SecurityCam_ReverseSweep( "<reverseSweep>" );
-const idEventDef EV_SecurityCam_ContinueSweep( "<continueSweep>" );
-const idEventDef EV_SecurityCam_Pause( "<pause>" );
-const idEventDef EV_SecurityCam_Alert( "<alert>" );
-const idEventDef EV_SecurityCam_AddLight( "<addLight>" );
+const idEventDef EV_SecurityCam_ReverseSweep( "<reverseSweep>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_SecurityCam_ContinueSweep( "<continueSweep>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_SecurityCam_Pause( "<pause>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_SecurityCam_Alert( "<alert>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_SecurityCam_AddLight( "<addLight>", EventArgs(), EV_RETURNS_VOID, "internal" );
 
 CLASS_DECLARATION( idEntity, idSecurityCamera )
 	EVENT( EV_SecurityCam_ReverseSweep,		idSecurityCamera::Event_ReverseSweep )

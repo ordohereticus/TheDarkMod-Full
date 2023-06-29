@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5614 $ (Revision of last commit) 
- $Date: 2012-10-28 02:09:38 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5618 $ (Revision of last commit) 
+ $Date: 2012-10-28 03:22:36 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5614 2012-10-28 06:09:38Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5618 2012-10-28 07:22:36Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -45,8 +45,8 @@ const idEventDef EV_Light_SetRadiusXYZ( "setRadiusXYZ", EventArgs('f', "x", "", 
 	"Sets the width/length/height of the light bounding box.");
 const idEventDef EV_Light_SetRadius( "setRadius", EventArgs('f', "radius", ""), EV_RETURNS_VOID, "Sets the size of the bounding box, x=y=z=radius.");
 const idEventDef EV_Light_GetRadius( "getRadius", EventArgs(), 'v', "Returns the light radius." );
-const idEventDef EV_Light_On( "On", EventArgs(), EV_RETURNS_VOID, "Turns the light on.");
-const idEventDef EV_Light_Off( "Off", EventArgs(), EV_RETURNS_VOID, "Turns the light off.");
+const idEventDef EV_Light_On( "On", EventArgs(), EV_RETURNS_VOID, "Turns the entity on.");
+const idEventDef EV_Light_Off( "Off", EventArgs(), EV_RETURNS_VOID, "Turns the entity off.");
 const idEventDef EV_Light_FadeOut( "fadeOutLight", EventArgs('f', "time", "in seconds"), EV_RETURNS_VOID, "Turns the light out over the given time in seconds.");
 const idEventDef EV_Light_FadeIn( "fadeInLight", EventArgs('f', "time", "in seconds"), EV_RETURNS_VOID, "Turns the light on over the given time in seconds.");
 

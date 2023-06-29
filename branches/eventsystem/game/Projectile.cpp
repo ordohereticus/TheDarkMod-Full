@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5496 $ (Revision of last commit) 
- $Date: 2012-07-12 17:58:22 -0400 (Thu, 12 Jul 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5618 $ (Revision of last commit) 
+ $Date: 2012-10-28 03:22:36 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Projectile.cpp 5496 2012-07-12 21:58:22Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Projectile.cpp 5618 2012-10-28 07:22:36Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -42,15 +42,19 @@ static bool versioned = RegisterVersionedFile("$Id: Projectile.cpp 5496 2012-07-
 static const float BOUNCE_SOUND_MIN_VELOCITY	= 200.0f;
 static const float BOUNCE_SOUND_MAX_VELOCITY	= 400.0f;
 
-const idEventDef EV_Explode( "<explode>", NULL );
-const idEventDef EV_Fizzle( "<fizzle>", NULL );
-const idEventDef EV_RadiusDamage( "<radiusdmg>", "e" );
-const idEventDef EV_GetProjectileState( "getProjectileState", NULL, 'd' );
+const idEventDef EV_Explode( "<explode>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_Fizzle( "<fizzle>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_RadiusDamage( "<radiusdmg>", EventArgs('e', "", ""), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_GetProjectileState( "getProjectileState", EventArgs(), 'd', 
+	"Gets the current state of the projectile. States are defined in doom_defs.script" );
 // greebo: The launch method (takes 3 vectors as arguments)
-const idEventDef EV_Launch("launch", "vvv");
-const idEventDef EV_ActivateProjectile("<activateProjectile>", NULL);
-const idEventDef EV_TDM_Mine_ClearPlayerImmobilization("EV_TDM_Mine_ClearPlayerImmobilization", "e"); // grayman #2478 - allows player to handle weapons again
-const idEventDef EV_Mine_Replace("<mine_Replace>", NULL); // grayman #2478
+const idEventDef EV_Launch("launch", 
+	EventArgs('v', "start", "", 'v', "dir", "", 'v', "velocity", ""), EV_RETURNS_VOID, 
+	"Launches the projectile from <start> in direction <dir> with the given <velocity>");
+const idEventDef EV_ActivateProjectile("<activateProjectile>", EventArgs(), EV_RETURNS_VOID, "internal");
+const idEventDef EV_TDM_Mine_ClearPlayerImmobilization("_EV_TDM_Mine_ClearPlayerImmobilization", 
+	EventArgs('e', "", ""), EV_RETURNS_VOID, "internal"); // grayman #2478 - allows player to handle weapons again
+const idEventDef EV_Mine_Replace("<mine_Replace>", EventArgs(), EV_RETURNS_VOID, "internal"); // grayman #2478
 
 CLASS_DECLARATION( idEntity, idProjectile )
 	EVENT( EV_Explode,				idProjectile::Event_Explode )
