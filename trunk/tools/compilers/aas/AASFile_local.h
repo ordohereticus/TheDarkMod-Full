@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -53,8 +53,8 @@ public:
 	virtual void				PrintInfo( void ) const;
 
 public:
-	bool						Load( const idStr &fileName, unsigned int mapFileCRC );
-	bool						Write( const idStr &fileName, unsigned int mapFileCRC );
+	bool						Load( const idStr &fileName, const unsigned int mapFileCRC );
+	bool						Write( const idStr &fileName, const unsigned int mapFileCRC );
 
 	int							MemorySize( void ) const;
 	void						ReportRoutingEfficiency( void ) const;

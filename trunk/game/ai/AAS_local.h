@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5300 $ (Revision of last commit) 
- $Date: 2012-02-25 13:17:25 -0500 (Sat, 25 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -88,7 +88,7 @@ class idAASLocal :
 public:
 								idAASLocal( void );
 	virtual						~idAASLocal( void );
-	virtual bool				Init( const idStr &mapName, unsigned int mapFileCRC );
+	virtual bool				Init( const idStr &mapName, const unsigned int mapFileCRC );
 	virtual void				Shutdown( void );
 
 	virtual void				Stats( void ) const;

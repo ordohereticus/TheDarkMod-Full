@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5507 $ (Revision of last commit) 
- $Date: 2012-07-31 14:31:28 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -479,7 +479,7 @@ private:			// CollisionMap_files.cpp
 	void			ParsePolygons( idLexer *src, cm_model_t *model );
 	void			ParseBrushes( idLexer *src, cm_model_t *model );
 	bool			ParseCollisionModel( idLexer *src );
-	bool			LoadCollisionModelFile( const char *name, unsigned int mapFileCRC );
+	bool			LoadCollisionModelFile( const char *name, const unsigned int mapFileCRC );
 
 private:			// CollisionMap_debug
 	int				ContentsFromString( const char *string ) const;

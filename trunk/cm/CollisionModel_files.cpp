@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5493 $ (Revision of last commit) 
- $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -28,7 +28,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CollisionModel_files.cpp 5493 2012-07-08 17:01:21Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: CollisionModel_files.cpp 5513 2012-08-07 17:07:17Z tels $");
 
 #include "CollisionModel_local.h"
 
@@ -545,7 +545,7 @@ bool idCollisionModelManagerLocal::ParseCollisionModel( idLexer *src ) {
 idCollisionModelManagerLocal::LoadCollisionModelFile
 ================
 */
-bool idCollisionModelManagerLocal::LoadCollisionModelFile( const char *name, unsigned int mapFileCRC ) {
+bool idCollisionModelManagerLocal::LoadCollisionModelFile( const char *name, const unsigned int mapFileCRC ) {
 	idStr fileName;
 	idToken token;
 	idLexer *src;

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -32,7 +32,7 @@ class idAASFileManager {
 public:
 	virtual						~idAASFileManager( void ) {}
 
-	virtual idAASFile *			LoadAAS( const char *fileName, unsigned int mapFileCRC ) = 0;
+	virtual idAASFile *			LoadAAS( const char *fileName, const unsigned int mapFileCRC ) = 0;
 	virtual void				FreeAAS( idAASFile *file ) = 0;
 };
 

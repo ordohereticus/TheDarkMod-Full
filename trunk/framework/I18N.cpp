@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5505 $ (Revision of last commit) 
- $Date: 2012-07-31 13:28:39 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5505 2012-07-31 17:28:39Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: I18N.cpp 5513 2012-08-07 17:07:17Z tels $");
 
 #include "I18N.h"
 
@@ -262,7 +262,8 @@ I18NLocal::TemplateFromEnglish
 
 If the string is not a template, but an English string, returns a template
 like "#str_01234" from the input. Works only for a limited number of strings
-that appear in the reverse dict.
+that appear in the reverse dict and is used mainly to make inventory categories
+for entities with hard-coded category names work.
 ===============
 */
 const char* I18NLocal::TemplateFromEnglish( const char* in ) {

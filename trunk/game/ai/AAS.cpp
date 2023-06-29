@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AAS.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AAS.cpp 5513 2012-08-07 17:07:17Z tels $");
 
 #include "AAS_local.h"
 
@@ -72,7 +72,7 @@ idAASLocal::~idAASLocal( void ) {
 idAASLocal::Init
 ============
 */
-bool idAASLocal::Init( const idStr &mapName, unsigned int mapFileCRC ) {
+bool idAASLocal::Init( const idStr &mapName, const unsigned int mapFileCRC ) {
 	// Clear the elevator system before reloading
 	elevatorSystem->Clear();
 

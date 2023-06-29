@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5513 $ (Revision of last commit) 
+ $Date: 2012-08-07 13:07:17 -0400 (Tue, 07 Aug 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AASFileManager.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AASFileManager.cpp 5513 2012-08-07 17:07:17Z tels $");
 
 #include "AASFile.h"
 #include "AASFile_local.h"
@@ -37,7 +37,7 @@ class idAASFileManagerLocal : public idAASFileManager {
 public:
 	virtual						~idAASFileManagerLocal( void ) {}
 
-	virtual idAASFile *			LoadAAS( const char *fileName, unsigned int mapFileCRC );
+	virtual idAASFile *			LoadAAS( const char *fileName, const unsigned int mapFileCRC );
 	virtual void				FreeAAS( idAASFile *file );
 };
 
@@ -50,7 +50,7 @@ idAASFileManager *				AASFileManager = &AASFileManagerLocal;
 idAASFileManagerLocal::LoadAAS
 ================
 */
-idAASFile *idAASFileManagerLocal::LoadAAS( const char *fileName, unsigned int mapFileCRC ) {
+idAASFile *idAASFileManagerLocal::LoadAAS( const char *fileName, const unsigned int mapFileCRC ) {
 	idAASFileLocal *file = new idAASFileLocal();
 	if ( !file->Load( fileName, mapFileCRC ) ) {
 		delete file;
