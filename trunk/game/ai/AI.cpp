@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5653 $ (Revision of last commit) 
- $Date: 2012-11-17 01:40:11 -0500 (Sat, 17 Nov 2012) $ (Date of last commit)
+ $Revision: 5654 $ (Revision of last commit) 
+ $Date: 2012-11-21 08:28:42 -0500 (Wed, 21 Nov 2012) $ (Date of last commit)
  $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5653 2012-11-17 06:40:11Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: AI.cpp 5654 2012-11-21 13:28:42Z angua $");
 
 #include "../Game_local.h"
 #include "Mind.h"
@@ -1877,11 +1877,6 @@ void idAI::Spawn( void )
 
 	move.blockTime = 0;
 
-	if (spawnArgs.GetBool("can_fly", "0"))
-	{
-		move.moveType = MOVETYPE_FLY;
-	}
-
 	SetAAS();
 
 	InitProjectileInfo();
@@ -1982,6 +1977,11 @@ void idAI::Spawn( void )
 	BecomeActive( TH_THINK );
 
 	// init the move variables
+	if (spawnArgs.GetString("movetype") == "FLY")
+	{
+		move.moveType = MOVETYPE_FLY;
+	}
+
 	StopMove( MOVE_STATUS_DONE );
 
 	// Schedule a post-spawn event to parse the rest of the spawnargs
@@ -2280,12 +2280,6 @@ void idAI::Think( void )
 		{
 			// clear the ik before we do anything else so the skeleton doesn't get updated twice
 			walkIK.ClearJointMods();
-
-			if (spawnArgs.GetBool("can_fly", "0") && move.moveType == MOVETYPE_ANIM)
-			{
-				move.moveType = MOVETYPE_FLY;
-			}
-
 
 			// Update moves, depending on move type 
 			switch (move.moveType)
