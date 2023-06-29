@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5479 $ (Revision of last commit) 
- $Date: 2012-06-16 14:51:25 -0400 (Sat, 16 Jun 2012) $ (Date of last commit)
- $Author: taaaki $ (Author of last commit)
+ $Revision: 5502 $ (Revision of last commit) 
+ $Date: 2012-07-30 10:58:31 -0400 (Mon, 30 Jul 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5479 2012-06-16 18:51:25Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: Session_menu.cpp 5502 2012-07-30 14:58:31Z grayman $");
 
 #include "Session_local.h"
 
@@ -817,10 +817,10 @@ void idSessionLocal::HandleMainMenuCommands( const char *menuCommand ) {
 				cmdSystem->BufferCommandText( CMD_EXEC_NOW, "s_restart\n" );
 				if ( old != cvarSystem->GetCVarInteger( "s_numberOfSpeakers" ) ) {
 #ifdef _WIN32
-					MessageBox( MSG_OK, common->Translate( "#str_04142" ), common->Translate( "#str_04141" ), true );
+					MessageBox( MSG_OK, common->Translate( "#str_07236" ), common->Translate( "#str_07235" ), true );
 #else
 					// a message that doesn't mention the windows control panel
-					MessageBox( MSG_OK, common->Translate( "#str_07230" ), common->Translate( "#str_04141" ), true );
+					MessageBox( MSG_OK, common->Translate( "#str_07234" ), common->Translate( "#str_07235" ), true );
 #endif
 				}
 			}
