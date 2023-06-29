@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5646 $ (Revision of last commit) 
- $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
+ $Revision: 5648 $ (Revision of last commit) 
+ $Date: 2012-11-04 04:17:40 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -34,7 +34,7 @@ typedef enum {
 	EDITOR_NONE					= 0,
 	EDITOR_RADIANT				= BIT(1),
 	EDITOR_GUI					= BIT(2),
-	EDITOR_DEBUGGER				= BIT(3),
+	//EDITOR_DEBUGGER				= BIT(3),
 	EDITOR_SCRIPT				= BIT(4),
 	EDITOR_LIGHT				= BIT(5),
 	EDITOR_SOUND				= BIT(6),
