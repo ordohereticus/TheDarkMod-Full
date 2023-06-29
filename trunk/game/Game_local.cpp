@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5667 $ (Revision of last commit) 
- $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5681 $ (Revision of last commit) 
+ $Date: 2013-01-12 08:58:22 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5667 2013-01-01 01:46:51Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5681 2013-01-12 13:58:22Z tels $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -959,7 +959,7 @@ void idGameLocal::SaveGame( idFile *f ) {
 
 	savegame.WriteVec3( gravity );
 
-	// gamestate
+	// gamestate is not saved, instead if is just set to ACTIVE upon Restore()
 
 	savegame.WriteBool( influenceActive );
 	savegame.WriteInt( nextGibTime );
@@ -2205,8 +2205,12 @@ idGameLocal::MapShutdown
 ============
 */
 void idGameLocal::MapShutdown( void ) {
+	if (gamestate == GAMESTATE_NOMAP)
+	{
+		// tels: #3287 don't shut down everything twice
+		return;
+	}
 	Printf( "--------- Game Map Shutdown ----------\n" );
-	
 	gamestate = GAMESTATE_SHUTDOWN;
 
 	if ( gameRenderWorld ) {
@@ -2292,7 +2296,7 @@ void idGameLocal::MapShutdown( void ) {
 	// Save the current walkspeed
 	m_walkSpeed = pm_walkspeed.GetFloat();
 
-	Printf( "--------------------------------------\n" );
+	Printf( "--------- Game Map Shutdown done -----\n" );
 }
 
 /*
