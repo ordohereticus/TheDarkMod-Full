@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5687 $ (Revision of last commit) 
+ $Date: 2013-01-14 14:50:31 -0500 (Mon, 14 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -76,7 +76,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5687 2013-01-14 19:50:31Z tels $");
 
 #include "SEED.h"
 
@@ -158,7 +158,7 @@ Seed::Seed( void ) {
 	m_iThinkCounter = 0;
 
 	m_DistCheckTimeStamp = 0;
-	m_DistCheckInterval = 0.5f;
+	m_DistCheckInterval = 500;		// 500 ms
 	m_bDistCheckXYOnly = false;
 
 	m_iNumEntitiesInGame = 0;
