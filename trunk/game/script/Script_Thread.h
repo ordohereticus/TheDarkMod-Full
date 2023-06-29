@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5514 $ (Revision of last commit) 
- $Date: 2012-08-08 15:04:24 -0400 (Wed, 08 Aug 2012) $ (Date of last commit)
+ $Revision: 5571 $ (Revision of last commit) 
+ $Date: 2012-09-15 11:02:38 -0400 (Sat, 15 Sep 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -144,6 +144,7 @@ private:
 	void 						Event_GetPersistantVector( const char *key );
 
 	void						Event_GetCurrentMissionNum();
+	void						Event_GetTDMVersion() const;
 
 	void						Event_AngToForward( idAngles &ang );
 	void						Event_AngToRight( idAngles &ang );

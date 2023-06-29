@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5514 $ (Revision of last commit) 
- $Date: 2012-08-08 15:04:24 -0400 (Wed, 08 Aug 2012) $ (Date of last commit)
+ $Revision: 5571 $ (Revision of last commit) 
+ $Date: 2012-09-15 11:02:38 -0400 (Sat, 15 Sep 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5514 2012-08-08 19:04:24Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Script_Thread.cpp 5571 2012-09-15 15:02:38Z tels $");
 
 #include "../Game_local.h"
 #include "../decltdm_matinfo.h"
@@ -70,6 +70,9 @@ const idEventDef EV_Thread_GetPersistantVector( "getPersistantVector", "s", 'v' 
 
 // Returns the number of the current mission (0-based)
 const idEventDef EV_Thread_GetCurrentMissionNum( "getCurrentMissionNum", NULL, 'f' );
+
+// Returns the version of TDM as floats, 1.08 for v1.08 etc.
+const idEventDef EV_Thread_GetTDMVersion( "getTDMVersion", NULL, 'd' );
 
 const idEventDef EV_Thread_AngToForward( "angToForward", "v", 'v' );
 const idEventDef EV_Thread_AngToRight( "angToRight", "v", 'v' );
@@ -189,6 +192,7 @@ CLASS_DECLARATION( idClass, idThread )
 	EVENT( EV_Thread_GetPersistantVector,	idThread::Event_GetPersistantVector )
 
 	EVENT( EV_Thread_GetCurrentMissionNum,	idThread::Event_GetCurrentMissionNum )
+	EVENT( EV_Thread_GetTDMVersion,		idThread::Event_GetTDMVersion )
 
 	EVENT( EV_Thread_AngToForward,			idThread::Event_AngToForward )
 	EVENT( EV_Thread_AngToRight,			idThread::Event_AngToRight )
@@ -1326,6 +1330,12 @@ void idThread::Event_GetPersistantVector( const char *key ) {
 void idThread::Event_GetCurrentMissionNum()
 {
 	ReturnFloat(gameLocal.m_MissionManager->GetCurrentMissionIndex());
+}
+
+void idThread::Event_GetTDMVersion() const
+{
+	// Tels: #3232 Return version as 108, 109 etc.
+	idThread::ReturnInt( GAME_API_VERSION );
 }
 
 /*
