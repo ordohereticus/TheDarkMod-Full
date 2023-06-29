@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5476 $ (Revision of last commit) 
- $Date: 2012-06-11 20:56:19 -0400 (Mon, 11 Jun 2012) $ (Date of last commit)
+ $Revision: 5527 $ (Revision of last commit) 
+ $Date: 2012-08-17 13:16:16 -0400 (Fri, 17 Aug 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5476 2012-06-12 00:56:19Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5527 2012-08-17 17:16:16Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -4266,8 +4266,8 @@ void idEntity::PropSoundDirect( const char *sndName, bool bForceLocal, bool bAss
 
 	if (bIsSusp)
 	{
-		PropSoundS( sprName.c_str(), sprNameSG.c_str(), VolModIn );
 		DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Found local suspicious sound def for %s on entity, attempting to propagate with global sound %s\r", sprName.c_str(), sprNameSG.c_str() );
+		PropSoundS( sprName.c_str(), sprNameSG.c_str(), VolModIn );
 		// exit here, because we don't want to allow playing both
 		// env. sound AND susp. sound for the same sound and entity
 		return;
