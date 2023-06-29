@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5519 $ (Revision of last commit) 
- $Date: 2012-08-10 11:22:42 -0400 (Fri, 10 Aug 2012) $ (Date of last commit)
+ $Revision: 5520 $ (Revision of last commit) 
+ $Date: 2012-08-11 21:29:55 -0400 (Sat, 11 Aug 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -794,6 +794,9 @@ void Updater::PerformDifferentialUpdateStep()
 
 	if (fs::exists(targetPath / tdmExecutableName))
 	{
+		// Set the executable bit on the TDM binary
+		File::MarkAsExecutable(targetPath / tdmExecutableName);
+
 		// Move it up one level
 
 		if (File::Move(targetPath / tdmExecutableName, targetPath / ("../" + tdmExecutableName)))
