@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5540 $ (Revision of last commit) 
- $Date: 2012-08-25 19:10:18 -0400 (Sat, 25 Aug 2012) $ (Date of last commit)
+ $Revision: 5566 $ (Revision of last commit) 
+ $Date: 2012-09-11 13:58:40 -0400 (Tue, 11 Sep 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1213,9 +1213,6 @@ void Updater::ExtractAndRemoveZip(const fs::path& zipFilePath)
 
 	fs::path destPath = GetTargetPath();
 
-	// grayman - The TDM binaries (TheDarkMod.exe for Windows, and thedarkmod.x86 for linux) must be copied
-	// up one level after extraction. Treat them separate from other files that they're zipped with.
-	//
 	// tdm_update exists in its own PK4, so we can assume tdm_update and the TDM binaries will never be found in the same PK4.
 
 	bool TDMbinaryPresent = false; // grayman - true if this zip contains "TheDarkMod.exe" or "thedarkmod.x86"
