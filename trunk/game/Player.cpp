@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5675 $ (Revision of last commit) 
- $Date: 2013-01-11 13:47:12 -0500 (Fri, 11 Jan 2013) $ (Date of last commit)
+ $Revision: 5685 $ (Revision of last commit) 
+ $Date: 2013-01-12 18:54:55 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5675 2013-01-11 18:47:12Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5685 2013-01-12 23:54:55Z tels $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -74,6 +74,10 @@ const idEventDef EV_Player_GetMove( "getMove", EventArgs(), 'v',
 	"vector_x = forward, vector_y = right, vector_z = up");
 
 const idEventDef EV_Player_GetViewAngles( "getViewAngles", EventArgs(), 'v', "Returns the player view angles.");
+const idEventDef EV_Player_SetViewAngles( "setViewAngles", EventArgs('v',"angles",""), EV_RETURNS_VOID, 
+	"Sets the player view angles, e.g. make the player facing this direction.\n" \
+	"0 90 0 is east (along the X axis in DR), 0 0 0 north (along the Y axis in DR)\n" \
+	"0 180 0 west, 0 270 0 south.");
 
 const idEventDef EV_Player_GetMouseGesture( "getMouseGesture", EventArgs(), 'd', 
 	"Returns the results of the last mouse gesture in enum form.\n" \
@@ -305,6 +309,7 @@ CLASS_DECLARATION( idActor, idPlayer )
 	EVENT( EV_Player_GetButtons,			idPlayer::Event_GetButtons )
 	EVENT( EV_Player_GetMove,				idPlayer::Event_GetMove )
 	EVENT( EV_Player_GetViewAngles,			idPlayer::Event_GetViewAngles )
+	EVENT( EV_Player_SetViewAngles,			idPlayer::Event_SetViewAngles )
 	EVENT( EV_Player_GetMouseGesture,		idPlayer::Event_GetMouseGesture )
 	EVENT( EV_Player_MouseGestureFinished,	idPlayer::Event_MouseGestureFinished )
 	EVENT( EV_Player_StartMouseGesture,		idPlayer::StartMouseGesture )
@@ -8425,6 +8430,16 @@ idPlayer::Event_GetViewAngles
 */
 void idPlayer::Event_GetViewAngles( void ) {
 	idThread::ReturnVector( idVec3( viewAngles[0], viewAngles[1], viewAngles[2] ) );
+}
+
+/*
+================
+tels:
+idPlayer::Event_SetViewAngles
+================
+*/
+void idPlayer::Event_SetViewAngles( const idVec3* angles ) {
+	SetViewAngles( idAngles( angles->x, angles->y, angles->z ) );
 }
 
 /*
