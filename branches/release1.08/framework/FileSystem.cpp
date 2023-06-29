@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5540 $ (Revision of last commit) 
- $Date: 2012-08-25 19:10:18 -0400 (Sat, 25 Aug 2012) $ (Date of last commit)
+ $Revision: 5578 $ (Revision of last commit) 
+ $Date: 2012-09-29 11:51:29 -0400 (Sat, 29 Sep 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5540 2012-08-25 23:10:18Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5578 2012-09-29 15:51:29Z grayman $");
 
 #include "Unzip.h"
 
@@ -3305,22 +3305,23 @@ void idFileSystemLocal::FindDLL( const char *name, char _dllPath[ MAX_OSPATH ], 
 	sys->DLL_GetFileName( name, dllName, MAX_OSPATH );
 	dllHash = HashFileName( dllName );
 
+    // taaaki: blunt fix for old dlls in darkmod/ - just extract dll from pk4 everytime
+    //         will investigate a friendlier fix for SVN builds and future releases
 	// from executable directory first - this is handy for developement
-	dllPath = Sys_EXEPath( );
-	dllPath.StripFilename( );
-	dllPath.AppendPath( dllName );
-	dllFile = OpenExplicitFileRead( dllPath );
+	//dllPath = Sys_EXEPath( );
+	//dllPath.StripFilename( );
+	//dllPath.AppendPath( dllName );
+	//dllFile = OpenExplicitFileRead( dllPath );
 
-	if ( dllFile ) {
-		common->Printf( "Found DLL in EXE path: %s\n", dllFile->GetFullPath() );
-	} else { 
+	//if ( dllFile ) {
+	//	common->Printf( "Found DLL in EXE path: %s\n", dllFile->GetFullPath() );
+	//} else { 
 		// DLL not found in alongside executable
 		if ( !serverPaks.Num() ) {
 			// try to extract from a pak file first
 			dllFile = OpenFileReadFlags( dllName, FSFLAG_SEARCH_PAKS | FSFLAG_BINARY_ONLY, &inPak );
 
-			if (dllFile)
-			{
+			if (dllFile) {
 				common->Printf( "found DLL in pak file: %s, extracting to darkmod path\n", dllFile->GetFullPath() );
 				
 				dllPath = ModPath();
@@ -3333,12 +3334,9 @@ void idFileSystemLocal::FindDLL( const char *name, char _dllPath[ MAX_OSPATH ], 
 
 				dllFile = OpenFileReadFlags( dllName, FSFLAG_SEARCH_DIRS );
 
-				if ( !dllFile )
-				{
+				if ( !dllFile ) {
 					common->Error( "DLL extraction to darkmod path failed\n" );
-				} 
-				else if ( updateChecksum )
-				{
+				} else if ( updateChecksum ) {
 					gameDLLChecksum = GetFileChecksum( dllFile );
 					gamePakChecksum = inPak->checksum;
 					updateChecksum = false;	// don't try again below
@@ -3357,7 +3355,7 @@ void idFileSystemLocal::FindDLL( const char *name, char _dllPath[ MAX_OSPATH ], 
 				}
 			}
 		}
-	}
+	//}
 	if ( updateChecksum ) {
 		if ( dllFile ) {
 			gameDLLChecksum = GetFileChecksum( dllFile );
