@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5621 $ (Revision of last commit) 
- $Date: 2012-10-28 05:31:50 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5623 $ (Revision of last commit) 
+ $Date: 2012-10-28 05:37:52 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5621 2012-10-28 09:31:50Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5623 2012-10-28 09:37:52Z greebo $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -66,7 +66,7 @@ const idEventDef AI_ProcessVisualStim("processVisualStim", EventArgs('e', "stimS
 
 const idEventDef AI_PerformRelight("performRelight", EventArgs(), EV_RETURNS_VOID, "Deal with doused lights.");	// grayman #2603
 const idEventDef AI_DropTorch("dropTorch", EventArgs(), EV_RETURNS_VOID, "no description");			    // grayman #2603
-const idEventDef AI_Bark("bark", EventArgs('s', "sound name, e.g. 'snd_warn_response'", ""), EV_RETURNS_VOID, "Let the AI bark a certain sound.");	// grayman #2816
+const idEventDef AI_Bark("bark", EventArgs('s', "sound", "sound name, e.g. 'snd_warn_response'"), EV_RETURNS_VOID, "Let the AI bark a certain sound.");	// grayman #2816
 const idEventDef AI_EmptyHand("emptyHand", EventArgs('s', "hand", ""), EV_RETURNS_VOID, "no description");		// grayman #3154
 
 const idEventDef AI_SetEnemy( "setEnemy", EventArgs('E', "enemy", ""), EV_RETURNS_VOID, "Make the given entity an enemy.");

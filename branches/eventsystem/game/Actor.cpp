@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5611 $ (Revision of last commit) 
- $Date: 2012-10-28 01:04:24 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
+ $Revision: 5623 $ (Revision of last commit) 
+ $Date: 2012-10-28 05:37:52 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5611 2012-10-28 05:04:24Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5623 2012-10-28 09:37:52Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -402,10 +402,10 @@ const idEventDef AI_DisableEyeFocus( "disableEyeFocus", EventArgs(), EV_RETURNS_
 const idEventDef EV_Footstep( "footstep", EventArgs(), EV_RETURNS_VOID, "");
 const idEventDef EV_FootstepLeft( "leftFoot", EventArgs(), EV_RETURNS_VOID, "Changes to left foot and plays footstep sound.");
 const idEventDef EV_FootstepRight( "rightFoot", EventArgs(), EV_RETURNS_VOID, "Changes to right foot and plays footstep sound.");
-const idEventDef EV_EnableWalkIK( "EnableWalkIK", EventArgs(), EV_RETURNS_VOID, "");
-const idEventDef EV_DisableWalkIK( "DisableWalkIK", EventArgs(), EV_RETURNS_VOID, "");
-const idEventDef EV_EnableLegIK( "EnableLegIK", EventArgs('d', "", ""), EV_RETURNS_VOID, "");
-const idEventDef EV_DisableLegIK( "DisableLegIK", EventArgs('d', "", ""), EV_RETURNS_VOID, "");
+const idEventDef EV_EnableWalkIK( "EnableWalkIK", EventArgs(), EV_RETURNS_VOID, "enables walk IK");
+const idEventDef EV_DisableWalkIK( "DisableWalkIK", EventArgs(), EV_RETURNS_VOID, "disables walk IK");
+const idEventDef EV_EnableLegIK( "EnableLegIK", EventArgs('d', "num", ""), EV_RETURNS_VOID, "enables leg IK");
+const idEventDef EV_DisableLegIK( "DisableLegIK", EventArgs('d', "num", ""), EV_RETURNS_VOID, "disables leg IK");
 const idEventDef AI_StopAnim( "stopAnim", EventArgs('d', "channel", "", 'd', "frames", ""), 
 	EV_RETURNS_VOID, "Stops the animation currently playing on the given channel over the given number of frames.");
 // NOTE: Id defines playanim here, but it is also overloaded in a roundabout way
