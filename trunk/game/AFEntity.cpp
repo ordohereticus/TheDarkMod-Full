@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5667 $ (Revision of last commit) 
+ $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: AFEntity.cpp 5667 2013-01-01 01:46:51Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -456,8 +456,6 @@ void idAFAttachment::DropOnRagdoll( void )
 
 		bool bSetSolid = ent->spawnArgs.GetBool( "drop_add_contents_solid" );
 		bool bSetCorpse = ent->spawnArgs.GetBool( "drop_add_contents_corpse" );
-		bool bSetFrob = ent->spawnArgs.GetBool( "drop_set_frobable" );
-		bool bExtinguish = ent->spawnArgs.GetBool("extinguish_on_drop", "0");
 
 		// Proceed with droppage
 		DetachInd( i );
@@ -470,10 +468,16 @@ void idAFAttachment::DropOnRagdoll( void )
 		if( mask )
 			ent->GetPhysics()->SetContents( ent->GetPhysics()->GetContents() | mask );
 
+		CheckAfterDetach( ent ); // grayman #2624 - check for frobability and whether to extinguish
+
+		// grayman #2624 - now handled by CheckAfterDetach() above
+/*
+		bool bSetFrob = ent->spawnArgs.GetBool( "drop_set_frobable" );
 		if( bSetFrob )
 			ent->m_bFrobable = true;
 
 		// greebo: Check if we should extinguish the attachment, like torches
+		bool bExtinguish = ent->spawnArgs.GetBool("extinguish_on_drop", "0");
 		if ( bExtinguish )
 		{
 			// Get the delay in milliseconds
@@ -485,7 +489,7 @@ void idAFAttachment::DropOnRagdoll( void )
 			// Schedule the extinguish event
 			ent->PostEventMS(&EV_ExtinguishLights, delay);
 		}
-
+ */
 		ent->GetPhysics()->Activate();
 		ent->m_droppedByAI = true; // grayman #1330
 

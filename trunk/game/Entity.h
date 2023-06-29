@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5476 $ (Revision of last commit) 
- $Date: 2012-06-11 20:56:19 -0400 (Mon, 11 Jun 2012) $ (Date of last commit)
+ $Revision: 5667 $ (Revision of last commit) 
+ $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -1015,6 +1015,12 @@ public:
 	* Detach by index in the m_Attachments array.  Otherwise same as above
 	**/
 	virtual void DetachInd( int ind );
+
+	/**
+	* grayman #2624 - check whether dropped attachment should become
+	* frobable or should be extinguished
+	**/
+	virtual void CheckAfterDetach( idEntity* ent );
 
 	/**
 	* Reattach an existing attachment to the given offset and angles relative

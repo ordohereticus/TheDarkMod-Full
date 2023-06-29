@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5667 $ (Revision of last commit) 
+ $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Light.cpp 5667 2013-01-01 01:46:51Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1074,8 +1074,6 @@ bool idLight::IsVertical(float degreesFromVertical)
 {
 	idStr lightType = spawnArgs.GetString(AIUSE_LIGHTTYPE_KEY);
 	bool shouldBeVert = spawnArgs.GetBool("should_be_vert","0");
-
-	// Only makes sense for flames with the "douse_horiz" spawnarg
 
 	if ((lightType == AIUSE_LIGHTTYPE_TORCH) && shouldBeVert)
 	{

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5646 $ (Revision of last commit) 
- $Date: 2012-11-04 03:54:21 -0500 (Sun, 04 Nov 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5667 $ (Revision of last commit) 
+ $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5646 2012-11-04 08:54:21Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5667 2013-01-01 01:46:51Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -6761,18 +6761,26 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 			const CStimPtr& stim = srColl->GetStim(stimIdx);
 
 			if (stim->m_MaxFireCount == 0)
+			{
 				// Maximum number of firings reached, do not process this stim
 				continue;
+			}
 
 			if (stim->m_State != SS_ENABLED)
+			{
 				continue; // Stim is not enabled
+			}
 
 			if (stim->m_bCollisionBased && !stim->m_bCollisionFired)
+			{
 				continue; // Collision-based stim that did not fire with ::Collide this frame
+			}
 
 			// Check the interleaving timer and don't eval stim if it's not up yet
-			if (gameLocal.time - stim->m_TimeInterleaveStamp < stim->m_TimeInterleave)
+			if ( ( gameLocal.time - stim->m_TimeInterleaveStamp ) < stim->m_TimeInterleave)
+			{
 				continue;
+			}
 
 			// If stim has a finite duration, check if it expired. If so, disable the stim.
 			if (stim->m_Duration != 0 && (gameLocal.time - stim->m_EnabledTimeStamp) > stim->m_Duration )
@@ -6807,7 +6815,9 @@ void idGameLocal::ProcessStimResponse(unsigned long ticks)
 
 			// If stim is not disabled
 			if (stim->m_State == SS_DISABLED)
+			{
 				continue;
+			}
 
 			float radius = stim->GetRadius();
 
