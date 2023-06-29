@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5493 $ (Revision of last commit) 
- $Date: 2012-07-08 13:01:21 -0400 (Sun, 08 Jul 2012) $ (Date of last commit)
+ $Revision: 5539 $ (Revision of last commit) 
+ $Date: 2012-08-25 17:18:32 -0400 (Sat, 25 Aug 2012) $ (Date of last commit)
  $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5493 2012-07-08 17:01:21Z taaaki $");
+static bool versioned = RegisterVersionedFile("$Id: FileSystem.cpp 5539 2012-08-25 21:18:32Z taaaki $");
 
 #include "Unzip.h"
 
@@ -2108,6 +2108,15 @@ void idFileSystemLocal::Startup( void ) {
          idStr::Icmp( fs_currentfm.GetString(), BASE_GAMEDIR ) &&
          idStr::Icmp( fs_currentfm.GetString(), fs_mod.GetString() ) ) {
         AddGameDirectory( fs_modSavePath.GetString(), fs_currentfm.GetString() );
+    }
+
+    // if fs_devpath is set by the user, assume that this is a wip directory and add it to the top of the searchpaths
+    if ( fs_devpath.GetString()[0] && 
+         fs_currentfm.GetString()[0] &&
+         idStr::Icmp( fs_currentfm.GetString(), BASE_GAMEDIR ) &&
+         idStr::Icmp( fs_currentfm.GetString(), fs_mod.GetString() ) &&
+         idStr::Icmp( fs_devpath.GetString(), Sys_DefaultSavePath() ) ) {
+        AddGameDirectory( fs_devpath.GetString(), "" );
     }
 
     // currently all addons are in the search list - deal with filtering out and dependencies now
