@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5660 $ (Revision of last commit) 
- $Date: 2012-12-11 15:32:21 -0500 (Tue, 11 Dec 2012) $ (Date of last commit)
+ $Revision: 5683 $ (Revision of last commit) 
+ $Date: 2013-01-12 10:50:46 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -99,6 +99,10 @@ private:
 	void						Event_GetCosine( const float angle );
 	void						Event_GetLog( const float x );
 	void						Event_GetPow( const float x, const float y );
+	// largest integer (-1.5 => -1, 1.5 => 2, 1.3 => 2)
+	void						Event_GetCeil( const float x );
+	// smallest integer (-1.5 => -2, 1.5 => 1, 1.3 => 1)
+	void						Event_GetFloor( const float x );
 	void						Event_GetSquareRoot( float theSquare );
 	void						Event_VecNormalize( idVec3 &vec );
 	void						Event_VecLength( idVec3 &vec );
@@ -130,6 +134,7 @@ private:
 	void 						Event_StrSkip( const char *string, int num );
 	void 						Event_StrMid( const char *string, int start, int num );
 	void						Event_StrToFloat( const char *string );
+	void						Event_StrToInt( const char *string );
 	void						Event_RadiusDamage( const idVec3 &origin, idEntity *inflictor, idEntity *attacker, idEntity *ignore, const char *damageDefName, float dmgPower );
 	void						Event_IsClient( void );
 	void 						Event_IsMultiplayer( void );
