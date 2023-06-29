@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5679 $ (Revision of last commit) 
+ $Date: 2013-01-12 07:27:27 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -29,7 +29,7 @@ instancing of objects.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Class.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Class.cpp 5679 2013-01-12 12:27:27Z tels $");
 
 #include "../Game_local.h"
 #include "../Grabber.h"
@@ -223,8 +223,10 @@ void idTypeInfo::Shutdown() {
 
 ***********************************************************************/
 
-const idEventDef EV_Remove( "<immediateremove>", EventArgs(), EV_RETURNS_VOID, "internal" );
-const idEventDef EV_SafeRemove( "remove", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_Remove( "<immediateremove>", EventArgs(), EV_RETURNS_VOID, 
+		"Internalad. Removes the entity from the game. Use remove() or kill()." );
+const idEventDef EV_SafeRemove( "remove", EventArgs(), EV_RETURNS_VOID, 
+		"Removes the entity from the game. For AI, use kill() instead." );
 
 ABSTRACT_DECLARATION( NULL, idClass )
 	EVENT( EV_Remove,				idClass::Event_Remove )
