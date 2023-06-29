@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5656 $ (Revision of last commit) 
- $Date: 2012-11-26 13:30:28 -0500 (Mon, 26 Nov 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5662 $ (Revision of last commit) 
+ $Date: 2012-12-17 08:05:24 -0500 (Mon, 17 Dec 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5656 2012-11-26 18:30:28Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5662 2012-12-17 13:05:24Z grayman $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -1086,7 +1086,7 @@ void idEntity::Event_HideByLODBias( void )
 
 	if ( IsType( idFuncPortal::Type ) )
 	{
-		gameLocal.Printf ("%s: Opening portal due to lodbias %0.2f not being between %0.2f and %0.2f.\n",
+		gameLocal.Printf ("%s: Opening portal because lodbias %0.2f is between %0.2f and %0.2f.\n",
 				GetName(), cv_lod_bias.GetFloat(), m_MinLODBias, m_MaxLODBias);
 		static_cast<idFuncPortal *>( this )->OpenPortal();
 	}
