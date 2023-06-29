@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5535 $ (Revision of last commit) 
+ $Date: 2012-08-24 11:33:00 -0400 (Fri, 24 Aug 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 #include <map>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string/erase.hpp> // grayman #3208
 
 namespace tdm
 {
@@ -48,6 +49,10 @@ struct Mirror
 		url(url_),
 		weight(weight_)
 	{
+		// grayman #3208 - remove all spaces in the url
+		boost::algorithm::ierase_all(url, " ");
+
+		// url should terminate with "/"
 		if (!boost::algorithm::ends_with(url, "/"))
 		{
 			url += "/";
