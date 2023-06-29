@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5444 $ (Revision of last commit) 
- $Date: 2012-05-11 09:32:29 -0400 (Fri, 11 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5661 $ (Revision of last commit) 
+ $Date: 2012-12-17 03:52:24 -0500 (Mon, 17 Dec 2012) $ (Date of last commit)
+ $Author: taaaki $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Console.cpp 5444 2012-05-11 13:32:29Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Console.cpp 5661 2012-12-17 08:52:24Z taaaki $");
 
 void SCR_DrawTextLeftAlign ( int &y, const char *text, ... ) id_attribute((format(printf,2,3)));
 void SCR_DrawTextRightAlign( int &y, const char *text, ... ) id_attribute((format(printf,2,3)));
@@ -439,7 +439,7 @@ void idConsoleLocal::Dump( const char *fileName ) {
 	idFile	*f;
 	char	buffer[LINE_WIDTH + 3];
 
-	f = fileSystem->OpenFileWrite( fileName );
+	f = fileSystem->OpenFileWrite( fileName, "fs_devpath", "" );
 	if ( !f ) {
 		common->Warning( "couldn't open %s", fileName );
 		return;
