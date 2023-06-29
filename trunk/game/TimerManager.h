@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5506 $ (Revision of last commit) 
+ $Date: 2012-07-31 13:37:26 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
+ $Author: angua $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -52,10 +52,12 @@ class TimerManager
 		idTimer timer;
 		idStr entityName;
 		idStr name;
-		double runTime;	// total running time
-		double maxTime;	// maximum time between start and stop
-		int maxTimeCall; // the number of the call where maxTime was found
-		int runCount;	
+		double runTime;		// total running time
+		double maxTime;		// maximum time between start and stop
+		int maxTimeCall;	// the number of the call where maxTime was found
+		double max2Time;	// the second largest time between start and stop
+		double minTime;		// minimum time
+		int runCount;
 	};
 
 public:
