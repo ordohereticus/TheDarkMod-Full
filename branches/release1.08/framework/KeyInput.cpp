@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5504 $ (Revision of last commit) 
+ $Date: 2012-07-30 11:41:16 -0400 (Mon, 30 Jul 2012) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: KeyInput.cpp 5504 2012-07-30 15:41:16Z grayman $");
 
 typedef struct {
 	const char	*name;
@@ -36,6 +36,7 @@ const char* OSX_GetLocalizedString( const char* );
 #endif
 
 // names not in this list can either be lowercase ascii, or '0xnn' hex sequences
+// TODO: add CTRL RIGHT, SHIFT RIGHT
 keyname_t keynames[] =
 {
 	{"TAB",				K_TAB,				"#str_07018"},
@@ -49,7 +50,7 @@ keyname_t keynames[] =
 	{"RIGHTARROW",		K_RIGHTARROW,		"#str_07026"},
 
 	{"ALT",				K_ALT,				"#str_07027"},
-	{"RIGHTALT",		K_RIGHT_ALT,		"#str_07027"},
+	{"RIGHTALT",		K_RIGHT_ALT,		"#str_07193"},
 	{"CTRL",			K_CTRL,				"#str_07028"},
 	{"SHIFT",			K_SHIFT,			"#str_07029"},
 
