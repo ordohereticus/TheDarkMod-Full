@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5609 $ (Revision of last commit) 
- $Date: 2012-10-27 14:18:22 -0400 (Sat, 27 Oct 2012) $ (Date of last commit)
+ $Revision: 5625 $ (Revision of last commit) 
+ $Date: 2012-10-28 05:42:58 -0400 (Sun, 28 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5609 2012-10-27 18:18:22Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5625 2012-10-28 09:42:58Z greebo $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -8263,13 +8263,26 @@ bool idEntity::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
 ===============================================================================
 */
 
-const idEventDef EV_GetJointHandle( "getJointHandle", "s", 'd' );
-const idEventDef EV_ClearAllJoints( "clearAllJoints" );
-const idEventDef EV_ClearJoint( "clearJoint", "d" );
-const idEventDef EV_SetJointPos( "setJointPos", "ddv" );
-const idEventDef EV_SetJointAngle( "setJointAngle", "ddv" );
-const idEventDef EV_GetJointPos( "getJointPos", "d", 'v' );
-const idEventDef EV_GetJointAngle( "getJointAngle", "d", 'v' );
+const idEventDef EV_GetJointHandle( "getJointHandle", EventArgs('s', "jointname", ""), 'd', 
+	"Looks up the number of the specified joint. Returns INVALID_JOINT if the joint is not found." );
+const idEventDef EV_ClearAllJoints( "clearAllJoints", EventArgs(), EV_RETURNS_VOID, 
+	"Removes any custom transforms on all joints." );
+const idEventDef EV_ClearJoint( "clearJoint", EventArgs('d', "jointnum", ""), EV_RETURNS_VOID, 
+	"Removes any custom transforms on the specified joint." );
+const idEventDef EV_SetJointPos( "setJointPos", 
+	EventArgs('d', "jointnum", "", 
+			  'd', "transform_type", "",
+			  'v', "pos", ""), 
+	EV_RETURNS_VOID,
+	"Modifies the position of the joint based on the transform type.");
+const idEventDef EV_SetJointAngle( "setJointAngle", 
+	EventArgs('d', "jointnum", "", 
+			  'd', "transform_type", "",
+			  'v', "angles", ""), 
+	EV_RETURNS_VOID,
+	"Modifies the orientation of the joint based on the transform type.");
+const idEventDef EV_GetJointPos( "getJointPos", EventArgs('d', "jointnum", ""), 'v', "Returns the position of the joint in world space." );
+const idEventDef EV_GetJointAngle( "getJointAngle", EventArgs('d', "jointnum", ""), 'v', "Returns the angular orientation of the joint in world space." );
 
 CLASS_DECLARATION( idEntity, idAnimatedEntity )
 	EVENT( EV_GetJointHandle,		idAnimatedEntity::Event_GetJointHandle )
