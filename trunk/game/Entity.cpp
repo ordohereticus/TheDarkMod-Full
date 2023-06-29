@@ -12,15 +12,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5667 $ (Revision of last commit) 
- $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5669 $ (Revision of last commit) 
+ $Date: 2013-01-01 15:10:26 -0500 (Tue, 01 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5667 2013-01-01 01:46:51Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Entity.cpp 5669 2013-01-01 20:10:26Z tels $");
 
 #pragma warning(disable : 4533 4800)
 
@@ -202,8 +202,7 @@ const idEventDef EV_DistanceToPoint( "distanceToPoint", EventArgs('v', "point", 
 const idEventDef EV_StartFx( "startFx", EventArgs('s', "fx", ""), EV_RETURNS_VOID, "Starts an FX on this entity.");
 const idEventDef EV_HasFunction( "hasFunction", EventArgs('s', "functionName", ""), 'd', "checks if an entity's script object has a specific function" );
 const idEventDef EV_CallFunction( "callFunction", EventArgs('s', "functionName", ""), EV_RETURNS_VOID, 
-	"Calls a function on an entity's script object. See also\n" \
-	"scripts/tdm_events.script for callGlobalFunction.");
+	"Calls a function on an entity's script object. See also callGlobalFunction().");
 const idEventDef EV_CallGlobalFunction( "callGlobalFunction", EventArgs('s', "functionName", "", 'E', "other", ""), EV_RETURNS_VOID, 
 	"calls a global function and passes the other entity along as the first argument\n" \
 	"calls the function in a new thread, so it continues executing in the current\n" \
