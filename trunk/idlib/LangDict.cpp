@@ -12,8 +12,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5290 $ (Revision of last commit) 
- $Date: 2012-02-19 11:25:13 -0500 (Sun, 19 Feb 2012) $ (Date of last commit)
+ $Revision: 5542 $ (Revision of last commit) 
+ $Date: 2012-08-31 05:42:33 -0400 (Fri, 31 Aug 2012) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -102,7 +102,7 @@ bool idLangDict::Load( const char *fileName, const bool clear /* _D3XP */, const
 			hash.Add( GetHashKey( kv.key ), args.Append( kv ) );
 		}
 	}
-	idLib::common->Printf( "%i strings read from %s\n", args.Num(), fileName );
+	idLib::common->Printf( "I18N: %i strings read from %s\n", args.Num(), fileName );
 	idLib::fileSystem->FreeFile( (void*)buffer );
 	
 	return true;
