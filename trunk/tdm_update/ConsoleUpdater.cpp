@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -481,7 +481,7 @@ void ConsoleUpdater::PrintProgress()
 		line += " " + verb;
 
 		std::size_t remainingLength = line.length() > 79 ? 0 : 79 - line.length();
-		line += GetShortenedString(_info.file.leaf(), remainingLength);
+		line += GetShortenedString(_info.file.leaf().string(), remainingLength);
 	}
 	break;
 	};

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -99,11 +99,11 @@ public:
 	void LoadFromFile(const fs::path& file)
 	{
 		// Start parsing
-		std::ifstream stream(file.file_string().c_str());
+		std::ifstream stream(file.string().c_str());
 
 		if (!stream)
 		{
-			TraceLog::WriteLine(LOG_VERBOSE, "[PackageInstructions]: Cannot open file " + file.file_string());
+			TraceLog::WriteLine(LOG_VERBOSE, "[PackageInstructions]: Cannot open file " + file.string());
 			return;
 		}
 

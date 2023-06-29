@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -30,16 +30,16 @@ namespace tdm
 void File::MarkAsExecutable(const fs::path& path)
 {
 #ifndef WIN32
-	TraceLog::WriteLine(LOG_VERBOSE, "Marking file as executable: " + path.file_string());
+	TraceLog::WriteLine(LOG_VERBOSE, "Marking file as executable: " + path.string());
 
 	struct stat mask;
-	stat(path.file_string().c_str(), &mask);
+	stat(path.string().c_str(), &mask);
 
 	mask.st_mode |= S_IXUSR|S_IXGRP|S_IXOTH;
 
-	if (chmod(path.file_string().c_str(), mask.st_mode) == -1)
+	if (chmod(path.string().c_str(), mask.st_mode) == -1)
 	{
-		TraceLog::Error("Could not mark file as executable: " + path.file_string());
+		TraceLog::Error("Could not mark file as executable: " + path.string());
 	}
 #endif
 }

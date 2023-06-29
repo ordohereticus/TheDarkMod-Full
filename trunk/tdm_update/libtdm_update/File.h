@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -36,11 +36,11 @@ public:
 	// Returns the path relative to the given root
 	static fs::path GetRelativePath(const fs::path& absolute, const fs::path& root)
 	{
-		std::string fullString = absolute.file_string();
+		std::string fullString = absolute.string();
 
-		if (boost::algorithm::starts_with(fullString, root.file_string()))
+		if (boost::algorithm::starts_with(fullString, root.string()))
 		{
-			boost::algorithm::replace_first(fullString, root.file_string(), "");
+			boost::algorithm::replace_first(fullString, root.string(), "");
 
 			if (fullString.length() > 0 && (fullString[0] == '/' || fullString[0] == '\\'))
 			{
@@ -94,12 +94,12 @@ public:
 			if (fs::exists(fileToRemove))
 			{
 				fs::remove(fileToRemove);
-				TraceLog::WriteLine(LOG_VERBOSE, "Removed file " + fileToRemove.file_string());
+				TraceLog::WriteLine(LOG_VERBOSE, "Removed file " + fileToRemove.string());
 			}
 
 			return true;
 		}
-		catch (fs::basic_filesystem_error<fs::path>& e)
+		catch (fs::filesystem_error& e)
 		{
 			TraceLog::WriteLine(LOG_VERBOSE, "Exception while removing file: " + std::string(e.what()));
 			return false;
@@ -111,11 +111,11 @@ public:
 		try
 		{
 			fs::rename(fromPath, toPath);
-			TraceLog::WriteLine(LOG_VERBOSE, "Moved " + fromPath.file_string() + " to " + toPath.file_string());
+			TraceLog::WriteLine(LOG_VERBOSE, "Moved " + fromPath.string() + " to " + toPath.string());
 
 			return true;
 		}
-		catch (fs::basic_filesystem_error<fs::path>& e)
+		catch (fs::filesystem_error& e)
 		{
 			TraceLog::WriteLine(LOG_VERBOSE, "Exception while moving file: " + std::string(e.what()));
 
@@ -128,11 +128,11 @@ public:
 		try
 		{
 			fs::copy_file(fromPath, toPath);
-			TraceLog::WriteLine(LOG_VERBOSE, "Copied " + fromPath.file_string() + " to " + toPath.file_string());
+			TraceLog::WriteLine(LOG_VERBOSE, "Copied " + fromPath.string() + " to " + toPath.string());
 
 			return true;
 		}
-		catch (fs::basic_filesystem_error<fs::path>& e)
+		catch (fs::filesystem_error& e)
 		{
 			TraceLog::WriteLine(LOG_VERBOSE, "Exception while copying file: " + std::string(e.what()));
 

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -108,9 +108,9 @@ public:
 	static boost::uint32_t GetCrcForNonZipFileOld(const fs::path& file)
 	{
 		// Open the file for reading
-		FILE* fh = fopen(file.file_string().c_str(), "rb");
+		FILE* fh = fopen(file.string().c_str(), "rb");
 
-		if (fh == NULL) throw std::runtime_error("Could not open file: " + file.file_string());
+		if (fh == NULL) throw std::runtime_error("Could not open file: " + file.string());
 
 		boost::uint32_t crc = 0;
 		
@@ -134,7 +134,7 @@ public:
 			break;
 		}
 
-		TraceLog::WriteLine(LOG_VERBOSE, "CRC calculated for file " + file.file_string() + " = " + (boost::format("%x") % crc).str());
+		TraceLog::WriteLine(LOG_VERBOSE, "CRC calculated for file " + file.string() + " = " + (boost::format("%x") % crc).str());
 
 		fclose(fh);
 
@@ -144,9 +144,9 @@ public:
 	static boost::uint32_t GetCrcForNonZipFile(const fs::path& file)
 	{
 		// Open the file for reading
-		FILE* fh = fopen(file.file_string().c_str(), "rb");
+		FILE* fh = fopen(file.string().c_str(), "rb");
 
-		if (fh == NULL) throw std::runtime_error("Could not open file: " + file.file_string());
+		if (fh == NULL) throw std::runtime_error("Could not open file: " + file.string());
 
 		boost::uint32_t crc = 0;
 		boost::crc_32_type processor;
@@ -169,7 +169,7 @@ public:
 
 		crc = processor.checksum();
 
-		TraceLog::WriteLine(LOG_VERBOSE, "CRC calculated for file " + file.file_string() + " = " + (boost::format("%x") % crc).str());
+		TraceLog::WriteLine(LOG_VERBOSE, "CRC calculated for file " + file.string() + " = " + (boost::format("%x") % crc).str());
 
 		fclose(fh);
 
@@ -181,11 +181,11 @@ public:
 		// Open the file for reading
 		ZipFileReadPtr zipFile = Zip::OpenFileRead(file);
 
-		if (zipFile == NULL) throw std::runtime_error("Could not open ZIP file: " + file.file_string());
+		if (zipFile == NULL) throw std::runtime_error("Could not open ZIP file: " + file.string());
 
 		boost::uint32_t crc = zipFile->GetCumulativeCrc();
 
-		TraceLog::WriteLine(LOG_VERBOSE, "CRC calculated for zip file " + file.file_string() + " = " + (boost::format("%x") % crc).str());
+		TraceLog::WriteLine(LOG_VERBOSE, "CRC calculated for zip file " + file.string() + " = " + (boost::format("%x") % crc).str());
 
 		return crc;
 	}

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -53,11 +53,11 @@ IniFilePtr IniFile::Create()
 IniFilePtr IniFile::ConstructFromFile(const fs::path& filename)
 {
 	// Start parsing
-	std::ifstream iniFile(filename.file_string().c_str());
+	std::ifstream iniFile(filename.string().c_str());
 
 	if (!iniFile)
     {
-        tdm::TraceLog::WriteLine(LOG_VERBOSE, "[IniFile]: Cannot open file " + filename.file_string());
+        tdm::TraceLog::WriteLine(LOG_VERBOSE, "[IniFile]: Cannot open file " + filename.string());
 		return IniFilePtr();
     }
 
@@ -178,7 +178,7 @@ void IniFile::ForeachSection(SectionVisitor& visitor) const
 
 void IniFile::ExportToFile(const fs::path& file, const std::string& headerComments) const
 {
-	std::ofstream stream(file.file_string().c_str());
+	std::ofstream stream(file.string().c_str());
 
 	if (!headerComments.empty())
 	{

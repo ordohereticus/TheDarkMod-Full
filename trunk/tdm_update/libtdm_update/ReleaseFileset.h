@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -220,7 +220,7 @@ public:
 				continue; // skip directories
 			}
 
-			std::string filename = file.leaf();
+			std::string filename = file.leaf().string();
 
 			fs::path relativePath = File::GetRelativePath(file, folder);
 
@@ -274,7 +274,7 @@ public:
 
 				if (zipFile == NULL)
 				{
-					TraceLog::WriteLine(LOG_STANDARD, "  Failed to open archive: " + file.file_string());
+					TraceLog::WriteLine(LOG_STANDARD, "  Failed to open archive: " + file.string());
 					continue;
 				}
 

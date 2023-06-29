@@ -11,9 +11,9 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5579 $ (Revision of last commit) 
- $Date: 2012-09-29 15:48:21 -0400 (Sat, 29 Sep 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -220,7 +220,7 @@ bool Util::TDMIsRunning()
 	// Traverse the /proc folder, this sets the flag to TRUE if the process was found
 	for (fs::directory_iterator i = fs::directory_iterator(PROC_FOLDER); i != fs::directory_iterator(); ++i)
 	{
-		if (CheckProcessFile(i->leaf(), TDM_PROCESS_NAME)) // grayman - looking for tdm now instead of doom3
+		if (CheckProcessFile(i->path().leaf().string(), TDM_PROCESS_NAME)) // grayman - looking for tdm now instead of doom3
 		{
 			return true;
 		}
@@ -234,7 +234,7 @@ bool Util::DarkRadiantIsRunning()
 	// Traverse the /proc folder, this sets the flag to TRUE if the process was found
 	for (fs::directory_iterator i = fs::directory_iterator(PROC_FOLDER); i != fs::directory_iterator(); ++i)
 	{
-		if (CheckProcessFile(i->leaf(), "darkradiant"))
+		if (CheckProcessFile(i->path().leaf().string(), "darkradiant"))
 		{
 			return true;
 		}

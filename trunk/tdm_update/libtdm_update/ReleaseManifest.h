@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5591 $ (Revision of last commit) 
- $Date: 2012-10-18 15:48:23 -0400 (Thu, 18 Oct 2012) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -82,11 +82,11 @@ public:
 	void LoadFromFile(const fs::path& manifestFile)
 	{
 		// Start parsing
-		std::ifstream file(manifestFile.file_string().c_str());
+		std::ifstream file(manifestFile.string().c_str());
 
 		if (!file)
 		{
-			TraceLog::WriteLine(LOG_VERBOSE, "[ReleaseManifest]: Cannot open file " + manifestFile.file_string());
+			TraceLog::WriteLine(LOG_VERBOSE, "[ReleaseManifest]: Cannot open file " + manifestFile.string());
 			return;
 		}
 
@@ -179,7 +179,7 @@ public:
 
 	void WriteToFile(const fs::path& manifestPath)
 	{
-		std::ofstream manifest(manifestPath.file_string().c_str());
+		std::ofstream manifest(manifestPath.string().c_str());
 
 		time_t rawtime;
 		time(&rawtime);
@@ -279,7 +279,7 @@ private:
 		for (fs::directory_iterator i = fs::directory_iterator(dir);
 			 i != fs::directory_iterator(); ++i)
 		{
-			if (boost::algorithm::ends_with(i->string(), ".svn"))
+			if (boost::algorithm::ends_with(i->path().string(), ".svn"))
 			{
 				// Prevent adding .svn folders
 				continue;
@@ -288,14 +288,14 @@ private:
 			// Ensure this item is under version control
 			if (!svn.FileIsUnderVersionControl(*i))
 			{
-				TraceLog::WriteLine(LOG_PROGRESS, "Skipping unversioned item: " + i->string());
+				TraceLog::WriteLine(LOG_PROGRESS, "Skipping unversioned item: " + i->path().string());
 				continue;
 			}
 
-			TraceLog::WriteLine(LOG_VERBOSE, "Investigating item: " + i->string());
+			TraceLog::WriteLine(LOG_VERBOSE, "Investigating item: " + i->path().string());
 
 			// Cut off the repository path to receive a relative path (cut off the trailing slash too)
-			std::string relativePath = i->string().substr(repositoryRoot.string().length() + 1);
+			std::string relativePath = i->path().string().substr(repositoryRoot.string().length() + 1);
 
 			// Consider the exclusion list
 			if (instructions.IsExcluded(relativePath))

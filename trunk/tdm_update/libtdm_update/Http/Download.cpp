@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5598 $ (Revision of last commit) 
+ $Date: 2012-10-19 11:46:11 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -91,7 +91,7 @@ void Download::Start()
 		// Make sure the folder exists
 		if (!fs::create_directories(folder))
 		{
-			throw std::runtime_error("Could not create directory: " + folder.file_string());
+			throw std::runtime_error("Could not create directory: " + folder.string());
 		}
 	}
 
@@ -181,7 +181,7 @@ void Download::Perform()
 		const std::string& url = _urls[_curUrl];
 
 		// Create a new request
-		_request = _conn->CreateRequest(url, _tempFilename.file_string());
+		_request = _conn->CreateRequest(url, _tempFilename.string());
 	
 		// Start the download, blocks until finished or aborted
 		_request->Perform();
@@ -250,7 +250,7 @@ const fs::path& Download::GetDestFilename() const
 
 std::string Download::GetFilename() const
 {
-	return _destFilename.leaf();
+	return _destFilename.leaf().string();
 }
 
 bool Download::CheckIntegrity()
@@ -277,7 +277,7 @@ bool Download::CheckIntegrity()
 		if (zipFile == NULL) 
 		{
 			TraceLog::WriteLine(LOG_VERBOSE, (boost::format("Downloaded file failed the zip check: %s") %
-				_tempFilename.file_string()).str());
+				_tempFilename.string()).str());
 			return false; // failed the ZIP check
 		}
 	}
