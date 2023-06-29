@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5122 $ (Revision of last commit) 
- $Date: 2011-12-11 14:47:31 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5554 $ (Revision of last commit) 
+ $Date: 2012-09-07 05:42:36 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include <stdio.h>
@@ -227,12 +227,13 @@ bool idAudioHardwareOSS::Initialize( ) {
 	// channels ----------------------------------------------------
 
 	// sanity over number of speakers
-	if ( idSoundSystemLocal::s_numberOfSpeakers.GetInteger() != 6 && idSoundSystemLocal::s_numberOfSpeakers.GetInteger() != 2 ) {
-		common->Warning( "invalid value for s_numberOfSpeakers. Use either 2 or 6" );
+	m_channels = idSoundSystemLocal::s_numberOfSpeakers.GetInteger();
+	if ( m_channels != 6 && m_channels != 2 && m_channels != 8) {
+		common->Warning( "invalid value for s_numberOfSpeakers. Use either 2, 6 or 8" );
 		idSoundSystemLocal::s_numberOfSpeakers.SetInteger( 2 );
+		m_channels = 2;
 	}
 
-	m_channels = idSoundSystemLocal::s_numberOfSpeakers.GetInteger();
 	if ( ioctl( m_audio_fd, SNDCTL_DSP_CHANNELS, &m_channels ) == -1 ) {
 		common->Warning( "ioctl SNDCTL_DSP_CHANNELS %d failed: %s", idSoundSystemLocal::s_numberOfSpeakers.GetInteger(), strerror(errno) );
 		InitFailed();
