@@ -11,8 +11,8 @@
  
  Project: The Dark Mod Updater (http://www.thedarkmod.com/)
  
- $Revision: 5508 $ (Revision of last commit) 
- $Date: 2012-07-31 15:13:19 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
+ $Revision: 5509 $ (Revision of last commit) 
+ $Date: 2012-07-31 19:20:33 -0400 (Tue, 31 Jul 2012) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -76,7 +76,7 @@ public:
 #if WIN32
 		std::string tdmExecutableName = "TheDarkMod.exe";
 #else 
-		std::string tdmExecutableName = "base/gamex86.so";
+		std::string tdmExecutableName = "thedarkmod.x86";
 #endif
 
 		if (fs::exists(path / tdmExecutableName))
