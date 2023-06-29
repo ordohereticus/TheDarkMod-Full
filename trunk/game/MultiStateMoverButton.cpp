@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5292 $ (Revision of last commit) 
- $Date: 2012-02-23 11:17:34 -0500 (Thu, 23 Feb 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MultiStateMoverButton.cpp 5292 2012-02-23 16:17:34Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: MultiStateMoverButton.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "DarkModGlobals.h"
 #include "MultiStateMoverButton.h"
@@ -30,8 +30,9 @@ static bool versioned = RegisterVersionedFile("$Id: MultiStateMoverButton.cpp 52
 // CMultiStateMoverButton
 //===============================================================================
 
-const idEventDef EV_RegisterSelfWithElevator("MSMBRegisterSelfWithElevator", NULL);
-const idEventDef EV_RestoreTargeting("restoreTargeting", "ddd", NULL); // grayman #3029
+const idEventDef EV_RegisterSelfWithElevator("_MSMBRegisterSelfWithElevator", EventArgs(), EV_RETURNS_VOID, "internal");
+const idEventDef EV_RestoreTargeting("_restoreTargeting", 
+	EventArgs('d', "", "", 'd', "", "", 'd', "", ""), EV_RETURNS_VOID, "internal"); // grayman #3029
 
 CLASS_DECLARATION( CFrobButton, CMultiStateMoverButton )
 	EVENT( EV_RegisterSelfWithElevator,		CMultiStateMoverButton::Event_RegisterSelfWithElevator)

@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5376 $ (Revision of last commit) 
- $Date: 2012-04-10 02:01:50 -0400 (Tue, 10 Apr 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobHandle.cpp 5376 2012-04-10 06:01:50Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: FrobHandle.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -30,7 +30,7 @@ static bool versioned = RegisterVersionedFile("$Id: FrobHandle.cpp 5376 2012-04-
 //===============================================================================
 // CFrobHandle
 //===============================================================================
-const idEventDef EV_TDM_Handle_Tap( "Tap", NULL );
+const idEventDef EV_TDM_Handle_Tap( "Tap", EventArgs(), EV_RETURNS_VOID, "Operates this handle." );
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobHandle )
 	EVENT( EV_TDM_Handle_Tap,	CFrobHandle::Event_Tap )

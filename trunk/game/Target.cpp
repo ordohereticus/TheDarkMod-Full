@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ Invisible entities that affect other entities or the world when activated.
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Target.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "Game_local.h"
 #include "Objectives/MissionData.h"
@@ -670,10 +670,10 @@ idTarget_SetInfluence
 ===============================================================================
 */
 
-const idEventDef EV_RestoreInfluence( "<RestoreInfluece>" );
-const idEventDef EV_GatherEntities( "<GatherEntities>" );
-const idEventDef EV_Flash( "<Flash>", "fd" );
-const idEventDef EV_ClearFlash( "<ClearFlash>", "f" );
+const idEventDef EV_RestoreInfluence( "<RestoreInfluece>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_GatherEntities( "<GatherEntities>", EventArgs(), EV_RETURNS_VOID, "internal"  );
+const idEventDef EV_Flash( "<Flash>", EventArgs('f', "", "", 'd', "", ""), EV_RETURNS_VOID, "internal");
+const idEventDef EV_ClearFlash( "<ClearFlash>", EventArgs('f', "", ""), EV_RETURNS_VOID, "internal");
 
 CLASS_DECLARATION( idTarget, idTarget_SetInfluence )
 	EVENT( EV_Activate,	idTarget_SetInfluence::Event_Activate )
@@ -1639,7 +1639,7 @@ idTarget_FadeSoundClass
 ===============================================================================
 */
 
-const idEventDef EV_RestoreVolume( "<RestoreVolume>" );
+const idEventDef EV_RestoreVolume( "<RestoreVolume>", EventArgs(), EV_RETURNS_VOID, "internal" );
 CLASS_DECLARATION( idTarget, idTarget_FadeSoundClass )
 EVENT( EV_Activate,	idTarget_FadeSoundClass::Event_Activate )
 EVENT( EV_RestoreVolume, idTarget_FadeSoundClass::Event_RestoreVolume )

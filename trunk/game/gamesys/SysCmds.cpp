@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5436 $ (Revision of last commit) 
- $Date: 2012-05-06 15:49:55 -0400 (Sun, 06 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5436 2012-05-06 19:49:55Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SysCmds.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "../Game_local.h"
 #include "../ai/AAS_local.h"
@@ -178,6 +178,46 @@ void Cmd_EndMission_f(const idCmdArgs& args)
 		gameLocal.Printf("=== Triggering mission end ===\n");
 		gameLocal.GetLocalPlayer()->PostEventMS(&EV_TriggerMissionEnd, 0);
 	}
+}
+
+void Cmd_GenScriptEventDoc_f(const idCmdArgs& args)
+{
+	if (args.Argc() != 3)
+	{
+		gameLocal.Printf("usage: tdm_gen_script_event_doc <filename> <format>\n");
+		gameLocal.Printf("   with format being one of the following: d3script, xml, mediawiki\n");
+		return;
+	}
+
+	idStr formatStr = args.Argv(2);
+	formatStr.ToLower();
+	
+	idProgram::DocFileFormat format = idProgram::FORMAT_D3_SCRIPT;
+
+	if (formatStr == "xml")
+	{
+		format = idProgram::FORMAT_XML;
+	}
+	else if (formatStr == "mediawiki")
+	{
+		format = idProgram::FORMAT_MEDIAWIKI;
+	}
+	else if (formatStr == "d3script")
+	{
+		format = idProgram::FORMAT_D3_SCRIPT;
+	}
+	else
+	{
+		gameLocal.Warning( "Format must be one of the following: d3script, xml, mediawiki\n");
+		return;
+	}
+
+	idFile* file = fileSystem->OpenFileWrite(args.Argv(1));
+
+	gameLocal.program.WriteScriptEventDocFile(*file, format);
+
+	file->Flush();
+	fileSystem->CloseFile(file);
 }
 
 /*
@@ -3712,6 +3752,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 	cmdSystem->AddCommand( "tdm_end_mission", Cmd_EndMission_f, CMD_FL_GAME, "Ends this mission and proceeds to the next.");
 
+	cmdSystem->AddCommand( "tdm_gen_script_event_doc", Cmd_GenScriptEventDoc_f, CMD_FL_GAME, "Generates a script event doc file in a certain format.");
 
 	cmdSystem->AddCommand( "disasmScript",			Cmd_DisasmScript_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"disassembles script" );
 	cmdSystem->AddCommand( "exportmodels",			Cmd_ExportModels_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"exports models", ArgCompletion_DefFile );

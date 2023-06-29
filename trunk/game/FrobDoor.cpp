@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5529 $ (Revision of last commit) 
- $Date: 2012-08-21 12:37:04 -0400 (Tue, 21 Aug 2012) $ (Date of last commit)
- $Author: angua $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5529 2012-08-21 16:37:04Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -44,10 +44,18 @@ static bool versioned = RegisterVersionedFile("$Id: FrobDoor.cpp 5529 2012-08-21
 //CFrobDoor
 //===============================================================================
 
-const idEventDef EV_TDM_Door_OpenDoor( "OpenDoor", "f" );
-const idEventDef EV_TDM_Door_GetDoorhandle( "GetDoorhandle", NULL, 'e' );
+const idEventDef EV_TDM_Door_OpenDoor( "OpenDoor", EventArgs('f', "master", ""), EV_RETURNS_VOID, 
+	"The OpenDoor method is necessary to give the FrobDoorHandles a \n" \
+	"\"low level\" open routine. The CFrobDoor::Open() call is re-routed to\n" \
+	"the FrobDoorHandle::Tap() method, so there must be a way to actually\n" \
+	"let the door open. Which is what this method does.\n" \
+	"\n" \
+	"Note: Shouldn't be called directly by scripters, call handle->Tap() instead.\n" \
+	"Unless you know what you're doing.");
+const idEventDef EV_TDM_Door_GetDoorhandle( "GetDoorhandle", EventArgs(), 'e', "Returns the handle entity of this door. Can return NULL (== $null_entity)" );
 
-const idEventDef EV_TDM_Door_ClearPlayerImmobilization("EV_TDM_Door_ClearPlayerImmobilization", "e"); // allows player to handle weapons again
+const idEventDef EV_TDM_Door_ClearPlayerImmobilization("_EV_TDM_Door_ClearPlayerImmobilization", 
+	EventArgs('e', "", ""), EV_RETURNS_VOID, "internal"); // allows player to handle weapons again
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobDoor )
 	EVENT( EV_TDM_Door_OpenDoor,			CFrobDoor::Event_OpenDoor)

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Trigger.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Trigger.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "Game_local.h"
 #include "StimResponse/StimResponseCollection.h"
@@ -33,8 +33,8 @@ static bool versioned = RegisterVersionedFile("$Id: Trigger.cpp 5185 2012-01-08 
 ===============================================================================
 */
 
-const idEventDef EV_Enable( "enable", NULL );
-const idEventDef EV_Disable( "disable", NULL );
+const idEventDef EV_Enable( "enable", EventArgs(), EV_RETURNS_VOID, "Enables the mover/trigger" );
+const idEventDef EV_Disable( "disable", EventArgs(), EV_RETURNS_VOID, "Disables the mover/trigger" );
 
 CLASS_DECLARATION( idEntity, idTrigger )
 	EVENT( EV_Enable,	idTrigger::Event_Enable )
@@ -245,7 +245,7 @@ void idTrigger::Spawn( void )
 ===============================================================================
 */
 
-const idEventDef EV_TriggerAction( "<triggerAction>", "e" );
+const idEventDef EV_TriggerAction( "<triggerAction>", EventArgs('e', "", ""), EV_RETURNS_VOID, "internal");
 
 CLASS_DECLARATION( idTrigger, idTrigger_Multi )
 	EVENT( EV_Touch,			idTrigger_Multi::Event_Touch )
@@ -710,7 +710,7 @@ void idTrigger_EntityName::Event_Touch( idEntity *other, trace_t *trace ) {
 ===============================================================================
 */
 
-const idEventDef EV_Timer( "<timer>", NULL );
+const idEventDef EV_Timer( "<timer>", EventArgs(), EV_RETURNS_VOID, "internal");
 
 CLASS_DECLARATION( idTrigger, idTrigger_Timer )
 	EVENT( EV_Timer,		idTrigger_Timer::Event_Timer )

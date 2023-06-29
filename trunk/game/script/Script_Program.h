@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -472,6 +472,15 @@ public:
 	void										Disassemble( void ) const;
 	void										FreeData( void );
 
+	enum DocFileFormat
+	{
+		FORMAT_D3_SCRIPT,
+		FORMAT_XML,
+		FORMAT_MEDIAWIKI
+	};
+
+	void										WriteScriptEventDocFile(idFile& outputFile, DocFileFormat format);
+
 	const char									*GetFilename( int num );
 	int											GetFilenum( const char *name );
 	int											GetLineNumberForStatement( int index );
@@ -510,6 +519,10 @@ public:
 	void										ReturnEntity( idEntity *ent );
 	
 	int											NumFilenames( void ) { return fileList.Num( ); }
+
+private:
+	// greebo: Registers all events declared by the static idEventDef variables
+	void										RegisterScriptEvents();
 };
 
 /*

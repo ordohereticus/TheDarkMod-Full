@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,17 +20,18 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FrobLever.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: FrobLever.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
 #include "FrobLever.h"
+#include "FrobButton.h"
 
-const idEventDef EV_TDM_Lever_Operate( "Operate", NULL );
-const idEventDef EV_TDM_Lever_Switch( "Switch", "d" );
+const idEventDef EV_TDM_Lever_Switch( "Switch", EventArgs('d', "newState", ""), 
+	EV_RETURNS_VOID, "Set the new lever state to the argument (0 = off)" );
 
 CLASS_DECLARATION( CBinaryFrobMover, CFrobLever )
-	EVENT( EV_TDM_Lever_Operate,		CFrobLever::Event_Operate)
+	EVENT( EV_TDM_Operate,				CFrobLever::Event_Operate)
 	EVENT( EV_TDM_Lever_Switch,			CFrobLever::Event_Switch)
 END_CLASS
 

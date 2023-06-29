@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5420 $ (Revision of last commit) 
- $Date: 2012-05-03 19:33:18 -0400 (Thu, 03 May 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ACTOR_H__
@@ -158,6 +158,9 @@ extern const idEventDef AI_GetMeleeResult;
 extern const idEventDef AI_GetMeleeLastHitByType;
 extern const idEventDef AI_MeleeBestParry;
 extern const idEventDef AI_MeleeNameForNum;
+
+extern const idEventDef AI_ShowAttachment;
+extern const idEventDef AI_ShowAttachmentInd;
 
 class idDeclParticle;
 

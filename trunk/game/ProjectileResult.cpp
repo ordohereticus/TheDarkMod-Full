@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: ProjectileResult.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: ProjectileResult.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "ProjectileResult.h"
 #include "Game_local.h"
@@ -46,16 +46,16 @@ const char* s_ACTIVE_SCRIPT_NAME = "active";
 **/
 const char* s_DUD_SCRIPT_NAME = "dud";
 
-const idEventDef EV_TDM_GetFinalVel( "getFinalVel", NULL, 'v' );
-const idEventDef EV_TDM_GetFinalAngVel( "getFinalAngVel", NULL, 'v' );
-const idEventDef EV_TDM_GetAxialDir( "getAxialDir", NULL, 'v' );
-const idEventDef EV_TDM_GetProjMass( "getProjMass", NULL, 'f' );
-const idEventDef EV_TDM_GetSurfType( "getSurfType", NULL, 's' );
-const idEventDef EV_TDM_GetSurfNormal( "getSurfNormal", NULL, 'v' );
-const idEventDef EV_TDM_GetStruckEnt( "getStruckEnt", NULL, 'e' );
-const idEventDef EV_TDM_GetIncidenceAngle( "getIncidenceAngle", NULL, 'f' );
-const idEventDef EV_TDM_GetActualStruckEnt( "getActualStruckEnt", NULL, 'e' ); // grayman #837
-const idEventDef EV_TDM_IsVineFriendly( "isVineFriendly", NULL, 'f' ); // grayman #2787
+const idEventDef EV_TDM_GetFinalVel( "getFinalVel", EventArgs(), 'v', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetFinalAngVel( "getFinalAngVel", EventArgs(), 'v', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetAxialDir( "getAxialDir", EventArgs(), 'v', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetProjMass( "getProjMass", EventArgs(), 'f', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetSurfType( "getSurfType", EventArgs(), 's', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetSurfNormal( "getSurfNormal", EventArgs(), 'v', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetStruckEnt( "getStruckEnt", EventArgs(), 'e', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetIncidenceAngle( "getIncidenceAngle", EventArgs(), 'f', "Getter for projectile result variable" );
+const idEventDef EV_TDM_GetActualStruckEnt( "getActualStruckEnt", EventArgs(), 'e', "Getter for projectile result variable" ); // grayman #837
+const idEventDef EV_TDM_IsVineFriendly( "isVineFriendly", EventArgs(), 'f', "Vine-arrow event" ); // grayman #2787
 
 CLASS_DECLARATION( idEntity, CProjectileResult )
 	EVENT( EV_TDM_GetFinalVel,				CProjectileResult::Event_GetFinalVel )

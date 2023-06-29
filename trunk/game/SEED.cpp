@@ -12,9 +12,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5487 $ (Revision of last commit) 
- $Date: 2012-07-06 04:22:23 -0400 (Fri, 06 Jul 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -76,7 +76,7 @@ TODO: We currently determine the material by doing a point-trace, then when the 
 // define to output debug info about watched and combined entities
 //#define M_DEBUG_COMBINE
 
-static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5487 2012-07-06 08:22:23Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "SEED.h"
 
@@ -102,7 +102,7 @@ static bool versioned = RegisterVersionedFile("$Id: SEED.cpp 5487 2012-07-06 08:
 // what we consider solid when flooring entities
 #define CONTENTS_SOLIDFLOOR 	CONTENTS_SOLID | CONTENTS_BODY | CONTENTS_CORPSE | CONTENTS_RENDERMODEL | CONTENTS_OPAQUE | CONTENTS_MOVEABLECLIP
 
-const idEventDef EV_CullAll( "cullAll", "" );
+const idEventDef EV_CullAll( "cullAll", EventArgs(), EV_RETURNS_VOID, "Cull (remove from world) all entities." );
 
 /*
 ===============================================================================

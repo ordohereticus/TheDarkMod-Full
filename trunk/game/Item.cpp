@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
+ $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -25,7 +25,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Item.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: Item.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #pragma warning(disable : 4996)
 
@@ -42,12 +42,12 @@ static bool versioned = RegisterVersionedFile("$Id: Item.cpp 5361 2012-03-26 03:
 ===============================================================================
 */
 
-const idEventDef EV_DropToFloor( "<dropToFloor>" );
-const idEventDef EV_RespawnItem( "respawn" );
-const idEventDef EV_RespawnFx( "<respawnFx>" );
-const idEventDef EV_GetPlayerPos( "<getplayerpos>" );
-const idEventDef EV_HideObjective( "<hideobjective>", "e" );
-const idEventDef EV_CamShot( "<camshot>" );
+const idEventDef EV_DropToFloor( "<dropToFloor>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_RespawnItem( "respawn", EventArgs(), EV_RETURNS_VOID, "Respawn" );
+const idEventDef EV_RespawnFx( "<respawnFx>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_GetPlayerPos( "<getplayerpos>", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_HideObjective( "<hideobjective>", EventArgs('e', "", ""), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_CamShot( "<camshot>", EventArgs(), EV_RETURNS_VOID, "internal" );
 
 CLASS_DECLARATION( idEntity, idItem )
 	EVENT( EV_DropToFloor,		idItem::Event_DropToFloor )

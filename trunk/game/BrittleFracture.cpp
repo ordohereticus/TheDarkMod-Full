@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
+ $Revision: 5640 $ (Revision of last commit) 
+ $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
  $Author: greebo $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,15 +20,17 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BrittleFracture.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: BrittleFracture.cpp 5640 2012-10-31 14:40:49Z greebo $");
 
 #include "Game_local.h"
 #include "SndProp.h"
 #include "Objectives/MissionData.h"
 #include "StimResponse/StimResponseCollection.h"
 
-const idEventDef EV_UpdateSoundLoss( "updateSoundLoss", NULL );
-const idEventDef EV_DampenSound( "dampenSound", "d" );
+const idEventDef EV_UpdateSoundLoss( "_updateSoundLoss", EventArgs(), EV_RETURNS_VOID, "internal" );
+const idEventDef EV_DampenSound( "dampenSound", EventArgs('d', "dampen", "1 = dampened, 0 = not dampened"), EV_RETURNS_VOID, 
+	"Toggle whether the shattering sound is dampened on the window,\n" \
+	"e.g., when covered by moss." );
 
 CLASS_DECLARATION( idEntity, idBrittleFracture )
 	EVENT( EV_Activate, idBrittleFracture::Event_Activate )
