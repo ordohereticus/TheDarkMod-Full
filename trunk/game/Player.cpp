@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5685 $ (Revision of last commit) 
- $Date: 2013-01-12 18:54:55 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
+ $Revision: 5688 $ (Revision of last commit) 
+ $Date: 2013-01-19 03:56:48 -0500 (Sat, 19 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4355) // greebo: Disable warning "'this' used in constructor"
 
-static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5685 2013-01-12 23:54:55Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Player.cpp 5688 2013-01-19 08:56:48Z tels $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -240,7 +240,9 @@ const idEventDef EV_Player_EndZoom("endZoom", EventArgs('f', "duration", "durati
 		"May be called during a transition as well to intercept a pending zoom in transition.");
 
 const idEventDef EV_Player_ResetZoom("resetZoom", EventArgs(), EV_RETURNS_VOID, "Cancels any pending zoom transitions and resets the FOV to normal.");
-const idEventDef EV_Player_GetFov("getFov", EventArgs(), 'f', "This returns the current FOV of the player.");
+const idEventDef EV_Player_GetFov("getFov", EventArgs(), 'f',
+		"This returns the current FOV of the player.\n" \
+		"You can modify the current FOV with startZoom() and endZoom().");
 
 
 const idEventDef EV_Player_PauseGame("pauseGame", EventArgs(), EV_RETURNS_VOID, 
