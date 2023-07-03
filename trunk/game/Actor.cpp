@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5689 $ (Revision of last commit) 
+ $Date: 2013-01-19 18:56:53 -0500 (Sat, 19 Jan 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Actor.cpp 5689 2013-01-19 23:56:53Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -3418,7 +3418,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 			{
 				StopSound( SND_CHANNEL_VOICE, false );
 				SetSoundVolume(-10); // grayman #1488 - less volume underwater
-				StartSound( "snd_airGasp", SND_CHANNEL_VOICE, 0, false, NULL );
+				StartSound( "snd_drowning", SND_CHANNEL_VOICE, 0, false, NULL ); // grayman #3291
 			}
 		}
 	}
