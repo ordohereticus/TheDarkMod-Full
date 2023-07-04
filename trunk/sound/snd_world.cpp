@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5695 $ (Revision of last commit) 
- $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Revision: 5696 $ (Revision of last commit) 
+ $Date: 2013-02-16 14:24:49 -0500 (Sat, 16 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: snd_world.cpp 5695 2013-02-16 02:01:41Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: snd_world.cpp 5696 2013-02-16 19:24:49Z grayman $");
 
 #include "snd_local.h"
 
@@ -732,19 +732,29 @@ bool idSoundWorldLocal::ResolveOrigin( const int stackDepth, const soundPortalTr
 		return false;
 	}
 
-	if ( soundArea == listenerArea )
+	// grayman #3042 - If how far we've traveled plus the minimum distance needed to reach the listener
+	// from here is greater than the sound's max distance, then there's no need to continue, because
+	// the listener won't hear the sound using this chain of portals along this path.
+
+	float distToListener = (soundOrigin - listenerQU).LengthFast(); // min distance remaining to reach listener
+	if ( ( dist + distToListener ) >= def->distance )
 	{
-		float fullDist = dist + (soundOrigin - listenerQU).LengthFast();
-		if ( fullDist < def->distance )
-		{
-			results->distance = fullDist; // found the listener, so no need to travel distances beyond this
-			results->spatializedOrigin = soundOrigin;
-			results->loss = loss; // grayman #3042 - total accumulated volume loss across portals
-			results->spatialDistance = (soundOrigin - listenerQU).LengthFast();
-			return true;
-		}
 		return false;
 	}
+
+	// If we've reached the sound area the listener is in, our journey is over. Place the
+	// results in the "results" object and return to the level above us.
+
+	if ( soundArea == listenerArea )
+	{
+		results->distance = dist + distToListener; // found the listener, so no need to travel distances beyond this
+		results->spatializedOrigin = soundOrigin;
+		results->loss = loss; // grayman #3042 - total accumulated volume loss across portals
+		results->spatialDistance = distToListener;
+		return true;
+	}
+
+	// We haven't reached the listener yet, so we need to keep going.
 
 	if ( stackDepth == MAX_PORTAL_TRACE_DEPTH )
 	{
