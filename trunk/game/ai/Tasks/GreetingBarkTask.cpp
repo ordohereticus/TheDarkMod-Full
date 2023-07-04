@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: GreetingBarkTask.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: GreetingBarkTask.cpp 5700 2013-02-25 23:43:34Z grayman $");
 
 #include "GreetingBarkTask.h"
 #include "../Memory.h"
@@ -76,7 +76,8 @@ void GreetingBarkTask::Init(idAI* owner, Subsystem& subsystem)
 	// Check the last time we greeted this AI
 	int lastGreetingTime = owner->GetMemory().GetGreetingInfo(_greetingTarget).lastGreetingTime;
 
-	if (lastGreetingTime > 0 && lastGreetingTime < gameLocal.time + MINIMUM_TIME_BETWEEN_GREETING_SAME_ACTOR)
+	if ( ( lastGreetingTime > 0 ) && ( gameLocal.time < lastGreetingTime + MINIMUM_TIME_BETWEEN_GREETING_SAME_ACTOR ) ) // grayman #3317
+//	if (lastGreetingTime > 0 && lastGreetingTime < gameLocal.time + MINIMUM_TIME_BETWEEN_GREETING_SAME_ACTOR) // bad check was letting AI greet once and then never again
 	{
 		// Too early
 		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Cannot greet: time since last greet too short: %s to %s, %d msecs\r", 

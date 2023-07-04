@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5394 $ (Revision of last commit) 
- $Date: 2012-04-17 18:36:35 -0400 (Tue, 17 Apr 2012) $ (Date of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Mind.cpp 5394 2012-04-17 22:36:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Mind.cpp 5700 2013-02-25 23:43:34Z grayman $");
 
 #include "Mind.h"
 #include "States/IdleState.h"
@@ -161,7 +161,7 @@ void Mind::SwitchState(const idStr& stateName)
 {
 	if (_stateQueue.size() > 0)
 	{
-		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Switching to %s to %s (%s)\r", stateName.c_str(), _stateQueue.front()->GetName().c_str(), _owner.GetEntity()->name.c_str());
+		DM_LOG(LC_AI, LT_INFO)LOGSTRING("Switching to %s from %s (%s)\r", stateName.c_str(), _stateQueue.front()->GetName().c_str(), _owner.GetEntity()->name.c_str());
 	}
 	else
 	{

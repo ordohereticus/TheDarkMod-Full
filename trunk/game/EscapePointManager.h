@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef ESCAPE_POINT_MANAGER__H
@@ -62,6 +62,9 @@ struct EscapeConditions
 
 	// The threatening entity to flee from
 	idEntityPtr<idEntity> fromEntity;
+
+	// grayman #3317 - if we're fleeing from a murder or KO, this will be where that event took place
+	idVec3 threatPosition;
 
 	// The AAS the fleeing AI is using.
 	idAAS* aas;

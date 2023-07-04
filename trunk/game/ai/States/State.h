@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5469 $ (Revision of last commit) 
- $Date: 2012-06-01 21:02:35 -0400 (Fri, 01 Jun 2012) $ (Date of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -112,7 +112,13 @@ public:
 	// greebo: Gets called by OnPersonEncounter on finding a dead body
 	// returns TRUE when the stim should be ignored from now on, FALSE otherwise
 	virtual bool OnDeadPersonEncounter(idActor* person, idAI* owner);
+
+	// Ditto for unconscious AI
 	virtual bool OnUnconsciousPersonEncounter(idActor* person, idAI* owner);
+
+	// grayman #3317 - post events for finding dead or unconscious AI
+	virtual void Post_OnDeadPersonEncounter(idActor* person, idAI* owner);
+	virtual void Post_OnUnconsciousPersonEncounter(idActor* person, idAI* owner);
 
 	/**
 	 * greebo: Called if an attacker performed a failed knockout attack

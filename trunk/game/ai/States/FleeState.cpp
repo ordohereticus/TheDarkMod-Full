@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: FleeState.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: FleeState.cpp 5700 2013-02-25 23:43:34Z grayman $");
 
 #include "FleeState.h"
 #include "../Memory.h"
@@ -46,7 +46,7 @@ void FleeState::Init(idAI* owner)
 {
 	State::Init(owner);
 
-	DM_LOG(LC_AI, LT_INFO)LOGSTRING("FleeState initialised.\r");
+	DM_LOG(LC_AI, LT_INFO)LOGSTRING("%s - FleeState initialised.\r",owner->name.c_str());
 	assert(owner);
 
 	// Shortcut reference
@@ -83,8 +83,18 @@ void FleeState::Init(idAI* owner)
 		memory.alertPos
 	));
 
+	// grayman #3317 - Use a different initial flee bark
+	// depending on whether the AI is fleeing an enemy, or fleeing
+	// a witnessed murder or KO.
+
+	idStr singleBark = "snd_to_flee";
+	if ( owner->fleeingEvent )
+	{
+		singleBark = "snd_to_flee_event";
+	}
+
 	owner->commSubsystem->AddCommTask(
-		CommunicationTaskPtr(new SingleBarkTask("snd_to_flee",message))
+		CommunicationTaskPtr(new SingleBarkTask(singleBark,message))
 	);
 
 	owner->commSubsystem->AddSilence(3000);
@@ -113,7 +123,12 @@ void FleeState::Think(idAI* owner)
 	if (memory.fleeingDone)
 	{
 		owner->ClearEnemy();
-		owner->GetMind()->SwitchState(STATE_FLEE_DONE);
+		owner->fleeingEvent = false; // grayman #3317
+
+		if ( !owner->AI_DEAD && !owner->AI_KNOCKEDOUT ) // grayman #3317 - only go to STATE_FLEE_DONE if not KO'ed or dead
+		{
+			owner->GetMind()->SwitchState(STATE_FLEE_DONE);
+		}
 	}
 }
 

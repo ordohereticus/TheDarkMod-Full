@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #ifndef __GAME_ACTOR_H__
@@ -384,6 +384,11 @@ public:
 	* grayman #2728 - next time this actor can be kicked by another actor
 	**/
 	int						m_nextKickTime;
+
+	/**
+	* grayman #3317 - when we were killed or KO'ed
+	**/
+	int						m_timeFellDown;
 
 public:
 							idActor( void );

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5456 $ (Revision of last commit) 
- $Date: 2012-05-22 14:02:19 -0400 (Tue, 22 May 2012) $ (Date of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -929,6 +929,8 @@ public:
 	// Events invoked by the engine on reloadImages or vid_restart
 	void					OnReloadImages();
 	void					OnVidRestart();
+
+	void					AllowImmediateStim( idEntity* e, int stimType ); // grayman #3317
 
 private:
 	const static int		INITIAL_SPAWN_COUNT = 1;

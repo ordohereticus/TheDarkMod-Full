@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5667 $ (Revision of last commit) 
- $Date: 2012-12-31 20:46:51 -0500 (Mon, 31 Dec 2012) $ (Date of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5667 2013-01-01 01:46:51Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI_events.cpp 5700 2013-02-25 23:43:34Z grayman $");
 
 #include "../Game_local.h"
 #include "../Relations.h"
@@ -441,6 +441,9 @@ const idEventDef AI_HasSeenEvidence( "hasSeenEvidence", EventArgs(), 'd',
 
 const idEventDef AI_RestartPatrol( "restartPatrol", EventArgs(), EV_RETURNS_VOID, "no description" ); // grayman #2920
 
+const idEventDef AI_OnDeadPersonEncounter( "<onDeadPersonEncounter>", EventArgs('e', "person", "the dead AI"), EV_RETURNS_VOID, "internal" ); // grayman #3317
+const idEventDef AI_OnUnconsciousPersonEncounter( "<onUnconsciousPersonEncounter>", EventArgs('e', "person", "the unconscious AI"), EV_RETURNS_VOID, "internal" ); // grayman #3317
+
 /*
 * This is the AI event table class for a generic NPC actor.
 *
@@ -629,6 +632,8 @@ CLASS_DECLARATION( idActor, idAI )
 	EVENT ( AI_Bark,							idAI::Event_Bark)			// grayman #2816
 	EVENT ( AI_EmptyHand,						idAI::Event_EmptyHand)		// grayman #3154
 	EVENT ( AI_RestartPatrol,					idAI::Event_RestartPatrol)	// grayman #2920
+	EVENT ( AI_OnDeadPersonEncounter,			idAI::Event_OnDeadPersonEncounter) // grayman #3317
+	EVENT ( AI_OnUnconsciousPersonEncounter,	idAI::Event_OnUnconsciousPersonEncounter) // grayman #3317
 
 END_CLASS
 
@@ -1415,9 +1420,10 @@ void idAI::Event_MoveOutOfRange( idEntity *entity, float range ) {
 idAI::Event_Flee
 =====================
 */
-void idAI::Event_Flee(idEntity *entityToFleeFrom, int algorithm, int distanceOption) {
+void idAI::Event_Flee(idEntity *entityToFleeFrom, int algorithm, int distanceOption)
+{
 	StopMove(MOVE_STATUS_DEST_NOT_FOUND);
-	idThread::ReturnInt(Flee(entityToFleeFrom, algorithm, distanceOption));
+	idThread::ReturnInt(Flee(entityToFleeFrom, false, algorithm, distanceOption)); // grayman #3317
 }
 
 /*
@@ -3630,6 +3636,18 @@ void idAI::Event_Bark(const char* soundName)
 {
 	idStr bark = soundName;
 	Bark(bark);
+}
+
+// grayman #3317
+
+void idAI::Event_OnDeadPersonEncounter(idActor* person)
+{
+	mind->GetState()->Post_OnDeadPersonEncounter(person, this);
+}
+
+void idAI::Event_OnUnconsciousPersonEncounter(idActor* person)
+{
+	mind->GetState()->Post_OnUnconsciousPersonEncounter(person, this);
 }
 
 

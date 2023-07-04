@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5366 $ (Revision of last commit) 
- $Date: 2012-04-03 17:40:47 -0400 (Tue, 03 Apr 2012) $ (Date of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -72,6 +72,12 @@ public:
 	virtual void OnPersonEncounter(idEntity* stimSource, idAI* owner);
 	virtual void OnFailedKnockoutBlow(idEntity* attacker, const idVec3& direction, bool hitHead);
 
+	// grayman #3317 - It's possible that an AI will enter Combat mode after encountering a
+	// dead or KO'ed AI, but before the post processing for those events occurs. If that happens,
+	// these methods will catch the post processing and abort it.
+	virtual void Post_OnDeadPersonEncounter(idActor* person, idAI* owner);
+	virtual void Post_OnUnconsciousPersonEncounter(idActor* person, idAI* owner);
+	
 	// Save/Restore methods
 	virtual void Save(idSaveGame* savefile) const;
 	virtual void Restore(idRestoreGame* savefile);

@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5308 $ (Revision of last commit) 
- $Date: 2012-02-26 13:09:58 -0500 (Sun, 26 Feb 2012) $ (Date of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: AI_pathing.cpp 5308 2012-02-26 18:09:58Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: AI_pathing.cpp 5700 2013-02-25 23:43:34Z grayman $");
 
 #include "../Game_local.h"
 
@@ -339,8 +339,10 @@ bool GetFirstBlockingObstacle(const idPhysics *physics, const obstacle_t *obstac
 	blockingScale = idMath::INFINITY;
 	float blockingScaleDoor = idMath::INFINITY; // grayman #2345
 	dist = delta.Length();
-	for ( i = 0; i < numObstacles; i++ ) {
-		if ( i == skipObstacle ) {
+	for ( i = 0; i < numObstacles; i++ )
+	{
+		if ( i == skipObstacle )
+		{
 			continue;
 		}
 
@@ -349,6 +351,7 @@ bool GetFirstBlockingObstacle(const idPhysics *physics, const obstacle_t *obstac
 		{
 			continue;
 		}
+
 		if ( obstacles[i].winding.RayIntersection( startPos, delta, scale1, scale2, edgeNums ) )
 		{
 			if ( scale1 < blockingScale && scale1 * dist > -0.01f && scale2 * dist > 0.01f )
@@ -644,9 +647,8 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 						if (!selfAI->m_HandlingDoor) // If we're already handling a door, don't include the closed door in the obstacle calculation
 						{
 							openDoorFound = true;
-							// grayman #720 - replace calculations with a capture of the closed box at spawn time
 
-//							box.AddBox (p_binaryFrobMover->GetClosedBox());
+							// grayman #720 - replace calculations with a capture of the closed box at spawn time
 							boxClosed = p_binaryFrobMover->GetClosedBox(); // create a second box; don't add to open box
 						}
 					}
@@ -660,15 +662,19 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 		// create a 2D winding for the obstacle;
 		obstacle_t& obstacle = obstacles[numObstacles++];
 		obstacle.winding.Clear();
-		for ( int j = 0; j < numVerts; j++ ) {
+		for ( int j = 0 ; j < numVerts ; j++ )
+		{
 			obstacle.winding.AddPoint( silVerts[j].ToVec2() );
 		}
 
-		if ( ai_showObstacleAvoidance.GetBool() ) {
-			for ( int j = 0; j < numVerts; j++ ) {
+		if ( ai_showObstacleAvoidance.GetBool() )
+		{
+			for ( int j = 0; j < numVerts; j++ )
+			{
 				silVerts[j].z = startPos.z;
 			}
-			for ( int j = 0; j < numVerts; j++ ) {
+			for ( int j = 0; j < numVerts; j++ )
+			{
 				gameRenderWorld->DebugArrow( colorWhite, silVerts[j], silVerts[(j+1)%numVerts], 4 ,gameLocal.msec);
 			}
 		}
@@ -689,13 +695,14 @@ int GetObstacles( const idPhysics *physics, const idAAS *aas, const idEntity *ig
 			// create a 2D winding for the obstacle;
 			obstacle_t& obstacle2 = obstacles[numObstacles++];
 			obstacle2.winding.Clear();
-			for ( int j = 0; j < numVerts; j++ ) {
+			for ( int j = 0 ; j < numVerts ; j++ )
+			{
 				obstacle2.winding.AddPoint( silVerts[j].ToVec2() );
 			}
 
 			// expand the 2D winding for collision with a 2D box
 			obstacle2.winding.ExpandForAxialBox( expBounds );
-			obstacle2.winding.GetBounds( obstacle.bounds );
+			obstacle2.winding.GetBounds( obstacle2.bounds ); // grayman #3317 - oops, found that this said obstacle.bound. not good.
 			obstacle2.entity = obEnt;
 		}
 	}
@@ -1725,6 +1732,7 @@ HeightForTrajectory
 Returns the maximum hieght of a given trajectory
 =====================
 */
+/*
 static float HeightForTrajectory( const idVec3 &start, float zVel, float gravity ) {
 	float maxHeight, t;
 
@@ -1734,6 +1742,7 @@ static float HeightForTrajectory( const idVec3 &start, float zVel, float gravity
 	
 	return maxHeight;
 }
+ */
 
 /*
 =====================

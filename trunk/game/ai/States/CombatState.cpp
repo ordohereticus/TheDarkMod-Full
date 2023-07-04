@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5655 $ (Revision of last commit) 
- $Date: 2012-11-24 13:33:02 -0500 (Sat, 24 Nov 2012) $ (Date of last commit)
- $Author: angua $ (Author of last commit)
+ $Revision: 5700 $ (Revision of last commit) 
+ $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5655 2012-11-24 18:33:02Z angua $");
+static bool versioned = RegisterVersionedFile("$Id: CombatState.cpp 5700 2013-02-25 23:43:34Z grayman $");
 
 #include "CombatState.h"
 #include "../Memory.h"
@@ -120,6 +120,16 @@ void CombatState::OnPersonEncounter(idEntity* stimSource, idAI* owner)
 		owner->GetMemory().lastTimeFriendlyAISeen = gameLocal.time;
 	}
 	// angua: ignore other people during combat
+}
+
+void CombatState::Post_OnDeadPersonEncounter(idActor* person, idAI* owner) // grayman #3317
+{
+	// don't react to a dead person
+}
+
+void CombatState::Post_OnUnconsciousPersonEncounter(idActor* person, idAI* owner) // grayman #3317
+{
+	// don't react to an unconscious person
 }
 
 void CombatState::Init(idAI* owner)
