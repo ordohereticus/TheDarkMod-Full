@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5548 $ (Revision of last commit) 
- $Date: 2012-09-02 09:04:45 -0400 (Sun, 02 Sep 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5690 $ (Revision of last commit) 
+ $Date: 2013-01-20 22:52:22 -0500 (Sun, 20 Jan 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5548 2012-09-02 13:04:45Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: MissionData.cpp 5690 2013-01-21 03:52:22Z grayman $");
 
 #include "../Game_local.h"
 
@@ -2503,7 +2503,7 @@ void CMissionData::UpdateStatisticsGUI(idUserInterface* gui, const idStr& listDe
 
 	int difficultyLevel = gameLocal.m_DifficultyManager.GetDifficultyLevel();
 	key = common->Translate( "#str_02226" );	// Difficulty Level
-	value = gameLocal.m_DifficultyManager.GetDifficultyName(difficultyLevel);
+	value = gameLocal.m_MissionData->GetDifficultyName(difficultyLevel); // grayman #3292 - get from mission stats, not from difficulty manager
 	gui->SetStateString(prefix + idStr(index), key + divider + value + postfix);
 	
 	/*key = "Frames";
@@ -2595,3 +2595,41 @@ void CMissionData::SetPlayerTeam(int team)
 {
 	m_PlayerTeam = team;
 }
+
+// grayman #3292 - retain difficulty names after map shutdown,
+// for the mission statistics screen
+
+void CMissionData::SetDifficultyNames(idStr _difficultyNames[])
+{
+	for ( int i = 0 ; i < DIFFICULTY_COUNT ; i++ )
+	{
+		m_Stats._difficultyNames[i] = _difficultyNames[i];
+	}
+}
+
+// grayman #3292
+//
+// A copy of DifficultyManager::GetDifficultyName(), but working with
+// the copy of the difficulty names stored in the statistics data,
+// which survives after the map data is cleared at the end of a
+// mission, but before the statistics screen is displayed.
+
+idStr CMissionData::GetDifficultyName(int level)
+{
+	assert( ( level >= 0 ) && ( level < DIFFICULTY_COUNT ) );
+
+	if ( m_Stats._difficultyNames[level].Length() > 0 )
+	{
+		return common->Translate( m_Stats._difficultyNames[level] ); // Translate difficulty name
+	}
+
+	// Return default name from entityDef
+
+	const idDecl* diffDecl = declManager->FindType(DECL_ENTITYDEF, "difficultyMenu", false);
+	const idDeclEntityDef* diffDef = static_cast<const idDeclEntityDef*>(diffDecl);
+
+	// Translate default difficulty name
+
+	return common->Translate( diffDef->dict.GetString(va("diff%ddefault", level), "") );
+}
+

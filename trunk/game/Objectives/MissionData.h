@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5553 $ (Revision of last commit) 
- $Date: 2012-09-07 05:19:17 -0400 (Fri, 07 Sep 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5690 $ (Revision of last commit) 
+ $Date: 2013-01-20 22:52:22 -0500 (Sun, 20 Jan 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -354,6 +354,9 @@ public:
 	void IncrementPlayerSeen(); // grayman #2887
 	void Add2TimePlayerSeen( int amount ); // grayman #2887
 
+	void SetDifficultyNames(idStr _difficultyNames[]); // grayman #3292
+	idStr GetDifficultyName(int level); // grayman #3292
+	
 	/**
 	* Parse the objective data on an entity and add it to the objectives system
 	* Called by CTarget_AddObjectives

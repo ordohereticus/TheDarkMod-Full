@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5185 $ (Revision of last commit) 
- $Date: 2012-01-08 00:59:48 -0500 (Sun, 08 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5690 $ (Revision of last commit) 
+ $Date: 2013-01-20 22:52:22 -0500 (Sun, 20 Jan 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionStatistics.cpp 5185 2012-01-08 05:59:48Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MissionStatistics.cpp 5690 2013-01-21 03:52:22Z grayman $");
 
 #include "MissionStatistics.h"
 
@@ -72,6 +72,11 @@ void MissionStatistics::Clear()
 
 	totalTimePlayerSeen = 0;	// grayman #2887
 	numberTimesPlayerSeen = 0;	// grayman #2887
+
+	for ( int i = 0 ; i < DIFFICULTY_COUNT ; i++) // grayman #3292
+	{
+		_difficultyNames[i] = "";
+	}
 }
 
 void MissionStatistics::Save(idSaveGame* savefile) const
@@ -133,6 +138,11 @@ void MissionStatistics::Save(idSaveGame* savefile) const
 	for (int i = 0; i < ObjectiveStates.Num(); ++i)
 	{
 		savefile->WriteInt(ObjectiveStates[i]);
+	}
+	
+	for ( int i = 0 ; i < DIFFICULTY_COUNT ; i++) // grayman #3292
+	{
+		savefile->WriteString(_difficultyNames[i]);
 	}
 }
 
@@ -203,6 +213,11 @@ void MissionStatistics::Restore(idRestoreGame* savefile)
 		assert(state >= STATE_INCOMPLETE && state <= STATE_FAILED);
 
 		ObjectiveStates[i] = static_cast<EObjCompletionState>(state);
+	}
+
+	for (int i = 0; i < DIFFICULTY_COUNT; i++) // grayman #3292
+	{
+		savefile->ReadString(_difficultyNames[i]);
 	}
 }
 

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5166 $ (Revision of last commit) 
- $Date: 2012-01-06 13:35:53 -0500 (Fri, 06 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5690 $ (Revision of last commit) 
+ $Date: 2013-01-20 22:52:22 -0500 (Sun, 20 Jan 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -81,6 +81,13 @@ public:
 	// grayman #2887 - for tracking how often and for how long the player was seen
 	int numberTimesPlayerSeen;
 	int totalTimePlayerSeen;
+
+	// grayman #3292 - since the map-defined difficulty names get wiped at map
+	// shutdown, and that happens before the statistics screen is displayed,
+	// the difficulty names need to be stored where the statistics screen can
+	// get at them
+		
+	idStr _difficultyNames[DIFFICULTY_COUNT]; // The name of each difficultylevel
 
 	MissionStatistics() 
 	{
