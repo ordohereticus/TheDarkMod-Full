@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5596 $ (Revision of last commit) 
- $Date: 2012-10-19 02:16:57 -0400 (Fri, 19 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5691 $ (Revision of last commit) 
+ $Date: 2013-01-25 08:19:30 -0500 (Fri, 25 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5596 2012-10-19 06:16:57Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: MissionManager.cpp 5691 2013-01-25 13:19:30Z tels $");
 
 #include <time.h>
 #include "MissionManager.h"
@@ -1372,7 +1372,21 @@ void CMissionManager::LoadModListFromXml(const XmlDocumentPtr& doc)
 		mission.author = node.attribute("author").value();
 		mission.releaseDate = node.attribute("releaseDate").value();
 		mission.type = idStr::Icmp(node.attribute("type").value(), "multi") == 0 ? DownloadableMod::Multi : DownloadableMod::Single;
+
 		mission.modName = node.attribute("internalName").value();
+		// Tels #3294: We need to clean the server-side modName of things like uppercase letters, trailing ".pk4" etc.
+		//	       Otherwise we get duplicated entries in the MissionDB like "broads.pk4" and "broads" or "VFAT1" and "vfat1":
+		mission.modName.ToLower();
+		mission.modName.StripTrailingOnce(".pk4");
+
+		// Clean modName string from any weird characters
+		int modNameLen = mission.modName.Length();
+		for (int i = 0; i < modNameLen; ++i)
+		{
+			if (idStr::CharIsAlpha(mission.modName[i]) || idStr::CharIsNumeric(mission.modName[i])) continue;
+			mission.modName[i] = '_'; // replace non-ASCII keys with underscores
+		}
+
 		mission.version = node.attribute("version").as_int();
 		mission.isUpdate = false;
 

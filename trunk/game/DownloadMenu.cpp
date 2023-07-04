@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5266 $ (Revision of last commit) 
- $Date: 2012-02-10 09:40:18 -0500 (Fri, 10 Feb 2012) $ (Date of last commit)
+ $Revision: 5691 $ (Revision of last commit) 
+ $Date: 2013-01-25 08:19:30 -0500 (Fri, 25 Jan 2013) $ (Date of last commit)
  $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DownloadMenu.cpp 5266 2012-02-10 14:40:18Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: DownloadMenu.cpp 5691 2013-01-25 13:19:30Z tels $");
 
 #include "DownloadMenu.h"
 #include "Missions/MissionManager.h"
@@ -425,7 +425,7 @@ void CDownloadMenu::StartDownload(idUserInterface* gui)
 		// Final path to the FM file
 		idStr missionPath = targetPath + mod.modName + ".pk4";
 
-		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Will download the mission PK4 to %s.\r", missionPath.c_str());
+		DM_LOG(LC_MAINMENU, LT_INFO)LOGSTRING("Will download the mission PK4 to %s (modName %s).\r", missionPath.c_str(), mod.modName.c_str());
 
 		// Check for valid PK4 files after download
 		CDownloadPtr download(new CDownload(mod.missionUrls, missionPath, true));
