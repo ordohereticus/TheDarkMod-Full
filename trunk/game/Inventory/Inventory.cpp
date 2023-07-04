@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5454 $ (Revision of last commit) 
- $Date: 2012-05-21 13:12:42 -0400 (Mon, 21 May 2012) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5698 $ (Revision of last commit) 
+ $Date: 2013-02-18 16:40:14 -0500 (Mon, 18 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Inventory.cpp 5454 2012-05-21 17:12:42Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Inventory.cpp 5698 2013-02-18 21:40:14Z grayman $");
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -606,8 +606,12 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 		}
 
 		// We added a stackable item that was already in the inventory
+		// grayman #3315 - Solution from Zbyl. InventoryCallback() looks at
+		// the existing entity to retrieve a bindmaster, and that's already
+		// been NULLed. So we need to look at the new entity instead.
 		gameLocal.m_MissionData->InventoryCallback(
-			existing->GetItemEntity(), existing->GetName(), 
+			ent,
+			existing->GetName(), 
 			existing->GetCount(), 
 			1, 
 			true
@@ -650,14 +654,16 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 			// Put the item into its category
 			PutItem(item, category);
 
-			// We added a new inventory item
+			// grayman #3313 - Solution is from Zbyl. InventoryCallback() is called from PutItem(), so it's already been done.
+
+/*			// We added a new inventory item
 			gameLocal.m_MissionData->InventoryCallback(
 				item->GetItemEntity(), item->GetName(), 
 				1, 
 				1, 
 				true
 			);
-
+ */
 			if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
 			{
 				NotifyOwnerAboutPickup( common->Translate( name ), item);
