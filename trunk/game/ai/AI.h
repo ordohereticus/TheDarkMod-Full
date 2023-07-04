@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5684 $ (Revision of last commit) 
- $Date: 2013-01-12 17:42:12 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5697 $ (Revision of last commit) 
+ $Date: 2013-02-18 12:53:33 -0500 (Mon, 18 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -1233,6 +1233,7 @@ public: // greebo: Made these public for now, I didn't want to write an accessor
 	bool m_ReactingToHit;		// grayman #2816 - reaction after being hit by something
 	idEntity* m_lastKilled;		// grayman #2816 - the last enemy we killed
 	bool m_justKilledSomeone;	// grayman #2816 - remember just killing someone so correct bark is emitted when alert level comes down
+	bool m_deckedByPlayer;		// grayman #3314 - TRUE if the player killed or KO'ed me (for mission statistics "bodies found")
 
 	// The mind of this AI
 	ai::MindPtr mind;
