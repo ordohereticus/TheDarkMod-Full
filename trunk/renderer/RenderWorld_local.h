@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5383 $ (Revision of last commit) 
- $Date: 2012-04-11 05:46:32 -0400 (Wed, 11 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -36,6 +36,8 @@ typedef struct portal_s {
 typedef struct doublePortal_s {
 	struct portal_s	*		portals[2];
 	int						blockingBits;	// PS_BLOCK_VIEW, PS_BLOCK_AIR, etc, set by doors that shut them off
+
+	float					lossPlayer;		// grayman #3042 - amount of Player sound loss (in dB)
 
 	// A portal will be considered closed if it is past the
 	// fog-out point in a fog volume.  We only support a single
@@ -98,6 +100,9 @@ public:
 	virtual int				PointInArea( const idVec3 &point ) const;
 	virtual int				BoundsInAreas( const idBounds &bounds, int *areas, int maxAreas ) const;
 	virtual	int				NumPortalsInArea( int areaNum );
+	// grayman #3042 - set portal sound loss (in dB)
+	virtual void			SetPortalPlayerLoss( qhandle_t portal, float loss );
+
 	virtual exitPortal_t	GetPortal( int areaNum, int portalNum );
 
 	virtual	guiPoint_t		GuiTrace( qhandle_t entityHandle, const idVec3 start, const idVec3 end ) const;
@@ -202,6 +207,7 @@ public:
 	qhandle_t				FindPortal( const idBounds &b ) const;
 	void					SetPortalState( qhandle_t portal, int blockingBits );
 	int						GetPortalState( qhandle_t portal );
+
 	bool					AreasAreConnected( int areaNum1, int areaNum2, portalConnection_t connection );
 	void					FloodConnectedAreas( portalArea_t *area, int portalAttributeIndex );
 	idScreenRect &			GetAreaScreenRect( int areaNum ) const { return areaScreenRect[areaNum]; }

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5683 $ (Revision of last commit) 
- $Date: 2013-01-12 10:50:46 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -180,9 +180,12 @@ private:
 	* TDM Soundprop Events:
 	* Set or get the acoustical loss for a portal with a given handle.
 	* Handle must be greater than zero and less than the number of portals in the map.
+	* grayman #3042 - allow access to AI- and Player-specific loss
 	**/
-	void						Event_SetPortSoundLoss( int handle, float value );
-	void						Event_GetPortSoundLoss( int handle );
+	void						Event_SetPortAISoundLoss( int handle, float value );
+	void						Event_SetPortPlayerSoundLoss( int handle, float value );
+	void						Event_GetPortAISoundLoss( int handle );
+	void						Event_GetPortPlayerSoundLoss( int handle );
 	
 	// The scriptevent counterpart of DM_LOG
 	void						Event_LogString(int logClass, int logType, const char* output);

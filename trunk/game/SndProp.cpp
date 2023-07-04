@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5665 $ (Revision of last commit) 
- $Date: 2012-12-19 18:24:12 -0500 (Wed, 19 Dec 2012) $ (Date of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -35,7 +35,7 @@
 
 #include "Game_local.h"
 
-static bool versioned = RegisterVersionedFile("$Id: SndProp.cpp 5665 2012-12-19 23:24:12Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: SndProp.cpp 5695 2013-02-16 02:01:41Z grayman $");
 
 #pragma warning(disable : 4996)
 
@@ -356,12 +356,11 @@ void CsndProp::SetupFromLoader( const CsndPropLoader *in )
 		}
 	}
 
-
 	// copy the portal data array, element by element
-	for( int k=0; k < m_numPortals; k++ )
+	for( int k = 0 ; k < m_numPortals ; k++ )
 	{
-		m_PortData[k].loss = in->m_PortData[k].loss;
-		
+		m_PortData[k].lossAI = in->m_PortData[k].lossAI; // grayman #3042
+		m_PortData[k].lossPlayer = in->m_PortData[k].lossPlayer; // grayman #3042
 		m_PortData[k].Areas[0] = in->m_PortData[k].Areas[0];
 		m_PortData[k].Areas[1] = in->m_PortData[k].Areas[1];
 		m_PortData[k].LocalIndex[0] = in->m_PortData[k].LocalIndex[0];
@@ -486,7 +485,7 @@ void CsndProp::Propagate
 	int areaNum = gameRenderWorld->PointInArea(origin);
 	vol0 += (areaNum >= 0) ? m_AreaPropsG[areaNum].VolMod : 0;
 
-	// scale the volume by some amount that is a cvar for now for tweaking
+	// Adjust the volume by some amount that is a cvar for now for tweaking
 	// later we will put a permananet value in the def for globals->Vol
 	vol0 += cv_ai_sndvol.GetFloat();
 
@@ -512,7 +511,7 @@ void CsndProp::Propagate
 	// For objects (non-actors) the team will be set to -1
 	mteam = (maker->IsType(idActor::Type)) ? static_cast<idActor*>(maker)->team : -1;
 
-	// Calculate the range, assuming peceived loudness of a sound doubles every 7 dB
+	// Calculate the range, assuming perceived loudness of a sound doubles every 7 dB
 	// (we want to overestimate a bit.  With the current settings, cutoff for a footstep
 	// at 50dB is ~15 meters ( ~45 ft )
 
@@ -872,8 +871,8 @@ bool CsndProp::ExpandWave(float volInit, idVec3 origin)
 		// calculate and set initial portal losses
 		tempAtt = m_AreaPropsG[ initArea ].LossMult * tempDist;
 		
-		// add the door loss
-		tempAtt += m_PortData[ pSndAreas->portals[i2].handle - 1 ].loss;
+		// add the portal loss
+		tempAtt += m_PortData[ pSndAreas->portals[i2].handle - 1 ].lossAI;
 
 		// get the current loss
 		tempLoss = m_SndGlobals.Falloff_Ind * s_invLog10*idMath::Log16(tempDist) + tempAtt + 8;
@@ -987,7 +986,7 @@ bool CsndProp::ExpandWave(float volInit, idVec3 origin)
 				DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Total distance now %f\r", tempDist );
 				
 				// add any specific loss on the portal
-				tempAtt += m_PortData[ pSndAreas->portals[i].handle - 1 ].loss;
+				tempAtt += m_PortData[ pSndAreas->portals[i].handle - 1 ].lossAI;
 
 				tempLoss = m_SndGlobals.Falloff_Ind * s_invLog10*idMath::Log16(tempDist) + tempAtt + 8;
 
@@ -1492,9 +1491,17 @@ void CsndProp::DrawLines(idList<idVec3>& pointlist)
 	}
 }
 
-void CsndProp::SetPortalLoss( int handle, float value )
+void CsndProp::SetPortalAILoss( int handle, float value ) // grayman #3042 - specific to AI
 {
-	CsndPropBase::SetPortalLoss( handle, value );
+	CsndPropBase::SetPortalAILoss( handle, value );
+
+	// update the portal loss info timestamp
+	m_TimeStampPortLoss = gameLocal.time;
+}
+
+void CsndProp::SetPortalPlayerLoss( int handle, float value ) // grayman #3042 - specific to Player
+{
+	CsndPropBase::SetPortalPlayerLoss( handle, value );
 
 	// update the portal loss info timestamp
 	m_TimeStampPortLoss = gameLocal.time;
@@ -1554,8 +1561,8 @@ bool CsndProp::ExpandWaveFast( float volInit, idVec3 origin, float MaxDist, int 
 		// calculate and set initial portal losses
 		tempAtt = m_AreaPropsG[ initArea ].LossMult * tempDist;
 		
-		// add the door loss
-		tempAtt += m_PortData[ pSndAreas->portals[i2].handle - 1 ].loss;
+		// add any specific AI loss on the portal
+		tempAtt += m_PortData[ pSndAreas->portals[i2].handle - 1 ].lossAI; // grayman #3042
 
 		pPortEv = &pEventAreas->PortalDat[i2];
 
@@ -1662,8 +1669,8 @@ bool CsndProp::ExpandWaveFast( float volInit, idVec3 origin, float MaxDist, int 
 				tempAtt += AddedDist * m_AreaPropsG[ area ].LossMult;
 				DM_LOG(LC_SOUND, LT_DEBUG)LOGSTRING("Total distance now %f\r", tempDist );
 				
-				// add any specific loss on the portal
-				tempAtt += m_PortData[ pSndAreas->portals[i].handle - 1 ].loss;
+				// add any specific AI loss on the portal
+				tempAtt += m_PortData[ pSndAreas->portals[i].handle - 1 ].lossAI; // grayman #3042
 
 				// check if we've visited the area.  Fast prop only visits an area once
 				if( pEventAreas->bVisited )

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5395 $ (Revision of last commit) 
- $Date: 2012-04-18 12:59:26 -0400 (Wed, 18 Apr 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -75,7 +75,8 @@ typedef enum {
 	DC_DEFINE_MODEL,
 	DC_SET_PORTAL_STATE,
 	DC_UPDATE_SOUNDOCCLUSION,
-	DC_GUI_MODEL
+	DC_GUI_MODEL,
+	DC_SET_PLAYER_PORTAL_LOSS	// grayman #3042
 } demoCommand_t;
 
 /*

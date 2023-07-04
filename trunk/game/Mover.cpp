@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: Mover.cpp 5695 2013-02-16 02:01:41Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1420,7 +1420,7 @@ void idMover::Event_OpenPortal( void )
 ================
 idMover::Event_ClosePortal
 
-Sets the portal associtated with this mover to be closed
+Sets the portal associatated with this mover to be closed
 ================
 */
 void idMover::Event_ClosePortal( void ) 
@@ -2198,7 +2198,7 @@ void idMover_Binary::Event_Disable( void ) {
 ================
 idMover_Binary::Event_OpenPortal
 
-Sets the portal associtated with this mover to be open
+Sets the portal associated with this mover to be open
 ================
 */
 void idMover_Binary::Event_OpenPortal( void ) {

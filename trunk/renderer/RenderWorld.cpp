@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5511 $ (Revision of last commit) 
- $Date: 2012-08-06 14:26:11 -0400 (Mon, 06 Aug 2012) $ (Date of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5511 2012-08-06 18:26:11Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: RenderWorld.cpp 5695 2013-02-16 02:01:41Z grayman $");
 
 #include "tr_local.h"
 
@@ -831,6 +831,7 @@ exitPortal_t idRenderWorldLocal::GetPortal( int areaNum, int portalNum ) {
 			ret.areas[1] = portal->intoArea;
 			ret.w = portal->w;
 			ret.blockingBits = portal->doublePortal->blockingBits;
+			ret.lossPlayer = portal->doublePortal->lossPlayer; // grayman #3042
 			ret.portalHandle = portal->doublePortal - doublePortals + 1;
 			return ret;
 		}
@@ -841,6 +842,33 @@ exitPortal_t idRenderWorldLocal::GetPortal( int areaNum, int portalNum ) {
 
 	memset( &ret, 0, sizeof( ret ) );
 	return ret;
+}
+
+/*
+==============
+SetPortalPlayerLoss
+==============
+*/
+void idRenderWorldLocal::SetPortalPlayerLoss( qhandle_t portal, float loss ) // grayman #3042
+{
+	if ( portal == 0 )
+	{
+		return;
+	}
+
+	if ( ( portal < 1 ) || ( portal > numInterAreaPortals ) )
+	{
+		common->Error( "SetPortalPlayerLoss: bad portal number %i", portal );
+	}
+	doublePortals[portal-1].lossPlayer = loss; // grayman #3042
+
+	if ( session->writeDemo )
+	{
+		session->writeDemo->WriteInt( DS_RENDER );
+		session->writeDemo->WriteInt( DC_SET_PLAYER_PORTAL_LOSS );
+		session->writeDemo->WriteInt( portal );
+		session->writeDemo->WriteFloat( loss );
+	}
 }
 
 /*

@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5681 $ (Revision of last commit) 
- $Date: 2013-01-12 08:58:22 -0500 (Sat, 12 Jan 2013) $ (Date of last commit)
- $Author: tels $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4127 4996 4805 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5681 2013-01-12 13:58:22Z tels $");
+static bool versioned = RegisterVersionedFile("$Id: Game_local.cpp 5695 2013-02-16 02:01:41Z grayman $");
 
 #include "Game_local.h"
 #include "DarkModGlobals.h"
@@ -1658,9 +1658,15 @@ void idGameLocal::MapPopulate( void ) {
 	m_sndPropLoader->FillLocationData();
 
 	// Transfer sound prop data from loader to gameplay object
+
+	// grayman #3042 - A bit of explanation here. Prior to this point,
+	// sound data is stored in m_sndPropLoader. After this point, sound
+	// data needs to go in m_sndProp. This is important for sound-related
+	// spawnargs that don't get set up until the PostSpawn() routines are
+	// run for certain entities.
 	m_sndProp->SetupFromLoader( m_sndPropLoader );
 
-	m_sndPropLoader->Shutdown();
+	m_sndPropLoader->Shutdown(); // And here's why you can't use m_sndPropLoader after this point
 	
 	// Initialise the escape point manager after all the entities have been spawned.
 	m_EscapePointManager->InitAAS();

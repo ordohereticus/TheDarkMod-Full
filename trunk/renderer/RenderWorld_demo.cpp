@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5171 $ (Revision of last commit) 
- $Date: 2012-01-07 03:08:06 -0500 (Sat, 07 Jan 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_engine.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: RenderWorld_demo.cpp 5171 2012-01-07 08:08:06Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: RenderWorld_demo.cpp 5695 2013-02-16 02:01:41Z grayman $");
 
 #include "tr_local.h"
 
@@ -206,31 +206,48 @@ bool		idRenderWorldLocal::ProcessDemoCommand( idDemoFile *readDemo, renderView_t
 
 	case DC_DEFINE_MODEL:
 		{
-		idRenderModel	*model = renderModelManager->AllocModel();
-		model->ReadFromDemoFile( session->readDemo );
-		// add to model manager, so we can find it
-		renderModelManager->AddModel( model );
+			idRenderModel *model = renderModelManager->AllocModel();
+			model->ReadFromDemoFile( session->readDemo );
+			// add to model manager, so we can find it
+			renderModelManager->AddModel( model );
 
-		// save it in the list to free when clearing this map
-		localModels.Append( model );
+			// save it in the list to free when clearing this map
+			localModels.Append( model );
 
-		if ( r_showDemo.GetBool() ) {
-			common->Printf( "DC_DEFINE_MODEL\n" );
+			if ( r_showDemo.GetBool() )
+			{
+				common->Printf( "DC_DEFINE_MODEL\n" );
+			}
 		}
 		break;
-		}
+
 	case DC_SET_PORTAL_STATE:
 		{
 			int		data[2];
 			readDemo->ReadInt( data[0] );
 			readDemo->ReadInt( data[1] );
 			SetPortalState( data[0], data[1] );
-			if ( r_showDemo.GetBool() ) {
+			if ( r_showDemo.GetBool() )
+			{
 				common->Printf( "DC_SET_PORTAL_STATE: %i %i\n", data[0], data[1] );
 			}
 		}
-		
 		break;
+
+	case DC_SET_PLAYER_PORTAL_LOSS: // grayman #3042
+		{
+			int portal;
+			float loss;
+			readDemo->ReadInt( portal );
+			readDemo->ReadFloat( loss );
+			SetPortalPlayerLoss( portal, loss ); // grayman #3042
+			if ( r_showDemo.GetBool() )
+			{
+				common->Printf( "DC_SET_PLAYER_PORTAL_LOSS: %i %f\n", portal, loss );
+			}
+		}
+		break;
+
 	case DC_END_FRAME:
 		return true;
 

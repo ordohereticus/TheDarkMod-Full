@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5121 $ (Revision of last commit) 
- $Date: 2011-12-11 14:12:26 -0500 (Sun, 11 Dec 2011) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 /******************************************************************************/
@@ -168,8 +168,10 @@ public:
 	* the given portal handle.
 	*
 	* This one calls the base class function, plus updates the portal losses timestamp
+	* grayman #3042 - split into AI- and Player-specific loss
 	**/
-	void SetPortalLoss( int handle, float value );
+	void SetPortalAILoss( int handle, float value );
+	void SetPortalPlayerLoss( int handle, float value );
 
 	/**
 	* Static var for AI checking the default threshold
@@ -283,7 +285,6 @@ protected:
 	* come from close to the same spot, for optimization.
 	**/
 	SEventArea		*m_EventAreas;
-
 };
 
 #endif

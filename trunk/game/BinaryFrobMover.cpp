@@ -11,9 +11,9 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5640 $ (Revision of last commit) 
- $Date: 2012-10-31 10:40:49 -0400 (Wed, 31 Oct 2012) $ (Date of last commit)
- $Author: greebo $ (Author of last commit)
+ $Revision: 5695 $ (Revision of last commit) 
+ $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5640 2012-10-31 14:40:49Z greebo $");
+static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5695 2013-02-16 02:01:41Z grayman $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -232,10 +232,10 @@ void CBinaryFrobMover::Restore( idRestoreGame *savefile )
 		m_registeredAI[i].Restore(savefile);
 	}
 
-	m_lastUsedBy.Restore(savefile);		// grayman #2859
-	m_searching.Restore(savefile);		// grayman #1327
-	savefile->ReadBool(m_targetingOff);	// grayman #3029
-	savefile->ReadBool(m_wasFoundLocked); // grayman #3104
+	m_lastUsedBy.Restore(savefile);				// grayman #2859
+	m_searching.Restore(savefile);				// grayman #1327
+	savefile->ReadBool(m_targetingOff);			// grayman #3029
+	savefile->ReadBool(m_wasFoundLocked);		// grayman #3104
 }
 
 void CBinaryFrobMover::Spawn()
@@ -1231,11 +1231,12 @@ float CBinaryFrobMover::GetFractionalPosition()
 	const idAngles& localAngles = physicsObj.GetLocalAngles();
 	
 	// check for non-zero rotation first
-	idRotation maxRot = (m_OpenAngles - m_ClosedAngles).Normalize360().ToRotation();
-	if( maxRot.GetAngle() != 0 )
+	// grayman #3042 - normalize to 180, not 360
+	float maxRotAngle = (m_OpenAngles - m_ClosedAngles).Normalize180().ToRotation().GetAngle();
+	if ( maxRotAngle != 0 )
 	{
-		idRotation curRot = (localAngles - m_ClosedAngles).Normalize360().ToRotation();
-		returnval = curRot.GetAngle() / maxRot.GetAngle();
+		idRotation curRot = (localAngles - m_ClosedAngles).Normalize180().ToRotation();
+		returnval = curRot.GetAngle() / maxRotAngle;
 	}
 	else
 	{
