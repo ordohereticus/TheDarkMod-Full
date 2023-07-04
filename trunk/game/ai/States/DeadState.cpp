@@ -11,16 +11,16 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5397 $ (Revision of last commit) 
- $Date: 2012-04-23 19:49:35 -0400 (Mon, 23 Apr 2012) $ (Date of last commit)
- $Author: grayman $ (Author of last commit)
+ $Revision: 5692 $ (Revision of last commit) 
+ $Date: 2013-01-26 05:32:48 -0500 (Sat, 26 Jan 2013) $ (Date of last commit)
+ $Author: tels $ (Author of last commit)
  
 ******************************************************************************/
 
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: DeadState.cpp 5397 2012-04-23 23:49:35Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: DeadState.cpp 5692 2013-01-26 10:32:48Z tels $");
 
 #include "DeadState.h"
 #include "../Memory.h"
@@ -96,6 +96,7 @@ void DeadState::Init(idAI* owner)
 	}
 
 	// Run a death script, if applicable
+	// TODO: We should figure out who is responsible for the death and pass it along to the script
 	idStr deathScript;
 	if (owner->spawnArgs.GetString("death_script", "", deathScript))
 	{
