@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5695 $ (Revision of last commit) 
- $Date: 2013-02-15 21:01:41 -0500 (Fri, 15 Feb 2013) $ (Date of last commit)
+ $Revision: 5706 $ (Revision of last commit) 
+ $Date: 2013-03-08 10:51:02 -0500 (Fri, 08 Mar 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -23,7 +23,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5695 2013-02-16 02:01:41Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: BinaryFrobMover.cpp 5706 2013-03-08 15:51:02Z grayman $");
 
 #include "Game_local.h"
 #include "ai/AAS_local.h"
@@ -1061,6 +1061,9 @@ void CBinaryFrobMover::OnStartClose(bool wasOpen, bool bMaster)
 void CBinaryFrobMover::OnOpenPositionReached()
 {
 	TellRegisteredUsers(); // grayman #1145
+
+	// play the opened sound when the door opens completely
+	FrobMoverStartSound("snd_opened"); // grayman #3263
 
 	// trigger our targets when completely opened, if set to do so
 	if (spawnArgs.GetBool("trigger_when_opened", "0"))
