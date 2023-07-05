@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5698 $ (Revision of last commit) 
- $Date: 2013-02-18 16:40:14 -0500 (Mon, 18 Feb 2013) $ (Date of last commit)
+ $Revision: 5704 $ (Revision of last commit) 
+ $Date: 2013-02-26 18:58:43 -0500 (Tue, 26 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -22,7 +22,7 @@
 
 #pragma warning(disable : 4533 4800)
 
-static bool versioned = RegisterVersionedFile("$Id: Inventory.cpp 5698 2013-02-18 21:40:14Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: Inventory.cpp 5704 2013-02-26 23:58:43Z grayman $");
 
 #include "Inventory.h"
 #include "WeaponItem.h"
@@ -618,13 +618,14 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 		);
 
 		// Notify the player, if appropriate
-		if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
+		// grayman #3316 - correct pickup message, courtesy Zbyl
+		if ( !ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0") )
 		{
-			idStr msg = common->Translate( name );
+			idStr msg = common->Translate(name);
 
-			if (count > 0) 
+			if ( count > 1 ) 
 			{
-				name += " x" + idStr(count);
+				msg += " x" + idStr(count);
 			}
 
 			NotifyOwnerAboutPickup(msg, existing);
@@ -664,9 +665,17 @@ CInventoryItemPtr CInventory::PutItem(idEntity *ent, idEntity *owner)
 				true
 			);
  */
-			if (!ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0"))
+			// grayman #3316 - correct pickup message, courtesy Zbyl
+			if ( !ent->spawnArgs.GetBool("inv_map_start", "0") && !ent->spawnArgs.GetBool("inv_no_pickup_message", "0") )
 			{
-				NotifyOwnerAboutPickup( common->Translate( name ), item);
+				idStr msg = common->Translate(name);
+
+				if ( item->GetCount() > 1 ) 
+				{
+					msg += " x" + idStr(item->GetCount());
+				}
+
+				NotifyOwnerAboutPickup(msg, item);
 			}
 
 			// Hide the entity from the map (don't delete the entity)
