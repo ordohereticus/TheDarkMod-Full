@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5700 $ (Revision of last commit) 
- $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
+ $Revision: 5701 $ (Revision of last commit) 
+ $Date: 2013-02-26 09:29:51 -0500 (Tue, 26 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -20,7 +20,7 @@
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: State.cpp 5700 2013-02-25 23:43:34Z grayman $");
+static bool versioned = RegisterVersionedFile("$Id: State.cpp 5701 2013-02-26 14:29:51Z grayman $");
 
 #include "State.h"
 #include "../Memory.h"
@@ -68,6 +68,7 @@ namespace ai
 #define PERSONTYPE_THIEF			"PERSONTYPE_THIEF"
 #define PERSONTYPE_PRIEST			"PERSONTYPE_PRIEST"
 #define PERSONTYPE_ELITE			"PERSONTYPE_ELITE"
+#define PERSONTYPE_BEGGAR			"PERSONTYPE_BEGGAR" // grayman #3323
 
 //----------------------------------------------------------------------------------------
 // The following strings define genders of person, these are used if AIUse is AIUSE_PERSON 
@@ -1628,6 +1629,15 @@ idStr State::GetGreetingSound(idAI* owner, idAI* otherAI)
 		if (owner->spawnArgs.FindKey( "snd_greeting_pagan") != NULL)
 		{
 			soundName = "snd_greeting_pagan";
+		}
+	}
+
+	// grayman #3323 - the other AI is a beggar
+	else if (otherPersonType == PERSONTYPE_BEGGAR)
+	{
+		if (owner->spawnArgs.FindKey( "snd_greeting_beggar") != NULL)
+		{
+			soundName = "snd_greeting_beggar";
 		}
 	}
 
