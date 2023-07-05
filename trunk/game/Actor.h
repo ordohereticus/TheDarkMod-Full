@@ -11,8 +11,8 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5700 $ (Revision of last commit) 
- $Date: 2013-02-25 18:43:34 -0500 (Mon, 25 Feb 2013) $ (Date of last commit)
+ $Revision: 5702 $ (Revision of last commit) 
+ $Date: 2013-02-26 14:05:44 -0500 (Tue, 26 Feb 2013) $ (Date of last commit)
  $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
@@ -389,6 +389,11 @@ public:
 	* grayman #3317 - when we were killed or KO'ed
 	**/
 	int						m_timeFellDown;
+
+	/**
+	* grayman #3202 - whether actor is mute or not
+	**/
+	bool					m_isMute;
 
 public:
 							idActor( void );
