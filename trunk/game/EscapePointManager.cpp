@@ -11,15 +11,15 @@
  
  Project: The Dark Mod (http://www.thedarkmod.com/)
  
- $Revision: 5361 $ (Revision of last commit) 
- $Date: 2012-03-25 23:03:21 -0400 (Sun, 25 Mar 2012) $ (Date of last commit)
- $Author: serpentine $ (Author of last commit)
+ $Revision: 5703 $ (Revision of last commit) 
+ $Date: 2013-02-26 14:40:49 -0500 (Tue, 26 Feb 2013) $ (Date of last commit)
+ $Author: grayman $ (Author of last commit)
  
 ******************************************************************************/
 #include "precompiled_game.h"
 #pragma hdrstop
 
-static bool versioned = RegisterVersionedFile("$Id: EscapePointManager.cpp 5361 2012-03-26 03:03:21Z serpentine $");
+static bool versioned = RegisterVersionedFile("$Id: EscapePointManager.cpp 5703 2013-02-26 19:40:49Z grayman $");
 
 #include "EscapePointManager.h"
 
@@ -294,10 +294,9 @@ EscapeGoal CEscapePointManager::GetEscapeGoal(const EscapeConditions& conditions
 
 	assert(evaluator); // the pointer must be non-NULL after this point
 	
-	// Start with the second point in the list
-	for (int i = 0; i < escapePoints.Num(); i++)
+	for ( int i = 0 ; i < escapePoints.Num() ; i++ )
 	{
-		if (!evaluator->Evaluate(escapePoints[i])) 
+		if ( !evaluator->Evaluate(escapePoints[i]) ) 
 		{
 			// Evaluator returned FALSE, break the loop
 			break;
@@ -306,7 +305,7 @@ EscapeGoal CEscapePointManager::GetEscapeGoal(const EscapeConditions& conditions
 
 	goal.escapePointId = evaluator->GetBestEscapePoint();
 
-	if (goal.escapePointId == -1)
+	if ( goal.escapePointId == -1 )
 	{
 		// No point found, return false
 		DM_LOG(LC_AI, LT_DEBUG)LOGSTRING("No escape point found!\r");
